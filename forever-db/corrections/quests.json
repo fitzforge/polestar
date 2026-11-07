@@ -5101,5 +5101,30 @@
 			}
 		],
 		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp."
+	},
+	"98240": {
+		"set": {
+			"pre": [
+				98072
+			],
+			"preAny": [
+				98072
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: James Halloran's quest list left 98240 out for 3 characters at levels 24-28 without Crocs of the Sky (98072) done (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, a390bd97e7ffa6cd at 26, 0508863063f76280 at 27-28); no window ever offered it"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98072]"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1134"
+			}
+		],
+		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
 	}
 }

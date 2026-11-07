@@ -9,7 +9,8 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Crimson Crate Delivery (98240), Retrieval for Mauren (1078).
+# Added here: Retrieval for Mauren (1078).
+# Left out: Crimson Crate Delivery (98240), offered only after Crocs of the Sky (98072), which is handed in after the route's Howin Kindfeather visit (#1134).
 # Left out: Daily Delivery (469).
 
 # ---------------------------------------------------------------- Darkshore
@@ -312,9 +313,7 @@ step Spoils of War
   collect 279821 quest 98197              -- Khaz Modan Timber
   collect 279822 quest 98197              -- Khaz Modan Iron
 
-step James Halloran
-  accept 98240
-  tip James Halloran stands by the north gate.
+step Valstag Ironjaw
   turnin 98197                        -- Inside
 # ---------------------------------------------------------------- Menethil Harbor
 

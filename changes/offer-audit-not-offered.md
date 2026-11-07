@@ -10,4 +10,7 @@ section: players
   the Woods (thanks L10NH34R7); The Broodmother is taken from Muln Earthfury
   once Defending the Dead is handed in, in the Ashenvale and Thunder Bluff
   guides (thanks DexeeXI); and a Skyborne takes Journey to the Crossroads from
-  Thrall after handing him Welcome to Azeroth.
+  Thrall after handing him Welcome to Azeroth. Crimson Crate Delivery is no
+  longer taken in Menethil, since James Halloran offers it only after Crocs of
+  the Sky (thanks Fyurie). Warriors in Stormwind are told to go straight to
+  Harry Burlguard if Ilsa Corbin doesn't offer A Warrior's Training.

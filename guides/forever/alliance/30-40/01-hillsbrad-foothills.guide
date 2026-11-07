@@ -19,7 +19,6 @@ step Menethil Harbor
   accept 98230                        -- Captain Stoutfist: for Howin Kindfeather; on the top floor
 
 step Howin Kindfeather
-  turnin 98240
   turnin 98230                        -- Howin Kindfeather
   accept 98245
   accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide

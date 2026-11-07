@@ -1218,6 +1218,10 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		['forever/reputation/thunder-bluff.guide', 96261, [96259]],
 		[SILVERPINE, 98024, [95350]],
 		[SILVERPINE, 93739, [95350], true],
+		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of
+		// the Sky; the route now leaves it out (data/route-fixes.json skip).
+		[ASHENVALE, 98240, [98072], true],
+		[HILLSBRAD_ALLIANCE, 98240, [98072], true],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1240,9 +1244,31 @@ test('Offer audit (#1116, #1114): Lightforge Ingots only after The Lost Ingots, 
 		if (take < 0) continue;
 		assert.ok(at(list, `${guide}: turnin 324`, is('turnin', 324)) < take, `${guide}: Lightforge Ingots comes after The Lost Ingots is handed in`);
 	}
+	for (const guide of [ASHENVALE, THOUSAND_NEEDLES, HILLSBRAD_ALLIANCE]) {
+		const list = goals(guide);
+		if (list.some(({ goal }) => is('turnin', 98240)(goal))) assert.ok(list.some(({ goal }) => is('accept', 98240)(goal)), `${guide}: Crimson Crate Delivery is handed in only where it is taken`);
+	}
 	const duskwood = goals('forever/alliance/05-duskwood.guide');
 	const worgen = at(duskwood, 'accept 173', is('accept', 173));
 	assert.ok(duskwood.slice(0, worgen).some(({ goal }) => goal.t === 'level' && goal.level >= 23), 'a level 23 gate comes before Worgen in the Woods');
+});
+
+// The offer audit: A Warrior's Training (1638) is open to every Alliance
+// warrior, but it shares an exclusive group with Muren Stormpike, Elanaria and
+// the Defensive Stance chains' first quests, and it only leads to Harry
+// Burlguard, who gives Bartleby the Drunk (1639) without it (players'
+// recordings: a Human and a Night Elf took 1639 straight from Harry). So the
+// Dwarf, Gnome and Human warrior steps never hold Bartleby behind it, and tell
+// the player to go straight to Harry if Ilsa Corbin doesn't offer it.
+test('Offer audit: Bartleby the Drunk never waits on A Warrior\'s Training, and the step says to go to Harry if Ilsa doesn\'t offer it', { skip }, () => {
+	for (const guide of [...DUN_MOROGHS, WESTFALL]) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept 1638`, is('accept', 1638));
+		const bartleby = at(list, `${guide}: accept 1639`, is('accept', 1639));
+		assert.ok(!(list[bartleby].goal.pre || []).includes(1638), `${guide}: accept 1639 needs nothing before it`);
+		assert.equal(list[bartleby].goal.npc, 6089, `${guide}: Bartleby the Drunk comes from Harry Burlguard`);
+		assert.match(list[take].step.note || '', /If Ilsa doesn't offer A Warrior's Training, go straight to Harry/, `${guide}: the step says what to do if Ilsa doesn't offer it`);
+	}
 });
 
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
