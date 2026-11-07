@@ -3250,6 +3250,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Horde Un'Goro 51-53, the Undercity stop): the flight lands at the bat master, and Harbinger Balthazad stands beside him; the order walked past him to Oran Snakewrithe in the Magic Quarter and came back for A Call to Arms. The seed takes Balthazad first"
+			},
+			{
+				"a": [
+					"turnin",
+					5152
+				],
+				"b": [
+					"accept",
+					4984
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Felwood & Western Plaguelands 53-55): the guide enters the Western Plaguelands from Tarren Mill at Sorrow Hill, where Marlene Redpath lives, but the order rode north to Mulgris at the Writhing Haunt and back south to Marlene before Andorhal; Marlene, then Mulgris on the way north"
 			}
 		],
 		"notes": [
