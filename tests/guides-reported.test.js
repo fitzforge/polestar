@@ -1157,8 +1157,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[WESTFALL, 92911, [92910], true],
 		// Lou-Saydus (#225): Forever puts From the Ashes between War Banners
 		// and Nek'rosh's Gambit, so Captain Stoutfist did not offer 465 when
-		// War Banners was handed in.
-		[THOUSAND_NEEDLES, 98221, [464]],
+		// War Banners was handed in. War Banners is handed in, and From the
+		// Ashes taken, at 06-ashenvale's last Menethil stop (flow audit, 2026-11-07).
+		[ASHENVALE, 98221, [464]],
 		[THOUSAND_NEEDLES, 465, [98221]],
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.

@@ -18,6 +18,7 @@ const HILLSBRAD_HORDE: &str = "forever/horde/06-hillsbrad-foothills.guide";
 const SILVERPINE: &str = "forever/horde/03-silverpine-forest.guide";
 const HILLSBRAD_ALLIANCE: &str = "forever/alliance/30-40/01-hillsbrad-foothills.guide";
 const ASHENVALE_30: &str = "forever/alliance/30-40/03-ashenvale.guide";
+const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
 const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const THOUSAND_NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
@@ -211,7 +212,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(SILVERPINE, 425, &[91921], false),
 		(SILVERPINE, 98298, &[99], true),
 		(WESTFALL, 92911, &[92910], true),
-		(THOUSAND_NEEDLES, 98221, &[464], false),
+		// War Banners is handed in, and From the Ashes taken, at 06-ashenvale's last Menethil stop (flow audit).
+		(ASHENVALE, 98221, &[464], false),
 		(THOUSAND_NEEDLES, 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
 		(SILVERPINE, 95981, &[482], false),
