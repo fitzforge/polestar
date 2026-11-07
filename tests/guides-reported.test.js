@@ -4483,3 +4483,49 @@ test("Erá's report (#1160): The Eye of Bhossca waits for level 30", { skip }, (
 	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
 	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 30, /, 'the heads-up starts at 30');
 });
+
+// --- Flow re-order (2026-11-07, Alliance starts 1-20): the walks below crossed back over ground for one
+// hand-in. Northshire: Garrick's head went to Willem on a trip back to the Abbey steps between Garrick's camp
+// and Milly in the vineyard; now Milly first, Willem with Skirmish at Echo Ridge on the Abbey visit after the
+// mine.
+test(`${ELWYNN}: flow re-order: Milly's Harvest at Milly, Garrick's head on the Abbey visit after the mine`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.ok(idx('turnin', 3904) < idx('turnin', 6), "Milly's Harvest before Garrick's head");
+	assert.equal(list[idx('turnin', 6)].s, list[idx('turnin', 21)].s, 'Garrick handed in with Skirmish at Echo Ridge');
+});
+
+// Coldridge and Kharanos: the Dwarf guide took the five-minute Scalding Mornbrew before the troll whelps and
+// Felix's parts, and both starts walked to Steelgrill's Depot for Stocking Jetsteam alone, then came back after
+// the Grizzled Den for The Grizzled Den. Now the Mornbrew is the last thing taken at Grelin's camp before Anvilmar,
+// and both pilots take their quests on one depot stop after the den.
+for (const guide of DUN_MOROGHS) {
+	test(`${guide}: flow re-order: the Mornbrew taken last at Grelin's camp, one depot stop for both pilots`, { skip }, () => {
+		const list = goals(guide);
+		const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+		const brew = idx('accept', 3364);
+		assert.ok(idx('turnin', 182) < brew, 'the whelps are handed in before the Mornbrew is taken');
+		assert.ok(list.slice(brew + 1, idx('turnin', 3364)).every(({ goal }) => !['kill', 'collect'].includes(goal.t)), 'no field work while the Mornbrew cools');
+		assert.equal(list[idx('turnin', 317)].s, list[idx('turnin', 313)].s, 'Stocking Jetsteam and The Grizzled Den on one depot stop');
+		assert.ok(at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671) < idx('turnin', 317), 'after the den');
+	});
+}
+
+// Darkshore: Fruit of the Sea's crab chunks come with Cliffspring Falls; the walk passed Gubber Blump with them
+// on the next Auberdine visit and handed them in a loop later.
+test(`${DARKSHORE}: flow re-order: Fruit of the Sea handed in on the Auberdine visit after Cliffspring Falls`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.equal(list[idx('turnin', 1138)].s, list[idx('turnin', 4762)].s, 'with the Cliffspring River sample');
+	assert.ok(idx('turnin', 1138) < idx('turnin', 1001), 'before the north loop');
+});
+
+// Zephras Isle (Alliance): from the Ursera den the guide went to Hanaa first and walked back north to the
+// grove; now the grove's hand-ins, then Hanaa on the way south to Shen'dar.
+test(`${ZEPHRAS_ALLIANCE}: flow re-order: Aetheen and Valreaa before Hanaa, on the way south`, { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.ok(idx('turnin', 92470) < idx('accept', 92544), 'Aetheen before Hanaa');
+	assert.ok(idx('turnin', 92473) < idx('accept', 92544), 'Valreaa before Hanaa');
+	assert.ok(idx('turnin', 92544) < idx('turnin', 92472), 'Hanaa before Shen\'dar');
+});

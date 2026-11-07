@@ -2610,6 +2610,102 @@
 				],
 				"faction": "Alliance",
 				"why": "#1114: Calor offers Worgen in the Woods from level 23. The route reaches Darkshire's first visit at 22.1-23.1 and its second (Sirra Von'Indi's hand-in) at 23.15 or more on every branch, and the quest's worgen are hunted on the Duskwood return anyway, so it is taken on the second visit, behind its own level-23 gate (guide-fixes duskwood-worgen-in-the-woods-level-23) that holds back nothing else."
+			},
+			{
+				"a": [
+					"turnin",
+					3904
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Milly's Harvest is handed in at Milly in the vineyard right after the grapes and Garrick Padfoot's camp, and Garrick's head goes to Deputy Willem on the Abbey visit that hands in Skirmish at Echo Ridge, not on a walk back to the Abbey steps between Garrick and Milly (human/01-elwynn-forest steps 7-8 on 0.3.4: Garrick, the Abbey, back out to Milly, then the mine and the Abbey again)."
+			},
+			{
+				"a": [
+					"task",
+					21
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Willem stands at the Abbey steps beside the door to Marshal McBride; Garrick's head is handed in with Skirmish at Echo Ridge and the Grape Manifest on the one Abbey visit after the mine, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					182
+				],
+				"b": [
+					"accept",
+					3364
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh, Coldridge Valley): Scalding Mornbrew Delivery must reach Durnan in Anvilmar within five minutes; the Dwarf guide took it from Nori before the Frostmane Troll Whelps and Felix's parts, so the timer ran during the slope work (players' recordings of quest 3364 show abandons and re-accepts at Nori). It is taken from Nori on the return to Grelin with the whelps done, then straight north to Anvilmar, as the seed and the Gnome guide have it."
+			},
+			{
+				"a": [
+					"task",
+					313
+				],
+				"b": [
+					"turnin",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): Stocking Jetsteam (317) and The Grizzled Den (313) are both Steelgrill's Depot hand-ins at the two pilots standing side by side; the route walked to the depot for 317 alone after the boar and bear fields and came back after the den for 313 (dwarf/gnome 01-dun-morogh 'Steelgrill's Depot' after the fields on 0.3.4). The boars and bears are killed on the walk back from Rumbleshot's camp, both pilots take their quests on the one depot stop after the den and the Kharanos hand-ins, Razzle on the walk back west to Brewnall. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					5541
+				],
+				"b": [
+					"task",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): the Crag Boars and Young Black Bears for Stocking Jetsteam and Beer Basted Boar Ribs are killed on the walk back north-east from Rumbleshot's camp to Kharanos, after the Grizzled Den, so the pilots' quests are both ready on the one depot stop; killed first, beside the depot, the walk passed Pilot Bellowfiz with Stocking Jetsteam done and came back for it after the den."
+			},
+			{
+				"a": [
+					"turnin",
+					1138
+				],
+				"b": [
+					"turnin",
+					1001
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Darkshore): Fruit of the Sea's six Fine Crab Chunks come from the crawlers by Cliffspring Falls on the second loop; the route then walked past Gubber Blump on the pier with them on the Auberdine visit after Bashal'Aran (45 yd) and handed them in a whole loop later, after the Den Mother (03-darkshore 'Auberdine' after Bashal'Aran on 0.3.4, about 30 minutes). Handed in on the first Auberdine visit with them in the bag. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): from the Ursera den the walk goes back east to Aetheen and Valreaa at Thendal Grove, then south-west to Hanaa Nightwind and on south to Shen'dar; the route took Hanaa's camp first and walked back north to the grove before heading south past her again (skyborne/01-zephras-isle 'Hanaa Nightwind' before 'Aetheen of the Gales' on 0.3.4: Valreaa's ready hand-in passed, about 470 yd back). The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"task",
+					92470
+				],
+				"b": [
+					"task",
+					92473
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): Urs'anah's den lies west of Thendal Grove and the Scrawny Ursera prowl the woods between; the den is cleared first and the Scrawny Ursera on the walk back east, so the walk doesn't pass Valreaa Valewind with Aggressive Encroachment done on the way out to the den."
 			}
 		],
 		"notes": [

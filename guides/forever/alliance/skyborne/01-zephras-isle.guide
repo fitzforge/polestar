@@ -86,26 +86,27 @@ step Thendal Grove turn-ins
 
 step Thendal Grove: kill these as you meet them
   zone Zephras Isle
-  tip Scrawny Ursera prowl the woods just west of the grove; the Ursera Scavengers den further west, with Urs'anah, the matriarch, at the back of the den.
-  collect 251918 quest 92473.1 @41.4,26.4
+  tip The Ursera Scavengers den west of the grove, with Urs'anah, the matriarch, at the back of the den; Scrawny Ursera prowl the woods between the den and the grove.
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2                -- Head of Urs'anah; below ground
+  collect 251918 quest 92473.1 @41.4,26.4
+
+step Aetheen of the Gales
+  tip Back east out of the den to the grove.
+  turnin 92473                                -- Valreaa Valewind
+  turnin 92470                                -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
 
 step Hanaa Nightwind
-  tip Hanaa Nightwind camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
+  tip Hanaa Nightwind camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
   tip Careful: Malduko Cloudcrush casts shocks; drag him clear of the other cultists before fighting so they don't join in.
   accept 92544                                -- Hanaa Nightwind
   kill 251145 quest 92544.1
   kill 251448 quest 92544.2
   kill 256935 quest 92544.3                   -- Malduko Cloudcrush
   turnin 92544
-
-step Aetheen of the Gales
-  turnin 92473                                -- Valreaa Valewind
-  turnin 92470                                -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class                                 -- Level 6 spells
 
 # ---------------------------------------------------------------- Shen'dar Village
 
