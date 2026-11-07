@@ -75,35 +75,29 @@ return {
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
 
-	-- Step 22: Hearth to Astranaar
-	-- {area:415} Astranaar
-	["Hearth to {area:415}"] = "",
-
-	-- Step 25: Melyria and Illiyana
+	-- Step 24: Melyria and Illiyana
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "哨兵梅丽瑞亚·霜影和{npc:3901}",
 
-	-- Step 27: Fly to Auberdine
+	-- Step 26: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
-	-- Step 28: Boat to Menethil Harbor
+	-- Step 27: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "",
 
-	-- Step 29: Glorin Steelbrow
+	-- Step 28: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
 	["{npc:1217} stands on the upper floor of Menethil's keep."] = "",
 	["Inside"] = "",
 
-	-- Step 31: Waterlogged Chest
+	-- Step 30: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "",
 
-	-- Step 32: Lightforge Ingots
-	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "{item:2702}",
+	-- Step 31: Lightforge Ingots
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南方海滩上的蓝腮鱼人带着锭。",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
@@ -114,6 +108,7 @@ return {
 	-- ["From {area:608}"] = "从{area:608}出发",
 	-- ["Geltharis"] = "加萨里斯",
 	-- ["Insane druids"] = "发狂的德鲁伊",
+	-- ["Lightforge Ingots"] = "{item:2702}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "生锈的箱子散落在被遗忘者营地西边的沼泽兽营地周围；逐个打开，直到找到剑柄。",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "从{area:442}的码头乘船前往{area:150}。",
 	-- ["The Forsaken's camp lies in the woods south of {area:2358}."] = "被遗忘者的营地在{area:2358}南边的树林里。",

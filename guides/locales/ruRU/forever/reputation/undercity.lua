@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "Репутация: Подгород",
 	-- {item:14047} Runecloth
-	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "",
+	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "Задания Чумных земель для 55-60 уровня и {item:14047} — до превознесения; старые задания Тирисфальских лесов — по желанию.",
 	-- {faction:68} Undercity
-	["Exalted with the {faction:68}"] = "",
+	["Exalted with the {faction:68}"] = "Превознесение: {faction:68}",
 
 	-- Step 1: Undercity: how it works
 	-- {faction:68} Undercity

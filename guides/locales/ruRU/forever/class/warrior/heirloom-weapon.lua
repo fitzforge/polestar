@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:71} Defensive Stance
-	["{spell:71} and a Weapon (Horde)"] = "",
+	["{spell:71} and a Weapon (Horde)"] = "{spell:71} и оружие (Орда)",
 	-- {spell:71} Defensive Stance · {npc:5810} Uzzek · {area:159} Brill
-	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "{spell:71} на 10-м уровне и одноручное оружие на выбор: путь через {npc:5810}, склеп у {area:159} или щит Небесного Разрушителя.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:94449} Call of Fire
-	["{quest:94449} (Alliance)"] = "",
+	["{quest:94449} (Alliance)"] = "{quest:94449}（联盟）",
 	-- {item:5176} Fire Totem · {spell:3599} Searing Totem · {item:263412} Totem of Charged Flames
-	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "",
+	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "获得用于所有火焰图腾的{item:5176}、借此学会的{spell:3599}，以及Forever的{item:263412}。",
 
 	-- Step 1: Call of Fire
 	-- {npc:258113} Ingrid Dunwald · {area:131} Kharanos · {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:257597} Bruegs Kindleborn

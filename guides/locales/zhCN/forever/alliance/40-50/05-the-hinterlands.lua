@@ -36,32 +36,32 @@ return {
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "",
 
-	-- Step 10: Fly to Lakeshire
+	-- Step 8: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "",
-	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 11: Morgan's Vigil flight master
+	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "",
 
-	-- Step 12: Fly to Thelsamar
+	-- Step 10: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 
-	-- Step 14: Ironband's Excavation Site
+	-- Step 12: Ironband's Excavation Site
 	["Ride east along the south shore of the loch to Ironband's camp."] = "沿湖南岸向东骑到铁环挖掘场的营地。",
 
-	-- Step 15: Thelsamar
+	-- Step 13: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 16: Into Badlands
+	-- Step 14: Into Badlands
 	-- {area:3} Badlands
 	["Into {area:3}"] = "",
 
-	-- Step 18: The Uldaman dig
+	-- Step 16: The Uldaman dig
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "{area:1517}挖掘场",
 	-- {area:3} Badlands · {area:1517} Uldaman
@@ -71,61 +71,67 @@ return {
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
-	-- Step 19: Into Loch Modan
+	-- Step 17: Into Loch Modan
 	-- {area:38} Loch Modan
 	["Into {area:38}"] = "",
 
-	-- Step 22: Ironband's Excavation Site
+	-- Step 20: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "向北骑回铁环挖掘场的营地。",
 
-	-- Step 23: Fly to Menethil Harbor
+	-- Step 21: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 26: Rut'theran Village
+	-- Step 24: Rut'theran Village
+	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，{npc:7916}的上方：从室内上楼，箭头无法区分楼层。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
 	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "{npc:7907}的下一个差事要去{zone:1446}：跳过。",
 	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
 	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}：先留着，羽毛在{zone:1428}指南结尾获得",
 	["the book on her table"] = "她桌上的书",
 
-	-- Step 28: Temple of the Moon
+	-- Step 26: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 
-	-- Step 31: Cenarion Enclave
+	-- Step 29: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
 
-	-- Step 33: Cenarion Enclave
+	-- Step 31: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
 
-	-- Step 34: Portal to Teldrassil
+	-- Step 32: Portal to Teldrassil
 	-- {area:141} Teldrassil
 	["Portal to {area:141}"] = "",
 
-	-- Step 35: Fly to Auberdine
+	-- Step 33: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 36: Boat to Stormwind Harbor
+	-- Step 34: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 39: The bloodmages
+	-- Step 35: Fly to Darkshire
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "飞往{area:42}",
+
+	-- Step 38: The bloodmages
 	["The bloodmages"] = "血法师",
 	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
 
-	-- Step 40: Nethergarde Keep
+	-- Step 39: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效，而血法师要的野兽需要更长时间。",
 	-- {quest:2990} Thadius Grimshade
@@ -135,27 +141,27 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
-	-- Step 41: Blasted Lands: kill these as you meet them
+	-- Step 40: Blasted Lands: kill these as you meet them
 	-- {area:4} Blasted Lands
 	["{area:4}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 42: The bloodmages
+	-- Step 41: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
 
-	-- Step 43: Fly to Booty Bay
+	-- Step 42: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 44: Monogrammed Sash
+	-- Step 43: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 48: Facing Negolash
+	-- Step 47: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 

@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Supply Factions Reputation"] = "",
+	["Supply Factions Reputation"] = "Репутация: фракции снабжения",
 	-- {npc:10636} Pack Kodo
-	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "",
-	["Profession recipes at Friendly and Honored"] = "",
+	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "Торговые лагеря Forever: для лучших рецептов, Минимула и NPC {npc:10636} нужна репутация, а не только Merchant's Favor.",
+	["Profession recipes at Friendly and Honored"] = "Рецепты профессий при «Дружелюбии» и «Уважении»",
 
 	-- Step 1: Your first Waylaid Crate or writ
 	-- {item:248549} Waylaid Crate
@@ -55,7 +55,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley, {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} – инженер гоблинского транспортера – и {npc:2663}. {npc:14508} стоит у {area:1741}, примерно в 800 метрах к югу от {object:3202}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "",
 	-- {item:7506} Gnomish Universal Remote
@@ -214,7 +214,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley, {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} у площадки транспортера и {npc:2663}. {npc:14508} стоит примерно в 800 метрах к югу от {object:3202}, у {area:1741}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
 
 	-- Step 21: Wetlands writ customers again
 	-- {zone:1437} Wetlands

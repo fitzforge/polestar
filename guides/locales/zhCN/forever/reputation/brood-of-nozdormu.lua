@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "",
-	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "",
+	["Brood of Nozdormu Reputation"] = "诺兹多姆的子嗣声望",
+	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "青铜龙军团的戒指，每提升一级声望即可升级；从仇恨开始的漫长攀升，主要靠团队副本。",
 	-- {item:21175} The Scepter of the Shifting Sands
-	["{item:21175} quest chain"] = "",
+	["{item:21175} quest chain"] = "{item:21175}任务线",
 
 	-- Step 1: Baristolth in Cenarion Hold
 	-- {area:3425} Cenarion Hold

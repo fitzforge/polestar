@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Ironforge Reputation"] = "Репутация: Стальгорн",
 	-- {zone:1428} Burning Steppes · {zone:1426} Dun Morogh · {area:133} Gnomeregan · {zone:1459} Alterac Valley
-	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "",
+	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "Ткань, задания в зоне {zone:1428} и в лагерях зоны {zone:1426}, которые дают репутацию и у фракции {area:133}; {zone:1459} дает еще больше.",
 	-- {faction:47} Ironforge
-	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "",
+	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "Превознесение у фракции {faction:47}: в Classic другие расы могут покупать баранов",
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
-	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "",
+	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "Около 600 репутации у фракции {faction:47} за задания 52-59 уровня в зонах {zone:1428} и {zone:1452}; задания в зоне {zone:1459} тоже дают репутацию у фракции {faction:47}",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "Около 2900 репутации у фракции {faction:47} за задания низкого уровня в зоне {zone:1426}, большая часть которой идет и фракции {area:133} (в Classic на 60 уровне — пятая часть)",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield

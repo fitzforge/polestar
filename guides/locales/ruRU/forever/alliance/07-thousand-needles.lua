@@ -11,10 +11,6 @@ return {
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790} – таверна «Scarlet Raven»",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
 	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
-	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}: продает {npc:3133}, если у вас его нет",
-	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, at the east end of town; inside"] = "",
 
 	-- Step 3: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
@@ -28,12 +24,7 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "Вестники Тьмы рыщут по лесу к югу от дороги, к западу от поселка {area:42}.",
 
-	-- Step 7: Blind Mary
-	-- {area:42} Darkshire
-	["Her house stands on the hill south-east of {area:42}."] = "Ее дом стоит на холме к юго-востоку от поселка {area:42}.",
-	["Inside"] = "",
-
-	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "Ярые Клыки Ночной Погибели и {npc:511}",
@@ -42,13 +33,13 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 9: Darkshire
+	-- Step 8: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "",
 
-	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {object:119} Abercrombie's Crate
@@ -57,26 +48,29 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Только если с противника {npc:272273} выпал предмет «{quest:96138}»: щелкните по нему правой кнопкой",
 	["Below ground"] = "",
 
-	-- Step 11: Defias Strongbox
+	-- Step 10: Defias Strongbox
 	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 12: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 15: Sven Yorgen's Camp
+	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "Лагерь {npc:311}",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "Для NPC {npc:1212} ({zone:1453}), в следующем гайде",
 
-	-- Step 17: Back to Darkshire
+	-- Step 15: Viktori Prism'Antras
+	["Inside"] = "",
+
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Назад: {area:42}",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
@@ -89,41 +83,35 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268} – в доме за ратушей",
 	["Wait a moment, then speak with her again"] = "Подождите немного, затем поговорите с ней снова",
 
-	-- Step 18: Fly to Stormwind
+	-- Step 17: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 
-	-- Step 19: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 20: Menethil Bay
-	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
-	["Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks."] = "Идите вдоль побережья на северо-восток мимо обломков: налетчики из племени Синежабрых занимают болото за огромными кроколисками.",
-
-	-- Step 21: Menethil Harbor
+	-- Step 19: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}, in the inn"] = "{npc:1239} – в таверне",
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217}, inside"] = "",
 	-- {item:2594} Flagon of Mead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "{item:2594}: продает {npc:1464}",
 
-	-- Step 22: The Lost Fleet: kill these as you meet them
+	-- Step 20: The Lost Fleet: kill these as you meet them
 	-- {area:1039} The Lost Fleet
 	["{area:1039}: kill these as you meet them"] = "",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
 	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "",
 
-	-- Step 24: Captain Halyndor
+	-- Step 22: Captain Halyndor
 	["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "Капитан ходит по палубе разбитого корабля; его сундук стоит в трюме.",
 
-	-- Step 25: On the way
+	-- Step 23: On the way
 	["On the way"] = "",
 	-- {item:2658} Ados Fragment · {npc:1078} Ormer Ironbraid
 	["{item:2658} along the way to {npc:1078} and Whelgar"] = "",
@@ -134,29 +122,29 @@ return {
 	-- {item:2661} Neru Fragment · {npc:1078} Ormer Ironbraid
 	["{item:2661} along the way to {npc:1078} and Whelgar"] = "",
 
-	-- Step 26: Whelgar's Excavation Site: kill these as you meet them
+	-- Step 24: Whelgar's Excavation Site: kill these as you meet them
 	-- {area:118} Whelgar's Excavation Site
 	["{area:118}: kill these as you meet them"] = "",
 	-- {item:279996} Goaz Stone · {npc:1353} Sarltooth
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
 	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\nThe relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nThe Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "",
 
-	-- Step 27: Ormer Ironbraid and Whelgar
+	-- Step 25: Ormer Ironbraid and Whelgar
 	-- {npc:1078} Ormer Ironbraid
 	["{npc:1078} and Whelgar"] = "{npc:1078} и Вельгар",
 
-	-- Step 28: Glorin Steelbrow
+	-- Step 26: Glorin Steelbrow
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, in the next guide"] = "Для NPC {npc:1284} ({zone:1453}), в следующем гайде",
 	["On the top floor"] = "",
 	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
 	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221}: в Forever задание {quest:465} идет после него",
 
-	-- Step 29: Angerfang Encampment
+	-- Step 27: Angerfang Encampment
 	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
 	["Head east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "",
 
-	-- Step 30: To Theramore
+	-- Step 28: To Theramore
 	["To Theramore"] = "На остров Терамор",
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104}, in {area:2103}; on the top floor"] = "",
@@ -165,11 +153,11 @@ return {
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Сядьте на корабль у причала Гавани Менетилов: {area:513} ({zone:1445}).",
 
-	-- Step 32: Into The Barrens
+	-- Step 30: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 33: Takar the Seer
+	-- Step 31: Takar the Seer
 	-- {zone:1413} The Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
 	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
@@ -177,20 +165,20 @@ return {
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: инкуб, рядом с суккубом; {item:190309} – рядом с целью задания «{quest:1738}»",
 
-	-- Step 36: Mirage Raceway
+	-- Step 34: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Идите по каньонам на восток к соляным равнинам. Гоблины и гномы ({area:2240}) нейтральны и дают задания обеим фракциям.",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "Для задания «{quest:5762}» в Тернистой долине, позже",
 
-	-- Step 37: Mirage Raceway: kill these as you meet them
+	-- Step 35: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
-	-- Step 38: Mirage Raceway
+	-- Step 36: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, later"] = "{npc:4454}: для Мартека (зона {zone:1418}), позже",
 
@@ -200,11 +188,13 @@ return {
 	-- ["Dragonmaw camp"] = "Лагерь клана Драконьей Пасти",
 	-- ["Dragonmaw catapult"] = "Катапульта клана Драконьей Пасти",
 	-- ["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it."] = "Идите вдоль побережья на север к разбитому кораблю. Проклятые матросы бродят по пляжу, проклятые стражи бухты – по палубе; {npc:1159} стоит на пляже у носа корабля. Огромные болотные кроколиски прячутся на побережье сразу к северу от него.",
+	-- ["Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks."] = "Идите вдоль побережья на северо-восток мимо обломков: налетчики из племени Синежабрых занимают болото за огромными кроколисками.",
 	-- ["Follow the road east to the excavation site."] = "Идите по дороге на восток к раскопкам.",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "Для катапульты клана Драконьей Пасти – на круге по зоне {zone:1437} в следующем гайде",
 	-- ["For {npc:4048} in {zone:1444}, much later"] = "Для NPC {npc:4048} ({zone:1444}), гораздо позже",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "С острова Терамор идите по дороге на запад из Пылевых топей в зону {zone:1413} и по ней на юг; обходите {area:378} стороной. {area:485} в южной части зоны {zone:1413} спустит вас в зону {zone:1441}. Дневник лежит у подножия подъемника.",
 	-- ["From {npc:352} in {zone:1453}"] = "Выдает {npc:352} ({zone:1453})",
+	-- ["Her house stands on the hill south-east of {area:42}."] = "Ее дом стоит на холме к юго-востоку от поселка {area:42}.",
 	-- ["Nightbane Shadow Weavers"] = "Тенеткачи Ночной Погибели",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "Нет предмета {item:4371} для задания «{quest:174}»? Его продает {npc:3133} в доме рядом с {npc:276}, запас ограничен; продает его и {npc:1448} ({area:150}).",
 	-- ["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "По пути на юг через зону {zone:1413}: {npc:6244} стоит лагерем к востоку от дороги, к северо-востоку от места {area:378}; подходите с востока и держитесь подальше от стражей Орды.",
@@ -227,6 +217,7 @@ return {
 	-- ["The wreck of the Third Fleet"] = "Обломки Третьей флотилии",
 	-- ["{area:492}, west"] = "{area:492}, запад",
 	-- ["{item:2661}: the {object:331}"] = "{item:2661}: {object:331}",
+	-- ["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}: продает {npc:3133}, если у вас его нет",
 	-- ["{npc:1217}, upstairs in the inn"] = "{npc:1217} – наверху в таверне",
 	-- ["{npc:2104}, by the keep"] = "{npc:2104} – у крепости",
 	-- ["{npc:2104}, in {area:2103}"] = "{npc:2104} – здесь: {area:2103}",

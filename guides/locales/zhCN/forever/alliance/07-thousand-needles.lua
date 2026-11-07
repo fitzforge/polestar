@@ -11,10 +11,6 @@ return {
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}，Scarlet Raven Tavern",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
 	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
-	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "如果没有{item:4371}，向{npc:3133}购买",
-	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, at the east end of town; inside"] = "",
 
 	-- Step 3: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
@@ -28,12 +24,7 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在{area:42}西边、道路南侧的树林中潜行。",
 
-	-- Step 7: Blind Mary
-	-- {area:42} Darkshire
-	["Her house stands on the hill south-east of {area:42}."] = "她的房子在{area:42}东南方的山上。",
-	["Inside"] = "",
-
-	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齿狼人和{npc:511}",
@@ -42,13 +33,13 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 9: Darkshire
+	-- Step 8: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "",
 
-	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {object:119} Abercrombie's Crate
@@ -57,26 +48,29 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "仅当{npc:272273}掉落了{quest:96138}时：右键点击它",
 	["Below ground"] = "",
 
-	-- Step 11: Defias Strongbox
+	-- Step 10: Defias Strongbox
 	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 12: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 15: Sven Yorgen's Camp
+	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}的营地",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:1212}，在下一份指南中",
 
-	-- Step 17: Back to Darkshire
+	-- Step 15: Viktori Prism'Antras
+	["Inside"] = "",
+
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
@@ -89,41 +83,35 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}，在市政厅后面的房子里",
 	["Wait a moment, then speak with her again"] = "稍等片刻，然后再次与她交谈",
 
-	-- Step 18: Fly to Stormwind
+	-- Step 17: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 
-	-- Step 19: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 20: Menethil Bay
-	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
-	["Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks."] = "沿海岸向东北经过沉船：蓝腮袭击者占据巨型鳄鱼后面的沼泽。",
-
-	-- Step 21: Menethil Harbor
+	-- Step 19: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}, in the inn"] = "{npc:1239}，在旅店里",
-	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217}, inside"] = "",
 	-- {item:2594} Flagon of Mead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "{item:2594}，向{npc:1464}购买",
 
-	-- Step 22: The Lost Fleet: kill these as you meet them
+	-- Step 20: The Lost Fleet: kill these as you meet them
 	-- {area:1039} The Lost Fleet
 	["{area:1039}: kill these as you meet them"] = "",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
 	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "",
 
-	-- Step 24: Captain Halyndor
+	-- Step 22: Captain Halyndor
 	["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船长在沉船甲板上走动；他的保险箱在货舱里。",
 
-	-- Step 25: On the way
+	-- Step 23: On the way
 	["On the way"] = "",
 	-- {item:2658} Ados Fragment · {npc:1078} Ormer Ironbraid
 	["{item:2658} along the way to {npc:1078} and Whelgar"] = "",
@@ -134,29 +122,29 @@ return {
 	-- {item:2661} Neru Fragment · {npc:1078} Ormer Ironbraid
 	["{item:2661} along the way to {npc:1078} and Whelgar"] = "",
 
-	-- Step 26: Whelgar's Excavation Site: kill these as you meet them
+	-- Step 24: Whelgar's Excavation Site: kill these as you meet them
 	-- {area:118} Whelgar's Excavation Site
 	["{area:118}: kill these as you meet them"] = "",
 	-- {item:279996} Goaz Stone · {npc:1353} Sarltooth
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
 	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\nThe relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nThe Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "",
 
-	-- Step 27: Ormer Ironbraid and Whelgar
+	-- Step 25: Ormer Ironbraid and Whelgar
 	-- {npc:1078} Ormer Ironbraid
 	["{npc:1078} and Whelgar"] = "{npc:1078}和维尔加",
 
-	-- Step 28: Glorin Steelbrow
+	-- Step 26: Glorin Steelbrow
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:1284}，在下一份指南中",
 	["On the top floor"] = "",
 	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
 	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221}：在Forever上，{quest:465}排在它之后",
 
-	-- Step 29: Angerfang Encampment
+	-- Step 27: Angerfang Encampment
 	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
 	["Head east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "",
 
-	-- Step 30: To Theramore
+	-- Step 28: To Theramore
 	["To Theramore"] = "前往塞拉摩",
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104}, in {area:2103}; on the top floor"] = "",
@@ -165,11 +153,11 @@ return {
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "从米奈希尔的码头乘船前往{zone:1445}的{area:513}。",
 
-	-- Step 32: Into The Barrens
+	-- Step 30: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 33: Takar the Seer
+	-- Step 31: Takar the Seer
 	-- {zone:1413} The Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
 	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
@@ -177,20 +165,20 @@ return {
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}：夜魔，在魅魔旁边；{item:190309}在{quest:1738}附近",
 
-	-- Step 36: Mirage Raceway
+	-- Step 34: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "沿峡谷向东前往盐滩。{area:2240}的地精和侏儒是中立的，向两个阵营提供任务。",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "交给荆棘谷的{quest:5762}，以后",
 
-	-- Step 37: Mirage Raceway: kill these as you meet them
+	-- Step 35: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
-	-- Step 38: Mirage Raceway
+	-- Step 36: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, later"] = "{npc:4454}：交给{zone:1418}的马特克，以后",
 
@@ -200,11 +188,13 @@ return {
 	-- ["Dragonmaw camp"] = "龙喉营地",
 	-- ["Dragonmaw catapult"] = "龙喉投石车",
 	-- ["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it."] = "沿海岸向北到失事的船。{npc:1157}在海滩上游荡，{npc:1158}在甲板上；{npc:1159}站在船头旁的海滩上。{npc:2089}潜伏在船北边的海岸上。",
+	-- ["Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks."] = "沿海岸向东北经过沉船：蓝腮袭击者占据巨型鳄鱼后面的沼泽。",
 	-- ["Follow the road east to the excavation site."] = "沿道路向东前往挖掘场。",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "龙喉投石车在下一份指南的{zone:1437}路线中完成",
 	-- ["For {npc:4048} in {zone:1444}, much later"] = "交给{zone:1444}的{npc:4048}，很久以后",
 	-- ["From Theramore follow the road west out of Dustwallow into the {zone:1413} and south along it; give {area:378} a wide berth. {area:485} at the {zone:1413}' south end takes you down into {zone:1441}. The journal lies at the foot of the lift."] = "从塞拉摩沿道路向西离开尘泥沼泽进入{zone:1413}，再沿路向南；远离{area:378}。{zone:1413}南端的{area:485}带你下到{zone:1441}。日记就在升降梯脚下。",
 	-- ["From {npc:352} in {zone:1453}"] = "来自{zone:1453}的{npc:352}",
+	-- ["Her house stands on the hill south-east of {area:42}."] = "她的房子在{area:42}东南方的山上。",
 	-- ["Nightbane Shadow Weavers"] = "夜行织影狼人",
 	-- ["No {item:4371} for Look to the Stars? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "仰望星空任务缺少{item:4371}？{npc:3133}在{npc:276}旁边的房子里出售，存货有限；{area:150}的{npc:1448}也有售。",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too."] = "{quest:174}缺少{item:4371}？{npc:3133}在{npc:276}旁边的房子里出售，存货有限；{area:150}的{npc:1448}也有售。",
@@ -228,6 +218,7 @@ return {
 	-- ["The wreck of the Third Fleet"] = "第三舰队的残骸",
 	-- ["{area:492}, west"] = "{area:492}，西部",
 	-- ["{item:2661}: the {object:331}"] = "{item:2661}：{object:331}",
+	-- ["{item:4371}, from {npc:3133}, if you have none"] = "如果没有{item:4371}，向{npc:3133}购买",
 	-- ["{npc:1217}, upstairs in the inn"] = "{npc:1217}，在旅店楼上",
 	-- ["{npc:2104}, by the keep"] = "{npc:2104}，在城堡旁",
 	-- ["{npc:2104}, in {area:2103}"] = "{npc:2104}，在{area:2103}",

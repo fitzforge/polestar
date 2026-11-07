@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Arathi Basin Reputation"] = "阿拉希盆地声望",
-	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "",
-	["Master of Arathi Basin: a Legacy Point at Exalted"] = "",
+	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "你的队伍每收集200资源就会给予声望；达到崇拜可获得1点传承点数、史诗护肩和战袍。",
+	["Master of Arathi Basin: a Legacy Point at Exalted"] = "阿拉希盆地大师：达到崇拜获得1点传承点数",
 
 	-- Step 1: Refuge Pointe
 	-- {zone:1461} Arathi Basin

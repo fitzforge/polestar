@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:1417} Sunken Temple
-	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "Опыт на 50-м уровне, финал – здесь: {area:1417}; в Forever выбора предметов из Classic может не быть.",
 	["Experience"] = "Опыт",
 
 	-- Step 1: A Troubled Spirit (Stormwind)

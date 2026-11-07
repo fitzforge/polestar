@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "淬火护甲",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "",
+	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "28级的锁甲，三位铁匠分别给出罩帽、护腿和护手，途中还有一面盾牌。",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew

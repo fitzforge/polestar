@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Horde)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Horde)"] = "5级牧师长袍（部落）",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "5级免费获得一件优秀长袍：在你的第一个城镇附近治疗并强化一名受伤的卫兵。",
 
 	-- Step 1: In Favor of Spirituality
 	-- {npc:3707} Ken'jai · {area:363} Valley of Trials · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:613} Lesser Heal

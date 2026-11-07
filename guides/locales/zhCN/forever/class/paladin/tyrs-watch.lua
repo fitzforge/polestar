@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["Tyr's Watch and {spell:7328} (Forsaken)"] = "",
+	["Tyr's Watch and {spell:7328} (Forsaken)"] = "提尔之望与{spell:7328}（被遗忘者）",
 	-- {spell:7328} Redemption
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "{spell:7328}可复活倒下的盟友，另有一把武器和一面盾牌，给新的被遗忘者圣骑士。",
 
 	-- Step 1: Aramis Hammerhand
-	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "完成{quest:364}后，{npc:1569}会给你一份{item:282423}：阅读它，然后交给教堂旁的{npc:244808}。他要你治疗躺在{area:154}周围的五名{npc:259377}。被遗忘者圣骑士每次施放{spell:635}都会受到少量伤害：注意你的生命值。",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "",
 
@@ -33,8 +33,8 @@ return {
 	["At 8 {npc:246152} in {area:159} sends you to the order's keep on the west coast. {quest:91317} in {area:16881} and the crypt under it hit hard at 8-9: come at 10 or later."] = "",
 
 	-- Step 5: Bandarion Keep
-	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {npc:267009} Hadric Harlson · {area:159} Brill
-	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after A Righteous Cause from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
+	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {npc:267009} Hadric Harlson · {area:159} Brill
+	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "{area:16602}位于{area:156}西北的悬崖上（向西的道路始于29,46附近）。{npc:246349}在大门口等候。要塞的训练师{npc:246389}和兽栏管理员{npc:259190}站在他南边不远处的森林边缘。他们要到你10级、并完成要塞中列奥尼德的{quest:96896}之后才有任务给你，该任务是{npc:267009}任务链的最后一环，任务链起始于{area:159}东南；看到他们的任务就接受。",
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale

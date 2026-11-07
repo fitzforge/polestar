@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Gelkis and Magram Centaur Reputation"] = "",
+	["Gelkis and Magram Centaur Reputation"] = "Репутация с кентаврами Гелкис и Маграм",
 	-- {zone:1443} Desolace
-	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "",
+	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "Враждующие кланы зоны {zone:1443}, переработанные в Forever: выберите один, купите его дружбу и обменивайте тотемы на рецепты.",
 	-- plural, as words: Carved Centaur Totems = {item:254432} Carved Centaur Totem
-	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "",
+	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 рецептов резных тотемов кентавров ({item:254432}) у интендантов кланов, репутация не требуется",
 	-- {npc:5601} Khan Jehn
-	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "",
+	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "Задание NPC {npc:5601}: звание клана и выбор одного из трех редких видов оружия 35-го уровня",
 
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "",

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:268484} Moonsilver Blade · {item:267369} Wolfsbane
-	["{item:268484} and {item:267369} (Forsaken)"] = "",
+	["{item:268484} and {item:267369} (Forsaken)"] = "{item:268484} и {item:267369} (Отрекшиеся)",
 	-- {quest:91862} Lumina Windsinger · {quest:95140} Old Fire-Eye
-	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "",
+	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "Двуручный меч паладина Отрекшихся: спасите {quest:91862}, соберите три части, убейте {quest:95140}.",
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest

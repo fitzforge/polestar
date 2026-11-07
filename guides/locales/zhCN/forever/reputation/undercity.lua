@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "幽暗城声望",
 	-- {item:14047} Runecloth
-	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "",
+	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "通过瘟疫之地的55-60级任务和{item:14047}刷到崇拜，提瑞斯法林地的旧任务可选做。",
 	-- {faction:68} Undercity
-	["Exalted with the {faction:68}"] = "",
+	["Exalted with the {faction:68}"] = "{faction:68}崇拜",
 
 	-- Step 1: Undercity: how it works
 	-- {faction:68} Undercity

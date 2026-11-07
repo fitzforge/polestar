@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Zandalar Tribe Reputation"] = "",
+	["Zandalar Tribe Reputation"] = "赞达拉部族声望",
 	-- {area:19} Zul'Gurub
-	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "",
-	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "",
+	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "肩部和头部附魔、每个声望等级都会升级的职业项链，以及{area:19}的套装部件。",
+	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "友善时获得本职业项链，尊敬、崇敬和崇拜时升级",
 	-- {npc:15042} Zanza the Restless
-	["{npc:15042}'s head and leg enchants, from Friendly"] = "",
+	["{npc:15042}'s head and leg enchants, from Friendly"] = "{npc:15042}的头部和腿部附魔，友善起可用",
 
 	-- Step 1: Yojamba Isle
 	-- {area:3357} Yojamba Isle · {zone:1434} Stranglethorn Vale · {area:122} Zuuldaia Ruins · {faction:270} Zandalar Tribe · {npc:15070} Vinchaxa · {npc:14921} Rin'wosho the Trader · {npc:14902} Jin'rokh the Breaker · {npc:14903} Al'tabim the All-Seeing · {npc:14904} Maywiki of Zuldazar · {npc:14905} Falthir the Sightless · {area:19} Zul'Gurub

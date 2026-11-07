@@ -8,11 +8,11 @@
 return {
 	-- Guide
 	-- plural, as words: Nightclaw Druids = {npc:254152} Nightclaw Druid
-	["Nightclaw Druids Reputation"] = "",
+	["Nightclaw Druids Reputation"] = "夜爪德鲁伊声望",
 	-- {zone:2521} Zephras Isle
-	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "",
+	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "{zone:2521}的隐秘德鲁伊：交出五只邪教徒耳朵可获得1000点声望，最好在等级超过该岛之前完成。",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "",
+	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "48个{skill:164}、{skill:165}和{skill:197}图样",
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran

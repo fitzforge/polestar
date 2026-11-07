@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- {item:9514} Arcane Staff
-	["Ley or {item:9514} or Orb (Alliance)"] = "",
-	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "",
+	["Ley or {item:9514} or Orb (Alliance)"] = "Лей, {item:9514} или сфера (Альянс)",
+	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "Посох или сфера для левой руки на 10-м уровне у учителя магов в родном городе; Небесные получают ещё и жезл.",
 
 	-- Step 1: Anathamaas Aetherwind (Valanaar)
 	-- {npc:252373} Anathamaas Aetherwind · {area:16638} Valanaar · {npc:256507} Belann Windwood

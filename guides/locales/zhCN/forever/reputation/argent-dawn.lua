@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Argent Dawn Reputation"] = "银色黎明声望",
 	-- {area:2057} Scholomance · {area:2279} Stratholme
-	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "",
-	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "",
+	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "天灾石、{area:2057}和{area:2279}：肩部抗性附魔和十几种配方。",
+	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "尊敬和崇敬时可获得裁缝、制皮、锻造、附魔和炼金术配方",
 
 	-- Step 1: Argent Dawn Commission (Alliance)
 	-- {quest:5401} Argent Dawn Commission

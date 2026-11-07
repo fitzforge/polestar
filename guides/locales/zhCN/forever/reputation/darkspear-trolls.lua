@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Darkspear Trolls Reputation"] = "暗矛巨魔声望",
 	-- {item:14047} Runecloth · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too if they still pay in full."] = "",
+	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too if they still pay in full."] = "用{item:14047}刷到崇拜，{zone:1411}的老任务可作为快速补充，如果仍给全额奖励，还会同时提升{zone:1454}声望。",
 	-- {faction:530} Darkspear Trolls
-	["Exalted with the {faction:530}"] = "",
+	["Exalted with the {faction:530}"] = "{faction:530}声望达到崇拜",
 
 	-- Step 1: Vehena: how it works
 	-- {npc:14727} Vehena
@@ -90,7 +90,6 @@ return {
 	["The coast and the road"] = "",
 	-- {quest:97223} Bloodtalon Matriarch · {area:362} Razor Hill
 	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "",
-	["Bloodtalon Matriarch Eggs"] = "",
 
 	-- Step 13: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["{spell:7328} (Alliance)"] = "",
+	["{spell:7328} (Alliance)"] = "{spell:7328}（联盟）",
 	-- {spell:7328} Redemption
-	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "",
+	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "12级学习{spell:7328}，圣骑士的复活技能：一条简单的任务链，途经你的主城及其所在地区。",
 
 	-- Step 1: The summons (Human)
 	["The summons (Human)"] = "",
