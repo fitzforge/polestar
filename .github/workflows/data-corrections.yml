@@ -47,10 +47,37 @@ jobs:
         working-directory: rust
         run: cargo build --release --locked -p forge
 
+      # The cache key's prefix for this code, as wago-cache.yml makes it.
+      - name: Client tables key
+        id: key
+        run: echo "prefix=wago-${{ hashFiles('tools/lib/data/wago.js', 'tools/media/game-art.js', 'rust/crates/forge-data/src/sources.rs', 'rust/crates/forge-data/src/tables.rs') }}-" >> "$GITHUB_OUTPUT"
+
+      # The client tables (wago.tools) from the Actions cache wago-cache.yml fills: the newest copy
+      # made by this code; else the newest of any, which `forge data sources` starts from.
+      - name: Client tables (cache)
+        id: wago
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/sources/wago
+          key: ${{ steps.key.outputs.prefix }}
+          restore-keys: |
+            ${{ steps.key.outputs.prefix }}
+            wago-
+
       # The sources the public build reads (pfQuest, the client tables, the CMaNGOS dump), fetched
-      # into data/sources; the build below reads them offline.
+      # into data/sources; the build below reads them offline. The client tables are fetched only
+      # when the cache has none from this code (no request to wago.tools otherwise).
       - name: Source cache
-        run: rust/target/release/forge data sources --root . --only pfquest,wago,cmangos
+        env:
+          PREFIX: ${{ steps.key.outputs.prefix }}
+          MATCHED: ${{ steps.wago.outputs.cache-matched-key }}
+        run: |
+          parts=pfquest,cmangos
+          case "$MATCHED" in
+            "$PREFIX"*) ;;
+            *) parts="$parts,wago" ;;
+          esac
+          rust/target/release/forge data sources --root . --only "$parts"
       # The public data build: no QuestieDB install, no web sources, no private overlay.
       - name: Public data build
         run: |
