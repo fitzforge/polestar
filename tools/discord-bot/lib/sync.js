@@ -51,7 +51,7 @@ const HOUR = 60 * 60 * 1000;
 // Per Discord user: new reports, and follow-ups and edits, an hour. Server
 // staff and RATE_EXEMPT_IDS have none. What is skipped is tried again once
 // the user's window frees up, at most MAX_DEFERRED things waiting at once.
-const LIMITS = { posts: 3, followUps: 20 };
+const LIMITS = { posts: 5, followUps: 20 };
 const MAX_DEFERRED = 100;
 const GUILD_TTL = 10 * 60 * 1000;
 
@@ -66,6 +66,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	const issues = new Map(); // thread id -> issue number
 	const threads = new Map(); // channel id -> channel (threads, and others as { id, parent_id: null })
 	const seen = new Map(); // thread id -> starter content signature last written
+	const held = new Map(); // thread id -> the bot's "will be filed in about N minutes" reply
 	const queues = new Map();
 	let forum = null;
 	let botId = config.botId || null;
@@ -103,12 +104,12 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	// Skipped work run again when the user's window frees up: once per key,
-	// and no more than MAX_DEFERRED waiting.
+	// and no more than MAX_DEFERRED waiting. True when a retry is waiting.
 	function retryLater(key, take, userId, fn) {
-		if (deferred.has(key)) return;
+		if (deferred.has(key)) return true;
 		if (deferred.size >= MAX_DEFERRED) {
 			log.warn(`limits: ${MAX_DEFERRED} skipped already waiting, ${key} not retried`);
-			return;
+			return false;
 		}
 		deferred.add(key);
 		setTimer(() => {
@@ -117,6 +118,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 				.then(fn)
 				.catch((err) => log.error(`retry ${key}:`, err.message));
 		}, Math.max(1000, take.freeAt(userId) - now() + 1000));
+		return true;
 	}
 
 	function serial(id, fn) {
@@ -156,6 +158,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		const messages = await discord.getMessages(threadId, 100);
 		for (const m of messages) {
 			if (!m.author || !m.author.bot || (botId && m.author.id !== botId)) continue;
+			if (I.isHeldReply(m.content)) {
+				if (!held.has(threadId)) held.set(threadId, m.id);
+				continue;
+			}
 			const n = I.readTrackedReply(m.content, repo);
 			if (n) {
 				issues.set(threadId, n);
@@ -250,7 +256,13 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (!message || message.author.bot) return null;
 			if (!(await allowed(takePost, thread.guild_id, message.author.id))) {
 				log.warn(`${threadId}: ${message.author.id} filed ${LIMITS.posts} reports this hour, filed when the hour allows`);
-				retryLater(`post ${threadId}`, takePost, message.author.id, () => newPost(threadId));
+				const waiting = retryLater(`post ${threadId}`, takePost, message.author.id, () => newPost(threadId));
+				// Told once, so the player knows it isn't lost.
+				if (waiting && !held.has(threadId)) {
+					const minutes = (takePost.freeAt(message.author.id) - now()) / 60000;
+					const reply = await discord.send(threadId, I.heldReply(minutes));
+					held.set(threadId, reply && reply.id);
+				}
 				return null;
 			}
 
@@ -262,12 +274,28 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			seen.set(threadId, signature(message));
 			log.info(`filed #${issue.number} for "${thread.name}" (${threadId})`);
 
-			await discord.send(threadId, I.trackedReply(repo, issue.number));
+			await trackedReply(threadId, issue.number);
 			if (tags.tracked) {
 				await discord.editThread(threadId, { applied_tags: withStatus(thread.applied_tags, tags, 'tracked') });
 			}
 			return issue.number;
 		});
+	}
+
+	// "Tracked as #N": the held reply edited into it when there is one, else a new reply.
+	async function trackedReply(threadId, number) {
+		const text = I.trackedReply(repo, number);
+		const heldId = held.get(threadId);
+		held.delete(threadId);
+		if (heldId) {
+			try {
+				await discord.editMessage(threadId, heldId, text);
+				return;
+			} catch (err) {
+				if (err.status !== 404) throw err;
+			}
+		}
+		await discord.send(threadId, text);
 	}
 
 	// A message in a thread: the post itself, or a follow-up, the reporter's
