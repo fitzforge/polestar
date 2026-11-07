@@ -2,36 +2,30 @@
 guide forever/alliance/05-duskwood
 title Duskwood
 faction Alliance
-levels 24-26
+levels 25-26
 zone Duskwood
-next forever/alliance/06-ashenvale
+next forever/alliance/06-wetlands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-step Duskwood
-  zone Duskwood
-  goto 75.8,45.3 "Duskwood"
-
-# Duskwood, Alliance ~22.7 to ~25.4.
+# Duskwood and Redridge, second half (about 25 to 26.5).
 #
-# Route from the simulator's consensus Alliance route (Human export, visit 5:
-# Duskwood 22.7-25.4), written out as a playable guide; not play-tested on
-# Forever yet.
+# Since 2026-11-07 Duskwood and Redridge are played together, so Redridge
+# comes at 23+ where its quests fit (Ashenvale and Stonetalon first): Duskwood's first
+# loop and Redridge (04-redridge-mountains, with Redridge's elites and Fangore
+# at about 25 on the same loop through the Blackrock camps and Galardell
+# Valley), then Duskwood's second loop here. The first loop's Darkshire
+# visit and its quests are in 04-redridge-mountains.
 #
-# Flow: Darkshire (every quest giver in walking order from the flight master,
-# the Bronze Tube from Herble and Look to the Stars handed in at once) -> the
-# Tranquil Gardens Cemetery -> west along the road: Watcher Dodds, Raven Hill
-# (Memory of Valor), Sven's camp, the Hushed Bank (wolves, spiders and their
-# venom), Abercrombie, the Raven Hill Cemetery (ghouls) -> back east: Watcher
-# Dodds, the Yorgen Farmstead -> Darkshire (The Night Watch handed in with the
-# other hand-ins), Blind Mary -> west: Abercrombie, Sven -> Darkshire -> the
+# Flow: fly from Lakeshire to Darkshire -> Blind Mary, the Tranquil Gardens
+# Cemetery, Madame Eva -> west: Abercrombie, Sven -> Darkshire -> the
 # Skeletal Horrors south-east of town (Rot Blossoms, The Night Watch's
 # Horrors) -> Darkshire -> west: Abercrombie, the ghouls, the cemetery's
-# Skeletal Fiends, Jitters, Sven (the end: ride north through Elwynn to
-# Stormwind for training, Shamans in Ironforge by the Deeprun Tram, and the
-# Auberdine boat from Stormwind Harbor, where the next guide starts). The
+# Skeletal Fiends, Jitters, Sven -> north through Elwynn for training (Shamans in
+# Ironforge by the Deeprun Tram, Rogues in Stormwind) -> the Stormwind
+# gryphon to Menethil Harbor, where the next guide (06-wetlands) starts. The
 # Night Watch's second part is handed in on the Duskwood return
 # (07-thousand-needles), where its third part starts.
 #
@@ -43,14 +37,20 @@ step Duskwood
 #   26) waits for the Duskwood return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
-# - Hearthstone: the export hearths twice on the first loop (23.7 and 24.4);
-#   here once from the Yorgen Farmstead and once after the second western loop,
-#   so the cooldown allows both.
-# - The Darkshire flight path and hearth bind belong to the export's Redridge
-#   visit (it arrives here bound); repeated in the first step in case you come
-#   in without them.
+# - Hearthstone: none here. The second loop ends at Sven's camp in the west,
+#   and the walk north through Goldshire (training) to Stormwind's gryphon is
+#   on the way to Menethil; the Darkshire flight path and hearth are taken on
+#   the first loop's visit (04-redridge-mountains).
 # - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
 #   Manor Mistmantle, a detour north the route never passes otherwise.
+# - Redridge's elites (Tharil'zun 19, Gath'Ilzogg 169, Incinerator Gar'im
+#   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
+#   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
+#   quests fit: players finished them solo at 21-23 in the recordings, so they
+#   are in the route's steps with a tip to group up if you can; the four elite
+#   quests' goals are optional (the leveling rule for elite-only drops),
+#   Fangore's (not elite) is not.
+# - Worgen in the Woods (173) needs level 23: the step before it says so.
 #
 # Class quests: Rogues finish Mathias and the Defias with Klaven's Tower
 # (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
@@ -78,95 +78,14 @@ step Duskwood
 # chain through Westfall and Elwynn, not on this route) and ends at Stalvan
 # Mistmantle, an elite.
 
-# ---------------------------------------------------------------- Darkshire
-
-step Darkshire
-  tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
-  getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
-  accept 101                              -- Madame Eva, in her house by the tavern; inside
-  accept 66                               -- Madame Eva, inside
-  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
-  turnin 66                               -- Clerk Daltry, in the town hall
-  accept 56                               -- Commander Althea Ebonlocke, in the town hall
-  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
-  accept 164                              -- Elaine Carevin, at the south end of town; inside
-  accept 165
-  tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
-  accept 174                              -- Viktori Prism'Antras, inside
-  turnin 174
-  accept 175                              -- For Blind Mary, on the hill south-east of town
-
-# ---------------------------------------------------------------- Tranquil Gardens
-
-step Tranquil Gardens Cemetery: kill these as you meet them
-  zone Duskwood
-  tip Skeletal Warriors and Skeletal Mages walk among the graves south-east of Darkshire, below Blind Mary's house on the hill. Every skeleton in Duskwood can drop a Skeleton Finger.
-  tip Careful: Because the skeletons stand near each other, running straight in tends to pull several at once.
-  collect 2378 quest 101                  -- Skeleton Finger
-  kill 203 quest 56                       -- Skeletal Mage
-  kill 48 quest 56                        -- Skeletal Warrior
-
-# ---------------------------------------------------------------- West
-
-step Watcher Dodds
-  tip Watcher Dodds stands south of the road, at the Yorgen Farmstead.
-  accept 245
-
-step Raven Hill
-  tip Continue west to Raven Hill. The Memory of Valor glows by the ruined house south of the road.
-  collect 281046 quest 96139              -- Raven Hill Tome, from the Memory of Valor
-
-step Sven's Camp
-  tip Follow the road north-west past the cemetery to Sven's camp on the far west edge of the forest. Lars stands beside Sven.
-  turnin 164                              -- Sven Yorgen
-  accept 95
-  accept 226                              -- Lars
-
-step The Hushed Bank: kill these as you meet them
-  zone Duskwood
-  tip Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.
-  tip Careful: Wolves and other spider types share the area along the Westfall border, so you can easily pull several mobs at once.
-  kill 565 quest 226                      -- Rabid Dire Wolf
-  kill 213 quest 226                      -- Starving Dire Wolf
-  kill 539 quest 245                      -- Pygmy Venom Web Spider
-  collect 1130 quest 101                  -- Vial of Spider Venom: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses
-
-step Abercrombie
-  tip The hermit's shack stands in the woods north-east of the Raven Hill Cemetery.
-  turnin 165
-  accept 148
-
-step Raven Hill Cemetery: kill these as you meet them
-  zone Duskwood
-  tip The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
-  collect 1129 quest 101                  -- Ghoul Fang
-  collect 2378 quest 101                  -- Skeleton Finger
-
-# ---------------------------------------------------------------- Back east
-
-step Watcher Dodds
-  tip Head back east along the road to the Yorgen Farmstead.
-  turnin 245
-
-step Yorgen Farmstead
-  tip The mound of loose dirt lies south of the farmhouse, by the old stump.
-  turnin 95                               -- Mound of loose dirt
-  accept 230
-
-step Darkshire
-  turnin 96139                            -- Sirra Von'Indi, inside
-  turnin 56                               -- Commander Althea Ebonlocke
-  accept 57
-  turnin 101                              -- Madame Eva, inside
-  turnin 148
-  accept 149
-  vendor nearest
-  level 23
-  accept 173                              -- Calor, by the town hall: from level 23; the Duskwood return hunts the worgen
+step Fly to Darkshire
+  zone Redridge Mountains
+  tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
+  goto 25.5,59.4 "Lakeshire flight master"
+  fly "Darkshire"
 
 step Blind Mary
+  zone Duskwood
   tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
   turnin 149                          -- Inside
   accept 154
@@ -245,7 +164,7 @@ step Jitters
 
 step Sven's Camp
   turnin 268                              -- Sven Yorgen
-  note Next: Stormwind for training, then the boat from Stormwind Harbor to Auberdine for Ashenvale.
+  note Next: training, then the flight from Stormwind to Menethil Harbor for the Wetlands.
   accept 323                              -- Sven Yorgen
 
 step Westfall
@@ -281,16 +200,21 @@ step Master Mathias Shaw
   collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 
-step Fly to Stormwind
-  only Human,Paladin
-  zone Westfall
-  goto 56.6,52.7 "Sentinel Hill flight master"
-  fly "Stormwind"
+step Elwynn Forest
+  only !Rogue
+  zone Elwynn Forest
+  tip North from Raven Hill through Elwynn: Goldshire is on the road to Stormwind.
+  goto 43.5,65.3 "Elwynn Forest"
+
+step Class trainer
+  only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
+  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
 
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
-  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light.
+  tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
+  goto 50.5,47.5 "Cathedral of Light"
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
   turnin 1788 only Human -- Duthorian Rall: Redemption
@@ -308,7 +232,7 @@ step Tram to Ironforge
 step Shaman training
   only Shaman
   zone Ironforge
-  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back for the Auberdine boat.
+  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back.
   train class
 
 step Rogue training
@@ -316,12 +240,3 @@ step Rogue training
   zone Stormwind City
   tip Train here, in Stormwind City, before you go on.
   train class
-
-step Elwynn Forest
-  only !Rogue
-  zone Elwynn Forest
-  goto 43.5,65.3 "Elwynn Forest"
-
-step Class trainer
-  only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
-  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells

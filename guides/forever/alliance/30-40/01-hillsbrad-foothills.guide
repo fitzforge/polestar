@@ -15,16 +15,8 @@ step To Deepwater Tavern
   zone Wetlands
   goto 10.7,61.0 "Deepwater Tavern"
 
-step Menethil Harbor
-  accept 98230                        -- Captain Stoutfist: for Howin Kindfeather; on the top floor
-
-step Howin Kindfeather
-  turnin 98230                        -- Howin Kindfeather
-  accept 98245
-  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
-
 step Angerfang Encampment
-  tip South to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
+  tip South-east from Menethil to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
   turnin 465                          -- Dragonmaw Catapult
 
 step Angerfang Encampment
@@ -285,7 +277,6 @@ step Stormwind Keep
   turnin 563                          -- Major Samuelson
 
 step Cathedral of Light
-  turnin 293                          -- Archbishop Benedictus
   turnin 269                          -- Bishop Farthing
   accept 270
 

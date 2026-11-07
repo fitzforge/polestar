@@ -427,41 +427,6 @@
 			]
 		},
 		{
-			"id": "617-menethil-grind-to-28",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"level": 28,
-			"after": true,
-			"note": "Pilot Longbeard's The Brassbolts Brothers (1179) needs level 28. The route's XP model reaches 28 on the way to Ironforge, so no grind is written; a player behind it hit 'Requires level 28' in Ironforge. The gate comes after the Menethil hand-ins (they count towards it), before the walk east.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
-			"id": "617-menethil-grind-to-28-tip",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"tip": "Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.",
-			"note": "The level-28 gate after the Menethil hand-ins (617-menethil-grind-to-28) says where to grind: the Dragonmaw Raiders, Swamprunners and Bonewarders (levels 26-28) camp along the road the route walks next.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
 			"id": "365-teldrassil-byancie-water",
 			"faction": "Alliance",
 			"at": {
@@ -878,14 +843,14 @@
 			"pr": 960
 		},
 		{
-			"id": "upstairs-dendrite-starblaze-turnin-272",
-			"faction": "Alliance",
 			"at": {
-				"quest": 272,
-				"goal": "turnin"
+				"goal": "turnin",
+				"quest": 272
 			},
-			"tip": "Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"faction": "Alliance",
+			"id": "upstairs-dendrite-starblaze-turnin-272",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Since the 2026-11-07 Ashenvale split the step is at the start of 06-wetlands, cast from Stormwind (the old tip's boat to Auberdine went with it).",
+			"pr": 960,
 			"source": [
 				{
 					"kind": "tdb",
@@ -896,7 +861,7 @@
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
 				}
 			],
-			"pr": 960
+			"tip": "In Stormwind, join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."
 		},
 		{
 			"id": "upstairs-dendrite-starblaze-turnin-5921",
@@ -3156,75 +3121,234 @@
 			]
 		},
 		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 127
+			},
+			"faction": "Alliance",
+			"id": "redridge-sunfish-in-its-steps",
+			"note": "Selling Fish's Spotted Sunfish drop only from Lake Everstill's murlocs, whose camps line the shore east of the bridge (no murloc stands west of it): they are collected in the Sunken Chest step, among those murlocs, with the fins. The along list from Lakeshire pointed at the lake before the walk west, and the gnoll hills' step listed them where nothing drops them (flow audit, 2026-11-07: along lists become steps).",
+			"pr": 1103,
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 1467 droppers"
+				}
+			]
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 95999
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-95999-tip",
+			"note": "Redridge's elites and Fangore on 04-redridge-mountains' loop at about 25 (the second pass at the end of 05-duskwood folded into it, 2026-11-07): players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 95999 completes at 21-23"
+				}
+			],
+			"tip": "East past the mill, then south-east to the Blackrock camps east of Stonewatch Keep: Gar'im keeps to the cave at their south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too."
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 98387
+			},
+			"faction": "Alliance",
+			"id": "redridge-camps-tip",
+			"note": "The Blackrock camps step: where Blackrock Blockade's objects are. Since the 2026-11-07 Alliance 20-30 re-order (Duskwood's first loop before Redridge's first pass) Redridge is entered at about 24.5, so the camps' top-up to 23 (#1052) and its sentence here are gone.",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Redridge levels on 0.3.3: 21.7-22.0 at Render's Valley (6 players); 98387 objective ticks at 63.7-74.0, 66.5-86.5 (72 ticks)"
+				}
+			],
+			"tip": "South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 180
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-180-tip",
+			"note": "Redridge's elites and Fangore on 04-redridge-mountains' loop at about 25 (the second pass at the end of 05-duskwood folded into it, 2026-11-07): players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 180 completes at 21-23"
+				}
+			],
+			"tip": "North-east to the gnolls' eastern camp in Galardell Valley. Fangore has two guards linked to him: clear the gnolls around him first and fight at full health."
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 115
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-115-tip",
+			"note": "Redridge's elites and Fangore on 04-redridge-mountains' loop at about 25 (the second pass at the end of 05-duskwood folded into it, 2026-11-07): players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 115 completes at 21-23"
+				}
+			],
+			"tip": "North to Stonewatch Keep. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can."
+		},
+		{
 			"id": "1175-barrens-silithid-eggs-on-the-road-to-gann",
-			"at": {"quest": 868, "goal": "objective", "objective": 1},
+			"at": {
+				"quest": 868,
+				"goal": "objective",
+				"objective": 1
+			},
 			"faction": "Horde",
 			"tip": "South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.",
 			"note": "Egg Hunt: the eggs (45.4,72.4) lie on the road from Camp Taurajo to Gann Stonespire (45.9,77.0), where the route now takes them on the way south (final route review).",
-			"source": [{"kind": "tdb", "ref": "gameobject: the 14 Silithid Mound spawns (3685) at 42.6-48.5,69.4-72.4 on map 1413; Gann Stonespire (npc 3341) at 45.9,77.0"}],
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "gameobject: the 14 Silithid Mound spawns (3685) at 42.6-48.5,69.4-72.4 on map 1413; Gann Stonespire (npc 3341) at 45.9,77.0"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-barrens-gann-and-sulhasa",
-			"at": {"quest": 843, "goal": "accept"},
+			"at": {
+				"quest": 843,
+				"goal": "accept"
+			},
 			"faction": "Horde",
 			"tip": "Gann waits in a small camp further south, on the road toward Bael Modan; Sulhasa sits up in the tree just east of him.",
 			"note": "Gann's Reclamation: Sulhasa (Field to Clear) sits 130 yd east of Gann, and both are taken on the first visit (final route review).",
-			"source": [{"kind": "client", "ref": "Gann Stonespire (npc 3341) at 45.9,77.0, Sulhasa at 47.8,77.6 on map 1413"}],
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Gann Stonespire (npc 3341) at 45.9,77.0, Sulhasa at 47.8,77.6 on map 1413"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-barrens-field-to-clear-on-the-plain",
-			"at": {"quest": 98093, "goal": "objective", "objective": 1},
+			"at": {
+				"quest": 98093,
+				"goal": "objective",
+				"objective": 1
+			},
 			"faction": "Horde",
 			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp.",
 			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review).",
-			"source": [{"kind": "tdb", "ref": "creature: the spawns of 4128 and 3238 between Blackthorn Ridge and Gann's camp"}],
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature: the spawns of 4128 and 3238 between Blackthorn Ridge and Gann's camp"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-stonetalon-malakajin-from-seereth",
-			"at": {"quest": 1058, "goal": "accept"},
+			"at": {
+				"quest": 1058,
+				"goal": "accept"
+			},
 			"faction": "Horde",
 			"tip": "Follow the road on west from Seereth into Stonetalon. The troll village of Malaka'jin sits at the entrance of the canyon.",
 			"note": "Jin'Zil's Forest Magic: the route reaches Malaka'jin from Seereth Stonebreak (Barrens 35.3,27.9) at the canyon's mouth; the seed's tip sent players south to the Crossroads first (final route review).",
-			"source": [{"kind": "client", "ref": "Seereth Stonebreak (npc 4049) at Barrens 35.3,27.9; Witch Doctor Jin'Zil at Stonetalon 74.5,97.9"}],
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Seereth Stonebreak (npc 4049) at Barrens 35.3,27.9; Witch Doctor Jin'Zil at Stonetalon 74.5,97.9"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-hillsbrad-sylvanas-in-the-royal-quarter",
-			"at": {"quest": 93739, "goal": "objective", "objective": 4},
+			"at": {
+				"quest": 93739,
+				"goal": "objective",
+				"objective": 4
+			},
 			"faction": "Horde",
 			"tip": "The Undercity lies under the Ruins of Lordaeron; Lady Sylvanas Windrunner holds court in the Royal Quarter.",
 			"note": "Exploring the Horde: Skyborne meet Sylvanas on the Undercity stop after Hillsbrad; the tip told them to fly from the Crossroads, the way an earlier guide reached the Undercity (final route review).",
-			"source": [{"kind": "client", "ref": "Lady Sylvanas Windrunner (npc 10181) in the Royal Quarter, map 1458"}],
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Lady Sylvanas Windrunner (npc 10181) in the Royal Quarter, map 1458"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-ashenvale-earthen-ring-by-air-or-road",
-			"at": {"quest": 96260, "goal": "accept"},
+			"at": {
+				"quest": 96260,
+				"goal": "accept"
+			},
 			"faction": "Horde",
 			"tip": "The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; coming on foot from Camp Taurajo, keep north past the bluffs.",
 			"note": "Stronger than Steel: Tauren and Skyborne fly from Zoram'gar to Thunder Bluff, the others walk in from Camp Taurajo; the tip spoke only of the lift (final route review).",
-			"source": [{"kind": "client", "ref": "Mazu'kon at Mulgore 32.5,20.6, Thunder Bluff's flight master Tal (npc 2995)"}],
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Mazu'kon at Mulgore 32.5,20.6, Thunder Bluff's flight master Tal (npc 2995)"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-needles-rokalim-back-west",
-			"at": {"quest": 1151, "goal": "objective", "objective": 1},
+			"at": {
+				"quest": 1151,
+				"goal": "objective",
+				"objective": 1
+			},
 			"faction": "Horde",
 			"tip": "Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch, back west past Whitereach Post. Rok'Alim the Pounder is elite: grouping up is advised.",
 			"note": "Test of Strength is offered once Test of Endurance is in, on the last Dorn visit before the Shimmering Flats; Rok'Alim walks Highperch, back west (final route review).",
-			"source": [{"kind": "recording", "ref": "players' in-game recordings to 2026-11-07 (offer audit): Dorn Plainstalker's only offer of 1151 came on 1150's hand-in"}],
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-07 (offer audit): Dorn Plainstalker's only offer of 1151 came on 1150's hand-in"
+				}
+			],
 			"pr": 1175
 		},
 		{
 			"id": "1175-tirisfal-cult-farm-past-linneas-camp",
-			"at": {"quest": 96898, "goal": "objective", "objective": 1},
+			"at": {
+				"quest": 96898,
+				"goal": "objective",
+				"objective": 1
+			},
 			"faction": "Horde",
 			"tip": "Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.",
 			"note": "Necrotic Crystals: the east loop leaves from Brill past Linnea's camp, where Hadric stands; the tip names the camp the farm lies beside (final route review).",
-			"source": [{"kind": "client", "ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"}],
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"
+				}
+			],
 			"pr": 1175
 		}
 	]
