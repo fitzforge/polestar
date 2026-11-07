@@ -1467,6 +1467,18 @@ test('Sweep from #957: a drop is collected with the later quest that kills the s
 	}
 });
 
+// --- Flow re-order (2026-11-07, #1109): Horde Stranglethorn 30-40 had six
+// along lists, each duplicating a step that already does the work, and listed
+// the Shadowmaw Panthers on the Savage Coast, where none live (they are by
+// Grom'gol and the Mosh'Ogg camp, around 42,32).
+test(`${STRANGLETHORN_HORDE}: flow re-order: no along steps, the Shadowmaw Panthers only by Grom'gol`, { skip }, () => {
+	assert.deepEqual(compiled(STRANGLETHORN_HORDE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const list = goals(STRANGLETHORN_HORDE);
+	const shadowmaw = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 192);
+	assert.ok(shadowmaw.length > 0, 'the Shadowmaw Panthers are in the guide');
+	for (const { goal } of shadowmaw) assert.ok(goal.x > 38 && goal.y > 25, `Shadowmaw Panthers by Grom'gol, not on the Savage Coast (${goal.x},${goal.y})`);
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).

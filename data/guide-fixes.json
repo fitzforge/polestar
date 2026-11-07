@@ -1881,6 +1881,114 @@
 				}
 			],
 			"pr": 1032
+		},
+		{
+			"id": "1109-stv-horde-bloody-bone-necklaces-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 596,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Bloody Bone Necklaces: the Bloodscalps that drop the necklaces are killed for Bloodscalp Ears and Headhunting, and the Ruins of Zul'Kunda step finishes them before Kin'weelay (the #957 sweep); an along list from the zeppelin kept all 25 on screen from the start.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-young-panthers-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 190,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Panther Mastery (Young Panthers): killed in the Nesingwary's Expedition step and the Young Panther step that follows Grom'gol; the along list duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-tumbled-crystals-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Hostile Takeover: the Venture Co. Geologists that carry the Tumbled Crystals work the camps on the lake's western shore, which the following field step and the Venture Co. camp step visit; the along list from Nesingwary's duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-shadowmaw-panthers-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 192,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Panther Mastery (Shadowmaw Panthers, level 37): they live by Grom'gol and the Mosh'Ogg camp (spawns around 42,32), where the Shadowmaw step does them; the along list and the Savage Coast step listed them where there are none.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-moshogg-brutes-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 569,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Defense of Grom'gol: the Mosh'Ogg Brutes are killed in the Mosh'Ogg steps; the along list from Grom'gol duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-moshogg-witch-doctors-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 569,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Defense of Grom'gol: the Mosh'Ogg Witch Doctors are killed in the Mosh'Ogg steps; the along list from Grom'gol duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
 		}
 	]
 }
