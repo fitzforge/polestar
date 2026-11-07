@@ -99,20 +99,15 @@ step Nijel's Point
   turnin 1459                         -- Kreldig Ungor
 
 step Fly to Astranaar
+  only Warlock
   zone Desolace
   goto 64.7,10.4 "Nijel's Point flight master"
   fly "Astranaar"
   zone Ashenvale
 
-# ---------------------------------------------------------------- The western posts
-
-step Delgren the Purifier
-  tip Follow the road west out of Astranaar; Maestra's Post lies north of it.
-  accept 1140
-
 step Heartswood
   only Warlock
   zone Ashenvale
-  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then back past Astranaar to the Talondeep Path.
+  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then back to Astranaar's flight master.
   collect 6912 quest 1738.1               -- Heartswood
   collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post

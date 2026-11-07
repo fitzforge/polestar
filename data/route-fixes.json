@@ -600,17 +600,6 @@
 			{
 				"a": [
 					"turnin",
-					464
-				],
-				"b": [
-					"accept",
-					98221
-				],
-				"why": "Thousand Needles, Lou-Saydus #225"
-			},
-			{
-				"a": [
-					"turnin",
 					98221
 				],
 				"b": [
@@ -1024,18 +1013,7 @@
 					"turnin",
 					97926
 				],
-				"why": "Nittepitte #453: Making Do handed in in the Ashenvale guide (after Duskwood)"
-			},
-			{
-				"a": [
-					"turnin",
-					97926
-				],
-				"b": [
-					"accept",
-					1244
-				],
-				"why": "Nittepitte #453: ... before Thousand Needles"
+				"why": "Nittepitte #453: Making Do handed in after Duskwood, at the next Auberdine visit (06-wetlands' boat trip from Menethil to Ashenvale since the 2026-11-07 Alliance 20-30 re-order)"
 			},
 			{
 				"a": [
@@ -3118,6 +3096,270 @@
 			{
 				"a": [
 					"accept",
+					5676
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): High Priestess Laurena's level 20 priest quests (5676, 5645, 94819, 5673) are taken in the Cathedral on the Cathedral Square stop, on the way to the Mage Quarter, instead of a walk back to the Cathedral from the Trade District at the start of 04-redridge-mountains."
+			},
+			{
+				"a": [
+					"turnin",
+					219
+				],
+				"b": [
+					"turnin",
+					149
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Redridge's first pass (ending at Lakeshire with Missing In Action) comes before Duskwood's second loop (Blind Mary first), by the flight from Lakeshire to Darkshire."
+			},
+			{
+				"a": [
+					"turnin",
+					293
+				],
+				"b": [
+					"turnin",
+					1241
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Cleansing the Eye goes to Archbishop Benedictus in the Cathedral on 06-wetlands' Stormwind stop, which takes The Missing Diplomat from Thomas in the same building, instead of being carried to the end of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"turnin",
+					127
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Selling Fish (127) and Murloc Poachers (150) are finished at the murlocs round the Sunken Chest and handed to Dockmaster Baren on the docks on the walk west through Lakeshire from Foreman Oslow to Martie Jainrose; the route carried them past Baren to the end of the zone's loop (#1052's 'Back to Lakeshire'). The seed (re-seeded for this) has that order; this pair and the next keep it."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"accept",
+					4581
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): the 27-29 Wetlands visit ends at Menethil (From the Ashes) before the boat to Auberdine and Ashenvale's 27-32 quests, which fit at 28-30; they were in 30-40/03-ashenvale at 33-34, three levels over."
+			},
+			{
+				"a": [
+					"turnin",
+					98230
+				],
+				"b": [
+					"turnin",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Howin Kindfeather camps among the Mosshide Fenrunners the 27-29 Wetlands visit kills for Fire Taboo's flint, just west of Rethiel; Crimson Crate Delivery and This Land Was Their Land are handed to him there and Razormaw Needling taken, instead of a Menethil stop and a walk to Howin at the start of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"accept",
+					1716
+				],
+				"b": [
+					"accept",
+					94
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, the building where Collin Mauren takes A Scroll from Mauren on the Stormwind stop; Warlocks take Devourer of Souls there, before the road east through Elwynn."
+			},
+			{
+				"a": [
+					"turnin",
+					1031
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Ashenvale's 27-32 quests (ending at Illiyana with The Branch of Cenarius) come before the boat back to Menethil and the Ironforge and Stormwind stop (Pilot Longbeard, The Missing Diplomat), so Pilot Longbeard's level 28 is reached with quests and no top-up."
+			},
+			{
+				"a": [
+					"turnin",
+					148
+				],
+				"b": [
+					"turnin",
+					244
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): with Ashenvale and Stonetalon first, Duskwood and Redridge are played together at 23-27 as Duskwood's first loop, Redridge's first pass, Duskwood's second loop, Redridge's second pass, so Redridge is entered at about 24.5 and its gnolls fit without a top-up. Duskwood's first loop (ending at Darkshire with Supplies from Darkshire) comes before Redridge's first pass (Deputy Feldon's first hand-in)."
+			},
+			{
+				"a": [
+					"turnin",
+					150
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Murloc Poachers handed to Dockmaster Baren before Martie Jainrose (see turnin 127 before turnin 130)."
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					4581
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Making Do goes to Thundris Windweaver in Auberdine on the boat trip from Menethil to Ashenvale, the first Auberdine visit after Stormwind, instead of walking past him there and coming back at the end of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"turnin",
+					174
+				],
+				"b": [
+					"task",
+					96139
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars (174) is ready the moment the Bronze Tube is bought from Herble Baubbletump, beside Viktori, on the first Darkshire visit, but the route handed it in only on the Duskwood return three guides of play later (07-thousand-needles), walking past Viktori with it on every Darkshire visit between. Handing it in there saves carrying it past Viktori three times. The seed (re-seeded for this) hands it in there; this pair keeps it before the walk west."
+			},
+			{
+				"a": [
+					"turnin",
+					97914
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Baros Alexston stands at the east side of the Cathedral Square, where 06-ashenvale's Stormwind stop is on the way from the tram to the Mage Quarter; Expanding Horizons and Making Do were taken in 04-redridge-mountains' first step, a walk back from the Trade District to the square after the Keep and the Mage Quarter."
+			},
+			{
+				"a": [
+					"task",
+					98221
+				],
+				"b": [
+					"accept",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
+			},
+			{
+				"a": [
+					"task",
+					34
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Bellygrub's pen lies just west of Lakeshire beside Martie Jainrose's garden: he is killed on the way to her first visit and An Unwelcome Guest handed in with Visit the Herbalist, instead of a second walk west from the town after the Blackrock camps."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					994
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Volcor's escort (994) goes to Terenthis on 06-wetlands' Auberdine stop (the boat trip from Menethil to Ashenvale), so Darkshore ends at the Master's Glaive and walks north to the Grove for Kerlonian, instead of walking from Volcor north to Auberdine (about 1,900 yd), on to the Elder Darkshore Threshers for the top-up and all the way back south. Druids, who fly from Auberdine for Cat Form, hand it in there."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					472
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Fall of Dun Modr goes to Longbraid the Grim on 30-40/01-hillsbrad-foothills' Dun Modr stop, which the route makes anyway; 06-wetlands walked north to Dun Modr for that one hand-in and back."
+			},
+			{
+				"a": [
+					"turnin",
+					1031
+				],
+				"b": [
+					"turnin",
+					1046
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From Krolg the route goes west to Melyria, Illiyana and Delgren, then hands Raene's Cleansing (1046), the Gleaming Crescent Pendant and Fallen Sky Lake in on one Astranaar stop before the flight, instead of Raene alone, the west posts and back to Astranaar's flight master."
+			},
+			{
+				"a": [
+					"task",
+					1008
+				],
+				"b": [
+					"turnin",
+					1034
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): 06-ashenvale's Astranaar hand-ins (The Ruins of Stardust, An Aggressive Defense, Culling the Threat) wait for the Astranaar stop after the Zoram Strand, with The Zoram Strand, instead of a stop of their own between Dal Bloodclaw and Ilkrud."
+			},
+			{
+				"a": [
+					"complete",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Lakeshire's hand-ins after the elites wait for Keeshan's escort from Render's Valley, which ends at Marshal Marris (see turnin 219 with turnin 20)."
+			},
+			{
+				"a": [
+					"complete",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Coming east from Menethil, the raptor valley for Ormer's Revenge (taken on the last visit) lies just before Whelgar's dig: the raptors first, then one dig stop hands it in and takes Ormer's next quest and Whelgar's, instead of a dig stop for Whelgar alone, the valley and back."
+			},
+			{
+				"a": [
+					"turnin",
+					268
+				],
+				"b": [
+					"turnin",
+					1787
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Human Paladins hand the Defias Script to Gazin Tenorm and learn Redemption in the Cathedral of Light on the walk from Sven's camp through Goldshire (training) to Stormwind's gryphon master, where 06-wetlands starts, instead of walking from Sven's camp to Sentinel Hill, flying to Stormwind and walking back out to Goldshire to train (about 2 x 900 yd)."
+			},
+			{
+				"a": [
+					"accept",
 					1525
 				],
 				"b": [
@@ -4565,6 +4807,126 @@
 			},
 			{
 				"a": [
+					"task",
+					125
+				],
+				"b": [
+					"task",
+					150
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in the lake among the south shore's Murloc Flesheaters and Tidecallers, which carry Murloc Poachers' fins (150) and Selling Fish's sunfish: fought there, with the chest, not on a second walk to the same shore after the Brutes."
+			},
+			{
+				"a": [
+					"task",
+					150
+				],
+				"b": [
+					"task",
+					127
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
+			},
+			{
+				"a": [
+					"turnin",
+					464
+				],
+				"b": [
+					"turnin",
+					98221
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): War Banners and From the Ashes are taken from Captain Stoutfist together on the first Menethil stop of 06-wetlands (players' recordings: both characters who took From the Ashes took it with War Banners) and handed in together on the last one, with Nek'rosh's Gambit taken there, instead of War Banners in, a walk east to the Angerfang Encampment for the plans and back to Menethil."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Claws from the Deep (279) and Spoils of War (98197) are handed in on 06-ashenvale's last Menethil stop with the other Wetlands hand-ins. The route walked back from Bluegill Marsh to Karl Boran for 279 alone and out east again (about 900 yd more than heading east from the marsh), and walked from the north gate back to Valstag Ironjaw in the keep for 98197 alone. The one recorded player who handed 279 and 98197 in did so on one stop."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					98197
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Spoils of War handed to Valstag Ironjaw with the other hand-ins on 06-ashenvale's last Menethil stop (see turnin 484 with turnin 279)."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					990
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Sentinel Selarin's Trek to Ashenvale is offered once Volcor's escort is handed in to Terenthis beside her, on 06-wetlands' Auberdine stop; Raene takes it on the Astranaar stop that follows."
+			},
+			{
+				"a": [
+					"turnin",
+					1046
+				],
+				"b": [
+					"turnin",
+					1035
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): One Astranaar stop at the end of the Ashenvale trip: Raene, Maliynn and Pelturas (see turnin 1031 before turnin 1046)."
+			},
+			{
+				"a": [
+					"turnin",
+					294
+				],
+				"b": [
+					"accept",
+					295
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Ormer's Revenge (295, min level 22) is taken from Ormer when the first one is handed in at about 23.5, so the dig stop is not for one hand-in; its bigger raptors, in the valley beside the dig, are killed on 06-wetlands' visit at about 27."
+			},
+			{
+				"a": [
+					"turnin",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From Stonewatch Keep the route goes back west along the lake to Render's Valley and walks Corporal Keeshan down to Lakeshire, then hands in every Redridge quest on that one stop (Chef Breanna, the town hall, Marris and Oslow at the bridge, Guard Howe by the gryphons), instead of a Lakeshire stop, Render's Valley and a second stop for Keeshan and the Champions."
+			},
+			{
+				"a": [
+					"turnin",
+					973
+				],
+				"b": [
+					"accept",
+					1140
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): The Tower of Althalaxx (1140, min level 13) is offered by Delgren when The Tower of Althalaxx before it (973) is handed in (a recorded player took it then): taken on 06-ashenvale's Maestra's Post stop, so 06-wetlands' Ashenvale trip goes from Melyria straight east to Shael'dryn instead of north to Maestra's Post for the accept and back (about 640 yd), and visits Delgren once, to hand it in."
+			},
+			{
+				"a": [
 					"turnin",
 					2983
 				],
@@ -4959,35 +5321,35 @@
 					"turnin",
 					306
 				],
-				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					484
 				],
-				"why": "#617 Ioney: Menethil hand-in 484 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 484 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					470
 				],
-				"why": "#617 Ioney: Menethil hand-in 470 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 470 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					98282
 				],
-				"why": "#617 Ioney: Menethil hand-in 98282 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 98282 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"accept",
 					1179
 				],
-				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers stays after the grind to 28"
+				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers (level 28) stays at the Ironforge stop of 06-wetlands, after the Wetlands and Ashenvale quests that reach 28"
 			},
 			{
 				"s": [
@@ -5342,6 +5704,68 @@
 				],
 				"reason": "#1046 (stand next to it): Coleman Farthing offers Speak with Sevren the moment Deaths in the Family is handed in to him in Brill's inn, and Magistrate Sevren takes it in the town hall 40 yd away on the same stop; 10 of the players in the recordings took it off the guide",
 				"issue": "#1046"
+			},
+			{
+				"issue": "#1052",
+				"q": 180,
+				"reason": "WANTED: Lieutenant Fangore on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 95999,
+				"reason": "WANTED: Incinerator Gar'im (Forever) on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): a 23 elite in the cave south of the Blackrock camps; finished at 21-23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 34,
+				"reason": "An Unwelcome Guest: Bellygrub (24) in his pen beside Martie Jainrose's garden, killed on the way to her first visit (Redridge is entered at about 24.5 since the 2026-11-07 Alliance 20-30 re-order), and handed in there. Redridge level gap (Discord report, PR #1052)."
+			},
+			{
+				"after": [
+					"turnin",
+					94
+				],
+				"issue": "#1052",
+				"q": 248,
+				"reason": "Looking Further: the statue's follow-up, handed in at the watch tower beside Stonewatch Keep on the way back west from Galardell. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 19,
+				"reason": "Tharil'zun on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order); finished solo-or-grouped at 23 in the recordings (a Shaman, a Rogue). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 94,
+				"reason": "A Watchful Eye (Theocritus, on the Elwynn road the route walks): handed in at the Old Lion Statue in Galardell Valley after the Blackrock camps. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 169,
+				"reason": "Wanted: Gath'Ilzogg on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): Gath'Ilzogg is a 26 elite; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"after": [
+					"task",
+					20
+				],
+				"issue": "#1052",
+				"q": 98387,
+				"reason": "Blackrock Blockade (Forever, Marshal Marris, 1,650 XP): its weapons and supplies lie in the Blackrock camps east of Stonewatch Keep, the same camps as Blackrock Menace's Battleworn Axes; a Human Priest finished it in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"after": [
+					"task",
+					98387
+				],
+				"issue": "#1052",
+				"q": 91,
+				"reason": "Solomon's Law in Galardell Valley after the Blackrock camps (Redridge is entered at about 24.5 since the 2026-11-07 Alliance 20-30 re-order): the gnolls (median 24) are then within two levels (#977's rule). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 115,
+				"reason": "Shadow Magic on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			}
 		],
 		"skip": [
@@ -5484,36 +5908,6 @@
 				"issue": ""
 			},
 			{
-				"q": 180,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): WANTED: Lieutenant Fangore. Fangore is 26 and Galardell Valley's Shadowhide gnolls a median 24 where the route takes it at 21.5 (c19r Human order[418]; the model grinds 1.55 levels inside that task, which no guide writes); the route never comes back to Galardell at a level that fits. 2,650 XP, about 0.1 level at 23: no later task stops fitting without it. The writer's level fit leaves it out on its own; this lets the route search plan the levels without it",
-				"issue": 977
-			},
-			{
-				"q": 91,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): Solomon's Law's Shadowhide Pendants drop in Galardell Valley, whose gnolls are a median 24 (22-26) at the route's 21.3 (c19r Human order[415]); no later visit fits. 1,850 XP",
-				"issue": 977
-			},
-			{
-				"q": 34,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): An Unwelcome Guest's Bellygrub is 24 at the route's 20.3 (c19r Human order[402]); the route is never back by his pen and Martie Jainrose at a level that fits. 1,950 XP",
-				"issue": 977
-			},
-			{
-				"q": 94,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): A Watchful Eye is handed in at the Old Lion Statue, which stands among Galardell Valley's Shadowhide gnolls (median 25 within 100 yd) at the route's 21.4 (c19r Human order[416]). The writer's level fit judges quest work, not hand-ins, so this record holds it out. 1,250 XP",
-				"issue": 977
-			},
-			{
-				"q": 248,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): Looking Further is taken at the Old Lion Statue in Galardell Valley (gnolls a median 25 at 21.4) after A Watchful Eye (94), which this file skips. 1,300 XP",
-				"issue": 977
-			},
-			{
 				"q": 1175,
 				"reason": "Level fit (#977): A Bump in the Road's Saltstone Gazers are 34-35 and its ground a median 34 at the route's 30.2-30.4 (c19r Human order and Orc order, Mirage Raceway); no later visit. 2,650 XP. The writer's level fit leaves it out on its own",
 				"issue": 977
@@ -5545,6 +5939,12 @@
 				"faction": "Horde",
 				"reason": "Level fit (#977): Invader's Scourgestones (optional) drop from Eastern Plaguelands Scourge of 57 (ground a median 58) at the route's 52.4 (c19r Orc order, 50-60/01-un-goro-crater); no later visit fits while it pays full XP. The writer's level fit leaves it out on its own",
 				"issue": 977
+			},
+			{
+				"q": 343,
+				"faction": "Alliance",
+				"reason": "Flow (2026-11-07, Alliance 20-30): Speaking of Fortitude (195 XP) sent the player from the Cathedral Square into Stormwind Keep's Royal Library and back out for one hand-in on the Stormwind stop at the end of 06-ashenvale; left out.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -6736,19 +7136,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					97926
-				],
-				"b": [
-					"accept",
-					5321
-				],
-				"faction": "Alliance",
-				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort.",
-				"source": "#920"
-			},
-			{
-				"a": [
 					"task",
 					527
 				],
@@ -7853,6 +8240,105 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop: the Wool donation with Clavicus' others, before the tram to Ironforge."
+			},
+			{
+				"a": [
+					"task",
+					101
+				],
+				"b": [
+					"turnin",
+					56
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). It is handed in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"turnin",
+					94
+				],
+				"faction": "Alliance",
+				"source": "PR #1052",
+				"why": "Redridge level gap (PR #1052): the Old Lion Statue stands among Galardell's gnolls: after the Blackrock camps"
+			},
+			{
+				"a": [
+					"turnin",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Ashenvale split (2026-11-07): Prospector Whelgar's Uncovering the Past (299, level 27) waits for the 27-29 Wetlands visit (06-wetlands), with Ormer's Revenge's second part (295), instead of the 06-ashenvale stop at Whelgar's dig at about 23 (a scratch round took it there, worked 3.6 levels under)."
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"task",
+					91
+				],
+				"faction": "Alliance",
+				"source": "PR #1052",
+				"why": "Redridge level gap (PR #1052): Galardell Valley comes after the Blackrock camps "
+			},
+			{
+				"a": [
+					"turnin",
+					246
+				],
+				"b": [
+					"task",
+					125
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in Lake Everstill east of the bridge, beside the road from Deputy Feldon to Lakeshire; the route swam for it right after Lakeshire's accepts at the west end of town, then walked back west past the town to Three Corners. Fetched on the walk from Feldon to Foreman Oslow, after the gnoll hills, it is on the way."
+			},
+			{
+				"a": [
+					"turnin",
+					125
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): back from the gnoll hills, Lakeshire is crossed east to west once: Deputy Feldon (gryphons), the Sunken Chest, Foreman Oslow at the north end of the bridge, then Martie Jainrose at the west end, whose garden lies next to the Redridge Canyons' Brutes for Oslow's Iron Pikes and Rivets. The route went Martie -> Oslow -> back south over the bridge to Feldon -> north to the canyons."
+			},
+			{
+				"a": [
+					"accept",
+					97914
+				],
+				"b": [
+					"accept",
+					5321
+				],
+				"faction": "Alliance",
+				"source": "#920",
+				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort. Since the 2026-11-07 Ashenvale split, Ashenvale follows Darkshore at once and Making Do is handed in later (the end of 30-40/01-hillsbrad-foothills): the anchor is Expanding Horizons (97914), taken from Thundris at 03-darkshore's last Auberdine stop, right before the walk south to the Grove."
+			},
+			{
+				"a": [
+					"turnin",
+					252
+				],
+				"b": [
+					"turnin",
+					181
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood return): coming back from Sven's camp, the walk passed Darkshire's town hall to Viktori's house at the east end for Look to the Stars (181), then turned back west for the town hall's hand-ins (07-thousand-needles steps 15-16 on 0.3.4). Viktori after the town hall, on the way to the flight master at the north-east end."
 			}
 		]
 	}
