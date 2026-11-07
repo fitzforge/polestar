@@ -586,8 +586,8 @@ fn beside_the_walk_with_the_arrow_aiming_ahead_in_sight_the_line_runs_from_the_p
 		Polestar.Fire("NAV_ROUTE_GEOMETRY")
 		nav.showWorldMap(9000)
 		stub.advance(0.3)
-		local _, fx, fy = nav.mapPoint(0, -200)
-		local cx, cy = fx * 1000, -fy * 1000
+		local _, px, py = nav.mapPoint(0, -200) -- percent of the map; the canvas is 1000 px, strokes run down from 0
+		local cx, cy = px * 10, -py * 10
 		-- The nearest a stroke comes to the corner, in canvas pixels.
 		local function nearest()
 			local s, best = R.GetStrokes("world"), math.huge
