@@ -266,19 +266,20 @@ step The Earthen Ring
 
 step Gloomrise
   tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx sits at the north end: her Bloody Parchment starts A Darker Truth.
+  tip Broodmother Valraxx is elite: grouping up is advised.
   collect 273001 quest 96241.1        -- Gloomrise Toxin Samples, from the Gnawed Corpses
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
-  collect 273658 @33.4,7.6 live       -- Bloody Parchment, from Broodmother Valraxx
-  accept 96294 item 273658
+  collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx
+  accept 96294 item 273658 optional
 
 step The Earthen Ring
   tip Back south to the camp, then up into Thunder Bluff for the flight to Camp Taurajo.
   turnin 96241                        -- Mazu'kon
   turnin 96260                        -- Yorn Grimtotem
   turnin 96259                        -- Muln Earthfury
-  turnin 96294
+  turnin 96294 optional
 
 # ---------------------------------------------------------------- Freewind Post
 
