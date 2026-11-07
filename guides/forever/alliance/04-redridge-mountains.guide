@@ -290,7 +290,6 @@ step Lakeshire
   accept 98386                                -- Foreman Oslow: after The Everstill Bridge (03-loch-modan)
   accept 91                                   -- Bailiff Conacher, in the town hall
   accept 150                                  -- Dockmaster Baren
-  accept 127
   sethome "Lakeshire"
   accept 34                                   -- Martie Jainrose
 
@@ -298,14 +297,12 @@ step Lakeshire
 
 step Lake Everstill's murlocs: kill these as you meet them
   zone Redridge Mountains
-  tip Murloc Flesheaters and Tidecallers line the south shore of Lake Everstill, east of the bridge. Any of them can carry a Spotted Sunfish or a fin.
-  collect 1467 quest 127                      -- Spotted Sunfish
+  tip Murloc Flesheaters and Tidecallers line the south shore of Lake Everstill, east of the bridge. Any of them can carry a fin.
   collect 1468 quest 150                      -- Murloc Fin
 
 step Dockmaster Baren
   tip Dockmaster Baren stands on the docks, on the way west through town.
   turnin 150
-  turnin 127
 
 step Bellygrub
   tip Bellygrub (level 24) roots around the pen just west of Lakeshire, beside Martie's garden. Pull him away from the other boars and fight at full health.

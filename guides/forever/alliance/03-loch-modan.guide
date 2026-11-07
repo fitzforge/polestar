@@ -36,8 +36,8 @@ next forever/alliance/03-darkshore-return
 # Mercenaries and Vyrin's Revenge (255, 271): elite. Keeper of the Flame (103): its flasks come
 # from the harvest golems around Sentinel Hill after Captain Grayson gives it, a second
 # lighthouse trip. Messenger to Westfall and Darkshire (143, 145): another round trip each.
-# Redridge's Blackrock and Wanted quests, Alther's Mill (98386), Selling Fish, Murloc Poachers
-# and Bellygrub (127, 150, 34) stay in 04-redridge-mountains (23-25).
+# Redridge's Blackrock and Wanted quests, Alther's Mill (98386), Murloc Poachers (150, from 20)
+# and Bellygrub (34) stay in 04-redridge-mountains (23-25).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -167,11 +167,11 @@ step Into Ironforge
 
 step Ironforge
   zone Ironforge
-  tip Prospector Stormpike is in the Hall of Explorers. Gryth Thurden keeps the gryphons in the Great Forge, on the way east to the tram in Tinker Town.
-  turnin 301                                  -- Prospector Stormpike, Hall of Explorers
+  tip Gryth Thurden keeps the gryphons in the Great Forge; Prospector Stormpike is in the Hall of Explorers, north-east of it, on the way to the tram in Tinker Town.
   getfp "Ironforge" npc 1573                  -- Gryth Thurden, in the Great Forge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
+  turnin 301                                  -- Prospector Stormpike, Hall of Explorers
 
 step Tram to Stormwind
   zone Ironforge
@@ -197,15 +197,16 @@ step Lakeridge Highway
   accept 246
 
 step Lakeshire
-  tip Cross the long bridge north into town. Foreman Oslow stands at the north end of the bridge, Verner Osgood by the smithy, Magistrate Solomon in the town hall, Wiley the Black upstairs in the inn and Darcy and Chef Breanna inside it; Shawn and Hilary play by the shore north-east of the bridge.
+  tip Cross the long bridge north into town: Shawn and Hilary play by the shore at its north end, Foreman Oslow stands there too, Verner Osgood by the smithy, Magistrate Solomon in the town hall, Dockmaster Baren on the docks, Wiley the Black upstairs in the inn and Darcy and Chef Breanna inside it.
+  accept 3741                                 -- Shawn
   accept 125                                  -- Foreman Oslow
   accept 118                                  -- Verner Osgood: for Smith Argus in Goldshire
   accept 120                                  -- Magistrate Solomon, in the town hall: for General Marcus Jonathan in Stormwind
+  accept 127                                  -- Dockmaster Baren
   turnin 65                                   -- Wiley the Black, in the inn; upstairs
   accept 132
   accept 129                                  -- Darcy, inside
   accept 92                                   -- Chef Breanna, inside
-  accept 3741                                 -- Shawn
 
 step Hilary's Necklace
   tip Dive into the lake beside town: a Glinting Mud mound on the lake bed holds the necklace. Only one mound shows at a time, anywhere from under the dock to past the bridge.
@@ -234,13 +235,15 @@ step Deputy Feldon
   turnin 98407
 
 step Sunken Chest
-  tip Back toward town, swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat.
+  tip Back toward town, swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a Spotted Sunfish.
   collect 1309 quest 125                      -- Oslow's Toolbox; underwater
+  collect 1467 quest 127                      -- Spotted Sunfish
 
 step Lakeshire
-  tip Through town east to west: Foreman Oslow at the north end of the bridge, then Martie's garden at the west end; Darcy and Chef Breanna are in the inn.
+  tip Through town east to west: Foreman Oslow at the north end of the bridge, Dockmaster Baren on the docks, then Martie's garden at the west end; Darcy and Chef Breanna are in the inn.
   turnin 125                                  -- Foreman Oslow
   accept 89                                   -- Its pikes and rivets come from the gnolls north of the lake, on the loop after Westfall
+  turnin 127                                  -- Dockmaster Baren
   turnin 130                                  -- Martie Jainrose
   accept 131
   turnin 131                                  -- Darcy, inside
@@ -296,7 +299,7 @@ step Sentinel Hill
 
 step The Defias Traitor
   tip Stay with the traitor as he walks south to Moonbrook; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below Moonbrook.
-  complete 155
+  complete 155 @55.7,47.5                     -- The Defias Traitor, at the foot of the tower ramp
 
 step Sentinel Hill
   tip Back north to Gryan Stoutmantle and the gryphons.

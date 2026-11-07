@@ -3127,7 +3127,7 @@
 					34
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): Selling Fish (127) and Murloc Poachers (150) are finished at the murlocs round the Sunken Chest and handed to Dockmaster Baren on the docks on the walk west through Lakeshire from Foreman Oslow to Martie Jainrose; the route carried them past Baren to the end of the zone's loop (#1052's 'Back to Lakeshire'). The seed (re-seeded for this) has that order; this pair and the next keep it. Since the 2026-11-07 Alliance 12-20 re-order Martie's own errand (130) is done at 20 in 03-loch-modan; at 24 she takes An Unwelcome Guest (34), so the pair keeps Baren before her."
+				"why": "Alliance 12-20 re-order (2026-11-07): Selling Fish (127) is taken on Redridge's first Lakeshire stop at 19-20 (03-loch-modan), its Spotted Sunfish from the murlocs round the Sunken Chest, and handed to Dockmaster Baren on the walk west through town; it no longer waits for 04-redridge-mountains at 24 (the earlier flow audit's pair, before Martie, kept as 127 before An Unwelcome Guest)."
 			},
 			{
 				"a": [
@@ -4916,18 +4916,6 @@
 			},
 			{
 				"a": [
-					"task",
-					150
-				],
-				"b": [
-					"task",
-					127
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
-			},
-			{
-				"a": [
 					"turnin",
 					464
 				],
@@ -6518,6 +6506,11 @@
 			{
 				"q": 104,
 				"reason": "Alliance 12-20 re-order, 2026-11-07: The Coastal Menace (level 20, from 15, 1550 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Captain Grayson at the Westfall Lighthouse, south-west of Moonbrook where the Defias chain goes; Old Murk-Eye walks the beach beside it. Recordings: offered to 4 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 127,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Selling Fish (level 21, from 16, 1250 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Dockmaster Baren on the first Lakeshire stop; the Spotted Sunfish drop from the murlocs round the Sunken Chest the loop swims to. Recordings: offered to 17 characters, 16 accepts.",
 				"issue": "-"
 			}
 		],

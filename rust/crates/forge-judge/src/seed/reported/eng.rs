@@ -326,8 +326,10 @@ fn chain_needs(guides: &[V], start: usize, level: f64) -> FxHashMap<u32, V> {
 /// greyInDarkshore(level): GetStepView's `skippedGrey` and `keptGrey`/`keptGreyText` (greyNeed) on
 /// each goal of Darkshore, opened in a fresh session (nothing in the log or done).
 fn grey_in_darkshore(ctx: &Ctx, c: &mut Check, level: f64) -> Option<Grey> {
-	let files: Vec<String> =
-		["03-darkshore", "06-ashenvale", "04-redridge-mountains", "05-duskwood", "06-wetlands", "07-thousand-needles"].iter().map(|n| format!("forever/alliance/{n}.guide")).collect();
+	let files: Vec<String> = ["03-darkshore", "03-loch-modan", "03-darkshore-return", "06-ashenvale", "04-redridge-mountains", "05-duskwood", "06-wetlands", "07-thousand-needles"]
+		.iter()
+		.map(|n| format!("forever/alliance/{n}.guide"))
+		.collect();
 	let (guides, _) = compile_set(ctx, &files);
 	let Some(d) = guides.iter().position(|g| g.get("id").as_str() == Some("forever/alliance/03-darkshore")) else {
 		c.ok(false, "forever/alliance/03-darkshore compiles");
