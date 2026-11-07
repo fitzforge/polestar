@@ -4612,3 +4612,12 @@ test(`${TROLL_DUROTAR}: flow review: Lar Prowltusk on the first Sen'jin stop, Ra
 	assert.equal(list.find(({ goal }) => goal.t === 'collect' && goal.quest === 815).s, coast, 'the eggs on the coast walk');
 	assert.ok(list.find(({ goal }) => goal.t === 'collect' && goal.quest === 817).s < list.find(({ goal }) => goal.t === 'collect' && goal.quest === 826).s, 'the tiger fur on the first isle, before the southern isles');
 });
+
+// Flow review, Mulgore: arriving at the Crossroads, the guide handed in to Sergra, went back to Tonga
+// at the south gate, then crossed the town twice. Tonga is first, both quests at once, then northward.
+test(`${MULGORE}: flow review: the Crossroads arrival starts with both of Tonga's quests`, { skip }, () => {
+	const list = goals(MULGORE);
+	const tonga = at(list, 'turnin 886', is('turnin', 886));
+	assert.equal(at(list, 'accept 870', is('accept', 870)), tonga + 1, 'The Forgotten Pools right after The Barrens Oases');
+	assert.ok(tonga < at(list, 'turnin 860', is('turnin', 860)), 'before Sergra');
+});
