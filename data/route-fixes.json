@@ -7567,6 +7567,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride from Donova (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3941
+				],
+				"b": [
+					"accept",
+					8277
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): J.D. Collie stands in Marshal's Refuge 40 yd from Linken, so A Gnome's Assistance is handed in and Linken's Memory taken on the first refuge stop, as the seed has it; the order carried it through Silithus and Un'Goro's west."
 			}
 		]
 	}

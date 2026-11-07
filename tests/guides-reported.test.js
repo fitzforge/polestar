@@ -4985,3 +4985,12 @@ test('forever/alliance/50-60/03-winterspring.guide: final review: Salfa where th
 	const kills = new Set(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 5082).map((e) => e.s));
 	assert.equal(kills.size, 1, 'the western camp in one step');
 });
+
+// Final route review, Alliance 40-60: J.D. Collie stands 40 yd from Linken in Marshal's Refuge; A Gnome's Assistance was
+// carried through Silithus. No along lists.
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: J.D. Collie on the first refuge stop, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('turnin 3941', is('turnin', 3941)), stepOf('turnin 3914', is('turnin', 3914)), 'beside Linken');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+});
