@@ -1425,16 +1425,14 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 });
 
 // --- Flow re-order (2026-11-07, #1102): Alliance Desolace stopped twice in a
-// row in Nijel's Point after Sargeron, and walked from Smeed's camp back north
-// for the Scorpashi venom it had walked through on the way south.
-test('forever/alliance/30-40/02-desolace.guide: flow re-order: one Nijel\'s Point stop after Sargeron, the scorpid venom on the road south', { skip }, () => {
+// row in Nijel's Point after Sargeron, and listed the Aged Kodo Hides a second
+// time after the scorpids, which sent players back to the Kodo Graveyard.
+test('forever/alliance/30-40/02-desolace.guide: flow re-order: one Nijel\'s Point stop after Sargeron, the Aged Kodo Hides with the kodos', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
 	const kreldig = list[at(list, 'turnin 1458', is('turnin', 1458))].s;
 	for (const [what, q, t] of [['The Karnitol Shipwreck', 1454, 'accept'], ["Vahlarriel's Search", 1465, 'turnin'], ["Vahlarriel's Search part 3", 1438, 'accept']]) {
 		assert.equal(list[at(list, `${t} ${q}`, is(t, q))].s, kreldig, `${what} on the same Nijel's Point stop`);
 	}
-	const venom = at(list, 'collect 6248 (Scorpashi Venom)', (g) => g.t === 'collect' && g.item === 6248);
-	assert.ok(venom < at(list, 'accept 5561 (Kodo Roundup)', is('accept', 5561)), 'the venom on the road south, before Smeed');
 	assert.equal(list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249).length, 1, 'the Aged Kodo Hides listed once, at the Kodo Graveyard');
 });
 

@@ -67,12 +67,6 @@ step Escort Dalinda
   note Lead Dalinda out of the fortress; she walks off once you are clear of it. Vahlarriel takes the turn-in at Nijel's Point at the end of the guide.
   complete 1440
 
-# ---------------------------------------------------------------- Kormek's Hut and the Kodo Graveyard
-
-step Scorpashi venom
-  tip The Scorpashi scorpids hunt the hills around Kormek's Hut on the road south to Smeed's camp.
-  collect 6248 quest 1459.1           -- Scorpashi Venom
-
 step Smeed Scrabblescrew
   tip Smeed's camp is on the road south of Kolkar Village, by the Kodo Graveyard.
   accept 5561
@@ -85,6 +79,12 @@ step Kodo Graveyard
 
 step Smeed Scrabblescrew
   turnin 5561
+
+# ---------------------------------------------------------------- Kormek's Hut
+
+step Scorpashi venom
+  tip The Scorpashi scorpids hunt the hills around Kormek's Hut, on the road north from Smeed's camp.
+  collect 6248 quest 1459.1           -- Scorpashi Venom
 
 # ---------------------------------------------------------------- The Kolkar
 
