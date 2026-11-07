@@ -17,10 +17,10 @@ next forever/horde/40-50/03-feralas
 # Steamwheedle Port -> Lost Rigger Cove -> Steamwheedle Port -> Gadgetzan ->
 # fly Freewind Post -> Camp Mojache (flight path, bind) -> Woodpaw north camp
 # and the Gordunni Outpost -> Mojache -> sprite darters and Woodpaw alphas ->
-# Mojache -> Grimtotem camp, the Woodpaw battle map and the southern Gordunni
-# ruins -> Mojache -> the Writhing Deep -> Mojache -> Rogue Vale screechers
-# -> the Forgotten Coast (distress beacon) -> OOX-22/FE's escort -> hearth
-# to Camp Mojache -> fly Orgrimmar (Ripple Recovery, training) -> zeppelin
+# Mojache -> Grimtotem camp and the Woodpaw battle map -> Mojache -> one
+# sweep west: the Writhing Deep, the southern Gordunni ruins, the Rogue Vale
+# screechers and, with the distress beacon, OOX-22/FE's escort -> hearth
+# to Camp Mojache (every hand-in) -> fly Orgrimmar (Ripple Recovery, training) -> zeppelin
 # to Grom'gol -> fly Stonard, where the next guide starts.
 #
 # Deviations from the simulator's order:
@@ -28,9 +28,11 @@ next forever/horde/40-50/03-feralas
 #   south of town before Steamwheedle Port, so Lost Rigger Cove is one sweep
 #   and the visit ends at the Gadgetzan flight master.
 # - Feralas: hub-batched loops out of Camp Mojache (north; west and south;
-#   the Writhing Deep); the screechers, the beacon and OOX-22/FE's escort in
-#   one trip west. The hearthstone to Camp Mojache is used after the escort
-#   (it ends on the far west coast) instead of before it.
+#   then one sweep from the Writhing Deep west, re-seeded for flow in 0.3.5:
+#   the southern ruins waited for a Mojache return of their own, and the
+#   Writhing Deep had one too). The beacon drops from any Feralas mob, so
+#   there is no ride to the Forgotten Coast for it. The hearthstone to Camp
+#   Mojache is used after the escort (it ends on the far west coast).
 # - Binds: Gadgetzan, Thunder Bluff, the Undercity, Grom'gol and Booty Bay
 #   are dropped: each is replaced before any hearth uses it. Camp Mojache is
 #   kept for the hearth after the escort.
@@ -258,32 +260,24 @@ step Woodpaw battle map
   turnin 2902
   accept 2903
 
-step Southern Gordunni ruins
-  tip Ride south-west to the ogre ruins below Feral Scar Vale. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.
-  kill 5234 quest 2980.3
-  kill 5240 quest 2980.2
-  kill 5236 quest 2980.1
-  collect 9371 quest 2979.1
-
 step Camp Mojache
   turnin 2974                           -- Krueg Skullsplitter
   accept 2976                           -- for Orgrimmar, around level 45
   turnin 2903                           -- Hadoken Swiftstrider
   accept 7730
   accept 7731
-  turnin 2979                           -- Rok Orhan
-  turnin 2980
-  accept 3002                           -- for Orgrimmar, around level 45
 
 step The Writhing Deep
   tip The Zukk'ash hive burrows into the hills south-east of the camp; Stinglasher waits in its deepest chamber.
   collect 18961 quest 7730.1
   collect 18962 quest 7731.1 @75.6,60.9
 
-step Camp Mojache
-  turnin 7730                           -- Hadoken Swiftstrider
-  turnin 7731
-  vendor nearest
+step Southern Gordunni ruins
+  tip Ride west from the hive to the ogre ruins below Feral Scar Vale. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.
+  kill 5234 quest 2980.3
+  kill 5240 quest 2980.2
+  kill 5236 quest 2980.1
+  collect 9371 quest 2979.1
 
 # ---------------------------------------------------------------- West: screechers and OOX-22/FE
 
@@ -292,19 +286,23 @@ step Rogue Vale screechers
   use 10699 "Yeh'kinya's Bramble" @45.0,38.0
   kill 8612 quest 3520.1
 
-step The Forgotten Coast
-  tip Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest.
-  collect 8705 "OOX-22/FE Distress Beacon" optional
-  accept 2766 optional
-
 step Homing Robot OOX-22/FE
-  tip Only with the distress beacon: the robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
+  tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
+  accept 2766 optional
   turnin 2766 optional
   accept 2767 optional
   complete 2767 optional
 
 step Hearth to Camp Mojache
   hearth "Camp Mojache"
+
+step Camp Mojache
+  turnin 7730                           -- Hadoken Swiftstrider
+  turnin 7731
+  vendor nearest
+  turnin 2979                           -- Rok Orhan
+  turnin 2980
+  accept 3002                           -- for Orgrimmar, around level 45
 
 # ---------------------------------------------------------------- Back east
 

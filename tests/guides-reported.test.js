@@ -4647,3 +4647,17 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Sh
 	assert.equal(shaky.s, stoley.s, 'Scaring Shaky on the step that takes Stoley\'s Debt');
 	assert.ok(shaky.s < list[at(list, 'turnin 595', is('turnin', 595))].s, 'before the Bloodsail note');
 });
+
+// Flow review, Horde 40-60 (#1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep, the Ruins
+// of Isildien, Feral Scar Vale, then one Mojache stop for every hand-in. The ruins went with the Grimtotem loop and
+// the hive had a Mojache return of its own; the beacon (any Feralas mob drops it) had a ride to the Forgotten Coast.
+test('forever/horde/40-50/02-feralas.guide: flow re-order: one sweep from the Writhing Deep west, no ride to the Forgotten Coast', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const hive = at(list, 'collect 18961 quest 7730', (g) => g.t === 'collect' && g.item === 18961);
+	const ruins = at(list, 'kill 5236 quest 2980', (g) => g.t === 'kill' && g.quest === 2980);
+	const yetis = at(list, 'collect 8973 quest 2822', (g) => g.t === 'collect' && g.item === 8973);
+	const handIn = at(list, 'turnin 7730', is('turnin', 7730));
+	assert.ok(hive < ruins && ruins < yetis && yetis < handIn, 'the hive, the ruins, the yetis, then Mojache');
+	for (const q of [2980, 2822, 7731]) assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[handIn].s, `${q} on the same Mojache stop`);
+	assert.ok(!list.some(({ goal }) => goal.map === 1444 && goal.x != null && goal.x < 35), 'no ride to the Forgotten Coast');
+});

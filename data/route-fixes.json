@@ -2814,6 +2814,30 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Stranglethorn 40-50, #1166): \"Sea Wolf\" MacKinley offers Scaring Shaky on the first Booty Bay stop, where Stoley's Debt is taken from him; the order passed him there (0 yd) and took it on the next Booty Bay stop, after the Bloodsail note"
+			},
+			{
+				"a": [
+					"task",
+					7730
+				],
+				"b": [
+					"task",
+					2980
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep (75.6,60.9), then the Gordunni at the Ruins of Isildien (60,63) and the yetis of Feral Scar Vale (53,57), with one return to Mojache for every hand-in. The order did the ruins with the Grimtotem loop and rode out to the hive and back to Mojache on a trip of its own"
+			},
+			{
+				"a": [
+					"task",
+					2980
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): Zukk'ash Infestation and Stinglasher are handed in on the Mojache stop after the ruins, with The Ogres of Feralas and Dark Ceremony, not on a return of their own"
 			}
 		],
 		"notes": [
