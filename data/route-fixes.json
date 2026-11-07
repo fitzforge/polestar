@@ -2006,6 +2006,19 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"task",
+					1459,
+					0
+				],
+				"b": [
+					"accept",
+					5561
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Desolace, #1102): the Scorpashi scorpids for Reagents for Reclaimers Inc. hunt the hills along the road from Thunder Axe Fortress south to Smeed's camp (Snappers 50-80,6-69, Lashers 37-78,41-75): their venom is collected on that walk, as the seed has it, not on a trip back north from Smeed after the Kodo Graveyard."
 			}
 		],
 		"notes": [
@@ -2805,6 +2818,18 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"turnin",
+					1458
+				],
+				"b": [
+					"turnin",
+					1465
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Desolace, #1102): Kreldig Ungor and Vahlarriel Demonslayer both stand in Nijel's Point: Reagents for Reclaimers, The Karnitol Shipwreck and Vahlarriel's Search are one stop after Sargeron, not two stops in a row."
 			}
 		],
 		"after": [
