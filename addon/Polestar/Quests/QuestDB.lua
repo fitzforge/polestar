@@ -18,7 +18,9 @@ ns.RegisterDefaults("qol", {
 	questDB = true, -- load the quest database (Polestar_QuestDB) when a quest feature needs it
 	mapObjectives = false, -- objective markers on the world map (off by default: crowded maps)
 	minimapObjectives = false, -- ... and on the minimap
-	objectiveAreas = false, -- a soft area under each objective spawn cluster (world map)
+	objectiveSpots = "groups", -- an objective's spots close together: "groups" (one area, one marker), "icons", "areas"
+	objectiveAreaAlpha = 0.6, -- how opaque those areas are (times the map's own area fill)
+	questMarkerSize = 1, -- every quest marker's size, on the world map and the minimap
 	turnInMarkers = false, -- markers on quest enders once a quest is ready
 	availableQuests = false, -- markers on quest givers with quests you can take now
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
@@ -528,6 +530,35 @@ function Q.ClosedBy(id)
 		for _, list in pairs(closedBy) do table.sort(list) end
 	end
 	return closedBy[id]
+end
+
+-- Quests whose `pre` (one of) or `preAll` (every one) lists id: the quests
+-- doing id opens, read the way the links point. Built on the first ask, like
+-- ClosedBy, and again once more quest chunks arrived (Core/Unlocks.lua, the
+-- guide window's quest tooltips).
+local followUps, followUpsOf
+function Q.FollowUps(id)
+	local ids = Q.QuestIds()
+	if followUpsOf ~= ids then
+		followUps, followUpsOf = {}, ids
+		for _, q in ipairs(ids) do
+			local r = data.quests[q]
+			for k = 1, 2 do
+				local refs = r[k == 1 and QUEST_PRE or QUEST_PRE_ALL]
+				if refs then
+					for _, p in Each(refs) do
+						local list = followUps[p]
+						if not list then
+							list = {}
+							followUps[p] = list
+						end
+						if list[#list] ~= q then list[#list + 1] = q end
+					end
+				end
+			end
+		end
+	end
+	return followUps[id]
 end
 
 ---------------------------------------------------------------------------

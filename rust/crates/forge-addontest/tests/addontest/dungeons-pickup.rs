@@ -720,6 +720,61 @@ emit({ pre = pre, first = first, cut = cut })"#);
 	assert_eq!(both["cut"], 0);
 }
 
+// #1076 (Jamemba, Dwarf Shaman 23, The Stockade): Fury in the Depths (378, level 22) needs one of The Dark
+// Iron War (303, level 25). Lookup.QuestChain left a `preAny` the character is too low for out of the chain, so
+// the plan took 378 with no prerequisite and sent the player to Motley Garmason, who refused it. The chain now
+// keeps that prerequisite, and a quest with a prerequisite above the reach (the character's level, or the
+// dungeon's lowest, 22 here) is put off as `later`, the way its own level would; with the level, it is taken
+// after its prerequisite. A required (`pre`) prerequisite above the reach puts it off too.
+#[test]
+fn a_quest_whose_prerequisite_needs_a_higher_level_waits_till_then_1076_fury_in_the_depths_after_the_dark_iron_war() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90610"] = json!({
+		"id": 90610, "name": "Motley Garmason", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, min: i32, pre: &[i32], pre_any: &[i32]| {
+		json!({
+			"id": id, "title": format!("Quest {id}"), "level": min + 3, "minLevel": min, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90610], "object": [], "item": [] }, "end": { "npc": [90610], "object": [] },
+			"objectives": [{ "type": "kill", "id": 90611, "count": 1, "text": "Dark Iron Dwarf" }],
+			"pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["90603"] = quest(90603, 25, &[], &[]);
+	c["quests"]["90678"] = quest(90678, 18, &[], &[90603]);
+	i["forever"]["quests"]["90678"] = json!({ "area": 209 });
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take, pre = {}, {}
+for _, t in ipairs(plan.take) do
+	take[#take + 1] = t.quest.id
+	if t.quest.id == 90678 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+table.sort(take)
+local chain = {}
+for n, q in ipairs(Polestar.Lookup.QuestChain(90678, Polestar.Lookup.PlayerInfo())) do chain[n] = q.id end
+emit({ take = take, pre = pre, later = plan.later, chain = chain })"#);
+	let any = pack_of(&c, &i);
+	let low = run(&any, &script, Opts::default()).remove(0);
+	assert_eq!(low["chain"], json!([90603, 90678]), "the prerequisite it is too low for stays in the chain");
+	assert!(!takes(&low, 90678), "not taken at 21 (dungeon's lowest 22) while its prerequisite needs 25: {}", low["take"]);
+	assert_eq!(low["later"], json!(1), "counted for later");
+	let high = run(&any, &script, Opts { level: 25, ..Default::default() }).remove(0);
+	assert!(takes(&high, 90678), "taken at 25: {}", high["take"]);
+	assert_eq!(high["pre"], json!([90603]), "after The Dark Iron War");
+	drop(any);
+
+	c["quests"]["90678"]["preAny"] = json!([]);
+	c["quests"]["90678"]["pre"] = json!([90603]);
+	let all = pack_of(&c, &i);
+	let required = run(&all, &script, Opts::default()).remove(0);
+	assert!(!takes(&required, 90678), "a required prerequisite above the reach puts it off too: {}", required["take"]);
+	assert_eq!(required["later"], json!(1));
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"

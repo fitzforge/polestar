@@ -1049,6 +1049,7 @@ Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but 
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
+Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -1343,6 +1344,15 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   of the step stay. Done anyway, the quest counts as done and its follow-ups
   come back. The window's banner (`PLAYER_SKIPPED_QUEST`), the accept's Undo
   or a right-click on the line bring it back (`SkipQuest(questID, false)`).
+  A follow-up left out because of such a skip carries `skippedWith` in its
+  goal view: the title of the quest the player skipped, directly or down the
+  chain (`Own.skipRoot`: the skipped quest, or a step the player skipped
+  that held its accept or turn-in; a step with a `when` does not count, its
+  failed condition being stored as a skip too). Before any skip,
+  `Engine.SkipLoses` names what it would take with it: it sets the skip in
+  the saved state, lists the open accepts that are no longer open, and puts
+  the state back, with nothing evaluated or fired (the guide window's Skip
+  button and the Skip this quest menu item: "Skipping also skips: …").
 - **Quests that leave the log** after the route has passed their accept
   (abandoned, failed): the live step does not jump back to the giver
   unasked. A quest that left the log this session (`QUEST_REMOVED`, until it
@@ -1394,6 +1404,25 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
   the game accepted itself) the setting prints "Taking <quest> closes <quests>
   for good." and Automation leaves that accept to the player.
+- **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
+  tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
+  guide accepts whose `pre`/`preAll` names `q`, across every shown guide
+  (indexed once with each quest's accepts and turn-ins, rebuilt on
+  `GUIDES_REGISTERED` and `PACKS_CHANGED`), then, with the quest database
+  loaded, the quests whose `pre`/`preAll` lists `q` (`QuestDB.FollowUps`,
+  read from the follow-up's side, built on the first ask). Left out: quests
+  done or in the log, and ones the character can never take (as in
+  `Closes.For`). Each names its giver when someone other than `q`'s ender
+  gives it. `q`'s chain is walked back while each prerequisite is the only
+  one and carries on to the next quest, and on while the quest carried on to
+  has the last as its only prerequisite; a quest carries on to its only
+  follow-up, or at a branch to the only one with its own title (a series'
+  next part: The Defias Brotherhood part 6 also opens Red Silk Bandanas).
+  Found whole (a first quest needing nothing, a last opening nothing, three
+  quests or more), the next part leads the list, numbered ("part 2 of 7"),
+  and the chain's last quest follows with its reward (a guide's turn-in
+  `rewards`, else the Codex's when Lookup has it loaded; a tooltip never
+  loads it). A branch it cannot follow stops the count.
 - **Not yet available.** A Class guide (`category = "Class"`) the character
   has not played (no step skipped, no goal ticked, none of its quests in the
   log or done) whose opening, the first step for this character with an
@@ -1895,6 +1924,19 @@ window, or on a gossip window with options of its own (a vendor, trainer or
 innkeeper). A quest the guide still wants at that NPC is taken on the next
 talk.
 
+With `behavior.spokenDelay` on (the default; Options, Integrations, Spoken,
+shown and honoured only while Spoken Quests is installed) each quest or
+gossip window waits 200 ms before automation acts on it, and `QoL/Rewards.lua`'s reward pick waits the same
+(`Automation.Delay`). Spoken Quests records a quest page in its own handler of
+the event that opened the window; it loads after Polestar, so an accept made
+in Polestar's handler leaves it nothing to record and the page is never read.
+Everything is decided when the wait ends, so Shift held then skips the action.
+A newer window replaces the wait, and only a close of its own kind drops it:
+`QUEST_FINISHED` for a quest window, `GOSSIP_CLOSED` for a gossip window, since
+picking a quest in a gossip window ends that window and its `GOSSIP_CLOSED` may
+come after the quest window it opened. The test is the events, not
+`QuestFrame`: DialogueUI and the like keep that frame hidden.
+
 ## Theme — used by UI and Nav
 
 ```lua
@@ -2107,13 +2149,16 @@ fainter, its tooltip "It also spawns here"); clicking one searches there next
 Every place the current step's open goals spawn is a region on the map
 (`Layers.lua`, read from `Engine.GetGuide().steps[step].goals[i].spots` for
 the goals `GetStepView` shows active or pending). `Layers.Regions(goal)`
-groups a goal's spots once per goal (cached by the compiled goal table): each
+groups a goal's spots once per goal (cached by the compiled goal table)
+through `Polestar.Regions.Of(cs, xs, ys, rs [, work])` (`Nav/Regions.lua`,
+shared with the quest objective areas): each
 spot's disc (its radius covers its spawns, at least 15 yd, plus 10 yd) joins
-the spots whose discs come within 90 yd, nearest first, while the region stays
+the spots on its continent whose discs come within 90 yd, nearest first, while the region stays
 at most 700 yd across (a coast of spawns is a chain of regions, not one hull
 over the sea). A region is the polygon whose sides touch the convex hull of
 its discs from outside (16 sides, 8 under 200 yd), so it covers every spawn
-of its spots; `alt` when all its spots are. `nav.areas` holds the target's
+of its spots (`members`: their indexes); `alt` when all its spots are. A grouping past
+50,000 pair checks (`Regions.WORK`; only a crafted guide) draws no regions. `nav.areas` holds the target's
 goal's regions as `hull` pins in the arrow's colour (alpha 1, `alt` 0.6), on
 the world map and the minimap (`nav.worldPins`, `nav.minimapPins`);
 `nav.goalAreas` the step's other goals' regions in `place` at 0.6 (`alt`
@@ -2676,7 +2721,7 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. It orders by
-a cost (the Hearthstone carries a `HEARTH_MARGIN` of 300 s on top of its
+a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
@@ -2689,11 +2734,12 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
-The Hearthstone's hour-long cooldown is spent only on a long haul (0.3.3,
-Fitz: "a 2-minute walk is fine"): a route `Nav.PlanRoute` chose with a
+The Hearthstone's hour-long cooldown is spent once a trip is long enough for
+it to clearly pay (#1096, Fitz; 0.3.3's 8 and 5 minutes walked where a
+hearth was better): a route `Nav.PlanRoute` chose with a
 hearth leg is planned again without it (`noHearth`) and kept only while the
-way without it takes at least `HEARTH_MIN_TRIP` (480 s) and the hearth saves
-at least `HEARTH_MARGIN` (300 s) after its cast and loading screen
+way without it takes at least `HEARTH_MIN_TRIP` (180 s) and the hearth saves
+at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 (`HEARTH_SECONDS`, 15 s); its label then says what it saves ("Hearth to
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
@@ -2737,7 +2783,7 @@ with `Path.Find` on the player's continent (from the player's height,
 whenever there is none, the arrow points straight as before. With a path,
 `Nav.Sample` follows it with `Nav/Follow.lua`, which knows nothing of where
 the path came from (the walking engine today, a guide leg's polyline later):
-`Follow.Step(xs, ys, zs, left, n, state, px, py, stop)`. The player's place
+`Follow.Step(xs, ys, zs, left, n, state, px, py, stop, join, sight)`. The player's place
 on the path is their projection onto it: the nearest point on a segment
 from the current one to 60 yd further along, so a point passed to one side
 counts as passed, and coming at the path at an angle or walking beside a
@@ -2759,7 +2805,28 @@ point's neighbours, so a zigzag either side of the road cancels out. It never
 aims onto another floor, past the path's end (the leg's goal: crossings,
 approach chains and guide gotos are legs of their own) or past `stop`. When
 no path ahead lies within 35 yd (the player has wandered off), it points back
-to the path 10 yd ahead of their place on it. The yards it reports are
+to the path 10 yd ahead of their place on it. Beside the path in open ground
+(0.3.5; Fitz, 0.3.4, running parallel to the path up a Tirisfal hillside: the
+arrow pointed 90° back to it while the target lay ahead) the corridor is
+wider: outdoors, with the floor under the player known, `Walk.Aim` passes
+`sight`, and a player more than 15 yd (`BODY`) and at most 100 yd (`OPEN`)
+off the path, or within 50 yd (`join`) of a fresh path's start (a search from
+where they stand runs straight across to a road first), aims at the furthest
+point along it, up to 150 yd past their place on it, that they can walk to in
+a straight line: `Path.Sight` (Routing/PathGrid.lua) walks the grid cells
+of the line as the drawn line's straightening does, following the surface
+from the one under the player, and refuses a closed step (a wall, a cliff
+edge), another floor, water, indoor or indoor city ground and a town hostile
+to the player's faction; it reads decoded clusters only (unknown otherwise),
+decodes nothing, puts back the use stamps it moved and allocates nothing.
+The candidates run from the furthest in, ever closer together, so a look
+costs one line in open ground and about ten at most, and it is made again
+only after the player moves 2 yd. Where nothing ahead is in sight (beside a
+cliff, a river crossed by a bridge, a building's walls) the aim is the
+corridor's above: tight. While the aim is in sight (`state.sighted`) the
+player has not strayed: no new search. The route line's walk then starts
+from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
+straight across to the nearest one. The yards it reports are
 the yards left along the path (straight to the end of the segment the player
 is on, then along it), never to the aim point; `Travel.Aim` returns those
 yards as a fifth value, and `Walk.Progress(c, x, y)` gives the yards along
@@ -2768,7 +2835,8 @@ eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`, swinging at most
 `MAX_TURN`, about 200 degrees a second), on the target's bearing on the map:
 turning the camera moves it at once.
 A new goal (more than 1 yd away from the searched one) cancels the search
-in flight and drops the path; more than 25 yd off the path asks again (at
+in flight and drops the path; more than 25 yd off the path asks again, unless
+the aim is in sight as above (at
 most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
 `outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
@@ -3508,6 +3576,7 @@ Path.HubAt(map, x, y, profile) -> id, name | nil  -- the town hostile to profile
 Path.SurfacesAt(map, x, y, out) -> n | nil  -- the cell's walkable surfaces: out[i] height, out[-i] marks (1 water, 2 indoor); nil: its cluster not decoded (a Prefetch is queued)
 Path.Prefetch(map, x, y) -> job | nil  -- decode that cluster under the frame budget for SurfacesAt (one job at a time)
 Path.ReleaseSurfaces()  -- cancel a pending Prefetch; the cluster SurfacesAt reads may go at rest
+Path.Sight(map, x1, y1, z1, x2, y2, z2, profile) -> bool | nil  -- a straight walk from one point to the other over decoded clusters (no closed step, floor change, water, indoor ground or town hostile to profile); nil: a cluster not decoded or off the data (decodes nothing, allocates nothing)
 Path.Cancel(job) ; Path.Busy() -> bool ; Path.Available(map) -> bool
 -- opts: a boolean is waterWalking (as every caller passed it before profiles), or
 -- { waterWalking = boolean, profile = "Alliance" | "Horde" | nil (Costs.Profile(UnitFactionGroup)),
@@ -3705,8 +3774,24 @@ profession skill.
 
 Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
-under the higher-ranked glyph: kill > interact > collect > vendor). Objective
-clusters at least `MIN_AREA` (12 yd) wide carry their radius as `area`. Markers
+under the higher-ranked glyph: kill > interact > collect > vendor). Spread
+objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
+Objective spots (#1085): at each marker rebuild, each objective's spread pins
+are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
+250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
+198,000; past it the objective keeps its markers), and two objectives on the
+same spots share one region. `qol.objectiveSpots` picks the look:
+`groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
+`hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
+default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
+its centre (`spots` = its spot count, the members' names as header, every
+objective they serve in its tooltip) in place of its members; `icons` draws
+every spot's marker and no area; `areas` draws every region as an area and no
+objective marker (vendors and event points stay markers). The layer is set
+with `minimapAreas` unless `icons`, so the areas follow it onto the minimap.
+Over the shipped database `groups` cuts every quest's objective markers from
+about 122,000 to 41,000. `qol.questMarkerSize` (0.6–1.6) scales every quest
+marker on both surfaces. Markers
 and the tooltip/nameplate indexes are rebuilt only when what they show
 changed (a quest came or went, got ready or changed title, an objective was
 done or undone); a progress count alone only fires `QUESTDB_UPDATED`, since
@@ -3749,12 +3834,13 @@ the progress shown (tests).
 Settings (`qol.*`, Questing → Quests; the markers under Map → Guide & quests →
 Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
-`mapObjectives`, `objectiveAreas`, `turnInMarkers`, `minimapObjectives`,
+`mapObjectives`, `objectiveSpots` (`groups` | `icons` | `areas`),
+`objectiveAreaAlpha`, `turnInMarkers`, `minimapObjectives`, `questMarkerSize`,
 `guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`,
 `nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
-`minimapObjectives`) and `objectiveAreas` default to off (Map → Guide & quests →
-Quest markers); `guideHighlight` only restyles markers those layers draw.
+`minimapObjectives`) default to off (Map → Guide & quests → Quest markers);
+`guideHighlight` only restyles markers those layers draw.
 
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 

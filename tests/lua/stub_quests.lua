@@ -148,7 +148,8 @@ function sq.removePlate(unit)
 end
 
 ---------------------------------------------------------------------------
--- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible)
+-- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible; a pin at map, x, y or
+-- at the additive world position c, wx, wy)
 ---------------------------------------------------------------------------
 
 local pins = { layers = {}, calls = {}, visible = {} }
@@ -158,7 +159,10 @@ function pins.SetLayer(layer, list, opts)
 	assert(type(layer) == "string", "layer must be a string")
 	assert(type(list) == "table", "pins must be a table")
 	for i, p in ipairs(list) do
-		assert(type(p.map) == "number" and type(p.x) == "number" and type(p.y) == "number", "pin " .. i .. " needs map, x, y")
+		local onMap = type(p.map) == "number" and type(p.x) == "number" and type(p.y) == "number"
+		local inWorld = p.c ~= nil and type(p.wx) == "number" and type(p.wy) == "number"
+		assert(onMap or inWorld, "pin " .. i .. " needs map, x, y or c, wx, wy")
+		assert(p.hull == nil or (type(p.hull) == "table" and #p.hull >= 6 and #p.hull % 2 == 0), "pin hull must be wx, wy pairs of 3 or more corners")
 		assert(p.f == nil or p.f == "e" or p.f == "l", "pin frame must be nil, 'e' or 'l'")
 		assert(p.tooltip == nil or type(p.tooltip) == "string" or type(p.tooltip) == "function", "bad tooltip")
 		assert(p.area == nil or (type(p.area) == "number" and p.area > 0), "pin area must be a positive number of yards")

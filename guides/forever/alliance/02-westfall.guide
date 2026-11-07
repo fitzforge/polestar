@@ -38,9 +38,9 @@ step Saldean's Farm
   accept 9                                    -- Farmer Saldean
   accept 92909                                -- Ozwin Ironsprocket
 
-step Goretusk Snout on the way
-  along until q38
-  collect 731 quest 38.3
+step Goretusk Snouts
+  tip Young Goretusks root in the fields along the road south from Saldean's to Sentinel Hill: take their snouts on the way.
+  collect 731 quest 38.3                      -- Goretusk Snout
 
 # ---------------------------------------------------------------- Sentinel Hill
 
@@ -61,35 +61,21 @@ step Sentinel Hill
   turnin 98021 only Skyborne                  -- Gryan Stoutmantle
 
 # ---------------------------------------------------------------- The north loop
-step Westfall: kill these as you meet them
-  label q38
+step Molsen Farm: kill these as you meet them
   zone Westfall
-  tip North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. Furlbrow's Wardrobe stands by the ruined house east of the mine.
-  tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop.
+  tip Defias Trappers and Smugglers camp in the fields between Sentinel Hill and Molsen Farm.
+  tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
+  tip Young Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew.
   kill 95 quest 12
   kill 504 quest 12
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
-  collect 731 quest 38.3
   collect 255010 quest 92909.2
+  collect 732 quest 38.4                      -- Okra
   collect 255155 optional                     -- Precessive Autocognition Assembly
   accept 92910 optional
-  collect 732 quest 38.4                      -- Okra
-
-step Saldean's Farm
-  turnin 9                                    -- Farmer Saldean
-  turnin 92909                                -- Ozwin Ironsprocket
-  turnin 92910
-
-step The Jansen Stead
-  only Dwarf,Gnome,NightElf,Skyborne
-  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
-
-step Westfall: kill these as you meet them
-  zone Westfall
   collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
   collect 723 quest 22                        -- Goretusk Liver
-  collect 731 quest 38.3                      -- Goretusk Snout
   collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
 
 step Furlbrow's Pumpkin Farm: kill these as you meet them
@@ -97,21 +83,25 @@ step Furlbrow's Pumpkin Farm: kill these as you meet them
   tip Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above Jangolode Mine east to the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
   tip Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.
   tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
-  tip Careful: Two Defias stand guard inside the house, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
-  collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them
+  tip Careful: Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
   collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
-  collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
   collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne @43.5,9.2 map 1436 live -- Longshore Murloc Gills
   collect 730 quest 38.2 @43.5,9.2            -- Murloc Eye
+  collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
+  collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them, from Jangolode Mine to the Jansen Stead
 
-step Handful of Oats
+step The Jansen Stead
   collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
+  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow
 
 step Saldean's Farm
-  turnin 38                           -- Inside
-  turnin 22                                   -- Salma Saldean
+  turnin 38                                   -- Salma Saldean, inside
+  turnin 22
+  turnin 9                                    -- Farmer Saldean
+  turnin 92909                                -- Ozwin Ironsprocket
+  turnin 92910
 
 step Sentinel Hill
   turnin 12                                   -- Gryan Stoutmantle

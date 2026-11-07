@@ -338,8 +338,10 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"qol.lowLevelQuests",
 			"qol.mapObjectives",
 			"qol.minimapObjectives",
-			"qol.objectiveAreas",
+			"qol.objectiveAreaAlpha",
+			"qol.objectiveSpots",
 			"qol.questLevelWindow",
+			"qol.questMarkerSize",
 			"qol.turnInMarkers",
 		])
 	);

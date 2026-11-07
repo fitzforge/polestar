@@ -40,8 +40,9 @@ step Fly to Orgrimmar
 # Gelkis Village -> Shadowprey -> fly to Orgrimmar (training) -> zeppelin to
 # the Undercity -> fly to Tarren Mill (bind) -> the Hillsbrad coast (Elixir
 # of Agony) -> Tarren Mill -> the Shindigger keg -> hearth to Tarren Mill ->
-# Valik's camp and the Syndicate -> the yeti caves -> the Dalaran crater ->
-# Tarren Mill -> Strahnbrad (Gol'dir) -> Tarren Mill -> fly to the
+# Valik's camp and the Syndicate -> the yeti caves -> the Hillsbrad town hall
+# -> Tarren Mill -> the Azurelode Mine -> the Dalaran crater -> Tarren Mill ->
+# Strahnbrad (Gol'dir) -> Tarren Mill -> fly to the
 # Undercity, where the next guide takes the Grom'gol zeppelin.
 #
 # Optional extras:
@@ -69,9 +70,11 @@ step Fly to Orgrimmar
 #   south-eastern Ashenvale, two Talondeep Path crossings from Braug
 #   Dimspirit, for under a tenth of a level. Ordanus (1088) is only accepted
 #   there.
-# - Hillsbrad: the refreshed export also runs Elixir of Agony (509, 513),
-#   Dangerous! (567) and Battle of Hillsbrad (539) here; forever/horde/06-
-#   hillsbrad-foothills already does them around level 23.
+# - Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) and Dangerous!'s
+#   town hall and mine targets (567) are done here, as the refreshed export
+#   has them: Magistrate Burnside and Foreman Bonds are level 30, too high for
+#   forever/horde/06-hillsbrad-foothills at 25-27, which does parts 1-3 and
+#   Elixir of Agony (509, 513).
 # - Centaur clans dropped: Magram Alliance and Gelkis Alliance (1367, 1368)
 #   need Friendly standing, earned only by killing the rival clan (+20 per
 #   kill, and -100 with the clan you kill), so the export's plan to serve
@@ -300,6 +303,7 @@ step Shadowprey Village
   sethome "Shadowprey Village"
   accept 5381                         -- Taiga Wisemane
   turnin 6142                         -- Mai'Lahii
+  turnin 6143                         -- Drulzegar Skraghook
 
 step Fly to Orgrimmar
   zone Desolace
@@ -357,8 +361,7 @@ step Tarren Mill
   accept 552                          -- Novice Thaivand
   accept 533                          -- Krusk, inside
   accept 1361                         -- Krusk: for the Barrens, later on the route
-  turnin 539                          -- High Executor Darthalia
-  turnin 567
+  accept 532                          -- High Executor Darthalia
   accept 544                          -- Magus Wordeen Voidglare, inside
   accept 556                          -- Keeper Bel'varil, inside
   accept 676                          -- Tallow: for Hammerfall in Arathi, later on the route
@@ -458,6 +461,32 @@ step Helcular's Rod
   tip South-west, the Cave and Ferocious Yetis (30-31) fill the caves in the hills west of Tarren Mill; about one in sixteen carries the rod.
   collect 3708 quest 552
 
+step Town hall
+  zone Hillsbrad Foothills
+  tip On to Hillsbrad town, south-west of the yeti caves. The town hall is on the town's west side: Magistrate Burnside (30) and Clerk Horrace Whitesteed are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town.
+  kill 2387 quest 532.2
+  interact 1761 quest 532.3           -- Hillsbrad Proclamation, inside
+  collect 3657 quest 532.4            -- Inside
+  kill 2448 quest 567.1               -- Inside
+  kill 2335 quest 532.1               -- Inside
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  tip Back east to Tarren Mill.
+  turnin 532                          -- High Executor Darthalia
+  accept 539
+  turnin 533                          -- Krusk, inside
+  accept 503
+  turnin 552                          -- Novice Thaivand
+  note Thaivand's next task ends at Southshore's graveyard: leave it.
+
+step Azurelode Mine
+  zone Hillsbrad Foothills
+  tip The Azurelode Mine lies south of Hillsbrad town. Miners work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside.
+  kill 2269 quest 539.2
+  kill 2450 quest 567.3
+  kill 2305 quest 539.1               -- Inside Azurelode Mine
+
 step Alterac Mountains
   zone Alterac Mountains
   goto 20.2,84.3 "Alterac Mountains"
@@ -475,14 +504,13 @@ step The Dalaran traitors
 step Tarren Mill
   zone Hillsbrad Foothills
   tip Head back east to Tarren Mill.
+  turnin 539                          -- High Executor Darthalia
+  turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
-  note Thaivand's next task ends at Southshore's graveyard and the magus offers a dungeon errand: leave both.
+  note The magus offers a dungeon errand next: leave it.
   accept 557
   turnin 544                          -- Magus Wordeen Voidglare, inside
   accept 545
-  turnin 533                          -- Krusk, inside
-  accept 503
-  turnin 552                          -- Novice Thaivand
 
 step Alterac Mountains
   zone Alterac Mountains

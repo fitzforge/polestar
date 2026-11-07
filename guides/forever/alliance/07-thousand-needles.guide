@@ -20,11 +20,9 @@ step Darkshire
   zone Duskwood
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
   accept 1244
-  accept 58                               -- Commander Althea Ebonlocke
-  turnin 174                              -- Viktori Prism'Antras, at the east end of town; inside
-  accept 175
+  turnin 57                               -- Commander Althea Ebonlocke
+  accept 58
 
 # ---------------------------------------------------------------- Worgen
 
@@ -43,11 +41,6 @@ step Nightbane Dark Runners
 step Calor
   turnin 221
   accept 222
-
-step Blind Mary
-  tip Her house stands on the hill south-east of Darkshire.
-  turnin 175                          -- Inside
-  accept 177
 
 step Nightbane Vile Fangs and the Insane Ghoul
   tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery. The Insane Ghoul hides in the small crypt by the cemetery.

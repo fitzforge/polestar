@@ -301,7 +301,8 @@ local function errorLines(out)
 	end
 	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count, e.seq) end
 	for _, b in ipairs(ns.Blocked and ns.Blocked() or {}) do
-		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, plain(b.fn), b.at), count = b.count, seq = b.seq }
+		local fn = plain(b.fn) .. (b.where and (" " .. b.where) or "")
+		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, fn, b.at), count = b.count, seq = b.seq }
 	end
 	local BG = BugGrabber
 	if type(BG) == "table" and type(BG.GetDB) == "function" then

@@ -13,7 +13,7 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # yet.
 #
 # Flow: fly Stormwind -> Darkshire (hearth) -> the worgen
-# of Brightwood and the south, Blind Mary and the Insane Ghoul -> Darkshire
+# of Brightwood and the south, the Insane Ghoul -> Darkshire
 # -> west: Abercrombie, the Plague Spreaders, Sven and the Raven Hill
 # Cemetery, the Defias strongbox, the Vul'Gol crate, Abercrombie -> hearth to
 # Darkshire -> fly to Menethil Harbor (hearth) -> the Third Fleet's wreck,
@@ -26,9 +26,10 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # the boat to Southshore).
 #
 # Deviations from the export:
-# - Look To The Stars (174-177) is turned in on arrival in Darkshire instead
+# - Look To The Stars (177) is turned in on arrival in Darkshire instead
 #   of at the end of the visit: Viktori stands on the way, and the Insane
-#   Ghoul sits beside the worgen of the south.
+#   Ghoul sits beside the worgen of the south. Its first two parts are done
+#   in 05-duskwood (re-seeded for flow, 0.3.5).
 # - Apprentice's Duties (471, accepted in the previous guide) is finished on
 #   the north coast beside the wreck and turned in here.
 # - Henrig Lonebrow's Journal (1100) is picked up at the foot of the Great
@@ -90,9 +91,6 @@ step Darkshire
   turnin 66                               -- Clerk Daltry, in the town hall
   accept 58                               -- Commander Althea Ebonlocke
   accept 173                              -- Calor, by the town hall
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
-  turnin 174                              -- Viktori Prism'Antras, at the east end of town
-  accept 175
 
 # ---------------------------------------------------------------- Worgen
 
@@ -111,11 +109,6 @@ step Nightbane Dark Runners
 step Calor
   turnin 221
   accept 222
-
-step Blind Mary
-  tip Her house stands on the hill south-east of Darkshire.
-  turnin 175
-  accept 177
 
 step Nightbane Vile Fangs and the Insane Ghoul
   tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery. The Insane Ghoul hides in the small crypt by the cemetery.

@@ -52,7 +52,7 @@ step Agent Kearnen
 
 step The Defias Tower Key
   tip Get the key first. The Malformed Defias Drone (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and Pick Pocket it from behind: it always has the key. It hits hard: if stealth breaks, Sprint away. Watch for the pair of Defias Drones that also patrol.
-  collect 7923 quest 2359.2                   -- Defias Tower Key: Pick Pocket the Malformed Defias Drone
+  collect 7923 quest 2359.2 "Pick Pocket the Malformed Defias Drone for the Defias Tower Key"
 
 step Klaven's journal
   tip Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. Klaven Mortwake, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The Duskwood Chest beside his desk needs Lockpicking of about 70-75 (practise on the boxes at Alther's Mill in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the Touch of Zanzil, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out.

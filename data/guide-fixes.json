@@ -479,35 +479,6 @@
 			"issue": 365
 		},
 		{
-			"id": "798-gordo-on-the-road-to-brill",
-			"faction": "Horde",
-			"at": {
-				"quest": 5481,
-				"goal": "accept"
-			},
-			"early": {
-				"after": {
-					"quest": 8,
-					"goal": "accept"
-				},
-				"title": "Gordo on the road to Brill",
-				"when": "level>=5",
-				"tip": "Gordo walks the road between Cold Hearth Manor and Brill: take Gordo's Task when you pass him and pick the Gloom Weed along the road."
-			},
-			"note": "Gordo's Task needs level 5, so the route takes it on the pass west after Brill (route-fixes, FitzTest c12w). Players already level 5 walk past Gordo on the road from Calvin Montague to Brill: from level 5 the quest and its Gloom Weed are listed along the way until Gordo's own step, which still takes it for everyone else.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings since launch (Tirisfal): of 6 runs, 4 took Gordo's Task right after Calvin Montague at level 5 or 6 and handed it in on the first Brill visit"
-				},
-				{
-					"kind": "in-game-check",
-					"ref": "#798"
-				}
-			],
-			"issue": 798
-		},
-		{
 			"id": "820-applejack-still",
 			"faction": "Alliance",
 			"at": {
@@ -1508,28 +1479,6 @@
 			"pr": 960
 		},
 		{
-			"id": "upstairs-brill-inn-trainers-turnin-5481",
-			"faction": "Horde",
-			"at": {
-				"quest": 5481,
-				"goal": "turnin"
-			},
-			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
-			"source": [
-				{
-					"kind": "tdb",
-					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
-				},
-				{
-					"kind": "client",
-					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
-				}
-			],
-			"issue": 961,
-			"pr": 960
-		},
-		{
 			"id": "upstairs-brill-inn-trainers-turnin-5482",
 			"faction": "Horde",
 			"at": {
@@ -1891,6 +1840,340 @@
 			"pr": 1032
 		},
 		{
+			"id": "1077-durotar-scorpid-tails-in-the-valley-step",
+			"at": {
+				"quest": 789,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Sting of the Scorpid: the Scorpid Worker tails are collected in the Valley of Trials step with Sarkoth and the cactus apples, not an along list from the Den (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3124 (Scorpid Worker) spawns 39-48, 56-74 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-cactus-apples-in-the-valley-step",
+			"at": {
+				"quest": 4402,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Galgar's Cactus Apple Surprise: the apples grow on the same valley floor as the Scorpid Workers; they are picked in the Valley of Trials step, never an along list.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object 171938 (Cactus Apple) spawns 40-47, 56-72 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-loa-idols-in-the-echo-isles-step",
+			"at": {
+				"quest": 97225,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Forgotten Loa Idols: the idols lie on the southern Echo Isles, where the Echo Isles step works Zalazane's trolls; they are collected there, never an along list from the northern isle.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object 660647 (Forgotten Loa Idol) spawns 65-69, 81-88 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
+			"at": {
+				"quest": 837,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Encroachment: the Razormane Quilboar are killed in the Razormane Grounds step with the Dustrunners and Battleguards, after Tiragarde Keep and the Sen'jin loop (tor, #351), not an along list from Gar'Thok (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3111 (Razormane Quilboar) spawns 43-51, 47-51 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-scouts-in-the-razormane-grounds-step",
+			"at": {
+				"quest": 837,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Encroachment: the Razormane Scouts share the quilboar's huts west of town and the Razormane Grounds step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3112 (Razormane Scout) spawns 43-51, 47-51 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1078-barrens-water-seekers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Water Seekers hold the camp east of the Crossroads and are killed in the Razormane camp step (Warriors and Shamans of Orc and Troll on their chest or Fire Tar visit), not an along list from the Crossroads (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3267 (Razormane Water Seeker) spawns 53-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-thornweavers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Thornweavers share the Water Seekers' half of the camp and its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3268 (Razormane Thornweaver) spawns 54-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-hunters-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Hunters hold the middle of the same camp and are killed in its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3265 (Razormane Hunter) spawns 54-59, 24-26 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "dun-morogh-cogs-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-gears-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-bonesnappers-in-the-quarry-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 433,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Public Servant's Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers: they are killed in the quarry troggs step, not listed along the way from the first quarry stop (flow audit, 2026-11-07).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1117 and 1115 spawns"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "1046-deathknell-paws-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Damned: the Scavenger Paws are killed in the Rattlecage step, a field step of its own (route-fixes together 3901 with 376), not an along list: the scavengers roam the same village as the skeletons (Fitz on #1046: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1508 (Young Scavenger) spawns 29-35, 56-69 and npc 1509 (Ragged Scavenger) 34-38, 56-66; npc 1890 (Rattlecage Skeleton) 31-35, 59-65"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-deathknell-wings-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Damned: the Duskbat Wings, as the paws: one Deathknell field step with the Rattlecage Skeletons, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1512 (Duskbat) spawns 28-36, 56-72 and npc 1513 (Mangy Duskbat) 34-38, 57-67"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-horrors-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Bleeding Horrors haunt only the Balnir Farmstead's graves, where the Tomb Weed grows: they are killed in the Balnir step (route-fixes together 356 with 99142), not listed along the way from the cult farm (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1529 (Bleeding Horror): all 12 spawns at the Balnir Farmstead, map 74-79, 59-63"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-spirits-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Wandering Spirits, as the Bleeding Horrors: one Balnir step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1532 (Wandering Spirit): all 12 spawns at the Balnir Farmstead, map 74-78, 58-62"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-ribs-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Notched Ribs drop from the Rattlecage and Cracked Skull Soldiers at Agamand Mills, in the Mills step; a scratch build from the #1046 seed listed them along the way before it (#1046: no along lists).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1520 (Rattlecage Soldier) spawns 44-51, 34-44 and npc 1523 (Cracked Skull Soldier) 43-51, 28-35"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-skulls-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Blackened Skulls drop from the Darkeye Bonecasters at Agamand Mills, in the Mills step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1522 (Darkeye Bonecaster) spawns 42-51, 28-43"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-gallows-end-tavern-in-one-go",
+			"faction": "Horde",
+			"at": {
+				"quest": 8,
+				"goal": "turnin"
+			},
+			"tip": "Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Brill's first stop does the square first (Johaan, Zygand, the poster, Sevren, Discipline) and the Gallows' End Tavern last, in one go (Fitz on #1046's follow-up: in, out and back in again). Who is inside comes from the walking grid's WMO areas (grid 70532, areas.json 'Gallows' End Tavern', AreaTable 2119) under each spawn at its height: Innkeeper Renee (34.3), Coleman Farthing (33.7), Yvette Farthing (34.3), Austil de Mon (33.7) and William Pickman (34.3, the north end) on the ground floor; Gretchen Dedmar, Cain Firesong, Dark Cleric Beryl, Rupert Boch and Marion Call upstairs (41.2); the Captured Scarlet Zealot and the Captured Mountaineer in the cellar (27.2-27.3), also inside the tavern, not the town hall. Players' recorded walks to Pickman and the captives go in and out by the south door (61.5,53.0). Replaces upstairs-brill-inn-trainers-turnin-383 (the same upstairs sentence on the square stop, from #960/#961).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4 70532) WMO group areas under the spawns: 'Gallows' End Tavern' (2119) for npcs 5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211; 'Brill Town Hall' (2118) for 1499 only"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature positions: 265944 2288.0,242.9,34.3; 1931 2292.5,233.1,27.3; 2211 2288.9,234.3,27.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recorded walks around the hand-ins of 407 and 492 and Pickman's window: in and out at 61.4-61.6, 52.9-53.4"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-404",
+			"faction": "Horde",
+			"at": {
+				"quest": 404,
+				"goal": "turnin"
+			},
+			"tip": "Back east along the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "The Brill stop after the west loop (A Putrid Task handed in to Deathguard Dillinger at the west end of town, #1046) trains every class: the mage, priest, warlock and rogue trainers stand on the inn's upper floor (spawn height 41.2 against the ground floor's 34.3), as for the other Brill stops.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				}
+			],
+			"issue": 1046
+		},
+		{
 			"id": "mulgore-plainstriders-a-step",
 			"at": {
 				"quest": 747,
@@ -2027,6 +2310,451 @@
 			"pr": 1091
 		},
 		{
+			"id": "1092-durotar-taillasher-eggs-in-the-coast-step",
+			"at": {
+				"quest": 815,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Break a Few Eggs: the Taillasher nests line the beach the Scuttle Coast step walks; the eggs are a goal of that step, never an along list (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object Taillasher Egg spawns on the coast south-east of Sen'jin"
+				}
+			],
+			"pr": 1092
+		},
+		{
+			"id": "1092-durotar-tiger-fur-in-the-echo-isles-step",
+			"at": {
+				"quest": 817,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Practical Prey: the Durotar Tigers roam the northern Echo Isle and the shore south of Sen'jin, where the first Echo Isles step works the Matriarch; the fur is a goal of that step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3121 (Durotar Tiger) spawns on the Echo Isles and the south-east shore"
+				}
+			],
+			"pr": 1092
+		},
+		{
+			"id": "1093-zephras-novice-seers-on-the-western-sweep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94413,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "A Magical Affront: the Windshaper Novice Seers practise in the clearing west of Shen'dar, on the way back from the hippogryph nests; an along list from Rathiril's accept kept them on screen through the Prideclaws, the bandits and Falaath.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-highland-bandits-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92517,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Criminal Element: the Highlands Bandits are killed in the bandit camp step with Badwind Bennic and the stolen windstones, not in an along list from the village.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-stormapples-in-the-orchard-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 92682,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Make Yourself Useful: the Ripe Stormapples are picked in the orchard step with the flutterfly dust and the Galestriders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-hungry-bandits-in-the-orchard-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 92682,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Make Yourself Useful: the Hungry Bandits raid the orchard and are killed in the orchard step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-zephyrseed-in-the-lake-sweep",
+			"faction": "Horde",
+			"at": {
+				"quest": 93160,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Forest's Bounty: the Zephyrseed cones grow just south of the hermit and are picked in the Windsong Lake sweep; an along list listed them three times.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "elwynn-duskweed-in-the-farm-fields-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 99130,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "An Enticing Offer's Duskweed Petals grow in the fields round the Maclure Vineyards and the Stonefield Farm: gathered in the farm-fields step with the boar blood and meat (and in the Fargodeep step), not in an along list from Goldshire (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Overgrown Duskweed (object 694855): 17 spawns in the Stonefield Farm's fields, 31.9-33.1, 84.1-86.7"
+				}
+			],
+			"pr": 1094
+		},
+		{
+			"id": "elwynn-prowlers-in-the-downstream-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 52,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Protect the Frontier's Prowlers roam the eastern woods, the river south of Guard Thomas's bridge among them, where the Young Forest Bears are: killed in the Downstream and Princess step and finished at Guard Thomas, not in an along list from the bridge (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "Prowler (118): 24 spawns in east Elwynn, one at 75.49,76.54 by the river south of the bridge (npcs.json)"
+				}
+			],
+			"pr": 1094
+		},
+		{
+			"id": "1095-silverpine-dalaran-pendants-in-the-ambermill-step",
+			"at": {
+				"quest": 479,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Ambermill Investigations: the Dalaran Protectors and Mages of Ambermill drop the pendants; they are a goal of the Ambermill step, never an along list (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 1912 (Dalaran Protector), 1914 (Dalaran Mage) spawns at Ambermill"
+				}
+			],
+			"pr": 1095
+		},
+		{
+			"id": "1100-hillsbrad-syndicate-footpads-at-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 505,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Syndicate Assassins: the Syndicate Footpads are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1100
+		},
+		{
+			"id": "1100-hillsbrad-syndicate-thieves-at-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 505,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Syndicate Assassins: the Syndicate Thieves are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1100
+		},
+		{
+			"id": "1106-badlands-indurium-flakes-at-agmonds-end",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1108,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Indurium: the Stonevault Bonesnappers and Shamans that drop the flakes dig at Agmond's End's trogg camp, which the Agmond's End sweep works; an along list from the Valley of Fangs kept them on screen through the walk to Lotwil and back.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1106
+		},
+		{
+			"id": "1109-stv-horde-bloody-bone-necklaces-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 596,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Bloody Bone Necklaces: the Bloodscalps that drop the necklaces are killed for Bloodscalp Ears and Headhunting, and the Ruins of Zul'Kunda step finishes them before Kin'weelay (the #957 sweep); an along list from the zeppelin kept all 25 on screen from the start.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-young-panthers-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 190,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Panther Mastery (Young Panthers): killed in the Nesingwary's Expedition step and the Young Panther step that follows Grom'gol; the along list duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-tumbled-crystals-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Hostile Takeover: the Venture Co. Geologists that carry the Tumbled Crystals work the camps on the lake's western shore, which the following field step and the Venture Co. camp step visit; the along list from Nesingwary's duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-shadowmaw-panthers-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 192,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Panther Mastery (Shadowmaw Panthers, level 37): they live by Grom'gol and the Mosh'Ogg camp (spawns around 42,32), where the Shadowmaw step does them; the along list and the Savage Coast step listed them where there are none.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-moshogg-brutes-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 569,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Defense of Grom'gol: the Mosh'Ogg Brutes are killed in the Mosh'Ogg steps; the along list from Grom'gol duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "1109-stv-horde-moshogg-witch-doctors-in-their-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 569,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Defense of Grom'gol: the Mosh'Ogg Witch Doctors are killed in the Mosh'Ogg steps; the along list from Grom'gol duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json on map 1434"
+				}
+			],
+			"pr": 1109
+		},
+		{
+			"id": "duskwood-shadow-weavers-not-on-the-way",
+			"faction": "Alliance",
+			"at": {
+				"quest": 173,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Worgen in the Woods: the Nightbane Shadow Weavers (level 27) are killed in their own step on the Duskwood return (07-thousand-needles, 28), where the quest is handed in; an along list from Darkshire's first visit (05-duskwood, 22-25) sent players into level-27 worgen for work the return does anyway (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings in Duskwood (8 runs): none handed Worgen in the Woods in before level 28"
+				}
+			],
+			"pr": 1090
+		},
+		{
+			"id": "duskwood-night-watch-horrors-in-the-rot-blossoms-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Night Watch (57): the Skeletal Horrors are killed in the Rot Blossoms step, from the same Horrors south-east of Darkshire (route-fixes together 156 -> 57.1); an along list from Commander Althea's accept would list them before Blind Mary's visit and split them from the blossoms.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "Rot Blossom (1598) drops from Skeletal Horror (202) and Skeletal Fiend (531)"
+				}
+			],
+			"pr": 1090
+		},
+		{
+			"id": "duskwood-night-watch-fiends-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on the walk from Abercrombie to Jitters (route-fixes pair turnin 133 -> task 57.0), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "Skeletal Fiend (531) spawns: Raven Hill Cemetery only (npcs.json)"
+				}
+			],
+			"pr": 1090
+		},
+		{
+			"id": "1087-teldrassil-young-thistle-boars-in-their-step",
+			"at": {
+				"quest": 456,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Balance of Nature: the Young Thistle Boars roam around Aldrassil with the Young Nightsabers and are killed in the Shadowglen field step with them, the Fel Moss and the totems; an along list from the start split the boars from the nightsabers of the same quest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps), nightelf/01-teldrassil step 2 on #1081"
+				}
+			],
+			"pr": 1087
+		},
+		{
+			"id": "1087-teldrassil-hyacinth-mushrooms-in-their-step",
+			"at": {
+				"quest": 3521,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Iverron's Antidote: the Hyacinth Mushrooms drop from the Grells around Aldrassil and are collected in the antidote step with the Moonpetal Lilies, before the cave; an along list from the training stop kept them on screen into Shadowthread Cave, where no Grells are.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps), nightelf/01-teldrassil step 9 on #1081"
+				}
+			],
+			"pr": 1087
+		},
+		{
+			"id": "westfall-snouts-in-the-molsen-farm-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 38,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Westfall Stew's Goretusk Snouts come off the Young Goretusks that line the road from Saldean's to Sentinel Hill: a step of their own on that walk (flow audit, 2026-11-07: along lists become steps), not an along list next to the same goal in the Molsen Farm step. Without a writer rule for along-to-step, a build puts them in the Molsen Farm step with the livers.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 454 and 157 spawns; items.json 731 drops"
+				}
+			],
+			"pr": 1080
+		},
+		{
 			"id": "duskwood-worgen-in-the-woods-level-23",
 			"faction": "Alliance",
 			"at": {
@@ -2034,7 +2762,7 @@
 				"goal": "accept"
 			},
 			"level": 23,
-			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data); the route reaches Darkshire at about 22, so a player there is told before Calor refuses it. Players' recordings: every character offered it was 23 or above.",
+			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data). It is taken on Darkshire's second visit, where the route is at 23.15 or more on every branch (route-fixes pair 96139 -> 173), as that step's last goal, so the gate holds back only Calor's accept: a player behind the route's levels is told before Calor refuses it. Players' recordings: every character offered it was 23 or above.",
 			"source": [
 				{
 					"kind": "client",

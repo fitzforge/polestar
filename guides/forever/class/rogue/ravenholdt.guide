@@ -71,7 +71,7 @@ step Lord Tomas
   zone Hillsbrad Foothills
   tip Lord Tomas is inside Durnholde Keep, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says Myrokos. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry Syndicate Emblems for the guards' repeatable reputation quest.
   kill 266216 quest 96779.1                   -- Lord Tomas
-  collect 17124 optional                      -- Syndicate Emblem, by Pick Pocket
+  collect 17124 optional "Pick Pocket Syndicate members for Syndicate Emblems"
 
 step Myrokos Silentform
   zone Alterac Mountains
@@ -86,7 +86,7 @@ step What's the Big Idea?
   level 34
   accept 96781                                -- Myrokos Silentform
   accept 96783
-  collect 275482 quest 96781.1 @62.6,46.9     -- Barton's Scouting Report: Pick Pocket on Barton
+  collect 275482 quest 96781.1 @62.6,46.9 "Pick Pocket Barton for Barton's Scouting Report"
 
 step Covert Extraction
   tip Back to Myrokos; the report sends you after the Perenolde heirlooms. Two towers stand among the Ruins of Alterac, in the middle of the Alterac Mountains, held by ogres: the shield lies in the northern tower, the sword in the southern one, which elite ogres ring and watch from far off. Stay stealthed; nothing guards the heirlooms inside.

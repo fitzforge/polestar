@@ -131,11 +131,6 @@ step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
 
-step Bloody Bone Necklace on the way
-  along until q190
-  zone Stranglethorn Vale
-  collect 3915 quest 596
-
 step Nesingwary's camp
   zone Stranglethorn Vale
   tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil asks for them later.
@@ -147,12 +142,7 @@ step Nesingwary's camp
   accept 185                          -- Ajeck Rouack
   accept 190                          -- Sir S. J. Erlgadin
 
-step Young Panther on the way
-  along until q190
-  kill 683 quest 190
-
 step Nesingwary's Expedition: kill these as you meet them
-  label q190
   zone Stranglethorn Vale
   tip Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.
   tip Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it.
@@ -204,12 +194,7 @@ step Nesingwary's camp
   turnin 190                          -- Sir S. J. Erlgadin
   accept 191
 
-step Tumbled Crystal on the way
-  along until q213
-  collect 4106 quest 213
-
 step Stranglethorn Vale: kill these as you meet them
-  label q213
   zone Stranglethorn Vale
   tip Stranglethorn Tigers and Panthers (32-33) roam the hills east of the camp, along the lake shore.
   kill 682 quest 186
@@ -237,18 +222,12 @@ step Nesingwary's camp
   turnin 187                          -- Ajeck Rouack
   accept 188
 
-step Shadowmaw Panther on the way
-  along until q192
-  kill 684 quest 192
-
 step The Savage Coast: kill these as you meet them
-  label q192
   zone Stranglethorn Vale
   tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
   tip Sin'Dall, a level 37 tiger, prowls the hilltop south-west of the camp.
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   collect 3918 quest 605
-  kill 684 quest 192
   collect 1519 quest 189
   kill 685 quest 194
   collect 3879 quest 188 @31.8,16.4
@@ -301,18 +280,7 @@ step Grom'gol
   turnin 568
   accept 569
 
-step Mosh'Ogg Brute on the way
-  along until q569
-  kill 1142 quest 569.1
-
-step Mosh'Ogg Witch Doctor on the way
-  along until q569-2
-  kill 1144 quest 569.2
-
-# ---------------------------------------------------------------- Grom'gol and the north
-
 step Stranglethorn Vale: kill these as you meet them
-  label q569-2
   zone Stranglethorn Vale
   tip East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik.
   tip Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.
@@ -342,7 +310,6 @@ step Green Hills pages
 # ---------------------------------------------------------------- Panther Mastery
 
 step Shadowmaw panthers
-  label q569
   tip The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way.
   kill 684 quest 192
   kill 1142 quest 569.1
