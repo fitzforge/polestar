@@ -326,6 +326,12 @@ step Boat to Auberdine
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live
 
+step Thundris Windweaver
+  when onquest 97926
+  zone Darkshore
+  tip Thundris Windweaver stands at the north end of Auberdine.
+  turnin 97926 optional                       -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
+
 step Fly to Astranaar
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"

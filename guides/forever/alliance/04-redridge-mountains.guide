@@ -11,13 +11,11 @@ next forever/alliance/05-duskwood
 # into this file.
 # Added here: A Free Lunch (129), Blackrock Blockade (98387).
 
-step Boat to Stormwind Harbor
-  zone Darkshore
-  goto 30.7,41.0 "Boat to Stormwind Harbor"
-
 # Visit 4 of the simulator's consensus Alliance route (Human export,
-# 20.5 to 22.7): the boat from Auberdine to Stormwind, the road east through
-# Elwynn, Redridge, then south to Darkshire.
+# 20.5 to 22.7): Stormwind, the road east through Elwynn, Redridge, then
+# south to Darkshire. Since 2026-11-07 it comes after Ashenvale, Stonetalon
+# and the Wetlands (06-ashenvale, 20-24): the tram from Ironforge brings you
+# to Stormwind at about 24.
 #
 # Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners -> Lakeridge
 # Highway (flight path) -> Lakeshire (hearth, every quest giver) -> the
@@ -54,24 +52,21 @@ step Boat to Stormwind Harbor
 #   drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
 #   to Baros Alexston at the Stormwind stop; his reply, Making Do (97926),
-#   goes back to Auberdine in 06-ashenvale. Baros offers Making Do only
+#   goes back to Auberdine in 30-40/01-hillsbrad-foothills. Baros offers Making Do only
 #   after Expanding Horizons (#453), which a player who skipped it in
 #   Darkshore does not have, and the project data lists no prerequisite:
-#   the accept is optional, so nobody is held at Baros. The new consensus visits
-#   Redridge later (25-26, after the Wetlands); this guide keeps the old
-#   place at 21-23, where its quests are not grey, and the zone order of
-#   the guides it chains with.
+#   the accept is optional, so nobody is held at Baros.
 # - Lakeshire on arrival: Oslow, Marris, Conacher, the docks (Baren, Wiley),
 #   then Breanna and Martie at the west end, one sweep instead of crossing
 #   town twice.
 #
-# Class quests at the Stormwind stop (about level 21): Rogues take Mathias and
+# Class quests at the Stormwind stop (about level 24): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks
 # Devourer of Souls (1716, the Succubus; carried to Takar the Seer in
 # 07-thousand-needles), Priests their level 20 spell: Arcane Feedback (5676,
 # Human, here), Chastise (5645, Dwarf) and Contingency Plan (94819,
-# Gnome) for Ironforge in 06-ashenvale, Elune's Grace (5673, Night Elf) for
-# Darnassus on arrival in Auberdine (06-ashenvale). Night Elf Druids fetch
+# Gnome) for Ironforge in 06-wetlands, Elune's Grace (5673, Night Elf) for
+# Darnassus at the start of 06-wetlands. Night Elf Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
 # Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
@@ -96,10 +91,10 @@ step Boat to Stormwind Harbor
 
 step Stormwind
   zone Stormwind City
-  tip The Auberdine boat docks at Stormwind Harbor. Walk up into the city for training and Baros Alexston, then leave by the main gate and follow the road east through Elwynn Forest.
+  tip The tram from Ironforge comes in at the Dwarven District. Train and see Baros Alexston, then leave by the main gate and follow the road east through Elwynn Forest.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 18 and 20 spells
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
-  accept 97926 optional                       -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (06-ashenvale)
+  accept 97926 optional                       -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (30-40/01-hillsbrad-foothills)
   vendor nearest
 
 step Woo Ping

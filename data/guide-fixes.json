@@ -513,41 +513,6 @@
 			]
 		},
 		{
-			"id": "617-menethil-grind-to-28",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"level": 28,
-			"after": true,
-			"note": "Pilot Longbeard's The Brassbolts Brothers (1179) needs level 28. The route's XP model reaches 28 on the way to Ironforge, so no grind is written; a player behind it hit 'Requires level 28' in Ironforge. The gate comes after the Menethil hand-ins (they count towards it), before the walk east.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
-			"id": "617-menethil-grind-to-28-tip",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"tip": "Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.",
-			"note": "The level-28 gate after the Menethil hand-ins (617-menethil-grind-to-28) says where to grind: the Dragonmaw Raiders, Swamprunners and Bonewarders (levels 26-28) camp along the road the route walks next.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
 			"id": "365-teldrassil-byancie-water",
 			"faction": "Alliance",
 			"at": {
@@ -970,8 +935,8 @@
 				"quest": 272,
 				"goal": "turnin"
 			},
-			"tip": "Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "In Stormwind, join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Since the 2026-11-07 Ashenvale split the step is at the start of 06-wetlands, cast from Stormwind (the old tip's boat to Auberdine went with it).",
 			"source": [
 				{
 					"kind": "tdb",

@@ -799,7 +799,7 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: at
 // and that line (`kept`).
 function greyInDarkshore(level) {
 	data = data || loadData(DATA);
-	const files = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale', '07-thousand-needles']
+	const files = ['03-darkshore', '06-ashenvale', '04-redridge-mountains', '05-duskwood', '06-wetlands', '07-thousand-needles']
 		.map((n) => path.join(OFFICIAL_DIR, 'forever/alliance', `${n}.guide`));
 	const { guides } = compileSources(files.map((file) => ({ file, text: fs.readFileSync(file, 'utf8') })), data);
 	const { dir, scripts } = writeTestPack(guides, data);
@@ -1231,6 +1231,7 @@ const ASHENVALE_30 = 'forever/alliance/30-40/03-ashenvale.guide';
 const ARATHI = 'forever/alliance/30-40/05-arathi-highlands.guide';
 const DARKSHORE = 'forever/alliance/03-darkshore.guide';
 const THOUSAND_NEEDLES = 'forever/alliance/07-thousand-needles.guide';
+const WETLANDS = 'forever/alliance/06-wetlands.guide';
 
 test('Forever follow-ups are taken only once the quests before them are handed in', { skip }, () => {
 	for (const [guide, quest, after, optional] of [
@@ -1261,8 +1262,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// Lou-Saydus (#225): Forever puts From the Ashes between War Banners
 		// and Nek'rosh's Gambit, so Captain Stoutfist did not offer 465 when
 		// War Banners was handed in.
-		[THOUSAND_NEEDLES, 98221, [464]],
-		[THOUSAND_NEEDLES, 465, [98221]],
+		[WETLANDS, 98221, [464]],
+		[WETLANDS, 465, [98221]],
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.
 		[TIRISFAL, 96656, [382]],
@@ -1287,14 +1288,16 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// after Apprentice's Duties, and Lord Grayson Shadowbreaker's The
 		// Shamed Lieutenant thanks you for the statuette A Friend of the Family
 		// brings him.
-		[ASHENVALE, 98072, [471], true],
-		[THOUSAND_NEEDLES, 98072, [471]],
-		[ASHENVALE, 98219, [98191]],
+		[WETLANDS, 98072, [471], true],
+		// The statuette goes to Lord Grayson at the end of 06-ashenvale; his
+		// follow-up is taken in 06-wetlands: the list is the two guides in
+		// chain order.
+		[[ASHENVALE, WETLANDS], 98219, [98191]],
 		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
 		// only once Never Coming Back is handed in to him.
 		[STONETALON, 98252, [98251]],
 	]) {
-		const list = goals(guide);
+		const list = [].concat(guide).flatMap((g) => goals(g));
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
 		if (take < 0 && optional) continue;
 		assert.ok(take >= 0, `${guide}: accept ${quest} is in the guide`);
@@ -1495,8 +1498,8 @@ test(`Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or 
 	}
 });
 
-test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
-	const needles = goals(THOUSAND_NEEDLES);
+test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${WETLANDS}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
+	const needles = goals(WETLANDS);
 	assert.equal(needles.findIndex(({ goal }) => is('turnin', 465)(goal)), -1, 'the catapult is not lit in the guide that takes the quest');
 	const done = at(needles, 'complete 98221', is('complete', 98221));
 	assert.ok(located(needles[done]), 'the attack plans have a place');
@@ -3023,15 +3026,17 @@ test("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's
 // --- Making Do (Nittepitte, #453): Baros Alexston offers Making Do only to a
 // player who handed him Expanding Horizons (97914), taken at the end of
 // Darkshore. The project data has no prerequisite for it, and the sources
-// disagree, so the accept and its turn-in in Ashenvale are optional: a
-// player without Expanding Horizons is not held at Baros or Thundris.
-test(`Nittepitte's report (#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in`, { skip }, () => {
+// disagree, so the accept and its turn-in in Auberdine (at the end of
+// 30-40/01-hillsbrad-foothills since the 2026-11-07 Ashenvale split) are
+// optional: a player without Expanding Horizons is not held at Baros or
+// Thundris.
+test(`Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in`, { skip }, () => {
 	const list = goals(REDRIDGE);
 	const take = at(list, 'accept 97926', is('accept', 97926));
 	assert.ok(list[take].goal.optional, 'accept 97926 is optional');
 	assert.ok(at(list, 'turnin 97914', is('turnin', 97914)) < take, 'Expanding Horizons is handed in first');
-	const ashenvale = goals('forever/alliance/06-ashenvale.guide');
-	assert.ok(ashenvale[at(ashenvale, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
+	const auberdine = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(auberdine[at(auberdine, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
 });
 
 // Ioney (#524): "quest not available from Tarrel Rockweaver until completing
@@ -3041,9 +3046,9 @@ test(`Nittepitte's report (#453): Making Do is optional in Redridge and Ashenval
 // not held.
 
 test(`${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat`, { skip }, () => {
-	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Redridge and
-	// Duskwood to Menethil: the list is the chain from Darkshore.
-	const list = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale'].flatMap((g) => goals(`forever/alliance/${g}.guide`));
+	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Ashenvale to
+	// Menethil: the list is the chain from Darkshore.
+	const list = ['03-darkshore', '06-ashenvale'].flatMap((g) => goals(`forever/alliance/${g}.guide`));
 	const take = at(list, 'accept 98461', is('accept', 98461));
 	assert.equal(list[take].step, list[at(list, 'turnin 731 (Hollee in Auberdine)', is('turnin', 731))].step, 'taken from Hollee on the Auberdine stop');
 	const give = at(list, 'turnin 98461', is('turnin', 98461));
@@ -3071,16 +3076,21 @@ test(`${ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbea
 // Ioney (#617): "guide wants me to grind till level 28, i just reached level
 // 27". The grind to 28 for Pilot Longbeard's quest (1179, from level 28) came
 // at the Dragonmaw camp before the hearth to Menethil, so the hand-ins there
-// (about 7,200 XP) never counted towards it. It now comes after them, at the
-// same camp on the walk east to Dun Algaz.
+// (about 7,200 XP) never counted towards it. Since the 2026-11-07 Ashenvale
+// split the 20-24 guide has no Pilot Longbeard and no grind for him: he is
+// taken in 06-wetlands, at the Ironforge stop after the Wetlands quests, and a
+// top-up to 28, if any, comes between the last Wetlands hand-in and him.
 
-test(`${ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard`, { skip }, () => {
-	const list = goals(ASHENVALE);
-	const grind = at(list, 'level 28', (g) => g.t === 'level' && g.level === 28);
-	for (const quest of [306, 484, 470, 98282]) {
-		assert.ok(at(list, `turnin ${quest}`, is('turnin', quest)) < grind, `the Menethil hand-in ${quest} counts towards 28`);
-	}
-	assert.ok(grind < at(list, 'accept 1179', is('accept', 1179)), 'level 28 before Pilot Longbeard');
+test(`${WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it`, { skip }, () => {
+	const low = goals(ASHENVALE);
+	assert.ok(!low.some(({ goal }) => is('accept', 1179)(goal)), 'Pilot Longbeard is not in the 20-24 guide');
+	assert.ok(!low.some(({ goal }) => goal.t === 'level' && goal.level >= 25), 'the 20-24 guide has no grind to 25 or more');
+	const list = goals(WETLANDS);
+	const take = at(list, 'accept 1179', is('accept', 1179));
+	const home = at(list, 'turnin 98221', is('turnin', 98221));
+	assert.ok(home < take, 'the Wetlands hand-ins count before Pilot Longbeard');
+	const grind = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 28);
+	if (grind >= 0) assert.ok(home < grind && grind < take, 'a top-up to 28 comes after the Wetlands hand-ins, before Pilot Longbeard');
 });
 
 // Pynte (#327): "Timberling Seeds quest points me to the north of Teldrassil

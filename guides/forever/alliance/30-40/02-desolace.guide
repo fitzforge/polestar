@@ -114,6 +114,15 @@ step Fly to Astranaar
 
 # ---------------------------------------------------------------- The western posts
 
+step Shindrell Swiftfire
+  tip Shindrell Swiftfire stands by Astranaar's flight master.
+  accept 4581                         -- For Kayneth Stillwind at Forest Song, in the next guide
+
+step Melyria and Illiyana
+  tip The two stand together at the western end of the road, south-west of Astranaar.
+  accept 1021                         -- Illiyana
+  accept 1022                         -- Sentinel Melyria Frostshadow
+
 step Delgren the Purifier
   tip Follow the road west out of Astranaar; Maestra's Post lies north of it.
   accept 1140
