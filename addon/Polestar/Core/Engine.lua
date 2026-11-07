@@ -1925,6 +1925,18 @@ goalDone = function(s, g, goal)
 		return false, cur, max
 	elseif t == "kill" or t == "interact" or t == "use" then
 		if goal.quest then return objectiveState(goal) end
+		-- One with no quest (the Runes of Summoning before the voidwalker,
+		-- #1120): done once a later quest goal of the step is, so the work it
+		-- led to, done or handed in, never leaves it holding the step.
+		local goals = guide.steps[s].goals
+		for j = g + 1, #goals do
+			local later = goals[j]
+			local lt = later.t
+			-- A quest goal (isQuestGoal, declared further down).
+			local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
+				or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
+			if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+		end
 		return false
 	elseif t == "collect" then
 		if goal.quest then

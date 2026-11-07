@@ -289,6 +289,42 @@ fn goto_completes_on_arrival_via_the_ticker_which_runs_only_while_a_goto_is_acti
 	);
 }
 
+// #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
+// while the voidwalker was killed and The Binding handed in, and the step never moved on. A quest-less use, click
+// or kill is done once a later quest goal of its step is; before that it holds, and an optional later goal never
+// passes it.
+#[test]
+fn a_quest_less_use_is_done_once_a_later_quest_goal_of_its_step_is_1120_runes_of_summoning() {
+	const BINDING: &str = r#"
+Polestar.RegisterGuide({ id = "test/binding", pack = "test", title = "Binding", zone = 1429, steps = {
+	{ title = "Carendin", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Circle", goals = {
+		{ t = "use", item = 6284, itemName = "Runes of Summoning", map = 1429, x = 47.6, y = 35.1 },
+		{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, map = 1429, x = 48.2, y = 42.0, optional = true },
+		{ t = "kill", target = "Summoned Voidwalker", npc = 5676, count = 1, quest = 7, oi = 1, map = 1429, x = 47.6, y = 35.1 },
+		{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run1(Run {
+		guides: BINDING,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/binding"); flush()
+			w.accept(7, { 1 }); flush()
+			w.accept(783, {}); flush()
+			local before = { index = E.GetStepIndex(), use = E.GetStepView(2).goals[1].status }
+			w.progress(7, 1, 1); flush()
+			local killed = E.GetStepView(2).goals[1].status
+			w.turnIn(7); flush()
+			emit({ before = before, killed = killed, after = E.GetStepIndex() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "before": { "index": 2, "use": "active" }, "killed": "done", "after": 3 }));
+}
+
 #[test]
 fn goto_is_done_once_a_later_goal_in_its_step_is_done_without_arriving() {
 	let out = run1(Run {
