@@ -2994,6 +2994,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
+			},
+			{
+				"a": [
+					"task",
+					4291
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the Lar'korwi Mates' glands (4291) and the wrecked raft (3844, 3845) lie just west of Torwa at the foot of the ramp (mates 58-71,59-80, raft 63.1,69.1): done on arrival, before the ride north to Karna and Marshal's Refuge, as the seed has it. The written guide had them as a later 'Marshlands' stop that walked back south-east from the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					3844
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the wrecked raft (3844) is opened on arrival with the Lar'korwi glands, west of Torwa, before the ride north."
 			}
 		],
 		"notes": [
