@@ -219,8 +219,8 @@ step Captain Stoutfist
   tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
   turnin 464                              -- On the top floor
   turnin 98221
-  turnin 469                              -- James Halloran, by the docks
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  turnin 469                              -- James Halloran, by the docks, on the way to the boat
 
 # ---------------------------------------------------------------- Ashenvale
 
