@@ -7579,6 +7579,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): J.D. Collie stands in Marshal's Refuge 40 yd from Linken, so A Gnome's Assistance is handed in and Linken's Memory taken on the first refuge stop, as the seed has it; the order carried it through Silithus and Un'Goro's west."
+			},
+			{
+				"a": [
+					"turnin",
+					7795
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop and one Ironforge stop on the way to the Plaguelands, as the seed has it: Clavicus' donations (Runecloth needs the Wool one) in Stormwind, then the tram to Ironforge; the order went Ironforge, Stormwind, Ironforge, Stormwind."
+			},
+			{
+				"a": [
+					"turnin",
+					7791
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop: the Wool donation with Clavicus' others, before the tram to Ironforge."
 			}
 		]
 	}
