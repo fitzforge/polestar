@@ -1,8 +1,8 @@
 //! Flights the travel route takes better (#1191, #1212; addon/Polestar/Core/Engine.lua, "Flights the travel
 //! route takes better"): with the planner on, a flight step leads to the flight's end, a travel step passes when
 //! another flight follows with nothing left to do between, and a flight step passes when the planner reaches the
-//! next work clearly sooner without landing at its end. Nav is faked: its travel data (the taxi nodes), the
-//! flight paths the character knows and the planner's estimates.
+//! next work clearly sooner without landing at its end. Nav is faked: its taxi nodes, the flight paths the
+//! character knows, the planner's estimates and whether TomTom's arrow leads.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -34,6 +34,7 @@ Polestar.Nav = {
 	GetKnownTaxiNodes = function() return KNOWN end,
 	EstimateTravel = function(from, to) ESTIMATES = ESTIMATES + 1; return EST(from, to) end,
 	HandedOff = function() return false end,
+	UsingTomTomArrow = function() return TOMTOM == true end,
 }
 Polestar.Set("nav.travel", true)
 "#;
@@ -77,14 +78,29 @@ fn a_walk_to_the_flight_master_passes_and_the_flight_step_leads_to_its_end_so_th
 			local wp = E.GetWaypoint()
 			return { E.GetStepIndex(), wp and wp.map, wp and wp.goalIndex, wp and wp.kind }
 		end
-		local r = { on = at() }
-		Polestar.Set("nav.travel", false); flush()
-		r.off = at()
-		Polestar.Set("nav.travel", true); KNOWN[26] = nil; flush()
-		r.unknownEnd = at()
-		emit(r)
+		emit(at())
 		"#,
 	);
+	let off = |setup: &str| {
+		run(
+			ASHENVALE,
+			&format!(
+				r#"
+				stub.world.complete({{ 1093 }})
+				{setup}
+				E.SetGuide("test/ashenvale"); flush()
+				local wp = E.GetWaypoint()
+				emit({{ E.GetStepIndex(), wp and wp.map, wp and wp.goalIndex, wp and wp.kind }})
+				"#
+			),
+		)
+	};
+	let out = json!({
+		"on": out,
+		"off": off(r#"Polestar.Set("nav.travel", false)"#),
+		"tomtom": off("TOMTOM = true"),
+		"unknownEnd": off("KNOWN[26] = nil"),
+	});
 	assert_eq!(
 		out,
 		json!({
@@ -92,6 +108,8 @@ fn a_walk_to_the_flight_master_passes_and_the_flight_step_leads_to_its_end_so_th
 			"on": [3, 1439, 2, "fly"],
 			// The planner off: the steps as written.
 			"off": [2, 1440, 1, "goto"],
+			// TomTom's arrow gets the target alone, no route legs: the steps as written.
+			"tomtom": [2, 1440, 1, "goto"],
 			// Auberdine unknown: no flight there to plan, the steps as written.
 			"unknownEnd": [2, 1440, 1, "goto"],
 		})
@@ -154,7 +172,7 @@ Polestar.RegisterGuide({ id = "test/earthen", pack = "test", title = "Earthen Ri
 		{ t = "fly", location = "Camp Taurajo", node = 77 },
 	} },
 	{ title = "Mulgore", goals = { { t = "goto", map = 1412, x = 40.6, y = 22.2, text = "Mulgore" } } },
-	{ title = "The Earthen Ring", goals = { { t = "accept", quest = 96260, title = "Silk", npc = 264000, map = 1412, x = 32.5, y = 20.6 } } },
+	{ title = "Gloomrise", goals = { { t = "kill", target = "Gloomrise Spinner", npc = 264083, count = 5, quest = 96259, oi = 1, map = 1412, x = 32.5, y = 20.6 } } },
 } })
 "#;
 
@@ -164,6 +182,7 @@ fn a_flight_step_passes_when_the_planner_reaches_the_work_after_it_clearly_soone
 		EARTHEN,
 		r#"
 		local w = stub.world
+		w.onQuest(96259, { { required = 5, fulfilled = 0 } })
 		w.moveTo(1440, 12, 34)
 		KNOWN = { [77] = true, [22] = true }
 		-- Straight to the Earthen Ring (by Thunder Bluff) 300 s; to Camp Taurajo 200 s and on from there 400 s.
@@ -184,11 +203,12 @@ fn a_flight_step_passes_when_the_planner_reaches_the_work_after_it_clearly_soone
 		emit(r)
 		"#,
 	);
-	assert_eq!(out, json!({ "knowsBluff": [3, 1412, "accept"], "estimates": 3, "again": 3 }));
+	assert_eq!(out, json!({ "knowsBluff": [3, 1412, "kill"], "estimates": 3, "again": 3 }));
 
 	let held = run(
 		EARTHEN,
 		r#"
+		stub.world.onQuest(96259, { { required = 5, fulfilled = 0 } })
 		stub.world.moveTo(1440, 12, 34)
 		KNOWN = { [77] = true }
 		-- Without Thunder Bluff the straight way is no clear gain (580 against 600): the flight stays.
@@ -210,6 +230,7 @@ fn a_flight_step_reached_on_a_taxi_is_not_judged_and_the_planner_off_keeps_every
 		EARTHEN,
 		r#"
 		local w = stub.world
+		w.onQuest(96259, { { required = 5, fulfilled = 0 } })
 		KNOWN = { [77] = true, [22] = true }
 		EST = function(from, to) if from == nil then return to.id == 77 and 200 or 300 end return 400 end
 		w.onTaxi = true
@@ -223,6 +244,7 @@ fn a_flight_step_reached_on_a_taxi_is_not_judged_and_the_planner_off_keeps_every
 	let off = run(
 		EARTHEN,
 		r#"
+		stub.world.onQuest(96259, { { required = 5, fulfilled = 0 } })
 		KNOWN = { [77] = true, [22] = true }
 		EST = function(from, to) if from == nil then return to.id == 77 and 200 or 300 end return 400 end
 		Polestar.Set("nav.travel", false)
