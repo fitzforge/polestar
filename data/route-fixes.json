@@ -3236,6 +3236,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-08, Alliance 20-30): 06-ashenvale's Astranaar hand-ins (The Ruins of Stardust, An Aggressive Defense, Culling the Threat) wait for the Astranaar stop after the Zoram Strand, with The Zoram Strand, instead of a stop of their own between Dal Bloodclaw and Ilkrud."
+			},
+			{
+				"a": [
+					"complete",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Lakeshire's hand-ins after the elites wait for Keeshan's escort from Render's Valley, which ends at Marshal Marris (see turnin 219 with turnin 20)."
+			},
+			{
+				"a": [
+					"complete",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Coming east from Menethil, the raptor valley for Ormer's Revenge (taken on the last visit) lies just before Whelgar's dig: the raptors first, then one dig stop hands it in and takes Ormer's next quest and Whelgar's, instead of a dig stop for Whelgar alone, the valley and back."
 			}
 		],
 		"notes": [
@@ -4559,6 +4583,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-08, Alliance 20-30): One Astranaar stop at the end of the Ashenvale trip: Raene, Maliynn and Pelturas (see turnin 1031 before turnin 1046)."
+			},
+			{
+				"a": [
+					"turnin",
+					294
+				],
+				"b": [
+					"accept",
+					295
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Ormer's Revenge (295, min level 22) is taken from Ormer when the first one is handed in at about 23.5, so the dig stop is not for one hand-in; its bigger raptors, in the valley beside the dig, are killed on 06-wetlands' visit at about 27."
+			},
+			{
+				"a": [
+					"turnin",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): From Stonewatch Keep the route goes back west along the lake to Render's Valley and walks Corporal Keeshan down to Lakeshire, then hands in every Redridge quest on that one stop (Chef Breanna, the town hall, Marris and Oslow at the bridge, Guard Howe by the gryphons), instead of a Lakeshire stop, Render's Valley and a second stop for Keeshan and the Champions."
 			}
 		],
 		"after": [

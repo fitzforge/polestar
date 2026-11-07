@@ -93,12 +93,12 @@ step Menethil Harbor
   buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
   turnin 288
   accept 289
-  accept 281                              -- Karl Boran, on the pier north of the inn
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
   accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
   accept 98230                            -- Captain Stoutfist: for Howin Kindfeather in the Green Belt
+  accept 281                              -- Karl Boran, on the pier north of the inn
+  accept 471                              -- James Halloran, by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
-  accept 471                              -- James Halloran, by the north gate
 
 step The Bluegill hovels
   tip Follow the coast north out of Menethil into Bluegill Marsh. Three containers in the murloc hovels, south to north: the Damaged Crate, then the Sealed Barrel, then the Half-buried Barrel at the north end.
@@ -119,14 +119,15 @@ step The Lost Fleet: kill these as you meet them
   collect 3348 quest 471                  -- Giant Crocolisk Skin
 
 step Menethil Harbor
-  turnin 289                              -- First Mate Fitzsimmons
-  accept 290
+  tip In from the north: James Halloran by the docks, Karl Boran on the pier, Captain Stoutfist in the keep, then First Mate Fitzsimmons in the inn.
   turnin 471                              -- James Halloran
   accept 98072
   turnin 286                              -- Karl Boran
   accept 98189 npc 1242                   -- Karl Boran: for Captain Stoutfist in the keep
   turnin 98189 npc 2104                   -- Captain Stoutfist, on the top floor
   accept 98190 npc 2104                   -- For Bolvar Fordragon in Stormwind Keep: keep it
+  turnin 289                              -- First Mate Fitzsimmons, in the inn
+  accept 290
   vendor nearest
 
 step Captain Halyndor
@@ -141,22 +142,22 @@ step Glorin Steelbrow
 
 # ---------------------------------------------------------------- East Wetlands
 
-step Whelgar's Excavation Site
-  tip Follow the road east to the excavation site on the hill south of the road.
-  accept 295                              -- Ormer Ironbraid
-  accept 299                              -- Prospector Whelgar
-  accept 98216 optional                            -- Prospector Whelgar, below ground
-  accept 98310 optional                            -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground
-  accept 98313 optional                            -- For Historian Karnik in Ironforge, later
-
 step Raptor valley
-  tip The bigger raptors hunt in the valley just west of the dig.
+  tip Follow the road east: the bigger raptors for Ormer's Revenge hunt in the valley just west of the excavation site.
   kill 1022 quest 295                     -- Mottled Scytheclaw
   kill 1023 quest 295                     -- Mottled Razormaw
 
-step Ormer Ironbraid
-  turnin 295
-  accept 296                              -- Ormer Ironbraid
+step Whelgar's Excavation Site
+  tip The excavation site sits on the hill south of the road: Ormer Ironbraid at the top, Prospector Whelgar below ground.
+  turnin 295                              -- Ormer Ironbraid
+  accept 296
+  accept 299                              -- Prospector Whelgar
+  accept 98216 optional                            -- Prospector Whelgar, below ground
+  accept 98313 optional                            -- For Historian Karnik in Ironforge, later
+
+step Prospector Whelgar
+  when group 98310
+  accept 98310                                     -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground. Their hearts drop from level 32 elites on the Dun Modr visit
 
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands

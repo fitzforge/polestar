@@ -5133,6 +5133,23 @@
 		],
 		"note": "Karl Boran's Return the Statuette (98189, for Captain Stoutfist) follows the old Return the Statuette (286): he offers it only once 286 is handed in to him. Without the prerequisite the guide sent players to him on their first Menethil stop, and on to Stoutfist for A Friend of the Family (98190), before either was possible."
 	},
+	"98190": {
+		"set": {
+			"pre": [
+				98189
+			],
+			"preAny": [
+				98189
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261107T102931Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o): ten Captain Stoutfist windows before Return the Statuette (98189) was handed in to him (levels 24-27, three characters) offered War Banners and From the Ashes but never A Friend of the Family; both characters who handed 98189 in were offered 98190 in the window that followed and took it"
+			}
+		],
+		"note": "Captain Stoutfist's A Friend of the Family (98190, the statuette for Bolvar Fordragon) follows Return the Statuette (98189), handed in to him. The merged data had no prerequisite, so a route could send players to him for it before Karl Boran's statuette."
+	},
 	"526": {
 		"set": {
 			"pre": [

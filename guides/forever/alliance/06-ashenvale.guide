@@ -271,6 +271,7 @@ step The raptor hills
 
 step Ormer Ironbraid
   turnin 294
+  accept 295                              -- Ormer Ironbraid: the bigger raptors in the valley west of the dig are for your next Wetlands visit, at about 27
 
 step The Green Belt
   tip Einar Stonegrip camps by the road; Rethiel the Greenwarden stands farther east, by the river.

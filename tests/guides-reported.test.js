@@ -4843,6 +4843,30 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!hills.some(({ goal }) => goal.quest === 98230 || goal.quest === 293), "Howin's quests and Cleansing the Eye are handed in on the 27-29 Wetlands trip");
 });
 
+// Town visits for one quest (2026-11-08, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
+// south for Kerlonian, Fall of Dun Modr took a walk north to Dun Modr and back, Astranaar had a stop for three hand-ins
+// between two others, Ormer's dig a stop for one hand-in, and Lakeshire a stop for Keeshan after the other hand-ins.
+test('Alliance 20-30: no town stop for one quest where the route comes back anyway', { skip }, () => {
+	const dark = goals(DARKSHORE);
+	assert.ok(!dark.filter(forClass('WARRIOR')).some(({ goal }) => goal.t === 'turnin' && goal.quest === 994), 'Volcor\'s escort is not taken back to Auberdine from Darkshore (Druids excepted)');
+	const wet = goals(WETLANDS);
+	const wetStep = (t, q) => wet[at(wet, `${t} ${q}`, is(t, q))].s;
+	assert.equal(wetStep('turnin', 994), wetStep('accept', 990), 'Volcor\'s escort to Terenthis on the Auberdine stop, with Selarin\'s Trek to Ashenvale');
+	assert.ok(!wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Fall of Dun Modr is handed in on 30-40/01\'s Dun Modr stop');
+	const hills = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(hills.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Longbraid takes it there');
+	assert.equal(wetStep('turnin', 1046), wetStep('turnin', 1035), 'one Astranaar stop at the end of the Ashenvale trip');
+	const ash = goals(ASHENVALE);
+	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
+	assert.equal(ashStep('turnin', 1008), ashStep('turnin', 1034), 'Astranaar\'s hand-ins with The Zoram Strand');
+	assert.equal(ashStep('turnin', 294), ashStep('accept', 295), 'Ormer\'s second quest taken with the first hand-in');
+	assert.ok(!ash.some(({ goal }) => goal.quest === 343), 'no walk into Stormwind Keep for Speaking of Fortitude');
+	const red = goals('forever/alliance/04-redridge-mountains.guide');
+	const redStep = (t, q) => red[at(red, `${t} ${q}`, is(t, q))].s;
+	assert.equal(redStep('turnin', 219), redStep('turnin', 20), 'Keeshan and the rest of Lakeshire\'s hand-ins on one stop');
+	assert.equal(redStep('turnin', 34), redStep('turnin', 130), 'Bellygrub with Martie');
+});
+
 // Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the
 // last Booty Bay stop and walked back north to Nesingwary for Raptor Mastery, though the jungle loop crosses their
 // slopes at the Cold Eye basilisks and the ride to the Rebel Camp passes Nesingwary's camp.

@@ -28,8 +28,9 @@ next forever/alliance/05-duskwood
 # Bellygrub's pen and Martie -> the Redridge Canyons' Brutes -> Lakeshire (the
 # Wanted posters) -> Alther's Mill, the Blackrock camps and Gar'im's cave ->
 # north through Galardell Valley (Fangore), the Old Lion Statue, the watch
-# tower and Stonewatch Keep -> Lakeshire -> Render's Valley and Keeshan ->
-# Lakeshire, then the flight to Darkshire (05-duskwood).
+# tower and Stonewatch Keep -> back west along the lake to Render's Valley and
+# Keeshan -> Lakeshire with him (every hand-in, one pass north to south), then
+# the flight to Darkshire (05-duskwood).
 #
 # The Battleworn Axes (20) come from the Blackrock camps at the south end of
 # Galardell Valley, east of Stonewatch Keep (about 66-74, 63-86): some 40
@@ -398,23 +399,10 @@ step Stonewatch Keep
   collect 1260 quest 19 optional              -- Tharil'zun's Head
   collect 3633 quest 169 optional             -- Head of Gath'Ilzogg
 
-step Back to Lakeshire
-  turnin 20                                   -- Marshal Marris
-  turnin 98387
-  turnin 19 optional
-  turnin 115 optional
-  turnin 98386                                -- Foreman Oslow
-  turnin 91                                   -- Bailiff Conacher, in the town hall
-  turnin 180                                  -- Magistrate Solomon, in the town hall
-  turnin 169 optional
-  turnin 95999 optional
-  turnin 92                                   -- Chef Breanna, inside
-  vendor nearest
-
 # ---------------------------------------------------------------- Render's Valley
 
 step Render's Valley
-  tip Head north out of Lakeshire up the Redridge Canyons to Render's Valley. Blackrock Champions camp in the valley.
+  tip From the keep head back west along the lake's north shore and north up the Redridge Canyons to Render's Valley; Lakeshire's hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley.
   kill 435 quest 128                          -- Blackrock Champion, below ground
 
 step Corporal Keeshan
@@ -422,7 +410,19 @@ step Corporal Keeshan
   accept 219                                  -- Corporal Keeshan, below ground
   complete 219
 
-step Lakeshire
+step Back to Lakeshire
+  tip Into Lakeshire from the north with Keeshan: Chef Breanna in the inn, Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
+  turnin 92                                   -- Chef Breanna, inside
+  vendor nearest
+  turnin 91                                   -- Bailiff Conacher, in the town hall
+  turnin 180                                  -- Magistrate Solomon, in the town hall
+  turnin 169 optional
+  turnin 95999 optional
   turnin 219                                  -- Marshal Marris
+  turnin 20
+  turnin 98387
+  turnin 19 optional
+  turnin 115 optional
+  turnin 98386                                -- Foreman Oslow
   turnin 128                                  -- Guard Howe, by the gryphons south of the bridge
   note Next: the gryphon to Darkshire for Duskwood's second loop (05-duskwood).
