@@ -1,8 +1,9 @@
 //! Polestar: Mob Markers (addon/Polestar_Mob_Markers): which quests' mobs it marks (the log's open quests,
 //! only the current guide step's with "Only the current step's mobs" on, the whole log with no guide), that a
 //! finished objective's mobs drop off, that hiding the guide hides the markers and legend, and that the
-//! addon's old settings move into Polestar's once. Runs the real Core/Init.lua, Core/Compat.lua and the
-//! addon by its TOC over a fake LibForeverData and quest log; what it marks is read from `/pmm`'s status line.
+//! addon's old settings move into Polestar's once. Runs the real Core/Init.lua, Core/Compat.lua, Theme and Nav
+//! (its minimap view) and the addon by its TOC over stub_nav.lua, a fake LibForeverData and quest log; what it
+//! marks is read from `/pmm`'s status line.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -28,7 +29,12 @@ local DB = LibForeverData
 function DB.Quest(id) return DB.quests[id] end
 function DB.Name(_, id) local n = DB.npcs[id]; return n and n.name end
 function DB.Get(kind, id) return (kind == "npc" and DB.npcs or DB.items)[id] end
-function DB.Spawns() return {} end
+-- The Spider in world yards on continent 1 (north, west): 10 yards from the player at (100, 100), 230 (past the
+-- minimap's rim at zoom 0, 233 yards) and far off.
+function DB.Spawns(_, id)
+	if id ~= 3 then return {} end
+	return { { map = 1, x = 110, y = 100 }, { map = 1, x = 330, y = 100 }, { map = 1, x = 5000, y = 5000 } }
+end
 function DB.Ids() return {} end
 
 stub.mm = { log = { 100, 200, 300, 400 }, complete = { [300] = true }, objectives = {}, turnedIn = {} }
@@ -44,11 +50,8 @@ C_Map.GetWorldPosFromMapPos = function() return nil end
 
 -- /pmm's status line as { spawn marks, maps with marks, marks on the shown map, markers drawn }.
 function stub.mm.status()
-	local line
-	local p = print
-	print = function(s) line = s end
 	SlashCmdList.POLESTARMOBMARKERS("")
-	print = p
+	local line = stub.messages[#stub.messages]
 	local a, b, c, d = line:match("(%d+) spawn marks on (%d+) maps, (%d+) on this map, (%d+) markers drawn")
 	return { tonumber(a), tonumber(b), tonumber(c), tonumber(d) }
 end
@@ -64,12 +67,12 @@ stub.advance(0.3)
 
 fn run(saved: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
 		before: FAKES.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua"]), Addon::name("Polestar_Mob_Markers")],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "Nav/Nav.xml"]), Addon::name("Polestar_Mob_Markers")],
 		saved: if saved.is_empty() { vec![] } else { vec![("Polestar_Mob_Markers".into(), saved.into())] },
 		login: true,
 		script: format!("{OPEN_MAP}\n{script}"),
-		..Default::default()
 	})
 }
 
@@ -129,6 +132,29 @@ fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back
 		emit(#stub.underGameFrames)"#,
 	);
 	assert_eq!(out, vec![json!([5, true]), json!([0, false]), json!([5, true]), json!(0)], "and no frame is made under the game's own");
+}
+
+#[test]
+fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidden() {
+	let out = run(
+		"",
+		r#"
+		function UnitPosition() return 100, 100, 0, 1 end
+		local function drawn()
+			stub.advance(0.1)
+			local n = 0
+			for _, f in ipairs({ Minimap:GetChildren() }) do
+				if f.skull and f:IsShown() then n = n + 1 end
+			end
+			emit(n)
+		end
+		drawn()
+		Polestar.Set("ui.shown", false)
+		drawn()
+		Polestar.Set("ui.shown", true)
+		drawn()"#,
+	);
+	assert_eq!(out, vec![json!(1), json!(0), json!(1)], "the one 10 yards off; not the one past the rim nor the far one");
 }
 
 #[test]

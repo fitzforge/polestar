@@ -11,12 +11,20 @@ local _, ns = ...
 local DB = LibForeverData
 local L = ns.L
 
--- Colour palettes, picked in the options: one for quests (the skull), one for mobs (the ring). "polestar" is Polestar Theme's SHARED subject colours, soft pastels
+-- Polestar Theme's colours by name, as { r, g, b }.
+local function themed(names)
+	local out = {}
+	for i, n in ipairs(names) do
+		local r, g, b = Polestar.Theme.Color(n)
+		out[i] = { r, g, b }
+	end
+	return out
+end
+
+-- Colour palettes, picked in the options: one for quests (the skull), one for mobs (the ring). "polestar" is Polestar Theme's subject colours, soft pastels
 -- that read on night grounds; "rings" its accent, status and ground colours.
 local PALETTES = {
-	polestar = { label = L["Polestar pastels"],
-		{ 1, 0.84, 0.45 }, { 0.58, 0.79, 1 }, { 0.78, 0.68, 1 }, { 0.42, 0.85, 0.6 },
-		{ 0.97, 0.6, 0.79 }, { 0.47, 0.86, 0.93 }, { 1, 0.5, 0.32 }, { 0.96, 0.68, 0.52 } },
+	polestar = themed({ "quest", "npc", "item", "success", "faction", "spell", "rare", "place" }),
 	rings = { label = L["Polestar rings"],
 		{ 0.97, 0.97, 0.99 }, { 0.02, 0.03, 0.06 }, { 0.9, 0.73, 0.4 }, { 0.96, 0.45, 0.45 },
 		{ 0.6, 0.88, 0.46 }, { 0.64, 0.52, 1 } },
@@ -33,6 +41,7 @@ local PALETTES = {
 	mono = { label = L["Light & night"],
 		{ 0.97, 0.97, 0.99 }, { 0.02, 0.03, 0.06 }, { 0.6, 0.64, 0.73 }, { 0.9, 0.73, 0.4 } },
 }
+PALETTES.polestar.label = L["Polestar pastels"]
 local PALETTE_ORDER = { "polestar", "rings", "vivid", "muted", "safe", "mono" }
 
 local HOLE = 1 / 1.3 -- the ring textures' hole is this fraction of their size (tools: the ring generator)
@@ -81,7 +90,7 @@ assert(borderFor(fillFor(1), 1) ~= borderFor(fillFor(1), 2) and fillFor(1) ~= fi
 -- key: "questID:objective", the legend's and the hidden list's key for it.
 ---------------------------------------------------------------------------
 
-local floor, max, abs, cos, sin = math.floor, math.max, math.abs, math.cos, math.sin
+local floor, max = math.floor, math.max
 
 local marks = {}
 -- continent -> { { wx (north), wy (west), the rest as marks }, ... }
@@ -421,15 +430,11 @@ end
 
 -- A map's world bounds (continent, top/left/bottom/right yards), false when the client can't say.
 local bounds = {}
-local function worldAt(id, u, v)
-	local c, pos = C_Map.GetWorldPosFromMapPos(id, CreateVector2D(u, v))
-	if c and pos then return c, pos:GetXY() end
-end
 local function boundsOf(id)
 	if bounds[id] == nil then
 		bounds[id] = false
-		local ok, c1, top, left = pcall(worldAt, id, 0, 0)
-		local ok2, c2, bottom, right = pcall(worldAt, id, 1, 1)
+		local ok, c1, top, left = pcall(PC.MapToWorld, id, 0, 0)
+		local ok2, c2, bottom, right = pcall(PC.MapToWorld, id, 100, 100)
 		if ok and ok2 and c1 and c1 == c2 and top ~= bottom and left ~= right then
 			bounds[id] = { c = c1, top = top, left = left, kx = 1 / (right - left), ky = 1 / (bottom - top) }
 		end
@@ -522,10 +527,9 @@ end
 -- or an OnMouseDown/Up script on the map is taken up by the gamepad UI's navigation and taints it.
 ---------------------------------------------------------------------------
 
-local C = {
-	bg = { 0.095, 0.115, 0.178, 0.88 }, ink = { 1, 1, 1 }, accent = { 0.9, 0.73, 0.4 },
-	text = { 0.967, 0.974, 0.991 }, textDim = { 0.765, 0.793, 0.868 }, textMuted = { 0.606, 0.637, 0.726 },
-}
+-- The player's Polestar colour scheme and accent, read when the legend is built.
+local C = {}
+for _, n in ipairs({ "bg", "ink", "accent", "text", "textDim", "textMuted" }) do C[n] = themed({ n })[1] end
 -- SWATCH: the slot a row's marker sits in; LEGEND_MARK: the marker size it is painted at (its
 -- medallion is drawn 1.6 times that, filling the slot).
 local ROW, PAD, SWATCH, LEGEND_MARK, INDENT, MIN_W, MAX_W = 16, 8, 14, 9, 12, 150, 280
@@ -551,7 +555,7 @@ local function buildLegend()
 	legend:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 8, 30) -- above Polestar's coordinates bar
 	legend:SetFrameLevel((host:GetFrameLevel() or 1) + 25)
 	legend:EnableMouse(true) -- clicks on the panel stay off the map under it
-	tex(legend, "BACKGROUND", C.bg):SetAllPoints()
+	tex(legend, "BACKGROUND", C.bg, 0.88):SetAllPoints() -- the map shows through a little
 	-- 1px hairline
 	for _, side in ipairs({ { "TOPLEFT", "TOPRIGHT", 0, 1 }, { "BOTTOMLEFT", "BOTTOMRIGHT", 0, 1 },
 		{ "TOPLEFT", "BOTTOMLEFT", 1, 0 }, { "TOPRIGHT", "BOTTOMRIGHT", 1, 0 } }) do
@@ -760,24 +764,14 @@ end
 -- Minimap: world yards around the player, projected as Polestar/Nav/Pins.lua does
 ---------------------------------------------------------------------------
 
--- View diameters (yards) per zoom level, for clients without C_Minimap.GetViewRadius.
-local OUTDOOR = { [0] = 466 + 2 / 3, 400, 333 + 1 / 3, 266 + 2 / 3, 200, 133 + 1 / 3 }
-local INDOOR = { [0] = 300, 240, 180, 120, 80, 50 }
+local Pins = Polestar.Pins -- its minimap view and projection, so both draw alike
 local mmDots, mmState, mmPlaced = {}, {}, 0
-
-local function viewRadius()
-	local r = C_Minimap and C_Minimap.GetViewRadius and C_Minimap.GetViewRadius()
-	if type(r) == "number" and r > 0 then return r end
-	local zoom = Minimap:GetZoom() or 0
-	return ((IsIndoors and IsIndoors() and INDOOR or OUTDOOR)[zoom] or OUTDOOR[0]) / 2
-end
 
 local function drawMinimap()
 	local ok, px, py, _, cont = pcall(UnitPosition, "player")
 	if not ok or type(px) ~= "number" then px = nil end
-	local rotate = GetCVar("rotateMinimap") == "1"
-	local facing = rotate and GetPlayerFacing and GetPlayerFacing() or nil
-	local radius, half = viewRadius(), Minimap:GetWidth() / 2
+	local radius, facing, square = Pins.MinimapView()
+	local half = Minimap:GetWidth() / 2
 	local st = mmState
 	if not mmDirty and px == st[1] and py == st[2] and facing == st[3] and radius == st[4] and half == st[5] then return end
 	st[1], st[2], st[3], st[4], st[5], mmDirty = px, py, facing, radius, half, false
@@ -786,21 +780,15 @@ local function drawMinimap()
 	local cg = px and opt("showMinimap") and Polestar.GuideShown() and grid[cont]
 	if cg then
 		local size = opt("minimapSize")
-		local square = GetMinimapShape and GetMinimapShape() == "SQUARE"
-		local k, lim = half / radius, half - size / 2
-		local lim2 = lim * lim
-		local c, s = facing and cos(facing), facing and sin(facing)
+		local lim = half - size / 2 -- a marker past the rim is not drawn (Polestar's pins clamp to it)
 		-- Only the grid squares the view can reach.
 		for cx = floor((px - radius) / CELL), floor((px + radius) / CELL) do
 			for cy = floor((py - radius) / CELL), floor((py + radius) / CELL) do
 				for _, m in ipairs(cg[cellKey(cx, cy)] or {}) do
 					local dn, dw = m[1] - px, m[2] - py
 					if dn > -radius and dn < radius and dw > -radius and dw < radius and not off(m[7], m[10]) then
-						local x, y = -dw * k, dn * k -- east, north in px
-						if c then x, y = x * c + y * s, -x * s + y * c end
-						local inside
-						if square then inside = abs(x) <= lim and abs(y) <= lim else inside = x * x + y * y <= lim2 end
-						if inside then
+						local x, y, past = Pins.Project(dn, dw, facing, radius, half, facing ~= nil, square, lim)
+						if not past then
 							n = n + 1
 							local f = mmDots[n]
 							if not f then
@@ -948,14 +936,14 @@ SlashCmdList.POLESTARMOBMARKERS = function(msg)
 	if msg and msg:lower():match("^%s*preview") then
 		preview = not preview
 		changed("preview")
-		print("Polestar: Mob Markers - preview " .. (preview and "on: open the world map on a zone." or "off: your quest log again."))
+		Polestar.Print("Mob Markers: preview " .. (preview and "on: open the world map on a zone." or "off: your quest log again."))
 		return
 	end
 	rebuild(true)
 	local maps, total = 0, 0
 	for _, list in pairs(marks) do maps, total = maps + 1, total + #list end
 	local id = map and map:GetMapID()
-	print(("Polestar: Mob Markers - map %s, %d spawn marks on %d maps, %d on this map, %d markers drawn (overlaps merged)."):format(
+	Polestar.Print(("Mob Markers: map %s, %d spawn marks on %d maps, %d on this map, %d markers drawn (overlaps merged)."):format(
 		tostring(id), total, maps, id and marks[id] and #marks[id] or 0, placed)
 		.. (id and boundsOf(id) and " Map bounds: live." or " Map bounds: unavailable (zone-only fallback)."))
 end
