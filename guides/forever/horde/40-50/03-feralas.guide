@@ -32,6 +32,14 @@ step Undercity
   accept 2995                           -- Oran Snakewrithe, the Royal Quarter
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
+step Riding at 40
+  only Undead
+  zone Tirisfal Glades
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
+  train 4773 optional                   -- Velma Warnam, riding trainer
+  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
+
 step Zeppelin to Grom'gol
   zone Tirisfal Glades
   goto 61.8,59.2 "Zeppelin to Grom'gol"
