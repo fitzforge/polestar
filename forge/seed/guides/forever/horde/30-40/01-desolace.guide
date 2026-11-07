@@ -420,7 +420,7 @@ step Gol'dir
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip Head back south to Tarren Mill.
+  tip Krusk waits inside the inn at Tarren Mill.
   turnin 506                          -- Krusk
 
 step Fly to the Undercity

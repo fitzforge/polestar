@@ -5166,3 +5166,11 @@ test('forever/horde/30-40/02-stranglethorn-vale.guide: final review: no walk to 
 	assert.ok(s > 0, 'turnin 581 is in the guide');
 	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /road south to Grom'gol/, 'the tip names where the NPC stands, not a walk to the town');
 });
+// Final route review, 30-40 (2026-11-07): Blackmoore's Legacy's hand-in, right after the Tarren Mill hand-ins to Keeper
+// Bel'varil, told the player to head back south to Tarren Mill.
+test('forever/horde/30-40/01-desolace.guide: final review: no walk to Tarren Mill from Tarren Mill', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/01-desolace.guide').steps;
+	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 506));
+	assert.ok(s > 0, 'turnin 506 is in the guide');
+	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /back south to Tarren Mill/, 'the tip names where the NPC stands, not a walk to the town');
+});
