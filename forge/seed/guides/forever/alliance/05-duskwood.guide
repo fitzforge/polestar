@@ -25,8 +25,10 @@ next forever/alliance/06-ashenvale
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
 #   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
-#   Darkshire, next to Viktori; the turn-in stays where the export has it, in
-#   the Duskwood return (07-thousand-needles).
+#   Darkshire, next to Viktori: handed in on the first visit (re-seeded for
+#   flow, 0.3.5: the turn-in waited for the Duskwood return), and its second
+#   part (175) handed to Blind Mary on her visit; the Insane Ghoul (177,
+#   level 26) waits for the Duskwood return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
 # - Hearthstone: the export hearths twice on the first loop (23.7 and 24.4);
@@ -80,6 +82,8 @@ step Viktori Prism'Antras
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
   accept 174                              -- Viktori Prism'Antras
   buy 4371 x1 npc 3133                    -- Bronze Tube, from Herble Baubbletump: limited stock. Sold out? Neal Allen in Menethil Harbor sells it too.
+  turnin 174
+  accept 175
 
 # ---------------------------------------------------------------- Tranquil Gardens
 
@@ -155,6 +159,8 @@ step Blind Mary
   tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
   turnin 149
   accept 154
+  turnin 175
+  accept 177
 
 step Madame Eva
   turnin 154
