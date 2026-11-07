@@ -61,33 +61,28 @@ step The Green Belt
 # ---------------------------------------------------------------- Dun Modr
 
 step Dun Modr
-  tip North along the road to Dun Modr. Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo Harlbarrow.
+  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo.
+  turnin 472                              -- Longbraid the Grim
+  accept 631                          -- Rhag Garmason
+  collect 280396 quest 98310.2        -- Heart of Modr
   accept 87491                        -- Captive Fire Elemental
+  turnin 87491                        -- Roggo Harlbarrow
+
+step The Villards
+  zone Wetlands
+  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east.
+  accept 87318                        -- Comar Villard
+  turnin 87318                        -- Essene Villard
 
 step Foggy MacKreel
   zone Arathi Highlands
+  tip Over the Thandol Span: Ebenezer Rustlocke lies under its Arathi end, Foggy MacKreel a short walk west of it.
+  turnin 631 only Dwarf,Gnome,NightElf,Skyborne -- Ebenezer Rustlocke's Corpse, inside
   accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
   accept 637 optional only Dwarf,Gnome,NightElf,Skyborne
-
-step The Villards
-  zone Wetlands
-  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
-  accept 87318                        -- Comar Villard
-  turnin 87318                        -- Essene Villard
-
-step Dun Modr
-  collect 280396 quest 98310.2        -- Heart of Modr
-  tip Longbraid the Grim stands in the dwarves' camp.
-  turnin 472                              -- Longbraid the Grim
-  turnin 87491                        -- Roggo Harlbarrow
-
-step Thandol Span
-  zone Wetlands
-  tip Follow the road south over the bridge to Dun Modr at the Wetlands end, where Rhag Garmason waits.
-  accept 631                          -- Rhag Garmason, Dun Modr
 
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather

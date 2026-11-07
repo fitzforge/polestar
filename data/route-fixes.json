@@ -2706,6 +2706,78 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): Urs'anah's den lies west of Thendal Grove and the Scrawny Ursera prowl the woods between; the den is cleared first and the Scrawny Ursera on the walk back east, so the walk doesn't pass Valreaa Valewind with Aggressive Encroachment done on the way out to the den."
+			},
+			{
+				"a": [
+					"turnin",
+					472
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"accept",
+					631
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"task",
+					98310
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"turnin",
+					87491
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"turnin",
+					87318
+				],
+				"b": [
+					"accept",
+					647
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them."
+			},
+			{
+				"a": [
+					"turnin",
+					631
+				],
+				"b": [
+					"accept",
+					647
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): The Thandol Span is taken from Rhag Garmason on the Dun Modr stop; the races that cross the span to Foggy MacKreel pass Ebenezer Rustlocke's corpse under its Arathi end (45.7,93.1, MacKreel at 43.2,92.6) and hand it in there, instead of carrying it to the Arathi guide."
 			}
 		],
 		"notes": [
