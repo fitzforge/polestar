@@ -49,7 +49,7 @@ test('layer hop: off by default; while off nothing is watched, joined, registere
 		-- the fires below show the layer hop ignores them)
 		local watched = 0
 		for _, e in ipairs({ "UPDATE_MOUSEOVER_UNIT", "NAME_PLATE_UNIT_ADDED", "SHARD_TRANSFER_IMMINENT", "SHARD_TRANSFER",
-			"SHARD_TRANSFER_CANCELLED", "CHAT_MSG_ADDON", "PARTY_INVITE_REQUEST", "GROUP_JOINED" }) do
+			"SHARD_TRANSFER_CANCELLED", "CHAT_MSG_ADDON", "PARTY_INVITE_REQUEST", "GROUP_JOINED", "GROUP_LEFT" }) do
 			if QoL.Watching(e) then watched = watched + 1 end
 		end
 		local toggles = 0
@@ -116,7 +116,7 @@ test('layer hop: presence lists peers and hosts; echo, other realm, bad version,
 		hear("Peerfour", "1H1429:" .. string.rep("3", 120) .. ":0")
 		lay.secret["1H1429:34:0"] = true
 		hear("Peerfive", "1H1429:34:0")
-		hear("Peersix", "1H1429:35:0")
+		for _ = 1, 4 do hear("Peersix", "1H1429:35:0") end
 		hear("Peersix", "1H1429:36:0")
 		emit(rows(1429))
 		lay.sent = {}
@@ -191,7 +191,7 @@ test('layer hop: a request is sent or refused; only the claimed host or a known 
 		local hidden = {}
 		for _, c in ipairs(q.calls) do if c[1] == "StaticPopup_Hide" then hidden[#hidden + 1] = c[2] .. ":" .. tostring(c[3]) end end
 		emit({ strangers, #calls("AcceptGroup"), hidden })
-		lay.group, lay.inShard.party1 = 2, true
+		lay.group, lay.inShard.player, lay.inShard.party1 = 2, true, true
 		set("layerLeaveAfter", true)
 		stub.fire("GROUP_JOINED")
 		local mid = Ly.Status().hopGroup
@@ -256,6 +256,10 @@ test('layer hop: the world refresh is offered, confirmed out of combat, auto-con
 
 	const auto = run(`
 		Ly.Request("*")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
 		lay.eviction = 120
 		stub.fire("SHARD_TRANSFER_IMMINENT")
 		wait(8)
@@ -303,4 +307,107 @@ test('layer hop: the world refresh is offered, confirmed out of combat, auto-con
 	assert.deepEqual(fallback[0], [true, ['SHARD_TRANSFER_IMMEDIATE'], 'offered']);
 	assert.deepEqual(fallback[1], ['refreshing', 2, 'offered']);
 	assert.deepEqual(fallback[2], [0, 'done', true, true, 1]);
+});
+
+test('layer hop: leaving the hop group ends it; a group joined by hand next is never left, by the command or a timer armed in the hop group', () => {
+	const join = `
+		set("layerLeaveAfter", true)
+		Ly.Request("*")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
+		local joined = Ly.Status().hopGroup`;
+	const command = run(`${join}
+		lay.inShard.player, lay.inShard.party1 = true, true
+		local lines = #stub.messages
+		lay.group = 0
+		stub.fire("GROUP_LEFT")
+		lay.group = 3
+		stub.fire("GROUP_JOINED")
+		local ok, why = Ly.LeaveGroup()
+		local left = #calls("LeaveParty")
+		wait(2.1)
+		emit({ joined, ok, why, left, #stub.messages - lines, #calls("LeaveParty"), lay.group, Ly.Status().hopGroup })
+	`);
+	assert.deepEqual(command[0], [true, false, 'Not in a group joined for a layer hop.', 0, 0, 0, 3, false],
+		'the command refuses, and the same-shard check armed at the hop join neither prints nor leaves');
+	const timer = run(`${join}
+		stub.fire("SHARD_TRANSFER")
+		lay.group = 0
+		stub.fire("GROUP_LEFT")
+		lay.group = 3
+		stub.fire("GROUP_JOINED")
+		wait(2.1)
+		emit({ joined, #calls("LeaveParty"), lay.group, Ly.Status().hopGroup })
+	`);
+	assert.deepEqual(timer[0], [true, 0, 3, false], 'the leave armed by the refresh in the hop group does not leave the new group');
+});
+
+test('layer hop: the same layer needs both the player and the host on the party\'s shard; the host alone there means a refresh is coming', () => {
+	const out = run(`
+		set("layerLeaveAfter", true)
+		Ly.Request("*")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		lay.group, lay.inShard.party1 = 2, true
+		local lines = #stub.messages
+		stub.fire("GROUP_JOINED")
+		wait(2.1)
+		emit({ Ly.Status().asked ~= nil, #stub.messages - lines, #calls("LeaveParty"), Ly.Status().hopGroup })
+	`);
+	assert.deepEqual(out[0], [true, 0, 0, true]);
+});
+
+test('layer hop: a sender\'s Q then R within 2 s are both handled: the host answers and claims', () => {
+	const out = run(`
+		set("layerHost", true)
+		lay.sent = {}
+		hear("Reqone", "1Q1429")
+		hear("Reqone", "1R1429:10:*")
+		wait(3.1)
+		emit({ #sent("H"), order() })
+	`);
+	assert.deepEqual(out[0], [2, ['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']]);
+});
+
+test('layer hop: a request is bound to its map and expires after 120 s whatever the refresh does; a stale one accepts no invite', () => {
+	const out = run(`
+		Ly.Request("*")
+		lay.map = 1430
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		emit({ #calls("AcceptGroup"), Ly.Status().asked == nil })
+		lay.map = 1429
+		local again = Ly.Request("*")
+		lay.map = 1430
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		emit({ again, Ly.Status().asked == nil })
+		lay.map = 1429
+		local third = Ly.Request("*")
+		lay.eviction = 60
+		stub.fire("SHARD_TRANSFER_IMMINENT")
+		wait(121)
+		local expired = Ly.Status().asked == nil
+		hear("Hosttwo", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hosttwo")
+		emit({ third, expired, #calls("AcceptGroup"), Ly.Status().transfer })
+	`);
+	assert.deepEqual(out[0], [0, true], 'requested on 1429, the invite on 1430 is not accepted');
+	assert.deepEqual(out[1], [true, true], 'a zone change ends the request');
+	assert.deepEqual(out[2], [true, true, 0, 'offered'], 'an unrelated refresh offer does not keep the request alive');
+});
+
+test('layer hop: a waiting request never auto-confirms the refresh of a group joined by hand', () => {
+	const out = run(`
+		set("layerAutoRefresh", true)
+		Ly.Request("*")
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
+		lay.eviction = 60
+		stub.fire("SHARD_TRANSFER_IMMINENT")
+		wait(10)
+		emit({ #calls("ShardTransferConfirm"), Ly.Status().hopGroup, Ly.Status().transfer, Ly.Status().asked ~= nil })
+	`);
+	assert.deepEqual(out[0], [0, false, 'offered', true]);
 });

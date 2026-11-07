@@ -24,7 +24,7 @@ local format, floor, max, min, concat = string.format, math.floor, math.max, mat
 local type, tonumber, ipairs = type, tonumber, ipairs
 
 local WIDTH, HEIGHT = 340, 440 -- the size it opens at the first time
-local MIN_W, MIN_H, MAX_W, MAX_H = 280, 220, 560, 640
+local MIN_W, MIN_H, MAX_W, MAX_H = 280, 340, 560, 640 -- MIN_H: the head, status, buttons and checkboxes fit above the list
 local PAD = 16
 local HEAD_H = 48
 local GRIP = 18

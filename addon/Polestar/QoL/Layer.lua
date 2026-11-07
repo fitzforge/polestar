@@ -53,7 +53,8 @@ local LAYER_FIELD = 5           -- the GUID field read as the layer id
 Layer.PREFIX, Layer.CHANNEL, Layer.LAYER_FIELD = PREFIX, CHANNEL, LAYER_FIELD
 
 local MAX_BYTES = 120      -- longer messages are dropped
-local FLOOD = 2            -- s: one message per sender this often
+local FLOOD = 2            -- s: the window a sender's messages are counted in
+local BURST = 4            -- messages per sender per FLOOD window; more are dropped
 local PEER_AGE = 600       -- s: a peer not heard from this long is dropped
 local PRESENCE_EVERY = 30  -- s: presence on a change at most this often
 local ASK_EVERY = 60       -- s: Q at most this often
@@ -76,6 +77,7 @@ local known = {}           -- map -> id -> { seenAt, peers = { name = at }, host
 local transfer, evictAt = "none", nil -- none | offered | refreshing | done
 local asked                -- { want, at, map }: a hop this module asked for
 local hopGroup, joinedFrom = false, nil
+local groupGen = 0         -- bumped on every group join and departure: timers armed in another group return
 local claims, hostClaims, invited, hosting = {}, {}, {}, {}
 local lastFrom, fromCount = {}, 0
 local lastPresence, lastPresenceKey, lastAsk = nil, nil, nil
@@ -318,12 +320,6 @@ local function resample()
 	end
 end
 
-local function forget()
-	if not current then return end
-	current = nil
-	changed()
-end
-
 ---------------------------------------------------------------------------
 -- The hop group
 ---------------------------------------------------------------------------
@@ -331,6 +327,28 @@ end
 local function inHopGroup()
 	if hopGroup and not (IsInGroup and IsInGroup()) then hopGroup = false end
 	return hopGroup
+end
+
+-- The waiting request, or nil. It lives PENDING seconds on the map it was
+-- made on (kept while the map is unknown); a stale one is dropped here. In
+-- the hop group it was answered: it lives until the refresh or the leave.
+local function requestLive()
+	if not asked then return nil end
+	if inHopGroup() then return asked end
+	local map = playerMap()
+	if (not map or map == asked.map) and now() - asked.at <= PENDING then return asked end
+	asked, joinedFrom = nil, nil
+	changed()
+	return nil
+end
+
+-- A zone change or a loading screen: the layer is unknown again, and a
+-- request made on another map ends.
+local function forget()
+	requestLive()
+	if not current then return end
+	current = nil
+	changed()
 end
 
 -- Leaves a group joined for a hop; never another group.
@@ -391,16 +409,17 @@ end
 
 local function stopAuto() autoTimer = cancel(autoTimer) end
 
--- Only for a hop this module asked for: after layerRefreshDelay seconds,
--- RefreshNow each second until it goes out or AUTO_FOR seconds pass.
+-- Only for a hop this module asked for, in the group it joined for it: after
+-- layerRefreshDelay seconds, RefreshNow each second until it goes out or
+-- AUTO_FOR seconds pass.
 local function startAuto()
-	if autoTimer or not asked or not QoL.On("layerAutoRefresh") then return end
+	if autoTimer or not inHopGroup() or not requestLive() or not QoL.On("layerAutoRefresh") then return end
 	local delay = tonumber(ns.Get("qol.layerRefreshDelay")) or 5
 	if delay < 0 then delay = 0 elseif delay > 60 then delay = 60 end
 	local giveUp = now() + delay + AUTO_FOR
 	local function try()
 		autoTimer = nil
-		if not enabled or not asked or transfer ~= "offered" or not QoL.On("layerAutoRefresh") then return end
+		if not enabled or not asked or not inHopGroup() or transfer ~= "offered" or not QoL.On("layerAutoRefresh") then return end
 		if Layer.RefreshNow() or now() >= giveUp then return end
 		autoTimer = ns.NewTimer(1, try)
 	end
@@ -419,9 +438,9 @@ local function onTransfer()
 	transfer, evictAt, asked, current = "done", nil, nil, nil
 	changed()
 	if QoL.On("layerLeaveAfter") and inHopGroup() then
-		local g = gen
+		local g, gg = gen, groupGen
 		ns.After(LEAVE_AFTER, function()
-			if g == gen then Layer.LeaveGroup() end
+			if g == gen and gg == groupGen then Layer.LeaveGroup() end
 		end)
 	end
 	doneTimer = cancel(doneTimer)
@@ -463,7 +482,7 @@ function Layer.Request(want)
 	asked, joinedFrom = a, nil
 	local g = gen
 	ns.After(PENDING, function()
-		if g ~= gen or asked ~= a or inHopGroup() or transfer ~= "none" then return end
+		if g ~= gen or asked ~= a or inHopGroup() then return end
 		asked = nil
 		changed()
 	end)
@@ -482,10 +501,11 @@ end
 -- An invite this request waits for: from a host that claimed the player
 -- since the request, or (fallback) a peer heard on the request's map.
 local function expected(name)
-	if not asked or not name then return false end
+	local a = requestLive()
+	if not a or not name then return false end
 	local at = hostClaims[name]
-	if at and at >= asked.at then return true end
-	local m = known[asked.map]
+	if at and at >= a.at then return true end
+	local m = known[a.map]
 	if not m then return false end
 	local t = now()
 	for _, e in pairs(m) do
@@ -509,19 +529,32 @@ local function onPartyInvite(_, name)
 	ns.Print(format(L["Joined %s's group for a layer hop."], name))
 end
 
+-- Only a group joined through an invite this module accepted is the hop group.
 local function onGroupJoined()
+	groupGen = groupGen + 1
 	if not joinedFrom or not asked then return end
 	joinedFrom, hopGroup = nil, true
 	changed()
-	local g = gen
+	local g, gg = gen, groupGen
 	ns.After(AFTER_JOIN, function()
-		if g ~= gen or not inHopGroup() or transfer ~= "none" then return end
-		if not (UnitInPartyShard and readable(UnitInPartyShard("party1"))) then return end
+		if g ~= gen or gg ~= groupGen or not inHopGroup() or transfer ~= "none" then return end
+		-- The same shard only when the player and the host are both on the
+		-- party's shard; the host alone there means the player's refresh is coming.
+		if not (UnitInPartyShard and readable(UnitInPartyShard("player"))
+			and readable(UnitInPartyShard("party1"))) then return end
 		asked = nil
 		ns.Print(L["Same layer as the host; nothing to refresh."])
 		changed()
 		if QoL.On("layerLeaveAfter") then Layer.LeaveGroup() end
 	end)
+end
+
+-- Leaving any group ends the hop group; timers armed in it then return.
+local function onGroupLeft()
+	groupGen = groupGen + 1
+	hopGroup, joinedFrom = false, nil
+	stopAuto()
+	changed()
 end
 
 ---------------------------------------------------------------------------
@@ -567,16 +600,21 @@ local function remember(name, message)
 	if #heard > LOG_SIZE then remove(heard, 1) end
 end
 
--- One message per sender per FLOOD seconds.
+-- At most BURST messages per sender per FLOOD seconds (a requester's Q then
+-- R, a host's H then I): lastFrom[name] = { at = the window's start, n }.
 local function flooding(name, t)
 	local last = lastFrom[name]
-	if last and t - last < FLOOD then return true end
+	if last and t - last.at < FLOOD then
+		if last.n >= BURST then return true end
+		last.n = last.n + 1
+		return false
+	end
 	if not last then fromCount = fromCount + 1 end
-	lastFrom[name] = t
+	lastFrom[name] = { at = t, n = 1 }
 	if fromCount > 200 then
-		for n, at in pairs(lastFrom) do
-			if t - at >= FLOOD then
-				lastFrom[n] = nil
+		for who, e in pairs(lastFrom) do
+			if t - e.at >= FLOOD then
+				lastFrom[who] = nil
 				fromCount = fromCount - 1
 			end
 		end
@@ -732,6 +770,7 @@ QoL.WhileOn(ON, "SHARD_TRANSFER_CANCELLED", onCancelled)
 QoL.WhileOn(ON, "CHAT_MSG_ADDON", onAddonMessage)
 QoL.WhileOn(ON, "PARTY_INVITE_REQUEST", onPartyInvite)
 QoL.WhileOn(ON, "GROUP_JOINED", onGroupJoined)
+QoL.WhileOn(ON, "GROUP_LEFT", onGroupLeft)
 
 local initialized = false
 ns.OnInit(function()

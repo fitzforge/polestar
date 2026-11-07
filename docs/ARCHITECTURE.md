@@ -4718,7 +4718,7 @@ Polestar.QoL.Layer.Expects(name) -> bool  -- an invite a waiting request expects
 - **Window** `UI.LayerHop` (`PolestarLayerHop`): `TOGGLE_LAYER_HOP`
   (`/polestar layer`, the options' button) toggles it, never while the opt
   in is off; geometry in `PolestarDB.layerHopWindow = { x, y, w, h }`,
-  280x220 to 560x640, kept on screen; `ui.locked` hides the grip and stops
+  280x340 to 560x640, kept on screen; `ui.locked` hides the grip and stops
   dragging.
 
 ## Lookup — Codex, sources, generated guides, mount spotting

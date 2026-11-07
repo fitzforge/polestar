@@ -81,7 +81,7 @@ test('layer hop window: position and size are saved on drag and size stop, and r
 			sized = { s.x, s.y, s.w, s.h }, stopped = not F.moving and not F.sizing })
 	`, { before: 'Polestar.DB().layerHopWindow = { x = 5000, y = 9000, w = 100, h = 2000 }' });
 	assert.deepEqual(clamped.first, [280, 640, 'TOPLEFT', 'BOTTOMLEFT', 1920 - 280, 1080], 'kept inside the bounds and the 1920x1080 screen');
-	assert.deepEqual(clamped.bounds, [280, 220, 560, 640]);
+	assert.deepEqual(clamped.bounds, [280, 340, 560, 640]);
 	assert.equal(clamped.moving, true);
 	assert.deepEqual(clamped.dragged, [100, 200 + 640, 280, 640]);
 	assert.equal(clamped.sizing, true);
@@ -93,7 +93,7 @@ test('layer hop window: position and size are saved on drag and size stop, and r
 		local p, _, rp, x, y = F:GetPoint(1)
 		emit({ F:GetWidth(), F:GetHeight(), p, rp, x, y })
 	`, { before: 'Polestar.DB().layerHopWindow = { x = 100, y = 500, w = 400, h = 300 }' });
-	assert.deepEqual(restored, [400, 300, 'TOPLEFT', 'BOTTOMLEFT', 100, 500]);
+	assert.deepEqual(restored, [400, 340, 'TOPLEFT', 'BOTTOMLEFT', 100, 500], 'a saved height under the minimum opens at the minimum');
 });
 
 test('layer hop window: ui.locked hides the grip, stops a resize in progress and refuses drags', () => {
