@@ -56,10 +56,6 @@ step The Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
 
-step Scorpid Worker Tail on the way
-  along until q789
-  collect 4862 quest 789.1
-
 step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
@@ -70,7 +66,6 @@ step Hana'zua
 # Den on the way to the peons and the Vile Familiars, then came back to the
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
 step Valley of Trials: kill these as you meet them
-  label q789
   zone Durotar
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
@@ -182,6 +177,7 @@ step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 823                          -- Orgnil Soulscar
   accept 784
+  accept 837                          -- Gar'Thok: the quilboar and scouts live among the huts by the prickly pears
   turnin 96821                        -- Gar'Thok
   accept 815
 
@@ -197,8 +193,10 @@ step Razor Hill
   accept 791                          -- Furl Scornbrow, in the watchtower
 
 step Prickly pears
-  tip The prickly pears grow among the quilboar huts just west of town.
+  tip The prickly pears grow among the quilboar huts just west of town; the Razormane Quilboar and Scouts there are Encroachment's first two.
   collect 275718 quest 96825.1
+  kill 3111 quest 837.1
+  kill 3112 quest 837.2
 
 step Cook Torka
   turnin 96825
@@ -301,13 +299,7 @@ step Echo Isles
 step Razor Hill
   accept 99048
   turnin 825                          -- Gar'Thok
-  accept 837                          -- Gar'Thok
   turnin 815                          -- Cook Torka
-
-step On the way
-  along until q837
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
 
 step Level 10
   when level<10
@@ -335,7 +327,6 @@ step Kranal Fiss
   turnin 2983
 
 step Razormane Grounds
-  label q837
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
   kill 3111 quest 837.1

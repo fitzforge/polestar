@@ -10,7 +10,7 @@ next forever/horde/02-the-barrens
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Admiral's Orders (831), Neeru Fireblade (829), Meats to Orgrimmar (6365).
+# Added here: The Admiral's Orders (831), Neeru Fireblade (829).
 
 # ---------------------------------------------------------------- Valley of Trials
 
@@ -58,10 +58,6 @@ step The Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
 
-step Scorpid Worker Tail on the way
-  along until q789
-  collect 4862 quest 789.1
-
 step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
@@ -71,16 +67,12 @@ step Hana'zua
 # of their own after it, the writer's hub tour turned 789 and 4402 in at the
 # Den on the way to the peons and the Vile Familiars, then came back to the
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
-step Cactus Apple on the way
-  along until q4402
-  collect 11583 quest 4402.1 -- Cactus Apple along the way to Back to the Den
-
 step Valley of Trials: kill these as you meet them
-  label q789
   zone Durotar
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
+  collect 11583 quest 4402.1
   collect 4905 quest 790.1
   turnin 790
   accept 804
@@ -88,7 +80,6 @@ step Valley of Trials: kill these as you meet them
   collect 6487 quest 1485.1 only Warlock
 
 step Back to the Den
-  label q4402
   turnin 4402                         -- Galgar
 
 step Class trainer
@@ -190,6 +181,7 @@ step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 823                          -- Orgnil Soulscar
   accept 784
+  accept 837                          -- Gar'Thok: the quilboar and scouts live among the huts by the prickly pears
   turnin 96821                        -- Gar'Thok
   accept 815
 
@@ -205,8 +197,10 @@ step Razor Hill
   accept 791                          -- Furl Scornbrow, in the watchtower
 
 step Prickly pears
-  tip The prickly pears grow among the quilboar huts just west of town.
+  tip The prickly pears grow among the quilboar huts just west of town; the Razormane Quilboar and Scouts there are Encroachment's first two.
   collect 275718 quest 96825.1
+  kill 3111 quest 837.1
+  kill 3112 quest 837.2
 
 step Cook Torka
   turnin 96825
@@ -251,10 +245,6 @@ step Bloodtalon Matriarch
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
   collect 277128 quest 97223.1
 
-step Forgotten Loa Idol on the way
-  along until q97225
-  collect 277135 quest 97225.1 -- Forgotten Loa Idol along the way to Sen'jin Village
-
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
@@ -264,11 +254,11 @@ step Echo Isles: kill these as you meet them
   kill 3207 quest 826.1
   collect 4890 quest 815.1
   collect 4892 quest 817.1
+  collect 277135 quest 97225.1
   collect 4866 quest 826.3
   collect 4864 quest 808.1 @67.4,87.8
 
 step Sen'jin Village
-  label q97225
   turnin 96873 optional               -- Pa'zula
   turnin 817                          -- Vel'rin Fang
   turnin 818                          -- Master Vornal
@@ -293,14 +283,8 @@ step Sen'jin Village
 
 step Razor Hill
   accept 99048
-  accept 837                          -- Gar'Thok
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
-
-step On the way
-  along until q837
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
 
 step Level 10
   when level<10
@@ -329,7 +313,6 @@ step Kranal Fiss
   turnin 2983
 
 step Razormane Grounds
-  label q837
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
   kill 3111 quest 837.1
@@ -499,20 +482,47 @@ step Margoz
   turnin 827
   accept 829
 
-step Durotar
-  only Hunter
-  zone Durotar
-  goto 51.9,43.5 "Durotar"
+step Razor Hill
+  tip Back to Razor Hill.
+  turnin 99051                        -- Orgnil Soulscar
+  turnin 6083 only Hunter             -- Thotar
+  accept 6082 only Hunter
 
-step Into Orgrimmar
+step Razor Hill
+  when group 99052
+  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+
+step Aggor the Young
+  when group 99052
+  tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
+  collect 286009 quest 99052.1 optional -- Aggor's Belt
+  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+
+step Armored Scorpid
   only Hunter
-  zone Orgrimmar
-  goto 52.5,84.4 "Into Orgrimmar"
+  tip Armored Scorpids crawl over the plains west of Razor Hill. Tame one, then return to Thotar.
+  kill 3126 quest 6082.1 "Tame Armored Scorpid" -- Tame it with the Taming Rod
+  turnin 6082                         -- Thotar: Tame Beast
+  accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
 
 step Orgrimmar
   only Hunter
   zone Orgrimmar
   goto 66.0,18.5 "Orgrimmar"
+
+step Ormak Grimshot
+  only Hunter
+  zone Orgrimmar
+  tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
+  turnin 6081                         -- Ormak Grimshot: Beast Training
+
+step Hanashi
+  only Hunter
+  zone Orgrimmar
+  when money>=10s
+  when !skill "Staves" 1
+  tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
+  train 2704                          -- Hanashi
 
 step The Barrens
   only Warrior
@@ -549,51 +559,3 @@ step Far Watch Post
   tip Follow the road west from Razor Hill over the Southfury River bridge; Far Watch Post sits just above it on the Barrens side.
   turnin 840                          -- Kargal Battlescar
   accept 842
-
-step Zargh
-  accept 6365
-  turnin 842
-  turnin 6365
-  accept 6384
-  getfp "Crossroads"
-
-step Razor Hill
-  zone Durotar
-  tip Back to Razor Hill.
-  turnin 99051                        -- Orgnil Soulscar
-  turnin 6083 only Hunter             -- Thotar
-  accept 6082 only Hunter
-  kill 3126 quest 6082.1 "Tame Armored Scorpid" only Hunter -- Tame it with the Taming Rod
-  turnin 6082 only Hunter -- Thotar: Tame Beast
-
-step Thotar
-  only Hunter
-  zone Durotar
-  tip Armored Scorpids crawl over the plains west of Razor Hill. Tame one, then return to Thotar.
-  accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
-
-step Ormak Grimshot
-  only Hunter
-  zone Orgrimmar
-  tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
-  turnin 6081                         -- Ormak Grimshot: Beast Training
-
-step Hanashi
-  only Hunter
-  zone Orgrimmar
-  when money>=10s
-  when !skill "Staves" 1
-  tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
-  train 2704                          -- Hanashi
-
-step Razor Hill
-  zone Durotar
-  when group 99052
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
-
-step Aggor the Young
-  zone Durotar
-  when group 99052
-  tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
