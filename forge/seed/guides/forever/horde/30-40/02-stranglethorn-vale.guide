@@ -169,7 +169,7 @@ step Elder tigers and Lashtail raptors
   kill 686 quest 195
 
 step Grom'gol
-  tip Follow the road south to Grom'gol.
+  tip Nimboya waits in Grom'gol, near the zeppelin tower.
   turnin 581                          -- Nimboya
   accept 582
 

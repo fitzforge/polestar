@@ -5158,3 +5158,11 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the isla
 	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
 	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
 });
+// Final route review, 30-40 (2026-11-07): the step after the flight into Grom'gol told the player to follow the road south to
+// Grom'gol.
+test('forever/horde/30-40/02-stranglethorn-vale.guide: final review: no walk to Grom\'gol after the flight there', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/02-stranglethorn-vale.guide').steps;
+	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 581));
+	assert.ok(s > 0, 'turnin 581 is in the guide');
+	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /road south to Grom'gol/, 'the tip names where the NPC stands, not a walk to the town');
+});
