@@ -294,6 +294,23 @@ impl AppState {
 		Ok(pruned)
 	}
 
+	/// Held suspect chunks judged again by the current plausibility rules
+	/// ([`recording::recheck`]): those that pass are stored as plausible and exported. Run at
+	/// startup, so a deploy that relaxes a rule releases what the old rule held back. Returns
+	/// (passed, held before).
+	pub fn recheck_suspect(&self, now: i64) -> Result<(usize, usize), String> {
+		let held = self.db().suspect_chunks().map_err(|e| e.to_string())?;
+		let mut passed = 0;
+		for (id, received, text, reasons) in &held {
+			if let Some(quests) = recording::recheck(text, *received, reasons) {
+				if self.db().clear_suspect(*id, &quests, now).map_err(|e| e.to_string())? {
+					passed += 1;
+				}
+			}
+		}
+		Ok((passed, held.len()))
+	}
+
 	fn db(&self) -> MutexGuard<'_, Db> {
 		lock(&self.db)
 	}
