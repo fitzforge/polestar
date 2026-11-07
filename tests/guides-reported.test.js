@@ -5528,3 +5528,21 @@ test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Pot
 	assert.ok(!list.some(({ goal }) => goal.quest === 97891), 'not in this guide');
 	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
 });
+
+// Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
+// Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
+// guide's Undercity stop (not Gadgetzan -> Orgrimmar -> Brill -> Gadgetzan), Taurens, Druids, Paladins and Warlocks
+// from Orgrimmar on the way out (not a flight back from Gadgetzan).
+test('forever/horde/40-50: final review: riding at 40 and class trips where the route already passes', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	assert.ok(!stv.some(({ goal }) => goal.t === 'train' && goal.npc === 7953), 'no Troll riding trip from the Swamp of Sorrows');
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const gadgetzan = at(fer, 'getfp Gadgetzan', (g) => g.t === 'getfp' && g.location === 'Gadgetzan');
+	for (const [what, pred] of [['Troll riding', (g) => g.t === 'train' && g.npc === 7953], ['Tauren riding', (g) => g.t === 'train' && g.npc === 3690], ['the Felsteed', is('turnin', 3631)]]) {
+		assert.ok(at(fer, what, pred) < gadgetzan, `${what} before Gadgetzan`);
+	}
+	assert.deepEqual(fer.slice(gadgetzan).filter(({ goal }) => goal.t === 'fly' && /Thunder Bluff|Ratchet/.test(goal.location || goal.text || '')).map(({ step }) => step.title), [], 'no flight back from Gadgetzan to Thunder Bluff or Ratchet');
+	assert.ok(!fer.some(({ goal }) => goal.t === 'train' && goal.npc === 4773), 'no Undead riding loop in this guide');
+	const uc = goals('forever/horde/40-50/03-feralas.guide');
+	assert.ok(at(uc, 'Undead riding', (g) => g.t === 'train' && g.npc === 4773) < at(uc, 'Zeppelin to Grom\'gol', (g) => g.t === 'goto' && /Grom'gol/.test(g.text || '')), 'Undead ride from the Undercity stop');
+});

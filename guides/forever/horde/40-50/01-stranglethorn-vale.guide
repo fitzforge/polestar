@@ -412,40 +412,6 @@ step Sawtooth crocolisks
   tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
   collect 6169 quest 698.1
 
-step Fly to Booty Bay
-  only Troll
-  zone Swamp of Sorrows
-  when level>=40
-  goto 46.0,54.7 "Stonard flight master"
-  fly "Booty Bay"
-
-step Boat to Ratchet
-  only Troll
-  zone Stranglethorn Vale
-  when level>=40
-  goto 26.4,73.6 "Boat to Ratchet"
-
-step Riding at 40
-  only Troll
-  zone Durotar
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village on the Durotar coast, with Zjolnir's raptors (20 gold each) beside him. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 7953 optional                   -- Xar'Ti, riding trainer
-  note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
-
-step Boat to Booty Bay
-  only Troll
-  zone The Barrens
-  when level>=40
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step Fly to Stonard
-  only Troll
-  zone Stranglethorn Vale
-  when level>=40
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Stonard"
-
 step Noboru the Cudgel
   zone Swamp of Sorrows
   tip Noboru wanders the clearing south-west of the Fallow Sanctuary; his cudgel starts a quest.
