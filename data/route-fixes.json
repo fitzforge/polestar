@@ -2250,6 +2250,102 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
+			},
+			{
+				"a": [
+					"turnin",
+					54
+				],
+				"b": [
+					"turnin",
+					2158
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): the first Goldshire stop went Innkeeper Farley, William Pestle, Remy by the road south, back to Farley for the bind, then across the road to Marshal Dughan, and out north-east to Sam Sarsaparilla (217 yd over the best order). Coming down the road from Northshire: Dughan on the west side first, then Remy, then the inn (Farley, the bind, Pestle) on the way out to the lake. The seed (re-seeded for this) has that order; this pair and the next keep it."
+			},
+			{
+				"a": [
+					"accept",
+					47
+				],
+				"b": [
+					"turnin",
+					2158
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): Remy \"Two Times\" by the road south of the smithy before the inn, on the first Goldshire stop (see turnin 54 before turnin 2158)."
+			},
+			{
+				"a": [
+					"turnin",
+					99131
+				],
+				"b": [
+					"accept",
+					91723
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): Baited for Success (99131, Remy to Jason Mathers, nothing to do) was carried past Jason on the lake shore on the walk east to the Tower of Azora and handed in an hour later on the walk back (01-elwynn-forest steps 47 -> 70 on 0.3.4). 10 of 14 recorded players handed it in before taking Blixie's quest at the tower. The seed (re-seeded for this) hands it in on the walk east."
+			},
+			{
+				"a": [
+					"task",
+					112
+				],
+				"b": [
+					"accept",
+					91723
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): Collecting Kelp's fronds drop from the Crystal Lake murlocs the walk east to the Tower of Azora passes; the route left them for a step on the walk back (step 69 on 0.3.4, 50 min later). The seed collects them on the walk east (its 'Crystal Lake and the wolves' step); this pair keeps it."
+			},
+			{
+				"a": [
+					"task",
+					88
+				],
+				"b": [
+					"turnin",
+					91733
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): Princess (88) roots in the Brackwell Pumpkin Patch beside the river Downstream (91733) searches; the route did the river, went north to the logging camp and the half-eaten body, then back south for Princess and north again to Stone Cairn Lake (steps 50, 56-59 on 0.3.4, about 1,100 yd). The seed's 'Downstream and Princess' step takes her with the river; this pair keeps it."
+			},
+			{
+				"a": [
+					"turnin",
+					114
+				],
+				"b": [
+					"turnin",
+					239
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): the end went Goldshire -> Westbrook Garrison (239) -> back east to Goldshire for a training stop -> west to the gnolls and Westbrook -> south-east to Maybell (114) and the Stonefield Farm -> north-west to the Applejack Still -> Westbrook (steps 70-91 on 0.3.4, about 2.5 km). The seed's order: Goldshire -> Maybell -> the Stonefield Farm -> the still -> Westbrook (239, An Apple Treat) -> the gnolls -> Westbrook, then Westfall. This pair and the next keep it."
+			},
+			{
+				"a": [
+					"turnin",
+					87
+				],
+				"b": [
+					"turnin",
+					239
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): the Stonefield Farm's hand-ins (Goldtooth 87, Princess 88, the apples) before Westbrook Garrison (see turnin 114 before turnin 239)."
+			},
+			{
+				"a": [
+					"accept",
+					1685
+				],
+				"b": [
+					"turnin",
+					239
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Elwynn Forest): Warlocks took Gakin's Summons (1685, level 10) on a walk back to Goldshire from Westbrook Garrison (steps 73-74 on 0.3.4), which every class walked for a training stop; the model is level 10 on the Goldshire stop before it. The seed (re-seeded for this) takes it on that stop."
 			}
 		],
 		"notes": [

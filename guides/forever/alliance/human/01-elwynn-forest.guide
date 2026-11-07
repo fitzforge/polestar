@@ -145,13 +145,13 @@ step Level 5.48
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
 step Goldshire
-  tip Follow the road south out of the valley to Goldshire. Innkeeper Farley is in the Lion's Pride Inn; Marshal Dughan stands outside the smithy across the road, William Pestle at the inn's front and Remy "Two Times" by the road south of it.
-  turnin 2158                                 -- Innkeeper Farley, inside
-  accept 60                                   -- William Pestle, inside
-  accept 47                                   -- Remy "Two Times"
-  sethome "Goldshire" npc 295
+  tip Follow the road south out of the valley to Goldshire. Marshal Dughan stands outside the smithy on the west side of the road, Remy "Two Times" by the road south of it, and Innkeeper Farley and William Pestle in the Lion's Pride Inn across the road.
+  turnin 54                                   -- Marshal Dughan
   accept 62
-  turnin 54
+  accept 47                                   -- Remy "Two Times"
+  turnin 2158                                 -- Innkeeper Farley, inside
+  sethome "Goldshire" npc 295
+  accept 60                                   -- William Pestle, inside
 
 step Goldshire
   when group 91752
@@ -208,10 +208,6 @@ step Goldshire
   accept 99130
   train class
 
-step Duskweed Petal on the way
-  along until q99130
-  collect 286214 quest 99130
-
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 
 step Maybell Maclure
@@ -237,7 +233,6 @@ step Billy Maclure
   accept 86
 
 step Elwynn Forest: kill these as you meet them
-  label q99130
   zone Elwynn Forest
   tip Overgrown Duskweed grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.
   tip Stonetusk Boars graze between the vineyards and the farm.
@@ -320,6 +315,16 @@ step Druid trainer
   only Druid
   train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
 
+step Jason Mathers
+  tip Head east out of Goldshire along the lake shore. Jason Mathers stands on the shore north-east of town.
+  turnin 99131
+
+step Crystal Lake: kill these as you meet them
+  zone Elwynn Forest
+  tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
+  collect 1256 quest 112                      -- Crystal Kelp Fronds
+  collect 247877 quest 91751 optional         -- Rough Wolf Pelts
+
 step The Tower of Azora
   tip Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
   accept 91725                                -- Blixie Fitzwink
@@ -332,16 +337,12 @@ step The bridge
   accept 52
   accept 91733                                -- Ormin Pelford
 
-step Prowler on the way
-  along until q52
-  kill 118 quest 52
-
 step Downstream and Princess
-  label q52
   tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
   kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
+  collect 1006 quest 88                       -- Brass Collar: Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
@@ -381,9 +382,6 @@ step A half-eaten body
   turnin 37
   accept 45
 
-step Downstream and Princess
-  collect 1006 quest 88                       -- Brass Collar: Princess
-
 step Stone Cairn Lake
   tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
   collect 1019 quest 83                       -- Red Linen Bandanas
@@ -411,14 +409,12 @@ step The Tower of Azora
   accept 91724
   turnin 91725                                -- Blixie Fitzwink
 
-step Guard Thomas
-  turnin 71
-  accept 39
-
 # ---------------------------------------------------------------- The east again
 
 step Guard Thomas
   tip Follow the road east past the Tower of Azora to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it.
+  turnin 71
+  accept 39
   kill 118 quest 52 @75.5,76.5 map 1429 -- Prowler
   turnin 52
 
@@ -434,20 +430,11 @@ step The Tower of Azora
   tip Follow the hills south to the tower, on the road west.
   turnin 91724                                -- Hamish Bergwort
 
-# ---------------------------------------------------------------- The east
-
-step Crystal Lake: kill these as you meet them
-  zone Elwynn Forest
-  tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
-  collect 1256 quest 112                      -- Crystal Kelp Fronds
-  collect 247877 quest 91751 optional         -- Rough Wolf Pelts
-
 # ---------------------------------------------------------------- Goldshire, the farms and Westbrook
 
 step Goldshire
-  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  tip Follow the road west back to Goldshire; Helene stands on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 91751 optional                       -- Helene Peltskinner, inside
-  turnin 99131                                -- Jason Mathers
   train class
   turnin 112                                  -- William Pestle, inside
   turnin 39                                   -- Marshal Dughan, while William brews
@@ -457,27 +444,7 @@ step Goldshire
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
-
-step Westbrook Garrison
-  tip Back south to the Westbrook Garrison, by the road to Westfall. Deputy Rainer stands outside the barracks, Sergeant De Vries beside him.
-  turnin 239
-
-# ---------------------------------------------------------------- To Westfall
-
-step Westbrook Garrison
-  zone Elwynn Forest
-  tip Follow the road west to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks.
-  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
-  accept 11
-
-step Elwynn Forest
-  zone Elwynn Forest
-  goto 44.5,66.3 "Elwynn Forest"
-
-step Goldshire
-  tip Follow the road west back to Goldshire. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
-  train class
 
 step Stormwind City
   only Mage
@@ -537,20 +504,7 @@ step The Binding
 step Back to Elwynn Forest
   only Mage,Warlock
   zone Elwynn Forest
-  goto 26.4,87.5 "Elwynn Forest"
-
-step Forest's Edge
-  zone Elwynn Forest
-  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border.
-  collect 782 quest 11                        -- Painted Gnoll Armbands
-
-step Westbrook Garrison
-  turnin 11                                   -- Deputy Rainer
-
-step Elwynn Forest
-  only Hunter
-  zone Elwynn Forest
-  goto 41.2,66.3 "Elwynn Forest"
+  goto 42.2,70.5 "Elwynn Forest"
 
 step Taming the Beast
   zone Elwynn Forest
@@ -584,7 +538,21 @@ step The Applejack Still
   turnin 91736 optional
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
+# ---------------------------------------------------------------- To Westfall
+
 step Westbrook Garrison
-  tip Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
+  zone Elwynn Forest
+  tip Follow the road south to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks; Sergeant De Vries stands inside. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
+  turnin 239                                  -- Deputy Rainer
+  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
+  accept 11
   accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
   turnin 91738
+
+step Forest's Edge
+  zone Elwynn Forest
+  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border.
+  collect 782 quest 11                        -- Painted Gnoll Armbands
+
+step Westbrook Garrison
+  turnin 11                                   -- Deputy Rainer
