@@ -10,7 +10,8 @@
 # Whelgar's Excavation Site -> the Green Belt (Howin Kindfeather, Rethiel) ->
 # the Angerfang Encampment -> Golm in the south-east -> the Dragonmaw Gates
 # -> the whelps, raptors and Neru in the north-east -> the Green Belt -> Dun
-# Modr and the Villards by the Thandol Span -> Whelgar -> Menethil -> boat to
+# Modr (The Thandol Span from Rhag Garmason) and the Villards by the Thandol
+# Span (Ebenezer Rustlocke's corpse beside Essene) -> Whelgar -> Menethil -> boat to
 # Southshore (Farren's murlocs and naga, the turtles, the Syndicate camp on
 # the Alterac border, the yeti cave, Hillsbrad's town hall) -> fly to
 # Stormwind for a round of turn-ins and the Missing Diplomat chain (Druids
@@ -157,14 +158,16 @@ step The Green Belt
 
 step Dun Modr
   tip North along the road to Dun Modr. Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo Harlbarrow.
+  accept 631                          -- Rhag Garmason
   collect 280396 quest 98310.2        -- Heart of Modr
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
 
 step The Villards
-  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
+  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
+  turnin 631                          -- Ebenezer Rustlocke's Corpse
 
 step Prospector Whelgar
   tip Back south down the road to the excavation site.

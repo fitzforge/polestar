@@ -3244,6 +3244,23 @@
 				}
 			],
 			"pr": 1173
+		},
+		{
+			"id": "ironforge-hall-of-explorers-turnin-514",
+			"faction": "Alliance",
+			"at": {
+				"quest": 514,
+				"goal": "turnin"
+			},
+			"tip": "Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.",
+			"note": "30-40/01 flies from Southshore to Ironforge for these hand-ins; the step kept the seed's tip for the tram ride from Stormwind (\"Take the Deeprun Tram from the Dwarven District to Ironforge\"), which no longer matched the walk (final route review, 2026-11-07). Prospector Stormpike (npc 1356, 74.4,12.1), Historian Karnik (2916, 77.5,11.8) and Roetten Stonehammer (5637, 70.0,21.3) stand in the Hall of Explorers.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature spawns of 1356, 2916 and 5637 in Ironforge"
+				}
+			],
+			"pr": 1173
 		}
 	]
 }

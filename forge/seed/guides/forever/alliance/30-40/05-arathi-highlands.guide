@@ -37,8 +37,10 @@
 #   (~42.7): their enders stand next to the other turn-ins, so it costs nothing.
 # - Crystal in the Mountains (635) is optional: it starts from a rare's drop
 #   in Stranglethorn. The Princess Trapped starts at the shards without it.
-# - The Thandol Span (631) is accepted here from Rhag Garmason at Dun Modr,
-#   just over the bridge, instead of on an earlier Wetlands visit.
+# - The Thandol Span (631) is taken from Rhag Garmason on 01's Dun Modr stop
+#   and handed in at Ebenezer Rustlocke's corpse beside Essene Villard on the
+#   same walk north (re-seeded for flow, 0.3.5: this guide walked from Refuge
+#   Pointe to Dun Modr and back onto the span for it).
 # - Local order: the route's Stormwind stop gains class training.
 # - Dropped: This Must Be The Place (79976): the Messenger Bag on Thoradin's
 #   Wall offers it only after Eagle's Fist (79975) and the rest of the Cozy
@@ -195,16 +197,6 @@ step Northfold Manor
 
 step Refuge Pointe
   turnin 681                          -- Captain Nials
-
-step Thandol Span
-  zone Wetlands
-  tip Follow the road south over the bridge to Dun Modr at the Wetlands end, where Rhag Garmason waits.
-  accept 631                          -- Rhag Garmason, Dun Modr
-
-step Ebenezer Rustlocke
-  zone Arathi Highlands
-  tip Walk back onto the span: Ebenezer lies under its Arathi end.
-  turnin 631                          -- Ebenezer Rustlocke's Corpse
 
 # ---------------------------------------------------------------- Faldir's Cove
 

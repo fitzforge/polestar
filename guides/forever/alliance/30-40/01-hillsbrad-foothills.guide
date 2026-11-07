@@ -42,16 +42,25 @@ step Defeat Nek'rosh
   collect 3625 quest 474.1 @53.5,54.7 map 1437
 
 step Golm
-  tip Golm stands in the south-eastern hills: use the Goaz Stone beside it.
+  when group 98310
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Golm, Ados, Neru and Modr are level 32 elites, each called up by using the Goaz Stone beside it. Skip them if you are alone. Golm stands in the south-eastern hills.
   collect 280397 quest 98310.3        -- Heart of Golm
+
+step Ados
+  when group 98310
+  tip North-east to the Dragonmaw Gates: Ados stands at the gates (use the Goaz Stone).
+  collect 280395 quest 98310.1        -- Heart of Ados
 
 step Dragonmaw Gates: kill these as you meet them
   zone Wetlands
-  tip North-east to the Dragonmaw Gates: Ados stands at the gates (use the Goaz Stone).
-  collect 280395 quest 98310.1        -- Heart of Ados
-  collect 280103 quest 98245.1        -- Razormaw Incisor
-  collect 280330 quest 98283.2 optional -- Carnage's Head
+  tip The whelps nest in the hills north-east of the Angerfang Encampment; Carnage prowls further north, and the Razormaw raptors hunt the highlands on the way north to Dun Modr.
   collect 279385 quest 98072.1        -- Pristine Crimson Scale
+  collect 280330 quest 98283.2 optional -- Carnage's Head
+  collect 280103 quest 98245.1        -- Razormaw Incisor
+
+step Neru
+  when group 98310
+  tip Neru stands in the hills between the Dragonmaw Gates and Dun Modr (use the Goaz Stone).
   collect 280398 quest 98310.4        -- Heart of Neru
 
 step The Green Belt
@@ -61,23 +70,27 @@ step The Green Belt
 # ---------------------------------------------------------------- Dun Modr
 
 step Dun Modr
-  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo.
+  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; the Captive Fire Elemental is held on the west side: lead it out to Roggo.
   turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
-  collect 280396 quest 98310.2        -- Heart of Modr
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
 
+step Modr
+  when group 98310
+  tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
+  collect 280396 quest 98310.2        -- Heart of Modr
+
 step The Villards
   zone Wetlands
-  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east.
+  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
+  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
 
 step Foggy MacKreel
   zone Arathi Highlands
-  tip Over the Thandol Span: Ebenezer Rustlocke lies under its Arathi end, Foggy MacKreel a short walk west of it.
-  turnin 631 only Dwarf,Gnome,NightElf,Skyborne -- Ebenezer Rustlocke's Corpse, inside
+  tip Over the Thandol Span: Foggy MacKreel stands a short walk west of its Arathi end.
   accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
@@ -88,6 +101,7 @@ step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
 step Prospector Whelgar
+  when group 98310
   turnin 98310                        -- Below ground
 
 step Menethil Harbor
@@ -223,7 +237,7 @@ step Fly to Ironforge
 
 step Deeprun Tram
   zone Ironforge
-  tip Take the Deeprun Tram from the Dwarven District to Ironforge.
+  tip Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.
   turnin 98313                        -- Historian Karnik, Hall of Explorers
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
   accept 707
@@ -252,16 +266,10 @@ step Fly to Stormwind
   goto 55.9,47.9 "Ironforge flight master"
   fly "Stormwind"
 
-step The Islander
-  zone Stormwind City
-  only Warrior
-  tip Wu Shen trains warriors in Old Town, beside the Pig and Whistle. Klannoc Macleod waits on Fray Island in the Barrens, on the way to Ratchet much later (40-50/01).
-  accept 1718 npc 5479                -- Wu Shen
-
 # ---------------------------------------------------------------- Stormwind
 
 step Elling Trias
-  zone Ironforge
+  zone Stormwind City
   tip The cheese shop in the Trade District.
   turnin 1245
 
@@ -280,6 +288,11 @@ step Dashel Stonefist
   complete 1447
   turnin 1447
   accept 1247
+
+step The Islander
+  only Warrior
+  tip Wu Shen trains warriors in Old Town, beside the Pig and Whistle. Klannoc Macleod waits on Fray Island in the Barrens, on the way to Ratchet much later (40-50/01).
+  accept 1718 npc 5479                -- Wu Shen
 
 step Stormwind Keep
   turnin 563                          -- Major Samuelson
