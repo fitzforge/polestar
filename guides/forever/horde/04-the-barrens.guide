@@ -27,6 +27,9 @@ step Ratchet
   accept 92706 optional               -- WANTED poster
 
 step Ratchet
+  accept 865                          -- Mebok Mizzyrix, beside the WANTED poster: he offers Raptor Horns from level 13, so take it now if he did not at 12
+
+step Ratchet
   when complete 865
   turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
 
