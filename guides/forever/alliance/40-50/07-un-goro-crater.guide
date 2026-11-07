@@ -9,6 +9,7 @@ next forever/alliance/50-60/01-burning-steppes
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Noggenfogger Elixir (2662), straight after Delivery for Marin.
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -30,6 +31,8 @@ step Sprinkle
   turnin 2641
   accept 2661
   turnin 2661
+  accept 2662                         -- Marin Noggenfogger
+  turnin 2662                         -- Marin, once he has brewed the elixir: a few seconds
 
 # ---------------------------------------------------------------- Gadgetzan
 
