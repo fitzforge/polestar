@@ -1494,7 +1494,7 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			-- The way to the inn without the Hearthstone, as Nav plans it (seconds); noHearth asked for.
 			local trip, asked = 9 * 60, {}
 			Polestar.Nav = Polestar.Nav or {}
-			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN, Polestar.Nav.HEARTH_MIN_TRIP = 15, 300, 480
+			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN, Polestar.Nav.HEARTH_MIN_TRIP = 15, 120, 180
 			Polestar.Nav.FindInn = function(npc, name)
 				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
 			end
@@ -1513,8 +1513,10 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			r.sooner = state()
 			hs.remaining = 0; trip = 90; changed()
 			r.close = state()
-			trip = 6 * 60; changed()
+			trip = 170; changed()
 			r.mid = state()
+			trip = 4 * 60; changed()
+			r.over = state()
 			trip = 20 * 60; changed()
 			r.far = state()
 			r.asked = asked[1]
@@ -1525,7 +1527,8 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 	assert_eq!(out["longer"], json!({ "line": "Hearthstone ready in 20 min; the trip takes 9 min: set off now", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["sooner"], json!({ "line": "Hearthstone ready in 20 min, sooner than the 30 min trip: wait for it", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["close"], json!({ "line": "The inn is only 2 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }));
-	assert_eq!(out["mid"], json!({ "line": "The inn is only 6 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }), "under 8 minutes the cooldown is worth more");
+	assert_eq!(out["mid"], json!({ "line": "The inn is only 3 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }), "under 3 minutes the cooldown is worth more");
+	assert_eq!(out["over"], json!({ "line": false, "arrow": false }), "a 4-minute trip with the Hearthstone ready: hearth (#1096)");
 	assert_eq!(out["far"], json!({ "line": false, "arrow": false }), "a long trip with the Hearthstone ready: hearth");
 	assert_eq!(out["asked"], "noHearth");
 }
