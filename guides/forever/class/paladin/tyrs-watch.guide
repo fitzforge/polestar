@@ -131,9 +131,9 @@ step Danitha Morr
 
 step Shadowvale
   tip The Tarnished (level 8-9) hold the ruined village of Shadowvale in the Whispering Forest, south-west of the keep. Commander Rudolph Gelhardt (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first.
-  kill 259434 quest 91317.1           -- Tarnished Drudges x8
-  kill 259433 quest 91317.2           -- Tarnished Zealots x6
-  collect 270435 quest 91317.3        -- Rudolph Gelhardt's Head
+  kill 259434 quest 91317.2           -- Tarnished Drudges x8
+  kill 259433 quest 91317.3           -- Tarnished Zealots x6
+  collect 270435 quest 91317.1        -- Rudolph Gelhardt's Head
 
 step The crypt under Shadowvale
   tip The cellar is under the village, not on the surface: the way down is inside a burned-out house, where the arrow points. Twelve Lumber Piles (stacked beams) lie in the cellar, each good for one Sturdy Lumber. Whispering Horror, an elite (level 11-13), sits at the far end: leave it alone.
