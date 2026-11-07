@@ -412,6 +412,27 @@ step Swart
   tip Swart, the shaman trainer, stands on the east side of Razor Hill.
   accept 2983                         -- Swart
 
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
+
+step
+  only Shaman
+  when onquest 1522
+  zone The Barrens
+  turnin 1522
+
+step
+  only Shaman
+  when onquest 1523
+  zone The Barrens
+  turnin 1523
+
+step
+  only Shaman
+  when onquest 2984
+  zone The Barrens
+  turnin 2984
+
 step Kranal Fiss
   only Shaman
   zone The Barrens
