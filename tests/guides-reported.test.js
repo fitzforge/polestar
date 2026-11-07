@@ -2930,6 +2930,21 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
 });
 
+// --- Flow re-order (2026-11-07, #1100): Alliance Hillsbrad 30-40 walked
+// from the Syndicate camp to a point in north-west Alterac and back to the
+// camp for Syndicate Assassins, split Farren's Reassignment from Stormwind Ho!
+// by a walk across Southshore, and listed the Syndicate on the way.
+test(`${HILLSBRAD_ALLIANCE}: flow re-order: the Syndicate camp once, Reassignment with Stormwind Ho!, no along steps`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const { steps } = compiled(HILLSBRAD_ALLIANCE);
+	assert.deepEqual(steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const docs = at(list, 'accept 510 (Foreboding Plans)', is('accept', 510));
+	const kills = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 505);
+	assert.ok(kills.length && kills.every(({ s }) => s === list[docs].s), 'the Syndicate killed at the camp with the documents');
+	assert.ok(!list.some(({ goal }) => goal.t === 'goto' && goal.x === 29.6 && goal.y === 37.5), 'no detour to north-west Alterac');
+	assert.equal(list[at(list, 'accept 563', is('accept', 563))].s, list[at(list, 'turnin 562', is('turnin', 562))].s, 'Reassignment taken when Stormwind Ho! is handed in');
+});
+
 test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides', { skip }, () => {
 	for (const guide of [TANARIS_ALLIANCE, 'forever/horde/40-50/02-feralas.guide']) {
 		const list = goals(guide);

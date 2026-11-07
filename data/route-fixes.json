@@ -2006,6 +2006,54 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"accept",
+					659
+				],
+				"b": [
+					"turnin",
+					98219
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore from the boat: the pier leads up to the inn, so Phin Odelic, Farren and the inn's NPCs (innkeeper, Kelly, Bilger below, Chef upstairs) come first, then Darren, the flight master, Micha and Bartolo at the north end, then Maleb and Jacques on the west side; the route went to the flight master at the far north end first and came back down through the town."
+			},
+			{
+				"a": [
+					"accept",
+					564
+				],
+				"b": [
+					"accept",
+					565
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore in walking order: Darren Malvew east of the inn before Bartolo Ginsetti by the flight master."
+			},
+			{
+				"a": [
+					"accept",
+					565
+				],
+				"b": [
+					"accept",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore in walking order: Bartolo at the north end before Magistrate Maleb in the town hall on the way back south to the coast."
+			},
+			{
+				"a": [
+					"turnin",
+					1247
+				],
+				"b": [
+					"accept",
+					690
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Stormwind: Elling Trias (Trade District) takes The Missing Diplomat after the Cathedral, on the way to the Mage Quarter and the harbour, instead of a walk back east from the Mage Quarter (278 yd) and then 603 yd west to the boat."
 			}
 		],
 		"notes": [
@@ -2805,6 +2853,30 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"turnin",
+					562
+				],
+				"b": [
+					"accept",
+					563
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Farren hands out Reassignment when Stormwind Ho! is handed in; the route split the two by a spice purchase across town (Farren, Micha, back to Farren), as the seed does not."
+			},
+			{
+				"a": [
+					"task",
+					510
+				],
+				"b": [
+					"task",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): the Syndicate Footpads and Thieves for Syndicate Assassins stand at the camp that holds the Syndicate Documents: one visit, as the seed has it. The route listed them on the way, sent players to a point in north-west Alterac (29.6,37.5, about 1,000 yd past the camp) and back to the camp for them after the turtles."
 			}
 		],
 		"after": [

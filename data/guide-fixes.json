@@ -1881,6 +1881,42 @@
 				}
 			],
 			"pr": 1032
+		},
+		{
+			"id": "1100-hillsbrad-syndicate-footpads-at-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 505,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Syndicate Assassins: the Syndicate Footpads are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1100
+		},
+		{
+			"id": "1100-hillsbrad-syndicate-thieves-at-the-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 505,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Syndicate Assassins: the Syndicate Thieves are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1100
 		}
 	]
 }
