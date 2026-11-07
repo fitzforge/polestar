@@ -81,35 +81,26 @@ step The Crossroads
   accept 1492
   accept 869                          -- Gazrog
 
-step Plainstriders and raptors
-  tip Plainstriders and Sunscale raptors roam the plains all around the Crossroads, thickest to the north.
-  collect 5087 quest 844.1 @53.0,23.7
-  collect 5062 quest 869.1
-
-step The Crossroads
-  turnin 844                          -- Sergra Darkthorn
-  accept 845
-  turnin 869                          -- Gazrog
-
-step The Zhevra
-  tip Zhevra Runners graze north and east of town.
-  goto 52.5,27.5 "Zhevra"
-  collect 5086 quest 845.1
-
-step The Crossroads
-  turnin 845                          -- Sergra Darkthorn
-  accept 903
-
-# ---------------------------------------------------------------- East: the Razormane and Far Watch
-
 step Razormane camp
-  tip The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
-  goto 55.0,26.0 "Razormane camp"
-  collect 5096 quest 903.1
+  tip Plainstriders graze the plains north-east of town on the way to the camp: take their beaks as you go. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
+  collect 5087 quest 844.1 @53.0,23.7
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
   collect 12708 quest 5041.1 @58.8,25.8
+
+step The Crossroads
+  turnin 844                          -- Sergra Darkthorn
+  accept 845
+  turnin 871                          -- Thork
+  turnin 5041
+  accept 872
+
+step The Zhevra
+  tip Zhevra Runners graze along the road east toward Ratchet: take their hooves on the way out.
+  collect 5086 quest 845.1 @56.3,32.6
+
+# ---------------------------------------------------------------- East: Far Watch
 
 # Turn in a carried alternative here before starting the shared ritual;
 # do not add a trip to a different trainer for an uncarried breadcrumb.
@@ -214,12 +205,9 @@ step Ratchet
 
 step The Crossroads
   tip Walk back west along the road to the Crossroads.
-  turnin 903                          -- Sergra Darkthorn
+  turnin 845                          -- Sergra Darkthorn
   turnin 842 only Orc,Troll
-  accept 881
-  turnin 871                          -- Thork
-  turnin 5041
-  accept 872
+  accept 903
 
 # ---------------------------------------------------------------- North-east loop
 
@@ -245,11 +233,6 @@ step Kranal Fiss
   zone The Barrens
   turnin 1527 reward 5176 263412      -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
-step Echeyakee
-  zone The Barrens
-  tip Echeyakee, a white lion, prowls the plains north of the Razormane camp.
-  collect 5100 quest 881.1
-
 step Samophlange
   tip The Control Console stands at the Venture Co. research site west of the Sludge Fen. Close the three valves around the drill, use the console again, then take the Console Key from Tinkerer Sniggles beside it.
   turnin 894
@@ -264,7 +247,8 @@ step Samophlange
   accept 902                          -- Sputtervalve in Ratchet: later, on the way
 
 step The Dry Hills
-  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills.
+  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
+  collect 5096 quest 903.1
   collect 5064 quest 867.1
   collect 4926 @37.9,16.2
   accept 819
@@ -290,8 +274,8 @@ step Regthar Deathgate
 step The Crossroads
   turnin 870                          -- Tonga Runetotem
   accept 877
-  turnin 881                          -- Sergra Darkthorn
-  accept 905
+  turnin 903                          -- Sergra Darkthorn
+  accept 881
   turnin 872                          -- Thork
   turnin 848                          -- Apothecary Helbrim
   turnin 867                          -- Darsok Swiftdagger
@@ -302,12 +286,6 @@ step The Crossroads
 step The Stagnant Oasis
   tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.
   interact 3737 quest 877.1
-
-step Raptor nests
-  tip The three nests sit together in the Raptor Grounds south-west of the oasis; Sunscale Scytheclaws guard them.
-  interact 6906 quest 905.3
-  interact 6907 quest 905.1
-  interact 6908 quest 905.2
 
 step Ratchet
   tip East to Ratchet, on the coast.
@@ -320,15 +298,10 @@ step The Crossroads
   tip Back west along the road.
   turnin 877                          -- Tonga Runetotem
   accept 880
-  turnin 905                          -- Sergra Darkthorn
 
 step Lushwater Oasis
   tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
   collect 5098 quest 880.1
-
-step The Crossroads
-  turnin 880                          -- Tonga Runetotem
-  accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide
 
 # ---------------------------------------------------------------- North
 
@@ -349,6 +322,18 @@ step Wenikee Boltbucket
   turnin 3922
   accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the next guide's Orgrimmar visit
 
+step Echeyakee
+  zone The Barrens
+  tip South-east on the way back to the Crossroads: Echeyakee, a white lion, prowls the plains north of the Razormane camp. Sunscale raptors roam around his lair: finish the raptor heads for Gazrog here.
+  collect 5100 quest 881.1
+  collect 5062 quest 869.1
+
 step The Crossroads
   tip Walk back south to the Crossroads. The next guide starts here and takes you to Orgrimmar and the zeppelin to Tirisfal Glades.
   turnin 875                          -- Darsok Swiftdagger
+  turnin 881                          -- Sergra Darkthorn
+  accept 905
+  turnin 869                          -- Gazrog
+  accept 3281                         -- Gazrog
+  turnin 880                          -- Tonga Runetotem
+  accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide

@@ -4543,3 +4543,24 @@ test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherb
 	assert.deepEqual(work.map(({ goal }) => goal.item).sort(), [4503, 4522, 5040], 'tusks, pouches and knife listed once each');
 	assert.equal(new Set(work.map(({ s }) => s)).size, 1, 'all three on one step');
 });
+
+// Flow review, The Barrens 12-16: after the camp loop the guide walked north of the Crossroads for the zhevra,
+// back to Sergra, then east to the Razormane camp for the prowlers, and Echeyakee sat between the Sludge Fen
+// console and Ratchet. Now the zhevra on the road out to Ratchet, the prowlers on the west loop by Regthar,
+// and the last loop goes round once, Lushwater to the Dry Hills to Wenikee, ending at Echeyakee on the way
+// home (the raptor heads after him, #1135).
+test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Regthar, one last loop ending at Echeyakee`, { skip }, () => {
+	const list = goals(BARRENS_12);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const work = (q) => list.find(({ step, goal }) => !step.along && goal.t === 'collect' && goal.quest === q).s;
+	const zhevra = work(845);
+	assert.ok(stepOf('accept', 845) < zhevra && zhevra < stepOf('accept', 887), 'the zhevra between the camp loop and Ratchet');
+	assert.ok(!list.filter(everyone).some(({ s, goal }) => s > zhevra && s < stepOf('accept', 887) && goal.t === 'turnin' && goal.npc === 3338), 'no visit to Sergra on the way');
+	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 888) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
+	assert.ok(work(903) > stepOf('accept', 855), 'the prowlers on the west loop');
+	const eche = work(881);
+	assert.ok(work(880) < work(875) && work(875) < stepOf('turnin', 3921) && stepOf('turnin', 3922) < eche, 'Lushwater, the Dry Hills, Wenikee, then Echeyakee');
+	const last = stepOf('turnin', 869);
+	assert.ok(eche < last, 'the raptor heads after Echeyakee');
+	for (const [t, q] of [['turnin', 881], ['turnin', 880], ['turnin', 875]]) assert.equal(stepOf(t, q), last, `${t} ${q} on the final Crossroads visit`);
+});
