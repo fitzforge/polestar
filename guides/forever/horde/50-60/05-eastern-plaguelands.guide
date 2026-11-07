@@ -194,6 +194,7 @@ step Orgrimmar
   goto 45.3,63.7 "Orgrimmar"
 
 step Fly to Bloodvenom Post
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Bloodvenom Post"
@@ -203,13 +204,15 @@ step Fly to Bloodvenom Post
 
 step Fly to Thunder Bluff
   only Druid,Paladin
-  zone Felwood
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
   fly "Thunder Bluff"
+  zone Thunder Bluff
 
-step Fly to Thunder Bluff
+step Thunder Bluff
   only Druid,Paladin
   zone Thunder Bluff
-  tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
+  tip Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
 
 # ---------------------------------------------------------------- Felwood and Moonglade

@@ -5707,3 +5707,84 @@ test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after
 	assert.ok(idx(hb, 'turnin', 98310) < idx(hb, 'accept', 98313), 'For Further Study after Gleaning Our Future');
 	assert.ok(idx(hb, 'turnin', 637) < idx(hb, 'accept', 683), "Sara Balloo's Plea after Sully Balloo's Letter");
 });
+
+// --- Flights with nothing to do in between (#1191): a flight to a stop where nothing is left for the
+// character to do, then straight on by another flight, is one flight to the second one's end (the game routes
+// it through the first stop). The same rule as `forge guide lint`'s (validate.rs, check_flight_hops), per
+// race and class: a `when` or any work between keeps the stop, a flight without a flight master to leave from
+// (a druid's Moonglade flight) and a walk onto another continent (a boat, a zeppelin) end the check.
+
+const FLIGHT_RACES = { horde: ['Orc', 'Scourge', 'Tauren', 'Troll', 'Skyborne'], alliance: ['Human', 'Dwarf', 'NightElf', 'Gnome', 'Skyborne'] };
+const FLIGHT_CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
+const forChar = (o, race, cls) => !o || ((!o.races || o.races.includes(race)) && (!o.classes || o.classes.includes(cls)));
+// "<step> -> <step>" for each such pair in `guide` for one race and class.
+function flightHops(guide, race, cls) {
+	const nodes = new Map((data.travel?.taxi?.nodes || []).map((n) => [n.id, n.c]));
+	const continent = (map) => (data.mapFrames.forever?.[map] || data.mapFrames.era?.[map] || {}).c;
+	const steps = compiled(guide).steps.filter((step) => forChar(step.only, race, cls)).map((step) => ({ step, goals: step.goals.filter((g) => forChar(g.only, race, cls)) }));
+	const work = (g) => !['goto', 'fly', 'note'].includes(g.t);
+	const out = [];
+	steps.forEach(({ step, goals }, i) => {
+		const last = goals.map((g) => g.t).lastIndexOf('fly');
+		if (last < 0 || step.when || !goals.slice(0, last).some((g) => g.t === 'goto' && g.x != null) || goals.slice(last + 1).some(work)) return;
+		let on = nodes.get(goals[last].node);
+		for (const { step: next, goals: later } of steps.slice(i + 1)) {
+			if (next.when) return;
+			const f = later.findIndex((g) => g.t === 'fly');
+			const before = f < 0 ? later : later.slice(0, f);
+			if (before.some(work)) return;
+			for (const g of before.filter((g) => g.t === 'goto' && g.map != null)) {
+				const c = continent(g.map);
+				if (c == null) continue;
+				if (on != null && c !== on) return;
+				on = c;
+			}
+			if (f >= 0) {
+				out.push(`${step.title} -> ${next.title}`);
+				return;
+			}
+		}
+	});
+	return out;
+}
+
+test('Leveling guides: no flight to a stop with nothing to do followed by another flight, for any race and class (#1191)', { skip: skip || needs('travel.json') }, () => {
+	compiled(STONETALON); // loads the data
+	const found = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(horde|alliance)\//.test(g))) {
+		const side = guide.split('/')[1];
+		for (const race of FLIGHT_RACES[side]) {
+			for (const cls of FLIGHT_CLASSES) {
+				for (const hop of flightHops(guide, race, cls)) found.push(`${guide}: ${race} ${cls}: ${hop}`);
+			}
+		}
+	}
+	assert.deepEqual(found, []);
+});
+
+test('The Hinterlands (Horde 48): Thorium Point flies straight to Tarren Mill, no stop at Hammerfall (#1191)', { skip }, () => {
+	const list = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.equal(flights[0], 'Tarren Mill');
+	assert.ok(!flights.includes('Hammerfall'));
+});
+
+test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to Thunder Bluff, not through Bloodvenom Post (#1191)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	for (const cls of ['DRUID', 'PALADIN', 'MAGE']) {
+		const flights = list.filter(forClass(cls)).filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+		const from = flights.indexOf('Undercity');
+		const after = cls === 'MAGE' ? flights.slice(from + 1, from + 2) : flights.slice(from + 1, from + 3);
+		assert.deepEqual(after, cls === 'MAGE' ? ['Bloodvenom Post'] : ['Thunder Bluff', 'Bloodvenom Post'], `${cls}: ${flights.join(', ')}`);
+	}
+});
+
+test('Desolace (Horde 30): a Shaman flies from Freewind Post straight to Sun Rock Retreat, not back to Orgrimmar first (#1191)', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-desolace.guide').filter(forClass('SHAMAN'));
+	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	const at = flights.indexOf('Freewind Post');
+	assert.ok(at >= 0, flights.join(', '));
+	assert.equal(flights[at + 1], 'Sun Rock Retreat', flights.join(', '));
+});
+
+// --- end of flights with nothing to do in between
