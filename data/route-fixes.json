@@ -8916,6 +8916,18 @@
 			{
 				"a": [
 					"turnin",
+					204
+				],
+				"b": [
+					"accept",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Brother Nimetz offers Kurzen's Mystery only once Bad Medicine (204) and The Second Rebellion (203) are handed in (the data's preAll; the Classic reference has 204). The route took it on arrival at the Rebel Camp; now with Sergeant Yohwa's hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
 					637
 				],
 				"b": [
