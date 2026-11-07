@@ -261,6 +261,11 @@ step Stonevault troggs
   collect 5797 quest 1108
   collect 3404 quest 703
 
+step Valley of Fangs
+  tip The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz and Martek take the wings and the flakes on the way.
+  turnin 703                          -- Rigglefuzz
+  turnin 1108                         -- Martek the Exiled
+
 step Ancient Chest
   tip Keep north on the road; the chest lies in the Uldaman dig site, at the foot of the ruins north-west of the road.
   collect 4631 quest 709              -- Below ground
@@ -269,12 +274,6 @@ step Agmond's End
   tip Head back south down the road, past the Valley of Fangs.
   turnin 709                          -- Theldurin the Lost
   accept 728
-
-# ---------------------------------------------------------------- Valley of Fangs and Agmond's End
-
-step Valley of Fangs
-  turnin 703                          -- Rigglefuzz
-  turnin 1108                         -- Martek the Exiled
 
 step The Dustbowl: kill these as you meet them
   zone Badlands
