@@ -4964,3 +4964,12 @@ test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon lo
 	assert.deepEqual([...loop].sort((a, b) => a - b), loop, 'east side, south, south-west, west');
 	assert.ok(stepOf('turnin 3448', is('turnin', 3448)) < stepOf('accept 3702', is('accept', 3702)), 'Tymor before Archesonus');
 });
+
+// Final route review, Alliance 40-60: the trip to Mountaineer Pebblebitty only for The Horn of the Beast's group; no
+// along lists.
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: Pebblebitty only for the group, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+	const trip = list.find(({ goal }) => goal.t === 'goto' && goal.map === 1432 && goal.x === 18.2);
+	assert.ok(trip && (trip.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(3181)), 'the Pebblebitty trip is the group\'s');
+});

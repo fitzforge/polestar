@@ -2984,6 +2984,40 @@
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "a4060-bs-medallions-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4283,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "FIFTY! YEP!: the Blackrock orcs around Flame Crest and the stronghold drop them, on the Ruins of Thaurissan and Blackrock Stronghold steps; the along list from Morgan's Vigil duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-bs-relics-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3701,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Smoldering Ruins of Thaurissan: the relics stand in the ruins the Ruins of Thaurissan step works; the along list from Morgan's Vigil duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
 		}
 	]
 }
