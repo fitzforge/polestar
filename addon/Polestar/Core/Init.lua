@@ -175,18 +175,39 @@ function ns.Errors() return errors end
 -- function), for the report: taint is no Lua error, so without these a
 -- report on a broken gamepad or button reads "Errors: none". The last few,
 -- oldest first, each with the Polestar addon blamed, how often and when it
--- last came.
+-- last came. Only our own addons count: another author's "Polestar_..."
+-- folder (Polestar_Mob_Markers, #1123) is not ours. `where` is the first line
+-- of our code under the blocked call (the event fires inside it), since the
+-- game names a namespaced or anonymous frame's function only "UNKNOWN()".
 local MAX_BLOCKED = 5
 local blocked = {}
+local function ownAddon(addon)
+	if addon == ADDON then return true end
+	if not addon:find("^Polestar_") then return false end
+	local get = C_AddOns and C_AddOns.GetAddOnMetadata
+	local author = get and get(addon, "Author")
+	return type(author) == "string" and (author == "Polestar" or author:find("^Polestar;") ~= nil)
+end
+local function blockedSite()
+	if type(debugstack) ~= "function" then return nil end
+	local stack = debugstack(2, 40, 0) or ""
+	for path, line in stack:gmatch("AddOns[/\\](Polestar[%w_]*[/\\][^:\"%]\n]-%.lua)\"?%]?:(%d+)") do
+		local rel = path:gsub("\\", "/")
+		-- This handler and the event dispatch in this file.
+		if rel ~= ADDON .. "/Core/Init.lua" then return rel .. ":" .. line end
+	end
+	return nil
+end
 function ns.NoteBlocked(addon, fn)
-	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
+	if type(addon) ~= "string" or not ownAddon(addon) then return end
 	fn = tostring(fn or "?")
+	local where = blockedSite()
 	local at = date("%H:%M:%S")
-	ns.Log("blocked: " .. addon .. " " .. fn)
+	ns.Log("blocked: " .. addon .. " " .. fn .. (where and (" at " .. where) or ""))
 	seq = seq + 1
 	for i = 1, #blocked do
 		local e = blocked[i]
-		if e.addon == addon and e.fn == fn then
+		if e.addon == addon and e.fn == fn and e.where == where then
 			table.remove(blocked, i)
 			e.count, e.at, e.seq = e.count + 1, at, seq
 			blocked[#blocked + 1] = e
@@ -194,7 +215,7 @@ function ns.NoteBlocked(addon, fn)
 		end
 	end
 	if #blocked >= MAX_BLOCKED then table.remove(blocked, 1) end
-	blocked[#blocked + 1] = { addon = addon, fn = fn, count = 1, at = at, seq = seq }
+	blocked[#blocked + 1] = { addon = addon, fn = fn, where = where, count = 1, at = at, seq = seq }
 end
 function ns.Blocked() return blocked end
 
