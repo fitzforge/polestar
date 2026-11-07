@@ -174,8 +174,10 @@ Every distance a player reads goes through `FormatDistance` (the arrow, the
 map target's tooltip, the death helper, the rares' toasts and view); text
 that embeds one takes the formatted string (`%s`). `opts.round = 5` rounds to
 the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
-(`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
-keeps yards for whoever reads it.
+(`Rares.YardsText`); metres turn to kilometres from 1000 m. `opts.decimals = 1`
+keeps tenths for ground-trail spacing, width and height controls; ordinary
+arrow and tooltip distances keep their existing whole-unit formatting. The
+bug report keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
@@ -2629,6 +2631,64 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   OpenMap's stitched world map on (`OpenMapAPI.IsStitched`), the world map
   places them with `OpenMapAPI.CanvasFromWorldPos` and lifts the frame above
   `OpenMapAPI.ArtTopLevel()`.
+- Ground trail (`Nav/WorldTrail.lua`, `Maps/WorldTrailMath.lua`,
+  `Maps/WorldTrailTerrain.lua`, `Maps/WorldTrailRender.lua`, `UI/WorldTrail.lua`):
+  `ns.WorldTrail`, a camera-estimated in-world sparkle trail. `nav.worldTrail`
+  defaults off for fresh and upgrading accounts. Its master switch and controls
+  live under Appearance, Ground trail; the `groundtrail` and `worldtrail` aliases
+  and `/polestar trail` reach that tab, with no duplicate switch under Guide.
+  The existing first-account setup offers the same switch;
+  the welcome version is unchanged, with no new upgrade popup or login message.
+  All `nav.worldTrail*` settings are independent of map-line settings.
+  The painter follows `ns.GuideShown()`: explicit guide hiding clears its
+  sprites and stops its update callback without changing the enabled setting.
+  Showing the guide restores an enabled trail without a route-change event;
+  combat/instance auto-hide of the guide window is not this visibility gate.
+  `WorldTrail.Settings()` returns a normalized, detached runtime snapshot;
+  `ApplyPreset`, `SaveLook` and `Reset` write only this feature's native settings.
+  Looks change appearance and shape, not enabled/indoor/view policy. Reset also
+  clears the saved custom look and turns the ground trail off.
+  `Nav.walk.WorldTrail()` exposes a read-only snapshot copied when navigation
+  actually accepts a baked walking leg, plus detached progress from its last
+  follower update. Guide, step, target, path generation and current walk identity
+  must still match. Search intent (including combat deferral), dynamic replacement
+  and Clear invalidate it. When a replan replaces an equivalent ordinary walk,
+  fresh native follower progress can rebind the same accepted path and target;
+  the getter remains closed until that update. Split/handmade walks are not
+  bound in this version. The getter neither decodes another leg nor advances
+  navigation, starts a search or reads terrain.
+  The renderer rechecks eligibility each paint. Baked XY and strip heights use
+  the original decoded 2D cumulative distance and fractional trim offset, not
+  global nearest-point reprojection, 3D distance or a smoothed path. Heights are
+  interpolated only between real strip samples, ending at the smaller of decoded
+  line length and last sample distance; no tail extension or length rescaling.
+  Producer sampling precedes XY quantization, so alignment remains approximate.
+  The player's baseline observes the existing `Walk.Floor` result when available,
+  otherwise estimates it from the strip at native progress. The drawn baseline
+  eases changes over 0.3 seconds; this does not manufacture new strip samples.
+  Missing, stale or unsupported metadata/coverage uses the existing visible
+  `Nav.GetRouteGeometry` camera estimate, retaining current/jump filtering,
+  hinted nearest search and two-pass smoothing. This fallback has **no measured
+  ground heights**, performs no terrain reads and is not a ground-accuracy
+  guarantee. `Render.Probe()` distinguishes `heightSource`, `floorSource` and
+  `sourceAlong`; height coverage/rise are absent for the fallback.
+  Terrain reads are optional line-of-sight only, never a source of trail heights.
+  They require baked baseline coverage and the existing native-reader eligibility
+  gates. With sight disabled, no Terrain entry point is called. The shared reader
+  and internal grid metadata remain version-coupled; do not introduce arbitrary
+  cross-tile reads or force-load navigation data for this visual.
+  RouteSparkle supplies shared point/emission/twinkle/style math; this painter
+  owns ground spacing, animation and a bounded sprite pool. It draws no map
+  overlays, owns no waypoint and never changes pin or supertracking state.
+  Camera pose, off-route merging, lateral scatter and wall occlusion remain
+  estimates. Unmeasured first-person fallback (zero camera zoom) is omitted only
+  while in that view; zooming out restores ordinary fallback immediately. This
+  does not detect skyward pitch in third person. There is no persistent right-
+  mouse/mouselook suppression: ordinary steering must retain a visible trail.
+  Loading suppression and the full post-loading settle period must survive
+  overlapping events. Disabled means no active drawing or terrain work. Local
+  player settings transfer is separate from the contribution: upstream code
+  does not read ForeverSparkleTrailDB or hard-code a personal preset.
 - Chokepoints: a Travel leg ending at one carries `choke = { kind, name }`;
   `Nav/Layers.lua` gives its route stop (`nav.route`) the kind's glyph on a
   scrim disc in the accent (`icon-lift`; `icon-gate` for gates and building

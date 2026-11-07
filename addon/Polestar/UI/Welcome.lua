@@ -887,13 +887,19 @@ PAGES[#PAGES + 1] = {
 	shown = function() return full end,
 	build = function(P)
 		compactHero(P.Hero, L["Make it yours"],
-			(L["Three choices to start with. Everything else is in %s."]):format(cmd("/polestar options")), true)
+			(L["Start with these choices. Everything else is in %s."]):format(cmd("/polestar options")), true)
 		local p = P.Body
 		F.AutoQuest = toggleRow(p, L["Accept and turn in guide quests for me"], "behavior.autoAccept",
 			L["Only quests in the next steps of your open guides. Never picks between rewards. Hold Shift to skip."],
 			{ get = autoQuestGet, set = autoQuestSet })
 		F.AutoGuide = toggleRow(p, L["Load a guide for me when I log in"], "behavior.autoSelectGuide",
 			L["Opens the suggested guide when no tab is open."])
+		F.SetupRows = { F.AutoQuest, F.AutoGuide }
+		if ns.GetDefault("nav.worldTrail") ~= nil then
+			F.WorldTrail = toggleRow(p, L["Show a ground trail"], "nav.worldTrail",
+				L["Optional sparkles ahead of you along the route. Camera and terrain placement are estimates; off by default. Tune the look in Options, Appearance, Ground trail."])
+			F.SetupRows[#F.SetupRows + 1] = F.WorldTrail
+		end
 		p.SchemeTitle = para(p, "body", "text", CW, 2)
 		p.SchemeTitle:SetText(L["Colour scheme"])
 		p.SchemeNote = para(p, "note", "textMuted", CW, 3)
@@ -906,7 +912,7 @@ PAGES[#PAGES + 1] = {
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
 		local y = 0
-		for _, row in ipairs({ F.AutoQuest, F.AutoGuide }) do
+		for _, row in ipairs(F.SetupRows) do
 			place(row, -12, y)
 			row:Refresh()
 			local rh = toggleRowHeight(row)
