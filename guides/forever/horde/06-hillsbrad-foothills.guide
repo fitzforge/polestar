@@ -110,8 +110,8 @@ step Mudsnout Blossoms
 
 step Deathstalker Masoj
   tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
-  accept 98095
   turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
+  accept 98095                        -- Deathstalker Masoj, once Scout Support is in
 
 step The southern peak
   tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
