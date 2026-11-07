@@ -6909,6 +6909,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Orc and Troll Durotar: Warriors hand Conscript of the Horde to Kargal Battlescar, 3 yd from Uzzek, on their first Far Watch stop, instead of walking past him to the thunder lizards and back"
+			},
+			{
+				"a": [
+					"accept",
+					870
+				],
+				"b": [
+					"turnin",
+					860
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Mulgore: arriving at the Crossroads from Mulgore, Tonga Runetotem at the south gate is first: The Barrens Oases is handed in and The Forgotten Pools taken from her at once (the order handed in to Sergra, came back to Tonga, then crossed the town twice more), then Sergra, the tower platform, Helbrim, Gazrog and the inn, in walking order"
 			}
 		]
 	}
