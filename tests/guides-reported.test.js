@@ -4916,3 +4916,12 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 	assert.equal(gotoBefore.goal.map, 1434, 'the Stormwind flight leaves from Booty Bay');
 	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => goal.t === 'fly' && /Thelsamar/.test(goal.location || '')), 'no flight back to Thelsamar in the Badlands guide');
 });
+
+// Final route review, Alliance 40-60: a player under 45 on Sardor Isle was sent to grind in Feral Scar Vale and then back
+// to Feathermoon's dock for the boat to the coast; the boat now comes first.
+test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coast before the level-45 grind', { skip }, () => {
+	const g = compiled('forever/alliance/40-50/03-feralas.guide');
+	const grind = g.steps.findIndex((s) => s.goals.some((x) => x.t === 'level' && x.level === 45));
+	assert.ok(grind > 0, 'the level-45 grind is in the guide');
+	assert.match(g.steps[grind - 1].title || '', /Boat to The Forgotten Coast/, 'the boat right before the grind');
+});

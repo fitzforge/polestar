@@ -120,7 +120,7 @@ step Feralas
 # ---------------------------------------------------------------- The eastern loop
 
 step Grimtotem camp
-  tip Boat to the Forgotten Coast and ride east across Feralas to the Grimtotem camp north of the road. Kindal Moonweaver waits outside it; free the Sprite Darters from the pen in the middle and keep Kindal and at least six of them alive.
+  tip From Thalanaar ride west along the road to the Grimtotem camp north of it. Kindal Moonweaver waits outside it; free the Sprite Darters from the pen in the middle and keep Kindal and at least six of them alive.
   accept 2969                         -- Kindal Moonweaver
   complete 2969
   turnin 2969
@@ -169,14 +169,14 @@ step Feathermoon Stronghold
 
 # ---------------------------------------------------------------- Level 45
 
-step Grind to 45
-  zone Feralas
-  tip Boat to the Forgotten Coast and ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45.
-  level 45 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
-
 step Boat to The Forgotten Coast
   zone Feralas
   goto 31.0,39.8 "Boat to The Forgotten Coast"
+
+step Grind to 45
+  zone Feralas
+  tip Ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45.
+  level 45 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
 step Zorbin Fandazzle
   tip Ride back to the Forgotten Coast; the goblin stands by the dock.
