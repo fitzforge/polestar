@@ -2928,6 +2928,29 @@ test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackr
 	assert.ok(near.normal >= 20, `at least 20 normal axe carriers within 150 yd (${near.normal})`);
 });
 
+// --- Flow tweaks (2026-11-07, #1086): Troll Durotar walked back from Razor
+// Hill to Sen'jin for Lar Prowltusk (14 yd from Xar'Ti on the first Sen'jin
+// stop), walked through the Taillasher eggs and tigers on the Scuttle Coast and
+// came back for them after the Echo Isles, crossed Tiragarde Keep's marines for
+// the canvas and came back, and Warriors walked past Kargal Battlescar (beside
+// Uzzek) to the thunder lizards and back.
+test("forever/horde/troll/01-durotar.guide: flow tweaks: Lar Prowltusk on the first Sen'jin stop, eggs and furs on the coast walk, the marines before the canvas, Kargal beside Uzzek", { skip }, () => {
+	const G = 'forever/horde/troll/01-durotar.guide';
+	const list = goals(G);
+	const lar = at(list, 'accept 786 (Lar Prowltusk)', is('accept', 786));
+	assert.equal(list[lar].s, list[at(list, 'accept 97223 (Xar\'Ti)', is('accept', 97223))].s, 'Lar Prowltusk on the first Sen\'jin stop, with Xar\'Ti');
+	const crawlers = at(list, 'collect 4888 (Crawler Mucus)', (g) => g.t === 'collect' && g.quest === 818);
+	for (const [q, item] of [[815, 4890], [817, 4892]]) {
+		const c = at(list, `collect ${item} (quest ${q})`, (g) => g.t === 'collect' && g.quest === q && g.item === item);
+		assert.equal(list[c].s, list[crawlers].s, `${item} on the Scuttle Coast walk`);
+		assert.ok(c < at(list, 'collect 277128 (the Matriarch)', (g) => g.t === 'collect' && g.quest === 97223), `${item} before the Echo Isles`);
+	}
+	const canvas = at(list, 'collect 4870 (Canvas Scraps)', (g) => g.t === 'collect' && g.quest === 791);
+	for (const k of list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 784)) assert.ok(list.indexOf(k) < canvas, 'the marines before the canvas');
+	const warrior = list.filter(forClass('WARRIOR'));
+	assert.equal(warrior[at(warrior, 'turnin 840 (Warrior)', is('turnin', 840))].s, warrior[at(warrior, 'turnin 1505 (Uzzek)', is('turnin', 1505))].s, 'Kargal on the Warriors\' first Far Watch stop');
+});
+
 // --- Encroachment (tor, #351): a level 10 quest whose Razormane go up to
 // level 9 was taken at Razor Hill at about 6 and done at 7, before the level
 // 7-8 quests of Tiragarde Keep and the Sen'jin loop.
