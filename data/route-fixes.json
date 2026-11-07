@@ -4163,6 +4163,34 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers (10-12%, about a dozen bears there) stay with the eastern loop's bear country."
+			},
+			{
+				"a": [
+					"task",
+					4421,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Cursed Ooze jar (4512) is filled in Jadefire Glen, where the Cursed Oozes slide (39-42,66-73) among the Jadefire Felsworn of The Corruption of the Jadefire; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5155,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Tainted Ooze jar (4512) is filled at Jaedenar, where the Tainted Oozes slide (34-44,45-60) among the Forces of Jaedenar; it was a stop of its own on the way back south."
 			}
 		],
 		"after": [

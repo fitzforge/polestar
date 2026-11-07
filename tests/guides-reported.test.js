@@ -4781,3 +4781,14 @@ test("forever/alliance/40-50/07-un-goro-crater.guide: flow re-order: the Lar'kor
 	assert.equal(stepOf('turnin 3844', is('turnin', 3844)), glands, 'the raft with the glands');
 	assert.equal(glands, stepOf('turnin 4290', is('turnin', 4290)) + 1, 'right after Torwa');
 });
+
+// Flow review (2026-11-07): Alliance Felwood filled Laris's ooze jars on stops of their own on the way back south,
+// though the southern loop's satyr and Jaedenar kills stand among the same oozes.
+test('forever/alliance/50-60/02-felwood.guide: flow re-order: the ooze jars filled on the southern loop', { skip }, () => {
+	const list = goals('forever/alliance/50-60/02-felwood.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const obj = (t, q, oi) => (g) => g.t === t && g.quest === q && g.oi === oi;
+	assert.equal(stepOf('the Cursed Ooze jar', obj('collect', 4512, 1)), stepOf('the Felsworn (4421.1)', obj('kill', 4421, 1)), 'Cursed Oozes in Jadefire Glen');
+	assert.equal(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)), stepOf('the hounds (5155.1)', obj('kill', 5155, 1)), 'Tainted Oozes in Jaedenar');
+	assert.ok(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)) < stepOf('turnin 5155', is('turnin', 5155)), 'before the first Sanctuary hand-ins');
+});
