@@ -5134,3 +5134,16 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
 	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
 });
+
+// Final route review, Horde 40-60: the Aged Gorilla Sinew drops from the Mistvale gorillas whose fangs Unbagwa wants,
+// not on the Wild Shore; and the guide opened with a vendor step titled Booty Bay while still in Ratchet and a note
+// about Tarren Mill, both carried over from the 30-40 guide's last Booty Bay stop.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew with the gorilla fangs, no stray vendor or Tarren Mill note', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const sinew = list[at(list, 'collect 3862', (g) => g.t === 'collect' && g.item === 3862)];
+	assert.equal(sinew.s, list[at(list, 'collect 2799', (g) => g.t === 'collect' && g.item === 2799)].s, 'with the gorilla fangs');
+	assert.notEqual(sinew.s, list[at(list, 'collect 3920', (g) => g.t === 'collect' && g.item === 3920)].s, 'not with the Bloodsail charts');
+	const boat = at(list, 'Boat to Booty Bay', (g) => g.t === 'goto' && /Boat to Booty Bay/.test(g.text || g.label || g.note || ''));
+	assert.ok(!list.slice(0, boat).some(({ goal }) => goal.t === 'vendor'), 'no vendor before the boat');
+	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Tarren Mill/.test(goal.text || goal.note || '')), 'no note about the next guide flying to Tarren Mill');
+});
