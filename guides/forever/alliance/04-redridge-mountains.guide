@@ -371,8 +371,8 @@ step Lake Everstill: kill these as you meet them
 step Blackrock camps
   tip South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies.
   collect 3014 quest 20 @71,70.5 map 1433 live -- Battleworn Axe
-  collect 280841 quest 98387 @71.7,75.7 map 1433 live -- Stolen Weapon: weapon racks and swords on the ground
-  collect 280839 quest 98387 @70.6,79.7 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
+  collect 280841 quest 98387 @68.3,79.4 map 1433 live -- Stolen Weapon: weapon racks and swords on the ground
+  collect 280839 quest 98387 @67.4,78.9 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
 
 step Incinerator Gar'im
   tip Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too.

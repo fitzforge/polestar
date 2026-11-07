@@ -139,6 +139,7 @@ step Webwinder Path
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
+  goto 42.4,71.0 "Talondeep Path"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
 step Alonso
@@ -215,6 +216,7 @@ step Astranaar
 
 step Fly to Auberdine
   zone Ashenvale
+  goto 34.5,48.0 "Astranaar flight master"
   fly "Auberdine"
   zone Darkshore
 
