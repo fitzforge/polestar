@@ -4792,3 +4792,14 @@ test('forever/alliance/50-60/02-felwood.guide: flow re-order: the ooze jars fill
 	assert.equal(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)), stepOf('the hounds (5155.1)', obj('kill', 5155, 1)), 'Tainted Oozes in Jaedenar');
 	assert.ok(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)) < stepOf('turnin 5155', is('turnin', 5155)), 'before the first Sanctuary hand-ins');
 });
+
+// Flow review (2026-11-07): Alliance Winterspring picked up one Kel'Theril relic fragment on the first pass by the lake
+// and came back for the other three, and rode back to Light's Hope between Corin's Crossing and the west only to hand
+// in Defenders of Darrowshire, though the guide ends at the chapel.
+test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four relic fragments on one pass, Defenders of Darrowshire on the last Light's Hope stop", { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const fragments = new Set(list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 5245).map((e) => e.s));
+	assert.equal(fragments.size, 1, 'all four fragments in one step');
+	assert.equal(stepOf('turnin 5211', is('turnin', 5211)), stepOf('turnin 5509', is('turnin', 5509)), 'with the Scourgestones');
+});

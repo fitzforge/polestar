@@ -3018,6 +3018,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the wrecked raft (3844) is opened on arrival with the Lar'korwi glands, west of Torwa, before the ride north."
+			},
+			{
+				"a": [
+					"task",
+					5509
+				],
+				"b": [
+					"turnin",
+					5211
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): Defenders of Darrowshire (5211) is handed to Carlin Redpath on the guide's last Light's Hope stop with the Scourgestones, not on a ride back east to the chapel between Corin's Crossing and the west of the zone."
 			}
 		],
 		"notes": [
@@ -4191,6 +4203,48 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Tainted Ooze jar (4512) is filled at Jaedenar, where the Tainted Oozes slide (34-44,45-60) among the Forces of Jaedenar; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					0
+				],
+				"b": [
+					"task",
+					5245,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the four Kel'Theril relic fragments (5245) lie 2-4 map percent apart by the frozen lake (50.9-55.1, 41.5-43.4): all four on the first pass after Starfall Village, as the seed has it, not one then and three on a later pass."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					2
+				],
+				"b": [
+					"task",
+					5245,
+					3
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the third and fourth Kel'Theril relic fragments are picked up together on the first pass by the lake."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					3
+				],
+				"b": [
+					"task",
+					5245,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the second Kel'Theril relic fragment, the westernmost, is the last of the four on the first pass, on the way west to Donova Snowden."
 			}
 		],
 		"after": [
