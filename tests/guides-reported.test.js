@@ -1341,6 +1341,24 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 	}
 });
 
+// Flow audit, Silverpine: the south loop came back to the Sepulcher, walked 1,100 yd east to grind on the
+// lake shore, then 1,100 yd back to the Sepulcher for Journey to Hillsbrad alone (min level 19), and the
+// Fenris Isle hand-ins had their own Sepulcher stop between the island and Ambermill. Now Fenris Isle runs
+// south along the lake shore (the grind) to Ambermill and Beren's Peril, and one Sepulcher stop hands in
+// everything and takes Journey to Hillsbrad.
+test(`${SILVERPINE}: one Sepulcher stop after the south loop, with the Fenris hand-ins and Journey to Hillsbrad`, { skip }, () => {
+	const list = goals(SILVERPINE);
+	const stop = list[at(list, 'accept 493 (Journey to Hillsbrad Foothills)', is('accept', 493))].s;
+	for (const [t, q] of [['turnin', 479], ['turnin', 516], ['turnin', 95981], ['turnin', 91920], ['turnin', 443], ['accept', 91921]]) {
+		assert.equal(list[at(list, `${t} ${q}`, is(t, q))].s, stop, `${t} ${q} on the Sepulcher stop that takes Journey to Hillsbrad`);
+	}
+	const isle = at(list, 'the Rot Hide Ichor (443)', (g) => g.quest === 443 && g.t === 'collect');
+	const pendants = at(list, 'the Dalaran Pendants (479)', (g) => g.quest === 479 && g.t === 'collect');
+	assert.deepEqual(list.slice(isle, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between Fenris Isle and Ambermill');
+	assert.equal(list[at(list, 'accept 516 (Beren\'s Peril)', is('accept', 516))].s, list[at(list, 'accept 479', is('accept', 479))].s, "Beren's Peril taken with Ambermill Investigations");
+	assert.deepEqual(compiled(SILVERPINE).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+});
+
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
 // chance drop (the Storm Witches' Dull Storm Orb) starts: never a must-do, and
 // its hand-in at Rezlak only for those who took it.
