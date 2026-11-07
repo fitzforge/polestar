@@ -61,7 +61,7 @@ function Maps.ShowMenu(anchor)
 	local W = ns.Widgets
 	if not (W and W.ShowMenu and anchor) then return end
 	if W.MenuShown(anchor) then return W.HideMenu() end
-	local shown = ns.Get("ui.shown")
+	local shown = ns.GuideShown()
 	W.ShowMenu(anchor, {
 		{ text = shown and L["Hide window"] or L["Show window"], icon = "window", onClick = function() ns.Fire("TOGGLE_FRAME") end },
 		{ text = L["Guides"], icon = "guides", onClick = function() ns.Fire("SHOW_PICKER") end },

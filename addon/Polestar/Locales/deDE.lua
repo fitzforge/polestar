@@ -494,6 +494,7 @@ L["The step stops waiting for the party and moves on as usual."] = "Der Schritt 
 L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ein- oder auszublenden."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1089,8 +1090,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "Der Pfeil des Designs"
 L["Lock arrow and buttons"] = "Pfeil und Knöpfe sperren"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "Verhindert versehentliches Ziehen des Pfeils, der Aktionsknöpfe und der Flug- und Instanz-Timer. Mit Umschalt lassen sie sich weiterhin verschieben."
-L["In dungeons"] = "In Dungeons"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Was das Fenster in Dungeons und Schlachtzügen tut. /polestar oder die Tastenbelegung öffnet es dort, bis du gehst."
 L["Line style"] = "Linienstil"
 L["Bar at the bottom"] = "Leiste unten"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "Setzt bei „Nach oben wachsen“ die Reiter und die Schrittleiste an den unteren Rand, neben die Stelle, an der das Fenster verankert ist."
@@ -1159,6 +1158,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "Meintest du:"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -3017,3 +3019,5 @@ L["your next stop"] = "deinem nächsten Halt"
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "Ihre Zählstände unter deinen Questzielen und wem eine Quest fehlt, die du genommen hast."
 -- L["Share %s with %s"] = "%s mit %s teilen"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Stufe und Schritt jedes Polestar-Mitglieds und was es von deinem Schritt noch braucht; ein Klick auf einen Namen richtet den Pfeil auf das Mitglied. /polestar party blendet das Fenster ein oder aus."
+-- L["In dungeons"] = "In Dungeons"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Was das Fenster in Dungeons und Schlachtzügen tut. /polestar oder die Tastenbelegung öffnet es dort, bis du gehst."

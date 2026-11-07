@@ -270,6 +270,8 @@ local function saveOrder(field, key, order)
 	s[field][key] = order
 end
 
+-- An accept goal at giver point g, with the height of the giver's spawn
+-- there (Lookup.SpawnZ: the arrow walks to its floor, #1024).
 local function acceptGoal(pq, rec, g)
 	local goal = { t = "accept", quest = pq.id, title = pq.title or (rec and rec.title),
 		map = g.map, x = g.x, y = g.y, f = g.f == "e" and "e" or nil, minLevel = (rec and rec.minLevel) or pq.minLevel,
@@ -279,6 +281,7 @@ local function acceptGoal(pq, rec, g)
 	else
 		goal.npc, goal.npcName = g.id, g.name
 	end
+	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
 	return goal
 end
 

@@ -2223,13 +2223,90 @@
 					259023
 				],
 				"object": []
+			},
+			"objectives": [
+				{
+					"type": "item",
+					"id": 274046,
+					"count": 5,
+					"text": "Twisted Water Totem"
+				},
+				{
+					"type": "item",
+					"id": 274045,
+					"count": 5,
+					"text": "Twisted Earth Totem"
+				},
+				{
+					"type": "item",
+					"id": 274044,
+					"count": 5,
+					"text": "Twisted Fire Totem"
+				},
+				{
+					"type": "item",
+					"id": 274047,
+					"count": 5,
+					"text": "Twisted Air Totem"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
 			}
+		],
+		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again. Its objectives in the game's order are the Water, Earth, Fire and Air totems (the world database and players' caches agree); the merged data listed Fire, Air, Earth, Water, so the guide's `quest 79358.N` lines counted the wrong totem's line."
+	},
+	"79361": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 274046,
+					"count": 5,
+					"text": "Twisted Water Totem"
+				},
+				{
+					"type": "item",
+					"id": 274045,
+					"count": 5,
+					"text": "Twisted Earth Totem"
+				},
+				{
+					"type": "item",
+					"id": 274044,
+					"count": 5,
+					"text": "Twisted Fire Totem"
+				},
+				{
+					"type": "item",
+					"id": 274047,
+					"count": 5,
+					"text": "Twisted Air Totem"
+				}
+			]
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "Storm, Earth, and Fire (the Horde Shaman chain's copy) lists the Water, Earth, Fire and Air totems in that order, as the Alliance copy (79358) does (the world database and players' caches agree). The merged data listed Air first and Water last, so forever/class/shaman/call-of-air-horde counted the Air totems on the Water line and the Water totems on the Air line."
 	},
 	"79535": {
 		"set": {
@@ -2423,6 +2500,41 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Necromancy 101: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+	},
+	"91317": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 270435,
+					"count": 1,
+					"text": "Rudolph Gelhardt's Head"
+				},
+				{
+					"type": "kill",
+					"id": 259434,
+					"count": 8,
+					"text": "Tarnished Drudge"
+				},
+				{
+					"type": "kill",
+					"id": 259433,
+					"count": 6,
+					"text": "Tarnished Zealot"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (6 runs): the log lists the head first, then 8 Tarnished Drudges and 6 Tarnished Zealots; Drudge kills tick line 2, Zealot kills line 3, the head line 1"
+			}
+		],
+		"note": "The Tarnished (Tyr's Watch, Paladin): the quest log lists Rudolph Gelhardt's Head first, then the Tarnished Drudges and the Tarnished Zealots. The merged data had the head last, so forever/class/paladin/tyrs-watch counted the Drudges on the head's line, the Zealots on the Drudges' and the head on the Zealots'."
 	},
 	"91901": {
 		"set": {
@@ -3209,13 +3321,49 @@
 			],
 			"preAny": [
 				95034
+			],
+			"objectives": [
+				{
+					"type": "item",
+					"id": 267454,
+					"count": 1,
+					"text": "Trevan's Weapon Notes"
+				},
+				{
+					"type": "item",
+					"id": 6994,
+					"count": 1,
+					"text": "Whitestone Oak Lumber"
+				},
+				{
+					"type": "item",
+					"id": 267361,
+					"count": 1,
+					"text": "Enchanted Silver Ingot"
+				},
+				{
+					"type": "item",
+					"id": 272448,
+					"count": 1,
+					"text": "Purified Kor Gem"
+				}
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 259620 refuses 95036 while 95034 is in the log and offers it on 95034's turn-in, at the same level"
-		},
-		"note": "A Moon-Kissed Blade (the Moonsilver Blade chain before Old Fire-Eye, Shadowfang Keep) comes after The Debt (95034): a level 21 Undead paladin was refused it at the giver while The Debt was in the log, and took it a second after handing The Debt in, still level 21. The merged data had no prerequisite."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 259620 refuses 95036 while 95034 is in the log and offers it on 95034's turn-in, at the same level"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (4 runs): the log has four lines; line 1 (\"Collect the note from Trevan\") ticks at Trevan Rol's window, line 2 on a Goblin Woodcarver's loot"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "A Moon-Kissed Blade (the Moonsilver Blade chain before Old Fire-Eye, Shadowfang Keep) comes after The Debt (95034): a level 21 Undead paladin was refused it at the giver while The Debt was in the log, and took it a second after handing The Debt in, still level 21. The merged data had no prerequisite. Its quest log has four lines: Trevan's Weapon Notes, the Whitestone Oak Lumber, the Enchanted Silver Ingot and the Purified Kor Gem. The merged data listed only the lumber and the ingot, so forever/class/paladin/lumina-windsinger counted the lumber on the notes' line and the ingot on the lumber's."
 	},
 	"95111": {
 		"set": {
@@ -3472,6 +3620,35 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Call of Earth: starts with Eldrun Stormbreaker (npc 258098) and Ingrid Dunwald (npc 258113); as its giver the merged data lacked Ingrid Dunwald (npc 258113)."
+	},
+	"96259": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 264079,
+					"count": 10,
+					"text": "Gloomrise Hatchling"
+				},
+				{
+					"type": "kill",
+					"id": 264083,
+					"count": 5,
+					"text": "Gloomrise Soldier"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: the log lists 10 Gloomrise Hatchlings, then 5 Gloomrise Soldiers; Hatchling kills tick line 1, Soldier kills line 2"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "Defending the Dead (Gloomrise, north of Thunder Bluff): the quest log lists the Gloomrise Hatchlings first, then the Gloomrise Soldiers. The merged data had them the other way round, so forever/horde/07-ashenvale and forever/reputation/thunder-bluff counted the Soldiers on the Hatchlings' line and the Hatchlings on the Soldiers'."
 	},
 	"96390": {
 		"set": {

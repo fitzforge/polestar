@@ -3291,14 +3291,16 @@ local function targetAlpha()
 	return a
 end
 
--- With ui.instance "hide", the window waits out a dungeon or raid until the
--- player opens it there. Like combat it never writes ui.shown, so leaving
--- brings back what the player had.
+-- With ui.instance "hide" (the default), the window waits out a dungeon,
+-- raid, battleground or arena until the player opens it there. Like combat
+-- it never writes ui.shown, so leaving brings back what the player had.
+-- Unlike combat it takes what goes with the guide along (ns.GuideShown).
 local function hiddenInside()
 	return inInstance and not openInside and ns.Get("ui.instance") == "hide"
 end
 
 function GF.ApplyVisibility()
+	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
 	if not F then return end
 	local show = ns.Get("ui.shown") and not (inCombat and ns.Get("ui.combat") == "hide") and not hiddenInside()
 	F:SetShown(show and true or false)
@@ -4653,24 +4655,36 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	GF.ApplyAlpha(true)
 end)
 
--- Dungeons and raids only: not battlegrounds, arenas or scenarios.
+-- Dungeons, raids, battlegrounds and arenas: not scenarios.
+local INSTANCE_KINDS = { party = true, raid = true, pvp = true, arena = true }
 local function instanceNow()
 	local C = ns.Compat
 	if not (C and C.IsInInstance) then return false end
 	local ok, inside, kind = pcall(C.IsInInstance)
-	return (ok and inside and (kind == "party" or kind == "raid")) and true or false
+	return (ok and inside and INSTANCE_KINDS[kind]) and true or false
+end
+
+-- The first time on this account the window hides itself on the way in,
+-- one chat line says how to bring it back and where the setting is.
+local function sayHiddenOnce()
+	local db = ns.DB()
+	if db.instanceHideTold then return end
+	db.instanceHideTold = true
+	ns.Print(L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."])
 end
 
 -- Every way in or out passes a loading screen, a /reload included. Going in
 -- or out ends a visit, so the next one starts hidden again.
 local function checkInstance()
 	local now = instanceNow()
+	local entered = now and not inInstance
 	if now ~= inInstance then
 		openInside = false
 		shownOnEntry = ns.Get("ui.shown") and true or false
 	end
 	inInstance = now
 	GF.ApplyVisibility()
+	if entered and hiddenInside() and ns.Get("ui.shown") then sayHiddenOnce() end
 end
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)

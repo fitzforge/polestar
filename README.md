@@ -451,10 +451,11 @@ its source is in [apps/client](apps/client).
 - **Bar at the bottom** (Options, Guide, Window): puts the tabs and the step
   bar at the bottom edge when the window grows upward, so they stay in one
   place as steps get longer. Off by default.
-- **Hide in dungeons** (Options, Guide, Window, In dungeons; off by default):
-  the guide window hides inside dungeons and raids and comes back when you
-  leave. `/polestar`, the key binding or the minimap button still opens it
-  while you are inside.
+- **Hidden in dungeons and battlegrounds** (Options, Guide, Window, In
+  dungeons and battlegrounds; on by default): the guide window, its action
+  buttons and alerts stay out of the way inside dungeons, raids,
+  battlegrounds and arenas and come back when you leave. `/polestar`, the key
+  binding or the minimap button still opens it while you are inside.
 
 ### Navigation
 

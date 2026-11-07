@@ -486,11 +486,22 @@ function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
 end
 
--- The guide window's on/off (ui.shown): the action buttons and the rare and
--- transport alerts go with it, the arrow only with nav.hideArrowWithGuide on
--- (Nav.HiddenWithGuide). A combat or instance hide leaves them.
+-- The guide window's on/off (ui.shown): the action buttons, the party panel
+-- and the rare and transport alerts go with it, the arrow only with
+-- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide
+-- (ui.instance "hide") takes them too; a combat hide leaves them.
+local awayInside = false
 function ns.GuideShown()
-	return ns.Get("ui.shown") ~= false
+	return ns.Get("ui.shown") ~= false and not awayInside
+end
+
+-- UI/GuideFrame.lua: whether the window is waiting out an instance. A change
+-- fires GUIDE_SHOWN, for what goes and comes back with the guide.
+function ns.SetGuideAwayInside(away)
+	away = away and true or false
+	if away == awayInside then return end
+	awayInside = away
+	ns.Fire("GUIDE_SHOWN", ns.GuideShown())
 end
 
 -- Forget stored values for one section (or all), back to defaults.

@@ -423,6 +423,43 @@ fn straying_more_than_25_yards_from_the_path_asks_again_at_most_every_2_seconds_
 	heads(&out["after"], (60.0, -200.0), (60.0, -600.0), "along the new path");
 }
 
+// 0.3.5: on a walk of more than 2,000 yd a stray asks again at most every 10 seconds (each ask searches the whole walk;
+// a mounted player cutting corners re-asked every 2 s, ~1 MB of garbage a second); a stray long after the last ask
+// still asks at once, and a shorter walk keeps the 2 seconds (above).
+#[test]
+fn on_a_walk_of_more_than_2000_yards_a_stray_asks_again_at_most_every_10_seconds() {
+	let out = run(r#"
+		local r = {}
+		-- The arrow's own searches only (the planner, whose later walks are searched too, is off).
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		target(0, -3000)
+		N.Sample()
+		fake.resolve(0, 0, 0, -1500, 0, -3000)
+		stub.advance(12)
+		nav.place(60, -200)
+		aim()
+		r.first = calls()
+		fake.resolve(60, -200, 60, -1500, 0, -3000)
+		nav.place(120, -300)
+		aim()
+		r.at = calls()
+		stub.advance(3)
+		aim()
+		r.three = calls()
+		stub.advance(8)
+		aim()
+		r.eleven = calls()
+		local job = fake.last()
+		r.from = { floor(job.from.x), floor(job.from.y) }
+		emit(r)"#);
+	assert_eq!(out["first"], 2, "the first stray, 12 s after the last ask: asked at once");
+	assert_eq!(out["at"], 2, "straying again right after: not yet");
+	assert_eq!(out["three"], 2, "3 s later on a 2,800 yd walk: not yet");
+	assert_eq!(out["eleven"], 3, "11 s after the last ask: asked again");
+	assert_eq!(out["from"], json!([120, -300]));
+}
+
 #[test]
 fn c1_c2_a_new_target_cancels_the_stale_search_whose_late_answer_is_dropped_never_reviving_the_old_target() {
 	let out = run(r#"
@@ -1520,6 +1557,56 @@ fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_pri
 	assert_eq!(out["aside"], 500, "never above the straight distance x1.0 (not straight x1.25)");
 	assert_eq!(out["batches"], 2, "walked away: measured again with the next plan");
 	assert!(out["points"].as_array().unwrap().iter().any(|p| p[0] == 300 && p[1] == 400), "from where the player now stands");
+}
+
+// 0.3.5: the player alone walked away from where their walk was measured: only their walk is measured again (a batch
+// of one, from the target, reversed), the other places' measured walks kept. Until 0.3.4 each such replan near the
+// target ran the whole 16-place batch again: 20-70 MB of the router's garbage each time.
+#[test]
+fn the_player_alone_walked_away_only_the_player_s_walk_is_measured_again_the_places_walks_kept() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(0, 600)
+		target(0, 0)
+		N.Sample()
+		local first = fake.of(true)[1]
+		r.firstN = #first.targets
+		fake.settle(first, terrain)
+		nav.place(300, 400)
+		T.Replan()
+		local many = fake.of(true)
+		local job = many[#many]
+		local pts = {}
+		for _, p in ipairs(job.targets) do pts[#pts + 1] = { floor(p.x + 0.5), floor(p.y + 0.5) } end
+		r.batches, r.points = #many, pts
+		r.from, r.reverse = { floor(job.from.x + 0.5), floor(job.from.y + 0.5) }, job.reverse == true
+		r.style = job.opts.style == first.opts.style
+		fake.settle(job, function() return 600, 590 end)
+		local cost = N.walk.Measured(0, 0, 0, false)
+		r.road = { cost(0, 0, -700) }
+		r.ridge = { cost(0, 0, 300) }
+		r.home = { cost(0, 900, 900) }
+		r.player = { cost(0, 300, 400, true) }
+		T.Replan()
+		r.after = #fake.of(true)
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["firstN"], 4, "the first batch: the player and the three flight masters");
+	assert_eq!(out["batches"], 2, "walked away: measured again");
+	assert_eq!(out["points"], json!([[300, 400]]), "the player's walk alone");
+	assert_eq!(out["from"], json!([0, 0]), "from the target");
+	assert_eq!(out["reverse"], true);
+	assert_eq!(out["style"], true, "with the first batch's opts");
+	assert_eq!(out["road"], json!([750, 750]), "Road Roost's walk kept");
+	assert_eq!(out["ridge"], json!([2000, 2000]), "Ridge Roost's walk kept");
+	assert_eq!(out["home"], json!([1400, 1400]), "Home Roost's walk kept");
+	assert_eq!(out["player"], json!([600, 590]), "the player's new walk and its yards");
+	assert_eq!(out["after"], 2, "planned again from there: no further batch");
 }
 
 // Two gates between West Vale and East Vale: North Gate (600, +-20) and South

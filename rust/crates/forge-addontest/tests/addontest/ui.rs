@@ -1477,55 +1477,129 @@ fn combat_state_is_read_at_login_so_a_reload_mid_fight_still_fades_or_hides_the_
 }
 
 // Through a loading screen into an instance of `kind` ("party", "raid", "pvp", ...), or out of it with nil.
+// told(): how many times chat had the one-time "hides in dungeons and battlegrounds" line.
 const ENTER: &str = r#"
 local function enter(kind)
 	uistub.instance = kind
 	stub.fire("PLAYER_ENTERING_WORLD", false, false)
 end
+local function told()
+	local n = 0
+	for _, m in ipairs(stub.messages) do if m:find("hides in dungeons and battlegrounds", 1, true) then n = n + 1 end end
+	return n
+end
 "#;
 
+// Tangens (Discord): healing in Wailing Caverns, the window was in the way the whole run. A profile that never
+// touched the setting hides it in a dungeon, a raid, a battleground and an arena, and leaving brings it back.
 #[test]
-fn in_dungeons_by_default_the_window_stays_with_hide_it_hides_in_a_dungeon_and_a_raid_and_comes_back_on_leaving_the_show_setting_untouched() {
+fn in_dungeons_and_battlegrounds_a_fresh_profile_hides_the_window_in_a_dungeon_raid_battleground_and_arena_and_it_comes_back_on_leaving() {
 	let out = run(&[
 		ENTER,
 		r#"
 		uistub.setGuide(uistub.elwynn, 3)
-		enter("party")
-		local byDefault = F:IsShown()
+		local stored = PolestarDB.settings.ui and PolestarDB.settings.ui.instance
+		local hidden = {}
+		for _, kind in ipairs({ "party", "raid", "pvp", "arena" }) do
+			enter(kind)
+			hidden[kind] = not F:IsShown()
+			enter(nil)
+			hidden[kind .. " left"] = not F:IsShown()
+		end
+		enter("scenario")
+		local scenario = F:IsShown()
 		enter(nil)
-		Polestar.Set("ui.instance", "hide")
-		local outside = F:IsShown()
-		enter("party")
-		local dungeon, stored = F:IsShown(), Polestar.Get("ui.shown")
-		enter(nil)
-		local left = F:IsShown()
-		enter("raid")
-		local raid = F:IsShown()
-		Polestar.Set("ui.instance", "show")
-		local turnedOff = F:IsShown()
-		emit({ byDefault = byDefault, outside = outside, dungeon = dungeon, stored = stored, left = left, raid = raid, turnedOff = turnedOff })"#,
+		emit({ stored = stored or false, hidden = hidden, scenario = scenario, shown = Polestar.Get("ui.shown") })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!({ "byDefault": true, "outside": true, "dungeon": false, "stored": true, "left": true, "raid": false, "turnedOff": true }));
+	assert_eq!(
+		out,
+		json!({ "stored": false, "scenario": true, "shown": true, "hidden": {
+			"party": true, "party left": false, "raid": true, "raid left": false, "pvp": true, "pvp left": false, "arena": true, "arena left": false } })
+	);
 }
 
+// Players who chose "Keep visible" keep it (a stored choice beats the new default); turning it to Hide there hides it at once.
 #[test]
-fn in_dungeons_battlegrounds_arenas_and_scenarios_are_not_dungeons_and_the_window_stays() {
+fn in_dungeons_and_battlegrounds_a_stored_keep_visible_choice_is_kept_and_the_window_stays() {
+	let out = run_with(
+		&[
+			ENTER,
+			r#"
+		enter("party")
+		local dungeon = F:IsShown()
+		enter("pvp")
+		local battleground = F:IsShown()
+		Polestar.Set("ui.instance", "hide")
+		local turnedOn = F:IsShown()
+		emit({ dungeon = dungeon, battleground = battleground, turnedOn = turnedOn, told = told() })"#,
+		]
+		.concat(),
+		r#"PolestarDB = { schema = 1, settings = { ui = { instance = "show" } } }"#,
+		"",
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "dungeon": true, "battleground": true, "turnedOn": false, "told": 0 }));
+}
+
+// While the window waits out an instance, what goes with it (action buttons, party panel, alerts: ns.GuideShown)
+// goes too, and comes back with /polestar there.
+#[test]
+fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_and_comes_back_with_polestar() {
 	let out = run(&[
 		ENTER,
 		r#"
-		Polestar.Set("ui.instance", "hide")
-		local shown = {}
-		for _, kind in ipairs({ "pvp", "arena", "scenario" }) do
-			enter(kind)
-			shown[#shown + 1] = F:IsShown()
-		end
-		emit(shown)"#,
+		local fired = {}
+		Polestar.On("GUIDE_SHOWN", function(shown) fired[#fired + 1] = shown end)
+		local outside = Polestar.GuideShown()
+		enter("pvp")
+		local inside = Polestar.GuideShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		local opened = Polestar.GuideShown()
+		enter(nil)
+		emit({ outside = outside, inside = inside, opened = opened, left = Polestar.GuideShown(), fired = fired })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!([true, true, true]));
+	assert_eq!(out, json!({ "outside": true, "inside": false, "opened": true, "left": true, "fired": [false, true] }));
+}
+
+// The first time on the account the window hides itself on the way in, one chat line says how to bring it
+// back; never again, and never when it did not hide (Keep visible, or the window off anyway).
+#[test]
+fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_show_it() {
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window.";
+	let out = run(&[
+		ENTER,
+		r#"
+		local function last() return (stub.messages[#stub.messages] or ""):gsub("^.-Polestar|r: ", "") end
+		Polestar.Set("ui.instance", "show")
+		enter("party")
+		enter(nil)
+		local keptVisible = told()
+		Polestar.Set("ui.instance", "hide")
+		Polestar.Fire("HIDE_FRAME")
+		enter("party")
+		enter(nil)
+		local windowOff = told()
+		Polestar.Fire("SHOW_FRAME")
+		enter("party")
+		local first, text = told(), last()
+		enter(nil)
+		enter("pvp")
+		enter("raid")
+		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), saved = PolestarDB.instanceHideTold })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "saved": true }));
+}
+
+#[test]
+fn in_dungeons_and_battlegrounds_the_line_is_not_said_again_on_an_account_already_told() {
+	let out = run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told() })"#].concat(), r#"PolestarDB = { schema = 1, instanceHideTold = true }"#, "").remove(0);
+	assert_eq!(out, json!({ "hidden": true, "told": 0 }));
 }
 
 #[test]

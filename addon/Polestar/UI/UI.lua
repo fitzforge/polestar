@@ -34,7 +34,7 @@ ns.RegisterDefaults("ui", {
 	showNotes = true,
 	notesOpen = true, -- a step's tip starts in full; off, it starts on one line (players asked for it open)
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
-	instance = "show", -- "show" | "hide": in dungeons and raids, until the player opens it there
+	instance = "hide", -- "show" | "hide": in dungeons, raids, battlegrounds and arenas, until the player opens it there; hidden by default, a healer asked for it out of the way
 	reduceMotion = false,
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")

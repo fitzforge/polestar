@@ -16,6 +16,8 @@ const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
+const { parseGuide } = require('../tools/lib/dsl/parse');
+const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
 const { DATA, SOURCES } = require('../tools/lib/paths');
 const { loadWeb } = require('../tools/lib/codex/web');
@@ -1347,6 +1349,38 @@ test('Zephras Isle: A Last Request\'s note and Skypriest Aanders count the objec
 		const aanders = list[at(list, `${guide}: Skypriest Aanders`, (g) => g.t === 'kill' && g.npc === 256966 && g.quest === 93927)].goal;
 		assert.deepEqual([note.oi, aanders.oi], [n(254871), n(256966)], guide);
 	}
+});
+
+// Objective numbers written against an older objective list: A Moon-Kissed
+// Blade (95036) has four lines, Trevan's notes first; The Tarnished (91317)
+// lists Rudolph Gelhardt's Head first; both copies of Storm, Earth, and Fire
+// (79358, 79361) list the Water, Earth, Fire and Air totems; Defending the
+// Dead (96259) lists the Hatchlings first (players' recordings, Forever's
+// quest data). A goal on another line's number ticks with that line. Read
+// from the guide text, so it runs without data/forever.
+test('Objective numbers point at the line the game counts for each target: A Moon-Kissed Blade, The Tarnished, Storm, Earth, and Fire, Defending the Dead', () => {
+	const QUESTS = [95036, 91317, 79358, 79361, 96259];
+	const order = fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'data', 'quest_objective.jsonl'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((o) => QUESTS.includes(o.quest));
+	const n = (quest, target) => (order.find((o) => o.quest === quest && o.target === target) || {}).n;
+	assert.deepEqual([n(95036, 267454), n(95036, 6994), n(95036, 267361), n(95036, 272448)], [1, 2, 3, 4], "Forever's quest data: the notes, the lumber, the ingot, the gem");
+	assert.deepEqual([n(91317, 270435), n(91317, 259434), n(91317, 259433)], [1, 2, 3], "Forever's quest data: the head, the Drudges, the Zealots");
+	for (const q of [79358, 79361]) assert.deepEqual([n(q, 274046), n(q, 274045), n(q, 274044), n(q, 274047)], [1, 2, 3, 4], `Forever's quest data: ${q} lists water, earth, fire, air`);
+	assert.deepEqual([n(96259, 264079), n(96259, 264083)], [1, 2], "Forever's quest data: the Hatchlings, then the Soldiers");
+	const target = { kill: 'npc', talk: 'npc', collect: 'item', interact: 'object' };
+	const wrong = [];
+	let checked = 0;
+	const root = path.join(OFFICIAL_DIR, 'forever');
+	for (const rel of fs.readdirSync(root, { recursive: true }).filter((f) => f.endsWith('.guide')).sort()) {
+		const guide = parseGuide(fs.readFileSync(path.join(root, rel), 'utf8'), rel, new Diagnostics());
+		for (const g of guide.steps.flatMap((s) => s.goals)) {
+			if (!QUESTS.includes(g.quest) || g.oi === undefined || !target[g.verb]) continue;
+			checked++;
+			const want = n(g.quest, g[target[g.verb]]);
+			if (g.oi !== want) wrong.push(`forever/${rel}:${g.line} quest ${g.quest}.${g.oi} for ${target[g.verb]} ${g[target[g.verb]]}: the game counts it on ${g.quest}.${want}`);
+		}
+	}
+	assert.deepEqual(wrong, []);
+	assert.equal(checked, 17, 'the lines of every guide that number these objectives');
 });
 
 // --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
@@ -3677,4 +3711,30 @@ test('Redridge level gap (PR #1052): Duskwood asks for 23 before Worgen in the W
 		assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
 	}
 	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'the elites are not in the first pass');
+});
+
+// #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
+// Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
+// 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip
+// had her "with the mage trainers on Spirit Rise".
+test('Pools of Vision NPCs (#1024): every step at one says they stand down in the cave under Spirit Rise', { skip: skip || needs('spawnz.json') }, () => {
+	const below = {
+		3419: 'Apothecary Zamah', 3044: 'Miles Welsh', 3045: 'Malakai Cross', 3046: 'Father Cobb', 3047: 'Archmage Shymm',
+		3048: 'Ursyn Ghull', 3049: 'Thurston Xane', 5543: 'Clarice Foster', 5957: 'Birgitte Cranston',
+	};
+	const down = /\b(Pools of Vision|cave under Spirit Rise)\b/;
+	const missing = [];
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			const at = step.goals.filter((g) => ['accept', 'turnin', 'talk', 'train'].includes(g.t) && below[g.npc]);
+			if (at.length === 0) continue;
+			seen++;
+			const text = [].concat(step.note || [], at.map((g) => g.note || '')).join(' ');
+			if (!down.test(text)) missing.push(`${guide}: step "${step.title}" at ${below[at[0].npc]}`);
+			if (/\bon Spirit Rise\b/.test(text)) missing.push(`${guide}: step "${step.title}" puts ${below[at[0].npc]} on Spirit Rise`);
+		}
+	}
+	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
+	assert.deepEqual(missing, []);
 });

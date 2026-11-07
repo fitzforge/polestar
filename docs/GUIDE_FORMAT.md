@@ -846,6 +846,13 @@ Errors:
 - `accept` for a quest whose `races`/`classes` exclude every character the
   step or goal can apply to
 - coordinates outside 0–100
+- `quest Q.O` that names no line of the quest's objectives in the data (past
+  them; the error lists them as `7.1 = kill Kobold Vermin x10`), or a `kill`,
+  `talk`, `interact` or `collect … quest Q.O` whose own target is another of
+  the quest's objectives, whatever kind the one it names is (`kill <npc> quest
+  Q.1` where Q.1 is an item and the npc is Q.2): the goal would count the wrong
+  quest-log line. Objective lists change when the game's do, so lint with a
+  current `data/forever`
 - required elite work in a `Leveling` guide (a warning in other packs; elite work may appear there only as
   an `optional` extra, with the tip `<Target> is elite: grouping up is advised.`, or in a step
   with `when group <quest>`, which only a player who chose the group way follows):
@@ -888,15 +895,14 @@ Warnings:
 - explicit coordinates more than 50 yards from every known spawn of the entity
 - ids missing from data but given explicit names/coordinates (new Forever content)
 - objective-capable goals with no coordinates
-- `quest Q.O` past the quest's objectives (the warning lists them as
-  `7.1 = kill Kobold Vermin x10`), or an objective goal whose target is none
-  of the quest's objectives
-- a `collect … quest Q.O` whose objective is not an item (a nest to visit):
-  the quest log never counts the item there. For an item the quest uses
-  without counting it (a feather for the nests, a carcass that lures a
-  beast), here or on another item's objective, drop `quest` so the step
-  counts the bags (while the quest database is loaded, the addon counts the
-  bags for such an item anyway)
+- `quest Q.O` on a quest the data lists no objectives for (drop the `.O`), or
+  an objective goal whose target is none of the quest's objectives
+- a `collect … quest Q.O` whose objective is not an item (a nest to visit)
+  while the item is none of the quest's objectives: the quest log never counts
+  the item there. For an item the quest uses without counting it (a feather for
+  the nests, a carcass that lures a beast), here or on another item's
+  objective, drop `quest` so the step counts the bags (while the quest database
+  is loaded, the addon counts the bags for such an item anyway)
 - a `craft` before any `learn` of that spell earlier in the chain (free starter
   recipes excepted); `until <N>` past the recipe's grey skill
 - a coordinate on a map other than the step's zone that the guide never sets as

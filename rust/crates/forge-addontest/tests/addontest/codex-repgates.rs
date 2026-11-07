@@ -73,6 +73,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		professions: V::obj(),
 		trainers: V::obj(),
 		instances: V::Null,
+		spawnz: V::Null,
 		dungeons: V::Null,
 	};
 	Ok(Inputs {

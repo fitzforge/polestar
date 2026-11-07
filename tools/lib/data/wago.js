@@ -48,10 +48,22 @@ function newestCachedBuild(cacheRoot, product, tables = product.tables) {
 	return builds.length ? builds[builds.length - 1] : null;
 }
 
-async function fetchText(fetchImpl, url) {
-	const res = await fetchImpl(url, { headers: { 'user-agent': 'polestar-data-build' } });
-	if (!res.ok) throw new Error(`GET ${url}: HTTP ${res.status}`);
-	return res.text();
+// wago.tools is a free community site behind Cloudflare: a 429 or 5xx (its
+// 500/521/522 outages) is retried after each of `delays` ms, then thrown.
+// Network errors throw at once (pickBuild then falls back to the cache).
+const RETRY_DELAYS = [2000, 6000];
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchText(fetchImpl, url, { userAgent = 'polestar-data-build', delays = RETRY_DELAYS, wait = sleep } = {}) {
+	for (let attempt = 0; ; attempt++) {
+		const res = await fetchImpl(url, { headers: { 'user-agent': userAgent } });
+		if (res.ok) return res.text();
+		if ((res.status === 429 || res.status >= 500) && attempt < delays.length) {
+			await wait(delays[attempt]);
+			continue;
+		}
+		throw new Error(`GET ${url}: HTTP ${res.status}`);
+	}
 }
 
 async function latestBuild(fetchImpl, product) {
@@ -132,4 +144,4 @@ async function loadWago({ sourcesDir, build, offline = false, fetchImpl = global
 	return { build: chosen, product: product.key, tables, urls, warnings };
 }
 
-module.exports = { loadWago, pickBuild, cachedTable, compareVersions, tableUrl, TABLES, PRODUCT, PRODUCTS, BUILDS_URL };
+module.exports = { loadWago, pickBuild, cachedTable, fetchText, compareVersions, tableUrl, TABLES, PRODUCT, PRODUCTS, BUILDS_URL };

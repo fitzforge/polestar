@@ -33,11 +33,14 @@ push.
 
 CI (`.github/workflows/ci.yml`, on pushes to main and next and on pull
 requests) installs Lua 5.1, runs `npm test`, the translations check and
-`forge changelog check`, then rebuilds the textures with
-`node tools/polestar.js media` and the UI renders with
-`node tools/polestar.js preview` to show the generators still work. The
-committed copies in `addon/Polestar/Media` and `docs/preview` are refreshed
-by the maintainer (`polestar regen`).
+`forge changelog check`, then rebuilds the UI renders with
+`node tools/polestar.js preview` to show the generator still works.
+`.github/workflows/textures.yml` rebuilds the textures with
+`node tools/polestar.js media --offline` when a generator or its inputs
+change; the client tables it reads come from the Actions cache that
+`wago-cache.yml` fills weekly from wago.tools. The committed copies in
+`addon/Polestar/Media` and `docs/preview` are refreshed by the maintainer
+(`polestar regen`).
 
 ## Layers
 
