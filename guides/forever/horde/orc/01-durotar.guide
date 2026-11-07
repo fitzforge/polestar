@@ -56,10 +56,6 @@ step The Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
 
-step Scorpid Worker Tail on the way
-  along until q789
-  collect 4862 quest 789.1
-
 step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
@@ -70,7 +66,6 @@ step Hana'zua
 # Den on the way to the peons and the Vile Familiars, then came back to the
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
 step Valley of Trials: kill these as you meet them
-  label q789
   zone Durotar
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
@@ -304,11 +299,6 @@ step Razor Hill
   accept 837                          -- Gar'Thok
   turnin 815                          -- Cook Torka
 
-step On the way
-  along until q837
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
-
 step Level 10
   when level<10
   tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
@@ -335,7 +325,6 @@ step Kranal Fiss
   turnin 2983
 
 step Razormane Grounds
-  label q837
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
   kill 3111 quest 837.1

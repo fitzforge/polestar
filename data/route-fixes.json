@@ -1987,15 +1987,75 @@
 			},
 			{
 				"a": [
+					"accept",
+					2258
+				],
+				"b": [
+					"task",
+					710
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): Lotwil's Study of the Elements is taken as the road west passes his camp, then Kargath (Jarkal's Badlands Reagent Run), then the Lesser Rock Elementals between Kargath and Lotwil, whose Rock Elemental Shards for Jarkal drop in the same round, as the seed has it; the route walked past Lotwil to Kargath, back east to him, west again for the elementals, and came back to the Dustbowl for the shards 52 minutes later."
+			},
+			{
+				"a": [
 					"turnin",
-					6143
+					703
+				],
+				"b": [
+					"task",
+					709
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): with the wings and the flakes collected around Agmond's End and the trogg caves, the road north to the Uldaman chest runs through the Valley of Fangs: Rigglefuzz (Barbecued Buzzard Wings) takes them on the way, instead of after the chest and the walk back south to Theldurin."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"task",
+					709
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): with the wings and the flakes collected around Agmond's End and the trogg caves, the road north to the Uldaman chest runs through the Valley of Fangs: Martek (Indurium) takes them on the way, instead of after the chest and the walk back south to Theldurin."
+			},
+			{
+				"a": [
+					"accept",
+					710
 				],
 				"b": [
 					"accept",
-					552
+					2258
 				],
 				"faction": "Horde",
-				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): Lotwil's camp lies on the road west from the Valley of Fangs to Kargath (75 yd off it): his Study of the Elements is taken on the way, as the seed has it, not on a walk back east from Kargath."
+			},
+			{
+				"a": [
+					"turnin",
+					432
+				],
+				"b": [
+					"task",
+					95214
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
+			},
+			{
+				"a": [
+					"turnin",
+					433
+				],
+				"b": [
+					"task",
+					96390
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
 			},
 			{
 				"a": [
@@ -2020,6 +2080,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
+			},
+			{
+				"a": [
+					"turnin",
+					6143
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
 			},
 			{
 				"a": [
@@ -2119,84 +2191,6 @@
 					0
 				],
 				"why": "Rev14A1 c14 read (shared Alliance, Dwarf/Gnome/NightElf/Skyborne): the Jansen Stead well vial for Testing the Wells is filled with Poor Old Blanchy's oats in the same fields, on the return to the Jansen Stead after the north loop, as v1 and #416's road-in design have it. c14 sent these starts from the first Sentinel Hill stop back north to the Jansen Stead for the vial alone (02-westfall.guide:178-182), then south to Molsen Farm and Sentinel Hill, then north again for the loop: about 1,000 yd walked twice Chained the other way (vial, then oats) so it meets #621's oats→Blanchy hand-in record: well vial, oats, hand-in in one go (c15 RECORD CONFLICT)."
-			},
-			{
-				"a": [
-					"task",
-					368,
-					0
-				],
-				"b": [
-					"task",
-					97558,
-					2
-				],
-				"why": "#1046 (Fitz: do the work where you are): the three Vile Fin Murloc Skins for Hides for the Forsaken drop from the Vile Fin Minor Oracles and Muckdwellers, the same murlocs whose scales A New Plague (368) collects on the north shore in Brill's north loop. Hides for the Forsaken is taken at Deathguard Linnea's camp right after the first Brill stop, so the skins go with the scales instead of a stop of their own by the Crusader's Outpost (the record this replaces, from c13, when the hides were taken only after the north loop)"
-			},
-			{
-				"a": [
-					"task",
-					97558,
-					0
-				],
-				"b": [
-					"task",
-					375,
-					0
-				],
-				"why": "#1046: the Duskbat Wing Membranes for Hides for the Forsaken and the Duskbat Pelts for The Chill of Death drop from the same Greater and Vampiric Duskbats over the fields and the road north of Brill: one stretch of the north loop, which goes on to the Doom Weed (the record after 375)"
-			},
-			{
-				"a": [
-					"task",
-					367,
-					0
-				],
-				"b": [
-					"task",
-					97558,
-					1
-				],
-				"why": "#1046: the Darkhound Hides for Hides for the Forsaken and the Darkhound Blood for A New Plague (367) drop from the same Decrepit and Cursed Darkhounds west of Brill: one stretch of the west loop, with the Putrid Claws in the same fields"
-			},
-			{
-				"a": [
-					"task",
-					398,
-					0
-				],
-				"b": [
-					"task",
-					368,
-					0
-				],
-				"why": "#1046: Maggot Eye's camp at Garren's Haunt (58.7,30.8) is on the hill just south of the north shore where the Vile Fins for A New Plague (368) walk: the north loop goes on from him to the shore and back to Brill, one direction, no doubling back"
-			},
-			{
-				"a": [
-					"task",
-					3901,
-					0
-				],
-				"b": [
-					"task",
-					376,
-					0
-				],
-				"why": "#1046 (Fitz: 'the along the way quests are doing more harm than good, they should just be steps'): the Scavenger Paws and Duskbat Wings for The Damned drop from the scavengers and duskbats roaming the same Deathknell village as the Rattlecage Skeletons: one field step, not an along list before it"
-			},
-			{
-				"a": [
-					"task",
-					356,
-					0
-				],
-				"b": [
-					"task",
-					99142,
-					0
-				],
-				"why": "#1046: the Bleeding Horrors and Wandering Spirits for Rear Guard Patrol haunt the Balnir Farmstead's graves, where the Tomb Weed grows: one Balnir step, not an along list on the way from the cult farm"
 			},
 			{
 				"a": [
@@ -2899,28 +2893,41 @@
 			},
 			{
 				"a": [
-					"turnin",
-					1177
-				],
-				"b": [
-					"turnin",
-					1202
-				],
-				"faction": "Horde",
-				"why": "Flow re-order (2026-11-07, Dustwallow Marsh, #1097): back from the Theramore docks, Mudcrush Durtfeet (Hungry!) and Nazeer Bloodpike (The Theramore Docks, The Severed Head) are one Brackenwall stop; the route made them two stops in a row."
-			},
-			{
-				"a": [
 					"task",
-					2459,
+					432,
 					0
 				],
 				"b": [
 					"task",
-					2459,
-					1
+					433,
+					0
 				],
-				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and this pair loot the necklace on the mystics' visit, so the walk back is gone."
+				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. Both are killed together where they stand; the seed now does too."
+			},
+			{
+				"a": [
+					"task",
+					711
+				],
+				"b": [
+					"task",
+					2258,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
+			},
+			{
+				"a": [
+					"task",
+					1108
+				],
+				"b": [
+					"task",
+					703
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
 			},
 			{
 				"a": [
@@ -2947,6 +2954,109 @@
 					1
 				],
 				"why": "Flow audit, Mulgore (#1091): the Flatland Cougars killed for Thunderhorn Totem's claws drop Mazzranache's femurs; one loop"
+			},
+			{
+				"a": [
+					"task",
+					368,
+					0
+				],
+				"b": [
+					"task",
+					97558,
+					2
+				],
+				"why": "#1046 (Fitz: do the work where you are): the three Vile Fin Murloc Skins for Hides for the Forsaken drop from the Vile Fin Minor Oracles and Muckdwellers, the same murlocs whose scales A New Plague (368) collects on the north shore in Brill's north loop. Hides for the Forsaken is taken at Deathguard Linnea's camp right after the first Brill stop, so the skins go with the scales instead of a stop of their own by the Crusader's Outpost (the record this replaces, from c13, when the hides were taken only after the north loop)"
+			},
+			{
+				"a": [
+					"task",
+					97558,
+					0
+				],
+				"b": [
+					"task",
+					375,
+					0
+				],
+				"why": "#1046: the Duskbat Wing Membranes for Hides for the Forsaken and the Duskbat Pelts for The Chill of Death drop from the same Greater and Vampiric Duskbats over the fields and the road north of Brill: one stretch of the north loop, which goes on to the Doom Weed (the record after 375)"
+			},
+			{
+				"a": [
+					"task",
+					367,
+					0
+				],
+				"b": [
+					"task",
+					97558,
+					1
+				],
+				"why": "#1046: the Darkhound Hides for Hides for the Forsaken and the Darkhound Blood for A New Plague (367) drop from the same Decrepit and Cursed Darkhounds west of Brill: one stretch of the west loop, with the Putrid Claws in the same fields"
+			},
+			{
+				"a": [
+					"task",
+					398,
+					0
+				],
+				"b": [
+					"task",
+					368,
+					0
+				],
+				"why": "#1046: Maggot Eye's camp at Garren's Haunt (58.7,30.8) is on the hill just south of the north shore where the Vile Fins for A New Plague (368) walk: the north loop goes on from him to the shore and back to Brill, one direction, no doubling back"
+			},
+			{
+				"a": [
+					"task",
+					3901,
+					0
+				],
+				"b": [
+					"task",
+					376,
+					0
+				],
+				"why": "#1046 (Fitz: 'the along the way quests are doing more harm than good, they should just be steps'): the Scavenger Paws and Duskbat Wings for The Damned drop from the scavengers and duskbats roaming the same Deathknell village as the Rattlecage Skeletons: one field step, not an along list before it"
+			},
+			{
+				"a": [
+					"task",
+					356,
+					0
+				],
+				"b": [
+					"task",
+					99142,
+					0
+				],
+				"why": "#1046: the Bleeding Horrors and Wandering Spirits for Rear Guard Patrol haunt the Balnir Farmstead's graves, where the Tomb Weed grows: one Balnir step, not an along list on the way from the cult farm"
+			},
+			{
+				"a": [
+					"turnin",
+					1177
+				],
+				"b": [
+					"turnin",
+					1202
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Dustwallow Marsh, #1097): back from the Theramore docks, Mudcrush Durtfeet (Hungry!) and Nazeer Bloodpike (The Theramore Docks, The Severed Head) are one Brackenwall stop; the route made them two stops in a row."
+			},
+			{
+				"a": [
+					"task",
+					2459,
+					0
+				],
+				"b": [
+					"task",
+					2459,
+					1
+				],
+				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and this pair loot the necklace on the mystics' visit, so the walk back is gone."
 			}
 		],
 		"after": [
@@ -5558,6 +5668,39 @@
 				],
 				"why": "#1046 follow-up: as the pair before it, the zealot in the inn's cellar after Sevren's town hall",
 				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					99051
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Threat from Below is handed to Orgnil in Razor Hill on the walk from Margoz to Far Watch Post, as in Orc's guide. The Troll cut handed in Conscript of the Horde first, took the Crossroads stop (Meats to Orgrimmar, Crossroads Conscription, the flight path), walked 2,490 yd back to Razor Hill, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the player had stood next to"
+			},
+			{
+				"a": [
+					"turnin",
+					6081
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+			},
+			{
+				"a": [
+					"turnin",
+					842
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
 			}
 		]
 	}
