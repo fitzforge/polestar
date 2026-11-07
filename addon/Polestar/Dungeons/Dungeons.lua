@@ -54,7 +54,8 @@
 --   run (HandinPlan, HandinFollowUps, HandinGuide, HandIn, HandinText):
 --   Dungeons/Handin.lua. Attunements and keys (AttunementState, AttuneGuide,
 --   Attune): Dungeons/Attune.lua. What the quests are worth in levels
---   (QuestXP): Dungeons/XP.lua.
+--   (QuestXP): Dungeons/XP.lua. The dungeon's own picture (Art, its loading
+--   screen cropped square): Dungeons/Art.lua.
 -- Settings: dungeons.enabled, dungeons.headsUp (the heads-up when a
 -- dungeon opens up, UI/DungeonToast.lua); per character, the dungeons run in leveling
 -- guides (Dungeons.ROUTE, Engine.ChooseDungeon). Command: /polestar dungeons [name].

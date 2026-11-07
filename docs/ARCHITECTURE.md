@@ -5028,7 +5028,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   header; on a window too narrow for them, the chip goes under the header,
   Later and the "stop" button take a row under the actions, and a button
   that still doesn't fit starts the next row) for a dungeon whose quests
-  have opened to this character: "LEVEL
+  have opened to this character: in its ring the dungeon's own picture
+  (`Dungeons.Art(key)`, `Dungeons/Art.lua`: the instance's loading screen
+  from the client's Map and LoadingScreens tables, by Map id, a square crop
+  as texture coordinates; the model's `art`, filling the ring inside a 2px
+  rim of the accent), or for a dungeon without one the dungeon glyph small
+  on the ring's disc (an `icon` tinted `iconColor` is a glyph), "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the

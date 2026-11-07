@@ -1,7 +1,9 @@
 -- The dungeon heads-up (#836): the class quest heads-up's card (UI/ClassToast.lua)
 -- for a dungeon whose quests have opened to this character. "LEVEL 18 ·
 -- DUNGEON", "Ragefire Chasm is open to you", how many quests there are to
--- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP);
+-- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP),
+-- in its ring the dungeon's own picture (Dungeons/Art.lua: its loading
+-- screen), or the dungeon glyph for one without;
 -- "Pick up the quests" opens the dungeon's pickup guide in a new tab
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
@@ -105,9 +107,11 @@ function DT.Candidates(level, mode, questId)
 	return out
 end
 
--- What the card says for candidate c.
+-- What the card says for candidate c. Its ring wears the dungeon's own
+-- picture (Dungeons.Art: its loading screen), else the dungeon glyph.
 function DT.Model(c)
-	local m = { dungeon = c.key, icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
+	local Dg = D()
+	local m = { dungeon = c.key, art = Dg.Art and Dg.Art(c.key), icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], c.level)
 	m.title = format(L["%s is open to you"], c.name)
 	local quests = c.take == 1 and L["1 quest to pick up"] or format(L["%d quests to pick up"], c.take)
@@ -117,7 +121,7 @@ function DT.Model(c)
 	if c.zoneName then where[#where + 1] = c.zoneName end
 	m.giver = table.concat(where, "  \194\183  ")
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
-	local Dg, LT = D(), UI.LevelTip
+	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
 	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
