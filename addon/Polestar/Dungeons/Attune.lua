@@ -241,8 +241,11 @@ local function itemPoint(s, inside)
 	return nil
 end
 
+-- A goal at point p; a talk goal at an NPC also gets the height of its spawn
+-- there (Lookup.SpawnZ: the arrow walks to its floor, #1024).
 local function at(goal, p)
 	if located(p) then goal.map, goal.x, goal.y, goal.f = p.map, p.x, p.y, p.f == "e" and "e" or nil end
+	if goal.map and goal.npc then goal.z = LK().SpawnZ("npc", goal.npc, goal) end
 	return goal
 end
 

@@ -1876,12 +1876,20 @@ local function layoutCard(width)
 		person.Name:SetWidth(nameW)
 		person.Where:SetWidth(nameW)
 		person.Why:SetWidth(nameW)
+		person.Level:SetWidth(nameW)
 		local h = 10 + person.Name:GetStringHeight()
+		local above = person.Where:IsShown() and person.Where or person.Name
 		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
 		if person.Why:IsShown() then
 			person.Why:ClearAllPoints()
-			person.Why:SetPoint("TOPLEFT", person.Where:IsShown() and person.Where or person.Name, "BOTTOMLEFT", 0, -3)
+			person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 			h = h + 3 + person.Why:GetStringHeight()
+			above = person.Why
+		end
+		if person.Level:IsShown() then
+			person.Level:ClearAllPoints()
+			person.Level:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
+			h = h + 3 + person.Level:GetStringHeight()
 		end
 		h = floor(h + 8 + 0.5)
 		person:SetHeight(h)
@@ -2752,6 +2760,14 @@ end
 
 local DOT = "  \194\183  "
 
+-- A level as the window shows the character's: whole, or cut (not rounded)
+-- to one place, so 19.96 still reads 19.9. (A field: this file's main chunk
+-- is at Lua 5.1's 200 locals.)
+function GF.LevelText(v)
+	if v % 1 == 0 then return string.format("%d", v) end
+	return string.format("%.1f", floor(v * 10) / 10)
+end
+
 -- Fill the card from `view`: the focus group's header, its goals under
 -- "✓ N done", a summary line for every other person of the step, the tip
 -- (with "Show the whole step", or on a done step, every goal as written).
@@ -2769,6 +2785,15 @@ local function fillCard(sameFocus)
 	local why = view.why
 	person.Why:SetText(why or "")
 	person.Why:SetShown(why ~= nil)
+	-- A quest on the step 3 or more levels above the character (Levels.StepHint):
+	-- "Level 25 quest: you're 19.7", red from 5 levels as in the quest log.
+	local Lv = ns.Levels
+	local hint = Lv and Lv.StepHint and Lv.StepHint(view.index)
+	if hint then
+		person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
+		W.Color(person.Level, hint.level - floor(hint.you) >= 5 and "danger" or "warning")
+	end
+	person.Level:SetShown(hint ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
@@ -3291,14 +3316,16 @@ local function targetAlpha()
 	return a
 end
 
--- With ui.instance "hide", the window waits out a dungeon or raid until the
--- player opens it there. Like combat it never writes ui.shown, so leaving
--- brings back what the player had.
+-- With ui.instance "hide" (the default), the window waits out a dungeon,
+-- raid, battleground or arena until the player opens it there. Like combat
+-- it never writes ui.shown, so leaving brings back what the player had.
+-- Unlike combat it takes what goes with the guide along (ns.GuideShown).
 local function hiddenInside()
 	return inInstance and not openInside and ns.Get("ui.instance") == "hide"
 end
 
 function GF.ApplyVisibility()
+	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
 	if not F then return end
 	local show = ns.Get("ui.shown") and not (inCombat and ns.Get("ui.combat") == "hide") and not hiddenInside()
 	F:SetShown(show and true or false)
@@ -4059,6 +4086,11 @@ local function build()
 	person.Why:SetJustifyH("LEFT")
 	person.Why:SetWordWrap(true)
 	person.Why:Hide()
+	-- A quest on the step well above the character's level (fillCard).
+	person.Level = T(person, "small", "warning")
+	person.Level:SetJustifyH("LEFT")
+	person.Level:SetWordWrap(true)
+	person.Level:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
@@ -4368,16 +4400,53 @@ ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
 ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
 ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
--- The route's pace against the guide's next level target (Core/Levels.lua,
--- Levels.Pace): "On pace for level 14 by step 32", "About 6 bars short of
--- level 14 by step 32"; nil without a target ahead or the Codex.
-function GF.PaceText()
+-- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
+-- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
+-- grinding time. On pace (or ahead): "On pace for level 14 by step 32".
+-- Behind, with a `level` goal ahead that grinds it: "Behind by 6 bars: step 32
+-- grinds to level 14 (~12m)". Behind with none, in the warning colour: a quest
+-- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
+-- 20, you'll be 21.0; grind ~1h 10m first" (or "reach 23 first"), else
+-- "Behind by 2.4 levels for level 24 by step 21: grind ~1h 10m before then"
+-- (or "and no grind step ahead"). nil without a target ahead or the Codex.
+function GF.PaceText(stats)
 	local Lv = ns.Levels
 	local pace = Lv and Lv.Pace and Lv.Pace()
 	if not pace then return nil end
+	local Q = ns.QoL
+	local rate = type(stats) == "table" and type(stats.rate) == "number" and stats.rate > 0 and stats.rate or nil
+	local function grind(xp)
+		if not (rate and type(xp) == "number" and xp > 0 and Q and Q.Duration) then return nil end
+		return Q.Duration(xp / rate * 3600)
+	end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, UI.StepNo(pace.step)) end
-	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, UI.StepNo(pace.step))
+	local stepNo = UI.StepNo(pace.step)
+	local h, text = pace.hard, nil
+	if h then
+		local name, at, you, time = h.title or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
+		if h.step == pace.live then
+			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
+		else
+			text = time and string.format(L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"], name, h.level, at, you, h.need)
+		end
+	elseif pace.bars == 0 then
+		return string.format(L["On pace for level %s by step %d"], level, stepNo)
+	else
+		local bars = pace.bars
+		local by = pace.short >= 1 and string.format(L["%s levels"], string.format("%.1f", pace.short))
+			or (bars == 1 and L["1 bar"] or string.format(L["%d bars"], bars))
+		local time = grind(pace.xp)
+		if pace.kind == "goal" then
+			-- The guide grinds it at that step: said plainly, not as a warning.
+			return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
+				or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
+		end
+		text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
+			or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
+	end
+	return "|c" .. Theme.Hex("warning") .. text .. "|r"
 end
 
 -- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden
@@ -4400,7 +4469,7 @@ function GF.UpdateXP(stats)
 		end
 	end
 	if not (type(stats) == "table" and stats.maxed) then
-		local pace = GF.PaceText()
+		local pace = GF.PaceText(stats)
 		if pace then parts[#parts + 1] = pace end
 	end
 	local had = GF.xp.psHas
@@ -4653,24 +4722,36 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	GF.ApplyAlpha(true)
 end)
 
--- Dungeons and raids only: not battlegrounds, arenas or scenarios.
+-- Dungeons, raids, battlegrounds and arenas: not scenarios.
+local INSTANCE_KINDS = { party = true, raid = true, pvp = true, arena = true }
 local function instanceNow()
 	local C = ns.Compat
 	if not (C and C.IsInInstance) then return false end
 	local ok, inside, kind = pcall(C.IsInInstance)
-	return (ok and inside and (kind == "party" or kind == "raid")) and true or false
+	return (ok and inside and INSTANCE_KINDS[kind]) and true or false
+end
+
+-- The first time on this account the window hides itself on the way in,
+-- one chat line says how to bring it back and where the setting is.
+local function sayHiddenOnce()
+	local db = ns.DB()
+	if db.instanceHideTold then return end
+	db.instanceHideTold = true
+	ns.Print(L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."])
 end
 
 -- Every way in or out passes a loading screen, a /reload included. Going in
 -- or out ends a visit, so the next one starts hidden again.
 local function checkInstance()
 	local now = instanceNow()
+	local entered = now and not inInstance
 	if now ~= inInstance then
 		openInside = false
 		shownOnEntry = ns.Get("ui.shown") and true or false
 	end
 	inInstance = now
 	GF.ApplyVisibility()
+	if entered and hiddenInside() and ns.Get("ui.shown") then sayHiddenOnce() end
 end
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)

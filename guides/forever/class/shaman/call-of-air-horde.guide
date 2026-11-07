@@ -145,12 +145,12 @@ step Prate Cloudseer
 step Twisted Air Totems
   zone Desolace
   tip Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of Shadowprey Village in western Desolace carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw Jumping Lightning: pull one at a time. Respawn about five minutes.
-  collect 274047 x5 quest 79361.1                -- Twisted Air Totem
+  collect 274047 x5 quest 79361.4                -- Twisted Air Totem
 
 step Twisted Water Totems
   zone Dustwallow Marsh
   tip Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of Brackenwall Village in northern Dustwallow Marsh carry them.
-  collect 274046 x5 quest 79361.4                -- Twisted Water Totem
+  collect 274046 x5 quest 79361.1                -- Twisted Water Totem
 
 step Twisted Fire Totems
   zone Badlands

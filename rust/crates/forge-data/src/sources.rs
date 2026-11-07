@@ -47,22 +47,40 @@ pub const PARTS: [&str; 8] = ["wago", "builders", "pfquest", "eglink", "forever-
 
 pub struct Http {
 	agent: ureq::Agent,
+	/// The waits before each retry of a 429 or 5xx (wago.tools' Cloudflare 500/521/522 outages).
+	retry: Vec<Duration>,
 }
 
 impl Http {
-	/// `timeout`: the whole of one request.
+	/// `timeout`: the whole of one request. No retries ([`Http::retrying`]).
 	pub fn new(timeout: Duration, user_agent: &str) -> Http {
 		let agent = ureq::Agent::config_builder().timeout_global(Some(timeout)).http_status_as_error(false).user_agent(user_agent).build().new_agent();
-		Http { agent }
+		Http { agent, retry: Vec::new() }
 	}
 
+	/// A 429 or 5xx is asked again after each of `waits`.
+	pub fn retrying(mut self, waits: Vec<Duration>) -> Http {
+		self.retry = waits;
+		self
+	}
+
+	/// The source cache's agent (wago.tools, GitHub): a 429 or 5xx is retried after 2 s and 6 s.
 	pub fn default_agent() -> Http {
-		Http::new(Duration::from_secs(600), USER_AGENT)
+		Http::new(Duration::from_secs(600), USER_AGENT).retrying(vec![Duration::from_secs(2), Duration::from_secs(6)])
 	}
 
-	/// GET `url`: Some(body) on 200, None on 404, else an error (`GET <url>: HTTP <status>`).
+	/// GET `url`: Some(body) on 200, None on 404, else an error (`GET <url>: HTTP <status>`). A 429 or
+	/// 5xx is asked again after each of the retry waits; a network error is not.
 	pub fn get(&self, url: &str, max: u64) -> Result<Option<Vec<u8>>, String> {
-		let resp = self.agent.get(url).call().map_err(|e| format!("GET {url}: {e}"))?;
+		let mut waits = self.retry.iter();
+		let resp = loop {
+			let resp = self.agent.get(url).call().map_err(|e| format!("GET {url}: {e}"))?;
+			let status = resp.status().as_u16();
+			match waits.next() {
+				Some(wait) if status == 429 || status >= 500 => std::thread::sleep(*wait),
+				_ => break resp,
+			}
+		};
 		let status = resp.status().as_u16();
 		if status == 404 {
 			return Ok(None);

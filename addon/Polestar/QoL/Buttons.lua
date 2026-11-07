@@ -1096,6 +1096,7 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
 end)
+ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
 
 -- Back to the default spot (options button).
 function Buttons.ResetPositions()

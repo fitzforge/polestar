@@ -152,6 +152,8 @@ function Dungeons.HandinFollowUps(plan)
 	return out
 end
 
+-- A turn-in or accept goal at point `at`, with the height of its NPC's or
+-- object's spawn there (Lookup.SpawnZ: the arrow walks to its floor, #1024).
 local function questGoal(t, id, title, at)
 	local goal = { t = t, quest = id, title = title, map = at.map, x = at.x, y = at.y, f = at.f == "e" and "e" or nil }
 	if at.kind == "object" then
@@ -159,6 +161,7 @@ local function questGoal(t, id, title, at)
 	else
 		goal.npc, goal.npcName = at.id, at.name
 	end
+	goal.z = LK().SpawnZ(at.kind == "object" and "object" or "npc", at.id, at)
 	return goal
 end
 

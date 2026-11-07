@@ -1419,6 +1419,84 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 	assert_eq!(out["h"], true);
 }
 
+// Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
+// when on pace or when a `level` goal ahead grinds the gap, in the warning colour when nothing in the guide
+// makes it up; grinding time from the tracker's XP an hour when there is one.
+#[test]
+fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_names_a_quest_too_hard() {
+	let out = run(r#"
+		local stats = { rate = 3400, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function(s) return string.format("%dh %02dm", math.floor(s / 3600), math.floor(s % 3600 / 60)) end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "" end },
+		}
+		uistub.setGuide(uistub.elwynn, 3)
+		local pace
+		Polestar.Levels.Pace = function() return pace end
+		local function line(p, s) pace = p; return GF.PaceText(s) or false end
+		local out = {}
+		out.onPace = line({ target = 20, step = 32, reach = 20.1, bars = 0, short = 0, xp = 0, kind = "goal", live = 30 }, stats)
+		out.ahead = line({ target = 24, step = 21, reach = 25.3, bars = 0, short = 0, xp = 0, kind = "end", live = 3 }, stats)
+		local grind = { target = 20, step = 32, reach = 18.8, bars = 24, short = 1.2, xp = 1700, kind = "goal", live = 30 }
+		out.grind = line(grind, stats)
+		out.grindNoRate = line(grind, nil)
+		out.bars = line({ target = 18.5, step = 12, reach = 18.2, bars = 6, short = 0.3, xp = 850, kind = "goal", live = 10 }, stats)
+		local short = { target = 24, step = 21, reach = 21.6, bars = 48, short = 2.4, xp = 6800, kind = "end", live = 3 }
+		out.none = line(short, stats)
+		out.noneNoRate = line(short, nil)
+		local hard = { target = 24, step = 21, reach = 20.4, bars = 72, short = 3.6, xp = 9000, kind = "end", live = 18,
+			hard = { quest = 219, title = "Missing In Action", level = 25, step = 20, reach = 20.06, need = 23, xp = 3400 } }
+		out.hard = line(hard, stats)
+		out.hardNoRate = line(hard, nil)
+		hard.live = 20
+		out.hardNow = line(hard, stats)
+		pace = grind
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		out.row = GF.xp:IsShown() and GF.xp.Text:GetText()
+		out.nothing = line(nil, stats)
+		out.warn = Polestar.Theme.Hex("warning")
+		emit(out)"#)
+	.remove(0);
+	let warn = |s: &str| format!("|c{}{s}|r", text(&out["warn"]));
+	assert_eq!(out["onPace"], "On pace for level 20 by step 32", "on target: calm, as before");
+	assert_eq!(out["ahead"], "On pace for level 24 by step 21");
+	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
+	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
+	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
+	assert_eq!(out["bars"], "Behind by 6 bars: step 12 grinds to level 18.5 (~0h 15m)", "under a level: the XP bar's bars");
+	// Behind with no grind step: the guide's end level, and how long to grind on the way.
+	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
+	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
+	// A quest that will be 3+ levels over you comes first: which, where, at what level you get there, the fix.
+	assert_eq!(out["hard"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["hardNoRate"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; reach 23 first").as_str());
+	assert_eq!(out["hardNow"], warn("Behind: Missing In Action (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
+	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
+}
+
+// A step whose open quest is 3 or more levels above the character says so under its header (Levels.StepHint),
+// in the warning colour, red from 5 over as the quest log draws it.
+#[test]
+fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
+	let out = run(r#"
+		uistub.player.xp, uistub.player.xpMax = 450, 2800
+		local kill = uistub.guides[uistub.elwynn].steps[3].goals[3]
+		kill.qlvl = 9
+		uistub.setGuide(uistub.elwynn, 3)
+		local hint = GF.parts.person.Level
+		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
+		uistub.setStep(7)
+		local none = hint:IsShown()
+		emit({ red = red, none = none, danger = { Polestar.Theme.Color("danger") } })"#)
+	.remove(0);
+	assert_eq!(out["red"]["shown"], true);
+	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
+	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["danger"]), "5 levels over: red");
+	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
+}
+
 #[test]
 fn goal_lines_render_the_engine_text_author_overrides_and_counts_survive_the_subject_keeps_its_colour() {
 	let out = run(r#"
@@ -1477,55 +1555,129 @@ fn combat_state_is_read_at_login_so_a_reload_mid_fight_still_fades_or_hides_the_
 }
 
 // Through a loading screen into an instance of `kind` ("party", "raid", "pvp", ...), or out of it with nil.
+// told(): how many times chat had the one-time "hides in dungeons and battlegrounds" line.
 const ENTER: &str = r#"
 local function enter(kind)
 	uistub.instance = kind
 	stub.fire("PLAYER_ENTERING_WORLD", false, false)
 end
+local function told()
+	local n = 0
+	for _, m in ipairs(stub.messages) do if m:find("hides in dungeons and battlegrounds", 1, true) then n = n + 1 end end
+	return n
+end
 "#;
 
+// Tangens (Discord): healing in Wailing Caverns, the window was in the way the whole run. A profile that never
+// touched the setting hides it in a dungeon, a raid, a battleground and an arena, and leaving brings it back.
 #[test]
-fn in_dungeons_by_default_the_window_stays_with_hide_it_hides_in_a_dungeon_and_a_raid_and_comes_back_on_leaving_the_show_setting_untouched() {
+fn in_dungeons_and_battlegrounds_a_fresh_profile_hides_the_window_in_a_dungeon_raid_battleground_and_arena_and_it_comes_back_on_leaving() {
 	let out = run(&[
 		ENTER,
 		r#"
 		uistub.setGuide(uistub.elwynn, 3)
-		enter("party")
-		local byDefault = F:IsShown()
+		local stored = PolestarDB.settings.ui and PolestarDB.settings.ui.instance
+		local hidden = {}
+		for _, kind in ipairs({ "party", "raid", "pvp", "arena" }) do
+			enter(kind)
+			hidden[kind] = not F:IsShown()
+			enter(nil)
+			hidden[kind .. " left"] = not F:IsShown()
+		end
+		enter("scenario")
+		local scenario = F:IsShown()
 		enter(nil)
-		Polestar.Set("ui.instance", "hide")
-		local outside = F:IsShown()
-		enter("party")
-		local dungeon, stored = F:IsShown(), Polestar.Get("ui.shown")
-		enter(nil)
-		local left = F:IsShown()
-		enter("raid")
-		local raid = F:IsShown()
-		Polestar.Set("ui.instance", "show")
-		local turnedOff = F:IsShown()
-		emit({ byDefault = byDefault, outside = outside, dungeon = dungeon, stored = stored, left = left, raid = raid, turnedOff = turnedOff })"#,
+		emit({ stored = stored or false, hidden = hidden, scenario = scenario, shown = Polestar.Get("ui.shown") })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!({ "byDefault": true, "outside": true, "dungeon": false, "stored": true, "left": true, "raid": false, "turnedOff": true }));
+	assert_eq!(
+		out,
+		json!({ "stored": false, "scenario": true, "shown": true, "hidden": {
+			"party": true, "party left": false, "raid": true, "raid left": false, "pvp": true, "pvp left": false, "arena": true, "arena left": false } })
+	);
 }
 
+// Players who chose "Keep visible" keep it (a stored choice beats the new default); turning it to Hide there hides it at once.
 #[test]
-fn in_dungeons_battlegrounds_arenas_and_scenarios_are_not_dungeons_and_the_window_stays() {
+fn in_dungeons_and_battlegrounds_a_stored_keep_visible_choice_is_kept_and_the_window_stays() {
+	let out = run_with(
+		&[
+			ENTER,
+			r#"
+		enter("party")
+		local dungeon = F:IsShown()
+		enter("pvp")
+		local battleground = F:IsShown()
+		Polestar.Set("ui.instance", "hide")
+		local turnedOn = F:IsShown()
+		emit({ dungeon = dungeon, battleground = battleground, turnedOn = turnedOn, told = told() })"#,
+		]
+		.concat(),
+		r#"PolestarDB = { schema = 1, settings = { ui = { instance = "show" } } }"#,
+		"",
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "dungeon": true, "battleground": true, "turnedOn": false, "told": 0 }));
+}
+
+// While the window waits out an instance, what goes with it (action buttons, party panel, alerts: ns.GuideShown)
+// goes too, and comes back with /polestar there.
+#[test]
+fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_and_comes_back_with_polestar() {
 	let out = run(&[
 		ENTER,
 		r#"
-		Polestar.Set("ui.instance", "hide")
-		local shown = {}
-		for _, kind in ipairs({ "pvp", "arena", "scenario" }) do
-			enter(kind)
-			shown[#shown + 1] = F:IsShown()
-		end
-		emit(shown)"#,
+		local fired = {}
+		Polestar.On("GUIDE_SHOWN", function(shown) fired[#fired + 1] = shown end)
+		local outside = Polestar.GuideShown()
+		enter("pvp")
+		local inside = Polestar.GuideShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		local opened = Polestar.GuideShown()
+		enter(nil)
+		emit({ outside = outside, inside = inside, opened = opened, left = Polestar.GuideShown(), fired = fired })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!([true, true, true]));
+	assert_eq!(out, json!({ "outside": true, "inside": false, "opened": true, "left": true, "fired": [false, true] }));
+}
+
+// The first time on the account the window hides itself on the way in, one chat line says how to bring it
+// back; never again, and never when it did not hide (Keep visible, or the window off anyway).
+#[test]
+fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_show_it() {
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window.";
+	let out = run(&[
+		ENTER,
+		r#"
+		local function last() return (stub.messages[#stub.messages] or ""):gsub("^.-Polestar|r: ", "") end
+		Polestar.Set("ui.instance", "show")
+		enter("party")
+		enter(nil)
+		local keptVisible = told()
+		Polestar.Set("ui.instance", "hide")
+		Polestar.Fire("HIDE_FRAME")
+		enter("party")
+		enter(nil)
+		local windowOff = told()
+		Polestar.Fire("SHOW_FRAME")
+		enter("party")
+		local first, text = told(), last()
+		enter(nil)
+		enter("pvp")
+		enter("raid")
+		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), saved = PolestarDB.instanceHideTold })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "saved": true }));
+}
+
+#[test]
+fn in_dungeons_and_battlegrounds_the_line_is_not_said_again_on_an_account_already_told() {
+	let out = run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told() })"#].concat(), r#"PolestarDB = { schema = 1, instanceHideTold = true }"#, "").remove(0);
+	assert_eq!(out, json!({ "hidden": true, "told": 0 }));
 }
 
 #[test]

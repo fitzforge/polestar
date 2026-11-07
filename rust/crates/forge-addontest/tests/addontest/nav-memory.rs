@@ -33,7 +33,14 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// (the clusters of the earlier walks still held) is 42,952 / 29,201 and "rest" (just after the searches) 32,813 /
 /// 29,023; "idle" (after the minute's rest) is the old at-rest figure, 19,848 / 22,479. Live rose 3,500 KiB to
 /// 43,500 and rest 11,000 to 33,500; idle holds the old 22,500.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 43500.0), ("allocated", 92000.0), ("rest", 33500.0), ("idle", 22500.0)];
+/// 0.3.5 (2026-11-07, the long-walk memory fixes; NEEDS FITZ'S OK for the rise): a finished search's scratch (the
+/// abstract A*'s tables, the heap, the grid trees) is the next search's and stays Path.spareSeconds (15 s) after the
+/// queue empties, so a walk asked again fills the same tables instead of growing new ones (a long walk off the drawn
+/// line: 0.91-1.19 MB/s of garbage down to 0.22-0.30). Eastern Kingdoms: allocated 91,361 -> 65,692 (budget lowered
+/// 92,000 -> 66,000); "live" 42,952 -> 57,165 and "rest" 32,813 -> 52,486 (the batch's and the walks' scratch held
+/// until spareSeconds); idle unchanged 19,848. Kalimdor unchanged. Live rose 14,000 KiB to 57,500 and rest 19,500 to
+/// 53,000.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 57500.0), ("allocated", 66000.0), ("rest", 53000.0), ("idle", 22500.0)];
 
 const WALKS: [(u32, [f64; 3], [f64; 3]); 5] = [
 	(0, [-8911.708, -130.583, 81.024], [-8680.25, -113.229, 91.141]),

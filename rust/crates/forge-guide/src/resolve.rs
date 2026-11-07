@@ -2497,10 +2497,16 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			let objectives = q.get("objectives").items();
 			let olen = objectives.len();
 			let listed = || data.quest_objectives(&gq).iter().map(|o| objective_label(&gq, o)).collect::<Vec<_>>().join(", ");
+			// An index past a list the data has names no quest-log line: the goal never counts. An error;
+			// with no list in the data (a quest whose objectives it does not know) only a warning.
 			if !oi.is_undef() && oi.num() > olen as f64 {
 				let msg = format!("quest {} has {} objective(s) in data, not {}{}", gq, olen, oi, if olen > 0 { format!(": {}", listed()) } else { String::new() });
 				let hint = if olen > 0 { format!("write `quest {gq}.<n>` with one of these (`polestar find {gq}` lists them)") } else { format!("drop the `.{oi}`: write `quest {gq}`") };
-				r.warn(&ln, msg, Some(&hint));
+				if olen > 0 {
+					r.err(&ln, msg, Some(&hint));
+				} else {
+					r.warn(&ln, msg, Some(&hint));
+				}
 			}
 			let kind = match v {
 				"kill" => Some("kill"),
@@ -2541,8 +2547,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				"interact" => "object",
 				_ => "item",
 			};
-			if named.truthy() && same_kind(&named.get("kind")) && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id) {
-				let right = find(&id);
+			// The line's own target is another objective of the quest: the index is swapped, whatever kind the
+			// objective it names is (a kill written on an item's line), and progress and count follow the wrong
+			// quest-log line. An error. Another target of the same kind that is no objective: a warning.
+			let right = if named.truthy() { find(&id) } else { None };
+			let swapped = right.is_some_and(|ri| oi.num() != ri as f64);
+			if swapped || (named.truthy() && same_kind(&named.get("kind")) && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id)) {
 				let own = right.and_then(|ri| data.quest_objectives(&gq).get(ri - 1).cloned());
 				let own_part = match (&own, right) {
 					(Some(o), Some(ri)) => {
@@ -2557,19 +2567,14 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					None if used => bag_hint.clone(),
 					None => format!("its objectives: {}", listed()),
 				};
-				if right.is_some() {
+				if swapped {
 					r.err(&ln, msg, Some(&hint));
 				} else {
 					r.warn(&ln, msg, Some(&hint));
 				}
 			}
-			if named.truthy() && v == "collect" && named.get("kind").as_str() != Some("item") {
-				let right = objective_for(&q, Some("item"), &id);
-				let hint = match right {
-					Some(ri) => format!("write `quest {gq}.{ri}`, or `quest {gq}` to take the index from the item"),
-					None if used => bag_hint.clone(),
-					None => format!("its objectives: {}", listed()),
-				};
+			if named.truthy() && !swapped && v == "collect" && named.get("kind").as_str() != Some("item") {
+				let hint = if used { bag_hint.clone() } else { format!("its objectives: {}", listed()) };
 				r.warn(&ln, format!("{}, not an item", quest_is(&objective_label(&gq, &named))), Some(&hint));
 			}
 			if oi.is_undef() {

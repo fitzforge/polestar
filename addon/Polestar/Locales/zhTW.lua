@@ -17,9 +17,8 @@ L["Unknown command '%s'."] = "未知的指令「%s」。"
 
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安裝"
-L["%s from another version"] = "%s 來自其他版本"
-L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安裝不完整：%s。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，再把最新的 Polestar 壓縮檔解壓到那裡（CurseForge 或 GitHub Releases，不是「Source code」）。"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 已不再使用舊的資料夾 Polestar_Guides_<language> 和 Polestar_Names_<language>（%s）：現在兩者都已整合至 Polestar_<language>。請關閉遊戲，並將它們從 Interface/AddOns 中刪除。"
+L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安裝混雜了不同版本或不完整（%s）。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，然後重新安裝 Polestar：使用 Polestar Client、CurseForge 應用程式，或 GitHub Releases 上最新的壓縮檔（不是「Source code」）。"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "需要 Polestar %s 或更新版本。"
@@ -1225,7 +1224,6 @@ L["Recorder window"] = "記錄器視窗"
 -- L["Room to make: %s"] = ""
 -- L["Make room"] = ""
 -- L["On pace for level %s by step %d"] = ""
--- L["About %d bars short of level %s by step %d"] = ""
 -- L["Your class quest is done. Back to %s."] = ""
 -- L["Close and return"] = ""
 -- L["The guide has no class training ahead."] = ""
@@ -1265,6 +1263,19 @@ L["The step stops waiting for the party and moves on as usual."] = "步驟不再
 L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板。"
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
+-- L["Level %d quest: you're %s"] = ""
+-- L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = ""
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = ""
+-- L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"] = ""
+-- L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"] = ""
+-- L["%s levels"] = ""
+-- L["1 bar"] = ""
+-- L["%d bars"] = ""
+-- L["Behind by %s: step %d grinds to level %s (~%s)"] = ""
+-- L["Behind by %s: step %d grinds to level %s"] = ""
+-- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
+-- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -1698,6 +1709,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "步驟 %d / %d（指南步驟 %d）：%s"
+L["Install: %s"] = "安裝：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件清單中關閉"
@@ -1944,8 +1956,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "皮膚的箭頭"
 L["Lock arrow and buttons"] = "鎖定箭頭與按鈕"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "防止誤拖曳箭頭、動作按鈕以及飛行與副本計時器。按住 Shift 拖曳仍可移動它們。"
-L["In dungeons"] = "在地城中"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "視窗在地城與團隊中的行為。在離開之前，可用 /polestar 或快捷鍵在其中開啟視窗。"
 L["Line style"] = "線條樣式"
 L["Bar at the bottom"] = "列置於底部"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "啟用「向上延伸」時，將分頁與步驟列放在底部邊緣，即視窗固定位置的旁邊。"
@@ -2014,6 +2024,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "你是不是要找："
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -2966,3 +2979,7 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "使用 Polestar 的隊友會在他們的任務目標下看到你的計數。不會發送到聊天頻道。"
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "他們的計數會顯示在你的任務目標下，並顯示誰沒有你接的任務。"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成員的等級、步驟以及還需要你的步驟中的什麼；點擊名字讓箭頭指向他們。/polestar party 顯示或隱藏面板。"
+-- L["In dungeons"] = "在地城中"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "視窗在地城與團隊中的行為。在離開之前，可用 /polestar 或快捷鍵在其中開啟視窗。"
+-- L["%s from another version"] = "%s 來自其他版本"
+-- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安裝不完整：%s。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，再把最新的 Polestar 壓縮檔解壓到那裡（CurseForge 或 GitHub Releases，不是「Source code」）。"

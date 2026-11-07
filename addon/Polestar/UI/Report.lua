@@ -237,6 +237,14 @@ local function packsLine()
 	return cut((L["Packs: %s"]):format(table.concat(list, ", ")))
 end
 
+-- Polestar folders from different versions (Core/Data.lua): a mixed install
+-- explains reports a clean reinstall fixes. Nil when every folder matches.
+local function installLine()
+	local D = ns.Data
+	local line = D and D.InstallLine and D.InstallLine()
+	return line and cut((L["Install: %s"]):format(line)) or nil
+end
+
 -- Words in an addon's folder name that mark one whose arrows, quest lines or
 -- map pins can look like Polestar's (Questie, TomTom, other guides).
 local SUSPECT = { "quest", "guide", "map", "tomtom", "arrow", "waypoint", "nav", "route" }
@@ -397,6 +405,7 @@ function R.Details()
 	out[#out + 1] = playerLine()
 	out[#out + 1] = routesLine()
 	out[#out + 1] = packsLine()
+	out[#out + 1] = installLine()
 	errorLines(out)
 	out[#out + 1] = questLogLine()
 	out[#out + 1] = settingsLine()

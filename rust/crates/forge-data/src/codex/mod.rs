@@ -13,6 +13,7 @@
 pub mod atlasloot;
 pub mod attune;
 pub mod client;
+pub mod heights;
 pub mod instances;
 pub mod journal;
 pub mod memory;
@@ -108,6 +109,8 @@ pub struct Forever {
 	pub map_frames: V,
 	pub meta: V,
 	pub instances: V,
+	/// spawnz.json (the NPCs' and objects' spawn heights; null when absent): the places' `z` (heights.rs).
+	pub spawnz: V,
 	/// dungeons.json (a --local-extras build only; null otherwise).
 	pub dungeons: V,
 }
@@ -410,6 +413,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		map_frames: or_obj(j("map-frames.json", true)?),
 		meta: or_obj(j("meta.json", true)?),
 		instances: or_obj(j("instances.json", true)?),
+		spawnz: j("spawnz.json", true)?,
 		dungeons: if opts.local_extras { j("dungeons.json", true)? } else { V::Null },
 	};
 	// Forever's cached web facts, release builds only.
@@ -650,6 +654,10 @@ pub fn build_inputs(opts: &Options, inputs: &Inputs) -> Result<Output, String> {
 fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) -> Result<Output, String> {
 	log("merging");
 	let m = merge::merge_codex(inputs);
+	let sz = &inputs.forever.spawnz;
+	let placed =
+		heights::add_heights(&V::Obj(m.npcs.clone()), &sz.get("npc"), &inputs.forever.map_frames) + heights::add_heights(&V::Obj(m.objects.clone()), &sz.get("object"), &inputs.forever.map_frames);
+	log(&format!("{placed} NPC and object places with a spawn height"));
 	let (counts, coverage) = summarize(&m);
 	let cl = inputs.client.as_ref();
 	let meta = Obj::new();

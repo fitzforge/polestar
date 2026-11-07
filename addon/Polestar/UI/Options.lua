@@ -212,8 +212,10 @@ local BUILTIN = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },
 	} },
-	{ page = GUIDE, tab = L["Window"], section = L["Dungeons"], controls = {
-		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons"], help = L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."],
+	{ page = GUIDE, tab = L["Window"], section = L["Dungeons and battlegrounds"], controls = {
+		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
+			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."],
+			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {

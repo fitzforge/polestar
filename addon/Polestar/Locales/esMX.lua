@@ -62,9 +62,8 @@ L["Open the Gamepad page: button names and bindings"] = "Abrir la página Contro
 
 -- Core/Data.lua
 L["%s not installed"] = "%s sin instalar"
-L["%s from another version"] = "%s de otra versión"
-L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s está instalado de forma incompleta: %s. Cierra el juego, borra todas las carpetas de Polestar en Interface/AddOns y descomprime ahí el zip más reciente de Polestar (CurseForge o GitHub Releases, no \"Source code\")."
 -- L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = ""
+L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "Tu instalación está mezclada o incompleta (%s). Cierra el juego, borra todas las carpetas de Polestar en Interface/AddOns e instala Polestar de nuevo: con el Polestar Client, la app de CurseForge o el zip más reciente de GitHub Releases (no \"Source code\")."
 
 -- Core/Engine.lua
 L["Quest"] = "Misión"
@@ -1287,7 +1286,6 @@ L["Recorder window"] = "Ventana del Recorder"
 -- L["Room to make: %s"] = ""
 -- L["Make room"] = ""
 -- L["On pace for level %s by step %d"] = ""
--- L["About %d bars short of level %s by step %d"] = ""
 -- L["Your class quest is done. Back to %s."] = ""
 -- L["Close and return"] = ""
 -- L["The guide has no class training ahead."] = ""
@@ -1327,6 +1325,19 @@ L["The step stops waiting for the party and moves on as usual."] = "El paso deja
 L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar el panel del grupo."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
+-- L["Level %d quest: you're %s"] = ""
+-- L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = ""
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = ""
+-- L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"] = ""
+-- L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"] = ""
+-- L["%s levels"] = ""
+-- L["1 bar"] = ""
+-- L["%d bars"] = ""
+-- L["Behind by %s: step %d grinds to level %s (~%s)"] = ""
+-- L["Behind by %s: step %d grinds to level %s"] = ""
+-- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
+-- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1635,8 +1646,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "La flecha del tema"
 -- L["Lock arrow and buttons"] = ""
 -- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
--- L["In dungeons"] = ""
--- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 -- L["Line style"] = ""
 -- L["Bar at the bottom"] = ""
 -- L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = ""
@@ -1705,6 +1714,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "Tal vez buscabas:"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -1856,6 +1868,7 @@ L["Cancel"] = "Cancelar"
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
+L["Install: %s"] = "Instalación: %s"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"
@@ -3000,3 +3013,5 @@ L["Finished: %s - %s"] = "Completado: %s - %s"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Los miembros del grupo que usan Polestar ven tu progreso bajo los objetivos de sus misiones. No se envía nada al chat."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "Muestra su progreso bajo los objetivos de tus misiones e indica quién no tiene una misión que tú has aceptado."
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "El nivel y el paso de cada miembro con Polestar, y lo que aún le falta del tuyo; haz clic en un nombre para que la flecha apunte a él. /polestar party lo muestra u oculta."
+-- L["%s from another version"] = "%s de otra versión"
+-- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s está instalado de forma incompleta: %s. Cierra el juego, borra todas las carpetas de Polestar en Interface/AddOns y descomprime ahí el zip más reciente de Polestar (CurseForge o GitHub Releases, no \"Source code\")."

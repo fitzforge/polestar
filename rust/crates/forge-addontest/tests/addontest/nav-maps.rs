@@ -459,6 +459,92 @@ emit({ found = pts ~= nil, searching = searching, resting = kb(), rest = rest, c
 	assert!(got["resting"].as_f64().unwrap() <= 512.0);
 }
 
+fn keep_ns() -> (TempDir, Addon) {
+	let tmp = TempDir::new("polestar-nav-keep-");
+	let keep = tmp.path().join("keep-ns.lua");
+	std::fs::write(&keep, "local _, ns = ...\nstub.navNs = ns\n").unwrap();
+	let mut files = toc_entries(&nav()).unwrap();
+	files.push(keep.to_string_lossy().into_owned());
+	(tmp, Addon::Files("Polestar_Nav".into(), files))
+}
+
+// 0.3.5: a finished search's scratch stays for the next search Path.spareSeconds after the queue emptied, then goes
+// (it is ~15 MB after a long walk, and WoW counts what an addon holds). Until 0.3.4 the job delivering the answer took
+// it and dropped it, and every emptied queue cleared it.
+#[test]
+fn a_finished_search_s_scratch_stays_path_spareseconds_after_the_last_search_then_goes() {
+	let (_tmp, addon) = keep_ns();
+	let got = run(
+		r#"local Path, S = Polestar_NavEngine, stub.navNs.PathSearch
+local function spare() local i = 1 while true do local k, v = debug.getupvalue(S.Spare, i) if not k then return nil end if k == "spare" then return v end i = i + 1 end end
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local got
+Path.Find(0, { x = -24.96, y = -878.613 }, { x = 2246.1, y = 239.8, z = 34.3 }, function(points) got = points end, { profile = "Horde" })
+drain()
+local drained = spare() ~= nil
+stub.advance(Path.spareSeconds - 2)
+local resting = spare() ~= nil
+stub.advance(3)
+emit({ found = got ~= nil, drained = drained, resting = resting, gone = spare() == nil, seconds = Path.spareSeconds })"#,
+		"",
+		vec![addon],
+	);
+	assert_eq!(got["found"], true);
+	assert_eq!(got["seconds"], 15);
+	assert_eq!(got["drained"], true, "the queue emptied: the scratch kept for the next search: {got}");
+	assert_eq!(got["resting"], true, "within Path.spareSeconds: still kept: {got}");
+	assert_eq!(got["gone"], true, "then dropped: {got}");
+}
+
+// 0.3.5: the walk asked again 30 yd along fills the last search's tables instead of growing new ones key by key:
+// Tarren Mill to Brill allocated 6,196 KiB until 0.3.4, 2,898 KiB now.
+#[test]
+fn a_walk_asked_again_30_yd_along_reuses_the_last_search_s_scratch() {
+	let got = run(
+		r#"local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local function walk(from)
+	local got
+	collectgarbage("collect")
+	collectgarbage("stop")
+	EXCLUDED = 0
+	local before = collectgarbage("count")
+	Path.Find(0, from, { x = 2246.1, y = 239.8, z = 34.3 }, function(points) got = points end, { profile = "Horde" })
+	drain()
+	local kib = collectgarbage("count") - before - EXCLUDED
+	collectgarbage("restart")
+	return { found = got ~= nil, kib = kib }
+end
+local first = walk({ x = -24.96, y = -878.613 })
+stub.advance(5)
+local again = walk({ x = 1.95, y = -865.3 })
+emit({ first = first, again = again })"#,
+		r#"
+EXCLUDED = 0
+for _, name in ipairs({ "DecodeBase64", "DecompressString" }) do
+	local f = C_EncodingUtil[name]
+	C_EncodingUtil[name] = function(s, ...)
+		local before = collectgarbage("count")
+		local r = f(s, ...)
+		local grew = collectgarbage("count") - before - (r and (#r + 25) / 1024 or 0)
+		if grew > 0 then EXCLUDED = EXCLUDED + grew end
+		return r
+	end
+end"#,
+		vec![Addon::name("Polestar_Nav")],
+	);
+	eprintln!("re-search KiB: first {} again {}", got["first"]["kib"], got["again"]["kib"]);
+	assert_eq!(got["first"]["found"], true, "{got}");
+	assert_eq!(got["again"]["found"], true, "{got}");
+	let again = got["again"]["kib"].as_f64().unwrap();
+	assert!(again < MAX_AGAIN, "the walk asked again 30 yd along allocated {again:.0} KiB (at most {MAX_AGAIN}): {got}");
+}
+const MAX_AGAIN: f64 = 4000.0;
+
 #[test]
 fn polestar_nav_ships_in_the_release_credits_shortest_path_forever_and_carries_the_gpl() {
 	assert!(forge_release::addons::release_addons(&addons_dir()).names.iter().any(|n| n == "Polestar_Nav"));
