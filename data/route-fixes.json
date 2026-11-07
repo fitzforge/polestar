@@ -4874,6 +4874,116 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"accept",
+					552
+				],
+				"b": [
+					"accept",
+					532
+				],
+				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the benchmark order splits it the same way). Dangerous!'s clerk and miner come with them"
+			},
+			{
+				"a": [
+					"task",
+					552
+				],
+				"b": [
+					"task",
+					532
+				],
+				"why": "#1079: the Hillsbrad town hall comes after the yeti caves west of Tarren Mill, on the same loop out"
+			},
+			{
+				"a": [
+					"task",
+					539
+				],
+				"b": [
+					"task",
+					544
+				],
+				"why": "#1079: the Azurelode Mine comes on the way from Tarren Mill to Dalaran's crater, before the Bloodstone pieces"
+			},
+			{
+				"a": [
+					"turnin",
+					533
+				],
+				"b": [
+					"task",
+					539
+				],
+				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					552
+				],
+				"b": [
+					"task",
+					539
+				],
+				"why": "#1079: Helcular's Revenge is handed to Thaivand on the same Tarren Mill stop, the rod from the yetis just before"
+			},
+			{
+				"a": [
+					"accept",
+					552
+				],
+				"b": [
+					"accept",
+					532
+				],
+				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the benchmark order splits it the same way). Dangerous!'s clerk and miner come with them"
+			},
+			{
+				"a": [
+					"task",
+					552
+				],
+				"b": [
+					"task",
+					532
+				],
+				"why": "#1079: the Hillsbrad town hall comes after the yeti caves west of Tarren Mill, on the same loop out"
+			},
+			{
+				"a": [
+					"task",
+					539
+				],
+				"b": [
+					"task",
+					544
+				],
+				"why": "#1079: the Azurelode Mine comes on the way from Tarren Mill to Dalaran's crater, before the Bloodstone pieces"
+			},
+			{
+				"a": [
+					"turnin",
+					533
+				],
+				"b": [
+					"task",
+					539
+				],
+				"why": "#1079: Infiltration is handed to Krusk on the Tarren Mill stop between the town hall and the mine, where the walk passes him, not 26 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					552
+				],
+				"b": [
+					"task",
+					539
+				],
+				"why": "#1079: Helcular's Revenge is handed to Thaivand on the same Tarren Mill stop, the rod from the yetis just before"
 			}
 		]
 	}
