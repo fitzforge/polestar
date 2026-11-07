@@ -105,6 +105,7 @@ step Theramore
   tip Privateer Groy stands on the docks where the boat lands.
   turnin 623                          -- Privateer Groy
   turnin 1287                         -- Captain Garran Vimes, on the top floor
+  turnin 1320                         -- Captain Garran Vimes: The Black Shield, from 40-50/01
   accept 1288
   turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
 

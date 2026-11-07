@@ -10,7 +10,8 @@ next forever/alliance/40-50/02-badlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Black Shield (1253), Cortello's Riddle (625), The Brassbolts Brothers (2769);
-# the Black Shield's last two parts (1319, 1320) on the Theramore stop.
+# the Black Shield's last two parts (1319 to Caz on the way out of Theramore, 1320 back to Vimes on
+# 40-50/02's Theramore stop).
 # Left out: The Bloodsail Buccaneers (608).
 
 # ---------------------------------------------------------------- Theramore
@@ -95,12 +96,11 @@ step Theramore
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
   turnin 1220                         -- Captain Garran Vimes
-  accept 1319                         -- Captain Garran Vimes: the Blackened Iron Shield
-  turnin 1319                         -- Caz Twosprocket, by the Theramore docks
-  accept 1320
-  turnin 1320                         -- Captain Garran Vimes
+  accept 1319                         -- Captain Garran Vimes: the Blackened Iron Shield, for Caz Twosprocket
   accept 1286
   turnin 1222                         -- Morgan Stern, inside
+  turnin 1319                         -- Caz Twosprocket, on the way out of town
+  accept 1320                         -- back to Captain Vimes on your next Theramore stop (40-50/02-badlands)
 
 # ---------------------------------------------------------------- The north again and the west
 
