@@ -3864,6 +3864,34 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Desolace 30-40, #1157): the Scorpashi Venom for Reagents for Reclaimers Inc. drops from the Scorpashi Lashers (npc 4697) that hunt around the Kodo Graveyard (24 spawns, centred on 57.3,57.2), at 50% in the game's loot data, as from the Snappers and Venomlashers; the route made it a stop of its own at Kormek's Hut after Smeed's turn-in and then went back to the graveyard for the last Aged Kodo Hides. Venom, hides and kodos are now one graveyard stop."
+			},
+			{
+				"a": [
+					"task",
+					691,
+					3
+				],
+				"b": [
+					"task",
+					691,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): Worth Its Weight in Gold is done in one visit to Witherbark Village, where the Shadow Hunter Knife drops. The route took the tusks and pouches first from the few Witherbark west of Refuge Pointe (9 trolls and 3 Witch Doctors in the spawn data, about 3 of the 10 tusks and 1 of the 4 pouches at the game's drop rates) and came back to the village for the knife; the village holds 96 Witherbark."
+			},
+			{
+				"a": [
+					"task",
+					691,
+					3
+				],
+				"b": [
+					"task",
+					691,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors (33%): 21 stand in Witherbark Village, where the Shadow Hunter Knife drops, against 3 west of Refuge Pointe."
 			}
 		],
 		"after": [
