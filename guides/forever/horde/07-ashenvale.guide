@@ -120,6 +120,11 @@ step Torek's Assault
   accept 6544
   complete 6544
 
+step Sharptalon
+  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest.
+  collect 16305
+  accept 2 item 16305
+
 # Splintertree from the road in: Ertog and Pixel by the gate, Senani, Mastok,
 # then the inn once (Yama and the innkeeper stand inside it together).
 step Splintertree Post
@@ -146,11 +151,6 @@ step Splintertree Post
   turnin 6504 optional
   vendor nearest
 
-step Sharptalon
-  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest.
-  collect 16305
-  accept 2 item 16305
-
 step Felmusk satyrs
   tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns.
   collect 5481 quest 6441
@@ -175,23 +175,33 @@ step Zoram'gar Outpost
   when onquest 824
   turnin 824                          -- Je'neu Sancrea
 
+step Fly to Thunder Bluff
+  only Tauren,Skyborne
+  zone Ashenvale
+  goto 12.2,33.8 "Zoram'gar Outpost flight master"
+  fly "Thunder Bluff"
+  zone Thunder Bluff
+
 step Fly to Camp Taurajo
+  only Orc,Troll,Undead
   zone Ashenvale
   goto 12.2,33.8 "Zoram'gar Outpost flight master"
   fly "Camp Taurajo"
   zone The Barrens
 
 step Mulgore
+  only Orc,Troll,Undead
   zone Mulgore
   goto 40.6,22.2 "Mulgore"
 
 step Mulgore
+  only Orc,Troll,Undead
   zone Mulgore
   goto 30.5,8.2 "Mulgore"
 
 step The Earthen Ring
   zone Mulgore
-  tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
+  tip The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; riding in from Camp Taurajo, keep north past the bluffs.
   accept 96260                        -- Yorn Grimtotem
   accept 96241 @32.5,20.6 live        -- Mazu'kon
   accept 96259                        -- Muln Earthfury: The Broodmother comes once this is handed in
@@ -303,14 +313,6 @@ step Dorn Plainstalker
   turnin 1149
   accept 1150
 
-step Test of Endurance
-  accept 1151 optional                -- Below ground
-
-step Rok'Alim the Pounder
-  tip Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch. Rok'Alim the Pounder is elite: grouping up is advised.
-  collect 5844 quest 1151 optional
-  turnin 1151 optional                -- Dorn Plainstalker, below ground
-
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
   accept 5064
@@ -343,7 +345,7 @@ step Highperch
   accept 4770                         -- Pao'ka Swiftmountain
   complete 4770
 
-step Wizlo Bearingshiner
+step Whitereach Post
   turnin 4770                         -- Motega Firemane
   turnin 4865                         -- Motega Firemane
   note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
@@ -397,6 +399,12 @@ step Freewind Post
 step Test of Endurance
   tip Dorn Plainstalker's mesa is north-east of Freewind; from him, head south-east out to the Shimmering Flats.
   turnin 1150                         -- Dorn Plainstalker, below ground
+  accept 1151 optional                -- Dorn Plainstalker offers Test of Strength once Test of Endurance is in
+
+step Rok'Alim the Pounder
+  tip Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch, back west past Whitereach Post. Rok'Alim the Pounder is elite: grouping up is advised.
+  collect 5844 quest 1151 optional
+  turnin 1151 optional                -- Dorn Plainstalker, below ground
 
 # ---------------------------------------------------------------- Shimmering Flats
 
