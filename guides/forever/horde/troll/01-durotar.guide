@@ -166,6 +166,7 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+  accept 786                          -- Lar Prowltusk
   kill 266850 quest 96821.1
   kill 266849 quest 96821.2
 
@@ -215,42 +216,38 @@ step Tiragarde Keep
   collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
-  turnin 96822                        -- Turroc, inside
-  accept 806
+  tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
   turnin 830 optional
   accept 831
-
-step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
+  accept 806                          -- Orgnil Soulscar
+  turnin 96822                        -- Turroc, inside
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-
-step Sen'jin Village
-  accept 786                          -- Lar Prowltusk
 
 # ---------------------------------------------------------------- The coast and Sen'jin
 step Scuttle Coast: kill these as you meet them
   zone Durotar
-  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
+  tip Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
+  collect 4863 quest 825.1            -- Underwater
   collect 4888 quest 818.2
   collect 4887 quest 818.1            -- Underwater
-  collect 4863 quest 825.1            -- Underwater
+  collect 4890 quest 815.1
 
 step Bloodtalon Matriarch
-  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
+  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin.
   collect 277128 quest 97223.1
+  collect 4892 quest 817.1
 
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
+  tip Wade back west to the shore south of Sen'jin when the isles are done.
   complete 96873 optional
   kill 3206 quest 826.2
   kill 3207 quest 826.1
-  collect 4890 quest 815.1
-  collect 4892 quest 817.1
   collect 277135 quest 97225.1
   collect 4866 quest 826.3
   collect 4864 quest 808.1 @67.4,87.8
@@ -535,6 +532,8 @@ step Uzzek
   tip Follow the road west from Razor Hill over the Southfury River bridge; Uzzek stands at Far Watch Post, just above it on the Barrens side.
   turnin 1505                         -- Uzzek
   accept 1498
+  turnin 840                          -- Kargal Battlescar, beside Uzzek
+  accept 842
 
 step Thunder lizards across the river
   only Warrior
