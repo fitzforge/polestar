@@ -1270,6 +1270,50 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
   hand-in) and the writer.
+- **While you're here.** While the player works the live step, a quick open
+  objective of a later step whose quest is already in the log, close by,
+  becomes one line under the step (`Engine.GetWhileHere`: the goal view of
+  its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
+  and `hereText`, "Kill Kobold Vermin, 2 more"). `Own.hereBuild` builds the
+  candidates (at most `HERE_MAX`, kept in `Own.hereList`) in `evaluate` only
+  when something changed them (`Own.hereDirty`: a step change of the active
+  tab, another guide, the quest log, the level, a new zone, the
+  `behavior.whileHere*` settings): the open kill, collect, interact and use
+  goals with a place in the steps after the live step, up to the first
+  applying goal that leaves the zone (`fly`, `hearth`, `enter`, or a place on
+  another map than the player's), each for a quest in the log and not ready,
+  for the character (`stepApplies`, `goalApplies`), not skipped, not along
+  (an along step, background goals included, or a pinned quest: Along the
+  way lists them), not an objective the live step works itself, with mobs
+  at most `HERE_ABOVE` levels over the player, and small: at most
+  `HERE_SMALL` kills, clicks or uses left, a drop at most `HERE_KILLS`
+  expected kills (left over the drop chance in the quest database's item
+  record, `Own.hereChance`: the goal's own mob, else the likeliest dropper),
+  a gathered item at most `HERE_SMALL`, an unknown chance at most
+  `HERE_UNKNOWN`. With `behavior.whileHereTurnins`, a later `turnin` of a
+  ready quest counts too (its NPC within `HERE_TURNIN` yards). The arrival
+  poll measures them (`Own.hereTick`, allocation-free: cached world points,
+  no tables, a message only when the shown distance moves by `HERE_STEP`):
+  the nearest within `behavior.whileHereRadius` yards of its nearest spawn
+  area at the player's level becomes the line, after one budgeted walk check
+  (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
+  `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
+  radius, once done, after `HERE_SECONDS` or on `Engine.DismissWhileHere`.
+  Nothing appears, and nothing goes by distance or time, during a fight. A
+  dismissed or expired line stays quiet for the zone stay (`Own.hereQuiet`,
+  emptied when `GetRealZoneText` changes). Never in an instance, on a taxi,
+  while a Hearthstone or Astral Recall is cast, with a quest timer running,
+  or while the live step escorts (`Own.hereBlocked`). The line never takes
+  the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
+  leads there while it shows, a step change keeps it), and when the line
+  goes `aim` is cleared and the arrow returns to the guide. Messages:
+  `WHILE_HERE_CHANGED` (came, count changed, went) and
+  `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
+  "Then:" (`fillHere`), the toast says it with the window hidden or compact
+  (UI/WhileHere.lua), Nav/Layers draws its place and spawn area with the
+  Along the way goals', and the quest item button falls back to its item
+  (QoL/Buttons `ChooseQuestItem`). Done early, the later step is done or
+  shorter when the route gets there, as any objective done ahead.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -4924,6 +4968,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   step's goals read under "Along the way" of the steps after it, its heading
   "Along the way, until step N" when every row ends at the same labelled
   step (`GetAlong` entries' `untilStep`).
+  The "While you're here" line (`fillHere`, `Engine.GetWhileHere`) sits
+  between the step's goals and "Then:": a soft accent wash with a 2 px accent
+  edge, the verb's glyph in the accent, "While you're here:" in the accent,
+  what to do, "(step N)" in textDim, the distance in textMuted and a close
+  button. A new line slides 8 px in from the left as it fades in
+  (`Anim.BASE`, ease-out); a line that goes slides back and fades faster
+  (`Anim.FAST`) before the window closes the gap; under `ui.reduceMotion` it
+  only fades. Left-click: `Engine.AimWhileHere`; right-click or the close
+  button: `Engine.DismissWhileHere`. Never in the compact window: the toast
+  (UI/WhileHere.lua, `UI.WhileHereToast`) says a new line once while the
+  window is hidden or compact, slides down into place as it fades in, and
+  leaves after 8 s (held under the cursor) or with the line.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click

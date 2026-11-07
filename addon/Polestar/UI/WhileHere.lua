@@ -1,0 +1,138 @@
+-- The "While you're here" toast (PolestarWhileHereToast). The guide window
+-- shows a "While you're here" line under the step (UI/GuideFrame.lua,
+-- fillHere; Core/Engine.lua, Engine.GetWhileHere). While the window is
+-- hidden or compact, a new line comes as this one small card near the top of
+-- the screen instead: the accent edge and the verb's glyph, "While you're
+-- here" in the accent, then what to do and how far. Once per line: it slides
+-- down into place as it fades in (Anim.BASE, strong ease-out) and leaves back
+-- up, faster (Anim.FAST), after SECONDS (held while the cursor is on it) or as
+-- soon as the line goes. Left-click leads the arrow there
+-- (Engine.AimWhileHere), right-click dismisses it for this zone
+-- (Engine.DismissWhileHere). Under ui.reduceMotion it only fades (Anim).
+--
+--   UI.WhileHereToast.Show(view), .Hide(), .frame (once built)
+
+local ADDON, ns = ...
+local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
+local L = ns.L
+
+local T = {}
+UI.WhileHereToast = T
+
+local WIDTH, HEIGHT, PAD = 320, 46, 12
+local TOP_Y = -150
+local SECONDS = 8
+local DIST = { round = 5 }
+
+local f
+local shownKey -- "<step>:<goal>" of the line last toasted (or seen in the window)
+local token = 0 -- the current show; a timer or fade of an older one does nothing
+
+-- Whether the guide window shows the line itself.
+local function windowShows()
+	local GF = UI.GuideFrame
+	local F = GF and GF.frame
+	return F ~= nil and F:IsVisible() and not ns.Get("ui.compact")
+end
+
+local function text(v)
+	local s = v.hereText or ""
+	if v.yards then s = s .. "  \194\183  " .. ns.FormatDistance(v.yards, DIST) end
+	return s
+end
+
+local function build()
+	f = CreateFrame("Button", "PolestarWhileHereToast", UIParent)
+	f:SetSize(WIDTH, HEIGHT)
+	f:SetFrameStrata("HIGH")
+	f:SetClampedToScreen(true)
+	f:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	-- A toast: the game's looks give it the guide window's light frame.
+	f.psLight = true
+	Theme.Skin(f, "window")
+	Anim.Anchor(f, "TOP", UIParent, "TOP", 0, TOP_Y)
+	f.Edge = W.Tex(f, "ARTWORK", nil, "accent")
+	f.Edge:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
+	f.Edge:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
+	f.Edge:SetWidth(2)
+	f.Icon = f:CreateTexture(nil, "ARTWORK")
+	f.Icon:SetSize(16, 16)
+	W.Color(f.Icon, "accent")
+	f.Icon:SetPoint("LEFT", f, "LEFT", PAD + 2, 0)
+	f.Head = W.Text(f, "small", "accent")
+	f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + 2 + 16 + 10, -8)
+	f.Head:SetText(L["While you're here"])
+	f.Text = W.Text(f, "label", "text")
+	f.Text:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD + 2 + 16 + 10, 8)
+	f.Text:SetWidth(WIDTH - (PAD + 2 + 16 + 10) - PAD)
+	f:SetScript("OnClick", function(_, button)
+		local E = ns.Engine
+		if not E then return end
+		if button == "RightButton" then
+			if E.DismissWhileHere then E.DismissWhileHere() end
+		elseif E.AimWhileHere then
+			E.AimWhileHere()
+			T.Hide()
+		end
+	end)
+	f:SetScript("OnEnter", function(self)
+		W.Tooltip(self, "ANCHOR_BOTTOM", L["While you're here"], {
+			{ L["Click to point the arrow here"], Theme.Accent() },
+			{ L["Right-click: not now, for the rest of this zone."], Theme.Color("textDim") },
+		})
+	end)
+	f:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	f:Hide()
+	T.frame = f
+end
+
+local function expire(mine)
+	if mine ~= token or not (f and f:IsShown()) then return end
+	if f:IsMouseOver() then
+		ns.After(2, function() expire(mine) end)
+		return
+	end
+	T.Hide()
+end
+
+function T.Show(v)
+	if not f then build() end
+	token = token + 1
+	local mine = token
+	f.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
+	f.Text:SetText(text(v))
+	local was = f:IsShown()
+	f:Show()
+	Anim.To(f, "alpha", was and f:GetAlpha() or 0, 1, Anim.BASE, "out")
+	Anim.To(f, "offset", 8, 0, Anim.BASE, "out")
+	ns.After(SECONDS, function() expire(mine) end)
+end
+
+function T.Hide()
+	if not (f and f:IsShown()) then return end
+	token = token + 1
+	local mine = token
+	Anim.To(f, "offset", 0, 6, Anim.FAST, "out")
+	Anim.To(f, "alpha", f:GetAlpha(), 0, Anim.FAST, "out", function()
+		if mine == token then f:Hide() end
+	end)
+end
+
+ns.On("WHILE_HERE_CHANGED", function()
+	local E = ns.Engine
+	local v = E and E.GetWhileHere and E.GetWhileHere()
+	if not v then
+		shownKey = nil
+		T.Hide()
+		return
+	end
+	local key = v.step .. ":" .. v.index
+	if key == shownKey then
+		-- The same line, its count changed: the card follows while it shows.
+		if f and f:IsShown() then f.Text:SetText(text(v)) end
+		return
+	end
+	shownKey = key
+	if not ns.IsLoggedIn() or windowShows() then return end
+	T.Show(v)
+end)

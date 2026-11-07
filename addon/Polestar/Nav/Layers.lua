@@ -145,7 +145,7 @@ local function updateGoals(world)
 	local target = Nav.GetTarget()
 	local pins = {}
 	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
-	-- steps and pinned quests, #644).
+	-- steps and pinned quests, #644), then the "While you're here" line's.
 	local list = view.goals
 	if Engine.GetAlong then
 		list = {}
@@ -153,6 +153,8 @@ local function updateGoals(world)
 		for _, s in ipairs(Engine.GetAlong()) do
 			for _, goal in ipairs(s.goals) do list[#list + 1] = goal end
 		end
+		local nearby = Engine.GetWhileHere and Engine.GetWhileHere()
+		if nearby then list[#list + 1] = nearby end
 	end
 	for _, goal in ipairs(list) do
 		if goal.map and goal.x and goal.y and (goal.status == "active" or goal.status == "pending")
@@ -257,7 +259,8 @@ local function updateAreas(world, minimap)
 				sig[#sig + 1], sig[#sig + 2] = regions, v.index == tg
 			end
 		end
-		-- The Along the way list's goals (along steps, pinned quests: #644).
+		-- The Along the way list's goals (along steps, pinned quests: #644), and
+		-- the "While you're here" line's (Engine.GetWhileHere).
 		if Engine.GetAlong and Engine.AlongGoal then
 			for _, s in ipairs(Engine.GetAlong()) do
 				for _, v in ipairs(s.goals) do
@@ -269,6 +272,14 @@ local function updateAreas(world, minimap)
 						sig[#sig + 1], sig[#sig + 2] = regions, mine
 					end
 				end
+			end
+			local nearby = Engine.GetWhileHere and Engine.GetWhileHere()
+			local goal = nearby and Engine.AlongGoal(nearby.step, nearby.index)
+			local regions = goal and goal.map and goal.spots and regionsOf(goal)
+			if regions then
+				local mine = target and target.stepIndex == nearby.step and target.goalIndex == nearby.index or false
+				shown[#shown + 1], shown[#shown + 2] = regions, mine
+				sig[#sig + 1], sig[#sig + 2] = regions, mine
 			end
 		end
 	end
@@ -361,6 +372,7 @@ Layers.OnTheme = Layers.Update
 
 ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
+ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()
