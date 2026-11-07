@@ -5866,11 +5866,13 @@ was already built without it.
   days; the maintainer's own and vouched-for files always; `config.json`'s
   `minBuild`, `minVoters`), and only facts without who saw them: per NPC or
   object the items its loot windows held (NPC loot from a gathering skill
-  left out), with a chance (the median of each player's own share) only
-  when `minVoters` players with 10 loot windows each back it; per NPC its
-  merchant window's items (which also gives it the `vendor` and `sells:*`
-  roles); per quest the reward list most players' accept windows showed
-  (`trusted` when `minVoters` agree). Provenance `recordings`, ranked first.
+  left out), with a chance (the median of each player's own share of kills or
+  loot windows) only when `minVoters` players (or a vouched one) with 10 of
+  their own back it; per NPC its merchant window's items (which also gives it
+  the `vendor` and `sells:*` roles); per quest the reward list its quest
+  frames showed (a turn-in over an accept per player, decided by `Ballot`,
+  `trusted` when `minVoters` agree or a vouched player recorded it).
+  Provenance `recordings`, ranked first.
   A trusted reward list stands in for the web quest lists' for that quest;
   an untrusted one only fills a quest no other input gives rewards for.
 - Curated vendors (`curated_vendors`): in a guide that `collects` an item,
