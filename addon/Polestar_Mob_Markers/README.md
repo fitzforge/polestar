@@ -16,11 +16,11 @@ A companion to Polestar: marks every spawn point of the mobs your active quests 
 
 - `/mobmarkers` or `/pmm`: rebuild the markers and print what was found on the current map.
 - `/pmm config`: open its options in Polestar's (Map, Guide & quests, Mob spawns).
-- `/pmm preview`: mark every quest's mobs, not just your quest log's (for testing).
+- `/pmm preview`: for testing, mark 20 of your faction's quests for the zone the world map shows instead of your quest log; off again with `/pmm preview` or a reload.
 
 ## Options
 
-In Polestar's options window: Map, Guide & quests, Mob spawns.
+In Polestar's options window: Map, Guide & quests, Mob spawns. The markers and legend hide while Polestar's guide is hidden.
 
 - Show on the world map and/or the minimap, and the world map legend.
 - Only Polestar's current step (on by default): mark just the quests the guide step you're on works on, instead of your whole quest log.
