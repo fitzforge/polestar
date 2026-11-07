@@ -6677,7 +6677,10 @@ The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
 whose `build` is older than `data/recordings/config.json`'s `minBuild`, and
 every session whose player doesn't count. A player (voter) is the server's
 cohort, resolved per contributor from its latest session, else the
-contributor. `local` and `sent-*` always count, `anon-*` never does. A server
+contributor. `local` and `sent-*` always count, `anon-*` never does, and
+neither do the contributors `config.json`'s `exclude` lists (the maintainer's
+audit of manipulated or suspect uploads; they also never make their cohort
+count). A server
 contributor counts once established: first seen at least `minContributorDays`
 (3) days before its newest session arrived, `minContributorChunks` (20) chunks
 on `minContributorUploadDays` (3) distinct upload days as the server counted
@@ -6698,7 +6701,12 @@ whose locale is not enUS only fill a missing name. Recorded map bounds are
 used only from `local` recordings and only for maps `map-frames.json` lacks
 (`travel/paths.rs` `live_frames_of`); walks are placed by those frames, never
 by a recording's own. Schema 1 sessions (no contributor, no locale) count as
-`local` and enUS.
+`local` and enUS. Our corrections stay the last word: the overlay puts every
+corrected value back when it is done (`corrections::reassert`), whatever the
+recordings' evidence, and the build warns with each value the recordings
+disagreed with; the knowledge base ranks `correction` (0) above `recorder`
+(0.5). `forge record resession` normalises every archive in `raw/` again, for
+record kinds an older forge skipped.
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

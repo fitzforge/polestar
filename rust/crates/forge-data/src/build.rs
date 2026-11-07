@@ -592,6 +592,8 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let rec = apply_recordings(
 		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
 		&recordings,
+		// Corrections stay the last word: the overlay puts every corrected value back.
+		&corrections,
 		recordings.min_voters,
 		so_,
 		&live,
@@ -612,6 +614,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			"players' recordings list different objectives for quest(s) {}: the data's objectives kept",
 			rec.objective_conflicts.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
 		));
+	}
+	if !rec.overruled.is_empty() {
+		warnings.push(format!("players' recordings disagree with {} corrected value(s), corrections kept: {}", rec.overruled.len(), rec.overruled.join("; ")));
 	}
 	lap("recordings");
 	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever

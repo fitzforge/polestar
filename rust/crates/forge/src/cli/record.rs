@@ -38,6 +38,7 @@ use super::{check_args, usage, Fail};
 
 pub const USAGE: &str = "usage: forge record import [--wtf <path>] [--vouch <name> | --anonymize] [--root <checkout>] [--out <dir>]
        forge record pull [--server <url>] [--key-file <path>] [--root <checkout>] [--out <dir>]
+       forge record resession [--root <checkout>] [--out <dir>]
 
 import: read the Recorder's file (WTF/Account/<account>/SavedVariables/Polestar_Recorder.lua) of every
 account of every WoW: Forever install found (or of --wtf: a WTF folder, a game folder or its _forever_
@@ -67,6 +68,10 @@ base URL, https:// (http:// only for localhost; default: $POLESTAR_INGEST_URL, e
 server); --key-file: the maintainer key (default <root>/data/local/ingest/maintainer.key). Lines the
 server flagged (a build it does not accept) or found suspect are skipped, and so are malformed ones and
 ones whose install folder another contributor owns.
+
+resession: normalise every archive in <out>/raw/ again and rewrite its sessions, nothing fetched or
+acknowledged. Run it after updating forge, so record kinds an older forge skipped (it drops kinds it
+does not know) reach the sessions from the chunks already archived.
 
 --out: the recordings folder (default <root>/data/recordings); --root: the Polestar checkout (default:
 the one above the current folder). A recordings folder of the older layout (raw/<install>/) is moved to
@@ -106,7 +111,7 @@ fn out_dir(args: &[String]) -> Result<PathBuf, Fail> {
 
 fn run() -> Result<(), Fail> {
 	let a: Vec<String> = super::args().skip(1).collect();
-	let Some((sub, rest)) = a.split_first() else { return Err(usage("a subcommand: import or pull")) };
+	let Some((sub, rest)) = a.split_first() else { return Err(usage("a subcommand: import, pull or resession")) };
 	match sub.as_str() {
 		"import" => {
 			check_args(rest, &["--wtf", "--vouch", "--root", "--out"], &["--anonymize"], 0).map_err(usage)?;
@@ -132,7 +137,13 @@ fn run() -> Result<(), Fail> {
 			migrate(&out)?;
 			pull(&out, opt(rest, "--server"), &key_file)
 		}
-		x => Err(usage(format!("unknown subcommand {x}: import or pull"))),
+		"resession" => {
+			check_args(rest, &["--root", "--out"], &[], 0).map_err(usage)?;
+			let out = out_dir(rest)?;
+			migrate(&out)?;
+			resession(&out)
+		}
+		x => Err(usage(format!("unknown subcommand {x}: import, pull or resession"))),
 	}
 }
 
@@ -872,6 +883,43 @@ fn unix_now() -> i64 {
 	std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map(|d| d.as_secs() as i64).unwrap_or(0)
 }
 
+/// Every archive in `out/raw/` (a `<contributor>/<install>/` folder with its install.json; the
+/// `.purged` quarantine and other dot folders left out).
+fn archives(out: &Path) -> Vec<Key> {
+	let mut keys = Vec::new();
+	let Ok(rd) = std::fs::read_dir(out.join("raw")) else { return keys };
+	for c in rd.flatten().filter(|e| e.path().is_dir()) {
+		let contributor = c.file_name().to_string_lossy().into_owned();
+		if contributor.starts_with('.') {
+			continue;
+		}
+		let Ok(installs) = std::fs::read_dir(c.path()) else { continue };
+		for i in installs.flatten().filter(|e| e.path().join("install.json").is_file()) {
+			keys.push((contributor.clone(), i.file_name().to_string_lossy().into_owned()));
+		}
+	}
+	keys.sort();
+	keys
+}
+
+/// `forge record resession`: every archive normalised again from its chunks, one at a time (an
+/// archive's sessions depend on its own chunks only), so the sessions carry every record kind this
+/// forge knows.
+fn resession(out: &Path) -> Result<(), Fail> {
+	let keys = archives(out);
+	let mut total = Written::default();
+	for k in &keys {
+		let w = write_sessions(out, &BTreeSet::from([k.clone()]))?;
+		total.new += w.new;
+		total.updated += w.updated;
+		total.unchanged += w.unchanged;
+		total.removed += w.removed;
+	}
+	println!("{} archive(s) normalised again", keys.len());
+	report(out, 0, &total);
+	Ok(())
+}
+
 fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail> {
 	let state_file = out.join(".pull-state.json");
 	let mut state: PullState = read_json(&state_file)?;
@@ -1091,6 +1139,27 @@ mod tests {
 		let kinds: Vec<&str> = ev.iter().filter_map(|e| e["e"].as_str()).filter(|e| ["group", "spawn", "gather", "fail", "refuse"].contains(e)).collect();
 		assert_eq!(kinds, ["group", "spawn", "gather", "fail", "refuse"]);
 		assert_eq!(ev.iter().find(|e| e["e"] == "kill").unwrap()["group"], 2);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn resession_brings_back_what_an_older_forge_left_out_of_the_session_files() {
+		let out = scratch("resession");
+		let text = format!("{}{}", chunk(1, 1_799_990_000, 1), "group\t5\t2\t0\nrefuse\t9\t1429\t5020\t5000\tc\t1568\tERR_QUEST_NEED_PREREQS\n");
+		pull_page(&out, &line(1, VICTIM, "c0ffee00c0ffee00", 1, &text));
+		// An older forge wrote the session without the kinds it did not know: strip them.
+		let (name, _, _) = session_files(&out).remove(0);
+		let file = out.join(&name);
+		let mut s: Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+		let header = s.clone();
+		s["events"].as_array_mut().unwrap().retain(|e| !["group", "refuse"].contains(&e["e"].as_str().unwrap_or("")));
+		std::fs::write(&file, pretty(&s)).unwrap();
+		// A stray dot folder (the purge quarantine) is no archive.
+		std::fs::create_dir_all(out.join("raw/.purged/2026-11-07/x/y")).unwrap();
+		resession(&out).unwrap();
+		let again: Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+		assert_eq!(again, header, "the session is whole again, header (cohort, upload days) included");
+		assert_eq!(sessions(&out).len(), 1);
 		std::fs::remove_dir_all(&out).unwrap();
 	}
 
