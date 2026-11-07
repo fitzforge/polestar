@@ -118,7 +118,7 @@
 					],
 					[
 						49.7,
-						58.0
+						58
 					],
 					[
 						47.3,
@@ -170,7 +170,7 @@
 					],
 					[
 						49.7,
-						58.0
+						58
 					],
 					[
 						51.8,
@@ -505,7 +505,7 @@
 			"objective": 1,
 			"at": {
 				"map": 1433,
-				"x": 71.0,
+				"x": 71,
 				"y": 70.5,
 				"frame": "live"
 			},
@@ -911,6 +911,26 @@
 				}
 			],
 			"pr": 1157
+		},
+		{
+			"id": "flow-feralas-oox22-beacon",
+			"quest": 2766,
+			"objective": "giver",
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 53.4,
+				"y": 55.7,
+				"frame": "era"
+			},
+			"note": "Find OOX-22/FE!: the distress beacon drops from nearly every beast, gnoll and ogre in Feralas (about one kill in a hundred), so it is used at the robot's cave in Feral Scar Vale on the sweep, not on a ride to the Forgotten Coast's crawlers for it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 8705 OOX-22/FE Distress Beacon: drops from about fifty Feralas creatures (Gordunni 5229-5240, Woodpaw 5258, Feral Scar yetis 5292-5295, ...), 1-2.5% each"
+				}
+			],
+			"pr": 1166
 		}
 	]
 }
