@@ -1306,22 +1306,75 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// goals stay at the step's place (the seed re-cut from the published guides carries next's along
 	// lists, whose labels the route can move before them). The line is replaced, not removed: the
 	// route's `from` references are line numbers of the input guides.
-	if !(forge_core::flow_flags::on("steps") && inp.guides.values().any(|t| t.lines().any(|l| re!(r"^\s+along\b").is_match(l)))) {
-		return apply_route_inner(inp);
-	}
-	let plain_guides = inp
-		.guides
-		.iter()
-		.map(|(k, t)| (k.clone(), t.split('\n').map(|l| if re!(r"^\s+along\b").is_match(l) { ALONG_DROPPED } else { l }).collect::<Vec<_>>().join("\n")))
-		.collect::<BTreeMap<String, String>>();
-	let mut out = apply_route_inner(&Inputs { guides: &plain_guides, ..*inp })?;
-	let marker = ALONG_DROPPED.trim();
-	for (_, text) in out.files.iter_mut() {
-		if text.contains(marker) {
-			*text = text.split('\n').filter(|l| l.trim() != marker).collect::<Vec<_>>().join("\n");
+	let plain = forge_core::flow_flags::on("steps") && inp.guides.values().any(|t| t.lines().any(|l| re!(r"^\s+along\b").is_match(l)));
+	let mut out = if plain {
+		let plain_guides = inp
+			.guides
+			.iter()
+			.map(|(k, t)| (k.clone(), t.split('\n').map(|l| if re!(r"^\s+along\b").is_match(l) { ALONG_DROPPED } else { l }).collect::<Vec<_>>().join("\n")))
+			.collect::<BTreeMap<String, String>>();
+		let mut out = apply_route_inner(&Inputs { guides: &plain_guides, ..*inp })?;
+		let marker = ALONG_DROPPED.trim();
+		for (_, text) in out.files.iter_mut() {
+			if text.contains(marker) {
+				*text = text.split('\n').filter(|l| l.trim() != marker).collect::<Vec<_>>().join("\n");
+			}
+		}
+		out
+	} else {
+		apply_route_inner(inp)?
+	};
+	for (rel, text) in out.files.iter_mut() {
+		if let Some((t, n)) = drop_other_races_steps(text) {
+			out.log.push(format!("apply-route: {rel}: {n} step(s) only other races play left out of this race's guide"));
+			*text = t;
 		}
 	}
 	Ok(out)
+}
+
+const RACES: [&str; 9] = ["Human", "Dwarf", "Gnome", "NightElf", "Orc", "Troll", "Tauren", "Undead", "Skyborne"];
+
+/// A race's own guide (a `race` header) never holds a step whose `only` names other races alone: no
+/// player of the guide sees it. The writer carries v1's steps the route takes no event of next to the
+/// route's lines; a shared guide's head written into a start's own copy brought the Barrens' Orc/Troll
+/// arrival step (`only Orc,Troll`, Crossroads Conscription's hand-in) into the Tauren Mulgore guide,
+/// where the pack check found a hand-in with no accept (v2, 2026-11-07). Returns the new text and the
+/// number of steps left out.
+pub fn drop_other_races_steps(text: &str) -> Option<(String, usize)> {
+	let lines: Vec<&str> = text.split('\n').collect();
+	let first_step = lines.iter().position(|l| l.starts_with("step "))?;
+	let races: Vec<&str> = lines[..first_step]
+		.iter()
+		.find_map(|l| l.strip_prefix("race "))
+		.map(|r| split_comment(r).0.split(',').map(str::trim).filter(|x| !x.is_empty()).collect())?;
+	if races.is_empty() || !races.iter().all(|r| RACES.contains(r)) {
+		return None;
+	}
+	let mut keep = vec![true; lines.len()];
+	let mut n = 0;
+	let mut i = first_step;
+	while i < lines.len() {
+		if !lines[i].starts_with("step ") {
+			i += 1;
+			continue;
+		}
+		let end = (i + 1..lines.len()).find(|&j| !lines[j].starts_with(char::is_whitespace) || lines[j].trim().is_empty()).unwrap_or(lines.len());
+		let dead = lines[i + 1..end].iter().any(|l| {
+			let code = split_comment(l).0.trim();
+			code.strip_prefix("only ").is_some_and(|o| {
+				let toks: Vec<&str> = o.split(',').map(str::trim).collect();
+				toks.iter().all(|t| RACES.contains(t)) && !toks.iter().any(|t| races.contains(t))
+			})
+		});
+		if dead {
+			let stop = if end < lines.len() && lines[end].trim().is_empty() { end + 1 } else { end };
+			keep[i..stop].iter_mut().for_each(|k| *k = false);
+			n += 1;
+		}
+		i = end;
+	}
+	(n > 0).then(|| (lines.iter().zip(&keep).filter(|(_, k)| **k).map(|(l, _)| *l).collect::<Vec<_>>().join("\n"), n))
 }
 
 fn apply_route_inner(inp: &Inputs) -> Result<Output, String> {

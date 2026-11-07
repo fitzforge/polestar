@@ -334,6 +334,36 @@ fn unwritable_added_quest_keeps_v1s_optional_lines() {
 }
 
 #[test]
+fn a_race_guide_keeps_no_step_only_other_races_play() {
+	// v2 (2026-11-07): the Barrens' head, written into the Tauren's own Mulgore copy, brought the
+	// Orc/Troll arrival step (`only Orc,Troll`: Crossroads Conscription's hand-in, accepted in Durotar)
+	// along; no Tauren sees it and the pack check refused its hand-in with no accept. Steps for the
+	// guide's own race, or for a class, stay.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a", "title A", "race Tauren", "levels 1-12", "zone Mulgore", "",
+				"step Bloodhoof", "  accept 1", "",
+				"step Arrival", "  only Orc,Troll", "  turnin 842", "  accept 844", "",
+				"step Shamans", "  only Tauren,Shaman", "  accept 3", "",
+				"step Done", "  turnin 1", "",
+			],
+		)],
+		route: json!({ "diff": {}, "order": [
+            { "t": "accept", "q": 1, "pt": 0, "from": f("a", 8) },
+            { "t": "accept", "q": 3, "pt": 0, "from": f("a", 17) },
+            { "t": "turnin", "q": 1, "pt": 0, "from": f("a", 20) }
+        ] }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(!g.iter().any(|l| l.contains("turnin 842") || l.contains("only Orc,Troll")), "{g:#?}");
+	assert!(g.iter().any(|l| l.starts_with("  accept 3")), "{g:#?}");
+	assert!(g.iter().any(|l| l.starts_with("  turnin 1")), "{g:#?}");
+}
+
+#[test]
 fn hearth_before_its_bind_goes() {
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Durotar", "", "step Inn", "  sethome \"Razor Hill\"", "  accept 1", "", "step Home", "  hearth \"Razor Hill\"", "  turnin 1", ""];
 	let c =
