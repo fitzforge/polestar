@@ -1,6 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar: Mob Markers
 ## Notes: A companion to Polestar: marks every spawn point of the mobs your active quests need on the world map and minimap, with Polestar's skull: one colour per quest, a ring per mob.
+## Title-deDE: Polestar: Gegnermarkierungen
+## Notes-deDE: Eine Ergänzung zu Polestar: markiert auf Karte und Minikarte jeden Spawnpunkt der Gegner, die deine aktiven Quests brauchen, mit Polestars Totenkopf: eine Farbe pro Quest, ein Ring pro Gegner.
+## Title-esES: Polestar: marcadores de enemigos
+## Notes-esES: Un complemento de Polestar: marca en el mapa y el minimapa cada punto de aparición de los enemigos que necesitan tus misiones activas, con la calavera de Polestar: un color por misión, un anillo por enemigo.
+## Title-esMX: Polestar: marcadores de enemigos
+## Notes-esMX: Un complemento de Polestar: marca en el mapa y el minimapa cada punto de aparición de los enemigos que necesitan tus misiones activas, con la calavera de Polestar: un color por misión, un anillo por enemigo.
+## Title-frFR: Polestar : marqueurs de monstres
+## Notes-frFR: Un compagnon de Polestar : marque sur la carte et la minicarte chaque point d'apparition des monstres dont vos quêtes en cours ont besoin, avec le crâne de Polestar : une couleur par quête, un anneau par monstre.
+## Title-koKR: Polestar 몹 표시
+## Notes-koKR: Polestar 동반 애드온: 진행 중인 퀘스트에 필요한 몹의 모든 등장 위치를 지도와 미니맵에 Polestar 해골로 표시합니다. 퀘스트마다 색 하나, 몹마다 고리 하나.
+## Title-ptBR: Polestar: marcadores de criaturas
+## Notes-ptBR: Um complemento do Polestar: marca no mapa e no minimapa cada ponto onde surgem as criaturas de que suas missões ativas precisam, com a caveira do Polestar: uma cor por missão, um anel por criatura.
+## Title-ruRU: Polestar: метки мобов
+## Notes-ruRU: Дополнение к Polestar: отмечает на карте и мини-карте все места появления мобов, нужных вашим текущим заданиям, черепом Polestar: свой цвет для каждого задания, кольцо для каждого моба.
+## Title-zhCN: Polestar 怪物标记
+## Notes-zhCN: Polestar 的配套插件：用 Polestar 的骷髅在地图和微缩地图上标出你当前任务所需怪物的每个刷新点：每个任务一种颜色，每种怪物一个圆环。
+## Title-zhTW: Polestar 怪物標記
+## Notes-zhTW: Polestar 的配套插件：用 Polestar 的骷髏在地圖和小地圖上標出你目前任務所需怪物的每個重生點：每個任務一種顏色，每種怪物一個圓環。
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## Version: 0.3.4
