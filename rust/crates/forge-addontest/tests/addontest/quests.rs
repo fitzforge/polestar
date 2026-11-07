@@ -1562,7 +1562,7 @@ Polestar.Set("qol.minimapObjectives", false); stub.advance(0.3)
 emit(look().opts)
 "#
 		),
-		"",
+		r#"w.titles[9600] = "Forager Cull""#,
 	);
 	let icons = |v: &Value| arr(&v["icons"]);
 	let areas = |v: &Value| arr(&v["areas"]);
