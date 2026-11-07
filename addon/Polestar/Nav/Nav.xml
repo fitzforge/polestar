@@ -3,6 +3,7 @@
 	<Script file="Baked.lua"/>
 	<Script file="MapCanvas.lua"/>
 	<Script file="Pins.lua"/>
+	<Script file="Regions.lua"/>
 	<Script file="Arrow.lua"/>
 	<Script file="Layers.lua"/>
 	<Script file="Upcoming.lua"/>
