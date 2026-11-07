@@ -1881,6 +1881,23 @@
 				}
 			],
 			"pr": 1032
+		},
+		{
+			"id": "1095-silverpine-dalaran-pendants-in-the-ambermill-step",
+			"at": {
+				"quest": 479,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Ambermill Investigations: the Dalaran Protectors and Mages of Ambermill drop the pendants; they are a goal of the Ambermill step, never an along list (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 1912 (Dalaran Protector), 1914 (Dalaran Mage) spawns at Ambermill"
+				}
+			],
+			"pr": 1095
 		}
 	]
 }
