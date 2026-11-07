@@ -5426,6 +5426,39 @@
 			{
 				"a": [
 					"turnin",
+					99051
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Threat from Below is handed to Orgnil in Razor Hill on the walk from Margoz to Far Watch Post, as in Orc's guide. The Troll cut handed in Conscript of the Horde first, took the Crossroads stop (Meats to Orgrimmar, Crossroads Conscription, the flight path), walked 2,490 yd back to Razor Hill, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the player had stood next to"
+			},
+			{
+				"a": [
+					"turnin",
+					6081
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+			},
+			{
+				"a": [
+					"turnin",
+					842
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
+			},
+			{
+				"a": [
+					"turnin",
 					761
 				],
 				"b": [

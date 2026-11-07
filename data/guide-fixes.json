@@ -1976,6 +1976,91 @@
 			"pr": 1032
 		},
 		{
+			"id": "1077-durotar-scorpid-tails-in-the-valley-step",
+			"at": {
+				"quest": 789,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Sting of the Scorpid: the Scorpid Worker tails are collected in the Valley of Trials step with Sarkoth and the cactus apples, not an along list from the Den (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3124 (Scorpid Worker) spawns 39-48, 56-74 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-cactus-apples-in-the-valley-step",
+			"at": {
+				"quest": 4402,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Galgar's Cactus Apple Surprise: the apples grow on the same valley floor as the Scorpid Workers; they are picked in the Valley of Trials step, never an along list.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object 171938 (Cactus Apple) spawns 40-47, 56-72 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-loa-idols-in-the-echo-isles-step",
+			"at": {
+				"quest": 97225,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Forgotten Loa Idols: the idols lie on the southern Echo Isles, where the Echo Isles step works Zalazane's trolls; they are collected there, never an along list from the northern isle.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object 660647 (Forgotten Loa Idol) spawns 65-69, 81-88 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
+			"at": {
+				"quest": 837,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Encroachment: the Razormane Quilboar are killed in the Razormane Grounds step with the Dustrunners and Battleguards, after Tiragarde Keep and the Sen'jin loop (tor, #351), not an along list from Gar'Thok (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3111 (Razormane Quilboar) spawns 43-51, 47-51 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
+			"id": "1077-durotar-scouts-in-the-razormane-grounds-step",
+			"at": {
+				"quest": 837,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Encroachment: the Razormane Scouts share the quilboar's huts west of town and the Razormane Grounds step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3112 (Razormane Scout) spawns 43-51, 47-51 of Durotar"
+				}
+			],
+			"pr": 1077
+		},
+		{
 			"id": "mulgore-plainstriders-a-step",
 			"at": {
 				"quest": 747,
