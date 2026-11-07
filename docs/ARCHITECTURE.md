@@ -3779,6 +3779,7 @@ Polestar.Party.PointAt(unit) -> bool                 -- the arrow at a member (N
 Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  -- UI/PartyLoot.lua
 Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
 Polestar.Party.Debug() -> lines                      -- /polestar party debug: prefix, last send and result, messages heard, roster keys
+Polestar.Party.SelfTest()                            -- /polestar party selftest: prefix, every name API, a hello WHISPERed to yourself (and to the group), every arg of what arrives in 10 s, each hello played through the receive path as a member's (PASS/FAIL); saved as PolestarDB.partySelfTest
 Polestar.Compat.UnitFullName(unit) -> full, first | nil | false  -- "Ana Smith" on Forever, "Ana"/"Ana-OtherRealm" elsewhere
 Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sender)
 ```
@@ -3858,7 +3859,9 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   combat under `ui.combat` "hide". The party line's click and `/polestar
   party` close an open panel (`party.panel` false, kept) or open a closed
   one, and say in chat why it cannot show yet (sync off, no party, guide
-  hidden, nobody heard); `/polestar party debug` prints `Party.Debug()`.
+  hidden, nobody heard); `/polestar party debug` prints `Party.Debug()`,
+  and `/polestar party selftest` runs `Party.SelfTest()`, the check of
+  sending, receiving and matching for a player with nobody to test with.
 - Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
   `START_LOOT_ROLL`, a line per item a member's counts are short of while
   yours are not (the item's log line from the active guide's collect goals,

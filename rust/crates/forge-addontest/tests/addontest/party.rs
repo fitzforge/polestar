@@ -1393,3 +1393,174 @@ emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
 	assert_eq!(out[4], 0, "no error");
 	assert_eq!(out[5], false, "a secret answer is no");
 }
+
+// `/polestar party selftest`: party sync checked by a player alone. Forever's GetUnitName (FrameXML
+// Blizzard_FrameXMLUtil/Camelot/NameUtil.lua) joins UnitName's two returns with a space.
+const SELFTEST: &str = r#"
+function GetUnitName(unit, showServer)
+	local n, s = UnitName(unit)
+	if s and s ~= "" then return n .. " " .. s end
+	return n
+end
+p.hellos = true
+local function sends()
+	local out = {}
+	for i, m in ipairs(p.sent) do out[i] = m.chatType .. " " .. tostring(m.target) .. " " .. m.text:sub(1, 3) end
+	return out
+end
+local function said()
+	local out = {}
+	for i, m in ipairs(stub.messages) do out[i] = m:gsub("^|cff4fd1c5Polestar|r: ", "") end
+	return table.concat(out, "\n")
+end
+"#;
+
+fn selftest(script: &str) -> Vec<Value> {
+	group(&format!("{SELFTEST}{script}"))
+}
+
+fn lines(v: &Value) -> String {
+	text(v).to_string()
+}
+
+#[test]
+fn party_selftest_alone_whispers_a_hello_to_yourself_prints_every_arg_that_comes_back_and_plays_it_through_the_receive_path() {
+	let out = selftest(
+		r#"
+-- Forever gives the player's own name whole; UnitNameUnmodified splits it.
+local baseName = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar Brightwood" end return baseName(unit) end
+function UnitNameUnmodified(unit) if unit == "player" then return "Testchar", "Brightwood" end return baseName(unit) end
+stub.messages = {}
+Polestar.RunCommand("party selftest")
+emit(sends())
+stub.advance(0.3)
+stub.fire("CHAT_MSG_ADDON", "Polestar", "1H|0.3.5", "WHISPER", "Testchar Brightwood-TestRealm", "Testchar Brightwood", 0, 0, "", 0)
+stub.advance(10)
+emit(said())
+emit(#p.sent)
+emit({ P.Spoke("Testchar Brightwood"), Polestar.DB().partySyncTold == nil, #Polestar.DB().partySelfTest.lines, #stub.messages })
+stub.messages = {}
+Polestar.RunCommand("party debug")
+emit(said())
+emit(#Polestar.Errors())"#,
+	);
+	assert_eq!(out[0], json!(["WHISPER Testchar Brightwood 1H|"]), "one whisper: every spelling of the name is the same");
+	let s = lines(&out[1]);
+	for want in [
+		r"\(a\) RegisterAddonMessagePrefix 0; IsAddonMessagePrefixRegistered true",
+		r#"player: UnitName "Testchar Brightwood"; UnitNameUnmodified "Testchar", "Brightwood""#,
+		r#"GetUnitName\(true\) "Testchar Brightwood"; GetUnitName\(false\) "Testchar Brightwood"; UnitFullName missing"#,
+		r#"our roster key \(Compat.UnitFullName\) "Testchar Brightwood", shown as "Testchar""#,
+		r#"\(b\) WHISPER to "Testchar Brightwood": 0 \(Success\)"#,
+		r"C_PlayerInfo.ShouldDisplaySurname missing; RegionalUniqueNamesEnabled missing; GetNormalizedRealmName \x22TestRealm\x22",
+		r"IsTrialAccount missing; IsVeteranTrialAccount missing; IsRestrictedAccount missing; GameLimitedMode_IsActive missing",
+		r"UnitFullName missing; NameUtil.GetUnmodifiedUnitFullName missing",
+		r"\(c\) message 1 arrived 0.3 s after sending:",
+		r#"arg1 prefix: string "Polestar""#,
+		r#"arg2 text: string "1H\|\|0\.3\.5""#,
+		r#"arg3 channel: string "WHISPER""#,
+		r#"arg4 sender: string "Testchar Brightwood-TestRealm""#,
+		r"arg9 instanceID: number 0",
+		r#"\(d\) Compat.SenderName "Testchar Brightwood"; SenderIsMe true; SenderIsUnit\(sender, player\) true"#,
+		r#"Compat.UnitFullName\(player\) "Testchar Brightwood", "Testchar""#,
+		r#"Ambiguate none "Testchar Brightwood"; short "Testchar Brightwood""#,
+		r"UnitIsUnit\(sender, player\) true; UnitInParty\(sender\) missing",
+		r#"\(e\) hello 1 from "Testchar Brightwood-TestRealm" \(it came on WHISPER\), played as a party member's on PARTY:"#,
+		r#"1 read the sender: PASS, as "Testchar Brightwood""#,
+		r#"2 matched to a party member: PASS, by its roster key "Testchar Brightwood""#,
+		r"3 decoded as a Polestar hello: PASS; it would answer with our snapshot",
+		r"RESULT: send PASS; receive PASS \(1 arrived\); receive path PASS",
+	] {
+		assert!(is_match(&s, want), "{want}\n---\n{s}");
+	}
+	assert!(!is_match(&s, r"Party sync is on"), "the rehearsal tells nothing: {s}");
+	assert_eq!(out[2], 1, "nothing more went out: the rehearsal's answer is only named");
+	let after = out[3].as_array().unwrap();
+	assert_eq!(after[0], false, "the roster and who spoke are put back");
+	assert_eq!(after[1], true, "the once-per-account notice is not used up");
+	assert_eq!(after[2], after[3], "every line is kept in the saved variables");
+	assert!(is_match(&lines(&out[4]), r"received 0, from party members 0, last sender nil"), "{}", lines(&out[4]));
+	assert_eq!(out[5], 0);
+}
+
+#[test]
+fn party_selftest_says_fail_for_a_refused_send_nothing_arriving_and_a_secret_sender() {
+	let out = selftest(&format!(
+		"{FOREVER}{}",
+		r#"
+p.result = 3
+stub.messages = {}
+Polestar.RunCommand("party selftest")
+Polestar.RunCommand("party selftest")
+stub.fire("CHAT_MSG_ADDON", "OtherPrefix", "hi", "WHISPER", "Testchar Brightwood", "", 0, 0, "", 0)
+stub.advance(10)
+emit(said())
+p.result = 0
+stub.messages = {}
+Polestar.RunCommand("party selftest")
+stub.fire("CHAT_MSG_ADDON", "Polestar", "1H|0.3.5", "WHISPER", p.SECRET, "", 0, 0, "", 0)
+stub.advance(10)
+emit(said())
+emit(#Polestar.Errors())"#
+	));
+	let s = lines(&out[0]);
+	for want in [
+		r"A party self-test is already running",
+		r#"\(b\) WHISPER to "Testchar Brightwood": 3 \(AddonMessageThrottle\)"#,
+		r"\(c\) FAIL nothing arrived for our prefix in 10 s \(1 messages of other prefixes did\)",
+		r#"\(e\) hello 1 from "Testchar Brightwood" \(made up from your name: nothing arrived\)"#,
+		r"RESULT: send FAIL; receive FAIL \(nothing arrived\); receive path PASS",
+	] {
+		assert!(is_match(&s, want), "{want}\n---\n{s}");
+	}
+	let s = lines(&out[1]);
+	for want in [r"arg4 sender: userdata SECRET <secret>", r"\(d\) FAIL the sender is a secret value: the receive path drops the message", r"RESULT: send PASS; receive PASS \(1 arrived\)"] {
+		assert!(is_match(&s, want), "{want}\n---\n{s}");
+	}
+	assert_eq!(out[2], 0, "no error");
+}
+
+#[test]
+fn party_selftest_in_a_group_names_each_member_sends_to_the_party_and_fails_a_member_whose_sender_spelling_misses_the_roster() {
+	let out = selftest(&sent_members(&format!(
+		"{FOREVER}{}",
+		r#"
+p.join("Ana", nil, "Smith")
+-- A member the client names "Ben Stone" in GetUnitName while UnitName gives no second part.
+p.quiet.Ben = true
+p.join("Ben")
+local baseGet = GetUnitName
+function GetUnitName(unit, show) if unit == "party2" then return "Ben Stone" end return baseGet(unit, show) end
+stub.advance(6)
+p.sent = {}
+stub.messages = {}
+Polestar.RunCommand("party selftest")
+emit(sends())
+p.receive("Testchar Brightwood-TestRealm", "1H|0.3.5")
+stub.advance(10)
+emit(said())
+p.receive("Ana Smith-TestRealm", "1|60:2/4")
+stub.advance(1)
+emit(members())
+emit({ P.Spoke("Ana Smith"), P.Spoke("Ben") })"#
+	)));
+	assert_eq!(out[0], json!(["WHISPER Testchar Brightwood 1H|", "WHISPER Testchar 1H|", "PARTY nil 1H|"]), "to the whole name, to the first name alone, to the party");
+	let s = lines(&out[1]);
+	for want in [
+		r#"party1: UnitName "Ana", "Smith"; UnitNameUnmodified missing"#,
+		r#"our roster key \(Compat.UnitFullName\) "Ana Smith", shown as "Ana"; UnitIsUnit\(GetUnitName\(true\), party1\) true"#,
+		r#"party2: UnitName "Ben", nil; UnitNameUnmodified missing"#,
+		r#"our roster key \(Compat.UnitFullName\) "Ben", shown as "Ben"; UnitIsUnit\(GetUnitName\(true\), party2\) false"#,
+		r#"\(b\) PARTY: 0 \(Success\)"#,
+		r#"arg3 channel: string "PARTY""#,
+		r#"\(e\) hello 1 from "Testchar Brightwood-TestRealm", played as a party member's on PARTY:"#,
+		r#"\(e\) party1: a hello from "Ana Smith" \(GetUnitName\(party1, true\)\) against the roster:\n  1 read the sender: PASS, as "Ana Smith"\n  2 matched to a party member: PASS, by its roster key "Ana Smith""#,
+		r#"2 matched to a party member: FAIL, "Ben Stone" is not the roster key "Ben", and UnitIsUnit\(sender, unit\) said no for every member"#,
+		r"RESULT: send PASS; receive PASS \(1 arrived\); receive path FAIL",
+	] {
+		assert!(is_match(&s, want), "{want}\n---\n{s}");
+	}
+	assert_eq!(out[2], json!(["Ana 60:2/4"]), "party sync runs on as before");
+	assert_eq!(out[3], json!([true, false]), "who spoke is as it was");
+}
