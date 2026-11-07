@@ -684,8 +684,7 @@ end
 
 -- Each objective's spread spots (its mobs', drop sources' and objects'
 -- spawn clusters) are grouped into regions by Polestar.Regions
--- (Nav/Regions.lua, as the guide's spawn regions) once per marker rebuild (a
--- quest log change), never per publish or frame. qol.objectiveSpots picks
+-- (Nav/Regions.lua, as the guide's spawn regions). qol.objectiveSpots picks
 -- how they draw:
 --   "groups" (default): a region of GROUP_MIN or more spots is one soft area
 --     in the theme's accent with one marker at its centre; fewer stay markers.
@@ -700,6 +699,15 @@ end
 -- 122,000 to 41,000. GROUP_WORK lets the busiest objective group (Salve via
 -- Mining's 3,136 ore spots: about 198,000 pair checks, some 60 ms once as it
 -- enters the log); an objective past it keeps its markers.
+--
+-- Cost: regions are gathered only when the objective layer is published on
+-- a surface with areas to draw (a marker rebuild only marks them stale), so
+-- with the objective markers off they cost nothing. An objective's spots do
+-- not change while it is in the log, so its grouping is kept (by objective,
+-- with the spot keys it was made from) and a quest log change groups only the
+-- objectives that came; a region's area and centre marker are kept by the
+-- keys of its spots and reused while a rebuild still has the region. A step
+-- change or a setting only restyles.
 local GROUP_MIN, GROUP_WORK = 3, 250000
 local SPOT_MODES = { groups = true, icons = true, areas = true }
 Q.GROUP_MIN = GROUP_MIN
@@ -708,6 +716,11 @@ Q.GROUP_MIN = GROUP_MIN
 local spotRegions = {}
 local grouped = {}  -- pin -> true: a member of a region of GROUP_MIN or more spots
 local regioned = {} -- pin -> true: a member of any region
+-- objective -> { keys = { pin key, ... }, regions = { { rg, sig }, ... } | false (past GROUP_WORK) }
+local groupingOf = setmetatable({}, { __mode = "k" })
+local regionPool = {} -- sig (its spots' keys) -> region, kept from the last gathering
+local regionGen = 0
+local regionsDirty = true
 
 local function spotMode()
 	local m = ns.Get("qol.objectiveSpots")
@@ -720,20 +733,35 @@ local function clearRegions()
 	for p in pairs(regioned) do regioned[p] = nil end
 end
 
+-- Scratch for addRegion: refs already listed, names already in the header.
+local hasRef, heads, named = {}, {}, {}
+
 -- One region of member pins: the area, and its centre marker under the
 -- glyph of the highest-ranked member, naming every member's mob or object
--- and listing every quest objective they serve.
-local function addRegion(rg, members)
-	local refs, has, heads, named = {}, {}, {}, {}
+-- and listing every quest objective they serve. Kept in regionPool by sig.
+local function addRegion(cr, members)
+	local rg, n = cr.rg, #members
+	local g = regionPool[cr.sig]
+	if not g then
+		g = { refs = {} }
+		g.area = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, refs = g.refs }
+		regionPool[cr.sig] = g
+	end
+	g.gen = regionGen
+	local refs = g.refs
+	for i = #refs, 1, -1 do refs[i] = nil end
+	for k in pairs(hasRef) do hasRef[k] = nil end
+	for k in pairs(named) do named[k] = nil end
+	for i = #heads, 1, -1 do heads[i] = nil end
 	local style, rank = nil, -1
-	for m = 1, #members do
+	for m = 1, n do
 		local p = members[m]
 		regioned[p] = true
 		local prefs = p.refs
 		for i = 1, #prefs do
 			local ref = prefs[i]
-			if not has[ref] then
-				has[ref] = true
+			if not hasRef[ref] then
+				hasRef[ref] = true
 				refs[#refs + 1] = ref
 			end
 		end
@@ -744,26 +772,65 @@ local function addRegion(rg, members)
 		local r = STYLE[p.style].rank or 0
 		if r > rank then style, rank = p.style, r end
 	end
-	local g = { refs = refs, area = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, refs = refs } }
-	if #members >= GROUP_MIN then
-		for m = 1, #members do grouped[members[m]] = true end
+	if n >= GROUP_MIN then
+		for m = 1, n do grouped[members[m]] = true end
 		local s = STYLE[style]
-		local pin = {
-			c = rg.c, wx = rg.wx, wy = rg.wy,
-			icon = s.icon, size = s.size, color = color(s.color), priority = s.priority,
-			kind = "objective", header = table.concat(heads, ", "), refs = refs, layer = LAYER_OBJECTIVES, style = style,
-			spots = #members,
-		}
-		pin.tooltip = function(tt) addTooltipLines(tt, pin) end
-		g.pin = pin
+		local pin = g.pin
+		if not pin then
+			pin = { c = rg.c, wx = rg.wx, wy = rg.wy, kind = "objective", refs = refs, layer = LAYER_OBJECTIVES, spots = n }
+			pin.tooltip = function(tt) addTooltipLines(tt, pin) end
+			g.pin = pin
+		end
+		pin.style, pin.icon, pin.size, pin.priority = style, s.icon, s.size, s.priority
+		pin.color, pin.header = color(s.color), table.concat(heads, ", ")
 	end
 	spotRegions[#spotRegions + 1] = g
 end
 
+-- An objective's grouping: its regions with the indexes (into its pins) and
+-- keys of their spots; false regions when past GROUP_WORK.
+local cs, xs, ys, rs = {}, {}, {}, {}
+local function groupObjective(o, pins, R)
+	local n = #pins
+	local keys = {}
+	for i = 1, n do
+		local p = pins[i]
+		cs[i], xs[i], ys[i], rs[i] = p.c, p.wx, p.wy, p.radius or 0
+		keys[i] = p.key
+	end
+	for i = #cs, n + 1, -1 do cs[i], xs[i], ys[i], rs[i] = nil, nil, nil, nil end
+	local found = R.Of(cs, xs, ys, rs, GROUP_WORK)
+	local regions = false
+	if found then
+		regions = {}
+		for r, rg in ipairs(found) do
+			local idx, sorted = rg.members, {}
+			for m = 1, #idx do sorted[m] = keys[idx[m]] end
+			table.sort(sorted)
+			regions[r] = { rg = rg, sig = table.concat(sorted, "|") }
+		end
+	end
+	local grouping = { keys = keys, regions = regions }
+	groupingOf[o] = grouping
+	return grouping
+end
+
+-- The kept grouping still fits when the objective has the same pins in the same order.
+local function fits(grouping, pins)
+	local keys = grouping.keys
+	if #keys ~= #pins then return false end
+	for i = 1, #pins do
+		if keys[i] ~= pins[i].key then return false end
+	end
+	return true
+end
+
 local function buildRegions()
+	regionsDirty = false
 	clearRegions()
 	local R = ns.Regions
 	if not R then return end
+	regionGen = regionGen + 1
 	-- Each objective's spread pins, in marker order (maps ascending, quests by ID).
 	local byMap = markers[LAYER_OBJECTIVES]
 	local maps = {}
@@ -790,33 +857,25 @@ local function buildRegions()
 	end
 	-- Two objectives on the same spots (one mob killed for one quest, looted
 	-- for another) draw their region once.
-	local seen = {}
-	local cs, xs, ys, rs = {}, {}, {}, {}
+	local seen, members = {}, {}
 	for _, o in ipairs(objs) do
 		local pins = of[o]
-		local n = #pins
-		for i = 1, n do
-			local p = pins[i]
-			cs[i], xs[i], ys[i], rs[i] = p.c, p.wx, p.wy, p.radius or 0
-		end
-		for i = #cs, n + 1, -1 do cs[i], xs[i], ys[i], rs[i] = nil, nil, nil, nil end
-		local regions = R.Of(cs, xs, ys, rs, GROUP_WORK)
-		if regions then
-			for _, rg in ipairs(regions) do
-				local idx = rg.members
-				local members, keys = {}, {}
-				for m = 1, #idx do
-					members[m] = pins[idx[m]]
-					keys[m] = members[m].key
-				end
-				table.sort(keys)
-				local sig = table.concat(keys, "|")
-				if not seen[sig] then
-					seen[sig] = true
-					addRegion(rg, members)
+		local grouping = groupingOf[o]
+		if not (grouping and fits(grouping, pins)) then grouping = groupObjective(o, pins, R) end
+		if grouping.regions then
+			for _, cr in ipairs(grouping.regions) do
+				if not seen[cr.sig] then
+					seen[cr.sig] = true
+					local idx = cr.rg.members
+					for m = 1, #idx do members[m] = pins[idx[m]] end
+					for m = #members, #idx + 1, -1 do members[m] = nil end
+					addRegion(cr, members)
 				end
 			end
 		end
+	end
+	for sig, g in pairs(regionPool) do
+		if g.gen ~= regionGen then regionPool[sig] = nil end
 	end
 end
 
@@ -840,7 +899,19 @@ local function rebuildObjectiveMarkers()
 	for i = 1, n do objectivePins(entries[rebuildIDs[i]], byKey) end
 	prune(LAYER_OBJECTIVES)
 	prune(LAYER_TURNIN)
-	buildRegions()
+	regionsDirty = true
+end
+
+-- A quest log change only marks the objective and turn-in markers stale:
+-- they are rebuilt when one of their layers is next published on a map (or
+-- Q.GetMarkers asks), so with both layers off a quest log change builds none
+-- (tooltips and nameplates read the indexes, not the markers).
+local markersDirty = false
+local function ensureMarkers()
+	if markersDirty then
+		markersDirty = false
+		rebuildObjectiveMarkers()
+	end
 end
 
 ---------------------------------------------------------------------------
@@ -1060,8 +1131,13 @@ local function setting(key, default, lo, hi)
 	return v
 end
 
+-- The objective areas' colours, refilled at each publish (the accent and
+-- qol.objectiveAreaAlpha), dimmed under qol.guideDim.
+local areaPlain, areaFaded = { 1, 1, 1, 1 }, { 1, 1, 1, 1 }
+
 -- The layer's pins styled for this publish: on the objective layer, the
--- markers qol.objectiveSpots keeps, then the regions it draws.
+-- markers qol.objectiveSpots keeps, then the regions it draws (gathered
+-- here, once after each marker rebuild, while some are drawn).
 local function flatten(layer)
 	local out = {}
 	local byMap = markers[layer]
@@ -1069,6 +1145,7 @@ local function flatten(layer)
 	for map in pairs(byMap) do maps[#maps + 1] = map end
 	table.sort(maps)
 	local mode = layer == LAYER_OBJECTIVES and spotMode() or "icons"
+	if mode ~= "icons" and regionsDirty then buildRegions() end
 	local hide = mode == "groups" and grouped or mode == "areas" and regioned or nil
 	local highlight, dim = ns.Get("qol.guideHighlight"), ns.Get("qol.guideDim")
 	local sizeK = setting("qol.questMarkerSize", 1, 0.6, 1.6)
@@ -1085,7 +1162,9 @@ local function flatten(layer)
 	if mode ~= "icons" then
 		local a = color("accent")
 		local alpha = a.a * setting("qol.objectiveAreaAlpha", 0.6, 0.2, 1)
-		local plain, faded = { a.r, a.g, a.b, alpha }, { a.r, a.g, a.b, alpha * DIM_ALPHA }
+		local plain, faded = areaPlain, areaFaded
+		plain[1], plain[2], plain[3], plain[4] = a.r, a.g, a.b, alpha
+		faded[1], faded[2], faded[3], faded[4] = a.r, a.g, a.b, alpha * DIM_ALPHA
 		for i = 1, #spotRegions do
 			local g = spotRegions[i]
 			local pin = mode == "groups" and g.pin
@@ -1113,8 +1192,11 @@ local function publish(layer)
 	local Pins = ns.Pins
 	if not (Pins and Pins.SetLayer) then return end
 	local world, minimap = layerOpts(layer)
-	local pins = flatten(layer)
-	if not running or (not world and not minimap) or #pins == 0 then
+	-- A layer shown nowhere is not built or styled (nor its regions gathered).
+	local shown = running and (world or minimap)
+	if shown and layer ~= LAYER_AVAILABLE then ensureMarkers() end
+	local pins = shown and flatten(layer)
+	if not pins or #pins == 0 then
 		if published[layer] then
 			Pins.ClearLayer(layer)
 			published[layer] = nil
@@ -1131,6 +1213,7 @@ end
 
 -- Pins on one map for a layer ("objectives" | "turnin" | "available"), or all.
 function Q.GetMarkers(map, which)
+	ensureMarkers()
 	local out = {}
 	for name, layer in pairs(Q.LAYERS) do
 		if not which or which == name then
@@ -1158,7 +1241,7 @@ local function flush()
 	if logChanged then
 		stats.changes = stats.changes + 1
 		rebuildIndex()
-		rebuildObjectiveMarkers()
+		markersDirty = true
 		publish(LAYER_OBJECTIVES)
 		publish(LAYER_TURNIN)
 		ns.Fire("QUESTDB_UPDATED")
@@ -1263,6 +1346,8 @@ function Q.Stop()
 	for q in pairs(turnedIn) do turnedIn[q] = nil end
 	rebuildIndex()
 	clearRegions()
+	for sig in pairs(regionPool) do regionPool[sig] = nil end
+	regionsDirty, markersDirty = true, false
 	for layer in pairs(markers) do
 		clearMarkers(layer)
 		local pool = pools[layer]
@@ -1353,7 +1438,7 @@ ns.On("NAMES_LOADED", function()
 	end
 	if not running then return end
 	rebuildIndex()
-	rebuildObjectiveMarkers()
+	markersDirty = true
 	publish(LAYER_OBJECTIVES)
 	dirtyLog = true
 	schedule()

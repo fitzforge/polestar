@@ -135,10 +135,11 @@ local function updateRoute(world)
 	Pins.SetLayer(ROUTE, pins, { world = true, minimap = false, scale = 0.9 })
 end
 
-local function updateGoals(world)
+-- view: the current step's Engine.GetStepView (index), fetched once per
+-- Layers.Update for this and the areas.
+local function updateGoals(world, index, view)
 	local Engine = ns.Engine
-	local index = world and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not world then view = nil end
 	if not (view and view.goals) then
 		Pins.ClearLayer(GOALS)
 		return
@@ -238,10 +239,9 @@ local function sameSig(sig)
 	return true
 end
 
-local function updateAreas(world, minimap)
+local function updateAreas(world, minimap, index, view)
 	local Engine = ns.Engine
-	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not (world or minimap) then view = nil end
 	local guide = view and view.goals and Engine.GetGuide and Engine.GetGuide()
 	local step = guide and guide.steps and guide.steps[index]
 	local ar, ag, ab = Nav.RGB("arrow")
@@ -399,11 +399,16 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
+	-- The step's view, built once for the goals and the areas (a view is
+	-- built afresh on every Engine.GetStepView).
+	local Engine = ns.Engine
+	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
+	local view = index and Engine.GetStepView and Engine.GetStepView(index)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world)
+	updateGoals(world, index, view)
 	updateSpots(world)
-	updateAreas(world, minimap)
+	updateAreas(world, minimap, index, view)
 	updateHere(world, minimap)
 	updateTrail(world, minimap)
 end

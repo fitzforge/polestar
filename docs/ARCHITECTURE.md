@@ -3851,11 +3851,17 @@ Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
 under the higher-ranked glyph: kill > interact > collect > vendor). Spread
 objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
-Objective spots (#1085): at each marker rebuild, each objective's spread pins
-are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
-250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
-198,000; past it the objective keeps its markers), and two objectives on the
-same spots share one region. `qol.objectiveSpots` picks the look:
+Objective spots (#1085): each objective's spread pins are grouped by
+`Polestar.Regions.Of` (as the guide's spawn regions; up to 250,000 pair
+checks, which Salve via Mining's 3,136 ore spots need, about 198,000; past it
+the objective keeps its markers), and two objectives on the same spots share
+one region. A marker rebuild only marks the regions stale: they are gathered
+when the objective layer is next published on a map with areas to draw, so
+with the objective markers off they cost nothing. A grouping is kept per
+objective with the pin keys it was made from, so a quest log change groups
+only the objectives that came; a region's area and centre pin are kept by its
+spots' keys and reused. A step change or a setting only restyles.
+`qol.objectiveSpots` picks the look:
 `groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
 `hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
 default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
@@ -6746,7 +6752,10 @@ The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
 whose `build` is older than `data/recordings/config.json`'s `minBuild`, and
 every session whose player doesn't count. A player (voter) is the server's
 cohort, resolved per contributor from its latest session, else the
-contributor. `local` and `sent-*` always count, `anon-*` never does. A server
+contributor. `local` and `sent-*` always count, `anon-*` never does, and
+neither do the contributors `config.json`'s `exclude` lists (the maintainer's
+audit of manipulated or suspect uploads; they also never make their cohort
+count). A server
 contributor counts once established: first seen at least `minContributorDays`
 (3) days before its newest session arrived, `minContributorChunks` (20) chunks
 on `minContributorUploadDays` (3) distinct upload days as the server counted
@@ -6767,7 +6776,12 @@ whose locale is not enUS only fill a missing name. Recorded map bounds are
 used only from `local` recordings and only for maps `map-frames.json` lacks
 (`travel/paths.rs` `live_frames_of`); walks are placed by those frames, never
 by a recording's own. Schema 1 sessions (no contributor, no locale) count as
-`local` and enUS.
+`local` and enUS. Our corrections stay the last word: the overlay puts every
+corrected value back when it is done (`corrections::reassert`), whatever the
+recordings' evidence, and the build warns with each value the recordings
+disagreed with; the knowledge base ranks `correction` (0) above `recorder`
+(0.5). `forge record resession` normalises every archive in `raw/` again, for
+record kinds an older forge skipped.
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

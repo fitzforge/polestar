@@ -2852,6 +2852,310 @@
 			"issue": 1135
 		},
 		{
+			"id": "a4060-stv-mistvale-giblets-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 606,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Mistvale Giblets: the Elder Mistvale Gorillas drop them in the gorilla hills, where the Gorilla Fangs for Unbagwa are collected; the along list from the Wild Shore listed them where no gorilla lives.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-badlands-southshore-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1052,
+				"goal": "turnin"
+			},
+			"tip": "Raleigh the Devout preaches by the inn.",
+			"note": "The flight from Thelsamar to Southshore is a step of its own right before this one, so the step's tip no longer tells you to ride to Thelsamar and fly.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07: Badlands guide step 'Fly to Southshore' before 'Southshore'"
+				}
+			]
+		},
+		{
+			"id": "a4060-feralas-grimtotem-from-thalanaar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2969,
+				"goal": "accept"
+			},
+			"tip": "From Thalanaar ride west along the road to the Grimtotem camp north of it. Kindal Moonweaver waits outside it; free the Sprite Darters from the pen in the middle and keep Kindal and at least six of them alive.",
+			"note": "The eastern loop starts with the flight from Feathermoon to Thalanaar, so the way to the Grimtotem camp is west from Thalanaar; the tip still said to take the boat to the Forgotten Coast and ride east.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07: Feralas guide steps 'Fly to Thalanaar' and 'Feralas' (goto 65.9,45.7) before the Grimtotem camp"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-lava-spiders-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7724,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Fiery Menace!: the Greater Lava Spiders roam the plateaus south of Zamael Lunthistle, on the walk from him to Kalaran Windblade, so they are a step of their own there; the along list from Thorium Point kept them on screen instead.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-taskmasters-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "JOB OPPORTUNITY: the Dark Iron Taskmasters drive the slaves across the Cauldron, which the Firewatch Ridge step works; an along list kept them on screen from Thorium Point.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-slavers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "JOB OPPORTUNITY: the Dark Iron Slavers work the Cauldron with the Taskmasters, on the Firewatch Ridge step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-daggers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3443,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Forging the Shaft: the Thorium Plated Daggers come from the Dark Iron dwarves on the Slag Pit and Dark Iron steps; the along list from Kalaran duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-incendosaurs-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7727,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Incendosaurs?: the Incendosaurs swim in the Slag Pit's lava pools, which the Slag Pit step visits; an along list kept them on screen from Thorium Point.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-bs-medallions-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4283,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "FIFTY! YEP!: the Blackrock orcs around Flame Crest and the stronghold drop them, on the Ruins of Thaurissan and Blackrock Stronghold steps; the along list from Morgan's Vigil duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-bs-relics-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3701,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Smoldering Ruins of Thaurissan: the relics stand in the ruins the Ruins of Thaurissan step works; the along list from Morgan's Vigil duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-den-watchers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8464,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Winterfall Activity: Den Watchers live in the western camp by the hot springs (the Frostfire step) and in Winterfall Village; the along list duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-ursa-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8464,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Winterfall Activity: Winterfall Ursa live only in Winterfall Village (npcs.json, map 1452: 65-69,37-40), killed on that step; the along list put them by the hot springs.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-pathfinders-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Pathfinders hold the western camp by the hot springs, between Salfa and Donova (the Frostfire step).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-den-watchers-5082-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Den Watchers of the western camp, on the Frostfire step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-totemics-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Totemics of the western camp, on the Frostfire step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-wpl-scarlet-knights-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6004,
+				"goal": "objective",
+				"objective": 4
+			},
+			"along": false,
+			"note": "Unfinished Business: the Scarlet Knights patrol the Northridge camp with the Medics, Hunters and Mages, on The Scarlet Crusade step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-wpl-worm-meat-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5544,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Carrion Grubbage: the Carrion Grubs and worms are killed on the Eastern Plaguelands steps (Villains of Darrowshire, Plaguewood); the along list from Tirion duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-wpl-sticky-tar-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4504,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Super Sticky: the Tar Beasts of the Lakkari Tar Pits drop the tar, on the Lakkari Tar Pits step; the along list from Krakle duplicated it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
 			"id": "1175-barrens-silithid-eggs-on-the-road-to-gann",
 			"at": {"quest": 868, "goal": "objective", "objective": 1},
 			"faction": "Horde",
@@ -2919,7 +3223,7 @@
 			"at": {"quest": 96898, "goal": "objective", "objective": 1},
 			"faction": "Horde",
 			"tip": "Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.",
-			"note": "Necrotic Crystals: Hadric's quests are taken at Linnea's camp on the stop after the north loop, so the east loop now starts from Brill and the tip names the camp the farm lies beside (final route review).",
+			"note": "Necrotic Crystals: the east loop leaves from Brill past Linnea's camp, where Hadric stands; the tip names the camp the farm lies beside (final route review).",
 			"source": [{"kind": "client", "ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"}],
 			"pr": 1175
 		}

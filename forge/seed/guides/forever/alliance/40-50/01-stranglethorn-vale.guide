@@ -406,7 +406,6 @@ step Watcher Biggs
 step A Soggy Scroll
   tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
   turnin 624
-  note The riddle's next scroll lies in western Dustwallow: skip it.
   collect 6065 quest 1364             -- Khadgar's Essays on Dimensional Convergence
 
 step The sunken temple

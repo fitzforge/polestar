@@ -91,6 +91,16 @@ fn same_fields(e: &V, set: &V) -> bool {
 	set.entries().iter().all(|(k, v)| stringify(&e.get(k), None) == stringify(v, None))
 }
 
+/// A copy of a correction's value for a record: values are shared objects and arrays, so a later
+/// stage that edits the record in place (recordings.rs adding a giver to `start.npc`) would
+/// otherwise edit the correction itself.
+fn owned(v: &V) -> V {
+	match v {
+		V::Obj(_) | V::Arr(_) => forge_guide::js::parse_json(&stringify(v, None)).expect("a correction's value is JSON"),
+		_ => v.clone(),
+	}
+}
+
 fn tag(e: &V) {
 	if !e.get("source").is_arr() {
 		e.set("source", V::arr());
@@ -217,7 +227,7 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 			entry(&mut a, "quests", &id, "applied", String::new());
 		}
 		for (k, v) in cq.get("set").entries() {
-			q.set(&k, v);
+			q.set(&k, owned(&v));
 		}
 		tag(&q);
 		a.records += 1;
@@ -291,14 +301,14 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 			let set = ce.get("set");
 			if set.truthy() {
 				for (k, v) in set.entries() {
-					e.set(&k, v);
+					e.set(&k, owned(&v));
 				}
 			}
 			let add = ce.get("addSpawns");
 			if add.truthy() {
 				let merged = e.get("spawns").as_obj().map(|o| o.spread()).unwrap_or_default();
 				for (k, v) in add.entries() {
-					merged.set_str(k, v);
+					merged.set_str(k, owned(&v));
 				}
 				let mut keys: Vec<(f64, Str)> = merged.keys().into_iter().map(|k| (str_to_num(&k), k)).collect();
 				keys.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
@@ -313,6 +323,78 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 		}
 	}
 	a
+}
+
+/// Puts every corrected value back after a later overlay (players' recordings, recordings.rs) has
+/// run, and names what the overlay had changed, as `"<section> <id>: <field>"`: our corrections are
+/// the last word, so a recording that disagrees with one is listed for review and never applied.
+/// A quest field put back loses the overlay's `recorder:<field>` / `recorder-gap:<field>` tag (its
+/// value is the correction's again). [`apply`] is idempotent, so it simply runs again.
+pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: bool) -> Vec<String> {
+	let differs = |a: &V, b: &V| stringify(a, None) != stringify(b, None);
+	let mut out = Vec::new();
+	for (id, cq) in c.get("quests").entries() {
+		let q = quests.get(&id);
+		if cq.get("remove").truthy() {
+			if !q.is_undef() {
+				out.push(format!("quests {id}: back after its removal"));
+			}
+			continue;
+		}
+		if q.is_undef() {
+			continue;
+		}
+		let mut back: Vec<String> = Vec::new();
+		for (k, v) in cq.get("set").entries() {
+			if differs(&q.get(&k), &v) {
+				out.push(format!("quests {id}: {k}"));
+				back.push(k.to_string());
+			}
+		}
+		let src = q.get("source");
+		if !back.is_empty() && src.is_arr() {
+			let overlay_tag = |t: &str| back.iter().any(|k| t == format!("recorder:{k}") || t == format!("recorder-gap:{k}") || (k == "xp" && t.starts_with("recorder:xp-")));
+			q.set("source", arr(src.items().into_iter().filter(|t| !t.as_str().is_some_and(overlay_tag)).collect()));
+		}
+	}
+	for (kind, table) in [("npcs", npcs), ("objects", objects)] {
+		for (id, ce) in c.get(kind).entries() {
+			let e = table.get(&id);
+			if e.is_undef() {
+				continue;
+			}
+			for (k, v) in ce.get("set").entries() {
+				if differs(&e.get(&k), &v) {
+					out.push(format!("{kind} {id}: {k}"));
+				}
+			}
+			for (map, v) in ce.get("addSpawns").entries() {
+				if differs(&e.get("spawns").get(&map), &v) {
+					out.push(format!("{kind} {id}: spawns on map {map}"));
+				}
+			}
+		}
+	}
+	for (id, ci) in c.get("items").entries() {
+		let it = items.get(&id);
+		if it.is_undef() {
+			continue;
+		}
+		for kind in ["npc", "object"] {
+			for x in ci.get("removeDrops").get(kind).items() {
+				if !it.get("drops").get(kind).get(&x.to_js_string()).is_undef() {
+					out.push(format!("items {id}: drop from {kind} {}", x.to_js_string()));
+				}
+			}
+		}
+		for r in ci.get("removeVendors").items() {
+			if it.get("vendors").items().iter().any(|v| r.strict_eq(v)) {
+				out.push(format!("items {id}: vendor {}", r.to_js_string()));
+			}
+		}
+	}
+	apply(c, quests, npcs, objects, items, sim);
+	out
 }
 
 // ---------------------------------------------------------------- checking an edit

@@ -14,6 +14,11 @@ step Into Winterspring
   zone Winterspring
   goto 28.0,34.6 "Into Winterspring"
 
+step Salfa
+  tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
+  turnin 8465
+  accept 8464
+
 step Winterspring
   zone Winterspring
   goto 61.3,39.0 "Winterspring"
@@ -64,36 +69,20 @@ step Donova Snowden
   turnin 6603
   accept 5082
 
-step Salfa
-  tip Salfa guards the mouth of Timbermaw Hold, north-west of Donova.
-  turnin 8465
-  accept 8464
-
-step On the way
-  along until q8464
-  kill 7440 quest 8464.2
-  kill 7438 quest 8464.3
-
-step On the way
-  along until q5082
-  kill 7442 quest 5082.1 -- Winterfall Pathfinder along the way to Donova Snowden
-  kill 7440 quest 5082.2 -- Winterfall Den Watcher along the way to Donova Snowden
-  kill 7441 quest 5082.3 -- Winterfall Totemic along the way to Donova Snowden
-
 step Frostfire Hot Springs: kill these as you meet them
-  label q8464
   zone Winterspring
   tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten) and, rarely, a Winterfall Ritual Totem: right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
   collect 12771 optional              -- Empty Firewater Flask, a rare drop
   accept 5083 optional
-  kill 7440 quest 8464.2
-  kill 7438 quest 8464.3
+  kill 7442 quest 5082.1              -- Winterfall Pathfinder
+  kill 7440 quest 5082.2              -- Winterfall Den Watcher
+  kill 7441 quest 5082.3              -- Winterfall Totemic
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
   collect 14047 quest 6031.1 optional -- Runecloth, for Meilosh later
   collect 20742 optional              -- Winterfall Ritual Totem, a rare drop
   accept 8471 optional                -- For Kernda in Timbermaw Hold: keep it
 
 step Donova Snowden
-  label q5082
   turnin 5082
   turnin 5083 optional
   accept 5084 optional                -- The Deadwood cauldron in Felwood: keep it
