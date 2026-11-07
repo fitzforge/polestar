@@ -212,6 +212,90 @@ test("only the thread owner's screenshots are copied; reports and follow-ups are
 	assert.deepEqual(github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]), ['1001', '1002', '1003', '1004', '1006'], "u9's fourth report in an hour is not filed");
 });
 
+// A bot on a clock the test moves, its timers run by hand: fire() moves the
+// clock to each due timer in turn and awaits what it starts.
+function clocked(config = {}) {
+	let t = 0;
+	const timers = [];
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const sync = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT, ...config }, log: quietLog, sleep: async () => {}, now: () => t, setTimer: (fn, ms) => timers.push({ at: t + ms, fn }) });
+	async function fire() {
+		while (timers.length) {
+			timers.sort((a, b) => a.at - b.at);
+			const { at, fn } = timers.shift();
+			t = Math.max(t, at);
+			fn();
+			for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r));
+		}
+	}
+	return { discord, github, sync, timers, fire, tick: (ms) => (t += ms) };
+}
+
+const filedThreads = (github) => github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]);
+
+test("server staff have no hourly limits: an admin's or moderator's fourth report and 21st follow-up go through", async () => {
+	const { discord, github, sync, timers } = clocked();
+	discord.members.set('fitz', ['r-admin']);
+	discord.members.set('mod', ['r-mod']);
+	discord.members.set('player', []);
+	for (const id of ['1001', '1002', '1003', '1004']) {
+		discord.post(id, { owner: 'fitz', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.deepEqual(filedThreads(github), ['1001', '1002', '1003', '1004'], "the admin's fourth report is filed");
+	for (const id of ['1006', '1007', '1008', '1009']) {
+		discord.post(id, { owner: 'mod', content: 'bug' });
+		await sync.newPost(id);
+	}
+	assert.equal(github.issues.length, 8, "a moderator's too");
+	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'fitz', content: `note ${i}` }));
+	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'player', content: `me too ${i}` }));
+	assert.equal(github.commentsByIssue.get(1).length, 25 + 20, "the admin's follow-ups all go through, the player's stop at 20");
+	assert.equal(timers.length, 5, "the player's five skipped follow-ups wait for a retry");
+});
+
+test('the server owner and RATE_EXEMPT_IDS have no hourly limits either', async () => {
+	const { discord, github, sync } = clocked({ exemptIds: ['listed'] });
+	for (const [i, owner] of ['owner', 'owner', 'owner', 'owner', 'listed', 'listed', 'listed', 'listed'].entries()) {
+		discord.post(String(2001 + i), { owner, content: 'bug' });
+		await sync.newPost(String(2001 + i));
+	}
+	assert.equal(github.issues.length, 8);
+});
+
+test("a player's fourth report in an hour, and 21st follow-up, are filed by the retry once the hour allows", async () => {
+	const { discord, github, sync, timers, fire, tick } = clocked();
+	for (const id of ['1001', '1002', '1003', '1004']) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+		tick(60 * 1000);
+	}
+	assert.deepEqual(filedThreads(github), ['1001', '1002', '1003']);
+	assert.equal(timers.length, 1);
+	assert.equal(timers[0].at, 60 * 60 * 1000 + 1000, 'retried a second after the first report of the hour ages out');
+	await sync.newPost('1004'); // seen again (a THREAD_UPDATE): still one retry waiting
+	assert.equal(timers.length, 1);
+	await fire();
+	assert.deepEqual(filedThreads(github), ['1001', '1002', '1003', '1004'], 'filed by the retry, no restart needed');
+	assert.match(discord.sent.at(-1).content, /fitzforge\/polestar#4/);
+
+	for (let i = 0; i < 22; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
+	assert.equal(github.commentsByIssue.get(1).length, 20);
+	await fire();
+	const bodies = github.commentsByIssue.get(1).map((c) => c.body);
+	assert.equal(bodies.length, 22, 'the two skipped follow-ups are copied later');
+	assert.match(bodies[21], /spam 21/);
+});
+
+test('skipped work waiting for a retry is capped', async () => {
+	const { discord, sync, timers } = clocked();
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	for (let i = 0; i < 130; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
+	assert.equal(timers.length, 100);
+});
+
 test('a new post is filed once, answered in its thread and tagged Tracked', async () => {
 	const { discord, github, media, sync } = setup();
 	const msg = discord.post('1001', { name: 'Wrong trainer', content: POST, tags: ['t-questing'], attachments: [{ id: 'a1', filename: 'shot 1.png', content_type: 'image/png', size: 10, url: 'x' }] });
