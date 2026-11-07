@@ -172,6 +172,8 @@ mod maps_overlays;
 mod maps_reveal;
 #[path = "maps-services.rs"]
 mod maps_services;
+#[path = "mob-markers.rs"]
+mod mob_markers;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
