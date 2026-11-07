@@ -187,6 +187,9 @@ local function goalTooltip(row)
 	end
 	local rewards = UI.GoalRewards(goal)
 	if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
+	-- What the quest opens up: what skipping it gives up (UI.UnlockLines).
+	if goal.quest and not (goal.t == "turnin" and goal.status == "done") then UI.UnlockLines(goal.quest, lines) end
+	if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(goal.skippedWith) end
 	local p = goal.progress
 	if type(p) == "table" and p.kind == "skill" and p.max then
 		lines[#lines + 1] = { left = L["Skill"], right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max) }
@@ -271,7 +274,11 @@ local function rowMenu(row)
 	if goal.tickable and goal.status ~= "done" or goal.ticked then
 		items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
 	end
-	items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."],
+	-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
+	local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
+	local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
+	if loses then tip = tip .. " " .. loses end
+	items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
 		onClick = function() E.SkipQuest(goal.quest, true) end }
 	W.ShowMenu(row, items)
 	return true
@@ -1876,12 +1883,20 @@ local function layoutCard(width)
 		person.Name:SetWidth(nameW)
 		person.Where:SetWidth(nameW)
 		person.Why:SetWidth(nameW)
+		person.Level:SetWidth(nameW)
 		local h = 10 + person.Name:GetStringHeight()
+		local above = person.Where:IsShown() and person.Where or person.Name
 		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
 		if person.Why:IsShown() then
 			person.Why:ClearAllPoints()
-			person.Why:SetPoint("TOPLEFT", person.Where:IsShown() and person.Where or person.Name, "BOTTOMLEFT", 0, -3)
+			person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 			h = h + 3 + person.Why:GetStringHeight()
+			above = person.Why
+		end
+		if person.Level:IsShown() then
+			person.Level:ClearAllPoints()
+			person.Level:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
+			h = h + 3 + person.Level:GetStringHeight()
 		end
 		h = floor(h + 8 + 0.5)
 		person:SetHeight(h)
@@ -2752,6 +2767,14 @@ end
 
 local DOT = "  \194\183  "
 
+-- A level as the window shows the character's: whole, or cut (not rounded)
+-- to one place, so 19.96 still reads 19.9. (A field: this file's main chunk
+-- is at Lua 5.1's 200 locals.)
+function GF.LevelText(v)
+	if v % 1 == 0 then return string.format("%d", v) end
+	return string.format("%.1f", floor(v * 10) / 10)
+end
+
 -- Fill the card from `view`: the focus group's header, its goals under
 -- "✓ N done", a summary line for every other person of the step, the tip
 -- (with "Show the whole step", or on a done step, every goal as written).
@@ -2769,6 +2792,15 @@ local function fillCard(sameFocus)
 	local why = view.why
 	person.Why:SetText(why or "")
 	person.Why:SetShown(why ~= nil)
+	-- A quest on the step 3 or more levels above the character (Levels.StepHint):
+	-- "Level 25 quest: you're 19.7", red from 5 levels as in the quest log.
+	local Lv = ns.Levels
+	local hint = Lv and Lv.StepHint and Lv.StepHint(view.index)
+	if hint then
+		person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
+		W.Color(person.Level, hint.level - floor(hint.you) >= 5 and "danger" or "warning")
+	end
+	person.Level:SetShown(hint ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
@@ -3971,7 +4003,12 @@ local function build()
 			W.Color(self.Icon, "text")
 			W.Color(self.Label, "text")
 		end
-		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] })
+		local lines = { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] }
+		-- The later quests this guide leaves out with the step (Engine.SkipLoses).
+		local E = Engine()
+		local loses = self:IsEnabled() and E and E.SkipLoses and UI.SkipLosesText(E.SkipLoses())
+		if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
+		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], lines)
 		GF.HoverIn()
 	end)
 	skip:SetScript("OnLeave", function(self)
@@ -4061,6 +4098,11 @@ local function build()
 	person.Why:SetJustifyH("LEFT")
 	person.Why:SetWordWrap(true)
 	person.Why:Hide()
+	-- A quest on the step well above the character's level (fillCard).
+	person.Level = T(person, "small", "warning")
+	person.Level:SetJustifyH("LEFT")
+	person.Level:SetWordWrap(true)
+	person.Level:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
@@ -4370,16 +4412,53 @@ ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
 ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
 ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
--- The route's pace against the guide's next level target (Core/Levels.lua,
--- Levels.Pace): "On pace for level 14 by step 32", "About 6 bars short of
--- level 14 by step 32"; nil without a target ahead or the Codex.
-function GF.PaceText()
+-- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
+-- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
+-- grinding time. On pace (or ahead): "On pace for level 14 by step 32".
+-- Behind, with a `level` goal ahead that grinds it: "Behind by 6 bars: step 32
+-- grinds to level 14 (~12m)". Behind with none, in the warning colour: a quest
+-- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
+-- 20, you'll be 21.0; grind ~1h 10m first" (or "reach 23 first"), else
+-- "Behind by 2.4 levels for level 24 by step 21: grind ~1h 10m before then"
+-- (or "and no grind step ahead"). nil without a target ahead or the Codex.
+function GF.PaceText(stats)
 	local Lv = ns.Levels
 	local pace = Lv and Lv.Pace and Lv.Pace()
 	if not pace then return nil end
+	local Q = ns.QoL
+	local rate = type(stats) == "table" and type(stats.rate) == "number" and stats.rate > 0 and stats.rate or nil
+	local function grind(xp)
+		if not (rate and type(xp) == "number" and xp > 0 and Q and Q.Duration) then return nil end
+		return Q.Duration(xp / rate * 3600)
+	end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, UI.StepNo(pace.step)) end
-	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, UI.StepNo(pace.step))
+	local stepNo = UI.StepNo(pace.step)
+	local h, text = pace.hard, nil
+	if h then
+		local name, at, you, time = h.title or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
+		if h.step == pace.live then
+			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
+		else
+			text = time and string.format(L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"], name, h.level, at, you, h.need)
+		end
+	elseif pace.bars == 0 then
+		return string.format(L["On pace for level %s by step %d"], level, stepNo)
+	else
+		local bars = pace.bars
+		local by = pace.short >= 1 and string.format(L["%s levels"], string.format("%.1f", pace.short))
+			or (bars == 1 and L["1 bar"] or string.format(L["%d bars"], bars))
+		local time = grind(pace.xp)
+		if pace.kind == "goal" then
+			-- The guide grinds it at that step: said plainly, not as a warning.
+			return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
+				or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
+		end
+		text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
+			or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
+	end
+	return "|c" .. Theme.Hex("warning") .. text .. "|r"
 end
 
 -- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden
@@ -4402,7 +4481,7 @@ function GF.UpdateXP(stats)
 		end
 	end
 	if not (type(stats) == "table" and stats.maxed) then
-		local pace = GF.PaceText()
+		local pace = GF.PaceText(stats)
 		if pace then parts[#parts + 1] = pace end
 	end
 	local had = GF.xp.psHas

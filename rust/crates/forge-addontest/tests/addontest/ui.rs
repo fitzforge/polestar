@@ -277,24 +277,25 @@ fn with_expand_step_tips_off_the_tip_is_one_line_until_clicked() {
 }
 
 #[test]
-fn step_tips_start_open_by_default_with_expand_step_tips_off_on_one_line() {
+fn step_tips_start_on_one_line_by_default_with_expand_step_tips_on_in_full() {
 	let out = run(r#"
 		Polestar.Set("ui.width", 300)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip = GF.parts.tip
 		local byDefault = tip.psOpen
-		Polestar.Set("ui.notesOpen", false)
 		local closedH = tip:GetHeight()
-		local off = tip.psOpen
 		Polestar.Set("ui.notesOpen", true)
 		local now = tip.psOpen
+		Polestar.Set("ui.notesOpen", false)
+		local off = tip.psOpen
+		Polestar.Set("ui.notesOpen", true)
 		tip:Click()
 		local clicked = tip.psOpen
 		uistub.setStep(4)
 		uistub.setStep(3)
 		emit({ byDefault = byDefault, off = off, closedH = closedH, now = now, clicked = clicked, next = tip.psOpen, h = tip:GetHeight() })"#)
 	.remove(0);
-	assert_eq!(out["byDefault"], true, "a new player sees the tip in full");
+	assert_eq!(out["byDefault"], false, "a new player sees the tip on one line, not a wall of text");
 	assert_eq!(out["off"], false, "turning it off folds the tip on screen");
 	assert_eq!(out["now"], true, "turning it on opens the tip on screen");
 	assert_eq!(out["clicked"], false, "a click still folds it");
@@ -312,6 +313,7 @@ fn picture(step: i32, size: Option<(i32, i32)>) -> String {
 fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its_aspect_kept_and_folds_away_with_the_tip() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image
 		local plain = { shown = img:IsShown(), h = tip:GetHeight() }
@@ -347,6 +349,7 @@ fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its
 fn a_tall_picture_stops_at_160_high_one_with_no_tip_reads_picture_of_this_spot_one_without_a_size_is_drawn_2_1() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		${PICTURE(5, 256, 256)}
 		uistub.setGuide(uistub.elwynn, 5)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image
@@ -1417,6 +1420,84 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 	assert_eq!(out["maxed"], false);
 	assert_eq!(out["off"], false);
 	assert_eq!(out["h"], true);
+}
+
+// Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
+// when on pace or when a `level` goal ahead grinds the gap, in the warning colour when nothing in the guide
+// makes it up; grinding time from the tracker's XP an hour when there is one.
+#[test]
+fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_names_a_quest_too_hard() {
+	let out = run(r#"
+		local stats = { rate = 3400, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function(s) return string.format("%dh %02dm", math.floor(s / 3600), math.floor(s % 3600 / 60)) end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "" end },
+		}
+		uistub.setGuide(uistub.elwynn, 3)
+		local pace
+		Polestar.Levels.Pace = function() return pace end
+		local function line(p, s) pace = p; return GF.PaceText(s) or false end
+		local out = {}
+		out.onPace = line({ target = 20, step = 32, reach = 20.1, bars = 0, short = 0, xp = 0, kind = "goal", live = 30 }, stats)
+		out.ahead = line({ target = 24, step = 21, reach = 25.3, bars = 0, short = 0, xp = 0, kind = "end", live = 3 }, stats)
+		local grind = { target = 20, step = 32, reach = 18.8, bars = 24, short = 1.2, xp = 1700, kind = "goal", live = 30 }
+		out.grind = line(grind, stats)
+		out.grindNoRate = line(grind, nil)
+		out.bars = line({ target = 18.5, step = 12, reach = 18.2, bars = 6, short = 0.3, xp = 850, kind = "goal", live = 10 }, stats)
+		local short = { target = 24, step = 21, reach = 21.6, bars = 48, short = 2.4, xp = 6800, kind = "end", live = 3 }
+		out.none = line(short, stats)
+		out.noneNoRate = line(short, nil)
+		local hard = { target = 24, step = 21, reach = 20.4, bars = 72, short = 3.6, xp = 9000, kind = "end", live = 18,
+			hard = { quest = 219, title = "Missing In Action", level = 25, step = 20, reach = 20.06, need = 23, xp = 3400 } }
+		out.hard = line(hard, stats)
+		out.hardNoRate = line(hard, nil)
+		hard.live = 20
+		out.hardNow = line(hard, stats)
+		pace = grind
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		out.row = GF.xp:IsShown() and GF.xp.Text:GetText()
+		out.nothing = line(nil, stats)
+		out.warn = Polestar.Theme.Hex("warning")
+		emit(out)"#)
+	.remove(0);
+	let warn = |s: &str| format!("|c{}{s}|r", text(&out["warn"]));
+	assert_eq!(out["onPace"], "On pace for level 20 by step 32", "on target: calm, as before");
+	assert_eq!(out["ahead"], "On pace for level 24 by step 21");
+	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
+	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
+	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
+	assert_eq!(out["bars"], "Behind by 6 bars: step 12 grinds to level 18.5 (~0h 15m)", "under a level: the XP bar's bars");
+	// Behind with no grind step: the guide's end level, and how long to grind on the way.
+	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
+	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
+	// A quest that will be 3+ levels over you comes first: which, where, at what level you get there, the fix.
+	assert_eq!(out["hard"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["hardNoRate"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; reach 23 first").as_str());
+	assert_eq!(out["hardNow"], warn("Behind: Missing In Action (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
+	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
+}
+
+// A step whose open quest is 3 or more levels above the character says so under its header (Levels.StepHint),
+// in the warning colour, red from 5 over as the quest log draws it.
+#[test]
+fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
+	let out = run(r#"
+		uistub.player.xp, uistub.player.xpMax = 450, 2800
+		local kill = uistub.guides[uistub.elwynn].steps[3].goals[3]
+		kill.qlvl = 9
+		uistub.setGuide(uistub.elwynn, 3)
+		local hint = GF.parts.person.Level
+		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
+		uistub.setStep(7)
+		local none = hint:IsShown()
+		emit({ red = red, none = none, danger = { Polestar.Theme.Color("danger") } })"#)
+	.remove(0);
+	assert_eq!(out["red"]["shown"], true);
+	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
+	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["danger"]), "5 levels over: red");
+	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
 }
 
 #[test]

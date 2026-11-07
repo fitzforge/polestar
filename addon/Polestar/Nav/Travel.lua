@@ -71,13 +71,15 @@ local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
--- The Hearthstone's hour-long cooldown makes it worth spending only on a long
--- haul (Fitz, 0.3.3: "a 2-minute walk is fine"): a route hearths only when
--- the way without it takes at least HEARTH_MIN_TRIP and hearthing saves at
--- least HEARTH_MARGIN after its cast and loading screen (HEARTH_SECONDS).
+-- The Hearthstone's hour-long cooldown is spent once a trip is long enough
+-- for it to clearly pay (Fitz, #1096: hearth a trip over 3 minutes that it
+-- shortens by 2 or more; 0.3.3's 8 and 5 walked where a hearth was better):
+-- a route hearths only when the way without it takes at least
+-- HEARTH_MIN_TRIP and hearthing saves at least HEARTH_MARGIN after its cast
+-- and loading screen (HEARTH_SECONDS).
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
-local HEARTH_MARGIN = 300    -- seconds it must save: 5 minutes
-local HEARTH_MIN_TRIP = 480  -- seconds the way without it must take: 8 minutes
+local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
+local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
 Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
@@ -1914,6 +1916,19 @@ local function stopZone(s, c)
 	return here and C and C.GetMapName and present(C.GetMapName(here)) or nil
 end
 
+-- A building mouth with an inn's innkeeper this many yards from it is the inn's door: the
+-- chokepoint is named after its area, so Brill's Gallows' End Tavern read "Walk to the Brill
+-- entrance", the town's way in, not the inn's (#1046).
+local INN_DOOR = 30
+
+local function innDoor(c, wx, wy)
+	if not (c and wx and wy) then return false end
+	for _, inn in ipairs(inns) do
+		if inn.c == c and inn.wx and inn.wy and yards(c, wx, wy, inn.c, inn.wx, inn.wy) <= INN_DOOR then return true end
+	end
+	return false
+end
+
 -- A stop's caption: never empty, never "Unknown".
 local function stopLabel(s, c)
 	local kind = CHOKE_BARE[s.kind] and s.kind or "pass"
@@ -1921,6 +1936,8 @@ local function stopLabel(s, c)
 	if place then
 		if s.kind == "lift" and (s.side == "top" or s.side == "bottom") then
 			place = format(s.side == "top" and L["%s, Top"] or L["%s, Bottom"], place)
+		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
+			place = format(L["%s Inn"], place)
 		end
 		return format(CHOKE_TO[kind], place)
 	end

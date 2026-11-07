@@ -5,6 +5,8 @@ mod alts;
 mod automation;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
+#[path = "automation-spoken.rs"]
+mod automation_spoken;
 #[path = "class-quests.rs"]
 mod class_quests;
 mod closes;
@@ -286,6 +288,8 @@ mod ui_picker;
 mod ui_picker_levels;
 #[path = "ui-picker-packs.rs"]
 mod ui_picker_packs;
+#[path = "ui-quest-unlocks.rs"]
+mod ui_quest_unlocks;
 #[path = "ui-route.rs"]
 mod ui_route;
 #[path = "ui-welcome.rs"]
