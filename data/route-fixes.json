@@ -2910,6 +2910,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Winterspring 55-56, #1166): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride back west from Everlook"
+			},
+			{
+				"a": [
+					"turnin",
+					5158
+				],
+				"b": [
+					"accept",
+					91899
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
 			}
 		],
 		"notes": [
