@@ -270,8 +270,11 @@ fn coord(ev: &V) -> Option<Coord> {
 	Some(Coord { map, x, y })
 }
 
-fn same(a: &V, b: &str) -> bool {
-	a.as_str().is_some_and(|a| a.trim().to_lowercase() == b.trim().to_lowercase())
+/// An objective line's text as matched: lower case, trimmed, without the "(Optional)" the game adds to
+/// some lines in some builds (The Great Outdoors' "Sit near the campfire" is recorded both ways).
+fn objective_key(t: &str) -> String {
+	let t = t.trim().to_lowercase();
+	t.strip_suffix("(optional)").map_or(t.clone(), |s| s.trim_end().to_string())
 }
 
 fn ids(v: &V) -> Vec<i64> {
@@ -1568,7 +1571,7 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		}
 		let mut idx = name.as_ref().and_then(|name| {
 			list.iter().enumerate().position(|(i, o)| {
-				!used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| format!("{t}s").trim().to_lowercase() == name.trim().to_lowercase()))
+				!used.contains(&i) && !name.is_empty() && o.get("text").as_str().is_some_and(|t| objective_key(t) == objective_key(name) || objective_key(&format!("{t}s")) == objective_key(name))
 			})
 		});
 		if idx.is_none() {
@@ -2833,5 +2836,29 @@ mod tests {
 		let stats = t.apply(&[session("a", A, "enUS", &cult(true)), session("b", B, "enUS", &other)]);
 		assert_eq!(j(&t.quest("96897").get("objectives")), j(&obj(TIMES).get("96897").get("objectives")));
 		assert_eq!(stats.objective_conflicts, vec![96897]);
+	}
+
+	#[test]
+	fn a_line_recorded_without_the_games_optional_mark_is_the_same_objective() {
+		// The Great Outdoors: the data (a correction) has "Sit near the campfire (Optional)"; players'
+		// clients show the line with and without "(Optional)". Neither adds a third objective.
+		const OUTDOORS: &str = r#"{"96607":{"id":96607,"title":"The Great Outdoors","objectives":[{"type":"event","id":null,"count":1,"text":"Sit near the campfire (Optional)"},{"type":"event","id":null,"count":1,"text":"Gain the Boosted Rest buff"}],"source":["correction"]}}"#;
+		let ev = |optional: bool| -> Vec<String> {
+			let sit = if optional { "Sit near the campfire (Optional)" } else { "Sit near the campfire" };
+			vec![
+				r#"{"t":1,"e":"accept","q":96607}"#.into(),
+				format!(r#"{{"t":2,"e":"objectives","q":96607,"objectives":[{{"type":"object","max":1,"text":"{sit}"}},{{"type":"object","max":1,"text":"Gain the Boosted Rest buff"}}]}}"#),
+				format!(r#"{{"t":3,"e":"progress","q":96607,"oi":1,"cur":1,"max":1,"type":"object","text":"{sit}: 1/1"}}"#),
+				r#"{"t":4,"e":"progress","q":96607,"oi":2,"cur":1,"max":1,"type":"object","text":"Gain the Boosted Rest buff: 1/1"}"#.into(),
+				r#"{"t":5,"e":"complete","q":96607}"#.into(),
+			]
+		};
+		let t = Tables::new(OUTDOORS, "{}", "{}");
+		let mut recs = from(&[A, B, C], &ev(false));
+		recs.push(session("d", "dddddddddddddddd", "enUS", &ev(true)));
+		t.apply(&recs);
+		let objectives = t.quest("96607").get("objectives").items();
+		assert_eq!(objectives.len(), 2, "{}", j(&t.quest("96607").get("objectives")));
+		assert_eq!(objectives[1].get("text").as_str(), Some("Gain the Boosted Rest buff"));
 	}
 }
