@@ -9,6 +9,8 @@ next forever/alliance/06-ashenvale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Business in Auberdine (97894), from Borgus Steelhand on the Stormwind visit before
+# the boat (02-westfall), handed to his brother Gorbold on the first Auberdine stop.
 
 step Boat to Auberdine
   zone Stormwind City
@@ -111,7 +113,8 @@ step Auberdine
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
   vendor nearest
   accept 958 only Dwarf,Gnome,Human,Skyborne
-  accept 982                                  -- Gorbold Steelhand
+  turnin 97894                                -- Gorbold Steelhand
+  accept 982
   accept 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
   accept 965                                  -- Sentinel Elissa Starbreeze
   accept 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender

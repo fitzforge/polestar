@@ -6038,6 +6038,279 @@
 				"q": 494,
 				"reason": "Quest volume, 2026-11-07: Time To Strike (level 20) from Deathstalker Lesh at Southpoint Tower, on the road into Hillsbrad, to Darthalia in Tarren Mill, the first stop there; 9 people took it. It was optional.",
 				"issue": "-"
+			},
+			{
+				"q": 6281,
+				"after": [
+					"turnin",
+					6181
+				],
+				"reason": "Quest volume, 2026-11-07: Continue to Stormwind (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thor gives it with the flight to Stormwind when A Swift Message is handed in on the first Sentinel Hill stop (Humans). Recordings: offered to 14 characters, 12 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6261,
+				"after": [
+					"turnin",
+					6281
+				],
+				"reason": "Quest volume, 2026-11-07: Dungar Longdrink (level 10, from 10, 210 XP) is taken on a visit the route already makes: Osric Strang in Old Town, on that Stormwind errand (Humans). Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6285,
+				"after": [
+					"turnin",
+					6261
+				],
+				"reason": "Quest volume, 2026-11-07: Return to Lewis (level 10, from 10, 1050 XP) is taken on a visit the route already makes: Dungar Longdrink, the Stormwind gryphon master, on the same errand; Quartermaster Lewis is where the flight back lands (Humans). Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97894,
+				"reason": "Quest volume, 2026-11-07: Business in Auberdine (level 17, from 13, 0 XP) is taken on a visit the route already makes: Borgus Steelhand in the Dwarven District, on the Stormwind visit before the boat; his brother Gorbold stands in Auberdine on the first stop. Recordings: offered to 6 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1097,
+				"reason": "Quest volume, 2026-11-07: Elmore's Task (level 15, from 9, 105 XP) is taken on a visit the route already makes: Smith Argus in Goldshire, on the last Goldshire stop; Grimand Elmore takes it on the Stormwind visit at the end of Westfall. Recordings: offered to 25 characters, 19 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 399,
+				"reason": "Quest volume, 2026-11-07: Humble Beginnings (level 15, from 10, 1050 XP) is taken on a visit the route already makes: Baros Alexston in Cathedral Square, on the walk from Stormwind Keep to the gate; the compass is at the Alexston Farmstead on Westfall's west loop, the hand-in on the Stormwind visit before the boat. Recordings: offered to 23 characters, 14 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97220,
+				"reason": "Quest volume, 2026-11-07: Philmor's Favor (level 15, from 9, 550 XP) is taken on a visit the route already makes: Manifest Clerk Philmor stands on the harbour where the boat docks; Elaine Trias' cheese shop is beside the flight master the walk goes to next. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97222,
+				"after": [
+					"turnin",
+					97220
+				],
+				"reason": "Quest volume, 2026-11-07: Gatehouse Goods (level 15, from 9, 800 XP) is taken on a visit the route already makes: Elaine Trias gives it on the same stop; the door is up the stairs of her shop. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 490,
+				"reason": "Quest volume, 2026-11-07: Bounty: Gnarlpine Furbolg (level 8, from 5, 700 XP) is taken on a visit the route already makes: Sentinel Shayla Nightbreeze stands on the road to the Darnassus gate, which the west loop walks; every Gnarlpine furbolg of the barrow and Gnarlpine Hold drops the fangs, and she is passed again on the way to the city. Recordings: offered to 12 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 923,
+				"after": [
+					"turnin",
+					922
+				],
+				"reason": "Quest volume, 2026-11-07: Tumors (level 9, from 4, 980 XP) is taken on a visit the route already makes: Rellian Greenspyre gives it when Denalan's letter (922) is handed in on the early Darnassus visit of the west loop; the timberlings drop the tumors on the walk into the Oracle Glade. Recordings: offered to 16 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2519,
+				"reason": "Quest volume, 2026-11-07: The Temple of the Moon (level 10, from 5, 85 XP) is taken on a visit the route already makes: Sister Aquinne in Darnassus, on the early city visit of the west loop (The Sisterhood of Elune is handed to her there). Recordings: offered to 15 characters, 13 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2518,
+				"after": [
+					"turnin",
+					2519
+				],
+				"reason": "Quest volume, 2026-11-07: Tears of the Moon (level 12, from 5, 1150 XP) is taken on a visit the route already makes: Priestess A'moora, beside Aquinne's errand on the early Darnassus visit; Lady Sathrah lurks just north of the Oracle Glade loop. Recordings: offered to 12 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2520,
+				"after": [
+					"turnin",
+					2518
+				],
+				"reason": "Quest volume, 2026-11-07: Sathrah's Sacrifice (level 12, from 5, 910 XP) is taken on a visit the route already makes: Priestess A'moora on the last Darnassus visit; the fountain is inside her temple. Recordings: offered to 6 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 98067,
+				"reason": "Quest volume, 2026-11-07: Eyes of the Sentinels (level 11, from 1, 660 XP) is taken on a visit the route already makes: Sentinel Dalia Sunblade in the Temple of the Moon on the early Darnassus visit; the four owl spots are on the city walks. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 938,
+				"reason": "Quest volume, 2026-11-07: Mist (level 12, from 7, 910 XP) is taken on a visit the route already makes: Mist lies by the Oracle Glade's west wall among the harpies the loop kills; Sentinel Arynia takes her at the moonwell. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 414,
+				"after": [
+					"turnin",
+					413
+				],
+				"reason": "Quest volume, 2026-11-07: Stout to Kadrell (level 10, from 8, 630 XP) is taken on a visit the route already makes: Mountaineer Barleybrew gives it when Shimmer Stout is handed in at the South Gate Outpost; Kadrell stands in Thelsamar, where the Loch Modan loop goes. Recordings: offered to 13 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 224,
+				"reason": "Quest volume, 2026-11-07: In Defense of the King's Lands (level 12, from 10, 910 XP) is taken on a visit the route already makes: Mountaineer Cobbleflint at the dwarven post just past the Loch Modan tunnel; the troggs camp north of it. Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 267,
+				"reason": "Quest volume, 2026-11-07: The Trogg Threat (level 12, from 10, 910 XP) is taken on a visit the route already makes: Captain Rugelfuss beside Cobbleflint at the tunnel post; the same troggs drop the teeth. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 416,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Rat Catching (level 11, from 10, 880 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; the Tunnel Rat kobolds dig in the west hills on the way to the Algaz Station. Recordings: offered to 14 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 418,
+				"reason": "Quest volume, 2026-11-07: Thelsamar Blood Sausages (level 11, from 7, 880 XP) is taken on a visit the route already makes: Vidra Hearthstove in Thelsamar; the boars, bears and lurkers roam the west hills of the same loop. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1339,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Mountaineer Stormpike's Task (level 15, from 9, 540 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; Mountaineer Stormpike stands at the Algaz Station at the north end of the loop. Recordings: offered to 15 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 307,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Filthy Paws (level 15, from 9, 1350 XP) is taken on a visit the route already makes: Mountaineer Stormpike at the Algaz Station; the crates are in the Silver Stream Mine beside it. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1338,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Stormpike's Order (level 14, from 9, 980 XP) is taken on a visit the route already makes: Mountaineer Stormpike; Furen Longbeard stands in Stormwind's Dwarven District, just outside the tram the route takes. Recordings: offered to 9 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6387,
+				"reason": "Quest volume, 2026-11-07: Honor Students (level 10, from 10, 210 XP) is taken on a visit the route already makes: Brock Stoneseeker in Thelsamar; Thorgrum Borrelson, the gryphon master, is on the same stop. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6391,
+				"after": [
+					"turnin",
+					6387
+				],
+				"reason": "Quest volume, 2026-11-07: Ride to Ironforge (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thorgrum Borrelson in Thelsamar; Golnir Bouldertoe is in Ironforge, where the loop flies to. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6388,
+				"after": [
+					"turnin",
+					6391
+				],
+				"reason": "Quest volume, 2026-11-07: Gryth Thurden (level 10, from 10, 210 XP) is taken on a visit the route already makes: Golnir Bouldertoe in Ironforge; Gryth Thurden is the gryphon master the flight lands at. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6661,
+				"reason": "Quest volume, 2026-11-07: Deeprun Rat Roundup (level 12, from 10, 910 XP) is taken on a visit the route already makes: Monty on the Ironforge platform of the Deeprun Tram, which the route rides to Stormwind. Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6662,
+				"after": [
+					"turnin",
+					6661
+				],
+				"reason": "Quest volume, 2026-11-07: Me Brother, Nipsy (level 12, from 10, 90 XP) is taken on a visit the route already makes: Monty; his brother Nipsy waits on the Stormwind platform of the same ride. Recordings: offered to 3 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 163,
+				"reason": "Quest volume, 2026-11-07: Raven Hill (level 20, from 17, 390 XP) is taken on a visit the route already makes: Elaine Carevin in Darkshire, on the first Darkshire stop; Jitters hides at Raven Hill, which Duskwood's first loop passes. Recordings: offered to 7 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 5,
+				"after": [
+					"turnin",
+					163
+				],
+				"reason": "Quest volume, 2026-11-07: Jitters' Growling Gut (level 20, from 17, 390 XP) is taken on a visit the route already makes: Jitters at Raven Hill; Chef Grual is in Darkshire's tavern, where the loop comes back. Recordings: offered to 5 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 469,
+				"reason": "Quest volume, 2026-11-07: Daily Delivery (level 21, from 18, 830 XP) is taken on a visit the route already makes: Einar Stonegrip stands by the road just north of Howin Kindfeather, whom the Wetlands loop visits; James Halloran is on the Menethil stop that follows. Recordings: offered to 1 characters, 0 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 632,
+				"after": [
+					"turnin",
+					631
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Ebenezer Rustlocke's corpse, where The Thandol Span (631) is handed in; Rhag Garmason stands in Dun Modr on the road back south.",
+				"issue": "-"
+			},
+			{
+				"q": 633,
+				"after": [
+					"turnin",
+					632
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Rhag Garmason in Dun Modr; the cache is at the Arathi end of the span, beside Foggy MacKreel, whom the route visits.",
+				"issue": "-"
+			},
+			{
+				"q": 634,
+				"after": [
+					"turnin",
+					633
+				],
+				"reason": "Quest volume, 2026-11-07: Plea to the Alliance (level 31, from 28, 1250 XP) is taken on a visit the route already makes: Rhag Garmason on the walk back south through Dun Modr; Captain Nials takes it at Refuge Pointe in the Arathi guide.",
+				"issue": "-"
+			},
+			{
+				"q": 1319,
+				"after": [
+					"turnin",
+					1253
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 275 XP) is taken on a visit the route already makes: Captain Garran Vimes gives it when The Black Shield (1253) is handed in on the Theramore stop; Caz Twosprocket is in the same town.",
+				"issue": "-"
+			},
+			{
+				"q": 1320,
+				"after": [
+					"turnin",
+					1319
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 1350 XP) is taken on a visit the route already makes: Caz Twosprocket in Theramore; it goes back to Vimes on the same stop.",
+				"issue": "-"
+			},
+			{
+				"q": 2662,
+				"after": [
+					"turnin",
+					2661
+				],
+				"reason": "Quest volume, 2026-11-07: Noggenfogger Elixir (level 49, from 44, 0 XP) is taken on a visit the route already makes: Marin Noggenfogger gives it when Delivery for Marin is handed in on the Gadgetzan stop; it is handed in to him after a short wait.",
+				"issue": "-"
 			}
 		],
 		"skip": [

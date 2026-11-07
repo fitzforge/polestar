@@ -5587,9 +5587,56 @@ function hordeChainFrom(guide) {
 	return out;
 }
 
+// --- Alliance quest volume (2026-11-07): quests whose givers, work and enders lie on visits our route
+// already makes (a giver it passes, work on its loops, an ender it reaches later) are in the route
+// (data/route-fixes.json, overrides.include, "Quest volume"). Each is taken in the guide named here and
+// handed in there or in a guide after it in the chain; ALLIANCE_VOLUME_HANDIN lists the hand-ins of quests
+// taken in an earlier guide.
+
+const ALLIANCE_VOLUME = {
+	'forever/alliance/02-westfall.guide': [6281, 6261, 6285, 97894], // Continue to Stormwind; Dungar Longdrink; Return to Lewis; Business in Auberdine
+	'forever/alliance/04-redridge-mountains.guide': [163, 5], // Raven Hill; Jitters' Growling Gut
+	'forever/alliance/06-wetlands.guide': [469], // Daily Delivery
+	'forever/alliance/30-40/01-hillsbrad-foothills.guide': [632, 633, 634], // The Thandol Span; The Thandol Span; Plea to the Alliance
+	'forever/alliance/40-50/01-stranglethorn-vale.guide': [1319, 1320], // The Black Shield; The Black Shield
+	'forever/alliance/40-50/07-un-goro-crater.guide': [2662], // Noggenfogger Elixir
+	'forever/alliance/dwarf/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
+	'forever/alliance/gnome/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
+	'forever/alliance/human/01-elwynn-forest.guide': [1097], // Elmore's Task
+	'forever/alliance/nightelf/01-teldrassil.guide': [490, 923, 2519, 2518, 2520, 98067, 938], // Bounty: Gnarlpine Furbolg; Tumors; The Temple of the Moon; Tears of the Moon; Sathrah's Sacrifice; Eyes of the Sentinels; Mist
+	'forever/alliance/nightelf/02-darkshore.guide': [399, 97220, 97222], // Humble Beginnings; Philmor's Favor; Gatehouse Goods
+	'forever/alliance/skyborne/01-zephras-isle.guide': [399], // Humble Beginnings
+};
+const ALLIANCE_VOLUME_HANDIN = {
+	'forever/alliance/02-westfall.guide': [399, 1097], // Humble Beginnings; Elmore's Task
+	'forever/alliance/03-darkshore.guide': [97894], // Business in Auberdine
+	'forever/alliance/30-40/05-arathi-highlands.guide': [634], // Plea to the Alliance
+};
+
+// The guide and every guide its `next` leads to, in order.
+function allianceChainFrom(guide) {
+	const out = [];
+	for (let g = guide; g && !out.includes(g); ) {
+		out.push(g);
+		const next = compiled(g).next;
+		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
+	}
+	return out;
+}
+
 for (const [guide, quests] of Object.entries(HORDE_VOLUME)) test(`${guide}: Horde quest volume: quests on the walk are taken there and handed in, not optional`, { skip }, () => {
 	const here = goals(guide);
 	const later = hordeChainFrom(guide).flatMap((g) => goals(g));
+	for (const q of quests) {
+		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
+		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
+	}
+});
+
+for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: Alliance quest volume: the quests on its visits are taken there and handed in`, { skip }, () => {
+	const here = goals(guide);
+	const later = allianceChainFrom(guide).flatMap((g) => goals(g));
 	for (const q of quests) {
 		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
 		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
@@ -5615,3 +5662,14 @@ test('forever/horde/04-the-barrens.guide: Barrens carry-over: the quests 04 work
 	assert.ok(g02.some(({ goal }) => goal.t === 'turnin' && goal.quest === 819), "Chen's Empty Keg handed in in 02");
 	assert.ok(g02.some(({ goal }) => goal.t === 'turnin' && goal.quest === 865), 'Raptor Horns handed in in 02');
 });
+
+for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME_HANDIN)) test(`${guide}: Alliance quest volume: the quests taken earlier in the chain are handed in here`, { skip }, () => {
+	const here = goals(guide);
+	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}`);
+});
+
+test('Alliance quest volume: every added quest has its include record in the route fixes', () => {
+	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
+	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
+});
+// --- end of Alliance quest volume

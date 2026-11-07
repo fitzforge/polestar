@@ -10,6 +10,8 @@ next forever/alliance/02-westfall
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Humble Beginnings (399), from Baros Alexston on the walk from the Keep to the gate
+# (02-westfall hands it in).
 
 # ---------------------------------------------------------------- Thendal Grove
 
@@ -592,6 +594,11 @@ step Stormwind Keep
   tip Bolvar Fordragon stands in the throne room of Stormwind Keep, at the north end of the city. Then leave by the main gate for Westfall.
   turnin 94947                                -- Highlord Bolvar Fordragon
   accept 98021                                -- For Gryan Stoutmantle at Sentinel Hill
+
+step Baros Alexston
+  zone Stormwind City
+  tip Baros Alexston stands in Cathedral Square, on the way from the Keep to the main gate: his compass is in his old house in Westfall, on the way.
+  accept 399
 
 step Woo Ping
   only Warrior

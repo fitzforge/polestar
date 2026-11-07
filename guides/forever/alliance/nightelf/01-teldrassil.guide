@@ -10,7 +10,9 @@ next forever/alliance/nightelf/02-darkshore
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Grove of the Ancients (952).
+# Added here: Grove of the Ancients (952); Bounty: Gnarlpine Furbolg (490), Tumors (923), The Temple
+# of the Moon (2519), Tears of the Moon (2518), Sathrah's Sacrifice (2520), Eyes of the Sentinels
+# (98067) and Mist (938), with an early Darnassus visit on the west loop.
 
 # ---------------------------------------------------------------- Shadowglen
 
@@ -216,8 +218,27 @@ step The road to Darnassus
   tip Gnarlpine Ambushers hide along the road west of Fel Rock.
   kill 2152 quest 487.1
 
+step Sentinel Shayla Nightbreeze
+  tip West along the road to the city gate: Shayla stands beside it. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and Gnarlpine Hold's all count.
+  accept 490
+
+step Darnassus
+  zone Darnassus
+  tip Into the city through the gate. Rellian Greenspyre is just south of the Cenarion Enclave at the north end, Sister Aquinne in the west, Priestess A'moora and Sentinel Dalia Sunblade in the Temple of the Moon at the south end. On the way back out, use Dalia's Lunar Pendant at the bank and at the city gate; the other two owls wait for your last visit.
+  turnin 922                                  -- Rellian Greenspyre
+  accept 923
+  turnin 98391                                -- Sister Aquinne
+  accept 2519
+  turnin 2519                                 -- Priestess A'moora, in the Temple of the Moon
+  accept 2518
+  accept 98067                                -- Sentinel Dalia Sunblade, beside her
+  use 279378 quest 98067.2 @41.04,43.55       -- Lunar Pendant: the bank, on the way out
+  use 279378 quest 98067.4 @89.14,34.76       -- the city gate
+
 step Ban'ethil Barrow Den
-  tip The barrow is south of the road. Sentinel Lynessa Duskblossom is held inside, Oben Rageclaw sleeps in its depths, and the four relic chests sit in the lower rooms.
+  zone Teldrassil
+  tip The barrow is south of the road. Sentinel Lynessa Duskblossom is held inside, Oben Rageclaw sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.
+  collect 5220 quest 490.1                    -- Gnarlpine Fang: any Gnarlpine furbolg
   collect 3405 quest 483.1            -- Below ground
   accept 2541                                 -- Oben Rageclaw, below ground
   collect 3406 quest 483.2            -- Below ground
@@ -242,8 +263,9 @@ step The Pools of Arlithrien
   collect 5645 quest 933.1 @42.4,67.1         -- Use the Tourmaline Phial at the moonwell
 
 step Gnarlpine Hold
-  tip South of the pools. The Strange Fruited Plant grows by the Hold.
+  tip South of the pools. The Strange Fruited Plant grows by the Hold; the furbolgs around it drop the rest of the fangs.
   accept 930                                  -- Strange Fruited Plant
+  collect 5220 quest 490.1                    -- Gnarlpine Fang: any Gnarlpine furbolg
 
 # ---------------------------------------------------------------- Back to Dolanaar
 
@@ -273,6 +295,10 @@ step Dolanaar
   tip The road west to the Oracle Glade runs through Dolanaar: hand Tallonkai the jewel on the way.
   turnin 2459                                 -- Tallonkai Swiftroot, upstairs
 
+step The Wellspring River
+  tip West from Dolanaar the road crosses the Wellspring River below the glade: the timberlings along it drop the Mossy Tumors.
+  collect 5170 quest 923.1                    -- Mossy Tumor: timberlings
+
 step The Oracle Glade
   tip The moonwell is in the middle of the glade. The Strange Fronded Plant grows at its north end.
   accept 937                                  -- Sentinel Arynia Cloudsbreak, by the moonwell
@@ -284,13 +310,16 @@ step The Oracle Glade
 # ---------------------------------------------------------------- The Oracle Glade and Ursal
 
 step Bloodfeather harpies
-  tip The Bloodfeather harpies nest on the slopes west and north of the glade.
+  tip The Bloodfeather harpies nest on the slopes west and north of the glade. Mist, an injured sabercat, lies by the glade's west wall among them: lead her back to Sentinel Arynia at the moonwell before her time runs out.
   tip Careful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them.
   collect 5204 quest 937.1                    -- Bloodfeather Belt
+  accept 938                                  -- Mist, by the west wall
+  complete 938 @38.3,34.4                     -- Lead Mist to the moonwell
 
 step Sentinel Arynia Cloudsbreak
   tip Back to the moonwell.
   turnin 937
+  turnin 938
   accept 98392
 
 step The named harpies
@@ -298,6 +327,10 @@ step The named harpies
   collect 280831 quest 98392.1                -- Hatescreech's Amulet
   collect 280832 quest 98392.2                -- Windmistress Gaedress' Amulet
   collect 280834 quest 98392.3                -- Witchmother Arysa's Amulet
+
+step Lady Sathrah
+  tip North of Witchmother Arysa, along the island's northern edge by Wellspring Lake: Lady Sathrah, a level 12 spider, lurks there.
+  collect 8344 quest 2518.1                   -- Silvery Spinnerets: Lady Sathrah
 
 step The Oracle Glade
   accept 931                                  -- Strange Fronded Plant
@@ -358,6 +391,10 @@ step Sentinel Eralya Leafshadow
   tip Take the road north-west from Dolanaar again; she still lies beside it, on the way to Darnassus.
   turnin 99073
 
+step Sentinel Shayla Nightbreeze
+  tip On to the city gate: Shayla still stands beside the road.
+  turnin 490
+
 step Into Darnassus
   only Warrior
   zone Darnassus
@@ -390,24 +427,30 @@ step Back to Darnassus
 
 step Darnassus
   zone Darnassus
-  tip Follow the road west into Darnassus. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia and Tyrande Whisperwind are in the Temple of the Moon at the south end. Sister Aquinne is in the west of the city, on the way to the pink portal down to Rut'theran.
+  tip Follow the road west into Darnassus and use the Lunar Pendant at the inn on the Craftsmen's Terrace and at the tunnel mouth below Cenarion Hold for the last two owls. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia, Tyrande Whisperwind, Priestess A'moora and Sentinel Dalia Sunblade are in the Temple of the Moon at the south end.
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
   accept 6344 only !Warrior                   -- Mydrannul
+  use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
   turnin 935                                  -- Arch Druid Fandral Staghelm, in the Cenarion Enclave
   turnin 940
   accept 952
 
 step Cenarion Enclave
   zone Darnassus
+  use 279378 quest 98067.1 @33.39,16.77       -- the tunnel mouth below Cenarion Hold
   accept 98046
   turnin 6103 only Hunter                     -- Jocaste, in the Cenarion Enclave: Beast Training
   turnin 5925 only Druid                      -- Mathrengyl Bearwalker, in the Cenarion Enclave
   accept 5921 only Druid
-  turnin 922                                  -- Rellian Greenspyre
-  turnin 98391                                -- Sister Aquinne
+  turnin 923                                  -- Rellian Greenspyre
   turnin 98046                                -- Lariia, in the Temple of the Moon
   accept 98065
   turnin 98065                                -- Tyrande Whisperwind, above Lariia
+  turnin 2518                                 -- Priestess A'moora
+  accept 2520
+  use 8155 quest 2520.1 @39.18,85.59          -- Sathrah's Sacrifice, standing in the temple's central fountain
+  turnin 2520                                 -- Priestess A'moora
+  turnin 98067                                -- Sentinel Dalia Sunblade
   turnin 5629 only Priest                     -- Priestess Alathea, in the Temple of the Moon: Starshards
 
 step Ilyenia Moonfire
