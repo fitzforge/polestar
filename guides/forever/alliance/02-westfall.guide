@@ -254,9 +254,6 @@ step Stormwind
   when onquest 61
   turnin 61 only Human                        -- Morgan Pestle, Trade District
 
-step Stormwind City
-  buy 6530 x3 npc 5494                        -- Nightcrawlers
-
 step Woo Ping
   only Warrior
   zone Stormwind City
