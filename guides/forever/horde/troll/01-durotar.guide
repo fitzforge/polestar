@@ -74,10 +74,10 @@ step Valley of Trials: kill these as you meet them
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
   collect 4905 quest 790.1
-  kill 3101 quest 792.1 only !Warlock
-  collect 6487 quest 1485.1 only Warlock
   turnin 790
   accept 804
+  kill 3101 quest 792.1 only !Warlock
+  collect 6487 quest 1485.1 only Warlock
 
 step Back to the Den
   turnin 4402                         -- Galgar
@@ -213,6 +213,7 @@ step Tiragarde Keep
   collect 4870 quest 791.1
 
 step Razor Hill
+  turnin 96822                        -- Turroc, inside
   accept 806
   turnin 784                          -- Gar'Thok
   turnin 830 optional
@@ -220,7 +221,6 @@ step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-  turnin 96822                        -- Turroc, inside
 
 # ---------------------------------------------------------------- The coast and Sen'jin
 step Scuttle Coast: kill these as you meet them
@@ -246,6 +246,16 @@ step Echo Isles: kill these as you meet them
   collect 4866 quest 826.3
   collect 4864 quest 808.1 @67.4,87.8
 
+step Sen'jin Village
+  turnin 96873 optional               -- Pa'zula
+  turnin 817                          -- Vel'rin Fang
+  turnin 818                          -- Master Vornal
+  turnin 826
+  turnin 808
+  turnin 97225                        -- Master Gadrin
+  turnin 97223                        -- Xar'Ti
+  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
+
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
   accept 99123 @46.3,78.7
@@ -256,15 +266,7 @@ step Kolkar Crag
   interact 3189 quest 786.1 @49.8,81.3
 
 step Sen'jin Village
-  turnin 96873 optional               -- Pa'zula
-  turnin 817                          -- Vel'rin Fang
-  turnin 818                          -- Master Vornal
   turnin 99123                        -- Master Vornal
-  turnin 826
-  turnin 808
-  turnin 97225                        -- Master Gadrin
-  turnin 97223                        -- Xar'Ti
-  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
   turnin 786                          -- Lar Prowltusk
 
 step Razor Hill

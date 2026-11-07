@@ -5362,6 +5362,39 @@
 					844
 				],
 				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
+			},
+			{
+				"a": [
+					"turnin",
+					97225
+				],
+				"b": [
+					"accept",
+					99123
+				],
+				"why": "#1077 (candidate v2 read): the Echo Isles hand-ins go in at Sen'jin before Kolkar Crag. The v2 route walked from the isles past Sen'jin to the crag with six finished quests (817, 818, 826, 808, 97223, 97225) and handed them in on the way back; the crag's own work (Pal'juh 99123, the attack plans 786) is what the second Sen'jin stop is for"
+			},
+			{
+				"a": [
+					"turnin",
+					790
+				],
+				"b": [
+					"task",
+					792
+				],
+				"why": "Durotar (candidate v2 read): Sarkoth is handed to Hana'zua on the slope before the Vile Familiars, as the shipped guide does; the v2 route killed the familiars first and walked past Hana'zua with Sarkoth's claw"
+			},
+			{
+				"a": [
+					"turnin",
+					96822
+				],
+				"b": [
+					"accept",
+					806
+				],
+				"why": "Durotar (candidate v2 read): For Honor goes to Turroc first on the Razor Hill stop after Tiragarde Keep (the way in passes him), as the shipped guide does; the v2 route handed it in last, after training"
 			}
 		]
 	}
