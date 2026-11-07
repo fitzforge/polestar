@@ -138,6 +138,9 @@ L["Only once %s is handed in"] = "Seulement une fois %s rendue"
 L["Skipped for your character: its conditions do not hold"] = "Passée pour votre personnage : ses conditions ne sont pas remplies"
 L["Skipped for your character: none of its goals apply"] = "Passée pour votre personnage : aucun de ses objectifs ne s'applique"
 L["For %s: %s"] = "Pour %s : %s"
+-- L["Hand in %s to %s"] = ""
+-- L["Hand in %s"] = ""
+-- L["%s, %d more"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
@@ -1299,6 +1302,11 @@ L["Click to show or hide the party panel."] = "Cliquez pour afficher ou masquer 
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["While you're here:"] = ""
+-- L["(step %d)"] = ""
+-- L["Not now (right-click)"] = ""
+-- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
+-- L["Right-click: not now, for the rest of this zone."] = ""
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
@@ -2052,6 +2060,13 @@ L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = ""
+-- L["How close"] = ""
+-- L["How near its spawn area must be for the line to show. It goes again a little further out."] = ""
+-- L["Include nearby hand-ins"] = ""
+-- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
+-- L["While you're here sound"] = ""
+-- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
 -- L["Wait for Spoken"] = ""
 -- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
@@ -2960,6 +2975,9 @@ L["Finished: %s - %s"] = "Terminé : %s - %s"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
 -- L["No dungeon has opened up for this character."] = ""
 -- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
+
+-- UI/WhileHere.lua
+-- L["While you're here"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

@@ -1975,6 +1975,19 @@ local function layoutAfter(width)
 	return h
 end
 
+-- "While you're here: <what> (step N)  45 yd  ×": one line; the text gives
+-- way to the distance and the close button, cut with an ellipsis. (On GF:
+-- the main chunk is at Lua's 200 locals.)
+GF.HERE_H = 28
+function GF.LayoutHere(width)
+	local h, here = GF.HERE_H, GF.here
+	here.Body:SetSize(width, h)
+	local right = PAD - 4 + here.Close:GetWidth() + 4 + floor(here.Dist:GetStringWidth() + 1) + 8
+	here.Text:SetWidth(max(40, width - (TEXT_X - 2 + 13 + 9) - right))
+	here:SetHeight(h)
+	return h
+end
+
 local layoutUpnext, layoutAlong
 do
 	-- An Up next or Along the way row at y in its frame, `width` wide: its
@@ -2185,6 +2198,8 @@ function GF.Layout()
 		y = y + fit.fixed + content
 		fit.from = y
 		y = stackJourney(y, width)
+		-- "While you're here": between the step's goals and "Then:".
+		if GF.here:IsShown() then y = stack(GF.here, y, GF.LayoutHere(width)) end
 		if after:IsShown() then y = stack(after, y, layoutAfter(width)) end
 		if along:IsShown() then y = stack(along, y, layoutAlong(width)) end
 		if upnext:IsShown() then y = stack(upnext, y, layoutUpnext(width)) end
@@ -2597,6 +2612,72 @@ local function fillAlong(E)
 	end
 	along.Label:SetText((untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
 	along:SetShown(n > 0)
+end
+
+-- "While you're here" (Engine.GetWhileHere): a quick objective of a later
+-- step close by, on one line under the step's goals, never in the compact
+-- window (the toast, UI/WhileHere.lua, says it there). A new line slides in
+-- from the left as it fades in (Anim.BASE, strong ease-out); a line that goes
+-- slides back out faster (Anim.FAST) before the window closes the gap.
+-- Under ui.reduceMotion it only fades (Anim). psKey: "<step>:<goal>" of the
+-- line on screen, nil while none is. (On GF: the main chunk is at Lua's 200
+-- locals.)
+GF.HERE_DIST = { round = 5 }
+function GF.HereLine(v)
+	return "|c" .. Theme.Hex("accent") .. L["While you're here:"] .. "|r " .. (v.hereText or "")
+		.. "  |c" .. Theme.Hex("textDim") .. string.format(L["(step %d)"], UI.StepNo(v.step)) .. "|r"
+end
+
+function GF.FillHere(E)
+	local v = not compact() and E.GetWhileHere and E.GetWhileHere() or nil
+	local here = GF.here
+	local body = here.Body
+	if not v then
+		local was = here.psKey
+		here.psKey, here.psView = nil, nil
+		if was and here:IsShown() and F:IsVisible() and not GF.catchingUp then
+			Anim.To(body, "offsetX", 0, -6, Anim.FAST, "out")
+			Anim.To(body, "alpha", body:GetAlpha(), 0, Anim.FAST, "out", function()
+				if not here.psKey then
+					here:Hide()
+					GF.Layout()
+				end
+			end)
+		elseif not Anim.IsRunning(body, "alpha") then
+			here:Hide()
+		end
+		return
+	end
+	local key = v.step .. ":" .. v.index
+	local fresh = here.psKey ~= key
+	local wasShown = here:IsShown()
+	here.psKey, here.psView = key, v
+	here.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
+	here.Text:SetText(GF.HereLine(v))
+	here.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
+	here:Show()
+	if fresh and F:IsVisible() and not GF.catchingUp then
+		Anim.To(body, "alpha", wasShown and body:GetAlpha() or 0, 1, Anim.BASE, "out")
+		Anim.To(body, "offsetX", -8, 0, Anim.BASE, "out")
+	elseif not Anim.IsRunning(body, "alpha") then
+		body:SetAlpha(1)
+		Anim.Anchor(body, "TOPLEFT", here, "TOPLEFT", 0, 0)
+	end
+end
+
+-- WHILE_HERE_CHANGED: the line came, changed or went.
+function GF.HereChanged()
+	if not F or state ~= "steps" or not view then return end
+	GF.FillHere(Engine())
+	GF.Layout()
+end
+
+-- WHILE_HERE_MOVED: only its distance changed.
+function GF.HereMoved(yards)
+	local here = GF.here
+	if not (F and here and here.psView and type(yards) == "number") then return end
+	here.Dist:SetText(ns.FormatDistance(yards, GF.HERE_DIST))
+	if here:IsShown() then GF.LayoutHere(F:GetWidth()) end
 end
 
 -- "Then: Gazrog": the next step's first person, once this step has no one
@@ -3118,6 +3199,7 @@ local function showSteps(show)
 	card:SetShown(show)
 	after:SetShown(show and after:IsShown())
 	along:SetShown(show and along:IsShown())
+	GF.here:SetShown(show and GF.here:IsShown())
 	upnext:SetShown(show and upnext:IsShown())
 	empty:SetShown(not show)
 end
@@ -3175,6 +3257,7 @@ function GF.Render()
 	local groups, focus = fillCard(not focusChanged)
 	fillAfter(E, index, groups, focus)
 	fillAlong(E)
+	GF.FillHere(E)
 	fillUpcoming(E, index)
 	showSteps(true)
 	GF.Layout()
@@ -3209,6 +3292,7 @@ function GF.Update()
 	fillCard(true)
 	fillAfter(E, index, groups, focus)
 	fillAlong(E)
+	GF.FillHere(E)
 	GF.Layout()
 	GF.PaintProgress(true)
 	followCurrent(false)
@@ -3897,6 +3981,65 @@ local function draggable(frame)
 	return hoverable(frame)
 end
 
+function GF.BuildHere()
+	-- While you're here (fillHere): one line, a soft accent wash with an accent
+	-- edge, the verb's glyph in the accent, the text, the distance and a close
+	-- button. Left-click leads the arrow there, right-click (or the close
+	-- button) dismisses it for this zone. `Body` carries what moves.
+	local here = CreateFrame("Button", nil, body)
+	GF.here = here
+	here:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	here:SetHeight(GF.HERE_H)
+	W.Hover(here)
+	local hb = CreateFrame("Frame", nil, here)
+	hb:SetSize(300, GF.HERE_H)
+	Anim.Anchor(hb, "TOPLEFT", here, "TOPLEFT", 0, 0)
+	here.Body = hb
+	here.Wash = hb:CreateTexture(nil, "BACKGROUND", nil, -5)
+	here.Wash:SetTexture(Theme.Media("white"))
+	W.Color(here.Wash, "accent", 0.08)
+	here.Wash:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD - 6, -3)
+	here.Wash:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -(PAD - 6), 3)
+	here.Edge = hb:CreateTexture(nil, "ARTWORK")
+	here.Edge:SetTexture(Theme.Media("white"))
+	W.Color(here.Edge, "accent", 0.9)
+	here.Edge:SetPoint("TOPLEFT", here.Wash, "TOPLEFT", 0, 0)
+	here.Edge:SetPoint("BOTTOMLEFT", here.Wash, "BOTTOMLEFT", 0, 0)
+	here.Edge:SetWidth(2)
+	here.Icon = hb:CreateTexture(nil, "ARTWORK")
+	here.Icon:SetSize(13, 13)
+	W.Color(here.Icon, "accent")
+	here.Icon:SetPoint("LEFT", hb, "LEFT", TEXT_X - 2, 0)
+	here.Close = W.IconButton(hb, "close", 18, L["Not now (right-click)"], function() local E = Engine(); if E and E.DismissWhileHere then E.DismissWhileHere() end end)
+	here.Close:SetPoint("RIGHT", hb, "RIGHT", -(PAD - 4), 0)
+	here.Dist = T(hb, "small", "textMuted")
+	here.Dist:SetJustifyH("RIGHT")
+	here.Dist:SetPoint("RIGHT", here.Close, "LEFT", -4, 0)
+	here.Text = T(hb, "label", "text")
+	here.Text:SetPoint("LEFT", here.Icon, "RIGHT", 9, 0)
+	here:SetScript("OnClick", function(_, button)
+		local E = Engine()
+		if not E then return end
+		if button == "RightButton" then
+			if E.DismissWhileHere then E.DismissWhileHere() end
+		elseif E.AimWhileHere then
+			E.AimWhileHere()
+		end
+	end)
+	here:SetScript("OnEnter", function(self)
+		local v = self.psView
+		if not v then return end
+		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. (v.hereText or ""), {
+			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
+			{ L["Click to point the arrow here"], Theme.Accent() },
+			{ L["Right-click: not now, for the rest of this zone."], Theme.Color("textDim") },
+		})
+		GF.HoverIn()
+	end)
+	here:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	here:Hide()
+end
+
 local function build()
 	readMetrics()
 	F = CreateFrame("Frame", "PolestarGuideFrame", UIParent)
@@ -4163,6 +4306,7 @@ local function build()
 	along.Label = T(along, "small", "textMuted")
 	along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
 	along:Hide()
+	GF.BuildHere()
 
 	upnext = CreateFrame("Frame", nil, body)
 	local toggle = CreateFrame("Button", nil, upnext)
@@ -4335,7 +4479,7 @@ local function build()
 
 	GF.parts = {
 		strip = strip, nav = nav, body = body, card = card, person = person, tip = tip, after = after,
-		along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line,
+		along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line, here = GF.here,
 		goals = goals,
 	}
 	GF.chrome = chrome
@@ -4410,6 +4554,8 @@ ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
 ns.On("PACKS_CHANGED", whenReady(GF.Render))
 ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
 ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
+ns.On("WHILE_HERE_CHANGED", whenReady(GF.HereChanged))
+ns.On("WHILE_HERE_MOVED", whenReady(GF.HereMoved))
 -- The screen's height changed (resolution, the game's UI scale): the
 -- height cap follows.
 ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
