@@ -13,6 +13,9 @@ section: players
 - After the second Wetlands visit the boat takes you straight on to
   Ashenvale's 27-32 quests (they used to wait until 33-34), Making Do goes to
   Thundris on the way, and the grind to 28 before Pilot Longbeard is gone.
+  From the Ashes is taken with War Banners, its attack plans fetched at the
+  Angerfang camp on the walk east from the dig, and both are handed in on one
+  Menethil stop: no walk back east for the plans.
 - The Thandol Span quests are done on the Dun Modr visit before the Southshore
   boat, where the route already crosses the span, instead of a walk back onto
   the span from Arathi at 37. This shortens the top-up there if you skip

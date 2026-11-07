@@ -95,6 +95,7 @@ step Menethil Harbor
   accept 289
   accept 281                              -- Karl Boran, on the pier north of the inn
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
+  accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
   accept 98230                            -- Captain Stoutfist: for Howin Kindfeather in the Green Belt
   accept 472                              -- Harlo Barnaby, by the north gate
   accept 471                              -- James Halloran, by the north gate
@@ -161,20 +162,23 @@ step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
-  tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
   collect 2661 quest 299                  -- Neru Fragment: the Loose Soil
   tip Goaz Warder is elite: grouping up is advised.
   collect 279993 quest 98216.1 optional        -- Titanic Keystone
-  collect 3337 quest 464                  -- Dragonmaw War Banner
   collect 3638 quest 296                  -- Sarltooth's Talon
 
 step Ormer and Whelgar
   turnin 296                              -- Ormer Ironbraid
   turnin 98216 optional                        -- Below ground
   turnin 299                              -- Prospector Whelgar
+
+step Angerfang Encampment
+  tip South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
+  complete 98221 @53.5,54.5
+  collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden
   tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river.
@@ -215,15 +219,7 @@ step Dun Modr
 step Captain Stoutfist
   tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
   turnin 464                              -- On the top floor
-  accept 98221                            -- From the Ashes: Nek'rosh's Gambit comes after it on Forever
-
-step Angerfang Encampment
-  tip Head east again to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
-  complete 98221 @53.5,54.5
-
-step Menethil Harbor
-  tip Back west along the road to Menethil Harbor.
-  turnin 98221                            -- Captain Stoutfist, in Menethil Keep; on the top floor
+  turnin 98221
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
 # ---------------------------------------------------------------- Ashenvale

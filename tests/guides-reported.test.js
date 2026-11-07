@@ -1175,10 +1175,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 425, [91921]],
 		[SILVERPINE, 98298, [99], true],
 		[WESTFALL, 92911, [92910], true],
-		// Lou-Saydus (#225): Forever puts From the Ashes between War Banners
-		// and Nek'rosh's Gambit, so Captain Stoutfist did not offer 465 when
-		// War Banners was handed in.
-		[WETLANDS, 98221, [464]],
+		// Lou-Saydus (#225): Forever puts From the Ashes before Nek'rosh's Gambit, so Captain
+		// Stoutfist did not offer 465 when War Banners was handed in. From the Ashes itself is
+		// offered together with War Banners (players' recordings), so it has no row here.
 		[WETLANDS, 465, [98221]],
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.
@@ -3948,6 +3947,12 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	const branch = idx('turnin 1031', 'turnin', 1031);
 	const pilot = idx('accept 1179', 'accept', 1179);
 	assert.ok(ashes < making && making < shindrell && shindrell < branch && branch < pilot, 'Menethil, Thundris, Ashenvale, then Pilot Longbeard');
+	// From the Ashes is taken with War Banners, its plans on the walk east from the dig, both handed in on one stop.
+	const takeAshes = idx('accept 98221', 'accept', 98221);
+	assert.equal(wet[takeAshes].s, wet[idx('accept 464', 'accept', 464)].s, 'From the Ashes taken with War Banners');
+	assert.ok(idx('complete 98221 (plans)', 'complete', 98221) < idx('accept 277 (Rethiel)', 'accept', 277), 'the plans on the walk east, before Rethiel');
+	assert.equal(wet[ashes].s, wet[idx('turnin 464', 'turnin', 464)].s, 'War Banners and From the Ashes handed in on one stop');
+	assert.equal(wet[ashes].s, wet[idx('accept 465', 'accept', 465)].s, "and Nek'rosh's Gambit taken there");
 	for (const q of [1026, 1035, 1046, 1022, 1140]) assert.ok(wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in on the Ashenvale trip`);
 	assert.ok(!wet.some(({ goal }) => goal.t === 'level'), 'no written top-up in 06-wetlands');
 	assert.ok(!wet.some(({ goal }) => goal.quest === 526), 'Lightforge Ingots (526, needs 324) is not taken at 27');

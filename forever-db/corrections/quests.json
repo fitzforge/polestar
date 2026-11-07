@@ -4163,18 +4163,20 @@
 	},
 	"98221": {
 		"set": {
-			"pre": [
-				464
-			],
-			"preAny": [
-				464
-			]
+			"pre": [],
+			"preAny": []
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "issue #225"
-		},
-		"note": "From the Ashes (Wetlands, Captain Stoutfist) is the Forever step between War Banners 464 and Nek'rosh's Gambit 465: the player in issue #225 reported it in game as the next quest in the chain after War Banners. The merged data had no prerequisite, so only route-fixes pairs held it after 464, and the writer's hub tour, which reads the data, moved its accept before the War Banners hand-in (c13 07-thousand-needles:224)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): both characters who took From the Ashes accepted it from Captain Stoutfist right after War Banners (464), on the same visit, before handing War Banners in; one had not done Report to Captain Stoutfist (473) either"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #225"
+			}
+		],
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Angerfang Encampment on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners."
 	},
 	"98252": {
 		"set": {

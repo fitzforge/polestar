@@ -600,17 +600,6 @@
 			{
 				"a": [
 					"turnin",
-					464
-				],
-				"b": [
-					"accept",
-					98221
-				],
-				"why": "Thousand Needles, Lou-Saydus #225"
-			},
-			{
-				"a": [
-					"turnin",
 					98221
 				],
 				"b": [
@@ -2201,6 +2190,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 re-order (2026-11-08): the Thandol Span chain (631-633) is worked on 30-40/01-hillsbrad-foothills' Dun Modr visit, which already crosses the span (Foggy MacKreel, the Waterlogged Envelope), before the walk back south to Howin Kindfeather; 30-40/05-arathi-highlands walked back onto the span for 631 alone at 37-39."
+			},
+			{
+				"a": [
+					"task",
+					98221
+				],
+				"b": [
+					"accept",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
 			}
 		],
 		"notes": [
@@ -3153,6 +3154,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
+			},
+			{
+				"a": [
+					"turnin",
+					464
+				],
+				"b": [
+					"turnin",
+					98221
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): War Banners and From the Ashes are taken from Captain Stoutfist together on the first Menethil stop of 06-wetlands (players' recordings: both characters who took From the Ashes took it with War Banners) and handed in together on the last one, with Nek'rosh's Gambit taken there, instead of War Banners in, a walk east to the Angerfang Encampment for the plans and back to Menethil."
 			}
 		],
 		"after": [

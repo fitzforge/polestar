@@ -210,7 +210,6 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(SILVERPINE, 425, &[91921], false),
 		(SILVERPINE, 98298, &[99], true),
 		(WESTFALL, 92911, &[92910], true),
-		(WETLANDS, 98221, &[464], false),
 		(WETLANDS, 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
 		(SILVERPINE, 95981, &[482], false),
