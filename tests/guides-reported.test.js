@@ -5672,3 +5672,26 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+// --- Alliance quest volume, flow follow-up (2026-11-07): the stops the added quests cost are folded
+// into walks the route makes anyway (the release audit's flow findings on the quest-volume batch).
+test('Alliance quest volume follow-up: the added quests ride on walks the route already makes', { skip }, () => {
+	const first = (list, pred) => list.findIndex(({ goal }) => pred(goal));
+	const tel = goals('forever/alliance/nightelf/01-teldrassil.guide');
+	assert.ok(first(tel, is('turnin', 490)) < first(tel, is('accept', 937)), 'Teldrassil: the fang bounty is handed to Shayla on the way to the Oracle Glade');
+	assert.ok(first(tel, is('accept', 931)) < first(tel, (g) => g.t === 'collect' && g.quest === 2518), 'Teldrassil: the Strange Fronded Plant is taken on the walk north to Lady Sathrah');
+	const owl = first(tel, (g) => g.t === 'use' && g.quest === 98067 && g.oi === 1);
+	assert.ok(owl > first(tel, is('accept', 98046)) && owl < first(tel, is('turnin', 923)), 'Darnassus: the tunnel-mouth owl is placed on the walk south from the Enclave');
+	const ne = goals('forever/alliance/nightelf/02-darkshore.guide');
+	assert.ok(first(ne, is('accept', 399)) < first(ne, (g) => g.t === 'getfp' && g.location === 'Stormwind'), 'Night Elf Darkshore: Baros before the Stormwind flight master');
+	for (const dm of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide']) {
+		const list = goals(dm);
+		assert.ok(first(list, (g) => g.t === 'getfp' && g.location === 'Ironforge') < first(list, is('turnin', 6391)), `${dm}: the Ironforge flight path where the flight lands`);
+	}
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	assert.ok(first(wet, is('turnin', 469)) > first(wet, is('accept', 465)), 'Wetlands: Halloran after Stoutfist');
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.ok(first(stv, is('turnin', 1319)) > first(stv, is('turnin', 1222)), 'Theramore: Caz on the way out, after Morgan Stern');
+	assert.equal(first(stv, is('turnin', 1320)), -1, 'The Black Shield (1320) is not walked back to Vimes on the same stop');
+	assert.ok(first(goals('forever/alliance/40-50/02-badlands.guide'), is('turnin', 1320)) >= 0, 'it goes to Vimes on the next Theramore stop');
+});
