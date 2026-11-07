@@ -94,13 +94,13 @@ step A Moon-Kissed Blade
 step The Enchanted Silver Ingot
   tip Shadowfang Keep is the dungeon in south Silverpine, for a group of five in the low to mid 20s. The ingot sits on the table next to Archmage Arugal at the very end. A friend's cleared instance works: walk in and run to the table.
   goto 44.8,67.8 live "Shadowfang Keep"
-  collect 267361 quest 95036.2 @44.8,67.8 live -- Enchanted Silver Ingot, on Arugal's table
+  collect 267361 quest 95036.3 @44.8,67.8 live -- Enchanted Silver Ingot, on Arugal's table
 
 step Whitestone Oak Lumber
   zone Westfall
   tip The Deadmines lies under Moonbrook in Westfall, Alliance land: a group of five at about 17-24. The way in is the Moonbrook mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time.
   goto 42.5,71.7 live "The Deadmines, in the Moonbrook mine"
-  collect 6994 quest 95036.1 @42.5,71.7 live -- Goblin Woodcarvers, inside
+  collect 6994 quest 95036.2 @42.5,71.7 live -- Goblin Woodcarvers, inside
 
 step Ulric Frostveil
   zone Ashenvale
