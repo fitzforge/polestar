@@ -206,7 +206,7 @@ step Maestra's Post
   turnin 973                              -- Delgren the Purifier
 
 step Astranaar
-  hearth "Astranaar"                  -- Hearthstone on cooldown? Follow the road south-east from Maestra's Post.
+  tip Follow the road south-east from Maestra's Post back to Astranaar.
   turnin 1008                         -- Shindrell Swiftfire
 
 # ---------------------------------------------------------------- Menethil Harbor

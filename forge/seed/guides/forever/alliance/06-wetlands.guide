@@ -218,7 +218,7 @@ step Angerfang Encampment
   complete 98221 @53.5,54.5
 
 step Menethil Harbor
-  hearth "Deepwater Tavern"
+  tip Back west along the road to Menethil Harbor.
   turnin 98221                            -- Captain Stoutfist, in Menethil Keep; on the top floor
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
