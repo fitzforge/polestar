@@ -2346,6 +2346,54 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Elwynn Forest): Warlocks took Gakin's Summons (1685, level 10) on a walk back to Goldshire from Westbrook Garrison (steps 73-74 on 0.3.4), which every class walked for a training stop; the model is level 10 on the Goldshire stop before it. The seed (re-seeded for this) takes it on that stop."
+			},
+			{
+				"a": [
+					"accept",
+					659
+				],
+				"b": [
+					"turnin",
+					98219
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore from the boat: the pier leads up to the inn, so Phin Odelic, Farren and the inn's NPCs (innkeeper, Kelly, Bilger below, Chef upstairs) come first, then Darren, the flight master, Micha and Bartolo at the north end, then Maleb and Jacques on the west side; the route went to the flight master at the far north end first and came back down through the town."
+			},
+			{
+				"a": [
+					"accept",
+					564
+				],
+				"b": [
+					"accept",
+					565
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore in walking order: Darren Malvew east of the inn before Bartolo Ginsetti by the flight master."
+			},
+			{
+				"a": [
+					"accept",
+					565
+				],
+				"b": [
+					"accept",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Southshore in walking order: Bartolo at the north end before Magistrate Maleb in the town hall on the way back south to the coast."
+			},
+			{
+				"a": [
+					"turnin",
+					1247
+				],
+				"b": [
+					"accept",
+					690
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Stormwind: Elling Trias (Trade District) takes The Missing Diplomat after the Cathedral, on the way to the Mage Quarter and the harbour, instead of a walk back east from the Mage Quarter (278 yd) and then 603 yd west to the boat."
 			}
 		],
 		"notes": [
@@ -3345,6 +3393,30 @@
 				],
 				"faction": "Horde",
 				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
+			},
+			{
+				"a": [
+					"turnin",
+					562
+				],
+				"b": [
+					"accept",
+					563
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Farren hands out Reassignment when Stormwind Ho! is handed in; the route split the two by a spice purchase across town (Farren, Micha, back to Farren), as the seed does not."
+			},
+			{
+				"a": [
+					"task",
+					510
+				],
+				"b": [
+					"task",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): the Syndicate Footpads and Thieves for Syndicate Assassins stand at the camp that holds the Syndicate Documents: one visit, as the seed has it. The route listed them on the way, sent players to a point in north-west Alterac (29.6,37.5, about 1,000 yd past the camp) and back to the camp for them after the turtles."
 			}
 		],
 		"after": [
