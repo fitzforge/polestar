@@ -188,12 +188,20 @@ function Social.PartyAnswer(name, guid, roleCheck)
 	return nil
 end
 
+-- Joins the inviting party as the dialog's Accept button does; false when the
+-- client cannot. QoL/Layer.lua takes a layer hop host's invite with it.
+function Social.AcceptInvite()
+	if not AcceptGroup then return false end
+	AcceptGroup()
+	closePopup("PARTY_INVITE", "inviteAccepted")
+	return true
+end
+
 function Social.OnPartyInvite(_, name, isTank, isHealer, isDamage, _, _, guid)
 	name = readable(name)
 	local answer = Social.PartyAnswer(name, guid, (isTank or isHealer or isDamage) and true or false)
 	if answer == "accept" and AcceptGroup then
-		AcceptGroup()
-		closePopup("PARTY_INVITE", "inviteAccepted")
+		Social.AcceptInvite()
 		ns.Print(format(L["Joined %s's party."], name or "?"))
 	elseif answer == "decline" and DeclineGroup then
 		DeclineGroup()

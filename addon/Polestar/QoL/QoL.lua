@@ -81,6 +81,11 @@ local defaults = {
 	acceptPartyFriends = false,
 	acceptSummon = false,
 	acceptResurrect = false,
+	layerHop = false,        -- opt in: see your layer, hop to another through a Polestar player's invite (QoL/Layer.lua)
+	layerHost = false,       -- answer other players' hop requests with a group invite
+	layerAutoRefresh = false, -- after a hop you asked for, take the world refresh by itself
+	layerRefreshDelay = 5,   -- ... after this many seconds (0-60)
+	layerLeaveAfter = false, -- leave the hop group once the world refreshed
 }
 for key in pairs(COVERED) do
 	if defaults[key] and QoL.CoveredBy(key) then defaults[key] = false end

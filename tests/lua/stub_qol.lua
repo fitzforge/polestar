@@ -832,3 +832,96 @@ function stub.addonLoaded(name)
 	end
 	return addonLoaded(name)
 end
+
+---------------------------------------------------------------------------
+-- Layer hop (QoL/Layer.lua): stub.layer
+---------------------------------------------------------------------------
+-- stub.layer = {
+--   eviction = s | nil,            -- GetEvictionTimeRemaining()
+--   confirmFires = true,           -- ShardTransferConfirm fires SHARD_TRANSFER
+--   confirmErrors = false,         -- ... or raises an error, as a protected call would
+--   sent = { { prefix, msg, chatType, target } }, -- C_ChatInfo.SendAddonMessage
+--   order = { "msg@chatType" | "invite:Name" },    -- sends and invites, in order
+--   prefixes = { prefix },         -- C_ChatInfo.RegisterAddonMessagePrefix
+--   channels = { [name] = index }, -- joined custom channels (JoinChannelByName gives 5)
+--   lockdown = false,              -- C_ChatInfo.InChatMessagingLockdown
+--   group = 0, leader = false,     -- GetNumGroupMembers, IsInGroup, UnitIsGroupLeader("player")
+--   guild = false,                 -- IsInGuild
+--   inShard = { [unit] = true },   -- UnitInPartyShard
+--   guids = { [unit] = guid },     -- UnitGUID (target, mouseover, nameplateN)
+--   plates = { unit },             -- C_NamePlate.GetNamePlates, each plate with its namePlateUnitToken
+--   map = 1429,                    -- C_Map.GetBestMapForUnit("player")
+--   secret = { [value] = true },   -- issecretvalue
+-- }
+-- Channel joins and leaves, ShardTransferConfirm, InviteUnit, LeaveParty
+-- (which empties the group) and StaticPopup_Show land in q.calls.
+local layer = { eviction = nil, confirmFires = true, confirmErrors = false, sent = {}, order = {}, prefixes = {},
+	channels = {}, lockdown = false, group = 0, leader = false, guild = false, inShard = {}, guids = {},
+	plates = {}, map = 1429, secret = {} }
+stub.layer = layer
+
+function GetEvictionTimeRemaining() return layer.eviction end
+function C_PlayerInteractionManager.ShardTransferConfirm()
+	call("ShardTransferConfirm")
+	if layer.confirmErrors then error("ShardTransferConfirm: protected") end
+	if layer.confirmFires then stub.fire("SHARD_TRANSFER") end
+end
+C_ChatInfo = C_ChatInfo or {}
+function C_ChatInfo.RegisterAddonMessagePrefix(prefix)
+	table.insert(layer.prefixes, prefix)
+	return true
+end
+function C_ChatInfo.SendAddonMessage(prefix, msg, chatType, target)
+	table.insert(layer.sent, { prefix, msg, chatType, target })
+	table.insert(layer.order, msg .. "@" .. chatType)
+	return 0
+end
+function C_ChatInfo.InChatMessagingLockdown() return layer.lockdown end
+function JoinChannelByName(name)
+	call("JoinChannelByName", name)
+	layer.channels[name] = layer.channels[name] or 5
+end
+function LeaveChannelByName(name)
+	call("LeaveChannelByName", name)
+	layer.channels[name] = nil
+end
+function GetChannelName(name)
+	local index = layer.channels[name]
+	if index then return index, name end
+	return 0, nil
+end
+C_PartyInfo = C_PartyInfo or {}
+function C_PartyInfo.InviteUnit(name)
+	call("InviteUnit", name)
+	table.insert(layer.order, "invite:" .. name)
+end
+function C_PartyInfo.LeaveParty()
+	call("LeaveParty")
+	layer.group = 0
+end
+function GetNumGroupMembers() return layer.group end
+function IsInGroup() return layer.group > 0 end
+function UnitIsGroupLeader(unit) return unit == "player" and layer.leader end
+function IsInGuild() return layer.guild end
+function UnitInPartyShard(unit) return layer.inShard[unit] == true end
+local unitGUID = UnitGUID
+function UnitGUID(unit)
+	local guid = layer.guids[unit]
+	if guid ~= nil then return guid end
+	if unitGUID then return unitGUID(unit) end
+end
+C_NamePlate = C_NamePlate or {}
+function C_NamePlate.GetNamePlates()
+	local out = {}
+	for i, unit in ipairs(layer.plates) do out[i] = { namePlateUnitToken = unit } end
+	return out
+end
+C_Map = C_Map or {}
+function C_Map.GetBestMapForUnit(unit) if unit == "player" then return layer.map end end
+function issecretvalue(v) return v ~= nil and layer.secret[v] == true end
+local staticPopupShow = StaticPopup_Show
+function StaticPopup_Show(which, ...)
+	call("StaticPopup_Show", which)
+	q.showPopup(which)
+	if staticPopupShow then return staticPopupShow(which, ...) end
+end
