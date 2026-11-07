@@ -144,6 +144,12 @@ step Manifest Clerk Philmor
   tip Off the boat, Manifest Clerk Philmor stands on the harbor: his shipment goes to Elaine Trias' cheese shop in the Trade District, beside the flight master.
   accept 97220 @30.49,28.75 live
 
+step Baros Alexston
+  only NightElf
+  zone Stormwind City
+  tip From the harbour east through the Cathedral Square: Baros Alexston's compass is in his old house in Westfall, on the way. The flight master and Elaine Trias' shop are south-east of the square.
+  accept 399
+
 step Stormwind flight master
   only NightElf
   zone Stormwind City
@@ -153,12 +159,6 @@ step Stormwind flight master
   accept 97222
   interact 460004 quest 97222.1               -- Up the stairs in her shop: leave the shipment at the Gatehouse Door
   turnin 97222
-
-step Baros Alexston
-  only NightElf
-  zone Stormwind City
-  tip Baros Alexston stands in Cathedral Square, west of the Trade District: his compass is in his old house in Westfall, on the way.
-  accept 399
 
 step Woo Ping
   only Warrior,NightElf
