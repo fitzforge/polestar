@@ -547,6 +547,8 @@ local function onGroupJoined()
 		changed()
 		if QoL.On("layerLeaveAfter") then Layer.LeaveGroup() end
 	end)
+	-- An offer that came before the join waited for the hop group.
+	if transfer == "offered" then startAuto() end
 end
 
 -- Leaving any group ends the hop group; timers armed in it then return.
@@ -600,20 +602,24 @@ local function remember(name, message)
 	if #heard > LOG_SIZE then remove(heard, 1) end
 end
 
--- At most BURST messages per sender per FLOOD seconds (a requester's Q then
--- R, a host's H then I): lastFrom[name] = { at = the window's start, n }.
-local function flooding(name, t)
+-- send() puts each message on GUILD and on the channel: a copy of the last
+-- text a sender's counted message carried within FLOOD seconds is the same
+-- message, dropped and not counted. Past that, at most BURST messages per
+-- sender per FLOOD seconds (a requester's H, Q then R, a host's H then I):
+-- lastFrom[name] = { at = the window's start, n, text, textAt }.
+local function flooding(name, t, message)
 	local last = lastFrom[name]
+	if last and last.text == message and t - last.textAt < FLOOD then return true end
 	if last and t - last.at < FLOOD then
 		if last.n >= BURST then return true end
-		last.n = last.n + 1
+		last.n, last.text, last.textAt = last.n + 1, message, t
 		return false
 	end
 	if not last then fromCount = fromCount + 1 end
-	lastFrom[name] = { at = t, n = 1 }
+	lastFrom[name] = { at = t, n = 1, text = message, textAt = t }
 	if fromCount > 200 then
 		for who, e in pairs(lastFrom) do
-			if t - e.at >= FLOOD then
+			if t - e.textAt >= FLOOD then
 				lastFrom[who] = nil
 				fromCount = fromCount - 1
 			end
@@ -628,7 +634,7 @@ local function onAddonMessage(_, prefix, message, _, sender)
 	if type(message) ~= "string" or #message > MAX_BYTES or not fromThisRealm(sender) then return end
 	local name = short(sender)
 	local t = now()
-	if not name or flooding(name, t) then return end
+	if not name or flooding(name, t, message) then return end
 	remember(name, message)
 	local version, kind, body = message:match("^(%d+)(%u)(.*)$")
 	if version ~= VERSION then return end

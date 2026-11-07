@@ -116,7 +116,7 @@ test('layer hop: presence lists peers and hosts; echo, other realm, bad version,
 		hear("Peerfour", "1H1429:" .. string.rep("3", 120) .. ":0")
 		lay.secret["1H1429:34:0"] = true
 		hear("Peerfive", "1H1429:34:0")
-		for _ = 1, 4 do hear("Peersix", "1H1429:35:0") end
+		for i = 1, 4 do hear("Peersix", "1H1429:35:" .. (i % 2)) end
 		hear("Peersix", "1H1429:36:0")
 		emit(rows(1429))
 		lay.sent = {}
@@ -369,6 +369,45 @@ test('layer hop: a sender\'s Q then R within 2 s are both handled: the host answ
 		emit({ #sent("H"), order() })
 	`);
 	assert.deepEqual(out[0], [2, ['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']]);
+});
+
+test('layer hop: a sender\'s H, Q and R each heard on GUILD and on the channel within 2 s are three messages: the Q is answered once, the host claims and invites', () => {
+	const out = run(`
+		set("layerHost", true)
+		lay.sent = {}
+		local function both(sender, msg)
+			hear(sender, msg)
+			stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "CHANNEL", sender)
+		end
+		both("Reqone", "1H1429:10:0")
+		both("Reqone", "1Q1429")
+		both("Reqone", "1R1429:10:*")
+		wait(3.1)
+		emit({ rows(1429), #sent("H"), order() })
+	`);
+	assert.deepEqual(out[0], [[['2', 1, 0, 0, true], ['10', 2, 1, 0, false]], 2,
+		['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']]);
+});
+
+test('layer hop: an offer before or after the join of the hop group is auto-confirmed once; a group joined by hand in either order never is', () => {
+	const hop = (claimed, offerFirst) => run(`
+		set("layerAutoRefresh", true)
+		set("layerRefreshDelay", 3)
+		Ly.Request("*")
+		${claimed ? 'hear("Hostone", "1ITestchar"); stub.fire("PARTY_INVITE_REQUEST", "Hostone")' : ''}
+		lay.eviction = 120
+		${offerFirst ? 'stub.fire("SHARD_TRANSFER_IMMINENT")' : ''}
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
+		${offerFirst ? '' : 'stub.fire("SHARD_TRANSFER_IMMINENT")'}
+		local hopGroup = Ly.Status().hopGroup
+		wait(10)
+		emit({ hopGroup, #calls("ShardTransferConfirm") })
+	`)[0];
+	assert.deepEqual(hop(true, true), [true, 1], 'offer, then the hop group');
+	assert.deepEqual(hop(true, false), [true, 1], 'the hop group, then the offer');
+	assert.deepEqual(hop(false, true), [false, 0], 'offer, then a group joined by hand');
+	assert.deepEqual(hop(false, false), [false, 0], 'a group joined by hand, then the offer');
 });
 
 test('layer hop: a request is bound to its map and expires after 120 s whatever the refresh does; a stale one accepts no invite', () => {
