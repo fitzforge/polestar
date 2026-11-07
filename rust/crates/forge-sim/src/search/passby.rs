@@ -1732,6 +1732,9 @@ pub fn defer_hard_work(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -
 	kept
 }
 
+/// Minutes of the model's own (unwritten) grind the `grind` flow flag always writes as a top-up.
+pub const GRIND_WRITE_MIN: f64 = 10.0;
+
 /// The planner's grind rule: whatever grind the route keeps is explicit and in pieces. The model's own
 /// grind before an accept or work under its level (TOPUP_IMPLICIT_MIN or more) becomes a checkpoint
 /// at the last camp of the zone stay before it (its last objective step there), else right before
@@ -1857,6 +1860,10 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 		let (now, _) = hub_scan(p, h, m);
 		// A split may cost what it removes of the grind over TOPUP_MIN, up to TOPUP_SPLIT_ALLOW_SEC.
 		let allow = if g.explicit { (grind_excess(&gs) - grind_excess(&after)).clamp(TOPUP_ALLOW_SEC, TOPUP_SPLIT_ALLOW_SEC) } else { TOPUP_ALLOW_SEC };
+		// The `grind` flow flag (RedridgeXP: the route reached Duskwood at 23.82 by 1.55 levels of grind
+		// inside the Fangore task that no guide writes): a grind of the model's own of GRIND_WRITE_MIN
+		// or more is written whatever it costs (a player must see it to do it).
+		let allow = if !g.explicit && g.min >= GRIND_WRITE_MIN && forge_core::flow_flags::on("grind") { EXACT_ALLOW } else { allow };
 		if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, allow, 0.0, |n, o| n.within(o)) {
 			for pk in pks {
 				log(&format!("grind top-up at step {}: {:+.1} min", g.i, pk.added / 60.0));

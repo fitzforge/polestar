@@ -1116,6 +1116,7 @@ rounds can compare them:
 | `sweep` | the **work while there** pass, after the camp revisit: a task done on a return to ground the route stood on earlier (a stop within 250 yd of its spawn area, its quest in the log, the route then 400 yd away before the task) moves to right after that stop, kept when the order keeps its rules and the level rule, no guard rises and the hours to 60 rise by at most 3 minutes; listed as `work while there` edits, counted in `workWhileThere` |
 | `steps` | the writer writes no `along` list ([writer.md](writer.md)) |
 | `coverage` | the pickup pass counts a passed quest worthwhile at half the route's XP rate (a quarter when its detour is under a minute; else the full rate, half on a cheap detour), alone or with the quests it opens, and a pickup may add 5 minutes (else 2): marginal quests on the route are done (the benchmark order hands in about 40 % more quests over the same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut were `low-value` and `judge-refused`) |
+| `grind` | the grind top-ups write every grind of the model's own of 10 minutes or more (before an accept, or before work over the character's head) as a `level` step at the last camp of its zone stay, whatever it costs: the route never relies on grind no guide writes (the Fangore task's 1.55 levels before Duskwood) |
 
 The planner flags are part of the search key, `steps` of the routes stage's key: a build with other
 flags never reuses another's finished searches. With no flag set every route is the same as before.
