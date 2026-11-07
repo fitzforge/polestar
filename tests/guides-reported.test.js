@@ -5454,3 +5454,16 @@ test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first
 	const queen = at(list, 'accept 4507', is('accept', 4507));
 	assert.ok(!list[queen].step.goals.some((g) => g.t === 'note' && /Skip it/.test(g.text || '')), 'no skip note beside the accept');
 });
+
+// Final route review, Horde 40-60: in from Tarren Mill at Sorrow Hill, the order rode north to Mulgris and back south
+// to Marlene; Kirsta's Scarlets were an "along the way" list; the Bloodvenom flight path sat in the step for the
+// optional Blood Red Key, which players without the key skip.
+test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris, no along list, the flight path at Bloodvenom Post', { skip }, () => {
+	const file = 'forever/horde/50-60/02-felwood.guide';
+	const list = goals(file);
+	assert.ok(at(list, 'turnin 5152', is('turnin', 5152)) < at(list, 'accept 4984', is('accept', 4984)), 'Marlene before Mulgris');
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const fp = list[at(list, 'getfp Bloodvenom Post', (g) => g.t === 'getfp' && g.location === 'Bloodvenom Post')];
+	assert.equal(fp.s, list[at(list, 'accept 6162', is('accept', 6162))].s, 'with the Bloodvenom Post quests');
+	assert.ok(!fp.step.goals.some((g) => g.optional), 'not in an optional step');
+});
