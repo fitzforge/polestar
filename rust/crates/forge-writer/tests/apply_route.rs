@@ -3461,7 +3461,19 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 	forge_writer::post::repeatable_direct(&mut files, &data);
 	assert_eq!(
 		files[0].split('\n').collect::<Vec<_>>(),
-		vec!["step Duthorian Rall", "  turnin 1641 direct only Human -- Duthorian Rall", "  accept 5", "  turnin 5", "  accept 6", "  accept 7", "  complete 7", "  turnin 7", "", "step Later", "  turnin 6"]
+		vec![
+			"step Duthorian Rall",
+			"  turnin 1641 direct only Human -- Duthorian Rall",
+			"  accept 5",
+			"  turnin 5",
+			"  accept 6",
+			"  accept 7",
+			"  complete 7",
+			"  turnin 7",
+			"",
+			"step Later",
+			"  turnin 6"
+		]
 	);
 }
 
