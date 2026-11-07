@@ -2010,14 +2010,14 @@
 			{
 				"a": [
 					"turnin",
-					711
+					1108
 				],
 				"b": [
-					"turnin",
-					738
+					"accept",
+					710
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Lotwil's Study of the Elements (both parts) is done in the Dustbowl first, then Agmond's End in the south-east, the Uldaman chest in the north and Theldurin, and the guide leaves north from there; the route went Valley of Fangs, Agmond's End, west to Lotwil, back south-east to Agmond's End, the chest, Theldurin, then west again for the Rock Elementals and Lotwil before going north (two walks across the zone of about 1,000 yd each)."
+				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Agmond's End (the skeleton, the ogres, the buzzards, the troggs and Theldurin), the Uldaman chest and Theldurin's hand-in come first, then back through the Valley of Fangs (Martek, Rigglefuzz) to Lotwil's Dustbowl, from where the guide leaves for Loch Modan; the route went Valley of Fangs, Agmond's End, west to Lotwil, back south-east to Agmond's End, the chest, Theldurin, then west again for the Rock Elementals and Lotwil (two walks across the zone of about 1,000 yd each)."
 			},
 			{
 				"a": [

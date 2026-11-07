@@ -1428,13 +1428,13 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 // twice between Lotwil's Dustbowl and Agmond's End, then walked west again for
 // the Rock Elementals before leaving north, and carried the Indurium flakes and
 // buzzard wings past Martek and Rigglefuzz into the 40-50 Badlands guide.
-test(`${BADLANDS}: flow re-order: the Dustbowl first, then Agmond's End and Theldurin, Martek and Rigglefuzz on the way north`, { skip }, () => {
+test(`${BADLANDS}: flow re-order: Agmond's End, the chest and Theldurin first, Martek and Rigglefuzz on the way back, then Lotwil's Dustbowl once`, { skip }, () => {
 	const list = goals(BADLANDS);
 	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
-	const slabs = at(list, 'turnin 711 (Study of the Elements: Rock)', is('turnin', 711));
-	assert.ok(slabs < at(list, 'turnin 738 (the battered skeleton)', is('turnin', 738)), 'Lotwil\'s two parts before Agmond\'s End');
 	const theldurin = at(list, 'turnin 709 (Theldurin)', is('turnin', 709));
-	for (const q of [1108, 703]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) > theldurin, `${q} handed in on the walk north after Theldurin`);
+	assert.ok(at(list, 'turnin 738 (the battered skeleton)', is('turnin', 738)) < theldurin, 'Agmond\'s End and the chest first');
+	for (const q of [1108, 703]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) > theldurin, `${q} handed in on the walk back through the Valley of Fangs`);
+	assert.ok(theldurin < at(list, 'accept 710 (Lotwil)', is('accept', 710)), 'Lotwil\'s Dustbowl after Agmond\'s End, once');
 	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => goal.t === 'turnin' && (goal.quest === 1108 || goal.quest === 703)), 'not carried into the 40-50 Badlands guide');
 });
 
