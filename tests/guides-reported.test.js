@@ -4891,3 +4891,28 @@ test(`${DARKSHORE}: flow re-order: Beached Sea Creatures 4730 and 4728 on the fo
 	assert.equal(list[idx('turnin', 4730)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
 	assert.equal(list[idx('turnin', 4728)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
 });
+
+// Final route review, Alliance 40-60 (2026-11-07): the riding trips go from the city the route already stops in (Night
+// Elves from the first Stormwind stop, not a walk from the Swamp of Sorrows to Stormwind and back; Dwarves and Gnomes
+// on the way out of Ironforge, not back from the Badlands); only Humans, coming from Eastvale, go by Darkshire to Booty
+// Bay (the others came by boat and flew to Darkshire and back); the flight to Stormwind leaves from Booty Bay.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding trips from the city stops, no Darkshire round trip', { skip }, () => {
+	const stv = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
+	const list = goals(stv);
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const train = (npc) => (g) => g.t === 'train' && JSON.stringify(g).includes(String(npc));
+	const firstBB = stepOf('turnin 627', is('turnin', 627));
+	const darkshire = list.filter(({ goal, s }) => goal.t === 'fly' && /Darkshire/.test(goal.location || '') && s < firstBB);
+	assert.deepEqual(darkshire, [], 'no flight to Darkshire before the first Booty Bay stop');
+	const toBB = list.filter(({ goal, s }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || '') && s < firstBB);
+	assert.ok(toBB.length > 0 && toBB.every(({ step }) => step.only && JSON.stringify(step.only).includes('Human')), 'the Darkshire flight to Booty Bay is the Humans\' way back from Eastvale');
+	const jartsam = stepOf('Jartsam', train(4753));
+	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
+	assert.ok(jartsam > stepOf('turnin 212', is('turnin', 212)), 'after the Stormwind stop');
+	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
+	const last = stepOf('turnin 609', is('turnin', 609));
+	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));
+	const gotoBefore = list.filter(({ s, goal }) => s === sw.s && goal.t === 'goto')[0];
+	assert.equal(gotoBefore.goal.map, 1434, 'the Stormwind flight leaves from Booty Bay');
+	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => goal.t === 'fly' && /Thelsamar/.test(goal.location || '')), 'no flight back to Thelsamar in the Badlands guide');
+});
