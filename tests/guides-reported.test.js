@@ -3922,3 +3922,23 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
 });
+
+// Erá's report (#1130): the Venture Co. Work Order for Goblin Lockpicks is picked from the Venture Co. Loggers'
+// pockets, but the collect goal's text, built from the item's NPC source, said "Kill Venture Co. Logger for
+// Venture Co. Work Order". Every rogue collect whose item comes by Pick Pocket says so.
+test("Erá's report (#1130): rogue items that come by Pick Pocket say Pick Pocket, not Kill", { skip }, () => {
+	for (const [guide, item] of [
+		['forever/class/rogue/the-horn-of-xelthos.guide', 210187],
+		['forever/class/rogue/blade-of-cunning-alliance.guide', 7675],
+		['forever/class/rogue/blade-of-cunning-alliance.guide', 7737],
+		['forever/class/rogue/blade-of-cunning-horde.guide', 7208],
+		['forever/class/rogue/poisons-alliance.guide', 7923],
+		['forever/class/rogue/poisons-horde.guide', 8072],
+		['forever/class/rogue/ravenholdt.guide', 17124],
+		['forever/class/rogue/ravenholdt.guide', 275482],
+	]) {
+		const found = goals(guide).find(({ goal }) => goal.t === 'collect' && goal.item === item);
+		assert.ok(found, `${guide}: collect ${item} is in the guide`);
+		assert.match(found.goal.text || '', /^Pick Pocket /, `${guide}: collect ${item} says Pick Pocket`);
+	}
+});
