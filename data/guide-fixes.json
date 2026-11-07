@@ -3226,6 +3226,24 @@
 			"note": "Necrotic Crystals: the east loop leaves from Brill past Linnea's camp, where Hadric stands; the tip names the camp the farm lies beside (final route review).",
 			"source": [{"kind": "client", "ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"}],
 			"pr": 1175
+		},
+		{
+			"id": "stv-alliance-jungle-stalkers-not-along-at-36",
+			"faction": "Alliance",
+			"at": {
+				"quest": 196,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Raptor Mastery (196) is accepted at Nesingwary's camp near the end of the 30-40 Stranglethorn guide, but its Jungle Stalkers are level 40 (the route is at about 36 there) and the 40-50 Stranglethorn guide kills them in a step of its own on its jungle loop before the hand-in. The 30-40 guide listed them as an along list (\"Jungle Stalker on the way\") to the end of the guide: over level and a list to keep in mind (final route review, 2026-11-07).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_template 687 Jungle Stalker, level 40"
+				}
+			],
+			"pr": 1173
 		}
 	]
 }

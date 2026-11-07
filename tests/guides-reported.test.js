@@ -5134,3 +5134,27 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
 	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
 });
+// Final route review, 30-40 (2026-11-07): Alliance Stranglethorn walked from Booty Bay to the river crocolisks and back
+// for one hand-in, reached the haunted island only on the northern loop, then walked from Booty Bay back to the island
+// for the water elementals, on to Westfall and flew to Booty Bay; Druids trained in Stormwind by way of Ironforge and the
+// tram and were then sent to Menethil's flight master; Raptor Mastery's level-40 Jungle Stalkers were an along list.
+test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the island on the first loop, crocolisks and elementals on the northern one, Druids train in Stormwind', { skip }, () => {
+	const file = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(file);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.ok(at(list, 'complete 578', is('complete', 578)) < at(list, 'turnin 605', is('turnin', 605)), 'the haunted island before the Booty Bay return');
+	assert.equal(stepOf('turnin', 578), stepOf('turnin', 605), 'The Stone of the Tides handed in on that return');
+	const fly = list.findIndex(({ goal }) => goal.t === 'fly' && /Darkshire/.test(goal.dest || goal.to || goal.node || goal.text || ''));
+	const croc = at(list, 'collect 4104', (g) => g.t === 'collect' && g.item === 4104);
+	const elem = at(list, 'collect 3923', (g) => g.t === 'collect' && g.item === 3923);
+	assert.ok(croc > at(list, 'turnin 192', is('turnin', 192)) && elem > at(list, 'turnin 605', is('turnin', 605)), 'the crocolisks and the elementals on the northern loop');
+	assert.ok(fly < 0 || (croc > fly && elem > fly), 'after the flight north');
+	assert.equal(stepOf('turnin', 577), stepOf('turnin', 601), 'both handed in on the last Booty Bay stop');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(JSON.stringify(goal))), 'no flight back to Booty Bay from Westfall');
+	assert.deepEqual(compiled(file).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const druid = list.filter(forClass('DRUID'));
+	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && step.only);
+	const sw = druid.findIndex(({ goal }) => goal.t === 'fly' && /Stormwind/.test(JSON.stringify(goal)));
+	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
+	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
+});
