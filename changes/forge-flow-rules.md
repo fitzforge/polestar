@@ -21,3 +21,6 @@ section: forge
   class chain's steps stay in order when one waits for a later pass of the
   route (Call of Fire), and a training stop after a v1 `train class` still
   sends the classes that town cannot train to their own trainer (#912).
+- Forge: new flow flag `zoneguard` refuses a route move that makes any zone
+  worse than the seed's order (fewer quests, more walking per quest, more
+  returns, or its end level moved by more than 0.3).

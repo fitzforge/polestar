@@ -17,7 +17,10 @@
 //!   a camp, whatever it costs (no hidden grind inside a task);
 //! - `zoneleft`: the search and the passes price each quest of a zone the route leaves for good
 //!   while the quest is open (or opens within 2 levels) at about the character's level and no later
-//!   visit takes it (forge_sim::guards::GuardCounts::zone_left).
+//!   visit takes it (forge_sim::guards::GuardCounts::zone_left);
+//! - `zoneguard`: a move is refused when it makes any zone worse than the seed (the shipped
+//!   guides, when they seed): fewer hand-ins, more walked yards per hand-in, more avoidable returns,
+//!   or its end level moved by more than 0.3 (forge_sim::guards::ZoneCount).
 //!
 //! The planner flags are part of the routes stage's search key, `steps` of its stage key
 //! (forge/src/lib.rs), so a build with other flags never reuses another's finished searches.
@@ -26,9 +29,9 @@ use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::LazyLock;
 
 /// Every flag, in key order.
-pub const ALL: [&str; 7] = ["greedy", "revisit", "sweep", "steps", "coverage", "grind", "zoneleft"];
+pub const ALL: [&str; 8] = ["greedy", "revisit", "sweep", "steps", "coverage", "grind", "zoneleft", "zoneguard"];
 /// The flags that change the planner (the search key); the rest change only the writer.
-pub const PLANNER: [&str; 6] = ["greedy", "revisit", "sweep", "coverage", "grind", "zoneleft"];
+pub const PLANNER: [&str; 7] = ["greedy", "revisit", "sweep", "coverage", "grind", "zoneleft", "zoneguard"];
 
 fn parse(s: &str) -> u8 {
 	let mut bits = 0u8;

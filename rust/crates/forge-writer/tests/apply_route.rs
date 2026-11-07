@@ -4764,6 +4764,36 @@ fn the_routes_bind_where_v1_binds_is_one_line() {
 }
 
 #[test]
+fn a_training_stop_after_a_v1_step_that_trains_still_sends_the_away_classes() {
+	// #912, candidate v1 Human Elwynn: the route's training stop came right after v1's Goldshire step
+	// with its `train class`, so the stop wrote nothing, and its "Druid trainer" step (Sheldras
+	// Moontree in Stormwind) was lost with it. v1's line trains the rest; the Druids get their step.
+	let c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 8-11", "zone Elwynn Forest", "", "step Goldshire", "  accept 1", "  train class", "", "step Far", "  turnin 1", ""])],
+		world: json!({ "points": [[0, 0, 0, 0, 1429], [0, 0, -800, 800, 1429]], "zones": { "1429": "Elwynn Forest", "1453": "Stormwind City" }, "quests": [] }),
+		frames: json!({ "era": {
+			"1429": { "top": 1000, "bottom": -1000, "left": -1000, "right": 1000, "c": 0 },
+			"1453": { "top": 3000, "bottom": 1000, "left": -1000, "right": 1000, "c": 0 }
+		} }),
+		npcs: json!({
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[50, 50]] } } },
+			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[50, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "Human", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 10.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 10.0, "pt": 0, "from": "train stop" },
+			{ "t": "turnin", "q": 1, "lvl": 10.3, "pt": 1, "from": f("a", 11) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let druid = g.iter().position(|l| l.starts_with("  train class only Druid -- Sheldras Moontree")).unwrap_or_else(|| panic!("{g:#?}"));
+	assert!(idx(&g, "  train class") < druid as i64, "after v1's training: {g:#?}");
+	assert!(!g.iter().any(|l| l == "step Class trainer"), "v1's line trains the rest: {g:#?}");
+}
+
+#[test]
 fn a_class_with_no_trainer_at_the_stop_trains_at_the_routes_pass_by_its_own() {
 	// c10 Orc/Troll: the route trains at Razor Hill, which has no Mage trainer; the addon sent Mages to
 	// Sen'jin Village and back. They train when the route passes Sen'jin.

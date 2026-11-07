@@ -1041,7 +1041,7 @@ pub const SWEEP_PLACES: usize = 3;
 /// Times a refused sweep fix is tried, each after another move was kept.
 pub const SWEEP_TRIES: u32 = 3;
 /// The replay's allowance when a pass checks its own on the exact replay (keep_seq): no bound.
-const EXACT_ALLOW: f64 = 1.0e9;
+pub const EXACT_ALLOW: f64 = 1.0e9;
 
 /// The hub sweep (Fitz in Brill, c12: "all over the place"): at a hub, what is ready there is done
 /// in that visit, and a ready hand-in or accept whose NPC a walked leg passes is done on the way.
@@ -2214,6 +2214,11 @@ fn keep_seq(p: &Problem, m: &mut Member, h: &HubData, mvs: &[Mv], now_hub: HubCo
 	let Some((next, gc)) = r else { return Tried::Retry(cand) };
 	// No more split work either (the replay with an allowance bounds only the judge's guards).
 	if p.guard.is_some() && gc.split_work > m.guard_now.split_work {
+		return Tried::Retry(cand);
+	}
+	// (Nor a zone worse under `zoneguard`; not for a pass kept whatever it costs, a correctness rule:
+	// the grind top-ups.)
+	if allow < EXACT_ALLOW && !m.zones_ok(p, &gc) {
 		return Tried::Retry(cand);
 	}
 	if next.iter().map(|c| c.total).sum::<f64>() - now > allow {

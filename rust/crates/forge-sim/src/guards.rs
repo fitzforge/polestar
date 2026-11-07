@@ -254,6 +254,75 @@ pub struct GuardCounts {
 	/// about the character's level, and that no later visit takes (zone_left; counted under the
 	/// `zoneleft` flow flag only, else 0).
 	pub zone_left: u32,
+	/// Per zone (uiMap of the steps' points), under the `zoneguard` flow flag only (else empty): its
+	/// hand-ins, walked yards into its steps, avoidable returns and level after its last step
+	/// (zone_counts; ZoneCount::worse_than).
+	pub zones: Vec<ZoneCount>,
+}
+
+/// One zone's counts for the `zoneguard` flow flag (GuardCounts::zones).
+#[derive(Clone, Debug, Default, PartialEq, Eq, serde::Serialize)]
+pub struct ZoneCount {
+	pub zone: u32,
+	/// Hand-ins at steps in the zone.
+	pub quests: u32,
+	/// Straight yards walked into the zone's steps (from the step before, on its continent; not a
+	/// flight, boat or hearth).
+	pub yards: u32,
+	/// Avoidable returns whose return visit starts in the zone.
+	pub returns: u32,
+	/// The level after the zone's last step, in hundredths.
+	pub end_lvl: u32,
+}
+
+/// Walked yards per hand-in a zone may gain before it counts as worse (rounding).
+pub const ZONE_YD_SLACK: f64 = 1.0;
+/// Levels a zone's end level may move, either way, under `zoneguard` (Main, 2026-11-07).
+pub const ZONE_END_LVL: f64 = 0.3;
+
+impl ZoneCount {
+	fn yd_per_q(&self) -> f64 {
+		f64::from(self.yards) / f64::from(self.quests.max(1))
+	}
+
+	/// Worse than `bound` (the seed's, or the current order's where that is worse already): fewer
+	/// hand-ins, more walked yards per hand-in, more avoidable returns, or its end level moved by more
+	/// than ZONE_END_LVL.
+	pub fn worse_than(&self, bound: &ZoneCount) -> bool {
+		self.quests < bound.quests
+			|| self.yd_per_q() > bound.yd_per_q() + ZONE_YD_SLACK
+			|| self.returns > bound.returns
+			|| (f64::from(self.end_lvl) - f64::from(bound.end_lvl)).abs() > ZONE_END_LVL * 100.0
+	}
+}
+
+impl GuardCounts {
+	/// Under `zoneguard`: no zone of `bound` worse in these counts (a zone missing here has none of
+	/// its hand-ins left: worse).
+	pub fn zones_within(&self, bound: &[ZoneCount]) -> bool {
+		bound.iter().all(|b| match self.zones.iter().find(|z| z.zone == b.zone) {
+			Some(z) => !z.worse_than(b),
+			None => b.quests == 0,
+		})
+	}
+
+	/// The per-zone bound for `zoneguard`: the seed's counts, each relaxed to the current order's
+	/// where the current order is worse already (a move need not mend a zone to be kept, only not
+	/// make it worse; as split work's bound).
+	pub fn zone_bound(seed: &[ZoneCount], now: &[ZoneCount]) -> Vec<ZoneCount> {
+		seed.iter()
+			.map(|s| match now.iter().find(|n| n.zone == s.zone) {
+				Some(n) => ZoneCount {
+					zone: s.zone,
+					quests: s.quests.min(n.quests),
+					yards: if n.yd_per_q() > s.yd_per_q() { (n.yd_per_q() * f64::from(s.quests.min(n.quests).max(1))).ceil() as u32 } else { s.yards },
+					returns: s.returns.max(n.returns),
+					end_lvl: if (f64::from(n.end_lvl) - f64::from(s.end_lvl)).abs() > ZONE_END_LVL * 100.0 { n.end_lvl } else { s.end_lvl },
+				},
+				None => ZoneCount { quests: 0, ..s.clone() },
+			})
+			.collect()
+	}
 }
 
 impl GuardCounts {
@@ -447,7 +516,9 @@ fn dist(a: (i64, f64, f64), b: (i64, f64, f64)) -> f64 {
 pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[Moved]) -> GuardCounts {
 	let w = walk(run, steps, lv_before);
 	let mut c = GuardCounts::default();
-	returns(g, &w, &mut c);
+	let zoneguard = forge_core::flow_flags::on("zoneguard");
+	let mut zone_returns: FxHashMap<u32, u32> = FxHashMap::default();
+	returns(g, &w, &mut c, zoneguard.then_some(&mut zone_returns));
 	split_work(g, &w, &mut c);
 	training_gaps(g, &w, &mut c);
 	area_visits(g, &w, &mut c);
@@ -457,6 +528,9 @@ pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64],
 	c.low_trips = low_trips(&w);
 	if forge_core::flow_flags::on("zoneleft") {
 		c.zone_left = zone_left(g, &w);
+	}
+	if zoneguard {
+		c.zones = zone_counts(&w, walked, &zone_returns);
 	}
 	passed_by(g, &w, walked, &mut c, None);
 	let h = crate::hubs::count(&g.hub, &w, walked, None);
@@ -486,7 +560,7 @@ fn quest_step(s: &Step) -> bool {
 
 /// returns.js: visits per area, and each later visit's quest steps judged at the previous
 /// visit's departure.
-fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts) {
+fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts, mut by_zone: Option<&mut FxHashMap<u32, u32>>) {
 	let steps = w.steps;
 	let n = steps.len();
 	// Steps per area, in order.
@@ -541,6 +615,9 @@ fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts) {
 			}
 			if avoid > 0 {
 				c.avoidable_returns += 1;
+				if let (Some(m), Some(p)) = (by_zone.as_deref_mut(), w.pt(v2.0)) {
+					*m.entry(w.run.p_map[p as usize]).or_default() += 1;
+				}
 				match c.returns_by_area.last_mut() {
 					Some(x) if x.0 == au as u32 => x.1 += 1,
 					_ => c.returns_by_area.push((au as u32, 1)),
@@ -657,6 +734,33 @@ fn passed_by(g: &GuardData, w: &Walk, walked: &[Moved], c: &mut GuardCounts, mut
 		prev = Some(i);
 	}
 	c.passed_by = found.len() as u32;
+}
+
+/// Per-zone counts (see GuardCounts::zones), zones in first-visit order.
+fn zone_counts(w: &Walk, walked: &[Moved], returns: &FxHashMap<u32, u32>) -> Vec<ZoneCount> {
+	let mut out: Vec<ZoneCount> = Vec::new();
+	let mut prev: Option<(i64, f64, f64)> = None;
+	for i in 0..w.steps.len() {
+		let (Some(p), Some(pos)) = (w.pt(i), w.pos(i)) else { continue };
+		let zone = w.run.p_map[p as usize];
+		let k = match out.iter().position(|z| z.zone == zone) {
+			Some(k) => k,
+			None => {
+				out.push(ZoneCount { zone, returns: returns.get(&zone).copied().unwrap_or(0), ..Default::default() });
+				out.len() - 1
+			}
+		};
+		let z = &mut out[k];
+		if w.steps[i].kind == K_TURNIN {
+			z.quests += 1;
+		}
+		if let Some(a) = prev.filter(|a| a.0 == pos.0 && walked.get(i).is_some_and(|m| m.walked)) {
+			z.yards += (a.1 - pos.1).hypot(a.2 - pos.2).round() as u32;
+		}
+		z.end_lvl = (w.lvl(i) * 100.0).round() as u32;
+		prev = Some(pos);
+	}
+	out
 }
 
 /// Zone-left (see GuardCounts::zone_left): at each departure from a zone (the next located step in
@@ -926,6 +1030,27 @@ pub fn elite_rare_tasks_of(run: &Run, data: &GameData) -> Vec<bool> {
 #[cfg(test)]
 mod returns_tests {
 	use super::*;
+
+	#[test]
+	fn a_zone_is_worse_with_fewer_quests_more_walk_per_quest_more_returns_or_a_moved_end_level() {
+		let seed = ZoneCount { zone: 1, quests: 10, yards: 5000, returns: 1, end_lvl: 1210 };
+		let same = seed.clone();
+		assert!(!same.worse_than(&seed));
+		assert!(ZoneCount { quests: 9, ..seed.clone() }.worse_than(&seed), "a quest fewer");
+		assert!(ZoneCount { yards: 5200, ..seed.clone() }.worse_than(&seed), "520 yd a quest, not 500");
+		assert!(!ZoneCount { quests: 11, yards: 5400, ..seed.clone() }.worse_than(&seed), "491 yd a quest with one more");
+		assert!(ZoneCount { returns: 2, ..seed.clone() }.worse_than(&seed), "a return more");
+		assert!(ZoneCount { end_lvl: 1245, ..seed.clone() }.worse_than(&seed) && ZoneCount { end_lvl: 1175, ..seed.clone() }.worse_than(&seed), "0.35 either way");
+		assert!(!ZoneCount { end_lvl: 1235, ..seed.clone() }.worse_than(&seed), "0.25");
+		// (The bound: the seed's, relaxed to the current order's where that is worse already.)
+		let now = ZoneCount { quests: 8, returns: 3, ..seed.clone() };
+		let b = GuardCounts::zone_bound(std::slice::from_ref(&seed), std::slice::from_ref(&now));
+		assert_eq!((b[0].quests, b[0].returns), (8, 3));
+		let gc = |z: ZoneCount| GuardCounts { zones: vec![z], ..Default::default() };
+		assert!(gc(now.clone()).zones_within(&b), "the current order itself is kept");
+		assert!(!gc(ZoneCount { quests: 7, ..now.clone() }).zones_within(&b), "but not made worse");
+		assert!(!GuardCounts::default().zones_within(&b), "a zone left without its hand-ins");
+	}
 
 	#[test]
 	fn a_return_added_to_one_area_is_not_paid_for_by_one_removed_elsewhere() {
