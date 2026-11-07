@@ -38,6 +38,10 @@ step Saldean's Farm
   accept 9                                    -- Farmer Saldean
   accept 92909                                -- Ozwin Ironsprocket
 
+step Goretusk Snouts
+  tip Young Goretusks root in the fields along the road south from Saldean's to Sentinel Hill: take their snouts on the way.
+  collect 731 quest 38.3                      -- Goretusk Snout
+
 # ---------------------------------------------------------------- Sentinel Hill
 
 step Sentinel Hill
@@ -61,7 +65,7 @@ step Molsen Farm: kill these as you meet them
   zone Westfall
   tip Defias Trappers and Smugglers camp in the fields between Sentinel Hill and Molsen Farm.
   tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
-  tip Young Goretusks and Fleshrippers roam every leg of this loop: their livers, snouts and meat are for the pie and the stew.
+  tip Young Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew.
   kill 95 quest 12
   kill 504 quest 12
   kill 114 quest 9                            -- Harvest Watchers
@@ -72,7 +76,6 @@ step Molsen Farm: kill these as you meet them
   accept 92910 optional
   collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
   collect 723 quest 22                        -- Goretusk Liver
-  collect 731 quest 38.3                      -- Goretusk Snout
   collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
 
 step Furlbrow's Pumpkin Farm: kill these as you meet them
