@@ -1026,7 +1026,7 @@ end
 -- The enemy-territory warning (Dungeons.EnemyEntrance) for the filter's side,
 -- this character's under All, in the warning colour; nil when it needs none.
 local function enemyWarning(d, f)
-	local side = SIDE[f]
+	local side = SIDE[f] or SIDE[UI.PlayerFaction() or ""]
 	local text = D().EnemyEntrance and D().EnemyEntrance(d.key, side)
 	return text and ("|c" .. Theme.Hex("warning") .. text .. "|r") or nil
 end

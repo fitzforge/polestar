@@ -123,7 +123,7 @@ function DT.Model(c)
 	-- A way in through the other faction's land (Dungeons.EnemyEntrance): it
 	-- says so in the warning colour and leads with the dungeon's page, where the
 	-- player decides; the pick-up guide is the second button.
-	local enemy = Dg.EnemyEntrance and Dg.EnemyEntrance(c.key)
+	local enemy = Dg.EnemyEntrance and Dg.EnemyEntrance(c.key, SIDE[player().faction or ""])
 	if enemy then m.giver = m.giver .. "\n|c" .. Theme.Hex("warning") .. enemy .. "|r" end
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
 	local LT = UI.LevelTip
