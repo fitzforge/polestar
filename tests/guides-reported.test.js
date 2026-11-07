@@ -5316,3 +5316,17 @@ test('forever/horde/40-50/06-azshara.guide: final review: tips that match the wa
 	assert.ok(!steps.some((step) => /zeppelin back to Orgrimmar/.test(step.note || '')), 'no zeppelin tip after the Valormok flight');
 	assert.ok(!steps.some((step) => /next guide starts with the flight to Gadgetzan/.test(step.note || '')), 'no next-guide tip at Camp Mojache');
 });
+
+// Final route review, Horde 40-60: the flight into the Undercity lands beside Harbinger Balthazad, but the order went
+// to Oran Snakewrithe first and came back; the pterrordax step carried the Gorishi hive's title and tip; two tips
+// still sent you by the Grom'gol zeppelin; a note said to skip Pawn Captures Queen right before accepting it.
+test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first, tips that match the way', { skip }, () => {
+	const file = 'forever/horde/50-60/01-un-goro-crater.guide';
+	const list = goals(file);
+	assert.ok(at(list, 'accept 5094', is('accept', 5094)) < at(list, 'turnin 2782', is('turnin', 2782)), 'Balthazad before Oran');
+	const scale = list[at(list, 'collect 11831', (g) => g.t === 'collect' && g.item === 11831)];
+	assert.ok(!/hive/i.test(scale.step.title) && !/silithid hive/.test(scale.step.note || ''), 'the pterrordax step is not titled or tipped for the hive');
+	assert.ok(!compiled(file).steps.some((step) => /Grom'gol/.test(step.note || '')), 'no Grom\'gol zeppelin in the tips');
+	const queen = at(list, 'accept 4507', is('accept', 4507));
+	assert.ok(!list[queen].step.goals.some((g) => g.t === 'note' && /Skip it/.test(g.text || '')), 'no skip note beside the accept');
+});
