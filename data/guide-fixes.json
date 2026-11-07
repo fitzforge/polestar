@@ -2300,6 +2300,40 @@
 				}
 			],
 			"pr": 1091
+		},
+		{
+			"id": "1092-durotar-taillasher-eggs-in-the-coast-step",
+			"at": {
+				"quest": 815,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Break a Few Eggs: the Taillasher nests line the beach the Scuttle Coast step walks; the eggs are a goal of that step, never an along list (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object Taillasher Egg spawns on the coast south-east of Sen'jin"
+				}
+			],
+			"pr": 1092
+		},
+		{
+			"id": "1092-durotar-tiger-fur-in-the-echo-isles-step",
+			"at": {
+				"quest": 817,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Practical Prey: the Durotar Tigers roam the northern Echo Isle and the shore south of Sen'jin, where the first Echo Isles step works the Matriarch; the fur is a goal of that step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3121 (Durotar Tiger) spawns on the Echo Isles and the south-east shore"
+				}
+			],
+			"pr": 1092
 		}
 	]
 }
