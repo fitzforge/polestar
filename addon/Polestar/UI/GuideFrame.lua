@@ -759,7 +759,9 @@ do
 	-- so it only sets sizes and points.
 	function fitGoals()
 		local content = contentHeight()
-		local viewH = min(content, max(CARD.minView, fit.room))
+		-- Fixed: the view fills the room up to the height, the step short or not.
+		local fixedH = fit.fixedH and fit.room < math.huge
+		local viewH = fixedH and max(CARD.minView, fit.room) or min(content, max(CARD.minView, fit.room))
 		-- Past the cap, the view gives up the part of a row that would not
 		-- fit, so its last scroll stop starts on a row as well. Not at the
 		-- top of the screen (fit.snap off): there the window must end exactly
@@ -2091,10 +2093,21 @@ end
 
 -- The tallest the window may be: ui.maxHeight of the screen's height, in
 -- the window's own units (its scale and the game's UI scale applied).
+local roomAbove -- below
 local function capHeight()
-	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
+	local margin = 24 -- ui.heightMode "auto": room left to the screen's edge, in the window's units
 	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-	return screen * share / max(0.01, F:GetEffectiveScale())
+	local scale = max(0.01, F:GetEffectiveScale())
+	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
+	if ns.Get("ui.heightMode") == "auto" then
+		-- Automatic: all the room from the pinned edge to the screen's edge, less
+		-- a margin; never under the slider's lowest (30%) nor over the screen.
+		local room = ns.Get("ui.growUp") and roomAbove() or F:GetTop()
+		if type(room) == "number" then
+			return min(screen / scale, max(room - margin, screen * 0.3 / scale))
+		end
+	end
+	return screen * share / scale
 end
 GF.CapHeight = function() return F and capHeight() or nil end
 
@@ -2159,7 +2172,7 @@ end
 -- With ui.growUp, the height from the window's pinned bottom edge to the top
 -- of the screen, in the window's scale (nil without Grow upward): the
 -- window is never taller (fit.limit, #666).
-local function roomAbove()
+roomAbove = function()
 	if not ns.Get("ui.growUp") then return nil end
 	local top = UIParent:GetTop()
 	local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
@@ -2171,6 +2184,16 @@ local function roomAbove()
 	end
 	if type(bottom) ~= "number" then return nil end
 	return top * uiScale / scale - bottom
+end
+
+-- The grip sits on the edge that moves: the bottom-right corner, or with Grow
+-- upward just over the top-right one, clear of the header's menu button.
+function GF.PlaceGrip()
+	if not grip then return end
+	local up = ns.Get("ui.growUp")
+	grip:ClearAllPoints()
+	grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1)
+	grip.Icon:SetTexCoord(0, 1, up and 1 or 0, up and 0 or 1)
 end
 
 function GF.Layout()
@@ -2246,13 +2269,15 @@ function GF.Layout()
 		local toast = UI.ClassToast
 		local toastRoom = toast and toast.Reserved and toast.Reserved() or 0
 		local cap = capHeight() - toastRoom
-		fit.snap = cap <= (fit.limit or math.huge)
+		fit.fixedH = ns.Get("ui.heightMode") == "fixed"
+		fit.snap = not fit.fixedH and cap <= (fit.limit or math.huge)
 		fit.room = min(cap, fit.limit or math.huge) - (fit.outer + y - content)
 		fitGoals()
 	else
 		sizeWindow(y)
 	end
 	placeBars(showFoot)
+	GF.PlaceGrip()
 	band:SetHeight(stripH + NAV_H)
 	local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
 	if barsBottom() then y0, y1 = y1, y0 end
@@ -3294,7 +3319,8 @@ local function fadeChrome(to)
 end
 
 local function watch()
-	if F:IsMouseOver(4, -4, -4, 4) then return end
+	-- With Grow upward the grip stands just over the window (placeGrip): over it is over the window.
+	if F:IsMouseOver(4, -4, -4, 4) or (grip and grip:IsMouseOver()) then return end
 	hovering = false
 	watcher:SetScript("OnUpdate", nil)
 	if transparent() then fadeChrome(0) end
@@ -3474,7 +3500,7 @@ local APPLY = {
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
 	-- With Grow upward the room above the bottom edge sets the window's height.
-	["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
+	["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") or ns.Get("ui.heightMode") == "auto" then GF.Layout() end end,
 	-- Re-pin by the other corner where the window stands now, so it does not jump.
 	["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
 	["ui.barsBottom"] = function() GF.Layout() end,
@@ -3482,7 +3508,10 @@ local APPLY = {
 	["ui.upcomingOpen"] = function() GF.Render() end,
 	["ui.showNotes"] = function() GF.Render() end,
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
-	["ui.maxHeight"] = function() GF.Layout() end,
+	-- Setting a height (the slider, the grip) leaves Automatic.
+	-- Setting a height while Automatic switches to Fixed: the player asked for that height.
+	["ui.maxHeight"] = function() if ns.Get("ui.heightMode") == "auto" then ns.Set("ui.heightMode", "fixed") else GF.Layout() end end,
+	["ui.heightMode"] = function() GF.Layout() end,
 	-- Another way of reading the card: nothing kept from the one before.
 	["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
@@ -3731,7 +3760,43 @@ local function dragStop()
 	if UI.ClassToast and UI.ClassToast.Place then UI.ClassToast.Place(false) end
 end
 
+-- The line at the height limit, with its value in px, while the grip is dragged:
+-- the window may be shorter than its limit, so the limit shows on its own.
+function GF.ShowLimit(on)
+	local limitLine = GF.limitLine
+	if not limitLine then
+		limitLine = CreateFrame("Frame", nil, F)
+		GF.limitLine = limitLine
+		limitLine:SetHeight(2)
+		limitLine:SetFrameLevel(F:GetFrameLevel() + 20)
+		limitLine.Line = limitLine:CreateTexture(nil, "OVERLAY")
+		limitLine.Line:SetAllPoints()
+		W.Color(limitLine.Line, "accent")
+		limitLine.Text = W.Text(limitLine, "number", "text")
+		limitLine.Text:SetPoint("BOTTOMRIGHT", limitLine, "TOPRIGHT", -4, 2)
+	end
+	limitLine:SetShown(on)
+	if not on then return end
+	local cap = capHeight()
+	limitLine:ClearAllPoints()
+	local up = ns.Get("ui.growUp")
+	limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
+	limitLine:SetPoint(up and "BOTTOMRIGHT" or "TOPRIGHT", F, up and "BOTTOMRIGHT" or "TOPRIGHT", 0, up and cap or -cap)
+	limitLine.Text:SetText(string.format(L["%d px"], floor(cap * F:GetEffectiveScale() + 0.5)))
+end
+
 local function resizeUpdate(self)
+	-- Vertical: the height limit follows the mouse by how far it moved, down
+	-- with the top edge pinned, up with Grow upward (the bottom edge pinned).
+	-- It turns Automatic off, once the mouse has moved a few px.
+	local dy = (self.psStartY - select(2, GetCursorPosition()) / F:GetEffectiveScale()) * (ns.Get("ui.growUp") and -1 or 1)
+	if self.psSized or math.abs(dy) >= 3 then
+		self.psSized = true
+		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
+		local px = floor((self.psStartCap + dy) * F:GetEffectiveScale() + 0.5)
+		ns.Set("ui.maxHeight", min(1, max(0.3, px / screen)))
+		GF.ShowLimit(true)
+	end
 	local x = GetCursorPosition() / F:GetEffectiveScale()
 	local w = min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, floor(self.psStartW + (x - self.psStartX) + 0.5)))
 	if w ~= floor(F:GetWidth() + 0.5) then
@@ -3750,6 +3815,9 @@ local function resizeStart(self)
 		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l, y)
 	end
 	self.psStartX = GetCursorPosition() / F:GetEffectiveScale()
+	self.psStartY = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+	self.psStartCap = capHeight()
+	self.psSized = false
 	self.psStartW = F:GetWidth()
 	self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
 end
@@ -3757,6 +3825,7 @@ end
 local function resizeStop(self)
 	if not self:GetScript("OnUpdate") then return end
 	self:SetScript("OnUpdate", nil)
+	GF.ShowLimit(false)
 	ns.Set("ui.width", floor(F:GetWidth() + 0.5))
 	savePosition()
 end
@@ -4351,7 +4420,6 @@ local function build()
 	-- Width grip
 	grip = CreateFrame("Button", nil, F)
 	grip:SetSize(16, 16)
-	grip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
 	grip:SetFrameLevel(F:GetFrameLevel() + 10)
 	grip.Icon = grip:CreateTexture(nil, "OVERLAY")
 	grip.Icon:SetTexture(Theme.Media("resize"))
@@ -4364,6 +4432,7 @@ local function build()
 	grip:SetScript("OnMouseUp", resizeStop)
 	grip:SetScript("OnHide", resizeStop)
 	GF.grip = grip
+	GF.PlaceGrip()
 	chrome[#chrome + 1] = grip
 
 	GF.parts = {
