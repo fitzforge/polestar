@@ -1,7 +1,7 @@
 {
   "about": "The leveling guides Forge starts from, cut from guides/ by `forge guide seed` once, when Forge took them over (a re-seed resets every route's baseline). Never edit them: a fix goes into the checkout's fix records (docs/FORGE.md, \"Fixing a generated guide\"). files: path under forge/seed/guides -> SHA-256.",
   "from": {
-    "commit": "e61ca8cbdc136034521ebf67b65d8e0b8894370b"
+    "commit": "06a676fd1cfb633724a2bffcbccdcbb80e629f95"
   },
   "files": {
     "forever/alliance/02-westfall.guide": "cacc213eb11e10db3eae9c0cb9022c10343947ded0dfdb055d1234051f697917",
