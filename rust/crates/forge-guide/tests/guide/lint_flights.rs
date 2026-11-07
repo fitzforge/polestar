@@ -7,7 +7,8 @@ use common::*;
 use forge_guide::diag::Diag;
 
 fn hops(src: &str) -> Vec<Diag> {
-	compile(src).diag.warnings().into_iter().filter(|d| d.message.contains("with nothing to do in between")).cloned().collect()
+	// A house rule: an error in our pack, a warning in others.
+	compile(src).diag.sorted().into_iter().filter(|d| d.message.contains("with nothing to do in between")).collect()
 }
 
 const FLY_STORMWIND: [&str; 3] = ["step Fly to Stormwind", "  goto 42.0,65.0 \"Goldshire flight master\"", "  fly \"Stormwind\""];
