@@ -2209,7 +2209,7 @@
 				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
 			}
 		],
-		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. Forever's quest data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. The merged data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
 	},
 	"78133": {
 		"set": {
@@ -2382,7 +2382,7 @@
 				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
 			}
 		],
-		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. Forever's quest data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
 	"79192": {
 		"set": {
