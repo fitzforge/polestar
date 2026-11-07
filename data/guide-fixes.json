@@ -2056,6 +2056,57 @@
 				}
 			],
 			"pr": 1077
+		},
+		{
+			"id": "1078-barrens-water-seekers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Water Seekers hold the camp east of the Crossroads and are killed in the Razormane camp step (Warriors and Shamans of Orc and Troll on their chest or Fire Tar visit), not an along list from the Crossroads (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3267 (Razormane Water Seeker) spawns 53-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-thornweavers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Thornweavers share the Water Seekers' half of the camp and its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3268 (Razormane Thornweaver) spawns 54-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-hunters-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Hunters hold the middle of the same camp and are killed in its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3265 (Razormane Hunter) spawns 54-59, 24-26 of the Barrens"
+				}
+			],
+			"pr": 1078
 		}
 	]
 }
