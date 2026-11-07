@@ -2850,6 +2850,39 @@
 				}
 			],
 			"issue": 1135
+		},
+		{
+			"id": "a4060-stv-mistvale-giblets-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 606,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Mistvale Giblets: the Elder Mistvale Gorillas drop them in the gorilla hills, where the Gorilla Fangs for Unbagwa are collected; the along list from the Wild Shore listed them where no gorilla lives.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-badlands-southshore-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1052,
+				"goal": "turnin"
+			},
+			"tip": "Raleigh the Devout preaches by the inn.",
+			"note": "The flight from Thelsamar to Southshore is a step of its own right before this one, so the step's tip no longer tells you to ride to Thelsamar and fly.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07: Badlands guide step 'Fly to Southshore' before 'Southshore'"
+				}
+			]
 		}
 	]
 }
