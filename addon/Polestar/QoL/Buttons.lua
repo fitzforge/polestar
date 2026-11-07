@@ -413,7 +413,8 @@ local function bagQuestItem()
 end
 
 -- Item for the quest item button, or nil. view, raw: QoL.CurrentStep()'s,
--- when the caller has them.
+-- when the caller has them. When the step has none: the "While you're here"
+-- line's (Engine.GetWhileHere), its use goal's item or its quest's log item.
 function Buttons.ChooseQuestItem(view, raw)
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return nil end
@@ -435,7 +436,17 @@ function Buttons.ChooseQuestItem(view, raw)
 			if item and Client.ItemCount(item) > 0 then return item end
 		end
 	end
-	return bagQuestItem()
+	local bag = bagQuestItem()
+	if bag then return bag end
+	local E = ns.Engine
+	local here = E and E.GetWhileHere and E.GetWhileHere()
+	if not (here and here.quest) then return nil end
+	local rg = E.AlongGoal and E.AlongGoal(here.step, here.index)
+	local item = here.t == "use" and (here.item or (rg and rg.item)) or nil
+	if item and Client.ItemCount(item) > 0 then return item end
+	item = logItem(here.quest)
+	if item and Client.ItemCount(item) > 0 then return item end
+	return nil
 end
 
 function Buttons.WantsHearth(view)
@@ -1086,6 +1097,7 @@ ns.On("RARE_NEARBY", refreshSoon)
 ns.On("FLIGHT_MARK_CHANGED", refreshSoon)
 ns.On("QUESTDB_LOADED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
+ns.On("WHILE_HERE_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	if path == "qol.buttonScale" or path == "qol" or path == "" then

@@ -38,7 +38,10 @@ their own client. What protects the data instead:
   chunk whose values could not come from a real session (`plausible` in the
   recording library: clock, seq, levels, kill XP, kill and loot rates, ids,
   movement speed) is stored marked suspect, answered as accepted, and left
-  out of the export. Movement speed is measured on the canonical map sizes
+  out of the export. At startup the suspect chunks held are checked again
+  under the current rules (`recording::recheck`): one flagged only for speed
+  or kill rate that passes now is stored as plausible, under a new id so the
+  next pull gets it. Movement speed is measured on the canonical map sizes
   built into the library (`maps_table.rs`), never on sizes an uploader
   sends; maps not in it are not speed-checked.
 - **The maintainer can block a contributor.** A blocked contributor's

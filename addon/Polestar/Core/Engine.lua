@@ -42,6 +42,10 @@ ns.RegisterDefaults("behavior", {
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
+	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
+	whileHereRadius = 60, -- yards from its spawn area's edge at which it shows (40-120); it goes past 100/60 of that
+	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
+	whileHereSound = true, -- a soft chime when a line appears, at most every 30 s (UI/WhileHere.lua)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd
@@ -3260,7 +3264,9 @@ end
 -- start yet (Own.startGate), or another race's starting zone the player has
 -- not reached (Own.awayStart), on its live step. An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
--- a turn-in that is not ready, its quest's work in along steps (Own.alongAim).
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
+-- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
+-- while it shows.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3273,6 +3279,9 @@ local function findWaypoint()
 		end
 		local as, ag = Own.alongOf(aim)
 		local wp = as and waypointOf(ag, aim, nil, as)
+		if wp then return wp end
+		local here = Own.here
+		wp = here and here.goal == aim and waypointOf(here.g, aim, nil, here.s)
 		if wp then return wp end
 	end
 	if current == computed then
@@ -3978,7 +3987,11 @@ end
 local function checkArrival()
 	if #tabs == 0 then return end
 	local c, px, py = Compat().GetPlayerWorldPosition()
-	if not c then return end
+	if not c then
+		-- Nowhere to measure from (an instance): no "While you're here" line.
+		if Own.hereTick(nil) then requestUpdate() end
+		return
+	end
 	local hit = false
 	for i = 1, #tabs do
 		use(tabs[i])
@@ -3994,6 +4007,8 @@ local function checkArrival()
 		Own.currentGoal(current, groups, focus)
 		if Own.nearMoved then hit = true end
 	end
+	-- "While you're here": the nearest quick objective of a later step.
+	if Own.hereTick(c, px, py) then hit = true end
 	if hit then requestUpdate() end
 end
 
@@ -4026,6 +4041,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
+	if not need then need = Own.hereN > 0 or Own.here ~= nil end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -4878,8 +4894,10 @@ local function evaluateLoaded(active)
 	end
 	if changed then
 		current = newCurrent
-		-- The arrow's choice was for the old step; an along goal's lasts while it is listed.
-		if not (aim and Own.alongOf(aim)) then aim = nil end
+		-- The arrow's choice was for the old step; an along goal's lasts while it
+		-- is listed, a "While you're here" line's while it shows.
+		if not (aim and (Own.alongOf(aim) or (Own.here and Own.here.goal == aim))) then aim = nil end
+		if active then Own.hereDirty = true end
 		-- Step start: pick candidates and spawn spots afresh from where the
 		-- player stands. A spot picked earlier (the step shown as "Then:" or
 		-- looked at ahead, from elsewhere) would otherwise only move at the
@@ -5051,6 +5069,11 @@ local function evaluate()
 		ns.Fire("GUIDE_OUTLEVELED", guide.id, suggested ~= guide.id and suggested or nil)
 	end
 	checkTrainDue()
+	-- "While you're here" candidates, after a step, quest-log, level or zone
+	-- change (Own.hereBuild); a clicked line that went takes the arrow back.
+	if Own.hereDirty or Own.hereGuide ~= guide then
+		if Own.hereBuild() then requestUpdate() end
+	end
 	updateTicker()
 	if #pendingCompleted > 0 then
 		local list = pendingCompleted
@@ -5826,6 +5849,385 @@ function Engine.GetAlong()
 end
 
 ---------------------------------------------------------------------------
+-- While you're here: while the player works the live step, an open
+-- objective of a later step whose quest is already in the log, close by,
+-- becomes one line under the step (Engine.GetWhileHere): "While you're here:
+-- Kill Kobold Vermin, 2 more  (step 14)  45 yd". Grabbing it now saves coming
+-- back: the later step then reads done (or shorter) when the route gets
+-- there, as any objective done early does. It never takes the arrow unless
+-- the player clicks it (Engine.AimWhileHere).
+--
+-- Candidates (Own.hereBuild, on a step, quest-log, level, zone or setting
+-- change; at most HERE_MAX): open kill, collect, interact and use goals with
+-- a place in the steps after the live step, up to where the guide next
+-- leaves the zone (a fly, hearth or enter goal, or a goal on another map than
+-- the player's), each
+--   * for a quest in the log and not ready to hand in; never an accept;
+--   * for the character (stepApplies: its `when` and level gates;
+--     goalApplies), its step and goal not skipped, the quest not left out;
+--   * not listed already: no along step holds its quest's work (background
+--     goals are along steps), the quest is not pinned, and the live step has
+--     no open goal for the same objective (Own.nearestField has those);
+--   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
+--     else the goal's), measured to such places only;
+--   * any size: whatever is left (15 quilboars as much as 2), the player is there
+--     already. Slow drops spread over the zone are background goals, along
+--     steps, and so never a candidate.
+-- With behavior.whileHereTurnins, also a later step's turn-in of a quest
+-- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
+--
+-- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
+-- allocation-free): the nearest candidate within behavior.whileHereRadius
+-- yards of its nearest spawn area's edge (HERE_TURNIN of a hand-in's NPC),
+-- checked once against the walk there (Nav.EstimateTravel, budgeted: a walk
+-- over HERE_WALK times the straight line is a cliff or a cave floor). It goes
+-- past HERE_CLEAR times that radius, once done, after HERE_SECONDS without
+-- progress on it (a line being worked never expires), or on a
+-- dismiss (Engine.DismissWhileHere). One at a time; during a fight none
+-- appears and none goes by distance or time. A dismissed or expired line
+-- stays quiet for the rest of the zone stay (Own.hereQuiet). Never in an
+-- instance, on a taxi, boat or zeppelin, while a Hearthstone is cast, or
+-- while a timed quest or the live step's escort runs. Messages:
+-- WHILE_HERE_CHANGED when it appears, its count changes or it goes;
+-- WHILE_HERE_MOVED(yards) when its distance moves to the next HERE_STEP.
+---------------------------------------------------------------------------
+
+Own.HERE_MAX, Own.HERE_SCAN = 10, 80 -- candidates kept; steps looked ahead
+Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
+Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
+Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
+Own.HERE_SECONDS = 180 -- a line with no progress for this long goes
+Own.HERE_STEP = 5 -- yards the shown distance moves by
+Own.HERE_WALK, Own.HERE_SPEED = 1.6, 7 -- walk / straight line; run speed (yd/s)
+Own.HERE_VERBS = { kill = true, collect = true, interact = true, use = true }
+Own.HERE_LEAVE = { fly = true, hearth = true, enter = true }
+Own.HERE_HEARTH = { [8690] = true, [556] = true } -- Hearthstone, Astral Recall
+Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true
+Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed or expired, this zone stay
+Own.hereTo = {} -- the walk check's destination (reused)
+
+-- Whether step s leaves the zone at its goal `goal` (applying): a flight,
+-- a hearth, an instance, or a place on another map than `map`.
+function Own.hereLeaves(goal, map)
+	return Own.HERE_LEAVE[goal.t] or (map ~= nil and goal.map ~= nil and goal.map ~= map) or false
+end
+
+-- Whether any of a goal's places has mobs at most `top` levels (one with no
+-- level counts).
+function Own.hereLevelOk(goal, top)
+	local lvl = goal.lvl
+	if goal.spots then
+		for _, s in ipairs(goal.spots) do
+			local l = s.lvl or lvl
+			if not s.alt and not (l and l > top) then return true end
+		end
+		return false
+	end
+	return not (lvl and lvl > top)
+end
+
+-- Whether goal g of later step s is a candidate, as what ("work" or
+-- "turnin"), and how many are left (see above).
+function Own.hereFits(s, g, goal, live)
+	local q, t = goal.quest, goal.t
+	if not q or goal.candidates or not (goal.map and goal.x and goal.y) then return nil end
+	local C = Compat()
+	if not C.IsOnQuest(q) or not goalApplies(goal) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
+	local liveGoals = guide.steps[live].goals
+	if t == "turnin" then
+		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) or goalDone(s, g, goal) then return nil end
+		for _, other in ipairs(liveGoals) do
+			if other.t == "turnin" and other.quest == q then return nil end
+		end
+		return "turnin", 0
+	end
+	if not Own.HERE_VERBS[t] or C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] or Own.alongWork(q)[1] then return nil end
+	local done, cur, max = goalDone(s, g, goal)
+	if done then return nil end
+	for lg, other in ipairs(liveGoals) do
+		if other.quest == q and other.oi == goal.oi and Own.HERE_VERBS[other.t] and goalApplies(other) and not goalDone(live, lg, other) then return nil end
+	end
+	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
+	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
+	local left = (max or goal.count or 1) - (cur or 0)
+	if left < 1 then return nil end
+	return "work", left
+end
+
+-- Build the candidates (Own.hereList[1..hereN]) for the active tab's live
+-- step, and keep the line on its goal while that is still one. True when a
+-- line the player had clicked went (the arrow goes back to the guide).
+function Own.hereBuild()
+	Own.hereDirty = false
+	local aimed = false
+	if Own.hereGuide ~= guide then
+		aimed = Own.hereClear(false)
+		Own.hereGuide = guide
+	end
+	local list, n = {}, 0
+	Own.hereList, Own.hereEscort = list, false
+	local live = computed
+	if guide and live and logReady and ns.Get("behavior.whileHere") then
+		if not player then refreshPlayer() end
+		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
+		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 60
+		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
+		local steps = guide.steps
+		for g, goal in ipairs(steps[live].goals) do
+			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
+		end
+		local map = Compat().GetPlayerMapPosition()
+		local s, last = live + 1, math.min(#steps, live + Own.HERE_SCAN)
+		while s <= last and n < Own.HERE_MAX do
+			local step = steps[s]
+			-- Along steps (background goals among them) are listed already.
+			if not step.along and stepApplies(step) and not isSkipped(s) then
+				for g, goal in ipairs(step.goals) do
+					if goalApplies(goal) and Own.hereLeaves(goal, map) then
+						last = 0
+						break
+					end
+					local kind, left = Own.hereFits(s, g, goal, live)
+					if kind then
+						n = n + 1
+						list[n] = { s = s, g = g, goal = goal, kind = kind, left = left }
+						if n >= Own.HERE_MAX then break end
+					end
+				end
+			end
+			s = s + 1
+		end
+	end
+	Own.hereN = n
+	-- The line stays on its goal while that is a candidate (its count may
+	-- have changed); a goal done or no longer one ends it.
+	local cur = Own.here
+	if cur then
+		for i = 1, n do
+			local e = list[i]
+			if e.goal == cur.goal then
+				Own.here = e
+				if e.left ~= cur.left then
+					-- Worked on: its time starts again.
+					Own.hereSince = GetTime()
+					Own.hereView = nil
+					ns.Fire("WHILE_HERE_CHANGED")
+				end
+				return aimed
+			end
+		end
+		if Own.hereClear(false) then aimed = true end
+	end
+	return aimed
+end
+
+-- End the line (quiet: for the rest of the zone stay). True when the player
+-- had clicked it: the arrow goes back to the guide.
+function Own.hereClear(quiet)
+	local cur = Own.here
+	if not cur then return false end
+	if quiet then Own.hereQuiet[cur.goal] = true end
+	Own.here, Own.hereView = nil, nil
+	local aimed = aim == cur.goal
+	if aimed then aim = nil end
+	ns.Fire("WHILE_HERE_CHANGED")
+	return aimed
+end
+
+-- Never in an instance, on a taxi, while a Hearthstone is cast, or while a
+-- timed quest or the live step's escort runs. Allocation-free.
+function Own.hereBlocked()
+	if Own.hereEscort then return true end
+	if IsInInstance and IsInInstance() then return true end
+	if UnitOnTaxi and UnitOnTaxi("player") then return true end
+	if GetQuestTimers and GetQuestTimers() then return true end
+	if UnitCastingInfo then
+		local spell = select(9, UnitCastingInfo("player"))
+		if spell and Own.HERE_HEARTH[spell] then return true end
+	end
+	return false
+end
+
+-- Yards from the player to candidate e: a goal's nearest spawn area edge at
+-- the player's level (e.spot: that area), else its point; a hand-in's NPC.
+-- Nil on another continent. Allocation-free once the places are resolved.
+function Own.hereDistance(e, c, px, py)
+	local goal = e.goal
+	local spots = goal.spots
+	if e.kind == "work" and spots then
+		local best, top, lvl = nil, Own.hereTop, goal.lvl
+		for i = 1, #spots do
+			local s = spots[i]
+			local l = s.lvl or lvl
+			if not s.alt and not (l and top and l > top) then
+				local d = Spots.edge(goal, s, c, px, py)
+				if d and (not best or d < best) then best, e.spot = d, s end
+			end
+		end
+		return best
+	end
+	local gc, gx, gy = goalWorld(goal)
+	if gc ~= c then return nil end
+	return ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+end
+
+-- The radius candidate e shows within.
+function Own.hereReach(e)
+	return e.kind == "turnin" and Own.HERE_TURNIN or Own.hereRadius or 60
+end
+
+-- Once, as the line would appear: not on a boat, zeppelin or tram, and the
+-- walk there (Nav's budgeted estimate) not far longer than the straight
+-- line. No answer (no Nav, busy, no route) lets it show.
+function Own.hereMayShow(e, d)
+	local T = ns.Transit
+	if T and T.Riding and T.Riding() then return false end
+	local nav = ns.Nav
+	if not (nav and nav.EstimateTravel) then return true end
+	local goal, s, to = e.goal, e.spot, Own.hereTo
+	to.map, to.f = goal.map, goal.f
+	to.x, to.y = s and s.x or goal.x, s and s.y or goal.y
+	local ok, seconds = pcall(nav.EstimateTravel, nil, to, true, true)
+	if not (ok and type(seconds) == "number") then return true end
+	return seconds * Own.HERE_SPEED <= (d + (s and s.r or 0)) * Own.HERE_WALK + 20
+end
+
+-- The arrival poll (c nil: no position). Shows the nearest candidate in
+-- reach, keeps or ends the one shown; allocation-free. True when a line the
+-- player had clicked went (the arrow goes back to the guide).
+function Own.hereTick(c, px, py)
+	local cur = Own.here
+	if not cur and Own.hereN == 0 then return false end
+	if not c or Own.hereBlocked() then return Own.hereClear(false) end
+	if UnitAffectingCombat and UnitAffectingCombat("player") then return false end
+	local step = Own.HERE_STEP
+	if cur then
+		local d = Own.hereDistance(cur, c, px, py)
+		if not d or d > Own.hereReach(cur) * Own.HERE_CLEAR then return Own.hereClear(false) end
+		if GetTime() - Own.hereSince > Own.HERE_SECONDS then return Own.hereClear(true) end
+		local shown = math.floor(d / step + 0.5) * step
+		if shown ~= Own.hereYards then
+			Own.hereYards = shown
+			ns.Fire("WHILE_HERE_MOVED", shown)
+		end
+		return false
+	end
+	local quiet, list, best, bestD = Own.hereQuiet, Own.hereList, nil, nil
+	for i = 1, Own.hereN do
+		local e = list[i]
+		if not quiet[e.goal] then
+			local d = Own.hereDistance(e, c, px, py)
+			if d and d <= Own.hereReach(e) and (not bestD or d < bestD) then best, bestD = e, d end
+		end
+	end
+	if not best then return false end
+	if not Own.hereMayShow(best, bestD) then
+		Own.hereQuiet[best.goal] = true
+		return false
+	end
+	Own.here, Own.hereSince, Own.hereView = best, GetTime(), nil
+	Own.hereSerial = (Own.hereSerial or 0) + 1
+	Own.hereYards = math.floor(bestD / step + 0.5) * step
+	ns.Fire("WHILE_HERE_CHANGED")
+	return false
+end
+
+-- The line shown now, as a goal view (Engine.GetAlong's) of its later step
+-- with: `step` (its step), `here` ("work" | "turnin"), `left`, `appeared` (a
+-- number new for each line that appears: the minimap's ping), `yards` (to
+-- the next HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more",
+-- "Hand in X to Y"). Nil without one, or while the window looks at another
+-- step than the live one.
+function Engine.GetWhileHere()
+	local cur = Own.here
+	if not (cur and guide and current and current == computed) then return nil end
+	local v = Own.hereView
+	if not v then
+		local goal, left = cur.goal, cur.left
+		v = goalView(cur.s, cur.g, goal, "current", nil)
+		v.step, v.here, v.left, v.appeared = cur.s, cur.kind, left, Own.hereSerial
+		local text
+		if cur.kind == "turnin" then
+			local _, npc = npcOf(goal)
+			local title = questTitle(goal) or titleOfQuest(goal.quest)
+			text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
+		else
+			text = L["%s, %d more"]:format(v.text or "", left)
+		end
+		v.hereText = text
+		Own.hereView = v
+	end
+	v.yards = Own.hereYards
+	return v
+end
+
+-- Lead the arrow to the line shown (it holds while the line shows, and gives
+-- the arrow back to the guide when it goes); its time starts again. True if
+-- the arrow can lead there.
+function Engine.AimWhileHere()
+	local cur = Own.here
+	if not (cur and guide and current) or not waypointOf(cur.g, cur.goal, nil, cur.s) then return false end
+	aim, Own.hereSince = cur.goal, GetTime()
+	evaluate()
+	return true
+end
+
+-- The player's "not now": the line goes and stays quiet for this zone stay.
+function Engine.DismissWhileHere()
+	if not Own.here then return false end
+	if Own.hereClear(true) then evaluate() end
+	return true
+end
+
+-- The candidates now, for tests and /polestar debug: { { step, index, kind, left }, ... }.
+function Engine.GetWhileHereCandidates()
+	local out = {}
+	for i = 1, Own.hereN do
+		local e = Own.hereList[i]
+		out[i] = { step = e.s, index = e.g, kind = e.kind, left = e.left }
+	end
+	return out
+end
+
+-- One arrival poll's work for the line, from world position c, px, py (tests).
+function Engine.WhileHereTick(c, px, py)
+	if Own.hereTick(c, px, py) then requestUpdate() end
+end
+
+-- What changes the candidates: the quest log, the level, the player's pins,
+-- ticks and skips, a new zone (which also ends the zone stay: dismissed lines
+-- may come back), the settings.
+function Own.hereChanged() Own.hereDirty = true end
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP" }) do
+	ns.RegisterEvent(event, Own.hereChanged)
+end
+-- PLAYER_SKIPPED_QUEST comes after the skip's evaluation: one more.
+for _, msg in ipairs({ "PINS_CHANGED", "PLAYER_SKIPPED_STEP", "PLAYER_SKIPPED_QUEST" }) do
+	ns.On(msg, function()
+		Own.hereDirty = true
+		requestUpdate()
+	end)
+end
+ns.RegisterEvent("PLAYER_LEVEL_UP", function() requestUpdate() end)
+for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
+	ns.RegisterEvent(event, function()
+		Own.hereDirty = true
+		local zone = GetRealZoneText and GetRealZoneText() or nil
+		if zone ~= Own.hereZone then
+			Own.hereZone = zone
+			for goal in pairs(Own.hereQuiet) do Own.hereQuiet[goal] = nil end
+		end
+	end)
+end
+ns.On("SETTING_CHANGED", function(path)
+	if type(path) == "string" and path:sub(1, 18) == "behavior.whileHere" then
+		Own.hereDirty = true
+		if path == "behavior.whileHere" and not ns.Get(path) and Own.hereClear(false) then evaluate() end
+		requestUpdate()
+	end
+end)
+
+---------------------------------------------------------------------------
 -- Pinned quests (#644): the player pins a quest of the log as along the way
 -- (the step menu, the quest log's menu). Its open objectives join the Along
 -- the way list under whatever step is current (Engine.GetAlong), with their
@@ -6292,7 +6694,7 @@ function Engine.ToggleGoal(stepIndex, goalIndex)
 	else
 		m[key] = "tick"
 	end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end
@@ -6410,7 +6812,7 @@ function Engine.SkipGoal(stepIndex, goalIndex)
 		end
 	end
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end

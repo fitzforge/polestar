@@ -196,14 +196,19 @@ pub fn establish(recs: &mut [Recording], e: Establish) {
 }
 
 /// data/recordings/*.json (schema 1 or 2; `config.json` and dot files are not sessions), less the
-/// sessions of builds older than `config.json`'s `minBuild`, each marked by [`establish`].
+/// sessions of builds older than `config.json`'s `minBuild`, each marked by [`establish`]. The
+/// contributors `config.json`'s `exclude` lists (the maintainer's audit: manipulated or suspect
+/// uploads) never count, and play no part in establishing anyone (their cohort-mates count only on
+/// their own record).
 pub fn read_recordings(dir: &Path) -> Result<Recordings, String> {
 	let Ok(rd) = std::fs::read_dir(dir) else { return Ok(Recordings { list: Vec::new(), min_voters: MIN_VOTERS }) };
 	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
 	files.sort_by(|a, b| cmp_utf16(a, b));
+	let mut exclude: FxHashSet<String> = FxHashSet::default();
 	let (min_build, est, min_voters) = match std::fs::read_to_string(dir.join("config.json")) {
 		Ok(text) => {
 			let c = parse_json(&text).map_err(|e| format!("recordings config.json: {e}"))?;
+			exclude = c.get("exclude").items().iter().filter_map(|x| x.as_str().map(str::to_string)).collect();
 			let at_least_0 = |k: &str, d: f64| c.get(k).as_num().filter(|n| n.is_finite() && *n >= 0.0).unwrap_or(d);
 			let d = ESTABLISH;
 			(
@@ -234,8 +239,11 @@ pub fn read_recordings(dir: &Path) -> Result<Recordings, String> {
 		}
 		out.push(Recording { file, rec, counts: false });
 	}
-	establish(&mut out, est);
-	Ok(Recordings { list: out, min_voters })
+	let (mut counted, excluded): (Vec<Recording>, Vec<Recording>) = out.into_iter().partition(|r| !exclude.contains(&r.contributor()));
+	establish(&mut counted, est);
+	counted.extend(excluded);
+	counted.sort_by(|a, b| cmp_utf16(&a.file, &b.file));
+	Ok(Recordings { list: counted, min_voters })
 }
 
 /// meta.json's revision of the recordings: sha256 over file names and contents, 16 hex digits.
@@ -407,6 +415,9 @@ pub struct Stats {
 	pub dropped_objectives: usize,
 	/// Quests whose recorded lists disagree: the data's objectives are kept.
 	pub objective_conflicts: Vec<i64>,
+	/// Corrected values the recordings disagreed with (`"<section> <id>: <field>"`): the
+	/// corrections were kept.
+	pub overruled: Vec<String>,
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -1893,8 +1904,11 @@ fn resolve_factions(factions: &Obj, seen: &IndexMap<i64, IndexSet<String>>, pare
 }
 
 /// Applies the recordings that count over the tables (see the module doc); `min_voters` is
-/// [`Recordings::min_voters`].
-pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so: SpawnOptions, live_maps: &dyn Fn(i64) -> bool, sim: bool) -> Stats {
+/// [`Recordings::min_voters`]. `corrections` (forever-db/corrections, already applied to the tables)
+/// are put back afterwards ([`crate::corrections::reassert`]): a recording never overrides a
+/// corrected value, whatever its evidence, and every field it disagreed on is in
+/// [`Stats::overruled`].
+pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_voters: usize, so: SpawnOptions, live_maps: &dyn Fn(i64) -> bool, sim: bool) -> Stats {
 	let mut ov = Overlay {
 		db,
 		so,
@@ -2198,6 +2212,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so
 	let parents: IndexMap<i64, i64> = ov.faction_parent.iter().filter_map(|(&id, b)| b.best().map(|(p, _)| (id, p.num() as i64))).collect();
 	let sides: FxHashMap<i64, String> = ov.faction_side.iter().filter_map(|(&id, b)| b.best().and_then(|(s, _)| s.as_str().map(|s| (id, s.to_string())))).collect();
 	resolve_factions(db.factions, &ov.factions_seen, &parents, &sides);
+	ov.stats.overruled = crate::corrections::reassert(corrections, db.quests, db.npcs, db.objects, db.items, sim);
 	ov.stats
 }
 
@@ -2249,7 +2264,7 @@ mod tests {
 
 		fn apply(&self, recs: &[Recording]) -> Stats {
 			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
-			apply_recordings(&db, recs, MIN_VOTERS, DEFAULTS, &|_| false, false)
+			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false)
 		}
 
 		fn quest(&self, id: &str) -> V {
@@ -2317,6 +2332,44 @@ mod tests {
 				assert!(src.iter().any(|s| s == tag), "{why}: {tag} in {src:?}");
 			}
 			assert!(!src.iter().any(|s| s == "recorder" || s.starts_with("recorder-gap")), "{why}: {src:?}");
+		}
+	}
+
+	#[test]
+	fn a_correction_stands_against_three_counted_players_and_their_disagreement_is_listed() {
+		// forever-db corrections already applied to quest 364 (the build applies them before the
+		// overlay): its level, giver, objectives and XP. Three counted players record other values for
+		// those and for its title, ender and rewards.
+		let corrections = parse_json(
+			r#"{"quests":{"364":{"set":{"level":3,"start":{"npc":[1568],"object":[],"item":[]},
+				"objectives":[{"type":"kill","id":1501,"count":10,"text":"Mindless Zombie"},{"type":"kill","id":1502,"count":10,"text":"Wretched Zombie"}],"xp":400},
+				"source":{"kind":"in-game-check","ref":"test"}}}}"#,
+		)
+		.unwrap();
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		let db = Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances };
+		crate::corrections::apply(&corrections, &t.quests, &t.npcs, &t.objects, &t.items, false);
+		let mut recs = vec![session("a", A, "enUS", &rewrite(10))];
+		recs.extend(from(&[B, C], &rewrite(10)));
+		let st = apply_recordings(&db, &recs, &corrections, MIN_VOTERS, DEFAULTS, &|_| false, false);
+		let q = t.quest("364");
+		// Every corrected field stands.
+		assert_eq!(q.get("level").as_num(), Some(3.0));
+		assert_eq!(j(&q.get("start").get("npc")), "[1568]");
+		assert_eq!(j(&q.get("objectives")), j(&corrections.get("quests").get("364").get("set").get("objectives")));
+		assert_eq!(q.get("xp").as_num(), Some(400.0));
+		// Fields no correction sets still take the trusted recordings.
+		assert_eq!(q.get("title").as_str(), Some("The Damned (Forever)"));
+		assert_eq!(j(&q.get("end").get("npc")), "[1569,1568]");
+		assert_eq!(j(&q.get("rewards")), r#"{"items":[],"choices":[9999],"money":null}"#);
+		// The disagreement is listed, and the overruled fields carry no recorder tag.
+		assert_eq!(st.overruled, ["quests 364: level", "quests 364: start", "quests 364: objectives", "quests 364: xp"]);
+		let src: Vec<String> = q.get("source").items().iter().map(V::to_js_string).collect();
+		for gone in ["recorder:level", "recorder:start", "recorder:objectives", "recorder:xp-base"] {
+			assert!(!src.iter().any(|s| s == gone), "{gone} in {src:?}");
+		}
+		for kept in ["recorder:title", "recorder:end", "recorder:rewards", "polestar-correction"] {
+			assert!(src.iter().any(|s| s == kept), "{kept} not in {src:?}");
 		}
 	}
 
@@ -2640,6 +2693,28 @@ mod tests {
 		// A quest without XP: a single established player fills it, a new one doesn't.
 		assert_eq!(after(365, vec![old("a", A, &xp(365))]), Some(450.0));
 		assert_eq!(after(365, vec![pulled("b", B, "ib", 1.0, 5, 1, &xp(365))]), None);
+	}
+
+	#[test]
+	fn contributors_the_audit_excludes_never_count_nor_lift_their_cohort() {
+		let dir = std::env::temp_dir().join(format!("forge-data-recordings-exclude-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		std::fs::create_dir_all(&dir).unwrap();
+		// A and B are established; C (B's cohort-mate) is not on its own record.
+		let recs =
+			[old("a", A, &[]), play(A), in_cohort(old("b", B, &[]), "beefbeefbeefbeef"), in_cohort(play(B), "beefbeefbeefbeef"), in_cohort(pulled("c", C, "ic", 1.0, 5, 1, &[]), "beefbeefbeefbeef")];
+		for r in &recs {
+			std::fs::write(dir.join(&r.file), stringify(&r.rec, None)).unwrap();
+		}
+		let counts = |dir: &Path| -> Vec<(String, bool)> { read_recordings(dir).unwrap().iter().map(|r| (r.file.clone(), r.counts)).collect() };
+		assert!(counts(&dir).iter().all(|(_, c)| *c), "without the audit, C counts through B's cohort");
+		std::fs::write(dir.join("config.json"), format!(r#"{{"exclude":["{B}"]}}"#)).unwrap();
+		let after = counts(&dir);
+		assert_eq!(after.len(), 5, "excluded sessions are still read (the record report sees them), only never counted");
+		for (f, c) in &after {
+			assert_eq!(*c, f.contains(A) || f == "a.json", "{f}");
+		}
+		std::fs::remove_dir_all(&dir).unwrap();
 	}
 
 	#[test]

@@ -137,6 +137,9 @@ L["Only once %s is handed in"] = "Только после сдачи «%s»"
 L["Skipped for your character: its conditions do not hold"] = "Пропущено для вашего персонажа: условия не выполнены"
 L["Skipped for your character: none of its goals apply"] = "Пропущено для вашего персонажа: ни одна цель не подходит"
 L["For %s: %s"] = "Для %s: %s"
+L["Hand in %s to %s"] = "Сдать «%s»: %s"
+L["Hand in %s"] = "Сдать «%s»"
+L["%s, %d more"] = "%s, ещё %d"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -1298,6 +1301,11 @@ L["Click to show or hide the party panel."] = "Щёлкните, чтобы по
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+L["While you're here:"] = "Пока вы здесь:"
+L["(step %d)"] = "(шаг %d)"
+L["Not now (right-click)"] = "Не сейчас (правый клик)"
+L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "Шаг %d делает это позже; сделаете сейчас, и этот шаг будет короче или пропустится, когда вы до него дойдёте."
+L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
@@ -2051,6 +2059,13 @@ L["Did you mean:"] = "Возможно, вы искали:"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = "Когда рядом цель одного из следующих шагов, а её задание уже в журнале, об этом скажет строка под шагом. Щелчок наводит туда стрелку; правый клик скрывает строку до конца пребывания в зоне."
+L["How close"] = "Насколько близко"
+L["How near its spawn area must be for the line to show. It goes again a little further out."] = "Как близко должна быть область появления, чтобы строка показалась. Исчезает она чуть дальше."
+L["Include nearby hand-ins"] = "Включая сдачу заданий рядом"
+L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
+L["While you're here sound"] = "Звук «Пока вы здесь»"
+L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
 -- L["Wait for Spoken"] = ""
 -- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
@@ -2959,6 +2974,9 @@ L["Finished: %s - %s"] = "Выполнено: %s - %s"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
 -- L["No dungeon has opened up for this character."] = ""
 -- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
+
+-- UI/WhileHere.lua
+L["While you're here"] = "Пока вы здесь"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
