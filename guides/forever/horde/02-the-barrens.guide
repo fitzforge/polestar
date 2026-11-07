@@ -240,7 +240,6 @@ step Ratchet
   accept 865                          -- Mebok Mizzyrix
   sethome "Ratchet"
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
-  accept 896                          -- Wharfmaster Dizzywig, on the dock
 
 step The Barrens: kill these as you meet them
   zone The Barrens
@@ -296,7 +295,6 @@ step The Barrens: kill these as you meet them
 step Regthar Deathgate
   turnin 855
   turnin 850
-  accept 851                          -- Verog walks with the Kolkar at the Stagnant Oasis: later, in the 19-23 Barrens guide
 
 step The Dry Hills
   tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
@@ -366,8 +364,6 @@ step The Crossroads
   accept 875
   turnin 903                          -- Sergra Darkthorn
   accept 881
-  accept 4921
-  accept 899                          -- Mankrik
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 870                          -- Tonga Runetotem
   accept 877
@@ -411,10 +407,6 @@ step Nugget Slugs
   tip The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.
   collect 11143 quest 3922.1
 
-step Ignition
-  tip East to the Sludge Fen. Wizzlecrank's Shredder stands inside the Venture Co. camp; Supervisor Lugwizzle carries the key.
-  accept 858
-
 step Wenikee Boltbucket
   turnin 3922
   accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the next guide's Orgrimmar visit
@@ -436,13 +428,29 @@ step The Crossroads
   label q869
   tip In from the north gate: Gazrog, Darsok on the tower platform, Sergra by the inn, then Tonga and Mura at the south gate. The next guide starts here and takes you to Orgrimmar and the zeppelin to Tirisfal Glades.
   turnin 869                          -- Gazrog
-  accept 3281                         -- Gazrog
   turnin 875                          -- Darsok Swiftdagger
-  accept 876                          -- Darsok Swiftdagger
   turnin 881                          -- Sergra Darkthorn
-  accept 905
   turnin 880                          -- Tonga Runetotem
   accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide
+
+# The Barrens' log is cleared before Silverpine (2026-11-07): Chen's keg and
+# Mebok's horns, finished on the Dry Hills loop, go to Ratchet by the flight
+# from the Crossroads and back (about 4 minutes), and the Barrens 19-23 guide
+# takes the quests it works itself (Stolen Silver, the raptor nests, Verog,
+# Dizzywig, Darsok, Mankrik, Ignition) where their givers stand on its walk.
+step Fly to Ratchet
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Ratchet"
+
+step Ratchet
+  when complete 865
+  turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
+
+step Ratchet
+  tip Brewmaster Drohn stands in the inn, then back to the flight master for the Crossroads.
+  turnin 819                          -- Brewmaster Drohn
+  fly "Crossroads"
 
 # ---------------------------------------------------------------- Druids: Thunder Bluff and Moonglade
 

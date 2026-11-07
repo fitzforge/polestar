@@ -24,7 +24,7 @@ step Tarren Mill
   accept 501
   accept 496                          -- Apothecary Lydon
   turnin 493                          -- Apothecary Lydon
-  turnin 494 optional -- High Executor Darthalia
+  turnin 494                          -- High Executor Darthalia
   accept 527                          -- High Executor Darthalia
   accept 549                          -- The WANTED poster by the inn
   accept 498                          -- Krusk, inside

@@ -12,11 +12,28 @@ next forever/horde/05-stonetalon-mountains
 # Added here: Letter to Jin'Zil (1060).
 # Left out: The Harvester (897).
 
-step Fly to Ratchet
+step Fly to Crossroads
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
-  fly "Ratchet"
+  fly "Crossroads"
   zone The Barrens
+
+step The Crossroads
+  tip Off the wind rider tower: Darsok and Thork stand on the tower platform; then Mankrik by the south gate, Sergra Darkthorn and Zargh by the inn, Gazrog by the north gate and Korran west of him, and back up the tower. Their quests are worked on the way back from Ratchet and later.
+  accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
+  turnin 98024 only Skyborne          -- Thork, on the tower
+  accept 6541                         -- Thork. Keep it: Kadrak at the Mor'shan Rampart, next guide
+  accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
+  accept 899
+  accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
+  turnin 6386 only Orc,Troll          -- Zargh, by the inn
+  accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
+  accept 868                          -- Korran: the eggs are in the Field of Giants, later
+
+step Fly to Ratchet
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Ratchet"
 
 step Ratchet
   zone The Barrens
@@ -41,6 +58,7 @@ step Ratchet
 step Ratchet
   zone The Barrens
   accept 891                          -- Captain Thalo'thas Brightsun
+  accept 896                          -- Wharfmaster Dizzywig, on the dock: the emerald comes from the Boulder Lode Mine, later
   vendor nearest
 
 step Bruuz
@@ -56,7 +74,7 @@ step Ratchet
 # Built from the simulator's consensus Horde route (Tauren export, the Barrens
 # visit at 19.6-23.4); not yet play-tested on Forever.
 #
-# Flow: Orgrimmar -> fly to Ratchet -> the Southsea beach and Northwatch Hold
+# Flow: Orgrimmar -> fly to the Crossroads (Gazrog, Sergra) -> fly to Ratchet -> the Southsea beach and Northwatch Hold
 # (Gilthares' escort back to Ratchet) -> raptor horns on the way to the
 # Crossroads (bind) -> Orgrimmar for level 20 training and back -> the Dry
 # Hills (Serena Bloodfeather, Walton and Vrang) -> the
@@ -110,12 +128,19 @@ step Ratchet
 # Rogue's Mission: Possible But Not Probable (2478): Gallywix is elite.
 #
 # Dropped:
-# - Chen's Empty Keg part 3 (822): its prerequisite (821) is dropped in
-#   forever/horde/02-the-barrens, and it would need a final trip to Ratchet.
-# - Deepmoss Spider Eggs (1069), Goblin Invaders (1062), Avenge My Village
-#   (6548), Letter to Jin'Zil (1060) and ... and that note you found (79007):
-#   the route never turns them in. Stepping Stones (79192) follows 79007, so
-#   it is not offered either.
+# - Chen's Empty Keg part 2 (821) and part 3 (822): part 2's tusks, kidneys
+#   and horn are drops spread over three areas of this guide, and the flow
+#   audit had each walked through and come back for (2026-11-07 review).
+# - Deepmoss Spider Eggs (1069): Mebok takes them only on the Hillsbrad
+#   guide's Ratchet stop at 27 (40% XP), and 3 of 15 recorded accepts were
+#   handed in. Letter to Jin'Zil (1060) and ... and that note you found
+#   (79007): the route never turns them in. Stepping Stones (79192) follows
+#   79007, so it is not offered either. Goblin Invaders (1062), Avenge My
+#   Village (6548) and Blood Feeders (6461): Seereth's, Makaba's and Xen'Zilla's
+#   kills are 13-19 mobs at 24 in Stonetalon, and the level model had them
+#   costing more minutes than the grind they save (2026-11-07 review).
+# - Taken since 2026-11-07 (recorded players hand them in): Counterattack!
+#   (4021) from Regthar on the last Crossroads stop.
 #
 # Carried on into later guides: Report to Kadrak (6541) and The Ashenvale Hunt
 # (6382), Ashenvale; Ziz Fizziks (1483), Stonetalon; Journey to Hillsbrad
@@ -202,12 +227,10 @@ step Raptor nests
   interact 6906 quest 905.3
 
 step The Crossroads
+  tip In from the south: Sergra by the inn, then Gazrog by the north gate on the way out west.
   turnin 905                          -- Sergra Darkthorn
   accept 3261                         -- Sergra Darkthorn
   turnin 3281                         -- Gazrog
-  turnin 98024 only Skyborne          -- Thork, at the top of the tower
-  accept 6541                         -- Thork. Keep it: Kadrak at the Mor'shan Rampart, next guide
-  accept 868                          -- Korran: the eggs are in the Field of Giants, later
 
 step Dreadmist Peak
   only Tauren,Druid
@@ -218,6 +241,10 @@ step Dreadmist Peak
   buy 2449 x5 npc 3490 optional       -- Earthroot from Hula'mahi; herbalists pick it on the plains
 
 # ---------------------------------------------------------------- North-west: the Dry Hills
+
+step Regthar Deathgate
+  tip On the way north-west to the Dry Hills: Regthar stands at the bunkers west of the Crossroads. Verog walks with the Kolkar at the Stagnant Oasis, later.
+  accept 851                          -- Regthar Deathgate
 
 step Kolkar camp
   only Tauren,Druid
@@ -260,6 +287,8 @@ step Walton
   turnin 95508
 
 step Ignition
+  tip Wizzlecrank's Shredder stands inside the Venture Co. camp in the Sludge Fen; Supervisor Lugwizzle carries the key.
+  accept 858                          -- Wizzlecrank's Shredder
   collect 5050 quest 858.1 @56.3,8.6 map 1413
   turnin 858
   accept 863
@@ -647,6 +676,12 @@ step Thun'grim Firegaze
 
 step Regthar Deathgate
   turnin 852
+  accept 4021
+
+step Counterattack!
+  tip Speak to Regthar again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until Warlord Krom'zar (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body.
+  collect 11227 quest 4021.1 @44.4,28.1 -- Piece of Krom'zar's Banner
+  turnin 4021                         -- Regthar Deathgate
 
 step Crossroads flight master
   only Paladin

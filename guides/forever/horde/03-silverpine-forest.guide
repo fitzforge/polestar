@@ -86,8 +86,13 @@ next forever/horde/04-the-barrens
 # the four leaders are conversations on stops the route makes anyway, so it
 # stays as orientation.
 #
-# Dropped: A Recipe For Death (447), Zinge's Delivery (1359), Rot Hide
-# Origins (444) and Hidden Enemies (5726): the route never turns them in.
+# Dropped: A Recipe For Death (447): its Skittering Blood comes only from the
+# spiders in the north-west hills, off every walk, and Faranell takes it at 27.
+# Rot Hide Origins (444) and Hidden Enemies (5726): the route never turns them in.
+# Zinge's Delivery (1359): Zinge takes it on the Hillsbrad guide's Undercity stop
+# at 27, for about 10 XP, and it would hold a log slot through the log's peak
+# here. Arugal's Folly (422) is the Valgan's Field farmhouse on the walk north
+# (2026-11-07: handed in by recorded players).
 # The Engraved Ring (440) stays (Rev17H): Magistrate Sevren is in Brill, 300
 # yd from the zeppelin tower the 19 trip leaves from; dropped here, the route
 # picked it up anyway and carried it to a Brill stop of its own at 36.
@@ -187,6 +192,7 @@ step The Sepulcher
   accept 437
   sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
   turnin 3301                         -- Mura Runetotem
+  turnin 445 only Undead              -- Apothecary Renferrel: Delivery to Silverpine Forest
 
 step The Sepulcher
   zone Silverpine Forest
@@ -243,6 +249,7 @@ step The Sepulcher
   accept 481
   turnin 481                          -- Dalar Dawnweaver
   turnin 421
+  accept 422                          -- Dalar Dawnweaver: his books lie in the Valgan's Field farmhouse, on the walk north
   accept 482
   turnin 437                          -- High Executor Hadrec, below ground
   accept 438
@@ -269,6 +276,10 @@ step The Sepulcher
   accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at 19
 
 # ---------------------------------------------------------------- North again, then Fenris Isle
+
+step Valgan's Field farmhouse
+  tip On the road north, the farmhouse at Valgan's Field: go upstairs, the Dusty Spellbooks lie on the floor in the back room. Looting them brings a Moonrage Darkrunner.
+  collect 3155 quest 422.1            -- Dusty Spellbooks; upstairs
 
 step Quinn Yorick
   tip North again to the Yoricks' house.
@@ -320,6 +331,7 @@ step The Sepulcher
   turnin 479                          -- Shadow Priest Allister
   turnin 516
   turnin 95981
+  turnin 422                          -- Dalar Dawnweaver, just north of Allister
   turnin 91920                        -- Apothecary Renferrel
   turnin 443
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
@@ -358,7 +370,11 @@ step Valley of Strength
 step Valley of Strength
   zone Orgrimmar
   when onquest 6384
+  tip Innkeeper Gryshka sends you up the tower beside the inn to Doras, the wind rider master; he sends you back to Zargh in the Crossroads, on the next guide's first stop there.
   turnin 6384 only Orc,Troll
+  accept 6385 only Orc,Troll          -- Innkeeper Gryshka
+  turnin 6385 only Orc,Troll          -- Doras
+  accept 6386 only Orc,Troll
 
 step Valley of Strength
   zone Orgrimmar
