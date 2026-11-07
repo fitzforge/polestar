@@ -5672,3 +5672,72 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+// --- Alliance 12-20 zone order (2026-11-07). Darkshore is played in two parts around an Eastern Kingdoms
+// loop at 18-20 (03-loch-modan: Loch Modan, Redridge and the Defias chain in Westfall), where those
+// zones' 15-20 quests give full XP; before, the route never went to Loch Modan after the starts, did
+// Redridge's 15-18 quests at 24 and entered Ashenvale at 20 with a grind there. Dwarves and Gnomes do
+// east Elwynn on the walk from Goldshire to Westfall (Humans in their start guide; Night Elves and
+// Skyborne arrive at 14.5, where its level 9-10 quests turn grey).
+const A1220_LOCH = ['forever/alliance/03-loch-modan.guide', [250, 199, 86614, 436, 297, 298, 301, 86613, 86758, 257, 258, 86585, 244, 246, 98407, 118, 119, 120, 121, 125, 89, 129, 130, 131, 92, 3741, 122, 124, 132, 135, 141, 142, 155, 104]];
+const A1220_ELWYNN = [35, 37, 52, 45, 71, 39, 83, 5545, 91732, 91733, 91723, 91724, 91725, 76, 239, 11, 109];
+
+test('Alliance 12-20 zone order: Darkshore, the Eastern Kingdoms loop, Darkshore again, then Ashenvale', { skip }, () => {
+	const next = (g) => String(compiled(g).next).replace(/\.guide$/, '');
+	assert.equal(next('forever/alliance/02-westfall.guide'), 'forever/alliance/03-darkshore');
+	assert.equal(next('forever/alliance/03-darkshore.guide'), 'forever/alliance/03-loch-modan');
+	assert.equal(next('forever/alliance/03-loch-modan.guide'), 'forever/alliance/03-darkshore-return');
+	assert.equal(next('forever/alliance/03-darkshore-return.guide'), 'forever/alliance/06-ashenvale');
+});
+
+test('forever/alliance/03-loch-modan.guide: Alliance 12-20 zone order: Loch Modan, Redridge and the Defias chain are taken and handed in on the loop', { skip }, () => {
+	const [guide, quests] = A1220_LOCH;
+	const list = goals(guide);
+	for (const q of quests) {
+		assert.ok(list.some(({ goal }) => is('accept', q)(goal) && !goal.optional), `accept ${q}`);
+		assert.ok(list.some(({ goal }) => is('turnin', q)(goal) && !goal.optional), `turnin ${q}`);
+	}
+	assert.ok(list.some(({ goal }) => is('turnin', 65)(goal)), 'The Defias Brotherhood (65, from Westfall) goes to Wiley the Black here');
+	for (const race of ['Human', 'NightElf', 'Skyborne']) assert.ok(list.filter(forRaceOf(race)).some(({ goal }) => is('turnin', 307)(goal)), `${race}: Filthy Paws at the Algaz Station`);
+	for (const race of ['Dwarf', 'Gnome']) assert.ok(!list.filter(forRaceOf(race)).some(({ goal }) => is('accept', 307)(goal)), `${race}: Filthy Paws was done in Dun Morogh`);
+});
+
+test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24, Alther\'s Mill is taken on the first Lakeshire stop', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	for (const q of [244, 246, 98407, 125, 89, 129, 130, 131, 92, 65]) assert.ok(!list.some(({ goal }) => goal.quest === q && (goal.t === 'accept' || goal.t === 'turnin')), `${q} is not in 04-redridge-mountains`);
+	const mill = list.find(({ goal }) => is('accept', 98386)(goal));
+	const posters = list.find(({ goal }) => is('accept', 180)(goal));
+	assert.ok(mill && posters && mill.s < posters.s, 'Alther\'s Mill comes from Foreman Oslow on the first Lakeshire stop');
+});
+
+test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and Gnomes do east Elwynn on the way to Westfall, the later starts don\'t', { skip }, () => {
+	const list = goals('forever/alliance/02-westfall.guide');
+	for (const race of ['Dwarf', 'Gnome']) {
+		const mine = list.filter(forRaceOf(race));
+		for (const q of A1220_ELWYNN) assert.ok(mine.some(({ goal }) => is('turnin', q)(goal)), `${race}: turnin ${q}`);
+		const elwynnEnd = mine.findIndex(({ goal }) => is('turnin', 11)(goal));
+		const jansen = mine.findIndex(({ goal }) => is('accept', 36)(goal));
+		assert.ok(elwynnEnd >= 0 && elwynnEnd < jansen, `${race}: east Elwynn before the Jansen Stead`);
+	}
+	for (const race of ['Human', 'NightElf', 'Skyborne']) {
+		const mine = list.filter(forRaceOf(race));
+		for (const q of A1220_ELWYNN.filter((q) => q !== 109 && q !== 35)) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
+	}
+});
+
+test('forever/alliance/03-darkshore-return.guide: Alliance 12-20 zone order: the southern loops\' quests are taken on the return, not carried through the Eastern Kingdoms', { skip }, () => {
+	const first = goals('forever/alliance/03-darkshore.guide');
+	const back = goals('forever/alliance/03-darkshore-return.guide');
+	for (const q of [948, 986, 729, 965, 4740]) {
+		assert.ok(!first.some(({ goal }) => is('accept', q)(goal)), `${q} is not taken on the first visit`);
+		assert.ok(back.some(({ goal }) => is('accept', q)(goal)) && back.some(({ goal }) => is('turnin', q)(goal)), `${q} is taken and handed in on the return`);
+	}
+});
+
+test('Alliance 12-20 zone order: every quest the Eastern Kingdoms loop adds has its include record', () => {
+	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
+	for (const q of [250, 199, 86614, 436, 297, 298, 301, 86613, 86758, 257, 258, 86585, 118, 119, 122, 124, 120, 121, 3741, 132, 135, 141, 142, 155, 104]) {
+		assert.ok(inc.some((e) => e.q === q && /Alliance 12-20 re-order/.test(e.reason)), `include ${q} is recorded`);
+	}
+});
+// --- end of Alliance 12-20 zone order
