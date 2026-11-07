@@ -106,7 +106,11 @@ built from the installed client, so it is never in the data pack or in git.
 The hubs layer, `nav-layers/hubs.json`, sits next to the grid folder. It marks each faction's towns
 and outposts. The roads and hubs layers are optional and come from `forge nav layers roads|hubs`
 (see [The ground layers](#the-ground-layers-forge-nav-layers)):
-without them the walk graphs have no road preference and no hostile-hub avoidance.
+without them the walk graphs have no road preference and no hostile-hub avoidance. Each walk graph
+is named by the layers it was priced with, so a walker reading other layers asks for a graph
+nobody built. `forge build` links the grid and its layers into `<out>/.forge/root/data/local/`
+(`nav4`, `nav-layers`), and the prepare, walks and legs stages all read them there: a `--grid`
+outside the checkout, with no `nav-layers` beside it, bakes its legs on the graphs prepare built.
 
 `<c>` is the continent's map id: 0 is the Eastern Kingdoms, 1 Kalimdor, 2991 Zephras Isle.
 
