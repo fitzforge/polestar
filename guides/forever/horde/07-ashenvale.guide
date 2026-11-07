@@ -75,6 +75,12 @@ step Zoram'gar Outpost
 
 # ---------------------------------------------------------------- East along the road
 
+step Ruins of Stardust fountain
+  zone Ashenvale
+  only Shaman
+  tip The fountain stands in the middle of the Ruins of Stardust, where Ursangous roams: use the Empty Blue Waterskin there.
+  collect 7770 quest 1534.1
+
 step Ursangous
   tip Follow the main road east past Astranaar (Alliance: keep to the road). Ursangous, a big grizzly, roams the Ruins of Stardust south of the road, west of Mystral Lake. His paw starts the next hunt quest.
   collect 16303
@@ -90,22 +96,18 @@ step Alonso
   accept 78134 optional
   turnin 78134
 
-step Ashenvale
-  only Shaman
-  zone Ashenvale
-  goto 12.2,33.8 "Ashenvale"
-
-step Ruins of Stardust fountain
-  zone Ashenvale
-  only Shaman
-  tip The fountain stands in the middle of the Ruins of Stardust: use the Empty Blue Waterskin there.
-  collect 7770 quest 1534.1
-
 step Tideress
   zone Ashenvale
   tip Tideress, a corrupted water elemental, drifts in Mystral Lake. Her Befouled Water Globe starts a quest for Splintertree.
   collect 16408
   accept 1918 item 16408
+
+step Mystral Lake
+  when onquest 25
+  tip While you're at the lake: Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
+  kill 3917 quest 25.1                -- Underwater
+  goto 48.9,69.6 "Gazebo"
+  complete 25
 
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
@@ -117,24 +119,28 @@ step Torek's Assault
   accept 6544
   complete 6544
 
+# Splintertree from the road in: Ertog and Pixel by the gate, Senani, Mastok,
+# then the inn once (Yama and the innkeeper stand inside it together).
 step Splintertree Post
+  turnin 6544                         -- Ertog Ragetusk
   accept 6441                         -- Pixel
-
-step Splintertree Post
-  when onquest 1918
-  turnin 1918                         -- Mastok Wrilehiss
-
-step Splintertree Post
-  accept 824
-  turnin 6482                         -- Yama Snowhoof, inside
 
 step Splintertree Post
   when onquest 23
   turnin 23                           -- Senani Thunderheart
 
 step Splintertree Post
-  sethome "Splintertree Post"
-  turnin 6544                         -- Ertog Ragetusk
+  when onquest 1918
+  turnin 1918                         -- Mastok Wrilehiss
+
+step Splintertree Post
+  when onquest 25
+  turnin 25                           -- Mastok Wrilehiss
+
+step Splintertree Post
+  accept 824                          -- Mastok Wrilehiss
+  turnin 6482                         -- Yama Snowhoof, inside the inn
+  sethome "Splintertree Post"         -- Innkeeper Kaylisk, beside her
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
   vendor nearest
@@ -153,15 +159,7 @@ step Shadumbra
   collect 16304
   accept 24 item 16304
 
-step Mystral Lake
-  when onquest 25
-  tip Back south-west to Mystral Lake. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
-  kill 3917 quest 25.1                -- Underwater
-  goto 48.9,69.6 "Gazebo"
-  complete 25
-
 step Splintertree Post
-  turnin 25                           -- Mastok Wrilehiss
   turnin 2 optional -- Senani Thunderheart
   turnin 24 optional
   accept 247
@@ -251,6 +249,13 @@ step Fly to Camp Taurajo
   fly "Camp Taurajo"
   zone The Barrens
 
+step Brine
+  only Shaman
+  zone The Barrens
+  tip Brine's hut stands on the ridge above the quilboar watering hole south of Camp Taurajo, on the road to the Great Lift.
+  turnin 1534                         -- Brine
+  accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
+
 step Thousand Needles
   zone Thousand Needles
   goto 31.9,23.9 "Thousand Needles"
@@ -265,11 +270,11 @@ step Freewind Post
   getfp "Freewind Post"
   accept 4767                         -- Elu, by the wind rider master
   accept 4821                         -- Hagar Lightninghoof
-  sethome "Freewind Post"
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside
+  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Alien Egg
   tip Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1).
@@ -322,29 +327,6 @@ step Lakota Windsong
   accept 4904 @37.95,26.45            -- Lakota Windsong
   complete 4904
 
-step Freewind Post flight master
-  only Shaman
-  zone Thousand Needles
-  goto 45.0,49.1 "Freewind Post flight master"
-
-# ---------------------------------------------------------------- Freewind Post
-
-step Brine
-  only Shaman
-  zone The Barrens
-  tip Fly to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
-  fly "Camp Taurajo"
-  turnin 1534                         -- Brine
-  accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
-
-step Back to Freewind Post
-  only Shaman
-  zone The Barrens
-  goto 44.5,59.1 "Camp Taurajo flight master"
-  fly "Freewind Post"
-  zone Thousand Needles
-  goto 11.6,34.3 "Thousand Needles"
-
 step Highperch
   zone Thousand Needles
   tip West of Whitereach the wyverns nest on the Highperch cliffs; the eggs lie in the nests. Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post.
@@ -395,16 +377,18 @@ step The Screeching Canyon: kill these as you meet them
   kill 4100 quest 98070.1
   collect 5843 quest 1150
 
-step Test of Endurance
-  turnin 1150                         -- Dorn Plainstalker, below ground
-
 step Freewind Post
+  tip Back east to Freewind Post: it lies on the way from Roguefeather Den to Dorn's mesa.
   turnin 4767                         -- Elu
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
   turnin 98070                        -- Jandia, inside
   vendor nearest
+
+step Test of Endurance
+  tip Dorn Plainstalker's mesa is north-east of Freewind; from him, head south-east out to the Shimmering Flats.
+  turnin 1150                         -- Dorn Plainstalker, below ground
 
 # ---------------------------------------------------------------- Shimmering Flats
 
