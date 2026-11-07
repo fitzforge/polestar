@@ -555,6 +555,8 @@ step Thelsamar
 
 step Golnir Bouldertoe
   zone Ironforge
+  tip Learn the flight path from Gryth Thurden where you land, then walk to Golnir in the Great Forge and back to Gryth.
+  getfp "Ironforge" npc 1573
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
   turnin 6388                                 -- Gryth Thurden, the gryphon master where you landed
@@ -567,14 +569,7 @@ step Buliwyf Stonehand
   tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
   train 11865                         -- Buliwyf Stonehand
 
-step Ironforge
-  zone Ironforge
-  goto 72.4,48.6 "Ironforge"
-
 # ---------------------------------------------------------------- Ironforge
-
-step Inn and flight master
-  getfp "Ironforge"
 
 step The Tome of Divinity
   only Paladin
