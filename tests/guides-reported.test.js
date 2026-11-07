@@ -1691,6 +1691,22 @@ test('forever/horde/30-40/01-desolace.guide: flow re-order: Other Fish to Fry is
 	assert.ok(!goals('forever/horde/30-40/04-dustwallow-marsh.guide').some(({ goal }) => goal.quest === 6143), 'the Dustwallow guide neither kills the naga again nor hands it in');
 });
 
+// --- Flow re-order (2026-11-07, #1106): Alliance Badlands walked from the
+// skeleton at Agmond's End west to Lotwil for his quest alone, back to Agmond's
+// End for the sweep, and west again for the Lesser Rock Elementals; the
+// Indurium flakes were an along list.
+test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's elementals in one go, no along steps`, { skip }, () => {
+	const list = goals(BADLANDS);
+	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const lotwil = at(list, 'accept 710 (Lotwil)', is('accept', 710));
+	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the flakes', (g) => g.t === 'collect' && g.quest === 1108], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
+		assert.ok(at(list, what, pred) < lotwil, `${what} before Lotwil`);
+	}
+	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
+	assert.ok(stones > lotwil, 'the Small Stone Shards after Lotwil\'s accept');
+	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'Ghak\'s Rock Elemental Shards with them');
+});
+
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
 const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
