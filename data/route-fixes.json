@@ -3117,6 +3117,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+			},
+			{
+				"a": [
+					"accept",
+					96895
+				],
+				"b": [
+					"turnin",
+					359
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Tirisfal Glades 10, #1175): Deathguard Terrence offers The Argent Emissary from level 10, which the route reaches on the Brill stop after the north loop; Hadric Harlson stands at Linnea's camp, the next stop, so it is taken there and handed in there. The order passed Terrence on that stop, took the quest on the next Brill visit and made a stop at Hadric of its own"
 			}
 		],
 		"notes": [
@@ -4394,6 +4406,42 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Barrens 22, #1175): Sulhasa sits in the tree just east of Gann Stonespire; Field to Clear is taken on Gann's first visit"
+			},
+			{
+				"a": [
+					"turnin",
+					8
+				],
+				"b": [
+					"accept",
+					362
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Tirisfal Glades 7, #1175): Coleman Farthing stands in Gallows' End Tavern, where the first tavern stop hands Calvin's letter to Innkeeper Renee at level 7 (The Haunted Mills' min level); the order passed him there and came back to the tavern for him on the next Brill visit"
+			},
+			{
+				"a": [
+					"turnin",
+					8
+				],
+				"b": [
+					"accept",
+					354
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Tirisfal Glades 7, #1175): Deaths in the Family comes from Coleman Farthing with The Haunted Mills on the first tavern stop"
+			},
+			{
+				"a": [
+					"turnin",
+					359
+				],
+				"b": [
+					"turnin",
+					96895
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Tirisfal Glades 10, #1175): Hadric Harlson stands at Deathguard Linnea's camp; The Argent Emissary is handed to him on the Linnea's camp stop after the north loop"
 			}
 		],
 		"after": [

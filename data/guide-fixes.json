@@ -2913,6 +2913,15 @@
 			"note": "Test of Strength is offered once Test of Endurance is in, on the last Dorn visit before the Shimmering Flats; Rok'Alim walks Highperch, back west (final route review).",
 			"source": [{"kind": "recording", "ref": "players' in-game recordings to 2026-11-07 (offer audit): Dorn Plainstalker's only offer of 1151 came on 1150's hand-in"}],
 			"pr": 1175
+		},
+		{
+			"id": "1175-tirisfal-cult-farm-past-linneas-camp",
+			"at": {"quest": 96898, "goal": "objective", "objective": 1},
+			"faction": "Horde",
+			"tip": "Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.",
+			"note": "Necrotic Crystals: Hadric's quests are taken at Linnea's camp on the stop after the north loop, so the east loop now starts from Brill and the tip names the camp the farm lies beside (final route review).",
+			"source": [{"kind": "client", "ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"}],
+			"pr": 1175
 		}
 	]
 }

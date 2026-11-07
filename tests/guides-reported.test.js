@@ -4832,6 +4832,22 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	const taurajo = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
 	assert.ok(taurajo.step.only && !taurajo.step.only.races.includes('Tauren'), 'the Camp Taurajo flight is for the others');
 	assert.ok(at(list, 'turnin 1150', is('turnin', 1150)) < at(list, 'accept 1151', is('accept', 1151)), 'Test of Strength after Test of Endurance');
+	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 96261)) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 96261 && !p.neg), `${goal.t} 96261: Broodmother Valraxx is elite, asked as a group quest`);
+	}
+});
+
+// Final route review, Horde 1-30 (and the release audit): Tirisfal's first tavern stop passed Coleman Farthing, whose
+// two quests were taken on the next Brill visit with a second walk into the tavern; The Argent Emissary was passed on
+// the Brill stop after the north loop (level 10), taken on the next one and handed to Hadric on a stop of its own.
+test('forever/horde/undead/01-tirisfal-glades.guide: final route review: Coleman on the first tavern stop, The Argent Emissary on the way to Linnea\'s camp', { skip }, () => {
+	const list = goals('forever/horde/undead/01-tirisfal-glades.guide');
+	const renee = list[at(list, 'turnin 8', is('turnin', 8))].s;
+	assert.equal(list[at(list, 'accept 362', is('accept', 362))].s, renee, 'The Haunted Mills on the first tavern stop');
+	assert.equal(list[at(list, 'accept 354', is('accept', 354))].s, renee, 'Deaths in the Family on the first tavern stop');
+	const emissary = at(list, 'accept 96895', is('accept', 96895));
+	assert.ok(emissary < at(list, 'turnin 359', is('turnin', 359)), 'taken before the Linnea\'s camp stop');
+	assert.equal(list[at(list, 'turnin 96895', is('turnin', 96895))].s, list[at(list, 'turnin 359', is('turnin', 359))].s, 'handed to Hadric on that stop');
 });
 
 // Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the
