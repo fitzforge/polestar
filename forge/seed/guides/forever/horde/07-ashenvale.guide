@@ -11,10 +11,11 @@ next forever/horde/30-40/01-desolace
 #
 # Flow: fly from Ratchet to Zoram'gar Outpost -> the Zoram Strand (Vorsha,
 # Sapphires of Aku'Mai) -> Thistlefur Village and Hold (Ruul's escort) ->
-# Zoram'gar -> east: Ursangous, Alonso and Tideress at Mystral Lake -> the
-# Foulweald (King of the Foulweald) -> Torek's assault and the Outrunners ->
-# Splintertree Post (bind) -> Sharptalon -> Felmusk satyrs -> Shadumbra ->
-# Mystral Lake (Stonetalon Standstill) -> hearth to Splintertree -> fly to
+# Zoram'gar -> east: Ursangous, Alonso and Tideress at Mystral Lake, with
+# Stonetalon Standstill's elementals and gazebo there -> the Foulweald (King
+# of the Foulweald) -> Torek's assault and the Outrunners -> Splintertree Post
+# (bind) -> Sharptalon -> Felmusk satyrs -> Shadumbra -> hearth to
+# Splintertree -> fly to
 # Zoram'gar -> Thunder Bluff (flight path) -> Gloomrise, north of the bluffs
 # -> fly to Camp Taurajo, down the Great Lift to Freewind Post
 # (flight path, bind) -> Alien Egg -> Galak camps -> Dorn Plainstalker ->
@@ -186,6 +187,12 @@ step Tideress
   collect 16408
   accept 1918 item 16408
 
+step Mystral Lake
+  tip While you're at the lake (Stonetalon Standstill, from the Stonetalon visit): Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
+  kill 3917 quest 25.1
+  goto 48.9,69.6 "Gazebo"
+  complete 25
+
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
   collect 16976 quest 6621
@@ -208,8 +215,8 @@ step Splintertree Post
   turnin 6482                         -- Yama Snowhoof
   turnin 23                           -- Senani Thunderheart
   turnin 1918                         -- Mastok Wrilehiss
+  turnin 25                           -- Mastok Wrilehiss
   accept 824
-  accept 25
   accept 6441                         -- Pixel
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
@@ -229,15 +236,8 @@ step Shadumbra
   collect 16304
   accept 24 item 16304
 
-step Mystral Lake
-  tip Back south-west to Mystral Lake. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
-  kill 3917 quest 25.1
-  goto 48.9,69.6 "Gazebo"
-  complete 25
-
 step Splintertree Post
   hearth "Splintertree Post"
-  turnin 25                           -- Mastok Wrilehiss
   turnin 6441                         -- Pixel
   turnin 2                            -- Senani Thunderheart
   turnin 24

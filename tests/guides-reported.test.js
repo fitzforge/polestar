@@ -3454,6 +3454,26 @@ test(`${ASHENVALE_HORDE}: Flight path sweep (#964): the Druids train in Thunder 
 	}
 });
 
+// Flow audit, Horde Ashenvale & Thousand Needles: Stonetalon Standstill's elementals and gazebo are in Mystral
+// Lake, where the walk hunts Tideress, but the guide came back to the lake after Shadumbra (1,475 yd from
+// Splintertree, 23 min later). Shamans filled Brine's waterskin by walking from Alonso back to the Zoram'gar
+// flight master (2,666 yd) and on to the Ruins of Stardust fountain (2,496 yd), beside Ursangous; and they
+// handed it to Brine on a flight from Freewind Post to Camp Taurajo and back, although the walk from Camp
+// Taurajo down to the Great Lift passes his hut.
+test(`${ASHENVALE_HORDE}: Stonetalon Standstill with Tideress at Mystral Lake; the Shaman's waterskin beside Ursangous and to Brine on the road to the Great Lift`, { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const tideress = at(list, 'accept 1918 (The Befouled Element)', is('accept', 1918));
+	const lake = at(list, 'the Befouled Water Elementals (25)', (g) => g.quest === 25 && g.t === 'kill');
+	assert.ok(lake > tideress && lake < at(list, 'the Foulweald banner (6621)', (g) => g.quest === 6621 && g.t === 'use'), 'the elementals right after Tideress, before the Foulweald');
+	const shaman = list.filter(forRaceOf('Orc')).filter(forClass('SHAMAN'));
+	const fountain = at(shaman, 'the fountain (1534)', (g) => g.quest === 1534 && g.t === 'collect');
+	assert.ok(fountain < at(shaman, 'Ursangous\'s paw (23)', is('accept', 23)), 'the fountain before Ursangous, in his ruins');
+	assert.deepEqual(shaman.slice(fountain, at(shaman, 'accept 1918', is('accept', 1918))).filter(({ goal }) => goal.t === 'goto' && goal.x != null && goal.x < 20).map(({ s }) => s), [], 'no walk back to Zoram\'gar for the fountain');
+	const brine = at(shaman, 'turnin 1534 (Call of Water)', is('turnin', 1534));
+	assert.ok(brine < at(shaman, 'accept 4767 (Wind Rider)', is('accept', 4767)), 'Brine before Freewind Post');
+	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 2, 'two flights to Camp Taurajo (from Zoram\'gar and Thunder Bluff), none from Freewind Post');
+});
+
 // The same pattern at Orgrimmar: the Warriors' (and the other classes') training step flew them to
 // Orgrimmar from Orgrimmar's flight master, after the Crossroads flight there (Stonetalon) or the walk
 // there from Boulder Lode Mine (the Barrens). They train where they stand.
