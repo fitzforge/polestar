@@ -179,9 +179,9 @@ step Booty Bay
   turnin 576                            -- Dizzy One-Eye
 
 step The Bloodsail ships
-  tip The three ships lie off the Wild Shore. The crews are 42-45, Stillwater 45, Keelhaul 46 and Fleet Master Firallon 48: at 41 this is a fight for a group, or for the end of the guide. If you go, swim out and pull the crew to the rail one at a time. A scroll, Cortello's Riddle, lies on the ships' decks: take it.
-  collect 4056 "Cortello's Riddle"
-  accept 624                            -- for a later stop in the Swamp of Sorrows
+  tip Optional, and tough at 41: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
+  collect 4056 "Cortello's Riddle" optional
+  accept 624 optional                   -- for a later stop in the Swamp of Sorrows
 
 # ---------------------------------------------------------------- North through the jungle
 
