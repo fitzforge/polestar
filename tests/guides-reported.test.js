@@ -4453,3 +4453,18 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 		assert.ok(at(list, afterWhat, after) < handIn, `the ${what} are handed in after ${afterWhat}`);
 	}
 });
+
+// Konky88's report (#1150; soockee's #1051): Valuable Vantages was handed back to Deathstalker Masoj in the step
+// that took it, before its three vials were placed: the data had no objectives. The correction gives the three
+// lines with the peaks players placed them on; the guide places each vial, then hands it in on a later visit.
+test("Konky88's report (#1150): Valuable Vantages' three vials come before its hand-in, not in the step that takes it", { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const accept = at(list, 'accept 98095', is('accept', 98095));
+	const turnin = at(list, 'turnin 98095', is('turnin', 98095));
+	assert.notEqual(list[accept].s, list[turnin].s, 'not handed in in the step that takes it');
+	for (const oi of [1, 2, 3]) {
+		const vial = at(list, `objective 98095.${oi}`, (g) => g.quest === 98095 && g.oi === oi);
+		assert.ok(accept < vial && vial < turnin, `vial ${oi} between the accept and the hand-in`);
+		assert.ok(located(list[vial]), `vial ${oi} has a place`);
+	}
+});
