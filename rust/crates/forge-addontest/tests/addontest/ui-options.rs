@@ -1129,7 +1129,7 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 		-- By score across groups (the page shows them grouped by page and tab).
 		local function best(q)
 			local list = {}
-			for gi, g in ipairs((O.Search(q))) do for ci, c in ipairs(g.controls) do list[#list + 1] = { c.key or c.label, c.psScore, gi * 1000 + ci } end end
+			for gi, g in ipairs((O.Search(q))) do for ci, c in ipairs(g.controls) do list[#list + 1] = { c.key or c.button or c.label, c.psScore, gi * 1000 + ci } end end
 			table.sort(list, function(a, b) if a[2] ~= b[2] then return a[2] > b[2] end return a[3] < b[3] end)
 			local out = {}
 			for i, e in ipairs(list) do out[i] = e[1] end
@@ -1154,10 +1154,14 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 	for (q, v) in out["perf"].as_object().unwrap() {
 		let k: Vec<&str> = v.as_array().unwrap().iter().map(|x| x.as_str().unwrap()).collect();
 		assert!(k.len() >= 3, "{q}: {k:?}");
-		let mut first = k[..2].to_vec();
-		first.sort();
-		assert_eq!(first, ["nav.navRouting", "nav.travel"], "{q}: {k:?}");
-		assert_eq!(k[2], "ui.reduceMotion", "{q}: {k:?}");
+		if q == "fps" || q == "performance" {
+			assert_eq!(&k[..2], ["Check FPS", "qol.fpsFeedback"], "{q}: {k:?}");
+		} else {
+			let mut first = k[..2].to_vec();
+			first.sort();
+			assert_eq!(first, ["nav.navRouting", "nav.travel"], "{q}: {k:?}");
+			assert_eq!(k[2], "ui.reduceMotion", "{q}: {k:?}");
+		}
 		assert!(!k.contains(&"qol.questDB"), "{q}: {k:?}");
 	}
 	// "Minimap icon size" says both words in its label, so it leads; the minimap button is found by its search terms.
