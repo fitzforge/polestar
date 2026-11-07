@@ -529,41 +529,6 @@
 			]
 		},
 		{
-			"id": "617-menethil-grind-to-28",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"level": 28,
-			"after": true,
-			"note": "Pilot Longbeard's The Brassbolts Brothers (1179) needs level 28. The route's XP model reaches 28 on the way to Ironforge, so no grind is written; a player behind it hit 'Requires level 28' in Ironforge. The gate comes after the Menethil hand-ins (they count towards it), before the walk east.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
-			"id": "617-menethil-grind-to-28-tip",
-			"faction": "Alliance",
-			"at": {
-				"quest": 98282,
-				"goal": "turnin"
-			},
-			"tip": "Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.",
-			"note": "The level-28 gate after the Menethil hand-ins (617-menethil-grind-to-28) says where to grind: the Dragonmaw Raiders, Swamprunners and Bonewarders (levels 26-28) camp along the road the route walks next.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#617"
-				}
-			],
-			"issue": 617
-		},
-		{
 			"id": "365-teldrassil-byancie-water",
 			"faction": "Alliance",
 			"at": {
@@ -980,14 +945,14 @@
 			"pr": 960
 		},
 		{
-			"id": "upstairs-dendrite-starblaze-turnin-272",
-			"faction": "Alliance",
 			"at": {
-				"quest": 272,
-				"goal": "turnin"
+				"goal": "turnin",
+				"quest": 272
 			},
-			"tip": "Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"faction": "Alliance",
+			"id": "upstairs-dendrite-starblaze-turnin-272",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Since the 2026-11-07 Ashenvale split the step is at the start of 06-wetlands, cast from Stormwind (the old tip's boat to Auberdine went with it).",
+			"pr": 960,
 			"source": [
 				{
 					"kind": "tdb",
@@ -998,7 +963,7 @@
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
 				}
 			],
-			"pr": 960
+			"tip": "In Stormwind, join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."
 		},
 		{
 			"id": "upstairs-dendrite-starblaze-turnin-5921",
@@ -2110,6 +2075,203 @@
 				}
 			],
 			"pr": 1091
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 2,
+				"quest": 57
+			},
+			"faction": "Alliance",
+			"id": "duskwood-night-watch-horrors-in-the-rot-blossoms-step",
+			"note": "The Night Watch (57): the Skeletal Horrors are killed in the Rot Blossoms step, from the same Horrors south-east of Darkshire (route-fixes together 156 -> 57.1); an along list from Commander Althea's accept would list them before Blind Mary's visit and split them from the blossoms.",
+			"pr": 1090,
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "Rot Blossom (1598) drops from Skeletal Horror (202) and Skeletal Fiend (531)"
+				}
+			]
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 505
+			},
+			"faction": "Alliance",
+			"id": "1100-hillsbrad-syndicate-footpads-at-the-camp",
+			"note": "Syndicate Assassins: the Syndicate Footpads are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"pr": 1100,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			]
+		},
+		{
+			"at": {
+				"goal": "accept",
+				"quest": 173
+			},
+			"faction": "Alliance",
+			"id": "duskwood-worgen-in-the-woods-level-23",
+			"level": 23,
+			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data); a player behind the route's levels is told before Calor refuses it.",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 173 minimum level 23"
+				}
+			]
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 2,
+				"quest": 505
+			},
+			"faction": "Alliance",
+			"id": "1100-hillsbrad-syndicate-thieves-at-the-camp",
+			"note": "Syndicate Assassins: the Syndicate Thieves are killed at the Syndicate camp with the documents (Foreboding Plans, Encrypted Letter), not in an along list from Southshore.",
+			"pr": 1100,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			]
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 127
+			},
+			"faction": "Alliance",
+			"id": "redridge-sunfish-in-its-steps",
+			"note": "Selling Fish's Spotted Sunfish drop only from Lake Everstill's murlocs, whose camps line the shore east of the bridge (no murloc stands west of it): they are collected in the Sunken Chest step, among those murlocs, with the fins. The along list from Lakeshire pointed at the lake before the walk west, and the gnoll hills' step listed them where nothing drops them (flow audit, 2026-11-07: along lists become steps).",
+			"pr": 1103,
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 1467 droppers"
+				}
+			]
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 95999
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-95999-tip",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 95999 completes at 21-23"
+				}
+			],
+			"tip": "East past the mill, then south-east to the Blackrock camps east of Stonewatch Keep: Gar'im keeps to the cave at their south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too."
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 173
+			},
+			"faction": "Alliance",
+			"id": "duskwood-shadow-weavers-not-on-the-way",
+			"note": "Worgen in the Woods: the Nightbane Shadow Weavers (level 27) are killed in their own step on the Duskwood return (07-thousand-needles, 28), where the quest is handed in; an along list from Darkshire's first visit (05-duskwood, 22-25) sent players into level-27 worgen for work the return does anyway (flow audit, 2026-11-07: along lists become steps).",
+			"pr": 1090,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings in Duskwood (8 runs): none handed Worgen in the Woods in before level 28"
+				}
+			]
+		},
+		{
+			"along": false,
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 57
+			},
+			"faction": "Alliance",
+			"id": "duskwood-night-watch-fiends-in-their-step",
+			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on the walk from Abercrombie to Jitters (route-fixes pair turnin 133 -> task 57.0), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
+			"pr": 1090,
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "Skeletal Fiend (531) spawns: Raven Hill Cemetery only (npcs.json)"
+				}
+			]
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 98387
+			},
+			"faction": "Alliance",
+			"id": "redridge-camps-tip",
+			"note": "The Blackrock camps step: where Blackrock Blockade's objects are. Since the 2026-11-08 Alliance 20-30 re-order (Duskwood's first loop before Redridge's first pass) Redridge is entered at about 24.5, so the camps' top-up to 23 (#1052) and its sentence here are gone.",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Redridge levels on 0.3.3: 21.7-22.0 at Render's Valley (6 players); 98387 objective ticks at 63.7-74.0, 66.5-86.5 (72 ticks)"
+				}
+			],
+			"tip": "South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 180
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-180-tip",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 180 completes at 21-23"
+				}
+			],
+			"tip": "North-east to the gnolls' eastern camp in Galardell Valley. Fangore has two guards linked to him: clear the gnolls around him first and fight at full health."
+		},
+		{
+			"at": {
+				"goal": "objective",
+				"objective": 1,
+				"quest": 115
+			},
+			"faction": "Alliance",
+			"id": "redridge-second-pass-115-tip",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"pr": 1052,
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 115 completes at 21-23"
+				}
+			],
+			"tip": "North to Stonewatch Keep. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can."
 		}
 	]
 }

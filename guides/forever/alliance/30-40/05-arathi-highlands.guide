@@ -155,6 +155,7 @@ step Refuge Pointe
   tip Follow the road east out of Hillsbrad over Thoradin's Wall to Refuge Pointe.
   getfp "Refuge Pointe"
   accept 681                          -- Captain Nials
+  turnin 634                          -- Captain Nials: Plea to the Alliance, from Rhag Garmason in 30-40/01-hillsbrad-foothills
   turnin 690                          -- Skuerto
   accept 691                          -- Apprentice Kryten
 
@@ -208,11 +209,6 @@ step Faldir's Cove
   accept 668
   turnin 668                          -- Shakes O'Breen
   accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
-
-step Ebenezer Rustlocke
-  zone Arathi Highlands
-  tip Walk back onto the span: Ebenezer lies under its Arathi end.
-  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
 
 step Shadow Hunter Knife
   collect 4522 quest 691.2            -- Witherbark Medicine Pouch

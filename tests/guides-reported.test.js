@@ -1147,7 +1147,7 @@ const HILLSBRAD_ALLIANCE = 'forever/alliance/30-40/01-hillsbrad-foothills.guide'
 const ASHENVALE_30 = 'forever/alliance/30-40/03-ashenvale.guide';
 const ARATHI = 'forever/alliance/30-40/05-arathi-highlands.guide';
 const DARKSHORE = 'forever/alliance/03-darkshore.guide';
-const THOUSAND_NEEDLES = 'forever/alliance/07-thousand-needles.guide';
+const WETLANDS = 'forever/alliance/06-wetlands.guide';
 
 test('Forever follow-ups are taken only once the quests before them are handed in', { skip }, () => {
 	for (const [guide, quest, after, optional] of [
@@ -1178,8 +1178,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// Lou-Saydus (#225): Forever puts From the Ashes between War Banners
 		// and Nek'rosh's Gambit, so Captain Stoutfist did not offer 465 when
 		// War Banners was handed in.
-		[THOUSAND_NEEDLES, 98221, [464]],
-		[THOUSAND_NEEDLES, 465, [98221]],
+		[WETLANDS, 98221, [464]],
+		[WETLANDS, 465, [98221]],
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.
 		[TIRISFAL, 96656, [382]],
@@ -1204,14 +1204,16 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// after Apprentice's Duties, and Lord Grayson Shadowbreaker's The
 		// Shamed Lieutenant thanks you for the statuette A Friend of the Family
 		// brings him.
-		[ASHENVALE, 98072, [471], true],
-		[THOUSAND_NEEDLES, 98072, [471]],
-		[ASHENVALE, 98219, [98191]],
+		[WETLANDS, 98072, [471], true],
+		// The statuette goes to Lord Grayson at the end of 06-ashenvale; his
+		// follow-up is taken in 06-wetlands: the list is the two guides in
+		// chain order.
+		[[ASHENVALE, WETLANDS], 98219, [98191]],
 		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
 		// only once Never Coming Back is handed in to him.
 		[STONETALON, 98252, [98251]],
 	]) {
-		const list = goals(guide);
+		const list = [].concat(guide).flatMap((g) => goals(g));
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
 		if (take < 0 && optional) continue;
 		assert.ok(take >= 0, `${guide}: accept ${quest} is in the guide`);
@@ -1447,15 +1449,15 @@ test(`Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or 
 	}
 });
 
-test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
-	const needles = goals(THOUSAND_NEEDLES);
+test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${WETLANDS}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
+	const needles = goals(WETLANDS);
 	assert.equal(needles.findIndex(({ goal }) => is('turnin', 465)(goal)), -1, 'the catapult is not lit in the guide that takes the quest');
 	const done = at(needles, 'complete 98221', is('complete', 98221));
 	assert.ok(located(needles[done]), 'the attack plans have a place');
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
 	const lit = at(list, 'turnin 465', is('turnin', 465));
-	assert.ok(at(list, 'turnin 98230', is('turnin', 98230)) < lit, 'after Howin');
+	assert.ok(at(needles, 'turnin 98230 (Howin, on the Wetlands visit)', is('turnin', 98230)) >= 0, 'Howin is visited first, on the 27-29 Wetlands visit');
 	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
 });
 
@@ -1713,10 +1715,10 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
-const NEEDLES = 'forever/alliance/07-thousand-needles.guide';
-
-test(`${NEEDLES}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
-	const list = goals(NEEDLES);
+test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
+	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
+	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-08).
+	const list = goals(REDRIDGE);
 	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
 	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
 	assert.ok(buy < give && list[buy].s === list[give].s, 'bought on the same stop, before the turn-in');
@@ -2893,8 +2895,11 @@ test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackr
 	const axes = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const { goal } = list[axes];
 	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
-	assert.ok(!list.some(({ goal: g }) => [91, 180].includes(g.quest)), 'Galardell Valley (Solomon\'s Law, Fangore) is out of the route');
-	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, REDRIDGE), 'utf8'), /^# Left out for the level \(.*\): .*Solomon's Law \(91\).*Lieutenant Fangore \(180\)/m, 'the header says why');
+	// Galardell Valley comes after the camps, on the way back west (Redridge is entered at about 24.5 since
+	// Duskwood's first loop comes first, 2026-11-08); Fangore on Redridge's second pass.
+	assert.ok(!list[axes].step.goals.some((g) => g.t === 'level'), 'no top-up at the camps');
+	assert.ok(list.every(({ goal: g }, i) => g.quest !== 91 || g.t === 'accept' || i > axes), "Solomon's Law's pendants after the camps");
+	assert.ok(!list.some(({ goal: g }) => g.quest === 180), 'Fangore is not in the first pass');
 	const here = point(goal.map, goal.x, goal.y, goal.f || 'l');
 	const near = { normal: 0, elite: 0 };
 	for (const id of Object.keys(data.item(3014).drops.npc)) {
@@ -2951,15 +2956,17 @@ test("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's
 // --- Making Do (Nittepitte, #453): Baros Alexston offers Making Do only to a
 // player who handed him Expanding Horizons (97914), taken at the end of
 // Darkshore. The project data has no prerequisite for it, and the sources
-// disagree, so the accept and its turn-in in Ashenvale are optional: a
-// player without Expanding Horizons is not held at Baros or Thundris.
-test(`Nittepitte's report (#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in`, { skip }, () => {
-	const list = goals(REDRIDGE);
+// disagree, so the accept and its turn-in in Auberdine (on 06-wetlands' boat
+// trip to Ashenvale since the 2026-11-08 Alliance 20-30 re-order) are
+// optional: a player without Expanding Horizons is not held at Baros or
+// Thundris.
+test(`Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in`, { skip }, () => {
+	const list = goals(ASHENVALE);
 	const take = at(list, 'accept 97926', is('accept', 97926));
 	assert.ok(list[take].goal.optional, 'accept 97926 is optional');
 	assert.ok(at(list, 'turnin 97914', is('turnin', 97914)) < take, 'Expanding Horizons is handed in first');
-	const ashenvale = goals('forever/alliance/06-ashenvale.guide');
-	assert.ok(ashenvale[at(ashenvale, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
+	const auberdine = goals(WETLANDS);
+	assert.ok(auberdine[at(auberdine, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
 });
 
 // Ioney (#524): "quest not available from Tarrel Rockweaver until completing
@@ -2969,9 +2976,9 @@ test(`Nittepitte's report (#453): Making Do is optional in Redridge and Ashenval
 // not held.
 
 test(`${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat`, { skip }, () => {
-	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Redridge and
-	// Duskwood to Menethil: the list is the chain from Darkshore.
-	const list = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale'].flatMap((g) => goals(`forever/alliance/${g}.guide`));
+	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Ashenvale to
+	// Menethil: the list is the chain from Darkshore.
+	const list = ['03-darkshore', '06-ashenvale'].flatMap((g) => goals(`forever/alliance/${g}.guide`));
 	const take = at(list, 'accept 98461', is('accept', 98461));
 	assert.equal(list[take].step, list[at(list, 'turnin 731 (Hollee in Auberdine)', is('turnin', 731))].step, 'taken from Hollee on the Auberdine stop');
 	const give = at(list, 'turnin 98461', is('turnin', 98461));
@@ -3002,13 +3009,16 @@ test(`${ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbea
 // (about 7,200 XP) never counted towards it. It now comes after them, at the
 // same camp on the walk east to Dun Algaz.
 
-test(`${ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard`, { skip }, () => {
-	const list = goals(ASHENVALE);
-	const grind = at(list, 'level 28', (g) => g.t === 'level' && g.level === 28);
-	for (const quest of [306, 484, 470, 98282]) {
-		assert.ok(at(list, `turnin ${quest}`, is('turnin', quest)) < grind, `the Menethil hand-in ${quest} counts towards 28`);
-	}
-	assert.ok(grind < at(list, 'accept 1179', is('accept', 1179)), 'level 28 before Pilot Longbeard');
+test(`${WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it`, { skip }, () => {
+	const low = goals(ASHENVALE);
+	assert.ok(!low.some(({ goal }) => is('accept', 1179)(goal)), 'Pilot Longbeard is not in the 20-24 guide');
+	assert.ok(!low.some(({ goal }) => goal.t === 'level' && goal.level >= 25), 'the 20-24 guide has no grind to 25 or more');
+	const list = goals(WETLANDS);
+	const take = at(list, 'accept 1179', is('accept', 1179));
+	const home = at(list, 'turnin 98221', is('turnin', 98221));
+	assert.ok(home < take, 'the Wetlands hand-ins count before Pilot Longbeard');
+	const grind = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 28);
+	if (grind >= 0) assert.ok(home < grind && grind < take, 'a top-up to 28 comes after the Wetlands hand-ins, before Pilot Longbeard');
 });
 
 // Pynte (#327): "Timberling Seeds quest points me to the north of Teldrassil
@@ -3718,7 +3728,9 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 // never comes back to it at a level that fits; the statue's quests are route-fixes skips.
 const LEVEL_FIT = [
 	// [guide, quests left out, npcs no goal may send the player to]
-	['forever/alliance/04-redridge-mountains.guide', [34, 91, 180, 94, 248], [345, 703, 429, 431, 432, 433, 434, 568, 579]],
+	// Galardell Valley and Bellygrub fit since Redridge comes after Duskwood's first loop (2026-11-08); Fangore
+	// waits for the second pass at the end of Duskwood.
+	['forever/alliance/04-redridge-mountains.guide', [180], [703]],
 	['forever/alliance/07-thousand-needles.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/horde/07-ashenvale.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/alliance/40-50/03-feralas.guide', [2844, 2845], [7774]],
@@ -3731,9 +3743,6 @@ for (const [guide, gone, mobs] of LEVEL_FIT) {
 			assert.ok(!mobs.includes(goal.npc), `${guide}: "${step.title}" ${goal.t} targets npc ${goal.npc}`);
 			const from = goal.fromNpcs || [];
 			assert.ok(!(from.length && from.every((n) => mobs.includes(n.npc))), `${guide}: "${step.title}" ${goal.t} ${goal.item} drops only from ${from.map((n) => n.npcName).join(', ')}`);
-		}
-		if (guide.includes('redridge')) {
-			assert.ok(!goals(guide).some(({ goal }) => goal.object === 31), 'no goal at the Old Lion Statue in Galardell Valley');
 		}
 	});
 }
@@ -3832,4 +3841,124 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	}
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
+});
+
+// --- A player's Discord report (PR #1052): "on a 20-24 guide, almost at the end, still 3 levels to
+// go". Redridge's quests ended at about 21.6 while Duskwood's start at 24. Since the Alliance 20-30
+// re-order (2026-11-08) Ashenvale, Stonetalon and the first Wetlands visit come first (20-23),
+// then Duskwood and Redridge together, so Redridge comes at 23+: Duskwood's first loop,
+// Redridge's first pass (04-redridge-mountains), Duskwood's second loop, Redridge's second pass
+// (05-duskwood). Redridge is entered at about 24.5, so Galardell Valley and Bellygrub need no written
+// top-up; the elites and Fangore stay on the second pass.
+test('Redridge level gap (PR #1052): Duskwood\'s first loop comes before Redridge\'s first pass, and Galardell Valley and Bellygrub need no top-up', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	const loop = at(list, 'turnin 148 (Darkshire, end of the first loop)', is('turnin', 148));
+	assert.ok(loop < at(list, 'turnin 244 (Deputy Feldon)', is('turnin', 244)), 'Duskwood\'s first loop before Redridge\'s first pass');
+	const worgen = at(list, 'accept 173', is('accept', 173));
+	assert.ok(list.slice(0, worgen).some(({ goal }) => goal.t === 'level' && goal.level >= 23), 'a level 23 gate comes before Worgen in the Woods');
+	assert.ok(!list.some(({ goal }, i) => goal.t === 'level' && i > loop), 'no written top-up on Redridge\'s first pass');
+	for (const q of [91, 94, 248, 34, 98387]) assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
+});
+
+test('Redridge level gap (PR #1052): Duskwood\'s second loop follows Redridge\'s first pass and ends with the second Redridge pass', { skip }, () => {
+	const list = goals('forever/alliance/05-duskwood.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
+	const sven = at(list, 'accept 323', is('accept', 323));
+	for (const q of [19, 115, 169, 95999, 180]) {
+		assert.ok(at(list, `accept ${q}`, is('accept', q)) > sven, `${q} is taken on the second pass, after Sven's camp`);
+		assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
+	}
+	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'the elites are not in the first pass');
+});
+
+// --- Flow audit (2026-11-07, Duskwood; geezki on Discord: "back and forth with one quest"): the guide
+// walked back north into Darkshire from the Tranquil Gardens Cemetery for The Night Watch alone before
+// the road west, carried Look to the Stars ready past Viktori until the Duskwood return, sent the
+// player back west from the Yorgen Farmstead for the Totem's spider venom, and had three along lists.
+// Now: The Night Watch is handed in on the big visit after the first loop (its Horrors with the Rot
+// Blossoms, its Fiends on the cemetery walk to Jitters, handed in on the return where 58 starts), Look to
+// the Stars is handed in on the first visit and 175 at Blind Mary on the Embalmer chain's visit, the
+// venom drops from the Hushed Bank's spiders, and the level-27 worgen wait for the return. Since the
+// Alliance 20-30 re-order (2026-11-08) the first loop opens 04-redridge-mountains and the second
+// loop opens 05-duskwood.
+test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, Look to the Stars on the first visit, no along lists`, { skip }, () => {
+	const FIRST = 'forever/alliance/04-redridge-mountains.guide';
+	const DUSK = 'forever/alliance/05-duskwood.guide';
+	const one = goals(FIRST);
+	const list = goals(DUSK);
+	const stepIn = (l, what, t, q) => l[at(l, what, is(t, q))].s;
+	const stepOf = (what, t, q) => stepIn(list, what, t, q);
+	const first = stepIn(one, 'accept 101', 'accept', 101);
+	assert.equal(stepIn(one, 'turnin 174', 'turnin', 174), first, 'Look to the Stars handed in on the first Darkshire visit');
+	assert.equal(stepIn(one, 'accept 175', 'accept', 175), first, 'and its second part taken there');
+	assert.equal(stepOf('turnin 175', 'turnin', 175), stepOf('turnin 149', 'turnin', 149), '175 handed to Blind Mary with Ghost Hair Thread');
+	const big = stepIn(one, 'turnin 101', 'turnin', 101);
+	assert.equal(stepIn(one, 'turnin 56', 'turnin', 56), big - 1, 'The Night Watch handed in on the Darkshire visit with the Totem of Infliction (the town hall, then Madame Eva)');
+	assert.equal(stepIn(one, 'accept 57', 'accept', 57), big - 1, 'and 57 taken there');
+	const venom = one.find(({ goal }) => goal.t === 'collect' && goal.item === 1130);
+	const spiders = one.find(({ goal }) => goal.t === 'kill' && goal.quest === 245);
+	assert.equal(venom.s, spiders.s, 'the spider venom with the Pygmy Venom Web Spiders');
+	const horrors = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 202);
+	assert.ok(horrors.length >= 1 && horrors[0].s === list.find(({ goal }) => goal.t === 'collect' && goal.item === 1598).s, "57's Horrors with the Rot Blossoms");
+	const fiends = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 531);
+	assert.ok(fiends.s > stepOf('turnin 133', 'turnin', 133) && fiends.s < stepOf('turnin 453', 'turnin', 453), "57's Fiends between Abercrombie's effigy and Jitters");
+	assert.ok(![...one, ...list].some(({ goal }) => goal.quest === 173 && goal.t === 'kill'), 'the level-27 Shadow Weavers wait for the Duskwood return');
+	for (const g of [FIRST, DUSK]) assert.deepEqual(compiled(g).steps.filter((st) => st.along).map((st) => st.title), [], `${g}: no along-the-way lists`);
+	const ret = goals('forever/alliance/07-thousand-needles.guide');
+	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
+	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
+});
+
+// --- Flow audit (2026-11-07, Redridge): after Lakeshire's accepts at the west end of town the guide swam
+// east for the Sunken Chest, walked back west past the town to Three Corners and the gnoll hills, then
+// went Martie (west end) -> Foreman Oslow (bridge) -> south over the bridge to Deputy Feldon -> north to
+// the Brutes. Now: the gnoll hills, Feldon, the chest on the way back, Oslow, Martie, and the Brutes
+// just north of her garden; no along list for the Spotted Sunfish.
+test(`${REDRIDGE}: flow audit: the Sunken Chest on the way from Feldon, Lakeshire crossed east to west once, no along lists`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const idx = (what, pred) => at(list, what, pred);
+	const feldon = idx('turnin 246', is('turnin', 246));
+	const chest = idx('the Sunken Chest', (g) => g.t === 'collect' && g.item === 1309);
+	const oslow = idx('turnin 125', is('turnin', 125));
+	const martie = idx('turnin 130', is('turnin', 130));
+	const pikes = idx('the Iron Pikes', (g) => g.t === 'collect' && g.item === 2856);
+	assert.ok(feldon < chest && chest < oslow && oslow < martie && martie < pikes, 'Feldon, the chest, Oslow, Martie, then the Brutes');
+	assert.ok(idx('the gnolls', is('kill', 246)) < feldon, 'the gnoll hills before Feldon');
+	const sunfish = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 1467);
+	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
+	assert.deepEqual(sunfish.map(({ s }) => s), [fins.s], 'the Spotted Sunfish only with the murloc fins, east of the bridge');
+	assert.equal(fins.s, list[chest].s, 'the murlocs with the Sunken Chest');
+	const baren = idx('turnin 127', is('turnin', 127));
+	assert.ok(oslow < baren && baren < martie, 'Selling Fish handed to Baren between Oslow and Martie');
+	assert.deepEqual(compiled(REDRIDGE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+});
+
+// --- Alliance 20-30 re-order (Fitz, 2026-11-08: "Grinding from 21 to 23 purely sounds ridiculous"). The
+// order the zones' quest levels fit: Ashenvale & Stonetalon 20-23, Wetlands 23, Duskwood & Redridge
+// together 23-27, Wetlands 27-28, Ashenvale 28-29, then the Duskwood return at 29. Ashenvale's 27-32 quests now follow the 27-29 Wetlands visit by boat from Menethil (they were in
+// 30-40/03 at 33-34), Making Do goes to Thundris on that trip, Pilot Longbeard comes after them with no
+// top-up to 28, and the Thandol Span chain is worked on 30-40/01's Dun Modr visit instead of a walk back
+// onto the span from 30-40/05 at 37-39.
+test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetlands, the Thandol Span on the Dun Modr visit', { skip }, () => {
+	const wet = goals(WETLANDS);
+	const idx = (what, t, q) => at(wet, what, is(t, q));
+	const ashes = idx('turnin 98221 (From the Ashes)', 'turnin', 98221);
+	const making = idx('turnin 97926 (Making Do)', 'turnin', 97926);
+	const shindrell = idx('accept 4581', 'accept', 4581);
+	const branch = idx('turnin 1031', 'turnin', 1031);
+	const pilot = idx('accept 1179', 'accept', 1179);
+	assert.ok(ashes < making && making < shindrell && shindrell < branch && branch < pilot, 'Menethil, Thundris, Ashenvale, then Pilot Longbeard');
+	for (const q of [1026, 1035, 1046, 1022, 1140]) assert.ok(wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in on the Ashenvale trip`);
+	assert.ok(!wet.some(({ goal }) => goal.t === 'level'), 'no written top-up in 06-wetlands');
+	assert.ok(!wet.some(({ goal }) => goal.quest === 526), 'Lightforge Ingots (526, needs 324) is not taken at 27');
+	const late = goals(ASHENVALE_30);
+	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
+	const hills = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
+	const hIdx = (what, t, q) => at(hills, what, is(t, q));
+	assert.ok(hIdx('turnin 631', 'turnin', 631) < hIdx('turnin 632', 'turnin', 632) && hIdx('turnin 632', 'turnin', 632) < hIdx('turnin 633', 'turnin', 633), 'The Thandol Span chain in order');
+	assert.ok(hIdx('turnin 633', 'turnin', 633) < hIdx('turnin 98245 (Howin)', 'turnin', 98245), 'on the Dun Modr visit, before the walk back south');
+	const arathi = goals(ARATHI);
+	assert.ok(!arathi.some(({ goal }) => goal.quest === 631), 'no walk back onto the span from Arathi for 631');
+	assert.ok(arathi.some(({ goal }) => goal.t === 'turnin' && goal.quest === 634), 'Plea to the Alliance handed to Captain Nials');
 });
