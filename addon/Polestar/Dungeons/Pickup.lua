@@ -11,7 +11,9 @@
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
 --       Essential Artificials is; counted in `done`),
---       open now or by the dungeon's lowest level, picked up outside from a
+--       open now or by the dungeon's lowest level (its prerequisites too:
+--       one above that level puts it off as `later`, #1076),
+--       picked up outside from a
 --       giver (not from an item, not inside), not a follow-up of another quest
 --       of this page -- unless the quests before it here are errands (no
 --       objectives, any standing they name held, given (not by an item) and
@@ -216,7 +218,7 @@ function Dungeons.PickupPlan(key)
 				plan.later = plan.later + 1
 			else
 				local giver = Dungeons.Giver(pq, from, rec)
-				local pre, ok = {}, giver ~= nil
+				local pre, ok, wait = {}, giver ~= nil, false
 				if ok and rec then
 					local chain = Lk.QuestChain(pq.id, p)
 					for i = 1, #chain - 1 do
@@ -225,10 +227,18 @@ function Dungeons.PickupPlan(key)
 						-- run, unless it is an errand done on the way; a
 						-- prerequisite this character can never take blocks it.
 						if (onPage[r.id] and not errand(r, from, p)) or NOT_YOURS[Lk.QuestBlock(r, p)] then ok = false end
+						-- One it is too low for, now and by the dungeon's
+						-- lowest level, puts it off as its own level would: Fury
+						-- in the Depths (22) waits on The Dark Iron War (25), #1076.
+						if (r.minLevel or 1) > reach then wait = true end
 						pre[#pre + 1] = r
 					end
 				end
-				if ok then plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre } end
+				if ok and wait then
+					plan.later = plan.later + 1
+				elseif ok then
+					plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre }
+				end
 			end
 		end
 	end

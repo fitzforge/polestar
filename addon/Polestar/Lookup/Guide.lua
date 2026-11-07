@@ -304,9 +304,12 @@ end
 
 -- Quests to do in order to get questId, prerequisites first: every one of
 -- `pre`, and of `preAny` (unless one is done) the first this character can
--- take. Done prerequisites are left out. The chain is whole however long
--- (Alba Fairmoon's to The State of the Mines is ten quests): a cut would drop
--- the first quests to do. Each quest is visited once, so the walk ends.
+-- take, else the first it can take once it has the level (Fury in the Depths
+-- waits on The Dark Iron War, level 25: leaving that out sent a level 23 to
+-- a giver who refused, #1076). Done prerequisites are left out. The chain is
+-- whole however long (Alba Fairmoon's to The State of the Mines is ten
+-- quests): a cut would drop the first quests to do. Each quest is visited
+-- once, so the walk ends.
 local function questChain(questId, player)
 	local C = Codex()
 	local order, seen = {}, {}
@@ -324,13 +327,15 @@ local function questChain(questId, player)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
+				local pick, later
 				for _, pid in ipairs(any) do
 					local pq = C.Quest(pid)
-					if pq and not Lookup.QuestBlock(pq, player) then
-						visit(pid, depth + 1)
-						break
-					end
+					local why = pq and Lookup.QuestBlock(pq, player)
+					if pq and not why then pick = pid; break end
+					if why == "level" and not later then later = pid end
 				end
+				pick = pick or later
+				if pick then visit(pick, depth + 1) end
 			end
 		end
 		order[#order + 1] = q
