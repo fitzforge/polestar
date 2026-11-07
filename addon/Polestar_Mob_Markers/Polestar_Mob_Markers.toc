@@ -1,0 +1,17 @@
+## Interface: 16001
+## Title: Polestar: Mob Markers
+## Notes: A companion to Polestar: marks every spawn point of the mobs your active quests need on the world map and minimap, with Polestar's skull: one colour per quest, a ring per mob.
+## Author: Polestar
+## X-License: GPL-3.0-only
+## Version: 0.3.4
+## Category: Polestar
+## Group: Polestar
+## Dependencies: LibForeverData, Polestar
+## IconTexture: Interface\AddOns\Polestar\Media\Map\icon-kill
+## SavedVariables: PolestarMobMarkersDB
+## SavedVariablesPerCharacter: PolestarMobMarkersCharDB
+## AddonCompartmentFunc: PolestarMobMarkers_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: PolestarMobMarkers_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: PolestarMobMarkers_OnAddonCompartmentLeave
+
+MobMarkers.lua
