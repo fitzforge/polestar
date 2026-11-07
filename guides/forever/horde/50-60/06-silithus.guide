@@ -326,6 +326,14 @@ step Andorhal watchtowers and silos
 
 step Chromie
   turnin 4971                         -- Upstairs
+  accept 4972
+
+step Counting Out Time
+  tip The lockboxes sit in Andorhal's ruined houses around Chromie's inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
+  collect 12638 quest 4972.1 @40.3,68.2 map 1422
+
+step Chromie
+  turnin 4972                         -- Upstairs
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -336,7 +344,6 @@ step The Bulwark
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
   note Dithers offers Skeletal Fragments (Scholomance). Skip it.
-  turnin 6029                         -- Argent Officer Garush
   turnin 5098                         -- High Executor Derrington
   accept 105
   accept 838
@@ -435,16 +442,8 @@ step Level 59.14
 step Chromie
   zone Western Plaguelands
   tip Ride south-west to Chromie in Andorhal.
-  accept 4972
   turnin 5941
   note Chromie's Battle of Darrowshire ends against elites. Skip it.
-
-step Counting Out Time
-  tip Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
-  collect 12638 quest 4972.1 @40.3,68.2 map 1422
-
-step Chromie
-  turnin 4972                         -- Upstairs
 
 step The Bulwark
   zone Tirisfal Glades

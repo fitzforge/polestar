@@ -65,8 +65,7 @@ step Lost the Earth Sapta?
   when onquest 1517
   when !has 6635
   tip Only if the Earth Sapta is gone from your bags (drunk away from the rock, or sold): Canaga gives you another.
-  accept 1463
-  turnin 1463                                 -- Canaga Earthcaller: a new Earth Sapta
+  turnin 1463 direct                          -- Canaga Earthcaller: a new Earth Sapta
 
 step Spirit Rock
   only Orc,Troll
@@ -106,8 +105,7 @@ step Lost the Earth Sapta?
   when onquest 1520
   when !has 6635
   tip Only if the Earth Sapta is gone from your bags: the Seer gives you another.
-  accept 1462
-  turnin 1462                                 -- Seer Ravenfeather: a new Earth Sapta
+  turnin 1462 direct                          -- Seer Ravenfeather: a new Earth Sapta
 
 step Kodo Rock
   only Tauren

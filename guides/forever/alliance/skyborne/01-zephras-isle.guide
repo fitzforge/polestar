@@ -86,26 +86,27 @@ step Thendal Grove turn-ins
 
 step Thendal Grove: kill these as you meet them
   zone Zephras Isle
-  tip Scrawny Ursera prowl the woods just west of the grove; the Ursera Scavengers den further west, with Urs'anah, the matriarch, at the back of the den.
-  collect 251918 quest 92473.1 @41.4,26.4
+  tip The Ursera Scavengers den west of the grove, with Urs'anah, the matriarch, at the back of the den; Scrawny Ursera prowl the woods between the den and the grove.
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2                -- Head of Urs'anah; below ground
+  collect 251918 quest 92473.1 @41.4,26.4
+
+step Aetheen of the Gales
+  tip Back east out of the den to the grove.
+  turnin 92473                                -- Valreaa Valewind
+  turnin 92470                                -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
 
 step Hanaa Nightwind
-  tip Hanaa Nightwind camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
+  tip Hanaa Nightwind camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
   tip Careful: Malduko Cloudcrush casts shocks; drag him clear of the other cultists before fighting so they don't join in.
   accept 92544                                -- Hanaa Nightwind
   kill 251145 quest 92544.1
   kill 251448 quest 92544.2
   kill 256935 quest 92544.3                   -- Malduko Cloudcrush
   turnin 92544
-
-step Aetheen of the Gales
-  turnin 92473                                -- Valreaa Valewind
-  turnin 92470                                -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class                                 -- Level 6 spells
 
 # ---------------------------------------------------------------- Shen'dar Village
 
@@ -121,10 +122,6 @@ step Shen'dar Village
   talk 254089 quest 93461.2 @43.05,43.3 map 2521 live
   turnin 96638                                -- Raan Wildwind
 
-step Windshaper Novice Seer on the way
-  along until q94413
-  kill 257532 quest 94413.1
-
 step Raan Wildwind
   accept 96101                                -- Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
@@ -138,41 +135,33 @@ step Village quests
   turnin 93461                                -- Constable Aonda
   accept 92517
   accept 92515                                -- Indari Sunseam
+  accept 93951                                -- Taleen Shimmerthread
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
 
 step Prideclaws and Galestriders
-  label q94413
   tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
   collect 6889 quest 92553.1
   collect 5469 quest 92553.2
-  kill 257532 quest 94413.1
+  collect 252670 quest 92515.1
 
 step Village quests
   when group 93318
   accept 93318 optional                       -- The bounty board
 
-step Prideclaws and Galestriders
-  collect 252670 quest 92515.1
-
 step Village quests
-  accept 93951                                -- Taleen Shimmerthread
-  turnin 92515                                -- Indari Sunseam
   turnin 92553                                -- Zerril Softbreeze
-
-step Highlands Bandit on the way
-  along until q92517
-  kill 251918 quest 92517.1 -- Highlands Bandit along the way to Shen'dar turn-ins
+  turnin 92515                                -- Indari Sunseam
 
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The Highlands Bandits camp north-east of the village. "Badwind" Bennic waits at the far north end of their camp.
+  kill 251918 quest 92517.1                   -- Highlands Bandits
   collect 257945 quest 93319.1
   kill 255534 quest 92517.2                   -- "Badwind" Bennic, below ground
 
 step Shen'dar turn-ins
-  label q92517
   turnin 92517                                -- Constable Aonda
   accept 93036
   turnin 93036                                -- Sania Silverstream
@@ -237,7 +226,7 @@ step The Western Watch
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip Head north-west to the hippogryph nests on the western cliffs. Hippogryph Down lies around the nests; the Matriarch patrols among them.
-  tip The Novice Seers practise in the clearing west of Shen'dar.
+  tip The Novice Seers practise in the clearing west of Shen'dar, on the way back to the village.
   kill 251291 quest 92516.1
   kill 251284 quest 92516.2
   collect 263493 quest 93951.1
@@ -255,8 +244,16 @@ step Shen'dar Village again
   turnin 94413                                -- Rathiril Sunlance
   train class
 
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                                -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                                -- Fendaal Windstone
+
 step Valanaar, the turncoat
   accept 94484                                -- Lotheluum Starbreeze
+  accept 94896                                -- Ealaane Nimbuswalker
+  accept 94897
 
 step Valanaar
   tip Valennia Stormfist and Talaanis Shadowsong stand at the north end of Valanaar, Elaadrin Evengale and Dondallion Whisperwind at the south end.
@@ -355,10 +352,7 @@ step Standing our ground
 step Valanaar turn-ins
   turnin 92703                                -- Alvarion Windfield
   turnin 93317                                -- Nyalah Brightfire, inside
-
-step Valanaar, the turncoat
-  accept 94896                                -- Ealaane Nimbuswalker
-  accept 94897
+  accept 94006 only Druid                     -- Lotheluum Starbreeze, between the west gate and Valennia's house: The Great Ursera Spirit
 
 step Valanaar turn-ins
   turnin 92850                                -- Fillion Flamebreeze
@@ -396,11 +390,6 @@ step Elaadrin Evengale
   turnin 92860                                -- Valennia Stormfist, upstairs
   accept 93320
 
-step Lotheluum Starbreeze
-  only Druid
-  tip Lotheluum Starbreeze, the druid trainer, stands between the west gate and Valennia's house.
-  accept 94006                                -- Lotheluum Starbreeze: The Great Ursera Spirit (level 10)
-
 step The eastern watchtower
   tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
   turnin 93320                                -- Yorana Windyreed
@@ -414,6 +403,12 @@ step The eastern watchtower
   turnin 92645
   accept 92880
 
+step Urs'endris
+  only Druid
+  tip Urs'endris waits by the falls just north of the watchtower. Ur'endra prowls the Shen'dar Highlands south-west of the dead cultist, where you go after Valanaar.
+  turnin 94006                                -- Urs'endris
+  accept 94638
+
 step Valanaar, the turncoat
   turnin 92834                                -- Elaadrin Evengale
   turnin 92880                                -- Valennia Stormfist, upstairs
@@ -421,20 +416,11 @@ step Valanaar, the turncoat
   turnin 92881                                -- Talaanis Shadowsong, upstairs
   accept 92643
 
-step Urs'endris
-  only Druid
-  tip Urs'endris waits by the falls north-east of Valanaar. Ur'endra prowls the Shen'dar Highlands west of Valanaar, by the road you take next.
-  turnin 94006                                -- Urs'endris
-  accept 94638
-
 step The dead cultist
-  tip North-west of Valanaar along the road: Fendaal Windstone watches the Al'Aketh Assassins; the dead cultist lies just north of him.
-  accept 98512                                -- Fendaal Windstone
+  tip North-west of Valanaar along the road, past Fendaal Windstone: the dead cultist lies just north of him.
   complete 92643 @56.01,58.81                 -- Search the dead cultist
-  kill 254626 quest 98512.1
   turnin 92643                        -- Inside
   accept 92644
-  turnin 98512                                -- Fendaal Windstone
   kill 258443 quest 94638.1 only Druid        -- Ur'endra, in the highlands south-west of the cultist
 
 step Desperate times
@@ -561,17 +547,15 @@ step High Priestess Lorthuna
 # ---------------------------------------------------------------- Leaving the isle
 
 step Valanaar, the fate of Zephras
-  tip Elaadrin Evengale sends you on to Dalaran. Once you have trained, take the skycutter from the dock tower just south of Valanaar: it lands by the Kirin Tor camp west of Dalaran, beside Denaaris Stargale and the Skyborne Portal.
-  turnin 94896                                -- Ealaane Nimbuswalker
-  turnin 94897
+  tip The Portal to Valanaar sets you down beside Elaadrin Evengale at the south end of the town. Talaanis Shadowsong is at the north end, Ealaane Nimbuswalker a few steps north-west of her.
   turnin 93835                                -- Elaadrin Evengale
   accept 94369
+  turnin 92741                                -- Iaadaria Bitterwind
   talk 252476 quest 94369.1 @66.17,76.51      -- Talaanis Shadowsong
   turnin 94369                        -- Upstairs
   accept 93089
-  turnin 93089                                -- Elaadrin Evengale
-  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
-  turnin 92741                                -- Iaadaria Bitterwind
+  turnin 94896                                -- Ealaane Nimbuswalker
+  turnin 94897
 
 step Valanaar, the fate of Zephras
   when onquest 94491
@@ -580,6 +564,11 @@ step Valanaar, the fate of Zephras
 step Valanaar, the fate of Zephras
   train class
   turnin 94003 only Warrior                   -- Seena Skybreaker: Defensive Stance
+
+step Elaadrin Evengale
+  tip Elaadrin Evengale sends you on to Dalaran. Take the skycutter from the dock tower just south of Valanaar: it lands by the Kirin Tor camp west of Dalaran, beside Denaaris Stargale and the Skyborne Portal.
+  turnin 93089                                -- Elaadrin Evengale
+  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
 
 step Leave Zephras Isle to Alterac Mountains
   zone Zephras Isle

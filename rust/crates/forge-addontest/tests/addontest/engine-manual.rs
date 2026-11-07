@@ -418,6 +418,29 @@ fn t_108_one_hand_in_of_a_repeatable_direct_quest_checks_off_one_goal_not_every_
 	assert_eq!(out, json!(["done", "active", 2]));
 }
 
+// A Paladin who had done the Redemption chain was sent back to its start "numerous times" (Discord, 2026-11-07):
+// Duthorian Rall hands the Tome of Divinity over with a repeatable quest (1641) the client never flags completed, so
+// its goal reopened after every reload. A `turnin ... direct` is done once a later quest goal of its step is (the
+// book's own quest, 1642, taken or handed in), even with no stored hand-in; alone, or with nothing later done, it
+// still waits for its own hand-in.
+#[test]
+fn a_direct_turn_in_never_flagged_is_done_once_a_later_quest_goal_of_its_step_is_the_tome_of_divinity() {
+	const GUIDE: &str = r#"
+		Polestar.RegisterGuide({ id = "test/tome", pack = "test", title = "Tome", minLevel = 1, maxLevel = 60, steps = {
+			{ title = "The Tome of Divinity", goals = {
+				{ t = "turnin", quest = 1641, title = "The Tome of Divinity", direct = true, npc = 6171, npcName = "Duthorian Rall", map = 1429, x = 49.0, y = 42.0 },
+				{ t = "accept", quest = 1642, title = "The Tome of Divinity", item = 6775 },
+				{ t = "turnin", quest = 1642, title = "The Tome of Divinity", npc = 6171, npcName = "Duthorian Rall", map = 1429, x = 49.0, y = 42.0 },
+			} },
+			{ title = "Stephanie Turner", goals = { { t = "level", level = 60 } } },
+		} })"#;
+	let saved = Some(r#"PolestarCharDB = { schema = 1, guide = "test/tome" }"#);
+	let done = run(GUIDE, "w.repeatable[1641] = true; w.complete({ 1642 })", saved, "emit({ E.GetStepView(1).goals[1].status, E.GetStepIndex() })");
+	assert_eq!(done, json!(["done", 2]), "the book's quest handed in: the Tome's hand-in is behind, after a reload too");
+	let fresh = run(GUIDE, "w.repeatable[1641] = true", saved, "emit({ E.GetStepView(1).goals[1].status, E.GetStepIndex() })");
+	assert_eq!(fresh, json!(["active", 1]), "nothing later done: it waits for the hand-in");
+}
+
 #[test]
 fn optional_goals_skip_with_one_click_are_saved_and_come_back_with_another() {
 	const GUIDE: &str = r#"
@@ -656,4 +679,36 @@ fn t_221_a_turn_in_after_an_optional_accept_is_done_for_a_player_who_already_han
 	let out = optional_take("done");
 	assert_eq!(out["ridgepoint"], "done");
 	assert_eq!(out["at"], 3);
+}
+
+// Fitz's report (#1135, Raptor Thieves): ticking the Raptor Heads done by hand at 4/12 sent the guide on to
+// "Turn in Raptor Thieves" at Gazrog as if the quest were complete. A tick on a quest objective means "stop
+// focusing this", not "the quest is done": the route moves on, but the turn-in holds until the game counts
+// the objective. Its line says what is still open, and the arrow does not lead to the ender.
+#[test]
+fn a_quest_objective_ticked_by_hand_moves_the_route_on_but_its_turn_in_waits_for_the_game() {
+	let out = run(
+		ROUTE,
+		"w.complete({ 783 }); w.onQuest(7, { { required = 10, fulfilled = 4 } })",
+		ROUTE_SAVED,
+		r#"
+			local r = {}
+			local function wp()
+				local x = E.GetWaypoint()
+				return x and (x.stepIndex .. ":" .. x.goalIndex) or "none"
+			end
+			E.ToggleGoal(3, 2); flush()     -- the kobolds, 4/10: stop focusing them
+			r.moved = E.GetLiveStep()
+			E.ToggleGoal(4, 1); flush()     -- past the trainer
+			local v = E.GetStepView(6)
+			r.held = { E.GetLiveStep(), wp(), v.goals[1].status, v.goals[1].pinOpen or false, v.current == 1 }
+			stub.world.progress(7, 1, 10); flush()
+			v = E.GetStepView(6)
+			r.ready = { E.GetLiveStep(), wp(), v.goals[1].pinOpen or false, v.current == 1 }
+			emit(r)
+		"#,
+	);
+	assert_eq!(out["moved"], 4, "the tick moves the route on");
+	assert_eq!(out["held"], json!([6, "none", "active", "ticked", false]), "the turn-in waits, says why, and takes neither the arrow nor the focus");
+	assert_eq!(out["ready"], json!([6, "6:1", false, true]), "the game counts it: the turn-in leads");
 }

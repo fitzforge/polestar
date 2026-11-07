@@ -296,6 +296,7 @@ step Auberdine
   accept 4763
   use 12346 @37.8,44.0 map 1439
   collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
+  turnin 1138                                 -- Gubber Blump, on the pier
   vendor nearest
 
 step Mist's Edge
@@ -317,7 +318,6 @@ step Darkshore: kill these as you meet them
   zone Darkshore
   tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower.
   collect 5413 quest 1002                     -- Moonstalker Fangs
-  collect 12237 quest 1138                    -- Fine Crab Chunks
 
 step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
@@ -346,7 +346,6 @@ step Auberdine
   turnin 4763                                 -- Thundris Windweaver
   turnin 947                                  -- Barithras Moonshade
   accept 948
-  turnin 1138                                 -- Gubber Blump
   vendor nearest
 
 step Onu

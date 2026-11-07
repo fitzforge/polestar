@@ -36,6 +36,7 @@ ns.RegisterDefaults("behavior", {
 	deathskips = false, -- `die` goals (deathskips) apply; never on a Hardcore character (Own.deathskips)
 	warnClosing = false, -- name what an offered quest closes for good, and leave its accept to the player (Closes.lua)
 	closeSkipped = true, -- close the quest window the game opens after an auto accept/turn-in when it shows only quests the guide skips (Automation.lua)
+	spokenDelay = true, -- with Spoken Quests installed: wait before each automatic quest action, so it reads the window (Automation.Delay)
 	routeChoice = "ask", -- "ask" | "recommended": what happens where a guide offers several next zones
 	trainReminder = "2", -- "2" | "1" | "off": remind to visit the class trainer every 2 levels, every level, never
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
@@ -1021,6 +1022,33 @@ function Own.coming(p, depth)
 	return #turnins + #accepts > 0
 end
 
+-- The quest the player skipped that leaves out an accept missing
+-- prerequisite p (unavailable, reason "pre"), or nil when the route simply
+-- never brings p: p itself when the player skipped it (Engine.SkipQuest) or
+-- skipped a step with its accept or turn-in (not a step with a `when`: a
+-- failed condition is stored as a skip too), else what left p's accept out
+-- down the chain (A skipped leaves out B, B leaves out C: C's is A).
+function Own.skipRoot(p, depth)
+	depth = depth or 0
+	if depth > 8 or questDone(p) then return nil end
+	if Own.questSkipped(p) then return p end
+	local skipped = ns.CharState().skipped[guide.id]
+	local l = layoutOf(guide)
+	for _, list in ipairs({ l.turnins[p] or NONE, l.accepts[p] or NONE }) do
+		for _, t in ipairs(list) do
+			if skipped and (skipped[t.key] or (skipped[t.s] and t.step.when == nil)) and stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return p end
+		end
+	end
+	for _, t in ipairs(l.accepts[p] or NONE) do
+		local u = unavailableFor(t.goal, depth + 1)
+		if u and u.reason == "pre" and u.pre then
+			local root = Own.skipRoot(u.pre, depth + 1)
+			if root then return root end
+		end
+	end
+	return nil
+end
+
 -- "s:g", built once per step and goal: check-offs and goal skips are looked
 -- up for every goal on every evaluation.
 Own.keys = {}
@@ -1869,6 +1897,22 @@ function Own.lostHeld(q, s)
 	return upTo ~= nil and s < upTo
 end
 
+-- Whether a later, non-optional quest goal of step s (after goal g) that
+-- applies to the character is done: the work a goal led to is behind the
+-- player. (On Own: the main chunk is at 200 locals.)
+function Own.laterQuestDone(s, g)
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		local lt = later.t
+		-- A quest goal (isQuestGoal, declared further down).
+		local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
+			or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
+		if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -1886,10 +1930,14 @@ goalDone = function(s, g, goal)
 	if t == "accept" then
 		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s) or Own.lostHeld(goal.quest, s)
 	elseif t == "turnin" then
-		-- `direct`: only its latched QUEST_TURNED_IN (checked above) or the
-		-- completed flag. The session's turn-ins would close every later goal
-		-- of a repeatable at the first hand-in; one hand-in closes one goal.
-		if goal.direct then return C.IsQuestCompleted(goal.quest) and true or false end
+		-- `direct`: only its latched QUEST_TURNED_IN (checked above), the
+		-- completed flag, or a later quest goal of its step done (the Tome of
+		-- Divinity handed back before the book's own quest: a hand-in from
+		-- before the goal was `direct` is never flagged, so a Paladin who had
+		-- done the chain was sent back to it). The session's turn-ins would
+		-- close every later goal of a repeatable at the first hand-in; one
+		-- hand-in closes one goal.
+		if goal.direct then return (C.IsQuestCompleted(goal.quest) or Own.laterQuestDone(s, g)) and true or false end
 		return questDone(goal.quest) and true or false
 	elseif t == "complete" then
 		if questDone(goal.quest) or C.IsQuestReadyForTurnIn(goal.quest) then return true end
@@ -1897,7 +1945,10 @@ goalDone = function(s, g, goal)
 		return false, cur, max
 	elseif t == "kill" or t == "interact" or t == "use" then
 		if goal.quest then return objectiveState(goal) end
-		return false
+		-- One with no quest (the Runes of Summoning before the voidwalker,
+		-- #1120): done once a later quest goal of the step is, so the work it
+		-- led to, done or handed in, never leaves it holding the step.
+		return Own.laterQuestDone(s, g)
 	elseif t == "collect" then
 		if goal.quest then
 			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then return objectiveState(goal) end
@@ -2595,17 +2646,22 @@ local function stepGroups(s)
 	end
 	local focus
 	for _, grp in ipairs(groups) do
-		local pending = 0
+		-- `held`: turn-ins waiting on an objective the player ticked by hand
+		-- (Own.tickedOpen): they keep the step, but take no focus.
+		local pending, held = 0, 0
 		for _, g in ipairs(grp.goals) do
 			local goal = goals[g]
-			if stillBlocks(s, g, goal) then pending = pending + 1 end
+			if stillBlocks(s, g, goal) then
+				pending = pending + 1
+				if goal.t == "turnin" and Own.tickedOpen(goal.quest) then held = held + 1 end
+			end
 			if not grp.map and goalApplies(goal) then
 				local map, x, y, f, _, z = posOf(goal)
 				if map and x and y then grp.map, grp.x, grp.y, grp.f, grp.z = map, x, y, f, z end
 			end
 		end
 		grp.pending, grp.done = pending, pending == 0
-		if not focus and pending > 0 then focus = grp.index end
+		if not focus and pending > held then focus = grp.index end
 	end
 	return groups, focus, groupOf
 end
@@ -2658,6 +2714,14 @@ local function unavailableText(u)
 	end
 	local N = ns.Names
 	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
+end
+
+-- A "pre" mark's quest the player skipped (Own.skipRoot), as its title; nil
+-- when the route simply never brings the prerequisite.
+function Own.skippedWithTitle(u)
+	local pre = u.pre or missingPre(u.accept)
+	local root = pre and guide and Own.skipRoot(pre)
+	return root and titleOfQuest(root, u.accept.preTitles) or nil
 end
 
 -- What an open accept's line says about the game's own word on it: ticked by
@@ -2891,6 +2955,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
 		unavailableText = unavail and unavailableText(unavail) or nil,
+		-- Left out because the player skipped a quest it needs (directly or
+		-- down the chain): that quest's title (Own.skippedWithTitle).
+		skippedWith = unavail and unavail.reason == "pre" and Own.skippedWithTitle(unavail) or nil,
 		-- An open accept the game does not confirm: ticked but not in the
 		-- quest log, or not listed by its giver (Own.acceptNotice).
 		noticeText = Own.acceptNotice(s, g, goal, status),
@@ -2993,7 +3060,7 @@ end
 -- on a trip (only on a long haul).
 function Own.hearthCost()
 	local nav = ns.Nav
-	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 300, (nav and nav.HEARTH_MIN_TRIP) or 480
+	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 120, (nav and nav.HEARTH_MIN_TRIP) or 180
 end
 
 -- How to make a hearth goal's trip now: wait (Own.hearthWait), the inn
@@ -5926,8 +5993,10 @@ function Own.pinListed(s, g)
 end
 
 -- A step's turn-in of a quest whose objectives are still open, at step `s`
--- (current or ahead): true when the player pinned the quest, "along" when a
--- listed along step holds its work (Own.alongWork, #853); else false.
+-- (current or ahead): true when the player pinned the quest, "ticked" when the
+-- player ticked one of its objectives by hand that the game still counts open
+-- (Own.tickedOpen, #1135), "along" when a listed along step holds its work
+-- (Own.alongWork, #853); else false.
 function Own.pinOpen(s, goal)
 	if goal.t ~= "turnin" or not goal.quest then return false end
 	if not current or s < current then return false end
@@ -5935,7 +6004,31 @@ function Own.pinOpen(s, goal)
 		local C = Compat()
 		return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
 	end
+	if Own.tickedOpen(goal.quest) then return "ticked" end
 	return Own.alongWork(goal.quest)[1] and "along" or false
+end
+
+-- Whether the player ticked by hand an objective of quest q (a kill,
+-- collect, interact or use goal with `quest`) that the game still counts open,
+-- the quest in the log and not ready to hand in (#1135). The tick means "stop
+-- focusing this": the route moves on past it, but never stands for the quest
+-- log, so the quest's turn-in waits (stepGroups gives it no focus; its line
+-- says why, Own.pinOpen).
+Own.OBJECTIVE_VERBS = { kill = true, collect = true, interact = true, use = true }
+function Own.tickedOpen(q)
+	local m = guide and q and ns.CharState().manual[guide.id]
+	if not m then return false end
+	local C = Compat()
+	if not C.IsOnQuest(q) or C.IsQuestReadyForTurnIn(q) then return false end
+	for key, v in pairs(m) do
+		if v == "tick" then
+			local s, g = key:match("^(%d+):(%d+)$")
+			local step = s and guide.steps[tonumber(s)]
+			local goal = step and step.goals[tonumber(g)]
+			if goal and goal.quest == q and Own.OBJECTIVE_VERBS[goal.t] and not objectiveState(goal) then return true end
+		end
+	end
+	return false
 end
 
 function Engine.GetWaypoint() return waypoint or nil end
@@ -6179,7 +6272,9 @@ function Engine.GoalDone(stepIndex, goalIndex)
 end
 
 -- Tick a goal done, or clear its check-off: any goal but a note, quest goals
--- included (the player's word over the quest log). Saved as "tick" in
+-- included (the player's word over the quest log for the route: it moves on).
+-- A ticked quest objective never makes its quest ready to hand in: the turn-in
+-- waits for the game (Own.tickedOpen, #1135). Saved as "tick" in
 -- CharState().manual. False when there is nothing to change (no such goal, a
 -- note, or a goal already done by live state).
 function Engine.ToggleGoal(stepIndex, goalIndex)
@@ -6232,6 +6327,64 @@ end
 
 function Engine.IsQuestSkipped(questID)
 	return Own.questSkipped(questID)
+end
+
+-- The accepts of this guide a skip would leave out with it: skipping quest q
+-- (Engine.SkipQuest), or with q nil the live step (Engine.Skip). The skip is
+-- tried on the saved state and put straight back: nothing is evaluated or
+-- fired. Counts the open accepts of other quests (not taken, done or already
+-- left out) in other steps that go: { { id, title }, ... } in route order,
+-- each quest once; nil when none.
+function Engine.SkipLoses(q)
+	if not guide or (q == nil and not current) or (q ~= nil and type(q) ~= "number") then return nil end
+	if not player then refreshPlayer() end
+	local C, state, s0 = Compat(), ns.CharState(), q == nil and current or nil
+	local function open()
+		local list, set = {}, {}
+		for s, step in ipairs(guide.steps) do
+			if s ~= s0 and stepApplies(step) then
+				for _, goal in ipairs(step.goals) do
+					local id = goal.quest
+					if goal.t == "accept" and id and id ~= q and not set[id] and not (C.IsOnQuest(id) or questDone(id))
+						and goalApplies(goal) and not unavailableFor(goal) then
+						set[id] = true
+						list[#list + 1] = goal
+					end
+				end
+			end
+		end
+		return list, set
+	end
+	local before = open()
+	local undo
+	if q then
+		local had = state.skippedQuests
+		if type(had) ~= "table" then state.skippedQuests = {} end
+		local was = state.skippedQuests[q]
+		state.skippedQuests[q] = true
+		undo = function()
+			state.skippedQuests[q] = was
+			if type(had) ~= "table" then state.skippedQuests = had end
+		end
+	else
+		local had = skippedFor(guide.id)
+		local sk = skippedFor(guide.id, true)
+		local was = sk[s0]
+		sk[s0] = true
+		undo = function()
+			sk[s0] = was
+			if not had then state.skipped[guide.id] = nil end
+		end
+	end
+	local ok, _, after = pcall(open)
+	undo()
+	open() -- the marks the try left (Own.preMarks' prerequisite) read the real state again
+	if not ok then return nil end
+	local out = {}
+	for _, goal in ipairs(before) do
+		if not after[goal.quest] then out[#out + 1] = { id = goal.quest, title = titleOfQuest(goal.quest, { [goal.quest] = goal.title }) } end
+	end
+	return #out > 0 and out or nil
 end
 
 -- Skip an optional goal, or bring it back: it no longer leads the arrow and

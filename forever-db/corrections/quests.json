@@ -2195,6 +2195,54 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78132": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. The merged data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+	},
+	"78133": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20b, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Shield, Alonso's second quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
+	"78134": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20c, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Lance, Alonso's third quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
 	"78261": {
 		"set": {
 			"classes": 8
@@ -2323,6 +2371,18 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"78676": {
+		"set": {
+			"minLevel": 30
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
+			}
+		],
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
 	"79192": {
 		"set": {
@@ -5027,5 +5087,126 @@
 			}
 		],
 		"note": "Desperate Prayer (Priestess Alathea's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"98095": {
+		"set": {
+			"pre": [
+				98094
+			],
+			"preAny": [
+				98094
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western vial placed", "map": 1416, "f": "l", "x": 38.37, "y": 87.21 },
+				{ "type": "event", "id": null, "count": 1, "text": "Northern vial placed", "map": 1424, "f": "l", "x": 72.3, "y": 31.16 },
+				{ "type": "event", "id": null, "count": 1, "text": "Southern vial placed", "map": 1424, "f": "l", "x": 73.78, "y": 72.73 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
+		},
+		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
+	},
+	"98189": {
+		"set": {
+			"pre": [
+				286
+			],
+			"preAny": [
+				286
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): Karl Boran's window offers 98189 0.0-0.2 s after Return the Statuette (286) is handed in to him, at the same level; no recorded window offered it before 286 was handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1113"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1118"
+			}
+		],
+		"note": "Karl Boran's Return the Statuette (98189, for Captain Stoutfist) follows the old Return the Statuette (286): he offers it only once 286 is handed in to him. Without the prerequisite the guide sent players to him on their first Menethil stop, and on to Stoutfist for A Friend of the Family (98190), before either was possible."
+	},
+	"526": {
+		"set": {
+			"pre": [
+				324
+			],
+			"preAny": [
+				324
+			],
+			"excl": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: PrevQuestID 324 for 526 (324 follows 321, 321 follows 270), ExclusiveGroup 0"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "Lightforge Ingots follows The Lost Ingots (324)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: no window of Glorin Steelbrow ever offered 526; the one level-29 character who opened his window (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds) was offered Lightforge Iron (321), the start of the chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1116"
+			}
+		],
+		"note": "Glorin Steelbrow offers Lightforge Ingots only after The Lost Ingots (324), the end of the Lightforge Iron chain (321, 324). Our data had no prerequisite and made it exclusive with 324 instead, so the 20-30 route took it in the Wetlands where nobody can be offered it."
+	},
+	"96261": {
+		"set": {
+			"pre": [
+				96259
+			],
+			"preAny": [
+				96259
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T155909Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261107T053108Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): Muln Earthfury's quest list leaves 96261 out while Defending the Dead (96259) is in the log, and offers it 0.1-0.2 s after 96259 is handed in to him, at the same level, with A Darker Truth (96294) still in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1083"
+			}
+		],
+		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp."
+	},
+	"98240": {
+		"set": {
+			"pre": [
+				98072
+			],
+			"preAny": [
+				98072
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: James Halloran's quest list left 98240 out for 3 characters at levels 24-28 without Crocs of the Sky (98072) done (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, a390bd97e7ffa6cd at 26, 0508863063f76280 at 27-28); no window ever offered it"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98072]"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1134"
+			}
+		],
+		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
 	}
 }

@@ -55,24 +55,14 @@ step Valley of Fangs
   accept 703                          -- Rigglefuzz
   accept 705                          -- The clams lie on Stranglethorn's north-west coast, in the next guide: keep it
 
-step Indurium Flake on the way
-  along until q1108
-  collect 5797 quest 1108
-
 step Agmond's End
   tip The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.
   turnin 738                          -- Battered Dwarven Skeleton
 
-step Lotwil Veriatus
-  tip Head west into the Dustbowl; Lotwil works by his machines in the middle of it.
-  accept 710
-
 step Agmond's End: kill these as you meet them
-  label q1108
   zone Badlands
   tip The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.
   tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
-  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil.
   tip Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath.
   collect 4630 quest 733              -- Scrap Metal
   collect 3404 quest 703              -- Buzzard Wing
@@ -80,9 +70,17 @@ step Agmond's End: kill these as you meet them
   accept 739                          -- Battered Dwarven Skeleton
   note The skeleton's next task, Murdaloc, waits until the later Badlands guide at 43.
   collect 5797 quest 1108             -- Indurium Flake
+  kill 2893 quest 739                 -- Stonevault Bonesnapper
   accept 709                          -- Theldurin the Lost
-  collect 7848 quest 2500             -- Rock Elemental Shard
+
+step Lotwil Veriatus
+  tip Head west into the Dustbowl; Lotwil works by his machines in the middle of it.
+  accept 710
+
+step Lesser Rock Elementals
+  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards.
   collect 4626 quest 710              -- Small Stone Shard
+  collect 7848 quest 2500             -- Rock Elemental Shard
 
 step Lotwil Veriatus
   turnin 710
@@ -101,7 +99,6 @@ step Theldurin the Lost
   tip Head south to Agmond's End.
   turnin 709
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
-  kill 2893 quest 739                         -- Stonevault Bonesnapper, 130 yd north
 
 step Rock Elementals
   tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.

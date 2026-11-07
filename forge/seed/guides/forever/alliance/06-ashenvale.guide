@@ -141,6 +141,7 @@ step The Ruins of Stardust
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
 step Alonso
+  only Warrior
   goto 42.4,70 "Alonso"
   accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
   turnin 78132

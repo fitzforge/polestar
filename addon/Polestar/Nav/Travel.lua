@@ -71,13 +71,15 @@ local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
--- The Hearthstone's hour-long cooldown makes it worth spending only on a long
--- haul (Fitz, 0.3.3: "a 2-minute walk is fine"): a route hearths only when
--- the way without it takes at least HEARTH_MIN_TRIP and hearthing saves at
--- least HEARTH_MARGIN after its cast and loading screen (HEARTH_SECONDS).
+-- The Hearthstone's hour-long cooldown is spent once a trip is long enough
+-- for it to clearly pay (Fitz, #1096: hearth a trip over 3 minutes that it
+-- shortens by 2 or more; 0.3.3's 8 and 5 walked where a hearth was better):
+-- a route hearths only when the way without it takes at least
+-- HEARTH_MIN_TRIP and hearthing saves at least HEARTH_MARGIN after its cast
+-- and loading screen (HEARTH_SECONDS).
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
-local HEARTH_MARGIN = 300    -- seconds it must save: 5 minutes
-local HEARTH_MIN_TRIP = 480  -- seconds the way without it must take: 8 minutes
+local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
+local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
 Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
@@ -1127,9 +1129,11 @@ local function planRoute(p)
 		local d = yards(p.c, p.wx, p.wy, to.c, to.wx, to.wy)
 		if d >= reach then break end
 		-- An end with a floor height is there only on that floor (p.z within 20 yd of it; unknown: within 5 yd,
-		-- as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade Quarter, the walk to it
-		-- stays (it rides a lift).
-		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > 5)) then break end
+		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
+		-- Quarter, the walk to it stays (it rides a lift).
+		local nk = legs[2].kind
+		local flat = (nk == "boat" or nk == "zeppelin" or nk == "tram") and reach or 5
+		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
 	end
 	local rest = 0
@@ -2163,14 +2167,18 @@ end
 -- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
 -- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
 -- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards. PlanRoute drops a leading walk by the same rule.
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin or tram
+-- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
+-- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
+-- leading walk by the same rule.
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
-local function offFloor(to, pc, px, py, d)
+local RIDES = { boat = true, zeppelin = true, tram = true }
+local function offFloor(to, pc, px, py, d, dock, reach)
 	if not to.z then return false end
 	local W = Nav.walk
 	local fz = W and W.Floor and W.Floor(pc, px, py)
 	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
-	return d > FLAT_ARRIVE
+	return d > (dock and reach or FLAT_ARRIVE)
 end
 
 function Travel.Aim(pc, px, py)
@@ -2200,7 +2208,8 @@ function Travel.Aim(pc, px, py)
 				if fz and (fz - from.z > FLOOR_DZ or from.z - fz > FLOOR_DZ) then dirty = true end
 			end
 			local d, reach = yards(pc, px, py, to.c, to.wx, to.wy), leg.radius or REACH
-			if not passed and (d > reach or offFloor(to, pc, px, py, d)) then
+			local dock = ride ~= nil and RIDES[ride.kind] == true
+			if not passed and (d > reach or offFloor(to, pc, px, py, d, dock, reach)) then
 				-- Along the walking engine's path when it has one (Nav/Walk.lua).
 				if W then
 					local gc, gx, gy, gz = to.c, to.wx, to.wy, to.z

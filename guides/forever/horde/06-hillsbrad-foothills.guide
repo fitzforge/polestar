@@ -10,6 +10,9 @@ next forever/horde/07-ashenvale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Valuable Vantages (98095).
+# Battle of Hillsbrad parts 4 and 5 (532, 539) and Dangerous!'s town hall and mine targets wait
+# for the Tarren Mill visit at about 32 in forever/horde/30-40/01-desolace: Magistrate Burnside
+# and Foreman Bonds are level 30.
 
 # ---------------------------------------------------------------- Tarren Mill
 
@@ -26,7 +29,7 @@ step Tarren Mill
   accept 549                          -- The WANTED poster by the inn
   accept 498                          -- Krusk, inside
   sethome "Tarren Mill" npc 2388      -- Innkeeper Shay: the last guide binds here, so this usually ticks at once
-  accept 567                          -- The Dangerous! poster: its targets come up along the way; inside
+  accept 567                          -- The Dangerous! poster: Kalaba and Wilkes come up here, the clerk and the miner on the visit at about 32; inside
 
 step Serge Hinott
   only Rogue
@@ -53,10 +56,6 @@ step Tarren Mill
   tip Follow the road east along the river, then north-east up into the hills to Tarren Mill.
   sethome "Tarren Mill"
 
-step Mountain Lion Blood
-  tip Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight.
-  collect 3496 quest 501.1 @54.3,39.6
-
 step Hillsbrad Fields
   tip The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms.
   kill 2451 quest 567.4               -- Farmer Kalaba walks around Hillsbrad Fields: look inside the circle on the map
@@ -64,6 +63,10 @@ step Hillsbrad Fields
   kill 2360 quest 527.2
   kill 232 quest 527.3
   kill 2403 quest 527.4
+
+step Mountain Lion Blood
+  tip Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight.
+  collect 3496 quest 501.1 @54.3,39.6
 
 step Tarren Mill
   turnin 527                          -- High Executor Darthalia
@@ -106,10 +109,13 @@ step Mudsnout Blossoms
   collect 3502 quest 509
 
 step Deathstalker Masoj
-  accept 98095
-  turnin 98095
   tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
   turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
+  accept 98095                        -- Deathstalker Masoj, once Scout Support is in
+
+step The southern peak
+  tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
+  use 279395 quest 98095.3 @73.8,72.7 live
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -120,31 +126,24 @@ step The smithy
   collect 3564 quest 529.3            -- Inside
   kill 2449 quest 567.2
 
+step The western peak
+  tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
+  use 279395 quest 98095.1 @38.4,87.2 map 1416 live
+
 step Tarren Mill
   turnin 498                          -- Krusk, inside
   turnin 549                          -- High Executor Darthalia
   turnin 529                          -- High Executor Darthalia
-  accept 532
   turnin 509                          -- Apothecary Lydon, inside
   accept 513                          -- Master Apothecary Faranell, in the Undercity
 
-step Town hall
-  tip The town hall is on the west side of Hillsbrad. Magistrate Burnside (30) and Clerk Horrace Whitesteed are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town.
-  kill 2387 quest 532.2
-  interact 1761 quest 532.3           -- Hillsbrad Proclamation, inside
-  collect 3657 quest 532.4            -- Inside
-  kill 2448 quest 567.1               -- Inside
-  kill 2335 quest 532.1               -- Inside
+step The northern peak
+  tip The northern peak rises south-east of Tarren Mill, on the way down towards Durnholde.
+  use 279395 quest 98095.2 @72.3,31.2 live
 
-step Tarren Mill
-  turnin 532                          -- High Executor Darthalia
-  accept 539
-
-step Azurelode Mine
-  tip The Azurelode Mine lies south of Hillsbrad town. Miners work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside.
-  kill 2269 quest 539.2
-  kill 2450 quest 567.3
-  kill 2305 quest 539.1               -- Inside Azurelode Mine
+step Deathstalker Masoj
+  tip Back down to Masoj on the hillside above Dun Garok.
+  turnin 98095                        -- Deathstalker Masoj
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills

@@ -1784,12 +1784,24 @@ end
 ---------------------------------------------------------------------------
 
 local gotoTarget, gotoStep, gotoGoal
+-- yards: a way in this far or nearer the target leads into it (a cave's
+-- mouth and the cave); a goto farther off, or on another continent, is the
+-- last trip's end, not a way in (the zeppelin tower before the Barrens, #1128)
+local WAY_IN_YD = 500
+
+-- The goal's point in world yards: c, wx, wy | nil.
+local function worldOf(t)
+	local C = ns.Compat
+	if not (C and C.MapToWorld and t.map and t.x and t.y) then return nil end
+	return C.MapToWorld(t.map, t.x, t.y, t.f)
+end
 
 -- The guide's last located goal before this target is a `goto` the player
 -- has reached (Engine.GoalDone): the author's way in (a cave's mouth), so
 -- the arrow goes straight from there. Until then the target is walked like
 -- any other, so a goal aimed at ahead of its way in never leads onto the
--- hill above the cave (#914). The goto is found once per target; its state
+-- hill above the cave (#914). Only a goto on the target's continent within
+-- WAY_IN_YD of it is a way in. The goto is found once per target; its state
 -- is asked every time.
 function Walk.FollowsGoto(target)
 	if target ~= gotoTarget then
@@ -1807,7 +1819,11 @@ function Walk.FollowsGoto(target)
 				for k = g, 1, -1 do
 					local goal = goals[k]
 					if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
-						if goal.t == "goto" then gotoStep, gotoGoal = s, k end
+						if goal.t == "goto" then
+							local ac, ax, ay = worldOf(goal)
+							local bc, bx, by = worldOf(target)
+							if ac and ac == bc and (ax - bx) ^ 2 + (ay - by) ^ 2 <= WAY_IN_YD * WAY_IN_YD then gotoStep, gotoGoal = s, k end
+						end
 						s = 0
 						break
 					end

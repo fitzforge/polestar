@@ -78,8 +78,7 @@ step The Tome of Divinity
   only Human
   zone Stormwind City
   tip Duthorian Rall stands inside the Cathedral of Light. He hands you the Tome of Divinity: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask Duthorian for a new copy. Bring 10 Linen Cloth for the next step if you have it.
-  accept 1641                         -- Duthorian Rall
-  turnin 1641
+  turnin 1641 direct                  -- Duthorian Rall
   accept 1642 item 6775               -- Right-click the Tome of Divinity
   turnin 1642                         -- Duthorian Rall
   accept 1643
@@ -149,8 +148,7 @@ step The Tome of Divinity
   only Dwarf
   zone Ironforge
   tip Tiza Battleforge stands upstairs in the Hall of Mysteries, in the Mystic Ward: take the ramp at the back of the hall. She hands you the Tome of Divinity: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask Tiza for a new copy. Bring 10 Linen Cloth for the next step if you have it.
-  accept 1645                         -- Tiza Battleforge
-  turnin 1645
+  turnin 1645 direct                  -- Tiza Battleforge
   accept 1646 item 6916               -- Right-click the Tome of Divinity
   turnin 1646                         -- Tiza Battleforge
   accept 1647

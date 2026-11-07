@@ -191,8 +191,8 @@ plus the travel from the bound inn. It then waits `hearthCooldown` before the ne
   more than 30 seconds faster.
 - In the route profiles, the character follows **v1's travel plan**: it binds only at v1's `sethome`
   lines, hearths at v1's hearth lines (unless the hearth is more than 2 minutes worse than
-  travelling) and wherever else the stone is ready and the hearth beats the leg by 3 minutes or
-  more, and learns flight paths at v1's `getfp` lines too. A plan line is attached to the quest
+  travelling) and wherever else the stone is ready, the leg takes at least 3 minutes and the hearth
+  saves 2 minutes or more (the addon's rule, #1096), and learns flight paths at v1's `getfp` lines too. A plan line is attached to the quest
   step right after it in v1's guide. A bind or flight path stays with its place, though: it is taken at
   that step only when the character stands within 200 yd of the inn (300 yd of the flight master);
   otherwise it waits for the next stop there. A moved step no longer binds at Ratchet from Shady Rest.

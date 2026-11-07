@@ -1049,6 +1049,7 @@ Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but 
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
+Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -1256,6 +1257,19 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   open has `pinOpen` (true) in its goal view: its row and its Up next line
   show in the warning colour and say so ("along": the same, without
   "Pinned").
+- **Ticked objectives** (#1135). A quest objective goal (kill, collect,
+  interact or use with `quest`) the player ticked by hand
+  (`Engine.ToggleGoal`, `"tick"` in `CharState().manual`) is done for the
+  route, which moves on, but never for its quest: while the game still
+  counts it open and the quest is in the log not ready (`Own.tickedOpen`),
+  the quest's `turnin` keeps its step (it still blocks) yet takes no focus
+  (`stepGroups` counts it as held), so the arrow does not lead to the
+  ender; its goal view has `pinOpen = "ticked"` and the window says to
+  finish the objectives first.
+- **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
+  `background` along step is compiled as the along step it is: the
+  `background` line only drives the lint (a finish step before the
+  hand-in) and the writer.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -1343,6 +1357,15 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   of the step stay. Done anyway, the quest counts as done and its follow-ups
   come back. The window's banner (`PLAYER_SKIPPED_QUEST`), the accept's Undo
   or a right-click on the line bring it back (`SkipQuest(questID, false)`).
+  A follow-up left out because of such a skip carries `skippedWith` in its
+  goal view: the title of the quest the player skipped, directly or down the
+  chain (`Own.skipRoot`: the skipped quest, or a step the player skipped
+  that held its accept or turn-in; a step with a `when` does not count, its
+  failed condition being stored as a skip too). Before any skip,
+  `Engine.SkipLoses` names what it would take with it: it sets the skip in
+  the saved state, lists the open accepts that are no longer open, and puts
+  the state back, with nothing evaluated or fired (the guide window's Skip
+  button and the Skip this quest menu item: "Skipping also skips: …").
 - **Quests that leave the log** after the route has passed their accept
   (abandoned, failed): the live step does not jump back to the giver
   unasked. A quest that left the log this session (`QUEST_REMOVED`, until it
@@ -1394,6 +1417,25 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
   the game accepted itself) the setting prints "Taking <quest> closes <quests>
   for good." and Automation leaves that accept to the player.
+- **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
+  tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
+  guide accepts whose `pre`/`preAll` names `q`, across every shown guide
+  (indexed once with each quest's accepts and turn-ins, rebuilt on
+  `GUIDES_REGISTERED` and `PACKS_CHANGED`), then, with the quest database
+  loaded, the quests whose `pre`/`preAll` lists `q` (`QuestDB.FollowUps`,
+  read from the follow-up's side, built on the first ask). Left out: quests
+  done or in the log, and ones the character can never take (as in
+  `Closes.For`). Each names its giver when someone other than `q`'s ender
+  gives it. `q`'s chain is walked back while each prerequisite is the only
+  one and carries on to the next quest, and on while the quest carried on to
+  has the last as its only prerequisite; a quest carries on to its only
+  follow-up, or at a branch to the only one with its own title (a series'
+  next part: The Defias Brotherhood part 6 also opens Red Silk Bandanas).
+  Found whole (a first quest needing nothing, a last opening nothing, three
+  quests or more), the next part leads the list, numbered ("part 2 of 7"),
+  and the chain's last quest follows with its reward (a guide's turn-in
+  `rewards`, else the Codex's when Lookup has it loaded; a tooltip never
+  loads it). A branch it cannot follow stops the count.
 - **Not yet available.** A Class guide (`category = "Class"`) the character
   has not played (no step skipped, no goal ticked, none of its quests in the
   log or done) whose opening, the first step for this character with an
@@ -1895,6 +1937,19 @@ window, or on a gossip window with options of its own (a vendor, trainer or
 innkeeper). A quest the guide still wants at that NPC is taken on the next
 talk.
 
+With `behavior.spokenDelay` on (the default; Options, Integrations, Spoken,
+shown and honoured only while Spoken Quests is installed) each quest or
+gossip window waits 200 ms before automation acts on it, and `QoL/Rewards.lua`'s reward pick waits the same
+(`Automation.Delay`). Spoken Quests records a quest page in its own handler of
+the event that opened the window; it loads after Polestar, so an accept made
+in Polestar's handler leaves it nothing to record and the page is never read.
+Everything is decided when the wait ends, so Shift held then skips the action.
+A newer window replaces the wait, and only a close of its own kind drops it:
+`QUEST_FINISHED` for a quest window, `GOSSIP_CLOSED` for a gossip window, since
+picking a quest in a gossip window ends that window and its `GOSSIP_CLOSED` may
+come after the quest window it opened. The test is the events, not
+`QuestFrame`: DialogueUI and the like keep that frame hidden.
+
 ## Theme — used by UI and Nav
 
 ```lua
@@ -2107,13 +2162,16 @@ fainter, its tooltip "It also spawns here"); clicking one searches there next
 Every place the current step's open goals spawn is a region on the map
 (`Layers.lua`, read from `Engine.GetGuide().steps[step].goals[i].spots` for
 the goals `GetStepView` shows active or pending). `Layers.Regions(goal)`
-groups a goal's spots once per goal (cached by the compiled goal table): each
+groups a goal's spots once per goal (cached by the compiled goal table)
+through `Polestar.Regions.Of(cs, xs, ys, rs [, work])` (`Nav/Regions.lua`,
+shared with the quest objective areas): each
 spot's disc (its radius covers its spawns, at least 15 yd, plus 10 yd) joins
-the spots whose discs come within 90 yd, nearest first, while the region stays
+the spots on its continent whose discs come within 90 yd, nearest first, while the region stays
 at most 700 yd across (a coast of spawns is a chain of regions, not one hull
 over the sea). A region is the polygon whose sides touch the convex hull of
 its discs from outside (16 sides, 8 under 200 yd), so it covers every spawn
-of its spots; `alt` when all its spots are. `nav.areas` holds the target's
+of its spots (`members`: their indexes); `alt` when all its spots are. A grouping past
+50,000 pair checks (`Regions.WORK`; only a crafted guide) draws no regions. `nav.areas` holds the target's
 goal's regions as `hull` pins in the arrow's colour (alpha 1, `alt` 0.6), on
 the world map and the minimap (`nav.worldPins`, `nav.minimapPins`);
 `nav.goalAreas` the step's other goals' regions in `place` at 0.6 (`alt`
@@ -2676,7 +2734,7 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. It orders by
-a cost (the Hearthstone carries a `HEARTH_MARGIN` of 300 s on top of its
+a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
@@ -2689,11 +2747,12 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
-The Hearthstone's hour-long cooldown is spent only on a long haul (0.3.3,
-Fitz: "a 2-minute walk is fine"): a route `Nav.PlanRoute` chose with a
+The Hearthstone's hour-long cooldown is spent once a trip is long enough for
+it to clearly pay (#1096, Fitz; 0.3.3's 8 and 5 minutes walked where a
+hearth was better): a route `Nav.PlanRoute` chose with a
 hearth leg is planned again without it (`noHearth`) and kept only while the
-way without it takes at least `HEARTH_MIN_TRIP` (480 s) and the hearth saves
-at least `HEARTH_MARGIN` (300 s) after its cast and loading screen
+way without it takes at least `HEARTH_MIN_TRIP` (180 s) and the hearth saves
+at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 (`HEARTH_SECONDS`, 15 s); its label then says what it saves ("Hearth to
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
@@ -3728,8 +3787,24 @@ profession skill.
 
 Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
-under the higher-ranked glyph: kill > interact > collect > vendor). Objective
-clusters at least `MIN_AREA` (12 yd) wide carry their radius as `area`. Markers
+under the higher-ranked glyph: kill > interact > collect > vendor). Spread
+objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
+Objective spots (#1085): at each marker rebuild, each objective's spread pins
+are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
+250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
+198,000; past it the objective keeps its markers), and two objectives on the
+same spots share one region. `qol.objectiveSpots` picks the look:
+`groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
+`hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
+default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
+its centre (`spots` = its spot count, the members' names as header, every
+objective they serve in its tooltip) in place of its members; `icons` draws
+every spot's marker and no area; `areas` draws every region as an area and no
+objective marker (vendors and event points stay markers). The layer is set
+with `minimapAreas` unless `icons`, so the areas follow it onto the minimap.
+Over the shipped database `groups` cuts every quest's objective markers from
+about 122,000 to 41,000. `qol.questMarkerSize` (0.6–1.6) scales every quest
+marker on both surfaces. Markers
 and the tooltip/nameplate indexes are rebuilt only when what they show
 changed (a quest came or went, got ready or changed title, an objective was
 done or undone); a progress count alone only fires `QUESTDB_UPDATED`, since
@@ -3772,12 +3847,13 @@ the progress shown (tests).
 Settings (`qol.*`, Questing → Quests; the markers under Map → Guide & quests →
 Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
-`mapObjectives`, `objectiveAreas`, `turnInMarkers`, `minimapObjectives`,
+`mapObjectives`, `objectiveSpots` (`groups` | `icons` | `areas`),
+`objectiveAreaAlpha`, `turnInMarkers`, `minimapObjectives`, `questMarkerSize`,
 `guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`,
 `nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
-`minimapObjectives`) and `objectiveAreas` default to off (Map → Guide & quests →
-Quest markers); `guideHighlight` only restyles markers those layers draw.
+`minimapObjectives`) default to off (Map → Guide & quests → Quest markers);
+`guideHighlight` only restyles markers those layers draw.
 
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 
@@ -4965,7 +5041,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   header; on a window too narrow for them, the chip goes under the header,
   Later and the "stop" button take a row under the actions, and a button
   that still doesn't fit starts the next row) for a dungeon whose quests
-  have opened to this character: "LEVEL
+  have opened to this character: in its ring the dungeon's own picture
+  (`Dungeons.Art(key)`, `Dungeons/Art.lua`: the instance's loading screen
+  from the client's Map and LoadingScreens tables, by Map id, a square crop
+  as texture coordinates; the model's `art`, filling the ring inside a 2px
+  rim of the accent; a dark one's `lift` adds the picture over itself at
+  that alpha, `ADD` blend, so it reads at 36 px), or for a dungeon without one the dungeon glyph small
+  on the ring's disc (an `icon` tinted `iconColor` is a glyph), "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the

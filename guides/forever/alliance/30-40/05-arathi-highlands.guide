@@ -50,7 +50,7 @@ step Fallow Sanctuary
   collect 6071 quest 1389             -- Draenethyst Crystal
 
 step The Lost Caravan
-  tip The wrecked caravan lies off the road near Biggs.
+  tip The wrecked caravan's chest lies at the north end of the Fallow Sanctuary, beside Galen Goodward's cage.
   tip Careful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly.
   collect 6170 quest 1421             -- Wizards' Reagents
 
@@ -155,14 +155,8 @@ step Refuge Pointe
   tip Follow the road east out of Hillsbrad over Thoradin's Wall to Refuge Pointe.
   getfp "Refuge Pointe"
   accept 681                          -- Captain Nials
-  turnin 634                          -- Captain Nials: Plea to the Alliance, from Rhag Garmason in 30-40/01-hillsbrad-foothills
   turnin 690                          -- Skuerto
   accept 691                          -- Apprentice Kryten
-
-step Witherbark Village
-  tip The Witherbark trolls live in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley.
-  collect 4503 quest 691.1            -- Witherbark Tusk
-  collect 4522 quest 691.2
 
 step Northfold Manor
   tip The Syndicate hold the farm north-west of Refuge Pointe. A Hay Weevil crawls about the farm: catch one with Amaryllis Webb's Entomology Starter Kit, then tick it off.
@@ -210,7 +204,14 @@ step Faldir's Cove
   turnin 668                          -- Shakes O'Breen
   accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
 
-step Shadow Hunter Knife
+step Ebenezer Rustlocke
+  zone Arathi Highlands
+  tip Walk back onto the span: Ebenezer lies under its Arathi end.
+  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
+
+step Witherbark Village
+  tip East to the Witherbark trolls in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk.
+  collect 4503 quest 691.1            -- Witherbark Tusk
   collect 4522 quest 691.2            -- Witherbark Medicine Pouch
   collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
 

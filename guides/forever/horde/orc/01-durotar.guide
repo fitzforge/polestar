@@ -56,10 +56,6 @@ step The Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
 
-step Scorpid Worker Tail on the way
-  along until q789
-  collect 4862 quest 789.1
-
 step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
@@ -70,7 +66,6 @@ step Hana'zua
 # Den on the way to the peons and the Vile Familiars, then came back to the
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
 step Valley of Trials: kill these as you meet them
-  label q789
   zone Durotar
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
@@ -165,6 +160,7 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+  accept 786                          -- Lar Prowltusk
   kill 266850 quest 96821.1
   kill 266849 quest 96821.2
 
@@ -216,44 +212,36 @@ step Tiragarde Keep
   collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
-  turnin 96822                        -- Turroc, inside
-  accept 806
+  tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
   turnin 830 optional
   accept 831
-
-step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
+  accept 806                          -- Orgnil Soulscar
+  turnin 96822                        -- Turroc, inside
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
-step Sen'jin Village
-  accept 786                          -- Lar Prowltusk
-
 # ---------------------------------------------------------------- The coast and Sen'jin
-step Taillasher Egg on the way
-  along until q815
-  collect 4890 quest 815.1
 
+# Lar Prowltusk's Kolkar quest is taken on the first Sen'jin stop (he offers
+# it at level 5), so the coast is walked from Razor Hill south: the toolboxes
+# east of town first, then the beaches, the Echo Isles and Sen'jin.
 step Scuttle Coast: kill these as you meet them
-  label q815
   zone Durotar
-  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
+  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
+  collect 4863 quest 825.1            -- Underwater
   collect 4888 quest 818.2
   collect 4887 quest 818.1            -- Underwater
   collect 4890 quest 815.1
-  collect 4863 quest 825.1            -- Underwater
-
-step Durotar Tiger Fur on the way
-  along until q817
-  collect 4892 quest 817.1 -- Durotar Tiger Fur along the way to Sen'jin Village
 
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
   tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
   collect 277128 quest 97223.1
+  collect 4892 quest 817.1            -- Durotar Tiger Fur
 
 step Echo Isles: kill these as you meet them
   zone Durotar
@@ -271,7 +259,6 @@ step Deathskip to Sen'jin Village
   die "Sen'jin Village" @57.2,73.3 map 1411
 
 step Sen'jin Village
-  label q817
   zone Durotar
   turnin 808
   turnin 826
@@ -295,19 +282,11 @@ step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
 
-step Echo Isles
-  collect 4890 quest 815.1
-
 step Razor Hill
   accept 99048
   turnin 825                          -- Gar'Thok
   accept 837                          -- Gar'Thok
   turnin 815                          -- Cook Torka
-
-step On the way
-  along until q837
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
 
 step Level 10
   when level<10
@@ -335,7 +314,6 @@ step Kranal Fiss
   turnin 2983
 
 step Razormane Grounds
-  label q837
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
   kill 3111 quest 837.1
@@ -560,6 +538,8 @@ step Uzzek
   tip Follow the road west from Razor Hill over the Southfury River bridge; Uzzek stands at Far Watch Post, just above it on the Barrens side.
   turnin 1505                         -- Uzzek
   accept 1498
+  turnin 840                          -- Kargal Battlescar, beside Uzzek
+  accept 842
 
 step Thunder lizards across the river
   only Warrior

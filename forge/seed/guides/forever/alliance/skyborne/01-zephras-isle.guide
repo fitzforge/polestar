@@ -60,6 +60,14 @@ next forever/alliance/02-westfall
 # Group quest: WANTED: Vulgara the Insatiable (93318), not in the export;
 # Vulgara is elite, so the guide asks (`when group 93318`, #639).
 #
+# Hand fix (flow re-order, 2026-11-07): Al'Aketh Assassins (98512) is
+# taken and done where the road to Valanaar passes Fendaal Windstone, not on
+# the dead cultist's trip; Ealaane's two quests are taken on the first walk
+# through Valanaar; a Druid takes The Great Ursera Spirit on the Valanaar
+# turn-ins and hands it to Urs'endris at the falls on the watchtower trip;
+# the last Valanaar stop runs from where the Portal to Valanaar sets you
+# down (Elaadrin): Talaanis, Ealaane, the trainers, then back to Elaadrin.
+#
 # Deviations from the export (local order only, same quest set):
 # - Thendal Grove: Halaan, Myriaal, Dalia and Falorne are taken on the first
 #   return to the grove. The watchtower comes first, a few steps from
@@ -167,26 +175,27 @@ step Thendal Grove turn-ins
   accept 92470
   accept 92473                                -- Valreaa Valewind
 
-step Scrawny Ursera and Urs'anah
-  tip Scrawny Ursera prowl the woods just west of the grove; the Ursera Scavengers den further west, with Urs'anah, the matriarch, at the back of the den.
-  collect 251918 quest 92473.1 @41.4,26.4
+step Urs'anah and the Scrawny Ursera
+  tip The Ursera Scavengers den west of the grove, with Urs'anah, the matriarch, at the back of the den; Scrawny Ursera prowl the woods between the den and the grove.
   kill 250937 quest 92470.1
   collect 252665 quest 92470.2                -- Head of Urs'anah
+  collect 251918 quest 92473.1 @41.4,26.4
+
+step Aetheen of the Gales
+  tip Back east out of the den to the grove.
+  turnin 92473                                -- Valreaa Valewind
+  turnin 92470                                -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
 
 step Hanaa Nightwind
-  tip Hanaa Nightwind camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
+  tip Hanaa Nightwind camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
   accept 92544                                -- Hanaa Nightwind
   kill 251145 quest 92544.1
   kill 251448 quest 92544.2
   kill 256935 quest 92544.3                   -- Malduko Cloudcrush
   turnin 92544
-
-step Aetheen of the Gales
-  turnin 92473                                -- Valreaa Valewind
-  turnin 92470                                -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class                                 -- Level 6 spells
 
 # ---------------------------------------------------------------- Shen'dar Village
 
@@ -308,6 +317,12 @@ step Shen'dar Village again
 
 # ---------------------------------------------------------------- Valanaar
 
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                                -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                                -- Fendaal Windstone
+
 step The road to Valanaar
   tip Nyalah Brightfire and Alvarion Windfield stand on Valanaar's west side, beside the inn; Seena Skybreaker and Quel'ana Quickgale train just west of Nyalah. Windsong Crawlers line the shore further west, around 51,70.
   accept 93317                                -- Nyalah Brightfire
@@ -322,6 +337,8 @@ step The road to Valanaar
 
 step Valanaar
   tip Valennia Stormfist and Talaanis Shadowsong stand at the north end of Valanaar, Elaadrin Evengale and Dondallion Whisperwind at the south end.
+  accept 94896                                -- Ealaane Nimbuswalker
+  accept 94897
   turnin 93948                                -- Talaanis Shadowsong
   turnin 92701                                -- Valennia Stormfist
   accept 92699
@@ -386,6 +403,7 @@ step Standing our ground
 step Valanaar turn-ins
   hearth "Valanaar"                           -- Hearthstone on cooldown? Walk east back to town.
   turnin 92703                                -- Alvarion Windfield
+  accept 94006 only Druid                     -- Lotheluum Starbreeze, between the west gate and Valennia's house: The Great Ursera Spirit
   turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
@@ -421,11 +439,6 @@ step Elaadrin Evengale
   turnin 92860                                -- Valennia Stormfist
   accept 93320
 
-step Lotheluum Starbreeze
-  only Druid
-  tip Lotheluum Starbreeze, the druid trainer, stands between the west gate and Valennia's house.
-  accept 94006                                -- Lotheluum Starbreeze: The Great Ursera Spirit (level 10)
-
 step The eastern watchtower
   tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
   turnin 93320                                -- Yorana Windyreed
@@ -439,31 +452,26 @@ step The eastern watchtower
   turnin 92645
   accept 92880
 
+step Urs'endris
+  only Druid
+  tip Urs'endris waits by the falls just north of the watchtower. Ur'endra prowls the Shen'dar Highlands south-west of the dead cultist, where you go after Valanaar.
+  turnin 94006                                -- Urs'endris
+  accept 94638
+
 step Valanaar, the turncoat
   turnin 92834                                -- Elaadrin Evengale
   accept 92741                                -- Iaadaria Bitterwind
   accept 94484                                -- Lotheluum Starbreeze
-  accept 94896                                -- Ealaane Nimbuswalker
-  accept 94897
   turnin 92880                                -- Valennia Stormfist
   accept 92881
   turnin 92881                                -- Talaanis Shadowsong
   accept 92643
 
-step Urs'endris
-  only Druid
-  tip Urs'endris waits by the falls north-east of Valanaar. Ur'endra prowls the Shen'dar Highlands west of Valanaar, by the road you take next.
-  turnin 94006                                -- Urs'endris
-  accept 94638
-
 step The dead cultist
-  tip North-west of Valanaar along the road: Fendaal Windstone watches the Al'Aketh Assassins; the dead cultist lies just north of him.
-  accept 98512                                -- Fendaal Windstone
-  kill 254626 quest 98512.1
+  tip North-west of Valanaar along the road, past Fendaal Windstone: the dead cultist lies just north of him.
   complete 92643 @56.01,58.81                 -- Search the dead cultist
   turnin 92643
   accept 92644
-  turnin 98512                                -- Fendaal Windstone
   kill 258443 quest 94638.1 only Druid        -- Ur'endra, in the highlands south-west of the cultist
 
 step Desperate times
@@ -560,19 +568,19 @@ step High Priestess Lorthuna
 # ---------------------------------------------------------------- Leaving the isle
 
 step Valanaar, the fate of Zephras
-  turnin 94896                                -- Ealaane Nimbuswalker
-  turnin 94897
-  turnin 94491                                -- Lotheluum Starbreeze
-  turnin 92741                                -- Iaadaria Bitterwind
   turnin 93835                                -- Elaadrin Evengale
   accept 94369
+  turnin 92741                                -- Iaadaria Bitterwind
   complete 94369 @66.17,76.51                 -- Talaanis Shadowsong
   turnin 94369
   accept 93089
-  turnin 93089                                -- Elaadrin Evengale
-  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
+  turnin 94896                                -- Ealaane Nimbuswalker
+  turnin 94897
+  turnin 94491                                -- Lotheluum Starbreeze
   train class
   turnin 94003 only Warrior                   -- Seena Skybreaker: Defensive Stance
+  turnin 93089                                -- Elaadrin Evengale
+  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
 
 step The skycutter
   tip The skycutter docks at the tower south of Valanaar. It lands by the Kirin Tor camp on the lake shore west of Dalaran.

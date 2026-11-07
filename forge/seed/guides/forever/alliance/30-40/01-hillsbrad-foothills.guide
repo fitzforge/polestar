@@ -53,51 +53,28 @@ step The Green Belt
 # ---------------------------------------------------------------- Dun Modr
 
 step Dun Modr
-  tip North along the road to Dun Modr. Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo Harlbarrow. Rhag Garmason stands in the dwarves' camp.
-  accept 87491                        -- Captive Fire Elemental
+  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo.
+  turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
+  collect 280396 quest 98310.2        -- Heart of Modr
+  accept 87491                        -- Captive Fire Elemental
+  turnin 87491                        -- Roggo Harlbarrow
 
 step The Villards
   zone Wetlands
-  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
+  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
 
 step Foggy MacKreel
   zone Arathi Highlands
-  tip Cross the Thandol Span: Foggy MacKreel fishes at its Arathi end.
+  tip Over the Thandol Span: Ebenezer Rustlocke lies under its Arathi end, Foggy MacKreel a short walk west of it.
+  turnin 631 only Dwarf,Gnome,NightElf,Skyborne -- Ebenezer Rustlocke's Corpse, inside
   accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
   accept 637 optional only Dwarf,Gnome,NightElf,Skyborne
-
-step Ebenezer Rustlocke
-  zone Arathi Highlands
-  tip Ebenezer lies under the span's Arathi end, beside the envelope.
-  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
-  accept 632 object 2652              -- Ebenezer Rustlocke's Corpse: for Rhag Garmason
-
-step Dun Modr
-  zone Wetlands
-  tip Back south over the span to Dun Modr.
-  collect 280396 quest 98310.2        -- Heart of Modr
-  tip Longbraid the Grim and Rhag Garmason stand in the dwarves' camp.
-  turnin 472                              -- Longbraid the Grim
-  turnin 87491                        -- Roggo Harlbarrow
-  turnin 632                          -- Rhag Garmason
-  accept 633
-
-step Cache of Explosives
-  zone Arathi Highlands
-  tip North over the span once more: the Cache of Explosives stands in the Dark Iron camp just past its Arathi end; its Bombardiers, Shadowcasters and Suppliers (30-32) are not elite.
-  interact 2704 quest 633.1 @48.8,88.1 map 1417 -- Cache of Explosives
-
-step Rhag Garmason
-  zone Wetlands
-  tip Back to Rhag Garmason in Dun Modr.
-  turnin 633
-  accept 634                          -- For Captain Nials at Refuge Pointe (30-40/05-arathi-highlands)
 
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather
@@ -132,19 +109,19 @@ step Boat to Southshore
 
 step Southshore
   zone Hillsbrad Foothills
-  tip Pick up everything in town before heading out. Micha Yance and Bartolo Ginsetti stand between the flight master and the inn, Farren and Barkeep Kelly at the inn, Maleb in the town hall.
+  tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Brewmeister Bilger below it and Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
   # An Alarming Request requires level 30 (Forever's quest data, quest 92432, checked 2026-10-14).
+  accept 659                          -- Phin Odelic: his trail leads to Arathi
+  turnin 98219 npc 2228               -- Lieutenant Farren Orinelle, inside
+  accept 536                          -- Lieutenant Farren Orinelle
+  sethome "Southshore" npc 2352       -- Innkeeper Anderson
+  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
+  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
+  accept 555                          -- Chef Jessen, upstairs
+  accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
   accept 565                          -- Bartolo Ginsetti
-  accept 564                          -- Darren Malvew: the lions come later
-  accept 555                          -- Chef Jessen, upstairs
-  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
-  sethome "Southshore" npc 2352       -- Innkeeper Anderson
-  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Below ground
-  turnin 98219 npc 2228               -- Lieutenant Farren Orinelle, inside
-  accept 536                          -- Lieutenant Farren Orinelle
-  accept 659                          -- Phin Odelic: his trail leads to Arathi
   accept 505                          -- Magistrate Henry Maleb, inside
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
@@ -179,30 +156,22 @@ step Daggerspine naga
 
 step Farren
   turnin 562                          -- Inside
+  accept 563                          -- A report for Stormwind Keep; inside
 
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
 
-step Farren
-  accept 563                          -- A report for Stormwind Keep; inside
-
 step Southshore
   zone Hillsbrad Foothills
-  tip Off the boat, Captain McManus is the first you meet, north-west of the flight master.
+  tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
   accept 98059                        -- Captain McManus
   turnin 98059                        -- Captain McManus
 
 step Yeti cave
   zone Hillsbrad Foothills
-  tip The yetis live in the cave in the hills north of Southshore, on your way back south.
+  tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
   collect 3720 quest 565.4            -- Yeti Fur
   note Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.
-
-step On the way
-  along until q505
-  zone Alterac Mountains
-  kill 2240 quest 505.1
-  kill 2241 quest 505.2
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -210,13 +179,11 @@ step Alterac Mountains
 
 step Syndicate camp
   zone Alterac Mountains
-  tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp.
+  tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants.
+  kill 2240 quest 505.1               -- Syndicate Footpad
+  kill 2241 quest 505.2               -- Syndicate Thief
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
-
-step Alterac Mountains
-  zone Alterac Mountains
-  goto 29.6,37.5 "Alterac Mountains"
 
 # ---------------------------------------------------------------- North of Southshore
 
@@ -224,12 +191,6 @@ step Snapjaws
   zone Hillsbrad Foothills
   tip The Snapjaw turtles bask along the river east of Southshore, south of Tarren Mill (Horde).
   collect 3712 quest 555              -- Turtle Meat
-
-step Syndicate camp
-  label q505
-  zone Alterac Mountains
-  kill 2240 quest 505.1               -- Syndicate Footpad
-  kill 2241 quest 505.2               -- Syndicate Thief
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
@@ -319,16 +280,16 @@ step Cathedral of Light
   turnin 269                          -- Bishop Farthing
   accept 270
 
+step Elling Trias
+  turnin 1247
+  accept 1248
+
 step Mage Quarter
   tip Archmage Malin is in the Slaughtered Lamb; Garion Wendell near the canal; Connor Rivers south of the Mage Quarter.
   accept 79536 optional               -- Garion Wendell: only offered once you have handed in library books (the Library Books guide)
   turnin 79536 optional
   accept 690                          -- Archmage Malin
   accept 1301                         -- Connor Rivers
-
-step Elling Trias
-  turnin 1247
-  accept 1248
 
 step Boat to Auberdine
   zone Stormwind City

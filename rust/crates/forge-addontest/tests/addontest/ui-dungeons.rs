@@ -901,6 +901,53 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 	assert_eq!(out[4], json!({ "shown": true, "asked": ["wailing-caverns"], "after": false, "ui": true }));
 }
 
+// The ring wears the dungeon's own picture (Dungeons/Art.lua: Wailing Caverns' loading screen, file 131882, by its
+// Map id 43), filling it inside the accent's rim, lifted (the picture added over itself at its lift, 0.35) as it is a
+// dark one; a dungeon the table doesn't know gets the dungeon glyph, small and whole on the disc, with no lift.
+// Never the flat tinted circle the glyph made when it filled the ring.
+#[test]
+fn the_dungeon_heads_up_wears_the_dungeons_own_picture_and_the_dungeon_glyph_without_one() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function ring()
+			local f = CT.frame
+			local i, l = f.Icon, f.Lift
+			return {{ texture = i:GetTexture(), coords = i.texCoord, size = i:GetWidth(), mask = f.Mask:GetWidth(), tint = {{ i:GetVertexColor() }},
+				solid = i.color ~= nil, ring = f.Ring:GetWidth(),
+				lift = l:IsShown() and {{ texture = l:GetTexture(), coords = l.texCoord, size = l:GetWidth(), alpha = l:GetAlpha(), blend = l.blend,
+					masked = l.mask == f.Mask }} or false }}
+		end
+		levelUp(20)
+		local art = Polestar.Dungeons.Art("wailing-caverns")
+		emit({{ dungeon = CT.current.dungeon, ring = ring(), art = {{ art.l, art.r, art.t, art.b }}, lift = art.lift, none = Polestar.Dungeons.Art("blackmaw-hold") or false }})
+		CT.Hide()
+		DT.Show({{ key = "blackmaw-hold", name = "Blackmaw Hold", minLevel = 55, maxLevel = 60, take = 1, level = 55 }})
+		local r, g, b = Polestar.Theme.Color("dungeon")
+		emit({{ dungeon = CT.current.dungeon, ring = ring(), violet = {{ r, g, b, 1 }}, glyph = Polestar.Theme.Media("icon-dungeon") }})"#
+	));
+	let (art, glyph) = (&out[0], &out[1]);
+	assert_eq!(art["dungeon"], "wailing-caverns");
+	assert_eq!(art["none"], false, "Blackmaw Hold has no Map id in the fixture, so no picture");
+	assert_eq!(art["ring"]["texture"], 131882, "Wailing Caverns' loading screen");
+	assert_eq!(art["ring"]["coords"], art["art"], "cropped square");
+	assert_eq!(json!([&art["ring"]["size"], &art["ring"]["mask"], &art["ring"]["ring"]]), json!([36, 36, 40]), "the picture fills the ring inside a 2px rim");
+	assert_eq!(art["ring"]["tint"], json!([1, 1, 1, 1]), "in its own colours");
+	assert_eq!(art["ring"]["solid"], false);
+	assert_eq!(art["lift"], 0.35);
+	assert_eq!(
+		art["ring"]["lift"],
+		json!({ "texture": 131882, "coords": art["art"], "size": 36, "alpha": 0.35, "blend": "ADD", "masked": true }),
+		"the same picture added over it, in the same round crop"
+	);
+	assert_eq!(glyph["dungeon"], "blackmaw-hold");
+	assert_eq!(glyph["ring"]["texture"], glyph["glyph"]);
+	assert_eq!(glyph["ring"]["coords"], json!([0, 1, 0, 1]), "no crop left over from the picture");
+	assert_eq!(json!([&glyph["ring"]["size"], &glyph["ring"]["mask"]]), json!([20, 32]), "small on the disc, its corners inside the round crop");
+	assert_eq!(glyph["ring"]["tint"], glyph["violet"]);
+	assert_eq!(glyph["ring"]["solid"], false);
+	assert_eq!(glyph["ring"]["lift"], false, "no lift left over from the picture");
+}
+
 #[test]
 fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_quest_card() {
 	let out = run(&format!(

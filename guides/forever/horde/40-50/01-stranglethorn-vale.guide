@@ -33,6 +33,7 @@ step Booty Bay
   note The next guide flies you north to Tarren Mill and into the Arathi Highlands.
   accept 348                            -- Fin Fizracket
   accept 2872                           -- for Stoley in Tanaris; on the top floor
+  accept 606                            -- "Sea Wolf" MacKinley
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -163,7 +164,6 @@ step Booty Bay
   turnin 597                            -- First Mate Crazz
   accept 599
   accept 576                            -- Dizzy One-Eye
-  accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 599                            -- Fleet Master Seahorn
   accept 604
   accept 587                            -- Deeg, on the top floor

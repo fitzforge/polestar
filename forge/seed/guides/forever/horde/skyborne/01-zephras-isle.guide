@@ -7,6 +7,11 @@ zone Zephras Isle
 coords live
 next forever/horde/02-the-barrens
 
+# Hand fix (flow re-order, 2026-11-07): Al'Aketh Assassins (98512) is taken
+# and done where the road to Valanaar passes Fendaal Windstone, not on the
+# turncoat's trip.
+#
+
 # Route: the simulator's consensus route for Horde Skyborne
 # (data/sim/export/consensus-horde-skyborne, visit 1, levels 1-14.6).
 # Checked against the 2026-10-14 export: same isle quests. Its order differs
@@ -204,6 +209,19 @@ step Scrawny Ursera
   tip Scrawny Ursera prowl the slopes south-west of the village, on the way to Hanaa.
   collect 251918 quest 92473.1 @41.4,26.4
 
+step Urs'anah
+  tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
+  kill 250937 quest 92470.1
+  collect 252665 quest 92470.2
+
+step Back to Thendal Village
+  tip Back up from the den to Valreaa and Aetheen in the village before heading south-west to Hanaa: the road from her camp leads on south to Shen'dar.
+  turnin 92473                        -- Valreaa Valewind
+  turnin 92470                        -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
+
 step Hanaa Nightwind
   tip Hanaa waits in Thendal Grove, south-west of the village. The Al'Aketh camp is just beyond her; Malduko Cloudcrush leads it.
   accept 92544                        -- Hanaa Nightwind
@@ -213,17 +231,9 @@ step Hanaa Nightwind
   collect 251924 quest 92466.1 only Shaman -- Signet of Akir: the Al'Aketh in Hanaa's camp carry it
   turnin 92544
 
-step Urs'anah
-  tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
-  kill 250937 quest 92470.1
-  collect 252665 quest 92470.2
-
-step Leaving Thendal Village
-  turnin 92473                        -- Valreaa Valewind
-  turnin 92470                        -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class
+step Windshaper Boro
+  only Shaman
+  tip Back to Boro in Thendal Village with the Signet.
   turnin 92466 only Shaman            -- Windshaper Boro
   accept 92467 only Shaman
   turnin 92467 only Shaman            -- drink the Earth Sapta at the Rise of Spirits, just east of the village, to see the Minor Manifestation of Earth
@@ -360,6 +370,12 @@ step Shen'dar Village hand-ins
   accept 93948
 
 # ---------------------------------------------------------------- Valanaar
+
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                        -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                        -- Fendaal Windstone
 
 step Nyalah and Alvarion
   tip Nyalah Brightfire waits inside a house on Valanaar's western edge; Alvarion Windfield is close by.
@@ -519,13 +535,10 @@ step Back to Valanaar
 # ---------------------------------------------------------------- The turncoat
 
 step The turncoat
-  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar. Fendaal Windstone waits nearby; his assassins lurk around the house.
-  accept 98512                        -- Fendaal Windstone
-  kill 254626 quest 98512.1
+  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar, just north of Fendaal Windstone.
   complete 92643 @56.0,58.8           -- search the dead cultist in the house
   turnin 92643                        -- Dead Cultist
   accept 92644
-  turnin 98512                        -- Fendaal Windstone
 
 step Ur'endra
   only Druid

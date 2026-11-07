@@ -67,7 +67,7 @@ step Back to Therzok
 step Tazan's Key
   only Orc,Troll
   tip Therzok hands the satchel back: now open it. Gamon (level 12) kneels by the innkeeper in the inn in the Valley of Strength; stealth up and pick his pocket for Tazan's Key (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on Tazan's Satchel in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead.
-  collect 7208 x1                             -- Tazan's Key: Pick Pocket Gamon
+  collect 7208 x1 "Pick Pocket Gamon for Tazan's Key"
   use 7209 quest 1858.1 @54.0,68.0            -- Tazan's Satchel, once you have the key
   collect 7295 quest 1858.1 @54.0,68.0        -- Tazan's Logbook, from the satchel
 

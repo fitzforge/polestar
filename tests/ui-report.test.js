@@ -132,6 +132,7 @@ function longest(locale, word, letter, opts = {}) {
 		Polestar.Guides.Pack = function() return { title = long, version = word } end
 		Polestar.Guides.Packs = function() return { { title = long, version = word, status = "on" }, { title = long, status = "on" } } end
 		Polestar.Compat.GetPlayerMapPosition = function() return 1429, 51.234, 40.5 end
+		stub.addonMeta["Polestar_" .. string.rep("Long", 10)] = { Author = "Polestar" }
 		for i = 1, 4 do stub.fire("ADDON_ACTION_BLOCKED", "Polestar_" .. string.rep("Long", 10), string.rep("Protected", 8) .. i .. "()") end
 		uistub.setGuide(id, 1)
 		UI.ShowReport()
@@ -206,11 +207,14 @@ test('errors Polestar caught come with the report, counted, by their path from t
 
 test('actions the game blocked from Polestar (taint, no Lua error) come with the report: by the addon blamed, counted, newest time, sharing the newest three with the errors; other addons\' are left out', () => {
 	const [out] = run(`
+		stub.addonMeta.Polestar_Gamepad = { Author = "Polestar" }
+		stub.addonMeta.Polestar_Mob_Markers = { Author = "Someone else" }
 		Polestar.NoteError("Interface/AddOns/Polestar/UI/GuideFrame.lua:1: oldest")
 		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
 		stub.advance(5)
 		stub.fire("ADDON_ACTION_FORBIDDEN", "OtherAddon", "CastSpellByName()")
 		stub.fire("ADDON_ACTION_FORBIDDEN", "Polestar_Gamepad", "ClearOverrideBindings()")
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar_Mob_Markers", "UNKNOWN()")
 		Polestar.NoteError("Interface/AddOns/Polestar/Nav/Arrow.lua:2: between")
 		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
 		uistub.setGuide(uistub.elwynn, 3)
@@ -223,6 +227,35 @@ test('actions the game blocked from Polestar (taint, no Lua error) come with the
 		`  1x blocked in Polestar_Gamepad: ClearOverrideBindings() (${out.at})`,
 		'  1x Polestar/Nav/Arrow.lua:2: between',
 		`  2x blocked in Polestar: UseAction() (${out.at})`,
+	], 'another author\'s Polestar_Mob_Markers (#1123) is not ours');
+});
+
+// Fyurie (#1113, #1116, #1118) and soockee (#1051) had "blocked in Polestar: UNKNOWN()": the game names a
+// namespaced function (C_Item.IsItemInRange) or an anonymous frame's only so. The event fires inside the blocked
+// call, so the stack names the line of ours under it: the report says where.
+test('a blocked call says which line of ours made it, so "UNKNOWN()" can be traced', () => {
+	const [out] = run(`
+		local stacks = {
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:587: in function <Interface/AddOns/Polestar/Core/Init.lua:587>\\n' ..
+			'[C]: in function \\'IsItemInRange\\'\\n' ..
+			'[string "@Interface/AddOns/Polestar/QoL/QoL.lua"]:394: in function \\'ItemInRange\\'\\n' ..
+			'[string "@Interface/AddOns/Polestar/QoL/Buttons.lua"]:420: in function <...>\\n',
+			'Interface\\\\AddOns\\\\Polestar\\\\Core\\\\Init.lua:587: in function <Init.lua:587>\\n' ..
+			'Interface\\\\AddOns\\\\Polestar_Nav\\\\Router.lua:12: in function \\'Go\\'\\n',
+		}
+		local n = 0
+		debugstack = function() return stacks[n] end
+		n = 1
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		n = 2
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	assert.deepEqual(out.text.split('\n').filter((l) => l.startsWith('  ')), [
+		`  2x blocked in Polestar: UNKNOWN() Polestar/QoL/QoL.lua:394 (${out.at})`,
+		`  1x blocked in Polestar: UNKNOWN() Polestar_Nav/Router.lua:12 (${out.at})`,
 	]);
 });
 

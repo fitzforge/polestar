@@ -3,7 +3,7 @@ title The Eye of Bhossca
 category Class
 class Rogue
 folder Rogue
-levels 25-35
+levels 30-35
 zone Silverpine Forest
 keywords The Eye of Bhossca, C's dead drop, Dead Drop, Pyrewood Village, Scarlet Monastery, disguise, Ruby-Adorned Blade, Rogue, solo dungeon
 reward item 277246
@@ -37,8 +37,8 @@ why The Ruby-Adorned Blade, C's payment for a solo job inside the Scarlet Monast
 # player evidence, not a guaranteed mail level or a level-gate change.
 
 step C's dead drop
-  tip The Dead Drop is a chest near Pyrewood Village in southern Silverpine, just south of Shadowfang Keep. After the horn job and C's next letter, check it for the new job. The data lists a minimum of 25, but beta players report receiving the invitation at 30 after the horn job and a city visit; this is not a guaranteed mail level. If no new note is offered, continue leveling and check after C writes.
-  level 25
+  tip C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the Dead Drop near Pyrewood Village, in southern Silverpine just south of Shadowfang Keep, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30.
+  level 30
   accept 78676 object 410369                  -- Dead Drop
 
 step The Scarlet Monastery
