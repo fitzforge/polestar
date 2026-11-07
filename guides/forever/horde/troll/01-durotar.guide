@@ -181,7 +181,6 @@ step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 823                          -- Orgnil Soulscar
   accept 784
-  accept 837                          -- Gar'Thok: the quilboar and scouts live among the huts by the prickly pears
   turnin 96821                        -- Gar'Thok
   accept 815
 
@@ -197,10 +196,8 @@ step Razor Hill
   accept 791                          -- Furl Scornbrow, in the watchtower
 
 step Prickly pears
-  tip The prickly pears grow among the quilboar huts just west of town; the Razormane Quilboar and Scouts there are Encroachment's first two.
+  tip The prickly pears grow among the quilboar huts just west of town.
   collect 275718 quest 96825.1
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
 
 step Cook Torka
   turnin 96825
@@ -283,6 +280,7 @@ step Sen'jin Village
 
 step Razor Hill
   accept 99048
+  accept 837                          -- Gar'Thok
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
 

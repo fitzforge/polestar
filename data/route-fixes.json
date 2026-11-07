@@ -4874,6 +4874,28 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"turnin",
+					99051
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Threat from Below is handed to Orgnil in Razor Hill on the walk from Margoz to Far Watch Post, as in Orc's guide. The Troll cut handed in Conscript of the Horde first, took the Crossroads stop (Meats to Orgrimmar, Crossroads Conscription, the flight path), walked 2,490 yd back to Razor Hill, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the player had stood next to"
+			},
+			{
+				"a": [
+					"turnin",
+					6081
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
 			}
 		]
 	}
