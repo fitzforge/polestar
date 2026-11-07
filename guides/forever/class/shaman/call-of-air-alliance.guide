@@ -68,22 +68,22 @@ step Veyric Thunderhame
 step Twisted Fire Totems
   zone Badlands
   tip Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of Angor Fortress in the Badlands carry them; the Shamans drop Fire Nova Totems and a Healing Ward, the Bonesnappers run for help when hurt. Respawn about five minutes.
-  collect 274044 x5 quest 79358.1                -- Twisted Fire Totem
+  collect 274044 x5 quest 79358.3                -- Twisted Fire Totem
 
 step Twisted Earth Totems
   zone Swamp of Sorrows
   tip Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of Stonard in the Swamp of Sorrows carry them; most run for help when hurt.
-  collect 274045 x5 quest 79358.3                -- Twisted Earth Totem
+  collect 274045 x5 quest 79358.2                -- Twisted Earth Totem
 
 step Twisted Water Totems
   zone Dustwallow Marsh
   tip Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of Brackenwall Village in northern Dustwallow Marsh carry them.
-  collect 274046 x5 quest 79358.4                -- Twisted Water Totem
+  collect 274046 x5 quest 79358.1                -- Twisted Water Totem
 
 step Twisted Air Totems
   zone Desolace
   tip Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of Shadowprey Village in western Desolace carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw Jumping Lightning: pull one at a time. Respawn about five minutes.
-  collect 274047 x5 quest 79358.2                -- Twisted Air Totem
+  collect 274047 x5 quest 79358.4                -- Twisted Air Totem
 
 step Veyric Thunderhame
   zone Arathi Highlands

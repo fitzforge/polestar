@@ -1679,8 +1679,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		if (q && Array.isArray(q.objectives)) {
 			// "7.1 = kill Kobold Vermin x10, 7.2 = ...": what `quest Q.O` can name.
 			const listed = () => data.questObjectives(g.quest).map((o) => objectiveLabel(g.quest, o)).join(', ');
+			// An index past a list the data has names no quest-log line: the goal
+			// never counts. An error; with no list in the data (a quest whose
+			// objectives it does not know) only a warning.
 			if (oi !== undefined && oi > q.objectives.length) {
-				warn(
+				(q.objectives.length ? err : warn)(
 					ln,
 					`quest ${g.quest} has ${q.objectives.length} objective(s) in data, not ${oi}${q.objectives.length ? `: ${listed()}` : ''}`,
 					q.objectives.length ? `write \`quest ${g.quest}.<n>\` with one of these (\`polestar find ${g.quest}\` lists them)` : `drop the \`.${oi}\`: write \`quest ${g.quest}\``,
@@ -1695,29 +1698,31 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const other = v === 'talk' ? 'kill' : v === 'kill' ? 'talk' : null;
 			const sameKind = (k) => k === kind || (other !== null && k === other);
 			const find = (id) => objectiveFor(q, kind, id) || (other !== null ? objectiveFor(q, other, id) : null);
-			// `quest Q.O` naming an objective of the same kind for another
-			// target: progress and count would follow that one. When the target
-			// is another objective of the quest, the index is swapped, which is
-			// always wrong: an error (#214 shipped two that a warning let pass).
-			// An item the quest uses without counting it (Sunscale Feather on the
-			// Scytheclaw nests, the Fresh Zhevra Carcass that lures Ishamuhale,
-			// #538): no line of the quest log counts it, so only the bags can say
-			// it is there.
+			// `quest Q.O` naming another objective than the line's own target:
+			// progress and count would follow that one. When the target is
+			// another objective of the quest, the index is swapped, which is
+			// always wrong, whatever kind the named objective is (a kill written
+			// on an item's line): an error (#214 shipped two that a warning let
+			// pass). Another target of the same kind that is no objective: a
+			// warning. An item the quest uses without counting it (Sunscale
+			// Feather on the Scytheclaw nests, the Fresh Zhevra Carcass that
+			// lures Ishamuhale, #538): no line of the quest log counts it, so only
+			// the bags can say it is there.
 			const used = v === 'collect' && id !== undefined && ((q.requiredItems || []).includes(id) || q.sourceItem === id);
 			const bagHint = `the quest uses item ${id} without counting it: drop \`quest ${g.quest}${oi !== undefined ? `.${oi}` : ''}\` so the step counts it in the bags`;
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
-			if (named && sameKind(named.kind) && named.id != null && named.id !== id) {
-				const right = find(id);
+			const right = named ? find(id) : null;
+			const swapped = !!right && right !== oi;
+			if (swapped || (named && sameKind(named.kind) && named.id != null && named.id !== id)) {
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
-				(right ? err : warn)(
+				(swapped ? err : warn)(
 					ln,
 					`${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not this ${noun}${own ? `; ${own.name || `${noun} ${id}`} is ${g.quest}.${right}` : ''}`,
 					right ? `write \`quest ${g.quest}.${right}\`, or \`quest ${g.quest}\` to take the index from the ${noun}` : used ? bagHint : `its objectives: ${listed()}`,
 				);
 			}
-			if (named && v === 'collect' && named.kind !== 'item') {
-				const right = objectiveFor(q, 'item', id);
-				warn(ln, `${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not an item`, right ? `write \`quest ${g.quest}.${right}\`, or \`quest ${g.quest}\` to take the index from the item` : used ? bagHint : `its objectives: ${listed()}`);
+			if (named && !swapped && v === 'collect' && named.kind !== 'item') {
+				warn(ln, `${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not an item`, used ? bagHint : `its objectives: ${listed()}`);
 			}
 			if (oi === undefined) {
 				if (id !== undefined) oi = find(id) || undefined;

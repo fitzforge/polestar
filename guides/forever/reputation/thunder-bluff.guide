@@ -126,8 +126,8 @@ step Gloomrise (optional hub)
 step Gloomrise
   when done gloomrise
   tip Gloomrise is the tauren burial ground north of Thunder Bluff. Use the Toxin Extractor on the Gnawed Corpses. Broodmother Valraxx waits at the heart of it; her body carries a Bloody Parchment: read it to start A Darker Truth.
-  kill 264079 x10 quest 96259.2       -- Gloomrise Hatchling
-  kill 264083 x5 quest 96259.1        -- Gloomrise Soldier
+  kill 264079 x10 quest 96259.1       -- Gloomrise Hatchling
+  kill 264083 x5 quest 96259.2        -- Gloomrise Soldier
   collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
   collect 273001 x5 quest 96241.1     -- Gloomrise Toxin Sample
   kill 264082 quest 96261.1           -- Broodmother Valraxx
