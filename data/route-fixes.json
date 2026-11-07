@@ -2006,6 +2006,18 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"accept",
+					2258
+				],
+				"b": [
+					"task",
+					710
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Lesser Rock Elementals between Kargath and Lotwil's camp also drop Jarkal's Rock Elemental Shards: Badlands Reagent Run is taken in Kargath first, as the seed has it, so one round of the elementals does both; the route ground them before Kargath and came back to the Dustbowl for the shards 52 minutes later."
 			}
 		],
 		"notes": [
@@ -2805,6 +2817,31 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"task",
+					711
+				],
+				"b": [
+					"task",
+					2258,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
+			},
+			{
+				"a": [
+					"task",
+					1108
+				],
+				"b": [
+					"task",
+					703
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
 			}
 		],
 		"after": [

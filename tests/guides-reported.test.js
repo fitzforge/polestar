@@ -1467,6 +1467,21 @@ test('Sweep from #957: a drop is collected with the later quest that kills the s
 	}
 });
 
+// --- Flow re-order (2026-11-07, #1104): Horde Badlands ground the Lesser
+// Rock Elementals before Kargath, where Jarkal gives Badlands Reagent Run, and
+// came back to the Dustbowl for his Rock Elemental Shards after Agmond's End;
+// the buzzard wings were a stop of their own at Agmond's End.
+test('forever/horde/30-40/03-arathi-highlands.guide: flow re-order: Jarkal\'s shards with the Dustbowl elementals, the wings on the way to Agmond\'s End', { skip }, () => {
+	const list = goals('forever/horde/30-40/03-arathi-highlands.guide');
+	const jarkal = at(list, 'accept 2258 (Badlands Reagent Run)', is('accept', 2258));
+	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
+	assert.ok(jarkal < stones, 'Badlands Reagent Run taken before the Lesser Rock Elementals');
+	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'the Rock Elemental Shards collected with the Small Stone Shards');
+	const wings = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3404);
+	assert.equal(wings.length, 1, 'the wings listed once');
+	assert.equal(wings[0].s, list[at(list, 'collect 5797 (Stonevault flakes)', (g) => g.t === 'collect' && g.item === 5797)].s, 'the wings with the troggs, on the way to Agmond\'s End');
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).
