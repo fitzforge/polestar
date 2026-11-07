@@ -6075,6 +6075,20 @@
 				],
 				"reason": "Quest volume, 2026-11-07: Me Brother, Nipsy (level 12, from 10, 90 XP) is taken on a visit the route already makes: Monty; his brother Nipsy waits on the Stormwind platform of the same ride. Recordings: offered to 3 characters, 3 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 163,
+				"reason": "Quest volume, 2026-11-07: Raven Hill (level 20, from 17, 390 XP) is taken on a visit the route already makes: Elaine Carevin in Darkshire, on the first Darkshire stop; Jitters hides at Raven Hill, which Duskwood's first loop passes. Recordings: offered to 7 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 5,
+				"after": [
+					"turnin",
+					163
+				],
+				"reason": "Quest volume, 2026-11-07: Jitters' Growling Gut (level 20, from 17, 390 XP) is taken on a visit the route already makes: Jitters at Raven Hill; Chef Grual is in Darkshire's tavern, where the loop comes back. Recordings: offered to 5 characters, 2 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
