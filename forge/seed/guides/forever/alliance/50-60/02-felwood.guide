@@ -168,8 +168,12 @@ step The Emerald Sanctuary
 
 # ---------------------------------------------------------------- Everlook
 
+# Re-seeded for flow in 0.3.5: Speak to Salfa is handed in where the tunnel
+# comes out, instead of on a later ride back west from Everlook.
 step Everlook
   zone Winterspring
-  tip Ride north to Timbermaw Hold (or fly back to Talonbranch Glade first) and through the tunnel into Winterspring; follow the road east to the goblin town of Everlook.
+  tip Ride north to Timbermaw Hold (or fly back to Talonbranch Glade first) and through the tunnel into Winterspring. Salfa stands at the tunnel's Winterspring exit; then follow the road east to the goblin town of Everlook.
+  turnin 8465                           -- Salfa
+  accept 8464
   getfp "Everlook"
   sethome "Everlook"
