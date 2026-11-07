@@ -1021,6 +1021,33 @@ function Own.coming(p, depth)
 	return #turnins + #accepts > 0
 end
 
+-- The quest the player skipped that leaves out an accept missing
+-- prerequisite p (unavailable, reason "pre"), or nil when the route simply
+-- never brings p: p itself when the player skipped it (Engine.SkipQuest) or
+-- skipped a step with its accept or turn-in (not a step with a `when`: a
+-- failed condition is stored as a skip too), else what left p's accept out
+-- down the chain (A skipped leaves out B, B leaves out C: C's is A).
+function Own.skipRoot(p, depth)
+	depth = depth or 0
+	if depth > 8 or questDone(p) then return nil end
+	if Own.questSkipped(p) then return p end
+	local skipped = ns.CharState().skipped[guide.id]
+	local l = layoutOf(guide)
+	for _, list in ipairs({ l.turnins[p] or NONE, l.accepts[p] or NONE }) do
+		for _, t in ipairs(list) do
+			if skipped and (skipped[t.key] or (skipped[t.s] and t.step.when == nil)) and stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return p end
+		end
+	end
+	for _, t in ipairs(l.accepts[p] or NONE) do
+		local u = unavailableFor(t.goal, depth + 1)
+		if u and u.reason == "pre" and u.pre then
+			local root = Own.skipRoot(u.pre, depth + 1)
+			if root then return root end
+		end
+	end
+	return nil
+end
+
 -- "s:g", built once per step and goal: check-offs and goal skips are looked
 -- up for every goal on every evaluation.
 Own.keys = {}
@@ -2660,6 +2687,14 @@ local function unavailableText(u)
 	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
 end
 
+-- A "pre" mark's quest the player skipped (Own.skipRoot), as its title; nil
+-- when the route simply never brings the prerequisite.
+function Own.skippedWithTitle(u)
+	local pre = u.pre or missingPre(u.accept)
+	local root = pre and guide and Own.skipRoot(pre)
+	return root and titleOfQuest(root, u.accept.preTitles) or nil
+end
+
 -- What an open accept's line says about the game's own word on it: ticked by
 -- hand while the quest is not in the log (the tick does not stand for it,
 -- #739), or its giver's window did not list it (Own.notListed: never a skip,
@@ -2891,6 +2926,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
 		unavailableText = unavail and unavailableText(unavail) or nil,
+		-- Left out because the player skipped a quest it needs (directly or
+		-- down the chain): that quest's title (Own.skippedWithTitle).
+		skippedWith = unavail and unavail.reason == "pre" and Own.skippedWithTitle(unavail) or nil,
 		-- An open accept the game does not confirm: ticked but not in the
 		-- quest log, or not listed by its giver (Own.acceptNotice).
 		noticeText = Own.acceptNotice(s, g, goal, status),
@@ -6232,6 +6270,64 @@ end
 
 function Engine.IsQuestSkipped(questID)
 	return Own.questSkipped(questID)
+end
+
+-- The accepts of this guide a skip would leave out with it: skipping quest q
+-- (Engine.SkipQuest), or with q nil the live step (Engine.Skip). The skip is
+-- tried on the saved state and put straight back: nothing is evaluated or
+-- fired. Counts the open accepts of other quests (not taken, done or already
+-- left out) in other steps that go: { { id, title }, ... } in route order,
+-- each quest once; nil when none.
+function Engine.SkipLoses(q)
+	if not guide or (q == nil and not current) or (q ~= nil and type(q) ~= "number") then return nil end
+	if not player then refreshPlayer() end
+	local C, state, s0 = Compat(), ns.CharState(), q == nil and current or nil
+	local function open()
+		local list, set = {}, {}
+		for s, step in ipairs(guide.steps) do
+			if s ~= s0 and stepApplies(step) then
+				for _, goal in ipairs(step.goals) do
+					local id = goal.quest
+					if goal.t == "accept" and id and id ~= q and not set[id] and not (C.IsOnQuest(id) or questDone(id))
+						and goalApplies(goal) and not unavailableFor(goal) then
+						set[id] = true
+						list[#list + 1] = goal
+					end
+				end
+			end
+		end
+		return list, set
+	end
+	local before = open()
+	local undo
+	if q then
+		local had = state.skippedQuests
+		if type(had) ~= "table" then state.skippedQuests = {} end
+		local was = state.skippedQuests[q]
+		state.skippedQuests[q] = true
+		undo = function()
+			state.skippedQuests[q] = was
+			if type(had) ~= "table" then state.skippedQuests = had end
+		end
+	else
+		local had = skippedFor(guide.id)
+		local sk = skippedFor(guide.id, true)
+		local was = sk[s0]
+		sk[s0] = true
+		undo = function()
+			sk[s0] = was
+			if not had then state.skipped[guide.id] = nil end
+		end
+	end
+	local ok, _, after = pcall(open)
+	undo()
+	open() -- the marks the try left (Own.preMarks' prerequisite) read the real state again
+	if not ok then return nil end
+	local out = {}
+	for _, goal in ipairs(before) do
+		if not after[goal.quest] then out[#out + 1] = { id = goal.quest, title = titleOfQuest(goal.quest, { [goal.quest] = goal.title }) } end
+	end
+	return #out > 0 and out or nil
 end
 
 -- Skip an optional goal, or bring it back: it no longer leads the arrow and

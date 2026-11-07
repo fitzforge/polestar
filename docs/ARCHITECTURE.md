@@ -1049,6 +1049,7 @@ Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but 
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
+Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -1343,6 +1344,15 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   of the step stay. Done anyway, the quest counts as done and its follow-ups
   come back. The window's banner (`PLAYER_SKIPPED_QUEST`), the accept's Undo
   or a right-click on the line bring it back (`SkipQuest(questID, false)`).
+  A follow-up left out because of such a skip carries `skippedWith` in its
+  goal view: the title of the quest the player skipped, directly or down the
+  chain (`Own.skipRoot`: the skipped quest, or a step the player skipped
+  that held its accept or turn-in; a step with a `when` does not count, its
+  failed condition being stored as a skip too). Before any skip,
+  `Engine.SkipLoses` names what it would take with it: it sets the skip in
+  the saved state, lists the open accepts that are no longer open, and puts
+  the state back, with nothing evaluated or fired (the guide window's Skip
+  button and the Skip this quest menu item: "Skipping also skips: …").
 - **Quests that leave the log** after the route has passed their accept
   (abandoned, failed): the live step does not jump back to the giver
   unasked. A quest that left the log this session (`QUEST_REMOVED`, until it
@@ -1394,6 +1404,25 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
   the game accepted itself) the setting prints "Taking <quest> closes <quests>
   for good." and Automation leaves that accept to the player.
+- **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
+  tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
+  guide accepts whose `pre`/`preAll` names `q`, across every shown guide
+  (indexed once with each quest's accepts and turn-ins, rebuilt on
+  `GUIDES_REGISTERED` and `PACKS_CHANGED`), then, with the quest database
+  loaded, the quests whose `pre`/`preAll` lists `q` (`QuestDB.FollowUps`,
+  read from the follow-up's side, built on the first ask). Left out: quests
+  done or in the log, and ones the character can never take (as in
+  `Closes.For`). Each names its giver when someone other than `q`'s ender
+  gives it. `q`'s chain is walked back while each prerequisite is the only
+  one and carries on to the next quest, and on while the quest carried on to
+  has the last as its only prerequisite; a quest carries on to its only
+  follow-up, or at a branch to the only one with its own title (a series'
+  next part: The Defias Brotherhood part 6 also opens Red Silk Bandanas).
+  Found whole (a first quest needing nothing, a last opening nothing, three
+  quests or more), the next part leads the list, numbered ("part 2 of 7"),
+  and the chain's last quest follows with its reward (a guide's turn-in
+  `rewards`, else the Codex's when Lookup has it loaded; a tooltip never
+  loads it). A branch it cannot follow stops the count.
 - **Not yet available.** A Class guide (`category = "Class"`) the character
   has not played (no step skipped, no goal ticked, none of its quests in the
   log or done) whose opening, the first step for this character with an

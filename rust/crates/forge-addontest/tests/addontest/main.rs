@@ -286,6 +286,8 @@ mod ui_picker;
 mod ui_picker_levels;
 #[path = "ui-picker-packs.rs"]
 mod ui_picker_packs;
+#[path = "ui-quest-unlocks.rs"]
+mod ui_quest_unlocks;
 #[path = "ui-route.rs"]
 mod ui_route;
 #[path = "ui-welcome.rs"]

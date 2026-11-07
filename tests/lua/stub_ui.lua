@@ -661,6 +661,7 @@ function Guides.SuggestSource() return "guides" end
 -- Whether a character can follow a guide, and another race's starting zone
 -- they may still follow: the real registry's rules.
 function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g, player) end
+function Guides.Matches(only, player) return uistub.realGuides.Matches(only, player) end
 function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
 
 local Nav = {}
