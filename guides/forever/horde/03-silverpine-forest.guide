@@ -34,10 +34,10 @@ step Silverpine Forest
 # Flow: the Crossroads -> Orgrimmar (training, flight path) -> zeppelin to
 # Tirisfal Glades -> the Sepulcher (flight path, bind) -> the Dalaran crate
 # and back -> north loop: the Dead Field, Malden's Orchard, Erland's escort,
-# worg hearts -> hearth -> the Decrepit Ferry and back -> north again: Quinn,
-# the murloc eyes on the shore, then Fenris Isle -> the Sepulcher -> south
-# loop: Ambermill, Beren's Peril -> hearth -> grind to 19 on the
-# lake shore -> Quinn and Ivar the Foul on the road north -> zeppelin to
+# worg hearts -> the Sepulcher -> the Decrepit Ferry and back -> north again:
+# Quinn, the murloc eyes on the shore, then Fenris Isle -> south along the
+# lake shore (grind) -> Ambermill, Beren's Peril -> the Sepulcher -> Quinn and
+# Ivar the Foul on the road north -> zeppelin to
 # Orgrimmar: the city's own quests, training. The guide ends in Orgrimmar, in
 # the Valley of Wisdom; the next one flies to Ratchet from Doras in the Valley
 # of Strength.
@@ -325,6 +325,7 @@ step The Sepulcher
   turnin 482                          -- Shadow Priest Allister
   accept 95981                        -- Shadow Priest Allister
   accept 479                          -- Ambermill comes later, on the southern loop
+  accept 516                          -- Shadow Priest Allister: Beren's Peril, on the southern loop
 
 # ---------------------------------------------------------------- The Decrepit Ferry
 
@@ -359,21 +360,21 @@ step Fenris Isle
   turnin 461 optional                 -- Dusty Shelf, inside the keep; upstairs
   level 17.65                          -- grind on Rot Hide Plague Weaver
 
-step The Sepulcher
-  turnin 91920
-  turnin 443                          -- Apothecary Renferrel
-  accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
-  accept 516                          -- Shadow Priest Allister: Beren's Peril, on the south loop
-
 # ---------------------------------------------------------------- South loop
 
-step Dalaran Pendant on the way
-  along until q479
-  collect 3354 quest 479.1 -- Dalaran Pendant along the way to the Sepulcher
+# Fenris Isle -> the lake shore -> Ambermill -> Beren's Peril -> the Sepulcher:
+# one loop south along the lake and back by the road. Wild Eyes and the ichor
+# wait for that Sepulcher stop with the southern hand-ins, and the lake-shore
+# grind comes on the way south instead of a trip out and back from the
+# Sepulcher; Journey to Hillsbrad (min level 19) is taken on that same stop.
+step Lordamere Lake shore
+  tip Swim back to the shore and follow it south: the Vile Fin Lakestalkers and Oracles sit on the lake shore south of the Decrepit Ferry, on the way to Ambermill.
+  goto 66.0,44.0 "Lordamere Lake shore"
+  level 18.2                          -- grind on Vile Fin Lakestalker at Lordamere Lake, Silverpine Forest
 
 step Ambermill
-  tip South-east down the road to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where Archmage Ataeric stands.
-  level 18.1                          -- grind on Dalaran Mage
+  tip South down the shore to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where Archmage Ataeric stands.
+  collect 3354 quest 479.1            -- Dalaran Pendant
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest
@@ -383,20 +384,16 @@ step Silverpine Forest: kill these as you meet them
   kill 1888 quest 95981.1
   kill 1973 quest 516.2               -- Below ground
   kill 1974 quest 516.1
-  level 18.56                          -- grind on Dalaran Watcher
+  level 18.75                          -- grind on Dalaran Watcher
 
-step the Sepulcher
-  label q479
+step The Sepulcher
+  tip Back north-west up the road to the Sepulcher.
   turnin 479                          -- Shadow Priest Allister
   turnin 516
   turnin 95981
-
-step Lordamere Lake shore
-  tip The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the Decrepit Ferry, east of the Sepulcher.
-  goto 66.0,44.0 "Lordamere Lake shore"
-  level 19                            -- grind on Vile Fin Lakestalker at Lordamere Lake, Silverpine Forest
-
-step Apothecary Renferrel
+  turnin 91920                        -- Apothecary Renferrel
+  turnin 443
+  accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   accept 493                          -- Keep it: Apothecary Lydon in Tarren Mill, a later guide
 
 step The Ivar Patch
