@@ -2042,6 +2042,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): with the wings and the flakes collected around Agmond's End and the trogg caves, the road north to the Uldaman chest runs through the Valley of Fangs: Martek (Indurium) takes them on the way, instead of after the chest and the walk back south to Theldurin."
+			},
+			{
+				"a": [
+					"accept",
+					710
+				],
+				"b": [
+					"accept",
+					2258
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): Lotwil's camp lies on the road west from the Valley of Fangs to Kargath (75 yd off it): his Study of the Elements is taken on the way, as the seed has it, not on a walk back east from Kargath."
 			}
 		],
 		"notes": [
