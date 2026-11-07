@@ -202,6 +202,23 @@ fn secure_buttons_the_name_sits_on_the_chosen_side_of_every_button() {
 	assert_eq!(out[4], at("LEFT", "RIGHT", 8, 0), "an unknown value falls back to the right");
 }
 
+// czak (#1211): Mouse Button 4 bound to the target button drew "Mouse Button 4" across the icon and the name.
+// Mouse buttons and the wheel read short, modifiers as one letter, and the label stays inside the button.
+#[test]
+fn secure_buttons_key_labels_are_short_and_stay_inside_the_button() {
+	let out = run(r#"
+		local K = Polestar.QoL.Buttons.KeyText
+		GetBindingText = function(key) return ({ F = "F", NUMPAD5 = "Num 5" })[key] or key end
+		q.bindings["CLICK PolestarTargetButton:LeftButton"] = { "BUTTON4" }
+		stub.fire("UPDATE_BINDINGS")
+		local h = PolestarTargetButton.Hotkey
+		local _, _, rp = h:GetPoint(2)
+		emit({ h:GetText(), rp, h:GetWordWrap(), K("SHIFT-BUTTON5"), K("CTRL-ALT-MOUSEWHEELUP"), K("MOUSEWHEELDOWN"),
+			K("F"), K("SHIFT-NUMPAD5"), K(nil) == nil })
+	"#);
+	assert_eq!(out[0], json!(["M4", "TOPRIGHT", false, "sM5", "caMwU", "MwD", "F", "sNum 5", true]));
+}
+
 #[test]
 fn secure_buttons_an_above_name_sits_over_a_quest_item_button_shown_above_the_target_button() {
 	let out = run(r#"
