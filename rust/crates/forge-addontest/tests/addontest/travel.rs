@@ -132,6 +132,29 @@ fn crosses_continents_by_boat() {
 	assert_eq!(out["boatSecs"], 90, "wait + ride");
 }
 
+// #1125 (Fitz, the Undercity's zeppelin tower): the board point has a height (the tower top, z 98.3) and the player's
+// floor is unknown, so the walk to it ended only within 5 yards; at the spot Fitz calls exact, 6.6 yards from it, the
+// ride never came up. At a dock the walk ends within its reach; the floor rule stays for other ends.
+#[test]
+fn at_a_zeppelin_tower_with_the_floor_unknown_the_ride_comes_up_within_the_walk_s_reach_1125() {
+	let out = run(r#"
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = {
+				{ id = "zeppelin-test", kind = "zeppelin", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+					a = { "Testshire Tower", 0, -900, 400, 9000, 30, 95, "l", nil, 98.3 }, b = { "Farland Tower", 1, 400, 200, 9001, 30, 10, "l", nil, 54.4 } },
+			},
+		}, true)
+		local function at(dx)
+			nav.place(-900 + dx, 400)
+			N.SetTarget(9001, 50, 50, "Farland quest")
+			N.Sample()
+			return route()[1]
+		end
+		emit({ near = at(8), far = at(30) })"#);
+	assert_eq!(out["near"], "zeppelin|Take the zeppelin to Farland Tower", "8 yd from the board point, floor unknown: the ride");
+	assert!(out["far"].as_str().unwrap_or("").starts_with("walk|"), "30 yd off: still the walk there: {}", out["far"]);
+}
+
 // The Hearthstone's hour-long cooldown is spent only on a long haul (Fitz, 0.3.3: "a 2-minute walk is fine"):
 // a route hearths only when the way without it takes at least 8 minutes (Nav.HEARTH_MIN_TRIP) and hearthing
 // saves at least 5 (Nav.HEARTH_MARGIN), after its cast and loading screen. The boat waits `wait` seconds.
