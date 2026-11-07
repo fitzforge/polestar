@@ -28,11 +28,25 @@
 --       done. from/to: only steps from..to-1, from where the character is
 --       (no minLevel start). nil: no guide, or no Codex to read (the Codex is
 --       loaded for it only while lookup.enabled, as Lookup owns it)
---   Levels.Pace([p]) -> { target, step, reach, bars } | nil  -- the active
---       guide's next level target (Engine.LevelTarget) against what its steps
---       from the live step to that one give: reach, the level they leave you
---       at (fractional); bars, how many of the XP bar's 20 per level short
---       (0: on pace). nil without a target ahead or the Codex
+--   Levels.Pace([p]) -> pace | nil  -- where the character stands against the
+--       active guide, from the live step: its next level target
+--       (Engine.LevelTarget, kind "goal": the guide holds you at that step
+--       until you have it) or, with none ahead, a leveling guide's own end
+--       level (its `levels` top, kind "end", at its last step) against what
+--       the steps up to there give. pace = { target, step, reach (the level
+--       they leave you at, fractional), bars (the XP bar's 20 per level
+--       short; 0: on pace), short (levels short, 0 on pace), xp (XP short),
+--       kind, live, hard }. hard: the first open quest before the target that
+--       is 3 or more levels above where the route has you when you get there,
+--       { quest, title, level, step, reach, need (its level - 2: no longer
+--       hard), xp (XP from reach to need) } | nil. nil at 60, without a live
+--       step or the Codex, and with no target (no `level` goal ahead in a
+--       guide that is not a leveling one)
+--   Levels.StepHint(i[, p]) -> { quest, title, level, you } | nil  -- step i
+--       of the active guide holds an open quest 3 or more levels above the
+--       character (you: their level and share of it, 19.75)
+--   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
+--       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
 --   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6, 0.4, 0.2 or 0.1
 --   Levels.MobXP(playerLevel, mobLevel, elite) -> XP for one kill
@@ -266,18 +280,156 @@ function Levels.ForGuide(id, p, from, to)
 	return Levels.Run(entries, p, not from and g.minLevel or nil)
 end
 
-function Levels.Pace(p)
+-- A quest 3 or more levels above the character: the quest log's orange and
+-- red, hard to do alone.
+local HARD = 3
+
+local function at(t) return t.level + (t.need > 0 and t.xp / t.need or 0) end
+
+-- XP from where t stands ({ level, xp, need }, as Levels.Run's `to`) to
+-- level `target` (12.4: 40% into level 12); 0 when there already.
+local function xpTo(t, target)
+	local n = floor(target)
+	local f = target - n
+	if t.level > n or (t.level == n and t.xp >= f * t.need) then return 0 end
+	if t.level == n then return ceil(f * t.need - t.xp) end
+	local sum = t.need - t.xp
+	for l = t.level + 1, n - 1 do sum = sum + (LEVEL_XP[l] or 0) end
+	return ceil(sum + f * (LEVEL_XP[n] or 0))
+end
+
+local qlvls = setmetatable({}, { __mode = "k" })
+function Levels.QuestLevel(qid, g)
+	if not qid then return nil end
+	if type(g) == "table" and type(g.steps) == "table" then
+		local map = qlvls[g]
+		if not map then
+			map = {}
+			for _, step in ipairs(g.steps) do
+				for _, goal in ipairs(type(step.goals) == "table" and step.goals or {}) do
+					local l = goal.quest and tonumber(goal.qlvl)
+					if l and l > 0 and not map[goal.quest] then map[goal.quest] = l end
+				end
+			end
+			qlvls[g] = map
+		end
+		if map[qid] then return map[qid] end
+	end
+	local Cx = ns.Codex
+	local rec = Cx and Cx.IsLoaded and Cx.IsLoaded() and Cx.Quest and Cx.Quest(qid)
+	if type(rec) == "table" and type(rec.level) == "number" and rec.level > 0 then return rec.level end
+	local C = ns.Compat
+	return C and C.GetQuestLevel and C.GetQuestLevel(qid) or nil
+end
+
+-- The highest open quest on step s of guide g for this character: a goal of
+-- a quest neither done nor ready to hand in, other than its turn-in or a
+-- talk (never hard); with `work`, not its accept either (taking a quest is
+-- not doing it: the pace line points at the step that does). The active
+-- guide asks the Engine what applies (`when`, quests the route leaves out);
+-- another, the steps' and goals' `only`. -> quest, level, title | nil
+local function stepQuest(g, s, p, work)
+	local step = g.steps[s]
+	if not (step and type(step.goals) == "table") then return nil end
+	local E, G, C = ns.Engine, ns.Guides, ns.Compat
+	local active = E and E.GetGuide and E.GetGuide() == g and E.Applies
+	local fits = G and G.Matches
+	if not active and fits and type(step.only) == "table" and not fits(step.only, p) then return nil end
+	local best, lvl, title
+	for gi, goal in ipairs(step.goals) do
+		local q, t = goal.quest, goal.t
+		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept")
+			and not (C and C.IsQuestCompleted and C.IsQuestCompleted(q))
+			and not (C and C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q))
+		if open then
+			if active then
+				open = E.Applies(s, gi)
+			else
+				open = not (fits and type(goal.only) == "table") or fits(goal.only, p)
+			end
+		end
+		local l = open and Levels.QuestLevel(q, g)
+		if l and (not lvl or l > lvl) then best, lvl, title = q, l, goal.title end
+	end
+	return best, lvl, title
+end
+
+function Levels.StepHint(i, p)
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
-	local live = g and E.GetLiveStep and E.GetLiveStep()
-	if not (live and E.LevelTarget) then return nil end
+	if not (type(g) == "table" and type(g.steps) == "table" and type(i) == "number") then return nil end
 	p = p or Levels.Player()
-	local n, at, frac = E.LevelTarget(p.level)
-	if not (n and at and at >= live) then return nil end
+	local lvl = p.level or 1
+	if lvl >= MAX_LEVEL then return nil end
+	local q, l, title = stepQuest(g, i, p)
+	if not (l and l - lvl >= HARD) then return nil end
+	return { quest = q, title = title, level = l, you = lvl + ((p.xpMax or 0) > 0 and (p.xp or 0) / p.xpMax or 0) }
+end
+
+-- The first open quest on steps from..to that is HARD levels above where the
+-- route has the character when they get there (Levels.ForGuide up to its
+-- step). Only quests HARD above the character now can be; at most four are
+-- looked into.
+local function hardQuest(g, p, from, to)
+	local lvl, tries, seen = p.level or 1, 0, {}
+	for s = from, min(to, #g.steps) do
+		local q, l, title = stepQuest(g, s, p, true)
+		if q and l - lvl >= HARD and not seen[q] then
+			seen[q] = true
+			local t
+			if s == from then
+				t = { level = lvl, xp = p.xp or 0, need = (p.xpMax or 0) > 0 and p.xpMax or LEVEL_XP[lvl] or 0 }
+			else
+				local run = Levels.ForGuide(g.id, p, from, s)
+				if not run then return nil end
+				t = run.to
+			end
+			if l - t.level >= HARD then
+				return { quest = q, title = title, level = l, step = s, reach = at(t), need = l - (HARD - 1), xp = xpTo(t, l - (HARD - 1)) }
+			end
+			tries = tries + 1
+			if tries >= 4 then return nil end
+		end
+	end
+	return nil
+end
+
+-- The last step of the active guide g at or after `live` the player gets to
+-- see (applies, not hidden).
+local function lastStep(E, g, live)
+	for s = #g.steps, live, -1 do
+		local hidden = E.StepNumber and select(2, E.StepNumber(s))
+		if not hidden and (not E.Applies or E.Applies(s)) then return s end
+	end
+	return nil
+end
+
+function Levels.Pace(p)
+	local E, G = ns.Engine, ns.Guides
+	local active = E and E.GetGuide and E.GetGuide()
+	local live = active and E.GetLiveStep and E.GetLiveStep()
+	local g = live and (G and G.Get and G.Get(active.id) or active)
+	if not (g and type(g.steps) == "table") then return nil end
+	p = p or Levels.Player()
+	if (p.level or 1) >= MAX_LEVEL then return nil end
+	local kind, n, step, frac = "goal", nil, nil, nil
+	if E.LevelTarget then n, step, frac = E.LevelTarget(p.level) end
+	if not (n and step and step >= live) then
+		-- No `level` goal ahead: a leveling guide's end, where the next one
+		-- starts (its `levels` top).
+		if (g.category or "Leveling") ~= "Leveling" or type(g.maxLevel) ~= "number" then return nil end
+		kind, n, frac, step = "end", g.maxLevel, nil, lastStep(E, g, live)
+		if not step then return nil end
+	end
 	local target = n + (frac or 0)
-	local s = Levels.ForGuide(g.id, p, live, at)
+	-- Up to a level goal's step (it holds you there); to the end, every step.
+	local s = Levels.ForGuide(g.id, p, live, kind == "goal" and step or nil)
 	if not s then return nil end
-	local reach = s.to.level + (s.to.need > 0 and s.to.xp / s.to.need or 0)
-	local short = target - reach
-	return { target = target, step = at, reach = reach, bars = short > 0 and ceil(short * 20) or 0 }
+	local reach = at(s.to)
+	local short = max(0, target - reach)
+	return {
+		target = target, step = step, reach = reach, bars = short > 0 and ceil(short * 20) or 0,
+		short = short, xp = xpTo(s.to, target), kind = kind, live = live,
+		hard = hardQuest(g, p, live, kind == "goal" and step - 1 or step),
+	}
 end
