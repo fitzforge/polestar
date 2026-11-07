@@ -730,7 +730,7 @@ arrow:SetAllPoints(player); arrow:SetTexture(NAV .. "arrow"); arrow:SetRotation(
 // After login: the marker layers turned on (off by default), the quest log,
 // then the markers settle (Quests' 0.2 s throttle).
 const QUEST_LOG = `local w = stub.world
-for _, k in ipairs({ "mapObjectives", "minimapObjectives", "objectiveAreas", "turnInMarkers", "availableQuests" }) do Polestar.Set("qol." .. k, true) end
+for _, k in ipairs({ "mapObjectives", "minimapObjectives", "turnInMarkers", "availableQuests" }) do Polestar.Set("qol." .. k, true) end
 stub.advance(0.3)
 w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } }); w.progress(7, 1, 3)
 w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } }); w.progress(60, 1, 2)

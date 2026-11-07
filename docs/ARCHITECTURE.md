@@ -2149,13 +2149,16 @@ fainter, its tooltip "It also spawns here"); clicking one searches there next
 Every place the current step's open goals spawn is a region on the map
 (`Layers.lua`, read from `Engine.GetGuide().steps[step].goals[i].spots` for
 the goals `GetStepView` shows active or pending). `Layers.Regions(goal)`
-groups a goal's spots once per goal (cached by the compiled goal table): each
+groups a goal's spots once per goal (cached by the compiled goal table)
+through `Polestar.Regions.Of(cs, xs, ys, rs [, work])` (`Nav/Regions.lua`,
+shared with the quest objective areas): each
 spot's disc (its radius covers its spawns, at least 15 yd, plus 10 yd) joins
-the spots whose discs come within 90 yd, nearest first, while the region stays
+the spots on its continent whose discs come within 90 yd, nearest first, while the region stays
 at most 700 yd across (a coast of spawns is a chain of regions, not one hull
 over the sea). A region is the polygon whose sides touch the convex hull of
 its discs from outside (16 sides, 8 under 200 yd), so it covers every spawn
-of its spots; `alt` when all its spots are. `nav.areas` holds the target's
+of its spots (`members`: their indexes); `alt` when all its spots are. A grouping past
+50,000 pair checks (`Regions.WORK`; only a crafted guide) draws no regions. `nav.areas` holds the target's
 goal's regions as `hull` pins in the arrow's colour (alpha 1, `alt` 0.6), on
 the world map and the minimap (`nav.worldPins`, `nav.minimapPins`);
 `nav.goalAreas` the step's other goals' regions in `place` at 0.6 (`alt`
@@ -3771,8 +3774,24 @@ profession skill.
 
 Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
-under the higher-ranked glyph: kill > interact > collect > vendor). Objective
-clusters at least `MIN_AREA` (12 yd) wide carry their radius as `area`. Markers
+under the higher-ranked glyph: kill > interact > collect > vendor). Spread
+objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
+Objective spots (#1085): at each marker rebuild, each objective's spread pins
+are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
+250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
+198,000; past it the objective keeps its markers), and two objectives on the
+same spots share one region. `qol.objectiveSpots` picks the look:
+`groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
+`hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
+default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
+its centre (`spots` = its spot count, the members' names as header, every
+objective they serve in its tooltip) in place of its members; `icons` draws
+every spot's marker and no area; `areas` draws every region as an area and no
+objective marker (vendors and event points stay markers). The layer is set
+with `minimapAreas` unless `icons`, so the areas follow it onto the minimap.
+Over the shipped database `groups` cuts every quest's objective markers from
+about 122,000 to 41,000. `qol.questMarkerSize` (0.6–1.6) scales every quest
+marker on both surfaces. Markers
 and the tooltip/nameplate indexes are rebuilt only when what they show
 changed (a quest came or went, got ready or changed title, an objective was
 done or undone); a progress count alone only fires `QUESTDB_UPDATED`, since
@@ -3815,12 +3834,13 @@ the progress shown (tests).
 Settings (`qol.*`, Questing → Quests; the markers under Map → Guide & quests →
 Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
-`mapObjectives`, `objectiveAreas`, `turnInMarkers`, `minimapObjectives`,
+`mapObjectives`, `objectiveSpots` (`groups` | `icons` | `areas`),
+`objectiveAreaAlpha`, `turnInMarkers`, `minimapObjectives`, `questMarkerSize`,
 `guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`,
 `nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
-`minimapObjectives`) and `objectiveAreas` default to off (Map → Guide & quests →
-Quest markers); `guideHighlight` only restyles markers those layers draw.
+`minimapObjectives`) default to off (Map → Guide & quests → Quest markers);
+`guideHighlight` only restyles markers those layers draw.
 
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 
