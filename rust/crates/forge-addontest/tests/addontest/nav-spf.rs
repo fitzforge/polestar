@@ -53,6 +53,13 @@ Polestar_NavEngine = {
 	AreaFormat = function() return fake.areaNames and 3 or nil end,
 	AreaName = function(map, id) return fake.areaNames and fake.areaNames[id] or nil end,
 	ReleaseSurfaces = function() fake.releases = (fake.releases or 0) + 1 end,
+	-- The walking grid's line check (Path.Sight): fake.sight(x1, y1, z1, x2, y2, z2, profile) -> true | false; nil
+	-- without it (no line known: the corridor as before). fake.sights counts the checks.
+	Sight = function(map, x1, y1, z1, x2, y2, z2, profile)
+		fake.sights = (fake.sights or 0) + 1
+		if fake.sight then return fake.sight(x1, y1, z1, x2, y2, z2, profile) end
+		return nil
+	end,
 }
 fake.opts = opts
 function fake.last() return fake.calls[#fake.calls] end
@@ -755,6 +762,32 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
 		emit(out)"#);
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
+}
+
+// #1046: a building mouth is named after its area, so the Gallows' End Tavern's door read "Walk to
+// the Brill entrance", the town's way in. With an inn's innkeeper beside it, it is the inn's door.
+#[test]
+fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
+	let out = run(r#"
+		nav.useTravelWorld()
+		Polestar.Nav.RegisterTravelData({ inns = { { names = { "Gallows' End Tavern", "Testshire" }, npc = 901, c = 0, wx = 20, wy = -310, map = 9000, x = 50, y = 50, f = "e" } } })
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -300, r = 10, kind = "building", name = "Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -450, r = 10, kind = "building", name = "Westbrook Keep", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#);
+	assert_eq!(
+		out,
+		json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
+		"the inn's door says Inn; a building with no innkeeper by it keeps its area's name"
+	);
 }
 
 #[test]
@@ -3290,4 +3323,156 @@ fn a7_outdoors_the_turn_onto_the_road_near_the_path_start_is_cut_the_arrow_aims_
 		emit(r)"#);
 	assert_eq!(out["aim"][0], "travel");
 	assert!(num(&out["aim"][3]) <= -20.0, "aim_y {} should be down the road (≤ -20), not the join at (20, 0)", out["aim"][3]);
+}
+
+// Fitz, 2026-11-07 (0.3.4, Tirisfal, running to the "At War With The Scarlet Crusade" turn-in): running up a hillside
+// beside the path, the arrow pointed 90° back to it while the trail and the target lay ahead and to his right.
+// Nav/Follow.lua's sight: outdoors, with the floor under the player known (fake.surfaces), a player more than 15 and
+// at most 100 yd off the path aims at the furthest point ahead on it they can walk to in a straight line
+// (fake.sight stands in for Path.Sight, the walking grid's line check), and asks for no new path meanwhile. RUN walks
+// the player down -y at x from y0 to y1 a yard at a time, 0.3 s apart (the floor is read every 0.25 s): the largest
+// turn toward the path (x 0; degrees from straight ahead), each aim { x, y, aim x, aim y }, and the searches asked.
+const RUN: &str = r#"
+fake.surfaces = function() return { 0 } end
+local function run(x, y0, y1)
+	local worst, asked, aims = -180, #fake.calls, {}
+	for y = y0, y1, -1 do
+		nav.place(x, y)
+		stub.advance(0.3)
+		local _, _, _, dn, dw = N.Sample()
+		if dn then
+			local deg = math.deg(math.atan2(x > 0 and -dn or dn, -dw))
+			if deg > worst then worst = deg end
+			aims[#aims + 1] = { x, y, x + dn, y + dw }
+		end
+	end
+	return { worst = worst, asked = #fake.calls - asked, aims = aims }
+end
+-- A straight path down -y from (0, 0) to (0, -400), a point every 40 yd; the target at its end.
+local function straight(px, py)
+	nav.place(px, py)
+	target(0, -400)
+	N.Sample()
+	fake.resolve(0,0, 0,-40, 0,-80, 0,-120, 0,-160, 0,-200, 0,-240, 0,-280, 0,-320, 0,-360, 0,-400)
+end
+"#;
+
+fn aims(out: &Value) -> Vec<[f64; 4]> {
+	out["aims"].as_array().unwrap().iter().map(|a| [num(&a[0]), num(&a[1]), num(&a[2]), num(&a[3])]).collect()
+}
+
+#[test]
+fn a8_running_20_to_90_yd_beside_the_path_in_open_ground_the_arrow_never_turns_more_than_45_degrees_back_to_it_and_asks_no_new_path() {
+	for d in [20, 30, 40, 60, 90] {
+		let out = run(&format!(
+			r#"{RUN}
+		fake.sight = function() return true end
+		straight({d}, 0)
+		fake.sights = 0
+		local r = run({d}, 0, -200)
+		r.sights = fake.sights
+		emit(r)"#
+		));
+		let worst = num(&out["worst"]);
+		assert!(worst <= 45.0, "{d} yd beside the path: the arrow turns {worst:.1}° back to it");
+		assert_eq!(out["asked"], 0, "{d} yd beside it in open ground: no new path");
+		assert!(num(&out["sights"]) <= 110.0, "{d} yd: about one line read per 2 yd run ({})", out["sights"]);
+	}
+	// Past 100 yd the corridor holds as before: a new path from where the player is.
+	let far = run(&[RUN, "\n\t\tfake.sight = function() return true end\n\t\tstraight(120, 0)\n\t\temit(run(120, 0, -20))"].concat());
+	assert!(num(&far["asked"]) >= 1.0, "120 yd off: asked again ({})", far["asked"]);
+}
+
+// The screenshot's other half: a path searched again from 40 yd beside the road (roads cost less) runs straight
+// across to it, then down it; the arrow held him to that first piece (RADIUS 35 stopped the aim on it, so the road
+// join could not be cut) and pointed 90° left while he ran on. It aims down the road, and nothing is asked again.
+#[test]
+fn a8_a_path_searched_again_from_40_yd_beside_the_road_runs_across_to_it_first_the_arrow_aims_down_the_road_not_across() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(40, -100)
+		target(0, -400)
+		N.Sample()
+		fake.resolve(40,-100, 0,-100, 0,-150, 0,-200, 0,-250, 0,-300, 0,-350, 0,-400)
+		emit(run(40, -100, -140))"#,
+	]
+	.concat());
+	let worst = num(&out["worst"]);
+	assert!(worst <= 45.0, "the arrow turns {worst:.1}° toward the road");
+	assert_eq!(out["asked"], 0, "no new path while the road ahead is in sight");
+}
+
+// A cliff between the player and the path (x 15, the whole way): no line from below it reaches the path, so the
+// corridor holds as before: the arrow turns back to the path and, past 25 yd off it, a new path is asked for.
+#[test]
+fn a9_beside_the_path_below_a_cliff_the_arrow_stays_tight_back_to_the_path_and_a_new_path_is_asked_for() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1, z1, x2, y2) return (x1 - 15) * (x2 - 15) > 0 end
+		straight(30, 0)
+		emit(run(30, 0, -60))"#,
+	]
+	.concat());
+	let worst = num(&out["worst"]);
+	assert!(worst > 45.0, "below the cliff the arrow turns back to the path ({worst:.1}°), as before");
+	assert!(num(&out["asked"]) >= 1.0, "30 yd off with nothing in sight: asked again ({})", out["asked"]);
+}
+
+// A river (y -100 to -140) crossed by a bridge (x 0): beside the road on the near bank, 30 yd from it, the arrow
+// aims at the bridge's near end at the most, never across the water to the bridge or the far bank.
+#[test]
+fn a10_beside_the_road_to_a_bridge_the_arrow_aims_at_the_bridge_head_never_across_the_river() {
+	let out = run(&[
+		RUN,
+		r#"
+		-- A line that enters the river is clear only on the bridge.
+		fake.sight = function(x1, y1, z1, x2, y2)
+			local wet = math.min(y1, y2) < -100 and math.max(y1, y2) > -140
+			return not wet or (math.abs(x1) <= 3 and math.abs(x2) <= 3)
+		end
+		nav.place(30, 0)
+		target(0, -300)
+		N.Sample()
+		fake.resolve(0,0, 0,-40, 0,-80, 0,-100, 0,-140, 0,-180, 0,-220, 0,-260, 0,-300)
+		emit(run(30, 0, -95))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	for [x, y, ax, ay] in &all {
+		assert!(*ay >= -100.01, "at ({x}, {y}) the arrow aims across the river at ({ax:.1}, {ay:.1})");
+	}
+	let [_, _, ax, ay] = *all.last().unwrap();
+	assert!(ax.hypot(ay + 100.0) <= 1.0, "on the bank beside it: at the bridge head ({ax:.1}, {ay:.1})");
+	assert_eq!(out["asked"], 0, "the bridge head in sight: no new path");
+}
+
+// A building (x -20 to 20, y -100 to -140) entered by its door at (0, -100), the target inside: running past it
+// 30 yd to the side, the arrow aims at the door at the most, never through a wall or into the room behind it
+// (Path.Sight refuses indoor ground; the threshold at y -100 is outside).
+#[test]
+fn a11_beside_the_path_into_a_building_the_arrow_aims_at_the_door_never_through_a_wall() {
+	let out = run(&[
+		RUN,
+		r#"
+		-- A line ending inside (indoor ground) or crossing the walls is never clear.
+		fake.sight = function(x1, y1, z1, x2, y2)
+			return not (y2 < -100 and y2 > -140 and x2 > -20 and x2 < 20)
+		end
+		nav.place(30, 0)
+		target(-12, -125)
+		N.Sample()
+		fake.resolve(0,0, 0,-40, 0,-80, 0,-100, 0,-125, -12,-125)
+		emit(run(30, 0, -90))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	for [x, y, ax, ay] in &all {
+		let inside = *ay < -100.01 && ax.abs() < 20.0;
+		assert!(!inside, "at ({x}, {y}) the arrow aims through the wall at ({ax:.1}, {ay:.1})");
+	}
+	let [_, _, ax, ay] = *all.last().unwrap();
+	assert!(ax.hypot(ay + 100.0) <= 2.0, "30 yd beside the door: at the door ({ax:.1}, {ay:.1})");
 }

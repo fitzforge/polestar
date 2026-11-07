@@ -300,6 +300,7 @@ step Shadowprey Village
   sethome "Shadowprey Village"
   accept 5381                         -- Taiga Wisemane
   turnin 6142                         -- Mai'Lahii
+  turnin 6143                         -- Drulzegar Skraghook
 
 step Fly to Orgrimmar
   zone Desolace
