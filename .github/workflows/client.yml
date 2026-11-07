@@ -246,6 +246,8 @@ jobs:
           path: out
           merge-multiple: true
 
+      # Every installer the updater can hand out: an installed copy downloads the file of the
+      # bundle it came from, so the .debs are signed too (release/latest-json.sh).
       - name: Sign the updater files
         working-directory: apps/client
         env:
@@ -253,27 +255,14 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         run: |
           shopt -s nullglob
-          for f in ../../out/*.AppImage ../../out/*.msi ../../out/*-setup.exe ../../out/*.app.tar.gz; do
+          for f in ../../out/*.AppImage ../../out/*.deb ../../out/*.msi ../../out/*-setup.exe ../../out/*.app.tar.gz; do
             pnpm tauri signer sign "$f"
           done
 
       - name: latest.json
         run: |
-          version="${GITHUB_REF_NAME#client-v}"
-          base="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}"
-          entry() { jq -n --arg url "$base/$(basename "$1")" --rawfile sig "$1.sig" '{signature: $sig, url: $url}'; }
-          one() { local f=(out/$1); [ -f "${f[0]}" ] || { echo "::error::no $1 to put in latest.json"; exit 1; }; echo "${f[0]}"; }
-          appimage="$(one '*_amd64.AppImage')"; appimage_arm="$(one '*_aarch64.AppImage')"
-          msi="$(one '*_x64_*.msi')"; mac="$(one '*.app.tar.gz')"
-          jq -n --arg version "$version" --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --argjson linux "$(entry "$appimage")" --argjson linux_arm "$(entry "$appimage_arm")" \
-            --argjson msi "$(entry "$msi")" --argjson mac "$(entry "$mac")" \
-            '{version: $version, notes: "", pub_date: $date, platforms: {
-              "linux-x86_64": $linux, "linux-x86_64-appimage": $linux,
-              "linux-aarch64": $linux_arm, "linux-aarch64-appimage": $linux_arm,
-              "windows-x86_64": $msi, "windows-x86_64-msi": $msi, "windows-x86_64-nsis": $msi,
-              "windows-aarch64": $msi, "windows-aarch64-msi": $msi, "windows-aarch64-nsis": $msi,
-              "darwin-aarch64": $mac, "darwin-x86_64": $mac, "darwin-aarch64-app": $mac, "darwin-x86_64-app": $mac}}' > out/latest.json
+          apps/client/release/latest-json.sh out "${GITHUB_REF_NAME#client-v}" \
+            "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}" > out/latest.json
           cat out/latest.json
 
       # The notes are apps/client/release/notes/<version>.md, written with the release.
