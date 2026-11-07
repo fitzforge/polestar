@@ -111,8 +111,90 @@ step Belgrom Rockmaul
   zone Orgrimmar
   accept 2981
 
-step Fly to Freewind Post
+step Riding at 40
+  only Troll
+  zone Durotar
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village, a short ride south of Orgrimmar down the Durotar road, with Zjolnir's raptors (20 gold each) beside him. Ride back to Orgrimmar's flight master afterwards.
+  train 7953 optional                   -- Xar'Ti, riding trainer
+  note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
+
+step Fly to Thunder Bluff
+  only Druid,Paladin
   zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Fly to Thunder Bluff
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  zone Orgrimmar
+  when level>=40
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Thunder Bluff
+  only Druid,Paladin
+  zone Thunder Bluff
+  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins).
+  train class
+
+step Mulgore
+  only Tauren
+  zone Mulgore
+  when level>=40
+  goto 46.8,62.0 "Mulgore" live
+
+step Riding at 40
+  only Tauren
+  zone Mulgore
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Ride back up to Thunder Bluff's flight master afterwards.
+  train 3690 optional                   -- Kar Stormsinger, riding trainer
+  note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
+
+step Fly to Freewind Post
+  only Druid,Paladin
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Fly to Freewind Post
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  zone Thunder Bluff
+  when level>=40
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Ratchet for the Felsteed
+  only Warlock
+  zone The Barrens
+  tip Fly from Orgrimmar to Ratchet; Strahad Farsan stands on the hill above the docks.
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Ratchet"
+  turnin 3631                           -- Strahad Farsan
+  accept 4490
+  turnin 4490
+
+step Fly to Freewind Post
+  only Warlock
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Fly to Freewind Post
+  only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Freewind Post"
+  zone Thousand Needles
+
+step Fly to Freewind Post
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  zone Orgrimmar
+  when level<40
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
@@ -131,132 +213,6 @@ step Gadgetzan
   accept 1707                           -- Spigot Operator Luglunket
 
 # ---------------------------------------------------------------- Gadgetzan and the Wastewander
-
-step Fly to Thunder Bluff
-  only Tauren
-  zone Tanaris
-  when level>=40
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Thunder Bluff"
-
-step Mulgore
-  only Tauren
-  zone Mulgore
-  when level>=40
-  goto 46.8,62.0 "Mulgore" live
-
-step Riding at 40
-  only Tauren
-  zone Mulgore
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 3690 optional                   -- Kar Stormsinger, riding trainer
-  note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
-
-step Fly to Orgrimmar
-  only Undead
-  zone Tanaris
-  when level>=40
-  goto 51.6,25.5 "Gadgetzan flight master"
-  fly "Orgrimmar"
-
-step Zeppelin to Undercity
-  only Undead
-  zone Durotar
-  when level>=40
-  goto 50.8,13.5 "Zeppelin to Undercity"
-
-step Riding at 40
-  only Undead
-  zone Tirisfal Glades
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, with Zachariah Post's skeletal horses (20 gold each) beside her. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 4773 optional                   -- Velma Warnam, riding trainer
-  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
-
-step Zeppelin to Orgrimmar
-  only Undead,Paladin,Druid
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Fly to Gadgetzan
-  only Undead,Paladin,Druid
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master"
-  fly "Gadgetzan"
-
-step Gadgetzan flight master
-  only Druid,Paladin
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master" only Orc,Skyborne,Troll,Undead
-  goto 51.6,25.5 "Gadgetzan flight master" only Tauren,Paladin
-
-step Thunder Bluff
-  only Druid,Paladin
-  zone Thunder Bluff
-  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Gadgetzan, then back to Gadgetzan.
-  fly "Thunder Bluff"
-  train class
-
-step Zeppelin to Orgrimmar
-  only Undead,Warlock
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Fly to Gadgetzan
-  only Undead,Warlock
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master"
-  fly "Gadgetzan"
-
-step Gadgetzan flight master
-  only Warlock
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
-
-step Ratchet for the Felsteed
-  only Warlock
-  zone The Barrens
-  fly "Ratchet"
-  turnin 3631                           -- Strahad Farsan
-  accept 4490
-  turnin 4490
-
-step Back to Gadgetzan
-  only Druid,Paladin
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-  fly "Gadgetzan"
-
-step Back to Gadgetzan
-  only Warlock
-  zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
-  fly "Gadgetzan"
-
-step Fly to Gadgetzan
-  only Tauren
-  zone Thunder Bluff
-  when level>=40
-  goto 46.6,49.9 "Thunder Bluff flight master" only !Druid
-  fly "Gadgetzan"
-
-step Zeppelin to Orgrimmar
-  only Undead
-  zone Tirisfal Glades
-  when level>=40
-  goto 60.7,58.9 "Zeppelin to Orgrimmar" only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Druid
-
-step Fly to Gadgetzan
-  only Undead
-  zone Orgrimmar
-  when level>=40
-  goto 45.3,63.8 "Orgrimmar flight master" only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Druid
-  fly "Gadgetzan"
 
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
@@ -416,6 +372,7 @@ step Feral Scar Vale yetis
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
   tip Careful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock.
+  collect 8705 "OOX-22/FE Distress Beacon" optional
   accept 2766 optional
   turnin 2766 optional
   accept 2767 optional
@@ -427,7 +384,7 @@ step Camp Mojache
   vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider, inside
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
-  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
+  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   turnin 2979 optional -- Rok Orhan
   accept 3002                           -- for Orgrimmar, around level 45
@@ -450,6 +407,7 @@ step Orgrimmar
   tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, Valley of Spirits
 
 step Orgrimmar
   zone Orgrimmar

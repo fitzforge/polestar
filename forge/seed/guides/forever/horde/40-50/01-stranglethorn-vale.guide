@@ -331,5 +331,4 @@ step Sawtooth snappers
   collect 6168 quest 699.1
 
 step Misty Reed Post
-  tip The next guide starts here and takes you to Tanaris.
   turnin 699                            -- Tok'Kar

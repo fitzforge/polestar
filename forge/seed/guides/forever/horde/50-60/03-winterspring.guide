@@ -97,7 +97,7 @@ step Felnok Steelspring
 # ---------------------------------------------------------------- Frostfire Hot Springs
 
 step Raging Owlbeasts
-  tip Ride west along the road past Lake Kel'Theril; Raging Owlbeasts roam the hills north of it.
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
   kill 7451 quest 4521.1
 
 step Donova Snowden
@@ -190,10 +190,13 @@ step Fly to Thunder Bluff
   fly "Thunder Bluff"
 
 step Rumstag Proudstrider
-  tip He stands on Hunter Rise. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route.
+  tip He stands on Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 7820 optional
+  turnin 7820 optional
   accept 7821 optional
+  turnin 7821 optional
   accept 7822 optional
+  turnin 7822 optional
 
 step Bluff Runner Windstrider
   accept 1000
@@ -208,7 +211,7 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Bashana buys Morrowgrain grown from your Un'Goro Soil.
+  tip Bashana buys Morrowgrain grown from your Un'Goro Soil. Morrowgrain Research wants ten, and the Evergreen Pouch gives one try every ten minutes: take it only if you already have the grain.
   turnin 3782
   accept 3786
   complete 3786

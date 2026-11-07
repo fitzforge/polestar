@@ -971,6 +971,25 @@
 				}
 			],
 			"pr": 1166
+		},
+		{
+			"id": "final-tanaris-tooga-torta",
+			"quest": 1560,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1446,
+				"x": 66.58,
+				"y": 25.67,
+				"frame": "era"
+			},
+			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 6015 Torta: map 1446 66.58,25.67; quests.json 1560 objective: Torta (6015)"
+				}
+			]
 		}
 	]
 }

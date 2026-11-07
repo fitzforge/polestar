@@ -353,10 +353,9 @@ step Booty Bay
   tip Follow the road on south into Booty Bay.
   sethome "Booty Bay"
   accept 213                          -- Kebok
-  vendor nearest
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier
 
-step Fly to Grom'gol
+step Grom'gol Base Camp
   fly "Grom'gol"
   turnin 571                          -- Far Seer Mok'thardin
 
@@ -367,4 +366,3 @@ step Venture Co. camp
 step Hearth to Booty Bay
   hearth "Booty Bay"
   turnin 213                          -- Kebok
-  note The next guide flies you north to Tarren Mill and into the Arathi Highlands.

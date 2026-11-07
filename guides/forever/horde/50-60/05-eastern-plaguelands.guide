@@ -11,6 +11,10 @@ next forever/horde/50-60/06-silithus
 # into this file.
 # Added here: Duskwing, Oh How I Hate Thee... (6135).
 
+step Tirisfal Glades
+  zone Tirisfal Glades
+  goto 83.0,71.9 "Tirisfal Glades"
+
 step The Bulwark
   zone Tirisfal Glades
   tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
@@ -95,23 +99,15 @@ step Light's Hope Chapel
 
 # ---------------------------------------------------------------- The south
 
-step Plaguebat on the way
-  along until q5543
-  when onquest 5543
-  kill 8600 quest 5543.1
-
-step Slab of Carrion Worm Meat on the way
-  along until q5543
-  when onquest 5544
-  collect 13853 quest 5544.1
-
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
-  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
+  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.
   tip The shattered sword lies on the ground north-west of the lake.
   kill 8597 quest 5542.2
   kill 8596 quest 5542.1
   collect 12957 quest 5181.2
+  kill 8600 quest 5543.1
+  collect 13853 quest 5544.1
 
 step Nathanos Blightcaller
   accept 6022
@@ -121,7 +117,6 @@ step Nathanos Blightcaller
   accept 6133
 
 step Eastern Plaguelands: kill these as you meet them
-  label q5543
   zone Eastern Plaguelands
   tip Plaguehound Runts and Plaguebats roam the hills north of the Marris Stead, Carrion Grubs crawl among them; work north toward Terrordale.
   kill 8596 quest 5542.1
@@ -207,6 +202,7 @@ step Fly to Bloodvenom Post
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
+  only Druid,Paladin
   zone Felwood
   fly "Thunder Bluff"
 
@@ -216,17 +212,10 @@ step Fly to Thunder Bluff
   tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
 
-step Rumstag Proudstrider
-  when onquest 7820,7821,7822
-  zone Felwood
-  tip On Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7820 optional
-  turnin 7821 optional
-  turnin 7822 optional
-
 # ---------------------------------------------------------------- Felwood and Moonglade
 
 step Fly to Bloodvenom Post
+  only Druid,Paladin
   zone Thunder Bluff
   goto 46.6,49.9 "Thunder Bluff flight master"
   fly "Bloodvenom Post"

@@ -4112,7 +4112,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/06-hillsbrad-foothills', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
-		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
+		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
 		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
@@ -5133,4 +5133,196 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 	assert.equal(stepOf('turnin 7791', is('turnin', 7791)), sw, 'the Wool donation on the same stop');
 	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
 	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
+});
+
+// Final route review, Horde 40-60: the Aged Gorilla Sinew drops from the Mistvale gorillas whose fangs Unbagwa wants,
+// not on the Wild Shore; and the guide opened with a vendor step titled Booty Bay while still in Ratchet and a note
+// about Tarren Mill, both carried over from the 30-40 guide's last Booty Bay stop.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew with the gorilla fangs, no stray vendor or Tarren Mill note', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const sinew = list[at(list, 'collect 3862', (g) => g.t === 'collect' && g.item === 3862)];
+	assert.equal(sinew.s, list[at(list, 'collect 2799', (g) => g.t === 'collect' && g.item === 2799)].s, 'with the gorilla fangs');
+	assert.notEqual(sinew.s, list[at(list, 'collect 3920', (g) => g.t === 'collect' && g.item === 3920)].s, 'not with the Bloodsail charts');
+	const boat = at(list, 'Boat to Booty Bay', (g) => g.t === 'goto' && /Boat to Booty Bay/.test(g.text || g.label || g.note || ''));
+	assert.ok(!list.slice(0, boat).some(({ goal }) => goal.t === 'vendor'), 'no vendor before the boat');
+	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Tarren Mill/.test(goal.text || goal.note || '')), 'no note about the next guide flying to Tarren Mill');
+});
+
+// Final route review, Horde 40-60: Zukk'ash Report is ready on the Orgrimmar stop that ends the Feralas guide, which
+// passes Zilzibin Drumlore; it was carried to the Azshara guide's Orgrimmar stop.
+test('forever/horde/40-50/02-feralas.guide: final review: Zukk\'ash Report on the Orgrimmar stop that ends the guide', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const report = list[at(list, 'turnin 7732', is('turnin', 7732))];
+	assert.equal(report.s, list[at(list, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru\'s hand-in, in Orgrimmar');
+	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not carried to the Azshara guide');
+});
+
+// Final route review, Horde 40-60: the snapper claws were an "along the way" list from the Pool of Tears; the
+// snappers share the east coast's strand with the Monstrous Crawlers, so both are the coast step's work. A tip at
+// Misty Reed Post said the next guide starts there, and a note about The Sunken Temple came before its accept.
+test('forever/horde/40-50/03-feralas.guide: final review: the snapper claws on the coast step, no stray next-guide tip or Sunken Temple note', { skip }, () => {
+	const file = 'forever/horde/40-50/03-feralas.guide';
+	const list = goals(file);
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const claws = list[at(list, 'collect 6168', (g) => g.t === 'collect' && g.item === 6168)];
+	assert.equal(claws.s, list[at(list, 'collect 6184', (g) => g.t === 'collect' && g.item === 6184)].s, 'with the crawler legs');
+	assert.ok(!compiled(file).steps.some((step) => /next guide starts here/.test(step.note || '')), 'no next-guide tip mid-guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Sunken Temple/.test(goal.text || goal.note || '')), 'no Sunken Temple note');
+	const last = list.map((e, i) => i).filter((i) => is('turnin', 3128)(list[i].goal)).pop();
+	assert.ok(at(list, 'turnin 7734', is('turnin', 7734)) < last && list[at(list, 'turnin 7734', is('turnin', 7734))].s === list[last].s, 'Jangdor first on the last Mojache stop, coming in from the north-west');
+});
+
+// Final route review, Horde 40-60: Tooga's escort ends at Steamwheedle Port, but the Noxious Lair sat between the
+// escort and its hand-in (a ride from the port back west and east again); the gorge had two "along the way" lists
+// (the taskmasters, slavers and golems are now killed on the ride from Thorium Point to Kalaran, where it crosses them); two tips spoke of Kargath and of the next guide.
+test('forever/horde/40-50/04-tanaris.guide: final review: the lair before Tooga, the Cauldron\'s Dark Irons on the way to Kalaran, no along lists', { skip }, () => {
+	const file = 'forever/horde/40-50/04-tanaris.guide';
+	const list = goals(file);
+	const escort = at(list, 'accept 1560', is('accept', 1560));
+	assert.ok(at(list, 'collect 8587', (g) => g.t === 'collect' && g.item === 8587) < escort, 'the insect parts before the escort');
+	const done = list[at(list, 'complete 1560', is('complete', 1560))].goal;
+	assert.deepEqual([done.map, Math.round(done.x), Math.round(done.y)], [1446, 67, 26], 'the escort points at Torta in the port');
+	const kalaran = at(list, 'accept 3441', is('accept', 3441));
+	for (const npc of [5846, 5844, 5854]) assert.ok(at(list, `kill ${npc}`, (g) => g.t === 'kill' && g.npc === npc) < kalaran, `${npc} on the ride from Thorium Point to Kalaran`);
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	assert.ok(!compiled(file).steps.some((step) => /Kargath|next guide starts/.test(step.note || '')), 'no tip about Kargath or the next guide');
+});
+
+// Final route review, Horde 40-60: the stalkers and the scalpers were listed "along the way" ahead of the temples
+// step that does them, and the Revantusk stop before the Blasted Lands said the next guide starts there.
+test('forever/horde/40-50/05-the-hinterlands.guide: final review: no along lists, no next-guide tip mid-guide', { skip }, () => {
+	const file = 'forever/horde/40-50/05-the-hinterlands.guide';
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const list = goals(file);
+	assert.equal(list[at(list, 'kill 2926', (g) => g.t === 'kill' && g.npc === 2926)].s, list[at(list, 'kill 4466', (g) => g.t === 'kill' && g.npc === 4466)].s, 'stalkers and scalpers on the temples step');
+	assert.ok(!compiled(file).steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
+});
+
+// Final route review, Horde 40-60: the Orgrimmar stop comes off the flight from Valormok but told you to take the
+// zeppelin back, and the Camp Mojache stop before the muisek chain said the next guide starts there.
+test('forever/horde/40-50/06-azshara.guide: final review: tips that match the way in', { skip }, () => {
+	const file = 'forever/horde/40-50/06-azshara.guide';
+	const steps = compiled(file).steps;
+	assert.ok(!steps.some((step) => /zeppelin back to Orgrimmar/.test(step.note || '')), 'no zeppelin tip after the Valormok flight');
+	assert.ok(!steps.some((step) => /next guide starts with the flight to Gadgetzan/.test(step.note || '')), 'no next-guide tip at Camp Mojache');
+});
+
+// Final route review, Horde 40-60: the flight into the Undercity lands beside Harbinger Balthazad, but the order went
+// to Oran Snakewrithe first and came back; the pterrordax step carried the Gorishi hive's title and tip; two tips
+// still sent you by the Grom'gol zeppelin; a note said to skip Pawn Captures Queen right before accepting it.
+test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first, tips that match the way', { skip }, () => {
+	const file = 'forever/horde/50-60/01-un-goro-crater.guide';
+	const list = goals(file);
+	assert.ok(at(list, 'accept 5094', is('accept', 5094)) < at(list, 'turnin 2782', is('turnin', 2782)), 'Balthazad before Oran');
+	const scale = list[at(list, 'collect 11831', (g) => g.t === 'collect' && g.item === 11831)];
+	assert.ok(!/hive/i.test(scale.step.title) && !/silithid hive/.test(scale.step.note || ''), 'the pterrordax step is not titled or tipped for the hive');
+	assert.ok(!compiled(file).steps.some((step) => /Grom'gol/.test(step.note || '')), 'no Grom\'gol zeppelin in the tips');
+	const queen = at(list, 'accept 4507', is('accept', 4507));
+	assert.ok(!list[queen].step.goals.some((g) => g.t === 'note' && /Skip it/.test(g.text || '')), 'no skip note beside the accept');
+});
+
+// Final route review, Horde 40-60: in from Tarren Mill at Sorrow Hill, the order rode north to Mulgris and back south
+// to Marlene; Kirsta's Scarlets were an "along the way" list; the Bloodvenom flight path sat in the step for the
+// optional Blood Red Key, which players without the key skip.
+test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris, no along list, the flight path at Bloodvenom Post', { skip }, () => {
+	const file = 'forever/horde/50-60/02-felwood.guide';
+	const list = goals(file);
+	assert.ok(at(list, 'turnin 5152', is('turnin', 5152)) < at(list, 'accept 4984', is('accept', 4984)), 'Marlene before Mulgris');
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const fp = list[at(list, 'getfp Bloodvenom Post', (g) => g.t === 'getfp' && g.location === 'Bloodvenom Post')];
+	assert.equal(fp.s, list[at(list, 'accept 6162', is('accept', 6162))].s, 'with the Bloodvenom Post quests');
+	assert.ok(!fp.step.goals.some((g) => g.optional), 'not in an optional step');
+});
+
+// Final route review, Horde 40-60: Morrowgrain Research was accepted, completed and handed in on one Thunder Bluff
+// step, but it wants ten Morrowgrain from an Evergreen Pouch with a ten-minute cooldown and soil the route has
+// spent: optional, as on the Alliance side. The Den Watchers and owlbeasts were "along the way" lists.
+test('forever/horde/50-60/03-winterspring.guide: final review: Morrowgrain optional, no along lists', { skip }, () => {
+	const file = 'forever/horde/50-60/03-winterspring.guide';
+	const list = goals(file);
+	for (const q of [3786, 3804]) {
+		for (const t of ['accept', 'complete']) assert.ok(list[at(list, `${t} ${q}`, is(t, q))].goal.optional, `${t} ${q} is optional`);
+	}
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const bashana = list[at(list, 'turnin 3782', is('turnin', 3782))].step;
+	assert.ok(!/Gorishi/.test(bashana.note || ''), 'no Gorishi warning in Thunder Bluff');
+});
+
+// Final route review, Horde 40-60: every class flew Orgrimmar -> Bloodvenom Post -> Thunder Bluff -> Bloodvenom Post,
+// though only Druids and Paladins train there (the cloth donations, carried in the bags, now go in when they are
+// taken in the Winterspring guide); the Plaguebats and grubs were "along the way" lists.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: final review: Thunder Bluff only for Druid and Paladin training, no along lists', { skip }, () => {
+	const file = 'forever/horde/50-60/05-eastern-plaguelands.guide';
+	const list = goals(file);
+	const trip = list.filter(({ step }) => /Thunder Bluff|Bloodvenom Post/.test(step.title) && list.findIndex((e) => e.step === step) > at(list, 'turnin 5181', is('turnin', 5181)));
+	assert.ok(trip.some(({ step }) => /Thunder Bluff/.test(step.title)), 'the Thunder Bluff trip is there');
+	const back = trip.filter(({ step }) => /Thunder Bluff/.test(step.title) || trip.findIndex((e) => /Thunder Bluff/.test(e.step.title)) < trip.findIndex((e) => e.step === step));
+	for (const { step, goal } of back) {
+		for (const cls of ['WARRIOR', 'ROGUE', 'MAGE']) assert.ok(!forClass(cls)({ step, goal }), `${step.title}: not for ${cls}`);
+	}
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	for (const q of [7820, 7821, 7822]) assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} handed in where it is taken`);
+	assert.ok(!list.some(({ goal }) => goal.quest === 7820), 'no donation stop in this guide');
+	assert.deepEqual([list[0].goal.t, list[0].goal.map], ['goto', 1420], 'a travel line out of the Undercity before the Bulwark');
+});
+
+// Final route review, Horde 40-60: the flayer stingers were an "along the way" list; the refuge tip was cut at
+// "J.D." with "Collie is inside it." on a later step; the mid-guide Bulwark stop said the next guide starts nearby.
+test('forever/horde/50-60/06-silithus.guide: final review: no along list, whole tips, no next-guide tip mid-guide', { skip }, () => {
+	const file = 'forever/horde/50-60/06-silithus.guide';
+	const steps = compiled(file).steps;
+	assert.deepEqual(steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	assert.ok(!steps.some((step) => /J\.D\.$|^Collie/.test(step.note || '')), 'no tip cut at J.D.');
+	assert.ok(!steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
+});
+
+// Final route review, Horde 40-60: two level top-ups in the Felwood part sent players to the Winterfall Totemics in
+// Winterspring (through Timbermaw Hold and back) before Bloodvenom Post; the Winterspring top-up later does it.
+test('forever/horde/50-60/07-felwood.guide: final review: no Winterspring grind while in Felwood', { skip }, () => {
+	const list = goals('forever/horde/50-60/07-felwood.guide');
+	const moonglade = list.findIndex(({ goal }) => goal.map === 1450);
+	assert.ok(moonglade > 0, 'the guide reaches Moonglade');
+	assert.deepEqual(list.slice(0, moonglade).filter(({ goal }) => goal.t === 'level').map(({ step }) => step.title), [], 'no grind before Moonglade');
+	assert.ok(list.slice(moonglade).some(({ goal }) => goal.t === 'level'), 'the top-up waits for Winterspring');
+});
+
+// Final route review, Horde 40-60: Prompt Potion Runner (level 16) waited for the Undercity stop at 56; the Hillsbrad
+// guide takes it on its Undercity visit (#1175).
+test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Potion Runner at 56', { skip }, () => {
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 97891), 'not in this guide');
+	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
+});
+
+// Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
+// Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
+// guide's Undercity stop (not Gadgetzan -> Orgrimmar -> Brill -> Gadgetzan), Taurens, Druids, Paladins and Warlocks
+// from Orgrimmar on the way out (not a flight back from Gadgetzan).
+test('forever/horde/40-50: final review: riding at 40 and class trips where the route already passes', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	assert.ok(!stv.some(({ goal }) => goal.t === 'train' && goal.npc === 7953), 'no Troll riding trip from the Swamp of Sorrows');
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const gadgetzan = at(fer, 'getfp Gadgetzan', (g) => g.t === 'getfp' && g.location === 'Gadgetzan');
+	for (const [what, pred] of [['Troll riding', (g) => g.t === 'train' && g.npc === 7953], ['Tauren riding', (g) => g.t === 'train' && g.npc === 3690], ['the Felsteed', is('turnin', 3631)]]) {
+		assert.ok(at(fer, what, pred) < gadgetzan, `${what} before Gadgetzan`);
+	}
+	assert.deepEqual(fer.slice(gadgetzan).filter(({ goal }) => goal.t === 'fly' && /Thunder Bluff|Ratchet/.test(goal.location || goal.text || '')).map(({ step }) => step.title), [], 'no flight back from Gadgetzan to Thunder Bluff or Ratchet');
+	assert.ok(!fer.some(({ goal }) => goal.t === 'train' && goal.npc === 4773), 'no Undead riding loop in this guide');
+	const uc = goals('forever/horde/40-50/03-feralas.guide');
+	assert.ok(at(uc, 'Undead riding', (g) => g.t === 'train' && g.npc === 4773) < at(uc, 'Zeppelin to Grom\'gol', (g) => g.t === 'goto' && /Grom'gol/.test(g.text || '')), 'Undead ride from the Undercity stop');
+});
+
+// Final route review, Horde 40-60: Cortello's Riddle's scroll lies on the Bloodsail ships (crews 42-45) at level 41:
+// optional, its later parts only with the part before; the Gorishi Hive Queen may be elite.
+test('forever/horde/40-50: final review: Cortello\'s Riddle optional, the Hive Queen warning', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	assert.ok(stv[at(stv, 'accept 624', is('accept', 624))].goal.optional, '624 optional');
+	const fer = goals('forever/horde/40-50/03-feralas.guide');
+	for (const [q, pre] of [[625, 624], [626, 625]]) {
+		const a = fer[at(fer, `accept ${q}`, is('accept', q))];
+		assert.ok(a.goal.optional && a.step.when.some((p) => p.k === 'onquest' && p.q.includes(pre)), `${q} only with ${pre}`);
+	}
+	const sil = goals('forever/horde/50-60/06-silithus.guide');
+	assert.match(sil[at(sil, 'use 11833', (g) => g.t === 'use' && g.item === 11833)].step.note || '', /elite/);
 });

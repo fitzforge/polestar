@@ -32,6 +32,14 @@ step Undercity
   accept 2995                           -- Oran Snakewrithe, the Royal Quarter
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
+step Riding at 40
+  only Undead
+  zone Tirisfal Glades
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
+  train 4773 optional                   -- Velma Warnam, riding trainer
+  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
+
 step Zeppelin to Grom'gol
   zone Tirisfal Glades
   goto 61.8,59.2 "Zeppelin to Grom'gol"
@@ -46,10 +54,7 @@ step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
-
-step A Soggy Scroll
-  tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
-  accept 625                            -- for the Musty Scroll in Dustwallow Marsh, later in this guide
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, later in this guide
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
@@ -57,19 +62,14 @@ step Pool of Tears
   tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
   collect 6175 quest 1424.1
 
-step Sawtooth Snapper Claw on the way
-  along until q699
-  collect 6168 quest 699.1 -- Sawtooth Snapper Claw along the way to Misty Reed Post
-
 step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
   tip The snappers line the strand south of the post.
   tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south.
+  collect 6168 quest 699.1
   collect 6184 quest 1430.1           -- Underwater
 
 step Misty Reed Post
-  label q699
-  tip The next guide starts here and takes you to Tanaris.
   turnin 699                            -- Tok'Kar
   tip The small Horde post on the southern shore.
   accept 1422                           -- Tok'Kar
@@ -114,17 +114,15 @@ step Dustwallow Marsh
   zone Dustwallow Marsh
   goto 31.1,66.1 "Dustwallow Marsh"
 
-step The Wyrmbog
+step The Musty Scroll
   when onquest 625
-  tip Ride south-west to the Musty Scroll, then east through the Wyrmbog. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
+  tip Ride south-west to the Musty Scroll.
   turnin 625                            -- the Musty Scroll
-
-step The Wyrmbog
-  tip Ride south-west to the Musty Scroll, then east through the Wyrmbog. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
-  accept 626                          -- Inside Bloodfen Burrow
+  accept 626 optional                 -- Inside Bloodfen Burrow
 
 step The Dragonmurk: kill these as you meet them
   zone Dustwallow Marsh
+  tip East through the Wyrmbog: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
   kill 4331 quest 1168.2
   kill 4328 quest 1168.3
   kill 4329 quest 1168.1              -- Firemane Scout walks around The Dragonmurk: look inside the circle on the map
@@ -244,9 +242,8 @@ step Rage Scar yetis
 # ---------------------------------------------------------------- Camp Mojache
 
 step Camp Mojache
+  turnin 7734                           -- Jangdor Swiftstrider, inside
+  turnin 7738 optional
   turnin 3128                           -- Witch Doctor Uzer'i
   turnin 3063                           -- Talo Thornhoof
   accept 4120                         -- Talo Thornhoof: the bears are in Felwood
-  turnin 7734                           -- Jangdor Swiftstrider, inside
-  turnin 7738 optional
-  note Keep Sunken Temple for Marvon in Tanaris.

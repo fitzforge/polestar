@@ -218,9 +218,7 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  tip Take the zeppelin back to Orgrimmar.
   turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
-  turnin 7732
   accept 4494
   turnin 3541                         -- Jes'rimon, the Cleft of Shadow
   accept 3563
@@ -270,7 +268,6 @@ step Fly to Camp Mojache
   zone Feralas
 
 step Camp Mojache
-  tip Stay here: the next guide starts with the flight to Gadgetzan.
   sethome "Camp Mojache"
   turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124

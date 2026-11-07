@@ -147,17 +147,12 @@ step Carlin Redpath
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
+  only Druid,Paladin
   zone Thunder Bluff
   tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   fly "Thunder Bluff"
   sethome "Thunder Bluff"
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
-
-step Rumstag Proudstrider
-  tip On Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7820 optional
-  turnin 7821 optional
-  turnin 7822 optional
 
 # ---------------------------------------------------------------- Felwood and Moonglade
 
