@@ -1881,6 +1881,42 @@
 				}
 			],
 			"pr": 1032
+		},
+		{
+			"id": "elwynn-duskweed-in-the-farm-fields-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 99130,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "An Enticing Offer's Duskweed Petals grow in the fields round the Maclure Vineyards and the Stonefield Farm: gathered in the farm-fields step with the boar blood and meat (and in the Fargodeep step), not in an along list from Goldshire (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Overgrown Duskweed (object 694855): 17 spawns in the Stonefield Farm's fields, 31.9-33.1, 84.1-86.7"
+				}
+			],
+			"pr": 1094
+		},
+		{
+			"id": "elwynn-prowlers-in-the-downstream-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 52,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Protect the Frontier's Prowlers roam the eastern woods, the river south of Guard Thomas's bridge among them, where the Young Forest Bears are: killed in the Downstream and Princess step and finished at Guard Thomas, not in an along list from the bridge (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "Prowler (118): 24 spawns in east Elwynn, one at 75.49,76.54 by the river south of the bridge (npcs.json)"
+				}
+			],
+			"pr": 1094
 		}
 	]
 }

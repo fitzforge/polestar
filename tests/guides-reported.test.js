@@ -3643,3 +3643,30 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
 });
+
+// --- Flow audit (2026-11-07, Elwynn Forest): the first Goldshire stop zig-zagged (the inn, Remy, back to the
+// inn, then Dughan across the road); Baited for Success was carried past Jason Mathers on the walk east and
+// handed in on the walk back, as was the kelp from the murlocs that walk passes; Princess waited for a second
+// trip south after the logging camp; and the end went Goldshire -> Westbrook -> back to Goldshire -> the
+// gnolls -> Westbrook -> Maybell and the Stonefield Farm -> the still -> Westbrook. Now: Dughan, Remy, then the
+// inn; Jason and the kelp on the walk east; Princess with Downstream; and Goldshire -> Maybell -> the
+// Stonefield Farm -> the still -> Westbrook -> the gnolls -> Westbrook, as the seed has it.
+test(`${ELWYNN}: flow audit: Goldshire in walking order, Jason and the kelp on the walk east, Princess with Downstream, one pass to Westbrook`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const idx = (what, t, q) => at(list, what, is(t, q));
+	const farley = idx('turnin 2158', 'turnin', 2158);
+	for (const [t, q] of [['turnin', 54], ['accept', 47]]) {
+		const i = idx(`${t} ${q}`, t, q);
+		assert.ok(i < farley && list[i].s === list[farley].s, `${t} ${q} before Innkeeper Farley on the first Goldshire stop`);
+	}
+	const tower = idx('accept 91723', 'accept', 91723);
+	assert.ok(idx('turnin 99131', 'turnin', 99131) < tower, 'Baited for Success handed to Jason on the walk east');
+	assert.ok(at(list, 'the kelp', (g) => g.t === 'collect' && g.item === 1256) < tower, 'the kelp on the walk east');
+	const collar = list[at(list, 'the Brass Collar', (g) => g.t === 'collect' && g.item === 1006)];
+	const saw = list[at(list, 'the Waterlogged Saw', (g) => g.t === 'collect' && g.item === 247813)];
+	assert.equal(collar.s, saw.s, 'Princess in the Downstream step');
+	const westbrook = idx('turnin 239', 'turnin', 239);
+	for (const [t, q] of [['turnin', 114], ['turnin', 87], ['turnin', 88], ['accept', 1685]]) assert.ok(idx(`${t} ${q}`, t, q) < westbrook, `${t} ${q} before Westbrook Garrison`);
+	assert.deepEqual(list.slice(westbrook).filter(({ step }) => /Goldshire/.test(step.title || '')).map(({ s }) => s), [], 'no walk back to Goldshire after Westbrook');
+	assert.deepEqual(compiled(ELWYNN).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+});
