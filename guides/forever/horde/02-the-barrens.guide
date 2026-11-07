@@ -14,38 +14,27 @@ next forever/horde/03-silverpine-forest
 
 # Orcs and Trolls arrive from Durotar first: their own steps below (only Orc / only Troll /
 # only Orc,Troll), merged from the former orc/troll lead-in guides in 0.3.1, run before the
-# Crossroads step labelled `crossroads`, where every Horde race starts. Orcs hand Crossroads
-# Conscription (842) to Sergra and take Meats to Orgrimmar here; Trolls did both at the end of
-# their Durotar guide. Warriors finish Thun'grim Firegaze / Forged Steel (1502, 1503) by the
-# Razormane camp; Shamans finish Call of Fire (1524-1527): the Fire Tar from the Razormane,
-# Telf Joolam's brazier across the river and Kranal Fiss. The former lead-in ids are in
-# guides/retired.json.
-
-step Zargh
-  only Orc
-  accept 6365
-  turnin 6365
-  getfp "Crossroads"
-  tip You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.
-
-step The Barrens
-  only Troll
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
+# Crossroads step labelled `crossroads`, where every Horde race starts. Both come in from Far
+# Watch Post: they hand Crossroads Conscription (842) to Sergra and take Meats to Orgrimmar here.
+# Warriors finish Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans
+# finish Call of Fire (1524-1527): the Fire Tar from the Razormane, Telf Joolam's brazier across
+# the river and Kranal Fiss. The former lead-in ids are in guides/retired.json.
 
 step The Crossroads
   only Orc,Troll
   zone The Barrens
-  tip Helbrim and Gazrog by the north gate.
-  turnin 842 only Orc
-  accept 844                          -- Sergra Darkthorn
+  tip You arrive from Far Watch Post. Zargh and Sergra stand by the inn, Helbrim and Gazrog by the north gate; Devrak, Thork and Darsok on the tower platform.
+  accept 6365                         -- Zargh
+  turnin 842                          -- Sergra Darkthorn
+  accept 844
   accept 869                          -- Gazrog
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 6384 only Orc
-  tip Thork and Darsok on the tower platform.
-  accept 5041
-  accept 871                          -- Thork
+  accept 1492                         -- Apothecary Helbrim
+  accept 848
+  turnin 6365                         -- Devrak, on the tower
+  accept 6384
+  getfp "Crossroads"
+  accept 5041                         -- Thork
+  accept 871
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
 
 step On the way
