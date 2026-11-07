@@ -474,6 +474,7 @@ for _, list in ipairs({
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
 		{ L["Trackers"], { L["Experience"], L["Instances"], L["Instance limits"] } },
 		{ L["Map"], { L["Minimap"], L["Coordinates"] } },
+		{ L["Graphics"], { L["Performance & FPS"], L["Vegetation & Scenery"], L["Color & Post-Processing"], L["Camera"] } },
 	}),
 }) do
 	for _, spec in ipairs(list) do BUILTIN[#BUILTIN + 1] = spec end

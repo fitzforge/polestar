@@ -81,6 +81,26 @@ local defaults = {
 	acceptPartyFriends = false,
 	acceptSummon = false,
 	acceptResurrect = false,
+	-- Graphics & Unlocked Visuals
+	graphicsEnabled = true,
+	grassDensity = 256,
+	grassDist = 500,
+	terrainLodDist = 1000,
+	objectFade = 150,
+	viewDist = 6000,
+	colorPreset = "default",
+	gamma = 1.0,
+	brightness = 50,
+	contrast = 50,
+	tintRed = 0,
+	tintGreen = 0,
+	tintBlue = 0,
+	noGlow = false,
+	noDeathEffect = false,
+	sharpness = 0.5,
+	cameraZoom = 2.6,
+	cameraFov = 90,
+	fpsFeedback = true,
 }
 for key in pairs(COVERED) do
 	if defaults[key] and QoL.CoveredBy(key) then defaults[key] = false end
