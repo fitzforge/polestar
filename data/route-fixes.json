@@ -2006,6 +2006,30 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					174
+				],
+				"b": [
+					"task",
+					96139
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars (174) is ready the moment the Bronze Tube is bought from Herble Baubbletump, beside Viktori, on the first Darkshire visit, but the route handed it in only on the Duskwood return three guides of play later (07-thousand-needles), walking past Viktori with it on every Darkshire visit between. Both speedrun benchmark orders hand it in and take 175 on that first visit. The seed (re-seeded for this) hands it in there; this pair keeps it before the walk west."
+			},
+			{
+				"a": [
+					"turnin",
+					175
+				],
+				"b": [
+					"accept",
+					157
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars' second part (175, to Blind Mary) is handed in on the Blind Mary visit the Embalmer chain makes anyway (Ghost Hair Thread), not on a trip of its own up her hill on the Duskwood return. The Insane Ghoul (177, level 26) stays on the return. The seed (re-seeded for this) does it; this pair keeps it before Madame Eva's next part."
 			}
 		],
 		"notes": [
@@ -2238,15 +2262,15 @@
 			{
 				"a": [
 					"task",
-					57,
-					1
+					156
 				],
 				"b": [
 					"task",
 					57,
-					0
+					1
 				],
-				"why": "r4d read: the Skeletal Horrors with the Fiends on the Raven Hill visit (v1), not a second trip after Yorgen Farmstead"
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Horrors (57) are killed with the Rot Blossoms (156), which drop from the same Skeletal Horrors on the hillside south-east of Darkshire (24% in the game's loot data, so the eight blossoms take about twice the fifteen Horrors). Supersedes r4d's 'Horrors with the Fiends on the Raven Hill visit': The Night Watch is now handed in on the Darkshire visit after the first loop, so the first loop has no Night Watch work."
 			},
 			{
 				"a": [
@@ -2805,6 +2829,19 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"task",
+					245
+				],
+				"b": [
+					"task",
+					101,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): the Totem's Vial of Spider Venom (101) drops from the Pygmy Venom Web Spiders Eight-Legged Menaces (245) asks for and from the Venom Web Spiders and Green Recluses beside them at the Hushed Bank (10-15% each in the game's loot data); recorded players filled it there (rec.py quest 101: the venom ticks on kills of npc 539 and 217). The route sent the player back west from the Yorgen Farmstead to the Black Widow Hatchlings for it (05-duskwood 'Brightwood Grove' on 0.3.4, about 1,100 yd of the walk back to Darkshire)."
 			}
 		],
 		"after": [
@@ -4874,6 +4911,43 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"task",
+					101
+				],
+				"b": [
+					"turnin",
+					56
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). Both speedrun benchmark orders hand it in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire (BENCHORDER, town visits: Darkshire)."
+			},
+			{
+				"a": [
+					"turnin",
+					133
+				],
+				"b": [
+					"task",
+					57,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Fiends (57) walk the southern half of the Raven Hill Cemetery, which the last western loop crosses from Abercrombie to Jitters after Ghoulish Effigy; 57 is then handed in on the Duskwood return's first Darkshire stop, where its third part (58) starts. Taken on the Darkshire visit after the first loop, it has no work on that loop."
+			},
+			{
+				"a": [
+					"turnin",
+					268
+				],
+				"b": [
+					"task",
+					173
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): Worgen in the Woods' Nightbane Shadow Weavers are level 27; 05-duskwood (22-25) listed them 'on the way' from Darkshire, and the Duskwood return (07-thousand-needles, 28) kills them in a step of its own and hands the quest in. The kills belong to the return only (level fit, #977)."
 			}
 		]
 	}

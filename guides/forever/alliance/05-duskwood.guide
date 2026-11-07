@@ -20,22 +20,27 @@ step Duskwood
 # Duskwood 22.7-25.4), written out as a playable guide; not play-tested on
 # Forever yet.
 #
-# Flow: Darkshire (every quest giver, the Bronze Tube from Herble) -> the
-# Tranquil Gardens Cemetery -> Darkshire -> west along the road: Watcher
-# Dodds, Raven Hill (Memory of Valor, Skeletal Horrors and Fiends), Sven's
-# camp, the Raven Hill Cemetery and Abercrombie (wolves, spiders, ghouls) ->
-# back east: Watcher Dodds, the Yorgen Farmstead -> hearth to Darkshire, Blind
-# Mary -> west: Abercrombie, Sven -> Darkshire -> the
-# Skeletal Horrors south-east of town (Rot Blossoms) -> Darkshire -> west: Abercrombie, the
-# ghouls, Jitters, Sven (the end: ride north through Elwynn to Stormwind for
-# training, Shamans in Ironforge by the Deeprun Tram, and the Auberdine boat
-# from Stormwind Harbor, where the next guide starts).
+# Flow: Darkshire (every quest giver in walking order from the flight master,
+# the Bronze Tube from Herble and Look to the Stars handed in at once) -> the
+# Tranquil Gardens Cemetery -> west along the road: Watcher Dodds, Raven Hill
+# (Memory of Valor), Sven's camp, the Hushed Bank (wolves, spiders and their
+# venom), Abercrombie, the Raven Hill Cemetery (ghouls) -> back east: Watcher
+# Dodds, the Yorgen Farmstead -> Darkshire (The Night Watch handed in with the
+# other hand-ins), Blind Mary -> west: Abercrombie, Sven -> Darkshire -> the
+# Skeletal Horrors south-east of town (Rot Blossoms, The Night Watch's
+# Horrors) -> Darkshire -> west: Abercrombie, the ghouls, the cemetery's
+# Skeletal Fiends, Jitters, Sven (the end: ride north through Elwynn to
+# Stormwind for training, Shamans in Ironforge by the Deeprun Tram, and the
+# Auberdine boat from Stormwind Harbor, where the next guide starts). The
+# Night Watch's second part is handed in on the Duskwood return
+# (07-thousand-needles), where its third part starts.
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
 #   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
-#   Darkshire, next to Viktori; the turn-in stays where the export has it, in
-#   the Duskwood return (07-thousand-needles).
+#   Darkshire, next to Viktori: handed in on the first visit, and its second
+#   part (175) handed to Blind Mary on her visit; the Insane Ghoul (177, level
+#   26) waits for the Duskwood return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
 # - Hearthstone: the export hearths twice on the first loop (23.7 and 24.4);
@@ -77,29 +82,22 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
+  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
   getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
   accept 101                              -- Madame Eva, in her house by the tavern; inside
-# ---------------------------------------------------------------- Darkshire
-
-step Darkshire
-  zone Duskwood
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
   accept 66                               -- Madame Eva, inside
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
+  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 66                               -- Clerk Daltry, in the town hall
   accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
   accept 56                               -- Commander Althea Ebonlocke, in the town hall
+  accept 173                              -- Calor, by the town hall
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
-  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
-  accept 173                              -- Calor, by the town hall
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
-  accept 174                              -- Viktori Prism'Antras, inside
   buy 4371 x1 npc 3133                    -- Bronze Tube, from Herble Baubbletump: limited stock. Sold out? Neal Allen in Menethil Harbor sells it too.
-
-step Nightbane Shadow Weaver on the way
-  along
-  kill 533 quest 173
+  accept 174                              -- Viktori Prism'Antras, inside
+  turnin 174
+  accept 175                              -- For Blind Mary, on the hill south-east of town
 
 # ---------------------------------------------------------------- Tranquil Gardens
 
@@ -111,24 +109,11 @@ step Tranquil Gardens Cemetery: kill these as you meet them
   kill 203 quest 56                       -- Skeletal Mage
   kill 48 quest 56                        -- Skeletal Warrior
 
-step Darkshire
-  turnin 56                               -- Commander Althea Ebonlocke
-  accept 57
-  vendor nearest
-
-step Skeletal Horror on the way
-  along until q57-2
-  kill 202 quest 57
-
 # ---------------------------------------------------------------- West
 
 step Watcher Dodds
   tip Watcher Dodds stands south of the road, at the Yorgen Farmstead.
   accept 245
-
-step Skeletal Fiend on the way
-  along until q57
-  kill 531 quest 57
 
 step Raven Hill
   tip Continue west to Raven Hill. The Memory of Valor glows by the ruined house south of the road.
@@ -141,14 +126,13 @@ step Sven's Camp
   accept 226                              -- Lars
 
 step The Hushed Bank: kill these as you meet them
-  label q57-2
   zone Duskwood
   tip Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.
   tip Careful: Wolves and other spider types share the area along the Westfall border, so you can easily pull several mobs at once.
   kill 565 quest 226                      -- Rabid Dire Wolf
-  kill 202 quest 57
   kill 213 quest 226                      -- Starving Dire Wolf
   kill 539 quest 245                      -- Pygmy Venom Web Spider
+  collect 1130 quest 101                  -- Vial of Spider Venom: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses
 
 step Abercrombie
   tip The hermit's shack stands in the woods north-east of the Raven Hill Cemetery.
@@ -156,13 +140,10 @@ step Abercrombie
   accept 148
 
 step Raven Hill Cemetery: kill these as you meet them
-  label q57
   zone Duskwood
   tip The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
   collect 1129 quest 101                  -- Ghoul Fang
-  kill 202 quest 57                       -- Skeletal Horror
   collect 2378 quest 101                  -- Skeleton Finger
-  kill 531 quest 57                       -- Skeletal Fiend
 
 # ---------------------------------------------------------------- Back east
 
@@ -175,12 +156,10 @@ step Yorgen Farmstead
   turnin 95                               -- Mound of loose dirt
   accept 230
 
-step Brightwood Grove
-  collect 1130 quest 101                  -- Vial of Spider Venom
-
 step Darkshire
   turnin 96139                            -- Sirra Von'Indi, inside
-  turnin 57                               -- Commander Althea Ebonlocke
+  turnin 56                               -- Commander Althea Ebonlocke
+  accept 57
   turnin 101                              -- Madame Eva, inside
   turnin 148
   accept 149
@@ -190,6 +169,8 @@ step Blind Mary
   tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
   turnin 149                          -- Inside
   accept 154
+  turnin 175
+  accept 177                              -- Mary's Looking Glass: the Insane Ghoul in the cemetery's crypt is level 26; it waits for the Duskwood return
 
 step Tranquil Gardens Cemetery
   collect 2794 optional                   -- An Old History Book: a rare drop from Duskwood's mobs
@@ -225,6 +206,7 @@ step Back to Darkshire
 step Rot Blossoms
   tip Skeletal Horrors walk the hillside between Darkshire and the Tranquil Gardens Cemetery, south-east of town; they drop the Rot Blossoms.
   collect 1598 quest 156
+  kill 202 quest 57                       -- Skeletal Horror
 
 step Tavernkeep Smitts
   turnin 156                          -- Inside
@@ -246,6 +228,12 @@ step Ghoul Ribs
 step Abercrombie
   turnin 133
   accept 134
+
+step Raven Hill Cemetery: kill these as you meet them
+  zone Duskwood
+  tip Head south through the cemetery towards Raven Hill. Skeletal Fiends and Skeletal Horrors walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
+  kill 531 quest 57                       -- Skeletal Fiend
+  kill 202 quest 57                       -- Skeletal Horror
 
 # ---------------------------------------------------------------- West
 
