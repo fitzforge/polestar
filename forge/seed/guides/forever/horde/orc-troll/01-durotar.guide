@@ -616,6 +616,7 @@ step Uzzek
   accept 1502
 
 step Far Watch Post
+  only !Warrior
   zone The Barrens
   tip Follow the road west from Razor Hill over the Southfury River bridge; Far Watch Post sits just above it on the Barrens side.
   turnin 840                          -- Kargal Battlescar
