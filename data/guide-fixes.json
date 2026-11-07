@@ -2899,6 +2899,91 @@
 					"ref": "final route review 2026-11-07: Feralas guide steps 'Fly to Thalanaar' and 'Feralas' (goto 65.9,45.7) before the Grimtotem camp"
 				}
 			]
+		},
+		{
+			"id": "a4060-sg-lava-spiders-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7724,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Fiery Menace!: the Greater Lava Spiders roam the plateaus south of Zamael Lunthistle, on the walk from him to Kalaran Windblade, so they are a step of their own there; the along list from Thorium Point kept them on screen instead.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-taskmasters-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "JOB OPPORTUNITY: the Dark Iron Taskmasters drive the slaves across the Cauldron, which the Firewatch Ridge step works; an along list kept them on screen from Thorium Point.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-slavers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "JOB OPPORTUNITY: the Dark Iron Slavers work the Cauldron with the Taskmasters, on the Firewatch Ridge step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-daggers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3443,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Forging the Shaft: the Thorium Plated Daggers come from the Dark Iron dwarves on the Slag Pit and Dark Iron steps; the along list from Kalaran duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-incendosaurs-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7727,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Incendosaurs?: the Incendosaurs swim in the Slag Pit's lava pools, which the Slag Pit step visits; an along list kept them on screen from Thorium Point.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
 		}
 	]
 }

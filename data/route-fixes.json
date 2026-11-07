@@ -4367,6 +4367,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Westfall's Stormwind stop): Fishin' Time's Shiny Bauble and Nightcrawlers are both bought from Catherine Leland, so both are one stop; the Nightcrawlers were bought in a stop of their own before Woo Ping and the walk came back to her for the bauble (02-westfall on 0.3.4, two 'buy 6530' lines)"
+			},
+			{
+				"a": [
+					"accept",
+					3367
+				],
+				"b": [
+					"task",
+					3367
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Suntara Stones is an escort that starts when Dorius Stonetender gives it; it is taken at the Grimesilt Dig Site right before the escort to Dustfire Valley, as the seed has it. The order took it at the first outhouse stop and left for Thorium Point, which fails the escort."
 			}
 		],
 		"after": [
@@ -7469,6 +7481,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Agmond's Fate goes to Ironband on the way back from the Uldaman dig and Uldaman Reagent Run to Ghak in Thelsamar beside the flight master, one pass across Loch Modan each way, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point (as on the Horde side)."
 			}
 		]
 	}
