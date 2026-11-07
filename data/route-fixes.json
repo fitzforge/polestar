@@ -7445,6 +7445,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Supplies for Nethergarde's Crate of Power Stones lasts an hour (item 6091, duration 3600 s; the quest text says to deliver it before the powerstones expire). The Hinterlands guide took it at Darkshire right after Stormwind, then went to Loch Modan, the Badlands and Darnassus before Nethergarde Keep. It is now taken at Darkshire on the way from Stormwind to the Blasted Lands, after the Darnassus stop, and handed in at the keep first."
+			},
+			{
+				"a": [
+					"accept",
+					17
+				],
+				"b": [
+					"turnin",
+					739
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ghak Healtouch stands in Thelsamar where the flight from Morgan's Vigil lands, so Uldaman Reagent Run is taken there before the ride east to Prospector Ironband, as the seed has it; the order rode to Ironband, back to Thelsamar for Ghak, and east again after Uldaman."
+			},
+			{
+				"a": [
+					"turnin",
+					704
+				],
+				"b": [
+					"turnin",
+					17
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Agmond's Fate goes to Ironband on the way back from the Uldaman dig and Uldaman Reagent Run to Ghak in Thelsamar beside the flight master, one pass across Loch Modan each way, as the seed has it."
 			}
 		]
 	}

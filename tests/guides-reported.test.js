@@ -4925,3 +4925,14 @@ test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coa
 	assert.ok(grind > 0, 'the level-45 grind is in the guide');
 	assert.match(g.steps[grind - 1].title || '', /Boat to The Forgotten Coast/, 'the boat right before the grind');
 });
+
+// Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
+// seed's order); the Booty Bay flight after Nethergarde only for The Monogrammed Sash's group.
+test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, Booty Bay only for the group', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.ok(stepOf('accept 17', is('accept', 17)) < stepOf('turnin 739', is('turnin', 739)), 'Ghak before Ironband');
+	assert.ok(stepOf('turnin 704', is('turnin', 704)) < stepOf('turnin 17', is('turnin', 17)), 'Ironband on the way back, then Ghak');
+	const bb = list[at(list, 'fly Booty Bay', (g) => g.t === 'fly' && /Booty Bay/.test(g.location || ''))];
+	assert.ok((bb.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(8552)), 'only for the Sash group');
+});
