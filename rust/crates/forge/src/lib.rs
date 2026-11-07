@@ -844,12 +844,14 @@ pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) ->
 	let proj = forge_core::Projector::new(&frames);
 	let ctx = Ctx::new(faction.name(), race, None)?;
 	let chain = resolve_chain(&compiled, Chain::Routes, &ctx)?;
-	// Goal files relative to the guides folder's parent ("guides/forever/..."), as v1chain.js.
-	let base = guides.parent().unwrap_or(guides).to_path_buf();
+	// Goal files as "guides/forever/..." (as v1chain.js), whatever folder the guides were read from:
+	// with a seed, the input guides are staged in <out>/.forge/input-guides, and a goal file named
+	// "input-guides/..." is no guide the writer knows (its guides are keyed under the folder).
+	let gdir = if guides.is_absolute() { guides.to_path_buf() } else { std::env::current_dir().unwrap_or_default().join(guides) };
 	let file_of = |g: &forge_guide::js::V| {
 		let f = PathBuf::from(g.hidden("_ast").get("file").to_js_string());
 		let f = if f.is_absolute() { f } else { std::env::current_dir().unwrap_or_default().join(f) };
-		f.strip_prefix(&base).map(|p| p.to_string_lossy().into_owned()).unwrap_or_else(|_| f.to_string_lossy().into_owned())
+		f.strip_prefix(&gdir).map(|p| format!("guides/{}", p.to_string_lossy())).unwrap_or_else(|_| f.to_string_lossy().into_owned())
 	};
 	let (goals, _) = chain_goals(&compiled, &file_of, &chain, &ctx, &proj, true)?;
 	let goals: Vec<Value> = goals
