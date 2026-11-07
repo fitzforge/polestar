@@ -2008,6 +2008,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
+			},
+			{
+				"a": [
+					"turnin",
+					2459
+				],
+				"b": [
+					"turnin",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the first Dolanaar stop after the camp, with Athridas' Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
 			}
 		],
 		"notes": [
@@ -2872,6 +2884,19 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"task",
+					2459,
+					0
+				],
+				"b": [
+					"task",
+					2459,
+					1
+				],
+				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and this pair loot the necklace on the mystics' visit, so the walk back is gone."
 			},
 			{
 				"a": [
