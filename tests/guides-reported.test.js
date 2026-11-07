@@ -367,6 +367,24 @@ test(`${MULGORE}: A Task Unfinished at Antur Fallow starts the cougar hunt, with
 	assert.ok(hunt < at(list, 'turnin 750', is('turnin', 750)), 'the hunt ends at Grull');
 });
 
+// Flow audit, Mulgore: the walk passed Bloodhoof's NPCs with finished quests and came back for them
+// (Swoop Hunting and Rite of Vision on a later visit, Mazzranache two visits later), walked out to
+// Morin Cloudstalker and Longwalker Malah a second time, and took Preparation for Ceremony after the
+// whole Thunder Bluff shopping round although Eyahn stands beside Eylah. Each is now handed in or taken
+// on the visit that passes it.
+test(`${MULGORE}: Bloodhoof's hand-ins and pickups go on the visit that passes them`, { skip }, () => {
+	const list = goals(MULGORE);
+	const same = (what, a, b) => assert.equal(list[at(list, `${a[0]} ${a[1]}`, is(...a))].s, list[at(list, `${b[0]} ${b[1]}`, is(...b))].s, what);
+	same('Swoop Hunting with Poison Water', ['turnin', 761], ['turnin', 748]);
+	same('Rite of Vision with Poison Water', ['turnin', 771], ['turnin', 748]);
+	same("Morin's caravan at the Winterhoof well", ['accept', 749], ['use', 754]);
+	same('Longwalker Malah at the Winterhoof well', ['turnin', 99079], ['use', 754]);
+	same('Grim Tidings with Winterhoof Cleansing', ['turnin', 99081], ['turnin', 754]);
+	same('Mazzranache with Thunderhorn Totem', ['turnin', 766], ['turnin', 756]);
+	same('Preparation for Ceremony beside Eylah', ['accept', 744], ['accept', 97485]);
+	assert.deepEqual(compiled(MULGORE).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists (Fitz: "They should just be steps")');
+});
+
 test(`${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of Death is asked for again at the turn-in, from Abigail Shiel`, { skip }, () => {
 	const list = goals(TIRISFAL);
 	const hand = at(list, 'turnin 375 (The Chill of Death)', is('turnin', 375));
