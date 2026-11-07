@@ -51,9 +51,18 @@ next forever/alliance/04-redridge-mountains
 # - Beached Sea Creature (4723) is taken on the first loop, on the walk from
 #   Asterion down to Buzzbox 411 that passes it, and handed in at the first
 #   hearth (#213), instead of a detour from Cliffspring Falls on the second.
-#   The three remains past Remtravel's Excavation (4731-4733) stay on the
+#   The four remains past Remtravel's Excavation (4730-4733) stay on the
 #   fourth loop: Greymist Oracles and Tidehunters (18-20) guard them, which
-#   the second loop reaches at about 18.
+#   the second loop reaches at about 18. 4730 lies on the walk from them to
+#   Murkdeep's camp, and the one west of the Grove (4728) on the walk north
+#   from the Grove to Auberdine: the second loop no longer walks down the
+#   coast and back for them (flow review, 2026-11-07).
+# - Auberdine's first visit goes from the pier up to Hollee and Thundris at
+#   the north end, then down the main street to the inn, Gwennyth and
+#   Gubber, ending by the beach the next step starts on (flow review,
+#   2026-11-07). The visit after Bashal'Aran goes from Terenthis to Thundris
+#   and the moonwell, then Glynda, Gwennyth and Gubber, ending on the way
+#   to Mist's Edge.
 # - The Blackwood Corrupted (4763, #302): the Empty Cleansing Bowl is filled
 #   at the Auberdine Moonwell right after Thundris gives the quest, and the
 #   three Blackwood samples, the bowl and the Talisman are a step of their
@@ -89,7 +98,7 @@ next forever/alliance/04-redridge-mountains
 
 step Auberdine
   zone Darkshore
-  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
+  tip The boat docks west of the village: Cerellean Whiteclaw waits where the pier meets the shore. Go up to Archaeologist Hollee and Thundris Windweaver at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn.
   getfp "Auberdine"
   sethome "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
@@ -97,6 +106,7 @@ step Auberdine
   accept 98025                                -- The WANTED poster outside the inn
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 963                                  -- Cerellean Whiteclaw, on the pier
+  accept 729                                  -- Archaeologist Hollee
   accept 1138                                 -- Gubber Blump, on the pier
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 2118                                 -- Tharnariun Treetender
@@ -226,11 +236,6 @@ step The Ancient Flame
   tip The flame burns in the south of Ameth'Aran.
   interact 16393 quest 957.1                  -- Ancient Flame
 
-step The southern beaches
-  tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
-  accept 4728                                 -- Beached Sea Creature
-  accept 4730                                 -- Beached Sea Creature
-
 step The Grove of the Ancients
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
   collect 5414 quest 1003                     -- Grizzled Scalps
@@ -255,23 +260,21 @@ step Bashal'Aran
 step Auberdine
   turnin 985                                  -- Terenthis
   accept 986
+  turnin 4762                                 -- Thundris Windweaver
+  accept 4763
+  collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
   accept 965                                  -- Sentinel Elissa Starbreeze
   accept 2139                                 -- Tharnariun Treetender
-  turnin 4728                                 -- Gwennyth Bly'Leggonde
-  turnin 4730
-  turnin 4727
+  turnin 4813                                 -- Sentinel Glynda Nal'Shea
+  turnin 4727                                 -- Gwennyth Bly'Leggonde
   turnin 4725
 
   turnin 1138                                 -- Gubber Blump, on the pier
   accept 4740                                 -- The WANTED poster
   accept 947                                  -- Barithras Moonshade
-  turnin 4813                                 -- Sentinel Glynda Nal'Shea
   accept 982                                  -- Gorbold Steelhand
   turnin 6122 only NightElf,Druid             -- Alanndarian Nightsong
   accept 6123 only NightElf,Druid
-  turnin 4762                                 -- Thundris Windweaver
-  accept 4763
-  collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
   vendor nearest
 
 # ---------------------------------------------------------------- Third loop: the north
@@ -314,7 +317,6 @@ step The cave and the Den Mother
 
 step Hearth to Auberdine
   hearth "Auberdine"
-  accept 729                                  -- Archaeologist Hollee
   turnin 2139                                 -- Tharnariun Treetender
   turnin 947                                  -- Barithras Moonshade
   accept 948
@@ -356,6 +358,7 @@ step Murkdeep's beach
   accept 4731                                 -- Beached Sea Turtle
   accept 4732                                 -- Beached Sea Turtle
   accept 4733                                 -- Beached Sea Creature
+  accept 4730                                 -- Beached Sea Creature
 
 step Prospector Remtravel
   tip Remtravel's Excavation lies on the coast south of Murkdeep's beach. Protect the prospector while he searches for the fossil.
@@ -372,12 +375,18 @@ step The Grove of the Ancients
   accept 951
   accept 98013                                -- Arbal
 
+step The shore west of the Grove
+  tip On the way north to Auberdine, the last Beached Sea Creature lies on the shore west of the Grove.
+  accept 4728                                 -- Beached Sea Creature
+
 step Auberdine
   tip Follow the road north.
   turnin 731                                  -- Archaeologist Hollee
   turnin 4731                                 -- Gwennyth Bly'Leggonde
   turnin 4732
   turnin 4733
+  turnin 4730
+  turnin 4728
   accept 87760                                -- Holy Diver: Gwennyth offers it once all nine beached remains are handed in
   turnin 4740                                 -- Sentinel Glynda Nal'Shea
   turnin 6123 only NightElf,Druid             -- Alanndarian Nightsong
