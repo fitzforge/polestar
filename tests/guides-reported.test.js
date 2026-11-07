@@ -4948,3 +4948,19 @@ test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken 
 	assert.ok(stepOf('turnin 4449', is('turnin', 4449)) < stepOf('accept 7728', is('accept', 7728)), 'before Thorium Point');
 	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
 });
+
+// Final route review, Alliance 40-60: the pylon loop clockwise as the seed has it (the order crossed the crater from
+// the north-east to the south-west and back east); Ironforge round the ring: Tymor before Archesonus.
+test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon loop one way round, Ironforge in walking order", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const loop = [
+		stepOf('the crate', (g) => g.t === 'collect' && g.quest === 3881 && g.item === 11113),
+		stepOf('the Eastern Pylon', (g) => g.quest === 4287 && g.t !== 'accept' && g.t !== 'turnin'),
+		stepOf('the hive wall', (g) => g.t === 'collect' && g.quest === 3883),
+		stepOf('the bones', (g) => g.t === 'collect' && g.quest === 3882),
+		stepOf('the Western Pylon', (g) => g.quest === 4288 && g.t !== 'accept' && g.t !== 'turnin'),
+	];
+	assert.deepEqual([...loop].sort((a, b) => a - b), loop, 'east side, south, south-west, west');
+	assert.ok(stepOf('turnin 3448', is('turnin', 3448)) < stepOf('accept 3702', is('accept', 3702)), 'Tymor before Archesonus');
+});

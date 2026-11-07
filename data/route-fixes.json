@@ -4587,6 +4587,20 @@
 					0
 				],
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
+			},
+			{
+				"a": [
+					"task",
+					3881,
+					0
+				],
+				"b": [
+					"task",
+					4287,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's second loop goes clockwise, as the seed has it: from A-Me 01 on Ironstone Plateau south down the east side (the Crate of Foodstuffs, the Eastern Pylon), the Gorishi hive in the south, the south-west bones and equipment, the Western Pylon, then north to the refuge. The order crossed the crater from the north-east to the south-west and back east."
 			}
 		],
 		"stay": [
@@ -7493,6 +7507,54 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3448
+				],
+				"b": [
+					"accept",
+					3702
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ironforge in walking order: from the Hall of Explorers along the north ring to Tymor in the Mystic Ward, then Archesonus in the High Seat, then Xiggs in the Military Ward; the order crossed the city to the High Seat and back to the Mystic Ward."
+			},
+			{
+				"a": [
+					"task",
+					4287
+				],
+				"b": [
+					"task",
+					3883
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Eastern Pylon before the Gorishi hive's wall sample in the south."
+			},
+			{
+				"a": [
+					"task",
+					3883
+				],
+				"b": [
+					"task",
+					3882
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Gorishi hive before the Dinosaur Bones in the south-west."
+			},
+			{
+				"a": [
+					"task",
+					3882
+				],
+				"b": [
+					"task",
+					4288
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the south-west bones before the Western Pylon, then north to the refuge."
 			}
 		]
 	}
