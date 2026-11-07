@@ -135,6 +135,9 @@ L["Only once %s is handed in"] = "Nur sobald %s abgegeben ist"
 L["Skipped for your character: its conditions do not hold"] = "Für deinen Charakter übersprungen: seine Bedingungen sind nicht erfüllt"
 L["Skipped for your character: none of its goals apply"] = "Für deinen Charakter übersprungen: keines seiner Ziele trifft zu"
 L["For %s: %s"] = "Für %s: %s"
+-- L["Hand in %s to %s"] = ""
+-- L["Hand in %s"] = ""
+-- L["%s, %d more"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -506,6 +509,11 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["While you're here:"] = ""
+-- L["(step %d)"] = ""
+-- L["Not now (right-click)"] = ""
+-- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
+-- L["Right-click: not now, for the rest of this zone."] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1170,6 +1178,11 @@ L["Did you mean:"] = "Meintest du:"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["When a quick objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = ""
+-- L["How close"] = ""
+-- L["How near its spawn area must be for the line to show. It goes again a little further out."] = ""
+-- L["Include nearby hand-ins"] = ""
+-- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2923,6 +2936,9 @@ L["Finished: %s - %s"] = "Erledigt: %s - %s"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
 -- L["No dungeon has opened up for this character."] = ""
 -- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
+
+-- UI/WhileHere.lua
+-- L["While you're here"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
