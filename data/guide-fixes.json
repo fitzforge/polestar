@@ -2727,6 +2727,24 @@
 				}
 			],
 			"pr": 1087
+		},
+		{
+			"id": "westfall-snouts-in-the-molsen-farm-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 38,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Westfall Stew's Goretusk Snouts come off the Young Goretusks that line the road from Saldean's to Sentinel Hill: a step of their own on that walk (flow audit, 2026-11-07: along lists become steps), not an along list next to the same goal in the Molsen Farm step. Without a writer rule for along-to-step, a build puts them in the Molsen Farm step with the livers.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 454 and 157 spawns; items.json 731 drops"
+				}
+			],
+			"pr": 1080
 		}
 	]
 }
