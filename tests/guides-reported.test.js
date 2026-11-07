@@ -3059,6 +3059,22 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
 });
 
+// The Lost Caravan's tip sent players to Watcher Biggs on the swamp's west road;
+// the Caravan Chest (object 28024) that holds the Wizards' Reagents stands at the
+// north end of the Fallow Sanctuary, beside Galen Goodward's cage, where the
+// step's arrow already leads.
+test(`${ARATHI}: The Lost Caravan's tip and arrow both lead to the Caravan Chest by Galen's cage, not to Watcher Biggs`, { skip }, () => {
+	const list = goals(ARATHI);
+	const reagents = list[at(list, "collect 6170 (Wizards' Reagents)", (g) => g.t === 'collect' && g.item === 6170)];
+	const tips = [].concat(reagents.step.note || []).join(' ');
+	assert.ok(!/near Biggs/.test(tips), `the tip no longer says the caravan is near Biggs: ${tips}`);
+	assert.ok(/Galen/.test(tips), 'the tip names Galen\'s cage');
+	const chest = data.spawns('object', 28024).find((sp) => sp.map === reagents.goal.map);
+	assert.ok(chest, 'the Caravan Chest has a spawn on the goal\'s map');
+	const [x, y] = chest.pts[0];
+	assert.ok(yards(reagents.goal, { map: chest.map, x, y }) < 60, `the arrow leads to the chest (${reagents.goal.x},${reagents.goal.y} vs ${x},${y})`);
+});
+
 // --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
 // to the Oracle Glade, Ursal and Lake Al'Ameth, then walked back east to the
 // same camp for Ferocitas' necklace and the jewel, and back to Dolanaar for
