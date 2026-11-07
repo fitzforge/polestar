@@ -2209,7 +2209,7 @@
 				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
 			}
 		],
-		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. Forever's quest data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. The merged data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
 	},
 	"78133": {
 		"set": {
@@ -2371,6 +2371,18 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"78676": {
+		"set": {
+			"minLevel": 30
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
+			}
+		],
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
 	"79192": {
 		"set": {
@@ -5073,6 +5085,26 @@
 			}
 		],
 		"note": "Desperate Prayer (Priestess Alathea's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"98095": {
+		"set": {
+			"pre": [
+				98094
+			],
+			"preAny": [
+				98094
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western vial placed", "map": 1416, "f": "l", "x": 38.37, "y": 87.21 },
+				{ "type": "event", "id": null, "count": 1, "text": "Northern vial placed", "map": 1424, "f": "l", "x": 72.3, "y": 31.16 },
+				{ "type": "event", "id": null, "count": 1, "text": "Southern vial placed", "map": 1424, "f": "l", "x": 73.78, "y": 72.73 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
+		},
+		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
 	},
 	"98189": {
 		"set": {

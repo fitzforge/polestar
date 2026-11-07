@@ -6018,6 +6018,19 @@
 			},
 			{
 				"a": [
+					"task",
+					529
+				],
+				"b": [
+					"turnin",
+					98095
+				],
+				"faction": "Horde",
+				"why": "#1150 (Konky88), #1051 (soockee): Valuable Vantages (98095) was handed back to Deathstalker Masoj right after it was taken: the data had no objectives. Its three vials go on peaks across the zone (the southern one by Masoj, the western one in Alterac north of Hillsbrad town, the northern one south-east of Tarren Mill), so it is handed in on a return to Masoj after the Hillsbrad town work (529) and the Tarren Mill stop, not at the accept",
+				"source": "#1150"
+			},
+			{
+				"a": [
 					"accept",
 					878
 				],

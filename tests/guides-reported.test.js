@@ -4454,6 +4454,36 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 	}
 });
 
+// Konky88's report (#1150; soockee's #1051): Valuable Vantages was handed back to Deathstalker Masoj in the step
+// that took it, before its three vials were placed: the data had no objectives. The correction gives the three
+// lines with the peaks players placed them on; the guide places each vial, then hands it in on a later visit.
+test("Konky88's report (#1150): Valuable Vantages' three vials come before its hand-in, not in the step that takes it", { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const accept = at(list, 'accept 98095', is('accept', 98095));
+	const turnin = at(list, 'turnin 98095', is('turnin', 98095));
+	assert.notEqual(list[accept].s, list[turnin].s, 'not handed in in the step that takes it');
+	for (const oi of [1, 2, 3]) {
+		const vial = at(list, `objective 98095.${oi}`, (g) => g.quest === 98095 && g.oi === oi);
+		assert.ok(accept < vial && vial < turnin, `vial ${oi} between the accept and the hand-in`);
+		assert.ok(located(list[vial]), `vial ${oi} has a place`);
+	}
+});
+
+// Erá's report (#1160): The Eye of Bhossca, C's second job, comes with C's letter in a capital city's mailbox at
+// level 30 (after the horn job), not at the quest data's 25. The guide, its correction and the class-quest
+// heads-up all wait for 30.
+test("Erá's report (#1160): The Eye of Bhossca waits for level 30", { skip }, () => {
+	const guide = 'forever/class/rogue/the-eye-of-bhossca.guide';
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8'), /^levels 30-35$/m);
+	const list = goals(guide);
+	const accept = at(list, 'accept 78676', is('accept', 78676));
+	const gate = list.find(({ step, goal }) => step === list[accept].step && goal.t === 'level');
+	assert.equal(gate && gate.goal.level, 30, 'a level 30 gate before the Dead Drop');
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
+	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 30, /, 'the heads-up starts at 30');
+});
+
 // --- Flow re-order (2026-11-07, Alliance starts 1-20): the walks below crossed back over ground for one
 // hand-in. Northshire: Garrick's head went to Willem on a trip back to the Abbey steps between Garrick's camp
 // and Milly in the vineyard; now Milly first, Willem with Skirmish at Echo Ridge on the Abbey visit after the

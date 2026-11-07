@@ -109,10 +109,13 @@ step Mudsnout Blossoms
   collect 3502 quest 509
 
 step Deathstalker Masoj
-  accept 98095
-  turnin 98095
   tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
   turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
+  accept 98095                        -- Deathstalker Masoj, once Scout Support is in
+
+step The southern peak
+  tip Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above Dun Garok, just south of him: use a vial at the top.
+  use 279395 quest 98095.3 @73.8,72.7 live
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -123,12 +126,24 @@ step The smithy
   collect 3564 quest 529.3            -- Inside
   kill 2449 quest 567.2
 
+step The western peak
+  tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
+  use 279395 quest 98095.1 @38.4,87.2 map 1416 live
+
 step Tarren Mill
   turnin 498                          -- Krusk, inside
   turnin 549                          -- High Executor Darthalia
   turnin 529                          -- High Executor Darthalia
   turnin 509                          -- Apothecary Lydon, inside
   accept 513                          -- Master Apothecary Faranell, in the Undercity
+
+step The northern peak
+  tip The northern peak rises south-east of Tarren Mill, on the way down towards Durnholde.
+  use 279395 quest 98095.2 @72.3,31.2 live
+
+step Deathstalker Masoj
+  tip Back down to Masoj on the hillside above Dun Garok.
+  turnin 98095                        -- Deathstalker Masoj
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
