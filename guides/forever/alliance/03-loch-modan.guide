@@ -117,12 +117,12 @@ step Ironband's Excavation
 # ---------------------------------------------------------------- The Farstrider Lodge
 
 step The Farstrider Lodge
-  tip North-east to the lodge on the hill. Marek Ironheart stands inside, Daryl the Youngling outside.
+  tip East to the lodge on the hill. Marek Ironheart stands inside, Daryl the Youngling outside.
   accept 86758                                -- Marek Ironheart, inside
   accept 257                                  -- Daryl the Youngling: 15 minutes
 
 step Mountain Buzzards
-  tip Mountain Buzzards circle the hills south and east of the lodge. A Hunter's Boast runs for 15 minutes.
+  tip Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. A Hunter's Boast runs for 15 minutes.
   kill 1194 quest 257                         -- Mountain Buzzard
 
 step Daryl the Youngling

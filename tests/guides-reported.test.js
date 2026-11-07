@@ -5718,8 +5718,8 @@ test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: R
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	for (const q of [244, 246, 98407, 125, 89, 129, 130, 131, 92, 65, 127]) assert.ok(!list.some(({ goal }) => goal.quest === q && (goal.t === 'accept' || goal.t === 'turnin')), `${q} is not in 04-redridge-mountains`);
 	const mill = list.find(({ goal }) => is('accept', 98386)(goal));
-	const posters = list.find(({ goal }) => is('accept', 180)(goal));
-	assert.ok(mill && posters && mill.s < posters.s, 'Alther\'s Mill comes from Foreman Oslow on the first Lakeshire stop');
+	const marris = list.find(({ goal }) => is('accept', 20)(goal));
+	assert.ok(mill && marris && mill.s === marris.s, 'Alther\'s Mill comes from Foreman Oslow on the first Lakeshire stop, with Marshal Marris');
 });
 
 test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and Gnomes do east Elwynn on the way to Westfall, the later starts don\'t', { skip }, () => {
