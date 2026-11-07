@@ -757,6 +757,28 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
 }
 
+// #1046: a building mouth is named after its area, so the Gallows' End Tavern's door read "Walk to
+// the Brill entrance", the town's way in. With an inn's innkeeper beside it, it is the inn's door.
+#[test]
+fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
+	let out = run(r#"
+		nav.useTravelWorld()
+		Polestar.Nav.RegisterTravelData({ inns = { { names = { "Gallows' End Tavern", "Testshire" }, npc = 901, c = 0, wx = 20, wy = -310, map = 9000, x = 50, y = 50, f = "e" } } })
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -300, r = 10, kind = "building", name = "Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -450, r = 10, kind = "building", name = "Westbrook Keep", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#);
+	assert_eq!(out, json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]), "the inn's door says Inn; a building with no innkeeper by it keeps its area's name");
+}
+
 #[test]
 fn k2_the_steps_stay_the_same_over_10_position_updates_along_a_leg_and_advance_as_each_is_reached() {
 	let out = run(&format!(

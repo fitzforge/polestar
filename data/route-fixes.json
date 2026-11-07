@@ -1822,17 +1822,6 @@
 			{
 				"a": [
 					"task",
-					5481
-				],
-				"b": [
-					"accept",
-					365
-				],
-				"why": "RevHS c17 read (Tirisfal, Solliden; #213 seed test 'Fields of Grief is taken at Calvin's duel or Calvin's letter'): Deathguard Simmer stands beside Calvin Montague at the Solliden farmhouse, and the seed takes Fields of Grief in the duel step. c17's route took it in the Gordo step instead (01-tirisfal-glades:321-324), so the arrow went from Gordo's road to Simmer, back east along the road for the Gloom Weed, then west again to Calvin beside him; the seed test failed (fixes blocker). So the Gloom Weed (Gordo's Task) before Simmer's accept: the seed takes Fields of Grief in the duel step, before or after Calvin's own accept, and c18's hub tour pulled it into the Gordo step (accept 590 first was the seed's order backwards, c18 check)"
-			},
-			{
-				"a": [
-					"task",
 					2741
 				],
 				"b": [
@@ -1863,17 +1852,6 @@
 					398
 				],
 				"why": "#801 Tirisfal: WANTED: Maggot Eye (398) needs level 6, and the Brill stop took it from the poster by the inn before Vital Intelligence was handed to Executor Zygand in front of it; an Undead Priest at level 5 (93%) found the poster offering nothing. Vital Intelligence first (340 XP) gives the level at the same stop: checked in game, the poster offered it once the turn-in reached level 6"
-			},
-			{
-				"a": [
-					"turnin",
-					404
-				],
-				"b": [
-					"accept",
-					398
-				],
-				"why": "#801 follow-up (0.3.2): with Vital Intelligence and A Rogue's Deal handed in first, players' in-game recordings still reach the poster at 5.94 and 5.95 in 2 of 6 Tirisfal runs (the model has them at 6), so the poster offers nothing. The second Brill visit (Deathguard Dillinger's A Putrid Task hand-in, then the inn) comes at 6.7 to 7.5 in the recordings and still before Maggot Eye's camp, so the poster is read there: no extra trip"
 			},
 			{
 				"a": [
@@ -2097,7 +2075,7 @@
 			{
 				"a": [
 					"task",
-					99144,
+					368,
 					0
 				],
 				"b": [
@@ -2105,7 +2083,72 @@
 					97558,
 					2
 				],
-				"why": "RevUndead c13 read: the three Vile Fin Murloc Skins for Hides for the Forsaken come from the murlocs on the shore just north of the Crusader's Outpost (Vile Fin Minor Oracles and Muckdwellers at 25-38, 37-48, by Bareth's way out), as v1 has them. c13 moved them to a trip of their own from Brill to the north shore before Agamand Mills (about 460 yd out of the way) and kept the step's tip about the outpost the player had not seen yet"
+				"why": "#1046 (Fitz: do the work where you are; the order of the benchmark guides): the three Vile Fin Murloc Skins for Hides for the Forsaken drop from the Vile Fin Minor Oracles and Muckdwellers, the same murlocs whose scales A New Plague (368) collects on the north shore in Brill's north loop. Hides for the Forsaken is taken at Deathguard Linnea's camp right after the first Brill stop, so the skins go with the scales instead of a stop of their own by the Crusader's Outpost (the record this replaces, from c13, when the hides were taken only after the north loop)"
+			},
+			{
+				"a": [
+					"task",
+					97558,
+					0
+				],
+				"b": [
+					"task",
+					375,
+					0
+				],
+				"why": "#1046: the Duskbat Wing Membranes for Hides for the Forsaken and the Duskbat Pelts for The Chill of Death drop from the same Greater and Vampiric Duskbats over the fields and the road north of Brill: one stretch of the north loop, which goes on to the Doom Weed (the record after 375)"
+			},
+			{
+				"a": [
+					"task",
+					367,
+					0
+				],
+				"b": [
+					"task",
+					97558,
+					1
+				],
+				"why": "#1046: the Darkhound Hides for Hides for the Forsaken and the Darkhound Blood for A New Plague (367) drop from the same Decrepit and Cursed Darkhounds west of Brill: one stretch of the west loop, with the Putrid Claws in the same fields"
+			},
+			{
+				"a": [
+					"task",
+					398,
+					0
+				],
+				"b": [
+					"task",
+					368,
+					0
+				],
+				"why": "#1046: Maggot Eye's camp at Garren's Haunt (58.7,30.8) is on the hill just south of the north shore where the Vile Fins for A New Plague (368) walk: the north loop goes on from him to the shore and back to Brill, one direction, no doubling back"
+			},
+			{
+				"a": [
+					"task",
+					3901,
+					0
+				],
+				"b": [
+					"task",
+					376,
+					0
+				],
+				"why": "#1046 (Fitz: 'the along the way quests are doing more harm than good, they should just be steps'): the Scavenger Paws and Duskbat Wings for The Damned drop from the scavengers and duskbats roaming the same Deathknell village as the Rattlecage Skeletons: one field step, not an along list before it"
+			},
+			{
+				"a": [
+					"task",
+					356,
+					0
+				],
+				"b": [
+					"task",
+					99142,
+					0
+				],
+				"why": "#1046: the Bleeding Horrors and Wandering Spirits for Rear Guard Patrol haunt the Balnir Farmstead's graves, where the Tomb Weed grows: one Balnir step, not an along list on the way from the cult farm"
 			},
 			{
 				"a": [
@@ -2810,6 +2853,55 @@
 		"after": [
 			{
 				"a": [
+					"task",
+					99141,
+					1
+				],
+				"b": [
+					"task",
+					99141,
+					0
+				],
+				"why": "#1046 (one direction): Linnea's camp south-east of Brill first, then Dillinger's report at Brill's west end on the way out to the west loop; a scratch build asked Dillinger first, walked to Linnea's camp and came back west through Brill"
+			},
+			{
+				"a": [
+					"turnin",
+					99134
+				],
+				"b": [
+					"task",
+					99141,
+					1
+				],
+				"why": "#1046: Linnea's camp (Kristof's report) once the first Brill stop is done, Discipline handed in, so the walk out south-east does not leave Zygand's quest open behind it"
+			},
+			{
+				"a": [
+					"task",
+					99141,
+					1
+				],
+				"b": [
+					"task",
+					404
+				],
+				"why": "#1046 (the benchmark guides' order): after the first Brill stop, Deathguard Linnea's camp down the road south-east for Kristof's report (Patience's second objective), Hides for the Forsaken and Rear Guard Patrol, then the west loop; Patience is handed in with all three reports when the west loop comes back to Brill"
+			},
+			{
+				"a": [
+					"task",
+					99141,
+					0
+				],
+				"b": [
+					"task",
+					404
+				],
+				"why": "#1046: Dillinger's report (Patience's first objective) is asked at Brill's west end on the way out to the fields for the Putrid Claws"
+			},
+			{
+				"a": [
 					"accept",
 					245
 				],
@@ -3427,6 +3519,15 @@
 				"q": 8304,
 				"reason": "RevH2 c13 35-60 read: Dearest Natalia (6600 XP, Commander Mar'alith in Cenarion Hold, minimum level 58) is refused by the pickup pass (judge-refused: 1491 XP/min against the route's 1429) while c13 ends with a 195-minute grind to 60; Rutgar and Frankal stand in southern Silithus during the 57.5-58.5 stay. At 59 it is on level and the Silithus stay passes both. Its two objectives are conversations with Rutgar and Frankal, no fight (the game's data still tags it a group quest: verify in game)",
 				"issue": ""
+			},
+			{
+				"q": 355,
+				"after": [
+					"turnin",
+					354
+				],
+				"reason": "#1046 (stand next to it): Coleman Farthing offers Speak with Sevren the moment Deaths in the Family is handed in to him in Brill's inn, and Magistrate Sevren takes it in the town hall 40 yd away on the same stop; 10 of the players in the recordings took it off the guide",
+				"issue": "#1046"
 			}
 		],
 		"skip": [
@@ -4079,30 +4180,6 @@
 					97236
 				],
 				"why": "RevNightElf c10 read: Githyiss the Vile (1994) sits at the back of Shadowthread Cave beside the Webwood Eggs (12 yd apart, the server's spawns), and the Fang of Githyiss (97236, 450 XP) goes to Gilshalan, who takes the egg (917). c10 walks to the back of the cave twice: for Githyiss on the venom trip, then for the eggs. Kill him on the egg trip and hand both in together; the venom trip stays at the mouth and Iverron",
-				"source": "review"
-			},
-			{
-				"a": [
-					"turnin",
-					383
-				],
-				"b": [
-					"accept",
-					5481
-				],
-				"why": "FitzTest c12w (#739's run): Gordo's Task (5481) needs level 5 in Forever's quest data, and the first pass by Gordo, on the walk in from Deathknell, comes at about level 4 in play (Fitz was 4 there; the model says 6.0, see the level table in FitzTest-c12w-issues.md), so Gordo would not offer it and the guide skips it with its Gloom Weed and hand-in. Taken on the pass after Brill (Gordo's report for Patience, about level 7), with the Gloom Weed on the west road and the hand-in at Holland on the way back",
-				"source": "review"
-			},
-			{
-				"a": [
-					"turnin",
-					590
-				],
-				"b": [
-					"turnin",
-					5481
-				],
-				"why": "RevUndead c13 read: with Gordo's Task taken after Brill (the pair above), c13 handed it to Junior Apothecary Holland at once: Brill, west along Gordo's road to 43,55, back to Holland at the north-west edge of Brill, then out west again for the Putrid Claws, the Darkhound Blood and Calvin's duel (about 1,500 yd walked twice, a second trip west). The hand-in waits for the hearth back to Brill after the duel, so Gordo's report, the Gloom Weed, the claws and the blood are one westward sweep that ends at Calvin, as v1 does",
 				"source": "review"
 			},
 			{
@@ -4874,6 +4951,318 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"accept",
+					365
+				],
+				"b": [
+					"task",
+					5481
+				],
+				"why": "#1046 (Fitz: 'ran past the quest giver for Fields of Grief'): Deathguard Simmer stands by the road at the Solliden farmhouse beside Calvin Montague, on the walk out of Deathknell; Fields of Grief is taken there with Calvin's letter, before Gordo's road. Players took it ahead of the old order in 13 of 20 recorded runs, and both benchmark guides take it there",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"task",
+					365
+				],
+				"b": [
+					"accept",
+					5481
+				],
+				"why": "#1046 (Fitz: 'you've saved the pumpkins for when I do the Scarlet ... it feels very disjointed'): the pumpkin fields lie just north-west of the Solliden farmhouse, among level 5-6 farmers, and Gordo's road runs east from there to Brill: the pumpkins are picked on the walk out of Deathknell, before the road east. Three recorded players did exactly this at level 5 (6 to 11 minutes)",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"task",
+					365
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046: Fields of Grief is done before Brill, so its hand-in to Apothecary Johaan (and The Captured Scarlet Zealot's in the town hall basement) fall on the first Brill stop instead of a later trip back to Solliden",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"task",
+					5481
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046 (Fitz: 'pick up Gordo's task ... along the way'): Gordo's Task and its Gloom Weed on the road into Brill, as a step. This replaces the FitzTest c12w pair (taken only after Brill because Fitz was level 4 at Gordo then): in the 0.3.x recordings all 24 Undead runs reach Calvin Montague at level 5 or 6, the pumpkins come before Gordo now, and Gordo's Task needs level 5",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					404
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046 (Fitz: 'ran past ... Deathguard Dillinger'; 'why is Graverobbers the first quest out of Deathknell?'): the road from Solliden enters Brill at its west end, where Dillinger stands; A Putrid Task is taken there on the way in, before the square",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					86784
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046: Deathguard Bartholomew stands beside Dillinger at Brill's west end: Sticks and Bones is taken with A Putrid Task on the way in",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					86784
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046 (Fitz: order by the direction of travel): the Dry Branches lie around Brill's south-west edge and Eleanor Shackleton camps just south-west of town, between the west entrance and the square: the branches, The Adventurer and The Great Outdoors are done on the way in, then the square",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					5481
+				],
+				"b": [
+					"turnin",
+					383
+				],
+				"why": "#1046: Junior Apothecary Holland walks the north-west side of Brill, a few steps from Dillinger at the west entrance: Gordo's Task is handed in (and Doom Weed taken) on the way in",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					97558
+				],
+				"b": [
+					"task",
+					367
+				],
+				"why": "#1046: Hides for the Forsaken is taken before the west loop, so its Darkhound Hides drop from the same darkhounds as the Darkhound Blood, and its wings and skins on the north loop, instead of a sweep of their own at the end",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					590
+				],
+				"b": [
+					"task",
+					427
+				],
+				"why": "#1046 (Fitz: 'felt strange that I need to come back here and do this quest'): Calvin Montague's duel (offered once Innkeeper Renee has his letter) is fought on the west loop's way past the Solliden farmhouse to the Crusader's Outpost, never on a trip of its own",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					97558
+				],
+				"b": [
+					"task",
+					426
+				],
+				"why": "#1046: Hides for the Forsaken is finished on the north loop and handed in to Shelene Rhobart on the visit to Deathguard Linnea's camp for Forsaken Duties, before Agamand Mills",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					365
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 and #1046: WANTED: Maggot Eye needs level 6. With the pumpkins done on the road in, Fields of Grief (630 XP) is handed to Johaan at the start of the first Brill stop, then Vital Intelligence to Zygand beside the poster (the #801 pair): the three recorded runs that played this order were level 6 at Johaan and read the poster on that stop. This replaces the #801 follow-up pair (the poster on the second stop, after A Putrid Task), made when the first stop came at 5.94 in 2 of 6 runs with nothing before Vital Intelligence",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					86784
+				],
+				"b": [
+					"turnin",
+					365
+				],
+				"why": "#1046 (Fitz: order a hub along the walk): Brill is entered from the west, so Eleanor's camp at the south-west edge comes before the square; a scratch build from the #1046 seed did the square first, walked back out to Eleanor and came in again for Vital Intelligence",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					86784
+				],
+				"b": [
+					"turnin",
+					8
+				],
+				"why": "#1046: as the pair before it, the inn (Calvin's letter to Innkeeper Renee, the bind) after Eleanor's camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					99134
+				],
+				"why": "#1046 (Fitz: 'ran past Executor Zygand who has a quest to turn in'): at Zygand, Vital Intelligence is handed in before his new quests are taken, so it is never carried past him",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					426
+				],
+				"b": [
+					"accept",
+					96895
+				],
+				"why": "#1046: The Argent Emissary needs level 10; in the recordings players reach 10 at The Mills Overrun's hand-in (16 of 19), so Deathguard Terrence's quest is taken on the Brill stop after the Mills, not before (a scratch build took it before the Mills on the model's level)",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					99141
+				],
+				"why": "#1046: at Zygand, Vital Intelligence is handed in before Patience is taken (as Discipline), so it is never carried past him",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					358
+				],
+				"why": "#1046 (Fitz: 'why is Graverobbers the first quest out of Deathknell?'): Magistrate Sevren's Graverobbers in the town hall is taken after the square's hand-ins, at the far side of the first Brill stop; a scratch build from the #1046 seed still took it first",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					404
+				],
+				"b": [
+					"accept",
+					99141
+				],
+				"why": "#1046: Dillinger and Bartholomew at Brill's west end come before the square (a scratch build took Patience from Zygand on the way in, across the square, before Dillinger)",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					95314
+				],
+				"why": "#1046: That Shadowvale Green Elixir needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					375
+				],
+				"why": "#1046: The Chill of Death needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					362
+				],
+				"why": "#1046: The Haunted Mills needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					354
+				],
+				"why": "#1046: Deaths in the Family needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					362
+				],
+				"b": [
+					"task",
+					370
+				],
+				"why": "#1046 (hand in at every ender you pass): back from Agamand Mills, The Haunted Mills is handed to Coleman Farthing on that Brill stop, before the Scarlet camp; a scratch build carried it (and Deaths in the Family) past the inn to the stop after the camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					354
+				],
+				"b": [
+					"task",
+					370
+				],
+				"why": "#1046: as the pair before it, Deaths in the Family (and Speak with Sevren, which it opens) before the Scarlet camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					371
+				],
+				"b": [
+					"turnin",
+					96899
+				],
+				"why": "#1046: the walk from Linnea's camp west to Leonid passes through Brill, so A New Plague, At War With The Scarlet Crusade and Tomb Weed are handed in there on the way, not carried to Leonid and Shadowvale and back (a scratch build did that)",
+				"source": "#1046"
 			}
 		]
 	}

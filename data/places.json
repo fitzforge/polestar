@@ -149,6 +149,53 @@
 			"pr": 678
 		},
 		{
+			"id": "1046-tirisfal-gordo-road-east",
+			"quest": 5481,
+			"objective": "giver",
+			"path": {
+				"map": 1420,
+				"frame": "era",
+				"points": [
+					[
+						43.1,
+						54.7
+					],
+					[
+						45.5,
+						56.6
+					],
+					[
+						47.3,
+						57.4
+					],
+					[
+						49.7,
+						58.0
+					],
+					[
+						51.8,
+						55.4
+					],
+					[
+						53.8,
+						53.1
+					]
+				]
+			},
+			"note": "Gordo's Task: Gordo walks the road between his spawn west of Cold Hearth Manor and Brill. The route takes his quest on the walk from the Solliden Farmstead into Brill (#1046), so the arrow searches along his road from the Solliden end east towards Brill, the way the player walks; the same road as 674-tirisfal-gordo-road, in the other direction.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#674"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_movement_template, creature guid 28413 (entry 10666): waypoints 1, 13, 103, 25, 37 and 49"
+				}
+			],
+			"issue": 1046
+		},
+		{
 			"id": "692-darkshore-plagued-bears",
 			"quest": 2118,
 			"objective": 1,
