@@ -277,24 +277,25 @@ fn with_expand_step_tips_off_the_tip_is_one_line_until_clicked() {
 }
 
 #[test]
-fn step_tips_start_open_by_default_with_expand_step_tips_off_on_one_line() {
+fn step_tips_start_on_one_line_by_default_with_expand_step_tips_on_in_full() {
 	let out = run(r#"
 		Polestar.Set("ui.width", 300)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip = GF.parts.tip
 		local byDefault = tip.psOpen
-		Polestar.Set("ui.notesOpen", false)
 		local closedH = tip:GetHeight()
-		local off = tip.psOpen
 		Polestar.Set("ui.notesOpen", true)
 		local now = tip.psOpen
+		Polestar.Set("ui.notesOpen", false)
+		local off = tip.psOpen
+		Polestar.Set("ui.notesOpen", true)
 		tip:Click()
 		local clicked = tip.psOpen
 		uistub.setStep(4)
 		uistub.setStep(3)
 		emit({ byDefault = byDefault, off = off, closedH = closedH, now = now, clicked = clicked, next = tip.psOpen, h = tip:GetHeight() })"#)
 	.remove(0);
-	assert_eq!(out["byDefault"], true, "a new player sees the tip in full");
+	assert_eq!(out["byDefault"], false, "a new player sees the tip on one line, not a wall of text");
 	assert_eq!(out["off"], false, "turning it off folds the tip on screen");
 	assert_eq!(out["now"], true, "turning it on opens the tip on screen");
 	assert_eq!(out["clicked"], false, "a click still folds it");
