@@ -2790,7 +2790,12 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
-class teleports, learned path nodes and crossing waypoints. It orders by
+class teleports, learned path nodes and crossing waypoints. A flight master
+of the player's faction not learnt yet, on the start's or the target's
+continent, is a vertex too: walked to, learnt there (5 s) and flown from to
+known ones, never flown to and never walked on from (no walk measure from it;
+otherwise Rut'theran's would beat the Darnassus portal, #989) (#1174:
+Ironforge's, beside a player who knows Menethil Harbor). It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
