@@ -2836,8 +2836,13 @@ The candidates run from the furthest in, ever closer together, so a look
 costs one line in open ground and about ten at most, and it is made again
 only after the player moves 2 yd. Where nothing ahead is in sight (beside a
 cliff, a river crossed by a bridge, a building's walls) the aim is the
-corridor's above: tight. While the aim is in sight (`state.sighted`) the
-player has not strayed: no new search. The route line's walk then starts
+corridor's above: tight. The aim never runs back along the path: a point
+found in sight stays the aim until the player passes it, a further one is
+found, or they have moved 12 yd (`SIGHT_HOLD`) without seeing it again (on
+the real maps the grid closes a step at a lamp post or a fence post between
+two looks), and within 15 yd of the path (the road's join) the corridor's aim
+wins whenever it lies further along. While a point ahead is in sight
+(`state.sighted`) the player has not strayed: no new search. The route line's walk then starts
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
 straight across to the nearest one. The yards it reports are
 the yards left along the path (straight to the end of the segment the player
