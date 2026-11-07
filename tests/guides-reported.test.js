@@ -1210,8 +1210,12 @@ test(`${BARRENS_12}: Kolkar Leaders is taken, worked and handed in on Regthar's 
 	assert.ok(!goals(BARRENS).some(({ goal }) => goal.quest === 850), 'nothing of Kolkar Leaders is left for the 19-23 guide');
 });
 
-test(`${BARRENS_12}: no "along the way" lists`, { skip }, () => {
-	assert.deepEqual(compiled(BARRENS_12).steps.filter((step) => step.along).map((step) => step.title), []);
+// Background goals (#1135, docs/GUIDE_FORMAT.md "Background goals": the heads and beaks, worked over the stay
+// with a finish step before the hand-in) are along steps by design; every other list stays a step.
+test(`${BARRENS_12}: no "along the way" lists but the background goals`, { skip }, () => {
+	const background = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.filter((r) => r.background).map((r) => `${r.at.quest}.${r.at.objective}`));
+	const lists = compiled(BARRENS_12).steps.filter((step) => step.along && !step.goals.every((g) => background.has(`${g.quest}.${g.oi}`)));
+	assert.deepEqual(lists.map((step) => step.title), []);
 });
 
 test(`${BARRENS}: Raptor Horns is handed to Mebok on the first Ratchet stop when the horns are done`, { skip }, () => {
