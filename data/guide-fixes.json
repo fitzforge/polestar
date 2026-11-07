@@ -165,6 +165,108 @@
 			]
 		},
 		{
+			"id": "1046-deathknell-paws-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Damned: the Scavenger Paws are killed in the Rattlecage step, a field step of its own (route-fixes together 3901 with 376), not an along list: the scavengers roam the same village as the skeletons (Fitz on #1046: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1508 (Young Scavenger) spawns 29-35, 56-69 and npc 1509 (Ragged Scavenger) 34-38, 56-66; npc 1890 (Rattlecage Skeleton) 31-35, 59-65"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-deathknell-wings-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Damned: the Duskbat Wings, as the paws: one Deathknell field step with the Rattlecage Skeletons, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1512 (Duskbat) spawns 28-36, 56-72 and npc 1513 (Mangy Duskbat) 34-38, 57-67"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-horrors-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Bleeding Horrors haunt only the Balnir Farmstead's graves, where the Tomb Weed grows: they are killed in the Balnir step (route-fixes together 356 with 99142), not listed along the way from the cult farm (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1529 (Bleeding Horror): all 12 spawns at the Balnir Farmstead, map 74-79, 59-63"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-spirits-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Wandering Spirits, as the Bleeding Horrors: one Balnir step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1532 (Wandering Spirit): all 12 spawns at the Balnir Farmstead, map 74-78, 58-62"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-ribs-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Notched Ribs drop from the Rattlecage and Cracked Skull Soldiers at Agamand Mills, in the Mills step; a scratch build from the #1046 seed listed them along the way before it (#1046: no along lists).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1520 (Rattlecage Soldier) spawns 44-51, 34-44 and npc 1523 (Cracked Skull Soldier) 43-51, 28-35"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-skulls-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Blackened Skulls drop from the Darkeye Bonecasters at Agamand Mills, in the Mills step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1522 (Darkeye Bonecaster) spawns 42-51, 28-43"
+				}
+			],
+			"issue": 1046
+		},
+		{
 			"id": "tirisfal-graverobbers-not-on-the-way",
 			"at": {
 				"quest": 358,
@@ -477,35 +579,6 @@
 				}
 			],
 			"issue": 365
-		},
-		{
-			"id": "798-gordo-on-the-road-to-brill",
-			"faction": "Horde",
-			"at": {
-				"quest": 5481,
-				"goal": "accept"
-			},
-			"early": {
-				"after": {
-					"quest": 8,
-					"goal": "accept"
-				},
-				"title": "Gordo on the road to Brill",
-				"when": "level>=5",
-				"tip": "Gordo walks the road between Cold Hearth Manor and Brill: take Gordo's Task when you pass him and pick the Gloom Weed along the road."
-			},
-			"note": "Gordo's Task needs level 5, so the route takes it on the pass west after Brill (route-fixes, FitzTest c12w). Players already level 5 walk past Gordo on the road from Calvin Montague to Brill: from level 5 the quest and its Gloom Weed are listed along the way until Gordo's own step, which still takes it for everyone else.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings since launch (Tirisfal): of 6 runs, 4 took Gordo's Task right after Calvin Montague at level 5 or 6 and handed it in on the first Brill visit"
-				},
-				{
-					"kind": "in-game-check",
-					"ref": "#798"
-				}
-			],
-			"issue": 798
 		},
 		{
 			"id": "820-applejack-still",
@@ -1508,26 +1581,46 @@
 			"pr": 960
 		},
 		{
-			"id": "upstairs-brill-inn-trainers-turnin-5481",
+			"id": "1046-gallows-end-tavern-in-one-go",
 			"faction": "Horde",
 			"at": {
-				"quest": 5481,
+				"quest": 8,
 				"goal": "turnin"
 			},
-			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Brill's first stop does the square first (Johaan, Zygand, the poster, Sevren, Discipline) and the Gallows' End Tavern last, in one go (Fitz on #1046's follow-up: in, out and back in again). Who is inside comes from the walking grid's WMO areas (grid 70532, areas.json 'Gallows' End Tavern', AreaTable 2119) under each spawn at its height: Innkeeper Renee (34.3), Coleman Farthing (33.7), Yvette Farthing (34.3), Austil de Mon (33.7) and William Pickman (34.3, the north end) on the ground floor; Gretchen Dedmar, Cain Firesong, Dark Cleric Beryl, Rupert Boch and Marion Call upstairs (41.2); the Captured Scarlet Zealot and the Captured Mountaineer in the cellar (27.2-27.3), also inside the tavern, not the town hall. Players' recorded walks to Pickman and the captives go in and out by the south door (61.5,53.0). Replaces upstairs-brill-inn-trainers-turnin-383 (the same upstairs sentence on the square stop, from #960/#961).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4 70532) WMO group areas under the spawns: 'Gallows' End Tavern' (2119) for npcs 5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211; 'Brill Town Hall' (2118) for 1499 only"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature positions: 265944 2288.0,242.9,34.3; 1931 2292.5,233.1,27.3; 2211 2288.9,234.3,27.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recorded walks around the hand-ins of 407 and 492 and Pickman's window: in and out at 61.4-61.6, 52.9-53.4"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-404",
+			"faction": "Horde",
+			"at": {
+				"quest": 404,
+				"goal": "turnin"
+			},
+			"tip": "Back east along the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "The Brill stop after the west loop (A Putrid Task handed in to Deathguard Dillinger at the west end of town, #1046) trains every class: the mage, priest, warlock and rogue trainers stand on the inn's upper floor (spawn height 41.2 against the ground floor's 34.3), as for the other Brill stops.",
 			"source": [
 				{
 					"kind": "tdb",
 					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
-				},
-				{
-					"kind": "client",
-					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
 				}
 			],
-			"issue": 961,
-			"pr": 960
+			"issue": 1046
 		},
 		{
 			"id": "upstairs-brill-inn-trainers-turnin-5482",
