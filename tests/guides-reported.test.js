@@ -3310,21 +3310,49 @@ test(`${ARATHI}: The Lost Caravan's tip and arrow both lead to the Caravan Chest
 // --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
 // to the Oracle Glade, Ursal and Lake Al'Ameth, then walked back east to the
 // same camp for Ferocitas' necklace and the jewel, and back to Dolanaar for
-// Tallonkai alone. The necklace and the jewel come with the mystics, Tallonkai
-// takes the jewel on the next Dolanaar stop with Ursal the Mauler. The guide's
-// last step told Night Elves to take the boat to Stormwind before their own
-// Darkshore guide: it goes, the boat is that guide's.
-test(`${TELDRASSIL}: flow audit: Ferocitas' camp once, Tallonkai's jewel on the next Dolanaar stop, no boat before Darkshore`, { skip }, () => {
+// Tallonkai alone. The necklace and the jewel come with the mystics; Tallonkai
+// takes the jewel as the walk west to the Oracle Glade passes through
+// Dolanaar (#1087). The guide's last step told Night Elves to take the boat to
+// Stormwind before their own Darkshore guide: it goes, the boat is that guide's.
+test(`${TELDRASSIL}: flow audit: Ferocitas' camp once, Tallonkai's jewel on the way through Dolanaar, no boat before Darkshore`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const mystics = at(list, 'kill 7235 (Gnarlpine Mystics)', (g) => g.t === 'kill' && g.quest === 2459);
 	const jewel = at(list, 'collect 8050 (Tallonkai\'s Jewel)', (g) => g.t === 'collect' && g.item === 8050);
 	assert.equal(list[jewel].s, list[mystics].s, 'the jewel on the mystics\' step');
 	const tallonkai = at(list, 'turnin 2459', is('turnin', 2459));
-	assert.equal(list[tallonkai].s, list[at(list, 'turnin 486', is('turnin', 486))].s, 'Tallonkai on the Dolanaar stop that hands in Ursal the Mauler');
-	assert.ok(tallonkai < at(list, 'collect 286017 (Dewy Lasher Frond)', (g) => g.t === 'collect' && g.item === 286017), 'before Lake Al\'Ameth');
+	assert.ok(jewel < tallonkai, 'the jewel is handed in after the camp');
+	assert.ok(tallonkai < at(list, 'accept 937 (The Enchanted Glade)', is('accept', 937)), 'on the way to the Oracle Glade, before Arynia');
 	const { steps } = compiled(TELDRASSIL);
 	assert.ok(!steps.some((st) => /boat/i.test(st.title || '')), 'no boat step in Teldrassil');
 	assert.ok(steps.at(-1).goals.length > 0, 'the last step has something to do');
+});
+
+// --- Flow re-order (2026-11-07, #1087): Teldrassil sent players back and
+// forth. Aldrassil -> north for The Balance of Nature's kills -> back to
+// Ilthalaine -> north again to the cave; Dolanaar -> the Fel Cones east ->
+// back to Dolanaar to train -> west; the Oracle Glade's moonwell visited three
+// times before the Amethyst Phial was filled; two along lists. Now one trip
+// north (kills, venom sacs, Iverron), the cones on the road east to Zenn after
+// the west loop, training on the Dolanaar stop, the phial on arrival, a
+// Warrior's Nessa Shadowsong on the first walk into Darnassus, and no along
+// steps.
+test(`${TELDRASSIL}: flow re-order: one trip north from Aldrassil, the cones on the road east, the phial on arrival, no along steps`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const { steps } = compiled(TELDRASSIL);
+	assert.deepEqual(steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const kills = at(list, 'kill 2032 (Mangy Nightsabers)', (g) => g.t === 'kill' && g.quest === 457);
+	const sacs = at(list, 'collect 5166 (Webwood Venom Sacs)', (g) => g.t === 'collect' && g.quest === 916);
+	assert.equal(list[sacs].s, list[kills].s, 'the north kills and the venom sacs in one step');
+	assert.equal(list[at(list, 'turnin 457', is('turnin', 457))].s, list[at(list, 'turnin 916', is('turnin', 916))].s, 'The Balance of Nature handed in with the venom sacs');
+	const cones = at(list, 'collect 3418 (Fel Cones)', (g) => g.t === 'collect' && g.quest === 489);
+	assert.ok(at(list, 'turnin 483 (The Relics of Wakening)', is('turnin', 483)) < cones, 'the cones after the west loop');
+	assert.equal(list[cones].s, list[at(list, 'turnin 489', is('turnin', 489))].s, 'the cones on Zenn\'s step');
+	const relics = at(list, 'accept 483', is('accept', 483));
+	assert.ok(list.some(({ goal, s }) => s === list[relics].s && goal.t === 'train' && goal.class), 'training on the Dolanaar stop that gives the relics');
+	const phial = at(list, 'collect 18151 (Amethyst Phial)', (g) => g.t === 'collect' && g.quest === 7383);
+	assert.equal(list[phial].s, list[at(list, 'accept 937', is('accept', 937))].s, 'the phial filled on the first moonwell stop');
+	const warrior = list.filter(forClass('WARRIOR'));
+	assert.ok(at(warrior, 'accept 6344 (Warrior)', is('accept', 6344)) < at(warrior, 'turnin 1684 (Elanaria)', is('turnin', 1684)), 'a Warrior takes Nessa Shadowsong on the first walk into Darnassus');
 });
 
 test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides', { skip }, () => {

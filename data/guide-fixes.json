@@ -2693,6 +2693,40 @@
 				}
 			],
 			"pr": 1090
+		},
+		{
+			"id": "1087-teldrassil-young-thistle-boars-in-their-step",
+			"at": {
+				"quest": 456,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Balance of Nature: the Young Thistle Boars roam around Aldrassil with the Young Nightsabers and are killed in the Shadowglen field step with them, the Fel Moss and the totems; an along list from the start split the boars from the nightsabers of the same quest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps), nightelf/01-teldrassil step 2 on #1081"
+				}
+			],
+			"pr": 1087
+		},
+		{
+			"id": "1087-teldrassil-hyacinth-mushrooms-in-their-step",
+			"at": {
+				"quest": 3521,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Iverron's Antidote: the Hyacinth Mushrooms drop from the Grells around Aldrassil and are collected in the antidote step with the Moonpetal Lilies, before the cave; an along list from the training stop kept them on screen into Shadowthread Cave, where no Grells are.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps), nightelf/01-teldrassil step 9 on #1081"
+				}
+			],
+			"pr": 1087
 		}
 	]
 }
