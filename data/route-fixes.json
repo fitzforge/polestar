@@ -4896,6 +4896,17 @@
 					840
 				],
 				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+			},
+			{
+				"a": [
+					"turnin",
+					842
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
 			}
 		]
 	}
