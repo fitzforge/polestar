@@ -2446,6 +2446,19 @@ function GF.PaintSkip(shown, enabled)
 	local a = enabled and 1 or 0.35
 	W.Color(b.Icon, "textDim", a)
 	W.Color(b.Label, "textDim", a)
+	GF.PaintBarText()
+end
+
+-- ui.barText "class": the step bar's words (the guide's name, the step count,
+-- Skip) in the player's class colour; "default": the theme's.
+function GF.PaintBarText()
+	if not (nav and rawget(nav, "Title") and rawget(nav, "Skip")) then return end
+	local r, g, b
+	if ns.Get("ui.barText") == "class" then r, g, b = Theme.ClassColor() end
+	for _, it in ipairs({ { nav.Title, "textDim" }, { nav.Steps.Count, "text" }, { nav.Skip.Label, "textDim" } }) do
+		local fs = it[1]
+		if r then fs:SetTextColor(r, g, b, fs.psAlpha or 1) else W.Color(fs, it[2], fs.psAlpha) end
+	end
 end
 
 -- Skip sits left of the Nearby services button, or of the bug when that
@@ -3241,9 +3254,10 @@ function GF.TabsOf(E) return tabsOf(E) end
 local watcher = CreateFrame("Frame")
 local hovering = false
 
-local function chromeAlpha()
-	if not transparent() then return 1 end
-	return hovering and 1 or 0
+-- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
+local function chromeAlpha(c)
+	if not transparent() or hovering then return 1 end
+	return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
 end
 
 local function fadeChrome(to)
@@ -3252,7 +3266,7 @@ local function fadeChrome(to)
 		if to == 1 then
 			Anim.To(c, "alpha", c:GetAlpha(), 1, Anim.FAST, "out")
 		else
-			Anim.To(c, "alpha", c:GetAlpha(), 0, Anim.BASE, "out")
+			Anim.To(c, "alpha", c:GetAlpha(), chromeAlpha(c), Anim.BASE, "out")
 		end
 	end
 end
@@ -3293,6 +3307,7 @@ function GF.ApplyStyle()
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
+	band.Shade:SetShown(clear and ns.Get("ui.barShown") and ns.Get("ui.barShade") and true or false)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
@@ -3308,7 +3323,7 @@ function GF.ApplyStyle()
 	end
 	for i = 1, #chrome do
 		Anim.Stop(chrome[i], "alpha")
-		chrome[i]:SetAlpha(chromeAlpha())
+		chrome[i]:SetAlpha(chromeAlpha(chrome[i]))
 	end
 	GF.Layout()
 end
@@ -3434,6 +3449,9 @@ local APPLY = {
 	["ui.opacity"] = function() GF.ApplyAlpha(false) end,
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
 	["ui.style"] = function() GF.ApplyStyle() end,
+	["ui.barShown"] = function() GF.ApplyStyle() end,
+	["ui.barShade"] = function() GF.ApplyStyle() end,
+	["ui.barText"] = function() GF.PaintBarText() end,
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
@@ -3910,6 +3928,11 @@ local function build()
 	band = Theme.Band(F, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
+	-- ui.barShown: a dark strip behind a transparent window's tabs and step bar, so they read over the world.
+	band.Shade = W.Tex(F, "BACKGROUND", nil, nil, -6)
+	band.Shade:SetVertexColor(0, 0, 0, 0.55)
+	band.Shade:SetAllPoints(band)
+	band.Shade:Hide()
 
 	-- Tab strip
 	strip = CreateFrame("Frame", nil, F)
@@ -4017,6 +4040,8 @@ local function build()
 	end)
 	skip:Hide()
 	nav.Skip = skip
+	-- Last of the repaint: the class colour wins over the theme's (ui.barText).
+	W.Painter(nav, function() GF.PaintBarText() end)
 	anchorSkip()
 	nav.Title = T(nav, "small", "textDim")
 	-- The step's own title and the guide's facts, on the step number.
