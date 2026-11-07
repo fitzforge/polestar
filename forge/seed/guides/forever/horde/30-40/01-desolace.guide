@@ -249,6 +249,7 @@ step Shadowprey Village
   tip Head south-west to the troll village on the coast, keeping clear of the Gelkis Village on the way.
   getfp "Shadowprey Village"
   accept 5763                         -- Roon Wildmane: for Hemet Nesingwary in Stranglethorn
+  accept 6143                         -- Drulzegar Skraghook
   accept 6142                         -- Mai'Lahii
 
 step Clam beds
@@ -263,6 +264,9 @@ step Slitherblade Oracles
 step Ethel Rethor
   tip Azore Aldamort waits in the ruined tower of Ethel Rethor, inland to the south-east.
   accept 5741                         -- Azore Aldamort
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2
+  kill 4712 quest 6143.3
 
 step Burning Blade Seer
   tip The Seer stands on the south side of Thunder Axe Fortress, east of Ethel Rethor. Clear the cultists around it first.
@@ -285,6 +289,7 @@ step Gelkis Village
 
 step Shadowprey Village
   turnin 6142                         -- Mai'Lahii
+  turnin 6143                         -- Drulzegar Skraghook
 
 # ---------------------------------------------------------------- To Tarren Mill
 
