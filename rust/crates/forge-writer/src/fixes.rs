@@ -603,7 +603,8 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 			.collect();
 		let header_zone = lines.iter().find_map(|l| l.strip_prefix("zone ").map(|z| z.trim().to_string()));
 		let tip = format!("{ind}tip {mention}");
-		let bg_start = (0..lines.len()).find(|&i| lines[i].trim_end() == format!("step {title}"));
+		let bg_title = format!("step {title}");
+		let bg_start = (0..lines.len()).find(|&i| lines[i].trim_end() == bg_title);
 		let fin_start = (0..lines.len()).rev().find(|&i| lines[i].trim_end() == finish_title);
 		if let (Some(from), Some(to)) = (bg_start, fin_start) {
 			let mut k = from + 1;
@@ -640,7 +641,8 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 		return Vec::new();
 	}
 	// The lines the record now stands on: the background, finish and mention lines.
-	(0..lines.len()).filter(|&i| objective_line(&lines[i], q, n) || b["mention"].as_str().is_some_and(|m| lines[i].trim() == format!("tip {m}"))).collect()
+	let mention_tip = b["mention"].as_str().map(|m| format!("tip {m}"));
+	(0..lines.len()).filter(|&i| objective_line(&lines[i], q, n) || mention_tip.as_deref() == Some(lines[i].trim())).collect()
 }
 
 /// A line apply_fix drops once every found line is done.
