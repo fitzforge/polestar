@@ -535,6 +535,23 @@ end
 
 -- Two widgets side by side in the body's columns at y, sized by
 -- layout(widget, width) -> height and both as tall as the taller. -> height
+-- The settings you changed as a settings string, in the copy window.
+function O.ExportSettings()
+	local S = ns.SettingsString
+	if not (S and UI.ShowCopy) then return end
+	local text, n = S.Export()
+	local hint
+	if n == 0 then
+		hint = L["Your settings are all at their defaults, so this string changes nothing. Copy it with Ctrl+C (Cmd+C on a Mac)."]
+	elseif n == 1 then
+		hint = L["1 changed setting. Copy it with Ctrl+C (Cmd+C on a Mac); a friend pastes it on the Import page."]
+	else
+		hint = string.format(L["%d changed settings. Copy them with Ctrl+C (Cmd+C on a Mac); a friend pastes them on the Import page."], n)
+	end
+	UI.ShowCopy(L["Your Polestar settings"], text, { icon = "sliders", hint = hint })
+	return text, n
+end
+
 local function placePair(view, pair, y, cw, layout)
 	local h = 0
 	for col, w in ipairs(pair) do
@@ -705,7 +722,12 @@ local function buildAbout(view)
 				onAccept = function() if ns.ResetSettings then ns.ResetSettings() end end })
 		end, { danger = true })
 	local resetPos = W.ActionTile(view, "window", L["Reset positions"], L["Guide window, arrow and these windows."], resetPositions)
-	view.ResetAll = resetAll
+	-- Settings strings (Core/SettingsString.lua, #1031): the changed settings
+	-- as text to share, read back on the Import page.
+	local export = W.ActionTile(view, "sliders", L["Export settings"], L["The settings you changed, as text to share with a friend."], function() O.ExportSettings() end)
+	local import = W.ActionTile(view, "plus", L["Import settings"], L["Paste a friend's settings on the Import page and see what changes first."],
+		function() ns.Fire("SHOW_IMPORT") end)
+	view.ResetAll, view.Export, view.Import = resetAll, export, import
 	view.Refresh = function()
 		ver:SetText(versionLine())
 		W.SetStageChip(stage)
@@ -760,7 +782,8 @@ local function buildAbout(view)
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		maintH:SetWidth(width)
 		y = y + 44 + 4
-		return y + placePair(view, { resetAll, resetPos }, y, cw, W.LayoutTile) + 24
+		y = y + placePair(view, { resetAll, resetPos }, y, cw, W.LayoutTile) + 8
+		return y + placePair(view, { export, import }, y, cw, W.LayoutTile) + 24
 	end
 end
 
@@ -1737,6 +1760,20 @@ function O.Controls(key, tabName)
 		if not tabName or name == tabName then
 			for c, w in pairs(view.cache) do
 				if c.key then out[c.key] = w else out[labelOf(c)] = w end
+			end
+		end
+	end
+	return out
+end
+
+-- Every control on every page, built in or registered, in page order
+-- (Core/SettingsString.lua: what a settings string may hold).
+function O.AllControls()
+	local out = {}
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(s.controls) do out[#out + 1] = c end
 			end
 		end
 	end
