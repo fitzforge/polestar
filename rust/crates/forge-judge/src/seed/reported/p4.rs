@@ -24,8 +24,8 @@ const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
-/// Ironforge's uiMapID.
-const IRONFORGE: f64 = 1455.0;
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
+const DESOLACE: &str = "forever/alliance/30-40/02-desolace.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |name: &str, f: fn(&Ctx, &mut Check)| (name.to_string(), f);
@@ -44,15 +44,15 @@ pub fn tests() -> Vec<SeedTest> {
 		t(&format!("{REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill"), battleworn_axes),
 		t(&format!("{DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"), encroachment),
 		t("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers", hearts_of_the_lovers),
-		t("Nittepitte's report (#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in", making_do),
+		t("Nittepitte's report (#453): Making Do is optional in Redridge and Desolace, and taken only after Expanding Horizons is handed in", making_do),
 		t(
 			&format!("{ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat"),
 			unrequited_love,
 		),
 		t(&format!("{ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands"), sidas_bag),
 		t(
-			&format!("{ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard, with no walk to Ironforge between the hearth and the grind"),
-			grind_to_28,
+			&format!("{WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it"),
+			longbeard_after_the_wetlands,
 		),
 		t(&format!("{TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north"), timberling_seed),
 		t(&format!("{TELDRASSIL}: #555: Soft Saber Pelts accept comes before Zenn's Bidding turn-in, so both Nightsaber quests share the first east loop"), soft_saber_pelts),
@@ -609,9 +609,9 @@ fn making_do(ctx: &Ctx, c: &mut Check) {
 	c.ok(list[take].goal.get("optional").truthy(), "accept 97926 is optional");
 	let Some(horizons) = at(c, &list, "turnin 97914", is("turnin", 97914)) else { return };
 	c.ok(horizons < take, "Expanding Horizons is handed in first");
-	let Some(ashenvale) = goals(ctx, c, ASHENVALE) else { return };
-	let Some(give) = at(c, &ashenvale, "turnin 97926", is("turnin", 97926)) else { return };
-	c.ok(ashenvale[give].goal.get("optional").truthy(), "turnin 97926 is optional");
+	let Some(desolace) = goals(ctx, c, DESOLACE) else { return };
+	let Some(give) = at(c, &desolace, "turnin 97926", is("turnin", 97926)) else { return };
+	c.ok(desolace[give].goal.get("optional").truthy(), "turnin 97926 is optional");
 }
 
 fn unrequited_love(ctx: &Ctx, c: &mut Check) {
@@ -637,20 +637,17 @@ fn sidas_bag(ctx: &Ctx, c: &mut Check) {
 	c.ok(!arrow.is_empty() && arrow.iter().all(tomb), "the arrow picks only the tomb");
 }
 
-fn grind_to_28(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE) else { return };
-	let Some(grind) = at(c, &list, "level 28", |g| str_is(g, "t", "level") && num_is(g, "level", 28.0)) else { return };
-	for quest in [306, 484, 470, 98282] {
-		let Some(i) = at(c, &list, &format!("turnin {quest}"), is("turnin", quest)) else { return };
-		c.ok(i < grind, &format!("the Menethil hand-in {quest} counts towards 28"));
+fn longbeard_after_the_wetlands(ctx: &Ctx, c: &mut Check) {
+	let Some(low) = goals(ctx, c, ASHENVALE) else { return };
+	c.ok(!low.iter().any(|r| is("accept", 1179)(&r.goal)), "Pilot Longbeard is not in the 20-24 guide");
+	c.ok(!low.iter().any(|r| str_is(&r.goal, "t", "level") && r.goal.get("level").num() >= 25.0), "the 20-24 guide has no grind to 25 or more");
+	let Some(list) = goals(ctx, c, WETLANDS) else { return };
+	let Some(take) = at(c, &list, "accept 1179", is("accept", 1179)) else { return };
+	let Some(home) = at(c, &list, "turnin 98221", is("turnin", 98221)) else { return };
+	c.ok(home < take, "the Wetlands hand-ins count before Pilot Longbeard");
+	if let Some(g) = list.iter().position(|r| str_is(&r.goal, "t", "level") && num_is(&r.goal, "level", 28.0)) {
+		c.ok(home < g && g < take, "a top-up to 28 comes after the Wetlands hand-ins, before Pilot Longbeard");
 	}
-	let Some(hearth) = at(c, &list, "hearth to Menethil", |g| str_is(g, "t", "hearth") && str_is(g, "location", "Deepwater Tavern")) else { return };
-	c.ok(hearth < grind, "the grind is after the hearth");
-	if let Some(r) = list[hearth..grind.max(hearth)].iter().find(|r| r.step.get("goals").items().iter().any(|g| num_is(g, "map", IRONFORGE))) {
-		c.ok(false, &format!("step {} between the hearth and the grind is in Ironforge", r.s + 1));
-	}
-	let Some(b) = before_at(c, &list, grind, "accept 1179", is("accept", 1179)) else { return };
-	c.ok(b, "level 28 before Pilot Longbeard");
 }
 
 /// `(goal.fromNpcs || []).map((n) => n.npc)`.

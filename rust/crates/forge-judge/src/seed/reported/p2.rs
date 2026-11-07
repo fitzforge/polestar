@@ -20,7 +20,7 @@ const HILLSBRAD_ALLIANCE: &str = "forever/alliance/30-40/01-hillsbrad-foothills.
 const ASHENVALE_30: &str = "forever/alliance/30-40/03-ashenvale.guide";
 const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
-const THOUSAND_NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
 const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/02-stranglethorn-vale.guide";
@@ -211,8 +211,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(SILVERPINE, 425, &[91921], false),
 		(SILVERPINE, 98298, &[99], true),
 		(WESTFALL, 92911, &[92910], true),
-		(THOUSAND_NEEDLES, 98221, &[464], false),
-		(THOUSAND_NEEDLES, 465, &[98221], false),
+		(WETLANDS, 98221, &[464], false),
+		(WETLANDS, 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
 		(SILVERPINE, 95981, &[482], false),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
@@ -247,7 +247,7 @@ fn stop_the_spread(ctx: &Ctx, c: &mut Check) {
 }
 
 fn lou_saydus(ctx: &Ctx, c: &mut Check) {
-	let needles = ctx.goals(THOUSAND_NEEDLES);
+	let needles = ctx.goals(WETLANDS);
 	c.eq(find(&needles, is("turnin", 465)), None, "the catapult is not lit in the guide that takes the quest");
 	let done = at!(c, needles, "complete 98221", is("complete", 98221));
 	c.ok(located(&needles[done]), "the attack plans have a place");
@@ -451,7 +451,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang"), miguel),
 		t("Forever follow-ups are taken only once the quests before them are handed in".into(), follow_ups),
 		t("Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)".into(), stop_the_spread),
-		t(format!("{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)"), lou_saydus),
+		t(format!("{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {WETLANDS}, is handed in on the Wetlands loop (#225)"), lou_saydus),
 		t(format!("{WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)"), alba),
 		t(format!("{DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)"), xoove_beached),
 		t(format!("{TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)"), pynte_zenn),
