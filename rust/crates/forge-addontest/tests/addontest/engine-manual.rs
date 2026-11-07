@@ -657,3 +657,35 @@ fn t_221_a_turn_in_after_an_optional_accept_is_done_for_a_player_who_already_han
 	assert_eq!(out["ridgepoint"], "done");
 	assert_eq!(out["at"], 3);
 }
+
+// Fitz's report (#1135, Raptor Thieves): ticking the Raptor Heads done by hand at 4/12 sent the guide on to
+// "Turn in Raptor Thieves" at Gazrog as if the quest were complete. A tick on a quest objective means "stop
+// focusing this", not "the quest is done": the route moves on, but the turn-in holds until the game counts
+// the objective. Its line says what is still open, and the arrow does not lead to the ender.
+#[test]
+fn a_quest_objective_ticked_by_hand_moves_the_route_on_but_its_turn_in_waits_for_the_game() {
+	let out = run(
+		ROUTE,
+		"w.complete({ 783 }); w.onQuest(7, { { required = 10, fulfilled = 4 } })",
+		ROUTE_SAVED,
+		r#"
+			local r = {}
+			local function wp()
+				local x = E.GetWaypoint()
+				return x and (x.stepIndex .. ":" .. x.goalIndex) or "none"
+			end
+			E.ToggleGoal(3, 2); flush()     -- the kobolds, 4/10: stop focusing them
+			r.moved = E.GetLiveStep()
+			E.ToggleGoal(4, 1); flush()     -- past the trainer
+			local v = E.GetStepView(6)
+			r.held = { E.GetLiveStep(), wp(), v.goals[1].status, v.goals[1].pinOpen or false, v.current == 1 }
+			stub.world.progress(7, 1, 10); flush()
+			v = E.GetStepView(6)
+			r.ready = { E.GetLiveStep(), wp(), v.goals[1].pinOpen or false, v.current == 1 }
+			emit(r)
+		"#,
+	);
+	assert_eq!(out["moved"], 4, "the tick moves the route on");
+	assert_eq!(out["held"], json!([6, "none", "active", "ticked", false]), "the turn-in waits, says why, and takes neither the arrow nor the focus");
+	assert_eq!(out["ready"], json!([6, "6:1", false, true]), "the game counts it: the turn-in leads");
+}

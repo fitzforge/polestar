@@ -1257,6 +1257,19 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   open has `pinOpen` (true) in its goal view: its row and its Up next line
   show in the warning colour and say so ("along": the same, without
   "Pinned").
+- **Ticked objectives** (#1135). A quest objective goal (kill, collect,
+  interact or use with `quest`) the player ticked by hand
+  (`Engine.ToggleGoal`, `"tick"` in `CharState().manual`) is done for the
+  route, which moves on, but never for its quest: while the game still
+  counts it open and the quest is in the log not ready (`Own.tickedOpen`),
+  the quest's `turnin` keeps its step (it still blocks) yet takes no focus
+  (`stepGroups` counts it as held), so the arrow does not lead to the
+  ender; its goal view has `pinOpen = "ticked"` and the window says to
+  finish the objectives first.
+- **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
+  `background` along step is compiled as the along step it is: the
+  `background` line only drives the lint (a finish step before the
+  hand-in) and the writer.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -5028,7 +5041,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   header; on a window too narrow for them, the chip goes under the header,
   Later and the "stop" button take a row under the actions, and a button
   that still doesn't fit starts the next row) for a dungeon whose quests
-  have opened to this character: "LEVEL
+  have opened to this character: in its ring the dungeon's own picture
+  (`Dungeons.Art(key)`, `Dungeons/Art.lua`: the instance's loading screen
+  from the client's Map and LoadingScreens tables, by Map id, a square crop
+  as texture coordinates; the model's `art`, filling the ring inside a 2px
+  rim of the accent), or for a dungeon without one the dungeon glyph small
+  on the ring's disc (an `icon` tinted `iconColor` is a glyph), "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the
