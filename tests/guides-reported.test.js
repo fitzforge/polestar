@@ -484,12 +484,10 @@ test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker a
 	const list = goals(TIRISFAL);
 	const keep = [246389, 259190]; // Hilda the Breaker, Ephram Barbaro
 	const mage = list.filter(forClass('MAGE'));
-	// Only required goals: Hilda's and Ephram's optional accepts after A Righteous Cause are open to
-	// every class, and a Mage is never required to meet them (5e6b42b2a).
-	assert.deepEqual(mage.filter(({ goal }) => keep.includes(goal.npc) && !goal.optional).map(({ goal }) => `${goal.t} ${goal.quest} (${goal.npcName})`), [], 'a Mage meets neither giver');
-	// Their bones and crystal are quest-tagged collects in Shadowvale's step for everyone: they count only
-	// for a player holding the quest, so with no required accept or hand-in a Mage never does them.
-	assert.deepEqual(mage.filter(({ goal }) => (goal.quest === 99152 || goal.quest === 99153) && !goal.optional && ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nor any required goal of their quests');
+	// Hilda's and Ephram's own quests after A Righteous Cause (99152, 99153) are open to every class: recorded
+	// Warlocks, Rogues and Mages took and handed them in (16 and 15 people), so they are regular steps since the
+	// 2026-11-07 quest-volume pass. A Mage meets them for those two quests only, never for the Paladin chain.
+	assert.deepEqual(mage.filter(({ goal }) => keep.includes(goal.npc) && !goal.optional && ![99152, 99153].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest} (${goal.npcName})`), [], 'a Mage meets neither giver for the Paladin chain');
 	// The Shadowvale elixir bottles stay for everyone (at asserts the goal is there).
 	at(mage, 'collect 268801 (Bottle of Whispering Elixir)', (g) => g.t === 'collect' && g.quest === 95314);
 	const paladin = list.filter(forClass('PALADIN'));
@@ -1206,7 +1204,10 @@ test(`${BARRENS_12}: Kolkar Leaders is taken, worked and handed in on Regthar's 
 	const turnin = at(list, 'turnin 850', is('turnin', 850));
 	assert.equal(list[turnin].s, list[at(list, 'turnin 855', is('turnin', 855))].s, 'handed in with the bracers');
 	assert.ok(accept < head && head < turnin && turnin < at(list, 'turnin 870', is('turnin', 870)), "Barak on that loop, before Tonga's Forgotten Pools hand-in");
-	assert.ok(list.some(({ s, goal }) => s === list[turnin].s && is('accept', 851)(goal)), 'Verog the Dervish taken at the hand-in');
+	// Verog the Dervish (851) is killed in the 19-23 guide, so Regthar's follow-up is taken there on the walk to the
+	// Dry Hills, not carried through Silverpine (2026-11-07: the 12-16 guide ends with its quests out of the log).
+	assert.ok(!list.some(({ goal }) => is('accept', 851)(goal)), 'Verog the Dervish is not taken in the 12-16 guide');
+	assert.ok(goals(BARRENS).some(({ goal }) => is('accept', 851)(goal)), 'Verog the Dervish is taken in the 19-23 guide');
 	assert.ok(!goals(BARRENS).some(({ goal }) => goal.quest === 850), 'nothing of Kolkar Leaders is left for the 19-23 guide');
 });
 
@@ -4033,7 +4034,9 @@ test('Flight path sweep (#964): Druids fly to Thunder Bluff from the Crossroads 
 		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
 		assert.ok(out >= 0 && trip.slice(out).some((g) => g.t === 'train'), `${race}: flies to Thunder Bluff and trains`);
 		assert.equal(trip.filter((g) => g.t === 'fly').at(-1).location, 'Crossroads', `${race}: flies back to the Crossroads`);
-		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
+		// The Ratchet stop before the trip (Chen's keg and the raptor horns, 2026-11-07) is a hand-in for everyone;
+		// the Thunder Bluff trip itself never goes by Ratchet.
+		assert.deepEqual(trip.slice(out).filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
 		const silverpine = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
 		const sepulcher = silverpine.findIndex(({ goal }) => is('accept', 477)(goal));
 		assert.ok(sepulcher > 0 && !silverpine.slice(0, sepulcher + 20).some(({ goal }) => goal.t === 'fly' || (goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar')), `${race}: no zeppelin back from the Sepulcher`);
@@ -4211,7 +4214,7 @@ test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins poin
 test("Bill's report (#1004): a town's bind never sends you back to the giver you just left", { skip }, () => {
 	for (const [guide, place, before] of [
 		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
-		['forever/horde/02-the-barrens.guide', 'The Crossroads', [4921, 899]],
+		['forever/horde/02-the-barrens.guide', 'The Crossroads', [903, 881]],
 		['forever/horde/05-stonetalon-mountains.guide', 'Sun Rock Retreat', [86576, 5881]],
 		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
 	]) {
@@ -5560,4 +5563,55 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite w
 	}
 	const sil = goals('forever/horde/50-60/06-silithus.guide');
 	assert.doesNotMatch(sil[at(sil, 'use 11833', (g) => g.t === 'use' && g.item === 11833)].step.note || '', /elite/);
+});
+
+// --- Horde quest volume (2026-11-07): quests recorded players take whose givers, work and enders lie on the
+// Horde route's walks are taken where the walk passes the giver and handed in on a visit the route makes
+// anyway (data/route-fixes.json, overrides.include, "Flow coverage" / "Quest volume").
+const HORDE_VOLUME = {
+	'forever/horde/undead/01-tirisfal-glades.guide': [445, 99152, 99153], // Delivery to Silverpine Forest; Hilda and Ephram
+	'forever/horde/tauren/01-mulgore.guide': [854], // Journey to the Crossroads
+	'forever/horde/03-silverpine-forest.guide': [422, 6385, 6386], // Arugal's Folly; Doras; Return to the Crossroads
+	'forever/horde/04-the-barrens.guide': [4021], // Counterattack!
+	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
+};
+
+function hordeChainFrom(guide) {
+	const out = [];
+	for (let g = guide; g && !out.includes(g); ) {
+		out.push(g);
+		const next = compiled(g).next;
+		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
+	}
+	return out;
+}
+
+for (const [guide, quests] of Object.entries(HORDE_VOLUME)) test(`${guide}: Horde quest volume: quests on the walk are taken there and handed in, not optional`, { skip }, () => {
+	const here = goals(guide);
+	const later = hordeChainFrom(guide).flatMap((g) => goals(g));
+	for (const q of quests) {
+		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
+		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
+	}
+});
+
+test('Horde quest volume: every added quest has its include record in the route fixes', () => {
+	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
+	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Flow coverage|Quest volume/.test(e.reason)), `include ${q} is recorded`);
+});
+
+// Barrens carry-over (2026-11-07): quests accepted in 02 but worked only in 04 are taken in 04, where their
+// giver stands on the walk before the work, so they don't ride through Silverpine in the log.
+test('forever/horde/04-the-barrens.guide: Barrens carry-over: the quests 04 works are accepted in 04, not in 02, and 02 hands in Chen\'s keg before leaving', { skip }, () => {
+	const g02 = goals('forever/horde/02-the-barrens.guide');
+	const g04 = goals('forever/horde/04-the-barrens.guide');
+	for (const q of [896, 876, 4921, 899, 858, 3281, 905, 851]) {
+		assert.ok(!g02.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} not accepted in 02`);
+		const a = g04.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === q);
+		const w = g04.findIndex(({ goal }) => goal.quest === q && goal.t !== 'accept');
+		assert.ok(a >= 0 && a < w, `${q} accepted in 04 before its work`);
+	}
+	assert.ok(g02.some(({ goal }) => goal.t === 'turnin' && goal.quest === 819), "Chen's Empty Keg handed in in 02");
+	assert.ok(g02.some(({ goal }) => goal.t === 'turnin' && goal.quest === 865), 'Raptor Horns handed in in 02');
 });

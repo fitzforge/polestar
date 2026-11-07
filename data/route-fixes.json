@@ -5297,6 +5297,94 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's second loop goes clockwise, as the seed has it: from A-Me 01 on Ironstone Plateau south down the east side (the Crate of Foodstuffs, the Eastern Pylon), the Gorishi hive in the south, the south-west bones and equipment, the Western Pylon, then north to the refuge. The order crossed the crater from the north-east to the south-west and back east."
+			},
+			{
+				"a": [
+					"turnin",
+					819
+				],
+				"b": [
+					"accept",
+					896
+				],
+				"why": "Quest volume 2026-11-07 (Fitz's carry-over question): accepted in 02-the-barrens but worked only in 04-the-barrens, so taken on 04's first Ratchet stop (Dizzywig on the dock); the emerald is the Boulder Lode Mine in 04. Frees a log slot through Silverpine."
+			},
+			{
+				"a": [
+					"turnin",
+					3281
+				],
+				"b": [
+					"accept",
+					876
+				],
+				"why": "Quest volume 2026-11-07 (Fitz's carry-over question): accepted in 02-the-barrens but worked only in 04-the-barrens, so taken on 04's first Crossroads stop (Darsok), before the Dry Hills harpies."
+			},
+			{
+				"a": [
+					"turnin",
+					3281
+				],
+				"b": [
+					"accept",
+					4921
+				],
+				"why": "Quest volume 2026-11-07 (Fitz's carry-over question): accepted in 02-the-barrens but worked only in 04-the-barrens, so taken on 04's first Crossroads stop (Mankrik), before the Bristleback camps."
+			},
+			{
+				"a": [
+					"turnin",
+					3281
+				],
+				"b": [
+					"accept",
+					899
+				],
+				"why": "Quest volume 2026-11-07 (Fitz's carry-over question): accepted in 02-the-barrens but worked only in 04-the-barrens, so taken on 04's first Crossroads stop (Mankrik), before the Bristleback camps."
+			},
+			{
+				"a": [
+					"turnin",
+					95508
+				],
+				"b": [
+					"accept",
+					858
+				],
+				"why": "Quest volume 2026-11-07 (Fitz's carry-over question): accepted in 02-the-barrens but worked only in 04-the-barrens, so taken on 04's Sludge Fen step, from Wizzlecrank's Shredder beside the key; 02's accept-only walk to the Sludge Fen goes."
+			},
+			{
+				"a": [
+					"turnin",
+					880
+				],
+				"b": [
+					"accept",
+					3281
+				],
+				"why": "Quest volume 2026-11-07 (Fitz: a guide ends with its zone's quests out of the log): Stolen Silver is taken from Gazrog on the Crossroads stop that opens 04-the-barrens (flight Orgrimmar -> Crossroads -> Ratchet), not at the end of 02, so it doesn't ride through Silverpine."
+			},
+			{
+				"a": [
+					"turnin",
+					880
+				],
+				"b": [
+					"accept",
+					905
+				],
+				"why": "Quest volume 2026-11-07 (Fitz: a guide ends with its zone's quests out of the log): The Angry Scytheclaws is taken from Sergra on 04's opening Crossroads stop, not at the end of 02."
+			},
+			{
+				"a": [
+					"turnin",
+					3281
+				],
+				"b": [
+					"accept",
+					851
+				],
+				"why": "Quest volume 2026-11-07 (Fitz: a guide ends with its zone's quests out of the log): Verog the Dervish is taken from Regthar on 04's walk north-west to the Dry Hills, not on 02's Regthar stop; Verog is killed in 04."
 			}
 		],
 		"stay": [
@@ -5453,6 +5541,20 @@
 					7824
 				],
 				"why": "Rev14-H2 c14 read: the second Runecloth donation (7824) likewise went in at 56 (c14 50-60/04-azshara:209), on the same thin cloth count; v1 hands it in with 7836 on the last Orgrimmar stop (50-60/07-felwood)"
+			},
+			{
+				"s": [
+					"turnin",
+					819
+				],
+				"why": "Quest volume 2026-11-07 (Fitz: a guide ends with its zone's quests out of the log): Chen's Empty Keg is handed to Drohn on a Ratchet stop by flight from the Crossroads at the end of 02 (about 4 minutes), before Silverpine."
+			},
+			{
+				"s": [
+					"turnin",
+					865
+				],
+				"why": "Quest volume 2026-11-07 (Fitz: a guide ends with its zone's quests out of the log): Raptor Horns, finished on 02's Dry Hills loop, go to Mebok on the same Ratchet stop at the end of 02; 04's first Ratchet stop takes them from anyone still short."
 			}
 		],
 		"optional": [
@@ -5875,6 +5977,67 @@
 				"issue": "#1052",
 				"q": 115,
 				"reason": "Shadow Magic on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"q": 445,
+				"reason": "Flow coverage, 2026-11-07: Delivery to Silverpine Forest (level 10, from 9) is offered by Apothecary Johaan, whom the 01-tirisfal-glades visit already passes; recorded players take it (12 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out. Handed in at the Sepulcher on the Silverpine visit.",
+				"issue": "-"
+			},
+			{
+				"q": 422,
+				"reason": "Flow coverage, 2026-11-07: Arugal's Folly (level 11, from 9) is offered by Dalar Dawnweaver, whom the 03-silverpine-forest visit already passes; recorded players take it (7 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out. Grey at Silverpine's 16-19 but it opens Arugal's Folly 423/424 (level 14-15).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					421
+				]
+			},
+			{
+				"q": 6385,
+				"reason": "Flow coverage, 2026-11-07: Doras the Wind Rider Master (level 10, from 10) is offered by Innkeeper Gryshka, whom the Orgrimmar visit already passes; recorded players take it (12 accepts, 10 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6384
+				]
+			},
+			{
+				"q": 6386,
+				"reason": "Flow coverage, 2026-11-07: Return to the Crossroads (level 10, from 10) is offered by Doras, whom the Orgrimmar visit already passes; recorded players take it (10 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6385
+				]
+			},
+			{
+				"q": 854,
+				"reason": "Flow coverage, 2026-11-07: Journey to the Crossroads (level 12, from 9) is offered by Kirge Sternhorn, whom the 02-the-barrens visit already passes; recorded players take it (4 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 4021,
+				"reason": "Flow coverage, 2026-11-07: Counterattack! (level 20, from 11) is offered by Regthar Deathgate, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					852
+				]
+			},
+			{
+				"q": 99152,
+				"reason": "Quest volume, 2026-11-07: As Above, So Below (level 10) from Hilda the Breaker beside Leonid: every class takes it once A Righteous Cause is handed in, and the Shadowvale cellar it sends you to is the route's next stop; 16 people took and handed it in. It was optional.",
+				"issue": "-"
+			},
+			{
+				"q": 99153,
+				"reason": "Quest volume, 2026-11-07: The One That Got Away (level 10) from Ephram Barbaro beside Leonid, done in the same Shadowvale cellar; 15 people took and handed it in. It was optional.",
+				"issue": "-"
+			},
+			{
+				"q": 494,
+				"reason": "Quest volume, 2026-11-07: Time To Strike (level 20) from Deathstalker Lesh at Southpoint Tower, on the road into Hillsbrad, to Darthalia in Tarren Mill, the first stop there; 9 people took it. It was optional.",
+				"issue": "-"
 			}
 		],
 		"skip": [
