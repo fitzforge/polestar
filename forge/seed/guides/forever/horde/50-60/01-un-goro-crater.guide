@@ -121,10 +121,13 @@ step Research Equipment
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
 step The Gorishi hive
-  tip The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. Pterrordax nest on the cliffs above the hive; their scales are for Shizzle.
+  tip The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber.
   collect 11837 quest 4496.1
   collect 11131 quest 3883 @48.7,85.3
   kill 9166 quest 4501.1
+
+step Pterrordax
+  tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
   collect 11831 quest 4503.2
 
 step A Wrecked Raft
@@ -279,12 +282,11 @@ step Gadgetzan
   hearth "Gadgetzan"
   turnin 4504                         -- Tran'rek
   turnin 4496                         -- Alchemist Pestlezugg
-  note Pestlezugg's next quest needs the Gorishi Hive Queen, an elite boss. Skip it.
 
 step Orgrimmar
   only Hunter,Shaman
   zone Orgrimmar
-  tip Fly to Orgrimmar and train before the Grom'gol zeppelin: the Undercity stop later in this guide has no Hunter or Shaman trainer.
+  tip Fly to Orgrimmar and train before the boat to Powderfuse Port: the Undercity stop later in this guide has no Hunter or Shaman trainer.
   fly "Orgrimmar"
   train class
 
@@ -297,9 +299,9 @@ step Thunder Bluff
 
 # ---------------------------------------------------------------- Kargath
 
-step Fly to Kargath
+step Kargath
   zone Badlands
-  tip Fly to Orgrimmar, take the zeppelin to Grom'gol and fly from there to Kargath, built into the cliffs on the Badlands' west edge.
+  tip Kargath is built into the cliffs on the Badlands' west edge.
   fly "Kargath"
   accept 3821                         -- Thal'trak Proudtusk
   accept 4061                         -- Hierophant Theodora Mulvadania
