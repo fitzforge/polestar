@@ -5357,3 +5357,22 @@ test('forever/horde/50-60/03-winterspring.guide: final review: Morrowgrain optio
 	const bashana = list[at(list, 'turnin 3782', is('turnin', 3782))].step;
 	assert.ok(!/Gorishi/.test(bashana.note || ''), 'no Gorishi warning in Thunder Bluff');
 });
+
+// Final route review, Horde 40-60: every class flew Orgrimmar -> Bloodvenom Post -> Thunder Bluff -> Bloodvenom Post,
+// though only Druids and Paladins train there (the cloth donations, carried in the bags, now go in when they are
+// taken in the Winterspring guide); the Plaguebats and grubs were "along the way" lists.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: final review: Thunder Bluff only for Druid and Paladin training, no along lists', { skip }, () => {
+	const file = 'forever/horde/50-60/05-eastern-plaguelands.guide';
+	const list = goals(file);
+	const trip = list.filter(({ step }) => /Thunder Bluff|Bloodvenom Post/.test(step.title) && list.findIndex((e) => e.step === step) > at(list, 'turnin 5181', is('turnin', 5181)));
+	assert.ok(trip.some(({ step }) => /Thunder Bluff/.test(step.title)), 'the Thunder Bluff trip is there');
+	const back = trip.filter(({ step }) => /Thunder Bluff/.test(step.title) || trip.findIndex((e) => /Thunder Bluff/.test(e.step.title)) < trip.findIndex((e) => e.step === step));
+	for (const { step, goal } of back) {
+		for (const cls of ['WARRIOR', 'ROGUE', 'MAGE']) assert.ok(!forClass(cls)({ step, goal }), `${step.title}: not for ${cls}`);
+	}
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	for (const q of [7820, 7821, 7822]) assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} handed in where it is taken`);
+	assert.ok(!list.some(({ goal }) => goal.quest === 7820), 'no donation stop in this guide');
+	assert.deepEqual([list[0].goal.t, list[0].goal.map], ['goto', 1420], 'a travel line out of the Undercity before the Bulwark');
+});

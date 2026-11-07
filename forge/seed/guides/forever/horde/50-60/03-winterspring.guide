@@ -190,10 +190,13 @@ step Fly to Thunder Bluff
   fly "Thunder Bluff"
 
 step Rumstag Proudstrider
-  tip He stands on Hunter Rise. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route.
+  tip He stands on Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 7820 optional
+  turnin 7820 optional
   accept 7821 optional
+  turnin 7821 optional
   accept 7822 optional
+  turnin 7822 optional
 
 step Bluff Runner Windstrider
   accept 1000
