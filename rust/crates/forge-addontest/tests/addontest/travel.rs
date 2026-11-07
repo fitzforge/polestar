@@ -194,6 +194,7 @@ fn a_hearth_that_saves_under_two_minutes_keeps_the_stone_and_one_that_saves_two_
 		nav.place(60, -700 + 234 * 5.6)           -- 1310.4 yd: 234 s on foot, 119 s more than the hearth's 115
 		target(60, -700, "Past the inn")
 		r.under, r.underTrip, r.underWith = route(), trip(true), trip(false)
+		stub.advance(6)                           -- past the estimate cache (5 s, 25 yd cells)
 		nav.place(60, -700 + 236 * 5.6)           -- 1321.6 yd: 236 s on foot, 121 s more
 		target(60, -700, "Past the inn")
 		r.over, r.overTrip = route(), trip(true)
@@ -221,6 +222,7 @@ fn a_trip_under_three_minutes_keeps_the_stone_and_one_over_three_hearths() {
 		nav.place(-500 + 179 * 5.6, -690)         -- 1002.4 yd: 179 s on foot
 		target(-500, -690, "By the inn")
 		r.under, r.underTrip = route(), trip(true)
+		stub.advance(6)                           -- past the estimate cache (5 s, 25 yd cells)
 		nav.place(-500 + 181 * 5.6, -690)         -- 1013.6 yd: 181 s on foot
 		target(-500, -690, "By the inn")
 		r.over, r.overTrip = route(), trip(true)
