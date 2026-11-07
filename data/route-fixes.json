@@ -6139,6 +6139,15 @@
 				],
 				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 1350 XP) is taken on a visit the route already makes: Caz Twosprocket in Theramore; it goes back to Vimes on the same stop.",
 				"issue": "-"
+			},
+			{
+				"q": 2662,
+				"after": [
+					"turnin",
+					2661
+				],
+				"reason": "Quest volume, 2026-11-07: Noggenfogger Elixir (level 49, from 44, 0 XP) is taken on a visit the route already makes: Marin Noggenfogger gives it when Delivery for Marin is handed in on the Gadgetzan stop; it is handed in to him after a short wait.",
+				"issue": "-"
 			}
 		],
 		"skip": [
