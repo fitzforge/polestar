@@ -167,8 +167,6 @@ step The Foulweald
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
   turnin 1024
-  tip The moonwell lies in the hills north-east of Astranaar.
-  accept 1026
 
 step Dal Bloodclaw
   tip Dal Bloodclaw (25) leads the Thistlefur furbolgs at the camp north of Astranaar. Clear his guards first, one at a time.
