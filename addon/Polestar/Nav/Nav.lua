@@ -510,6 +510,7 @@ ns.On("SETTING_CHANGED", function(path)
 		Nav.Refresh() -- the travel button (and the arrow, Nav.HiddenWithGuide) go and come back with the guide
 	end
 end)
+ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.GuideShown)
 
 local function situationChanged()
 	if target and not tC then resolve() end

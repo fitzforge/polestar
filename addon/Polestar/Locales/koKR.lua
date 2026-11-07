@@ -1265,6 +1265,7 @@ L["The step stops waiting for the party and moves on as usual."] = "단계가 �
 L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시하거나 숨깁니다."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1944,8 +1945,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "스킨 화살표"
 L["Lock arrow and buttons"] = "화살표 및 버튼 잠금"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "화살표, 행동 버튼, 비행 및 인스턴스 타이머가 실수로 끌려 움직이지 않게 합니다. Shift-드래그로는 여전히 이동할 수 있습니다."
-L["In dungeons"] = "던전에서"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "던전 및 공격대에서 창의 동작입니다. /polestar 또는 단축키로 열면 나갈 때까지 열려 있습니다."
 L["Line style"] = "선 스타일"
 L["Bar at the bottom"] = "하단에 막대 표시"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "위로 확장 사용 시, 탭과 단계 막대를 창이 고정된 위치 옆의 하단 가장자리에 배치합니다."
@@ -2014,6 +2013,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "찾으시는 항목:"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2966,3 +2968,5 @@ L["Finished: %s - %s"] = "완료: %s - %s"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Polestar를 쓰는 파티원이 자신의 퀘스트 목표 아래에서 내 수치를 봅니다. 대화창에는 아무것도 보내지 않습니다."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "내 퀘스트 목표 아래에 파티원의 수치와, 내가 받은 퀘스트가 없는 파티원을 표시합니다."
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Polestar를 쓰는 각 파티원의 레벨, 단계, 내 단계에서 아직 필요한 것; 이름을 클릭하면 화살표가 그 파티원을 가리킵니다. /polestar party로 표시하거나 숨깁니다."
+-- L["In dungeons"] = "던전에서"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "던전 및 공격대에서 창의 동작입니다. /polestar 또는 단축키로 열면 나갈 때까지 열려 있습니다."

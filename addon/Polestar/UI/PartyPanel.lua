@@ -230,6 +230,7 @@ ns.On("SETTING_CHANGED", function(path)
 		PP.Sync()
 	end
 end)
+ns.On("GUIDE_SHOWN", PP.Sync) -- an instance hide (ns.GuideShown)
 ns.OnLogin(PP.Sync)
 
 ns.RegisterCommand("party", PP.Toggle, L["Show or hide the party panel"])

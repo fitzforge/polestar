@@ -1265,6 +1265,7 @@ L["The step stops waiting for the party and moves on as usual."] = "El paso deja
 L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar el panel del grupo."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
@@ -1944,8 +1945,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "La flecha del tema"
 -- L["Lock arrow and buttons"] = ""
 -- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
--- L["In dungeons"] = ""
--- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 -- L["Line style"] = ""
 -- L["Bar at the bottom"] = ""
 -- L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = ""
@@ -2014,6 +2013,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "Quizá buscabas:"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"

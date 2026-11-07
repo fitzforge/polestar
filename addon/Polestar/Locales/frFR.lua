@@ -1266,6 +1266,7 @@ L["The step stops waiting for the party and moves on as usual."] = "L'étape n'a
 L["Click to show or hide the party panel."] = "Cliquez pour afficher ou masquer le panneau du groupe."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -1945,8 +1946,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "La flèche de l'habillage"
 L["Lock arrow and buttons"] = "Verrouiller flèche et boutons"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "Empêche les déplacements involontaires de la flèche, des boutons d'action et des minuteurs de vol et d'instance. Maj-glisser les déplace toujours."
-L["In dungeons"] = "En donjon"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Ce que fait la fenêtre en donjon et en raid. /polestar ou le raccourci l'y ouvre jusqu'à votre sortie."
 L["Line style"] = "Style de ligne"
 L["Bar at the bottom"] = "Barre en bas"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "Avec « Agrandir vers le haut », place les onglets et la barre d'étape sur le bord inférieur, près de l'ancrage de la fenêtre."
@@ -2015,6 +2014,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -3009,3 +3011,5 @@ L["Finished: %s - %s"] = "Terminé : %s - %s"
 -- L["Share %s with %s"] = "Partager %s avec %s"
 -- L["Click to share the quest with your party."] = "Cliquez pour partager la quête avec votre groupe."
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Le niveau et l'étape de chaque membre Polestar, et ce qu'il lui reste de la vôtre ; cliquez sur un nom pour y pointer la flèche. /polestar party l'affiche ou le masque."
+-- L["In dungeons"] = "En donjon"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Ce que fait la fenêtre en donjon et en raid. /polestar ou le raccourci l'y ouvre jusqu'à votre sortie."
