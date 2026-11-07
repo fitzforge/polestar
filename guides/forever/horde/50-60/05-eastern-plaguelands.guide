@@ -11,6 +11,11 @@ next forever/horde/50-60/06-silithus
 # into this file.
 # Added here: Duskwing, Oh How I Hate Thee... (6135).
 
+step The Bulwark
+  zone Tirisfal Glades
+  tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
+  turnin 6029                         -- Argent Officer Garush
+
 step Western Plaguelands
   zone Western Plaguelands
   goto 36.9,57.4 "Western Plaguelands"
@@ -150,21 +155,19 @@ step Pathstrider
   kill 8563 quest 6133.3
   collect 15847 quest 6133.4
 
-step Nathanos Blightcaller
-  tip Ride west to the Marris Stead.
-  turnin 6133
-  turnin 6042
-
 # ---------------------------------------------------------------- Corin's Crossing and back west
 
 step Corin's Crossing
-  tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
+  tip Ride south from the lodge to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
   goto 52.3,58.2 "Corin's Crossing" live
   collect 15447 x7
   complete 6022
 
 step Nathanos Blightcaller
+  tip Ride west to the Marris Stead.
+  turnin 6133
+  turnin 6042
   turnin 6022
 
 step Nathanos Blightcaller

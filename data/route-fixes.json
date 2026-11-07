@@ -2922,6 +2922,30 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
+			},
+			{
+				"a": [
+					"task",
+					6022
+				],
+				"b": [
+					"turnin",
+					6133
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Eastern Plaguelands 56-57, #1166): Corin's Crossing (52.3,58.2) lies on the ride south from Quel'Lithien Lodge; To Kill With Purpose is done there and handed to Nathanos with The Ranger Lord's Behest and Un-Life's Little Annoyances, instead of a ride from the Marris Stead to the crossing and back"
+			},
+			{
+				"a": [
+					"turnin",
+					6029
+				],
+				"b": [
+					"turnin",
+					5229
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 56, #1166): The Everlook Report goes to Argent Officer Garush at the Bulwark, which the ride from the Undercity into the Western Plaguelands passes; the order carried it to a Bulwark stop two guides later"
 			}
 		],
 		"notes": [
