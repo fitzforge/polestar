@@ -125,6 +125,7 @@ step Orgrimmar
   turnin 2976
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, Valley of Spirits
   turnin 3002                           -- Uthel'nay, Valley of Spirits
   train class only Hunter,Mage,Priest,Rogue,Shaman,Warlock,Warrior
 
@@ -194,7 +195,6 @@ step Camp Mojache
   accept 3123                           -- for the Hinterlands owlbeasts, around level 48
   accept 3128
   accept 3063                           -- Talo Thornhoof
-  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
 
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.

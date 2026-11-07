@@ -3201,6 +3201,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+			},
+			{
+				"a": [
+					"turnin",
+					7732
+				],
+				"b": [
+					"accept",
+					3123
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Feralas 43-45): Zukk'ash Report is ready when the guide flies from Camp Mojache to Orgrimmar, and the Orgrimmar stop passes Zilzibin Drumlore in the Valley of Spirits (the flow audit: ender passed at 0 yd); the order carried it to the Azshara guide, about 650 minutes later"
 			}
 		],
 		"notes": [

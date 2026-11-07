@@ -220,7 +220,6 @@ step Orgrimmar
   zone Orgrimmar
   tip Take the zeppelin back to Orgrimmar.
   turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
-  turnin 7732
   accept 4494
   turnin 3541                         -- Jes'rimon, the Cleft of Shadow
   accept 3563

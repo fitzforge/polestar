@@ -293,6 +293,7 @@ step Feral Scar Vale
 
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
+  collect 8705 "OOX-22/FE Distress Beacon" optional
   accept 2766 optional
   turnin 2766 optional
   accept 2767 optional
@@ -304,6 +305,7 @@ step Hearth to Camp Mojache
 step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
   turnin 7731
+  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
