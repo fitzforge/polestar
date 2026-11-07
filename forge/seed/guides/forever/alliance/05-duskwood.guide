@@ -4,7 +4,7 @@ title Duskwood
 faction Alliance
 levels 24-26
 zone Duskwood
-next forever/alliance/06-ashenvale
+next forever/alliance/06-wetlands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -31,7 +31,8 @@ step Duskwood
 # Ironforge by the Deeprun Tram, Rogues in Stormwind) -> east along the road
 # to Redridge's second pass at about 25-26 (Rogues fly there from Stormwind):
 # Lakeshire, Gar'im's cave, Stonewatch Keep, Fangore's camp, Lakeshire -> fly
-# to Stormwind for the Auberdine boat, where the next guide starts.
+# to Stormwind and on to Menethil Harbor, where the next guide (06-wetlands)
+# starts.
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
@@ -269,7 +270,7 @@ step Jitters
 
 step Sven's Camp
   turnin 268                              -- Sven Yorgen
-  note Next: training, then Redridge's second pass, then the boat from Stormwind Harbor to Auberdine for Ashenvale.
+  note Next: training, then Redridge's second pass, then the flight from Stormwind to Menethil Harbor for the Wetlands.
   accept 323                              -- Sven Yorgen
 
 step Westfall
@@ -332,7 +333,7 @@ step Tram to Ironforge
 step Shaman training
   only Shaman
   zone Ironforge
-  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back for the Auberdine boat.
+  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back.
   train class
 
 step Rogue training

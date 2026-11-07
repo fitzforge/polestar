@@ -15,6 +15,10 @@ step Astranaar
   sethome "Astranaar"
   accept 1035                         -- Pelturas Whitemoon, inside
 
+step Shael'dryn
+  tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
+  accept 1026
+
 step Dartol's Rod
   tip The Crazed and Withered Ancients north of the moonwell carry the Wooden Key; the worn chest it opens stands among them.
   collect 5475 "Wooden Key"
