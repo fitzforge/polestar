@@ -6946,6 +6946,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Tirisfal Glades: Warriors take Ulag the Cleaver from Deathguard Dillinger when they hand him The Mills Overrun on the Brill visit, before going into the inn; the order walked past him and came back for it"
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Zephras Isle: Valreaa's and Aetheen's hand-ins in Thendal Village come after the den and before Hanaa Nightwind, whose camp is on the road south to Shen'dar; the order went to Hanaa first and walked back north to the village"
 			}
 		]
 	}
