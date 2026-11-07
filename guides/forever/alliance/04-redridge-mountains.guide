@@ -20,9 +20,10 @@ step Boat to Stormwind Harbor
 # Elwynn, Redridge, then south to Darkshire.
 #
 # Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners -> Lakeridge
-# Highway (flight path) -> Lakeshire (hearth, every quest giver) -> the
-# sunken chest -> the gnoll hills toward Three Corners -> Deputy
-# Feldon -> Lakeshire -> the lake murlocs, Alther's Mill,
+# Highway (flight path) -> Lakeshire (hearth, every quest giver) -> Guard
+# Parker and the gnoll hills toward Three Corners -> Deputy Feldon -> the
+# sunken chest -> Oslow, Martie -> the Redridge Canyons' Brutes -> Lakeshire
+# -> the lake murlocs, Alther's Mill,
 # the Blackrock camps east of Stonewatch Keep (a top-up to 23) -> north through
 # Galardell Valley, the Old Lion Statue and the watch tower -> Lakeshire ->
 # Bellygrub -> Render's Valley and Keeshan -> Lakeshire -> Duskwood.
@@ -215,14 +216,6 @@ step Lakeshire
   accept 92                                   -- Chef Breanna, inside
   accept 34                                   -- Martie Jainrose
 
-step Spotted Sunfish on the way
-  along until q127
-  collect 1467 quest 127
-
-step Sunken Chest
-  tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.
-  collect 1309 quest 125                      -- Oslow's Toolbox; underwater
-
 # ---------------------------------------------------------------- West of the lake
 
 step Guard Parker
@@ -230,7 +223,6 @@ step Guard Parker
   accept 130
 
 step Lakeridge Highway: kill these as you meet them
-  label q127
   zone Redridge Mountains
   tip Redridge Mongrels and other gnolls hold the hills east of Three Corners, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them.
   collect 2296 quest 92                       -- Great Goretusk Snout
@@ -239,20 +231,28 @@ step Lakeridge Highway: kill these as you meet them
   collect 1467 quest 127
   kill 424 quest 246                          -- Redridge Poacher
 
+step Deputy Feldon
+  tip East along the road to the gryphon master; Deputy Feldon stands beside her.
+  turnin 246
+  turnin 98407
+
+step Sunken Chest
+  tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.
+  collect 1309 quest 125                      -- Oslow's Toolbox; underwater
+
+step Foreman Oslow
+  tip Foreman Oslow stands at the north end of the bridge.
+  turnin 125
+  accept 89
+
 step Martie Jainrose
+  tip West through town to Martie's garden.
   turnin 130
   accept 131
   turnin 131                          -- Inside
 
-step Sunken Chest
-  turnin 125                                  -- Foreman Oslow
-  accept 89
-
-step Deputy Feldon
-  turnin 246
-  turnin 98407
-
 step Redridge Canyons
+  tip Redridge Brutes and Mystics hold the hills just north of Martie's garden; both carry the Iron Pikes and Rivets.
   collect 2856 quest 89                       -- Iron Pike
   collect 1013 quest 89                       -- Iron Rivet
 

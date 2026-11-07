@@ -5014,6 +5014,30 @@
 				"faction": "Alliance",
 				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
 				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"turnin",
+					246
+				],
+				"b": [
+					"task",
+					125
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in Lake Everstill east of the bridge, beside the road from Deputy Feldon to Lakeshire; the route swam for it right after Lakeshire's accepts at the west end of town, then walked back west past the town to Three Corners. Fetched on the walk from Feldon to Foreman Oslow, after the gnoll hills, it is on the way."
+			},
+			{
+				"a": [
+					"turnin",
+					125
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): back from the gnoll hills, Lakeshire is crossed east to west once: Deputy Feldon (gryphons), the Sunken Chest, Foreman Oslow at the north end of the bridge, then Martie Jainrose at the west end, whose garden lies next to the Redridge Canyons' Brutes for Oslow's Iron Pikes and Rivets. The route went Martie -> Oslow -> back south over the bridge to Feldon -> north to the canyons."
 			}
 		]
 	}

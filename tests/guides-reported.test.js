@@ -3616,3 +3616,21 @@ test('Redridge level gap (PR #1052): Duskwood asks for 23 before Worgen in the W
 	}
 	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'the elites are not in the first pass');
 });
+
+// --- Flow audit (2026-11-07, Redridge): after Lakeshire's accepts at the west end of town the guide swam
+// east for the Sunken Chest, walked back west past the town to Three Corners and the gnoll hills, then
+// went Martie (west end) -> Foreman Oslow (bridge) -> south over the bridge to Deputy Feldon -> north to
+// the Brutes. Now: the gnoll hills, Feldon, the chest on the way back, Oslow, Martie, and the Brutes
+// just north of her garden; no along list for the Spotted Sunfish.
+test(`${REDRIDGE}: flow audit: the Sunken Chest on the way from Feldon, Lakeshire crossed east to west once, no along lists`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const idx = (what, pred) => at(list, what, pred);
+	const feldon = idx('turnin 246', is('turnin', 246));
+	const chest = idx('the Sunken Chest', (g) => g.t === 'collect' && g.item === 1309);
+	const oslow = idx('turnin 125', is('turnin', 125));
+	const martie = idx('turnin 130', is('turnin', 130));
+	const pikes = idx('the Iron Pikes', (g) => g.t === 'collect' && g.item === 2856);
+	assert.ok(feldon < chest && chest < oslow && oslow < martie && martie < pikes, 'Feldon, the chest, Oslow, Martie, then the Brutes');
+	assert.ok(idx('the gnolls', is('kill', 246)) < feldon, 'the gnoll hills before Feldon');
+	assert.deepEqual(compiled(REDRIDGE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+});
