@@ -313,6 +313,7 @@ fn picture(step: i32, size: Option<(i32, i32)>) -> String {
 fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its_aspect_kept_and_folds_away_with_the_tip() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image
 		local plain = { shown = img:IsShown(), h = tip:GetHeight() }
@@ -348,6 +349,7 @@ fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its
 fn a_tall_picture_stops_at_160_high_one_with_no_tip_reads_picture_of_this_spot_one_without_a_size_is_drawn_2_1() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		${PICTURE(5, 256, 256)}
 		uistub.setGuide(uistub.elwynn, 5)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image
