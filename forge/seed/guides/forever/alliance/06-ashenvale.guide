@@ -79,6 +79,7 @@ step Shrine of Aessina
   turnin 945                              -- Therysil
 
 step Elune's Tear
+  zone Ashenvale
   tip The tears glow on the small isle east of Astranaar.
   collect 5493 quest 1033 @46.4,46.4
 
@@ -149,6 +150,7 @@ step Alonso
   turnin 78134
 
 step Mystral Lake
+  zone Ashenvale
   tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
@@ -186,6 +188,7 @@ step Ilkrud Magthrull
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
 
 step The Zoram Strand
+  zone Ashenvale
   tip Follow the coast north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
   accept 1007                             -- Talen
   collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore

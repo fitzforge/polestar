@@ -4916,6 +4916,18 @@
 			},
 			{
 				"a": [
+					"turnin",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Ashenvale split (2026-11-07): Prospector Whelgar's Uncovering the Past (299, level 27) waits for the 27-29 Wetlands visit (06-wetlands), with Ormer's Revenge's second part (295), instead of the 06-ashenvale stop at Whelgar's dig at about 23 (a scratch round took it there, worked 3.6 levels under)."
+			},
+			{
+				"a": [
 					"accept",
 					97914
 				],
