@@ -5500,3 +5500,13 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: final review: Thunder Bl
 	assert.ok(!list.some(({ goal }) => goal.quest === 7820), 'no donation stop in this guide');
 	assert.deepEqual([list[0].goal.t, list[0].goal.map], ['goto', 1420], 'a travel line out of the Undercity before the Bulwark');
 });
+
+// Final route review, Horde 40-60: the flayer stingers were an "along the way" list; the refuge tip was cut at
+// "J.D." with "Collie is inside it." on a later step; the mid-guide Bulwark stop said the next guide starts nearby.
+test('forever/horde/50-60/06-silithus.guide: final review: no along list, whole tips, no next-guide tip mid-guide', { skip }, () => {
+	const file = 'forever/horde/50-60/06-silithus.guide';
+	const steps = compiled(file).steps;
+	assert.deepEqual(steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	assert.ok(!steps.some((step) => /J\.D\.$|^Collie/.test(step.note || '')), 'no tip cut at J.D.');
+	assert.ok(!steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
+});
