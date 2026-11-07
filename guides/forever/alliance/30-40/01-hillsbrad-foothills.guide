@@ -44,16 +44,19 @@ step Defeat Nek'rosh
 
 step Golm
   tip Golm stands in the south-eastern hills: use the Goaz Stone beside it.
-  collect 280397 quest 98310.3        -- Heart of Golm
+  tip Golm is elite: grouping up is advised.
+  collect 280397 quest 98310.3 optional        -- Heart of Golm
 
 step Dragonmaw Gates: kill these as you meet them
   zone Wetlands
   tip North-east to the Dragonmaw Gates: Ados stands at the gates (use the Goaz Stone).
-  collect 280395 quest 98310.1        -- Heart of Ados
+  tip Ados is elite: grouping up is advised.
+  collect 280395 quest 98310.1 optional        -- Heart of Ados
   collect 280103 quest 98245.1        -- Razormaw Incisor
   collect 280330 quest 98283.2 optional -- Carnage's Head
   collect 279385 quest 98072.1        -- Pristine Crimson Scale
-  collect 280398 quest 98310.4        -- Heart of Neru
+  tip Neru is elite: grouping up is advised.
+  collect 280398 quest 98310.4 optional        -- Heart of Neru
 
 step The Green Belt
   when onquest 98283
@@ -80,7 +83,8 @@ step The Villards
   turnin 87318                        -- Essene Villard
 
 step Dun Modr
-  collect 280396 quest 98310.2        -- Heart of Modr
+  tip Modr is elite: grouping up is advised.
+  collect 280396 quest 98310.2 optional        -- Heart of Modr
   tip Longbraid the Grim stands in the dwarves' camp.
   turnin 472                              -- Longbraid the Grim
   turnin 87491                        -- Roggo Harlbarrow
@@ -94,7 +98,7 @@ step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
 step Prospector Whelgar
-  turnin 98310                        -- Below ground
+  turnin 98310 optional                        -- Below ground
 
 step Menethil Harbor
   tip West along the road to Menethil.
@@ -246,7 +250,7 @@ step Fly to Ironforge
 step Deeprun Tram
   zone Ironforge
   tip Take the Deeprun Tram from the Dwarven District to Ironforge.
-  turnin 98313                        -- Historian Karnik, Hall of Explorers
+  turnin 98313 optional                        -- Historian Karnik, Hall of Explorers
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
   accept 707
   accept 525

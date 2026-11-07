@@ -1,7 +1,7 @@
 {
   "about": "The leveling guides Forge starts from, cut from guides/ by `forge guide seed` once, when Forge took them over (a re-seed resets every route's baseline). Never edit them: a fix goes into the checkout's fix records (docs/FORGE.md, \"Fixing a generated guide\"). files: path under forge/seed/guides -> SHA-256.",
   "from": {
-    "commit": "06a676fd1cfb633724a2bffcbccdcbb80e629f95"
+    "commit": "b062a61701c82dbb9065a4a7489d860bb0344ecf"
   },
   "files": {
     "forever/alliance/02-westfall.guide": "cacc213eb11e10db3eae9c0cb9022c10343947ded0dfdb055d1234051f697917",
@@ -9,9 +9,9 @@
     "forever/alliance/04-redridge-mountains.guide": "fd77443447d6acf16ea23d2103af56634ff705dd53fd012856e6e321f60c8407",
     "forever/alliance/05-duskwood.guide": "8464aa351ee329e820b6d097ced5935fb44a1b5b3d0f473f9d3b374fc92ba229",
     "forever/alliance/06-ashenvale.guide": "d4cbff4b81b964b834b3e0dd18e53f9b04419467df1749bf9fd9cac21168e477",
-    "forever/alliance/06-wetlands.guide": "dc904923e43b3b6be3ac0d6833c061b5ab4c6631c0f6dc1cd8b2306019dc083f",
+    "forever/alliance/06-wetlands.guide": "dd02c66e2941f53e3f1e3e83977e81bdf621ce356d5f10a92b56631b06f00ff2",
     "forever/alliance/07-thousand-needles.guide": "b3b355b999e62396c7e70c5a851433780dc2bcb2d4118d1641decf039bec7ff2",
-    "forever/alliance/30-40/01-hillsbrad-foothills.guide": "93a8d59d1cac6b5e9a4b073108ab74abafab4ed7533c28da319838740d15923d",
+    "forever/alliance/30-40/01-hillsbrad-foothills.guide": "173db6ff761de9aaeb3c3a1bbbc474ebf7805d79b83431b2420c95f26ebf1e2d",
     "forever/alliance/30-40/02-desolace.guide": "6395057792b384c8f3b098a31e2f59c6a6d7fc27c17dfa5a81d5f3d706a47bf6",
     "forever/alliance/30-40/03-ashenvale.guide": "9bfaaf66e1fd141bc6b23c80abb56ae1c1b97025a433639513271490547fc7f2",
     "forever/alliance/30-40/04-stranglethorn-vale.guide": "8877bf6b1ef0aed21a67d97848bdfcf01937c27fbf1b3bbb02c28538070f33fa",
@@ -41,7 +41,7 @@
     "forever/horde/04-the-barrens.guide": "e4e288db5b3947c8972288f954e00f275a140085f4eb4fab1220227506091646",
     "forever/horde/05-stonetalon-mountains.guide": "a463826a8e90a97a5f83c732bd124202fc2f00aabeda812feb86bf9cd097e520",
     "forever/horde/06-hillsbrad-foothills.guide": "5fafc00aad8d8f787421a89dda0f4433ab33c77b69b98314cd9624befeb80fca",
-    "forever/horde/07-ashenvale.guide": "4dd2ff22d3da612c1175846288220b1bd0a202c7aa432745ca25b1fad68cc5b3",
+    "forever/horde/07-ashenvale.guide": "029ea37fe3aba627a1ad799fa70eb9842478a6e48ce7f61267fe4777ddef02f9",
     "forever/horde/30-40/01-desolace.guide": "72fea433958763f68cc0fb1f7deee1f4162045e080d66faffd9f33668ab5a775",
     "forever/horde/30-40/02-stranglethorn-vale.guide": "29663a88088a73a6d4bea374aecb3b373fdcdae0d13dd704a4cbc1772b787d1e",
     "forever/horde/30-40/03-arathi-highlands.guide": "d336b875af52698ede6f91a19c113e760714306fcab18d559070693c007d932d",

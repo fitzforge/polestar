@@ -147,9 +147,9 @@ step Whelgar's Excavation Site
   tip Follow the road east to the excavation site on the hill south of the road.
   accept 295                              -- Ormer Ironbraid
   accept 299                              -- Prospector Whelgar
-  accept 98216                            -- Prospector Whelgar, below ground
-  accept 98310                            -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground
-  accept 98313                            -- For Historian Karnik in Ironforge, later
+  accept 98216 optional                            -- Prospector Whelgar, below ground
+  accept 98310 optional                            -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground
+  accept 98313 optional                            -- For Historian Karnik in Ironforge, later
 
 step Raptor valley
   tip The bigger raptors hunt in the valley just west of the dig.
@@ -169,13 +169,14 @@ step Whelgar's Excavation Site: kill these as you meet them
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
   collect 2661 quest 299                  -- Neru Fragment: the Loose Soil
-  collect 279993 quest 98216.1        -- Titanic Keystone
+  tip Goaz Warder is elite: grouping up is advised.
+  collect 279993 quest 98216.1 optional        -- Titanic Keystone
   collect 3337 quest 464                  -- Dragonmaw War Banner
   collect 3638 quest 296                  -- Sarltooth's Talon
 
 step Ormer and Whelgar
   turnin 296                              -- Ormer Ironbraid
-  turnin 98216                        -- Below ground
+  turnin 98216 optional                        -- Below ground
   turnin 299                              -- Prospector Whelgar
 
 step Rethiel the Greenwarden
