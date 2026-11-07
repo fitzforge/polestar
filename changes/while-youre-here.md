@@ -1,10 +1,10 @@
 ---
 section: players
 ---
-- While you're here: when a quick objective of a later step is close by and
-  its quest is already in your log (a couple of kills or clicks, an item that
-  drops often), a line slides in under the current step, for example "While
-  you're here: Kill Kobold Vermin, 2 more (step 14) 45 yd". Grab it now and
+- While you're here: when you pass through the area of a later step's
+  objective whose quest is already in your log, a line slides in under the
+  current step, for example "While you're here: Kill Kobold Vermin, 12 more
+  (step 14) 45 yd". It stays while you work on it. Grab it now and
   that step is done or shorter when you get there. Click the line to point
   the arrow there; right-click it (or its close button) and it stays away for
   the rest of the zone. The map shows where, and the quest item button

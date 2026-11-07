@@ -211,7 +211,7 @@ local BUILTIN = {
 	-- Core/Engine.lua, "While you're here" (Own.hereBuild): a quick objective of a later step close by.
 	{ page = GUIDE, tab = L["Window"], section = L["While you're here"], controls = {
 		{ kind = "toggle", key = "behavior.whileHere", label = L["While you're here"],
-			help = L["When a quick objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."],
+			help = L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."],
 			search = "nearby objective, grab it now, on the way, later step, opportunistic, detour" },
 		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 40, max = 120, step = 5,
 			format = function(v) return ns.FormatDistance(v) end,

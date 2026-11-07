@@ -1270,7 +1270,7 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
   hand-in) and the writer.
-- **While you're here.** While the player works the live step, a quick open
+- **While you're here.** While the player works the live step, an open
   objective of a later step whose quest is already in the log, close by,
   becomes one line under the step (`Engine.GetWhileHere`: the goal view of
   its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
@@ -1285,20 +1285,18 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   for the character (`stepApplies`, `goalApplies`), not skipped, not along
   (an along step, background goals included, or a pinned quest: Along the
   way lists them), not an objective the live step works itself, with mobs
-  at most `HERE_ABOVE` levels over the player, and small: at most
-  `HERE_SMALL` kills, clicks or uses left, a drop at most `HERE_KILLS`
-  expected kills (left over the drop chance in the quest database's item
-  record, `Own.hereChance`: the goal's own mob, else the likeliest dropper),
-  a gathered item at most `HERE_SMALL`, an unknown chance at most
-  `HERE_UNKNOWN`. With `behavior.whileHereTurnins`, a later `turnin` of a
-  ready quest counts too (its NPC within `HERE_TURNIN` yards). The arrival
+  at most `HERE_ABOVE` levels over the player, whatever is left (no size
+  cap: the player is there already; slow, spread drops are background goals,
+  which are along steps). With `behavior.whileHereTurnins`, a later `turnin`
+  of a ready quest counts too (its NPC within `HERE_TURNIN` yards). The arrival
   poll measures them (`Own.hereTick`, allocation-free: cached world points,
   no tables, a message only when the shown distance moves by `HERE_STEP`):
   the nearest within `behavior.whileHereRadius` yards of its nearest spawn
   area at the player's level becomes the line, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
-  radius, once done, after `HERE_SECONDS` or on `Engine.DismissWhileHere`.
+  radius, once done, after `HERE_SECONDS` with no progress on it (each
+  change of its count starts the time again), or on `Engine.DismissWhileHere`.
   Nothing appears, and nothing goes by distance or time, during a fight. A
   dismissed or expired line stays quiet for the zone stay (`Own.hereQuiet`,
   emptied when `GetRealZoneText` changes). Never in an instance, on a taxi,

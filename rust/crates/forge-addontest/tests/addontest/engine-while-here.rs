@@ -1,11 +1,11 @@
 //! "While you're here" (addon/Polestar/Core/Engine.lua, Own.hereBuild / Own.hereTick, Engine.GetWhileHere): while
-//! the player works the live step, a quick open objective of a later step whose quest is already in the log, close
-//! by, becomes one line under the step; with the option on, so does a quest ready to hand in whose NPC stands right
-//! there. Real Core manifest and quest database module, stub world.
+//! the player works the live step, an open objective of a later step whose quest is already in the log, close by,
+//! becomes one line under the step, whatever is left (the player is there already); with the option on, so does a
+//! quest ready to hand in whose NPC stands right there. Real Core manifest, stub world.
 //!
 //! Elwynn here is 3000 yd across (30 yd per map percent on x) and 2000 yd high (20 yd per percent on y).
 
-use forge_addontest::{emitted, questdb::ADD_RECORDS_LUA, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
+use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
 const WORLD: &str = r#"
@@ -67,51 +67,59 @@ function wp()
 end
 "#;
 
-fn items(chance: u32) -> String {
-	format!(
-		r#"{ADD_RECORDS_LUA}
-Polestar.QuestDB.SetMeta({{ schema = 2 }})
-AddRecords("items", {{ [772] = {{ "Large Candle", 1, 476, {chance}, 0 }} }})
-"#
-	)
-}
-
-fn run_full(script: &str, chance: u32, escort: bool) -> Vec<Value> {
-	let guide = GUIDE.replace("ESCORT", if escort { ", escort = true" } else { "" });
+// The guide with `from` replaced by `to` (the escort test: "ESCORT").
+fn run_edit(script: &str, from: &str, to: &str) -> Vec<Value> {
+	let guide = GUIDE.replace(from, to).replace("ESCORT", "");
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Quests/QuestDB.lua"])],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/here" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, &guide, HELPERS, &items(chance), "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, &guide, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
 		..Default::default()
 	})
 }
 
 fn run(script: &str) -> Vec<Value> {
-	run_full(script, 50, false)
+	run_edit(script, "ESCORT", "")
 }
 
 #[test]
-fn only_quick_open_work_of_later_steps_for_quests_in_the_log_qualifies_up_to_where_the_guide_leaves_the_zone() {
+fn open_work_of_later_steps_for_quests_in_the_log_qualifies_whatever_is_left_up_to_where_the_guide_leaves_the_zone() {
 	let out = run(r#"
 		emit({ E.GetLiveStep(), cands() })
 		w.progress(7, 1, 0); flush()
-		emit(cands())                                -- 10 vermin left: too many kills
-		w.progress(7, 1, 8); E.PinQuest(7); flush()
+		emit(cands())                                -- 10 vermin left: still one, the player is there already
+		E.PinQuest(7); flush()
 		emit(cands())                                -- pinned: Along the way lists it already
+		E.SkipQuest(60); flush()
+		emit(cands())                                -- skipped: never
 	"#);
-	// 2: two vermin left. 3: two candles at 50 % (four kills). 8: quest 40 is ready, Dughan takes it. Never 4 (88
-	// is not in the log), 5 (a pickup), 6 (its `when` fails at level 5), 7 (level 9 mobs at level 5), 10 (after the
-	// hearth: another zone stay), nor the live step's own wolves.
-	assert_eq!(out, vec![json!([1, "2:1:work:2 3:1:work:2 8:1:turnin:0"]), json!("3:1:work:2 8:1:turnin:0"), json!("3:1:work:2 8:1:turnin:0")]);
+	// 2: the vermin. 3: two candles. 8: quest 40 is ready, Dughan takes it. Never 4 (88 is not in the log), 5 (a
+	// pickup), 6 (its `when` fails at level 5), 7 (level 9 mobs at level 5), 10 (after the hearth: another zone
+	// stay), nor the live step's own wolves.
+	assert_eq!(out, vec![json!([1, "2:1:work:2 3:1:work:2 8:1:turnin:0"]), json!("2:1:work:10 3:1:work:2 8:1:turnin:0"), json!("3:1:work:2 8:1:turnin:0"), json!("8:1:turnin:0")]);
 }
 
-// Background goals: a slow drop spread over the zone (the Barrens' beaks, about one in four) is never "grab it now".
+// Background goals (a slow drop spread over the zone) are along steps: Along the way lists them, never this line.
 #[test]
-fn a_low_drop_collect_is_left_out_two_items_at_26_percent_take_about_eight_kills() {
-	let out = run_full("emit(cands())", 26, false);
+fn a_background_goal_an_along_step_is_left_out_however_close() {
+	let out = run_edit("emit(cands())", r#"{ title = "Candles", goals"#, r#"{ title = "Candles", along = true, goals"#);
 	assert_eq!(out, vec![json!("2:1:work:2 8:1:turnin:0")]);
+}
+
+// Fitz: chasing one step's mobs through another step's objective, "I just do it, I'm here already". A big count
+// shows, and a line being worked never expires; three minutes with no progress end it.
+#[test]
+fn a_big_objective_shows_and_stays_while_worked_past_three_minutes() {
+	let out = run(r#"
+		w.progress(7, 1, 0); flush()
+		at(47.6, 37.6); emit(here())
+		stub.advance(120); w.progress(7, 1, 4); flush()
+		stub.advance(120); emit(here())              -- four minutes in, worked two minutes ago
+		stub.advance(181); emit(here())              -- three minutes with nothing: gone
+	"#);
+	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 10 more 50"), json!("2:1 Kill Kobold Vermin, 6 more 50"), json!("none")]);
 }
 
 #[test]
@@ -229,7 +237,7 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
 	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v)]);
 	// The live step escorts someone: nothing for the whole step.
-	let escort = run_full(r#"at(47.6, 37.6); emit(here())"#, 50, true);
+	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
 }
 

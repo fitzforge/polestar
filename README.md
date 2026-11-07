@@ -421,9 +421,9 @@ its source is in [apps/client](apps/client).
   use the guide window's menu, and its open objectives join the Along the way
   list beside whatever step you are on, with their map marks, the target
   button and the arrow, until they are done or you unpin it.
-- **While you're here.** When a quick objective of a later step is close by
-  and its quest is already in your log (a couple of kills or clicks, an item
-  that drops often), one line under the step says so; done now, that step is
+- **While you're here.** When you pass through the area of a later step's
+  objective whose quest is already in your log (12 vermin as much as one
+  chest), one line under the step says so; done now, that step is
   done or shorter when you get there. Click it for the arrow, right-click it
   to leave it for this zone. A quest ready to hand in to someone standing
   right there shows the same way (Options, Guide, Window, "While you're

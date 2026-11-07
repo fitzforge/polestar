@@ -17,7 +17,7 @@ w.onQuest(60, { { text = "Large Candle: 1/3", type = "item", required = 3, fulfi
 "#;
 
 // 1 (live) kill 8 wolves far away · 2 kill 10 vermin (8 done) at 47.6,35.1 · 3 collect 3 candles (1 done) in two
-// spawn areas around 52,35 (no drop chance known: two left is quick enough).
+// spawn areas around 52,35.
 const GUIDE: &str = r#"
 Polestar.RegisterGuide({
 	id = "test/here", pack = "test", title = "Here", minLevel = 1, maxLevel = 10,

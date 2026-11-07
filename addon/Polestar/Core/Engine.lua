@@ -5848,7 +5848,7 @@ function Engine.GetAlong()
 end
 
 ---------------------------------------------------------------------------
--- While you're here: while the player works the live step, a quick open
+-- While you're here: while the player works the live step, an open
 -- objective of a later step whose quest is already in the log, close by,
 -- becomes one line under the step (Engine.GetWhileHere): "While you're here:
 -- Kill Kobold Vermin, 2 more  (step 14)  45 yd". Grabbing it now saves coming
@@ -5869,11 +5869,9 @@ end
 --     no open goal for the same objective (Own.nearestField has those);
 --   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only;
---   * small: kills, clicks and uses with at most HERE_SMALL left; a drop
---     with at most HERE_KILLS expected kills (left over its drop chance in
---     Polestar.QuestDB's item data: the goal's own mob's, else the likeliest
---     dropper's), a gathered item at most HERE_SMALL, an item with no chance
---     known at most HERE_UNKNOWN. Slow, spread drops never qualify.
+--   * any size: whatever is left (15 quilboars as much as 2), the player is there
+--     already. Slow drops spread over the zone are background goals, along
+--     steps, and so never a candidate.
 -- With behavior.whileHereTurnins, also a later step's turn-in of a quest
 -- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
 --
@@ -5882,7 +5880,8 @@ end
 -- yards of its nearest spawn area's edge (HERE_TURNIN of a hand-in's NPC),
 -- checked once against the walk there (Nav.EstimateTravel, budgeted: a walk
 -- over HERE_WALK times the straight line is a cliff or a cave floor). It goes
--- past HERE_CLEAR times that radius, once done, after HERE_SECONDS, or on a
+-- past HERE_CLEAR times that radius, once done, after HERE_SECONDS without
+-- progress on it (a line being worked never expires), or on a
 -- dismiss (Engine.DismissWhileHere). One at a time; during a fight none
 -- appears and none goes by distance or time. A dismissed or expired line
 -- stays quiet for the rest of the zone stay (Own.hereQuiet). Never in an
@@ -5894,10 +5893,9 @@ end
 
 Own.HERE_MAX, Own.HERE_SCAN = 10, 80 -- candidates kept; steps looked ahead
 Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
-Own.HERE_SMALL, Own.HERE_KILLS, Own.HERE_UNKNOWN = 3, 4, 2
 Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
 Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
-Own.HERE_SECONDS = 180
+Own.HERE_SECONDS = 180 -- a line with no progress for this long goes
 Own.HERE_STEP = 5 -- yards the shown distance moves by
 Own.HERE_WALK, Own.HERE_SPEED = 1.6, 7 -- walk / straight line; run speed (yd/s)
 Own.HERE_VERBS = { kill = true, collect = true, interact = true, use = true }
@@ -5927,31 +5925,6 @@ function Own.hereLevelOk(goal, top)
 	return not (lvl and lvl > top)
 end
 
--- A collect goal's drop chance (percent) from the quest database's item
--- record: its own mob's (`npc`, `from`), else the likeliest dropper's; false
--- for an item gathered from objects; nil when unknown.
-function Own.hereChance(goal)
-	local Q = ns.QuestDB
-	local rec = goal.item and Q and Q.IsLoaded() and Q.ItemRecord(goal.item)
-	if type(rec) ~= "table" then return nil end
-	local n = rec[2] or 0
-	local objects = rec[3 + 2 * n] or 0
-	if goal.fromKind == "object" or (n == 0 and objects > 0) then return false end
-	local own = goal.npc or (goal.fromKind == "npc" and goal.fromId) or nil
-	local best
-	for k = 1, n do
-		local npc, chance = rec[1 + 2 * k], rec[2 + 2 * k]
-		if type(chance) == "number" and chance > 0 then
-			if npc == own then return chance end
-			for _, f in ipairs(goal.fromNpcs or NONE) do
-				if f.npc == npc then return chance end
-			end
-			if not best or chance > best then best = chance end
-		end
-	end
-	return best
-end
-
 -- Whether goal g of later step s is a candidate, as what ("work" or
 -- "turnin"), and how many are left (see above).
 function Own.hereFits(s, g, goal, live)
@@ -5977,16 +5950,6 @@ function Own.hereFits(s, g, goal, live)
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
-	if t == "collect" then
-		local chance = Own.hereChance(goal)
-		if chance then
-			if left / (math.min(chance, 100) / 100) > Own.HERE_KILLS then return nil end
-		elseif left > (chance == false and Own.HERE_SMALL or Own.HERE_UNKNOWN) then
-			return nil
-		end
-	elseif left > Own.HERE_SMALL then
-		return nil
-	end
 	return "work", left
 end
 
@@ -6044,6 +6007,8 @@ function Own.hereBuild()
 			if e.goal == cur.goal then
 				Own.here = e
 				if e.left ~= cur.left then
+					-- Worked on: its time starts again.
+					Own.hereSince = GetTime()
 					Own.hereView = nil
 					ns.Fire("WHILE_HERE_CHANGED")
 				end
@@ -6226,11 +6191,19 @@ function Engine.WhileHereTick(c, px, py)
 	if Own.hereTick(c, px, py) then requestUpdate() end
 end
 
--- What changes the candidates: the quest log, the level, a new zone (which
--- also ends the zone stay: dismissed lines may come back), the settings.
+-- What changes the candidates: the quest log, the level, the player's pins,
+-- ticks and skips, a new zone (which also ends the zone stay: dismissed lines
+-- may come back), the settings.
 function Own.hereChanged() Own.hereDirty = true end
 for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(event, Own.hereChanged)
+end
+-- PLAYER_SKIPPED_QUEST comes after the skip's evaluation: one more.
+for _, msg in ipairs({ "PINS_CHANGED", "PLAYER_SKIPPED_STEP", "PLAYER_SKIPPED_QUEST" }) do
+	ns.On(msg, function()
+		Own.hereDirty = true
+		requestUpdate()
+	end)
 end
 ns.RegisterEvent("PLAYER_LEVEL_UP", function() requestUpdate() end)
 for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
@@ -6718,7 +6691,7 @@ function Engine.ToggleGoal(stepIndex, goalIndex)
 	else
 		m[key] = "tick"
 	end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end
@@ -6836,7 +6809,7 @@ function Engine.SkipGoal(stepIndex, goalIndex)
 		end
 	end
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end
