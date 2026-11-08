@@ -10,7 +10,7 @@ local w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 w.level = 5
 w.zone, w.subzone = "Elwynn Forest", ""
-w.moveTo(1429, 47.6, 45.1)
+w.moveTo(1429, 47.6, 70.0) -- 700 yd from the vermin: nothing in reach at any radius
 w.onQuest(33, { 8 }, "Wolves Across the Border")
 w.onQuest(7, { { required = 10, fulfilled = 8 } }, "Kobold Camp Cleanup")
 w.onQuest(60, { { text = "Large Candle: 1/3", type = "item", required = 3, fulfilled = 1 } }, "Candles")
@@ -36,9 +36,11 @@ local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
 local H = GF.parts.here
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 local function top(f) local _, _, _, _, y = f:GetPoint(1); return y end
+local function row(i) return H.Rows[i or 1] end
 local function line()
-	return { shown = H:IsShown(), text = plain(H.Text:GetText()), label = H.Label:GetText(), sub = H.Sub:GetText(), dist = H.Dist:GetText(),
-		top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
+	local r = row(1)
+	return { shown = H:IsShown(), text = r and plain(r.Text:GetText()) or false, label = H.Label:GetText(), sub = r and r.Sub:GetText() or false,
+		dist = r and r.Dist:GetText() or false, top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
 end
 local function toast()
 	local t = PolestarWhileHereToast
@@ -46,9 +48,10 @@ local function toast()
 end
 "#;
 
-// The distances below are measured against a 60 yd radius (the default is 150).
+// The distances below are measured against a 60 yd radius (the default is 250), set before login so no line
+// shows from where the player starts.
 fn run(before_login: &str, script: &str) -> Vec<Value> {
-	run_with(before_login, r#"Polestar.Set("behavior.whileHereRadius", 60)"#, script)
+	run_with(&format!("{before_login}\nPolestar.Set(\"behavior.whileHereRadius\", 60)"), "", script)
 }
 
 fn run_with(before_login: &str, setup: &str, script: &str) -> Vec<Value> {
@@ -72,10 +75,11 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 		local sliding = { Polestar.Anim.IsRunning(H.Body, "alpha"), Polestar.Anim.IsRunning(H.Body, "offsetX") }
 		stub.advance(0.5)
 		emit({ line = line(), sliding = sliding, alpha = H.Body:GetAlpha(), toast = toast() })
-		H:GetScript("OnClick")(H, "LeftButton"); stub.advance(0.2)
+		local R = row(1)
+		R:GetScript("OnClick")(R, "LeftButton"); stub.advance(0.2)
 		local t = Polestar.Nav.GetTarget()
 		emit(t and { t.stepIndex, t.goalIndex } or false)
-		H:GetScript("OnClick")(H, "RightButton"); stub.advance(0.05)
+		R:GetScript("OnClick")(R, "RightButton"); stub.advance(0.05)
 		local leaving = { H:IsShown(), Polestar.Anim.IsRunning(H.Body, "alpha") }
 		stub.advance(0.4)
 		t = Polestar.Nav.GetTarget()
@@ -103,28 +107,45 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 }
 
 // Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
-// tinted panel (the alternate panel ground under an accent wash) with a "While you're here" label, then the
-// suggestion as a goal row, its glyph, distance and close button on the first line; in a narrow window the text
-// wraps onto another line and the panel grows, never cutting it.
+// panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
+// change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
+// button on the first line; in a narrow window the text wraps onto another line and the panel grows, never cut.
 #[test]
-fn the_suggestion_is_a_goal_row_in_its_own_tinted_panel_and_wraps_in_a_narrow_window_never_cut() {
+fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent_and_wraps_in_a_narrow_window_never_cut() {
 	let out = run(
 		"",
 		r#"
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
+		local R = row(1)
 		local function rgb(t) local r, g, b = t:GetVertexColor(); return { r, g, b } end
 		local function cy(r) local _, _, _, _, y = r:GetPoint(1); return y end
 		local function at(width)
 			local h = GF.LayoutHere(width)
-			return { h = h, lines = H.Text:GetNumLines(), cut = H.Text:IsTruncated(), text = plain(H.Text:GetText()) }
+			return { h = h, lines = R.Text:GetNumLines(), cut = R.Text:IsTruncated(), text = plain(R.Text:GetText()) }
 		end
-		local pr, pg, pb = T.Color("panelAlt")
+		local function ground()
+			local p = rgb(H.Panel)
+			local r, g, b = T.AccentGround(GF.HERE_TINT)
+			local br, bg, bb = T.Color("bg")
+			return { panel = p, want = { r, g, b }, bg = { br, bg, bb }, contrast = T.Contrast({ T.Color("text") }, p) }
+		end
+		local own = ground()
+		Polestar.Set("ui.accent", { 0.2, 0.75, 0.3 })
+		local green = ground()
+		Polestar.Set("ui.accent", { 1, 0.95, 0.6 })
+		local pale = ground()
 		-- The stub measures the colour codes as characters too: 600 holds the line on one.
-		emit({ panel = rgb(H.Panel), panelAlt = { pr, pg, pb }, firstLine = { cy(H.Icon), cy(H.Close) }, wide = at(600), narrow = at(200) })"#,
+		emit({ own = own, green = green, pale = pale, firstLine = { cy(R.Icon), cy(R.Close) }, wide = at(600), narrow = at(200) })"#,
 	);
 	let o = &out[0];
-	assert_eq!(o["panel"], o["panelAlt"], "the panel is the theme's alternate panel ground");
+	for k in ["own", "green", "pale"] {
+		let g = &o[k];
+		assert_eq!(g["panel"], g["want"], "{k}: the panel is the accent dulled into the ground: {o}");
+		assert_ne!(g["panel"], g["bg"], "{k}: tinted, not the plain ground");
+		assert!(g["contrast"].as_f64().unwrap() >= 7.0, "{k}: the text reads at 7:1 on it: {o}");
+	}
+	assert_ne!(o["own"]["panel"], o["green"]["panel"], "a new accent repaints it live");
 	assert_eq!(o["firstLine"][0], o["firstLine"][1], "the glyph and the close button share the first line");
 	assert_eq!(o["wide"]["lines"], 1, "{o}");
 	assert!(o["narrow"]["lines"].as_i64().unwrap() >= 2, "a narrow window wraps the text: {o}");
@@ -133,6 +154,92 @@ fn the_suggestion_is_a_goal_row_in_its_own_tinted_panel_and_wraps_in_a_narrow_wi
 		assert_eq!(o[w]["text"], "Kill Kobold Vermin  8/10");
 	}
 	assert!(o["narrow"]["h"].as_f64().unwrap() > o["wide"]["h"].as_f64().unwrap(), "the panel grows with the text: {o}");
+}
+
+// Fitz, 0.3.5: in the transparent style the panel was a solid box over the world. There it is a light tint of
+// the accent, well below opaque, its text outlined like the window's other text; back in the standard style it
+// takes its dulled accent ground again.
+#[test]
+fn in_the_transparent_style_the_panel_is_a_light_accent_tint_with_outlined_text_not_an_opaque_box() {
+	let out = run(
+		"",
+		r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		local T = Polestar.Theme
+		local function paint() local r, g, b, a = H.Panel:GetVertexColor(); return { r, g, b, a } end
+		local solid = paint()
+		Polestar.Set("ui.style", "transparent"); stub.advance(0.1)
+		local clear, outlined = paint(), select(3, row(1).Text:GetFont())
+		Polestar.Set("ui.style", "standard"); stub.advance(0.1)
+		local ar, ag, ab = T.Accent()
+		emit({ solid = solid, clear = clear, accent = { ar, ag, ab }, outlined = outlined, back = paint(), shown = H:IsShown() })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["shown"], true);
+	let alpha = |k: &str| o[k][3].as_f64().unwrap();
+	assert!(alpha("solid") > 0.8, "the standard style keeps its ground: {o}");
+	assert!(alpha("clear") <= 0.25, "transparent: a light tint, well below opaque: {o}");
+	for i in 0..3 {
+		assert!((o["clear"][i].as_f64().unwrap() - o["accent"][i].as_f64().unwrap()).abs() < 1e-6, "the tint is the accent: {o}");
+	}
+	assert!(o["outlined"].as_str().unwrap().contains("OUTLINE"), "its text is outlined over the world: {o}");
+	assert_eq!(o["back"], o["solid"], "back in the standard style it takes its ground again");
+}
+
+// Fitz, 0.3.5: several suggestions close by (Engine.GetWhileHereList) are rows of the one panel, under its one
+// label, in the engine's order, each with its own distance and close button; a click on a row aims at that one, a
+// right-click or its close button dismisses only that one, and the panel goes with the last.
+#[test]
+fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local function rows()
+			local out = {}
+			for i, r in ipairs(H.Rows) do
+				if r:IsShown() then
+					local v = E.GetWhileHereList()[i]
+					out[#out + 1] = { text = plain(r.Text:GetText()), sub = r.Sub:GetText(), dist = r.Dist:GetText(), step = v and v.step or false }
+				end
+			end
+			return out
+		end
+		local labels = 0
+		for _, region in ipairs({ H.Body:GetRegions() }) do
+			if region.GetText and region:GetText() == "While you're here" then labels = labels + 1 end
+		end
+		local first = { rows = rows(), list = #E.GetWhileHereList(), labels = labels }
+		local second = H.Rows[2]
+		local aimAt = second.psView.step
+		second:GetScript("OnClick")(second, "LeftButton"); stub.advance(0.2)
+		local t = Polestar.Nav.GetTarget()
+		local aimed = t and t.stepIndex or false
+		local one = H.Rows[1]
+		local gone = one.psView.step
+		one:GetScript("OnClick")(one, "RightButton"); stub.advance(0.6)
+		local after = { rows = rows(), list = #E.GetWhileHereList(), shown = H:IsShown() }
+		H.Rows[1].Close:Click(); stub.advance(0.6)
+		emit({ first = first, aimAt = aimAt, aimed = aimed, gone = gone, after = after, last = { shown = H:IsShown(), list = #E.GetWhileHereList() } })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["first"]["list"], 2, "the vermin and the candles are both in reach: {o}");
+	assert_eq!(o["first"]["labels"], 1, "one label for the panel");
+	let rows = o["first"]["rows"].as_array().unwrap();
+	assert_eq!(rows.len(), 2, "{o}");
+	let texts: Vec<&str> = rows.iter().map(|r| r["text"].as_str().unwrap()).collect();
+	assert!(texts.contains(&"Kill Kobold Vermin  8/10") && texts.contains(&"Collect Large Candle  1/3"), "{texts:?}");
+	for r in rows {
+		assert!(r["dist"].as_str().unwrap().ends_with(" yd"), "each row has its own distance: {r}");
+		assert_eq!(r["sub"], format!("Step {}", r["step"]), "{r}");
+	}
+	assert_eq!(o["aimed"], o["aimAt"], "a click on the second row aims at its step: {o}");
+	let left = o["after"]["rows"].as_array().unwrap();
+	assert_eq!((o["after"]["list"].as_i64(), left.len()), (Some(1), 1), "a right-click dismisses only its row: {o}");
+	assert_ne!(left[0]["step"], o["gone"], "the other row stays: {o}");
+	assert_eq!(o["after"]["shown"], true);
+	assert_eq!(o["last"], json!({ "shown": false, "list": 0 }), "the last row's close button takes the panel with it");
 }
 
 #[test]
@@ -148,12 +255,12 @@ fn reduced_motion_the_line_fades_in_without_sliding() {
 }
 
 #[test]
-fn with_the_window_hidden_or_compact_one_small_toast_says_it_once() {
+fn with_the_window_hidden_one_small_toast_says_it_once() {
 	let out = run(
-		r#"Polestar.Set("ui.compact", true)"#,
+		r#"Polestar.Set("ui.shown", false)"#,
 		r#"
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
-		emit({ line = H:IsShown(), toast = toast() })
+		emit({ line = H:IsVisible(), toast = toast() })
 		stub.advance(9)
 		emit(toast())                                       -- it closes itself
 		local t = PolestarWhileHereToast
@@ -167,8 +274,59 @@ fn with_the_window_hidden_or_compact_one_small_toast_says_it_once() {
 	assert_eq!(out[0], json!({ "line": false, "toast": "Kill Kobold Vermin, 2 more  \u{b7}  50 yd" }));
 	assert_eq!(out[1], json!(false));
 	assert_eq!(out[2], json!({ "again": "Kill Kobold Vermin, 2 more  \u{b7}  50 yd", "after": false, "engine": true }));
-	let hidden = run(r#"Polestar.Set("ui.shown", false)"#, r#"w.moveTo(1429, 47.6, 37.6); stub.advance(1.1); emit(toast())"#);
-	assert_eq!(hidden, vec![json!("Kill Kobold Vermin, 2 more  \u{b7}  50 yd")]);
+}
+
+// Fitz, 0.3.5: in the compact window the panel did not show at all. It shows in every mode and style of the window,
+// normal and compact, standard and transparent, growing down, growing up and with the bars at the bottom: two
+// suggestions are two visible rows with their text, distance and close button, inside the window; compact drops
+// the "Step N" line. With the window on screen no toast says them.
+#[test]
+fn two_suggestions_show_as_two_rows_in_every_window_mode_and_style() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		local F = GF.frame
+		local out = {}
+		for _, compact in ipairs({ false, true }) do
+			for _, style in ipairs({ "standard", "transparent" }) do
+				for _, grow in ipairs({ "down", "up", "barsBottom" }) do
+					Polestar.Set("ui.compact", compact)
+					Polestar.Set("ui.style", style)
+					Polestar.Set("ui.growUp", grow ~= "down")
+					Polestar.Set("ui.barsBottom", grow == "barsBottom")
+					w.moveTo(1429, 47.6, 45.1); stub.advance(1.1)
+					w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+					local rows = {}
+					for i, r in ipairs(H.Rows) do
+						if r:IsVisible() then
+							rows[#rows + 1] = { text = plain(r.Text:GetText()) ~= "", dist = r.Dist:IsVisible() and r.Dist:GetText() ~= "",
+								close = r.Close:IsVisible(), step = r.Sub:IsVisible(), h = r:GetHeight() > 0 }
+						end
+					end
+					local _, _, _, _, y = H:GetPoint(1)
+					out[#out + 1] = { mode = (compact and "compact" or "normal") .. "/" .. style .. "/" .. grow, list = #E.GetWhileHereList(),
+						panel = H:IsVisible() and H:GetHeight() > 0, inside = -y + H:GetHeight() <= F:GetHeight(), rows = rows, toast = toast() }
+				end
+			end
+		end
+		emit(out)"#,
+	);
+	let runs = out[0].as_array().unwrap();
+	assert_eq!(runs.len(), 12);
+	for r in runs {
+		let mode = r["mode"].as_str().unwrap();
+		assert_eq!(r["list"], 2, "{mode}: two suggestions in reach: {r}");
+		assert_eq!(r["panel"], true, "{mode}: the panel shows: {r}");
+		assert_eq!(r["inside"], true, "{mode}: inside the window: {r}");
+		assert_eq!(r["toast"], false, "{mode}: the window shows them, no toast");
+		let rows = r["rows"].as_array().unwrap();
+		assert_eq!(rows.len(), 2, "{mode}: two visible rows: {r}");
+		let step = !mode.starts_with("compact");
+		for row in rows {
+			assert_eq!(row, &json!({ "text": true, "dist": true, "close": true, "step": step, "h": true }), "{mode}: {r}");
+		}
+	}
 }
 
 // The minimap shows what the line points at: its mark and spawn area in the accent on both surfaces (its own
@@ -185,7 +343,7 @@ fn the_maps_and_the_minimap_show_its_mark_and_spawn_area_until_the_arrow_takes_i
 		local function mm(name) return #P.GetMinimapFrames(name) + #P.GetMinimapHulls(name) + #P.GetMinimapAreas(name) end
 		emit({ here = v and v.step or false, text = v and v.hereText or false, mark = n("nav.here"), areas = n("nav.hereAreas"),
 			mmMark = mm("nav.here"), mmAreas = mm("nav.hereAreas") })
-		H:GetScript("OnClick")(H, "LeftButton"); stub.advance(0.3)
+		row(1):GetScript("OnClick")(row(1), "LeftButton"); stub.advance(0.3)
 		emit({ mark = n("nav.here"), areas = n("nav.hereAreas"), own = n("nav.areas") })
 	"#,
 	);
@@ -215,7 +373,7 @@ end
 "#;
 
 // Fitz: a new line chimes once and its minimap mark pings (three rings over about 1.2 s), so the player looks;
-// never again for the same line, at most one chime in 30 s, none with the sound off.
+// never again for the same line, every new line after 5 s chimes, none with the sound off.
 #[test]
 fn a_new_line_chimes_once_and_its_minimap_mark_pings_then_settles() {
 	let out = run(
@@ -233,7 +391,7 @@ fn a_new_line_chimes_once_and_its_minimap_mark_pings_then_settles() {
 		emit({ pinging = f.pinging, rings = rings(f), value = A.IsRunning(f, "value"), glow = f.glow and f.glow:IsShown() or false })
 		w.progress(7, 1, 9); stub.advance(0.6)
 		emit({ chimes = chimes(), pinging = mm().pinging })
-		E.DismissWhileHere(); w.moveTo(1429, 52.0, 38.0); stub.advance(0.6)
+		E.DismissWhileHere(); stub.advance(5); w.moveTo(1429, 52.0, 38.0); stub.advance(0.6)
 		emit({ text = E.GetWhileHere().hereText, chimes = chimes(), pinging = mm().pinging })
 		stub.advance(31); w.setZone("Westfall"); w.setZone("Elwynn Forest")   -- a new zone stay: the vermin may come back
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
@@ -244,10 +402,31 @@ fn a_new_line_chimes_once_and_its_minimap_mark_pings_then_settles() {
 	assert_eq!(out[0], json!({ "chimes": 1, "pinging": true, "value": true, "rings": 2 }), "rings expand, staggered");
 	assert_eq!(out[1], json!({ "pinging": false, "rings": 0, "value": false, "glow": true }), "it ends and the mark keeps its glow");
 	assert_eq!(out[2], json!({ "chimes": 1, "pinging": false }), "the same line again: no chime, no ping");
-	assert_eq!(out[3], json!({ "text": "Collect Large Candle, 2 more", "chimes": 1, "pinging": true }), "a new line within 30 s pings but does not chime");
-	assert_eq!(out[4], json!({ "text": "Kill Kobold Vermin, 1 more", "chimes": 2 }), "30 s on, the next one chimes");
+	assert_eq!(out[3], json!({ "text": "Collect Large Candle, 2 more", "chimes": 2, "pinging": true }), "a new line 5 s on chimes and pings");
+	assert_eq!(out[4], json!({ "text": "Kill Kobold Vermin, 1 more", "chimes": 3 }), "the vermin back in a new zone stay: a chime");
 	let off = run(r#"Polestar.Set("behavior.whileHereSound", false)"#, &format!("{PING}{}", r#"w.moveTo(1429, 47.6, 37.6); stub.advance(0.6); emit({ chimes(), mm().pinging })"#));
 	assert_eq!(off, vec![json!([0, true])], "the sound off: the ping still plays");
+}
+
+// Fitz: the hooves were up and the spores appeared with no chime (one chime in 30 s was the rule). Each new line
+// chimes, at least 5 s after the last, whatever else is up; two appearing in one poll chime once.
+#[test]
+fn a_second_line_appearing_while_one_is_up_chimes_two_at_once_chime_once() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 120)"#,
+		&format!(
+			"{PING}{}",
+			r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(0.6)        -- the vermin 50 yd, the candles 126
+		local one = { n = #E.GetWhileHereList(), chimes = chimes() }
+		stub.advance(10)
+		w.moveTo(1429, 49.3, 35.1); stub.advance(0.6)        -- the candles 66 yd, the vermin still up
+		emit({ one = one, two = { n = #E.GetWhileHereList(), chimes = chimes() } })
+	"#
+		),
+	);
+	assert_eq!(out[0], json!({ "one": { "n": 1, "chimes": 1 }, "two": { "n": 2, "chimes": 2 } }));
 }
 
 #[test]
@@ -288,7 +467,7 @@ fn off_the_minimap_the_mark_pings_at_the_rim_with_its_edge_pointer() {
 }
 
 #[test]
-fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_250_yards_and_the_sound() {
+fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yards_and_the_sound() {
 	let out = run_with(
 		"",
 		"",
@@ -299,16 +478,94 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_250_yar
 		local on, radius, turnins, sound = c["behavior.whileHere"], c["behavior.whileHereRadius"], c["behavior.whileHereTurnins"], c["behavior.whileHereSound"]
 		local before = { on ~= nil, radius ~= nil, turnins ~= nil, sound ~= nil, Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"),
 			Polestar.Get("behavior.whileHereTurnins"), Polestar.Get("behavior.whileHereSound") }
-		stub.RunScript(radius.Slider, "OnValueChanged", 118, true)
+		stub.RunScript(radius.Slider, "OnValueChanged", 398, true)
 		local wide = Polestar.Get("behavior.whileHereRadius")
 		on:Click()
 		emit({ before = before, wide = wide, off = Polestar.Get("behavior.whileHere"), radiusEnabled = radius:IsEnabled(), turninsEnabled = turnins:IsEnabled(), soundEnabled = sound:IsEnabled() })
 	"#,
 	);
-	assert_eq!(out[0]["before"], json!([true, true, true, true, true, 150, true, true]));
-	assert_eq!(out[0]["wide"], 120, "the slider steps by 10 yards");
+	assert_eq!(out[0]["before"], json!([true, true, true, true, true, 180, true, true]));
+	assert_eq!(out[0]["wide"], 400, "the slider steps by 10 yards, up to 400");
 	assert_eq!(out[0]["off"], false);
 	assert_eq!(out[0]["radiusEnabled"], false, "its children grey out with it off");
 	assert_eq!(out[0]["turninsEnabled"], false);
 	assert_eq!(out[0]["soundEnabled"], false);
+}
+
+// Fitz: the spores came back after a dismiss and nothing chimed: only the first row's change was heard. A line that
+// comes back chimes and pings like a new one, whichever row it takes (30 s after the last chime at the earliest).
+// Here at 120 yd the vermin (the first row) stay while the candles go past their clear distance and come back.
+#[test]
+fn a_line_that_comes_back_chimes_and_pings_whichever_row_it_takes() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 120)"#,
+		&format!(
+			"{PING}{}",
+			r#"
+		local function pinging()
+			for _, f in ipairs(P.GetMinimapFrames("nav.here")) do if f.pinging then return true end end
+			return false
+		end
+		local function rows()
+			local out = {}
+			for _, v in ipairs(E.GetWhileHereList()) do out[#out + 1] = v.step .. ":" .. v.index end
+			return table.concat(out, " ")
+		end
+		w.moveTo(1429, 49.3, 35.1); stub.advance(0.6)       -- the vermin 51 yd, the candles 66
+		emit({ rows = rows(), chimes = chimes() })
+		stub.advance(2)
+		w.moveTo(1429, 44.0, 35.1); stub.advance(0.6)       -- the candles past 200 yd, the vermin in reach
+		emit({ rows = rows(), chimes = chimes() })
+		stub.advance(31)
+		w.moveTo(1429, 49.3, 35.1); stub.advance(0.6)       -- back: the candles come again
+		emit({ rows = rows(), chimes = chimes(), pinging = pinging() })
+	"#
+		),
+	);
+	assert_eq!(out[0], json!({ "rows": "2:1 3:1", "chimes": 1 }), "two lines at once, one chime (30 s apart at most)");
+	assert_eq!(out[1], json!({ "rows": "2:1", "chimes": 1 }));
+	assert_eq!(out[2], json!({ "rows": "2:1 3:1", "chimes": 2, "pinging": true }), "the candles back in the second row: a chime and a ping");
+}
+
+// Fitz: Dynamic Questing never shows on a flight. On a taxi over the vermin with one's nameplate in sight: no row, no
+// chime, no mark. Landed in reach, it shows once, chiming. Taking off again hides it (it waits, not expired, not
+// left); landed back there after five minutes it shows again as it was, with no second chime and no ping.
+#[test]
+fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly() {
+	let out = run(
+		"",
+		&format!(
+			"{PING}{}",
+			r#"
+		local function rows()
+			local out = {}
+			for _, v in ipairs(E.GetWhileHereList()) do out[#out + 1] = v.step .. ":" .. v.index end
+			return table.concat(out, " ")
+		end
+		local function marks() return #P.GetMinimapFrames("nav.here") end
+		local function pinging()
+			for _, f in ipairs(P.GetMinimapFrames("nav.here")) do if f.pinging then return true end end
+			return false
+		end
+		w.onTaxi = true
+		w.moveTo(1429, 47.6, 37.6)
+		w.units.nameplate2 = "Creature-0-1-0-1-6-0000BEEF"; stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.advance(1.1)
+		emit({ rows = rows(), chimes = chimes(), marks = marks(), toast = toast() })
+		w.onTaxi = false; stub.advance(0.6)
+		emit({ rows = rows(), chimes = chimes() })
+		stub.advance(2)
+		w.onTaxi = true; stub.advance(0.6)
+		emit({ rows = rows(), marks = marks() })
+		stub.advance(300)
+		w.onTaxi = false; stub.advance(0.6)
+		emit({ rows = rows(), chimes = chimes(), pinging = pinging() })
+	"#
+		),
+	);
+	assert_eq!(out[0], json!({ "rows": "", "chimes": 0, "marks": 0, "toast": false }), "on the taxi: nothing");
+	assert_eq!(out[1], json!({ "rows": "2:1", "chimes": 1 }), "landed in reach: once, with a chime");
+	assert_eq!(out[2], json!({ "rows": "", "marks": 0 }), "flying again: hidden");
+	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
 }

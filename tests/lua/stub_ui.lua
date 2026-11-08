@@ -479,6 +479,8 @@ function Engine.GetAlong()
 	end
 	return out
 end
+-- "While you're here" (Engine.GetWhileHereList): nothing close by in the UI stub.
+function Engine.GetWhileHereList() return {} end
 local function move(i)
 	current = i
 	uistub.aim = nil

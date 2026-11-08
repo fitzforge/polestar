@@ -1839,10 +1839,11 @@ end
 -- grows), Pins.PING_SECONDS in all; clamped to the rim, they ring the edge
 -- pointer there. Under ui.reduceMotion one ring flashes in place and fades
 -- (no movement). One ns.Anim tween drives them; nothing runs once it ends,
--- and a ping already played never plays again.
+-- and a ping already played never plays again (Pins.PING.played: several
+-- pinging pins at once each play theirs once).
 ---------------------------------------------------------------------------
 
-Pins.PING = { rings = 3, stagger = 0.22, ring = 0.7, grow = 2.4, alpha = 0.9, last = nil } -- last: the ping played last
+Pins.PING = { rings = 3, stagger = 0.22, ring = 0.7, grow = 2.4, alpha = 0.9, played = {} } -- played: ping -> true
 Pins.PING_SECONDS = (Pins.PING.rings - 1) * Pins.PING.stagger + Pins.PING.ring
 
 function Pins.PING.step(f, v)
@@ -1873,7 +1874,7 @@ function Pins.PING.flashDone(t) Pins.PING.done(t.psFrame) end
 -- Start pin p's ping on minimap frame f (its mark `size` px across).
 function Pins.StartPing(f, p, size)
 	local P = Pins.PING
-	P.last = p.ping
+	P.played[p.ping] = true
 	local A = ns.Anim
 	if not A then return end
 	if not f.pings then
@@ -2230,7 +2231,7 @@ local function drawMinimap()
 								f.edge:SetPoint("CENTER", f, "CENTER", cos(ang) * f.edgeReach, sin(ang) * f.edgeReach)
 							end
 						end
-						if p.ping and p.ping ~= Pins.PING.last then Pins.StartPing(f, p, size) end
+						if p.ping and not Pins.PING.played[p.ping] then Pins.StartPing(f, p, size) end
 					end
 				end
 			end

@@ -1312,9 +1312,9 @@ L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시
 -- L["While you're here:"] = ""
 -- L["Not now (right-click)"] = ""
 -- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
--- L["Right-click: not now, for the rest of this zone."] = ""
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
+-- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1749,6 +1749,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "G
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 L["Install: %s"] = "설치: %s"
+-- L["While here: %s"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
@@ -2066,15 +2067,16 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
--- L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = ""
 -- L["How close"] = ""
--- L["How near its spawn area must be for the line to show. It goes again a little further out."] = ""
 -- L["Include nearby hand-ins"] = ""
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
--- L["While you're here sound"] = ""
--- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
 -- L["Wait for Spoken"] = ""
 -- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
+-- L["Dynamic Questing"] = ""
+-- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = ""
+-- L["Sound for a new suggestion"] = ""
+-- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
+-- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
