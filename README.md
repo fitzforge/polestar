@@ -404,6 +404,10 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Abandoned a quest by mistake?** The guide stays on its step, greys out
+  that quest's goals and points the arrow back at its giver, and asks: go
+  back for it, or skip it and what follows. "When you abandon a guide
+  quest" (Options, Guide, Automation) can always do one or the other.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
   where you are: gray quests are left out, and so are green ones behind your
