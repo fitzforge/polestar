@@ -6531,3 +6531,156 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
 });
+
+// Final route review for 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30, and the
+// 30-40/01 Orgrimmar stop comes at about 29.4, so Searn Firewarder had nothing for the Shaman the step
+// sent there. The accept is on 30-40/02's Orgrimmar stop (about 31.7, after Alliance Relations, also
+// from 30), before Prate Cloudseer takes it at Freewind Post; a route-fixes pair keeps it there.
+test('Horde 30-40: Call of Air is taken on the Orgrimmar stop at 31, not at 29', { skip }, () => {
+	data = data || loadData(DATA);
+	assert.equal(data.quests[1531].minLevel, 30, 'Call of Air is offered from level 30');
+	const first = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept' && goal.quest === 1531), 'no Call of Air on the 29.4 Orgrimmar stop');
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
+	const relations = at(list, 'accept 1431', is('accept', 1431));
+	const air = at(list, 'accept 1531', is('accept', 1531));
+	const prate = at(list, 'turnin 1531', is('turnin', 1531));
+	const fly = at(list, 'fly to Freewind Post', (g) => g.t === 'fly' && /Freewind/.test(g.location || ''));
+	assert.ok(relations < air && air < fly && fly < prate, 'Alliance Relations, Call of Air, the flight, then Prate');
+	const pair = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs
+		.find((p) => p.a[0] === 'accept' && p.a[1] === 1431 && p.b[0] === 'accept' && p.b[1] === 1531);
+	assert.ok(pair, 'the order is a record');
+});
+
+// Final route review for 0.3.5 (Arathi 36-39, both sides): Sunken Treasure's escort step said the
+// professor goes down to the shore and naga ambush him; he walks up to the cave above Faldir's Cove and
+// summons two water elementals there (the server's script), as the writer's own 'Careful' tip said.
+// One guide-fixes tip for both sides.
+test('Sunken Treasure: the escort tip sends you up to the cave, where two water elementals come', { skip }, () => {
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 665 && f.tip);
+	assert.ok(rec, 'the tip is a record');
+	assert.match(rec.tip, /cave/);
+	assert.match(rec.tip, /water elementals/);
+	assert.doesNotMatch(rec.tip, /naga|shore|beach/);
+	for (const guide of ['forever/horde/30-40/05-arathi-highlands.guide', 'forever/alliance/30-40/05-arathi-highlands.guide']) {
+		assert.deepEqual(stepTips(guide, /^\s+complete 665\b/), [rec.tip], `${guide}: the step's tip is the record's`);
+	}
+});
+
+// Final route review for 0.3.5 (Horde Stranglethorn 34-37): the step that lands from the zeppelin was
+// titled "Fly to Grom'gol"; the tigers' tip put them east of Nesingwary's camp along the lake (they are
+// around and south of it, the panthers west); the Venture Co. step sent you north past Nesingwary's camp
+// (the geologists' lake is south-east of it). The tigers' tip is a guide-fixes record, the other two are
+// seed lines.
+test('Horde Stranglethorn: the Grom\'gol landing, the tigers and the Venture Co. camp are where the steps say', { skip }, () => {
+	const guide = 'forever/horde/30-40/03-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fp = at(list, 'getfp Grom\'gol', (g) => g.t === 'getfp' && /Grom'gol/.test(g.location || ''));
+	assert.doesNotMatch(list[fp].step.title || '', /^Fly/, 'the zeppelin landing is not titled as a flight');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 186 && f.faction === 'Horde' && f.tip);
+	assert.ok(rec, 'the tigers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /kill 682 quest 186\b/), [rec.tip]);
+	assert.doesNotMatch(rec.tip, /hills east of the camp|along the lake shore/);
+	const [venture] = stepTips(guide, /^step Venture Co\. camp/);
+	assert.doesNotMatch(venture, /past Nesingwary/);
+	assert.match(venture, /Lake Nazferiti/);
+});
+
+// Final route review for 0.3.5 (Alliance Badlands 38-39): Lotwil's level 42 bracers were listed at his
+// hand-in with no word on where they drop (the Greater Rock Elementals, 42-44, in the south-west); a note
+// said Lotwil's next test needs crafted gear (that is Lucien's quest); and another said the skeleton's next
+// task, Murdaloc, waits for a later guide right under the accept of Murdaloc itself.
+test('Alliance Badlands: Lotwil\'s bracers, Lucien\'s crafted bracers and Murdaloc are described as they are', { skip }, () => {
+	const guide = 'forever/alliance/30-40/06-badlands.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 712 && f.faction === 'Alliance' && f.tip);
+	assert.ok(rec, 'the bracers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /^\s+accept 712\b/), [rec.tip]);
+	assert.match(rec.tip, /Greater Rock Elementals/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.doesNotMatch(text, /Lotwil's next test needs crafted gear/);
+	assert.doesNotMatch(text, /The skeleton's next task, Murdaloc/);
+});
+
+// Final route review for 0.3.5 (Alliance Stranglethorn 33-35): after Booty Bay the route flies to Sentinel
+// Hill and walks south out of Westfall to the Crystal Spine Basilisks in Stranglethorn's north-west, but
+// the step's tip still said to walk back north to a mine in the middle of the jungle.
+test('Alliance Stranglethorn: the basilisk step after the Sentinel Hill flight says the way leads south from Westfall', { skip }, () => {
+	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fly = at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || ''));
+	const shards = at(list, 'collect 3918 quest 605', (g) => g.t === 'collect' && g.quest === 605);
+	assert.ok(fly < shards, 'the flight to Sentinel Hill comes before the basilisks');
+	const [tip] = stepTips(guide, /collect 3918 quest 605\b/);
+	assert.doesNotMatch(tip, /back north|middle of the jungle/);
+	assert.match(tip, /Sentinel Hill/);
+});
+
+// Final route review for 0.3.5 (Alliance 30-32): the route flies into Ironforge and hands in at the Hall of
+// Explorers and to Magni on the High Seat, but both steps were titled "Deeprun Tram", which this visit
+// never takes (it flies on to Stormwind).
+test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tram', { skip }, () => {
+	const steps = compiled('forever/alliance/30-40/01-hillsbrad-foothills.guide').steps;
+	assert.deepEqual(steps.filter((s) => /Deeprun Tram/.test(s.title || '')).map((s) => s.title), []);
+	const stormpike = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 514));
+	assert.equal(stormpike.title, 'Hall of Explorers');
+});
+
+// Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
+// (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
+// by Tarren Mill had no dungeon to run instead of the yetis.
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the Graveyard', { skip }, () => {
+	data = data || loadData(DATA);
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
+	const [t31] = stepTips(guide, /^\s+level 31\b/);
+	assert.doesNotMatch(t31, /start at 31/);
+	const [t30] = stepTips(guide, /^\s+level 30\b/);
+	assert.match(t30, /Scarlet Monastery/);
+});
+
+// Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
+// Cloak and a Bolt of Woolen Cloth, which no vendor sells and no step gets. It is optional, with its yeti
+// cave only for players who took it, and a route-fixes record keeps it so.
+test('Alliance 30-40: Bartolo\'s Yeti Fur Cloak is optional and says what it needs', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const item of [3719, 2997]) assert.deepEqual(data.items[item].vendors || [], [], `${item} is not sold`);
+	const first = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const acc = first[at(first, 'accept 565', is('accept', 565))];
+	assert.ok(acc.goal.optional, 'the accept is optional');
+	assert.match(acc.goal.note || '', /Hillman's Cloak/);
+	const fur = first[at(first, 'collect 3720', (g) => g.t === 'collect' && g.quest === 565)];
+	assert.ok(fur.goal.optional || /565/.test(JSON.stringify(fur.step.when || fur.step.conditions || '')), 'the yeti fur is only for those on it');
+	const last = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(last[at(last, 'turnin 565', is('turnin', 565))].goal.optional, 'the hand-in is optional');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional.find((o) => o.q === 565);
+	assert.ok(rec, 'optional is a record');
+});
+
+// Final route review for 0.3.5 (Alliance 32-33): from the Mirage Raceway the guide walked back west to the
+// Great Lift, north through the Barrens and east through Dustwallow to Theramore (about 5,800 yd). It now
+// takes the road south to Gadgetzan (about 1,000 yd), learns the flight path and flies to Theramore.
+test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to Theramore, not back through the Barrens', { skip }, () => {
+	const list = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const race = at(list, 'turnin 1175', is('turnin', 1175));
+	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(g.location || ''));
+	const fly = at(list, 'fly Theramore', (g) => g.t === 'fly' && /Theramore/.test(g.location || ''));
+	const fiora = at(list, 'turnin 1135', is('turnin', 1135));
+	assert.ok(race < fp && fp < fly && fly < fiora, 'Raceway, Gadgetzan, the flight, then Theramore');
+	assert.ok(!list.slice(race, fiora).some(({ goal }) => goal.t === 'goto' && goal.map === 1445 && goal.x < 40), 'no walk past the Shady Rest Inn');
+});
+
+// Final route review for 0.3.5 (Fitz: grind if we must, but say so): every written grind step in 30-40
+// names where to grind and a dungeon to run instead, in the writer's sentence.
+test('30-40: every written grind step says where, and names a dungeon to run instead', { skip }, () => {
+	const dir = path.join(OFFICIAL_DIR, 'forever');
+	for (const side of ['horde', 'alliance']) {
+		for (const f of fs.readdirSync(path.join(dir, side, '30-40'))) {
+			const guide = `forever/${side}/30-40/${f}`;
+			for (const { step, goal } of goals(guide)) {
+				if (goal.t !== 'level') continue;
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /until level/, `${guide}: "${step.title}" says where`);
+			}
+		}
+	}
+});

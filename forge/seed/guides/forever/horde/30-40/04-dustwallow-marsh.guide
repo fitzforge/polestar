@@ -155,7 +155,7 @@ step The Theramore Docks
 step Level 37.5
   when level<37.5
   zone Dustwallow Marsh
-  tip Desolace's last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past Witch Hill, until level 37.5. Or, with a group, run Razorfen Downs (south of the Great Lift in the Barrens) from Camp Taurajo.
+  tip Desolace's last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past Witch Hill, until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
   goto 54.3,14.8 map 1445 "Mirefin murlocs"
   level 37.5                          -- grind on Mirefin Coastrunner
 

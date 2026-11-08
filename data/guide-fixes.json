@@ -3533,6 +3533,79 @@
 				}
 			],
 			"issue": 1257
+		},
+		{
+			"id": "sunken-treasure-escort-up-to-the-cave",
+			"at": {
+				"quest": 665,
+				"goal": "complete"
+			},
+			"tip": "Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming.",
+			"note": "Final route review 0.3.5: the Horde step said two Daggerspine naga ambush the professor on the way down to the shore, the Alliance one that naga attack in waves on the beach north of the cove; both contradicted the writer's own 'Careful' tip. The professor walks up to the cave and, at his last waypoint, summons two Vengeful Surges (water elementals, npc 2776) before completing the quest. One tip for both sides, with the 'Careful' tip folded in, since a tip record replaces the step's tips.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "smart_scripts 2768/276802 (summon group 1) and creature_summon_groups: two Vengeful Surge 2776 by the cave"
+				}
+			]
+		},
+		{
+			"id": "horde-stv-tigers-and-panthers-south-and-west-of-nesingwary",
+			"faction": "Horde",
+			"at": {
+				"quest": 186,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.",
+			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
+				}
+			]
+		},
+		{
+			"id": "alliance-badlands-lotwil-bracers-optional-greater-elementals",
+			"faction": "Alliance",
+			"at": {
+				"quest": 712,
+				"goal": "accept"
+			},
+			"tip": "Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.",
+			"note": "Final route review 0.3.5: the Alliance step at Lotwil (about 38.8) took Study of the Elements: Rock (712, level 42) and listed its bracers and hand-in with no word on where they drop. Only the Greater Rock Elementals (2736, 42-44) drop them, at x 1-17, y 74-90 of the Badlands; the Horde guide says so in its tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
+				}
+			]
+		},
+		{
+			"id": "alliance-stv-troll-witchery-level-36",
+			"faction": "Alliance",
+			"at": {
+				"quest": 205,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 36,
+			"note": "Final route review 0.3.5 (Fitz: no step hides grinding): Troll Witchery's Skullsplitter Fetishes come from the Skullsplitter trolls (39-42, quest level 40) on 30-40/04b's southern leg, reached at about 35.9; the level model ground the rest of 35 there with no written step. A level 36 top-up on the Snapjaw Crocolisks (35) of the step before says so.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 205 level 40; npcs 667, 696, 780 (Skullsplitter Warrior, Axe Thrower, Mystic, 39-40) and 669, 670, 782, 784 (41-42)"
+				}
+			]
 		}
 	]
 }

@@ -128,15 +128,22 @@ step Mirage Raceway
   turnin 1176                             -- Pozzik
   turnin 1175                             -- Trackmaster Zherin
 
-step Dustwallow Marsh
+step Gadgetzan
+  zone Tanaris
+  tip From the raceway follow the road south out of the Shimmering Flats into Tanaris; Gadgetzan is a short walk down it. Keep to the road. Bera Stonehammer, the Alliance flight master, stands inside the walls.
+  getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
+
+step Fly to Theramore
+  zone Tanaris
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Theramore"
   zone Dustwallow Marsh
-  goto 29.7,47.6 "Dustwallow Marsh"
 
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
   zone Dustwallow Marsh
-  tip Back north through the Barrens and east along the road past the Shady Rest Inn to Theramore. Fiora Longears is in the north of town, Captain Vimes in Foothold Citadel; Caz Twosprocket stands in the town.
+  tip Fiora Longears is in the north of town, Captain Vimes in Foothold Citadel; Caz Twosprocket stands in the town.
   turnin 1135                         -- Fiora Longears
   turnin 1284                         -- Captain Garran Vimes
   turnin 1253

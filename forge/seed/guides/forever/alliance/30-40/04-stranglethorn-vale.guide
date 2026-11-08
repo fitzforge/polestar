@@ -96,7 +96,7 @@ step Stranglethorn Vale: kill these as you meet them
 
 step Level 34
   when level<34
-  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until you reach it.
+  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
   goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
   level 34                             -- grind on Elder Stranglethorn Tiger
 
@@ -148,7 +148,7 @@ step Stranglethorn Vale
 
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
-  tip Walk back north; the Crystalvein Mine lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.
+  tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
   tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @20.8,23.2             -- The haunted island

@@ -4216,6 +4216,18 @@
 				],
 				"faction": "Horde",
 				"why": "Follow-up rule (#310, tests/guides-patterns.test.js \"a follow-up is taken right after its prerequisite is handed in to the same giver\"): Apothecary Renferrel offers Return to Quinn (Again) as Wild Eyes is handed in, so it is taken then, before the walk to Dalar Dawnweaver (66 yd) for Dalar's Analysis, not on a walk back to Renferrel after it"
+			},
+			{
+				"a": [
+					"accept",
+					1431
+				],
+				"b": [
+					"accept",
+					1531
+				],
+				"faction": "Horde",
+				"why": "Final route review 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30 (Forever's quest data, minLevel 30). The 30-40/01 Orgrimmar stop comes at about 29.4, where Searn Firewarder has nothing to give a Shaman; 30-40/02's Orgrimmar stop, where Craven Drok gives Alliance Relations (also from 30), comes at about 31.7, before the flight to Freewind Post and Prate Cloudseer."
 			}
 		],
 		"notes": [
@@ -6158,6 +6170,10 @@
 			}
 		],
 		"optional": [
+			{
+				"q": 565,
+				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
+			},
 			{
 				"q": 515,
 				"why": "RevH1 c14 read: Elixir of Agony part 2 needs a Strong Troll's Blood Potion (item 3388, Alchemy only; no vendor sells it). v1's Desolace header says to skip the chain without one and marks its Hillsbrad steps optional, but the route counted it, so c14 walks every player to the Daggerspine and Torn Fin shores (30-40/01-desolace:376-390) and later to the Shindigger keg on the south-east coast (01-desolace:449-456) for an optional chain most cannot finish"
