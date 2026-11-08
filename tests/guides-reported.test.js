@@ -6543,3 +6543,19 @@ test('forever/alliance/40-50/04-tanaris.guide: final review: no note to skip Spr
 	assert.ok(list.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'its ingredient is collected');
 	assert.ok(goals('forever/alliance/40-50/07-un-goro-crater.guide').some(({ goal }) => goal.t === 'turnin' && goal.quest === 2641), 'and handed in at Gadgetzan in the Un\'Goro guide');
 });
+
+// Final route review before 0.3.5, Alliance 40-60: the Burning Steppes topped up to 51.39 on the Dreadmaul Rock
+// ogres on the way to Flame Crest, then rode back to the same ogres for a top-up to 52 right after the Flame Crest
+// accepts. Nothing between gives experience: one top-up to 52 on the way (guide-fixes level record).
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up to 52 at Dreadmaul Rock before Flame Crest, no ride back', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const crest = at(list, 'accept 4726', is('accept', 4726));
+	const vigil = at(list, 'accept 3824', is('accept', 3824));
+	const grinds = list.filter(({ goal }) => goal.t === 'level');
+	const between = grinds.filter(({ s }) => s > list[vigil].s && s < list[crest].s);
+	assert.ok(between.some(({ goal }) => goal.level >= 52), 'the top-up to 52 is on the way to Flame Crest');
+	const after = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4726);
+	assert.ok(!grinds.some(({ s }) => s > list[crest].s && s < list[after].s), 'no top-up between the Flame Crest accepts and their hand-ins');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 4726 && f.at.goal === 'accept');
+	assert.equal(rec && rec.level, 52, 'a level record keeps it on a refresh');
+});

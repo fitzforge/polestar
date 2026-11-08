@@ -3474,6 +3474,22 @@
 			]
 		},
 		{
+			"id": "a4060-bs-accept-broodling-essence-52",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4726,
+				"goal": "accept"
+			},
+			"level": 52,
+			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-08 (Alliance 40-60): 50-60/01-burning-steppes steps 'Level 51.39' and 'Level 52', both 'grind on Firegut Ogre Mage' at 78.7,44.7; Tinkee Steamboil and Maxwort Uberglint spawns from npcs.json"
+				}
+			]
+		},
+		{
 			"id": "1234-kodo-roundup-talk-to-the-kodo-horde",
 			"faction": "Horde",
 			"at": {
