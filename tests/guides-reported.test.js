@@ -1765,6 +1765,19 @@ test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans ente
 	}
 });
 
+// --- Tarren Mill (refusal gate's hand-in-first step, 2026-11-08): all 6 people who took Dalaran Patrols (545) had just
+// handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took it without; the route left 93680 out
+// and accepted 545 right after Prison Break In. Key to the City is taken with 544 and handed in before 545's accept.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is handed in before Dalaran Patrols is accepted', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const take = at(list, 'accept 93680', is('accept', 93680));
+	const key = at(list, 'collect 279469', (g) => g.t === 'collect' && g.item === 279469);
+	const done = at(list, 'turnin 93680', is('turnin', 93680));
+	const patrols = at(list, 'accept 545', is('accept', 545));
+	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
+	assert.ok(take < key && key < done && done < patrols, 'the key, its hand-in, then Dalaran Patrols');
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 
