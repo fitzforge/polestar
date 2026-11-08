@@ -141,9 +141,17 @@ fn a_new_file_has_every_key_commented_out_filled_ones_translated_unknown_ones_re
 	let fill = V::Obj(forge_guide::obj! { "Bye" => "Au revoir" });
 	let retire = V::Obj(forge_guide::obj! { "Old" => "Vieux" });
 	let out = new_locale_text("frFR", &keys.by_file(), &fill, &retire, "Polestar's interface strings", true).unwrap();
-	assert!(out.text.contains("\nlocal ns = Polestar\nif not (ns and GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"), "Polestar_frFR is an addon of its own: Polestar's namespace is the global\n{}", out.text);
+	assert!(
+		out.text.contains("\nlocal ns = Polestar\nif not (ns and GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"),
+		"Polestar_frFR is an addon of its own: Polestar's namespace is the global\n{}",
+		out.text
+	);
 	let recorder = new_locale_text("frFR", &keys.by_file(), &fill, &retire, "Polestar Recorder's interface strings", false).unwrap();
-	assert!(recorder.text.contains("\nlocal _, ns = ...\nif not (GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"), "the Recorder's file is its own addon's\n{}", recorder.text);
+	assert!(
+		recorder.text.contains("\nlocal _, ns = ...\nif not (GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"),
+		"the Recorder's file is its own addon's\n{}",
+		recorder.text
+	);
 	let (p, retired) = placed(&out.text);
 	assert_eq!(p.len(), keys.len());
 	for (k, w) in &keys.list {
