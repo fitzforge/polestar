@@ -408,8 +408,11 @@ local function secondsLeft()
 	return s > 0 and s or 0
 end
 
+-- Blizzard's own refresh dialog as the fallback; never with the gamepad
+-- interface (ns.GamepadUI), whose focus owns the game's dialogs.
 local function showDialog()
-	if StaticPopup_Show then StaticPopup_Show("SHARD_TRANSFER_IMMEDIATE") end
+	if ns.GamepadUI() or not StaticPopup_Show then return end
+	StaticPopup_Show("SHARD_TRANSFER_IMMEDIATE")
 end
 
 -- Takes the offered refresh now: true, or false and why not. When the

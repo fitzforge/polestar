@@ -9,8 +9,8 @@ const { runAddon } = require('./helpers/lua');
 const FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] };
 const G = (layer) => `Creature-0-4372-0-${layer}-1234-0000ABCDEF`;
 
-function run(script, { on = true } = {}) {
-	return runAddon({ stubs: ['stub_qol.lua'], addons: [FILES], login: true,
+function run(script, { on = true, before } = {}) {
+	return runAddon({ stubs: ['stub_qol.lua'], addons: [FILES], login: true, before,
 		script: `local Ly, lay, q, QoL = Polestar.QoL.Layer, stub.layer, stub.qol, Polestar.QoL
 		local function set(k, v) Polestar.Set("qol." .. k, v); stub.runTimers() end
 		local function wait(s) stub.advance(s) end
@@ -404,6 +404,17 @@ test('layer hop: the world refresh is offered, confirmed out of combat, auto-con
 	assert.deepEqual(fallback[0], [true, ['SHARD_TRANSFER_IMMEDIATE'], 'offered']);
 	assert.deepEqual(fallback[1], ['refreshing', 2, 'offered']);
 	assert.deepEqual(fallback[2], [0, 'done', true, true, 1]);
+});
+
+test('layer hop: with the gamepad interface the refresh dialog fallback stays out; the confirm still runs', () => {
+	const out = run(`
+		lay.confirmErrors = true
+		lay.eviction = 60
+		stub.fire("SHARD_TRANSFER_IMMINENT")
+		local ok = Ly.RefreshNow()
+		emit({ Polestar.GamepadUI(), ok, #calls("ShardTransferConfirm"), #calls("StaticPopup_Show"), Ly.Status().transfer })
+	`, { before: 'stub.qol.social.gamepad = true' });
+	assert.deepEqual(out[0], [true, true, 1, 0, 'offered'], 'the confirm is tried, the dialog is not shown');
 });
 
 test('layer hop: leaving the hop group ends it; a group joined by hand next is never left, by the command or a timer armed in the hop group', () => {
