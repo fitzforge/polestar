@@ -493,3 +493,20 @@ emit(chat())"#,
 	assert!(all[0].ends_with(", …"), "whole objectives, the rest an ellipsis: {}", all[0]);
 	assert!(all[1].starts_with(&format!("PARTY {MARK}{} ЖЖЖ", link(61, "One Long Objective"))), "{}", all[1]);
 }
+
+// The frFR client's kill line, "Jeune loup : 10/10 |4personnage tué:personnages tués;" (no-break space before the
+// colon): the chat line says the name and counts, never the raw "|4…;" escape (the client refuses a chat message
+// with a bad escape code).
+#[test]
+fn party_chat_an_frfr_kill_objective_says_its_name_without_the_grammar_escape() {
+	let out = live(
+		r#"
+p.join("Ana")
+stub.advance(6)
+w.accept(50, { { text = "Jeune loup\194\160: 0/10 |4personnage tué:personnages tués;", required = 10 }, { text = "Peau de sanglier : 0/6", required = 6 } }, "Loups")
+stub.advance(1)
+w.progress(50, 1, 10); stub.advance(5)
+emit(chat())"#,
+	);
+	assert_eq!(lines(&out[0]), vec![objectives("Jeune loup 10/10", 50, "Loups")]);
+}

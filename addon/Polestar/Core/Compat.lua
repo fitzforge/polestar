@@ -344,10 +344,14 @@ end
 -- ("Kobold Vermin slain: 3/10", "Linen Cloth: 2/6", on some clients "3/10
 -- Kobold Vermin slain"), the name an objective is matched on (the guide's
 -- objective goals, Engine; the quest tracker's lines). A line of counts alone
--- (" slain: 0/8", ": 0/1") has no name yet: "".
+-- (" slain: 0/8", ": 0/1") has no name yet: "". The frFR client writes kill
+-- lines "%s : %d/%d |4personnage tué:personnages tués;" (a grammar escape the
+-- log resolves by the count; the space before the colon at times a no-break
+-- one): the escape is not part of the name, the no-break space is a space.
 function Compat.ObjectiveLabel(text)
 	if type(text) ~= "string" then return "" end
-	local s = text:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
+	local s = text:gsub("|4[^|;]*;", ""):gsub("\194\160", " ")
+	s = s:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
 	s = s:gsub("^%s+", ""):gsub("%s+$", "")
 	if s == "slain" then return "" end
 	return (s:gsub("%s+slain$", ""))

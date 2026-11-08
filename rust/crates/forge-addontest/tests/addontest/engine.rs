@@ -1781,6 +1781,27 @@ fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lin
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
 }
 
+// The frFR client's kill line (#942's objective lines): "Jeune loup : 3/7 |4personnage tué:personnages tués;"
+// reads as "Jeune loup 3/7", never with the raw grammar escape.
+#[test]
+fn a_quest_to_complete_reads_an_frfr_kill_line_without_its_grammar_escape() {
+	let guides = format!("{NORTHSHIRE}{HUNT}");
+	let out = run(Run {
+		guides: &guides,
+		before: r#"w.onQuest(747, { { text = "Jeune loup\194\160: 0/7 |4personnage tué:personnages tués;", required = 7 } })"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/hunt"); flush()
+			w.progress(747, 1, 3); flush()
+			local out = {}
+			for _, o in ipairs(E.GetStepView(1).goals[1].objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+			emit(out)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!(["Jeune loup 3/7"]));
+}
+
 // Darkshore's Plagued Lands (#942): looked at before the quest is taken, its `complete` goal reads as the
 // compiled objectives (`objs`, the quest data's); taken, as the game's own line, "Use Tharnariun's Hope:" first
 // while the trap the quest hands over (`startItem`) is in the bags.

@@ -431,3 +431,19 @@ fn item_tip_color_is_the_tooltips_title_colour_and_nil_until_the_item_is_loaded(
 	assert_eq!(out["none"], json!({}), "a client without C_TooltipInfo");
 	assert_eq!(out["notNumber"], json!({}));
 }
+
+// The frFR Forever client's kill objectives: "%1$s : %2$d/%3$d |4personnage tué:personnages tués;", the space
+// before the colon sometimes a no-break one. The label is the name alone: no counts, no grammar escape (raw
+// "|4…;" in the step window, the tracker or party chat), so it matches the guide's name exactly.
+#[test]
+fn an_frfr_kill_objective_labels_as_its_name_without_the_counts_or_the_grammar_escape() {
+	let out = run(r#"emit({
+		C.ObjectiveLabel("Jeune loup : 3/10 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Jeune loup\194\160: 1/1 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Voyant novice des Sculpte-vents tué: 6/6"),
+		C.ObjectiveLabel(" : 0/8 |4personnage tué:personnages tués;"),
+		C.ObjectiveLabel("Peau de sanglier\194\160: 2/6"),
+		C.ObjectiveLabel("Kobold Vermin slain: 3/10"),
+	})"#);
+	assert_eq!(out, json!(["Jeune loup", "Jeune loup", "Voyant novice des Sculpte-vents tué", "", "Peau de sanglier", "Kobold Vermin"]));
+}
