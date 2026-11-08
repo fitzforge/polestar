@@ -202,7 +202,7 @@ return {
 
 	-- Step 60: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
-	["Jungle Stalkers"] = "",
+	["Jungle Stalkers"] = "Тропические ловцы",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 

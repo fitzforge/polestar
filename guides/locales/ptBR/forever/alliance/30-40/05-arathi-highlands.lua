@@ -196,7 +196,7 @@ return {
 	-- {area:271} Southshore
 	["Off the flight, straight to the {area:271} inn."] = "",
 	-- {npc:2705} Brewmeister Bilger
-	["{npc:2705}, below ground"] = "",
+	["{npc:2705}, below ground"] = "{npc:2705}, no subterrâneo",
 
 	-- Step 51: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
