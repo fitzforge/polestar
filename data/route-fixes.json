@@ -7901,6 +7901,15 @@
 				],
 				"reason": "Quest volume, Horde 50-60 (0.3.7): Mystery Goo (level 56, 4350 XP) from the Deadwood Cauldron back to Donova Snowden, whom 50-60/05 visits in Winterspring after the tunnel.",
 				"issue": "-"
+			},
+			{
+				"q": 5241,
+				"after": [
+					"turnin",
+					5149
+				],
+				"reason": "Quest volume, Horde 50-60 (0.3.7): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/01 hands Pamela's doll in and hearths to the chapel, where the guide hands Defenders of Darrowshire (5211) to Carlin on the same stop. It is a delivery with no fighting, so the 3+ levels over at about 52.7 do not matter.",
+				"issue": "-"
 			}
 		],
 		"skip": [
