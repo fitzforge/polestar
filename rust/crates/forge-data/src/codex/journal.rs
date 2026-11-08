@@ -895,6 +895,22 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			let d = lv(a) - lv(b);
 			super::util::ord(if d != 0.0 { d } else { a.get("id").num() - b.get("id").num() })
 		});
+		// A quest an unplaced object of this instance starts (Forever's objects list the instance maps they
+		// stand in) is picked up inside: Gnomeregan's Sparklematic 5200, Uldaman's Discs of Norgannon (the
+		// #1380 sweep; a quest the Codex fills in alone had `inside` false whatever its start).
+		let im = inst.get("map");
+		if let Some(pm) = if im.is_nullish() { m.map(|m| m.id) } else { Some(im.num()) } {
+			for q in &quests {
+				let st = q.get("start");
+				if st.get("kind").as_str() == Some("object")
+					&& st.get("map").is_nullish()
+					&& inp.fv_objects.get(&kstr(&st.get("id"))).get("instances").items().iter().any(|x| x.num() == pm)
+				{
+					st.set("inside", true);
+					q.set("inside", true);
+				}
+			}
+		}
 		let chain = Obj::new();
 		for q in &quests {
 			for cid in q.get("chain").items() {
