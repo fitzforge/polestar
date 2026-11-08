@@ -6546,3 +6546,15 @@ test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Furth
 	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
 	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
 });
+
+// Final route review, Alliance 1-30 (2026-11-08): 06-ashenvale walked from Menethil Harbor through Dun Algaz, Loch
+// Modan and the North Gate pass to Ironforge for Lomac Gearstrip, though every Alliance character has had both the
+// Menethil Harbor and the Ironforge flight paths since 03-loch-modan (06-wetlands flies the same leg).
+test('forever/alliance/06-ashenvale.guide: final review: Menethil Harbor to Ironforge by gryphon', { skip }, () => {
+	const list = goals('forever/alliance/06-ashenvale.guide');
+	const boran = at(list, 'turnin 279', is('turnin', 279));
+	const lomac = at(list, 'turnin 1072', is('turnin', 1072));
+	const between = list.slice(boran + 1, lomac).map(({ goal }) => goal);
+	assert.ok(between.some((g) => g.t === 'fly'), 'a flight to Ironforge');
+	assert.ok(!between.some((g) => g.t === 'goto' && (g.map === 1432 || g.map === 1426)), 'no walk through Loch Modan or Dun Morogh');
+});
