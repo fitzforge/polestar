@@ -2076,9 +2076,9 @@ L["Include nearby hand-ins"] = "包括附近的交任务"
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
-L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 只稍微偏离你的路线，而指南稍后才交。"
-L["Hand-ins: how far out of your way"] = "交任务：可绕路多远"
-L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "交一个任务最多可多走几秒：走到 NPC 再回到你的路线上。你所在城镇里的交任务总会显示；设为 0 时只显示这些。"
+-- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
+-- L["Hand-ins: how far out of your way"] = ""
+-- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

@@ -2076,9 +2076,9 @@ L["Include nearby hand-ins"] = "Включая сдачу заданий ряд�
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
-L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи лишь немного в стороне от пути, а гид сдаёт его позже."
-L["Hand-ins: how far out of your way"] = "Сдача: насколько в стороне"
-L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "Сколько секунд лишней ходьбы может стоить сдача: до NPC и обратно на путь. Сдача в городе, где вы сейчас, показывается всегда; 0 оставляет только такие."
+-- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
+-- L["Hand-ins: how far out of your way"] = ""
+-- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
