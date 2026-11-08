@@ -2343,6 +2343,69 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78089": {
+		"set": {
+			"pre": [
+				78088
+			],
+			"preAny": [
+				78088
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took Advice From Stormwind (78089) from Delgren the Purifier, each after handing A Strange Artifact (78088) in to him; he did not offer it to 3 people (1 established) who still had 78088 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78088"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Delgren the Purifier's Advice From Stormwind (78089) follows A Strange Artifact (78088), handed in to him. The merged data had no prerequisite."
+	},
+	"78090": {
+		"set": {
+			"pre": [
+				78089
+			],
+			"preAny": [
+				78089
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took A Second Opinion (78090) from Katherine the Pure, each after handing Advice From Stormwind (78089) in to her; she did not offer it to 4 people (1 established) who could take it but had not handed 78089 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78089"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Katherine the Pure's A Second Opinion (78090) follows Advice From Stormwind (78089), handed in to her. The merged data had no prerequisite."
+	},
+	"78092": {
+		"set": {
+			"pre": [
+				78091
+			],
+			"preAny": [
+				78091
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took It Must Be Destroyed (78092) from Ursula Deline, each after handing Earning Your Salt (78091) in to her; she did not offer it to 2 people (1 established) who could take it but had not handed 78091 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 78091"
+			}
+		],
+		"note": "The Paladin Cloak of the Divine Storm chain: Ursula Deline's It Must Be Destroyed (78092) follows her Earning Your Salt (78091). The merged data had no prerequisite."
+	},
 	"78132": {
 		"set": {
 			"classes": 1
@@ -2744,6 +2807,69 @@
 		],
 		"note": "The Tarnished (Tyr's Watch, Paladin): the quest log lists Rudolph Gelhardt's Head first, then the Tarnished Drudges and the Tarnished Zealots. The merged data had the head last, so forever/class/paladin/tyrs-watch counted the Drudges on the head's line, the Zealots on the Drudges' and the head on the Zealots'."
 	},
+	"91859": {
+		"set": {
+			"pre": [
+				91858
+			],
+			"preAny": [
+				91858
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Curious Pair (91859) from Trevan Rol, each after handing Diplomatic Incident (91858) in to Trevan; Trevan's windows did not offer it to 4 people (1 established) who could take it but had not handed 91858 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91858"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Trevan Rol's A Curious Pair (91859) follows Diplomatic Incident (91858), handed in to Trevan. The merged data had no prerequisite."
+	},
+	"91860": {
+		"set": {
+			"pre": [
+				91859
+			],
+			"preAny": [
+				91859
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Grim Fate (91860) from Deathguard Baldren, each after handing A Curious Pair (91859) in to him; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91859"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+	},
+	"91861": {
+		"set": {
+			"pre": [
+				91860
+			],
+			"preAny": [
+				91860
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took Into Fenris Keep (91861) from the Charred Remains, each after handing A Grim Fate (91860) in to them; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91860"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): Into Fenris Keep (91861), from the Charred Remains, follows A Grim Fate (91860), handed in to them. The merged data had no prerequisite."
+	},
 	"91901": {
 		"set": {
 			"start": {
@@ -2788,6 +2914,23 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
+	},
+	"92457": {
+		"set": {
+			"pre": [
+				92432
+			],
+			"preAny": [
+				92432
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Starving Arcane (92457) from the Image of Archmage Modera; the 4 whose accepts were recorded took it within two minutes of handing An Alarming Request (92432) in to her. Her windows did not offer it to 4 people (2 established) who could take it but had not handed 92432 in; a level 30 Night Elf Warrior was refused it before taking 92432 and offered it right after handing it in"
+			}
+		],
+		"note": "The Kirin Tor chain: the Image of Archmage Modera offers Starving Arcane (92457) once An Alarming Request (92432), which sends you to her, is handed in. The merged data had no prerequisite."
 	},
 	"92595": {
 		"set": {
@@ -3545,6 +3688,27 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95034": {
+		"set": {
+			"pre": [
+				96204
+			],
+			"preAny": [
+				96204
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Debt (95034) from Lumina Windsinger (npc 259620), each after handing The Windshaper's Wrath (96204) in to her; she did not offer it to 5 people (2 established) who still had 96204 in the log"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link: The Windshaper's Wrath (96204) leads on to The Debt (95034) in the quest's series"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): The Debt (95034) follows The Windshaper's Wrath (96204), handed in to Lumina Windsinger (npc 259620). The merged data had no prerequisite."
+	},
 	"95036": {
 		"set": {
 			"pre": [
@@ -4022,6 +4186,27 @@
 		],
 		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
+	"96204": {
+		"set": {
+			"pre": [
+				91862
+			],
+			"preAny": [
+				91862
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Windshaper's Wrath (96204) from Lumina Windsinger, each after handing her Lumina Windsinger (91862); nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 91862"
+			}
+		],
+		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite."
+	},
 	"96243": {
 		"set": {
 			"start": {
@@ -4067,6 +4252,27 @@
 			}
 		],
 		"note": "Defending the Dead (Gloomrise, north of Thunder Bluff): the quest log lists the Gloomrise Hatchlings first, then the Gloomrise Soldiers. The merged data had them the other way round, so forever/horde/07-ashenvale and forever/reputation/thunder-bluff counted the Soldiers on the Hatchlings' line and the Hatchlings on the Soldiers'."
+	},
+	"96264": {
+		"set": {
+			"pre": [
+				94789
+			],
+			"preAny": [
+				94789
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Elemental Aid (96264) from Veyric Thunderhame, each after handing Call of Air (94789) in to Veyric; Veyric's windows did not offer it to 2 people (1 established) who still had 94789 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 94789"
+			}
+		],
+		"note": "The Shaman Call of Air chain (Alliance): Veyric Thunderhame's Elemental Aid (96264) follows Call of Air (94789), handed in to Veyric. The merged data had no prerequisite."
 	},
 	"96390": {
 		"set": {
@@ -4681,6 +4887,27 @@
 		],
 		"note": "Crocs of the Sky (Menethil Harbor, James Halloran) is offered once Apprentice's Duties 471, from the same NPC, is handed in. Its text is a last favor after the earlier ones (\"You're quite the go-getter! I have just one more favor to ask\") and says the whelps are beyond his apprentice, the one mauled skinning crocolisks in Apprentice's Duties; its required level, 19, sits with that chain (471 needs 18), not with Highland Hides (24). The merged data had no prerequisite, so the Alliance route took it at Menethil (06-ashenvale:330) long before Apprentice's Duties (:447)."
 	},
+	"98191": {
+		"set": {
+			"pre": [
+				98190
+			],
+			"preAny": [
+				98190
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (3 established) took A Friend of the Family (98191) from Highlord Bolvar Fordragon, each after handing Captain Stoutfist's A Friend of the Family (98190) in to him; his windows did not offer it to 6 people (4 established) who could take it but had not handed 98190 in (5 with it still in the log, 2 who never had it)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98190"
+			}
+		],
+		"note": "Highlord Bolvar Fordragon's A Friend of the Family (98191, the statuette for Lord Grayson Shadowbreaker) follows Captain Stoutfist's A Friend of the Family (98190), handed in to him. The merged data had no prerequisite, so a player who skipped 98190 or never got it was still sent to Bolvar for 98191 (#1354)."
+	},
 	"98219": {
 		"set": {
 			"pre": [
@@ -4881,6 +5108,71 @@
 		],
 		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. Dendrite Starblaze offers it once the opening The Great Cat Spirit is handed in: the Horde one from Turak Runetotem (98340) or the Alliance one from Mathrengyl Bearwalker (98393). The server's quest records (build 70124) name 98340 as its previous quest and a second, independent quest database lists both openers; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
+	"98394": {
+		"set": {
+			"pre": [
+				98393
+			],
+			"preAny": [
+				98393
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98394) from Dendrite Starblaze, each after handing Mathrengyl Bearwalker's The Great Cat Spirit (98393) in to her; she did not offer it to 5 people (2 established) who still had 98393 in the log"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98393"
+			}
+		],
+		"note": "The Druid cat form chain: Dendrite Starblaze's The Great Cat Spirit (98394) follows the one Mathrengyl Bearwalker gives (98393), handed in to her. The merged data had no prerequisite, so a Druid who skipped 98393 was still sent to her for 98394."
+	},
+	"98396": {
+		"set": {
+			"pre": [
+				98394
+			],
+			"preAny": [
+				98394
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98396) from the Great Cat Spirit, each after handing the previous The Great Cat Spirit (98394) in to it; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98394"
+			}
+		],
+		"note": "The Druid cat form chain: the Great Cat Spirit's own The Great Cat Spirit (98396) follows the one Dendrite Starblaze sends to it (98394), handed in to it. The merged data had no prerequisite, so the guide could not tell 98396 was gone once 98394 was skipped."
+	},
+	"98397": {
+		"set": {
+			"pre": [
+				98731,
+				98738
+			],
+			"preAny": [
+				98731,
+				98738
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (2 established) took To Darnassus (98397) from Dendrite Starblaze, each after handing her one of the two blessings: 5 Blessings of the Great Cat Spirit (98731), 1 Skyborne Druid Blessings of the Great Windborne Cat Spirit (98738); she did not offer it to 8 people (3 established) who could take it but had handed in neither"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 98731, 98738"
+			}
+		],
+		"note": "The Druid cat form chain ends with To Darnassus (98397), which Dendrite Starblaze offers once one of the two blessings is handed in to her: Blessings of the Great Cat Spirit (98731) or, for Skyborne Druids, Blessings of the Great Windborne Cat Spirit (98738). The merged data had no prerequisite."
+	},
 	"98404": {
 		"set": {
 			"classes": 1024
@@ -4896,6 +5188,27 @@
 			}
 		],
 		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98731": {
+		"set": {
+			"pre": [
+				98396
+			],
+			"preAny": [
+				98396
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Blessings of the Great Cat Spirit (98731), each after handing The Great Cat Spirit (98396) in to the Great Cat Spirit; nobody took it without"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 98396"
+			}
+		],
+		"note": "The Druid cat form chain: Blessings of the Great Cat Spirit (98731) follows The Great Cat Spirit (98396), both at the Great Cat Spirit. The merged data had no prerequisite, so the guide could not tell 98731 was gone once 98396 was skipped."
 	},
 	"98738": {
 		"set": {
@@ -5366,15 +5679,29 @@
 					12920
 				],
 				"object": []
-			}
+			},
+			"pre": [
+				97539
+			],
+			"preAny": [
+				97539
+			]
 		},
 		"source": [
 			{
 				"kind": "tdb",
 				"ref": "server data: quest giver and ender seen as Doctor Gregory Victor (npc 12920)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Ward Restocking (92519) from Doctor Gregory Victor, each after handing Silky Sutures (97539) in to him; he did not offer it to 2 people (none established) who could take it but had not handed 97539 in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 97539"
 			}
 		],
-		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2)."
+		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
 	},
 	"97539": {
 		"set": {
