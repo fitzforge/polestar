@@ -1870,6 +1870,19 @@ test("DexeeXI's report (#1322): the guides name the elixirs the quests take by t
 	}
 });
 
+// --- Level sweep over the guides the level model doesn't play (SweepGates, 2026-11-08): the centaur reputation guide
+// opens at level 30, and its clans reach Honored on quests from level 30 and tradeable totems, but Valley of Bones and
+// every quest after it (Gelkis 93034..., Magram 92841...) need level 35 (Forever's quest data and the page agree). The
+// steps took them at Honored alone, so a level 30-34 player stood at a giver who offered nothing.
+test('forever/reputation/centaur-clans.guide: no accept comes before the guide waits for its quest\'s level', { skip }, () => {
+	const G = 'forever/reputation/centaur-clans.guide';
+	let reached = compiled(G).minLevel || 1;
+	for (const { goal } of goals(G)) {
+		if (goal.t === 'level') reached = Math.max(reached, goal.level);
+		if (goal.t === 'accept') assert.ok((goal.minLevel || 1) <= reached, `accept ${goal.quest} (from level ${goal.minLevel}) comes after the guide waits for that level (${reached})`);
+	}
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {

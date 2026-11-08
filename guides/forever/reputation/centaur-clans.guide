@@ -87,6 +87,7 @@ step Gelkis: totems and kills to Honored
 
 step Gelkis: the Valley of Bones
   tip At Honored, Uthek sends you east to Nerlokh at the southern entrance of the Valley of Bones, in Shen'dralas. Nerlokh's quests (500 each) take you among the undead and the outcasts there: Ravaging Ravagers, Outing Outcasts and Facing the Truth, then A Cleansing Cry from Uthek, and a second line (Saving Our Own, Bone Burying, Checking Things Out) that ends with Khan Jehn: kill the Magram khan in his own village for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 10,600 of it, two or three Economic Warfare turn-ins the rest.
+  level 35
   accept 93034                        -- Uthek the Wise: Valley of Bones
   zone Shen'dralas
   turnin 93034                        -- Nerlokh: 125
@@ -161,6 +162,7 @@ step Magram: totems and kills to Honored
 
 step Magram: the Valley of Bones
   tip At Honored, and after A Conqueror's Crown, Warug sends you to Orgrul at the northern entrance of the Valley of Bones, in Shen'dralas. Orgrul's quests (500 each: Mountain of Bones, Outcast Necromancers, Corrupting Tears, Proof of Concept, No Mercy for the Weak, Bone Raising) and Hagiak's at the Magram Front (Bristleback Retreat, Long-Term Solutions, Threat of Starvation, Return to Orgrul) end with Khan Jehn: raise the dead khan with Orgrul's staff at the tent by the lake in Magram Village, for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 11,000 of it, two Economic Warfare turn-ins the rest.
+  level 35
   accept 92841                        -- Warug: Valley of Bones
   zone Shen'dralas
   turnin 92841                        -- Orgrul: 125
