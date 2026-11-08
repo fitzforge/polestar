@@ -996,17 +996,6 @@
 			{
 				"a": [
 					"accept",
-					97926
-				],
-				"b": [
-					"accept",
-					244
-				],
-				"why": "Nittepitte #453: Making Do taken in the Redridge guide (before its first Redridge quest)"
-			},
-			{
-				"a": [
-					"accept",
 					268
 				],
 				"b": [
@@ -3023,18 +3012,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					729
-				],
-				"b": [
-					"accept",
-					954
-				],
-				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Darkshore 15): Archaeologist Hollee stands at the north end of Auberdine beside Thundris Windweaver; the first visit took The Absent Minded Prospector from her last, a walk from the pier back up to the north end and down again to the beach (about 140 yd each way). Taken with Thundris, before the walk down the main street to the inn; the seed is re-cut for it"
-			},
-			{
-				"a": [
 					"turnin",
 					4762
 				],
@@ -3132,18 +3109,6 @@
 			{
 				"a": [
 					"turnin",
-					127
-				],
-				"b": [
-					"turnin",
-					130
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): Selling Fish (127) and Murloc Poachers (150) are finished at the murlocs round the Sunken Chest and handed to Dockmaster Baren on the docks on the walk west through Lakeshire from Foreman Oslow to Martie Jainrose; the route carried them past Baren to the end of the zone's loop (#1052's 'Back to Lakeshire'). The seed (re-seeded for this) has that order; this pair and the next keep it."
-			},
-			{
-				"a": [
-					"turnin",
 					98221
 				],
 				"b": [
@@ -3152,18 +3117,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 re-order (2026-11-07): the 27-29 Wetlands visit ends at Menethil (From the Ashes) before the boat to Auberdine and Ashenvale's 27-32 quests, which fit at 28-30; they were in 30-40/03-ashenvale at 33-34, three levels over."
-			},
-			{
-				"a": [
-					"turnin",
-					98230
-				],
-				"b": [
-					"turnin",
-					277
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Howin Kindfeather camps among the Mosshide Fenrunners the 27-29 Wetlands visit kills for Fire Taboo's flint, just west of Rethiel; Crimson Crate Delivery and This Land Was Their Land are handed to him there and Razormaw Needling taken, instead of a Menethil stop and a walk to Howin at the start of 30-40/01-hillsbrad-foothills."
 			},
 			{
 				"a": [
@@ -3188,30 +3141,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 re-order (2026-11-07): Ashenvale's 27-32 quests (ending at Illiyana with The Branch of Cenarius) come before the boat back to Menethil and the Ironforge and Stormwind stop (Pilot Longbeard, The Missing Diplomat), so Pilot Longbeard's level 28 is reached with quests and no top-up."
-			},
-			{
-				"a": [
-					"turnin",
-					148
-				],
-				"b": [
-					"turnin",
-					244
-				],
-				"faction": "Alliance",
-				"why": "Alliance 20-30 re-order (2026-11-07): with Ashenvale and Stonetalon first, Duskwood and Redridge are played together at 23-27 as Duskwood's first loop, Redridge's first pass, Duskwood's second loop, Redridge's second pass, so Redridge is entered at about 24.5 and its gnolls fit without a top-up. Duskwood's first loop (ending at Darkshire with Supplies from Darkshire) comes before Redridge's first pass (Deputy Feldon's first hand-in)."
-			},
-			{
-				"a": [
-					"turnin",
-					150
-				],
-				"b": [
-					"turnin",
-					130
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): Murloc Poachers handed to Dockmaster Baren before Martie Jainrose (see turnin 127 before turnin 130)."
 			},
 			{
 				"a": [
@@ -3248,30 +3177,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Alliance 20-30): Baros Alexston stands at the east side of the Cathedral Square, where 06-ashenvale's Stormwind stop is on the way from the tram to the Mage Quarter; Expanding Horizons and Making Do were taken in 04-redridge-mountains' first step, a walk back from the Trade District to the square after the Keep and the Mage Quarter."
-			},
-			{
-				"a": [
-					"task",
-					98221
-				],
-				"b": [
-					"accept",
-					277
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
-			},
-			{
-				"a": [
-					"task",
-					34
-				],
-				"b": [
-					"turnin",
-					130
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Bellygrub's pen lies just west of Lakeshire beside Martie Jainrose's garden: he is killed on the way to her first visit and An Unwelcome Guest handed in with Visit the Herbalist, instead of a second walk west from the town after the Blackrock camps."
 			},
 			{
 				"a": [
@@ -3783,6 +3688,293 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): from Agama'gor the walk goes north to Mankrik at the Crossroads and flies to Orgrimmar from there; the Blood Shard goes to Mangletooth on the Camp Taurajo stop after Hezrul, with Jorn's quests, instead of a Taurajo stop for it alone."
+			},
+			{
+				"a": [
+					"accept",
+					97926
+				],
+				"b": [
+					"accept",
+					128
+				],
+				"why": "Nittepitte #453: Making Do taken before the Redridge guide's first Redridge quest (Guard Howe's; Guard Parker's gnolls are done at 19-20 in 03-loch-modan since the 2026-11-07 Alliance 12-20 re-order)"
+			},
+			{
+				"a": [
+					"turnin",
+					127
+				],
+				"b": [
+					"turnin",
+					34
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Selling Fish (127) is taken on Redridge's first Lakeshire stop at 19-20 (03-loch-modan), its Spotted Sunfish from the murlocs round the Sunken Chest, and handed to Dockmaster Baren on the walk west through town; it no longer waits for 04-redridge-mountains at 24 (the earlier flow audit's pair, before Martie, kept as 127 before An Unwelcome Guest)."
+			},
+			{
+				"a": [
+					"turnin",
+					148
+				],
+				"b": [
+					"accept",
+					128
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): with Ashenvale and Stonetalon first, Duskwood and Redridge are played together at 23-27 as Duskwood's first loop, Redridge's first pass, Duskwood's second loop, Redridge's second pass, so Redridge is entered at about 24.5 and its gnolls fit without a top-up. Duskwood's first loop (ending at Darkshire with Supplies from Darkshire) comes before Redridge's first pass (Deputy Feldon's first hand-in). (2026-11-07, Alliance 12-20 re-order: Guard Parker's Encroaching Gnolls is done at 19-20 in 03-loch-modan, so Redridge's first pass here starts at Guard Howe.)"
+			},
+			{
+				"a": [
+					"turnin",
+					150
+				],
+				"b": [
+					"turnin",
+					34
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Murloc Poachers handed to Dockmaster Baren before Martie Jainrose (see turnin 127 before turnin 130). Since the 2026-11-07 Alliance 12-20 re-order Martie's own errand (130) is done at 20 in 03-loch-modan; at 24 she takes An Unwelcome Guest (34), so the pair keeps Baren before her."
+			},
+			{
+				"a": [
+					"task",
+					98221
+				],
+				"b": [
+					"turnin",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil. (Alliance 12-20, 2026-11-07: Fire Taboo is now taken on the 22-24 Wetlands visit, its flint on the walk to Ironbeard's Tomb, and handed to Rethiel when this walk reaches him.)"
+			},
+			{
+				"a": [
+					"turnin",
+					947
+				],
+				"b": [
+					"accept",
+					250
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Darkshore's first three loops (03-darkshore, to about 18) end at Auberdine with Cave Mushrooms, then the boat to Menethil Harbor and Loch Modan's 15-20 quests (03-loch-modan), while they still give full XP."
+			},
+			{
+				"a": [
+					"turnin",
+					86585
+				],
+				"b": [
+					"accept",
+					244
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Loch Modan (north to south, out by the tunnel to Ironforge) before Redridge, reached by the tram and the road through Elwynn."
+			},
+			{
+				"a": [
+					"turnin",
+					3741
+				],
+				"b": [
+					"turnin",
+					118
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Redridge's first loop (Lakeshire, west and south of the lake) before the walk west through Goldshire (The Price of Shoes) to Westfall's Defias chain."
+			},
+			{
+				"a": [
+					"turnin",
+					155
+				],
+				"b": [
+					"turnin",
+					119
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): the Defias chain (Sentinel Hill, Stormwind, Moonbrook) is finished before the gryphon back to Lakeshire, where Return to Verner opens Underbelly Scales and A Baying of Gnolls for the hills north of the lake."
+			},
+			{
+				"a": [
+					"turnin",
+					89
+				],
+				"b": [
+					"accept",
+					986
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Redridge's last hand-ins (The Everstill Bridge, A Baying of Gnolls, Underbelly Scales) before the Hearthstone to Auberdine and Darkshore's southern loops (03-darkshore-return), from about 20."
+			},
+			{
+				"a": [
+					"turnin",
+					948
+				],
+				"b": [
+					"accept",
+					5321
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Darkshore's southern and last loops (Onu, the glaive, Remtravel, Murkdeep, the naga, Volcor) before Kerlonian's escort into Ashenvale (06-ashenvale)."
+			},
+			{
+				"a": [
+					"accept",
+					20
+				],
+				"b": [
+					"turnin",
+					118
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) are taken from him at the bridge on Redridge's first Lakeshire stop at 20 and done on the 24 visit, where they still give full XP; the 24 visit no longer stops for them."
+			},
+			{
+				"a": [
+					"accept",
+					98387
+				],
+				"b": [
+					"turnin",
+					118
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): see accept 20 before turnin 118."
+			},
+			{
+				"a": [
+					"turnin",
+					92
+				],
+				"b": [
+					"accept",
+					150
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from level 20) is taken from Dockmaster Baren on Redridge's first visit, on the pass through town after the gnoll hills when the player is 20 by then, otherwise on the last Lakeshire stop with The Everstill Bridge's hand-in; its murlocs are done on the 24 visit."
+			},
+			{
+				"a": [
+					"task",
+					150
+				],
+				"b": [
+					"accept",
+					91
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): at 24 the murlocs east of the bridge are on the way in from the gryphons, so Baren takes the fins on the first Lakeshire stop instead of a stop of his own."
+			},
+			{
+				"a": [
+					"turnin",
+					39
+				],
+				"b": [
+					"accept",
+					36
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Dwarves and Gnomes walk east Elwynn in one loop from Goldshire (Further Concerns to Deliver Thomas' Report) on the way to Westfall, before the Jansen Stead."
+			},
+			{
+				"a": [
+					"turnin",
+					246
+				],
+				"b": [
+					"task",
+					3741
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Redridge at 20): Hilary's necklace is fished from the lake with the Sunken Chest on the walk back from Deputy Feldon and handed to Hilary at the bridge on the pass through town, not on a stop of its own right after the first Lakeshire stop."
+			},
+			{
+				"a": [
+					"turnin",
+					129
+				],
+				"b": [
+					"task",
+					246
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Redridge at 20): Guard Parker at Three Corners, the far west end of the gnoll hills, first; the gnolls on the way back east to Deputy Feldon, so the walk doesn't pass Parker with his lunch and come back."
+			},
+			{
+				"a": [
+					"turnin",
+					276
+				],
+				"b": [
+					"accept",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): players reach the 22-24 Wetlands visit about two levels higher since the Eastern Kingdoms loop, so Rethiel's Fire Taboo (23) is taken when Tramping Paws is handed in; its flint drops from the Mosshide Fenrunners on the walk north-west to Ironbeard's Tomb, and Rethiel takes it at the start of the 27-29 visit with Blisters on the Land, without the second Rethiel stop."
+			},
+			{
+				"a": [
+					"task",
+					277
+				],
+				"b": [
+					"turnin",
+					470
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): see turnin 276 before accept 277."
+			},
+			{
+				"a": [
+					"turnin",
+					277
+				],
+				"b": [
+					"turnin",
+					98230
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): at 27-29 Fire Taboo is handed to Rethiel on the first stop (its flint came from the earlier visit), then Howin."
+			},
+			{
+				"a": [
+					"turnin",
+					947
+				],
+				"b": [
+					"accept",
+					948
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): Barithras offers Onu with Cave Mushrooms' hand-in at the end of Darkshore's north loops; it is taken there, not on a later walk past him, and handed to Onu at the Grove on the southern loops after the trip east."
+			},
+			{
+				"a": [
+					"turnin",
+					1002
+				],
+				"b": [
+					"turnin",
+					965
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): the Tower of Althalaxx (965, 966) stands just east of Buzzbox 323 on the north loop (03-darkshore), so it is done there; the southern loops after the trip east no longer walk to it."
+			},
+			{
+				"a": [
+					"turnin",
+					966
+				],
+				"b": [
+					"turnin",
+					4763
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): see turnin 1002 before turnin 965."
 			},
 			{
 				"a": [
@@ -5136,30 +5328,6 @@
 			},
 			{
 				"a": [
-					"task",
-					125
-				],
-				"b": [
-					"task",
-					150
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in the lake among the south shore's Murloc Flesheaters and Tidecallers, which carry Murloc Poachers' fins (150) and Selling Fish's sunfish: fought there, with the chest, not on a second walk to the same shore after the Brutes."
-			},
-			{
-				"a": [
-					"task",
-					150
-				],
-				"b": [
-					"task",
-					127
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
-			},
-			{
-				"a": [
 					"turnin",
 					464
 				],
@@ -5395,6 +5563,19 @@
 			{
 				"a": [
 					"turnin",
+					913
+				],
+				"b": [
+					"task",
+					868,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle."
+			},
+			{
+				"a": [
+					"turnin",
 					875
 				],
 				"b": [
@@ -5415,19 +5596,6 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 flow follow-up (2026-11-08): Egg Hunt (Korran) and Report to Kadrak (Thork) are offered from level 17 (Forever's quest data). The Crossroads stop after the Razormane camp comes at about 16 (the level model ground 57 minutes there for the Egg Hunt accept); the stop after Echeyakee, about 25 minutes later, is at 17. Both are carried to their work anyway (the Field of Giants at 21, Kadrak at the end of the stay)."
-			},
-			{
-				"a": [
-					"turnin",
-					913
-				],
-				"b": [
-					"task",
-					868,
-					0
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle."
 			}
 		],
 		"after": [
@@ -6596,6 +6764,188 @@
 					"turnin",
 					1359
 				]
+			},
+			{
+				"q": 250,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: A Dark Threat Looms (level 18, from 16, 680 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Chief Engineer Hinderweir on the Stonewrought Dam, on the road into Loch Modan from the Wetlands; the barrel is at the dam's foot. Recordings: offered to 3 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 199,
+				"after": [
+					"turnin",
+					250
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: A Dark Threat Looms (level 18, from 16, 1350 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): the Suspicious Barrel starts it as A Dark Threat Looms (250) ends, and Hinderweir takes it back on the dam. Recordings: offered to 1 characters, 1 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 86614,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Silver of the Waves (level 20, from 13, 1550 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): the Discarded Fishing Toolbox lies on the loch bed on the walk south from the dam to Thelsamar, and Khara Deepwater stands on the shore there. Recordings: offered to 3 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 436,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Ironband's Excavation (level 18, from 13, 340 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Jern Hornhelm in Thelsamar sends you to Ironband's Excavation, the next stop. Recordings: offered to 5 characters, 5 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 297,
+				"after": [
+					"turnin",
+					436
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Gathering Idols (level 18, from 13, 1350 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Magmar Fellhew at Ironband's Excavation; the troggs hold the dig beside him. Recordings: offered to 6 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 298,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Excavation Progress Report (level 15, from 10, 270 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Prospector Ironband at the excavation, for Jern Hornhelm in Thelsamar, passed on the way to the tunnel. Recordings: offered to 5 characters, 5 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 301,
+				"after": [
+					"turnin",
+					298
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Report to Ironforge (level 15, from 10, 540 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Jern Hornhelm in Thelsamar, for Prospector Stormpike in Ironforge's Hall of Explorers, on the walk to the tram. Recordings: offered to 4 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 86613,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Excavation Tools (level 18, from 13, 1350 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): the Excavation Tools lie around the dig the route works for Gathering Idols; Ironband takes them. Recordings: offered to 1 characters, 1 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 86758,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Twisting the Knife (level 16, from 12, 1150 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Marek Ironheart at the Farstrider Lodge; Daggerfang patrols the shore below Daryl's boars. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 257,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: A Hunter's Boast (level 16, from 11, 880 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Daryl the Youngling at the Farstrider Lodge; the buzzards circle the hills round it. Recordings: offered to 3 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 258,
+				"after": [
+					"turnin",
+					257
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: A Hunter's Challenge (level 17, from 11, 950 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Daryl the Youngling; the Elder Mountain Boars roam the east shore below the lodge. Recordings: offered to 2 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 86585,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Banner of the Fallen (level 17, from 10, 1250 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Mountaineer Ylva lies south of Thelsamar on the walk to the tunnel post, where Captain Rugelfuss takes it. Recordings: offered to 1 characters, 1 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 118,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Price of Shoes (level 18, from 14, 340 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Verner Osgood in Lakeshire, for Smith Argus in Goldshire on the walk west from Redridge to Westfall (it was skipped when nothing took that walk). Recordings: offered to 13 characters, 12 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 119,
+				"after": [
+					"turnin",
+					118
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Return to Verner (level 18, from 13, 680 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Smith Argus in Goldshire, back to Verner Osgood on the gryphon's return to Lakeshire. Recordings: offered to 8 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 122,
+				"after": [
+					"turnin",
+					119
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Underbelly Scales (level 18, from 14, 1700 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Verner Osgood; the whelps nest in the hills north of the lake the last loop works. Recordings: offered to 6 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 124,
+				"after": [
+					"turnin",
+					119
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: A Baying of Gnolls (level 20, from 15, 1150 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Verner Osgood; the Brutes and Mystics of the hills north of the lake, where The Everstill Bridge's pikes come from. Recordings: offered to 6 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 120,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Messenger to Stormwind (level 14, from 14, 490 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Magistrate Solomon in Lakeshire, for General Marcus Jonathan outside Stormwind's gate, on the Stormwind stop of the Defias chain. Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 121,
+				"after": [
+					"turnin",
+					120
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Messenger to Stormwind (level 14, from 14, 245 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): General Marcus Jonathan, back to Magistrate Solomon on the return to Lakeshire. Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 3741,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Hilary's Necklace (level 15, from 12, 1350 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Shawn by the Lakeshire bridge; the necklace lies in the lake beside town. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 132,
+				"after": [
+					"turnin",
+					65
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Defias Brotherhood (level 18, from 14, 680 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Wiley the Black gives it as The Defias Brotherhood (65) is handed in, for Gryan Stoutmantle on the walk west to Westfall. Recordings: offered to 16 characters, 16 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 135,
+				"after": [
+					"turnin",
+					132
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Defias Brotherhood (level 18, from 14, 680 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Gryan Stoutmantle, for Master Mathias Shaw on the gryphon trip to Stormwind. Recordings: offered to 16 characters, 16 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 141,
+				"after": [
+					"turnin",
+					135
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Defias Brotherhood (level 18, from 14, 340 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Master Mathias Shaw, back to Gryan on the gryphon trip back. Recordings: offered to 15 characters, 15 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 142,
+				"after": [
+					"turnin",
+					141
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Defias Brotherhood (level 18, from 14, 1350 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Gryan Stoutmantle; the Defias Messenger walks Moonbrook's road. Recordings: offered to 16 characters, 16 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 155,
+				"after": [
+					"turnin",
+					142
+				],
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Defias Brotherhood (level 18, from 14, 1700 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): the Defias Traitor at Sentinel Hill walks to Moonbrook. Recordings: offered to 16 characters, 16 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 104,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: The Coastal Menace (level 20, from 15, 1550 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Captain Grayson at the Westfall Lighthouse, south-west of Moonbrook where the Defias chain goes; Old Murk-Eye walks the beach beside it. Recordings: offered to 4 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 127,
+				"reason": "Alliance 12-20 re-order, 2026-11-07: Selling Fish (level 21, from 16, 1250 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Dockmaster Baren on the first Lakeshire stop; the Spotted Sunfish drop from the murlocs round the Sunken Chest the loop swims to. Recordings: offered to 17 characters, 16 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -6664,11 +7014,6 @@
 			{
 				"q": 5943,
 				"reason": "RouteCritique-Horde: Gizelton Caravan is offered only when the caravan leaves Gelkis Village on the same hourly loop (Classic behaviour, to verify in game); an average half-hour wait for 2850 XP at level 40",
-				"issue": ""
-			},
-			{
-				"q": 118,
-				"reason": "RevA1 c10 Human read: The Price of Shoes (level 18, 340 XP) is carried from Lakeshire at 19.5 to Smith Argus in Goldshire at 25.7, grey: a log slot for six levels for a few dozen XP, and the guide writes its hand-in after the Stormwind training, so Goldshire -> Stormwind -> Goldshire -> Stormwind for the boat",
 				"issue": ""
 			},
 			{

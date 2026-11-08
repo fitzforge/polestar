@@ -1,11 +1,11 @@
 {
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
-    "forever/alliance/02-westfall.guide": "c0b36845dab163227100742f68289f817c2cfb9f7ce07acf9e9f7f2b53ec0e55",
-    "forever/alliance/03-darkshore.guide": "892d17653ec26aa13310f9b5f340c8de6614139831220c85e9cb4a36cfec5827",
-    "forever/alliance/04-redridge-mountains.guide": "bb6a48704a453202a4434d89fa4c69016d909ee51fe615b5ed75c5de30e0fa3b",
+    "forever/alliance/02-westfall.guide": "50b92c8e9aa45d7253a63e5c76697c5ea6e76ec05b0807036f8a4c150d60e92b",
+    "forever/alliance/03-darkshore.guide": "786c389d7cdbf6d07f8fbb55ba717ae6274367f59ba88f1ae30b2d4b842f5763",
+    "forever/alliance/04-redridge-mountains.guide": "786bca3914b1241e9b109d5e10ec49d402b85dbac8d136a65cf4a95dae46d0e1",
     "forever/alliance/05-duskwood.guide": "0a5831c52e78a1f550a41f00f258d6556e4a51d0307d1bcb9d8ec049435d4a67",
-    "forever/alliance/06-ashenvale.guide": "a5ac4ea49eebf3b9f2b061d75470b864725fb9b43d15c84214b6d20e98268772",
+    "forever/alliance/06-ashenvale.guide": "c779108705dba7dc74e3d73c00045a321a1e47a11713f9a94a900b836776bb36",
     "forever/alliance/07-thousand-needles.guide": "b420614a47ca7c602a24cb270c22c69b247ff28f023bc4b6939ce5bbfa55d549",
     "forever/alliance/30-40/01-hillsbrad-foothills.guide": "d6ae28f392d8f163792bb0386da6dd4c7596f2c96ba47f14595caf00e2cdd4c2",
     "forever/alliance/30-40/02-desolace.guide": "e3027d7427cc4c61eb8f92910a8f63ef4c8125a03b797e2ea5336c79dbeddfa4",
@@ -26,8 +26,8 @@
     "forever/alliance/50-60/04-western-plaguelands.guide": "a992953762a3ba2c52e7cd2852c3e4e410c438bd40841276e51ecc7da3b9a30e",
     "forever/alliance/50-60/05-silithus.guide": "926127ee627dd2376dc594b3aa9f592d3bdc8c6c45efb76367512cfa915f79c3",
     "forever/alliance/50-60/06-silithus.guide": "681198a79c7f19ab0016d797dc5637a260e5601efb8a1c8817106386a5866a4a",
-    "forever/alliance/dwarf/01-dun-morogh.guide": "ea64cb0069d7d5c1f4de0e0f4b9dc2094bbc288789a6b63ac2ee2a17acd5159c",
-    "forever/alliance/gnome/01-dun-morogh.guide": "6851e0e963adc96f2b334394849dfc5779db257f84a8f9c96dc298d70c762e0d",
+    "forever/alliance/dwarf/01-dun-morogh.guide": "42f94b383a06bbaf3f58da3c02f2c104d83a50d1e5a2884b37b627ed3d9c811b",
+    "forever/alliance/gnome/01-dun-morogh.guide": "69584e207339a70b0c18abd4e7b052eedcc4ebc8d598de48eaf64e940741de8b",
     "forever/alliance/human/01-elwynn-forest.guide": "187b49d52db2d64d85bd197c756dc8dfcdbf19011c743f54b9ffe28d1e10c4cd",
     "forever/alliance/nightelf/01-teldrassil.guide": "861123aaeee5fe219b7e2a9dd3492fdf81bd270bbf3b4b9ab18545e524d85142",
     "forever/alliance/nightelf/02-darkshore.guide": "96aefa136bf0f6fde2ef52c54e3aa65190fb31f8474794e46591adb8d6e2a554",
@@ -61,7 +61,9 @@
     "forever/horde/troll/01-durotar.guide": "05b861c6ab8c118b9972691d01955b5e7b3c2bc2171188fb665401980c676f31",
     "forever/horde/undead/01-tirisfal-glades.guide": "74979ef40adf3f612e2d4fb8e2d2a63e176f2c9c1afcb3c79fb8473c080719f6",
     "legs.json": "d15ce94b3c7c213476a0a168135ead6e944e9672fc80e735094a5e5f10886c23",
-    "forever/alliance/06-wetlands.guide": "de730e5018427e635b376817ba376e25b2d4e5095e9d1ed3546767f8807581bc",
-    "forever/alliance/30-40/04b-stranglethorn-vale.guide": "c18973a442ce9abc30329098c6373fa7dc4b631df9c09462a543a547fc793938"
+    "forever/alliance/06-wetlands.guide": "545ff4ffe45c706f6f2626c5549c82794a20fd13c6d390d51a5c30b5dee4d7f8",
+    "forever/alliance/30-40/04b-stranglethorn-vale.guide": "c18973a442ce9abc30329098c6373fa7dc4b631df9c09462a543a547fc793938",
+    "forever/alliance/03-darkshore-return.guide": "b247dedb7973d947e368706bcfa07ab3949082430ec02f2d0787617de38259d7",
+    "forever/alliance/03-loch-modan.guide": "8308716bb60684c331ac38a7a0d578ae9bb5fa255ab9a3ac3dcf516746ed3875"
   }
 }

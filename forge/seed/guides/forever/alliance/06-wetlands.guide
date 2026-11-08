@@ -152,29 +152,35 @@ step Whelgar's Excavation Site
   turnin 295                              -- Ormer Ironbraid
   accept 296
   accept 299                              -- Prospector Whelgar
-  accept 98216 optional                            -- Prospector Whelgar, below ground
-  accept 98313 optional                            -- For Historian Karnik in Ironforge, later
-
-step Prospector Whelgar
-  when group 98310
-  accept 98310                                     -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground. Their hearts drop from level 32 elites on the Dun Modr visit
 
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
-  tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment
   collect 2661 quest 299                  -- Neru Fragment: the Loose Soil
-  tip Goaz Warder is elite: grouping up is advised.
-  collect 279993 quest 98216.1 optional        -- Titanic Keystone
   collect 3638 quest 296                  -- Sarltooth's Talon
 
 step Ormer and Whelgar
   turnin 296                              -- Ormer Ironbraid
-  turnin 98216 optional                        -- Below ground
   turnin 299                              -- Prospector Whelgar
+  accept 98216 optional                   -- Prospector Whelgar, below ground: the Titanic Keystone, from the elite Goaz Warders
+
+step Goaz Warders
+  when onquest 98216
+  tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
+  tip Goaz Warder is elite: grouping up is advised.
+  collect 279993 quest 98216.1 optional   -- Titanic Keystone
+
+step Prospector Whelgar
+  when onquest 98216
+  turnin 98216 optional                   -- Below ground
+
+step Prospector Whelgar
+  when group 98310
+  when turnedin 98216
+  accept 98310                                     -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground. Their hearts drop from level 32 elites on the Dun Modr visit
 
 step Angerfang Encampment
   tip South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
@@ -182,14 +188,9 @@ step Angerfang Encampment
   collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden
-  tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river.
-  accept 277
-  accept 98283 optional               -- Rethiel the Greenwarden: Carnage, an elite raptor
-
-step Crude Flint
-  zone Wetlands
-  tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.
-  collect 2611 quest 277
+  tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river. Fire Taboo's flint came with you from your last Wetlands visit.
+  turnin 277
+  accept 275
 
 step Howin Kindfeather
   tip Howin Kindfeather camps among the Fenrunners, just west of Rethiel.
@@ -197,23 +198,20 @@ step Howin Kindfeather
   accept 98245                            -- Razormaw Incisors: from the raptors by the Dragonmaw Gates, on the Wetlands loop of 30-40/01-hillsbrad-foothills
   accept 98300 optional                   -- For King Magni in Ironforge, at the end of 30-40/01-hillsbrad-foothills
 
-step Rethiel the Greenwarden
-  tip East from Howin to Rethiel: Einar Stonegrip stands beside the road on the way.
+step Einar Stonegrip
+  tip East from Howin: Einar Stonegrip stands beside the road.
   accept 469                              -- Einar Stonegrip: for James Halloran in Menethil
-  turnin 277
-  accept 275
 
 step The Green Belt: kill these as you meet them
   zone Wetlands
   tip Red whelps fill the hills west of the gates, Maddened Rotclaws the Green Belt, Razormaws the northern slopes; Neru stands in the north-east (use the Goaz Stone).
-  tip Carnage is elite: grouping up is advised.
   tip Fen Creepers hide in the marsh pools north-west of the Green Belt.
   tip Careful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see.
-  collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh
   kill 1040 quest 275 @24.46,33.18 map 1437 era
 
 step Rethiel the Greenwarden
   turnin 275
+  accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
 step Captain Stoutfist
   tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
