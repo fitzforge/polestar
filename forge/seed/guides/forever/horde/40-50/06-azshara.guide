@@ -132,7 +132,7 @@ step Level 50
   when level<50
   tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
   goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 50                          -- grind on Haldarr Satyr
+  level 50 grind 6125               -- grind on Haldarr Satyr
 
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.

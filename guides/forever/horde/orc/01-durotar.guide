@@ -292,7 +292,7 @@ step Level 10
   when level<10
   tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
-  level 10                          -- grind on Razormane Quilboar
+  level 10 grind 3111               -- grind on Razormane Quilboar
 
 step Razor Hill
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock

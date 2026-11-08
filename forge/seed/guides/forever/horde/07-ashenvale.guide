@@ -370,7 +370,7 @@ step Level 29.49
   when level<29.49
   tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 27.0,51.9 map 1441 "Screeching Roguefeather"
-  level 29.49                          -- grind on Screeching Roguefeather
+  level 29.49 grind 4101               -- grind on Screeching Roguefeather
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles

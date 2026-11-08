@@ -268,7 +268,7 @@ step Wenikee Boltbucket
 step Witchwing Slayers
   tip The Slayers hold the western end of the Dry Hills, past the harpies you fought before; they drop the rings.
   collect 5065 quest 875.1
-  level 16                            -- grind on Witchwing Slayers at the Dry Hills, The Barrens
+  level 16 grind 3278                 -- grind on Witchwing Slayers at the Dry Hills, The Barrens
 
 step The Crossroads
   tip Back to the Crossroads; the next guide starts here.

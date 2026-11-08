@@ -206,7 +206,7 @@ step Level 32.5
   zone Thousand Needles
   tip Desolace's quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the Scarlet Monastery dungeon (Graveyard or Library) instead.
   goto 71.0,78.0 map 1441 "Sparkleshell Snappers"
-  level 32.5                          -- grind on Sparkleshell Snapper
+  level 32.5 grind 4143               -- grind on Sparkleshell Snapper
 
 step Mirage Raceway
   zone Thousand Needles
@@ -268,7 +268,7 @@ step Level 33
   zone Desolace
   tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 59.9,54.6 map 1443 "Scorpashi Lashers"
-  level 33                            -- grind on Scorpashi Lasher
+  level 33 grind 4697                 -- grind on Scorpashi Lasher
 
 # ---------------------------------------------------------------- The west coast
 

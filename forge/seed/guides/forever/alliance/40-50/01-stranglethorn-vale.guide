@@ -424,7 +424,7 @@ step Level 42.06
   when level<42.06
   tip If you skipped Panther Mastery, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.06                          -- grind on Cold Eye Basilisk
+  level 42.06 grind 690                -- grind on Cold Eye Basilisk
 
 step Raptor Mastery
   when group 197
@@ -448,7 +448,7 @@ step Level 42.1
   when level<42.1
   tip If you skipped Raptor Mastery, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.1                           -- grind on Cold Eye Basilisk
+  level 42.1 grind 690                 -- grind on Cold Eye Basilisk
 
 step Big Game Hunter
   when group 208
@@ -465,7 +465,7 @@ step Level 42.16
   when level<42.16
   tip If you skipped Big Game Hunter, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.16                          -- grind on Cold Eye Basilisk
+  level 42.16 grind 690                -- grind on Cold Eye Basilisk
 
 step Booty Bay
   tip Ride south down the road to Booty Bay.
@@ -597,7 +597,7 @@ step Level 42.46
   when level<42.46
   tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 5.5,31.4 map 1435 "Tangled Horror"
-  level 42.46                          -- grind on Tangled Horror
+  level 42.46 grind 766                -- grind on Tangled Horror
 
 step Cortello's Riddle
   accept 625

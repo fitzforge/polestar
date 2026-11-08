@@ -115,7 +115,7 @@ step Lakkari Tar Pits
 step Pterrordax
   tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
   collect 11831 quest 4503.2
-  level 51.11                          -- grind on Pterrordax
+  level 51.11 grind 9166               -- grind on Pterrordax
 
 step Power Crystals and soil
   tip The crystal clusters stand all over the crater, many around Fire Plume Ridge. Take a few extra of each colour for the pylons.
@@ -142,7 +142,7 @@ step Research Equipment
 step The Slithering Scar
   tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd.
   collect 11837 quest 4496.1
-  level 51.26                          -- grind on Gorishi Wasp
+  level 51.26 grind 6551               -- grind on Gorishi Wasp
 
 step The Slithering Scar
   use 11132 quest 3883.1 @48.7,85.3 map 1449
@@ -185,7 +185,7 @@ step Torwa Pathfinder
 step Lashers and Threshers
   tip Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle.
   kill 6511 quest 4145.4
-  level 51.38                          -- grind on Bloodpetal Thresher
+  level 51.38 grind 6511               -- grind on Bloodpetal Thresher
 
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
@@ -227,7 +227,7 @@ step Level 52
   when level<52
   tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
-  level 52                          -- grind on Bloodpetal Lasher
+  level 52 grind 6509               -- grind on Bloodpetal Lasher
 
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater

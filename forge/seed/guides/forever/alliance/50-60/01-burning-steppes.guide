@@ -69,7 +69,7 @@ step Sanath Lim-yo
   accept 3381 optional
   collect 10450 quest 3381.1 optional
   turnin 3381 optional
-  level 50.56                          -- grind on Thunderhead Hippogryph
+  level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
 
 step Kim'jael
   tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
@@ -80,12 +80,12 @@ step Kim'jael
   collect 10718 quest 3601.4          -- Kim'Jael's Wizzlegoober
   turnin 3601
   accept 5534
-  level 50.65                          -- grind on Spitelash Myrmidon
+  level 50.65 grind 6196               -- grind on Spitelash Myrmidon
 
 step The Ruins of Eldarath
   tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's four runes stand among the ruins: use his Drawing Kit on each.
   collect 10563 quest 3449.1          -- Rune of Beth'Amara
-  level 50.69                          -- grind on Spitelash Myrmidon
+  level 50.69 grind 6196               -- grind on Spitelash Myrmidon
 
 step The Shattered Strand
   collect 13815 quest 5534.1
@@ -95,9 +95,9 @@ step Kim'jael
 
 step The Ruins of Eldarath
   collect 10564 quest 3449.2          -- Rune of Jin'yael
-  level 50.8                          -- grind on Spitelash Myrmidon
+  level 50.8 grind 6196               -- grind on Spitelash Myrmidon
   collect 10565 quest 3449.3          -- Rune of Markri
-  level 50.85                          -- grind on Spitelash Myrmidon
+  level 50.85 grind 6196               -- grind on Spitelash Myrmidon
 
 step Rubbing: Rune of Sael'hai
   collect 10566 quest 3449.4          -- Rune of Sael'hai
@@ -222,7 +222,7 @@ step Dreadmaul Rock
   kill 7034 quest 3823.1              -- Firegut Ogre Mage, below ground
   kill 7033 quest 3823.2              -- Firegut Ogre
   kill 7035 quest 3823.3              -- Firegut Brute
-  level 51                            -- grind on Firegut Ogre: Oralius gives FIFTY! YEP! from level 51
+  level 51 grind 7033                 -- grind on Firegut Ogre: Oralius gives FIFTY! YEP! from level 51
 
 # ---------------------------------------------------------------- Morgan's Vigil
 
@@ -236,7 +236,7 @@ step Level 52
   when level<52
   tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
-  level 52                          -- grind on Firegut Ogre Mage
+  level 52 grind 7034               -- grind on Firegut Ogre Mage
 
 # ---------------------------------------------------------------- Flame Crest and the Ruins of Thaurissan
 
@@ -279,7 +279,7 @@ step Level 52.08
   when level<52.08
   tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 89.6,51.2 map 1428 "Ember Worg"
-  level 52.08                          -- grind on Ember Worg
+  level 52.08 grind 9690               -- grind on Ember Worg
 
 # ---------------------------------------------------------------- Blackrock Stronghold
 
