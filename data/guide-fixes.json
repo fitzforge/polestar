@@ -3408,6 +3408,70 @@
 			],
 			"issue": 1070,
 			"pr": 1218
+		},
+		{
+			"id": "horde-4060-accept-gan-zulah-41",
+			"faction": "Horde",
+			"at": {
+				"quest": 586,
+				"goal": "accept"
+			},
+			"level": 41,
+			"note": "Speaking with Gan'zulah (level 46) sends you to Skullsplitters of 41-43; the route reaches the Bubbling Cauldron at about 40.9, so the Zul'Kunda step before it (the Bloodscalp chiefs' heads) has you reach 41 on the Bloodscalps there. Written as a level goal on that step, not a hidden grind before the accept.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "horde-4060-accept-march-of-the-silithid-50",
+			"faction": "Horde",
+			"at": {
+				"quest": 4494,
+				"goal": "accept"
+			},
+			"level": 50,
+			"note": "March of the Silithid needs level 50. Azshara's top-up step (Haldarr satyrs) takes you to 50 (it was 49.93, which left the accept at 49.9).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "horde-4060-accept-rise-of-the-machines-52",
+			"faction": "Horde",
+			"at": {
+				"quest": 4061,
+				"goal": "accept"
+			},
+			"level": 52,
+			"note": "The Rise of the Machines needs level 52 and Kargath is passed once, on the way into the Burning Steppes. Un'Goro's top-up step takes you to 52 (it was 51.81, below Theodora's offer).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "horde-4060-accept-dearest-natalia-58",
+			"faction": "Horde",
+			"at": {
+				"quest": 8304,
+				"goal": "accept"
+			},
+			"level": 58,
+			"note": "Dearest Natalia needs level 58; Bor Wildmane offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
 		}
 	]
 }

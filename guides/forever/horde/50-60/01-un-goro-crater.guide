@@ -223,11 +223,11 @@ step Gorillas
   turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
   note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
 
-step Level 51.81
-  when level<51.81
-  tip Top up here to level 51.81 before the hand-ins at The Shaper's Terrace: they take you to level 52.
+step Level 52
+  when level<52
+  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55.
   goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
-  level 51.81                          -- grind on Bloodpetal Lasher
+  level 52                          -- grind on Bloodpetal Lasher
 
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
