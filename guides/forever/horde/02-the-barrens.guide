@@ -37,8 +37,9 @@ next forever/horde/05-stonetalon-mountains
 # Windshear Crag -> back down to Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
 #
-# Orcs and Trolls: Far Watch Post first (Conscript of the Horde from Takrin in Razor Hill, Uzzek's
-# Warrior quests), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
+# Orcs and Trolls: Far Watch Post first (Crossroads Conscription from Kargal: they handed him
+# Conscript of the Horde at the end of their Durotar guide, so it is not carried through Silverpine;
+# Warriors hand Path of Defense to Uzzek), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
 # is left out, as Gryshka would take it at 20, five levels late, and they have the city's flight
 # path from the Silverpine guide). Warriors finish
 # Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans finish Call of Fire
@@ -76,8 +77,8 @@ next forever/horde/05-stonetalon-mountains
 
 # ---------------------------------------------------------------- Far Watch Post
 
-# Orcs and Trolls bring Conscript of the Horde (840) from Takrin in Razor Hill and Warriors Veteran
-# Uzzek (1505): Far Watch Post is on the road from Orgrimmar to the Crossroads.
+# Orcs and Trolls take Crossroads Conscription (842) from Kargal, and Warriors hand Uzzek the Singed
+# Scales from Thunder Ridge (1498): Far Watch Post is on the road from Orgrimmar to the Crossroads.
 step The Barrens
   only Orc,Troll
   zone The Barrens
@@ -87,32 +88,9 @@ step Far Watch Post
   only Orc,Troll
   zone The Barrens
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar and Uzzek stand together.
-  turnin 840                          -- Kargal Battlescar
-  accept 842
-  turnin 1505 only Warrior            -- Uzzek
-  accept 1498 only Warrior
-
-step Durotar
-  only Orc,Troll,Warrior
-  zone Durotar
-  goto 39.7,29.2 "Durotar"
-
-step Thunder lizards across the river
-  only Orc,Troll,Warrior
-  zone Durotar
-  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge across the bridge; any of them can drop a Singed Scale.
-  collect 6486 quest 1498.1
-
-step The Barrens
-  only Orc,Troll,Warrior
-  zone The Barrens
-  goto 61.4,21.1 "The Barrens"
-
-step Uzzek
-  only Orc,Troll,Warrior
-  zone The Barrens
-  turnin 1498
-  accept 1502
+  accept 842                          -- Kargal Battlescar
+  turnin 1498 only Warrior            -- Uzzek
+  accept 1502 only Warrior
 
 # ---------------------------------------------------------------- The Crossroads
 step The Crossroads

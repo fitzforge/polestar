@@ -36,7 +36,7 @@
     "forever/alliance/nightelf/01-teldrassil.guide": "238b651365d7077e3eb26c2bb26e485b8343109952c0f01f03b4ba0a6147a33b",
     "forever/alliance/nightelf/02-darkshore.guide": "96aefa136bf0f6fde2ef52c54e3aa65190fb31f8474794e46591adb8d6e2a554",
     "forever/alliance/skyborne/01-zephras-isle.guide": "6b91ffcb2d07ea3dc53dafbf7face43dc9dfe24c6d796815745a99c67d0ee209",
-    "forever/horde/02-the-barrens.guide": "b0f913b3602bd365603008dc1694c9539478569e3199a484a4e7cd6947bf3b73",
+    "forever/horde/02-the-barrens.guide": "4fc59a966cc279a70ace115df1f68730a19495bd41df03230d7388d642169821",
     "forever/horde/03-silverpine-forest.guide": "754f5634237e99edb09caada762c72ba897f25491b1de2f415b46a782b2eb422",
     "forever/horde/04-the-barrens.guide": "188b49c17ae2819ec21088a3e2a0e386df8dbedab1d775ec7a1c64e6d5246734",
     "forever/horde/05-stonetalon-mountains.guide": "6c5b0403edaeb9f1de42b736292ea409d9ec58271e0eb05d5998c03bc74d976b",
@@ -61,10 +61,10 @@
     "forever/horde/50-60/05-eastern-plaguelands.guide": "f83ca562f26be8e8cbae05d616e085f828d6e3c830f46d7d0be228ca985b828b",
     "forever/horde/50-60/06-silithus.guide": "11a179a39f280093f7be83474fd0146326432dd3c9ce40fe08e530b22a60640f",
     "forever/horde/50-60/07-felwood.guide": "a9aba88a2c90b76cf4fe2952ac0e6e3598d6b09745d345dd465dac7ea4f70e5c",
-    "forever/horde/orc/01-durotar.guide": "3a35b17a1e839525cfcc4b4bf0c1fc71af7b01e701d6dd62dfb94c2d8c9eba22",
+    "forever/horde/orc/01-durotar.guide": "104f84bb192516ab0563cbd5d8f4a20ec397586a9cc2ec036657f10b4a7f7c2c",
     "forever/horde/skyborne/01-zephras-isle.guide": "2e91b398b41b49de3d50a2f962f3619dd4fbe812e76e80c361083a2a6f520111",
     "forever/horde/tauren/01-mulgore.guide": "1bc1e043c32ba3f6bb9705b8f02b08e00beb3b1f691936a75be3f9e625610a77",
-    "forever/horde/troll/01-durotar.guide": "05b861c6ab8c118b9972691d01955b5e7b3c2bc2171188fb665401980c676f31",
+    "forever/horde/troll/01-durotar.guide": "fc1898502479577dc1d29092280cdc6a088e913f11c55436dbd589a87ab5a9d1",
     "forever/horde/undead/01-tirisfal-glades.guide": "cc74ac6a59df4688ca1af4208a66da81353499ec8afdd92c57d9243a3a0d6186",
     "legs.json": "d15ce94b3c7c213476a0a168135ead6e944e9672fc80e735094a5e5f10886c23"
   }

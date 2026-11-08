@@ -8942,13 +8942,14 @@
 			{
 				"a": [
 					"turnin",
-					6081
+					840
 				],
 				"b": [
 					"turnin",
-					840
+					6081
 				],
-				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Durotar ends in Orgrimmar since the Horde 12-30 re-chain, and Conscript of the Horde is handed to Kargal at Far Watch Post before the road north to the city; Hunters hand Training the Beast to Ormak there after it. Replaces #1077's pair (Ormak before Far Watch), written when Far Watch came after Orgrimmar."
 			},
 			{
 				"a": [
@@ -10370,6 +10371,30 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-08, Barrens 21): Jorn Skyseer stands in Camp Taurajo; his thunderhawks circle just south of it and the Field of Giants' Silithid eggs lie just south of them. The route walked back into the camp to hand in Cry of the Thunderhawk between the hawks and the eggs, then south again and back north past him; the wings are handed in on the walk back north after the eggs (and the Warriors' antennae, Ruga beside him), saving about 600 yd"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Orc and Troll Durotar): Conscript of the Horde (taken at Razor Hill at 10) was carried through the whole Silverpine stay to Far Watch Post at 14, against the rule that only class quests cross zones. It is handed to Kargal at the end of the Durotar guide (Shamans on the way to Kranal Fiss), and Warriors hand Veteran Uzzek in beside him and take the Thunder Ridge lizards on the road north to Orgrimmar. Measured with the calibrated level model: +0.02 h to 60 on average (Durotar +3.7 min, the Barrens -0.6), the cheapest of the three ways out (leaving it out: +0.06 h)"
+			},
+			{
+				"a": [
+					"task",
+					1498
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Warriors take Path of Defense from Uzzek beside Kargal at the end of the Durotar guide and gather the Singed Scales on Thunder Ridge on the road north to Orgrimmar (see the pair turnin 840 before accept 97246)."
 			}
 		]
 	}

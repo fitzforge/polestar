@@ -326,8 +326,10 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
-	// Horde 12-30 re-chain: Durotar ends in Orgrimmar, and Far Watch Post (Kargal) opens the Barrens guide after Silverpine.
-	assert.ok(!list.some(({ goal }) => is('turnin', 840)(goal)), 'Kargal at Far Watch Post is the Barrens guide\'s');
+	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Since the final route review (0.3.5) Conscript of the Horde is
+	// handed to Kargal at Far Watch Post before Orgrimmar (no carry through Silverpine), after Orgnil.
+	const mage = list.filter(forClass('MAGE'));
+	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
 	const orgnil = list[threat].goal.npc;
 	assert.deepEqual(list.slice(threat + 1).filter(({ goal }) => goal.npc === orgnil && !goal.optional && !is('turnin', 99051)(goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
@@ -339,7 +341,7 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
 		// Far Watch Post (Kargal, Uzzek) comes first on the walk from Orgrimmar; the Crossroads stop takes Meats to Orgrimmar.
 		const first = list[at(list, `${race}: accept 6365`, is('accept', 6365))].step;
-		assert.ok(list.findIndex(({ goal }) => is('turnin', 840)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post before the Crossroads`);
+		assert.ok(list.findIndex(({ goal }) => is('accept', 842)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post (Crossroads Conscription) before the Crossroads`);
 		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
@@ -4677,10 +4679,15 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 // Flow review, Durotar: Warriors walked past Kargal Battlescar, 3 yd from Uzzek, to the thunder lizards
 // and back for Conscript of the Horde. Troll Durotar: Lar Prowltusk on the first Sen'jin stop (as the
 // Orc guide), Razor Hill once after Tiragarde Keep, the eggs and tiger fur where the coast walk meets them.
-for (const race of ['Orc', 'Troll']) test(`forever/horde/02-the-barrens.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop`, { skip }, () => {
-	const list = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+// Since the final route review (0.3.5) that Far Watch stop ends the Durotar guide: Kargal and Uzzek together, the
+// lizards on Thunder Ridge on the road north to Orgrimmar, Path of Defense to Uzzek when the Barrens guide passes.
+for (const race of ['Orc', 'Troll']) test(`forever/horde/${race.toLowerCase()}/01-durotar.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal with Uzzek`, { skip }, () => {
+	const list = goals(`forever/horde/${race.toLowerCase()}/01-durotar.guide`).filter(forClass('WARRIOR'));
 	assert.equal(list[at(list, 'turnin 840', is('turnin', 840))].s, list[at(list, 'turnin 1505', is('turnin', 1505))].s, 'with Uzzek, before the lizards');
 	assert.equal(list.filter(({ goal }) => is('turnin', 840)(goal)).length, 1, 'handed in once');
+	assert.ok(at(list, 'turnin 1505', is('turnin', 1505)) < at(list, 'collect 6486', (g) => g.t === 'collect' && g.item === 6486), 'the lizards after Uzzek');
+	const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+	assert.ok(at(barrens, 'turnin 1498', is('turnin', 1498)) < at(barrens, 'accept 6365', is('accept', 6365)), 'Path of Defense to Uzzek on the way to the Crossroads');
 });
 
 test(`${TROLL_DUROTAR}: flow review: Lar Prowltusk on the first Sen'jin stop, Razor Hill once after the keep, eggs and fur on the coast walk`, { skip }, () => {
@@ -4968,13 +4975,14 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
-	// Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop (#1159); the last Far Watch step is for
-	// everyone else, or its hand-in is one a Warrior no longer holds.
-	// (Far Watch Post opens the Barrens guide since the Horde 12-30 re-chain.)
-	for (const race of ['Orc', 'Troll']) {
-		const warrior = barrens.filter(forRaceOf(race)).filter(forClass('WARRIOR')).filter(({ goal }) => is('turnin', 840)(goal));
-		assert.equal(warrior.length, 1, `${race}: a Warrior hands in 840 once`);
+	// Conscript of the Horde is handed in once, at the end of the Durotar guides (final route review, 0.3.5): Shamans
+	// at Far Watch on the way to Kranal, everyone else before Orgrimmar; the Barrens guide carries none.
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		for (const cls of ['WARRIOR', 'SHAMAN', 'MAGE']) {
+			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
+		}
 	}
+	assert.ok(!barrens.some(({ goal }) => is('turnin', 840)(goal)), 'no Conscript of the Horde carried into the Barrens');
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
