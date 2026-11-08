@@ -7162,3 +7162,19 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 	}
 	assert.ok(n >= 19, `the grind steps are found (${n})`);
 });
+
+test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
+	// Players' windows with her are all at Silverpine 68.57-68.66,45.09-45.25; the merged data also had a point in
+	// Alterac Mountains 14.3,59.57 (about 186 yd east), which the Arathi hand-in of An Alarming Request (92432) used.
+	for (const [file, pred] of [
+		['forever/alliance/30-40/05-arathi-highlands.guide', is('turnin', 92432)],
+		['forever/reputation/kirin-tor.guide', is('turnin', 92432)],
+		['forever/reputation/kirin-tor.guide', is('accept', 92458)],
+	]) {
+		const list = goals(file);
+		const { goal } = list[at(list, `${file}: ${pred.toString()}`, pred)];
+		assert.equal(goal.npc, 269127, `${file}: Image of Archmage Modera`);
+		assert.equal(goal.map, 1421, `${file} ${goal.t} ${goal.quest}: Silverpine Forest, not Alterac Mountains`);
+		assert.ok(Math.abs(goal.x - 68.6) < 0.5 && Math.abs(goal.y - 45.2) < 0.5, `${file} ${goal.t} ${goal.quest}: at the camp (${goal.x},${goal.y})`);
+	}
+});

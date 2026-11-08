@@ -349,6 +349,32 @@
 		},
 		"note": "Outraged Pillager is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"269127": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "e",
+					"pts": [
+						[
+							68.62,
+							45.18
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "5 people opened her window at Silverpine 68.57-68.66,45.09-45.25 (map 1421): hand-ins of An Alarming Request 92432 and accepts of 92457/92458/96984 (sessions 20261106T155909Z, 20261107T153654Z, 20261107T192842Z, 20261107T220846Z, 20261107T233025Z); none met her in Alterac Mountains"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1305: the reporter marked her at Silverpine 68.62,45.13"
+			}
+		],
+		"note": "Image of Archmage Modera (npc 269127), giver of Heart of Disruption and Starving Arcane and ender of An Alarming Request, stands only at the Kirin Tor camp on the lake shore in Silverpine Forest, 68.62,45.18 (map 1421). The merged data also had Alterac Mountains 14.3,59.57 (map 1416), about 186 yards east by Dalaran's sewer entrance, where nobody has met her; the Arathi Highlands guide's hand-in of 92432 and the City of Dalaran pick-up guide pointed there. Replaces every spawn."
+	},
 	"275666": {
 		"set": {
 			"rank": 1
