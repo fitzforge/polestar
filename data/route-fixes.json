@@ -3678,6 +3678,19 @@
 			{
 				"a": [
 					"task",
+					3361,
+					1
+				],
+				"b": [
+					"task",
+					182,
+					0
+				],
+				"why": "#1224 (Dwarf and Gnome Coldridge Valley): the Frostmane Troll Whelps for The Troll Cave live on the slopes south and east of Grelin's camp, where Felix's Chest and Bucket of Bolts lie: one field step that holds until both are done, not an along list before Grelin's hand-in. The along list let the route move to Grelin as soon as Felix's parts were looted, with the whelp count still short"
+			},
+			{
+				"a": [
+					"task",
 					92742,
 					0
 				],
