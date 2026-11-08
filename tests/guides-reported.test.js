@@ -4693,9 +4693,11 @@ test(`${ZEPHRAS_ALLIANCE}: flow re-order: Aetheen and Valreaa before Hanaa, on t
 test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards on the way north, Ebenezer on the crossing`, { skip }, () => {
 	const list = goals(HILLSBRAD_ALLIANCE);
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
-	const dunModr = stepOf('accept', 87491);
-	for (const [t, q] of [['turnin', 472], ['accept', 631], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr, `${t} ${q} on the Dun Modr stop`);
-	assert.ok(list.some(({ goal, s }) => s === dunModr + 1 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
+	const dunModr = stepOf('turnin', 472);
+	assert.equal(stepOf('accept', 631), dunModr, 'accept 631 on the Dun Modr stop');
+	// Spark of Freedom is the group's step right after the camp (#1313), the Heart of Modr after that.
+	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 1, `${t} ${q} right after the camp`);
+	assert.ok(list.some(({ goal, s }) => s === dunModr + 2 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
 	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < stepOf('accept', 647), 'Ebenezer between Dun Modr and the span');
 	assert.ok(!list.some(({ goal }) => goal.quest === 87318), "#1314: no Hearts of the Lost (Corma Villard doesn't offer it)");
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
