@@ -102,11 +102,8 @@ step Winterfall Village
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
   kill 7438 quest 8464.3              -- Winterfall Ursa
 
-step Optional: Sunken Temple
-  note Short of level 54 after the yetis? Running the Sunken Temple (50-54) instead of grinding gets you there faster in a group. Come back to Everlook afterwards.
-
 step Pristine Yeti Horns
-  tip Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that.
+  tip Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns.
   collect 12367 quest 977.1
 
 step Everlook

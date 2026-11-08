@@ -6590,3 +6590,17 @@ test('forever/alliance/50-60/05-silithus.guide: final review: Carlin Redpath\'s 
 	assert.equal(list[villains].s, list[alen].s, 'one Light\'s Hope stop');
 	assert.ok(!list.slice(villains, alen + 1).some(({ step }) => /Chillwind/.test(step.note || '')), 'no tip about riding to Chillwind Camp');
 });
+
+// Final route review before 0.3.5, Alliance 40-60: after Winterspring's top-up to 55.05 (before the Everlook
+// hand-ins) the guide still said "Short of level 54 after the yetis? Run the Sunken Temple" and "keep killing yetis
+// until level 54: Harlo's wildkin quests are red before that" (Harlo's quests are in the last guide, at 58-59).
+test('forever/alliance/50-60/03-winterspring.guide: final review: no level-54 advice after the top-up to 55', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const topUp = list.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 55);
+	assert.ok(topUp >= 0, 'the top-up to 55 is in the guide');
+	const later = list.slice(topUp).filter(({ step }, i, a) => i === 0 || step !== a[i - 1].step).map(({ step }) => step);
+	for (const step of later) {
+		const text = [step.note || '', ...step.goals.filter((g) => g.t === 'note').map((g) => g.text)].join(' ');
+		assert.doesNotMatch(text, /level 54\b/, `"${step.title}" asks for a level the player already has`);
+	}
+});
