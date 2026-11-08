@@ -59,10 +59,10 @@ return {
 	["Zeppelin to {zone:1458}"] = "",
 
 	-- Step 13: The Undercity
-	-- {quest:515} Elixir of Agony · {skill:171} Alchemy · {area:287} Hillsbrad
-	["{quest:515} needs a Strong Troll's Blood Potion, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "",
-	-- {quest:515} Elixir of Agony
-	["Strong Troll's Blood Potion: auction house or an alchemist, for {quest:515}."] = "",
+	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
+	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "",
+	-- {item:3388} Lesser Troll's Blood Elixir · {quest:515} Elixir of Agony
+	["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: casa de leilões ou um alquimista, para {quest:515}.",
 
 	-- Step 14: Garen Largo
 	-- {npc:260093} Garen Largo · {zone:1458} Undercity
@@ -277,5 +277,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",
-	-- ["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: casa de leilões ou um alquimista, para {quest:515}.",
 }

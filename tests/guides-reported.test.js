@@ -1834,6 +1834,30 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Car
 	assert.match(stepTips(file, /^\s+accept 8263\b/).join(' '), /Friendly with the Defilers/);
 });
 
+// --- DexeeXI's report (#1322, client 70862): Elixir of Agony (515) takes item 3388, which the game calls Lesser Troll's
+// Blood Elixir (players' recordings: the objective reads so and ticks with it); the quest's own text still says Strong. The
+// Undercity step told players to buy a Strong Troll's Blood Potion, the item's old name. The Craftsman's Writs of the
+// Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater Defense, is now another item).
+test("DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game", { skip }, () => {
+	const file = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(file);
+	assert.equal(data.items[3388].name, "Lesser Troll's Blood Elixir");
+	assert.ok(data.quests[515].objectives.some((o) => o.type === 'item' && o.id === 3388), 'Elixir of Agony takes item 3388');
+	const step = list.find(({ step }) => step.title === 'The Undercity').step;
+	const said = [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ');
+	assert.match(said, /needs a Lesser Troll's Blood Elixir/);
+	assert.match(said, /quest text says Strong, but it takes a Lesser Troll's Blood Elixir/);
+	assert.doesNotMatch(said, /Strong Troll's Blood Potion/);
+	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name.
+	const writs = goals('forever/reputation/merchants-favor.guide').filter(({ goal }) => goal.t === 'turnin' && /^Craftsman's Writ/.test(data.quests[goal.quest]?.title || ''));
+	assert.ok(writs.length > 0, 'the writ hand-ins');
+	for (const { goal } of writs) {
+		const item = (goal.note || '').replace(/, \d+ reputation$/, '');
+		const takes = data.quests[goal.quest].objectives.filter((o) => o.type === 'item').map((o) => data.items[o.id]?.name);
+		assert.ok(takes.includes(item), `writ ${goal.quest}: "${item}" is one of ${takes.join(', ')}`);
+	}
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {

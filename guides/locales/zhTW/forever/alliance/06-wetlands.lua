@@ -45,8 +45,8 @@ return {
 	-- Step 12: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}, in the inn"] = "{npc:1239}，在旅店裡",
-	-- {npc:1464} Innkeeper Helbrek
-	["Flagon of Mead, from {npc:1464}"] = "",
+	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
+	["{item:2594}, from {npc:1464}"] = "{item:2594}，向{npc:1464}購買",
 	-- {npc:2104} Captain Stoutfist
 	["{npc:2104}, by the keep; on the top floor"] = "",
 	-- {npc:2104} Captain Stoutfist · {quest:98221} From the Ashes · {area:1036} Angerfang Encampment
@@ -336,7 +336,4 @@ return {
 	-- Step 72: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{item:2594}, from {npc:1464}"] = "{item:2594}，向{npc:1464}購買",
 }

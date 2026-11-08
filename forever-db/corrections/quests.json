@@ -5599,5 +5599,136 @@
 			}
 		],
 		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
+	},
+	"515": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 3388,
+					"count": 1,
+					"text": "Lesser Troll's Blood Elixir"
+				},
+				{
+					"type": "item",
+					"id": 3509,
+					"count": 5,
+					"text": "Daggerspine Scale"
+				},
+				{
+					"type": "item",
+					"id": 3510,
+					"count": 5,
+					"text": "Torn Fin Eye"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: the objective list at accept reads \"Lesser Troll's Blood Elixir\" x1 for 3 characters (0d2765f9, efd9e8c2, 17072fda); the line ticked 1/1 for 2 (0d2765f9, who handed the quest in to Apothecary Lydon, and 0c579934)"
+			},
+			{
+				"kind": "client",
+				"ref": "item 3388's name in client 1.60.1 (70862): Lesser Troll's Blood Elixir"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1322 (screenshot, client 70862: \"1/1 Lesser Troll's Blood Elixir (Complete)\")"
+			}
+		],
+		"note": "Elixir of Agony: the objective is item 3388, which the game calls Lesser Troll's Blood Elixir; our objective text kept the old name, Strong Troll's Blood Potion, and the guide named the wrong elixir. The quest's own text still says Strong (the game's inconsistency, reported to Blizzard); the objective is what counts."
+	},
+	"94217": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264017,
+					"count": 1,
+					"text": "Craftsman's Writ: Lesser Troll's Blood Elixir"
+				},
+				{
+					"type": "item",
+					"id": 3388,
+					"count": 1,
+					"text": "Lesser Troll's Blood Elixir"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item 3388's name in client 1.60.1 (70862): Lesser Troll's Blood Elixir"
+		},
+		"note": "Craftsman's Writ: Lesser Troll's Blood Elixir wants item 3388, the Lesser Troll's Blood Elixir its title names; our objective text kept the item's old name, Strong Troll's Blood Potion (#1322)."
+	},
+	"94218": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264018,
+					"count": 1,
+					"text": "Craftsman's Writ: Elixir of Defense"
+				},
+				{
+					"type": "item",
+					"id": 8951,
+					"count": 1,
+					"text": "Elixir of Defense"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item names in client 1.60.1 (70862): 8951 Elixir of Defense; 13445 is the Elixir of Greater Defense"
+		},
+		"note": "Craftsman's Writ: Elixir of Defense wants item 8951, the Elixir of Defense its title names; our objective text kept the item's old name, Elixir of Greater Defense, which is now another item (13445)."
+	},
+	"94219": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 264019,
+					"count": 1,
+					"text": "Craftsman's Writ: Draught of Water Breathing"
+				},
+				{
+					"type": "item",
+					"id": 5996,
+					"count": 1,
+					"text": "Draught of Water Breathing"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "item 5996's name in client 1.60.1 (70862): Draught of Water Breathing"
+		},
+		"note": "Craftsman's Writ: Draught of Water Breathing wants item 5996, the Draught of Water Breathing its title names; our objective text kept the item's old name, Elixir of Water Breathing."
+	},
+	"288": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 2594,
+					"count": 1,
+					"text": "Flagon of Dwarven Honeymead"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: the objective list at accept reads \"Flagon of Dwarven Honeymead\" x1 for 7 of 10 people (enUS clients)"
+			},
+			{
+				"kind": "client",
+				"ref": "item 2594's name in client 1.60.1 (70862): Flagon of Dwarven Honeymead"
+			}
+		],
+		"note": "The Third Fleet wants item 2594, which the game calls Flagon of Dwarven Honeymead; our objective text kept the old name, Flagon of Mead, and the Wetlands guide's buy note named it so (#1322's sweep)."
 	}
 }

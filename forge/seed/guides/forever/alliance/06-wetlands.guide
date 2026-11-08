@@ -91,7 +91,7 @@ step Menethil Harbor
   zone Wetlands
   accept 288                              -- First Mate Fitzsimmons, in the inn
   sethome "Deepwater Tavern"
-  buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
+  buy 2594 x1 npc 1464                    -- Flagon of Dwarven Honeymead, from Innkeeper Helbrek
   turnin 288
   accept 289
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor

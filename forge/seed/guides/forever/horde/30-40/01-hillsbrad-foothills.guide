@@ -36,8 +36,9 @@ next forever/horde/30-40/02-thousand-needles
 # Undercity after the 38-39 Arathi visit.
 #
 # Optional extras:
-# - Elixir of Agony (515, 517, 524): needs a Strong Troll's Blood Potion, an Alchemy item no
-#   vendor sells. Without one, skip the whole chain.
+# - Elixir of Agony (515, 517, 524): needs a Lesser Troll's Blood Elixir (item 3388; the quest
+#   text says Strong, the objective takes the Lesser one), an Alchemy item no vendor sells.
+#   Without one, skip the whole chain.
 #
 # Class quests and training:
 # - Druids train in Thunder Bluff on the flight from Freewind Post; Paladins with Garen Largo in
@@ -132,8 +133,8 @@ step Zeppelin to Undercity
 
 step The Undercity
   zone Undercity
-  tip Elixir of Agony needs a Strong Troll's Blood Potion, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in Hillsbrad.
-  note Strong Troll's Blood Potion: auction house or an alchemist, for Elixir of Agony.
+  tip Elixir of Agony needs a Lesser Troll's Blood Elixir, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a Lesser Troll's Blood Elixir. No elixir: skip the Elixir steps in Hillsbrad.
+  note Lesser Troll's Blood Elixir: auction house or an alchemist, for Elixir of Agony.
 
 step Garen Largo
   only Paladin

@@ -33,8 +33,7 @@ return {
 
 	-- Step 4: Gather your writs
 	["Gather your writs"] = "",
-	-- {item:3388} Lesser Troll's Blood Elixir
-	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a {item:3388} writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
+	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
 	["Take the quests of the writs you can fill"] = "",
 
 	-- Step 5: Duskwood writ customers
@@ -62,7 +61,8 @@ return {
 	["{item:7506}, 75 reputation"] = "",
 	-- {item:4252} Dark Leather Shoulders
 	["{item:4252}, 75 reputation"] = "",
-	["Strong Troll's Blood Potion, 75 reputation"] = "",
+	-- {item:3388} Lesser Troll's Blood Elixir
+	["{item:3388}, 75 reputation"] = "",
 	-- {item:10048} Colorful Kilt
 	["{item:10048}, 75 reputation"] = "",
 
@@ -71,7 +71,8 @@ return {
 	["{zone:1437} writ customers"] = "",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
 	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "",
-	["Elixir of Water Breathing, 75 reputation"] = "",
+	-- {item:5996} Draught of Water Breathing
+	["{item:5996}, 75 reputation"] = "",
 	-- {item:3484} Green Iron Boots
 	["{item:3484}, 75 reputation"] = "",
 	-- {item:8069} Crafted Solid Shot
@@ -129,7 +130,8 @@ return {
 	["{zone:1416} writ customers"] = "",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "",
-	["Elixir of Ogre's Strength, 75 reputation"] = "",
+	-- {item:3391} Elixir of Ogre Strength
+	["{item:3391}, 75 reputation"] = "",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "",
 	-- {item:5540} Pearl-handled Dagger
@@ -182,8 +184,8 @@ return {
 	["{zone:1441} writ customers"] = "",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
 	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "",
-	-- {item:13445} Elixir of Greater Defense
-	["{item:13445}, 75 reputation"] = "",
+	-- {item:8951} Elixir of Defense
+	["{item:8951}, 75 reputation"] = "",
 	-- {item:3848} Big Bronze Knife
 	["{item:3848}, 75 reputation"] = "",
 	-- {item:4380} Big Bronze Bomb
