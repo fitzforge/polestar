@@ -1574,7 +1574,8 @@
 					"accept",
 					595
 				],
-				"why": "c10 30-60 review (Alliance): Stranglethorn Fever is Booty Bay's first accept off the Ratchet boat, as in v1. Taken after the tavern's accepts, the Ratchet flight path and the Booty Bay bind (v1's Ratchet step before it) ride with it, so the guide wrote 'Ratchet: getfp' after landing in Booty Bay and sent Warriors back by boat to Fray Island and Ratchet"
+				"why": "c10 30-60 review (Alliance): Stranglethorn Fever is Booty Bay's first accept off the Ratchet boat, as in v1. Taken after the tavern's accepts, the Ratchet flight path and the Booty Bay bind (v1's Ratchet step before it) ride with it, so the guide wrote 'Ratchet: getfp' after landing in Booty Bay and sent Warriors back by boat to Fray Island and Ratchet",
+				"faction": "Alliance"
 			},
 			{
 				"a": [
@@ -8389,14 +8390,14 @@
 			},
 			{
 				"a": [
-					"accept",
-					348
+					"turnin",
+					1240
 				],
 				"b": [
 					"task",
 					572
 				],
-				"why": "RevH2 c13 35-60 read: Mok'thardin's feathers drop from the Jungle Stalkers (40-41) south of Grom'gol, the same mobs as Raptor Mastery (196), which c13 kills at 42.4 (Orc 40-50/01-stranglethorn-vale:201). c13 sends the player for the feathers at 36.6 instead (30-40/02-stranglethorn-vale:346, judge under-level 4.3) and the model grinds 252 hidden minutes to 38 first. Gather them on the second Stranglethorn stay, from 40.8, with 196's kills; at about 40.5 572 is on level",
+				"why": "RevH2 c13 35-60 read: Mok'thardin's feathers drop from the Jungle Stalkers (40-41) south of Grom'gol, the same mobs as Raptor Mastery (196), which c13 kills at 42.4 (Orc 40-50/01-stranglethorn-vale:201). c13 sends the player for the feathers at 36.6 instead (30-40/02-stranglethorn-vale:346, judge under-level 4.3) and the model grinds 252 hidden minutes to 38 first. Gather them on the second Stranglethorn stay, from 40.8, with 196's kills; at about 40.5 572 is on level. (Horde 40-60 accept levels (2026-11-08): anchored on The Troll Witchdoctor's hand-in at Grom'gol, the 40-50 visit's first Grom'gol stop, since Stranglethorn Fever is taken later in the visit.)",
 				"source": "review"
 			},
 			{
@@ -10204,6 +10205,66 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest. Horde 12-30 flow follow-up (2026-11-08): anchored on The Missing Shipment (892), the last Ratchet hand-in of the first stop, since Stolen Booty's crates now wait for the walk to Northwatch Hold"
+			},
+			{
+				"a": [
+					"turnin",
+					587
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 accept levels (2026-11-08): Stranglethorn Fever (minimum level 40) is taken on the Booty Bay stop after the Wild Shore, not on arrival from Kargath at about 39.7, where the level model ground to 40 before the accept. Unbagwa (Stranglethorn Fever's second part) comes right after that stop."
+			},
+			{
+				"a": [
+					"turnin",
+					607
+				],
+				"b": [
+					"accept",
+					2872
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 accept levels (2026-11-08): Stoley's Debt (minimum level 40) is taken from \"Sea Wolf\" MacKinley with Return to MacKinley, the next time the route stands at him, not on arrival at about 39.7: Stoley is in Tanaris, in the next guide."
+			},
+			{
+				"a": [
+					"turnin",
+					209
+				],
+				"b": [
+					"accept",
+					2864
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 accept levels (2026-11-08): Tran'rek (minimum level 40) is taken from Krazek on the last Booty Bay stop of the visit (with Kebok's tusks, upstairs beside him), not on arrival at about 39.7: Tran'rek is in Gadgetzan, in the next guide."
+			},
+			{
+				"a": [
+					"turnin",
+					3123
+				],
+				"b": [
+					"accept",
+					4120
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 accept levels (2026-11-08): The Strength of Corruption (level 52, minimum 47) is taken from Talo Thornhoof on the first Camp Mojache stop of the 49-50 Feralas visit (with Uzer'i's Wild Hearts), not at the end of the 45-47 Feralas guide at 46.1, where the level model ground 409 minutes to 47 before the accept; its bears are in Felwood at 54."
+			},
+			{
+				"a": [
+					"task",
+					8279
+				],
+				"b": [
+					"accept",
+					8318
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 accept levels (2026-11-08): Secret Communication (minimum level 57) is taken and handed in to Bor Wildmane on the Cenarion Hold stop after the Twilight camps: the Encrypted Twilight Texts drop with or without the quest. Taken on arrival at 56.6, the level model ground 252 minutes to 57 before the accept."
 			}
 		]
 	}

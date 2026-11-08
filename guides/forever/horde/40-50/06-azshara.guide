@@ -128,11 +128,11 @@ step Haldarr Encampment: kill these as you meet them
   kill 6126 quest 5536.2
   kill 6125 quest 5536.1
 
-step Level 49.93
-  when level<49.93
-  tip If you skipped The Monogrammed Sash or The Mind's Eye, grind here to level 49.93 to stay on the route's plan.
+step Level 50
+  when level<50
+  tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it.
   goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 49.93                          -- grind on Haldarr Satyr
+  level 50                          -- grind on Haldarr Satyr
 
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.
@@ -272,6 +272,7 @@ step Camp Mojache
   turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
   accept 3380
+  accept 4120                           -- Talo Thornhoof: the bears are in Felwood
 
 step Frayfeather Hippogryphs
   tip The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body.
