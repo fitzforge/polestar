@@ -9,7 +9,8 @@ next forever/horde/30-40/05-arathi-highlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Theramore Docks (1202), Parts of the Swarm (1184), Goblin Sponsorship (1178).
+# Added here: The Theramore Docks (1202), Parts of the Swarm (1184), Goblin Sponsorship (1178),
+# Wharfmaster Dizzywig (1111).
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
 
 # Dustwallow at 37-38, after Stranglethorn (the 2026-11-07 re-order), then a short second
@@ -180,6 +181,8 @@ step Ratchet
   turnin 1178                         -- Gazlowe
   note Gazlowe's next errand takes you to Booty Bay, off this part of the route: leave it.
   turnin 1270                         -- Mebok Mizzyrix
+  turnin 1111                         -- Wharfmaster Dizzywig, on the docks
+  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
 
 step The Affray
   zone The Barrens

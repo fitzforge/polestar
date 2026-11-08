@@ -7749,6 +7749,24 @@
 				],
 				"reason": "Hand-in-first check (2026-11-08): all 6 people (4 established) who took Dalaran Patrols (545) had just handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took 545 without it; the route left 93680 out. It comes with Prison Break In (544): the Grimy Key is looted from an object (670427) at Alterac 16.4,89.3, beside 544's traitors (players' recordings: all 6 people got it within 0.15 of that point; one recording names the object).",
 				"issue": "-"
+			},
+			{
+								"q": 1111,
+				"after": [
+					"turnin",
+					1110
+				],
+				"reason": "Quest volume (2026-11-08, Horde 30-40): Wharfmaster Dizzywig (level 36, from 30, 1400 XP) is a delivery: Kravel Koalbeard gives his parts order with Rocket Car Parts' hand-in on 30-40/02's second Mirage Raceway stop, and Dizzywig stands on the Ratchet docks beside Gazlowe, where 30-40/04 already hands in Goblin Sponsorship (1178). No walk added. Recordings: offered to and handed in by Horde characters at 30.",
+				"issue": "-"
+			},
+			{
+				"q": 566,
+				"after": [
+					"accept",
+					503
+				],
+				"reason": "Quest volume (2026-11-08, Horde 30-40): WANTED: Baron Vardus (level 40, from 35, 3150 XP): the poster stands by Tarren Mill's inn, where 30-40/05 takes Gol'dir; Baron Vardus (40, not elite) appears at Strahnbrad's inn or one of the Syndicate camps in the uplands north of it, on the walk to the Perenolde manor, and High Executor Darthalia takes the head on the Tarren Mill stop after the Dalaran ruins.",
+				"issue": "-"
 			}
 		],
 		"skip": [
