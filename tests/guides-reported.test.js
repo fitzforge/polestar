@@ -6655,3 +6655,13 @@ test('alliance 40-60: final review: travel tips, notes and titles match where th
 	const ungoro = compiled('forever/alliance/40-50/07-un-goro-crater.guide');
 	for (const step of ungoro.steps.filter((st) => /\bBind\b/.test(st.title))) assert.ok(step.goals.some((g) => g.t === 'sethome'), `"${step.title}" binds`);
 });
+
+// Final route review before 0.3.5, Alliance 40-60: the 56-58 guide spends about a quarter of its quest goals in
+// Un'Goro Crater and Silithus, but its title named only the Plaguelands and Feralas.
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: the title names Un\'Goro Crater and Silithus', { skip }, () => {
+	const guide = compiled('forever/alliance/50-60/04-western-plaguelands.guide');
+	const zones = new Set(guide.steps.flatMap((step) => step.goals.filter((g) => ['accept', 'turnin'].includes(g.t) && g.map).map((g) => g.map)));
+	assert.ok(zones.has(1449) && zones.has(1451), 'it quests in Un\'Goro Crater (1449) and Silithus (1451)');
+	assert.match(guide.title, /Un'Goro Crater/);
+	assert.match(guide.title, /Silithus/);
+});
