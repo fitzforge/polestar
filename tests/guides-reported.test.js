@@ -6829,3 +6829,169 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: final review: Ironfor
 	const trains = city.filter(({ goal }) => goal.t === 'train' && goal.class === true).map(({ goal }) => goal);
 	assert.ok(trains.every((g) => g.only), 'each trainer stop names its classes');
 });
+
+// Final route review before 0.3.5, Alliance 40-60: the Gadgetzan stop told the player to skip Sprinkle's next
+// ingredient ("the route never brings it back") right before accepting it; the route takes it, collects it in
+// the Hinterlands and hands it in on the Un'Goro guide's Gadgetzan stop.
+test('forever/alliance/40-50/04-tanaris.guide: final review: no note to skip Sprinkle\'s Secret Ingredient, which the route takes', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const take = at(list, 'accept 2641', is('accept', 2641));
+	const stop = list.filter(({ s }) => s === list[take].s);
+	assert.ok(!stop.some(({ goal }) => goal.t === 'note' && /Sprinkle/.test(goal.text) && /skip/i.test(goal.text)), 'no skip note on the stop that takes it');
+	assert.ok(list.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'its ingredient is collected');
+	assert.ok(goals('forever/alliance/40-50/07-un-goro-crater.guide').some(({ goal }) => goal.t === 'turnin' && goal.quest === 2641), 'and handed in at Gadgetzan in the Un\'Goro guide');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the Burning Steppes topped up to 51.39 on the Dreadmaul Rock
+// ogres on the way to Flame Crest, then rode back to the same ogres for a top-up to 52 right after the Flame Crest
+// accepts. Nothing between gives experience: one top-up to 52 on the way (guide-fixes level record).
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up to 52 at Dreadmaul Rock before Flame Crest, no ride back', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const crest = at(list, 'accept 4726', is('accept', 4726));
+	const vigil = at(list, 'accept 3824', is('accept', 3824));
+	const grinds = list.filter(({ goal }) => goal.t === 'level');
+	const between = grinds.filter(({ s }) => s > list[vigil].s && s < list[crest].s);
+	assert.ok(between.some(({ goal }) => goal.level >= 52), 'the top-up to 52 is on the way to Flame Crest');
+	const after = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4726);
+	assert.ok(!grinds.some(({ s }) => s > list[crest].s && s < list[after].s), 'no top-up between the Flame Crest accepts and their hand-ins');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 4726 && f.at.goal === 'accept');
+	assert.equal(rec && rec.level, 52, 'a level record keeps it on a refresh');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: Searing Gorge starts at the Grimesilt outhouse in the south-east
+// (Caught!), but the ride in from Thelsamar was described on the later Thorium Point step, and the outhouse step
+// said to ride east across the Cauldron. Both tips are records now.
+test('forever/alliance/40-50/06-searing-gorge.guide: final review: the ride in is on the first stop, Thorium Point from the dig site', { skip }, () => {
+	const guide = 'forever/alliance/40-50/06-searing-gorge.guide';
+	const list = goals(guide);
+	const outhouse = list[at(list, 'accept 4449', is('accept', 4449))];
+	const point = list[at(list, 'accept 7722', is('accept', 7722))];
+	assert.ok(outhouse.s < point.s, 'the outhouse comes first');
+	assert.match(outhouse.step.note, /Thelsamar/, 'the first stop says how to get in');
+	assert.doesNotMatch(point.step.note, /Thelsamar/, 'Thorium Point starts from the dig site');
+	const recs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const quest of [4449, 7722]) {
+		const rec = recs.find((f) => f.at.quest === quest && f.at.goal === 'accept' && f.tip);
+		assert.ok(rec, `${quest}: the tip is a record`);
+		assert.deepEqual(stepTips(guide, new RegExp(`^  accept ${quest}\\b`)), [rec.tip]);
+	}
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the 58 Light's Hope stop handed Villains of Darrowshire to Carlin
+// Redpath, walked to Caretaker Alen, and came back to Carlin for Heroes of Darrowshire, under a tip from an older
+// order ("ride on north to Chillwind Camp and fly to Light's Hope Chapel"). Carlin's hand-ins are one visit now.
+test('forever/alliance/50-60/05-silithus.guide: final review: Carlin Redpath\'s two hand-ins in one visit, then Caretaker Alen', { skip }, () => {
+	const list = goals('forever/alliance/50-60/05-silithus.guide');
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	const [villains, heroes, marauders, alen] = [idx('turnin', 5181), idx('turnin', 5168), idx('accept', 5206), idx('accept', 5281)];
+	assert.ok(villains < heroes && heroes < marauders && marauders < alen, 'Carlin, Carlin, Carlin, then Alen');
+	assert.equal(list[villains].s, list[alen].s, 'one Light\'s Hope stop');
+	assert.ok(!list.slice(villains, alen + 1).some(({ step }) => /Chillwind/.test(step.note || '')), 'no tip about riding to Chillwind Camp');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: after Winterspring's top-up to 55.05 (before the Everlook
+// hand-ins) the guide still said "Short of level 54 after the yetis? Run the Sunken Temple" and "keep killing yetis
+// until level 54: Harlo's wildkin quests are red before that" (Harlo's quests are in the last guide, at 58-59).
+test('forever/alliance/50-60/03-winterspring.guide: final review: no level-54 advice after the top-up to 55', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const topUp = list.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 55);
+	assert.ok(topUp >= 0, 'the top-up to 55 is in the guide');
+	const later = list.slice(topUp).filter(({ step }, i, a) => i === 0 || step !== a[i - 1].step).map(({ step }) => step);
+	for (const step of later) {
+		const text = [step.note || '', ...step.goals.filter((g) => g.t === 'note').map((g) => g.text)].join(' ');
+		assert.doesNotMatch(text, /level 54\b/, `"${step.title}" asks for a level the player already has`);
+	}
+});
+
+// Final route review before 0.3.5, Alliance 40-60: texts in the last guide from an older order. The Felwood stop
+// said to ride out of Astranaar (the route flies to Talrendis Point), Everlook said to ride back to Talrendis Point
+// right after the flight from there, Ranshalla's hand-in said her escort comes later (it is the next goal), and the
+// Dire Maul note pointed at a Rabid Shardtooth grind the guide doesn't have (its grind is in Terrordale).
+test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and notes match the route', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const sanctuary = list[at(list, 'turnin 5159', is('turnin', 5159))];
+	const flight = list.slice(0, list.indexOf(sanctuary)).reverse().find(({ goal }) => goal.t === 'fly');
+	assert.match(flight.goal.location || flight.step.title, /Talrendis/, 'the route flies to Talrendis Point');
+	assert.doesNotMatch(texts(sanctuary), /Astranaar/, 'and the Felwood stop says so');
+	const everlook = list[at(list, 'turnin 5163', is('turnin', 5163))];
+	assert.doesNotMatch(texts(everlook), /fly to Everlook/, 'no flight to Everlook after landing there');
+	const ranshalla = list[at(list, 'turnin 979', is('turnin', 979))];
+	assert.equal(ranshalla.s, list[at(list, 'complete 4901', is('complete', 4901))].s, 'her escort is on the same step');
+	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
+	const dm = list.find(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text));
+	assert.ok(dm, 'the Dire Maul note is in the guide');
+	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level >= 60);
+	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 is in Terrordale');
+	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
+	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: texts from an older order. Vital Supplies was "for Nethergarde
+// Keep, keep it" though Watchmaster Sorigal in Darkshire takes it a few steps later; the Ironforge stop opened with
+// the tram ride already taken and said the next guide flies to Thelsamar (this one does); Sigrun Ironhew's dig was two
+// steps with the way in on the second; Feralas said you end at the dock with Thalanaar still to come; Felwood said
+// to ride out of Astranaar on its second stop; Un'Goro's "Bind and train" binds nowhere.
+test('alliance 40-60: final review: travel tips, notes and titles match where the player is', { skip }, () => {
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const supplies = stv[at(stv, 'accept 1477', is('accept', 1477))];
+	assert.ok(stv.some(({ goal }) => goal.t === 'turnin' && goal.quest === 1477), 'Vital Supplies is handed in on this guide');
+	assert.doesNotMatch(supplies.goal.note || '', /Nethergarde/, 'so it is not "for Nethergarde Keep"');
+	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
+	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
+	const sigrun = stv[at(stv, 'turnin 733', is('turnin', 733))];
+	assert.equal(sigrun.s, stv[at(stv, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
+	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
+	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
+	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
+	assert.ok(!feralas.some((e) => e.s < last.s && /You end at/.test(texts(e))), 'no "you end here" before Thalanaar');
+	const felwood = goals('forever/alliance/50-60/02-felwood.guide');
+	const firstNote = felwood.find(({ step }) => step.note);
+	assert.match(firstNote.step.note, /Astranaar/, 'Felwood\'s way in is on its first stop');
+	assert.equal(felwood.filter(({ step }, i, a) => /Astranaar/.test(step.note || '') && (i === 0 || a[i - 1].step !== step)).length, 1, 'and only there');
+	const ungoro = compiled('forever/alliance/40-50/07-un-goro-crater.guide');
+	for (const step of ungoro.steps.filter((st) => /\bBind\b/.test(st.title))) assert.ok(step.goals.some((g) => g.t === 'sethome'), `"${step.title}" binds`);
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the 56-58 guide spends about a quarter of its quest goals in
+// Un'Goro Crater and Silithus, but its title named only the Plaguelands and Feralas.
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: the title names Un\'Goro Crater and Silithus', { skip }, () => {
+	const guide = compiled('forever/alliance/50-60/04-western-plaguelands.guide');
+	const zones = new Set(guide.steps.flatMap((step) => step.goals.filter((g) => ['accept', 'turnin'].includes(g.t) && g.map).map((g) => g.map)));
+	assert.ok(zones.has(1449) && zones.has(1451), 'it quests in Un\'Goro Crater (1449) and Silithus (1451)');
+	assert.match(guide.title, /Un'Goro Crater/);
+	assert.match(guide.title, /Silithus/);
+});
+
+// Final route review before 0.3.5, Alliance 40-60: after the last Booty Bay stop, Stranglethorn rode back north for the
+// Nesingwary hunts (Tethis, King Bangalash) or, solo, for top-ups on the Cold Eye Basilisks, then south again to fly.
+// They come before that stop now, after the Crystalvein Mine, with the top-ups lowered by the Booty Bay experience.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the northern hunts and solo top-ups before the last Booty Bay stop', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const last = at(list, 'turnin 611', is('turnin', 611));
+	const fly = list.findIndex((e, i) => i > last && e.goal.t === 'fly');
+	assert.ok(at(list, 'turnin 208', is('turnin', 208)) < last, 'Big Game Hunter before Booty Bay');
+	assert.ok(at(list, 'collect 3877', (g) => g.t === 'collect' && g.quest === 197) < last, 'Tethis before Booty Bay');
+	const ups = list.filter(({ goal, step }) => goal.t === 'level' && (step.when || []).some((w) => w.k === 'group' && [w.q].flat().some((q) => [193, 197, 208].includes(q))));
+	assert.equal(ups.length, 3, 'three solo top-ups for the Nesingwary hunts');
+	for (const e of ups) assert.ok(list.indexOf(e) < last, `top-up to ${e.goal.level} before Booty Bay`);
+	assert.ok(!list.slice(last, fly).some(({ goal }) => goal.t === 'level'), 'no grind between Booty Bay and the flight');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(rf.some((p) => p.a[0] === 'turnin' && p.a[1] === 208 && p.b[0] === 'turnin' && p.b[1] === 611), 'a route-fixes pair keeps it');
+});
+
+// Final route review before 0.3.5 (Main's grind policy): every written grind step of Alliance 40-60 ("Level N" top-ups,
+// solo fallbacks, "Grind to N") ends its tip with the dungeon a group can run instead, the writer's sentence.
+test('alliance 40-60: final review: every written grind step offers a dungeon for its level', { skip }, () => {
+	const bands = [['the Uldaman dungeon', 40, 45], ["the Zul'Farrak dungeon", 44, 48], ['the Maraudon dungeon', 46, 52], ['the Sunken Temple dungeon', 50, 54], ['the Blackrock Depths dungeon', 52, 58], ['the Blackrock Spire dungeon (Lower)', 55, 60], ['the Scholomance dungeon', 58, 60], ['the Stratholme dungeon', 58, 60]];
+	const want = (lv) => bands.map(([n, lo, hi], i) => ({ n, i, d: Math.abs((lo + hi) / 2 - lv), ok: lo <= lv && lv <= hi })).filter((b) => b.ok).sort((a, b) => a.d - b.d || a.i - b.i).slice(0, 2).map((b) => b.n).join(' or ');
+	for (const guide of allGuides().filter((g) => /^forever\/alliance\/(40-50|50-60)\//.test(g))) {
+		for (const step of compiled(guide).steps) {
+			const m = /^(?:Level ([\d.]+)|Grind to (\d+))$/.exec(step.title);
+			if (!m) continue;
+			const lv = Math.floor(Number(m[1] || m[2]));
+			assert.ok((step.note || '').endsWith(`Or, with a group, run ${want(lv)} instead.`), `${guide} "${step.title}": ${step.note}`);
+		}
+	}
+});

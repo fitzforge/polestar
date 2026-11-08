@@ -26,7 +26,7 @@ step Searing Gorge
 # ---------------------------------------------------------------- The east
 
 step The Grimesilt outhouse
-  tip Ride east across the Cauldron to the Grimesilt Dig Site in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.
+  tip From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge: the Grimesilt Dig Site is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.
   accept 4449
 
 step The Grimesilt outhouse
@@ -37,7 +37,7 @@ step The Grimesilt outhouse
 
 step Level 48.27
   when level<48.27
-  tip If you skipped The Monogrammed Sash or Facing Negolash, grind here to level 48.27 to stay on the route's plan.
+  tip If you skipped The Monogrammed Sash or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 63.3,60.6 map 1427 "Dark Iron Geologist"
   level 48.27                          -- grind on Dark Iron Geologist
 
@@ -45,7 +45,7 @@ step Level 48.27
 
 step Thorium Point
   zone Searing Gorge
-  tip From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge. Thorium Point is the scaffolded camp on the north-west rim.
+  tip Ride north-west across the Cauldron to Thorium Point, the scaffolded camp on the north-west rim.
   getfp "Thorium Point"
   accept 7722                         -- Master Smith Burninate
   accept 7727
@@ -128,7 +128,7 @@ step Lookout Captain Lolo Longstriker
 step Level 48.66
   when !group 7701
   when level<48.66
-  tip If you skipped WANTED: Overseer Maltorius, grind here to level 48.66 to stay on the route's plan.
+  tip If you skipped WANTED: Overseer Maltorius, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 46.0,22.0 map 1427 "Incendosaur"
   level 48.66                          -- grind on Incendosaur
 
@@ -158,7 +158,7 @@ step Kalaran Windblade
 step Level 48.98
   when !group 3452
   when level<48.98
-  tip If you skipped The Flame's Casing, grind here to level 48.98 to stay on the route's plan.
+  tip If you skipped The Flame's Casing, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 39.2,38.9 map 1427 "Dark Iron Slaver"
   level 48.98                          -- grind on Dark Iron Slaver
 

@@ -2951,6 +2951,38 @@
 			]
 		},
 		{
+			"id": "a4060-sg-arrival-at-the-outhouse",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4449,
+				"goal": "accept"
+			},
+			"tip": "From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge: the Grimesilt Dig Site is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.",
+			"note": "Searing Gorge, final route review before 0.3.5: since Caught! is done at the Grimesilt outhouse first (route-fixes), the guide enters Searing Gorge from the Badlands at the dig site, but the ride from Thelsamar was still described on the later Thorium Point step and the outhouse step said to ride east across the Cauldron.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-08 (Alliance 40-60): 40-50/06-searing-gorge enters at 76.6,56.7 and goes to the Wooden Outhouse (63.9,60.4) before Thorium Point (37.9,30.4)"
+				}
+			]
+		},
+		{
+			"id": "a4060-sg-thorium-point-from-the-dig-site",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7722,
+				"goal": "accept"
+			},
+			"tip": "Ride north-west across the Cauldron to Thorium Point, the scaffolded camp on the north-west rim.",
+			"note": "Searing Gorge, final route review before 0.3.5: Thorium Point comes after the Grimesilt outhouse in the south-east, so its step starts from there, not from Thelsamar.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-08 (Alliance 40-60): 40-50/06-searing-gorge, the Thorium Point step follows the Grimesilt outhouse steps"
+				}
+			]
+		},
+		{
 			"id": "a4060-bs-medallions-in-their-step",
 			"faction": "Alliance",
 			"at": {
@@ -3470,6 +3502,22 @@
 				{
 					"kind": "client",
 					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "a4060-bs-accept-broodling-essence-52",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4726,
+				"goal": "accept"
+			},
+			"level": 52,
+			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-08 (Alliance 40-60): 50-60/01-burning-steppes steps 'Level 51.39' and 'Level 52', both 'grind on Firegut Ogre Mage' at 78.7,44.7; Tinkee Steamboil and Maxwort Uberglint spawns from npcs.json"
 				}
 			]
 		},

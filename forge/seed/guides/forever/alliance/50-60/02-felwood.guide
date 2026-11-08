@@ -22,6 +22,7 @@ step Felwood
   goto 54.2,86.8 "Felwood"
 
 step The Emerald Sanctuary
+  tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.
   accept 4101                         -- Arathandris Silversky, in the ruins just east of Grazle
   accept 4421                         -- Eridan Bluewind, inside
   accept 5156                         -- Taronn Redfeather
@@ -31,7 +32,7 @@ step The Emerald Sanctuary
 
 step Grazle
   zone Felwood
-  tip Ride north out of Astranaar into Felwood. Grazle the furbolg stands by the road just south of the Emerald Sanctuary.
+  tip Grazle the furbolg stands by the road just south of the Emerald Sanctuary.
   accept 8460
 
 step Deadwood Village
@@ -42,7 +43,7 @@ step Deadwood Village
 
 step Level 52.58
   when level<52.58
-  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan.
+  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 48.7,92.1 map 1448 "Deadwood Warrior"
   level 52.58                          -- grind on Deadwood Warrior
 
@@ -54,7 +55,7 @@ step Grazle
 
 step Level 52.69
   when level<52.69
-  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53.
+  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 52.69                          -- grind on Deadwood Pathfinder
 
@@ -93,7 +94,7 @@ step Jaedenar
 
 step Level 52.9
   when level<52.9
-  tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53.
+  tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
   level 52.9                          -- grind on Jaedenar Hound
 

@@ -2965,6 +2965,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					611
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance Stranglethorn Vale 40-50): the hunts around Nesingwary's camp (Raptor Mastery's Tethis, Big Game Hunter's King Bangalash) and their solo top-ups on the Cold Eye Basilisks (36.3,42.3) come after the Crystalvein Mine and Zul'Mamwe, before the last Booty Bay stop (27,77). The guide went to Booty Bay first and then rode north for them and back south to fly; the top-up targets drop by the Booty Bay hand-ins' experience (about 17,400, 0.17 of level 42)."
+			},
+			{
+				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08): see turnin 208 before turnin 611; the whole last Booty Bay stop (611, 209, 621, 600, 609) comes after the northern hunts."
+			},
+			{
+				"a": [
 					"task",
 					4291
 				],
@@ -10303,6 +10327,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 40-60 order (2026-11-08, #1228): The Restless Souls (60, from 55) is taken from Caretaker Alen on the 58 Light's Hope stop and handed to Egan in Terrordale before the last grind there, not at 54.6 (a grind to 55 for the accept)."
+			},
+			{
+				"a": [
+					"turnin",
+					5168
+				],
+				"b": [
+					"accept",
+					5281
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance 40-60): on the 58 Light's Hope stop Heroes of Darrowshire (5168) goes to Carlin Redpath with Villains of Darrowshire (5181), and Marauders of Darrowshire (5206, needs both) is taken there, before the walk to Caretaker Alen for The Restless Souls; the guide went Carlin, Alen, Carlin again."
 			},
 			{
 				"a": [

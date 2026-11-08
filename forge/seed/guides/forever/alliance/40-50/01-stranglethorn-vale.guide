@@ -419,22 +419,12 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
 
-step Booty Bay
-  turnin 611                          -- Baron Revilgaz
-  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
-  turnin 209                          -- Kebok, upstairs
-  turnin 621                          -- Inside
-  note MacKinley's next task sends you after elite ogres: skip it.
-  turnin 600                          -- Crank Fizzlebub
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
-
-step Level 42.23
+step Level 42.06
   when !group 193
-  when level<42.23
-  tip If you skipped Panther Mastery, grind here to level 42.23 to stay on the route's plan.
+  when level<42.06
+  tip If you skipped Panther Mastery, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.23                          -- grind on Cold Eye Basilisk
+  level 42.06                          -- grind on Cold Eye Basilisk
 
 step Raptor Mastery
   when group 197
@@ -453,12 +443,12 @@ step Hemet Nesingwary
   when group 208
   accept 208
 
-step Level 42.27
+step Level 42.1
   when !group 197
-  when level<42.27
-  tip If you skipped Raptor Mastery, grind here to level 42.27 to stay on the route's plan.
+  when level<42.1
+  tip If you skipped Raptor Mastery, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.27                          -- grind on Cold Eye Basilisk
+  level 42.1                           -- grind on Cold Eye Basilisk
 
 step Big Game Hunter
   when group 208
@@ -470,12 +460,23 @@ step Hemet Nesingwary
   when group 208
   turnin 208
 
-step Level 42.33
+step Level 42.16
   when !group 208
-  when level<42.33
-  tip If you skipped Big Game Hunter, grind here to level 42.33 to stay on the route's plan.
+  when level<42.16
+  tip If you skipped Big Game Hunter, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.33                          -- grind on Cold Eye Basilisk
+  level 42.16                          -- grind on Cold Eye Basilisk
+
+step Booty Bay
+  tip Ride south down the road to Booty Bay.
+  turnin 611                          -- Baron Revilgaz
+  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
+  turnin 209                          -- Kebok, upstairs
+  turnin 621                          -- Inside
+  note MacKinley's next task sends you after elite ogres: skip it.
+  turnin 600                          -- Crank Fizzlebub
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
 
 # ---------------------------------------------------------------- Stormwind
 
@@ -491,7 +492,7 @@ step Stormwind
   turnin 212                          -- Angus Stern
   accept 1271
   turnin 1271
-  accept 1477                         -- High Sorcerer Andromath: for Nethergarde Keep, keep it
+  accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
   turnin 1363                         -- Acolyte Dellis
   accept 1364
@@ -594,7 +595,7 @@ step Misty Valley
 step Level 42.46
   when !group 543
   when level<42.46
-  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan.
+  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 5.5,31.4 map 1435 "Tangled Horror"
   level 42.46                          -- grind on Tangled Horror
 
@@ -654,7 +655,7 @@ step Roetten Stonehammer
 
 step Ironforge
   zone Ironforge
-  tip Take the Deeprun Tram from the Dwarven District. Roetten is in the Reclaimers' hall by the Hall of Explorers, Prospector Stormpike in the hall itself, Gerrig Bonegrip in the Forlorn Cavern. The next guide flies on to Thelsamar.
+  tip Roetten is in the Reclaimers' hall by the Hall of Explorers, Gerrig Bonegrip in the Forlorn Cavern.
   turnin 1467                         -- Roetten Stonehammer
   turnin 727                          -- Gerrig Bonegrip
   train class only Shaman             -- Stormwind has no shaman trainer
@@ -698,14 +699,13 @@ step Badlands
   zone Badlands
   goto 53.8,43.3 "Badlands"
 
-step Hammertoe's Digsite
-  turnin 733                          -- Sigrun Ironhew
 # ---------------------------------------------------------------- The Badlands
 
 step Hammertoe's Digsite
   zone Badlands
   tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
-  accept 706                          -- Sigrun Ironhew
+  turnin 733                          -- Sigrun Ironhew
+  accept 706
 
 step Garek
   tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
