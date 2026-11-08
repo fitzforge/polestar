@@ -7960,6 +7960,24 @@
 				],
 				"reason": "Quest volume (2026-11-08, Horde 30-40): WANTED: Baron Vardus (level 40, from 35, 3150 XP): the poster stands by Tarren Mill's inn, where 30-40/05 takes Gol'dir; Baron Vardus (40, not elite) appears at Strahnbrad's inn or one of the Syndicate camps in the uplands north of it, on the walk to the Perenolde manor, and High Executor Darthalia takes the head on the Tarren Mill stop after the Dalaran ruins.",
 				"issue": "-"
+			},
+			{
+				"q": 2844,
+				"after": [
+					"turnin",
+					4142
+				],
+				"reason": "Quest volume, Alliance 50-60 (2026-11-08): The Giant Guardian (49) is taken from Rockbiter beside Gregan Brewspewer on the late Feralas stop (50-60/04, about level 56), where the Northspring harpies around Shay are below the player; replaces the #977 skip, which was about the 44 visit.",
+				"issue": "-"
+			},
+			{
+				"q": 2845,
+				"after": [
+					"turnin",
+					2844
+				],
+				"reason": "Quest volume, Alliance 50-60 (2026-11-08): Wandering Shay (49) follows The Giant Guardian on the same stop: Shay's chest and the escort back to Rockbiter are a few hundred yards from Gregan's camp.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -8113,18 +8131,6 @@
 				"faction": "Alliance",
 				"reason": "ZoneFix c18 read (Alliance 50-60): the Super Egg-O-Matic's Hippogryph Egg is in southern Feralas, which the Alliance reach only at Feathermoon by boat or at Thalanaar, and v1 drops it for that (06-silithus header: 'Feralas (The Super Egg-O-Matic 2741 ...'). c18 inserted it: a flight to Thalanaar for the egg and a hearth back at 58 (Human 50-60/06-silithus:209-225; Human.json order[2215-2216])",
 				"issue": ""
-			},
-			{
-				"q": 2844,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): The Giant Guardian is handed in to Shay Leafrunner, who wanders among the Northspring harpies (median 49) at the route's 44.1 (Feralas); its follow-up Wandering Shay (2845) is an escort through them. The writer's level fit judges quest work, not hand-ins and escorts. 3,400 XP",
-				"issue": 977
-			},
-			{
-				"q": 2845,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): Wandering Shay, the escort from the Northspring harpies' hills (median 49) at the route's 44.1, after The Giant Guardian (2844), skipped with it. 4,550 XP",
-				"issue": 977
 			},
 			{
 				"q": 5509,

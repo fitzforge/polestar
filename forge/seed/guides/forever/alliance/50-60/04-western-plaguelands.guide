@@ -9,6 +9,7 @@ next forever/alliance/50-60/05-silithus
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: The Giant Guardian (2844), Wandering Shay (2845), at the Feralas stop where the Northspring harpies are below you.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
 
 step Chillwind Camp
@@ -397,6 +398,21 @@ step Gregan Brewspewer
   tip Gregan's camp lies north of the Twin Colossals. He sells the Videre Elixir once he has his bait.
   turnin 4142
   collect 11243 quest 3909.1          -- Videre Elixir
+
+step Rockbiter
+  tip The giant Rockbiter sits just north-west of Gregan's camp.
+  accept 2844
+
+step Shay Leafrunner
+  tip Ride north into the Ravenwind Ruins: Shay hides in the small round building at the back. Open the chest beside her for Shay's Bell: it lasts 15 minutes, like the quest.
+  turnin 2844
+  accept 2845
+  collect 9189 quest 2845.1           -- Shay's Bell
+
+step Wandering Shay
+  tip Lead Shay back to Rockbiter at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them.
+  complete 2845 @42.3,21.9
+  turnin 2845                         -- Rockbiter
 
 step Feralas
   zone Feralas
