@@ -7441,13 +7441,13 @@
 			},
 			{
 				"q": 1106,
-				"reason": "Prerequisite order (2026-11-07, Wetlands report): Fizzle Brassbolts offers Martek the Exiled only once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: 1104 and 1105 share an all-of exclusive group; the one recorded player who took it had handed in both). Hardened Shells is left out for the level (#977), so 1106 cannot be offered on either side's route; left out with its sequels. (Horde 30-40 re-order (2026-11-07): Alliance only; the Horde route comes back to the Shimmering Flats at 33-34 in 30-40/02-thousand-needles and takes it there)",
+				"reason": "Alliance only. Fizzle Brassbolts offers Martek the Exiled once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: the one recorded player who took it had handed in both). The Alliance 30-40 re-order (#1220) hands both in at 33-34 in alliance/30-40/03-ashenvale but leaves Martek and its chain (1108, 1137) out, as next's Alliance route did, so its Badlands visit at 38-39 is unchanged. The Horde route takes it at the raceway in 30-40/02-thousand-needles and hands it in in 30-40/06-badlands.",
 				"issue": "-",
 				"faction": "Alliance"
 			},
 			{
 				"q": 1108,
-				"reason": "Follows Martek the Exiled (1106), left out (see its skip). (Horde 30-40 re-order (2026-11-07): Alliance only; the Horde route comes back to the Shimmering Flats at 33-34 in 30-40/02-thousand-needles and takes it there)",
+				"reason": "Alliance only. Follows Martek the Exiled (1106), which the Alliance route leaves out (see its skip). The Horde route takes it in 30-40/06-badlands.",
 				"issue": "-",
 				"faction": "Alliance"
 			},
