@@ -4,7 +4,10 @@ section: players
 - While you're here: when you pass through the area of a later step's
   objective whose quest is already in your log, a line slides in under the
   current step, for example "While you're here: Kill Kobold Vermin, 12 more
-  (step 14) 45 yd". It stays while you work on it. Grab it now and
+  (step 14) 45 yd". Any later step of the guide counts, also one after the
+  guide has taken you to another zone and back, and it goes by where you
+  are, not where the arrow points: chasing slow drops past another step's
+  objective catches it. It stays while you work on it. Grab it now and
   that step is done or shorter when you get there. Click the line to point
   the arrow there; right-click it (or its close button) and it stays away for
   the rest of the zone. A soft chime plays and its mark on the minimap

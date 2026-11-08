@@ -4106,7 +4106,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereN > 0 or Own.here ~= nil end
+	if not need then need = Own.hereAllN > 0 or Own.here ~= nil end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -6124,21 +6124,26 @@ end
 -- the player clicks it (Engine.AimWhileHere).
 --
 -- Candidates (Own.hereBuild, on a step, quest-log, level, zone or setting
--- change; at most HERE_MAX): open kill, collect, interact and use goals with
--- a place in the steps after the live step, up to where the guide next
--- leaves the zone (a fly, hearth or enter goal, or a goal on another map than
--- the player's), each
+-- change): open kill, collect, interact and use goals with a place on the
+-- player's map, in every step of the guide after the live step (a later
+-- trip away and back, a flight, a hearth or an instance in between change
+-- nothing: the player is here now), each
 --   * for a quest in the log and not ready to hand in; never an accept;
 --   * for the character (stepApplies: its `when` and level gates;
 --     goalApplies), its step and goal not skipped, the quest not left out;
---   * not listed already: no along step holds its quest's work (background
---     goals are along steps), the quest is not pinned, and the live step has
---     no open goal for the same objective (Own.nearestField has those);
+--   * not shown already: the Along the way list has no open goal for the
+--     same objective (Own.hereShown: listed along steps, background goals
+--     among them; a later along step is not listed yet and counts like any
+--     step), the quest is not pinned, and the live step has no open goal
+--     for the same objective (Own.nearestField has those);
 --   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
 --     else the goal's), measured to such places only;
 --   * any size: whatever is left (15 quilboars as much as 2), the player is there
---     already. Slow drops spread over the zone are background goals, along
---     steps, and so never a candidate.
+--     already.
+-- The goals with a place are indexed by map once per guide (Own.hereGoalsOn),
+-- so a build looks only at this map's. The poll measures at most HERE_MAX of
+-- them: all when that many fit, else the HERE_MAX nearest the player, picked
+-- again each HERE_REPICK yards they move (Own.herePick).
 -- With behavior.whileHereTurnins, also a later step's turn-in of a quest
 -- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
 --
@@ -6158,7 +6163,8 @@ end
 -- WHILE_HERE_MOVED(yards) when its distance moves to the next HERE_STEP.
 ---------------------------------------------------------------------------
 
-Own.HERE_MAX, Own.HERE_SCAN = 10, 80 -- candidates kept; steps looked ahead
+Own.HERE_MAX = 10 -- candidates the poll measures (the nearest, when more fit)
+Own.HERE_REPICK = 25 -- yards moved before the nearest are picked again
 Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
 Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
 Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
@@ -6166,16 +6172,64 @@ Own.HERE_SECONDS = 180 -- a line with no progress for this long goes
 Own.HERE_STEP = 5 -- yards the shown distance moves by
 Own.HERE_WALK, Own.HERE_SPEED = 1.6, 7 -- walk / straight line; run speed (yd/s)
 Own.HERE_VERBS = { kill = true, collect = true, interact = true, use = true }
-Own.HERE_LEAVE = { fly = true, hearth = true, enter = true }
 Own.HERE_HEARTH = { [8690] = true, [556] = true } -- Hearthstone, Astral Recall
-Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true
+Own.hereAll, Own.hereAllN = {}, 0 -- every candidate, in route order
+Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true -- the ones the poll measures
+Own.herePicked = {} -- the nearest HERE_MAX, when more fit (reused)
 Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed or expired, this zone stay
 Own.hereTo = {} -- the walk check's destination (reused)
+Own.hereIndex = setmetatable({}, { __mode = "k" }) -- guide -> { [map] = { s, g, s, g, ... } }
 
--- Whether step s leaves the zone at its goal `goal` (applying): a flight,
--- a hearth, an instance, or a place on another map than `map`.
-function Own.hereLeaves(goal, map)
-	return Own.HERE_LEAVE[goal.t] or (map ~= nil and goal.map ~= nil and goal.map ~= map) or false
+-- The loaded guide's goals that may be candidates on map `map` (a quest, a
+-- place on that map, work or a hand-in), as a flat { s, g, s, g, ... } in
+-- route order, or nil. Indexed once per guide.
+function Own.hereGoalsOn(map)
+	local idx = Own.hereIndex[guide]
+	if not idx then
+		idx = {}
+		local verbs = Own.HERE_VERBS
+		for s, step in ipairs(guide.steps) do
+			for g, goal in ipairs(step.goals) do
+				local m = goal.map
+				if m and goal.quest and goal.x and goal.y and not goal.candidates and (verbs[goal.t] or goal.t == "turnin") then
+					local list = idx[m]
+					if not list then
+						list = {}
+						idx[m] = list
+					end
+					list[#list + 1] = s
+					list[#list + 1] = g
+				end
+			end
+		end
+		Own.hereIndex[guide] = idx
+	end
+	return idx[map]
+end
+
+-- The objectives the Along the way list shows now (listed along steps' open
+-- work, Own.alongHeld): { [quest] = true (all of it: a goal with no
+-- objective) or { [oi] = true } }.
+function Own.hereShown()
+	local shown = {}
+	local steps = guide.steps
+	for _, s in ipairs(Own.marksOf().along) do
+		if Own.alongListed(s) then
+			for _, goal in ipairs(steps[s].goals) do
+				local q = goal.quest
+				if q and shown[q] ~= true and Own.alongHeld(goal) then
+					if goal.oi == nil then
+						shown[q] = true
+					else
+						local t = shown[q] or {}
+						t[goal.oi] = true
+						shown[q] = t
+					end
+				end
+			end
+		end
+	end
+	return shown
 end
 
 -- Whether any of a goal's places has mobs at most `top` levels (one with no
@@ -6192,13 +6246,13 @@ function Own.hereLevelOk(goal, top)
 	return not (lvl and lvl > top)
 end
 
--- Whether goal g of later step s is a candidate, as what ("work" or
--- "turnin"), and how many are left (see above).
-function Own.hereFits(s, g, goal, live)
+-- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
+-- the log, is a candidate, as what ("work" or "turnin"), and how many are
+-- left (see above). `shown`: Own.hereShown's.
+function Own.hereFits(s, g, goal, live, shown)
 	local q, t = goal.quest, goal.t
-	if not q or goal.candidates or not (goal.map and goal.x and goal.y) then return nil end
 	local C = Compat()
-	if not C.IsOnQuest(q) or not goalApplies(goal) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
+	if not goalApplies(goal) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
 	local liveGoals = guide.steps[live].goals
 	if t == "turnin" then
 		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) or goalDone(s, g, goal) then return nil end
@@ -6207,7 +6261,9 @@ function Own.hereFits(s, g, goal, live)
 		end
 		return "turnin", 0
 	end
-	if not Own.HERE_VERBS[t] or C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] or Own.alongWork(q)[1] then return nil end
+	if C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] then return nil end
+	local sh = shown[q]
+	if sh and (sh == true or goal.oi == nil or sh[goal.oi]) then return nil end
 	local done, cur, max = goalDone(s, g, goal)
 	if done then return nil end
 	for lg, other in ipairs(liveGoals) do
@@ -6220,9 +6276,10 @@ function Own.hereFits(s, g, goal, live)
 	return "work", left
 end
 
--- Build the candidates (Own.hereList[1..hereN]) for the active tab's live
--- step, and keep the line on its goal while that is still one. True when a
--- line the player had clicked went (the arrow goes back to the guide).
+-- Build the candidates (Own.hereAll[1..hereAllN], route order) for the
+-- active tab's live step, from every later step's goals on the player's map,
+-- and keep the line on its goal while that is still one. True when a line
+-- the player had clicked went (the arrow goes back to the guide).
 function Own.hereBuild()
 	Own.hereDirty = false
 	local aimed = false
@@ -6231,7 +6288,7 @@ function Own.hereBuild()
 		Own.hereGuide = guide
 	end
 	local list, n = {}, 0
-	Own.hereList, Own.hereEscort = list, false
+	Own.hereAll, Own.hereEscort = list, false
 	local live = computed
 	if guide and live and logReady and ns.Get("behavior.whileHere") then
 		if not player then refreshPlayer() end
@@ -6242,29 +6299,38 @@ function Own.hereBuild()
 		for g, goal in ipairs(steps[live].goals) do
 			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
 		end
-		local map = Compat().GetPlayerMapPosition()
-		local s, last = live + 1, math.min(#steps, live + Own.HERE_SCAN)
-		while s <= last and n < Own.HERE_MAX do
-			local step = steps[s]
-			-- Along steps (background goals among them) are listed already.
-			if not step.along and stepApplies(step) and not isSkipped(s) then
-				for g, goal in ipairs(step.goals) do
-					if goalApplies(goal) and Own.hereLeaves(goal, map) then
-						last = 0
-						break
-					end
-					local kind, left = Own.hereFits(s, g, goal, live)
-					if kind then
-						n = n + 1
-						list[n] = { s = s, g = g, goal = goal, kind = kind, left = left }
-						if n >= Own.HERE_MAX then break end
+		local idx = Own.hereGoalsOn(Compat().GetPlayerMapPosition())
+		if idx then
+			local C, shown = Compat(), Own.hereShown()
+			local at, ok = nil, false -- the step last checked, and whether it applies
+			for i = 1, #idx, 2 do
+				local s = idx[i]
+				if s > live then
+					local g = idx[i + 1]
+					local goal = steps[s].goals[g]
+					if C.IsOnQuest(goal.quest) then
+						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
+						local kind, left = nil, nil
+						if ok then kind, left = Own.hereFits(s, g, goal, live, shown) end
+						if kind then
+							n = n + 1
+							-- spot, d, pick: Own.hereDistance's and Own.herePick's, set
+							-- here so the poll adds no keys.
+							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, spot = false, d = false, pick = 0 }
+						end
 					end
 				end
 			end
-			s = s + 1
 		end
 	end
-	Own.hereN = n
+	Own.hereAllN = n
+	-- The poll measures them all, or the nearest HERE_MAX (picked at its next
+	-- run, from where the player stands).
+	if n <= Own.HERE_MAX then
+		Own.hereList, Own.hereN, Own.hereCut = list, n, false
+	else
+		Own.hereList, Own.hereN, Own.hereCut, Own.herePickC = Own.herePicked, 0, true, nil
+	end
 	-- The line stays on its goal while that is a candidate (its count may
 	-- have changed); a goal done or no longer one ends it.
 	local cur = Own.here
@@ -6292,7 +6358,7 @@ end
 function Own.hereClear(quiet)
 	local cur = Own.here
 	if not cur then return false end
-	if quiet then Own.hereQuiet[cur.goal] = true end
+	if quiet then Own.hereQuiet[cur.goal], Own.herePickC = true, nil end
 	Own.here, Own.hereView = nil, nil
 	local aimed = aim == cur.goal
 	if aimed then aim = nil end
@@ -6358,12 +6424,37 @@ function Own.hereMayShow(e, d)
 	return seconds * Own.HERE_SPEED <= (d + (s and s.r or 0)) * Own.HERE_WALK + 20
 end
 
+-- The nearest HERE_MAX candidates not quiet (Own.hereAll) into
+-- Own.herePicked, from world position c, px, py. Allocation-free.
+function Own.herePick(c, px, py)
+	local all, quiet, picked = Own.hereAll, Own.hereQuiet, Own.herePicked
+	local serial = (Own.herePickSerial or 0) + 1
+	Own.herePickSerial = serial
+	for i = 1, Own.hereAllN do
+		local e = all[i]
+		e.d = not quiet[e.goal] and Own.hereDistance(e, c, px, py) or false
+	end
+	local k = 0
+	while k < Own.HERE_MAX do
+		local best = nil
+		for i = 1, Own.hereAllN do
+			local e = all[i]
+			if e.d and e.pick ~= serial and (not best or e.d < best.d) then best = e end
+		end
+		if not best then break end
+		best.pick, k = serial, k + 1
+		picked[k] = best
+	end
+	for i = k + 1, #picked do picked[i] = nil end
+	Own.hereN, Own.herePickC, Own.herePickX, Own.herePickY = k, c, px, py
+end
+
 -- The arrival poll (c nil: no position). Shows the nearest candidate in
 -- reach, keeps or ends the one shown; allocation-free. True when a line the
 -- player had clicked went (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
 	local cur = Own.here
-	if not cur and Own.hereN == 0 then return false end
+	if not cur and Own.hereAllN == 0 then return false end
 	if not c or Own.hereBlocked() then return Own.hereClear(false) end
 	if UnitAffectingCombat and UnitAffectingCombat("player") then return false end
 	local step = Own.HERE_STEP
@@ -6378,6 +6469,12 @@ function Own.hereTick(c, px, py)
 		end
 		return false
 	end
+	-- More candidates than the poll measures: the nearest, again each
+	-- HERE_REPICK yards.
+	if Own.hereCut then
+		local pc, dx, dy = Own.herePickC, px - (Own.herePickX or 0), py - (Own.herePickY or 0)
+		if pc ~= c or dx * dx + dy * dy > Own.HERE_REPICK * Own.HERE_REPICK then Own.herePick(c, px, py) end
+	end
 	local quiet, list, best, bestD = Own.hereQuiet, Own.hereList, nil, nil
 	for i = 1, Own.hereN do
 		local e = list[i]
@@ -6388,7 +6485,7 @@ function Own.hereTick(c, px, py)
 	end
 	if not best then return false end
 	if not Own.hereMayShow(best, bestD) then
-		Own.hereQuiet[best.goal] = true
+		Own.hereQuiet[best.goal], Own.herePickC = true, nil
 		return false
 	end
 	Own.here, Own.hereSince, Own.hereView = best, GetTime(), nil
@@ -6445,12 +6542,15 @@ function Engine.DismissWhileHere()
 	return true
 end
 
--- The candidates now, for tests and /polestar debug: { { step, index, kind, left }, ... }.
+-- The candidates now, in route order, for tests and /polestar debug:
+-- { { step, index, kind, left, measured }, ... }; `measured`: the poll
+-- measures it (all of them, or the nearest HERE_MAX).
 function Engine.GetWhileHereCandidates()
 	local out = {}
-	for i = 1, Own.hereN do
-		local e = Own.hereList[i]
-		out[i] = { step = e.s, index = e.g, kind = e.kind, left = e.left }
+	local cut, serial = Own.hereCut, Own.herePickSerial
+	for i = 1, Own.hereAllN do
+		local e = Own.hereAll[i]
+		out[i] = { step = e.s, index = e.g, kind = e.kind, left = e.left, measured = not cut or (Own.hereN > 0 and e.pick == serial) }
 	end
 	return out
 end
