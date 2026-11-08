@@ -22,8 +22,8 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
-Out of scope: a full UI suite (Polestar integrates with EllesmereUI through its
-public skinning API), boss and combat warnings, aura tracking, best-in-slot
+Out of scope: a full UI suite (Polestar integrates with EllesmereUI, and with
+ErgoBars through the same contract, through their public skinning APIs), boss and combat warnings, aura tracking, best-in-slot
 lists and loot browsing. Polestar keeps the dungeon quest journal and the
 upgrade indicator on tooltips.
 

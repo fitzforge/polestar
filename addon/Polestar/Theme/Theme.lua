@@ -383,7 +383,11 @@ end
 -- Resolution: the user's own value > Match EllesmereUI > scheme
 ---------------------------------------------------------------------------
 
-local S -- EllesmereUI's primitive table, once its callback ran
+local S -- EllesmereUI's (or ErgoBars') primitive table, once its callback ran
+local provider -- "EllesmereUI" or "ErgoBars": whose skinning API registered us
+
+-- The name of the UI suite Polestar can follow (both offer the same skinning contract), or nil.
+function Theme.SkinProvider() return S and provider or nil end
 
 function Theme.IsEllesmere()
 	return S ~= nil
@@ -426,7 +430,7 @@ function Theme.SchemeChoices()
 		{ value = "night", text = ns.L["Night"] },
 		{ value = "graphite", text = ns.L["Graphite"] },
 	}
-	if S then out[#out + 1] = { value = "ellesmere", text = "EllesmereUI" } end
+	if S then out[#out + 1] = { value = "ellesmere", text = provider or "EllesmereUI" } end
 	return out
 end
 
@@ -1824,7 +1828,13 @@ local function onSkin(primitives)
 end
 
 if EllesmereUI and EllesmereUI.RegisterSkin then
+	provider = "EllesmereUI"
 	pcall(EllesmereUI.RegisterSkin, ADDON, onSkin)
+-- ErgoBars (a whole UI for Forever) offers the same contract as ErgoBarsLooks: RegisterSkin(addon, fn),
+-- fn(S) with S.GetAccentColor, S.GetPanelColor, S.GetFont and S.OnLooksChanged. EllesmereUI wins when both are on.
+elseif ErgoBarsLooks and ErgoBarsLooks.RegisterSkin then
+	provider = "ErgoBars"
+	pcall(ErgoBarsLooks.RegisterSkin, ADDON, onSkin)
 end
 
 -- Keep the shadow and border crisp when the pixel grid moves.

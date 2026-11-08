@@ -330,7 +330,7 @@ local BUILTIN = {
 			shown = function() return Theme.Accent() end,
 			source = function()
 				if Theme.FollowsClassAccent() then return (UnitClass and UnitClass("player")) or L["Class colour"] end
-				return Theme.FollowsEllesmereAccent() and "EllesmereUI" or L["Polestar gold"]
+				return Theme.FollowsEllesmereAccent() and (Theme.SkinProvider() or "EllesmereUI") or L["Polestar gold"]
 			end },
 		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"],
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
@@ -353,7 +353,7 @@ local BUILTIN = {
 			choices = function()
 				local list = { { value = "skin", label = L["The skin's font"] }, { value = "opensans", label = "Open Sans" }, { value = "game", label = L["Game font"] },
 					{ value = "inter", label = "Inter" }, { value = "fira", label = "Fira Sans" } }
-				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = "EllesmereUI" } end
+				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = Theme.SkinProvider() or "EllesmereUI" } end
 				return list
 			end,
 			get = function() return Theme.FollowsEllesmereFont() and "ellesmere" or ns.Get("ui.font") end,
@@ -490,7 +490,7 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
-add({ page = L["Integrations"], section = "EllesmereUI", controls = {
+add({ page = L["Integrations"], section = Theme.SkinProvider() or "EllesmereUI", controls = {
 	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
 		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
 		needs = function() return Theme.IsEllesmere() end },
