@@ -11,7 +11,8 @@ next forever/alliance/30-40/03-ashenvale
 # into this file.
 # Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
-# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
+# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
+# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop.
 
 step To Deepwater Tavern
   zone Wetlands
@@ -133,6 +134,7 @@ step Howin Kindfeather
   when group 474
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
+  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
 
 step Level 30.8
   when !group 474

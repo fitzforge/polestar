@@ -919,6 +919,17 @@
 			{
 				"a": [
 					"turnin",
+					98230
+				],
+				"b": [
+					"accept",
+					98300
+				],
+				"why": "Wetlands, #1299: Howin Kindfeather refused Word to Ironforge to 5 people (2 established), none with This Land Was Their Land handed in, and nobody was seen offered it; taken (optional) right after 98230's hand-in"
+			},
+			{
+				"a": [
+					"turnin",
 					465
 				],
 				"b": [

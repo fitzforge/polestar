@@ -195,7 +195,6 @@ step Rethiel the Greenwarden
 step Howin Kindfeather
   tip Howin Kindfeather camps among the Fenrunners, just west of Rethiel.
   accept 98245                            -- Razormaw Incisors: from the raptors by the Dragonmaw Gates, on the Wetlands loop of 30-40/01-hillsbrad-foothills
-  accept 98300 optional                   -- For King Magni in Ironforge, at the end of 30-40/01-hillsbrad-foothills
 
 step Einar Stonegrip
   tip East from Howin: Einar Stonegrip stands beside the road.
