@@ -41,7 +41,8 @@
 -- SendChatMessage, ChatFrame_AddMessageEventFilter (ChatFrameUtil when it has
 -- it), C_ChatInfo.SendAddonMessage, RegisterAddonMessagePrefix and
 -- InChatMessagingLockdown, C_FriendList.SendWho, SetWhoToUi, GetNumWhoResults
--- and GetWhoInfo, WhoFrame, GetRealZoneText, EnumerateFrames, C_PartyInfo.InviteUnit and
+-- and GetWhoInfo, WhoFrame and LFGWhoListFrame, GetRealZoneText, EnumerateFrames,
+-- C_PartyInfo.InviteUnit and
 -- LeaveParty, C_NamePlate.GetNamePlates (Forever's API documentation); the
 -- SHARD_TRANSFER_IMMEDIATE dialog (GameDialogDefs.lua).
 
@@ -537,9 +538,19 @@ local function burst(a)
 	end)
 end
 
+-- Whether one of the game's who lists is open (the social frame's on
+-- retail-style clients, the group finder's on Forever): its answers stay
+-- routed to it.
+local function whoListShown()
+	for _, f in ipairs({ LFGWhoListFrame, WhoFrame }) do
+		if type(f) == "table" and f.IsShown and f:IsShown() then return true end
+	end
+	return false
+end
+
 -- Our /who is answered or given up: the frames that listen for its answer
 -- get it again, ours no longer does, and the game's /who answers go back to
--- chat (SetWhoToUi) unless its who list is open.
+-- chat (SetWhoToUi) unless a who list is open.
 local function release()
 	local out = whoOut
 	whoOut = nil
@@ -548,8 +559,7 @@ local function release()
 		pcall(f.RegisterEvent, f, "WHO_LIST_UPDATE")
 		muted[f] = nil
 	end
-	if out and C_FriendList and C_FriendList.SetWhoToUi
-		and not (type(WhoFrame) == "table" and WhoFrame.IsShown and WhoFrame:IsShown()) then
+	if out and C_FriendList and C_FriendList.SetWhoToUi and not whoListShown() then
 		pcall(C_FriendList.SetWhoToUi, false)
 	end
 end
@@ -573,13 +583,14 @@ local function hush()
 end
 
 -- The /who answer: the zone's players, not the player, not a name already
--- whispered, WHO_MAX at most, join the request's whispers.
+-- whispered, WHO_MAX at most, join the whispers of the request live now
+-- (which may have replaced the one that asked: cancelled and asked again
+-- while the /who was out).
 local function onWho()
-	local w = whoOut
-	if not w then return end
+	if not whoOut then return end
 	release()
-	local a = w.a
-	if not enabled or a.stopped or requestLive() ~= a then return end
+	local a = requestLive()
+	if not enabled or not a or a.stopped then return end
 	local F = C_FriendList
 	local ok, n = pcall(F.GetNumWhoResults)
 	n = ok and readable(n)
@@ -598,10 +609,10 @@ local function onWho()
 	burst(a)
 end
 
--- One /who of the zone for request `a`, at most every WHO_EVERY seconds;
+-- One /who of the zone for a request, at most every WHO_EVERY seconds;
 -- skipped when the client lacks the calls or the zone is unreadable. Given up
 -- after WHO_WAIT seconds.
-local function askWho(a)
+local function askWho()
 	local F = C_FriendList
 	if type(F) ~= "table" or not (F.SendWho and F.SetWhoToUi and F.GetNumWhoResults and F.GetWhoInfo) then return end
 	local t = now()
@@ -615,7 +626,7 @@ local function askWho(a)
 	hush()
 	whoFrame:RegisterEvent("WHO_LIST_UPDATE")
 	pcall(F.SetWhoToUi, true)
-	local w = { a = a }
+	local w = {}
 	whoOut = w
 	local origin = Enum and Enum.SocialWhoOrigin and Enum.SocialWhoOrigin.Social or 1
 	if not pcall(F.SendWho, 'z-"' .. zone .. '"', origin) then return release() end
@@ -679,7 +690,7 @@ function Layer.Request(want)
 		a.queue[#a.queue + 1] = name
 	end
 	burst(a)
-	askWho(a)
+	askWho()
 	local g = gen
 	ns.After(PENDING, function()
 		if g ~= gen or asked ~= a or inHopGroup() then return end
@@ -880,7 +891,7 @@ local function onChannel(_, text, sender, _, _, _, _, _, _, base)
 	end
 end
 
--- An addon whisper: H, R and I. Any other chat type is not ours.
+-- An addon whisper: H, R, I and Q. Any other chat type is not ours.
 local function onAddonMessage(_, prefix, message, chatType, sender)
 	if not enabled or readable(prefix) ~= PREFIX or readable(chatType) ~= "WHISPER" then return end
 	message = readable(message)
@@ -895,6 +906,8 @@ local function onAddonMessage(_, prefix, message, chatType, sender)
 		changed()
 	elseif kind == "R" then
 		request(name, body)
+	elseif kind == "Q" then
+		answer(name, body)
 	elseif kind == "I" then
 		local target = body:match("^([^:]+)$")
 		if target and ns.Compat.SenderIsMe(target) then hostClaims[name] = now() end

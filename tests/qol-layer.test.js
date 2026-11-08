@@ -112,6 +112,32 @@ test('layer hop: a request sends one channel line inside the call, whispers the 
 	assert.deepEqual(out[1], [[R('Hostone'), R('Who One'), R('Who Two'), R('Who Three')], 9, 12, 11, 1, false],
 		'the throttled name ends the burst and goes first next second; itself, a known host, a repeat and a secret name are skipped; the /who goes back to chat');
 	assert.deepEqual(out[2], [true, 1, 2], 'a /who within 10 s of the last is not sent');
+	const replaced = run(`
+		lay.whoResults = { "Who One", "Who Two" }
+		Ly.Request("*")
+		Ly.CancelRequest()
+		local again = Ly.Request("*")
+		emit({ again, #calls("SendWho"), lay.whoToUi, #sent() })
+		stub.whoAnswer()
+		emit({ sent(), lay.whoToUi, Ly.Status().asked.reach })
+		Ly.CancelRequest()
+		Ly.Request("*")
+		stub.now = stub.now + 11
+		Ly.CancelRequest()
+		stub.whoAnswer()
+		emit({ #sent(), lay.whoToUi })
+		WhoFrame = { IsShown = function() return false end }
+		LFGWhoListFrame = { IsShown = function() return true end }
+		Ly.Request("*")
+		emit({ #calls("SendWho") })
+		stub.whoAnswer()
+		emit({ lay.whoToUi })
+	`);
+	assert.deepEqual(replaced[0], [true, 1, true, 0], 'the /who stays out across a cancel and a new request');
+	assert.deepEqual(replaced[1], [[R('Who One'), R('Who Two')], false, 2], 'its answer serves the request live now');
+	assert.deepEqual(replaced[2], [2, false], 'an answer with no request live whispers nobody');
+	assert.deepEqual(replaced[3], [2]);
+	assert.deepEqual(replaced[4], [true], 'the game\'s open who list keeps its routing');
 	const group = run(`
 		lay.whoResults = { "Who One", "Who Two", "Who Three", "Who Four", "Who Five", "Who Six", "Who Seven" }
 		Ly.Request("*")
@@ -195,11 +221,16 @@ test('layer hop: a host answers a channel or whispered request with a claim whis
 		line("Asker", "PLH1 Q 1429")
 		wait(3)
 		emit({ once, #sent("H") })
+		lay.sent = {}
+		hear("Askerw", "1Q1429")
+		wait(3)
+		emit(sent("H"))
 	`);
 	assert.deepEqual(out[0], ['1IReqone@WHISPER>Reqone', 'invite:Reqone'], 'the line and the whisper of one request: one claim, one invite');
 	assert.deepEqual(out[1], ['1IReqtwo@WHISPER>Reqtwo', 'invite:Reqtwo']);
 	assert.deepEqual(out[2], {}, 'echo, other realm, oversize, flood, bad version, unknown kind, other channel, same layer, combat, not leader');
 	assert.deepEqual(out[3], [['1H1429:2:1@WHISPER>Asker'], 2]);
+	assert.deepEqual(out[4], ['1H1429:2:1@WHISPER>Askerw'], 'a whispered Q is answered like a channel one');
 });
 
 test('layer hop: an asker accepts the invite of a host whose claim whisper names it; H whispers list peers; GUILD and CHANNEL addon messages are ignored', () => {
