@@ -10766,6 +10766,19 @@
 				],
 				"faction": "Horde",
 				"why": "Level sweep (2026-11-08): Continue Your Training needs Coming to Terms handed in (its prerequisite) and level 4; it was listed with Coming to Terms' accept, before either."
+			},
+			{
+				"a": [
+					"turnin",
+					921
+				],
+				"b": [
+					"accept",
+					3522
+				],
+				"faction": "Alliance",
+				"why": "Timed-quest sweep (2026-11-08): Iverron's Antidote lasts five minutes (quests.json limit 300 s). Taken from Dirania at the foot of Aldrassil before Tenaron's turn-in at the top, the moonwell and the climb back to Tenaron, it reached Iverron in about 8 minutes on the sweep's estimate; players' recordings: 24 characters took it, 2 failed its timer and 4 abandoned it. Taken on the way down after Crown of the Earth's turn-in, Dirania to Iverron is one short walk.",
+				"source": "recordings: rec.py quest 3522 (2 timer fails, 4 abandons of 24 characters); timed_sweep.py FAIL nightelf/01-teldrassil:96"
 			}
 		]
 	}

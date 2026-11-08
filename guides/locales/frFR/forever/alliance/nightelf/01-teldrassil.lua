@@ -90,9 +90,9 @@ return {
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "{object:654846}, à l'étage",
 
-	-- Step 12: The moonwell and Iverron
-	-- {npc:8584} Iverron · {quest:3522} Iverron's Antidote
-	["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} est un peu plus au nord-ouest. {quest:3522} dure cinq minutes : remplissez la fiole et allez directement le voir.",
+	-- Step 12: Iverron's Antidote
+	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
+	["Take the antidote from {npc:8583} at the foot of {area:256} only now, on the way down: it lasts five minutes. {npc:8584} waits north-west, by the cave: go straight on to him."] = "",
 
 	-- Step 13: Porthannius
 	-- {area:188} Shadowglen · {area:256} Aldrassil · {npc:6780} Porthannius · {area:186} Dolanaar
@@ -496,6 +496,7 @@ return {
 	-- ["{npc:4217}: Bear Form"] = "{npc:4217} : Forme d'ours",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089} : Posture défensive",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, dans le refuge",
+	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} est un peu plus au nord-ouest. {quest:3522} dure cinq minutes : remplissez la fiole et allez directement le voir.",
 	-- ["{npc:8584} waits in the trees west of the cave mouth."] = "{npc:8584} attend dans les arbres à l'ouest de l'entrée de la grotte.",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} et le puits de lune de la Brise-étoilée",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979} : lancez {spell:1259799} et {spell:20580}, puis rendez-la à {npc:3595}",

@@ -90,9 +90,9 @@ return {
 	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
 
-	-- Step 12: The moonwell and Iverron
-	-- {npc:8584} Iverron · {quest:3522} Iverron's Antidote
-	["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "",
+	-- Step 12: Iverron's Antidote
+	-- {npc:8583} Dirania Silvershine · {area:256} Aldrassil · {npc:8584} Iverron
+	["Take the antidote from {npc:8583} at the foot of {area:256} only now, on the way down: it lasts five minutes. {npc:8584} waits north-west, by the cave: go straight on to him."] = "",
 
 	-- Step 13: Porthannius
 	-- {area:188} Shadowglen · {area:256} Aldrassil · {npc:6780} Porthannius · {area:186} Dolanaar

@@ -383,6 +383,18 @@ test(`${TELDRASSIL}: Dolanaar Delivery is taken from Porthannius after the Shado
 	assert.ok(yards(next.goal, keldamyr) < yards(next.goal, tenaron), `the next stop (${next.goal.t} ${next.goal.quest}) is in Dolanaar`);
 });
 
+// --- Timed-quest sweep (2026-11-08): Iverron's Antidote (3522) lasts five minutes. It was taken from Dirania at the foot of
+// Aldrassil before Tenaron's turn-in at the top, the moonwell and the climb back to Tenaron; players' recordings show 2 timer
+// fails and 4 abandons among 24 characters. It is taken on the way down after Crown of the Earth (921), in the hand-in's step.
+test(`${TELDRASSIL}: Iverron's Antidote is taken after the last Tenaron visit and carried straight to Iverron`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const take = at(list, 'accept 3522 (Iverron\'s Antidote)', is('accept', 3522));
+	const hand = at(list, 'turnin 3522', is('turnin', 3522));
+	assert.ok(at(list, 'turnin 921 (Crown of the Earth)', is('turnin', 921)) < take, 'the antidote is taken after the last climb to Tenaron');
+	assert.equal(list[take].s, list[hand].s, 'taken in the step that hands it in');
+	assert.deepEqual(list.slice(take + 1, hand).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing between the accept and the hand-in');
+});
+
 test(`${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const bark = at(list, 'turnin 98398 (The Oracle Tree)', is('turnin', 98398));
