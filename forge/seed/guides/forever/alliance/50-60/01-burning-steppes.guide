@@ -71,6 +71,18 @@ step Sanath Lim-yo
   turnin 3381 optional
   level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
 
+step Sanath Lim-yo
+  zone Azshara
+  only Mage
+  tip Get off your mount before you talk to Sanath: he teleports you up to Archmage Xylem's tower on the cliff above his camp.
+  turnin 8250                         -- Sanath Lim-yo
+
+step Archmage Xylem
+  zone Azshara
+  only Mage
+  tip The apprentice at the top of the tower sends you back down.
+  accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
+
 step Kim'jael
   tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
   accept 3601
@@ -78,6 +90,7 @@ step Kim'jael
   collect 10715 quest 3601.2          -- Kim'Jael's Scope
   collect 10722 quest 3601.3          -- Kim'Jael's Stuffed Chicken
   collect 10718 quest 3601.4          -- Kim'Jael's Wizzlegoober
+  collect 20028 quest 8251.1 only Mage -- Glittering Dust, from the blood elf surveyors and reclaimers
   turnin 3601
   accept 5534
   level 50.65 grind 6196               -- grind on Spitelash Myrmidon
@@ -102,6 +115,31 @@ step The Ruins of Eldarath
 step Rubbing: Rune of Sael'hai
   collect 10566 quest 3449.4          -- Rune of Sael'hai
   collect 7972 quest 8256.1 only Priest -- Ichor of Undeath: the Lingering Highborne, about 10%
+
+step Sanath Lim-yo
+  zone Azshara
+  only Mage
+  tip Ride back west to Sanath's camp and get off your mount: he teleports you up to Xylem again.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
+step Archmage Xylem
+  zone Azshara
+  only Mage
+  turnin 8251
+  accept 8252
+
+step The Temple of Zin-Malor
+  zone Azshara
+  only Mage
+  tip The Spitelash Sirens wander the ruins and the beach around the Temple of Zin-Malor, just south of Sanath. Only the Sirens carry the coral, not the Screamers.
+  collect 20029 quest 8252.1          -- Enchanted Coral
+
+step Archmage Xylem
+  zone Azshara
+  only Mage
+  tip Back up through Sanath's teleport.
+  turnin 8252
+  note Xylem's last task, Destroy Morphaz, is in the Sunken Temple: skip it.
 
 step Ogtinc
   only Priest
