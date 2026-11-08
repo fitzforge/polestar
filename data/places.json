@@ -990,6 +990,30 @@
 					"ref": "npcs.json 6015 Torta: map 1446 66.58,25.67; quests.json 1560 objective: Torta (6015)"
 				}
 			]
+		},
+		{
+			"id": "1257-duskwood-pygmy-venom-web-spiders",
+			"quest": 245,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1431,
+				"x": 10.6,
+				"y": 55.4,
+				"frame": "era"
+			},
+			"note": "Eight-Legged Menaces: the Pygmy Venom Web Spiders are few and mixed with Venom Web Spiders and wolves. Of their 18 spawns along Duskwood's western edge, 9 lie within 7 map percent of 10.6,55.4 (the Hushed Bank west of Raven Hill), against 4-5 by Sven's camp in the north, where the arrow sent the reporter (8.5,43.7; 4/15 after a long search).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 539 spawns on map 1431"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1257: the reporter's /polestar where 8.09,41.43, 4 of 15 killed at the northern spot"
+				}
+			],
+			"issue": 1257
 		}
 	]
 }

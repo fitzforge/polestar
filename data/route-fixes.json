@@ -5987,6 +5987,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's second loop goes clockwise, as the seed has it: from A-Me 01 on Ironstone Plateau south down the east side (the Crate of Foodstuffs, the Eastern Pylon), the Gorishi hive in the south, the south-west bones and equipment, the Western Pylon, then north to the refuge. The order crossed the crater from the north-east to the south-west and back east."
+			},
+			{
+				"a": [
+					"accept",
+					6301
+				],
+				"b": [
+					"accept",
+					1087
+				],
+				"faction": "Horde",
+				"why": "#1241 (Bonesavv77, Orc Warrior 24): Sun Rock Retreat is walked from Tsunaman and Maggran in the south, north to Tammra Windfield, then west to Braelyn Firehand outside the gate and the flight master beside her, on the way out. The guide took Braelyn and the flight path first and walked back east to Tammra."
 			}
 		],
 		"stay": [

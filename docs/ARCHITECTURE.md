@@ -4967,7 +4967,9 @@ a registered page without `key` takes one made from its title. Old page keys
 The sidebar's page list is its own scroll area (`f.NavScroll`, `W.ShellNav`)
 from 12px under the search to the footer bar's line, so the version and stage
 chip below it are never crowded, whatever the page count, font or menu scale;
-the selected row is scrolled into view. The hub shares it. Its items are
+a new selection is scrolled into view, and a redraw with the same one (a
+refresh, a guide picked in the list) keeps the place the player scrolled to.
+The hub shares it. Its items are
 `{ key, label, icon, count, dot }`: `dot` puts a warning dot at the row's
 right edge instead of the count (a page spec's `dot = function() end`, the
 Community guides page while a pack has problems), and `{ heading = true, label }`
@@ -5249,7 +5251,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   selected guide's zone art, facts (led by a guide's `reward` tiles and
   `why`, "Guide data"), progress, pitch, pros and cons, a favourite
   star, "Load guide" and "Open in new tab". Selecting never loads; the buttons,
-  a double-click or Enter do.
+  a double-click or Enter do. The list's scroll area (and its bar) ends at
+  the details' edge (the hidden footer marks the column); a redraw (a tab's
+  progress, a selection, a guide registering) keeps the list where it is,
+  and the details' pitch, pros and cons keep their place until another
+  guide or quest search is shown.
   Home's Continue cards (one per open tab) show one row: as many as fit at
   220px (two at the default width), the active tab first, then the most
   recently used (`recentGuides`), then the rest in tab order; "Show all (N)"

@@ -6464,3 +6464,70 @@ test('Alliance quest volume follow-up: the added quests ride on walks the route 
 	const wet = goals('forever/alliance/06-wetlands.guide');
 	assert.ok(first(wet, is('turnin', 469)) > first(wet, is('accept', 465)), 'Wetlands: Halloran after Stoutfist');
 });
+
+// --- Triage round 5 (2026-11-08) ---
+
+// Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path
+// before Tammra Windfield, a walk back east across the town. Arriving from the south (Tsunaman, Maggran),
+// Tammra comes first, then Braelyn outside the gate and the flight master beside her on the way out
+// (route-fixes after: accept 6301 before accept 1087, Horde).
+test("Bonesavv77's report (#1241): Sun Rock Retreat takes Tammra Windfield before Braelyn Firehand and the flight path", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.after.some((p) => p.a[0] === 'accept' && p.a[1] === 6301 && p.b[0] === 'accept' && p.b[1] === 1087), 'the order is a record the build keeps');
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const tammra = at(list, 'accept 6301', is('accept', 6301));
+	const braelyn = at(list, 'accept 1087', is('accept', 1087));
+	const fp = at(list, 'getfp Sun Rock Retreat', (g) => g.t === 'getfp' && /Sun Rock/.test(g.location || ''));
+	assert.ok(tammra < braelyn && braelyn < fp, 'Tammra, then Braelyn, then the flight master');
+	assert.equal(list[tammra].step, list[fp].step, 'one Sun Rock stop');
+});
+
+// The guide file's tip lines for the step holding the first goal that matches `re`.
+function stepTips(guide, re) {
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').split('\n');
+	const k = lines.findIndex((l) => re.test(l));
+	assert.ok(k >= 0, `${re} is in ${guide}`);
+	let s = k;
+	while (s > 0 && !/^step /.test(lines[s])) s--;
+	let e = k;
+	while (e < lines.length && !/^step /.test(lines[e + 1] || 'step ')) e++;
+	return lines.slice(s, e + 1).filter((l) => /^\s+tip /.test(l)).map((l) => l.replace(/^\s+tip /, ''));
+}
+
+// Gray's report (#1234): Kodo Roundup counts a tamed kodo only once you talk to it at Smeed's camp, and
+// the Kombobulator tames no other until then (players' recordings: each of the five ticks came with the
+// kodo's window). The tips said "five times" and nothing about talking to it. The tip is a guide-fixes
+// record for each side, so a build writes it again.
+test("Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo at Smeed's, one at a time", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [guide, faction, re] of [
+		['forever/horde/30-40/02-thousand-needles.guide', 'Horde', /^\s+complete 5561\b/],
+		['forever/alliance/30-40/02-desolace.guide', 'Alliance', /quest 5561\.1\b/],
+	]) {
+		const rec = fixes.find((f) => f.at.quest === 5561 && f.faction === faction && f.tip);
+		assert.ok(rec, `${faction}: the tip is a record`);
+		assert.deepEqual(stepTips(guide, re), [rec.tip], `${faction}: the step's tip is the record's`);
+		assert.match(rec.tip, /talk to the kodo/);
+		assert.match(rec.tip, /one at a time/);
+	}
+});
+
+// #1257 (Dwarf Shaman 24, Duskwood): the arrow sought the Pygmy Venom Web Spiders by Sven's camp in the
+// north, where few spawn among the wolves and bigger spiders, and the tip put them east of the cemetery.
+// Half their western spawns lie on the Hushed Bank west of Raven Hill: the arrow goes there (places
+// record) and the tip says so (guide-fixes record).
+test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank west of Raven Hill', { skip }, () => {
+	const guide = 'forever/alliance/04-redridge-mountains.guide';
+	const place = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.find((p) => p.quest === 245 && p.objective === 1);
+	assert.ok(place, 'the spot is a record');
+	const { goal } = goals(guide)[at(goals(guide), 'kill 539 quest 245', (g) => g.t === 'kill' && g.quest === 245)];
+	assert.equal(goal.map, 1431);
+	assert.ok(Math.abs(goal.x - place.at.x) < 0.5 && Math.abs(goal.y - place.at.y) < 0.5, `the arrow goes to ${place.at.x},${place.at.y}, not ${goal.x},${goal.y}`);
+	const spawns = data.npcs[539].spawns[1431];
+	const near = [...spawns.pts, ...(spawns.more || [])].filter((p) => Math.hypot(p[0] - goal.x, p[1] - goal.y) < 7).length;
+	assert.ok(near >= 8, `most western spawns are near the spot (${near})`);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 245 && f.tip);
+	assert.ok(rec, 'the tip is a record');
+	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
+	assert.doesNotMatch(rec.tip, /east of the cemetery/);
+});

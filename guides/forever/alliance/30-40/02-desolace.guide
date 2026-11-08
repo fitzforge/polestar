@@ -77,7 +77,7 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Graveyard
-  tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
+  tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp. There, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
   goto 51.7,56.7
   kill 4700 quest 5561.1
   collect 6249 quest 1459.2
