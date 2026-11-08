@@ -6669,3 +6669,18 @@ test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to T
 	assert.ok(!list.slice(race, fiora).some(({ goal }) => goal.t === 'goto' && goal.map === 1445 && goal.x < 40), 'no walk past the Shady Rest Inn');
 });
 
+// Final route review for 0.3.5 (Fitz: grind if we must, but say so): every written grind step in 30-40
+// names where to grind and a dungeon to run instead, in the writer's sentence.
+test('30-40: every written grind step says where, and names a dungeon to run instead', { skip }, () => {
+	const dir = path.join(OFFICIAL_DIR, 'forever');
+	for (const side of ['horde', 'alliance']) {
+		for (const f of fs.readdirSync(path.join(dir, side, '30-40'))) {
+			const guide = `forever/${side}/30-40/${f}`;
+			for (const { step, goal } of goals(guide)) {
+				if (goal.t !== 'level') continue;
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /until level/, `${guide}: "${step.title}" says where`);
+			}
+		}
+	}
+});

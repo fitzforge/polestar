@@ -130,7 +130,7 @@ step Menethil Harbor
 step Level 30.8
   when !group 474
   when level<30.8
-  tip If you skipped Defeat Nek'rosh, grind here to level 30.8 to stay on the route's plan.
+  tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 30.8                           -- grind on Bluegill Raider
 

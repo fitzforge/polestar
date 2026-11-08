@@ -3589,6 +3589,23 @@
 					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
 				}
 			]
+		},
+		{
+			"id": "alliance-stv-troll-witchery-level-36",
+			"faction": "Alliance",
+			"at": {
+				"quest": 205,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 36,
+			"note": "Final route review 0.3.5 (Fitz: no step hides grinding): Troll Witchery's Skullsplitter Fetishes come from the Skullsplitter trolls (39-42, quest level 40) on 30-40/04b's southern leg, reached at about 35.9; the level model ground the rest of 35 there with no written step. A level 36 top-up on the Snapjaw Crocolisks (35) of the step before says so.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 205 level 40; npcs 667, 696, 780 (Skullsplitter Warrior, Axe Thrower, Mystic, 39-40) and 669, 670, 782, 784 (41-42)"
+				}
+			]
 		}
 	]
 }

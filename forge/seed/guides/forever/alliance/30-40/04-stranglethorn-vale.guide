@@ -96,7 +96,7 @@ step Stranglethorn Vale: kill these as you meet them
 
 step Level 34
   when level<34
-  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until you reach it.
+  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
   goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
   level 34                             -- grind on Elder Stranglethorn Tiger
 
