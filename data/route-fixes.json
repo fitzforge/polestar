@@ -6652,6 +6652,10 @@
 			{
 				"q": 87318,
 				"why": "#1314: Corma Villard offered no Hearts of the Lost to a level-32 Alliance player standing beside her, and nobody in players' recordings has been offered or taken it; another addon's player traces do record it taken and handed in (level 33, 2650 XP), so it likely exists behind a prerequisite we don't know. Optional, with a tip to skip it if she doesn't offer it."
+			},
+			{
+				"q": 98463,
+				"why": "Never-seen check (2026-11-08, 0.3.6): Barkeep Kelly in Southshore's inn was passed by 4 Alliance people in players' recordings, and none opened her window or was offered Talk of the Town; it stays on the Southshore stop (and its Booty Bay hand-in) as optional, with a tip to skip it if she doesn't offer it"
 			}
 		],
 		"group": [

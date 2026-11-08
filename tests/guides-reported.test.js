@@ -1823,6 +1823,16 @@ for (const [q, title, giver, files] of [
 	});
 }
 
+// --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
+// Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
+test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {
+	const take = goals(HILLSBRAD_ALLIANCE).filter(({ goal }) => goal.quest === 98463);
+	const give = goals('forever/alliance/30-40/04-stranglethorn-vale.guide').filter(({ goal }) => goal.quest === 98463);
+	assert.ok(take.length && give.length, 'taken in Southshore, handed in at Booty Bay');
+	for (const { goal } of [...take, ...give]) assert.ok(goal.optional, `${goal.t} 98463 is optional`);
+	assert.ok([take[0].step.note, take[0].step.tip].flat().filter(Boolean).join(' ').includes('Barkeep Kelly may not offer Talk of the Town'), 'the Southshore step says to skip it');
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 

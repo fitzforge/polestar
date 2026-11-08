@@ -3782,6 +3782,22 @@
 			],
 			"issue": 1314,
 			"faction": "Alliance"
+		},
+		{
+			"id": "0306-talk-of-the-town-may-be-missing",
+			"at": {
+				"quest": 98463,
+				"goal": "accept"
+			},
+			"tip": "Barkeep Kelly may not offer Talk of the Town on Forever: if she doesn't, skip it.",
+			"note": "Talk of the Town (Southshore, Barkeep Kelly, handed in at Booty Bay): never seen offered or taken, so the guide takes it as optional and says to skip it if she doesn't offer it (route-fixes deliberate.optional).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch (2026-11-08): 4 Alliance people passed Barkeep Kelly in Southshore's inn, none opened her window or was offered Talk of the Town; 0 runs of 98463"
+				}
+			],
+			"faction": "Alliance"
 		}
 	]
 }

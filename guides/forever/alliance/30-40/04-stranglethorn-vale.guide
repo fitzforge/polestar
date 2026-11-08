@@ -124,7 +124,7 @@ step Down to Booty Bay
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside
   sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
-  turnin 98463                        -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
+  turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
   accept 198                          -- Krazek, in the tavern; upstairs
   accept 201
   accept 616                          -- Krazek

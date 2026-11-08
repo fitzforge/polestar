@@ -162,12 +162,13 @@ step Boat to Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Brewmeister Bilger below it and Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
+  tip Barkeep Kelly may not offer Talk of the Town on Forever: if she doesn't, skip it.
   # An Alarming Request requires level 30 (Forever's quest data, quest 92432, checked 2026-10-14).
   accept 659                          -- Phin Odelic: his trail leads to Arathi
   turnin 98219 npc 2228               -- Lieutenant Farren Orinelle, inside
   accept 536                          -- Lieutenant Farren Orinelle
   sethome "Southshore" npc 2352       -- Innkeeper Anderson
-  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
+  accept 98463 optional               -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
   turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
   accept 555                          -- Chef Jessen, upstairs
   accept 564                          -- Darren Malvew: the lions come later
