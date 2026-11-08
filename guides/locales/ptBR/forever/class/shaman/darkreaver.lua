@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom (no name in this language: may be words)
-	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "",
+	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "No nível 58, {npc:13417}, o instrutor de xamã no {object:172957}, pede dois diamantes raros; todo xamã da Horda vai até ele. Celonatos: a página de missão do Forever lista esta missão só para Orcs, Taurens e Trolls: confirme antes de comprar os diamantes.",
 
 	-- Step 2: Two diamonds
 	["Two diamonds"] = "Dois diamantes",
@@ -30,7 +30,7 @@ return {
 	-- Step 4: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {npc:14516} Death Knight Darkreaver · {spell:686} Shadow Bolt · {spell:6958} Blood Leech
 	-- plural, as words: Cleaves = {spell:845} Cleave
-	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "",
+	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "Um evento de masmorra para cinco jogadores: {area:2057} fica sob {area:2298}, a cidade-ilha no sudeste de {zone:1422}. No porão do {object:179746}, primeiro mate todos os monstros da sala, depois use o {item:18746} no centro dela: seguem-se quatro ondas de espíritos, cada uma terminando com um mini-chefe Aspecto (a primeira onda fraca e lenta, as outras elite). Lute num canto para nada mais se juntar, e beba entre as ondas: é longo. Depois {npc:14516} (elite de nível 62) aparece: ele golpeia em arco, lança {spell:686} e {spell:6958} e domina a mente de um jogador contra o grupo. A cabeça dele sempre cai.",
 
 	-- Step 5: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {item:20134} Skyfury Helm

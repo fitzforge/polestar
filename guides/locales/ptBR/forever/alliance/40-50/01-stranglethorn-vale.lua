@@ -13,7 +13,7 @@ return {
 	-- {quest:1260} Morgan Stern
 	["{quest:1260}, inside"] = "{quest:1260}, lá dentro",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
-	["{npc:4964}, on the top floor of {area:514}"] = "",
+	["{npc:4964}, on the top floor of {area:514}"] = "{npc:4964}, no último andar de {area:514}",
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, para Zé \"Olho de Lama\"",
 
@@ -31,7 +31,7 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, lá dentro",
 	-- {npc:4794} Morgan Stern · {area:8} Swamp of Sorrows
-	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "",
+	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "{npc:4794}: os caranguejos ficam na costa de {area:8}, guarde-o",
 
 	-- Step 7: Swamplight Manor
 	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Pegue a estrada para o norte até o casarão em ruínas; Zé mora no barraco ao lado, e a terra solta fica no canto da casa.",
@@ -57,7 +57,7 @@ return {
 
 	-- Step 12: The Shady Rest Inn
 	-- {area:17} Barrens
-	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "A estalagem queimada fica na estrada a oeste, em direção a {area:17}; o distintivo do guarda está nas cinzas.",
 
 	-- Step 13: Theramore
 	-- {area:514} Foothold Citadel
@@ -110,11 +110,11 @@ return {
 
 	-- Step 25: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "No nível 40, por 100 ouros, você aprende Equitação e já ganha uma montaria. Celonatos aprendem com {npc:265756}, o cavalariço e instrutor de equitação de {area:17684}, em {area:16638}, na Ilha de Zefras, que também vende os Vagaventos: a nave celeste para a ilha sai do lado norte de {area:279} mais ou menos a cada cinco minutos. Colecionáveis, Montarias · Nível 40 lista os Vagaventos.",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "No nível 40, por 100 ouros, você aprende Equitação e já ganha uma montaria. Celonatos aprendem com {npc:265756}, o cavalariço e instrutor de equitação de {area:17684}, em {area:16638}, na Ilha de Zefras, que também vende os Vagaventos: o barco celeste para a ilha sai do lado norte de {area:279} mais ou menos a cada cinco minutos. Colecionáveis, Montarias · Nível 40 lista os Vagaventos.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Montaria e Vagaventos: {npc:265756}, em {area:17684}, {area:16638}, na Ilha de Zefras.",
 	-- {area:279} Dalaran
-	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Nave celeste para a Ilha de Zefras: lado norte de {area:279}, mais ou menos a cada cinco minutos.",
+	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Barco celeste para a Ilha de Zefras: lado norte de {area:279}, mais ou menos a cada cinco minutos.",
 
 	-- Step 26: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -204,7 +204,7 @@ return {
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "Espreitadores da Selva",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
-	["The Jungle Stalkers roam the slopes west of the mine."] = "",
+	["The Jungle Stalkers roam the slopes west of the mine."] = "Os Espreitadores da Selva vagam pelas encostas a oeste da mina.",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "A costa noroeste",
@@ -234,7 +234,7 @@ return {
 	-- Step 68: Level 42.06
 	["Level 42.06"] = "Nível 42.06",
 	-- {quest:193} Panther Mastery · {area:1517} Uldaman
-	["If you skipped {quest:193}, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:193}, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:193}, mate monstros aqui até o nível 42.06 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1517}.",
 	-- {npc:690} Cold Eye Basilisk
 	["grind on {npc:690}"] = "mate {npc:690} até subir",
 
@@ -245,7 +245,7 @@ return {
 	-- Step 73: Level 42.1
 	["Level 42.1"] = "Nível 42.1",
 	-- {quest:196} Raptor Mastery · {area:1517} Uldaman
-	["If you skipped {quest:196}, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:196}, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:196}, mate monstros aqui até o nível 42.1 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1517}.",
 
 	-- Step 74: Big Game Hunter
 	-- {npc:731} King Bangalash
@@ -254,11 +254,11 @@ return {
 	-- Step 76: Level 42.16
 	["Level 42.16"] = "Nível 42.16",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
-	["If you skipped {quest:208}, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:208}, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:208}, mate monstros aqui até o nível 42.16 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1517}.",
 
 	-- Step 77: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south down the road to {area:35}."] = "",
+	["Ride south down the road to {area:35}."] = "Siga para o sul pela estrada até {area:35}.",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "A próxima tarefa de {npc:2498} sobre Zanzil começa em {zone:1441}: pule-a.",
 	-- {npc:737} Kebok
@@ -275,7 +275,7 @@ return {
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cozinha em {object:2169}; {npc:5384} fica em {object:28027}.",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
-	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
+	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "{npc:5694}: para {npc:5464} em {area:42}, no caminho para o pântano",
 
 	-- Step 80: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
@@ -334,7 +334,7 @@ return {
 	-- Step 97: Level 42.46
 	["Level 42.46"] = "Nível 42.46",
 	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
-	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:543}, mate monstros aqui até o nível 42.46 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1517}.",
 	-- {npc:766} Tangled Horror
 	["grind on {npc:766}"] = "mate {npc:766} até subir",
 
@@ -372,7 +372,7 @@ return {
 
 	-- Step 109: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
-	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "",
+	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "{npc:5637} fica no salão da Recuperação Ilimitada, junto ao {object:32356}, e {npc:2786}, na {object:32383}.",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} não tem instrutor de xamã",
 

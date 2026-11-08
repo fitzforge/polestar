@@ -57,12 +57,12 @@ return {
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "A praia de {npc:10323}",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "{npc:10323} acampa na praia a oeste da glaive: mate os murlocs na fogueira; ele vem na terceira onda com seu cão. Quatro restos encalhados estão nas praias a oeste e a sudoeste de {area:450}: pegue-os a caminho do acampamento dele, ao norte.",
 
 	-- Step 11: The shore west of the Grove
 	["The shore west of the Grove"] = "A costa a oeste do Bosque",
 	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
-	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
+	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "A caminho de {area:442}, ao norte, o último {quest:4728} está na costa a oeste do Bosque.",
 
 	-- Step 12: Auberdine
 	["Follow the road north."] = "Siga a estrada para o norte.",
@@ -101,7 +101,7 @@ return {
 
 	-- Step 18: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
-	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} se esconde nas colinas a leste de {area:449}. Ajude-o a voltar à estrada; ele luta no caminho de saída. {npc:3693} assume a escolta em {area:442} na próxima visita lá.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
 	["His walk ends at the road, where Grimclaw waits"] = "A caminhada dele termina na estrada, onde Garratroz espera",
@@ -110,7 +110,7 @@ return {
 
 	-- Step 19: Auberdine
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}: para {npc:3691} em {area:415}, no próximo guia",
 
 	-- Step 20: Auberdine flight master
 	-- {area:442} Auberdine
@@ -126,7 +126,7 @@ return {
 
 	-- Step 25: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Aprenda a rota de voo de lá, se ainda não tiver.",
 
 	-- Step 26: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -143,9 +143,9 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "De volta a {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "De volta a {npc:11802} em {area:2361}; depois {npc:11800}, lá, leva Druidas direto para {area:702}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 31: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "Pegue o portal para subir até {npc:4217} e depois voe de volta para {area:442} para a estrada ao sul até {zone:1440}.",
 }

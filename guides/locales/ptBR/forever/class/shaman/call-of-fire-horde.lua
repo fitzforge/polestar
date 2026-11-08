@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
-	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
+	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "{npc:5907} não fica na Encruzilhada: siga a estrada para o norte a partir da Encruzilhada e pegue o desvio para leste rumo a {zone:1411}; depois de {area:1704}, ele anda ao lado de uma torre alta a leste da estrada (de {zone:1411}: pela ponte do Rio Furiaustral, depois de {area:379}). Se chegar a {zone:1440}, você foi longe demais.",
 
 	-- Step 4
 	-- {npc:5907} Kranal Fiss · {npc:3173} Swart
@@ -74,9 +74,9 @@ return {
 	-- {npc:5893} Minor Manifestation of Fire
 	["The {npc:5893}"] = "{npc:5893}",
 	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
-	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "",
+	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Beba {item:6636} ao lado do {object:63674}, a grande pedra cinza logo abaixo do cume, depois suba até o platô. Dos elementais de fogo ali, só o do meio pode ser atacado: ele é de nível 12, imune a fogo e fica mais forte quanto mais a luta dura, então abra na hora com {spell:8017} e {spell:8042} e deixe os outros em paz. Dele sempre cai {item:6655}.",
 	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words)
-	["{item:6636}, beside the {object:63674}"] = "",
+	["{item:6636}, beside the {object:63674}"] = "{item:6636}, ao lado do {object:63674}",
 
 	-- Step 15: The Brazier of the Dormant Flame
 	-- {object:61934} Brazier of the Dormant Flame
@@ -92,7 +92,7 @@ return {
 
 	-- Step 17: Sessaria Skystride
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {item:6653} Torch of the Dormant Flame · {npc:254082} Aarnor Galestrike · {quest:97243} Call of Fire · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {spell:8050} Flame Shock · {npc:268605} Kuramaa
-	["At 10 {npc:252382}, the shaman trainer beside {npc:251968} in {area:16638}, hands you the {item:6653} ({npc:254082} offers the same quest). Already left the isle? A {quest:97243} sends you back to them: take the skycutter from the cliffs south of {area:17045}, north of {zone:1456}. Learn {spell:8050} from her now: {npc:268605}, later in the chain, only takes fire damage."] = "No nível 10, {npc:252382}, o instrutor de xamã ao lado de {npc:251968}, em {area:16638}, entrega {item:6653} a você ({npc:254082} oferece a mesma missão). Já saiu da ilha? {quest:97243} manda você de volta a eles: pegue a nave celeste nos penhascos ao sul de {area:17045}, ao norte de {zone:1456}. Aprenda {spell:8050} com ela agora: {npc:268605}, mais adiante na cadeia, só sofre dano de fogo.",
+	["At 10 {npc:252382}, the shaman trainer beside {npc:251968} in {area:16638}, hands you the {item:6653} ({npc:254082} offers the same quest). Already left the isle? A {quest:97243} sends you back to them: take the skycutter from the cliffs south of {area:17045}, north of {zone:1456}. Learn {spell:8050} from her now: {npc:268605}, later in the chain, only takes fire damage."] = "No nível 10, {npc:252382}, o instrutor de xamã ao lado de {npc:251968}, em {area:16638}, entrega {item:6653} a você ({npc:254082} oferece a mesma missão). Já saiu da ilha? {quest:97243} manda você de volta a eles: pegue o barco celeste nos penhascos ao sul de {area:17045}, ao norte de {zone:1456}. Aprenda {spell:8050} com ela agora: {npc:268605}, mais adiante na cadeia, só sofre dano de fogo.",
 
 	-- Step 18: Olariaan Swiftburn
 	-- {area:16638} Valanaar · {area:16663} Windfield Orchard · {npc:268592} Olariaan Swiftburn
@@ -109,9 +109,9 @@ return {
 	-- Step 21: Kuramaa
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "",
+	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "{object:660848} é o toco retorcido no topo da colina junto ao Shen'dar Highlands Anchor Pylon, a oeste de {area:16638}, nas colinas ao sul dos lagos dos Rastejantes Cantéolos. Bata nele para chamar {npc:268605} (nível 10). O espírito ignora a maior parte da magia: só o fogo o machuca, então mantenha {spell:8050} nele. Pegue a máscara de madeira dele.",
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words)
-	["{object:660848}: knock on the bark"] = "",
+	["{object:660848}: knock on the bark"] = "{object:660848}: bata na casca",
 
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame

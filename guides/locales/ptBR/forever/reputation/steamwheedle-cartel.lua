@@ -135,7 +135,7 @@ return {
 
 	-- Step 14: Booty Bay: Gezzy Gunkgear
 	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274749} Souvenir Sea Shell · {item:274022} Tough Guy's Eyepatch
-	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "",
+	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, intendente de {faction:21}. Amigável, equipamento de nível 30: {item:274745} 1g 10s (Força, Agilidade), {item:274746} 1g 48s (cura e dano mágico), {item:274747} 1g 3s (Intelecto, Espírito). Honrado: {item:274748}, uma arma de fogo, 3g 11s (poder de ataque, Vigor); {item:274749}, um colar, 1g 66s (regeneração de vida, Vigor). Reverenciado: {item:274022}, 5g.",
 	-- {item:274745} Deckswabber's Mitts
 	["{item:274745}, Friendly"] = "{item:274745}, Amigável",
 	-- {item:274746} Sea Giant's Toe Ring
@@ -145,7 +145,7 @@ return {
 	-- {item:274748} Booty Bay Bruiser's Buckshot
 	["{item:274748}, Honored"] = "{item:274748}, Honrado",
 	-- {item:274749} Souvenir Sea Shell
-	["{item:274749}, Honored"] = "",
+	["{item:274749}, Honored"] = "{item:274749}, Honrado",
 	-- {item:274022} Tough Guy's Eyepatch
 	["{item:274022}, Revered"] = "{item:274022}, Reverenciado",
 
@@ -206,7 +206,4 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "De Reverenciado a Exaltado são mais 21.000 com cada cidade: 840 entregas de {npc:14637} ou 140 passagens por Liberdade ainda que tardia. Nenhum intendente vende algo para Exaltado: isto é só para a barra do título.",
 
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Souvenir Sea Shell, Honored"] = "Souvenir Sea Shell, Honrado",
-	-- ["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, intendente de {faction:21}. Amigável, equipamento de nível 30: {item:274745} 1g 10s (Força, Agilidade), {item:274746} 1g 48s (cura e dano mágico), {item:274747} 1g 3s (Intelecto, Espírito). Honrado: {item:274748}, uma arma de fogo, 3g 11s (poder de ataque, Vigor); Souvenir Sea Shell, um colar, 1g 66s (regeneração de vida, Vigor). Reverenciado: {item:274022}, 5g.",
 }

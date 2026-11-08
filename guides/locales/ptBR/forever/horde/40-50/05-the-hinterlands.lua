@@ -33,7 +33,7 @@ return {
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
-	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "",
+	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{quest:7849}, {quest:7845} e {quest:7850} são missões de grupo: elas mandam você a {area:354}, cujos trolls são elite (46-50). Pegue-as com um grupo de três ou mais; pule se estiver sozinho, a rota faz você recuperar a experiência.\n{npc:14736} fica no alto da estalagem, acima de {npc:14731}: suba, a seta não distingue os andares.",
 
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
@@ -79,7 +79,7 @@ return {
 	["{area:355}: kill these as you meet them"] = "{area:355}: vá matando estes pelo caminho",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
-	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
+	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "A sudoeste do lago, os Adivinhos Ramatorpe ocupam {area:355}, o templo troll ao sul das colinas centrais. Qiaga e {npc:8636} (elite, 50) ficam no topo: pegue os adivinhos nos degraus de baixo.\nA sudoeste, os Uivadores Jubaprata vagam pelas colinas a leste das aldeias Cascasseca.",
 
 	-- Step 18: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 21: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
-	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "",
+	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "O crânio do Guarda-caça Malkhor está numa pilha abaixo das ruínas Ramatorpe, e os ossos numa pilha ao pé de {area:354}. Os Recipientes com Sangue Maculado ficam nos terraços de baixo, e {npc:14757} está preso no topo. Os trolls lá dentro são elite: fique com o seu grupo e nas trilhas.",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
 	["{npc:14757}, at the top of {area:354}"] = "{npc:14757}, no topo de {area:354}",
 	-- {area:355} The Altar of Zul
@@ -113,7 +113,7 @@ return {
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "Nível 49.02",
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "Se você pulou {quest:7816} ou as missões de grupo de {area:354}, mate monstros aqui até o nível 49.02 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:2100}.",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "mate {npc:2505} até subir",
 
@@ -161,7 +161,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "Voe para a {area:1497}",
 	-- ["From {area:1446}'s flight master."] = "Com o mestre de voo de {area:1446}.",
 	-- ["Grind to 48"] = "Evolua até o 48",
-	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "O crânio do Guarda-caça Malkhor está numa pilha abaixo das ruínas Ramatorpe, e os ossos numa pilha ao pé de {area:354}. Os Recipientes com Sangue Maculado ficam nos terraços de baixo, e {npc:14757} está preso no topo. Fique nas trilhas: os trolls lá dentro são elite.",
 	-- ["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps."] = "Na volta para o leste, os Adivinhos Ramatorpe ocupam o {area:355}, o templo troll ao sul das colinas centrais. Qiaga e {npc:8636} (elite, 50) ficam no topo: enfrente os adivinhos dos degraus de baixo.",
 	-- ["Only if you are not level 48 yet."] = "Só se você ainda não estiver no nível 48.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Só com o sinalizador de socorro: o robô fica na nascente do rio a oeste de {area:351}. Escolte-o para leste até a margem além dos {area:307}; a recompensa espera com Olhatorto em {area:35}.",

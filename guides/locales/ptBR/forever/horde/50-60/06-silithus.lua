@@ -93,7 +93,7 @@ return {
 	["Level 58"] = "Nível 58",
 	-- {npc:15181} Commander Mar'alith · {quest:8304} Dearest Natalia · {area:3425} Cenarion Hold · {area:1583} Blackrock Spire · {quest:838} Scholomance
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger
-	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "",
+	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{quest:8304}, de {npc:15181}, em {area:3425}, exige nível 58: complete nos Vingadores, Geolordes e Petrazes do Crepúsculo a oeste do posto. Ou, em grupo, faça a masmorra {area:1583} (Inferior) ou a masmorra {quest:838}.",
 	-- {npc:11880} Twilight Avenger
 	["grind on {npc:11880}"] = "mate {npc:11880} até subir",
 
@@ -123,7 +123,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} fica no andar de cima do prédio dele: suba por dentro, a seta não distingue os andares.",
 	-- {area:2744} Hive'Regal
-	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "",
+	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "A próxima tarefa de Mar'alith, No ventre da loucura, leva você a {area:2744} entre elites. Pule.",
 
 	-- Step 28: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus
@@ -131,7 +131,7 @@ return {
 
 	-- Step 30: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken
-	["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave."] = "",
+	["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave."] = "Atravesse o desfiladeiro e siga para leste pelos penhascos do norte até o {area:541}. {npc:8737} fica junto à caverna.",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "A placa de madeira ao lado de {npc:9997}",
 
@@ -153,7 +153,7 @@ return {
 
 	-- Step 35: Pawn Captures Queen
 	-- {item:11833} Gorishi Queen Lure · {area:540} Slithering Scar · {npc:10041} Gorishi Hive Queen
-	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "",
+	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "Use {item:11833} onde a seta apontar, dentro da colmeia Gorishi de {area:540}, para chamar {npc:10041} (nível 56).",
 
 	-- Step 36: Torwa Pathfinder
 	-- {npc:9684} Lar'korwi
@@ -291,7 +291,7 @@ return {
 	-- Step 81: Level 59.14
 	["Level 59.14"] = "Nível 59.14",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee... · {quest:838} Scholomance · {area:2279} Stratholme
-	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan. Or, with a group, run the {quest:838} dungeon or the {area:2279} dungeon instead."] = "",
+	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan. Or, with a group, run the {quest:838} dungeon or the {area:2279} dungeon instead."] = "Se você pulou {quest:6135}, mate monstros aqui até o nível 59.14 para seguir o plano da rota. Ou, em grupo, faça a masmorra {quest:838} ou a masmorra {area:2279}.",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "mate {npc:10717} até subir",
 
@@ -303,7 +303,7 @@ return {
 
 	-- Step 83: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152}."] = "",
+	["West to the {area:152}."] = "Volte para oeste até a {area:152}.",
 
 	-- Step 84: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
@@ -337,7 +337,6 @@ return {
 	-- ["Ride west to the walled hold in the middle of the desert."] = "Cavalgue para oeste até o forte murado no meio do deserto.",
 	-- ["Take the zeppelin from the tower outside {area:1637} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Pegue o zepelim na torre do lado de fora de {area:1637} até {zone:1420} e entre em {zone:1458}. Lady Sylvana ocupa o {object:36126}.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "Os fragmentos brilhantes de tabuleta ficam em volta do acampamento do Crepúsculo no extremo noroeste; as Tempestades de Poeira e os Estrondores do Deserto de lá também os deixam cair.",
-	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "Atravesse o desfiladeiro e siga para leste pelos penhascos do norte até o {area:541}. {npc:8737} fica junto à caverna; {npc:9117} está lá dentro.",
 	-- ["West to the {area:152}. The next guide starts in the {zone:1458}, a short ride west."] = "Para oeste até o {area:152}. O próximo guia começa em {zone:1458}, a uma curta cavalgada a oeste.",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field."] = "A fazenda de {npc:10778} é a primeira a leste do {area:152}. Carniçais Grasnantes na fazenda levam a outra metade do amuleto dela; {npc:11075} guarda o caldeirão no campo.",
 	-- ["{npc:10926} and the {area:2261}"] = "{npc:10926} e a {area:2261}",

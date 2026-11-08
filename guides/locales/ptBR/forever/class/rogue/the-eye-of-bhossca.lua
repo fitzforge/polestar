@@ -13,7 +13,7 @@ return {
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "O ponto de entrega de C",
 	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "",
+	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "A próxima missão de C vem por carta: quando você estiver no nível 30 e tiver feito a missão do chifre, visite qualquer capital e a carta de C chega na caixa de correio; só então {object:410369}, perto de {area:204}, no sul de Pinhaprata, logo ao sul de {area:236}, a oferece. Os dados da missão listam um mínimo de 25, mas os jogadores recebem a carta, e a missão, no 30.",
 
 	-- Step 2: The Scarlet Monastery
 	-- {area:796} Scarlet Monastery

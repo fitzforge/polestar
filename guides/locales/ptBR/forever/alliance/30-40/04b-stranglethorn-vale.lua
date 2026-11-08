@@ -25,14 +25,14 @@ return {
 
 	-- Step 5: Bookie Herod
 	-- {area:101} Kurzen's Compound · {area:99} Rebel Camp
-	["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "",
+	["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "Os registros de Herodes ficam numa cabana no lado oeste de {area:101}, a leste de {area:99}.",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, upstairs"] = "{object:287}, no andar de cima",
 
 	-- Step 6: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "Encolhedores de Cabeças ficam mais fundo no complexo; as Tropas de Choque ficam à espreita, furtivas, em volta dele e na caverna, e o cofre de Herodes fica na boca da caverna. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.\nCuidado: as Tropas de Choque de Kurzen são de nível 34-35, não elite, e costumam aparecer furtivas; perto da morte, elas usam {spell:7964}.",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}, no subterrâneo",
 	-- {object:288} Bookie Herod's Strongbox
@@ -71,7 +71,7 @@ return {
 	["Level 36"] = "Nível 36",
 	-- {quest:205} Troll Witchery · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Os trolls Rachacrânio de {quest:205} são de nível 39-42. Abaixo do 36? Continue matando os Crocoliscos Arapuca ao longo do rio até o nível 36. Ou, com um grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "mate {npc:1152} até subir",
 

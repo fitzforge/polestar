@@ -133,7 +133,7 @@ return {
 
 	-- Step 27: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
-	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
+	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "De volta ao noroeste até {area:362}: {npc:3139} primeiro, depois {npc:3147} na torre de vigia, depois {npc:3142} e {npc:266940} na saída para leste, rumo à costa.",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}, lá dentro",
 
@@ -141,7 +141,7 @@ return {
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373}: vá matando estes pelo caminho",
 	-- {area:362} Razor Hill
-	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
+	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "Makruras e surfatiscos enchem as praias a nordeste de Sen'jin; os ovos de Açoitacauda ficam em ninhos ao longo da praia.\nAs caixas de ferramentas gnômicas ficam nos destroços ao longo da costa a leste e sudeste de {area:362}. Siga a costa para o sul até Sen'jin.",
 	["Underwater"] = "Debaixo d'água",
 
 	-- Step 29: Bloodtalon Matriarch
@@ -178,7 +178,7 @@ return {
 
 	-- Step 37: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
-	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "",
+	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "Para o oeste pela ponte de {area:814}: {npc:3337} fica em {area:379}, acima dela, no seu caminho até {npc:5907}.",
 
 	-- Step 42: Kranal Fiss
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -186,7 +186,7 @@ return {
 
 	-- Step 43: Telf Joolam
 	-- {area:14} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {area:14} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
+	["Back over the bridge and south along the {area:14} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "De volta pela ponte e ao sul pela margem de {area:14} do rio, até onde uma trilha estreita sobe a montanha: {npc:5900} guarda o santuário no topo. Cuidado com as bordas na subida e desça pela mesma trilha.",
 
 	-- Step 44: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Javatuscos e batedores ocupam as cabanas a oeste da cidade; levanta-poeiras e guardas de batalha ocupam os acampamentos mais a oeste.",
@@ -255,7 +255,7 @@ return {
 
 	-- Step 62: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
 	-- Step 63: Back to Durotar
 	-- {area:14} Durotar
@@ -304,27 +304,27 @@ return {
 
 	-- Step 76: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {area:14} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {area:14} leads to {zone:1454}."] = "",
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {area:14} leads to {zone:1454}."] = "Para oeste de {area:362} pela ponte de {area:814}: {npc:3337} e {npc:5810} ficam juntos em {area:379}, acima dela. De lá, a estrada para o norte por {area:14} leva a {zone:1454}.",
 
 	-- Step 77: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "Lagartos-trovão no caminho para o norte",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam em {area:369}, ao lado da estrada ao norte para {zone:1454}; qualquer um pode deixar cair {item:6486}. {npc:5810} o recebe quando o próximo guia passar por {area:379}.",
 
 	-- Step 79: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor (no name in this language: may be words)
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Siga a estrada para o norte de {area:379} até o portão principal de {zone:1454}, logo a oeste da {area:817}. {npc:3352} fica com os instrutores de caçador no {object:172958}.",
 
 	-- Step 80: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 81: To Orgrimmar
 	-- {area:1637} Orgrimmar
 	["To {area:1637}"] = "Até {area:1637}",
 	-- {area:379} Far Watch Post · {area:1637} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "",
+	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "Siga a estrada para o norte de {area:379} até o portão principal de {area:1637}. O próximo guia começa em {area:1637}: em {quest:829} você pega a missão dos sectários, os instrutores ensinam suas novas habilidades, e o zepelim parte das torres fora do portão para {zone:1420} e {zone:1421}. {area:17} vem depois de Pinhaprata.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam no {area:369}, do outro lado da ponte; qualquer um deles pode derrubar uma {item:6486}.",

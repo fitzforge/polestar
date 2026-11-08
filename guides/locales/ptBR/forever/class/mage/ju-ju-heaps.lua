@@ -15,11 +15,11 @@ return {
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "Un'Thuwa",
 	-- {area:367} Sen'jin Village · {zone:1411} Durotar · {area:362} Razor Hill · {zone:1454} Orgrimmar · {quest:1883} Speak with Un'thuwa · {npc:7311} Uthel'nay · {object:172961} Valley of Spirits (no name in this language: may be words) · {quest:1884} Ju-Ju Heaps · {zone:1458} Undercity · {area:165} Balnir Farmstead
-	["Un'thuwa, the troll mage trainer, stands in {area:367} on the {zone:1411} coast south of {area:362}. Orcs coming from {zone:1454} can take {quest:1883} from {npc:7311} in the {object:172961} first; it is only a pointer and Un'thuwa gives {quest:1884} without it. Taking it shuts out the {zone:1458}'s {area:165}."] = "",
+	["Un'thuwa, the troll mage trainer, stands in {area:367} on the {zone:1411} coast south of {area:362}. Orcs coming from {zone:1454} can take {quest:1883} from {npc:7311} in the {object:172961} first; it is only a pointer and Un'thuwa gives {quest:1884} without it. Taking it shuts out the {zone:1458}'s {area:165}."] = "Un'thuwa, o instrutor de mago troll, fica em {area:367}, na costa de {zone:1411}, ao sul de {area:362}. Orcs vindos de {zone:1454} podem pegar antes {quest:1883} com {npc:7311} no {object:172961}; ela só aponta o caminho e Un'thuwa dá {quest:1884} sem ela. Pegá-la fecha a versão de {area:165} da {zone:1458}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "",
+	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "No nível 10, {npc:2128}, o instrutor de mago de {area:159}, no andar de cima da {area:2119}, manda você a {npc:4568} na {zone:1458}. Pegá-la fecha {quest:1884}; se {quest:1883} (de {zone:1454} ou {zone:1456}) estiver no seu diário de missões, abandone-a antes ou {npc:2128} não poderá dar esta. (Um Troll que pegou esta em {area:159} segue as etapas de Balnir; um Morto-vivo que pegou {quest:1884} em Sen'jin, as etapas de {area:368}.)",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps
@@ -37,7 +37,7 @@ return {
 
 	-- Step 5: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36082} Magic Quarter (no name in this language: may be words)
-	["Walk south from {area:159} to the {area:153} and take the lift down into the {zone:1458}. Anastasia stands in the {object:36082}, the north-east ring of the city."] = "",
+	["Walk south from {area:159} to the {area:153} and take the lift down into the {zone:1458}. Anastasia stands in the {object:36082}, the north-east ring of the city."] = "Ande para o sul de {area:159} até as {area:153} e desça de elevador até a {zone:1458}. Anastácia fica no {object:36082}, o anel nordeste da cidade.",
 
 	-- Step 6: The Balnir Farmstead
 	-- {quest:1882} The Balnir Farmstead · {area:159} Brill · {area:152} Bulwark · {skill:182} Herbalism

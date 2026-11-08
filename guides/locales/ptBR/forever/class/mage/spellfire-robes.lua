@@ -12,15 +12,15 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words) · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} é um dos instrutores de mago de {zone:1454}, em {object:173161}, no {object:172961}. Depois pegue o zepelim para {zone:1420} na torre do lado de fora do portão principal de {zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
-	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128} é o instrutor de mago de {area:159}, no andar de cima da {area:2119}: suba as escadas por dentro, a seta não diferencia os andares.",
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter (no name in this language: may be words) · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568} fica no {object:36082}. O {item:7247} e a {item:7308} ficam na saliência atrás dela (ambos voltam 5 minutos depois de alguém pegá-los). Você entrega os dois no final, então guarde-os.",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "A loja do alquimista",
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter (no name in this language: may be words) · {quest:1962} Spellfire Robes
-	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then take {quest:1962} (Forever's quest data has {npc:11049} offering it; if the \"!\" shows over {npc:4576} instead, take it from him) and hand it to {npc:4576} for the robe."] = "",
+	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then take {quest:1962} (Forever's quest data has {npc:11049} offering it; if the \"!\" shows over {npc:4576} instead, take it from him) and hand it to {npc:4576} for the robe."] = "De volta à {zone:1458}. {npc:4576}, {npc:11048} e {npc:11049} cuidam da alfaiataria no {object:36082}. Entregue as gemas e o tecido a {npc:4576} e deixe os três conversarem um pouco; depois pegue {quest:1962} (os dados de missão do Forever mostram {npc:11049} oferecendo-a; se o \"!\" aparecer sobre {npc:4576}, pegue com ele) e entregue-a a {npc:4576} para receber as vestes.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Algernon's alchemist shop is in the Apothecarium. Use the {item:7308} there to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "A loja de alquimia de Algernon fica no Apothecarium. Use a {item:7308} lá para tornar o {npc:6492} visível, subjugue um com seus feitiços e depois use o {item:7247} para lançar um cofre e capturá-lo.",
@@ -52,5 +52,4 @@ return {
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "Saia de {zone:1458} e siga a estrada para o sul por {zone:1421}. Os magos de {area:279} ocupam {area:233}, a sudeste do {area:228}; todo {npc:1867}, Mago, Protetora, Guardião, Conjurador, Vigia e Teurgo pode deixar cair uma {item:7293}.",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128} é o instrutor de mago de {area:159}.",
 	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568} fica no {object:36082}. O {item:7247} e a {item:7308} ficam atrás dela.",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} é um dos instrutores de mago de {zone:1454}. Depois pegue o zepelim para {zone:1420} na torre do lado de fora do portão principal de {zone:1454}.",
 }

@@ -11,11 +11,11 @@ return {
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter (no name in this language: may be words) · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} fica no {object:36082} da {zone:1458}. Orcs e Trolls usam {spell:3563} ou pegam o zepelim de {zone:1454} até {zone:1420} para chegar a ela.",
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits (no name in this language: may be words) · {item:7269} Deino's Flask
-	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "",
+	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Pegue o zepelim até {zone:1454} (ou use {spell:3567}, que deixa você no andar de cima de {object:173161}). {npc:5885} fica com os instrutores de mago no andar de baixo de {object:173161}, no {object:172961}. Ela entrega {item:7269}.",
 
 	-- Step 3: The Xavian Waterfall
 	-- {object:174797} Xavian Waterfall (no name in this language: may be words)

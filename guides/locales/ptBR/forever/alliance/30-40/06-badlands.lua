@@ -41,9 +41,9 @@ return {
 	["{area:345}: kill these as you meet them"] = "{area:345}: vá matando estes pelo caminho",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deles solta sucata. Urubus voam em círculos pela planície a leste.\nO esqueleto surrado fica na beira do acampamento de troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmond, anda entre os Quebraossos.\nCuidado: os Grandes Arrota-pó são de nível 44-45. Eles usam {spell:5242} e {spell:1160}, e abaixo de 50% de vida chamam aliados a até 15 metros. Sete deles ficam a cerca de 750 metros ao sul de {area:340}.",
 	-- {quest:739} Murdaloc · {area:3} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "O próprio {quest:739} (42) anda entre os Quebraossos: deixe-o para o guia posterior de {area:3} no nível 43, e mate agora os Quebraossos para esta missão.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -54,7 +54,7 @@ return {
 	["Lesser Rock Elementals"] = "Elementais Inferiores da Rocha",
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "",
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Os Elementais Inferiores da Rocha vagam por {area:1878}, a oeste de {npc:2921}; todo elemental da rocha pode soltar os Estilhaços de Elemental da Rocha de {npc:1470}.",
 
 	-- Step 13: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
@@ -70,9 +70,9 @@ return {
 
 	-- Step 15: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
+	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "Siga para o sul pela estrada: {npc:4618} e {npc:2817} acampam em {area:1877}, no caminho para {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Para {npc:4454} em {area:2240}: o guia de {zone:1446} passa por ele no nível 45, guarde-o",
 
 	-- Step 16: Theldurin the Lost
 	-- {area:345} Agmond's End
@@ -115,7 +115,7 @@ return {
 	-- Step 24: Theramore flight master
 	["Theramore flight master"] = "Mestre de voo de Theramore",
 	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Ao descer do barco, suba o cais até Baldruc, o mestre de voo junto ao portão de {area:514}.",
 
 	-- Step 25: Nijel's Point
 	-- {npc:5638} Kreldig Ungor

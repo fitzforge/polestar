@@ -19,7 +19,7 @@ return {
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
-	["The flight from Theramore lands in {area:976}."] = "",
+	["The flight from Theramore lands in {area:976}."] = "O voo de Theramore pousa em {area:976}.",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
@@ -82,7 +82,7 @@ return {
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "Nível 49.51",
 	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Complete aqui até o nível 49.51 antes das entregas em {area:541}: elas levam você ao nível 50. Ou, com um grupo, faça a masmorra {area:2100}.",
 	["Pterrordax"] = "Pterrordax",
 	["grind on Pterrordax"] = "mate Pterrordaxes até subir",
 
@@ -99,7 +99,7 @@ return {
 	["The Gorishi hive"] = "A colmeia Gorishi",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Siga para sudoeste, passando por {npc:9619}: a colmeia dos silitídeos ocupa o sul da cratera. Use o Scraping Vial em um chocadouro, uma câmara com larvas penduradas. Vespas e Trabalhadoras Gorishi soltam {quest:3764}; Pterrordaxes fazem ninho nos penhascos do sul, se você ainda precisar de mortes.\nCuidado: os silitídeos Gorishi são de nível 51-54 e lançam {spell:8137} ou {spell:14120} em combate corpo a corpo; as Trabalhadoras Gorishi têm 50% de chance de chamar ajuda a até 25 metros quando ficam abaixo de 45% de vida.",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "mate {npc:9167} até subir",
 
@@ -157,7 +157,7 @@ return {
 	-- Step 35: Level 50.4
 	["Level 50.4"] = "Nível 50.4",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 50.4 antes das entregas em {area:3137}: elas levam você ao nível 51. Ou, com um grupo, faça a masmorra {area:2100} ou a masmorra {area:1417}.",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "mate {npc:6116} até subir",
 

@@ -19,7 +19,7 @@ return {
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Montaria no 40",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "Equitação exige nível 40 e custa 100 ouros; aprendê-la dá a você uma montaria. {npc:4752} ensina os Orcs em {object:172958}, junto ao canil de {npc:3362}. Celonatos aprendem com {npc:265756} em {area:17684}, em {area:16638}, na Ilha de Zefras, com um Vagavento: o barco celeste para a ilha sai dos penhascos ao sul de {area:17045}, ao norte de {zone:1456}, mais ou menos a cada cinco minutos. As outras montarias da sua raça custam 20 ouros cada: Colecionáveis, Montarias · Nível 40 tem um guia para cada uma.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, instrutor de montaria",
 	-- {npc:3362} Ogunaro Wolfrunner · {npc:4752} Kildar
@@ -29,7 +29,7 @@ return {
 
 	-- Step 8: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "Equitação exige nível 40 e custa 100 ouros; aprendê-la dá a você uma montaria. Cada raça aprende com o instrutor da própria raça: o seu é {npc:7953} em {area:367}, a uma curta cavalgada ao sul de {zone:1454}, pela estrada de {zone:1411}, com os raptores de Zjolnir (20 ouros cada) ao lado dele. Depois, volte a cavalo até o mestre de voo de {zone:1454}.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, instrutor de montaria",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
@@ -43,11 +43,11 @@ return {
 
 	-- Step 11: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "",
+	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "Seu instrutor fica em {zone:1456}: {npc:3033} (Druidas) em {area:1639}, {npc:246344} (Paladinos).",
 
 	-- Step 13: Riding at 40
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "Equitação exige nível 40 e custa 100 ouros; aprendê-la dá a você uma montaria. Cada raça aprende com o instrutor da própria raça: o seu é {npc:3690} em {area:222}, com os kodos de {npc:3685} (20 ouros cada) ao lado dele. Depois, suba a cavalo de volta ao mestre de voo de {zone:1456}.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, instrutor de montaria",
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
@@ -63,7 +63,7 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392} para o Corcel Vil",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
+	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "Voe de {zone:1454} para {area:392}; {npc:6251} fica na colina acima das docas.",
 
 	-- Step 17: Fly to Freewind Post
 	-- {area:392} Ratchet
@@ -104,11 +104,11 @@ return {
 
 	-- Step 27: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
+	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "Siga a cavalo para nordeste de volta ao porto: {npc:7881}, a {npc:15165} e o Chefe de Segurança recebem o que {area:1336} deu a você. {area:976} fica a oeste dele.",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "para {area:35}, por volta do nível 50",
 	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "",
+	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "{npc:8579}: os guinchadores vivem em {area:357}, na próxima visita a {area:357}",
 
 	-- Step 29: Fly to Freewind Post
 	-- {area:976} Gadgetzan
@@ -158,23 +158,23 @@ return {
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}: vá matando estes pelo caminho",
 	-- {area:1105} Feral Scar Vale
-	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "",
+	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Siga para o oeste, saindo da colmeia, até as ruínas dos ogros abaixo de {area:1105}. Xamãs, Bruxos e Espancadores as ocupam; os Lordes-magos na ponta sul carregam o orbe.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} anda por {area:2522}: procure dentro do círculo no mapa",
 
 	-- Step 42: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
-	["{area:1105} yetis"] = "",
+	["{area:1105} yetis"] = "Yetis de {area:1105}",
 	-- {area:1105} Feral Scar Vale
-	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "A noroeste das ruínas, os yetis têm a toca em {area:1105}; todo yeti de lá pode deixar cair um couro grosso.",
 
 	-- Step 43: Homing Robot OOX-22/FE
 	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Só com o transmissor de emergência: qualquer fera, gnoll ou ogro em {area:357} pode deixá-lo cair, cerca de uma morte em cem; use-o para iniciar a missão. O robô fica numa pequena caverna no lado norte de {area:1105}, logo a noroeste das ruínas. Escolte-o até o cais em {area:1108}; yetis e gorilas emboscam vocês no caminho. A recompensa dele espera em {area:35}, para uma visita posterior.\nCuidado: três emboscadas surgem durante a escolta, e o robô avisa antes de cada uma. A primeira é de 3 yetis, logo depois que o robô sai da caverna e sobe rumo à estrada. A segunda é de 3 gorilas, na trilha que corre ao longo do penhasco. A terceira é de cerca de 4 gnolls, um deles lançador de feitiços, onde a rota desvia rumo ao cais.",
 
 	-- Step 44: Camp Mojache
 	-- {area:357} Feralas
-	["the Rage Scar yetis, on the next visit to {area:357}"] = "",
+	["the Rage Scar yetis, on the next visit to {area:357}"] = "os yetis Cortifúria, na próxima visita a {area:357}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010}, em {zone:1454}",
 
@@ -186,7 +186,7 @@ return {
 
 	-- Step 46: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
+	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Voe para {zone:1454}. Os irmãos Droffers têm a loja deles no Drag.\n{object:172958}, depois {object:172960} e {object:172961}.",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "para {zone:1425}, por volta do nível 48",
 
@@ -202,7 +202,6 @@ return {
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "Só com o sinalizador de socorro: o robô fica numa pequena caverna no lado norte de {area:1105}. Escolte-o até o cais na {area:1108}; yetis e gorilas emboscam você no caminho. A recompensa espera em {area:35} para uma visita futura.",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "Volte para o noroeste de {area:1978} até {area:75} e voe para {object:3202}.",
 	-- ["Ride back west to {area:976}."] = "Volte para o oeste até {area:976}.",
-	-- ["Ride south-west to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Siga para o sudoeste até as ruínas dos ogros abaixo de {area:1105}. Xamãs, Bruxos e Espancadores as ocupam; os Lordes-magos na ponta sul carregam o orbe.",
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Siga para o oeste até o meio de {zone:1444}. Mate um {npc:5308}, use {item:10699} no corpo e mate o espírito que surgir.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Montaria exige nível 40 e custa 100 de ouro; aprender dá uma montaria. No Classic cada raça aprende com o instrutor da própria raça: o seu é {npc:3690} em {area:222}, com os kodos de {npc:3685} (20 de ouro cada) ao lado. O Forever talvez deixe qualquer raça aprender com qualquer instrutor de montaria (não confirmado): tente primeiro {npc:4752} em {object:172958} de {zone:1454}, que é o mais próximo, e pule esta etapa se ele ensinar você.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Montaria exige nível 40 e custa 100 de ouro; aprender dá uma montaria. No Classic cada raça aprende com o instrutor da própria raça: o seu é {npc:4773} em {area:159}, com os cavalos esqueléticos de {npc:4731} (20 de ouro cada) ao lado dela. O Forever talvez deixe qualquer raça aprender com qualquer instrutor de montaria (não confirmado): tente primeiro {npc:4752} em {object:172958} de {zone:1454}, que é o mais próximo, e pule esta etapa se ele ensinar você.",

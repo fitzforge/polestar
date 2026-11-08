@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {area:618} do túnel de {area:1769}, por onde você sai.",
 
 	-- Step 4: Everlook
 	-- {area:2255} Everlook
@@ -33,7 +33,7 @@ return {
 	-- Step 7: Level 55.04
 	["Level 55.04"] = "Nível 55.04",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.04 antes das entregas em {area:2255}: elas levam você ao nível 56. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
 	-- {npc:7460} Ice Thistle Patriarch
 	["grind on {npc:7460}"] = "mate {npc:7460} até subir",
 
@@ -79,7 +79,7 @@ return {
 	["Raging Owlbeasts"] = "Ferujas Furiosas",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Ferujas Furiosas vagam pelas colinas ao norte de {area:2251}, junto à estrada entre {area:2246} e {area:2255}.",
 
 	-- Step 15: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
@@ -103,7 +103,7 @@ return {
 
 	-- Step 21: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} e {npc:14728} ficam em {area:1641}. Cada doação de Rumstag leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
 	-- Step 22: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -123,7 +123,7 @@ return {
 
 	-- Step 25: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
 	-- Step 26: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)

@@ -20,11 +20,11 @@ return {
 
 	-- Step 3: An Imp's Request (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "No nível 50, {npc:3326} na {object:172960} manda você a {npc:14470} em {zone:1448} com um pedaço de {item:14256}.",
 
 	-- Step 4: An Imp's Request (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter (no name in this language: may be words) · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "No nível 50, {npc:4563} no {object:36082} manda você a {npc:14470} em {zone:1448} com um pedaço de {item:14256}.",
 
 	-- Step 5: Felcloth
 	-- {item:14256} Felcloth · {zone:1448} Felwood · {quest:8419} An Imp's Request · {npc:14470} Impsy · {quest:8420} Hot and Itchy
@@ -69,8 +69,6 @@ return {
 	["Choose the {item:20536} (staff), the {item:20534} (off-hand) or the {item:20530}."] = "Escolha {item:20536} (cajado), {item:20534} (mão secundária) ou {item:20530}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448}."] = "No nível 50, {npc:3326} na {object:172960} manda você a {npc:14470} em {zone:1448}.",
-	-- ["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448}."] = "No nível 50, {npc:4563} no {object:36082} manda você a {npc:14470} em {zone:1448}.",
 	-- ["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448}."] = "No nível 50, {npc:461} no {object:2164}, no {object:2101}, manda você a {npc:14470} em {zone:1448}.",
 	-- ["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448}."] = "No nível 50, {npc:5172} em {zone:1455} manda você a {npc:14470} em {zone:1448}.",
 	-- ["The Irontree treants in northern {zone:1448} drop the {item:20613}; the Tainted Oozes around {area:1763} the {item:20614}."] = "Os arvorosos Ferrárbol do norte de {zone:1448} deixam cair a {item:20613}; as Gosmas Maculadas em volta de {area:1763}, a {item:20614}.",

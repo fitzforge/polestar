@@ -23,11 +23,11 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay
-	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "",
+	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Gringer, o mestre de voo, espera no convés superior de {area:35}. As pessoas que dão missões ficam nos passadiços ao redor do porto e na estalagem.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: as peles de Crocolisco Arapuca que você juntou antes; lá dentro",
 	-- {npc:737} Kebok
@@ -52,7 +52,7 @@ return {
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "",
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "Opcional, e difícil no nível 41: o pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares. Pegue só se conseguir puxar a tripulação até a amurada um de cada vez, ou com um amigo; a cadeia dele segue por {area:8}, {zone:1445} e {zone:1425}.",
 	-- {area:8} Swamp of Sorrows
 	["for a later stop in the {area:8}"] = "para uma parada posterior em {area:8}",
 
@@ -82,7 +82,7 @@ return {
 	-- Step 20: Zul'Kunda
 	["Zul'Kunda"] = "Ruínas de Zul'Kanda",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman
-	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kunda. Limpe os guardas primeiro, depois puxe-os. Continue com os Sanguescalpo aqui até o nível 41: {quest:586}, no caldeirão, a seguir, manda você aos Rachacrânio de nível 41-43. Ou, em grupo, faça a masmorra {area:1517}.",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "mate os Sanguescalpos daqui até subir: {quest:586}, no caldeirão logo adiante, manda você para os Rachacrânios de nível 41-43",
 
@@ -133,11 +133,11 @@ return {
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "{area:127}: vá matando estes pelo caminho",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
+	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Os próximos crânios-troféu ficam nas ruínas pequenas logo ao norte do acampamento dos guerreiros.\nOs últimos crânios ficam nas ruínas a uma curta caminhada a oeste, no caminho de volta a {object:3202}.",
 
 	-- Step 29: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Head west to {object:3202}."] = "",
+	["Head west to {object:3202}."] = "Siga para oeste até {object:3202}.",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "o {object:2076}",
 
@@ -145,7 +145,7 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
-	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
+	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, no andar de cima: para {quest:2864} em {area:976}",
 
 	-- Step 32: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -165,7 +165,7 @@ return {
 	-- Step 41: Level 42.68
 	["Level 42.68"] = "Nível 42.68",
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
-	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:192} ou {quest:195}, mate monstros aqui até o nível 42.68 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:1517}.",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "mate {npc:667} até subir",
 
@@ -176,17 +176,17 @@ return {
 	-- Step 44: Level 42.74
 	["Level 42.74"] = "Nível 42.74",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
-	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:208}, mate monstros aqui até o nível 42.74 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:1517}.",
 
 	-- Step 48: Into the Swamp of Sorrows
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "Rumo a {area:8}",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Siga a estrada para leste a partir de {area:10}, por {zone:1430}, até o pântano. {npc:1776} espera em {area:657}, o acampamento dos draeneis logo fora da estrada, onde ela chega de {zone:1430}.",
 
 	-- Step 49: Stonard
 	-- {area:75} Stonard
-	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
+	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "Siga para o leste até {area:75}, nos juncos ao sul da estrada. Fixe sua Pedra de Regresso aqui.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, lá dentro",
 	-- {npc:1442} Helgrum the Swift
@@ -216,11 +216,11 @@ return {
 
 	-- Step 54: Galen's Strongbox
 	-- {area:75} Stonard
-	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "",
+	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "O cofre dele espera no antigo acampamento dele, ao norte de {area:75}, no caminho de volta a oeste.",
 
 	-- Step 55: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
-	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "",
+	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Cavalgue para oeste pela estrada até o acampamento dos draeneis em {area:657}, perto da entrada vinda de {zone:1430}. {quest:698} vai para {npc:5592} em {area:1978} na próxima visita ao pântano: guarde os flancos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {area:35}"] = "Barco para {area:35}",
@@ -233,7 +233,6 @@ return {
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Continue cavalgando para o norte até {zone:1431}, depois para o leste pela estrada através de {zone:1430} até o pântano. {npc:1776} espera em {area:657}, o acampamento draenei perto da entrada vinda de {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Costa das nagas e {object:759}",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "Cavalgue de volta para o leste, passando por {area:75}, e siga a estrada para sudeste até o pequeno posto da Horda na costa.",
-	-- ["Ride east to {area:75}, in the reeds south of the road."] = "Cavalgue para o leste até {area:75}, nos juncos ao sul da estrada.",
 	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Cavalgue para o norte até as ruínas Rachacrânio, a leste da mina da Empreendimentos S.A.; puxe os caçadores de cabeças e os berserkers um de cada vez. {npc:1059} guarda as ruínas do sudoeste, e uma pilha de crânios-troféu fica no lado norte das ruínas. Todo Rachacrânio pode deixar cair uma presa ou um colar: os colares são a parte demorada, então continue matando no acampamento dos guerreiros ao norte das ruínas até ter todos.",
 	-- ["Ride north up the road to the hunters' camp."] = "Cavalgue para o norte pela estrada até o acampamento dos caçadores.",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "Cavalgue para o norte pela estrada; os caçadores acampam na colina acima do rio.",

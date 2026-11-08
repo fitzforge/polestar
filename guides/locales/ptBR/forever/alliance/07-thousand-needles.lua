@@ -43,7 +43,7 @@ return {
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}: vá matando estes pelo caminho",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Siga para sudoeste, de {area:42}, até a Gruta de Vul'Gol. {object:119} fica no acampamento da entrada; ogros Punhalasca o guardam.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Só se um {npc:272273} deixou cair {quest:96138}: clique com o botão direito nele",
 	["Below ground"] = "No subterrâneo",
@@ -63,7 +63,7 @@ return {
 
 	-- Step 13: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "O túmulo fica entre os esqueletos, no canto noroeste do cemitério, no caminho para {npc:311}. A missão dele e a seguinte são só de conversa, com {npc:268} e a Comandante Aldora, em {area:42}: nível 35 a partir do nível 28, mas sem luta.",
 
 	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -118,7 +118,6 @@ return {
 	-- ["Ride back west along the road to {area:150}."] = "Volte para o oeste pela estrada até {area:150}.",
 	-- ["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "Cavalgue de novo para o leste até o acampamento dos Presa do Dragão. Os quatro conjuntos de planos de ataque estão em {area:1036}; {npc:2091}, um elite, também fica no acampamento.",
 	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Siga para o leste de novo; a catapulta fica no acampamento Presa do Dragão, ao sul da estrada.",
-	-- ["Ride east to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Siga para o leste até a Gruta de Vul'Gol. {object:119} está no acampamento da entrada; ogros Punhalasca o guardam.",
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Siga para o oeste pela estrada; o barraco do eremita fica a nordeste de {area:492}.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Saqueadores, Curandeiros e Guardadores Descarnados dominam a parte oeste do cemitério, logo a leste do acampamento de {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Pegue o barco no píer de Menethil até {area:513}, em {zone:1445}.",

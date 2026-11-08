@@ -14,7 +14,7 @@ return {
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, para Zé \"Olho de Lama\"",
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor (no name in this language: may be words) · {area:720} Fray Island
-	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
+	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "{npc:3354}, {object:172958}: para {area:720}, mais adiante neste guia (oferecida a partir do nível 30)",
 
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "Voe para a Encruzilhada",
@@ -84,7 +84,7 @@ return {
 	-- Step 19: Level 37.5
 	["Level 37.5"] = "Nível 37.5",
 	-- {zone:1443} Desolace · {area:502} Witch Hill · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Abaixo de 37.5? Continue matando os murlocs Lamapina na costa nordeste, passando por {area:502}, até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Arsenal).",
 	-- {npc:4362} Mirefin Coastrunner
 	["grind on {npc:4362}"] = "mate {npc:4362} até subir",
 
@@ -92,7 +92,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} in the village."] = "Volte para o oeste, até a Aldeia Muralha Verde, com a cabeça: {npc:4503} fica na borda sul da aldeia, onde a estrada chega, e {npc:4791}, na aldeia.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words)
-	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
+	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "Para {npc:2519} em {object:3202}, em forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -104,7 +104,7 @@ return {
 	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
 	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391} espera no andar de cima da casa junto ao mestre de voo; {npc:3446} fica no andar de baixo, rumo às docas.",
 	-- {npc:3391} Gazlowe · {area:35} Booty Bay
-	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
+	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "A próxima tarefa de {npc:3391} leva você a {area:35}, fora desta parte da rota: deixe de lado.",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -131,7 +131,7 @@ return {
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "A oeste do posto, os centauros Maraudinos ocupam {area:607}. Todo Maraudino pode deixar cair {item:254432} e uma orelha para {quest:1366}, de {npc:5395}.",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -146,11 +146,11 @@ return {
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Siga para sudeste até os campos de ossos de {area:2657}, onde Assoladores Mortos-vivos vagam. No extremo sudeste, use {item:15848} para atrair os Espectros Magrami: eles deixam cair o fantasmoplasma.",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard
-	["North to the goblin camp on the west side of the {area:596}."] = "",
+	["North to the goblin camp on the west side of the {area:596}."] = "Ao norte, até o acampamento goblin no lado oeste de {area:596}.",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "Pescassombra",
@@ -158,7 +158,7 @@ return {
 
 	-- Step 35: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Voe de {area:2408} para {area:1638} e treine com {npc:3033} em {area:1639}; de lá, siga voando até {zone:1454}.",
 
 	-- Step 36: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -174,9 +174,9 @@ return {
 
 	-- Step 38: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words)
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} fica em {object:172958}.",
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "",
+	["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}, em {object:172958}, ao lado de {npc:4485}: {quest:2841}, se você fez {area:133}",
 
 	-- Step 39: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar

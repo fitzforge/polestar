@@ -31,7 +31,7 @@ return {
 
 	-- Step 3: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron (no name in this language: may be words) · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
-	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "",
+	["{item:4338} drops from humanoids level 35 to 50: the Shadowforge and {object:147516} dwarves of the {zone:1418} and {zone:1427}, the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}."] = "{item:4338} cai de humanoides de nível 35 a 50: os anões Umbraforja e {object:147516} de {zone:1418} e {zone:1427}, os ogros Dunamalho de {zone:1446}, os nagas Cristafúria de {zone:1444}.",
 
 	-- Step 4: A Donation of Runecloth
 	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7812} Additional Runecloth

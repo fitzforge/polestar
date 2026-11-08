@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Veteran Uzzek (Razor Hill)
 	-- {npc:3169} Tarshaw Jaggedscar · {area:362} Razor Hill · {npc:5810} Uzzek · {zone:1413} Barrens · {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {zone:1420} Tirisfal Glades · {npc:2131} Austil de Mon · {area:159} Brill
-	["At 10, {npc:3169}, the warrior trainer in the barracks of {area:362}, sends you to {npc:5810} in the {zone:1413}. Sorek in {zone:1454}'s {object:172958} offers it too. Any Horde warrior may take one of the two roads, never both: heading to {zone:1420} at 10 anyway? {npc:2131} in {area:159}'s inn offers the other: one fight by {area:159}'s graveyard for the same stance, then the Agamand crypt for an heirloom weapon."] = "",
+	["At 10, {npc:3169}, the warrior trainer in the barracks of {area:362}, sends you to {npc:5810} in the {zone:1413}. Sorek in {zone:1454}'s {object:172958} offers it too. Any Horde warrior may take one of the two roads, never both: heading to {zone:1420} at 10 anyway? {npc:2131} in {area:159}'s inn offers the other: one fight by {area:159}'s graveyard for the same stance, then the Agamand crypt for an heirloom weapon."] = "No nível 10, {npc:3169}, o instrutor de guerreiro no quartel de {area:362}, manda você a {npc:5810} em {zone:1413}. Sorek, no {object:172958} de {zone:1454}, também a oferece. Qualquer guerreiro da Horda pode tomar um dos dois caminhos, nunca os dois: vai para {zone:1420} no nível 10 de qualquer jeito? {npc:2131}, na estalagem de {area:159}, oferece o outro: uma luta junto ao cemitério de {area:159} pela mesma postura, depois a cripta dos Agamand para uma arma de herança.",
 
 	-- Step 5: Veteran Uzzek (Mulgore)
 	-- {npc:3063} Krang Stonehoof · {area:222} Bloodhoof Village · {npc:5810} Uzzek · {zone:1413} Barrens · {npc:3041} Torm Ragetotem · {zone:1456} Thunder Bluff
@@ -40,7 +40,7 @@ return {
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
 	["{npc:5810} at {area:379}"] = "{npc:5810} em {area:379}",
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore
-	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "",
+	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "{npc:5810} é fácil de não ver: ele fica sob um pequeno toldo junto a uma árvore grande logo a oeste de {area:379}, abaixo do lado sul da estrada, com o posto à vista a leste dele. Ir direto para o sul a partir do posto não leva a ele. De {zone:1411}, atravesse a ponte para oeste; de {zone:1412}, siga para o norte passando pela Encruzilhada.",
 
 	-- Step 7: Singed Scales in Thunder Ridge
 	-- {area:369} Thunder Ridge
@@ -58,7 +58,7 @@ return {
 
 	-- Step 9: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "A cabana de {npc:5878} fica no alto de {area:1699}, a leste da Encruzilhada. A maioria das encostas é íngreme demais: suba pela crista larga do lado norte ou leste.",
 
 	-- Step 10: Forged Steel
 	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze

@@ -187,7 +187,7 @@ return {
 
 	-- Step 40: Crispy Lizard Tail (100-130)
 	-- {item:5479} Crispy Lizard Tail · {object:29784} Basic Campfire · {item:5488} Recipe: Crispy Lizard Tail · {npc:3489} Zargh · {item:3735} Recipe: Hot Lion Chops
-	["{item:5479} is orange from 100 (yellow at 140, green at 160, grey at 180): about 30 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. {item:5488} costs 4s at its vendor; the arrow picks the nearest one of your faction. {npc:3489}, the butcher beside this vendor at the Crossroads, sells {item:3735} (18s), the recipe after Expert: buy it now."] = "",
+	["{item:5479} is orange from 100 (yellow at 140, green at 160, grey at 180): about 30 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. {item:5488} costs 4s at its vendor; the arrow picks the nearest one of your faction. {npc:3489}, the butcher beside this vendor at the Crossroads, sells {item:3735} (18s), the recipe after Expert: buy it now."] = "{item:5479} é laranja desde 100 (amarelo em 140, verde em 160, cinza em 180): cerca de 30 criações até 130. Cozinhe em qualquer fogueira: a lareira de uma cidade ou a sua própria {object:29784}. {item:5488} custa 4s no vendedor; a seta escolhe o mais próximo da sua facção. {npc:3489}, o açougueiro ao lado deste vendedor na Encruzilhada, vende {item:3735} (18s), a receita depois de Perito: compre agora.",
 
 	-- Step 41: Expert Cooking
 	-- {skill:185} Cooking

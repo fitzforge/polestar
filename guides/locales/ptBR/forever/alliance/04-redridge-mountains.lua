@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Stormwind
 	-- {area:12} Elwynn Forest
-	["Train, then leave by the main gate and follow the road east through {area:12}."] = "",
+	["Train, then leave by the main gate and follow the road east through {area:12}."] = "Treine, depois saia pelo portão principal e siga a estrada para leste por {area:12}.",
 	["Level 18 and 20 spells"] = "Feitiços de nível 18 e 20",
 
 	-- Step 2: Woo Ping
@@ -36,7 +36,7 @@ return {
 
 	-- Step 7: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "",
+	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "Voe até {area:108} e vá para noroeste até a costa: {object:177790} está no fundo do mar perto da praia. Depois siga para leste pela estrada, por Elwynn.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: o {object:177790}",
 
@@ -59,11 +59,11 @@ return {
 
 	-- Step 12: Three Corners
 	-- {area:1002} Three Corners · {area:10} Duskwood
-	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {area:10} and Elwynn meet: south to {area:10} first."] = "",
+	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {area:10} and Elwynn meet: south to {area:10} first."] = "A estrada para leste por Elwynn cruza para Cristarrubra em {area:1002}, onde se encontram as estradas para Cristarrubra, {area:10} e Elwynn: primeiro ao sul, até {area:10}.",
 
 	-- Step 14: Darkshire
 	-- {area:1002} Three Corners · {area:10} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras · {npc:1448} Neal Allen · {area:150} Menethil Harbor
-	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, no extremo norte da cidade",
 	-- {npc:265} Madame Eva
@@ -102,11 +102,11 @@ return {
 
 	-- Step 17: Raven Hill
 	-- {quest:163} Raven Hill · {object:673515} Memory of Valor (no name in this language: may be words) · {npc:288} Jitters
-	["Continue west to {quest:163}. The {object:673515} glows by the ruined house south of the road; {npc:288} hides in the house at the west end of the village."] = "",
+	["Continue west to {quest:163}. The {object:673515} glows by the ruined house south of the road; {npc:288} hides in the house at the west end of the village."] = "Continue para oeste até {quest:163}. {object:673515} brilha perto da casa em ruínas ao sul da estrada; {npc:288} se esconde na casa do extremo oeste da vila.",
 	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor (no name in this language: may be words)
 	["{item:281046}, from the {object:673515}"] = "{item:281046}, de {object:673515}",
 	-- {npc:272} Chef Grual · {area:42} Darkshire
-	["for {npc:272} in {area:42}"] = "",
+	["for {npc:272} in {area:42}"] = "para {npc:272} em {area:42}",
 
 	-- Step 18: Sven's Camp
 	-- {npc:311} Sven Yorgen · {npc:893} Lars
@@ -117,7 +117,7 @@ return {
 	["{area:1097}: kill these as you meet them"] = "{area:1097}: vá matando estes pelo caminho",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
-	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "",
+	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "Lobos Hediondos Raivosos vagam pelos bosques em volta do cemitério e de {npc:289}, e Lobos Hediondos Famintos pelas colinas a nordeste dele. Veneracnas Pigmeias são as aranhas pequenas, e poucas: a maioria rasteja pela {area:1097}, a oeste de {quest:163}, e menos ao norte, em direção ao acampamento de {npc:311}; elas também soltam o veneno. Todo carniçal da metade norte do cemitério pode soltar uma presa. Lobos e as aranhas maiores dividem a divisa com {zone:1436}, então puxe com cuidado.",
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Veneracnas Pigmeias, Venaracnas e Reclusas Verdes",
@@ -150,18 +150,18 @@ return {
 
 	-- Step 26: Redridge Mountains
 	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "",
+	["Back north along the road from {area:42} to {area:1002}."] = "De volta ao norte pela estrada, de {area:42} até {area:1002}.",
 
 	-- Step 27: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Siga a estrada pela margem sul de {area:68} até o mestre de grifos. {npc:903} fica na estrada ao lado dela.",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
-	["{area:68}'s murlocs: kill these as you meet them"] = "",
+	["{area:68}'s murlocs: kill these as you meet them"] = "Murlocs de {area:68}: vá matando estes pelo caminho",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "",
+	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Carniceiros e Chamarés Murloc ocupam a margem sul de {area:68}, logo a leste dos grifos e da ponte. Qualquer um deles pode carregar uma nadadeira.",
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
@@ -172,7 +172,7 @@ return {
 
 	-- Step 30: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire · {npc:342} Martie Jainrose
-	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "",
+	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "{npc:345} (nível 24) fuça em volta do chiqueiro logo a oeste de {area:69}, ao lado da horta de {npc:342}. Afaste-o dos outros javalis e lute com a vida cheia.",
 
 	-- Step 31: Martie Jainrose
 	-- {npc:342} Martie Jainrose
@@ -193,7 +193,7 @@ return {
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "Acampamentos Rocha Negra",
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
-	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."] = "",
+	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."] = "Ao sudeste do moinho, a oeste dos gnolls de {area:1000}, até os acampamentos da Rocha Negra a leste de {area:2099}. Renegados, Brutos e Vanguardeiros os ocupam; fique a leste da fortaleza, cujos orcs são elite. Suportes de armas e espadas estão espalhados pelos acampamentos; pernis de carne, sacos de grãos e barris de água guardam os suprimentos.",
 	-- {item:280841} Stolen Weapon
 	["{item:280841}: weapon racks and swords on the ground"] = "{item:280841}: cavaletes de armas e espadas no chão",
 	-- {item:280839} Blackrock Supplies
@@ -204,7 +204,7 @@ return {
 
 	-- Step 36: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
-	["North up the valley's east side. Shadowhide gnolls fill it; {npc:703} (26) and his two guards stand at its north end: clear the gnolls around him first and fight at full health. Stay out of {area:2099} to the west until the watch tower: its orcs are elite."] = "",
+	["North up the valley's east side. Shadowhide gnolls fill it; {npc:703} (26) and his two guards stand at its north end: clear the gnolls around him first and fight at full health. Stay out of {area:2099} to the west until the watch tower: its orcs are elite."] = "Ao norte, subindo pelo lado leste do vale. Gnolls Umbrapele o ocupam; {npc:703} (26) e seus dois guardas ficam no extremo norte: limpe antes os gnolls em volta dele e lute com a vida cheia. Fique longe de {area:2099}, a oeste, até a torre de vigia: os orcs de lá são elite.",
 	-- {item:1075} Shadowhide Pendant
 	["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: qualquer gnoll Umbrapele",
 
@@ -214,7 +214,7 @@ return {
 
 	-- Step 38: Looking Further
 	-- {area:2099} Stonewatch Keep
-	["West to the intact watch tower beside {area:2099}: climb it and leave the Glyph in the empty jar at the top."] = "",
+	["West to the intact watch tower beside {area:2099}: climb it and leave the Glyph in the empty jar at the top."] = "A oeste, até a torre de vigia intacta ao lado de {area:2099}: suba nela e deixe o Glifo no pote vazio no alto.",
 
 	-- Step 39: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
@@ -224,7 +224,7 @@ return {
 	-- Step 40: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
-	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
+	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "Da fortaleza, volte para oeste pela margem norte do lago e ao norte pelo {area:95} até {area:997}; as entregas de {area:69} esperam a escolta de Keeshan, que termina lá. Campeões Rocha Negra acampam no vale.",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, no subterrâneo",
 
@@ -238,20 +238,18 @@ return {
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "De volta a {area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
-	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
+	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "Entre em {area:69} pelo norte com Keeshan: {npc:900} e {npc:344} na prefeitura, {npc:382} e {npc:341} no extremo norte da ponte, depois atravesse a ponte até {npc:903} e os grifos.",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, na prefeitura",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, junto aos grifos ao sul da ponte",
 	-- {area:42} Darkshire · {area:10} Duskwood
-	["Next: the gryphon to {area:42} for {area:10}'s second loop (05-duskwood)."] = "",
+	["Next: the gryphon to {area:42} for {area:10}'s second loop (05-duskwood)."] = "Em seguida: o grifo até {area:42} para o segundo circuito de {area:10} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Ronquifuça",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "A leste, passe o moinho e atravesse o rio. Gnolls Umbrapele enchem o vale; {npc:703} (26, bem acima de você) os lidera no extremo norte: elimine a escolta dele primeiro e lute com ele com a vida cheia. Fique longe de {area:2099} ao sul: os orcs de lá são elite.",
-	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "Voe até {area:108} e cavalgue para noroeste até a costa: o {object:177790} está no fundo do mar perto da praia. Depois cavalgue a leste pela estrada, por Elwynn, até Cristarrubra.",
-	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Siga a estrada pela margem sul do {area:68} até a mestre de grifos. {npc:1070} e {npc:903} ficam na estrada ao lado dela.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, na volta a {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolls rumo a {area:1002}",
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Grandes Tarântulas rastejam nas encostas em volta do moinho a nordeste do lago; Renegados Rocha Negra ocupam o próprio moinho.",
@@ -273,7 +271,6 @@ return {
 	-- ["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}"] = "{npc:332}: {npc:7024} em {zone:1436} a recebe, no fim de {zone:1431}",
 	-- ["{npc:341}: after {quest:89}"] = "{npc:341}: depois de {quest:89}",
 	-- ["{npc:344}, in the town hall"] = "{npc:344}, na prefeitura",
-	-- ["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345} (nível 24) fuça em volta do chiqueiro logo a oeste de {area:69}. Afaste-o dos outros javalis e lute com a vida cheia.",
 	-- ["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {npc:11401} em {zone:1457} a recebe, mais tarde",
 	-- ["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}: {npc:11406} em {zone:1455} a recebe, mais tarde",
 	-- ["{npc:376}: {npc:258785} in {zone:1455} takes it, later"] = "{npc:376}: {npc:258785} em {zone:1455} a recebe, mais tarde",

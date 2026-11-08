@@ -15,7 +15,7 @@ return {
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, um dos instrutores de magos de {zone:1454}, em {object:173161}, envia você a {npc:6546}; {npc:4568}, em {zone:1458}, e {npc:3048}, em {zone:1456}, dão a mesma missão.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens
@@ -61,6 +61,5 @@ return {
 	-- ["Tirth's apprentice is \"Plucky\" Johnson, a small grey chicken by the race track. Target him and type /beckon: he turns human for a moment, long enough to talk to him."] = "O aprendiz de Tirth é Johnson \"Depenado\", uma galinha cinzenta junto à pista de corrida. Selecione-o e digite /chamar: ele vira humano por um instante, tempo suficiente para falar com ele.",
 	-- ["Witherbark trolls"] = "Trolls Cascasseca",
 	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, no Santuário do Mago do {object:2101} de {zone:1453}, envia você a {npc:6546}; Bink, em {zone:1455}, dá a mesma missão.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, um dos instrutores de magos de {zone:1454}, envia você a {npc:6546}; {npc:4568}, em {zone:1458}, e {npc:3048}, em {zone:1456}, dão a mesma missão.",
 	-- ["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}."] = "{npc:6546}, uma eremita, mora num chalé no fundo do pântano a oeste de Theramore, logo ao norte das {area:508}.",
 }

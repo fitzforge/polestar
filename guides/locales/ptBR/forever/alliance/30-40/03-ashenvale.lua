@@ -36,7 +36,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}, no último andar",
 	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
-	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
+	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "{npc:4456}: as serpes ficam em {area:400}, mais adiante neste guia",
 
 	-- Step 9: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -56,7 +56,7 @@ return {
 
 	-- Step 12: Highperch
 	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Desça por {area:485} até {area:400}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno.",
 
 	-- Step 15: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -77,7 +77,7 @@ return {
 
 	-- Step 18: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "Da pista de corrida, siga a estrada para o sul, saindo de {area:439}, até {zone:1446}; {area:976} fica a uma curta caminhada por ela. Fique na estrada. {npc:7823}, o mestre de voo da Aliança, fica dentro das muralhas.",
 
 	-- Step 19: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",
@@ -86,7 +86,7 @@ return {
 
 	-- Step 20: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456} fica no norte da cidade, o Capitão Vimes em {area:514}; {npc:4941} fica na cidade.",
 
 	-- Step 21: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor

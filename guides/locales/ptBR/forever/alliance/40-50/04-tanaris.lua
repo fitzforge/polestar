@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Mirage Raceway
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {area:400}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de Martek em {zone:1418}",
 	["He runs off to keep Rizzle busy"] = "Ele sai correndo para distrair o Rebu",

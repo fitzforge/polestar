@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {area:362} Razor Hill
-	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "No nível 20, {npc:5892}, no {object:172957}, manda você a {npc:5901} em {zone:1413}. (Swart, em {area:362}, dá a mesma carta: leve qualquer uma.)",
 
 	-- Step 2: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village
@@ -46,7 +46,7 @@ return {
 
 	-- Step 10: The Quilboar Watering Hole
 	-- {object:107046} Quilboar Watering Hole (no name in this language: may be words)
-	["The {object:107046}"] = "",
+	["The {object:107046}"] = "{object:107046}",
 	-- {npc:5899} Brine · {item:7766} Empty Brown Waterskin · {npc:3456} Razormane Pathfinder
 	["The muddy pond below {npc:5899}'s hut. Step right into the puddle before you use the {item:7766} (too far away and it refuses). Filling it calls a hostile {npc:3456} (level 20): kill it, and watch for the quilboar hunter by the pond, who may start shooting afterwards."] = "A lagoa lamacenta embaixo da cabana de {npc:5899}. Entre direto na poça antes de usar {item:7766} (longe demais e ele recusa). Encher chama um {npc:3456} hostil (nível 20): mate-o, e fique de olho no caçador quilboar perto da lagoa, que pode começar a atirar depois.",
 	-- {item:7766} Empty Brown Waterskin
@@ -56,7 +56,7 @@ return {
 	-- {object:107045} Spring Well (no name in this language: may be words)
 	["The {object:107045}"] = "{object:107045}",
 	-- {object:107045} Spring Well (no name in this language: may be words) · {area:272} Tarren Mill · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {item:7768} Empty Red Waterskin
-	["The {object:107045} stands in the middle of {area:272}, just outside the church. From the {zone:1413}: the zeppelin from {zone:1454} to {zone:1420}, then south past the {zone:1458} and through {zone:1421} (or fly once you have the {area:272} flight path). {area:287} is contested: Alliance players may attack. Stand beside the well and use the {item:7768}."] = "",
+	["The {object:107045} stands in the middle of {area:272}, just outside the church. From the {zone:1413}: the zeppelin from {zone:1454} to {zone:1420}, then south past the {zone:1458} and through {zone:1421} (or fly once you have the {area:272} flight path). {area:287} is contested: Alliance players may attack. Stand beside the well and use the {item:7768}."] = "{object:107045} fica no meio de {area:272}, logo fora da igreja. De {zone:1413}: o zepelim de {zone:1454} até {zone:1420}, depois ao sul passando pela {zone:1458} e atravessando {zone:1421} (ou voe quando tiver a rota de voo de {area:272}). {area:287} é disputada: jogadores da Aliança podem atacar. Fique ao lado do poço e use o {item:7768}.",
 	-- {item:7768} Empty Red Waterskin
 	["{item:7768}, beside the well"] = "{item:7768}, ao lado do poço",
 

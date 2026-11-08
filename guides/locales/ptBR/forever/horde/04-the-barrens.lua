@@ -13,17 +13,17 @@ return {
 
 	-- Step 3: Malaka'jin
 	-- {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
-	["Follow the road west past Regthar's bunkers and Seereth's camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "",
+	["Follow the road west past Regthar's bunkers and Seereth's camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Siga a estrada para oeste, passando pelos bunkers de Regthar e pelo acampamento de Seereth, até Torres de Pedra: {npc:3995} espera no subterrâneo em {area:2539}, ao pé de {area:1076}.",
 	-- {npc:3995} Witch Doctor Jin'Zil
 	["{npc:3995}, below ground"] = "{npc:3995}, no subterrâneo",
 
 	-- Step 4: Sun Rock Retreat
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
-	["Up the {area:1076} past {npc:4201} and west to {area:460}."] = "",
+	["Up the {area:1076} past {npc:4201} and west to {area:460}."] = "Suba {area:1076}, passando por {npc:4201}, e vá para oeste até {area:460}.",
 	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
 	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "{npc:11862}: {npc:12736} em Zoram'gar, no próximo guia",
 	-- {npc:11860} Maggran Earthbinder · {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "",
+	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "{npc:11860}: {npc:12576} fica em {area:1718}, mais adiante neste guia",
 	-- {npc:11860} Maggran Earthbinder
 	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
 	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}: Pedras Solares Lampejantes das harpias Furissangue",
@@ -71,7 +71,7 @@ return {
 
 	-- Step 12: Camp Taurajo
 	-- {area:2539} Malaka'jin · {area:378} Camp Taurajo
-	["From {area:2539} follow the road east to Seereth's camp, then south-east across the plains to {area:378}."] = "",
+	["From {area:2539} follow the road east to Seereth's camp, then south-east across the plains to {area:378}."] = "De {area:2539}, siga a estrada para leste até o acampamento de Seereth, depois para sudeste pelas planícies até {area:378}.",
 	-- {npc:3433} Tatternack Steelforge
 	["{npc:3433}, at the north edge of the camp"] = "{npc:3433}, na borda norte do acampamento",
 	-- {npc:3430} Mangletooth
@@ -87,7 +87,7 @@ return {
 
 	-- Step 15: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
-	["{npc:3341} waits in a small camp further south, on the road toward {area:359}; {npc:14242} sits up in the tree just east of him."] = "",
+	["{npc:3341} waits in a small camp further south, on the road toward {area:359}; {npc:14242} sits up in the tree just east of him."] = "{npc:3341} espera num pequeno acampamento mais ao sul, na estrada para {area:359}; {npc:14242} fica no alto da árvore, logo a leste dele.",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
 	["{npc:3341} walks around {area:1701}: look inside the circle on the map"] = "{npc:3341} anda por {area:1701}: procure dentro do círculo no mapa",
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
@@ -102,7 +102,7 @@ return {
 	-- Step 17: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
-	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "",
+	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "A oeste de Gann, os Crinavalha ocupam {area:1701}. {npc:3436} fica no lado leste, {npc:3434} ao sul, {npc:3435} na ponta oeste. Lok (25) e os Belicosos (24-25) estão alguns níveis acima de você; {npc:5859}, um elite raro, às vezes anda pela serra: deixe-o em paz. Desbravadores e Espreitadores deixam cair o Punhal, Videntes a Varinha, Belicosos o Escudo de Guerra. {quest:885}, uma serpente alada vermelha rara, sobrevoa a serra: a pena dela inicia uma missão.\nCuidado: os Espreitadores Crinavalha se movem furtivos e atacam com {spell:1752}, então podem entrar na briga sem aviso.",
 
 	-- Step 18: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
@@ -128,7 +128,7 @@ return {
 	-- {area:1718} Great Lift
 	["The {area:1718}"] = "{area:1718}",
 	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
-	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "",
+	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} fica no alto de {area:1718}, ao lado de {npc:12576}.",
 	-- {npc:10079} Brave Moonhorn
 	["{npc:10079}, at the top of the lift"] = "{npc:10079}, no alto do elevador",
 
@@ -147,7 +147,7 @@ return {
 
 	-- Step 32: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
-	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
+	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874} acampa na praia logo ao norte do mestre de voo de {area:392}.",
 
 	-- Step 33: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
@@ -204,7 +204,6 @@ return {
 	-- ["Twitching Antennae"] = "Antenas Agitadas",
 	-- ["Twitching Antennae from the silithid"] = "Antenas Agitadas dos silitídeos",
 	-- ["Venture Co. tower"] = "Torre da Empreendimentos S.A.",
-	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest."] = "A oeste de {npc:3341}, os Crinavalha ocupam {area:1701}. {npc:3436} fica no lado leste, {npc:3434} ao sul, {npc:3435} na ponta oeste. Lok (25) e os Belicosos (24-25) estão alguns níveis acima de você; {npc:5859}, um elite raro, às vezes anda pela serra: deixe-o em paz. Desbravadores e Espreitadores deixam cair o Punhal, Videntes a Varinha, Belicosos o Escudo de Guerra. Lagartos {npc:3238} e Espreitadores Presavaia vagam pela planície entre Gann e a serra. {quest:885}, uma serpente alada vermelha rara, sobrevoa a serra: a pena dela inicia uma missão.",
 	-- ["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Já que está na escavação: {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo do fosso.",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}."] = "Manivela pilota o retalhador para fora do acampamento: fique com ele e mate o que o atacar. {npc:3442} o recebe em {area:392}.",
 	-- ["grind on Thunderhawk Hatchlings south-west of the {area:380}"] = "mate Filhotes de Falcotrom a sudoeste de {area:380}",

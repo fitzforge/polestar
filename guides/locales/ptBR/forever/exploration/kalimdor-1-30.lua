@@ -108,7 +108,7 @@ return {
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "Atravesse as pontes do {area:814} para oeste, saindo de {zone:1411} até os {zone:1413}. {area:385}, no leste, é um forte da Aliança.",
 	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "Rotas de voo aqui: {area:392} (Bragok), Encruzilhada (Devrak), {area:378} ({npc:10378}).",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -163,7 +163,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Flight path here: {zone:1456} (Tal)."] = "Rota de voo aqui: {zone:1456} (Tal).",
-	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "Rotas de voo aqui: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378}).",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "No sul dos {zone:1413}, pegue o {area:485} para descer até {zone:1441}. {area:484} é uma cidade da Horda.",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "Volte para os {zone:1413} e siga para oeste por {area:1702} até {zone:1442}. {area:460} é a cidade da Horda; {area:467}, no norte, é da Aliança.",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "Volte para oeste atravessando os {zone:1413}; a estrada para oeste a partir de {area:378} sobe até {zone:1412}, território tauren com guardas em {area:222} e {zone:1456}.",

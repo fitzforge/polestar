@@ -65,7 +65,7 @@ return {
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "Missões de {zone:1451} em {area:3425}",
 	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Agora entregue as missões únicas: cerca de 1.700 de reputação sozinho, 2.400 com as missões em grupo. Elas são de nível 55 a 60, então pagam por inteiro no 60. {quest:8280} exige {quest:8275} antes. {npc:15196} é um escorpídeo elite com dois guardas (grupo de 2 ou 3). {quest:8307} de {npc:15174} é para Cozinheiros: a receita faz o {item:20452} que ele quer. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "{npc:15191}, depois de {quest:8275}",
 	-- {npc:15196} Deathclasp
@@ -83,7 +83,7 @@ return {
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "De volta ao Forte",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não distingue os andares.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "De volta a {area:3425} com notícias",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} fica no andar de cima do prédio dele: suba por dentro, a seta não distingue os andares.",
 	["Natalia, elite: group up"] = "Natalia, elite: forme um grupo",
 
 	-- Step 20: Rubbings and brains

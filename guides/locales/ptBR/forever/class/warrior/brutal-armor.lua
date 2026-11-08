@@ -34,7 +34,7 @@ return {
 
 	-- Step 6: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "A cabana de {npc:5878} fica no alto de {area:1699}, a leste da Encruzilhada: suba pela crista larga do lado norte ou leste. {quest:1838} é uma missão de nível 30; pegue-a agora e vá coletando pelo caminho. {item:7587} indicam de onde vem cada material.",
 
 	-- Step 7: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul
@@ -97,7 +97,7 @@ return {
 	-- Step 18: Velora Nitely
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {npc:6411} Velora Nitely · {zone:1458} Undercity · {object:36078} Trade Quarter (no name in this language: may be words)
 	-- plural, as words: Sturdy Dragonmaw Shinbones = {item:7134} Sturdy Dragonmaw Shinbone
-	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "",
+	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Pegue o zepelim de {zone:1454} até {zone:1420}; {npc:6411} trabalha no {object:36078} da {zone:1458}. Ela quer 8 Tíbias Firmes de Presa do Dragão.",
 
 	-- Step 19: Dragonmaw Shinbones
 	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt

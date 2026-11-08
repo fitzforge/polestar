@@ -20,7 +20,7 @@ return {
 	-- Step 2: The summons (Dwarf)
 	["The summons (Dwarf)"] = "O chamado (Anão)",
 	-- {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {npc:1232} Azar Stronghammer · {area:131} Kharanos · {npc:928} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 12 {npc:5149}, the paladin trainer in {zone:1455}'s {object:32362}, sends you upstairs to {npc:6179}. The errand is optional, a little XP: {npc:1232} in {area:131} and {npc:928} in {zone:1453} give the same one (taking one closes the others), and {npc:6179} starts the chain without it."] = "",
+	["At 12 {npc:5149}, the paladin trainer in {zone:1455}'s {object:32362}, sends you upstairs to {npc:6179}. The errand is optional, a little XP: {npc:1232} in {area:131} and {npc:928} in {zone:1453} give the same one (taking one closes the others), and {npc:6179} starts the chain without it."] = "No nível 12, {npc:5149}, o instrutor de paladino na {object:32362} de {zone:1455}, manda você ao andar de cima, a {npc:6179}. O recado é opcional, um pouco de XP: {npc:1232}, em {area:131}, e {npc:928}, em {zone:1453}, dão o mesmo (pegar um fecha os outros), e {npc:6179} começa a cadeia sem ele.",
 
 	-- Step 3: Duthorian Rall
 	-- {npc:6171} Duthorian Rall
@@ -67,11 +67,11 @@ return {
 
 	-- Step 11: Tiza Battleforge
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words)
-	["{npc:6179}, upstairs in the {object:32386}"] = "",
+	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}, no andar de cima do {object:32386}",
 
 	-- Step 14: The Tome of Divinity
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} fica no andar de cima do {object:32386}, na {object:32362}: pegue a rampa nos fundos do salão. Ela entrega o {item:6916}: clique nele com o botão direito nas bolsas para começar a próxima missão. Se o livro disser que a missão já foi feita, destrua-o e peça um novo exemplar a {npc:6179}. Leve 10 {item:2589} para a próxima etapa, se tiver.",
 	-- {item:6916} Tome of Divinity
 	["Right-click the {item:6916}"] = "Clique com o botão direito no {item:6916}",
 
@@ -82,11 +82,11 @@ return {
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
-	["Back upstairs in the {object:32386}. {npc:6179} gives you the {item:6866}; her husband {npc:6178} rests on the same floor. Keep the symbol: you need it on {npc:6177}. If you lose it, {npc:6179} gives you another (The {item:6866})."] = "",
+	["Back upstairs in the {object:32386}. {npc:6179} gives you the {item:6866}; her husband {npc:6178} rests on the same floor. Keep the symbol: you need it on {npc:6177}. If you lose it, {npc:6179} gives you another (The {item:6866})."] = "De volta ao andar de cima do {object:32386}. {npc:6179} entrega o {item:6866}; o marido dela, {npc:6178}, descansa no mesmo andar. Guarde o símbolo: você precisa dele com {npc:6177}. Se o perder, {npc:6179} dá outro (O {item:6866}).",
 
 	-- Step 17: Narm Faulk
 	-- {npc:6177} Narm Faulk · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:131} Kharanos · {area:212} Helm's Bed Lake · {object:147516} Dark Iron (no name in this language: may be words) · {item:6866} Symbol of Life
-	["{npc:6177} lies dead in {zone:1426}, not {zone:1432}: east past {area:131}, north-east of Ironband's compound, on the smallest of three little hills between {area:212} and the {object:147516} camp. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes."] = "",
+	["{npc:6177} lies dead in {zone:1426}, not {zone:1432}: east past {area:131}, north-east of Ironband's compound, on the smallest of three little hills between {area:212} and the {object:147516} camp. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes."] = "{npc:6177} jaz morto em {zone:1426}, não em {zone:1432}: a leste de {area:131}, a nordeste do complexo de Bandaferro, na menor de três colinas pequenas entre {area:212} e o acampamento {object:147516}. Selecione o corpo dele e use o {item:6866} para ressuscitá-lo, depois fale com ele. Se outro paladino acabou de ressuscitá-lo, o corpo volta em cerca de três minutos.",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
 	["{item:6866} on {npc:6177}'s body"] = "{item:6866} no corpo de {npc:6177}",
 
@@ -100,5 +100,5 @@ return {
 
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
-	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "",
+	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "De volta ao {object:32386}: {npc:6178} pega o texto, {npc:6179} ensina {spell:7328} a você.",
 }

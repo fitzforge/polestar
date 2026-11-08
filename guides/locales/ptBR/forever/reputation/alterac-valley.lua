@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Lieutenant Rotimer
 	-- {zone:1459} Alterac Valley · {zone:1455} Ironforge · {npc:13843} Lieutenant Rotimer · {object:32372} Great Forge (no name in this language: may be words)
-	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1455} reputation. {npc:13843} recruits outside the {object:32372}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
+	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1455} reputation. {npc:13843} recruits outside the {object:32372}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:1459} é uma batalha de 40 contra 40 para nível 51 ou superior, e a mais rápida das quatro reputações de campo de batalha: tem cerca de 2.000 de reputação em missões únicas, e uma vitória completa paga várias centenas. As mesmas missões únicas também pagam 1.870 de reputação de {zone:1455}. {npc:13843} recruta do lado de fora de {object:32372}. A vantagem do Legado Diplomata do Forever soma até 10% a todo número deste guia.",
 
 	-- Step 2: Lieutenant Haggerdin
 	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {area:287} Hillsbrad
@@ -95,7 +95,7 @@ return {
 
 	-- Step 13: Frostwolf Ambassador Rokhstrom
 	-- {zone:1459} Alterac Valley · {zone:1454} Orgrimmar · {npc:13842} Frostwolf Ambassador Rokhstrom · {object:172982} Valley of Strength (no name in this language: may be words)
-	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1454} reputation. {npc:13842} stands in the {object:172982}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
+	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1454} reputation. {npc:13842} stands in the {object:172982}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:1459} é uma batalha de 40 contra 40 para nível 51 ou superior, e a mais rápida das quatro reputações de campo de batalha: tem cerca de 2.000 de reputação em missões únicas, e uma vitória completa paga várias centenas. As mesmas missões únicas também pagam 1.870 de reputação de {zone:1454}. {npc:13842} fica em {object:172982}. A vantagem do Legado Diplomata do Forever soma até 10% a todo número deste guia.",
 
 	-- Step 14: Warmaster Laggrond
 	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains

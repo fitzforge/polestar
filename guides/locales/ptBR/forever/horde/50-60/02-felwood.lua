@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Sorrow Hill
 	-- {npc:10840} Argent Officer Pureheart · {area:197} Sorrow Hill · {area:272} Tarren Mill
-	["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "",
+	["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "{npc:10840} fica na ponta sul do cemitério de {area:197}, onde chega a estrada vinda de {area:272}.",
 	-- {npc:10840} Argent Officer Pureheart
 	["{npc:10840}, at the graveyard's south end"] = "{npc:10840}, no extremo sul do cemitério",
 
@@ -58,7 +58,7 @@ return {
 	["Level 52.63"] = "Nível 52.63",
 	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
-	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52.63 antes das entregas em {area:200}: elas levam você ao nível 53. Os Magos e Cavaleiros Escarlates daqui contam para {quest:6004}, de {npc:11610}. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:1826} Scarlet Mage
 	["grind on {npc:1826}"] = "mate {npc:1826} até subir",
 
@@ -80,7 +80,7 @@ return {
 	-- Step 15: Level 53.02
 	["Level 53.02"] = "Nível 53.02",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.02 before the hand-ins at {area:202}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.02 before the hand-ins at {area:202}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Complete aqui até o nível 53.02 antes das entregas em {area:202}: elas levam você ao nível 54. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- {npc:1817} Diseased Wolf
 	["grind on {npc:1817}"] = "mate {npc:1817} até subir",
 
@@ -96,7 +96,7 @@ return {
 	-- Step 18: Level 53.2
 	["Level 53.2"] = "Nível 53.2",
 	-- {area:152} The Bulwark · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.2 before the hand-ins at {area:152}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.2 before the hand-ins at {area:152}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Complete aqui até o nível 53.2 antes das entregas em {area:152}: elas levam você ao nível 54. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- {npc:1816} Diseased Grizzly
 	["grind on {npc:1816}"] = "mate {npc:1816} até subir",
 
@@ -116,12 +116,12 @@ return {
 	-- Step 22: Level 53.34
 	["Level 53.34"] = "Nível 53.34",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Complete aqui até o nível 53.34 antes das entregas em {area:1763}: elas levam você ao nível 54. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 
 	-- Step 24: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152} em {area:85}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 25: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -148,7 +148,7 @@ return {
 
 	-- Step 32: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "A vila dos furbolgs de Lenha Morta fica logo ao sul do Santuário. Toda morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar. Continue matando-os até o nível 53.92: as próximas entregas do Santuário e {area:1763} exigem isso. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 
@@ -175,7 +175,7 @@ return {
 	-- Step 37: Level 54.1
 	["Level 54.1"] = "Nível 54.1",
 	-- {area:361} Felwood · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.1 before the hand-ins at {area:361}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.1 before the hand-ins at {area:361}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.1 antes das entregas em {area:361}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 
@@ -232,7 +232,7 @@ return {
 	-- Step 48: Level 54.45
 	["Level 54.45"] = "Nível 54.45",
 	-- {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.45 before the hand-ins at {area:1769}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.45 before the hand-ins at {area:1769}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.45 antes das entregas em {area:1769}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "mate {npc:7156} até subir",
 
@@ -243,7 +243,7 @@ return {
 	-- Step 50: Level 54.54
 	["Level 54.54"] = "Nível 54.54",
 	-- {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.54 before the hand-ins at {area:2479}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.54 before the hand-ins at {area:2479}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.54 antes das entregas em {area:2479}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 
 	-- Step 51: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem
@@ -266,7 +266,7 @@ return {
 	-- Step 55: Level 54.7
 	["Level 54.7"] = "Nível 54.7",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.7 antes das entregas em {area:1997}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 
 	-- Step 56: The Jadefire moonwell
 	["The Jadefire moonwell"] = "O poço lunar Flamejade",
@@ -286,7 +286,7 @@ return {
 	-- Step 61: Level 54.87
 	["Level 54.87"] = "Nível 54.87",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.87 antes das entregas em {area:2255}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- {npc:7125} Jaedenar Hound
 	["grind on {npc:7125}"] = "mate {npc:7125} até subir",
 

@@ -35,7 +35,7 @@ return {
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fonte das {area:418}",
 	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "",
+	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "A fonte fica no meio das {area:418}, onde {npc:12678} anda: use o {item:7767} lá.",
 
 	-- Step 7: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -75,13 +75,13 @@ return {
 
 	-- Step 17: Tideress
 	-- {area:421} Mystral Lake · {npc:12759} Tideress · {item:16408} Befouled Water Globe · {quest:25} Stonetalon Standstill · {npc:12737} Mastok Wrilehiss
-	["Back south-west to {area:421}. {npc:12759}, a corrupted water elemental, drifts around the lake's island and under the water. She drops the {item:16408} only once you have {quest:25} from {npc:12737}; it starts a quest for Splintertree."] = "",
+	["Back south-west to {area:421}. {npc:12759}, a corrupted water elemental, drifts around the lake's island and under the water. She drops the {item:16408} only once you have {quest:25} from {npc:12737}; it starts a quest for Splintertree."] = "De volta a sudoeste até o {area:421}. {npc:12759}, uma elemental da água corrompida, flutua em volta da ilha do lago e debaixo d'água. Ela só deixa cair o {item:16408} depois que você pegar {quest:25} com {npc:12737}; o item inicia uma missão para o Posto Machadada.",
 
 	-- Step 18: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
-	["Underwater"] = "",
-	["Gazebo"] = "",
+	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Elementais da Água Contaminados flutuam pelas margens do lago; o gazebo fica na ilha, com vista para o posto avançado da Aliança.",
+	["Underwater"] = "Debaixo d'água",
+	["Gazebo"] = "Gazebo",
 
 	-- Step 24: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -91,7 +91,7 @@ return {
 
 	-- Step 25: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:246344} Alodan the Hopeful
-	["Paladins know {area:1638}'s flight path from {npc:246344}'s training."] = "",
+	["Paladins know {area:1638}'s flight path from {npc:246344}'s training."] = "Paladinos já conhecem a rota de voo de {area:1638} pelo treino de {npc:246344}.",
 
 	-- Step 26: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -99,13 +99,13 @@ return {
 
 	-- Step 27: Skywatcher Plateau
 	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
-	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Walk north past {zone:1456}; the arrow then leads round to the plateau's north end and up onto it."] = "",
-	["North of Thunder Bluff"] = "",
+	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Walk north past {zone:1456}; the arrow then leads round to the plateau's north end and up onto it."] = "O acampamento da Harmonia Telúrica e suas três missões ficam no alto de {area:17045}, ao norte de {zone:1456}. Siga para o norte, passando por {zone:1456}; depois a seta contorna até a ponta norte do planalto e sobe.",
+	["North of Thunder Bluff"] = "Ao norte de Penhasco do Trovão",
 
 	-- Step 29: The Earthen Ring
 	["The Earthen Ring"] = "A Harmonia Telúrica",
 	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "",
+	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "O acampamento da Harmonia Telúrica fica ao norte dos penhascos: {npc:264074}, {npc:264072} e {npc:259118}. Saindo de {zone:1456}, desça por um elevador; vindo a pé de {area:378}, siga ao norte, passando pelos penhascos.",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96261} comes once this is handed in"] = "{npc:259118}: {quest:96261} vem depois que esta for entregue",
 
@@ -127,7 +127,7 @@ return {
 
 	-- Step 33: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}. {npc:264082} is elite: grouping up is advised."] = "",
+	["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}. {npc:264082} is elite: grouping up is advised."] = "{npc:264082} fica na ponta norte de {area:17044}; o {item:273658} dela inicia {quest:96294}. {npc:264082} é elite: é recomendado formar grupo.",
 
 	-- Step 34: Gloomrise
 	-- {item:273658} Bloody Parchment · {npc:264082} Broodmother Valraxx
@@ -158,13 +158,13 @@ return {
 
 	-- Step 41: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "",
+	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "A cabana de {npc:5899} fica na crista acima do bebedouro dos javatuscos, ao sul de {area:378}, na estrada para {area:485}.",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "para {npc:5901}, ao sul de {area:392}: próximo guia",
 
 	-- Step 42: Tear of the Moons
 	-- {area:485} Great Lift · {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox · {npc:3414} General Twinbraid
-	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "",
+	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "Na estrada para o sul até {area:485}, vire para leste na escavação de {area:359}. {npc:3421} se esconde na borda sul dela. {object:3646} fica no andar de baixo da fortaleza dos anões, ao lado de {npc:3414} (30) e seus Oficiais (26): puxe-os até você um de cada vez.",
 	-- {object:3646} General Twinbraid's Strongbox
 	["{object:3646}; below ground"] = "{object:3646}; no subterrâneo",
 
@@ -176,7 +176,7 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "O cartaz de procura-se ao lado do {npc:10537} do Rochedo",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "",
+	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}, a mercadora de suprimentos de profissão: as harpias Guinchadoras do {area:487}; dentro da estalagem",
 	-- {npc:4877} Jandia
 	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}: os suprimentos roubados dela estão no mesmo covil de harpias",
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
@@ -210,11 +210,11 @@ return {
 	-- Step 52: Level 28.9
 	["Level 28.9"] = "Nível 28.9",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps · {area:1717} Razorfen Kraul
-	["Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "",
+	["Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "Abaixo de 28.9? Os Temível Totem destes acampamentos (27-29) são do nível certo: mate mais alguns antes de subir até {npc:10646}. Se já passou disso, esta etapa se pula sozinha. Ou, em grupo, faça a masmorra {area:2797} ou a masmorra {area:1717}.",
 	-- {area:2097} Darkcloud Pinnacle
-	["Grimtotem camps below {area:2097}"] = "",
+	["Grimtotem camps below {area:2097}"] = "Acampamentos Temível Totem abaixo de {area:2097}",
 	-- {area:2097} Darkcloud Pinnacle
-	["grind on the Grimtotem below {area:2097}"] = "",
+	["grind on the Grimtotem below {area:2097}"] = "mate os Temível Totem abaixo de {area:2097}",
 
 	-- Step 53: Lakota Windsong
 	-- {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
@@ -239,7 +239,7 @@ return {
 	-- Step 61: Level 29.49
 	["Level 29.49"] = "Nível 29.49",
 	-- {quest:5151} Hypercapacitor Gizmo · {area:487} Roguefeather Den · {area:2797} Blackfathom Deeps · {area:796} Scarlet Monastery
-	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
+	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "Se você pulou {quest:5151} e ainda não chegou a 29.49, mate harpias aqui primeiro: {area:487} é a sua próxima parada de qualquer jeito. Se já passou disso, esta etapa se pula sozinha. Ou, em grupo, faça a masmorra {area:2797} ou a masmorra {area:796} (Cemitério).",
 	-- {npc:4101} Screeching Roguefeather
 	["grind on {npc:4101}"] = "mate {npc:4101} até subir",
 
@@ -247,13 +247,13 @@ return {
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "{area:483}: vá matando estes pelo caminho",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies
-	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "",
+	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "Ao sul do Pináculo da Nuvem Negra, as harpias de {area:487}. {npc:4490} (31) anda entre elas: reduza as harpias em volta dela antes de puxá-la. As Harpias Guinchadoras, Plumerrantes e Arautos do Vento de lá são de {npc:4877}; as {quest:98069} dela ficam no chão ao longo do pé do penhasco e na caverna no alto.",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "{quest:98069}, no chão em volta do covil",
 
 	-- Step 63: Freewind Post
 	-- {area:484} Freewind Post · {area:487} Roguefeather Den · {npc:2986} Dorn Plainstalker
-	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "",
+	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "De volta a leste, até {area:484}: fica no caminho de {area:487} até a mesa de {npc:2986}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}, lá dentro",
 	-- {npc:4877} Jandia
@@ -267,16 +267,15 @@ return {
 
 	-- Step 65: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch · {area:2237} Whitereach Post
-	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "",
+	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}, um elemental de rocha que bate forte, anda pelos penhascos do {area:482}, de volta a oeste, passando por {area:2237}. {npc:4499} é elite: é recomendado formar grupo.",
 
 	-- Step 66: Freewind Post
 	-- {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats
-	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "",
+	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "De volta a {area:484}. As missões de {area:2240} vêm na próxima visita a {area:439}, no nível 33.",
 	-- {zone:1454} Orgrimmar
 	["The next guide flies on from here to the Crossroads and {zone:1454}."] = "O próximo guia voa daqui para a Encruzilhada e para {zone:1454}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "De volta a sudoeste até o {area:421}. Elementais da Água Contaminados flutuam pelas margens; o gazebo fica na ilha, com vista para o posto avançado da Aliança.",
 	-- ["Back west to Zoram'gar before heading east for good."] = "De volta a oeste até Zoram'gar antes de seguir para o leste de vez.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "A leste de Zoram'gar, os furbolgs Pelocardo enchem a aldeia e as colinas em volta da toca deles.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Voe de {area:392} até o {area:2897}, na costa de {zone:1440}.",
@@ -286,7 +285,6 @@ return {
 	-- ["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, ride west into {zone:1412} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe até {area:1638} se conhecer a rota de voo. Se não, voe até o {area:378}, cavalgue para oeste por {zone:1412} passando a {area:222} até {area:1638} e pegue a rota de voo com {npc:2995} na elevação central.",
 	-- ["Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Siga o cânion para leste saindo das mesetas até as planícies salgadas. Os goblins e gnomos do {area:2240} são neutros e dão missões às duas facções.",
 	-- ["Follow the canyon west to {area:2237}."] = "Siga o cânion para oeste até o {area:2237}.",
-	-- ["Gazebo"] = "Gazebo",
 	-- ["Grimtotem camps"] = "Acampamentos Temível Totem",
 	-- ["His crate is for Stranglethorn, later on the route"] = "O caixote dele é para o Espinhaço, mais adiante na rota",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "Dentro da toca, Baús dos Trolls ficam ao longo dos túneis. {npc:12818} está preso lá no fundo: liberte-o e proteja-o até a saída, depois ele corre para casa em {area:428}.",
@@ -296,7 +294,6 @@ return {
 	-- ["Sharptalon"] = "Garraguda",
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s."] = "Ao sul do Pináculo da Nuvem Negra, as harpias do {area:487}. {npc:4490} (31) anda entre elas: reduza as harpias em volta dela antes de atraí-la. As Harpias Guinchadoras, Plumerrantes e Arautos do Vento de lá são de {npc:4877}.",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Desça de {zone:1456} por um elevador. O acampamento da Harmonia Telúrica fica ao norte dos penhascos: {npc:264074}, {npc:264072} e {npc:259118}.",
-	-- ["The fountain stands in the middle of the {area:418}: use the {item:7767} there."] = "A fonte fica no meio das {area:418}: use o {item:7767} lá.",
 	-- ["The next guide flies on from here to {zone:1454}."] = "O próximo guia voa daqui para {zone:1454}.",
 	-- ["The salt flats"] = "As planícies salgadas",
 	-- ["The {area:1718}"] = "{area:1718}",
@@ -311,7 +308,5 @@ return {
 	-- ["{npc:12759}, a corrupted water elemental, drifts in {area:421}. Her {item:16408} starts a quest for Splintertree."] = "{npc:12759}, um elemental da água corrompido, flutua no {area:421}. O {item:16408} dela inicia uma missão para o Posto Machadada.",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} fica no acampamento de lenhadores. Os Vanguardeiros elfos noturnos rondam a mata a sudeste dele; eles ficam furtivos, então fique atento.",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}: a carta dele vai para Martek em {zone:1418}, por volta do nível 38",
-	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499} um elemental de rocha que bate forte, anda pelos penhascos do {area:482}. {npc:4499} é elite: é recomendado formar grupo.",
-	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}"] = "{npc:4877}, a mercadora de suprimentos de profissão: as harpias Guinchadoras do {area:487}",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "Há {object:19868} por todas as planícies ao norte da pista. Aniquiladores Escorpídeos e Tartarugas Quelobrilho vagam pela metade norte, Catadores da Planície Salgada circulam no alto e Basiliscos Sal-gema pastam a oeste da pista. Os Cristaldermes vagam pelo meio das planícies e os Observadores (34-35, cinco níveis acima de você: um de cada vez) pelo extremo sul.",
 }

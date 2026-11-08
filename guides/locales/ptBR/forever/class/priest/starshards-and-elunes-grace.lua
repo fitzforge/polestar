@@ -38,7 +38,7 @@ return {
 
 	-- Step 5: Starshards: Braenna Flintcrag
 	-- {zone:1455} Ironforge · {npc:5142} Braenna Flintcrag · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
-	["At 10 in {zone:1455}, {npc:5142} in the {object:32386} ({object:32362}) hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "",
+	["At 10 in {zone:1455}, {npc:5142} in the {object:32386} ({object:32362}) hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "No nível 10, em {zone:1455}, {npc:5142}, no {object:32386} ({object:32362}), entrega {quest:5628}, uma carta para {npc:11401} em {zone:1457}.",
 	-- {npc:5142} Braenna Flintcrag · {quest:5628} Returning Home
 	["{npc:5142}: take {quest:5628}"] = "{npc:5142}: pegue {quest:5628}",
 
@@ -90,7 +90,7 @@ return {
 
 	-- Step 14: Elune's Grace: High Priest Rohan
 	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {spell:2651} Elune's Grace · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
-	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you an {spell:2651} letter for {npc:11401} in {zone:1457}."] = "",
+	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you an {spell:2651} letter for {npc:11401} in {zone:1457}."] = "No nível 20, em {zone:1455}, {npc:11406}, no {object:32386} ({object:32362}), entrega uma carta de {spell:2651} para {npc:11401} em {zone:1457}.",
 	-- {npc:11406} High Priest Rohan · {spell:2651} Elune's Grace
 	["{npc:11406}: take his {spell:2651} letter"] = "{npc:11406}: pegue a carta de {spell:2651} dele",
 

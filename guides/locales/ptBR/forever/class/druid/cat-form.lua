@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Aprenda a rota de voo de lá, se ainda não tiver.",
 
 	-- Step 3: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "As relíquias dos Templos de Tempesfúria",
@@ -27,7 +27,7 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "De volta a {npc:11802}",
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Use {spell:18960} para pousar junto a {npc:11802} em {area:2361} (ninguém na Ilha de Zefras pega a missão dos Celonatos), depois pegue o voo de {npc:11800} até {area:702}: ela fica no meio de {area:2361} e leva druidas até lá, sem precisar de rota de voo. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 5: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
@@ -39,7 +39,7 @@ return {
 
 	-- Step 7: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "Use {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 8: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
@@ -49,7 +49,7 @@ return {
 
 	-- Step 9: Back to Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Use {spell:18960} para pousar junto a {npc:11802} em {area:2361} (ninguém na Ilha de Zefras pega a missão dos Celonatos), depois pegue o voo de {npc:11798} até {area:1638}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 10: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form

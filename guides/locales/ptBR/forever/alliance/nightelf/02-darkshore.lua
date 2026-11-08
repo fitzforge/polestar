@@ -35,7 +35,7 @@ return {
 	["Bears and the Blackwood camp"] = "Ursos e o acampamento Bosquenero",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Ursocardos Raivosos vagam pelas colinas ao sul de {area:442}: use {item:7586} em um para capturá-lo. Depois suba até o acampamento dos furbolgs, logo a leste deles: nada para matar ainda.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "os Ursocardos Raivosos mais perto de {npc:3701}",
@@ -82,14 +82,14 @@ return {
 
 	-- Step 14: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "De volta ao norte até {area:447}: a chama arde no sul das ruínas.",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
 
 	-- Step 16: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
-	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Ao norte pelas colinas até {npc:3650}, depois a oeste, descendo até {area:442}.",
 
 	-- Step 18: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -105,7 +105,7 @@ return {
 	-- {npc:483} Elaine Trias
 	["{npc:483}, in her cheese shop"] = "{npc:483}, na queijaria dela",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
-	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "Suba as escadas da loja dela: deixe a remessa em {object:460004}",
 
 	-- Step 21: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall

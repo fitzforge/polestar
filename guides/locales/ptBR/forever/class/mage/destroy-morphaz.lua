@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, um dos instrutores de magos de {zone:1454}, em {object:173161}, dá a missão; {npc:4567}, em {zone:1458}, e {npc:3047}, em {zone:1456}, também.",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
@@ -65,5 +65,4 @@ return {
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "Morphaz, um draco verde, espera no fundo do {area:1477}, o {area:1417}, no {area:74}: grupo de cinco, nível 50-54. Mate-o para obter o {item:20085}.",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "As Sirenas Iralisca andam pelas ruínas e praias em volta das {area:1221} e da baía; elas carregam o coral.",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "Os elfos sangrentos acampam ao longo dos penhascos do nordeste de {zone:1447}; Topógrafos e Recuperadores Sanguinélficos deixam cair o pó.",
-	-- ["{npc:7311}, one of {zone:1454}'s mage trainers, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, um dos instrutores de magos de {zone:1454}, dá a missão; {npc:4567}, em {zone:1458}, e {npc:3047}, em {zone:1456}, também.",
 }

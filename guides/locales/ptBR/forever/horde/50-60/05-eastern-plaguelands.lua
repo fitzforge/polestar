@@ -8,7 +8,7 @@
 return {
 	-- Step 2: The Bulwark
 	-- {area:1497} Undercity · {area:152} The Bulwark · {area:28} Western Plaguelands
-	["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "",
+	["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "Siga a cavalo para leste, saindo da {area:1497}, pela estrada; {area:152} guarda o caminho para {area:28}.",
 
 	-- Step 4: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
@@ -66,7 +66,7 @@ return {
 	-- Step 14: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "",
+	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "Cavalgue para o sul, saindo do pavilhão, até {area:2264}, na estrada. {item:15447} estraga em dez minutos: mate rápido o Flagelo da vila e reúna as sete peças com {item:15454} de uma vez.\nCuidado: Serviçais Evanescentes chamam ajuda num raio de 25 metros quando caem a 40% de vida. Fora de combate, eles também ficam invisíveis com {spell:10228}. Se o pedido de ajuda acontecer dentro da vila, muitos monstros podem entrar na briga. Lutar perto da periferia reduz esse risco.",
 
 	-- Step 15: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
@@ -98,7 +98,7 @@ return {
 
 	-- Step 24: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
+	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033} (Druidas) treina em {area:1639}, {npc:246344} (Paladinos) também na cidade.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} no {area:1639}; {npc:246344}",
 

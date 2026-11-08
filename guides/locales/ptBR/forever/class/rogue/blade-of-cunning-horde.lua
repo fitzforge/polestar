@@ -29,7 +29,7 @@ return {
 
 	-- Step 5: Tazan's Key
 	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength (no name in this language: may be words) · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "",
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859} devolve a sacola: agora abra-a. {npc:6466} (nível 12) fica ajoelhado junto ao estalajadeiro, na estalagem do {object:172982}; fique furtivo e bata a carteira dele para pegar {item:7208} (não o mate: a chave quase nunca cai). Jogadores costumam matá-lo, então você pode esperar até 5 minutos por ele. Depois use a chave em {item:7209} nas bolsas. Se você treinou {spell:1804}, pode abrir a fechadura da sacola com ela.",
 	-- {item:7208} Tazan's Key
 	["Pick Pocket Gamon for {item:7208}"] = "{item:7208}: bata a carteira de Gamon",
 	-- {item:7209} Tazan's Satchel
@@ -67,7 +67,7 @@ return {
 	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras
 	["{npc:6467} and {npc:2425}"] = "{npc:6467} e {npc:2425}",
 	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras · {object:36126} Royal Quarter (no name in this language: may be words) · {npc:6522} Andron Gant
-	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "",
+	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "{npc:6467} manda o livro-razão a {npc:2425}, o demônio grande no meio do Salão da Dama Sombria, no {object:36126}, passando por seus guardas elite; o caminho é a passagem que sai do Apothecarium. Se perder o livro-razão, pegue outro na estante de {npc:6522}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10 {npc:2130}, the rogue trainer in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "No nível 10, {npc:2130}, a instrutora de ladinos na {area:2119} em {area:159}, envia você a {quest:1885} na {zone:1458}.",

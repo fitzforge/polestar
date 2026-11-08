@@ -263,7 +263,7 @@ return {
 
 	-- Step 69: Ratchet
 	-- {area:17} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "",
+	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "De Theramore, siga para oeste até {area:17} e para o norte pela costa até {area:392}.",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901}, na costa ao norte da cidade",
 	-- {zone:1448} Felwood
@@ -320,7 +320,7 @@ return {
 
 	-- Step 81: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {area:538} Lakkari Tar Pits · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; {npc:9117} is up the hill behind it.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
+	["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; {npc:9117} is up the hill behind it.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Voe de {area:976} para {area:541}. A cabana de {npc:8737} fica em {area:538}, a oeste do refúgio; {npc:9117} está no alto da colina atrás dela.\nO amigo de {npc:9997}, {npc:9999}, desapareceu.",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
 	-- {npc:9997} Spraggle Frock
@@ -328,7 +328,7 @@ return {
 
 	-- Step 83: Cenarion Hold
 	-- {area:1377} Silithus · {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride out of the crater's north-western pass into {area:1377} and on to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride out of the crater's north-western pass into {area:1377} and on to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Siga para fora da passagem noroeste da cratera até {area:1377} e continue até {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 84: Silithus: kill these as you meet them
 	-- {area:1377} Silithus
@@ -339,13 +339,13 @@ return {
 	-- Step 85: Level 56.89
 	["Level 56.89"] = "Nível 56.89",
 	-- {item:9328} Super Snapper FX · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Se você pulou {item:9328}, mate monstros aqui até o nível 56.89 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
 	-- {npc:11740} Dredge Striker
 	["grind on {npc:11740}"] = "mate {npc:11740} até subir",
 
 	-- Step 86: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Follow the road south-west out of the pass to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Follow the road south-west out of the pass to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Siga a estrada para sudoeste, saindo da passagem, até {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, nas tendas da Aliança",
 

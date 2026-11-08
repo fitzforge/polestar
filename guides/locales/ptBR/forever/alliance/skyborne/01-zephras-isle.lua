@@ -166,7 +166,7 @@ return {
 
 	-- Step 33: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Na estrada para sudeste até {area:16638}, {npc:273017} vigia {quest:98512}, logo ao norte dele.",
 
 	-- Step 34: Valanaar, the turncoat
 	-- {area:16638} Valanaar
@@ -187,7 +187,7 @@ return {
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers swarm the fields west of {area:16638}."] = "Saltacéus infestam os campos a oeste de {area:16638}.",
 	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
+	["{npc:260628}, upstairs"] = "{npc:260628}, no andar de cima",
 
 	-- Step 38: The road to Valanaar
 	-- {area:16638} Valanaar
@@ -286,7 +286,7 @@ return {
 
 	-- Step 55: Urs'endris
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16638} Valanaar
-	["{npc:255853} waits by the falls just north of the watchtower. {npc:258443} prowls the {area:16623} south-west of the dead cultist, where you go after {area:16638}."] = "",
+	["{npc:255853} waits by the falls just north of the watchtower. {npc:258443} prowls the {area:16623} south-west of the dead cultist, where you go after {area:16638}."] = "{npc:255853} espera junto às cachoeiras, logo ao norte da torre de vigia. {npc:258443} ronda {area:16623}, a sudoeste do sectário morto, para onde você vai depois de {area:16638}.",
 
 	-- Step 57: The dead cultist
 	["The dead cultist"] = "O sectário morto",
@@ -380,17 +380,17 @@ return {
 
 	-- Step 75: High Priestess Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
-	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "",
+	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "Lorthuna espera lá em cima, em {area:16630}, a leste do santuário: pegue o Portal para {area:16630} no santuário interno, ao lado de Valennia, e atravesse as alturas para leste até {npc:252475}. Quando ela cair, {object:617084}, ao lado dela, leva você de volta à cidade.",
 
 	-- Step 76: Valanaar, the fate of Zephras
 	-- {area:16638} Valanaar
 	["{area:16638}, the fate of Zephras"] = "{area:16638}, o destino de Zefras",
 	-- {object:617084} Portal to Valanaar (no name in this language: may be words) · {npc:252475} Elaadrin Evengale · {npc:252476} Talaanis Shadowsong · {npc:259012} Ealaane Nimbuswalker
-	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "",
+	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "{object:617084} deixa você ao lado de {npc:252475}, no extremo sul da cidade. {npc:252476} fica no extremo norte, {npc:259012} alguns passos a noroeste dela.",
 
 	-- Step 79: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale
-	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "",
+	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} manda você seguir para {area:279}. Pegue o barco celeste na torre do cais, logo ao sul de {area:16638}: ele pousa junto ao acampamento do Kirin Tor, a oeste de {area:279}, ao lado de {npc:259084} e do Portal dos Celonatos.",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475}: {npc:259084} espera junto ao portal Celonato",
 
@@ -400,7 +400,7 @@ return {
 
 	-- Step 81: Denaaris Stargale
 	-- {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:1453} Stormwind
-	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084} fica ao lado do Portal Celonato, onde a nave celeste pousa, junto ao acampamento do Kirin Tor a oeste de {area:279}. O portal leva você a {zone:1453}.",
+	["{npc:259084} stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of {area:279}. The portal takes you to {zone:1453}."] = "{npc:259084} fica ao lado do Portal Celonato, onde o barco celeste pousa, junto ao acampamento do Kirin Tor a oeste de {area:279}. O portal leva você a {zone:1453}.",
 	-- {npc:259084} Denaaris Stargale
 	["{npc:259084}, inside"] = "{npc:259084}, lá dentro",
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
@@ -420,7 +420,7 @@ return {
 
 	-- Step 84: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "{npc:1646} fica na {object:2098}, no caminho da Fortaleza até o portão principal: a bússola dele está na antiga casa dele em {area:40}, no caminho.",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

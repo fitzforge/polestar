@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {area:331} Ashenvale · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post · {zone:1439} Darkshore
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada, por {area:331}, até {npc:11219}, em {area:413}; toque o chifre de novo sempre que ele adormecer.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada: furbolgs no trecho de {zone:1439} e mortos-vivos mais perto de {area:413}.",
 	-- {object:176634} Kerlonian's Chest
 	["{object:176634}, beside him"] = "{object:176634}, ao lado dele",
 	-- {npc:11218} Kerlonian Evershade · {area:413} Maestra's Post · {area:331} Ashenvale
-	["Escort {npc:11218} to {area:413} in {area:331}."] = "",
+	["Escort {npc:11218} to {area:413} in {area:331}."] = "Escolte {npc:11218} até {area:413}, em {area:331}.",
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
@@ -24,11 +24,11 @@ return {
 
 	-- Step 6: Astranaar
 	-- {area:413} Maestra's Post · {npc:3845} Shindrell Swiftfire · {npc:4079} Sentinel Thenysil · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
+	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "A estrada vinda de {area:413} chega junto ao mestre de voo: {npc:3845} e {npc:4079} ficam lá, {npc:3691} na estalagem, {npc:3894} dentro do prédio depois dela.",
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine · {area:331} Ashenvale
-	["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "",
+	["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}: {quest:990}, de {area:442} (os outros pegam na próxima visita a {area:331})",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}, lá dentro",
 
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: Stonetalon Mountains
 	-- {area:421} Mystral Lake · {area:1276} Talondeep Path · {area:461} Windshear Crag · {area:2160} Windshear Mine
-	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, by the {area:2160}."] = "",
+	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, by the {area:2160}."] = "Siga para o sul, passando por {area:421}, até o túnel de {area:1276}; ele sai em {area:461}, na Cordilheira das Torres de Pedra, junto a {area:2160}.",
 
 	-- Step 12: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
@@ -55,7 +55,7 @@ return {
 
 	-- Step 13: Windshear Crag
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle · {area:1076} Webwinder Path
-	["{npc:4080} and {npc:4077} camp on the {area:1076}, south-west of the mine."] = "",
+	["{npc:4080} and {npc:4077} camp on the {area:1076}, south-west of the mine."] = "{npc:4080} e {npc:4077} acampam em {area:1076}, a sudoeste da mina.",
 
 	-- Step 14: Ziz Fizziks
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
@@ -74,7 +74,7 @@ return {
 
 	-- Step 17: The Ruins of Stardust
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
-	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "",
+	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "De volta ao norte por {area:1276}: a oeste de {area:421}, os arbustos de poeira estelar crescem entre as ruínas.",
 
 	-- Step 18: Alonso
 	-- {npc:210995} Alonso · {area:1276} Talondeep Path
@@ -104,7 +104,7 @@ return {
 
 	-- Step 23: Ilkrud Magthrull
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {npc:3987}'s camp head south-west past {area:415} (its hand-ins wait for the way back) to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
+	["From {npc:3987}'s camp head south-west past {area:415} (its hand-ins wait for the way back) to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Do acampamento de {npc:3987}, siga para sudoeste, passando por {area:415} (as entregas de lá esperam a volta), até {area:412}, ao sul do santuário: {npc:3664} e seus emissários do caos as dominam. Puxe os guardas dele primeiro.",
 
 	-- Step 24: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
@@ -120,11 +120,11 @@ return {
 
 	-- Step 28: Maestra's Post
 	-- {npc:3663} Delgren the Purifier · {area:331} Ashenvale
-	["{npc:3663}: its circles are for your next {area:331} visit, at about 28"] = "",
+	["{npc:3663}: its circles are for your next {area:331} visit, at about 28"] = "{npc:3663}: os círculos dele ficam para a sua próxima visita a {area:331}, por volta do nível 28",
 
 	-- Step 29: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} by the flight master, {npc:3691} in the inn, {npc:3894} inside."] = "",
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} by the flight master, {npc:3691} in the inn, {npc:3894} inside."] = "Siga a estrada para sudeste, de {area:413} de volta a {area:415}: {npc:3845} junto ao mestre de voo, {npc:3691} na estalagem, {npc:3894} lá dentro.",
 
 	-- Step 30: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -201,12 +201,12 @@ return {
 	-- Step 43: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "",
+	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "O sílex vem dos Corre-charcos Pelemusgo no caminho para {area:309}; {npc:1244} o recebe na sua próxima visita a {zone:1437}",
 
 	-- Step 44: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
-	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "",
+	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "A noroeste de {npc:1244}: Corre-charcos e Tecebrumas Pelemusgo vagam pelas margens do rio no caminho, e quase todos soltam sílex. Gosmas Pretas, Carmesim e Monstruosas enchem {area:309}, logo a oeste da estrada para {area:205} e ao norte do acampamento de Einar. Qualquer gosma lá pode guardar a bolsa de {npc:2111}.",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: Corre-charcos e Tecebrumas Pelemusgo",
@@ -232,21 +232,21 @@ return {
 
 	-- Step 47: Ironforge
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
-	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "",
+	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "Os grifos pousam na {object:32372}. {npc:4081} fica em {object:171524}, a leste dela, junto a {area:2257}.",
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "Só com o {item:5352} de {zone:1439}: {npc:2786}, na {object:32383}",
 
 	-- Step 48: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11865} ({object:32359}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 49: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:199} com {npc:11865} ({object:32359}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 50: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11865} ({object:32359}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
 	-- Step 51: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -258,7 +258,7 @@ return {
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: a carta de Trovejius de {area:442}",
 	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "",
+	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "Só depois de entregar {quest:97914}: para {npc:3649}, de volta a {area:442} (06-wetlands)",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
 	["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}: {npc:11406} em {zone:1455} a recebe, mais tarde",
 	-- {npc:376} High Priestess Laurena · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -288,7 +288,6 @@ return {
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "Gosmas Pretas rastejam pelo pântano ao norte da estrada da {area:1025}, a oeste do acampamento de {npc:2093}. Qualquer gosma pode ter a bolsa de {npc:2111}.",
 	-- ["Cathedral of Light"] = "Catedral da Luz",
 	-- ["Dragonmaw camp"] = "Acampamento Presa do Dragão",
-	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "Escolte Kerlonian até {area:413} em {zone:1440}.",
 	-- ["Fen Creepers"] = "Rastejantes do Pântano",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "Rastejantes do Pântano se escondem nas poças do pântano a noroeste da {area:1025}.",
 	-- ["Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Siga a estrada para leste. Crocoliscos do Pantanal Jovens espreitam nas poças ao norte do sítio de escavação.",

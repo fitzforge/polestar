@@ -101,7 +101,7 @@ return {
 
 	-- Step 20: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
-	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459} fica ao lado de {npc:259084} e do Portal Celonato, a oeste de {area:279}, onde pousa a nave celeste vinda da {zone:2521}. {npc:2543} oferece a mesma missão.",
+	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459} fica ao lado de {npc:259084} e do Portal Celonato, a oeste de {area:279}, onde pousa o barco celeste vindo da {zone:2521}. {npc:2543} oferece a mesma missão.",
 
 	-- Step 21: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade

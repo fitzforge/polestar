@@ -66,7 +66,7 @@ return {
 
 	-- Step 10: Feedback: High Priest Rohan
 	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:171524} Tinker Town
-	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you a letter for {npc:376} in {zone:1453}. The {area:2257} from {object:171524} takes you there."] = "",
+	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you a letter for {npc:376} in {zone:1453}. The {area:2257} from {object:171524} takes you there."] = "No nível 20, em {zone:1455}, {npc:11406}, no {object:32386} ({object:32362}), entrega uma carta para {npc:376} em {zone:1453}. O {area:2257} a partir de {object:171524} leva você até lá.",
 	-- {npc:11406} High Priest Rohan · {quest:5676} Arcane Feedback
 	["{npc:11406}: take his {quest:5676} letter"] = "{npc:11406}: pegue a carta de {quest:5676} dele",
 

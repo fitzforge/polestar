@@ -16,7 +16,7 @@ return {
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
 	-- {area:415} Astranaar · {area:361} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "",
+	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "Siga para o norte, saindo de {area:415}, até {area:361}, até {area:2479}, o acampamento dos druidas junto à estrada.",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, nas ruínas logo a leste de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "{npc:11554}, o furbolg, fica junto à estrada, logo ao sul de {area:2479}.",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -34,7 +34,7 @@ return {
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "Nível 52.58",
 	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Se você pulou O chifre da fera ou {item:9328}, mate monstros aqui até o nível 52.58 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 
@@ -46,14 +46,14 @@ return {
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "Nível 52.69",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52.69 antes das entregas em {area:1763}: elas levam você ao nível 53. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "",
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Os sátiros Flamejade dominam o vale a oeste da estrada, com {npc:9454} nos fundos.\nCuidado: os Assombrantes Flamejade (nível 51-52) usam Furtividade e {spell:7992} e ficam furtivos, então costumam entrar nas lutas sem serem chamados.\nGosmas Amaldiçoadas deslizam pelos riachos do vale: mate-as e use o Laris's Empty Ooze Jar nos restos delas.",
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "mate {npc:7109} até subir",
 
@@ -62,7 +62,7 @@ return {
 	["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} é o templo em ruínas ao norte do vale. Alguns dos seus sectários deixam cair uma {item:13140}, cerca de uma vez a cada trinta mortes: ela abre a cela de {npc:11018} em {area:1770}, a caverna no fundo. Se ela cair, limpe o caminho de saída antes de libertá-la; se não, pule as missões dela.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
+	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
 	-- {item:13140} Blood Red Key
 	["{item:13140}, a rare drop"] = "{item:13140}, um saque raro",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
@@ -76,7 +76,7 @@ return {
 	-- Step 13: Level 52.9
 	["Level 52.9"] = "Nível 52.9",
 	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52.9 antes das entregas em {area:2479}: elas levam você ao nível 53. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 
 	-- Step 15: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -135,7 +135,7 @@ return {
 
 	-- Step 26: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood
-	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "",
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "Siga para sudeste, de {area:1763} até {area:2479}, o acampamento dos druidas junto à estrada, no sul de {area:361}.",
 
 	-- Step 27: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
