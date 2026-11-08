@@ -334,9 +334,9 @@ fn skipgrey_a_grey_accept_kept_for_its_chain_names_the_nearest_open_quest_it_lea
 		on,
 		json!([
 			// 1002 still worth doing: 827 and 411 lead to it.
-			{ "level": 20, "kept": 1002, "text": "Grey, kept: opens Buzzbox 323", "skipped": false, "accepts": [1002, "open", "open"] },
+			{ "level": 20, "kept": 1002, "text": "Grey, kept: opens “Buzzbox 323”", "skipped": false, "accepts": [1002, "open", "open"] },
 			// Only 525 left: the grey chain before it names it.
-			{ "level": 22, "kept": 1003, "text": "Grey, kept: opens Buzzbox 525", "skipped": false, "accepts": [1003, 1003, "open"] },
+			{ "level": 22, "kept": 1003, "text": "Grey, kept: opens “Buzzbox 525”", "skipped": false, "accepts": [1003, 1003, "open"] },
 			// All grey: the chain is left out, nothing to explain.
 			{ "level": 23, "kept": false, "text": false, "skipped": true, "accepts": ["skipped", "skipped", "skipped"] },
 		])

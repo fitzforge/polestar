@@ -13,6 +13,7 @@ L["%.1f km"] = "%.1f km"
 L["%d m"] = "%d m"
 L["%.1fk yd"] = "%.1fk m"
 L["%d yd"] = "%d m"
+L["quote marks: \226\128\156%s\226\128\157"] = "«\194\160%s\194\160»"
 L["Commands"] = "Commandes"
 L["Unknown command '%s'."] = "Commande inconnue « %s »."
 

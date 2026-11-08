@@ -34,11 +34,11 @@ local function titlesFor(itemID)
 	local live = Q.ObjectivesForItem(itemID)
 	for i = 1, live and #live or 0 do
 		local title = live[i].entry and live[i].entry.title
-		if title then out[#out + 1] = title end
+		if title then out[#out + 1] = ns.Quoted(title) end
 	end
 	if #out == 0 then
 		local list = Q.ItemAheadList(itemID)
-		for i = 1, list and #list or 0 do out[#out + 1] = Q.GetQuestTitle(list[i].q) or tostring(list[i].q) end
+		for i = 1, list and #list or 0 do out[#out + 1] = ns.Quoted(Q.GetQuestTitle(list[i].q)) or tostring(list[i].q) end
 	end
 	return out
 end

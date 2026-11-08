@@ -283,7 +283,7 @@ function Dungeons.HandinGuide(key)
 	local last = steps[#steps]
 	local function note(pattern, list)
 		for _, pq in ipairs(list) do
-			last.goals[#last.goals + 1] = { t = "note", text = format(pattern, pq.title or "") }
+			last.goals[#last.goals + 1] = { t = "note", text = format(pattern, ns.Quoted(pq.title) or "") }
 		end
 	end
 	note(L["Not finished yet: %s"], plan.unfinished)
@@ -297,7 +297,7 @@ function Dungeons.HandinText(plan)
 	if not plan then return L["None of this dungeon's quests is in your log."] end
 	local function titles(list)
 		local out = {}
-		for i, pq in ipairs(list) do out[i] = pq.title or "" end
+		for i, pq in ipairs(list) do out[i] = ns.Quoted(pq.title) or "" end
 		return concat(out, ", ")
 	end
 	local parts = {}

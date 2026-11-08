@@ -145,6 +145,6 @@ ns.RegisterEvent("QUEST_DETAIL", function()
 	local list, title = Closes.For(q, shown)
 	if not list then return end
 	local names = {}
-	for i, c in ipairs(list) do names[i] = c.title end
-	ns.Print(L["Taking %s closes %s for good."]:format(title or ("#" .. q), table.concat(names, ", ")))
+	for i, c in ipairs(list) do names[i] = ns.Quoted(c.title) end
+	ns.Print(L["Taking %s closes %s for good."]:format(ns.Quoted(title) or ("#" .. q), table.concat(names, ", ")))
 end)

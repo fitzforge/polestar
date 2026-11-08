@@ -1541,7 +1541,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 		link.psTip, link.psTipLines = L["Not known"], { L["Where this quest starts is not known yet."] }
 	elseif first then
 		link.psTip = format(L["Set the arrow to %s"], tlabel or L["the quest giver"])
-		link.psTipLines = { format(turnIn and L["First turn in %s, which comes before this quest."] or L["First pick up %s, which comes before this quest."], first) }
+		link.psTipLines = { format(turnIn and L["First turn in %s, which comes before this quest."] or L["First pick up %s, which comes before this quest."], ns.Quoted(first)) }
 	else
 		link.psTip = format(L["Set the arrow to %s"], tlabel or L["the quest giver"])
 		link.psTipLines = { L["Where this quest starts."] }
@@ -1741,7 +1741,7 @@ local function renderBosses(key, f, plevel)
 				local row = tie(nt)
 				local spec = TIE[t.how] or TIE.involved
 				row.Glyph:SetTexture(Theme.Media(spec[1]))
-				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (q.title or "") .. "|r"
+				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (ns.Quoted(q.title) or "") .. "|r"
 				local ih = "|c" .. Theme.Hex("item") .. (t.itemName or L["an item"]) .. "|r"
 				if t.how == "item" or t.how == "starts" then
 					row.Text:SetText(format(spec[2], ih, qh))

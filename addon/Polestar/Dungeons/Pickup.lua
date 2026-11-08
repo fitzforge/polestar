@@ -981,7 +981,7 @@ function Dungeons.PickupGuide(key)
 	if #steps == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	for _, pq in ipairs(plan.carried) do
-		last.goals[#last.goals + 1] = { t = "note", text = format(L["In your log already: %s"], pq.title or "") }
+		last.goals[#last.goals + 1] = { t = "note", text = format(L["In your log already: %s"], ns.Quoted(pq.title) or "") }
 	end
 	local e = d.entrance
 	if located(e) then

@@ -758,7 +758,7 @@ emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
 	);
 	assert_eq!(
 		out[0],
-		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: Applejack Still"]),
+		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: “Applejack Still”"]),
 		"bought at the Stonefield Farm: the still ahead needs them"
 	);
 	assert_eq!(out[1], json!([true]), "at the still");
@@ -803,7 +803,7 @@ emit(show("DELETE_GOOD_ITEM"))
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: Kobold Candles", 124]));
+	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: “Kobold Candles”", 124]));
 	assert_eq!(out[1], json!(["Do you want to destroy X?", 100]), "an item no quest needs: dialog untouched");
 	assert_eq!(out[2], json!(["Do you want to destroy X?", 100]), "quest handed in: dialog untouched");
 }

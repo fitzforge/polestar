@@ -246,12 +246,14 @@ function Methods.GetShadowColor(self)
 end
 -- As in the client: GetStringWidth ignores word wrap but includes
 -- truncation (a single-line string, SetWordWrap(false), is cut at its set
--- width); GetUnboundedStringWidth is the whole text's width.
+-- width); GetUnboundedStringWidth is the whole text's width. Every character
+-- is half the font size wide, a UTF-8 one (“, ·, «) counting once.
+local function chars(s) return #s - select(2, s:gsub("[\128-\191]", "")) end
 function Methods.SetWordWrap(self, on) self.wordWrap = not not on end
 function Methods.GetWordWrap(self) return self.wordWrap ~= false end
 function Methods.GetUnboundedStringWidth(self)
 	local size = (self.font and self.font[2]) or 12
-	return #tostring(self.text or "") * size * 0.5
+	return chars(tostring(self.text or "")) * size * 0.5
 end
 function Methods.GetStringWidth(self)
 	local full = self:GetUnboundedStringWidth()
@@ -269,7 +271,7 @@ function Methods.GetStringHeight(self)
 	if w <= 0 then return size end
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	if (self.maxLines or 0) > 0 then lines = math.min(lines, self.maxLines) end
 	return lines * size
@@ -286,7 +288,7 @@ function Methods.IsTruncated(self)
 	local size = (self.font and self.font[2]) or 12
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	return lines > self.maxLines
 end

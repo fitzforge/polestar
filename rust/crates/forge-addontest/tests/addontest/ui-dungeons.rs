@@ -440,7 +440,7 @@ fn hand_in_the_quests_shows_only_while_one_of_the_pages_quests_is_in_the_log_lea
 		emit({ asked = asked, hub = PolestarPicker:IsShown() })"#);
 	let (open, gone, ready, done2) = (&out[0], &out[1], &out[2], &out[3]);
 	assert_eq!(json!([open["lead"], open["quiet"], open["corner"]]), json!([false, "Hand in the quests", "Pick up the quests"]), "beside \"Pick up the quests\", which leads");
-	assert_eq!(open["tip"], json!(["Not finished yet: Leaders of the Fang."]));
+	assert_eq!(open["tip"], json!(["Not finished yet: “Leaders of the Fang”."]));
 	assert_eq!(open["printed"], json!([open["tip"][0]]), "the action says so");
 	assert_eq!(open["tabs"], 0, "and opens no guide");
 	assert_eq!(json!([open["go"], open["map"]]), json!(["Guide me to the entrance", false]), "three actions at most: \"Show on map\" gives way");
@@ -500,7 +500,7 @@ fn quests_the_giver_line_is_a_link_with_a_prerequisite_still_to_do_it_points_at_
 			hides = { hides.StartLink.psTip, hides.StartLink.psTipLines[1] } })"#);
 	let out = &out[0];
 	assert_eq!(out["pins"], json!([[1413, 52.2, 31.9, "Tonga Runetotem"], [1413, 46, 35.7, "Nalpak"]]));
-	assert_eq!(out["fang"], json!(["Set the arrow to Tonga Runetotem", "First pick up Nara Wildmane, which comes before this quest.", "Set the arrow to Tonga Runetotem"]));
+	assert_eq!(out["fang"], json!(["Set the arrow to Tonga Runetotem", "First pick up “Nara Wildmane”, which comes before this quest.", "Set the arrow to Tonga Runetotem"]));
 	assert_eq!(out["hides"], json!(["Set the arrow to Nalpak", "Where this quest starts."]));
 }
 
@@ -707,7 +707,7 @@ fn bosses_kill_order_level_and_the_quests_each_serves_a_quest_line_opens_the_que
 	let ties = strs(&out["ties"]);
 	assert!(ties.len() >= 2, "{ties:?}");
 	assert!(ties.iter().any(|t| t.contains("Leaders of the Fang")), "{ties:?}");
-	assert!(ties.contains(&"Drops Glowing Shard, which starts The Glowing Shard".into()), "{ties:?}");
+	assert!(ties.contains(&"Drops Glowing Shard, which starts “The Glowing Shard”".into()), "{ties:?}");
 	assert_eq!(out["tab"], "quests");
 	assert!(out["blocks"].as_f64().unwrap() > 0.0);
 }

@@ -282,6 +282,14 @@ end
 
 uistub.skipped = {} -- step index -> true: the step view says `skipped`
 
+-- A goal's line as the Engine writes it: a quest in the client's quote marks
+-- ("Accept “A Threat Within”", Polestar.Quoted).
+local function goalLine(goal)
+	local subject = goal.subject or ""
+	if goal.subjectKind == "quest" then subject = Polestar.Quoted(subject) end
+	return (goal.verb or "") .. " " .. subject
+end
+
 local function view(i)
 	local step = guide.steps[i]
 	local goals = {}
@@ -289,7 +297,7 @@ local function view(i)
 		local v = {}
 		for k, val in pairs(goal) do v[k] = val end
 		v.index = g
-		v.text = goal.text or ((goal.verb or "") .. " " .. (goal.subject or ""))
+		v.text = goal.text or goalLine(goal)
 		v.manual = goal.manual and true or false
 		v.optional = goal.optional and true or false
 		-- Every goal but a note ticks (Engine.ToggleGoal).
@@ -576,7 +584,7 @@ function Engine.AimGoal(s, g)
 	return true
 end
 local function waypointOf(g, goal)
-	return { map = goal.map, x = goal.x, y = goal.y, f = goal.f, label = goal.verb .. " " .. goal.subject, stepIndex = current, goalIndex = g, kind = goal.t, r = 8 }
+	return { map = goal.map, x = goal.x, y = goal.y, f = goal.f, label = goalLine(goal), stepIndex = current, goalIndex = g, kind = goal.t, r = 8 }
 end
 function Engine.GetWaypoint()
 	if not (guide and current) then return nil end

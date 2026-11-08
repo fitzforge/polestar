@@ -78,13 +78,13 @@ fn accepts_their_giver_does_not_offer_for_a_reason_the_data_gives_are_skipped_wi
 		"#,
 	);
 	// 870 is simply not offered: never a skip (Fitz, #741); the line asks for a report and the guide stays.
-	assert_eq!(out["step1"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "done:nil:nil",]));
+	assert_eq!(out["step1"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "done:nil:nil",]));
 	assert_eq!(out["notice"], "Not offered by Thork? Report it with /polestar");
 	assert_eq!(out["at"], 1); // Gazrog's accept still open
 	assert_eq!(out["atAfter"], 1, "the guide stays at Thork");
 	assert_eq!(out["wp"], 3, "the arrow on Thork's accept");
-	assert_eq!(out["step2"], json!(["skipped:pre:Requires Disrupt the Attacks first", "pending:nil:nil"]));
-	assert_eq!(out["step3"], json!(["skipped:pre:Requires Disrupt the Attacks first", "pending:nil:nil"]));
+	assert_eq!(out["step2"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "pending:nil:nil"]));
+	assert_eq!(out["step3"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "pending:nil:nil"]));
 }
 
 #[test]
@@ -102,7 +102,7 @@ fn another_npc_s_window_never_marks_an_accept_and_the_giver_offering_a_quest_cle
 	);
 	// 872's prerequisite (871) is missing and the guide never turns it in, and 880 needs level 14 (#1320): both
 	// known before any visit. Thork's window offering them has the last word.
-	assert_eq!(out["other"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["other"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["offered"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["at"], 1);
 }
@@ -127,7 +127,7 @@ fn a_detail_window_opened_from_the_giver_s_list_says_nothing_about_the_others_a_
 		"#,
 	);
 	assert_eq!(out["fromList"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
-	assert_eq!(out["direct"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]));
+	assert_eq!(out["direct"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]));
 }
 
 #[test]
@@ -176,10 +176,10 @@ fn t_161_in_a_step_the_guide_has_moved_past_a_level_up_or_a_turn_in_brings_back_
 	assert_eq!(out["before"], 2);
 	assert_eq!(
 		out["level13"],
-		json!([2, ["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "done:nil:nil", "done:nil:nil",]]),
+		json!([2, ["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "done:nil:nil", "done:nil:nil",]]),
 		"still at the raptors: 880 still needs level 14"
 	);
-	assert_eq!(out["level14"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "done:nil:nil", "done:nil:nil",]]), "level 14: back to Thork for 880");
+	assert_eq!(out["level14"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "done:nil:nil", "done:nil:nil",]]), "level 14: back to Thork for 880");
 	assert_eq!(out["taken"], 2);
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "done:nil:nil", "done:nil:nil", "done:nil:nil",]]), "871 done: back to Thork for 872");
 }
@@ -202,9 +202,9 @@ fn t_161_a_level_up_or_a_turn_in_clears_the_marks_of_the_step_at_hand_so_its_giv
 		"#,
 	);
 	// Gazrog's 869 is still to take: Thork's step is the one at hand. 870, not listed, is never a skip.
-	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]]));
+	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]]));
 	// 872 keeps its missing prerequisite (known from the data) until 871 is done.
-	assert_eq!(out["levelUp"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
+	assert_eq!(out["levelUp"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
 }
 
@@ -291,7 +291,7 @@ fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_m
 		"#,
 	);
 	// 891's one prerequisite is done: its refusal the data does not explain, so it stays open.
-	assert_eq!(out, json!(["skipped:pre:Requires The Other Errand first", "active:nil:nil"]));
+	assert_eq!(out, json!(["skipped:pre:Requires “The Other Errand” first", "active:nil:nil"]));
 }
 
 // Issue #70 (The Barrens 19-24, step 9): Sergra Darkthorn's Jorn Skyseer (3261) needs The Angry Scytheclaws
@@ -341,9 +341,9 @@ fn t_70_an_accept_whose_prerequisite_is_missing_does_not_hold_the_focus_or_the_a
 	);
 	// Mankrik, Sergra, Gazrog: the focus and the arrow go from Mankrik to Gazrog.
 	assert_eq!(missing["mankrikDone"], json!([1, 3, 3]));
-	assert_eq!(missing["step1"], json!(["done:nil:nil", "skipped:pre:Requires The Angry Scytheclaws first", "active:nil:nil"]));
+	assert_eq!(missing["step1"], json!(["done:nil:nil", "skipped:pre:Requires “The Angry Scytheclaws” first", "active:nil:nil"]));
 	// Jorn Skyseer's turn-in goes with it, and so does the quest after it.
-	assert_eq!(missing["step2"], json!(["skipped:pre:Requires The Angry Scytheclaws first", "skipped:pre:Requires Jorn Skyseer first"]));
+	assert_eq!(missing["step2"], json!(["skipped:pre:Requires “The Angry Scytheclaws” first", "skipped:pre:Requires “Jorn Skyseer” first"]));
 	assert_eq!(missing["gazrogDone"], json!([3, 1, false]));
 	assert_eq!(missing["unrelated"], json!([3, 1, false]));
 	assert_eq!(missing["preDone"], json!([[1, 2, 2], "active:nil:nil"]));
@@ -389,7 +389,7 @@ fn a_missing_prerequisite_the_guide_still_turns_in_before_the_accept_or_after_it
 	assert_eq!(out["step2"], json!(["pending:nil:nil", "pending:nil:nil"]));
 	assert_eq!(out["wp"], 2);
 	// Nothing left to do at Thork: the guide goes past the skipped step.
-	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Requires Disrupt the Attacks first"]]));
+	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Requires “Disrupt the Attacks” first"]]));
 }
 
 #[test]
@@ -429,8 +429,8 @@ fn an_accept_closed_for_good_its_breadcrumb_target_or_an_exclusive_quest_taken_o
 		closed,
 		json!({
 			"at": 3,
-			"step1": ["skipped:closed:No longer offered: you took Super Reaper 6000", "skipped:closed:No longer offered: you took Devourer of Souls"],
-			"step2": ["skipped:closed:No longer offered: you took Super Reaper 6000"],
+			"step1": ["skipped:closed:No longer offered: you took “Super Reaper 6000”", "skipped:closed:No longer offered: you took “Devourer of Souls”"],
+			"step2": ["skipped:closed:No longer offered: you took “Super Reaper 6000”"],
 			"wp": false,
 		})
 	);
@@ -477,7 +477,7 @@ fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_
 		out[0],
 		json!({
 			"before": false,
-			"skipped": [2, "Skipped The Forgotten Pools  \u{b7}  No longer offered: you took Disrupt the Attacks"],
+			"skipped": [2, "Skipped “The Forgotten Pools”  \u{b7}  No longer offered: you took “Disrupt the Attacks”"],
 			"completed": [3, false],
 		})
 	);

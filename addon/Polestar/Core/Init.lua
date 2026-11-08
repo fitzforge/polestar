@@ -52,6 +52,20 @@ function ns.LC(context, text)
 	return rawget(L, context .. ": " .. text) or text
 end
 
+-- A quest's name in running text, in the client's own quote marks ("Turn in
+-- “Your Place in the World”", Havi's suggestion): the translation of
+-- "quote marks: “%s”" (deDE „…“, frFR « … », ruRU «…», zhTW 「…」, ...).
+-- A name that already holds double quotes, guillemets or corner brackets
+-- keeps its own; nil and "" come back as they are.
+local OWN_QUOTES = { '"', "\226\128\156", "\226\128\157", "\226\128\158", "\194\171", "\194\187", "\227\128\140", "\227\128\141", "\227\128\142", "\227\128\143" }
+function ns.Quoted(name)
+	if type(name) ~= "string" or name == "" then return name end
+	for _, q in ipairs(OWN_QUOTES) do
+		if name:find(q, 1, true) then return name end
+	end
+	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
+end
+
 -- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
 -- (parts that are zero left out; "0c" for none).
 function ns.MoneyText(copper)

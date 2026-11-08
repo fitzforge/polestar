@@ -83,14 +83,14 @@ local function plain(s)
 end
 
 -- The client's link (what a shift-click on the quest puts in chat), else its
--- title as plain text; nil when neither can be read.
+-- title as plain text in quote marks (ns.Quoted); nil when neither can be read.
 local function questLink(q)
 	local C = ns.Compat
 	local link = GetQuestLink and GetQuestLink(q)
 	if type(link) == "string" and not C.IsSecret(link) and link ~= "" then return link end
 	local title = C.GetQuestTitle(q) or (ns.Names and ns.Names.Quest and ns.Names.Quest(q))
 		or (ns.QuestDB and ns.QuestDB.GetQuestTitle and ns.QuestDB.GetQuestTitle(q))
-	if type(title) == "string" and not C.IsSecret(title) and title ~= "" then return plain(title) end
+	if type(title) == "string" and not C.IsSecret(title) and title ~= "" then return ns.Quoted(plain(title)) end
 	return nil
 end
 

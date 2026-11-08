@@ -461,7 +461,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	if not finish or not (giver or startItem) then
 		if isTarget then return nil, "nolocation" end
-		return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. q.title } } }
+		return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. ns.Quoted(q.title) } } }
 	end
 	local goals = {}
 	local accept
