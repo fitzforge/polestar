@@ -1413,6 +1413,7 @@ L["If you finish this guide"] = "Si vous terminez ce guide"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "Vous êtes niveau %d. Le niveau %d est recommandé pour ce guide ; à partir de là :"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Aucun guide affiché : les guides propres à Polestar sont désactivés. Activez-les dans Options, Guides de la communauté (/polestar packs)."
 L["Other starting zones"] = "Autres zones de départ"
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascotte"
@@ -2990,6 +2991,13 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar a parlé de votre progression de quête à votre groupe dans le chat (à changer dans Options > Quêtes > Quêtes > Groupe)."
 L["%s is ready to turn in"] = "%s est prête à rendre"
 L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
+
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

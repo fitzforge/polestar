@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30級時的四件護甲（鎖甲、頭盔、護手、護腿），途中還有一面盾牌。",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "回到{area:380}東邊路旁的{npc:5878}那裡。{quest:1848}是第一件；接著他會派你去找三位工匠製作其餘部件。",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "飛往{area:378}。營地南邊的{area:390}散布著異種蠍土丘：那裡的異種蠍帶著顫抖的觸角。",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30級時的四件護甲（鎖甲、頭盔、護手、護腿），途中還有一面盾牌。",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "礦工可用{item:2772}熔煉鐵錠（{skill:186}125）；其他人在{zone:1454}的拍賣場購買。",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "魯古格是{area:1717}裡的精英野豬人，那是{zone:1413}南端的地城；他會掉落{item:6841}。{area:1717}是地城：建議組隊。",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "從風剪狗頭人身上取得煙霧鐵錠",

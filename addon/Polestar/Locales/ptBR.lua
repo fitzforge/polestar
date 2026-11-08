@@ -1412,6 +1412,7 @@ L["If you finish this guide"] = "Se você terminar este guia"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "Você está no nível %d. O nível %d é recomendado para este guia; a partir dele:"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Nenhum guia exibido: os guias do próprio Polestar estão desativados. Ative-os em Opções, Guias da comunidade (/polestar packs)."
 L["Other starting zones"] = "Outras zonas iniciais"
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascote"
@@ -2989,6 +2990,13 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "O Polestar contou ao seu grupo no chat como vão suas missões (Opções > Missões > Missões > Grupo para mudar isso)."
 L["%s is ready to turn in"] = "%s está pronta para entregar"
 L["looted %s, which starts %s"] = "saqueou %s, que inicia %s"
+
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

@@ -39,6 +39,16 @@ fn class_quest_ready_shows_the_offer_the_guide_why_open_in_a_tab_and_later() {
 }
 
 #[test]
+fn the_banner_shows_the_heads_up_line_between_the_title_and_the_why() {
+	let out = run_ui(
+		r#"
+		Polestar.Fire("CLASS_QUEST_READY", { guideId = "g/storm", title = "Storm", heads = "Long chain: 6 quests across 4 zones", why = "A cloak." })
+		emit(B.Text:GetText())"#,
+	);
+	assert_eq!(out[0], "Class quest ready: Storm\nLong chain: 6 quests across 4 zones\nA cloak.");
+}
+
+#[test]
 fn the_banner_opens_the_guide_in_a_tab_or_asks_again_later_or_is_dismissed_for_good() {
 	let out = run_ui(
 		r#"
@@ -161,6 +171,65 @@ fn the_gated_guide_is_offered_once_its_gate_opens_nothing_with_the_setting_off()
 	);
 	assert_eq!(out[0], "c/air");
 	assert_eq!(out[1], 2);
+}
+
+// A chain shaped like Cloak of the Divine Storm (opens at 22; six quests over four maps; its objective mobs
+// normal, up to level 29) and the same chain with elites at 28-29 among its objectives.
+const CHAINS: &str = r#"
+local function chain(id, elite)
+	local function kill(q, lvl) return { t = "kill", quest = q, npc = 9, map = 1440, lvl = lvl, group = elite and { kind = "elite", rank = 1, lvl = lvl } or nil } end
+	local g = { id = id, title = id, category = "Class", classes = { "SHAMAN" }, minLevel = 22, why = "A cloak.", steps = {
+		{ goals = { { t = "accept", quest = 11, map = 1439 }, kill(11, 28) } },
+		{ goals = { { t = "accept", quest = 12, map = 1453 }, { t = "accept", quest = 13, map = 1453 }, { t = "accept", quest = 14, map = 1453 } } },
+		{ goals = { { t = "collect", quest = 14, item = 5, map = 1433, spotsPacked = "23.5,12,,111,34,,25;29.5,8.2,,78,15,1,25" } } },
+		{ goals = { { t = "accept", quest = 15, map = 1440 }, kill(15, 29), { t = "accept", quest = 16, map = 1440 } } },
+		{ goals = { { t = "kill", quest = 16, npc = 8, map = 1440, optional = true, lvl = 40 } } },
+	} }
+	guides[#guides + 1] = g
+	byId[id] = g
+end
+local function offeredAt(n)
+	local before = #offers
+	levelUp(n)
+	local o = offers[#offers]
+	return #offers > before and { id = o.guideId, heads = o.heads or false } or false
+end
+"#;
+
+#[test]
+fn a_long_normal_chain_is_offered_when_it_opens_with_its_length_and_its_mobs_level() {
+	let out = run_qol(&(CHAINS.to_string()
+		+ r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		chain("c/storm", false)
+		emit(offeredAt(22))"#));
+	assert_eq!(out[0], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} mobs up to level 29" }), "no wait, the optional level-40 kill aside");
+}
+
+#[test]
+fn an_elite_chain_waits_until_two_levels_below_its_highest_elite_and_says_bring_a_group() {
+	let out = run_qol(&(CHAINS.to_string()
+		+ r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		chain("c/storm", true)
+		emit(offeredAt(22))
+		emit(offeredAt(26))
+		emit(offeredAt(27))"#));
+	assert_eq!(out[0], json!(false), "not at 22");
+	assert_eq!(out[1], json!(false), "not at 26");
+	assert_eq!(out[2], json!({ "id": "c/storm", "heads": "Long chain: 6 quests across 4 zones \u{b7} elite mobs at 28-29: bring a group" }));
+}
+
+#[test]
+fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
+	let out = run_qol(
+		r#"
+		levelUp(20)
+		emit(offers[1].heads == nil)"#,
+	);
+	assert_eq!(out[0], true);
 }
 
 // ---------------------------------------------------------------------------

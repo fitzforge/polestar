@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Une cape rare au niveau 30, tirée de l'ancienne histoire de {spell:407778} ; pour l'instant, seuls les paladins de l'Alliance peuvent la terminer.",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",
@@ -58,6 +58,7 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "Retournez voir {npc:3663} au {area:413}, dans l'ouest d'{zone:1440}, en traversant toute la zone.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Une cape rare au niveau 30, tirée de l'ancienne histoire de {spell:407778} ; pour l'instant, seuls les paladins de l'Alliance peuvent la terminer.",
 	-- ["Back to {area:413}."] = "Retour à {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Les Invocateurs, Champions et Pisteurs Blackrock campent dans le nord-ouest des Carmines ; ils laissent tomber le {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Montez au sommet de {area:444}, dans le nord de {zone:1439}. Fouillez le Strange Orb là-haut : il vous donne l'Althalaxx Orb, qui lance la quête.",

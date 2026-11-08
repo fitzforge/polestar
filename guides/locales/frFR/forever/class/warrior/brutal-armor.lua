@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières) et un bouclier en chemin.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Retournez voir {npc:5878} au bord de la route à l'est de {area:380}. {quest:1848} est la première pièce ; il vous envoie ensuite voir trois artisans pour le reste.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Prenez un vol pour {area:378}. Au sud du camp, les Antres des silithides parsèment {area:390} : les silithides qui s'y trouvent portent les Antennes mobiles.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières) et un bouclier en chemin.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Les mineurs fondent les Barres de fer à partir de {item:2772} ({skill:186} 125) ; les autres les achètent à l'hôtel des ventes d'{zone:1454}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug est un huran élite dans {area:1717}, le donjon au sud de {zone:1413} ; il lâche la {item:6841}. {area:1717} est un donjon : mieux vaut former un groupe.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Lingots de fer cendré sur les kobolds des Cisailles",

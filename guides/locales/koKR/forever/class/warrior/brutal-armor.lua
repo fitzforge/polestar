@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30레벨에 방어구 네 부위(사슬 갑옷, 투구, 건틀릿, 다리보호구), 도중에 방패도 얻습니다.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "{area:380} 동쪽 길가의 {npc:5878}에게 돌아가세요. {quest:1848}이(가) 첫 번째 부위이며, 그 후 나머지를 위해 장인 세 명에게 보냅니다.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "{area:378}(으)로 날아가세요. 야영지 남쪽 {area:390}에 실리시드 흙더미가 흩어져 있으며, 그곳의 실리시드가 꿈틀거리는 더듬이를 지니고 있습니다.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30레벨에 방어구 네 부위(사슬 갑옷, 투구, 건틀릿, 다리보호구), 도중에 방패도 얻습니다.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "채광사는 {item:2772}을(를) 제련해 철 주괴를 만들고({skill:186} 125), 그 외에는 {zone:1454} 경매장에서 사세요.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "루구그는 {zone:1413} 남쪽 끝의 던전인 {area:1717} 안의 정예 가시멧돼지족이며 {item:6841}을(를) 떨어뜨립니다. {area:1717}은(는) 던전이니 파티를 권장합니다.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "칼바람 코볼트에게서 연기나는 철제 주괴",

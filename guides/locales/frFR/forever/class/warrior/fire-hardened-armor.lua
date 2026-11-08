@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Armure en acier trempé",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Un haubert au niveau 28, une coiffe, des jambières et des gantelets de trois forgerons, et un bouclier en chemin.",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -98,6 +98,7 @@ return {
 	["{item:6848}, from {quest:1708}"] = "{item:6848}, sur le {quest:1708}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Un haubert au niveau 28, une coiffe, des jambières et des gantelets de trois forgerons, et un bouclier en chemin.",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Un haubert au niveau 28, une coiffe, des jambières ou des gantelets selon la race, et un bouclier en chemin.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "Au niveau 20, {npc:5479}, dans la {object:2100} à côté de la taverne du Cochon siffleur, vous envoie voir {quest:1698} dans les Carmines.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Retournez voir {npc:5413} dans le {object:28027}. Il vous envoie chez un forgeron de votre race.",

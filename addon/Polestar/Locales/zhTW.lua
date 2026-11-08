@@ -1412,6 +1412,7 @@ L["If you finish this guide"] = "如果你完成此指南"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "你目前等級 %d。此指南建議等級為 %d；從該等級起："
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "未顯示任何指南：Polestar 自己的指南已關閉。請在選項的社群指南（/polestar packs）中開啟。"
 -- L["Other starting zones"] = ""
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -2989,6 +2990,13 @@ L["party chat: , "] = "，"
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar 已在聊天中告訴你的隊伍你的任務進度（在 選項 > 解任務 > 任務 > 小隊 中更改）。"
 L["%s is ready to turn in"] = "%s 可繳交"
 L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
+
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

@@ -1847,6 +1847,7 @@ L["Miscellaneous"] = "Miscelánea"
 -- L["You are level %d. Level %d is recommended for this guide; from there:"] = ""
 -- L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = ""
 -- L["Other starting zones"] = ""
+-- L["Heads-up"] = ""
 
 -- UI/Report.lua
 L["Polestar %s"] = "Polestar %s"
@@ -2988,6 +2989,13 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar le contó a tu grupo en el chat cómo van tus misiones (Opciones > Misiones > Misiones > Grupo para cambiarlo)."
 L["%s is ready to turn in"] = "%s está lista para entregar"
 L["looted %s, which starts %s"] = "consiguió %s, que inicia %s"
+
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

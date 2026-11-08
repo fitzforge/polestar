@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "옛 {spell:407778} 이야기에서 이어지는 30레벨 희귀 망토입니다. 지금은 얼라이언스 성기사만 완료할 수 있습니다.",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",
@@ -58,6 +58,7 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "옛 {spell:407778} 이야기에서 이어지는 30레벨 희귀 망토입니다. 지금은 얼라이언스 성기사만 완료할 수 있습니다.",
 	-- ["Back to {area:413}."] = "{area:413}(으)로 돌아가십시오.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "붉은마루 산맥 북서쪽에 진을 친 검은바위부족 소환사, 용사, 추적자가 {item:209778}을(를) 떨어뜨립니다.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "{zone:1439} 북부의 {area:444} 꼭대기로 올라가십시오. 그곳의 Strange Orb에서 Althalaxx Orb를 얻으면 퀘스트가 시작됩니다.",

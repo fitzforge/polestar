@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Закаленный огнем доспех",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Кольчуга на 28-м уровне, капюшон, поножи и рукавицы от трех кузнецов и щит по пути.",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -98,6 +98,7 @@ return {
 	["{item:6848}, from {quest:1708}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Кольчуга на 28-м уровне, капюшон, поножи и рукавицы от трех кузнецов и щит по пути.",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Кольчуга на 28-м уровне, капюшон, поножи или рукавицы в зависимости от расы и щит по пути.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "На 20-м уровне {npc:5479} ({object:2100}, рядом с таверной «Свинья и Свисток») отправляет вас к NPC {quest:1698} в Красногорье.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Вернитесь: {npc:5413} ({object:28027}). Он отправит вас к кузнецу вашей расы.",

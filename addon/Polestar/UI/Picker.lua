@@ -1246,6 +1246,14 @@ local function renderDetails(byId, tabs, active)
 		if #choose > 0 then facts[#facts + 1] = { L["Choose one"], rewards = choose } end
 	end
 	if type(g.why) == "string" and g.why ~= "" then facts[#facts + 1] = { L["Why"], g.why } end
+	-- A Class guide: the same heads-up the class-quest card gives (QoL/ClassQuests.lua).
+	local CQ, G = ns.QoL and ns.QoL.ClassQuests, ns.Guides
+	local full = g.category == "Class" and CQ and CQ.Heads and G and G.Get and G.Get(g.id)
+	if type(full) == "table" and type(full.steps) == "table" then
+		local okP, player = pcall(ns.Compat.GetPlayerInfo)
+		local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
+		if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
 	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end

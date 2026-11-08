@@ -433,6 +433,33 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 }
 
 #[test]
+fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
+	let out = run_all(
+		r#"
+		local id = "forever/class/paladin/test"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Storm", category = "Class", folder = "Paladin", minLevel = 22, maxLevel = 30,
+			zone = 1439, zoneName = "Darkshore", why = "A cloak.",
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		local asked
+		Polestar.QoL = Polestar.QoL or {}
+		Polestar.QoL.ClassQuests = {
+			Heads = function(g) asked = g.id; return { quests = 6 } end,
+			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
+		}
+		Polestar.Set("ui.pickerFaction", "All")
+		UI.ShowPicker()
+		P.Select(id)
+		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
+		P.Select("forever/alliance/02-westfall")
+		emit(P.detail.facts[1][1])"#,
+		"",
+	);
+	assert_eq!(out[0], json!({ "asked": "forever/class/paladin/test", "facts": [["Why", "A cloak."], ["Heads-up", "Long chain: 6 quests across 4 zones"]] }));
+	assert_eq!(out[1], "Steps", "a leveling guide has none");
+}
+
+#[test]
 fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_colour_the_game_s_tooltip_on_hover_and_why() {
 	let out = run_all(
 		r#"

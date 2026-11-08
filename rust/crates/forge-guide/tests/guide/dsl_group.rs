@@ -22,12 +22,12 @@ fn groups(src: &str) -> (V, Vec<Value>) {
 
 #[test]
 fn a_kill_of_a_hostile_elite_is_elite_group_content_with_its_rank_a_friendly_talk_credit_and_a_normal_mob_are_not() {
-	assert_eq!(groups(&guide(&["step S", "  kill 95003", "  kill 95030", "  kill 6"])).1, [json!({ "kind": "elite", "rank": 1 }), Value::Null, Value::Null]);
+	assert_eq!(groups(&guide(&["step S", "  kill 95003", "  kill 95030", "  kill 6"])).1, [json!({ "kind": "elite", "lvl": 7, "rank": 1 }), Value::Null, Value::Null]);
 }
 
 #[test]
 fn a_collect_is_elite_group_content_only_when_every_dropper_is_an_elite() {
-	assert_eq!(groups(&guide(&["step S", "  collect 95100 x3", "  collect 95101 x3"])).1, [json!({ "kind": "elite", "rank": 1 }), Value::Null]);
+	assert_eq!(groups(&guide(&["step S", "  collect 95100 x3", "  collect 95101 x3"])).1, [json!({ "kind": "elite", "lvl": 7, "rank": 1 }), Value::Null]);
 }
 
 #[test]
