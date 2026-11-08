@@ -354,6 +354,35 @@ fn buildjournal_a_stray_drop_only_the_forever_item_lists_record_it_under_5_a_que
 	assert!(dm.contains(&json!(90013)), "and a common one only Forever's lists record");
 }
 
+// The #1380 sweep: a quest an object inside the instance starts (Gnomeregan's Sparklematic 5200, Uldaman's
+// Discs of Norgannon) came out with `inside` false, so its card never said "Picked up inside the dungeon".
+// Forever's objects list the instance maps they stand in: an unplaced one of this instance's map starts it
+// inside; one with a place outside stays as it was.
+#[test]
+fn buildjournal_a_quest_an_unplaced_object_of_the_instance_starts_is_picked_up_inside() {
+	let (mut c, mut i) = (codex(), inputs());
+	c["objects"]["90020"] = json!({ "id": 90020, "name": "Sparklematic", "spawns": [] });
+	c["objects"]["90021"] = json!({ "id": 90021, "name": "Wanted Poster", "spawns": [{ "map": 1413, "x": 46, "y": 36, "f": "e" }] });
+	let quest = |id: i64, title: &str, object: i64| {
+		json!({
+			"id": id, "title": title, "level": 20, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [], "object": [object], "item": [] }, "end": { "npc": [], "object": [object] },
+			"objectives": [], "pre": [], "preAny": [], "rewards": [], "choices": [],
+		})
+	};
+	c["quests"]["90022"] = quest(90022, "Sparkle", 90020);
+	c["quests"]["90023"] = quest(90023, "Wanted", 90021);
+	i["forever"]["quests"]["90022"] = json!({ "area": 718 });
+	i["forever"]["quests"]["90023"] = json!({ "area": 718 });
+	i["forever"]["objects"] = json!({ "90020": { "instances": [43] }, "90021": { "instances": [43] } });
+	let j = journal_json(&i, &c);
+	let wc = &j["dungeons"]["wailing-caverns"];
+	let sparkle = page_quest(wc, 90022);
+	assert_eq!(json!([sparkle["inside"], sparkle["start"]["inside"]]), json!([true, true]), "{sparkle}");
+	let wanted = page_quest(wc, 90023);
+	assert_eq!(json!([wanted["inside"], wanted["start"]["inside"]]), json!([false, false]), "placed outside: {wanted}");
+}
+
 #[test]
 fn buildjournal_tolerates_missing_inputs_emitjournal_writes_one_file_of_summaries_and_page_sources() {
 	assert_eq!(journal_json(&json!({}), &json!({}))["dungeons"], json!({}));
