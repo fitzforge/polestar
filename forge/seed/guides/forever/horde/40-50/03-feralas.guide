@@ -62,16 +62,20 @@ step Pool of Tears
   tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
   collect 6175 quest 1424.1
 
+step Misty Reed Post
+  tip Follow the road south-east to the small Horde post on the shore. Tok'Kar takes the crocolisk flanks from the last swamp visit.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
 step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
   tip The snappers line the strand south of the post.
-  tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south.
+  tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.
   collect 6168 quest 699.1
   collect 6184 quest 1430.1           -- Underwater
 
 step Misty Reed Post
   turnin 699                            -- Tok'Kar
-  tip The small Horde post on the southern shore.
   accept 1422                           -- Tok'Kar
   turnin 1422                           -- Katar
   accept 1426

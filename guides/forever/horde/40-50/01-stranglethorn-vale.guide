@@ -67,9 +67,9 @@ step Booty Bay
 # -> the ghost pirates -> Zul'Mamwe and the Balia'mah and Ziata'jai trophy
 # skulls -> Grom'gol -> hearth to Booty Bay -> fly Grom'gol -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
-# (flight path) -> Galen's escort, the Draenethyst crystals, Noboru and
-# Galen's strongbox -> crocolisks -> the Harborage -> Misty Reed Post -> the
-# snappers on the strand -> Misty Reed Post.
+# (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
+# escort -> Galen's strongbox -> the Harborage, where the next guide rides back
+# to Stonard's flight master.
 #
 # Deviations from the simulator's order:
 # - One stay at Zul'Mamwe for Speaking with Gan'zulah (586), Split Bone
@@ -91,9 +91,10 @@ step Booty Bay
 #   bind carries you from Grom'gol to Booty Bay, and one flight back to
 #   Grom'gol puts Nesingwary on the road north. The Stonard bind is dropped:
 #   the route never hearths to it before the next bind.
-# - Swamp of Sorrows: the Harborage (Noboru the Cudgel) after the
-#   crocolisks, so the west of the swamp is visited once before riding to
-#   Misty Reed Post.
+# - Swamp of Sorrows: one pass east and back west (final review, 0.3.5).
+#   Lack of Surplus (698) is handed to Tok'Kar on the Misty Reed stop of
+#   forever/horde/40-50/03-feralas instead of a ride to the far south-east
+#   coast and back here.
 # - Added in the October refresh, from the new export (Forever above 30
 #   cannot be checked in game until launch on 4 November: from the data, not
 #   from play): Draenethyst Crystals (1389). Magtoor gives it at the
@@ -387,7 +388,7 @@ step Into the Swamp of Sorrows
 
 step Stonard
   zone Swamp of Sorrows
-  tip Head east to Stonard, in the reeds south of the road. Bind here: you hearth back after the coast.
+  tip Head east to Stonard, in the reeds south of the road. Bind here.
   accept 698                            -- Dar, inside
   accept 1430                           -- Dar, inside
   getfp "Stonard" npc 6026              -- Breyk
@@ -397,7 +398,6 @@ step Stonard
 
 step Sawtooth crocolisks
   tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
-  tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
   collect 6169 quest 698.1
 
 step Noboru the Cudgel
@@ -416,16 +416,11 @@ step Galen's Escape
   accept 1393
   complete 1393
 
-step The Harborage
-  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass.
-  turnin 1392 optional -- Magtoor
-  turnin 1389
-
 step Galen's Strongbox
-  tip His strongbox waits at his old camp north of Stonard.
+  tip His strongbox waits at his old camp north of Stonard, on the way back west.
   turnin 1393
 
-step Misty Reed Post
-  tip Ride back east past Stonard and follow the road south-east to the small Horde post on the shore.
-  turnin 698                            -- Tok'Kar
-  accept 699
+step The Harborage
+  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
+  turnin 1392 optional -- Magtoor
+  turnin 1389

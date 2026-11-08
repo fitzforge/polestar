@@ -4384,6 +4384,30 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					1393
+				],
+				"b": [
+					"turnin",
+					1389
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows 39-43 and 45-47): the first swamp stay is one pass, the Harborage on the way in, Stonard, the crocolisks, Noboru, the Fallow Sanctuary, Galen's strongbox north of Stonard, then the Harborage for Magtoor's hand-ins, and the ride back to Stonard's flight master. It went Fallow Sanctuary -> Harborage (far west) -> strongbox (back east) -> Misty Reed Post (far south-east) for Lack of Surplus alone -> Stonard. Tok'Kar takes the flanks on the second stay, which rides to Misty Reed Post anyway after the Pool of Tears (Lack of Surplus is level 40, full experience at 45)."
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"turnin",
+					698
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows): see turnin 1393 before turnin 1389."
 			}
 		],
 		"notes": [
