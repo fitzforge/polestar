@@ -808,7 +808,11 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Th
 	assert.equal(accept, at(list, 'turnin 287 (Frostmane Hold)', is('turnin', 287)) + 1, 'taken right after Frostmane Hold is handed in');
 	const turnin = at(list, 'turnin 291 (Senator Barin Redstone)', is('turnin', 291));
 	assert.ok(turnin > accept, 'handed in later');
-	assert.equal(list[turnin].step, list[at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram')].step, 'in the Deeprun Tram step');
+	// Final route review (2026-11-08): Ironforge is one round of the city, so the senator is a stop of that round,
+	// in Ironforge before the tram, not a step of its own after it.
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	assert.ok(turnin < tram, 'handed in before the tram');
+	assert.equal(list[turnin].goal.map, 1455, 'in Ironforge');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after`, { skip }, () => {
@@ -6596,4 +6600,22 @@ test('Auberdine: The Family and the Fishing Pole is offered only to characters w
 		assert.ok((step.when || []).some((p) => p.k === 'skill' && !p.neg && /fishing/i.test(JSON.stringify(p))), `${guide}: under when skill Fishing`);
 		assert.ok(step.goals.every((g) => g.quest === 1141), `${guide}: nothing else waits on the gate`);
 	}
+});
+
+// Final route review follow-up (2026-11-08): the Dwarf and Gnome starts crossed Ironforge five times after the
+// Thelsamar gryphon (a bare goto to Tinker Town's mailbox, back to the Great Forge for the flight path, the Hall of
+// Arms, the Forlorn Cavern, the Military Ward, the High Seat, then the tram). Now one round: Great Forge, Tinker Town,
+// the Forlorn Cavern, the Mystic Ward, the High Seat, the Military Ward, the tram.
+for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: final review: Ironforge in one round of the city`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const gryth = at(list, 'turnin 6388', is('turnin', 6388));
+	const fp = at(list, 'getfp Ironforge', (g) => g.t === 'getfp' && /Ironforge/.test(g.location || g.text || ''));
+	assert.equal(list[fp].step, list[gryth].step, 'the flight path with Gryth');
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	const city = list.slice(gryth, tram + 1);
+	assert.ok(!city.some(({ goal }) => goal.t === 'goto' && goal.text === 'Ironforge'), 'no bare goto into Tinker Town');
+	const order = [is('accept', 97263), is('turnin', 97263), is('turnin', 291)].map((p, k) => at(list, `stop ${k}`, p));
+	assert.ok(gryth < order[0] && order[0] < order[1] && order[1] < order[2] && order[2] < tram, 'Tinker Town, Eldrun, the senator, the tram');
+	const trains = city.filter(({ goal }) => goal.t === 'train' && goal.class === true).map(({ goal }) => goal);
+	assert.ok(trains.every((g) => g.only), 'each trainer stop names its classes');
 });
