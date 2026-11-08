@@ -21,7 +21,7 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 598                            -- Kin'weelay
-  accept 95748                          -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
+  accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -227,7 +227,7 @@ step Zul'Kunda
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
-  turnin 95748                          -- Kin'weelay
+  turnin 95748 npc 2519                 -- Kin'weelay
   accept 586
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48

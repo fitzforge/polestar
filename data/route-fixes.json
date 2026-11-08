@@ -7731,7 +7731,6 @@
 			},
 			{
 				"q": 1137,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1108
@@ -7740,18 +7739,7 @@
 				"issue": "-"
 			},
 			{
-				"q": 1190,
-				"faction": "Horde",
-				"after": [
-					"turnin",
-					1137
-				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): Keeping Pace (level 41, 1650 XP) from Pozzik on the same Mirage Raceway stop: Zamek's Distraction, then Rizzle's Unguarded Plans in the gnomes' camp a few steps away.",
-				"issue": "-"
-			},
-			{
 				"q": 1191,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					1190
@@ -7760,18 +7748,7 @@
 				"issue": "-"
 			},
 			{
-				"q": 1194,
-				"faction": "Horde",
-				"after": [
-					"turnin",
-					1190
-				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): Rizzle's Schematics (level 41, 1650 XP) from Rizzle's plans to Pozzik, on the same Mirage Raceway stop.",
-				"issue": "-"
-			},
-			{
 				"q": 1428,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1427
@@ -7781,7 +7758,6 @@
 			},
 			{
 				"q": 654,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					379
@@ -7791,7 +7767,6 @@
 			},
 			{
 				"q": 864,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					654
@@ -7801,7 +7776,6 @@
 			},
 			{
 				"q": 2784,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1444
@@ -7811,7 +7785,6 @@
 			},
 			{
 				"q": 2621,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					2784
@@ -7821,7 +7794,6 @@
 			},
 			{
 				"q": 2622,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					2621
@@ -7830,28 +7802,7 @@
 				"issue": "-"
 			},
 			{
-				"q": 608,
-				"faction": "Horde",
-				"after": [
-					"turnin",
-					2874
-				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Bloodsail Buccaneers' captains (level 45, 4850 XP) on 40-50/06's Booty Bay stop at about 50, as the RevH2 pair (turnin 2932 -> accept 608) asks: the ships lie just south of Booty Bay, the captains are normal 45-48.",
-				"issue": "-"
-			},
-			{
-				"q": 4324,
-				"faction": "Horde",
-				"after": [
-					"accept",
-					4507
-				],
-				"reason": "Quest volume, Horde 40-60 (2026-11-08): Yuka Screwspigot (level 53, from 48, 2650 XP): Yorba Screwspigot stands by the Steamwheedle Port dock where 50-60/01 takes the boat to Powderfuse Port, and Yuka is at Flame Crest, the guide's Burning Steppes hub a little later; a delivery. Its follow-up, Ribbly Screwspigot, is in Blackrock Depths and is left out.",
-				"issue": "-"
-			},
-			{
 				"q": 7492,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					5181
@@ -7861,7 +7812,6 @@
 			},
 			{
 				"q": 5234,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					5233
@@ -7871,7 +7821,6 @@
 			},
 			{
 				"q": 5235,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					5234
@@ -7881,7 +7830,6 @@
 			},
 			{
 				"q": 5236,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					5235
@@ -7891,7 +7839,6 @@
 			},
 			{
 				"q": 5238,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					5236
@@ -7901,7 +7848,6 @@
 			},
 			{
 				"q": 95748,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					1240
@@ -11101,6 +11047,54 @@
 				"faction": "Horde",
 				"why": "#1346: the Befouled Water Globe that starts The Befouled Element (1918) drops from Tideress only for a player with Stonetalon Standstill (25) in the log or handed in (players' recordings: 7 people with it got the globe, 2 without it did not), so Tideress comes after Mastok's accept of 25.",
 				"source": "#1346"
+			},
+			{
+				"a": [
+					"turnin",
+					1137
+				],
+				"b": [
+					"accept",
+					1190
+				],
+				"faction": "Horde",
+				"why": "Quest volume, Horde 40-60 (2026-11-08): Keeping Pace (level 41, 1650 XP) from Pozzik on the same Mirage Raceway stop: Zamek's Distraction, then Rizzle's Unguarded Plans in the gnomes' camp a few steps away."
+			},
+			{
+				"a": [
+					"turnin",
+					1190
+				],
+				"b": [
+					"accept",
+					1194
+				],
+				"faction": "Horde",
+				"why": "Quest volume, Horde 40-60 (2026-11-08): Rizzle's Schematics (level 41, 1650 XP) from Rizzle's plans to Pozzik, on the same Mirage Raceway stop."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					608
+				],
+				"faction": "Horde",
+				"why": "Quest volume, Horde 40-60 (2026-11-08): The Bloodsail Buccaneers' captains (level 45, 4850 XP) on 40-50/06's Booty Bay stop at about 50, as the RevH2 pair (turnin 2932 -> accept 608) asks: the ships lie just south of Booty Bay, the captains are normal 45-48."
+			},
+			{
+				"a": [
+					"accept",
+					4507
+				],
+				"b": [
+					"accept",
+					4324
+				],
+				"faction": "Horde",
+				"why": "Quest volume, Horde 40-60 (2026-11-08): Yuka Screwspigot (level 53, from 48, 2650 XP): Yorba Screwspigot stands by the Steamwheedle Port dock where 50-60/01 takes the boat to Powderfuse Port, and Yuka is at Flame Crest, the guide's Burning Steppes hub a little later; a delivery. Its follow-up, Ribbly Screwspigot, is in Blackrock Depths and is left out."
 			}
 		]
 	}
