@@ -269,12 +269,13 @@ local function placeLabel(b)
 	-- The target button's row of small icons (b.Minis, b.miniCount shown):
 	-- right or left, a second line under the name, the pair centred on the
 	-- button; above or below, on the name's line after it.
-	local rows = (b.miniCount or 0) > 0
+	local mine = b == Buttons.target
+	local rows = mine and (b.miniCount or 0) > 0
 	local side = a == LABEL_SIDE.left and "left" or a == LABEL_SIDE.right and "right" or nil
 	b.Label:ClearAllPoints()
 	b.Label:SetPoint(a[1], to, a[2], a[3], (rows and side) and MINI_LIFT or a[4])
+	if not mine then return end
 	local minis = b.Minis
-	if not minis then return end
 	for k = 1, #minis do
 		local m = minis[k]
 		m:ClearAllPoints()
@@ -935,7 +936,7 @@ local function seeUnit(unit)
 	local b = Buttons.target
 	if not (b and (target.list[1] or (b.aList and b.aList[1])) and QoL.On("targetPlate")) then return end
 	local C = ns.Compat
-	if C.Readable(UnitExists and UnitExists(unit)) ~= true or C.Readable(UnitIsPlayer and UnitIsPlayer(unit)) ~= false then return end
+	if not C.Readable(UnitExists and UnitExists(unit)) or C.Readable(UnitIsPlayer and UnitIsPlayer(unit)) ~= false then return end
 	local name = C.Readable(UnitName and UnitName(unit))
 	if not name or not (listed(target.list, name) or listed(b.aList, name)) then return end
 	local changed = false
