@@ -4553,6 +4553,20 @@ for (const guide of DUN_MOROGHS) {
 	});
 }
 
+// #1224 (Dwarf Hunter, Coldridge Valley): the Frostmane Troll Whelps for The Troll Cave were an along list
+// before Grelin's hand-in, and the field step held only for Felix's three parts, so the route moved on to Grelin
+// with the whelp count short. The whelps are now goals of the Coldridge field step, with Felix's parts.
+for (const guide of DUN_MOROGHS) {
+	test(`${guide}: #1224: the troll whelps are worked in the Coldridge field step with Felix's parts, before Grelin`, { skip }, () => {
+		const list = goals(guide);
+		const whelps = at(list, 'kill 706 (Frostmane Troll Whelp) for 182', (g) => g.t === 'kill' && g.npc === 706 && g.quest === 182);
+		assert.ok(!list[whelps].step.along, 'the whelps are not an along list');
+		assert.equal(list[whelps].s, list[at(list, "Felix's Chest", (g) => g.t === 'collect' && g.item === 16313)].s, "in the step with Felix's parts");
+		assert.ok(whelps < at(list, 'turnin 182', is('turnin', 182)), 'before Grelin takes The Troll Cave back');
+		assert.equal(list.filter(({ goal }) => goal.t === 'kill' && goal.npc === 706 && goal.quest === 182).length, 1, 'one whelp goal');
+	});
+}
+
 // Darkshore: Fruit of the Sea's crab chunks come with Cliffspring Falls; the walk passed Gubber Blump with them
 // on the next Auberdine visit and handed them in a loop later.
 test(`${DARKSHORE}: flow re-order: Fruit of the Sea handed in on the Auberdine visit after Cliffspring Falls`, { skip }, () => {
