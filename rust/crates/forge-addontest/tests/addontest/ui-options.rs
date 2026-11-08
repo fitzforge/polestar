@@ -1236,3 +1236,35 @@ fn search_with_no_match_suggests_the_nearest_settings() {
 	assert_eq!(out["nothing"]["n"], 0);
 	assert_eq!(out["nothing"]["suggestions"], json!({}), "nothing near: no suggestion (an empty list)");
 }
+
+// Fitz, 0.3.5 preview: "Version 0.3.5-preview.2f100bfb3" ran under the Discord mark, and the BETA chip after it
+// sat on the footer's "Reset page". The version line and its chip stay left of the mark; a version too long for
+// "Version " drops the word, then is cut.
+#[test]
+fn the_version_line_and_its_stage_chip_end_before_the_discord_mark_in_both_windows_a_long_version_drops_the_word_then_is_cut() {
+	let out = run(r#"
+		local function foot(f)
+			local st, mark = f.Status, f.Discord
+			local _, _, _, sx = st:GetPoint(1)
+			local _, _, _, mx = mark:GetPoint(1)
+			return { text = st:GetText(), right = sx + st:GetStringWidth(), chip = f.Stage:IsShown() and f.Stage:GetWidth() or 0,
+				markLeft = f.psSidebar + mx - mark:GetWidth() }
+		end
+		Polestar.version = "0.3.5"
+		UI.ShowOptions()
+		local short = foot(PolestarOptions)
+		PolestarOptions:Hide()
+		Polestar.version = "0.3.5-preview.2f100bfb3"
+		UI.ShowOptions()
+		local preview = foot(PolestarOptions)
+		UI.ShowPicker()
+		emit({ short = short, preview = preview, hub = foot(PolestarPicker) })"#);
+	assert_eq!(out["short"]["text"], "Version 0.3.5");
+	assert_eq!(out["preview"]["text"], "0.3.5-preview.2f100bfb3", "too long with the word: the number alone");
+	for key in ["short", "preview", "hub"] {
+		let f = &out[key];
+		assert!(n(&f["chip"]) > 0.0, "{key}: the BETA chip shows");
+		let end = n(&f["right"]) + 8.0 + n(&f["chip"]);
+		assert!(end <= n(&f["markLeft"]), "{key}: the line and its chip end at {end}, the Discord mark starts at {}", f["markLeft"]);
+	}
+}
