@@ -213,7 +213,7 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.whileHere", label = L["While you're here"],
 			help = L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."],
 			search = "nearby objective, grab it now, on the way, later step, opportunistic, detour" },
-		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 40, max = 120, step = 5,
+		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 60, max = 250, step = 10,
 			format = function(v) return ns.FormatDistance(v) end,
 			help = L["How near its spawn area must be for the line to show. It goes again a little further out."],
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },

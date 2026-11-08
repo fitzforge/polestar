@@ -43,7 +43,7 @@ ns.RegisterDefaults("behavior", {
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
-	whileHereRadius = 60, -- yards from its spawn area's edge at which it shows (40-120); it goes past 100/60 of that
+	whileHereRadius = 150, -- yards from its spawn area's edge at which it shows (60-250); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
 	whileHereSound = true, -- a soft chime when a line appears, at most every 30 s (UI/WhileHere.lua)
 })
@@ -6149,19 +6149,24 @@ end
 --
 -- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
 -- allocation-free), measured from the player wherever the live step leads:
--- of the candidates within behavior.whileHereRadius yards of one of their
--- spawn areas' edge (not an alternative place: an elite camp or one past the
--- guide's picks; HERE_TURNIN of a hand-in's NPC), the one whose target spawns
--- in the fewest places on the map (`places`: a pool's mushrooms before
--- zhevra found all over the zone, which can wait for another spot), then the
--- nearest; checked once against the walk there (Nav.EstimateTravel,
--- budgeted: a walk over HERE_WALK times the straight line is a cliff or a
--- cave floor). It goes
--- past HERE_CLEAR times that radius, once done, after HERE_SECONDS without
+-- of the candidates within behavior.whileHereRadius yards of the edge of
+-- any place their target spawns (the guide's spots and the alternatives
+-- alike: Fitz stood among Zhevra Runners in an alternative spot's camp), or
+-- with one of their mobs in sight (a nameplate, the target, the mouseover:
+-- HERE_SEEN yards, whatever the spawn data says; HERE_TURNIN of a hand-in's
+-- NPC), the one whose target spawns in the fewest places on the map
+-- (`places`: a pool's mushrooms before zhevra found all over the zone, which
+-- can wait for another spot), then the nearest; checked once against the
+-- walk there (Nav.EstimateTravel, budgeted: a walk over HERE_WALK times the
+-- straight line is a cliff or a cave floor; not for a mob in sight). It goes
+-- past HERE_CLEAR times that radius (at most HERE_CLEAR_MAX yards), once
+-- done, after HERE_SECONDS without
 -- progress on it (a line being worked never expires), or on a
 -- dismiss (Engine.DismissWhileHere). One at a time; during a fight none
--- appears and none goes by distance or time. A dismissed or expired line
--- stays quiet for the rest of the zone stay (Own.hereQuiet). Never in an
+-- appears and none goes by distance or time. A dismissed line stays quiet
+-- for the rest of the zone stay (Own.hereQuiet); an expired one comes again
+-- on a new sighting of its mob or near another of its spots (Own.hereAgain).
+-- Never in an
 -- instance, on a taxi, boat or zeppelin, while a Hearthstone is cast, or
 -- while a timed quest or the live step's escort runs. Messages:
 -- WHILE_HERE_CHANGED when it appears, its count changes or it goes;
@@ -6173,6 +6178,18 @@ Own.HERE_REPICK = 25 -- yards moved before the nearest are picked again
 Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
 Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
 Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
+Own.HERE_SEEN = 30 -- yards a mob of it seen around the player counts as (nameplate range)
+Own.HERE_MOUSE = 5 -- seconds a mouseover counts as seen
+Own.herePlates, Own.hereSeen = {}, {} -- nameplate unit -> npc id; npc id -> nameplates showing it
+Own.HERE_AGAIN = 60 -- seconds before an expired line may come again
+Own.hereSeenGen = 0 -- counts sightings (a nameplate, a target, a mouseover of a creature)
+-- An expired line (HERE_SECONDS without progress), per goal: when, at which
+-- spawn spot, and Own.hereSeenGen then. It comes again (Own.hereAgain) on a
+-- new sighting of its mob or at another spot, not before HERE_AGAIN s.
+Own.hereExpiredAt = setmetatable({}, { __mode = "k" })
+Own.hereExpiredSpot = setmetatable({}, { __mode = "k" })
+Own.hereExpiredGen = setmetatable({}, { __mode = "k" })
+Own.HERE_CLEAR_MAX = 400 -- yards: and never further out than this
 Own.HERE_SECONDS = 180 -- a line with no progress for this long goes
 Own.HERE_STEP = 5 -- yards the shown distance moves by
 Own.HERE_WALK, Own.HERE_SPEED = 1.6, 7 -- walk / straight line; run speed (yd/s)
@@ -6181,7 +6198,7 @@ Own.HERE_HEARTH = { [8690] = true, [556] = true } -- Hearthstone, Astral Recall
 Own.hereAll, Own.hereAllN = {}, 0 -- every candidate, in route order
 Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true -- the ones the poll measures
 Own.herePicked = {} -- the nearest HERE_MAX, when more fit (reused)
-Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed or expired, this zone stay
+Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed (or no walk there), this zone stay
 Own.hereTo = {} -- the walk check's destination (reused)
 Own.hereIndex = setmetatable({}, { __mode = "k" }) -- guide -> { [map] = { s, g, s, g, ... } }
 
@@ -6237,6 +6254,87 @@ function Own.hereShown()
 	return shown
 end
 
+-- The creatures a kill or collect goal needs (its npc, the drop source it
+-- names, and with the quest database loaded every creature that drops its
+-- item), or false.
+function Own.hereNpcsOf(goal)
+	local t = goal.t
+	if t ~= "kill" and t ~= "collect" then return false end
+	local ids = {}
+	local function add(id)
+		if type(id) == "number" then ids[#ids + 1] = id end
+	end
+	if type(goal.npc) == "table" then
+		for _, id in ipairs(goal.npc) do add(id) end
+	else
+		add(goal.npc)
+	end
+	if t == "collect" then
+		if goal.fromKind == "npc" then add(goal.fromId) end
+		local QD = ns.QuestDB
+		local r = goal.item and QD and QD.IsLoaded and QD.IsLoaded() and QD.ItemRecord and QD.ItemRecord(goal.item)
+		if type(r) == "table" then
+			for k = 1, (r[2] or 0) do add(r[1 + 2 * k]) end
+		end
+	end
+	return #ids > 0 and ids or false
+end
+
+-- Whether a mob with npc id `npc` is around the player now: a nameplate, the
+-- target or (for HERE_MOUSE seconds) the mouseover. Allocation-free.
+function Own.hereSaw(npc)
+	local n = Own.hereSeen[npc]
+	if n and n > 0 then return true end
+	if npc == Own.hereTarget then return true end
+	return npc == Own.hereMouse and GetTime() - (Own.hereMouseAt or 0) <= Own.HERE_MOUSE
+end
+
+-- Living units only: a corpse's plate or target is no mob to get.
+function Own.hereUnitNpc(unit)
+	if UnitIsDead and UnitIsDead(unit) then return nil end
+	return Compat().GetNpcID(unit)
+end
+-- Whether candidate e may show (just measured: e.seen, e.spot): any but an
+-- expired one, which comes again HERE_AGAIN s on, once its mob is seen anew
+-- (a sighting after it expired) or the player is near another of its spots.
+-- Allocation-free.
+function Own.hereAgain(e)
+	local g = e.goal
+	local at = Own.hereExpiredAt[g]
+	if not at then return true end
+	if GetTime() - at < Own.HERE_AGAIN then return false end
+	if e.seen and Own.hereSeenGen > (Own.hereExpiredGen[g] or 0) then return true end
+	local spot = Own.hereExpiredSpot[g]
+	return not e.seen and e.spot ~= false and e.spot ~= spot
+end
+
+ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit)
+	if type(unit) ~= "string" then return end
+	local npc = Own.hereUnitNpc(unit)
+	local old = Own.herePlates[unit]
+	if npc ~= old then
+		if old then Own.hereSeen[old] = math.max(0, (Own.hereSeen[old] or 1) - 1) end
+		Own.herePlates[unit] = npc
+		if npc then Own.hereSeen[npc], Own.hereSeenGen = (Own.hereSeen[npc] or 0) + 1, Own.hereSeenGen + 1 end
+		Own.herePickC = nil
+	end
+end)
+ns.RegisterEvent("NAME_PLATE_UNIT_REMOVED", function(_, unit)
+	local npc = Own.herePlates[unit]
+	if npc then
+		Own.herePlates[unit] = nil
+		Own.hereSeen[npc] = math.max(0, (Own.hereSeen[npc] or 1) - 1)
+	end
+end)
+ns.RegisterEvent("PLAYER_TARGET_CHANGED", function()
+	Own.hereTarget, Own.herePickC = Own.hereUnitNpc("target"), nil
+	if Own.hereTarget then Own.hereSeenGen = Own.hereSeenGen + 1 end
+end)
+ns.RegisterEvent("UPDATE_MOUSEOVER_UNIT", function()
+	Own.hereMouse, Own.hereMouseAt, Own.herePickC = Own.hereUnitNpc("mouseover"), GetTime(), nil
+	if Own.hereMouse then Own.hereSeenGen = Own.hereSeenGen + 1 end
+end)
+
 -- Whether any of a goal's places has mobs at most `top` levels (one with no
 -- level counts).
 function Own.hereLevelOk(goal, top)
@@ -6244,7 +6342,7 @@ function Own.hereLevelOk(goal, top)
 	if goal.spots then
 		for _, s in ipairs(goal.spots) do
 			local l = s.lvl or lvl
-			if not s.alt and not (l and l > top) then return true end
+			if not (l and l > top) then return true end
 		end
 		return false
 	end
@@ -6298,7 +6396,7 @@ function Own.hereBuild()
 	if guide and live and logReady and ns.Get("behavior.whileHere") then
 		if not player then refreshPlayer() end
 		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
-		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 60
+		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 150
 		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
 		local steps = guide.steps
 		for g, goal in ipairs(steps[live].goals) do
@@ -6323,7 +6421,8 @@ function Own.hereBuild()
 							-- prefers the fewest). spot, d, pick: Own.hereDistance's and
 							-- Own.herePick's, set here so the poll adds no keys.
 							local spots = kind == "work" and goal.spots
-							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1, spot = false, d = false, pick = 0 }
+							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
+								npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0 }
 						end
 					end
 				end
@@ -6374,35 +6473,57 @@ function Own.hereClear(quiet)
 end
 
 -- Never in an instance, on a taxi, while a Hearthstone is cast, or while a
--- timed quest or the live step's escort runs. Allocation-free.
+-- timed quest or the live step's escort runs: why (for the bug report), or
+-- false. Allocation-free.
 function Own.hereBlocked()
-	if Own.hereEscort then return true end
-	if IsInInstance and IsInInstance() then return true end
-	if UnitOnTaxi and UnitOnTaxi("player") then return true end
-	if GetQuestTimers and GetQuestTimers() then return true end
+	if Own.hereEscort then return "escort" end
+	if IsInInstance and IsInInstance() then return "instance" end
+	if UnitOnTaxi and UnitOnTaxi("player") then return "flight" end
+	if GetQuestTimers and GetQuestTimers() then return "timed quest" end
 	if UnitCastingInfo then
 		local spell = select(9, UnitCastingInfo("player"))
-		if spell and Own.HERE_HEARTH[spell] then return true end
+		if spell and Own.HERE_HEARTH[spell] then return "hearthing" end
 	end
 	return false
 end
 
 -- Yards from the player to candidate e: a goal's nearest spawn area edge at
--- the player's level (e.spot: that area), else its point; a hand-in's NPC.
--- Nil on another continent. Allocation-free once the places are resolved.
+-- the player's level (e.spot: that area; every place the target spawns, the
+-- alternatives too), else its point; a hand-in's NPC. A mob of the goal's
+-- seen around the player (Own.hereSaw: a nameplate, the target, the
+-- mouseover) puts it at HERE_SEEN yards at most (e.seen), whatever the spawn
+-- data says. Nil on another continent and none seen. Allocation-free once
+-- the places are resolved.
 function Own.hereDistance(e, c, px, py)
 	local goal = e.goal
-	local spots = goal.spots
-	if e.kind == "work" and spots then
-		local best, top, lvl = nil, Own.hereTop, goal.lvl
-		for i = 1, #spots do
-			local s = spots[i]
-			local l = s.lvl or lvl
-			if not s.alt and not (l and top and l > top) then
-				local d = Spots.edge(goal, s, c, px, py)
-				if d and (not best or d < best) then best, e.spot = d, s end
+	local best = nil
+	if e.kind == "work" then
+		local spots = goal.spots
+		if spots then
+			local top, lvl = Own.hereTop, goal.lvl
+			for i = 1, #spots do
+				local s = spots[i]
+				local l = s.lvl or lvl
+				if not (l and top and l > top) then
+					local d = Spots.edge(goal, s, c, px, py)
+					if d and (not best or d < best) then best, e.spot = d, s end
+				end
+			end
+		else
+			local gc, gx, gy = goalWorld(goal)
+			if gc == c then best = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5 end
+		end
+		local npcs, seen = e.npcs, false
+		if npcs then
+			for i = 1, #npcs do
+				if Own.hereSaw(npcs[i]) then
+					seen = true
+					break
+				end
 			end
 		end
+		e.seen = seen
+		if seen and not (best and best <= Own.HERE_SEEN) then best = Own.HERE_SEEN end
 		return best
 	end
 	local gc, gx, gy = goalWorld(goal)
@@ -6412,15 +6533,17 @@ end
 
 -- The radius candidate e shows within.
 function Own.hereReach(e)
-	return e.kind == "turnin" and Own.HERE_TURNIN or Own.hereRadius or 60
+	return e.kind == "turnin" and Own.HERE_TURNIN or Own.hereRadius or 150
 end
 
 -- Once, as the line would appear: not on a boat, zeppelin or tram, and the
 -- walk there (Nav's budgeted estimate) not far longer than the straight
--- line. No answer (no Nav, busy, no route) lets it show.
+-- line. No answer (no Nav, busy, no route) lets it show, and so does a mob
+-- of it seen right here (e.seen).
 function Own.hereMayShow(e, d)
 	local T = ns.Transit
 	if T and T.Riding and T.Riding() then return false end
+	if e.seen then return true end
 	local nav = ns.Nav
 	if not (nav and nav.EstimateTravel) then return true end
 	local goal, s, to = e.goal, e.spot, Own.hereTo
@@ -6467,8 +6590,13 @@ function Own.hereTick(c, px, py)
 	local step = Own.HERE_STEP
 	if cur then
 		local d = Own.hereDistance(cur, c, px, py)
-		if not d or d > Own.hereReach(cur) * Own.HERE_CLEAR then return Own.hereClear(false) end
-		if GetTime() - Own.hereSince > Own.HERE_SECONDS then return Own.hereClear(true) end
+		if not d or d > math.min(Own.hereReach(cur) * Own.HERE_CLEAR, Own.HERE_CLEAR_MAX) then return Own.hereClear(false) end
+		if GetTime() - Own.hereSince > Own.HERE_SECONDS then
+			-- Expired: quiet until its mob is seen anew or another spot is near.
+			local g = cur.goal
+			Own.hereExpiredAt[g], Own.hereExpiredSpot[g], Own.hereExpiredGen[g] = GetTime(), cur.spot or false, Own.hereSeenGen
+			return Own.hereClear(false)
+		end
 		local shown = math.floor(d / step + 0.5) * step
 		if shown ~= Own.hereYards then
 			Own.hereYards = shown
@@ -6490,7 +6618,7 @@ function Own.hereTick(c, px, py)
 		local e = list[i]
 		if not quiet[e.goal] then
 			local d = Own.hereDistance(e, c, px, py)
-			if d and d <= Own.hereReach(e) and (not best or e.places < best.places or (e.places == best.places and d < bestD)) then best, bestD = e, d end
+			if d and d <= Own.hereReach(e) and (not best or e.places < best.places or (e.places == best.places and d < bestD)) and Own.hereAgain(e) then best, bestD = e, d end
 		end
 	end
 	if not best then return false end
@@ -6499,6 +6627,7 @@ function Own.hereTick(c, px, py)
 		return false
 	end
 	Own.here, Own.hereSince, Own.hereView = best, GetTime(), nil
+	Own.hereExpiredAt[best.goal] = nil
 	Own.hereSerial = (Own.hereSerial or 0) + 1
 	Own.hereYards = math.floor(bestD / step + 0.5) * step
 	ns.Fire("WHILE_HERE_CHANGED")
@@ -6565,6 +6694,61 @@ function Engine.GetWhileHereCandidates()
 	return out
 end
 
+-- What the bug report says of the line (UI/Report.lua): { on, radius,
+-- candidates, shown = { text, quest, step, index, yards } } with a line,
+-- else `nearest` (the nearest candidate: { quest, step, index, yards }, nil
+-- without one measurable) and `why` it does not show: "off", "another step
+-- in view", "no candidates", "no position", Own.hereBlocked's reason, "in
+-- combat", "quiet (dismissed, this zone)", "expired (...)", "out of radius", or "in
+-- reach, next poll".
+function Engine.WhileHereState()
+	local st = { on = ns.Get("behavior.whileHere") and true or false, candidates = Own.hereAllN,
+		radius = Own.hereRadius or tonumber(ns.Get("behavior.whileHereRadius")) or 150 }
+	local cur, v = Own.here, Engine.GetWhileHere()
+	if cur and v then
+		st.shown = { text = v.hereText, quest = cur.goal.quest, step = cur.s, index = cur.g, yards = v.yards }
+		return st
+	end
+	local C = Compat()
+	local c, px, py = C.GetPlayerWorldPosition()
+	local best, bestD
+	if c then
+		for i = 1, Own.hereAllN do
+			local e = Own.hereAll[i]
+			local d = Own.hereDistance(e, c, px, py)
+			if d and (not bestD or d < bestD) then best, bestD = e, d end
+		end
+	end
+	if best then st.nearest = { quest = best.goal.quest, step = best.s, index = best.g, yards = math.floor(bestD + 0.5), seen = best.seen or false } end
+	if not st.on then
+		st.why = "off"
+	elseif cur then
+		st.why = "another step in view"
+	elseif Own.hereAllN == 0 then
+		st.why = "no candidates"
+	elseif not c then
+		st.why = "no position"
+	else
+		local blocked = Own.hereBlocked()
+		if blocked then
+			st.why = blocked
+		elseif UnitAffectingCombat and UnitAffectingCombat("player") then
+			st.why = "in combat"
+		elseif best and Own.hereQuiet[best.goal] then
+			st.why = "quiet (dismissed, this zone)"
+		elseif best and Own.hereExpiredAt[best.goal] and not Own.hereAgain(best) then
+			st.why = "expired (comes again on a new sighting of its mob or at another spawn spot)"
+		elseif best and bestD > Own.hereReach(best) then
+			st.why = "out of radius"
+		elseif best then
+			st.why = "in reach, next poll"
+		else
+			st.why = "none measurable here"
+		end
+	end
+	return st
+end
+
 -- One arrival poll's work for the line, from world position c, px, py (tests).
 function Engine.WhileHereTick(c, px, py)
 	if Own.hereTick(c, px, py) then requestUpdate() end
@@ -6592,6 +6776,7 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
 		if zone ~= Own.hereZone then
 			Own.hereZone = zone
 			for goal in pairs(Own.hereQuiet) do Own.hereQuiet[goal] = nil end
+			for goal in pairs(Own.hereExpiredAt) do Own.hereExpiredAt[goal] = nil end
 		end
 	end)
 end

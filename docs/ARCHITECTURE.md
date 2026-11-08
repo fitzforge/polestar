@@ -1297,18 +1297,28 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
   cached world points, no tables, a message only when the shown distance
   moves by `HERE_STEP`) measures from the player, wherever the live step's
-  target is: of those within `behavior.whileHereRadius` yards of a spawn area
-  at the player's level (not an `alt` place), the one whose target spawns in
+  target is: of those within `behavior.whileHereRadius` yards of a place the
+  target spawns at the player's level (every spot, `alt` ones included: Fitz
+  stood among Zhevra Runners in an alternative camp 33 yd off while the
+  nearest picked spot was 94 yd away), or with one of their mobs in sight
+  (`Own.hereSaw`: a nameplate, the target, the mouseover for `HERE_MOUSE`
+  s; the goal's `npc`, its named drop source and, with the quest database
+  loaded, every creature that drops its item, `Own.hereNpcsOf`; it counts as
+  `HERE_SEEN` yards and skips the walk check), the one whose target spawns in
   the fewest places on the map (`places`, its spots with the alternatives;
   a point counts 1), then the nearest, becomes the line, so a pool or camp
   wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
-  radius, once done, after `HERE_SECONDS` with no progress on it (each
+  radius (at most `HERE_CLEAR_MAX`, 400 yd; the radius is 150 by default, 60
+  to 250), once done, after `HERE_SECONDS` with no progress on it (each
   change of its count starts the time again), or on `Engine.DismissWhileHere`.
   Nothing appears, and nothing goes by distance or time, during a fight. A
-  dismissed or expired line stays quiet for the zone stay (`Own.hereQuiet`,
-  emptied when `GetRealZoneText` changes). Never in an instance, on a taxi,
+  dismissed line stays quiet for the zone stay (`Own.hereQuiet`, emptied
+  when `GetRealZoneText` changes). An expired one comes again, `HERE_AGAIN`
+  s on at the earliest, once one of its mobs is seen anew (a sighting after
+  it expired, `Own.hereSeenGen`) or the player is near another of its spawn
+  spots (`Own.hereAgain`). Never in an instance, on a taxi,
   while a Hearthstone or Astral Recall is cast, with a quest timer running,
   or while the live step escorts (`Own.hereBlocked`). The line never takes
   the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
@@ -5526,8 +5536,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `fastest`, `balanced` or `roads`, in English) and only the routing settings
   away from their defaults (`real paths off`, `travel planner off`, `handed
   to Shortest Path Forever`), after Where so the bug bot still finds Arrow and
-  Where by position and reads this line by its style word; other packs that
-  are on; and the errors
+  Where by position and reads this line by its style word; "While here:"
+  (`Engine.WhileHereState`, English words) with the line shown (its text,
+  quest, step, yards) or "none", the radius and the count of candidates, and
+  without a line the nearest candidate's quest, step and yards and why it
+  does not show (out of radius, quiet, in combat, an instance, a flight, an
+  escort, no candidates, off); other packs that are on; and the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
   Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
   folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
