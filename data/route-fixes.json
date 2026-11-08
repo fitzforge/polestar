@@ -10252,6 +10252,18 @@
 			{
 				"a": [
 					"turnin",
+					5168
+				],
+				"b": [
+					"accept",
+					5281
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance 40-60): on the 58 Light's Hope stop Heroes of Darrowshire (5168) goes to Carlin Redpath with Villains of Darrowshire (5181), and Marauders of Darrowshire (5206, needs both) is taken there, before the walk to Caretaker Alen for The Restless Souls; the guide went Carlin, Alen, Carlin again."
+			},
+			{
+				"a": [
+					"turnin",
 					892
 				],
 				"b": [
