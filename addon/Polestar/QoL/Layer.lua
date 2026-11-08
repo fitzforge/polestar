@@ -411,8 +411,7 @@ end
 -- Blizzard's own refresh dialog as the fallback; never with the gamepad
 -- interface (ns.GamepadUI), whose focus owns the game's dialogs.
 local function showDialog()
-	if ns.GamepadUI() or not StaticPopup_Show then return end
-	StaticPopup_Show("SHARD_TRANSFER_IMMEDIATE")
+	if StaticPopup_Show and not ns.GamepadUI() then StaticPopup_Show("SHARD_TRANSFER_IMMEDIATE") end
 end
 
 -- Takes the offered refresh now: true, or false and why not. When the
