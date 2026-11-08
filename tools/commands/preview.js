@@ -348,6 +348,18 @@ function altsScene(script) {
 }
 const ALTS_FILES = [...FILES, 'Alts/Alts.xml'];
 const TOAST = ['PolestarRareToast'];
+// The notice the guide window puts up the first time it hides in an instance
+// (UI/GuideFrame.lua's hint, Nav/Alerts.lua's banner): the real Nav and UI
+// against the world stub, with the minimap button on or off and the toggle's
+// key bound or not.
+const HINT = ['PolestarAlert'];
+const HINT_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', 'Maps/Maps.xml', 'UI/UI.xml'];
+function hintScene(button, key) {
+	return `Polestar.Set("maps.minimapButton", ${button})
+function GetBindingKey(action) if action == "POLESTAR_TOGGLE" then return ${key ? JSON.stringify(key) : 'nil'} end end
+function GetBindingText(key) return (key:gsub("CTRL", "Ctrl"):gsub("SHIFT", "Shift")) end
+Polestar.Nav.alerts.ShowNotice(Polestar.L["Polestar is hidden here"], Polestar.UI.GuideFrame.HowToShow(), 12)`;
+}
 // The guide menu's sample library: pitches, pros and cons on a few guides,
 // Westfall on its real map (art with POLESTAR_CLIENT_ART), and leveling
 // guides past 30 so the folders show the bands. Pitches written for the
@@ -1738,6 +1750,15 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "rare", id = 61, name = "Thuros Lightfingers", level = 11 }, { map = 1429, x = 89.2, y = 79.1 }, true); a.yards = 87; Polestar.Fire("RARE_SPOTTED", a); stub.advance(4)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true); a.yards = 412; Polestar.Fire("RARE_SPOTTED", a)') },
+		],
+	},
+	{
+		file: 'instance-hint.svg',
+		title: "The window hidden in a dungeon, the first time: the notice saying how to bring it back (the minimap button and a bound key; with neither, /polestar), in Polestar and Hearth",
+		backdrop: 'terrain',
+		panels: [
+			{ stubs: ['stub_world.lua'], files: HINT_FILES, roots: HINT, script: hintScene(true, 'CTRL-SHIFT-P') },
+			{ stubs: ['stub_world.lua'], files: HINT_FILES, roots: HINT, script: `Polestar.Set("ui.skin", "hearth"); ${hintScene(false, null)}` },
 		],
 	},
 ];

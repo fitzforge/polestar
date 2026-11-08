@@ -504,7 +504,6 @@ L["The step stops waiting for the party and moves on as usual."] = "Der Schritt 
 L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ein- oder auszublenden."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
--- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 -- L["Level %d quest: you're %s"] = ""
 -- L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = ""
 -- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = ""
@@ -530,6 +529,14 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["The rest of this guide follows from a skipped step"] = ""
 -- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
 -- L["Undo the skip"] = ""
+-- L["Click the minimap button or press %s to show it."] = ""
+-- L["Click the minimap button to show it."] = ""
+-- L["Press %s to show it."] = ""
+-- L["Turn on the minimap button or bind a key to show it."] = ""
+-- L["Press %s or type /polestar to show it."] = ""
+-- L["Type /polestar to show it."] = ""
+-- L["Polestar is hidden here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1206,7 +1213,6 @@ L["Minimap icon size"] = "Symbolgröße auf der Minikarte"
 L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = "Polestars Markierungen auf der Minikarte; die Weltkarte behält ihre eigenen. Eine Markierung über deinem Pfeil wird blasser, damit der Pfeil durchscheint. Rechtsklick zum Zurücksetzen."
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
--- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 -- L["How close"] = ""
 -- L["Include nearby hand-ins"] = ""
 -- L["Wait for Spoken"] = ""
@@ -1226,6 +1232,10 @@ L["Polestar's marks on the minimap; the world map keeps its own. A mark over you
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -3027,6 +3037,9 @@ L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
