@@ -557,6 +557,39 @@ fn step_key_interact_stage_talks_to_the_targeted_step_npc_loots_its_mob_and_acce
 	);
 }
 
+// #1182: in Forever's combat restrictions the target's name can be a secret value, and comparing one throws
+// ("attempt to compare a secret string value"). The interact stage reads a secret name as unknown and never
+// compares it: the NPC id still matches the step's NPC, and a target known only by a secret name is not matched.
+// Lua 5.1 has no secret type, so the stub marks a name secret through issecretvalue: a stage that matched on it
+// compared it.
+#[test]
+fn step_key_interact_stage_never_compares_a_secret_target_name_the_npc_id_still_matches_1182() {
+	let out = run(r#"
+		local secret = {}
+		function issecretvalue(v) return type(v) == "string" and secret[v] ~= nil end
+		q.bindings["CLICK PolestarStepButton:LeftButton"] = { "F" }
+		local function key() stub.runTimers(); return q.overrides.F or "step" end
+		set("stepInteract", true)
+		q.step({ { t = "talk", npc = 197, npcName = "Marshal McBride" }, { t = "kill", target = "Kobold Vermin", quest = 8, oi = 1 } })
+		secret["Marshal McBride"], secret["Kobold Vermin"] = true, true
+		local out = {}
+		-- the step's NPC by its id: interact, the secret name unread
+		q.target = { name = "Marshal McBride", npc = 197 }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.byId = key()
+		-- no readable id, only the secret name: the step key's own action
+		q.target = { name = "Marshal McBride" }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.byName = key()
+		-- a dead mob known only by its secret name: no loot match
+		q.target = { name = "Kobold Vermin", dead = true }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.corpse = key()
+		emit(out)
+	"#);
+	assert_eq!(out[0], json!({ "byId": "INTERACTTARGET", "byName": "step", "corpse": "step" }));
+}
+
 #[test]
 fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a_live_hostile_mob_and_a_star_on_an_npc_friendly_or_neutral_never_take_one_off_and_clear_the_target_only_out_of_combat()
 {
