@@ -260,7 +260,7 @@ step Lakeshire
 step Dockmaster Baren
   when level>=20
   tip From level 20 Dockmaster Baren gives Murloc Poachers: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24.
-  accept 150                                  -- Dockmaster Baren, on the docks
+  accept 150 optional                         -- Dockmaster Baren, on the docks
 
 # ---------------------------------------------------------------- Westfall
 
