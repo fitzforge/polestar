@@ -3761,6 +3761,27 @@
 				}
 			],
 			"issue": 1314
+		},
+		{
+			"id": "1314-hearts-of-the-lost-may-not-be-offered",
+			"at": {
+				"quest": 87318,
+				"goal": "accept"
+			},
+			"tip": "Corma Villard may not offer Hearts of the Lost yet: if she doesn't, skip it.",
+			"note": "Hearts of the Lost (Wetlands, Corma Villard): a player at 32 was not offered it, while another addon's player traces show it taken and handed in; the guide takes it as optional and says to skip it if she doesn't offer it (route-fixes deliberate.optional).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1314: a level-32 Night Elf beside Corma Villard was offered nothing"
+				},
+				{
+					"kind": "recording",
+					"ref": "another addon's player traces: Hearts of the Lost taken and handed in (level 33, 2650 XP); players' recordings here: 0 windows of Corma Villard, 0 runs of 87318"
+				}
+			],
+			"issue": 1314,
+			"faction": "Alliance"
 		}
 	]
 }

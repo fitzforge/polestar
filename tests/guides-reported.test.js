@@ -4730,7 +4730,12 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 1, `${t} ${q} right after the camp`);
 	assert.ok(list.some(({ goal, s }) => s === dunModr + 2 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
 	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < stepOf('accept', 647), 'Ebenezer between Dun Modr and the span');
-	assert.ok(!list.some(({ goal }) => goal.quest === 87318), "#1314: no Hearts of the Lost (Corma Villard doesn't offer it)");
+	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < stepOf('accept', 647), 'the Villards between Dun Modr and the span');
+	assert.equal(stepOf('turnin', 631), stepOf('turnin', 87318), 'Ebenezer handed in beside Essene, before the crossing (final review: every race)');
+	// #1314: Corma Villard did not offer Hearts of the Lost to a player at 32; it stays, optional, with a tip to skip it.
+	const hearts = list.filter(({ goal }) => goal.quest === 87318);
+	assert.ok(hearts.length >= 2 && hearts.every(({ goal }) => goal.optional), '87318 is optional (#1314)');
+	assert.ok([hearts[0].step.note, hearts[0].step.tip].flat().filter(Boolean).join(' ').includes('may not offer Hearts of the Lost'), 'the step says to skip it if she does not offer it');
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
 });
 
