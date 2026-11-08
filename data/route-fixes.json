@@ -6551,6 +6551,21 @@
 				"q": 679,
 				"size": 3,
 				"why": "Horde 30-40 re-order (2026-11-07): Call to Arms part 3: Boulderfist Shaman and Lords in Stromgarde are elites (38-40), on the same group trip"
+			},
+			{
+				"q": 7849,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): Forever's quest data marks Separation Anxiety (7849), Kidnapped Elder Torntusk! (7845) and Dark Vessels (7850) as group quests (type 1), and every Vilebranch troll in Jintha'Alor is elite (rank 1, 46-50) in Forever's creature data: the skull pile, the bone pile, the Vessels of Tainted Blood and Elder Torntusk at the top all lie among them. The guide sent a solo player at about 48 through them. A group of 3, taken with the solo fallback (one 'when group 7849' choice for the three, the top-up after Revantusk covers the skipped experience)."
+			},
+			{
+				"q": 7845,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): Elder Torntusk is held at the top of Jintha'Alor among its elite trolls."
+			},
+			{
+				"q": 7850,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): the Vessels of Tainted Blood sit on Jintha'Alor's terraces among its elite trolls."
 			}
 		]
 	},

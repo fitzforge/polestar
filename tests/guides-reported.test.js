@@ -6626,3 +6626,19 @@ test('forever/horde/50-60/07-felwood.guide: final review: one Donova stop with t
 	assert.equal(list[at(list, 'accept 5087', is('accept', 5087))].s, donova, 'Toxic Horrors on the same stop');
 	assert.match(stepTips(file, /turnin 980/).join(' '), /Timbermaw tunnel/);
 });
+
+// The Hinterlands: Separation Anxiety, Kidnapped Elder Torntusk! and Dark Vessels are group quests in Forever's data,
+// and every Vilebranch troll in Jintha'Alor is elite; the guide sent a solo player at about 48 up through them. They
+// are taken, done and handed in only with a group, and the top-up after Revantusk covers them when skipped.
+test('forever/horde/40-50/05-the-hinterlands.guide: final review: Jintha\'Alor only with a group', { skip }, () => {
+	const list = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	for (const q of [7849, 7845, 7850]) {
+		const steps = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(steps.length >= 2, `${q} is in the guide`);
+		for (const { step, goal } of steps) assert.ok((step.when || []).some((w) => w.k === 'group' && w.q === 7849), `${goal.t} ${q} is on a 'when group 7849' step`);
+	}
+	const top = list.find(({ goal }) => goal.t === 'level' && goal.level === 49);
+	assert.ok(top && !(top.step.when || []).some((w) => w.k === 'group'), 'the top-up is for everyone below its level');
+	const groups = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	for (const q of [7849, 7845, 7850]) assert.ok(groups.some((g) => g.q === q && g.size >= 2 && g.size <= 4), `${q} is a group quest record`);
+});
