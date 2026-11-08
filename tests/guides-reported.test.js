@@ -6511,3 +6511,23 @@ test("Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo 
 		assert.match(rec.tip, /one at a time/);
 	}
 });
+
+// #1257 (Dwarf Shaman 24, Duskwood): the arrow sought the Pygmy Venom Web Spiders by Sven's camp in the
+// north, where few spawn among the wolves and bigger spiders, and the tip put them east of the cemetery.
+// Half their western spawns lie on the Hushed Bank west of Raven Hill: the arrow goes there (places
+// record) and the tip says so (guide-fixes record).
+test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank west of Raven Hill', { skip }, () => {
+	const guide = 'forever/alliance/04-redridge-mountains.guide';
+	const place = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.find((p) => p.quest === 245 && p.objective === 1);
+	assert.ok(place, 'the spot is a record');
+	const { goal } = goals(guide)[at(goals(guide), 'kill 539 quest 245', (g) => g.t === 'kill' && g.quest === 245)];
+	assert.equal(goal.map, 1431);
+	assert.ok(Math.abs(goal.x - place.at.x) < 0.5 && Math.abs(goal.y - place.at.y) < 0.5, `the arrow goes to ${place.at.x},${place.at.y}, not ${goal.x},${goal.y}`);
+	const spawns = data.npcs[539].spawns[1431];
+	const near = [...spawns.pts, ...(spawns.more || [])].filter((p) => Math.hypot(p[0] - goal.x, p[1] - goal.y) < 7).length;
+	assert.ok(near >= 8, `most western spawns are near the spot (${near})`);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 245 && f.tip);
+	assert.ok(rec, 'the tip is a record');
+	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
+	assert.doesNotMatch(rec.tip, /east of the cemetery/);
+});

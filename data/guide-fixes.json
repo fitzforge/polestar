@@ -3515,6 +3515,24 @@
 				}
 			],
 			"issue": 1234
+		},
+		{
+			"id": "1257-duskwood-pygmy-spiders-west-of-raven-hill",
+			"faction": "Alliance",
+			"at": {
+				"quest": 245,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the Hushed Bank west of Raven Hill, fewer up north towards Sven's camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the Westfall border, so pull with care.",
+			"note": "The step's tip put the Pygmy Venom Web Spiders east of the Raven Hill Cemetery (about 21-26,33-38 by the Rotted Ones' spawns); their spawns are all west of it, on the Hushed Bank (x 8-13), most of them west of Raven Hill village. The writer's second 'Careful' tip is folded in, since a tip record replaces the step's tips.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 539 (Pygmy Venom Web Spider) and 948 (Rotted One) spawns on map 1431"
+				}
+			],
+			"issue": 1257
 		}
 	]
 }
