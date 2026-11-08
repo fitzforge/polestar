@@ -7982,7 +7982,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 /// the route's nearest one in the player's zone (local); else the route's next such camp, never in a
 /// city; else where the player is. `own`: the route's own point for the grind. `solo`: for a player
 /// alone, no camp of elites or of a group family's work.
-fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool, Option<Near>) {
+fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<(String, Option<u32>)>, Option<u32>, bool, Option<Near>) {
 	const CAMP_NEAR_YD: f64 = 800.0;
 	/// Yards from the grind's point within which its camp mob spawns, else the arrow goes to the mob.
 	const CAMP_AT_YD: f64 = 400.0;
@@ -8052,7 +8052,8 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 		);
 	let work = local.or_else(|| order[after..].iter().take(CAMP_FAR).filter(task_camp).find(|w| cx.w(w.pt).is_some() && !in_city(w.pt)));
 	let mob = work.and_then(camp).filter(|e| e.name.as_deref().is_some_and(|s| !s.is_empty()));
-	let target = mob.and_then(|e| e.name.clone());
+	// (Its name, and its npc id for the `grind` modifier: the arrow leads to its nearest spawn area.)
+	let target = mob.and_then(|e| Some((e.name.clone()?, cx.data.npcs.iter().find(|(_, n)| std::ptr::eq(*n, e)).map(|(&id, _)| id))));
 	// (The route's own point for it, when near the player; else the camp's, else where the player is.)
 	let pt = own.filter(|&p| near_here(Some(p))).or_else(|| work.and_then(|w| w.pt)).or_else(|| order[..before].iter().rev().find_map(|x| x.pt.filter(|_| cx.w(x.pt).is_some())));
 	// (The mob named is the one about the player's level, which need not spawn at that point: Darkshore's
@@ -8065,15 +8066,16 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 
 /// A grind's way to its camp and its `level N` goal (`n`: level_str of its target): to `spot`, the camp
 /// mob's spawn, when grind_camp gave one, else to the grind's point.
-fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
+fn grind_lines(cx: &Ctx, target: &Option<(String, Option<u32>)>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
 	let mut lines = Vec::with_capacity(2);
 	let at = spot.map_or_else(|| cx.coords_of(pt), |s| s.at.clone());
 	if !at.is_empty() {
-		let label = target.as_deref().unwrap_or("Grind spot");
+		let label = target.as_ref().map_or("Grind spot", |(t, _)| t.as_str());
 		lines.push(format!("  goto {} \"{label}\"", at.trim_start().trim_start_matches('@')));
 	}
 	lines.push(match target {
-		Some(t) => format!("  level {n}                          -- grind on {t}"),
+		Some((t, Some(id))) => format!("  level {n} grind {id}                -- grind on {t}"),
+		Some((t, None)) => format!("  level {n}                          -- grind on {t}"),
 		None => format!("  level {n}"),
 	});
 	lines
@@ -10304,7 +10306,7 @@ mod tests {
 				&format!("  when level<{n}"),
 				&format!("  tip Top up here to level {n} before the hand-ins at Everlook: they take you to level 53."),
 				"  goto 60.1,30.2 \"Yeti\"",
-				&format!("  level {n}                          -- grind on Ice Thistle Yeti"),
+				&format!("  level {n} grind 7458                -- grind on Ice Thistle Yeti"),
 				"",
 			])
 		};
@@ -10343,7 +10345,7 @@ mod tests {
 		);
 		let levels: Vec<&str> = out.iter().filter(|l| l.trim_start().starts_with("level ")).map(|l| l.split_whitespace().nth(1).unwrap()).collect();
 		assert_eq!(levels, ["52.2", "52.5", "52.6", "52.7"], "{out:#?}");
-		assert_eq!(out[..4], v(&["step Ice Thistle yetis", "  zone Winterspring", "  collect 12366 quest 3783", "  level 52.2                          -- grind on Ice Thistle Yeti"])[..]);
+		assert_eq!(out[..4], v(&["step Ice Thistle yetis", "  zone Winterspring", "  collect 12366 quest 3783", "  level 52.2 grind 7458                -- grind on Ice Thistle Yeti"])[..]);
 	}
 
 	#[test]
