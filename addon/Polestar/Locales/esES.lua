@@ -1310,7 +1310,6 @@ L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar e
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
 -- L["While you're here:"] = ""
--- L["(step %d)"] = ""
 -- L["Not now (right-click)"] = ""
 -- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
 -- L["Right-click: not now, for the rest of this zone."] = ""
