@@ -6531,3 +6531,23 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
 });
+
+// Final route review for 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30, and the
+// 30-40/01 Orgrimmar stop comes at about 29.4, so Searn Firewarder had nothing for the Shaman the step
+// sent there. The accept is on 30-40/02's Orgrimmar stop (about 31.7, after Alliance Relations, also
+// from 30), before Prate Cloudseer takes it at Freewind Post; a route-fixes pair keeps it there.
+test('Horde 30-40: Call of Air is taken on the Orgrimmar stop at 31, not at 29', { skip }, () => {
+	data = data || loadData(DATA);
+	assert.equal(data.quests[1531].minLevel, 30, 'Call of Air is offered from level 30');
+	const first = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept' && goal.quest === 1531), 'no Call of Air on the 29.4 Orgrimmar stop');
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
+	const relations = at(list, 'accept 1431', is('accept', 1431));
+	const air = at(list, 'accept 1531', is('accept', 1531));
+	const prate = at(list, 'turnin 1531', is('turnin', 1531));
+	const fly = at(list, 'fly to Freewind Post', (g) => g.t === 'fly' && /Freewind/.test(g.location || ''));
+	assert.ok(relations < air && air < fly && fly < prate, 'Alliance Relations, Call of Air, the flight, then Prate');
+	const pair = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs
+		.find((p) => p.a[0] === 'accept' && p.a[1] === 1431 && p.b[0] === 'accept' && p.b[1] === 1531);
+	assert.ok(pair, 'the order is a record');
+});

@@ -46,8 +46,9 @@ next forever/horde/30-40/02-thousand-needles
 #   Druids train at the start of the next guide.
 # - Shaman: Call of Water (220) goes to Islen Waterseer by Ratchet on the way, the Brazier of
 #   Everfount from the Undercity (Silverpine, the Sepulcher), and the Shard of Water back to
-#   Islen in the next guide. Call of Air (1531) from Searn Firewarder in Orgrimmar goes to
-#   Prate Cloudseer by Freewind Post in the next guide.
+#   Islen in the next guide. Call of Air (1531) is offered from level 30: Searn Firewarder gives
+#   it on the next guide's Orgrimmar stop (about 31.7), not on this one's (29.4), and Prate
+#   Cloudseer by Freewind Post takes it later in that guide.
 # - Warlock: the Felhunter chain is forever/class/warlock/felhunter-horde.
 #
 # Skyborne: Exploring the Horde (93739) is handed to Thrall on the Orgrimmar stop, optional.
@@ -116,12 +117,6 @@ step Train
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   tip Train your new spells.
   train class
-
-step Orgrimmar class quests
-  zone Orgrimmar
-  only Shaman
-  tip Searn Firewarder stands in the Valley of Wisdom.
-  accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, next guide
 
 step Belgrom Rockmaul
   zone Orgrimmar

@@ -50,8 +50,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 #
 # Class training: Hunters and Shamans in Orgrimmar at the start, Druids in Thunder Bluff on the
 # flight to Freewind Post. Shamans hand the Shard of Water to Islen Waterseer by Ratchet on the
-# way (Call of Water 96: your Water Totem) and Call of Air (1531) to Prate Cloudseer by
-# Freewind Post.
+# way (Call of Water 96: your Water Totem), and take Call of Air (1531, offered from level 30)
+# from Searn Firewarder on the Orgrimmar stop for Prate Cloudseer by Freewind Post.
 #
 # All the Mirage Raceway's quests are worked in one visit here (Rocket Car Parts and Salt Flat
 # Venom used to be done alone at 29-30 at the end of forever/horde/07-ashenvale): Fizzle offers
@@ -81,6 +81,12 @@ step Orgrimmar trainers
   zone Orgrimmar
   tip Train while you are in the city.
   train class
+
+step Searn Firewarder
+  only Shaman
+  zone Orgrimmar
+  tip Searn Firewarder stands in the Valley of Wisdom.
+  accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
 
 step Nogg
   when dungeon "Gnomeregan"
