@@ -513,6 +513,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	-- An accept the game does not confirm says so first (not in the quest
 	-- log; not offered by its giver: report it).
 	if goal.noticeText then parts[#parts + 1] = goal.noticeText end
+	-- An open accept above the character's level says from which (#1247).
+	if goal.levelShort then parts[#parts + 1] = format(L["Requires level %d"], goal.levelShort) end
 	local party = not noParty and UI.GroupLine(goal)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)

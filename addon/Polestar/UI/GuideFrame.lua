@@ -185,6 +185,19 @@ local function goalTooltip(row)
 	if goal.map and goal.x then
 		lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(goal.map) or "", goal.x, goal.y) }
 	end
+	-- An accept: the level the quest needs (red while the character is below
+	-- it) and the prerequisites not handed in yet (Engine.AcceptGate, #1247).
+	local E = Engine()
+	local gate = goal.t == "accept" and view and E and E.AcceptGate and E.AcceptGate(view.index, goal.index)
+	if gate then
+		if gate.level then
+			local text = L["Requires level %d"]:format(gate.level)
+			lines[#lines + 1] = { left = L["Level"], right = gate.short and ("|c" .. Theme.Hex("danger") .. text .. "|r") or text }
+		end
+		if #gate.needs > 0 then
+			lines[#lines + 1] = { left = L["Needs"], right = "|c" .. Theme.Hex("danger") .. table.concat(gate.needs, ", ") .. "|r" }
+		end
+	end
 	local rewards = UI.GoalRewards(goal)
 	if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
 	-- What the quest opens up: what skipping it gives up (UI.UnlockLines).

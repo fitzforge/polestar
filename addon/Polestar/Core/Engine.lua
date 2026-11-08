@@ -2793,6 +2793,56 @@ function Own.acceptNotice(s, g, goal, status)
 	return nil
 end
 
+-- What the game asks before it offers accept goal g of step s (#1247): the
+-- quest's minimum level and the prerequisites not handed in yet, for the
+-- goal's tooltip. From the compiled goal (`minLevel`, `pre`, `preAll`,
+-- `preTitles`), else from the quest database when it is loaded (never loads
+-- it). `needs` lists every missing `preAll` quest by name, and a `pre` list
+-- none of which is done as one entry, "A or B"; it is empty once the quest is
+-- in the log or done. A minimum level of 1 says nothing and is left out.
+-- -> { level = n | nil, short = bool, needs = { text, ... } } | nil (not an
+-- accept, or nothing known). Asked on hover only: it allocates.
+function Engine.AcceptGate(s, g)
+	local step = guide and type(s) == "number" and guide.steps[s]
+	local goal = step and type(g) == "number" and step.goals[g]
+	if not (goal and goal.t == "accept" and goal.quest) then return nil end
+	if not player then refreshPlayer() end
+	local Q = ns.QuestDB
+	local loaded = Q and Q.IsLoaded and Q.IsLoaded() or false
+	local rec = loaded and Q.GetQuest(goal.quest) or nil
+	local level = tonumber(goal.minLevel) or (rec and tonumber(rec.minLevel)) or nil
+	if level and level <= 1 then level = nil end
+	local pre, preAll = goal.pre, goal.preAll
+	if pre == nil and preAll == nil and rec then pre, preAll = rec.pre, rec.preAll end
+	local needs = {}
+	local C = Compat()
+	if not (C.IsOnQuest(goal.quest) or questDone(goal.quest)) then
+		local hint = goal.preTitles
+		local function title(q)
+			return ns.Names.Quest(q) or (hint and hint[q]) or (loaded and Q.GetQuestTitle(q)) or titleOfQuest(q)
+		end
+		for _, q in ipairs(type(preAll) == "table" and preAll or NONE) do
+			if not questDone(q) then needs[#needs + 1] = title(q) end
+		end
+		if type(pre) == "table" and #pre > 0 then
+			local any = false
+			for _, q in ipairs(pre) do
+				if questDone(q) then
+					any = true
+					break
+				end
+			end
+			if not any then
+				local text
+				for _, q in ipairs(pre) do text = text and L["%s or %s"]:format(text, title(q)) or title(q) end
+				needs[#needs + 1] = text
+			end
+		end
+	end
+	if not level and #needs == 0 then return nil end
+	return { level = level, short = level ~= nil and (player.level or 1) < level, needs = needs }
+end
+
 -- A translated pattern (L["from %s"]) filled with value; nil without one.
 local function fmt(pattern, value)
 	if not value then return nil end
@@ -2983,6 +3033,9 @@ local function goalView(s, g, goal, stepStatus, group)
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
 	local opens = need or nil
+	-- An open accept above the character's level: that level (#1247).
+	local minLevel = goal.t == "accept" and (status == "active" or status == "pending") and tonumber(goal.minLevel) or nil
+	local levelShort = minLevel and player and (player.level or 1) < minLevel and minLevel or nil
 	return {
 		index = g,
 		group = group,
@@ -3019,6 +3072,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- An open accept the game does not confirm: ticked but not in the
 		-- quest log, or not listed by its giver (Own.acceptNotice).
 		noticeText = Own.acceptNotice(s, g, goal, status),
+		-- An open accept the character is below the level of: that level.
+		levelShort = levelShort,
 		skippedGrey = need == false or nil,
 		keptGrey = opens and opens.quest or nil,
 		keptGreyText = opens and L["Grey, kept: opens %s"]:format(questTitle(opens)) or nil,

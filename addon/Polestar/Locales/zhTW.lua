@@ -1091,6 +1091,7 @@ L["Use %s:"] = "使用%s："
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
+L["Needs"] = "前置任務"
 L["Reward"] = "獎勵"
 L["Skill"] = "技能"
 L["Progress"] = "進度"

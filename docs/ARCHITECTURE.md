@@ -1050,6 +1050,7 @@ Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional g
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
+Polestar.Engine.AcceptGate(stepIndex, goalIndex) -> { level, short, needs = { text, ... } } | nil   -- what the game asks before it offers an accept (its tooltip's Level and Needs lines, #1247): the quest's minimum level above 1 (`short`: the character is below it) and, until the quest is taken or done, the prerequisites not handed in yet (each missing `preAll` by name; a `pre` list none of which is done as one "A or B" entry); from the compiled goal, else from the quest database when it is loaded (never loads it); nil for a goal that is no accept or one with nothing known
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -5036,6 +5037,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   step's goals read under "Along the way" of the steps after it, its heading
   "Along the way, until step N" when every row ends at the same labelled
   step (`GetAlong` entries' `untilStep`).
+  A goal's tooltip lists its detail, then Quest, NPC, Item and Location; an
+  accept's adds Level ("Requires level 29", in danger while the character
+  is below it) and Needs (the prerequisites not handed in yet, "A or B" for
+  any one of several, in danger), both from `Engine.AcceptGate` and left out
+  when it knows nothing (#1247). An open accept above the character's level
+  also says "Requires level 29" under its line (the goal view's
+  `levelShort`, `UI.GoalSubline`).
   The "While you're here" line (`fillHere`, `Engine.GetWhileHere`) sits
   between the step's goals and "Then:": a soft accent wash with a 2 px accent
   edge, the verb's glyph in the accent, "While you're here:" in the accent,

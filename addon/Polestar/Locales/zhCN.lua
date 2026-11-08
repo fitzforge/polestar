@@ -1091,6 +1091,7 @@ L["Skipping also skips: %s"] = "跳过后也会跳过：%s"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
+L["Needs"] = "前置任务"
 L["Reward"] = "奖励"
 L["Skill"] = "技能"
 L["Progress"] = "进度"

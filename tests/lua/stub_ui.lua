@@ -553,6 +553,11 @@ function Engine.SkipQuest(q, on)
 	return true
 end
 function Engine.IsQuestSkipped(q) return uistub.skippedQuests[q] == true end
+-- An accept's level and missing prerequisites: the goal's `gate` as the test sets it.
+function Engine.AcceptGate(s, g)
+	local goal = guide and guide.steps[s] and guide.steps[s].goals[g]
+	return goal and goal.gate or nil
+end
 -- Optional goals skip and come back.
 function Engine.SkipGoal(s, g)
 	record("SkipGoal", s, g)

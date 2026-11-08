@@ -1091,6 +1091,7 @@ L["Skipping also skips: %s"] = "Пропуск также пропустит: %s
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
+L["Needs"] = "Нужно"
 L["Reward"] = "Награда"
 L["Skill"] = "Навык"
 L["Progress"] = "Прогресс"

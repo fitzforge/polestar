@@ -309,6 +309,7 @@ L["Six tabs is the limit. Close one to open another."] = "Höchstens sechs Tabs.
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ort"
+L["Needs"] = "Benötigt"
 L["Reward"] = "Belohnung"
 L["Skill"] = "Fertigkeit"
 L["Progress"] = "Fortschritt"
