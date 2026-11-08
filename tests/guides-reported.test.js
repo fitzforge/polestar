@@ -4839,7 +4839,7 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	// From the Ashes is taken with War Banners, its plans on the walk east from the dig, both handed in on one stop.
 	const takeAshes = idx('accept 98221', 'accept', 98221);
 	assert.equal(wet[takeAshes].s, wet[idx('accept 464', 'accept', 464)].s, 'From the Ashes taken with War Banners');
-	assert.ok(idx('complete 98221 (plans)', 'complete', 98221) < idx('accept 277 (Rethiel)', 'accept', 277), 'the plans on the walk east, before Rethiel');
+	assert.ok(idx('complete 98221 (plans)', 'complete', 98221) < idx('turnin 277 (Rethiel)', 'turnin', 277), 'the plans on the walk east, before Rethiel');
 	assert.equal(wet[ashes].s, wet[idx('turnin 464', 'turnin', 464)].s, 'War Banners and From the Ashes handed in on one stop');
 	assert.equal(wet[ashes].s, wet[idx('accept 465', 'accept', 465)].s, "and Nek'rosh's Gambit taken there");
 	// Claws from the Deep and Spoils of War go in on 06-ashenvale's last Menethil stop, not on walks back for one hand-in.
@@ -5751,10 +5751,18 @@ test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and
 test('forever/alliance/03-darkshore-return.guide: Alliance 12-20 zone order: the southern loops\' quests are taken on the return, not carried through the Eastern Kingdoms', { skip }, () => {
 	const first = goals('forever/alliance/03-darkshore.guide');
 	const back = goals('forever/alliance/03-darkshore-return.guide');
-	for (const q of [948, 986, 729, 965, 4740]) {
+	for (const q of [986, 729, 4740]) {
 		assert.ok(!first.some(({ goal }) => is('accept', q)(goal)), `${q} is not taken on the first visit`);
 		assert.ok(back.some(({ goal }) => is('accept', q)(goal)) && back.some(({ goal }) => is('turnin', q)(goal)), `${q} is taken and handed in on the return`);
 	}
+	// Onu is offered with Cave Mushrooms' hand-in: taken from Barithras there, handed to Onu on the return.
+	const mush = first.find(({ goal }) => is('turnin', 947)(goal));
+	assert.ok(mush && first.some(({ goal, s }) => is('accept', 948)(goal) && s === mush.s) && back.some(({ goal }) => is('turnin', 948)(goal)), 'Onu taken with Cave Mushrooms');
+	// The Tower of Althalaxx stands by Buzzbox 323 on the north loop: done there, Delgren's letter carried to Ashenvale.
+	const buzz = at(first, 'turnin 1002 (Buzzbox 323)', is('turnin', 1002));
+	const tower = at(first, 'turnin 966', is('turnin', 966));
+	assert.ok(buzz < tower && tower < at(first, 'turnin 4763', is('turnin', 4763)), 'the tower between Buzzbox 323 and the northern Blackwood camp');
+	assert.ok(!back.some(({ goal }) => goal.quest === 965 || goal.quest === 966), 'the return does not walk to the tower');
 });
 
 test('Alliance 12-20 zone order: every quest the Eastern Kingdoms loop adds has its include record', () => {
@@ -5790,4 +5798,22 @@ test('Alliance 12-20 zone order: no step waits on a vendor visit once its real g
 		for (const st of compiled(guide).steps) if (forAllOnly(st.only) && waitsOnVendor(st)) offenders.push(`${guide}: ${st.title}`);
 	}
 	assert.deepEqual(offenders, [], 'steps holding on a vendor visit');
+});
+
+// Flow (Alliance 12-20, 2026-11-07): players reach the 22-24 Wetlands visit about two levels higher since the
+// Eastern Kingdoms loop, so Rethiel's Fire Taboo (level 23) is taken when Tramping Paws is handed in, its flint
+// from the Fenrunners on the walk to Ironbeard's Tomb, and handed in on the first Rethiel stop at 27-29 with
+// Blisters on the Land: no second Rethiel stop for it.
+test('Alliance 12-20: Fire Taboo is taken from Rethiel at 22-24, its flint on the way to the tomb, handed in on the first Rethiel stop at 27-29', { skip }, () => {
+	const low = goals(ASHENVALE);
+	const paws = low.find(({ goal }) => is('turnin', 276)(goal));
+	assert.ok(low.some(({ goal, s }) => is('accept', 277)(goal) && s === paws.s), 'taken with Tramping Paws');
+	const flint = low.find(({ goal }) => goal.t === 'collect' && goal.item === 2611);
+	const bag = low.find(({ goal }) => goal.t === 'collect' && goal.item === 3349);
+	assert.ok(flint && bag && flint.s === bag.s, 'the flint on the walk to Ironbeard\'s Tomb');
+	const wet = goals(WETLANDS);
+	const hand = wet.find(({ goal }) => is('turnin', 277)(goal));
+	assert.ok(hand && wet.some(({ goal, s }) => is('accept', 275)(goal) && s === hand.s), 'handed in with Blisters on the Land taken');
+	assert.ok(!wet.some(({ goal }) => (goal.t === 'collect' && goal.item === 2611) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
+	assert.equal(wet.filter(({ goal }) => goal.npc === 1244).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops (Fire Taboo and Blisters in, Blisters out)');
 });

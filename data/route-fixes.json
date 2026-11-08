@@ -3143,18 +3143,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					98230
-				],
-				"b": [
-					"turnin",
-					277
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Howin Kindfeather camps among the Mosshide Fenrunners the 27-29 Wetlands visit kills for Fire Taboo's flint, just west of Rethiel; Crimson Crate Delivery and This Land Was Their Land are handed to him there and Razormaw Needling taken, instead of a Menethil stop and a walk to Howin at the start of 30-40/01-hillsbrad-foothills."
-			},
-			{
-				"a": [
 					"accept",
 					1716
 				],
@@ -3243,11 +3231,11 @@
 					98221
 				],
 				"b": [
-					"accept",
+					"turnin",
 					277
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
+				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil. (Alliance 12-20, 2026-11-07: Fire Taboo is now taken on the 22-24 Wetlands visit, its flint on the walk to Ironbeard's Tomb, and handed to Rethiel when this walk reaches him.)"
 			},
 			{
 				"a": [
@@ -3632,14 +3620,14 @@
 				],
 				"b": [
 					"accept",
-					948
+					986
 				],
 				"faction": "Alliance",
 				"why": "Alliance 12-20 re-order (2026-11-07): Redridge's last hand-ins (The Everstill Bridge, A Baying of Gnolls, Underbelly Scales) before the Hearthstone to Auberdine and Darkshore's southern loops (03-darkshore-return), from about 20."
 			},
 			{
 				"a": [
-					"accept",
+					"turnin",
 					948
 				],
 				"b": [
@@ -3732,6 +3720,78 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Redridge at 20): Guard Parker at Three Corners, the far west end of the gnoll hills, first; the gnolls on the way back east to Deputy Feldon, so the walk doesn't pass Parker with his lunch and come back."
+			},
+			{
+				"a": [
+					"turnin",
+					276
+				],
+				"b": [
+					"accept",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): players reach the 22-24 Wetlands visit about two levels higher since the Eastern Kingdoms loop, so Rethiel's Fire Taboo (23) is taken when Tramping Paws is handed in; its flint drops from the Mosshide Fenrunners on the walk north-west to Ironbeard's Tomb, and Rethiel takes it at the start of the 27-29 visit with Blisters on the Land, without the second Rethiel stop."
+			},
+			{
+				"a": [
+					"task",
+					277
+				],
+				"b": [
+					"turnin",
+					470
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): see turnin 276 before accept 277."
+			},
+			{
+				"a": [
+					"turnin",
+					277
+				],
+				"b": [
+					"turnin",
+					98230
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): at 27-29 Fire Taboo is handed to Rethiel on the first stop (its flint came from the earlier visit), then Howin."
+			},
+			{
+				"a": [
+					"turnin",
+					947
+				],
+				"b": [
+					"accept",
+					948
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): Barithras offers Onu with Cave Mushrooms' hand-in at the end of Darkshore's north loops; it is taken there, not on a later walk past him, and handed to Onu at the Grove on the southern loops after the trip east."
+			},
+			{
+				"a": [
+					"turnin",
+					1002
+				],
+				"b": [
+					"turnin",
+					965
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): the Tower of Althalaxx (965, 966) stands just east of Buzzbox 323 on the north loop (03-darkshore), so it is done there; the southern loops after the trip east no longer walk to it."
+			},
+			{
+				"a": [
+					"turnin",
+					966
+				],
+				"b": [
+					"turnin",
+					4763
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 (2026-11-07): see turnin 1002 before turnin 965."
 			}
 		],
 		"notes": [

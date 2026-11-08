@@ -14,8 +14,9 @@ next forever/alliance/03-loch-modan
 # Split 2026-11-07 (Alliance 12-20 zone order): this guide is Darkshore's first three loops, to
 # about 18; the Eastern Kingdoms loop (03-loch-modan: Loch Modan, Redridge and Westfall at 18-20)
 # leaves from the Auberdine dock, and the southern and last loops (03-darkshore-return) follow it.
-# The Absent Minded Prospector (729), A Lost Master (986), The Tower of Althalaxx (965), WANTED:
-# Murkdeep! (4740), Onu (948) and Gathering the Cure (6123) are taken there, where their work is.
+# The Absent Minded Prospector (729), A Lost Master (986), WANTED: Murkdeep! (4740) and Gathering
+# the Cure (6123) are taken there, where their work is; Onu (948) is taken from Barithras with Cave
+# Mushrooms' hand-in, and the Tower of Althalaxx (965, 966) is done on the north loop, by Buzzbox 323.
 
 step Boat to Auberdine
   zone Stormwind City
@@ -120,6 +121,7 @@ step Auberdine
   turnin 97894                                -- Gorbold Steelhand
   accept 982
   accept 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
+  accept 965                                  -- Sentinel Elissa Starbreeze
   accept 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
   accept 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
   accept 947                                  -- Barithras Moonshade
@@ -322,6 +324,14 @@ step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
   accept 1003
 
+step The Tower of Althalaxx
+  tip East of Buzzbox 323, Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
+  turnin 965                                  -- Balthule Shadowstrike
+  accept 966
+  collect 5348 quest 966 @55.8,25.9 map 1439 -- Worn Parchment: Dark Strand Fanatics
+  turnin 966
+  accept 967
+
 step The cave and the Den Mother
   tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls.
   collect 5271 quest 947                      -- Scaber Stalks; below ground
@@ -344,3 +354,4 @@ step Auberdine
   turnin 982                                  -- Gorbold Steelhand
   turnin 4763                                 -- Thundris Windweaver
   turnin 947                                  -- Barithras Moonshade
+  accept 948                                  -- For Onu at the Grove, on Darkshore's southern loop after the trip east

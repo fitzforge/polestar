@@ -292,10 +292,12 @@ step The Mosshide gnolls
 
 step Rethiel the Greenwarden
   turnin 276
+  accept 277                              -- Its flint comes from the Mosshide Fenrunners on the way to Ironbeard's Tomb; Rethiel takes it on your next Wetlands visit
 
 step Ironbeard's Tomb
   zone Wetlands
-  tip Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
+  tip North-west from Rethiel: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
+  collect 2611 quest 277                  -- Crude Flint: Mosshide Fenrunners and Mistweavers
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil

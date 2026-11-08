@@ -182,14 +182,10 @@ step Angerfang Encampment
   collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden
-  tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river.
-  accept 277
+  tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river. Fire Taboo's flint came with you from your last Wetlands visit.
+  turnin 277
+  accept 275
   accept 98283 optional               -- Rethiel the Greenwarden: Carnage, an elite raptor
-
-step Crude Flint
-  zone Wetlands
-  tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.
-  collect 2611 quest 277
 
 step Howin Kindfeather
   tip Howin Kindfeather camps among the Fenrunners, just west of Rethiel.
@@ -197,11 +193,9 @@ step Howin Kindfeather
   accept 98245                            -- Razormaw Incisors: from the raptors by the Dragonmaw Gates, on the Wetlands loop of 30-40/01-hillsbrad-foothills
   accept 98300 optional                   -- For King Magni in Ironforge, at the end of 30-40/01-hillsbrad-foothills
 
-step Rethiel the Greenwarden
-  tip East from Howin to Rethiel: Einar Stonegrip stands beside the road on the way.
+step Einar Stonegrip
+  tip East from Howin: Einar Stonegrip stands beside the road.
   accept 469                              -- Einar Stonegrip: for James Halloran in Menethil
-  turnin 277
-  accept 275
 
 step The Green Belt: kill these as you meet them
   zone Wetlands

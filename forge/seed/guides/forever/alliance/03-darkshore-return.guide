@@ -15,7 +15,7 @@ next forever/alliance/06-ashenvale
 # 03-darkshore.
 #
 # Flow: Auberdine (the quests whose work is on these loops) -> Onu at the Grove -> the Master's
-# Glaive, Remtravel's dig, Murkdeep's beach -> the Grove -> Auberdine -> the Tower of Althalaxx,
+# Glaive, Remtravel's dig, Murkdeep's beach -> the Grove -> Auberdine ->
 # the naga and the Ruins of Mathystra -> back south (Auberdine, the Grove) -> Volcor -> Auberdine
 # (Druids: Cat Form), then Kerlonian's escort into Ashenvale (06-ashenvale).
 
@@ -23,13 +23,11 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip From the dock, up to the north end of the village first (Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: Barithras Moonshade by the inn, the WANTED poster outside it, Sentinel Elissa Starbreeze and Terenthis at its east end, where the road leaves south.
+  tip From the dock, up to the north end of the village first (Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south.
   accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
-  accept 948                                  -- Barithras Moonshade
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
-  accept 965                                  -- Sentinel Elissa Starbreeze
   accept 986                                  -- Terenthis
 
 step Onu
@@ -121,14 +119,6 @@ step On the way
   along until q98013
   kill 2181 quest 98013
   kill 2182 quest 98013
-
-step The Tower of Althalaxx
-  tip Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
-  turnin 965                                  -- Balthule Shadowstrike
-  accept 966
-  collect 5348 quest 966 @55.8,25.9 map 1439 -- Worn Parchment: Dark Strand Fanatics
-  turnin 966
-  accept 967
 
 step The naga
   label q98013
