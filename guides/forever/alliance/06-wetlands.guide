@@ -364,8 +364,8 @@ step Krolg
 step Ran Bloodtooth
   tip Ran Bloodtooth and his guards camp just east of Krolg.
   tip Careful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs.
-  kill 3932 quest 1045.2              -- Bloodtooth Guard
-  kill 3696 quest 1045.1              -- Ran Bloodtooth
+  kill 3932 quest 1045.1              -- Bloodtooth Guard
+  collect 5388 quest 1045.2           -- Ran Bloodtooth's Skull, from Ran Bloodtooth
 
 step Krolg
   turnin 1045

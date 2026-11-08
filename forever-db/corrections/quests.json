@@ -427,6 +427,58 @@
 		],
 		"note": "Arugal Must Die (Shadowfang Keep) rewards 8,850 XP on Forever; the merged data had 3,300, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"1045": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 3932,
+					"count": 4,
+					"text": "Bloodtooth Guard"
+				},
+				{
+					"type": "item",
+					"id": 5388,
+					"count": 1,
+					"text": "Ran Bloodtooth's Skull"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives Bloodtooth Guard (3932) x4 and Ran Bloodtooth's Skull (5388) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person: the log listed 'Bloodtooth Guard slain' x4 and 'Ran Bloodtooth's Skull' x1 at the accept; line 1 ticked on four Bloodtooth Guard kills, line 2 on the Ran Bloodtooth (3696) kill"
+			}
+		],
+		"note": "Raene's Cleansing (Ashenvale, Krolg's part): kill four Bloodtooth Guards and bring Ran Bloodtooth's Skull, which Ran Bloodtooth drops. The merged data asked for four kills of Ran Bloodtooth himself (he is one NPC) and had no skull."
+	},
+	"1046": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 5462,
+					"count": 1,
+					"text": "Dartol's Rod of Transformation"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives Ran Bloodtooth's Skull (5388, its start item) and Dartol's Rod of Transformation (5462) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person: the log listed only 'Dartol's Rod of Transformation' x1 at the accept from Krolg, and the quest was handed in to Raene Wolfrunner (3691)"
+			}
+		],
+		"note": "Raene's Cleansing (Ashenvale, back to Raene): the one objective is Dartol's Rod of Transformation, which Krolg gives you; the skull is the quest's starting item, not a second objective."
+	},
 	"1098": {
 		"set": {
 			"xp": 5350

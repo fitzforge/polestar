@@ -7586,3 +7586,13 @@ test(`${HILLSBRAD_ALLIANCE}: Hillsbrad's Hoard is delivered at the Hillsbrad cou
 	assert.ok(g.map === 1424 && Math.abs(g.x - 29.7) < 0.5 && Math.abs(g.y - 41.7) < 0.5, `at the Hillsbrad council (${g.map} ${g.x},${g.y})`);
 	for (const i of [take, use, hand]) assert.ok(list[i].goal.optional, `${list[i].goal.t} 98059 stays optional`);
 });
+
+// --- Raene's Cleansing (1045, 2026-11-08): kill four Bloodtooth Guards and bring Ran
+// Bloodtooth's Skull (players' recordings and the server's quest record agree); the
+// guide asked for four kills of Ran Bloodtooth himself.
+test(`${WETLANDS}: Raene's Cleansing asks for four Bloodtooth Guards and Ran Bloodtooth's Skull, not four Ran Bloodtooths`, { skip }, () => {
+	const list = goals(WETLANDS);
+	at(list, 'kill 3932 quest 1045.1 (Bloodtooth Guard)', (g) => g.t === 'kill' && g.quest === 1045 && g.npc === 3932);
+	at(list, "collect 5388 quest 1045.2 (Ran Bloodtooth's Skull)", (g) => g.t === 'collect' && g.quest === 1045 && g.item === 5388);
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.quest === 1045 && goal.npc === 3696), 'no kill goal for Ran Bloodtooth x4');
+});

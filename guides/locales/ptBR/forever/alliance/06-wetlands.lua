@@ -278,6 +278,8 @@ return {
 	-- Step 58: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} e os guardas dele acampam logo a leste de {npc:3897}.\nCuidado: lobos e aranhas andam perto do acampamento e podem entrar na briga. Alguns lobos andam em dupla.",
+	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
+	["{item:5388}, from {npc:3696}"] = "",
 
 	-- Step 60: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
