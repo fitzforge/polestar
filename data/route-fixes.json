@@ -7701,6 +7701,15 @@
 				],
 				"reason": "#1346: Tideress drops the Befouled Water Globe (16408, which starts The Befouled Element 1918 and opens Je'neu of the Earthen Ring 824) only for a player with Stonetalon Standstill in the log or handed in. Players' recordings: the 7 people who took 1918 all had 25 (6 in the log, 1 handed in); 2 people without it killed Tideress and got no globe, one of them skipping the step, and the reporter saw the same in game. 07-ashenvale takes 25 from Mastok on the first Splintertree stop and works it at Mystral Lake with Tideress on the way back from Shadumbra, as the 0.3.4 route did with the lake.",
 				"issue": "#1346"
+			},
+			{
+				"q": 98042,
+				"after": [
+					"turnin",
+					949
+				],
+				"reason": "It's All Fun and Games Until... (98042) is offered by the Twilight Tome only once The Twilight Camp (949) is handed in to it (19 people in players' recordings, every one right after that hand-in): the accept comes after the turn-in at the tome, not before it (#1352).",
+				"issue": 1352
 			}
 		],
 		"skip": [

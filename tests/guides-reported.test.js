@@ -3090,6 +3090,21 @@ test(`${LOCH_MODAN}: nikilok's report (#1339): Silver of the Waves' toolbox is l
 	}
 });
 
+// scalatrava (#1352): "can't pick up the Twilight Tome". The tome in the Master's Glaive offers
+// It's All Fun and Games Until... (98042) only once The Twilight Camp (949) is handed in to it (every
+// one of 19 people in the recordings took it seconds after that hand-in), and the step sent players
+// to it for 98042 first.
+
+test(`${DARKSHORE_RETURN}: scalatrava's report (#1352): the Twilight Tome's quest is taken after The Twilight Camp is handed in to it`, { skip }, () => {
+	const fix = (loadCorrections().quests[98042] || {}).set || {};
+	assert.deepEqual([fix.pre, fix.preAny], [[949], [949]], 'forever-db: 98042 comes after 949');
+	const list = goals(DARKSHORE_RETURN);
+	const accept = at(list, 'accept 98042', is('accept', 98042));
+	assert.ok(at(list, 'turnin 949 (the tome)', is('turnin', 949)) < accept, 'The Twilight Camp is handed in to the tome before its next quest is taken');
+	const { goal } = list[accept];
+	if (data.quests[98042].pre.includes(949)) assert.ok((goal.pre || []).includes(949), `the accept waits for 949: ${JSON.stringify(goal.pre)}`);
+});
+
 // --- Elemental Bracers (Tazul | Robin, #391): the step asked only for the
 // Divined Scroll, which the Divining Scroll makes from five Intact Elemental
 // Bracers. With no goal for the bracers, the target button had no elementals
