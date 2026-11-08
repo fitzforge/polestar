@@ -10,7 +10,7 @@ next forever/alliance/40-50/04-tanaris
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
-# Left out: Lonebrow's Journal (1100), The Giant Guardian (2844), Wandering Shay (2845).
+# Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
 
 step Into The Barrens
   zone The Barrens
