@@ -310,7 +310,8 @@ fn recordings_override_era_data_add_factions_and_recorder_only_records_with_full
 	assert!(pf["notice"].as_str().unwrap().starts_with("MIT License"));
 	assert!(m["sources"][1]["revision"].as_str().unwrap().contains("wow_classic_era 1.15.9.11111"));
 	let c = &m["counts"];
-	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(2), &json!(5), &json!(4)]);
+	// Objects: the fixture's 2 plus the 4 Attack Plans the repository's corrections create (#1312).
+	assert_eq!([&c["quests"], &c["npcs"], &c["objects"], &c["items"], &c["mapFrames"]], [&json!(9), &json!(7), &json!(6), &json!(5), &json!(4)]);
 }
 
 #[test]
