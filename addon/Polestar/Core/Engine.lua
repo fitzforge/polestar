@@ -1410,8 +1410,8 @@ local Spots = {
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 }
 
--- Yards from the player to a spot's edge (0 inside), nil on another continent.
-function Spots.edge(goal, s, c, px, py)
+-- Yards from the player to a spot's centre, nil on another continent.
+function Spots.dist(goal, s, c, px, py)
 	local w = Spots.world[s]
 	if w == nil then
 		local sc, wx, wy = Compat().MapToWorld(goal.map, s.x, s.y, goal.f)
@@ -1419,7 +1419,14 @@ function Spots.edge(goal, s, c, px, py)
 		Spots.world[s] = w
 	end
 	if not (w and w[1] == c) then return nil end
-	local d = ((w[2] - px) ^ 2 + (w[3] - py) ^ 2) ^ 0.5 - (s.r or 0)
+	return ((w[2] - px) ^ 2 + (w[3] - py) ^ 2) ^ 0.5
+end
+
+-- Yards from the player to a spot's edge (0 inside), nil on another continent.
+function Spots.edge(goal, s, c, px, py)
+	local d = Spots.dist(goal, s, c, px, py)
+	if not d then return nil end
+	d = d - (s.r or 0)
 	return d > 0 and d or 0
 end
 
@@ -6150,8 +6157,8 @@ end
 --
 -- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
 -- allocation-free), measured from the player wherever the live step leads:
--- of the candidates within behavior.whileHereRadius yards of the edge of
--- any place their target spawns (the guide's spots and the alternatives
+-- of the candidates within behavior.whileHereRadius yards of the centre of
+-- any place their target spawns, the point the arrow leads to (the guide's spots and the alternatives
 -- alike: Fitz stood among Zhevra Runners in an alternative spot's camp), or
 -- with one of their mobs in sight (a nameplate, the target, the mouseover:
 -- HERE_SEEN yards, whatever the spawn data says; HERE_TURNIN of a hand-in's
@@ -6545,9 +6552,12 @@ function Own.hereBlocked()
 	return false
 end
 
--- Yards from the player to candidate e: a goal's nearest spawn area edge at
--- the player's level (e.spot: that area; every place the target spawns, the
--- alternatives too), else its point; a hand-in's NPC. A mob of the goal's
+-- Yards from the player to candidate e: a goal's nearest spawn spot (its
+-- centre, at the player's level; e.spot: that spot; every place the target
+-- spawns, the alternatives too; once the player aimed the arrow at it, the
+-- spot the arrow leads to), else its point; a hand-in's NPC. The row, the
+-- reach and the arrow so measure to the same point (Fitz: the row said 180 yd
+-- to a zone-wide area's edge, the arrow 393 to its spot). A mob of the goal's
 -- seen around the player (Own.hereSaw: a nameplate, the target, the
 -- mouseover) puts it at HERE_SEEN yards at most (e.seen), whatever the spawn
 -- data says. Nil on another continent and none seen. Allocation-free once
@@ -6557,13 +6567,16 @@ function Own.hereDistance(e, c, px, py)
 	local best = nil
 	if e.kind == "work" then
 		local spots = goal.spots
-		if spots then
+		local led = spots and aim == goal and Spots.chosen[goal]
+		if led then
+			best, e.spot = Spots.dist(goal, led, c, px, py), led
+		elseif spots then
 			local top, lvl = Own.hereTop, goal.lvl
 			for i = 1, #spots do
 				local s = spots[i]
 				local l = s.lvl or lvl
 				if not (l and top and l > top) then
-					local d = Spots.edge(goal, s, c, px, py)
+					local d = Spots.dist(goal, s, c, px, py)
 					if d and (not best or d < best) then best, e.spot = d, s end
 				end
 			end
@@ -6609,7 +6622,7 @@ function Own.hereMayShow(e, d)
 	to.x, to.y = s and s.x or goal.x, s and s.y or goal.y
 	local ok, seconds = pcall(nav.EstimateTravel, nil, to, true, true)
 	if not (ok and type(seconds) == "number") then return true end
-	return seconds * Own.HERE_SPEED <= (d + (s and s.r or 0)) * Own.HERE_WALK + 20
+	return seconds * Own.HERE_SPEED <= d * Own.HERE_WALK + 20
 end
 
 -- The nearest HERE_MAX candidates not quiet (Own.hereAll) into
@@ -6823,7 +6836,10 @@ end
 -- True if the arrow can lead there.
 function Engine.AimWhileHere(i)
 	local cur = Own.hereOn[i or 1]
-	if not (cur and guide and current) or not waypointOf(cur.g, cur.goal, nil, cur.s) then return false end
+	if not (cur and guide and current) then return false end
+	-- The arrow leads to the spot the row measures to, until it is reached.
+	if cur.spot and cur.goal.spots then Spots.chosen[cur.goal], Spots.pinned[cur.goal] = cur.spot, cur.spot end
+	if not waypointOf(cur.g, cur.goal, nil, cur.s) then return false end
 	aim, cur.since = cur.goal, GetTime()
 	evaluate()
 	return true

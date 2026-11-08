@@ -1300,8 +1300,11 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
   cached world points, no tables, a message only when the shown distance
   moves by `HERE_STEP`) measures from the player, wherever the live step's
-  target is: of those within `behavior.whileHereRadius` yards of a place the
-  target spawns at the player's level (every spot, `alt` ones included: Fitz
+  target is: of those within `behavior.whileHereRadius` yards of the centre
+  of a place the target spawns (`Spots.dist`, never an area's edge: a zone-wide
+  area's edge was in reach while its spot, where the arrow leads, was 393 yd
+  off; once aimed, the spot the arrow leads to, so the row and the arrow say
+  the same yards) at the player's level (every spot, `alt` ones included: Fitz
   stood among Zhevra Runners in an alternative camp 33 yd off while the
   nearest picked spot was 94 yd away), or with one of their mobs in sight
   (`Own.hereSaw`: a nameplate, the target, the mouseover for `HERE_MOUSE`

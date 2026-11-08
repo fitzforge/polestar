@@ -392,6 +392,38 @@ emit(here())
 w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 w.progress(848, 1, 1); flush(); stub.advance(0.6)
 emit({{ here(), report() }})
+-- Fitz at the Razormane camp, 180 yd: "Collect Zhevra Hooves · 180 yd" with no runner near, and the arrow then said
+-- 393 yd: the row measured to a zone-wide area's edge. Now the row, the reach and the arrow use the spot's centre.
+Polestar.Set("behavior.whileHereRadius", 180); flush()
+local function zhevra()
+	for i, v in ipairs(E.GetWhileHereList()) do if v.step == 18 then return i, v end end
+	return nil
+end
+local function nearest()
+	local goal = E.AlongGoal(18, 1)
+	local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
+	local best
+	for _, s in ipairs(goal.spots) do
+		local sc, sx, sy = Polestar.Compat.MapToWorld(goal.map, s.x, s.y, goal.f)
+		if sc == c then
+			local d = ((sx - px) ^ 2 + (sy - py) ^ 2) ^ 0.5
+			if not best or d < best then best = d end
+		end
+	end
+	return best
+end
+w.moveTo(1413, 55.0, 26.5); stub.advance(0.6); stub.advance(0.6)
+emit({{ nearest = math.floor(nearest()), shown = zhevra() ~= nil }})
+-- 95 yd south of the runner camp on the Ratchet road: the row and, once clicked, the arrow agree.
+w.moveTo(1413, 56.3, 34.0); stub.advance(0.6); stub.advance(0.6)
+local i, v = zhevra()
+local row = v and v.yards or false
+if i then E.AimWhileHere(i); flush(); stub.advance(0.6) end
+local x = E.GetWaypoint()
+local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
+local wc, wx, wy = Polestar.Compat.MapToWorld(x.map, x.x, x.y, x.f)
+local _, after = zhevra()
+emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yards or false, arrow = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5 + 0.5) or false, step = x.stepIndex }})
 "#,
 		loads.join("\n")
 	);
@@ -401,19 +433,26 @@ emit({{ here(), report() }})
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
 	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
-	assert_eq!(out[0]["yards"], 0, "inside the mushrooms' spawn area at the oasis: {}", out[0]);
+	assert_eq!(out[0]["yards"], 55, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 0 yd"), "{shown}");
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 55 yd"), "{shown}");
 	assert!(shown.contains(" · radius 180 yd · "), "{shown}");
 	let both = out[1].as_str().unwrap();
 	assert!(both.starts_with("39:3:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("18:1:")), "spores then hooves at the oasis edge: {both}");
 	assert_eq!(out[2], json!({ "gone": true, "back": true, "chimed": true }), "dismissed, 120 yd off, back at the same pool after two minutes: {}", out[2]);
-	assert_eq!(out[3], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "Fitz among the runners north of the oasis");
+	assert_eq!(out[3], json!("18:1 Collect Zhevra Hooves, 4 more 35"), "Fitz among the runners north of the oasis, their camp's centre 33 yd off");
 	assert_eq!(out[4], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
 	assert_eq!(out[5][0], json!("none"), "ready to hand in: no line");
 	let none = out[5][1].as_str().unwrap();
 	assert!(none.starts_with("While here: none · radius 60 yd · ") && none.contains("nearest quest 845, step ") && none.ends_with("out of radius"), "{none}");
+	let camp = &out[6];
+	assert!(camp["nearest"].as_f64().unwrap() > 180.0, "no Zhevra spot within 180 yd of the camp: {camp}");
+	assert_eq!(camp["shown"], false, "so no hooves row at the camp: {camp}");
+	let road = &out[7];
+	assert_eq!(road["step"], 18, "the arrow leads to the hooves: {road}");
+	let (row, after, arrow) = (road["row"].as_f64().unwrap(), road["after"].as_f64().unwrap(), road["arrow"].as_f64().unwrap());
+	assert!((row - arrow).abs() <= 5.0 && (after - arrow).abs() <= 5.0, "the row and the arrow say the same yards: {road}");
 }
 
 // Fitz: chasing one step's mobs through another step's objective, "I just do it, I'm here already". A big count
