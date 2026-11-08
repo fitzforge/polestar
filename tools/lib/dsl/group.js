@@ -35,12 +35,18 @@ function isRare(rank, faction, sides) {
 
 // A `kill` of an elite, or a `collect` of an item whose every located dropper
 // in data is an elite (the compiler's `from` names one source of the same
-// data; one normal dropper keeps the item soloable). -> { rank, names } (the
-// droppers' names, the likeliest first; `rank` that one's) | null
+// data; one normal dropper keeps the item soloable). -> { rank, names, lvl }
+// (the droppers' names, the likeliest first; `rank` that one's; `lvl` their
+// highest level, 0 when unknown) | null
+function topLevel(n) {
+	const l = Number(n.levelMax) > 0 ? Number(n.levelMax) : Number(n.level);
+	return l > 0 ? l : 0;
+}
+
 function eliteWork(goal, sides, data) {
 	if (goal.t === 'kill' && goal.npc !== undefined) {
 		const n = data.npc(goal.npc);
-		return n && isElite(n.rank, n.faction, sides) ? { rank: Number(n.rank), names: [n.name] } : null;
+		return n && isElite(n.rank, n.faction, sides) ? { rank: Number(n.rank), names: [n.name], lvl: topLevel(n) } : null;
 	}
 	if (goal.t !== 'collect' || goal.candidates) return null;
 	const it = data.item(goal.item);
@@ -53,7 +59,7 @@ function eliteWork(goal, sides, data) {
 	if (!list.length) return null;
 	const recs = list.map((s) => (s.kind === 'npc' ? data.npc(s.id) : null));
 	if (!recs.every((r) => r && isElite(r.rank, r.faction, sides))) return null;
-	return { rank: Number(recs[0].rank), names: [...new Set(recs.map((r) => r.name))] };
+	return { rank: Number(recs[0].rank), names: [...new Set(recs.map((r) => r.name))], lvl: Math.max(...recs.map(topLevel)) };
 }
 
 // Whether an npc or object spawns in the open world (a map of the reference
@@ -70,7 +76,7 @@ const RUN = new Set(['dungeon', 'raid']);
 // wins; else the dungeon or raid of the goal's quest (the solo filter's
 // instance rule, SOLO.instanceQuest) or of the instance map the goal is
 // placed on; else elite work. -> { kind: 'group', size? } | { kind:
-// 'dungeon' | 'raid', name, map (its Map.csv id) } | { kind: 'elite', rank } | null
+// 'dungeon' | 'raid', name, map (its Map.csv id) } | { kind: 'elite', rank, lvl? } | null
 function groupOf(goal, explicit, sides, data) {
 	if (explicit) return explicit.size !== undefined ? { kind: 'group', size: explicit.size } : { kind: 'group' };
 	const inst = data.instances;
@@ -80,7 +86,8 @@ function groupOf(goal, explicit, sides, data) {
 		if (run && RUN.has(run.kind)) return run.map ? { kind: run.kind, name: run.name, map: run.map } : { kind: run.kind, name: run.name };
 	}
 	const elite = eliteWork(goal, sides, data);
-	return elite ? { kind: 'elite', rank: elite.rank } : null;
+	if (!elite) return null;
+	return elite.lvl > 0 ? { kind: 'elite', rank: elite.rank, lvl: elite.lvl } : { kind: 'elite', rank: elite.rank };
 }
 
 // The dungeon a name stands for, from the same instance tables: its Map.csv

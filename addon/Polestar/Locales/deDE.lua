@@ -605,6 +605,7 @@ L["If you finish this guide"] = "Wenn du diesen Guide abschließt"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "Du bist Stufe %d. Für diesen Guide wird Stufe %d empfohlen; ab dort:"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Keine Guides angezeigt: Die eigenen Guides von Polestar sind ausgeschaltet. Schalte sie unter Optionen, Community-Guides ein (/polestar packs)."
 L["Other starting zones"] = "Andere Startgebiete"
+-- L["Heads-up"] = ""
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
@@ -3009,6 +3010,12 @@ L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

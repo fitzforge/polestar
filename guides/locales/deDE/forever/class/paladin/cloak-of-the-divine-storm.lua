@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Ein seltener Umhang auf Stufe 30 aus der alten Geschichte um {spell:407778}; derzeit können nur Paladine der Allianz sie abschließen.",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Die Strange Orb",
@@ -58,6 +58,7 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Ein seltener Umhang auf Stufe 30 aus der alten Geschichte um {spell:407778}; derzeit können nur Paladine der Allianz sie abschließen.",
 	-- ["Back to {area:413}."] = "Zurück zu {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Beschwörer, Helden und Fährtenleser der Blackrock lagern im Nordwesten des Rotkammgebirges; sie lassen das {item:209778} fallen.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Klettere ganz nach oben auf {area:444} im nördlichen {zone:1439}. Plündere dort oben die Strange Orb: Sie gibt dir die Kugel von Althalaxx, die die Quest startet.",

@@ -1427,6 +1427,7 @@ L["Miscellaneous"] = "Miscelánea"
 -- L["You are level %d. Level %d is recommended for this guide; from there:"] = ""
 -- L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = ""
 -- L["Other starting zones"] = ""
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota"
@@ -3025,6 +3026,12 @@ L["looted %s, which starts %s"] = "ha conseguido %s, que inicia %s"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."

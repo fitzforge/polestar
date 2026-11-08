@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Um manto raro no nível 30, da antiga história de {spell:407778}; por enquanto só paladinos da Aliança podem concluí-la.",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "O Orbe Estranho",
@@ -58,6 +58,7 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "De volta a {npc:3663}, em {area:413}, no oeste de {zone:1440}, atravessando a zona inteira.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Um manto raro no nível 30, da antiga história de {spell:407778}; por enquanto só paladinos da Aliança podem concluí-la.",
 	-- ["Back to {area:413}."] = "De volta a {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Evocadores, Campeões e Rastreadores Rocha Negra acampam no noroeste das Montanhas Cristarrubra; eles deixam cair o {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Suba ao topo da {area:444}, no norte de {zone:1439}. Saqueie o Orbe Estranho lá em cima: ele dá o Orbe de Althalaxx, que inicia a missão.",

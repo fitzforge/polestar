@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "淬火护甲",
-	["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "28级的锁甲，三位铁匠分别给出罩帽、护腿和护手，途中还有一面盾牌。",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -98,6 +98,7 @@ return {
 	["{item:6848}, from {quest:1708}"] = "{item:6848}，来自{quest:1708}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "28级的锁甲，三位铁匠分别给出罩帽、护腿和护手，途中还有一面盾牌。",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "28级的锁甲，按种族还有罩帽、护腿或护手，途中还有一面盾牌。",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "20级时，{object:2100}酒馆旁的{npc:5479}会让你去赤脊山找{quest:1698}。",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "回到{object:28027}找{npc:5413}。他会让你去找你自己种族的铁匠。",

@@ -1427,6 +1427,7 @@ L["If you finish this guide"] = "이 가이드를 마치면"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "현재 레벨 %d입니다. 이 가이드의 권장 레벨은 %d이며, 그 레벨부터:"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "표시할 가이드가 없습니다: Polestar 자체 가이드가 꺼져 있습니다. 설정의 커뮤니티 가이드(/polestar packs)에서 켜십시오."
 -- L["Other starting zones"] = ""
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -3025,6 +3026,12 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
