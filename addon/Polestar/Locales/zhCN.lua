@@ -142,6 +142,7 @@ L["Hand in %s"] = "交付%s"
 L["%s, %d more"] = "%s，还差 %d"
 -- L["On through %s to %s"] = ""
 -- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
+-- L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"
@@ -207,6 +208,7 @@ L["Next waypoint"] = "下一个路径点"
 L["Previous waypoint"] = "上一个路径点"
 L["List the quests in your log the route never hands in"] = "列出任务日志中路线永远不会交还的任务"
 -- L["Show what's new in this version"] = ""
+-- L["Nothing to skip: the guide has no step open."] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黄昏"
@@ -1322,6 +1324,9 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
+-- L["The rest of this guide follows from a skipped step"] = ""
+-- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
+-- L["Undo the skip"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"

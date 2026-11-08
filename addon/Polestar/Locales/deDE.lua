@@ -60,6 +60,7 @@ L["Next waypoint"] = "Nächster Wegpunkt"
 L["Previous waypoint"] = "Vorheriger Wegpunkt"
 L["List the quests in your log the route never hands in"] = "Die Quests in deinem Questlog auflisten, die die Route nie abgibt"
 -- L["Show what's new in this version"] = ""
+-- L["Nothing to skip: the guide has no step open."] = ""
 
 -- Core/Engine.lua
 L["Quest"] = "Quest"
@@ -141,6 +142,7 @@ L["For %s: %s"] = "Für %s: %s"
 -- L["%s, %d more"] = ""
 -- L["On through %s to %s"] = ""
 -- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
+-- L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -523,6 +525,9 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
+-- L["The rest of this guide follows from a skipped step"] = ""
+-- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
+-- L["Undo the skip"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

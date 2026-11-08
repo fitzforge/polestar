@@ -60,6 +60,7 @@ L["Open the Gamepad page: button names and bindings"] = "Abrir la página Contro
 -- L["Previous waypoint"] = ""
 -- L["List the quests in your log the route never hands in"] = ""
 -- L["Show what's new in this version"] = ""
+-- L["Nothing to skip: the guide has no step open."] = ""
 
 -- Core/Data.lua
 L["%s not installed"] = "%s sin instalar"
@@ -150,6 +151,7 @@ L["For %s: %s"] = "Para %s: %s"
 -- L["%s, %d more"] = ""
 -- L["On through %s to %s"] = ""
 -- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
+-- L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -1366,6 +1368,9 @@ L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar e
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
+-- L["The rest of this guide follows from a skipped step"] = ""
+-- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
+-- L["Undo the skip"] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

@@ -1020,7 +1020,12 @@ end
 -- every goal of p in the guide is for other characters (`only`): another
 -- race's or class's version of the chain, whose own the data does not list
 -- (Emphasis on Sacrifice names the Human Lord Grayson Shadowbreaker, 7638,
--- not the Dwarf's 7670).
+-- not the Dwarf's 7670). Nor is one the guide does not turn in for the
+-- character that the player holds (not skipped, Engine.SkipQuest): another
+-- giver's version of a breadcrumb the guide takes elsewhere, handed in at
+-- the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff, 1529,
+-- where the guide takes Orgrimmar's 1528, #1372): its follow-up stays open
+-- instead of "Requires Call of Water first" with Call of Water in the log.
 function Own.coming(p, depth)
 	local state = ns.CharState()
 	local skipped, manual = state.skipped[guide.id], state.manual[guide.id]
@@ -1038,6 +1043,7 @@ function Own.coming(p, depth)
 		end
 	end
 	if mine then return false end
+	if Compat().IsOnQuest(p) and not Own.questSkipped(p) then return true end
 	local accepts = l.accepts[p] or NONE
 	for _, t in ipairs(accepts) do
 		if stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return false end
@@ -2879,13 +2885,31 @@ function Own.skippedWithTitle(u)
 	return root and titleOfQuest(root, u.accept.preTitles) or nil
 end
 
+-- Another quest of the loaded guide than q, named `title` too, in the log.
+function Own.namesakeInLog(q, title)
+	local C, l = Compat(), layoutOf(guide)
+	for _, by in ipairs({ l.accepts, l.turnins }) do
+		for other in pairs(by) do
+			if other ~= q and C.IsOnQuest(other) and titleOfQuest(other) == title then return true end
+		end
+	end
+	return false
+end
+
 -- What an open accept's line says about the game's own word on it: ticked by
 -- hand while the quest is not in the log (the tick does not stand for it,
 -- #739), or its giver's window did not list it (Own.notListed: never a skip,
--- #741; the player is asked to report it).
+-- #741; the player is asked to report it). With another quest of this
+-- guide by the same name in the log (every part of Call of Water is "Call
+-- of Water"), the plain line read as though that one were not taken
+-- (#1372): it says the one there is another quest.
 function Own.acceptNotice(s, g, goal, status)
 	if goal.t ~= "accept" or not goal.quest or (status ~= "active" and status ~= "pending") then return nil end
-	if checked(s, g) then return L["%s isn't in your quest log"]:format(questTitle(goal) or titleOfQuest(goal.quest)) end
+	if checked(s, g) then
+		local title = questTitle(goal) or titleOfQuest(goal.quest)
+		if Own.namesakeInLog(goal.quest, title) then return L["This %s isn't in your quest log yet: the one you have is another quest of that name"]:format(title) end
+		return L["%s isn't in your quest log"]:format(title)
+	end
 	if Own.notListed[goal.quest] then
 		local N = ns.Names
 		return L["Not offered by %s? Report it with /polestar"]:format(N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or L["the quest giver"])
@@ -7533,6 +7557,37 @@ function Engine.Unskip(i)
 	Own.keep(i)
 	evaluate()
 	return true
+end
+
+-- The player's step skip that left the rest of the loaded guide out
+-- (#1372): with no live step, the first step skipped by hand (a skip of a
+-- step with `when` may be a failed condition stored as one, and a `skipto`
+-- jump is saved as "jump": neither is the player's to undo here) whose undo
+-- would open a later step, one that follows from it (its quest's accept, or
+-- a prerequisite, is in the skipped step). Skipping Brine in Call of Water
+-- leaves every later step without its quest: the guide is not done then,
+-- and the window says so, with the undo, instead of "Guide complete". Tried
+-- on the saved skips and put straight back, as Engine.SkipLoses does.
+-- -> { step, title } | nil
+function Engine.SkippedOut()
+	if not guide or computed then return nil end
+	local sk = skippedFor(guide.id)
+	if not sk then return nil end
+	if not player then refreshPlayer() end
+	local steps, found = guide.steps, nil
+	for s = 1, #steps do
+		if sk[s] == true and steps[s].when == nil and stepApplies(steps[s]) then
+			sk[s] = nil
+			local ok, opens = pcall(nextOpen, s)
+			sk[s] = true
+			if ok and opens then
+				found = s
+				break
+			end
+		end
+	end
+	nextOpen(0) -- the marks the try left (Own.preMarks' prerequisite) read the real state again
+	return found and { step = found, title = steps[found].title } or nil
 end
 
 -- One applicable step forward, done, skipped or open alike: a look at it

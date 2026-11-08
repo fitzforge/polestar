@@ -11,6 +11,8 @@ mod automation_close_skipped;
 mod automation_spoken;
 #[path = "class-quests.rs"]
 mod class_quests;
+#[path = "class-skip.rs"]
+mod class_skip;
 mod closes;
 mod codex;
 #[path = "codex-bosses.rs"]

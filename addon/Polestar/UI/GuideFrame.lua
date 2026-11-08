@@ -120,7 +120,7 @@ local tipOpen = false
 local inCombat = false
 local inInstance, openInside = false, false -- in a dungeon or raid; opened there by the player
 local shownOnEntry = false -- ui.shown when this visit began
-local state = "none" -- "steps" | "noguides" | "noguide" | "notyet" | "away" | "complete"
+local state = "none" -- "steps" | "noguides" | "noguide" | "notyet" | "away" | "complete" | "skippedout"
 local texts = {} -- every string the window draws, for transparent-mode outlines
 local chrome = {} -- frames that hide in transparent mode until hovered
 
@@ -2264,7 +2264,7 @@ function GF.Layout()
 	else
 		GF.xp:Hide()
 	end
-	local showFoot = state == "steps" or state == "complete"
+	local showFoot = state == "steps" or state == "complete" or state == "skippedout"
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
 	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
@@ -2438,6 +2438,23 @@ local function setEmpty(kind)
 		W.SetButtonText(empty.Primary, L["Choose a guide"])
 		empty.Primary.psAction = function() UI.ShowPicker() end
 		empty.Primary:Show()
+	elseif kind == "skippedout" then
+		-- The player's skip of a step left every later one without its
+		-- quest (Engine.SkippedOut): the guide is not done; the undo brings
+		-- the step back, and taking its quests by hand brings the rest.
+		glyph = "skip"
+		local out = E and E.SkippedOut and E.SkippedOut() or {}
+		empty.Title:SetText(L["The rest of this guide follows from a skipped step"])
+		empty.Text:SetText(string.format(L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."],
+			"|c" .. Theme.Hex("text") .. (out.title or "") .. "|r"))
+		W.SetButtonText(empty.Primary, L["Undo the skip"])
+		empty.Primary.psAction = function()
+			if out.step and E.Unskip then E.Unskip(out.step) end
+		end
+		empty.Primary:Show()
+		W.SetButtonText(empty.Secondary, L["Choose a guide"])
+		empty.Secondary.psAction = function() UI.ShowPicker() end
+		empty.Secondary:Show()
 	elseif kind == "complete" then
 		glyph, color = "check", "success"
 		local guide = E and E.GetGuide and E.GetGuide()
@@ -3292,7 +3309,9 @@ function GF.Render()
 	local v = index and E.GetStepView(index)
 	if not v then
 		view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
-		setEmpty("complete")
+		-- No live step only because a step skip left the rest out (#1372):
+		-- not "Guide complete", but the skip and its undo.
+		setEmpty(E.SkippedOut and E.SkippedOut() and "skippedout" or "complete")
 		showSteps(false)
 		GF.Layout()
 		GF.PaintProgress(true)
@@ -3888,7 +3907,8 @@ local function openMenu(button)
 	local items = {
 		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
 		{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
-		{ text = L["Skip this step"], icon = "skip", disabled = not hasGuide, onClick = function() GF.SkipStep() end },
+		-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
+		{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
 		{ separator = true },
 	}

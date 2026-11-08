@@ -126,21 +126,33 @@ local function handedIn(step, view, goal)
 end
 
 -- The step's class quest the card is for: its first accept of one that
--- applies, else its first such turn-in. None for a chain whose reward the
--- character already knows or owns, nor once the accept is done and its quest
--- handed in: the card is gone then, and the accept reads as a row like any
--- other. -> goal index | nil
+-- applies, else its first such turn-in. A turn-in of a class quest still in
+-- the log comes before an accept of another one (the chain's next part,
+-- given once it is handed in): the card's open tick box for that accept
+-- read as though the quest in the log were not taken, every part of a chain
+-- like Call of Water bearing the same name (#1372). None for a chain whose
+-- reward the character already knows or owns, nor once the accept is done
+-- and its quest handed in: the card is gone then, and the accept reads as a
+-- row like any other. -> goal index | nil
 local function cardGoal(step, view, p)
-	local turnin
+	local turnin, held, accept
+	local C = ns.Compat
 	for gi, goal in ipairs(step.goals) do
 		local v = view.goals[gi]
 		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(goal, p.class) and not rewardKnown(goal.quest) then
 			if goal.t == "accept" then
-				if v.status == "done" and handedIn(step, view, goal) then return nil end
-				return gi
+				accept = accept or gi
+			else
+				turnin = turnin or gi
+				if not held and v.status ~= "done" and v.status ~= "skipped" and C and C.IsOnQuest and C.IsOnQuest(goal.quest) then held = gi end
 			end
-			turnin = turnin or gi
 		end
+	end
+	if accept then
+		local goal, v = step.goals[accept], view.goals[accept]
+		if v.status ~= "done" and held and step.goals[held].quest ~= goal.quest then return held end
+		if v.status == "done" and handedIn(step, view, goal) then return nil end
+		return accept
 	end
 	return turnin
 end

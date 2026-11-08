@@ -1060,6 +1060,7 @@ Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional g
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
+Polestar.Engine.SkippedOut() -> { step, title } | nil   -- with no live step, the player's step skip that left the rest of the guide out (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -1400,7 +1401,12 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   guide are all for other characters (`only`): another race's or class's
   version of the chain, whose own the data does not list (the paladin
   charger's Emphasis on Sacrifice names the Human's Lord Grayson
-  Shadowbreaker, not the Dwarf's). Prerequisites the data lacks (issue #51)
+  Shadowbreaker, not the Dwarf's). So does one the guide does not turn in
+  for the character that the player holds, unless they skipped it: another
+  giver's version of a breadcrumb the guide takes elsewhere, handed in at
+  the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff where the
+  Barrens takes Orgrimmar's: Islen's next part stays open, not "Requires
+  Call of Water first", #1372). Prerequisites the data lacks (issue #51)
   mark nothing in advance; the giver's window covers them. The mark is live:
   it does not hold the step, the focus or the arrow, and it goes the moment
   the prerequisite is done (the guide then goes back to it), not
@@ -1465,6 +1471,14 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   the saved state, lists the open accepts that are no longer open, and puts
   the state back, with nothing evaluated or fired (the guide window's Skip
   button and the Skip this quest menu item: "Skipping also skips: …").
+  After a skip, a guide with no live step whose undo would open a later
+  step (`Engine.SkippedOut`: the first step skipped by hand, not a `when`
+  or `skipto` one, whose skip left out the steps that follow from it) is not
+  "Guide complete": the window says the rest follows from the skipped step,
+  with Undo the skip (`Engine.Unskip`) and Choose a guide; taking that
+  step's quests by hand brings the rest back too (#1372). With no step
+  open, the guide menu's Skip this step is off and `/polestar skip` says
+  there is nothing to skip.
 - **Quests that leave the log** after the route has passed their accept
   (abandoned, failed): the live step does not jump back to the giver
   unasked. A quest that left the log this session (`QUEST_REMOVED`, until it
@@ -5297,8 +5311,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   guide quest that gives it, else its last quest.
   The step's class accept folds into the card ("Accept from <giver>, <zone>"
   with the step's tick box, `ClassCard.Fold`); GuideFrame lists no row for it.
-  A hand tick shows ticked and the card reads the accept's notice ("<quest>
-  isn't in your quest log": a tick never stands for the quest).
+  A step that also hands in another class quest still in the log (Brine in
+  Call of Water: turn in 1530, accept 1535, every part named "Call of
+  Water") has the card for that turn-in until it is handed in, the accept a
+  row of its own: an open tick box for the next part read as though the
+  quest in the log were not taken (#1372). A hand tick shows ticked and the
+  card reads the accept's notice ("<quest> isn't in your quest log": a tick
+  never stands for the quest; "This <quest> isn't in your quest log yet:
+  the one you have is another quest of that name" while another quest of
+  the guide by that name is in the log).
 - **Class quest heads-up** (`UI/ClassToast.lua`, `PolestarClassToast`): a
   card that lives on the guide window: as wide as it, in its panel, border,
   fonts and buttons, the class colour only on the stripe, the icon ring and

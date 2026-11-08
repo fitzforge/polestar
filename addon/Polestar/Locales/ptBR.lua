@@ -142,6 +142,7 @@ L["Hand in %s"] = "Entregar %s"
 L["%s, %d more"] = "%s e mais %d"
 -- L["On through %s to %s"] = ""
 -- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
+-- L["This %s isn't in your quest log yet: the one you have is another quest of that name"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."
@@ -207,6 +208,7 @@ L["Next waypoint"] = "Próximo ponto de rota"
 L["Previous waypoint"] = "Ponto de rota anterior"
 L["List the quests in your log the route never hands in"] = "Listar as missões do seu registro que a rota nunca entrega"
 -- L["Show what's new in this version"] = ""
+-- L["Nothing to skip: the guide has no step open."] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crepúsculo"
@@ -1322,6 +1324,9 @@ L["Right-click: not now, around here (twice: for the rest of this zone)."] = "Bo
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
 -- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
+-- L["The rest of this guide follows from a skipped step"] = ""
+-- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
+-- L["Undo the skip"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"

@@ -67,7 +67,7 @@ ns.RegisterCommand("prev", function()
 end, L["Look at the step before"])
 
 ns.RegisterCommand("skip", function()
-	if needGuide() then Engine.Skip() end
+	if needGuide() and not Engine.Skip() then ns.Print(L["Nothing to skip: the guide has no step open."]) end
 end, L["Skip the step shown, for good (the window offers the undo)"])
 
 ns.RegisterCommand("reset", function()
