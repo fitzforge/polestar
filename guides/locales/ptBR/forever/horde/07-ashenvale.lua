@@ -135,8 +135,8 @@ return {
 	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 36: Thunder Bluff
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {area:215} Mulgore · {area:222} Bloodhoof Village · {npc:2995} Tal
-	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe para {area:1638} se já tiver a rota de voo. Senão, voe para {area:378}, siga para oeste até {area:215}, passando por {area:222}, até {area:1638} e pegue a rota de voo com {npc:2995} no platô central.",
+	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {npc:2995} Tal
+	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {zone:1412} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe para {area:1638} se já tiver a rota de voo. Senão, voe para {area:378}, siga para oeste até {zone:1412}, passando por {area:222}, até {area:1638} e pegue a rota de voo com {npc:2995} no platô central.",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
 	["Speak with {npc:3057}, in {area:1638}: {quest:93739}"] = "Fale com {npc:3057}, em {area:1638}: {quest:93739}",
 	-- {npc:3057} Cairne Bloodhoof
@@ -276,6 +276,7 @@ return {
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Voe de {area:392} até o {area:2897}, na costa de {zone:1440}.",
 	-- ["Fly from {zone:1456} to {area:378} and take the road south to the {area:1718} at the bottom of the {zone:1413}."] = "Voe de {zone:1456} até o {area:378} e pegue a estrada para o sul até o {area:1718}, no extremo sul de {zone:1413}.",
 	-- ["Fly from {zone:1456} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:1718}."] = "Voe de {zone:1456} até o {area:378}. A cabana de {npc:5899} fica na crista acima do bebedouro dos javalis ao sul do acampamento, na estrada para o {area:1718}.",
+	-- ["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe para {area:1638} se já tiver a rota de voo. Senão, voe para {area:378}, siga para oeste até {area:215}, passando por {area:222}, até {area:1638} e pegue a rota de voo com {npc:2995} no platô central.",
 	-- ["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, ride west into {zone:1412} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe até {area:1638} se conhecer a rota de voo. Se não, voe até o {area:378}, cavalgue para oeste por {zone:1412} passando a {area:222} até {area:1638} e pegue a rota de voo com {npc:2995} na elevação central.",
 	-- ["Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Siga o cânion para leste saindo das mesetas até as planícies salgadas. Os goblins e gnomos do {area:2240} são neutros e dão missões às duas facções.",
 	-- ["Follow the canyon west to {area:2237}."] = "Siga o cânion para oeste até o {area:2237}.",
