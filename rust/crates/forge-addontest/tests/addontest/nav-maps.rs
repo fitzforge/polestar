@@ -783,3 +783,34 @@ emit({ full = full, direct = direct })"#,
 	assert!(f > 100_000, "the full search floods the cluster each time: {f}");
 	assert!(d * 20 < f, "the direct walk is a small part of it: {d} against {f}");
 }
+
+// The same across a cluster border: the Crossroads sits where four clusters meet, so most walks round its objectives
+// cross one, and the start's tree still flooded its whole cluster each ask. It now stops at a cost radius that grows
+// only while a cheaper walk could still leave through an entrance beyond it. Three asks the arrow made in game (0.3.5,
+// a Horde level 17) toward one objective, with the costs the full search gave them then, at about 58,800 expansions.
+#[test]
+fn a_walk_across_a_cluster_border_asked_again_as_the_player_moves_floods_only_as_far_as_it_must() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local goal = { x = -406.9, y = -2645.4, z = 96.3 }
+local opts = { profile = "Horde", style = "balanced" }
+local exp, costs = 0, {}
+for _, from in ipairs({ { x = -335.5, y = -2700.4, z = 94 }, { x = -450.5, y = -2669.5, z = 96 }, { x = -475.6, y = -2670.6, z = 96 } }) do
+	local cost
+	local job = Path.Find(1, from, goal, function(_, c) cost = c end, opts)
+	drain()
+	exp = exp + job.expansions
+	costs[#costs + 1] = math.floor(cost * 1000 + 0.5) / 1000
+end
+emit({ expansions = exp, costs = costs })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["costs"], json!([136.544, 70.594, 85.165]), "the full search's walks: {got}");
+	let e = got["expansions"].as_i64().unwrap();
+	assert!(e < 25_000, "not three cluster floods ({e} expansions, about 58,800 before)");
+}

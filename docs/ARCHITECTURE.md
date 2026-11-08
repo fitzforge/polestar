@@ -3709,6 +3709,16 @@ every surface the start stands on reaches the goal under it, that walk is the ch
 is skipped. A surface that cannot (a rock top the grid cannot leave, which the start's tree would move: `settle`)
 sends the search the full way, so the walks and costs are the full search's either way (`Path.direct = false` runs
 it always: `nav-maps.rs`, eleven asks walking in from 60 yards, 236,000 expansions down to under 1,000).
+A walk across a cluster border (most round the Crossroads, where four clusters meet) keeps the goal's full tree but
+grows the start's only as far as it must: the start's Dijkstra stops past a cost R (`connectWithin`, `search`'s
+`limit` without a goal), the abstract search runs on the entrances it met, and a walk it finds for at most R stands
+(any other leaves through an entrance beyond R, so costs more); else R becomes that walk's cost, or doubles when none
+was found, and it runs again. R starts at 1.25 times the straight yards plus 25. A tree that met every entrance or ran
+dry is the full one, so its answer stands; one that met none, complete, is a ledge for `settle`, through the full
+connection as before; a lift in the start's cluster keeps the full trees. Thirty-three searches captured in game
+replay to the same walks and costs at about a third of the expansions, short walks round objectives at a few
+hundred instead of 20,000-60,000 (`nav-maps.rs`, three asks across the Crossroads border: under 25,000 against
+78,944).
 
 **A map is used whole.** `API.lua` drops a map whose packed tables hold
 fewer entries than its `counts` (a part file missing from the folder, or one
