@@ -10,7 +10,7 @@ return {
 	-- {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
 	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
 	-- {faction:2587} Durotar Supply and Logistics
-	["{faction:2587} camp"] = "",
+	["{faction:2587} camp"] = "{faction:2587}营地",
 
 	-- Step 2: Pack Kodo
 	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "缰绳需要60级和中级骑术才能骑乘（Forever 客户端）；可以提前购买。",
@@ -18,6 +18,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Durotar Supply and Logistics"] = "杜隆塔尔补给后勤部",
-	-- ["Durotar Supply and Logistics camp"] = "杜隆塔尔补给后勤部营地",
 	-- ["The camp is just outside the {area:380} in the {zone:1413}. Loot supply crates in the world, fill them, and hand them in at the camp for Merchant's Favor (5-20 a crate); the {npc:10636} costs 6,000. Craftsman's Writs may help from level 10."] = "营地就在{zone:1413}的{area:380}外。在野外拾取补给箱，装满后在营地上交换取Merchant's Favor（每箱5-20）；{npc:10636}售价6,000。从10级起工匠文书也可能有帮助。",
 }

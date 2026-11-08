@@ -24,7 +24,7 @@ return {
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Guarda La pequeña Pamela: Pamela está en {area:2262}, que visitarás de nuevo más adelante.",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -296,7 +296,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Desde el maestro de vuelo de {area:2268}, vuela a {area:1497}.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Guarda el paquete: {npc:10781} está en {area:1497}.",
-	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "Guarda {quest:5142}: Pamela está en {area:2262}, que visitarás de nuevo más adelante.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Sal de {area:1497} y cabalga al este por el camino a través de {zone:1420}, pasando {area:152}. La granja de Piedramácula es la primera granja del camino; {npc:10778} espera en la casa.",
 	-- ["Radley and Durgen"] = "Radley y Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Cabalga de vuelta al sureste hasta el Santuario.",

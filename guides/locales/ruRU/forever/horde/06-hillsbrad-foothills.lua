@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Наполните {item:7768} у колодца рядом с таверной: {object:107045}",
 	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "Плакат у таверны: {object:556670}",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -189,7 +189,6 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {item:3564} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Ратуша — в западной части места {area:287}. {npc:2335} (30) и {npc:2448} внутри, там же Регистрационная книга Хилсбрада; рядом висит Хилсбрадское официальное объявление. По городку ходят члены совета Хилсбрада.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} — к югу от городка {area:287}. В туннелях работают шахтеры; {npc:2305} (30) и {npc:2450} (29) — в глубине.",
-	-- ["The {object:1763} poster by the inn"] = "Плакат у таверны: {object:1763}",
 	-- ["The {quest:567} poster: Kalaba and Wilkes come up here, the clerk and the miner on the visit at about 32; inside"] = "Плакат «{quest:567}»: Калаба и Уилкс попадутся здесь, клерк и шахтер — при визите примерно на 32; внутри",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Плакат «{quest:567}»: его цели попадутся по пути",
 	-- ["Town hall"] = "Ратуша",

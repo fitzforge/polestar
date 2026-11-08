@@ -230,7 +230,7 @@ return {
 
 	-- Step 58: Rut'theran Village
 	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "",
+	["Ranshalla in {area:618}: keep it"] = "Ranshalla in {area:618}: Behalte es",
 
 	-- Step 59: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
@@ -280,7 +280,7 @@ return {
 	-- Step 72: Donova Snowden
 	["Ride west along the road to the hot springs."] = "Reite auf der Straße nach Westen zu den heißen Quellen.",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299} in {area:976}: keep it"] = "",
+	["{npc:9299} in {area:976}: keep it"] = "{npc:9299} in {area:976}: Behalte es",
 
 	-- Step 74: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
@@ -453,7 +453,6 @@ return {
 	-- ["Fly to {area:392}."] = "Flieg nach {area:392}.",
 	-- ["For {zone:1453}: keep it"] = "Für {zone:1453}: Behalte es",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Flieg von {area:392} nach {area:2255} und reite nach Süden zum {area:2250}.",
-	-- ["Gaeriyan in {area:976}: keep it"] = "Gaeriyan in {area:976}: Behalte es",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "Reite zurück zum {area:3197} und flieg zum Ort {area:150}, nimm das Boot nach {area:442} und flieg nach {area:702}; das Portal führt hinauf nach {zone:1457}.",
 	-- ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones."] = "Skelettschinder und Sabbernde Ghule streifen über die Felder nördlich des Lagers; die ganze Geißel hier droppt Geißelsteine.",
 	-- ["Small lockboxes lie in the rubble all over Andorhal; each holds a watch."] = "Kleine Schließkassetten liegen überall in Andorhal im Schutt; in jeder steckt eine Uhr.",
@@ -465,7 +464,6 @@ return {
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "grinde an {npc:1796} am Ort {area:202}, {zone:1422}",
 	-- ["{area:199} cauldron"] = "Kessel im {area:199}",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}, von {npc:11056}",
-	-- ["{npc:10300} in {zone:1452}: keep it"] = "{npc:10300} in {zone:1452}: Behalte es",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}: Ihre Eskorte kommt später auf der Route",
 	-- ["{npc:10739} stands by the farm at the {area:202}, north-east of the fields."] = "{npc:10739} steht beim Hof am Ort {area:202}, nordöstlich der Felder.",
 	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}s Geist wandert beim Bauernhaus im {area:199} umher, westlich von {area:200}; ihr Paket liegt drinnen.",

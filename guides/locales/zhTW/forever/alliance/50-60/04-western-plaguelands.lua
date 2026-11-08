@@ -230,7 +230,7 @@ return {
 
 	-- Step 58: Rut'theran Village
 	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "",
+	["Ranshalla in {area:618}: keep it"] = "{area:618}的蘭莎爾拉：保留此任務",
 
 	-- Step 59: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
@@ -280,7 +280,7 @@ return {
 	-- Step 72: Donova Snowden
 	["Ride west along the road to the hot springs."] = "沿著道路向西騎往溫泉。",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299} in {area:976}: keep it"] = "",
+	["{npc:9299} in {area:976}: keep it"] = "{area:976}的{npc:9299}：保留此任務",
 
 	-- Step 74: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
@@ -453,7 +453,6 @@ return {
 	-- ["Fly to {area:392}."] = "飛往{area:392}。",
 	-- ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "從{area:392}飛往{area:2255}，再向南騎往{area:2250}。",
-	-- ["Gaeriyan in {area:976}: keep it"] = "{area:976}的加里楊：保留此任務",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "騎回{area:3197}並飛往{area:150}，搭船前往{area:442}，再飛往{area:702}；傳送門通往上方的{zone:1457}。",
 	-- ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones."] = "骷髏剝皮者和被奴役的食屍鬼在營地北邊的田野中遊蕩；這裡所有的天譴軍都會掉落天譴石。",
 	-- ["Small lockboxes lie in the rubble all over Andorhal; each holds a watch."] = "安多哈爾各處的瓦礫堆中散落著小型保險箱；每個裡面都有一只懷錶。",
@@ -465,7 +464,6 @@ return {
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "在{zone:1422}的{area:202}擊殺{npc:1796}練等",
 	-- ["{area:199} cauldron"] = "{area:199}的瘟疫之鍋",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}，來自{npc:11056}",
-	-- ["{npc:10300} in {zone:1452}: keep it"] = "{zone:1452}的{npc:10300}：保留此任務",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}：她的護送任務在路線稍後",
 	-- ["{npc:10739} stands by the farm at the {area:202}, north-east of the fields."] = "{npc:10739}站在田野東北方{area:202}的農場旁。",
 	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}的鬼魂在{area:200}西邊{area:199}的農舍旁徘徊；她的包裹就在屋裡。",

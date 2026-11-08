@@ -24,7 +24,7 @@ return {
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Сохраните задание Малышка Памела: Памела – здесь: {area:2262}, вы вернетесь туда позже.",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -296,7 +296,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "Летите сюда: {area:1497}",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "От распорядителя полетов ({area:2268}) летите сюда: {area:1497}.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Сохраните посылку: {npc:10781} – здесь: {area:1497}.",
-	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "Сохраните задание {quest:5142}: Памела – здесь: {area:2262}, вы вернетесь туда позже.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Покиньте город {area:1497} и езжайте на восток по дороге через край {zone:1420}, мимо места {area:152}. Ферма Фелстоунов – первая ферма у дороги; {npc:10778} ждет в доме.",
 	-- ["Radley and Durgen"] = "Рэдли и Дурген",
 	-- ["Ride back south-east to the Sanctuary."] = "Возвращайтесь на юго-восток в Изумрудное святилище.",

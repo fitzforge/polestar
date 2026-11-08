@@ -16,7 +16,7 @@ return {
 
 	-- Step 4: Angerfang Encampment
 	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "",
+	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "El siguiente paso, {quest:474}, te enfrenta a un jefe élite: sáltatelo.",
 	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}: para {npc:2104}",
 
@@ -258,7 +258,6 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Los Guardianes de Goaz están justo al oeste del campamento del Prospector Whelgar: usa junto a uno la {item:279996} que te dio.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "El campamento del Sindicato está en la frontera con las Montañas de Alterac, al norte de {area:287}, al oeste de {area:272} (Horda); los documentos están en el campamento.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Los múrlocs Rompeanca abarrotan {area:295}, al suroeste de {area:271}.",
-	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "El siguiente paso, Derrota a Nek'rosh, te enfrenta a un jefe élite: sáltatelo.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino de vuelta al sur.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Al oeste, hasta las granjas de {area:287}: pon la {item:279386} en la mesa de contabilidad del ayuntamiento, donde están {npc:2335} y los Consejeros de Trabalomas.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Crías, raptores y {npc:271458}",

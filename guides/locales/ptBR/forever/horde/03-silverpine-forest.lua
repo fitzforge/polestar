@@ -93,7 +93,7 @@ return {
 
 	-- Step 23: Strange Lockbox
 	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "O {object:177790} fica na costa a oeste do {area:240}. Ele guarda a {item:15882} para Missão do leão marinho.",
 
 	-- Step 24: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -242,7 +242,6 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "As torres de zepelim ficam logo fora do portão principal de {zone:1454}. Pegue o zepelim para {zone:1420} (o outro vai para {object:3202}).",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "O {object:1593} fica no atracadouro da balsa na margem do lago a leste do {area:228}.",
-	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "O {object:177790} fica na costa a oeste do {area:240}. Ele guarda a {item:15882} para {quest:30}.",
 	-- ["To {area:1637}"] = "Até {area:1637}",
 	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "Entre pelo portão principal. {npc:268701} fica no {object:172982}; a {object:173016} fica alguns passos ao norte.",
 	-- ["Worgs and murlocs"] = "Worgs e murlocs",

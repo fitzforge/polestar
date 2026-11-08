@@ -62,7 +62,7 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Le {object:405149} est la tablette de pierre appuyée contre le mur dans {object:172961}, sur le chemin des maîtres des mages. Utilisez-la pour prendre le livre.",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "La bibliothèque : premiers livres",
@@ -143,9 +143,9 @@ return {
 
 	-- Step 36: The second Greater Friend of the Library
 	-- {quest:79536} Greater Friend of the Library
-	["The second {quest:79536}"] = "",
+	["The second {quest:79536}"] = "La deuxième {quest:79536}",
 	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
-	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
+	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "À partir du niveau 35, une fois 25 livres différents rendus, {npc:211033} propose la deuxième {quest:79536} : {item:277254}, {item:277258} ou {item:277260} (niveau 40 pour l'équiper).",
 
 	-- Step 37: Level 60 books: Western Plaguelands
 	-- {zone:1422} Western Plaguelands
@@ -190,9 +190,6 @@ return {
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, à côté de {npc:211022} dans {object:36082}, prend les livres de niveau 60 : la quête de chaque livre est proposée tant que le livre est dans vos sacs. Acceptez-les et rendez-les une à la fois (Polestar ne peut pas encore suivre ces quêtes pour la Horde).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:82208}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "À partir du niveau 35, une fois 25 livres différents rendus, {npc:211033} propose la deuxième {quest:82208} : {item:277254}, {item:277258} ou {item:277260} (niveau 40 pour l'équiper).",
-	-- ["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Le Mural of Ta'zo est la tablette de pierre appuyée contre le mur dans {object:172961}, sur le chemin des maîtres des mages. Utilisez-la pour prendre le livre.",
-	-- ["The second {quest:82208}"] = "La deuxième {quest:82208}",
 	-- ["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "Deux livres : le manuel dans la salle de contrôle au sommet de la plateforme pétrolière de {area:382}, et le tome gobelin à côté de Gazlowe à {area:392}.",
 	-- ["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "{item:228133} se trouve dans {area:254}, dans le passage de la mine vers {area:1584}, après le donneur de quête de {area:2717} ; sa quête est réservée aux mages. Le point de passage marque la montagne.",
 }

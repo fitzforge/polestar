@@ -24,7 +24,7 @@ return {
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "꼬마 파멜라을(를) 보관하세요: 파멜라는 나중에 다시 들르는 {area:2262}에 있습니다.",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -296,7 +296,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 날아가기",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "{area:2268}의 비행 조련사에게서 {area:1497}(으)로 날아가세요.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "꾸러미를 보관하세요: {npc:10781}은(는) {area:1497}에 있습니다.",
-	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "{quest:5142}을(를) 보관하세요: 파멜라는 나중에 다시 들르는 {area:2262}에 있습니다.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "{area:1497}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 {area:152}을(를) 지나가세요. 펠스톤 농장은 길을 따라 처음 나오는 농장이며, {npc:10778}은(는) 집 안에서 기다립니다.",
 	-- ["Radley and Durgen"] = "래들리와 더건",
 	-- ["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",

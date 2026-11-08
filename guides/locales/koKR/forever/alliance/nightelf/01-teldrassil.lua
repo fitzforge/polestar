@@ -258,7 +258,7 @@ return {
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
 	["{npc:3519}, by the moonwell"] = "달샘 옆의 {npc:3519}",
 	-- {item:18152} Amethyst Phial
-	["Use the {item:18152} at the moonwell"] = "",
+	["Use the {item:18152} at the moonwell"] = "달샘에서 {item:18152}을(를) 사용하세요",
 
 	-- Step 41: Bloodfeather harpies
 	["Bloodfeather harpies"] = "붉은깃털일족 하피",
@@ -468,7 +468,6 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "지하굴은 길 남쪽에 있습니다. {npc:275744}이(가) 안에 갇혀 있고, {npc:7317}은(는) 가장 깊은 곳에서 잠들어 있으며, 유물 상자 4개는 아래층 방에 있습니다.",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "달샘은 {area:256} 북쪽에 있고, {npc:8584}은(는) 조금 더 북서쪽에 있습니다. {quest:3522}은(는) 5분 동안만 유지되니 약병을 채우고 곧장 그에게 가세요.",
 	-- ["The {area:264}"] = "{area:264}",
-	-- ["Use the {item:5623} at the moonwell"] = "달샘에서 {item:5623}을(를) 사용하세요",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "섬 서쪽을 따라 남쪽으로 가세요. 투사 우르살은 {area:478} 아래, 남쪽 끝을 배회합니다.",
 	-- ["Webwood Spiders"] = "나무그물거미",
 	-- ["{area:186} quests"] = "{area:186} 퀘스트",

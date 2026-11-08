@@ -93,7 +93,7 @@ return {
 
 	-- Step 23: Strange Lockbox
 	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "{object:177790} se trouve sur la côte à l'ouest du {area:240}. Il contient {item:15882} pour L'épreuve du lion de mer.",
 
 	-- Step 24: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -256,7 +256,6 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "Les tours des zeppelins se dressent juste devant la porte principale d'{zone:1454}. Prenez le zeppelin pour {zone:1420} (l'autre va à {object:3202}).",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} se trouve à l'embarcadère du bac, sur la rive du lac à l'est de {area:228}.",
-	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790} se trouve sur la côte à l'ouest du {area:240}. Il contient {item:15882} pour {quest:30}.",
 	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["To {zone:1454}"] = "Vers {zone:1454}",
 	-- ["Top up here to level 16.51 before the hand-ins at {area:239}: they take you to level 17."] = "Montez ici jusqu'au niveau 16.51 avant de rendre les quêtes ({area:239}) : elles vous font passer au niveau 17.",

@@ -50,7 +50,7 @@ return {
 
 	-- Step 11: The Barrens
 	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "",
+	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "Dois livros: o manual na sala de controle no topo da plataforma de petróleo em {area:382}, e o {object:407566} ao lado de Gasganete, em {area:392}.",
 
 	-- Step 12: The Wailing Caverns' cave
 	-- {area:718} Wailing Caverns
@@ -191,6 +191,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "O Mural de Ta'zo é a tábua de pedra encostada na parede do Vale dos Espíritos, no caminho para os instrutores de mago. Use-o para pegar o livro.",
-	-- ["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "Dois livros: o manual na sala de controle no topo da plataforma de petróleo em {area:382}, e o Goblin Tome ao lado de Gasganete, em {area:392}.",
 	-- ["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "{item:228133} fica dentro de {area:254}, na passagem da mina rumo a {area:1584}, depois do fornecedor de missão de {area:2717}; a missão dele é só para magos. O marcador de rota aponta para a montanha.",
 }

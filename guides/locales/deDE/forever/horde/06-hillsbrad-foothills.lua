@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Füll den {item:7768} am {object:107045} neben dem Gasthaus",
 	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "Das Plakat {object:556670} beim Gasthaus",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -188,7 +188,6 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "Die Schmiede steht mitten im Ort {area:287}. {npc:2404} und seine Lehrlinge arbeiten an der Esse; die {item:3564} ist daneben gestapelt. {npc:2449} läuft die Straße nördlich davon entlang.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Das Rathaus liegt auf der Westseite von {area:287}. {npc:2335} (30) und {npc:2448} sind drinnen beim Stadtverzeichnis von Hillsbrad; die Proklamation von Hillsbrad hängt daneben. Ratsherren von Hillsbrad laufen durch den Ort.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Der Ort {area:288} liegt südlich des Orts {area:287}. Minenarbeiter von Hillsbrad arbeiten in den Stollen; {npc:2305} (30) und {npc:2450} (29) sind tief drinnen.",
-	-- ["The {object:1763} poster by the inn"] = "Das Plakat {object:1763} beim Gasthaus",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Das Plakat {quest:567}: Seine Ziele triffst du unterwegs",
 	-- ["Town hall"] = "Rathaus",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Du kommst gebunden am Gasthaus von {area:272} an. Alle stehen rund um den Dorfplatz.",

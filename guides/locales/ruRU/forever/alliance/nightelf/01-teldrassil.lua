@@ -258,7 +258,7 @@ return {
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
 	["{npc:3519}, by the moonwell"] = "{npc:3519} – у лунного колодца",
 	-- {item:18152} Amethyst Phial
-	["Use the {item:18152} at the moonwell"] = "",
+	["Use the {item:18152} at the moonwell"] = "Используйте {item:18152} у лунного колодца",
 
 	-- Step 41: Bloodfeather harpies
 	["Bloodfeather harpies"] = "Гарпии из стаи Кровавого Пера",
@@ -468,7 +468,6 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "Обитель – к югу от дороги. Внутри держат в плену: {npc:275744}; в глубине спит {npc:7317}, а четыре сундука с реликвиями стоят в нижних залах.",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "Лунный колодец – к северу от древа ({area:256}); {npc:8584} – чуть дальше на северо-запад. Задание «{quest:3522}» длится пять минут: наполните флакон и сразу идите к нему.",
 	-- ["The {area:264}"] = "{area:264}",
-	-- ["Use the {item:5623} at the moonwell"] = "Используйте {item:5623} у лунного колодца",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Идите на юг вдоль западной стороны острова. Урсал рыщет на дальнем юге, ниже места {area:478}.",
 	-- ["Webwood Spiders"] = "Чащобные тенетники",
 	-- ["{area:186} quests"] = "Задания: {area:186}",

@@ -13,15 +13,15 @@ return {
 	-- Step 1: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206159} Venture Co Disguise · {npc:3051} Supervisor Fizsprocket
 	-- plural, as words: Venture Co. Workers = {npc:2978} Venture Co. Worker
-	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "",
+	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se esconde em furtividade na mesa principal de {zone:1456}, ao sul da lagoa: ande até onde a seta aponta até aparecer o contorno dele. Ele entrega o {item:206159}. A missão abre no nível 4, mas a mina tem Operários da Empreendimentos S.A. (nível 8-9), Supervisores (9-10) e {npc:3051} (12): vá no 9 ou 10.",
 
 	-- Step 2: The Venture Co. Mine
 	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Desça pelo elevador e siga para sudeste por {zone:1412} até {area:360}. Vista o disfarce, depois abra os carrinhos de {object:403041} dentro da mina e na encosta do lado de fora, no fundo; fique nos níveis de cima sempre que puder, os túneis de baixo estão lotados. Cinco cargas.",
 	["Venture Co. Mine"] = "Mina da Empreendimentos S.A.",
 	-- {object:403041} Blasting Supplies (no name in this language: may be words)
 	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
-	["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "",
+	["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "Saqueie 5 Seaforium Mining Charges dos {object:403041}",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
@@ -54,7 +54,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-hand blade or mace at 11 from {npc:205729}'s three tests in and around {zone:1456}."] = "Uma lâmina ou maça de uma mão no nível 11, pelos três testes de {npc:205729} em {zone:1456} e arredores.",
 	-- ["Fish Chunks"] = "Pedaços de Peixe",
-	-- ["Loot 5 Seaforium Mining Charges from the Blasting Supplies"] = "Saqueie 5 Seaforium Mining Charges dos Blasting Supplies",
-	-- ["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Desça pelo elevador e siga para sudeste por {zone:1412} até {area:360}. Vista o disfarce, depois abra os carrinhos de Blasting Supplies dentro da mina e na encosta do lado de fora, no fundo; fique nos níveis de cima sempre que puder, os túneis de baixo estão lotados. Cinco cargas.",
-	-- ["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the Venture Co Disguise. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se esconde em furtividade na mesa principal de {zone:1456}, ao sul da lagoa: ande até onde a seta aponta até aparecer o contorno dele. Ele entrega o Venture Co Disguise. A missão abre no nível 4, mas a mina tem Operários da Empreendimentos S.A. (nível 8-9), Supervisores (9-10) e {npc:3051} (12): vá no 9 ou 10.",
 }

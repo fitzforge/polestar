@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well (no name in this language: may be words)
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Encha o {item:7768} no {object:107045} ao lado da estalagem",
 	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "O cartaz {object:556670} perto da estalagem",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, lá dentro",
 
@@ -185,7 +185,6 @@ return {
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "A prefeitura fica no lado oeste de {area:287}. {npc:2335} (30) e {npc:2448} estão lá dentro com o Cartório de Eira dos Montes; a Proclamação de Eira dos Montes está afixada ao lado. Conselheiros andam pela cidade.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "A {area:288} fica ao sul da cidade de {area:287}. Mineradores trabalham nos túneis; {npc:2305} (30) e {npc:2450} (29) estão bem lá no fundo.",
-	-- ["The {object:1763} poster by the inn"] = "O cartaz {object:1763} perto da estalagem",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "O cartaz {quest:567}: os alvos aparecem pelo caminho",
 	-- ["Town hall"] = "Prefeitura",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",

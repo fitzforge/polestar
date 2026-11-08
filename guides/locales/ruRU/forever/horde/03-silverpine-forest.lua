@@ -93,7 +93,7 @@ return {
 
 	-- Step 23: Strange Lockbox
 	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "{object:177790} лежит на побережье к западу от {area:240}. В нем {item:15882} для задания Испытание Морского Льва.",
 
 	-- Step 24: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -247,7 +247,6 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "Башни дирижаблей стоят сразу за главными воротами города {zone:1454}. Садитесь на дирижабль в зону {zone:1420} (другой летит в {object:3202}).",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} лежит у паромной пристани на берегу озера к востоку от места {area:228}.",
-	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790} лежит на побережье к западу от {area:240}. В нем {item:15882} для задания {quest:30}.",
 	-- ["To {area:1637}"] = "В {area:1637}",
 	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "Войдите через главные ворота. {npc:268701} стоит здесь: {object:172982}; {object:173016} – в нескольких шагах к северу.",
 	-- ["Worgs and murlocs"] = "Ворги и мурлоки",

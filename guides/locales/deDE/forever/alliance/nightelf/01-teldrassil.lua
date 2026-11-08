@@ -258,7 +258,7 @@ return {
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
 	["{npc:3519}, by the moonwell"] = "{npc:3519}, am Mondbrunnen",
 	-- {item:18152} Amethyst Phial
-	["Use the {item:18152} at the moonwell"] = "",
+	["Use the {item:18152} at the moonwell"] = "Benutze die {item:18152} am Mondbrunnen",
 
 	-- Step 41: Bloodfeather harpies
 	["Bloodfeather harpies"] = "Harpyien der Blutfedern",
@@ -475,7 +475,6 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "Der Grabhügel liegt südlich der Straße. {npc:275744} wird darin festgehalten, {npc:7317} schläft in seinen Tiefen, und die vier Reliquientruhen stehen in den unteren Räumen.",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "Der Mondbrunnen liegt nördlich von {area:256}; {npc:8584} ist etwas weiter nordwestlich. {quest:3522} dauert fünf Minuten: Füll die Phiole und geh direkt weiter zu ihm.",
 	-- ["The {area:264}"] = "{area:264}",
-	-- ["Use the {item:5623} at the moonwell"] = "Benutze die {item:5623} am Mondbrunnen",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Geh an der Westseite der Insel entlang nach Süden. Ursal der Raufer streift durch den äußersten Süden, unterhalb der {area:478}.",
 	-- ["Webwood Spiders"] = "Waldweberspinnen",
 	-- ["{area:186} quests"] = "Quests in {area:186}",

@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "在旅店旁的{object:107045}裝滿{item:7768}",
 	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}海報",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -188,7 +188,6 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "鐵匠鋪位於{area:287}鎮中央。{npc:2404}和他的學徒在熔爐邊工作；{item:3564}堆在旁邊。{npc:2449}在鐵匠鋪北邊的街上走動。",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "市政廳在{area:287}西側。{npc:2335}（30級）和{npc:2448}在裡面，旁邊有希爾斯布萊德城鎮文檔；希爾斯布萊德宣言貼在旁邊。希爾斯布萊德議員在鎮上走動。",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}位於{area:287}鎮南邊。希爾斯布萊德礦工在隧道中工作；{npc:2305}（30級）和{npc:2450}（29級）在深處。",
-	-- ["The {object:1763} poster by the inn"] = "旅店旁的{object:1763}海報",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567}海報：目標會在途中陸續出現",
 	-- ["Town hall"] = "市政廳",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "你抵達時綁定在{area:272}的旅店。所有人都站在鎮上廣場周圍。",

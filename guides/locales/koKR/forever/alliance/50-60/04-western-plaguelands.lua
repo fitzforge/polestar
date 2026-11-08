@@ -230,7 +230,7 @@ return {
 
 	-- Step 58: Rut'theran Village
 	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "",
+	["Ranshalla in {area:618}: keep it"] = "{area:618}의 란샬라: 보관하세요",
 
 	-- Step 59: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
@@ -280,7 +280,7 @@ return {
 	-- Step 72: Donova Snowden
 	["Ride west along the road to the hot springs."] = "길을 따라 서쪽 온천으로 가세요.",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299} in {area:976}: keep it"] = "",
+	["{npc:9299} in {area:976}: keep it"] = "{area:976}의 {npc:9299}: 보관하세요",
 
 	-- Step 74: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
@@ -453,7 +453,6 @@ return {
 	-- ["Fly to {area:392}."] = "{area:392}(으)로 날아가세요.",
 	-- ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "{area:392}에서 {area:2255}(으)로 날아간 뒤 남쪽 {area:2250}(으)로 가세요.",
-	-- ["Gaeriyan in {area:976}: keep it"] = "{area:976}의 개리얀: 보관하세요",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "{area:3197}(으)로 돌아가 {area:150}(으)로 날아간 다음, 배를 타고 {area:442}(으)로 가서 {area:702}(으)로 날아가세요. 차원문을 타면 {zone:1457}(으)로 올라갑니다.",
 	-- ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones."] = "해골 타작꾼과 걸신들린 구울이 야영지 북쪽 들판을 배회합니다. 이곳의 스컬지는 모두 스컬지석을 떨어뜨립니다.",
 	-- ["Small lockboxes lie in the rubble all over Andorhal; each holds a watch."] = "안돌할 곳곳의 잔해 속에 작은 금고가 있고, 각각 시계가 하나씩 들어 있습니다.",
@@ -465,7 +464,6 @@ return {
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "{zone:1422} {area:202}에서 {npc:1796} 사냥",
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{item:13320}, from {npc:11056}"] = "{npc:11056}에게서 {item:13320}",
-	-- ["{npc:10300} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:10300}: 보관하세요",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}: 호위 퀘스트는 경로 후반에 합니다",
 	-- ["{npc:10739} stands by the farm at the {area:202}, north-east of the fields."] = "{npc:10739}은(는) 들판 북동쪽, {area:202}의 농장 옆에 있습니다.",
 	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}의 유령은 {area:200} 서쪽, {area:199}의 농가 근처를 떠돕니다. 소포는 농가 안에 있습니다.",

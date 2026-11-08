@@ -24,7 +24,7 @@ return {
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Behalte Klein-Pamela: Pamela ist in {area:2262}, das du später noch einmal besuchst.",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -296,7 +296,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Flieg vom Flugmeister der {area:2268} nach {area:1497}.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Behalte das Paket: {npc:10781} ist in {area:1497}.",
-	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "Behalte {quest:5142}: Pamela ist in {area:2262}, das du später noch einmal besuchst.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Verlass {area:1497} und reite auf der Straße nach Osten durch {zone:1420}, am {area:152} vorbei. Der Teufelssteinhof ist der erste Hof an der Straße; {npc:10778} wartet im Haus.",
 	-- ["Radley and Durgen"] = "Radley und Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Reite zurück nach Südosten zum Refugium.",

@@ -143,7 +143,7 @@ return {
 
 	-- Step 36: The second Greater Friend of the Library
 	-- {quest:79536} Greater Friend of the Library
-	["The second {quest:79536}"] = "",
+	["The second {quest:79536}"] = "Die zweite {quest:79536}",
 	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
 	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
 
@@ -195,7 +195,6 @@ return {
 	-- ["Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a {quest:78150} reward."] = "Verlorene Bücher und Schriftrollen überall auf der Welt: Jedes bringt in der Bibliothek Erfahrung, und genug davon verdienen eine Belohnung von {quest:78150}.",
 	-- ["Once enough books are in, the librarian offers {quest:78150}. Take it when it appears."] = "Sind genug Bücher abgegeben, bietet der Bibliothekar {quest:78150} an. Nimm sie an, wenn sie erscheint.",
 	-- ["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Das Wandgemälde von Ta'zo ist die Steintafel, die im {object:172961} an der Wand lehnt, auf dem Weg zu den Magierlehrern. Benutze es, um das Buch zu nehmen.",
-	-- ["The second {quest:82208}"] = "Die zweite {quest:82208}",
 	-- ["Three books: scrolls outside the {area:718} entrance, the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "Drei Bücher: Schriftrollen vor dem Eingang der {area:718}, das Handbuch im Kontrollraum oben auf der Ölbohrinsel am {area:382} und der Goblin-Wälzer neben Gazlowe in {area:392}.",
 	-- ["{npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "{npc:211022} führt die Bibliothek im {object:36082}. Er bietet die Quest jedes Buchs an, solange das Buch in deinen Taschen ist: Nimm sie an und gib sie ab, eine nach der anderen, damit dein Questlog frei bleibt. Überspringe die Bücher, die du nicht gefunden hast.",
 	-- ["{npc:211033} keeps the library in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "{npc:211033} führt die Bibliothek im {object:2101}. Er bietet die Quest jedes Buchs an, solange das Buch in deinen Taschen ist: Nimm sie an und gib sie ab, eine nach der anderen, damit dein Questlog frei bleibt. Überspringe die Bücher, die du nicht gefunden hast.",

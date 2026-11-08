@@ -93,7 +93,7 @@ return {
 
 	-- Step 23: Strange Lockbox
 	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "{object:177790}은(는) {area:240} 서쪽 해안에 있습니다. 그 안에 바다표범의 시험을(를) 위한 {item:15882}이(가) 들어 있습니다.",
 
 	-- Step 24: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -243,7 +243,6 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "비행선 탑은 {zone:1454} 정문 바로 밖에 있습니다. {zone:1420}행 비행선을 타세요(다른 하나는 {object:3202}(으)로 갑니다).",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593}은(는) {area:228} 동쪽 호숫가의 나루터에 있습니다.",
-	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790}은(는) {area:240} 서쪽 해안에 있습니다. 그 안에 {quest:30}을(를) 위한 {item:15882}이(가) 들어 있습니다.",
 	-- ["To {area:1637}"] = "{area:1637}(으)로",
 	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "정문으로 들어가세요. {npc:268701}은(는) {object:172982}에 서 있고, {object:173016}은(는) 몇 걸음 북쪽에 있습니다.",
 	-- ["Worgs and murlocs"] = "늑대와 멀록",

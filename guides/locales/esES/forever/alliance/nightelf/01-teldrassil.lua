@@ -258,7 +258,7 @@ return {
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
 	["{npc:3519}, by the moonwell"] = "{npc:3519}, junto al pozo de la luna",
 	-- {item:18152} Amethyst Phial
-	["Use the {item:18152} at the moonwell"] = "",
+	["Use the {item:18152} at the moonwell"] = "Usa la {item:18152} en el pozo de la luna",
 
 	-- Step 41: Bloodfeather harpies
 	["Bloodfeather harpies"] = "Arpías Plumasangre",
@@ -470,7 +470,6 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "El túmulo está al sur del camino. {npc:275744} está retenida dentro, {npc:7317} duerme en lo más hondo y los cuatro cofres de reliquias están en las salas inferiores.",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "El pozo de la luna está al norte de {area:256}; {npc:8584} está un poco más al noroeste. {quest:3522} dura cinco minutos: llena la redoma y ve directo a él.",
 	-- ["The {area:264}"] = "{area:264}",
-	-- ["Use the {item:5623} at the moonwell"] = "Usa la {item:5623} en el pozo de la luna",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Ve al sur por el lado oeste de la isla. Ursal merodea por el extremo sur, debajo del {area:478}.",
 	-- ["Webwood Spiders"] = "Arañas Tejemadera",
 	-- ["{area:186} quests"] = "Misiones de {area:186}",

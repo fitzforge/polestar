@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "여관 옆의 {object:107045}에서 {item:7768}을(를) 채우세요",
 	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -188,7 +188,6 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {item:3564}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "마을 회관은 {area:287} 서쪽에 있습니다. {npc:2335} (30)와(과) {npc:2448}은(는) 힐스브래드 마을의 기록부와 함께 안에 있고, 힐스브래드 선언문은 그 옆에 붙어 있습니다. 힐스브래드 원로는 마을을 돌아다닙니다.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}은(는) {area:287} 마을 남쪽에 있습니다. 힐스브래드 광부가 갱도에서 일하고, {npc:2305} (30)와(과) {npc:2450} (29)은(는) 깊숙한 곳에 있습니다.",
-	-- ["The {object:1763} poster by the inn"] = "여관 옆의 {object:1763} 게시판",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567} 게시판: 대상은 가는 길에 나옵니다",
 	-- ["Town hall"] = "마을 회관",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "{area:272} 여관에 귀환 지점을 정한 상태로 도착합니다. 모두 마을 광장 주변에 있습니다.",

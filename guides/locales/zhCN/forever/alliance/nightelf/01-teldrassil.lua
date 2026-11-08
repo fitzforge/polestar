@@ -258,7 +258,7 @@ return {
 	-- {npc:3519} Sentinel Arynia Cloudsbreak
 	["{npc:3519}, by the moonwell"] = "{npc:3519}，在月亮井旁",
 	-- {item:18152} Amethyst Phial
-	["Use the {item:18152} at the moonwell"] = "",
+	["Use the {item:18152} at the moonwell"] = "在月亮井使用{item:18152}",
 
 	-- Step 41: Bloodfeather harpies
 	["Bloodfeather harpies"] = "血羽鹰身人",
@@ -474,7 +474,6 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "兽穴在道路南边。{npc:275744}被关在里面，{npc:7317}在深处沉睡，四个圣物箱在下层房间里。",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "月亮井在{area:256}北边；{npc:8584}在稍远的西北方。{quest:3522}只有五分钟：装满药瓶后直接去找他。",
 	-- ["The {area:264}"] = "{area:264}",
-	-- ["Use the {item:5623} at the moonwell"] = "在月亮井使用{item:5623}",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "沿岛屿西侧向南走。乌萨尔在最南端、{area:478}下方徘徊。",
 	-- ["Webwood Spiders"] = "树林蜘蛛",
 	-- ["{area:186} quests"] = "{area:186}的任务",

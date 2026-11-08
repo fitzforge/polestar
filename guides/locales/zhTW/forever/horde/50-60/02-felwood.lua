@@ -24,7 +24,7 @@ return {
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
 	-- {area:2262} Darrowshire
-	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "保留小潘蜜拉：帕米拉在{area:2262}，之後會再去。",
 
 	-- Step 5: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
@@ -296,7 +296,6 @@ return {
 	-- ["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "從{area:2268}的飛行管理員處飛往{area:1497}。",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "保留包裹：{npc:10781}在{area:1497}。",
-	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "保留{quest:5142}：帕米拉在{area:2262}，之後會再去。",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "離開{area:1497}，沿著道路向東穿過{zone:1420}，經過{area:152}。費爾斯通農場是道路旁的第一座農場；{npc:10778}在屋裡等候。",
 	-- ["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- ["Ride back south-east to the Sanctuary."] = "騎回東南方的聖地。",

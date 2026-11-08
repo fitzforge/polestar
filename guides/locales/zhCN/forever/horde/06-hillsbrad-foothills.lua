@@ -12,7 +12,7 @@ return {
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "在旅店旁的{object:107045}装满{item:7768}",
 	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "",
+	["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}告示",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -189,7 +189,6 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "铁匠铺在{area:287}镇中央。{npc:2404}和他的希尔斯布莱德见习铁匠在熔炉旁干活；{item:3564}堆在旁边。{npc:2449}在它北边的街上走动。",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "市政厅在{area:287}西侧。{npc:2335}（30级）和{npc:2448}在里面，旁边是希尔斯布莱德城镇文档；希尔斯布莱德宣言就贴在它旁边。希尔斯布莱德议员在镇上走动。",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}在{area:287}镇南边。希尔斯布莱德矿工在坑道里干活；{npc:2305}（30级）和{npc:2450}（29级）在深处。",
-	-- ["The {object:1763} poster by the inn"] = "旅店旁的{object:1763}告示",
 	-- ["The {quest:567} poster: Kalaba and Wilkes come up here, the clerk and the miner on the visit at about 32; inside"] = "{quest:567}告示：卡拉巴和威尔克斯在这里出现，书记员和矿工在大约32级再来时处理；在室内",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567}告示：上面的目标会在沿途遇到",
 	-- ["Town hall"] = "市政厅",

@@ -93,7 +93,7 @@ return {
 
 	-- Step 23: Strange Lockbox
 	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "{object:177790}在{area:240}西邊的海岸上。裡面有海獅試煉要的{item:15882}。",
 
 	-- Step 24: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -243,7 +243,6 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "飛艇塔就在{zone:1454}正門外。搭乘前往{zone:1420}的飛艇（另一艘前往{object:3202}）。",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593}在{area:228}東邊湖岸的渡口。",
-	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790}在{area:240}西邊的海岸上。裡面有{quest:30}要的{item:15882}。",
 	-- ["To {area:1637}"] = "前往{area:1637}",
 	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "從正門走進去。{npc:268701}站在{object:172982}；{object:173016}往北走幾步就到。",
 	-- ["Worgs and murlocs"] = "座狼與魚人",
