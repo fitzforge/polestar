@@ -2279,3 +2279,18 @@ fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_
 	assert_eq!(out[0]["seen"], json!([4, 2, 3, 8]), "down looks on, up back; after the pause the live step; Shift goes ten, to the last");
 	assert_eq!(out[0]["rows"], json!(["3", "4", "5", "7", "8"]), "step 6 is the Mage's alone and is left out");
 }
+
+// #1030 (soulrocha): pointing at the goals' scroll bar and away wakes it without a Lua error. Its OnEnter and OnLeave
+// hooks are set in build(), outside the block that holds the local barWake, so they reach it as GF.BarWake; 0.3.3
+// to 0.3.5 called a nil global there ("GuideFrame.lua:4294: attempt to call a nil value").
+#[test]
+fn pointing_at_the_goals_scroll_bar_and_away_wakes_it_without_an_error_1030() {
+	let out = run(r#"
+		local bar = GF.parts.goals.Bar
+		local okEnter, errEnter = pcall(stub.RunScript, bar, "OnEnter")
+		local okLeave, errLeave = pcall(stub.RunScript, bar, "OnLeave")
+		emit({ enter = okEnter, leave = okLeave, err = tostring(errEnter or errLeave or "") })
+	"#);
+	assert_eq!(out[0]["enter"], true, "OnEnter: {}", out[0]["err"]);
+	assert_eq!(out[0]["leave"], true, "OnLeave: {}", out[0]["err"]);
+}
