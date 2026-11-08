@@ -1014,6 +1014,106 @@
 				}
 			],
 			"issue": 1257
+		},
+		{
+			"id": "1312-98221-1",
+			"quest": 98221,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.6,
+				"y": 42.7,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Menethil Harbor lies at 45.6,42.7 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 1 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-2",
+			"quest": 98221,
+			"objective": 2,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 49.4,
+				"y": 46.8,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Thelsamar lies at 49.4,46.8 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 2 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-3",
+			"quest": 98221,
+			"objective": 3,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.4,
+				"y": 45.7,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Southshore lies at 45.4,45.7 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 3 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-4",
+			"quest": 98221,
+			"objective": 4,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 38.5,
+				"y": 46.1,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Ironforge lies at 38.5,46.1 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 4 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
 		}
 	]
 }

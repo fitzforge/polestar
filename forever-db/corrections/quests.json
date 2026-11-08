@@ -4334,7 +4334,13 @@
 	"98221": {
 		"set": {
 			"pre": [],
-			"preAny": []
+			"preAny": [],
+			"objectives": [
+				{ "type": "object", "id": 671481, "count": 1, "text": "Attack Plan: Menethil Harbor destroyed" },
+				{ "type": "object", "id": 671486, "count": 1, "text": "Attack Plan: Thelsamar destroyed" },
+				{ "type": "object", "id": 671483, "count": 1, "text": "Attack Plan: Southshore destroyed" },
+				{ "type": "object", "id": 671487, "count": 1, "text": "Attack Plan: Ironforge destroyed" }
+			]
 		},
 		"source": [
 			{
@@ -4344,9 +4350,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #225"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of 98221 (8 people at the accept): the quest log lists four object objectives, Attack Plan: Menethil Harbor, Thelsamar, Southshore and Ironforge destroyed, and each ticks as the player clicks that plan (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu, 20261107T192842Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o, 20261107T213524Z-55228f803fde9043-cl1d80l1edsq-q4fdu4tnrs)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1312"
 			}
 		],
-		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Angerfang Encampment on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners."
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Dragonmaw camp on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners. Its four objectives are the four Attack Plans (objects 671481, 671486, 671483, 671487), each clicked in the camp north and north-east of the dig; the data had none (#1312)."
 	},
 	"98230": {
 		"set": {

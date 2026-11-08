@@ -1705,8 +1705,9 @@ test(`Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or 
 test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${WETLANDS}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
 	const needles = goals(WETLANDS);
 	assert.equal(needles.findIndex(({ goal }) => is('turnin', 465)(goal)), -1, 'the catapult is not lit in the guide that takes the quest');
-	const done = at(needles, 'complete 98221', is('complete', 98221));
-	assert.ok(located(needles[done]), 'the attack plans have a place');
+	const plans = needles.filter(({ goal }) => is('interact', 98221)(goal));
+	assert.equal(plans.length, 4, 'one goal per Attack Plan (#1312)');
+	assert.ok(plans.every(located), 'each attack plan has a place');
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
 	const lit = at(list, 'turnin 465', is('turnin', 465));
@@ -1777,6 +1778,18 @@ test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a gro
 		const { step } = list[at(list, `${t} ${q}`, is(t, q))];
 		assert.ok(!(step.when || []).some((p) => p.k === 'group'), `${t} ${q} is for everyone`);
 	}
+});
+
+// --- Wetlands (Bennistrov, #1312): From the Ashes' step pointed at Chieftain Nek'rosh (53.5,54.5), where none of the
+// four Attack Plans lie. Players' recordings tick each plan at its own spot in the Dragonmaw camp north of the dig.
+test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)`, { skip }, () => {
+	const list = goals(WETLANDS).filter(({ goal }) => goal.quest === 98221 && goal.t !== 'accept' && goal.t !== 'turnin');
+	const near = (g, x, y) => Math.hypot(g.x - x, g.y - y) < 1;
+	for (const [n, x, y] of [[1, 45.6, 42.7], [2, 49.4, 46.8], [3, 45.4, 45.7], [4, 38.5, 46.1]]) {
+		const g = list.find(({ goal }) => goal.t === 'interact' && goal.oi === n);
+		assert.ok(g && g.goal.map === 1437 && near(g.goal, x, y), `98221.${n} at ${x},${y}`);
+	}
+	assert.ok(!list.some(({ goal }) => goal.x != null && near(goal, 53.5, 54.5)), 'nothing points at Nek\'rosh');
 });
 
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
@@ -4966,7 +4979,7 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	// From the Ashes is taken with War Banners, its plans on the walk east from the dig, both handed in on one stop.
 	const takeAshes = idx('accept 98221', 'accept', 98221);
 	assert.equal(wet[takeAshes].s, wet[idx('accept 464', 'accept', 464)].s, 'From the Ashes taken with War Banners');
-	assert.ok(idx('complete 98221 (plans)', 'complete', 98221) < idx('turnin 277 (Rethiel)', 'turnin', 277), 'the plans on the walk east, before Rethiel');
+	assert.ok(idx('interact 98221 (plans)', 'interact', 98221) < idx('turnin 277 (Rethiel)', 'turnin', 277), 'the plans on the walk east, before Rethiel');
 	assert.equal(wet[ashes].s, wet[idx('turnin 464', 'turnin', 464)].s, 'War Banners and From the Ashes handed in on one stop');
 	assert.equal(wet[ashes].s, wet[idx('accept 465', 'accept', 465)].s, "and Nek'rosh's Gambit taken there");
 	// Claws from the Deep and Spoils of War go in on 06-ashenvale's last Menethil stop, not on walks back for one hand-in.

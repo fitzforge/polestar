@@ -183,8 +183,11 @@ step Prospector Whelgar
   accept 98310                                     -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground. Their hearts drop from level 32 elites on the Dun Modr visit
 
 step Angerfang Encampment
-  tip South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
-  complete 98221 @53.5,54.5
+  tip North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The Ironforge plan lies at the camp's west end, the other three further east. Chieftain Nek'rosh, an elite, stands apart to the south-east: From the Ashes doesn't need him.
+  interact 671487 "Attack Plan: Ironforge" quest 98221.4 @38.5,46.1 map 1437
+  interact 671481 "Attack Plan: Menethil Harbor" quest 98221.1 @45.6,42.7 map 1437
+  interact 671483 "Attack Plan: Southshore" quest 98221.3 @45.4,45.7 map 1437
+  interact 671486 "Attack Plan: Thelsamar" quest 98221.2 @49.4,46.8 map 1437
   collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden

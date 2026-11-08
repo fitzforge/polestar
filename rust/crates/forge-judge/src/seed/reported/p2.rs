@@ -251,7 +251,7 @@ fn stop_the_spread(ctx: &Ctx, c: &mut Check) {
 fn lou_saydus(ctx: &Ctx, c: &mut Check) {
 	let needles = ctx.goals(WETLANDS);
 	c.eq(find(&needles, is("turnin", 465)), None, "the catapult is not lit in the guide that takes the quest");
-	let done = at!(c, needles, "complete 98221", is("complete", 98221));
+	let done = at!(c, needles, "interact 98221", is("interact", 98221));
 	c.ok(located(&needles[done]), "the attack plans have a place");
 	let list = ctx.goals(HILLSBRAD_ALLIANCE);
 	c.eq(find(&list, is("accept", 98221)), None, "From the Ashes is not taken again");
