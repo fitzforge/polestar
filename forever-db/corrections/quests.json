@@ -19,6 +19,29 @@
 		},
 		"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
 	},
+	"90": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 1015,
+					"count": 10,
+					"text": "Lean Wolf Flank"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, Lean Wolf Flank (1015) x10"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 6 people ran Seasoned Wolf Kabobs from Chef Grual (272): every accept (5) listed one line, Lean Wolf Flank x10, and the 4 hand-ins came after the tenth flank"
+			}
+		],
+		"note": "Seasoned Wolf Kabobs (Duskwood): only ten Lean Wolf Flanks; Forever dropped the Stormwind Seasoning Herbs the merged data still asked for."
+	},
 	"151": {
 		"set": {
 			"start": {
@@ -3111,6 +3134,29 @@
 		},
 		"note": "The Strange Hermit: the objective (\"Learn more about the Strange Hermit\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
+	"93165": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 258771,
+					"count": 5,
+					"text": "Al'Aketh Cultist's Ear"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objective item 258771 x5"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 13 people took Mercy Falls on Deaf Ears from Vayn Moongaze (254151); the log asked for 5 at the accept and every one handed it in at 5/5"
+			}
+		],
+		"note": "Mercy Falls on Deaf Ears (Zephras Isle): five ears, not ten."
+	},
 	"93797": {
 		"set": {
 			"classes": 128
@@ -3510,13 +3556,31 @@
 			],
 			"preAny": [
 				95111
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Watch Ott craft the blade"
+				}
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95125 while 95111 is in the log and offers it on 95111's turn-in, at the same level"
-		},
-		"note": "Ott's Masterwork (Moonsilver Blade chain, Shadowfang Keep) comes after An Underrated Talent (95111): Ott did not offer it to two Undead paladins (levels 23 and 26) while 95111 was in their log, and both took it within two seconds of handing 95111 in. The merged data had no prerequisite."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95125 while 95111 is in the log and offers it on 95111's turn-in, at the same level"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Watch Ott craft the blade' (a server credit, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 5 people: the log listed 'Watch Ott craft the blade' x1 at the accept from Ott (3539); it ticked while they waited by him, with no kill, and they handed it in to him"
+			}
+		],
+		"note": "Ott's Masterwork (Moonsilver Blade chain, Shadowfang Keep) comes after An Underrated Talent (95111): Ott did not offer it to two Undead paladins (levels 23 and 26) while 95111 was in their log, and both took it within two seconds of handing 95111 in. The merged data had no prerequisite. Ott's Masterwork: its one objective is to wait by Ott while he forges the blade (an event, not a kill)."
 	},
 	"95126": {
 		"set": {
@@ -3686,6 +3750,41 @@
 			}
 		],
 		"note": "Trouble in the Valley (Barrens, Walton) is offered only once The Hermit Tanner (95495) is handed in to Walton: players' recordings show him leaving it out while 95495 is still in the log, and a second, independent quest database has the same link; the merged data had no prerequisite."
+	},
+	"95682": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 275045,
+					"count": 2,
+					"text": "Dragonmaw Saboteur"
+				},
+				{
+					"type": "kill",
+					"id": 275044,
+					"count": 4,
+					"text": "Dragonmaw Warder"
+				},
+				{
+					"type": "item",
+					"id": 284844,
+					"count": 1,
+					"text": "Dragonmaw Dispatch"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives 275045 x2, 275044 x4, item 284844 x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 7 people took Open the Maw from the Deathstalker Agent (13155); the log listed two kills (x2, x4) and one item (x1) at the accept, and their lines ticked to 2/2 and 4/4"
+			}
+		],
+		"note": "Open the Maw: kill two Dragonmaw Saboteurs and four Dragonmaw Warders and take the Dragonmaw Dispatch. The merged data had no objectives."
 	},
 	"95737": {
 		"set": {
@@ -3961,7 +4060,15 @@
 					265002
 				],
 				"object": []
-			}
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 261306,
+					"count": 1,
+					"text": "Faldrim Anvilmar"
+				}
+			]
 		},
 		"source": [
 			{
@@ -3971,9 +4078,17 @@
 			{
 				"kind": "tdb",
 				"ref": "world DB: start; world DB: end"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70790: one objective, Faldrim Anvilmar (261306) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 40 people ran An Ancient Grudge: all 34 recorded accepts listed one line, 'Faldrim Anvilmar slain' x1, and 17 ticks came with a kill of 261306"
 			}
 		],
-		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
+		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender. An Ancient Grudge: kill Faldrim Anvilmar. The merged data had no objective."
 	},
 	"96604": {
 		"set": {
@@ -4363,13 +4478,31 @@
 			],
 			"preAny": [
 				97291
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Hissing Serum administered"
+				}
 			]
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
-		},
-		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: objectives 'Hissing Serum administered' (a server credit, amount 1) and the start item 281327"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 23 people took Unending Torment from Master Apothecary Faranell (2055) with 'Hissing Serum administered' x1; it ticked as they cast 1310681, the Hissing Serum's use"
+			}
+		],
+		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite. Unending Torment (97292): its one objective is to use the Hissing Serum (an event). The merged data had no objective."
 	},
 	"97903": {
 		"set": {
@@ -4435,6 +4568,35 @@
 			}
 		],
 		"note": "Hillsbrad's Hoard (Southshore, Captain McManus): you deliver the Sealed Company Request he gives you by using it at the Hillsbrad council, in the Hillsbrad Fields west of Southshore (about 29.7,41.7). The merged data had no objective, so the guide accepted and handed it in on the spot."
+	},
+	"98071": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Fallrook Varietal delivered to Dun Garok"
+				},
+				{
+					"type": "item",
+					"id": 279389,
+					"count": 1,
+					"text": "Sack of Homebrew Hops"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70840: objectives 'Fallrook Varietal delivered to Dun Garok' (a server credit, amount 1) and Sack of Homebrew Hops (279389) x1"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 1 person took Brewer's Trade from Brewmeister Bilger (2705); the log listed the same two lines at the accept"
+			}
+		],
+		"note": "Brewer's Trade: deliver the Fallrook Varietal to Dun Garok and bring a Sack of Homebrew Hops. The merged data had no objectives."
 	},
 	"98072": {
 		"set": {
@@ -4537,6 +4699,14 @@
 			],
 			"preAny": [
 				98251
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Eye of Kilrogg guided to the road"
+				}
 			]
 		},
 		"source": [
@@ -4547,9 +4717,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "98252 pre_all [98251]"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Eye of Kilrogg guided to the road' (a server credit, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 14 people took A Void Path with 'Eye of Kilrogg guided to the road' x1 and handed it in to the Eye of Kilrogg (271181)"
 			}
 		],
-		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure)."
+		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure). A Void Path: its one objective is to steer the Eye of Kilrogg to the road (an event)."
 	},
 	"98094": {
 		"set": {
