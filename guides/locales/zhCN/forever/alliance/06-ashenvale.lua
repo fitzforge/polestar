@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Kerlonian Evershade
-	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {area:331} Ashenvale · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post · {zone:1439} Darkshore
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "",
+	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow the horn again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
 	-- {object:176634} Kerlonian's Chest
 	["{object:176634}, beside him"] = "",
-	-- {npc:11218} Kerlonian Evershade · {area:413} Maestra's Post · {area:331} Ashenvale
-	["Escort {npc:11218} to {area:413} in {area:331}."] = "护送{npc:11218}到{area:331}的{area:413}。",
+	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
+	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
@@ -289,6 +289,7 @@ return {
 	-- ["Cathedral of Light"] = "光明大教堂",
 	-- ["Dragonmaw camp"] = "龙喉营地",
 	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "护送克罗尼亚·恒影到{zone:1440}的{area:413}。",
+	-- ["Escort {npc:11218} to {area:413} in {area:331}."] = "护送{npc:11218}到{area:331}的{area:413}。",
 	-- ["Fen Creepers"] = "{npc:1040}",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "{npc:1040}躲在{area:1025}西北方的沼泽水塘里。",
 	-- ["Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "沿道路向东。{npc:1417}潜伏在挖掘场北边的水塘里。",

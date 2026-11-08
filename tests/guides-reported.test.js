@@ -1806,6 +1806,27 @@ test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a gro
 	}
 });
 
+// --- Quest data checked against players' recordings and EG Link (2026-11-08, 0.3.6 round 3): Kerlonian's escort ends
+// at his bag in southern Darkshore, Slimy Menace's lines are Murloc x7 then Streamrunner x4, Desperate Prayer goes to
+// High Priest Rohan in Ironforge, and Frostmane Hold is explored at the cave's far end.
+test('round 3 data: Kerlonian ends at his bag, Slimy Menace line order, Desperate Prayer to Rohan, Frostmane Hold point', { skip }, () => {
+	const ash = goals(ASHENVALE);
+	const note = ash.find(({ goal }) => is('accept', 5321)(goal));
+	const said = [note && note.step.note, note && note.step.tip].flat().filter(Boolean).join(' ');
+	assert.ok(/southern edge of Darkshore/.test(said), 'the Kerlonian step says the escort ends at his bag in Darkshore');
+	assert.ok(!/Maestra's Post in Ashenvale/.test(said), "not to Maestra's Post in Ashenvale");
+	const elw = goals(ELWYNN);
+	const oi = (npc) => elw.find(({ goal }) => goal.t === 'kill' && goal.quest === 99128 && goal.npc === npc).goal.oi;
+	assert.deepEqual([oi(285), oi(735)], [1, 2], 'Murloc is line 1, Murloc Streamrunner line 2');
+	const hand = goals(DUN_MOROGHS[0]).find(({ goal }) => is('turnin', 5637)(goal));
+	assert.ok(hand && hand.goal.npc === 11406, 'Desperate Prayer to High Priest Rohan');
+	assert.ok(!/Stormwind/.test(JSON.stringify(hand.step.zone || '')), 'in Ironforge, not Stormwind');
+	for (const file of DUN_MOROGHS) {
+		const go = goals(file).find(({ goal }) => goal.t === 'goto' && goal.x != null && goal.x < 24 && goal.y > 50 && goal.y < 56);
+		assert.ok(go && Math.hypot(go.goal.x - 21.3, go.goal.y - 54.2) < 0.5, `${file}: the Frostmane Hold point at 21.3,54.2`);
+	}
+});
+
 // --- Wetlands (Bennistrov, #1312): From the Ashes' step pointed at Chieftain Nek'rosh (53.5,54.5), where none of the
 // four Attack Plans lie. Players' recordings tick each plan at its own spot in the Dragonmaw camp north of the dig.
 test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)`, { skip }, () => {

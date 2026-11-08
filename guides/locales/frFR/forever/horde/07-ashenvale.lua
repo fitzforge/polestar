@@ -80,8 +80,8 @@ return {
 	-- Step 18: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
-	["Underwater"] = "",
-	["Gazebo"] = "",
+	["Underwater"] = "Sous l'eau",
+	["Gazebo"] = "Belvédère",
 
 	-- Step 24: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff

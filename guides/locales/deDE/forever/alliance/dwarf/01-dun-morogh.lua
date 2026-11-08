@@ -260,8 +260,8 @@ return {
 	["{npc:1231}, at the smithy"] = "{npc:1231}, bei der Schmiede",
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}: {npc:257597} beim Südtor nimmt sie an",
-	-- {npc:1226} Maxan Anvol · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}: {npc:376} in {zone:1453} nimmt sie an",
+	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
 
 	-- Step 41: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh
@@ -560,28 +560,24 @@ return {
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 108: Desperate Prayer
-	-- {npc:376} High Priestess Laurena
-	["{npc:376} is in the Cathedral of Light."] = "",
-
-	-- Step 109: Woo Ping
+	-- Step 108: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 110: Gakin the Darkbinder
+	-- Step 109: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "{npc:6122} wartet im Keller von {object:2164} in {object:2101}.",
 
-	-- Step 112: Surena Caledon
+	-- Step 111: Surena Caledon
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Verlass {zone:1453} durchs Haupttor, geh nach Süden nach {area:87} und auf der Straße nach Osten zu {area:62}. {npc:881} (Stufe 9) steht bei dessen Bauernhaus.",
 
-	-- Step 113: The Binding
+	-- Step 112: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb · {area:87} Goldshire · {zone:1436} Westfall
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "",
 	["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
 
-	-- Step 114: Goldshire
+	-- Step 113: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
 	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "",
 
@@ -592,6 +588,7 @@ return {
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "Die Bahn kommt in {object:28027} an. {npc:5480} bildet Krieger in {object:2100} aus; {npc:6089} und {npc:6090} stehen dort zusammen bei {object:2152}. {npc:6090} kämpft mit dir um seinen Krug.",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
 	-- ["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
+	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}: {npc:376} in {zone:1453} nimmt sie an",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, am Depot",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, der Schamanenlehrer, nördlich von {object:32372}",
 	-- ["{zone:1455} class quests"] = "Klassenquests in {zone:1455}",

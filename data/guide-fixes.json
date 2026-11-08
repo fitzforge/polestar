@@ -4155,6 +4155,26 @@
 				}
 			],
 			"issue": 1336
+		},
+		{
+			"id": "0306r3-kerlonian-escort-ends-at-his-bag",
+			"at": {
+				"quest": 5321,
+				"goal": "accept"
+			},
+			"tip": "Kerlonian's escort ends at his bag on the road at the southern edge of Darkshore; then go on to Liladris Moonriver at Maestra's Post.",
+			"note": "The Sleeper Has Awakened: the escort line completes at his bag in southern Darkshore (41.6,89.9), not at Maestra's Post; the step's tip and note said Ashenvale.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: 11 escort ends averaging Darkshore 41.61,89.90; 9 turn-ins at Maestra's Post"
+				},
+				{
+					"kind": "eg",
+					"ref": "players' caches (EG Link), build 70862: 'Escort Kerlonian Evershade on the road south to his bag'"
+				}
+			],
+			"faction": "Alliance"
 		}
 	]
 }

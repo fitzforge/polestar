@@ -16,8 +16,8 @@ return {
 	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: itens de vendedor",
-	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 82 {item:3371} (3s 28c); cerca de 3s 28c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 3: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
@@ -90,8 +90,8 @@ return {
 	-- Step 19: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: itens de vendedor",
-	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 77 {item:3371} (3s 8c) e 15 {item:3372} (6s); cerca de 9s 8c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 20: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
@@ -190,8 +190,8 @@ return {
 	-- Step 41: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: itens de vendedor",
-	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 83 {item:3372} (33s 20c); cerca de 33s 20c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 42: Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
@@ -280,8 +280,8 @@ return {
 	-- Step 56: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: itens de vendedor",
-	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 51 {item:3372} (20s 40c) e 86 {item:8925} (4g 30s); cerca de 4g 50s 40c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 57: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -370,6 +370,10 @@ return {
 	-- ["Back to an {skill:171} trainer: {spell:1244648} is taught from {skill:171} 230."] = "Volte a um instrutor de {skill:171}: {spell:1244648} é ensinada a partir de {skill:171} 230.",
 	-- ["Back to an {skill:171} trainer: {spell:17551} is taught from {skill:171} 250."] = "Volte a um instrutor de {skill:171}: {spell:17551} é ensinada a partir de {skill:171} 250.",
 	-- ["Back to an {skill:171} trainer: {spell:7845} is taught from {skill:171} 165."] = "Volte a um instrutor de {skill:171}: {spell:7845} é ensinada a partir de {skill:171} 165.",
+	-- ["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 51 {item:3372} (20s 40c) e 86 {item:8925} (4g 30s); cerca de 4g 50s 40c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- ["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 77 {item:3371} (3s 8c) e 15 {item:3372} (6s); cerca de 9s 8c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- ["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 82 {item:3371} (3s 28c); cerca de 3s 28c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
+	-- ["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Compre a parte de toda a faixa de uma vez: 83 {item:3372} (33s 20c); cerca de 33s 20c no total. A seta escolhe o vendedor mais próximo da sua facção ({zone:1453}: {npc:1286}, Eldraeith e {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} e {npc:3334}).",
 	-- ["Expert needs character level 20 and {skill:171} 125; it raises the cap to 225. Materials for 150-225 are worth about 3g 65s in all."] = "Perito exige personagem nível 20 e {skill:171} 125; eleva o limite para 225. Os materiais de 150-225 valem cerca de 3g 65s no total.",
 	-- ["Fish {object:180582}; this is where the data has most of them. The Auction House works too."] = "Pesque em {object:180582}; é onde os dados mostram mais deles. A Casa de Leilões também serve.",
 	-- ["Fish {object:180657}; this is where the data has most of them. The Auction House works too."] = "Pesque em {object:180657}; é onde os dados mostram mais deles. A Casa de Leilões também serve.",

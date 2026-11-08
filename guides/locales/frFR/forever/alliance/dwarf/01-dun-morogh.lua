@@ -260,8 +260,8 @@ return {
 	["{npc:1231}, at the smithy"] = "{npc:1231}, à la forge",
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113} : à rendre à {npc:257597}, près de la porte Sud",
-	-- {npc:1226} Maxan Anvol · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226} : à rendre à {npc:376}, à {zone:1453}",
+	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
 
 	-- Step 41: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh
@@ -560,28 +560,24 @@ return {
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 
-	-- Step 108: Desperate Prayer
-	-- {npc:376} High Priestess Laurena
-	["{npc:376} is in the Cathedral of Light."] = "{npc:376} se trouve dans la cathédrale de la Lumière.",
-
-	-- Step 109: Woo Ping
+	-- Step 108: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Pendant que vous y êtes : apprenez le maniement des bâtons auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; un bâton apporte plus de caractéristiques de sorts qu'une arme à une main pendant la progression.",
 
-	-- Step 110: Gakin the Darkbinder
+	-- Step 109: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "{npc:6122} attend dans la cave de {object:2164}, dans {object:2101}.",
 
-	-- Step 112: Surena Caledon
+	-- Step 111: Surena Caledon
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Quittez {zone:1453} par la grande porte, allez au sud jusqu'à {area:87} puis à l'est par la route jusqu'au {area:62}. {npc:881} (niveau 9) se tient près de la ferme.",
 
-	-- Step 113: The Binding
+	-- Step 112: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb · {area:87} Goldshire · {zone:1436} Westfall
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "",
 	["Subdue the voidwalker"] = "Soumettez le marcheur du Vide",
 
-	-- Step 114: Goldshire
+	-- Step 113: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
 	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "",
 
@@ -611,10 +607,12 @@ return {
 	-- ["{npc:1117} on the way"] = "{npc:1117} en chemin",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, en chemin",
 	-- ["{npc:1201}, on the way"] = "{npc:1201}, en chemin",
+	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226} : à rendre à {npc:376}, à {zone:1453}",
 	-- ["{npc:1269}, by the depot; below ground"] = "{npc:1269}, près du dépôt ; sous terre",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, au dépôt",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, le maître des chamans, au nord de {object:32372}",
 	-- ["{npc:270459} in {zone:1416}; {area:1} has no druid trainer"] = "{npc:270459} dans {zone:1416} ; {area:1} n'a pas de maître des druides",
+	-- ["{npc:376} is in the Cathedral of Light."] = "{npc:376} se trouve dans la cathédrale de la Lumière.",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089} : Posture défensive",
 	-- ["{npc:706} along the way to {npc:786}"] = "{npc:706} sur le chemin de {npc:786}",
 	-- ["{npc:706} on the way"] = "{npc:706} en chemin",

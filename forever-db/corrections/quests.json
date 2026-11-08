@@ -132,6 +132,35 @@
 		],
 		"note": "Children's Week: starts with Orphan Matron Battlewail (npc 14451) and ends with Orcish Orphan (npc 14444); as its giver the merged data also listed Ambassador Berrybuck (npc 271); as its ender the merged data also listed Ambassador Berrybuck (npc 271)."
 	},
+	"287": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 1123,
+					"count": 5,
+					"text": "Frostmane Headhunter"
+				},
+				{
+					"type": "event",
+					"id": 97,
+					"count": null,
+					"text": "Fully explore Frostmane Hold",
+					"map": 1426,
+					"f": "e",
+					"x": 21.3,
+					"y": 54.2
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 completions of the explore line, averaging Dun Morogh 21.28,54.15 (spread 21.1-21.5, 53.9-54.7)"
+			}
+		],
+		"note": "Frostmane Hold (Dun Morogh): the 'Fully explore Frostmane Hold' line completes about 100 yd further into the cave, at 21.3,54.2; the data's 22.8,52.06 stopped the arrow short of it."
+	},
 	"311": {
 		"set": {
 			"start": {
@@ -1519,6 +1548,39 @@
 			"ref": "players' caches (EG Link): races"
 		},
 		"note": "Aquatic Form (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
+	},
+	"5321": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 13536,
+					"count": 1,
+					"text": "Horn of Awakening"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Kerlonian Evershade on the road south to his bag",
+					"map": 1439,
+					"f": "e",
+					"x": 41.6,
+					"y": 89.9
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 10 completions; the escort line ends 11 times at Darkshore 41.61,89.90 on average, on the road south; 9 turn-ins to Liladris Moonriver at Maestra's Post (27.22,35.63)"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), build 70862: the objective reads 'Escort Kerlonian Evershade on the road south to his bag', the quest text sends you to Liladris Moonriver 'south along the road to find his bag in Darkshore'"
+			}
+		],
+		"note": "The Sleeper Has Awakened: Kerlonian's escort ends at his bag on the road at the southern edge of Darkshore (41.6,89.9), not at Maestra's Post in Ashenvale as the data had; the turn-in is still Liladris Moonriver at Maestra's Post."
 	},
 	"5511": {
 		"set": {
@@ -5098,6 +5160,31 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Lost in the Shadows (Durotar) is an escort: one event objective, Escort Pal'juh out of Kolkar Crag (1), with no map point, so the event runs where it starts (Pal'juh 275811). QuestieDB has no objectives."
+	},
+	"99128": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 285,
+					"count": 7,
+					"text": "Murloc"
+				},
+				{
+					"type": "kill",
+					"id": 735,
+					"count": 4,
+					"text": "Murloc Streamrunner"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 20 sessions list Slimy Menace's lines as Murloc x7 first, then Murloc Streamrunner x4"
+			}
+		],
+		"note": "Slimy Menace (Elwynn Forest): the quest log's first line is the 7 Murlocs, the second the 4 Murloc Streamrunners; the data had them the other way round, so the guide's goals read the wrong lines."
 	},
 	"99130": {
 		"set": {
