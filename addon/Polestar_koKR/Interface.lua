@@ -1352,6 +1352,7 @@ L["Polestar is hidden here"] = "이곳에서는 Polestar가 숨겨집니다"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "가이드 창은 던전과 전장에서 숨겨집니다. %s 설정 > 가이드 > 창에서 바꿀 수 있습니다."
 L["Closed %s"] = "%s 닫음"
 L["Reopen"] = "다시 열기"
+-- L["Needs"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"

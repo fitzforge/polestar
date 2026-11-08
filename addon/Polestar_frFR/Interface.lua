@@ -1353,6 +1353,7 @@ L["Polestar is hidden here"] = "Polestar est masqué ici"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La fenêtre du guide se masque dans les donjons et les champs de bataille. %s Modifiez-le dans Options > Guide > Fenêtre."
 L["Closed %s"] = "Fermé : %s"
 L["Reopen"] = "Rouvrir"
+-- L["Needs"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"

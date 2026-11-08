@@ -573,6 +573,54 @@ fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	assert!(has(&lines, "Right-click to tick it done"));
 }
 
+// #1247: an accept's tooltip names the level its quest needs (red while the character is below it) and the
+// prerequisites not handed in yet (Engine.AcceptGate); with nothing to say, neither line.
+#[test]
+fn an_accept_s_tooltip_shows_the_level_its_quest_needs_and_the_quests_it_still_needs() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		local danger = "|c" .. Polestar.Theme.Hex("danger")
+		local function hover()
+			local row = rowFor("Investigate Echo Ridge")
+			stub.RunScript(row, "OnEnter")
+			local plain, red = {}, {}
+			for _, l in ipairs(GameTooltip.lines) do
+				local p = l:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+				plain[#plain + 1] = p
+				if l:find(danger, 1, true) then red[#red + 1] = p end
+			end
+			return { plain = plain, red = red }
+		end
+		local r = {}
+		-- Below the level, a prerequisite and one of two others missing.
+		uistub.goal(4, 2).gate = { level = 7, short = true, needs = { "Kobold Camp Cleanup", "Bounty on Murlocs or Report to Goldshire" } }
+		uistub.setStep(4)
+		r.short = hover()
+		-- At the level, the prerequisites done.
+		uistub.goal(4, 2).gate = { level = 7, short = false, needs = {} }
+		Polestar.Fire("STEP_UPDATED", 4)
+		r.met = hover()
+		-- Nothing known.
+		uistub.goal(4, 2).gate = nil
+		Polestar.Fire("STEP_UPDATED", 4)
+		r.none = hover()
+		emit(r)"#)
+	.remove(0);
+	let short = &out["short"];
+	assert!(has(&short["plain"], "Level | Requires level 7"), "{}", joined(&short["plain"]));
+	assert!(has(&short["plain"], "Needs | Kobold Camp Cleanup, Bounty on Murlocs or Report to Goldshire"), "{}", joined(&short["plain"]));
+	assert_eq!(short["red"], json!(["Level | Requires level 7", "Needs | Kobold Camp Cleanup, Bounty on Murlocs or Report to Goldshire"]));
+	let met = &out["met"];
+	assert!(has(&met["plain"], "Level | Requires level 7"), "{}", joined(&met["plain"]));
+	assert!(met["red"] == json!([]) || met["red"] == json!({}), "met: not red: {}", met["red"]);
+	assert!(!joined(&met["plain"]).contains("Needs"), "no prerequisite left: no Needs line");
+	let none = joined(&out["none"]["plain"]);
+	assert!(!none.contains("Level |") && !none.contains("Needs |"), "nothing known: neither line: {none}");
+	assert!(none.contains("Quest | Investigate Echo Ridge"), "the rest of the tooltip as before: {none}");
+}
+
 #[test]
 fn the_step_navigator_and_the_up_next_list_drive_the_engine_a_step_change_animates_then_stops() {
 	let out = run(r#"

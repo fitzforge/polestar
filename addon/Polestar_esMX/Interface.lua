@@ -1396,6 +1396,7 @@ L["Polestar is hidden here"] = "Polestar está oculto aquí"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La ventana de la guía se oculta en calabozos y campos de batalla. %s Cámbialo en Opciones > Guía > Ventana."
 L["Closed %s"] = "Se cerró %s"
 L["Reopen"] = "Reabrir"
+-- L["Needs"] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

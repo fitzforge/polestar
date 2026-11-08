@@ -640,3 +640,103 @@ fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide
 	let solo = run("w.level = 24", RUN, &script(""));
 	assert_eq!(solo, json!([4, ["skipped:level:Requires level 25"]]), "no run: on to the raptors");
 }
+
+// #1247: Engine.AcceptGate, what an accept's tooltip says the game asks first: the quest's minimum level (and
+// whether the character is below it) and the prerequisites not handed in yet, every missing `preAll` by name and
+// a `pre` list none of which is done as "A or B". Nothing once the quest is taken; nil for a goal that is no
+// accept or an accept with nothing known.
+const GATE_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Gate", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Thork", goals = {
+		{ t = "accept", quest = 872, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", pre = { 871 } },
+		{ t = "accept", quest = 880, title = "Altered Beings", npc = 3429, npcName = "Thork", minLevel = 14 },
+		{ t = "accept", quest = 881, title = "Echeyakee", npc = 3429, npcName = "Thork", minLevel = 10, preAll = { 871, 875 }, pre = { 876, 877 } },
+		{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3429, npcName = "Thork" },
+		{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 1 },
+	} },
+	{ title = "Raptors", goals = {
+		{ t = "kill", target = "Sunscale Lashtail", count = 7, quest = 872, oi = 1, map = 1413, x = 45, y = 20 },
+	} },
+} })
+"#;
+
+const GATE_HELPERS: &str = r#"
+	E = Polestar.Engine
+	function flush() stub.advance(0.25) end
+	function gate(s, g)
+		local x = E.AcceptGate(s, g)
+		if not x then return "nil" end
+		return tostring(x.level) .. ":" .. tostring(x.short) .. ":" .. table.concat(x.needs, " | ")
+	end
+	stub.login()
+	Polestar.Set("behavior.autoAccept", false)
+	E.SetGuide("test/gate")
+	flush()
+"#;
+
+#[test]
+fn an_accept_s_gate_is_its_minimum_level_and_the_prerequisites_not_handed_in_yet() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.titles[875] = \"Bloodshot\"; w.titles[876] = \"Wharfmaster Dizzywig\"; w.titles[877] = \"Ziz Fizziks\""),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{GATE_GUIDE}\n{GATE_HELPERS}{}",
+			r#"
+			local w = stub.world
+			local r = {}
+			r.before = { gate(1, 1), gate(1, 2), gate(1, 3), gate(1, 4), gate(1, 5), gate(2, 1), gate(9, 1) }
+			w.setLevel(14); flush()
+			w.complete({ 871, 877 }); w.accept(880); flush()
+			r.after = { gate(1, 1), gate(1, 2), gate(1, 3) }
+			emit(r)
+		"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		out["before"],
+		json!(["nil:false:Disrupt the Attacks", "14:true:", "10:false:Disrupt the Attacks | Bloodshot | Wharfmaster Dizzywig or Ziz Fizziks", "nil", "nil", "nil", "nil",]),
+		"level 12: 880 needs 14, 881 its prerequisites; no data, a level of 1, a kill and no step: nil"
+	);
+	assert_eq!(out["after"], json!(["nil", "14:false:", "10:false:Bloodshot"]), "871 and one of 876/877 handed in, level 14 reached, 880 taken: only Bloodshot is left");
+}
+
+// Xaden's case on #1247: Crimson Crate Delivery's guide goal knows neither its level nor that Crocs of the Sky comes
+// first; the quest database does, once it is loaded (the gate never loads it).
+#[test]
+fn an_accept_the_guide_knows_nothing_about_takes_its_level_and_prerequisites_from_the_loaded_quest_database() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Wetlands", faction = "Horde", minLevel = 26, maxLevel = 30, steps = {
+	{ title = "Halloran", goals = {
+		{ t = "accept", quest = 98240, title = "Crimson Crate Delivery", npc = 1, npcName = "James Halloran" },
+	} },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			local r = { unloaded = gate(1, 1) }
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre.
+			AddRecords("quests", {
+				[98240] = { "Crimson Crate Delivery", 30, 29, nil, nil, nil, nil, nil, nil, { 98072 } },
+				[98072] = { "Crocs of the Sky", 30, 26 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			r.loaded = gate(1, 1)
+			w.complete({ 98072 })
+			r.done = gate(1, 1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.level = 28"),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{GATE_HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["unloaded"], "nil", "not loaded: nothing known, and nothing loaded for it");
+	assert_eq!(out["loaded"], "29:true:Crocs of the Sky");
+	assert_eq!(out["done"], "29:true:", "Crocs of the Sky handed in: the level is left");
+}

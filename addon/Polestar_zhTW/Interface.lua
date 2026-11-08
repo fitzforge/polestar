@@ -1352,6 +1352,7 @@ L["Polestar is hidden here"] = "Polestar 在此隱藏"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "指南視窗在地城與戰場中會隱藏。%s 可在「選項」>「指南」>「視窗」中更改。"
 L["Closed %s"] = "已關閉 %s"
 L["Reopen"] = "重新開啟"
+-- L["Needs"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"

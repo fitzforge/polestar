@@ -544,6 +544,7 @@ L["Polestar is hidden here"] = "Polestar ist hier ausgeblendet"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "Das Guide-Fenster blendet sich in Dungeons und Schlachtfeldern aus. %s Ändere das unter Optionen > Guide > Fenster."
 L["Closed %s"] = "%s geschlossen"
 L["Reopen"] = "Wieder öffnen"
+-- L["Needs"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
