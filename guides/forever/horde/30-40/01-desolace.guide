@@ -188,14 +188,15 @@ step Prate Cloudseer
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
 
-step Back to Orgrimmar
+step Fly to Sun Rock Retreat
   only Shaman
   zone Thousand Needles
   goto 45.0,49.1 "Freewind Post flight master"
-  fly "Orgrimmar"
+  fly "Sun Rock Retreat"
+  zone Stonetalon Mountains
 
 step Fly to Sun Rock Retreat
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  only Warrior,Hunter,Rogue,Priest,Mage,Warlock
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Sun Rock Retreat"

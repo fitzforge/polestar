@@ -6,8 +6,6 @@
   "files": {
     "forever/alliance/02-westfall.guide": "50b92c8e9aa45d7253a63e5c76697c5ea6e76ec05b0807036f8a4c150d60e92b",
     "forever/alliance/03-darkshore.guide": "786c389d7cdbf6d07f8fbb55ba717ae6274367f59ba88f1ae30b2d4b842f5763",
-    "forever/alliance/03-darkshore-return.guide": "b247dedb7973d947e368706bcfa07ab3949082430ec02f2d0787617de38259d7",
-    "forever/alliance/03-loch-modan.guide": "2a3d8be293dc66c1bb6529cf71c76a1b6d01b26ec7b76c407e3984620598763a",
     "forever/alliance/04-redridge-mountains.guide": "786bca3914b1241e9b109d5e10ec49d402b85dbac8d136a65cf4a95dae46d0e1",
     "forever/alliance/05-duskwood.guide": "0a5831c52e78a1f550a41f00f258d6556e4a51d0307d1bcb9d8ec049435d4a67",
     "forever/alliance/06-ashenvale.guide": "c779108705dba7dc74e3d73c00045a321a1e47a11713f9a94a900b836776bb36",
@@ -35,12 +33,12 @@
     "forever/alliance/human/01-elwynn-forest.guide": "187b49d52db2d64d85bd197c756dc8dfcdbf19011c743f54b9ffe28d1e10c4cd",
     "forever/alliance/nightelf/01-teldrassil.guide": "861123aaeee5fe219b7e2a9dd3492fdf81bd270bbf3b4b9ab18545e524d85142",
     "forever/alliance/skyborne/01-zephras-isle.guide": "6b91ffcb2d07ea3dc53dafbf7face43dc9dfe24c6d796815745a99c67d0ee209",
-    "forever/horde/02-the-barrens.guide": "5416fbdd309f0d130f02cddf51049fda38936e9c4a5df01b92c6899fd3585cfe",
-    "forever/horde/03-silverpine-forest.guide": "76e8803d52669d5d2eaab2fb1cbf3f84aa536c5231dd0997417e0cdf29cabc1e",
-    "forever/horde/04-the-barrens.guide": "4d0b29af85b5f585f45d4e68acd566a5f8f26ebf4f5d9b1c265510d7a8485f8b",
-    "forever/horde/05-stonetalon-mountains.guide": "04792ff88f2a84700fcf3a32a56af0fac38f7e0f1d7396be29972fe1ff94a56d",
-    "forever/horde/06-hillsbrad-foothills.guide": "6eade6aa99d5f60c357d19849b1d7ff740bdef00c6742e05e503e9b9cacf09c6",
-    "forever/horde/07-ashenvale.guide": "ab481a2b360b0817aa97ab723d0f7dc71a4c46b256c377ff4d62de2027a15a5c",
+    "forever/horde/02-the-barrens.guide": "72299dda7de05b387132f94072a10062e9e84a2bed1fa11ab529a2da08177176",
+    "forever/horde/03-silverpine-forest.guide": "c208880294daa647f7a1ee776cb60397f964943aa9eaf06e843f45ddf01e0c06",
+    "forever/horde/04-the-barrens.guide": "a5dcd6f53d44cf5909517d5d6680c3982d473a9eed72fc218103a60a1d88e8b0",
+    "forever/horde/05-stonetalon-mountains.guide": "ed705c5b4521a4af1dec91a2cf9baa06b2066a226d479796500522803a08dc54",
+    "forever/horde/06-hillsbrad-foothills.guide": "a2a61fba7009c3605bf4f9b2da860cd4aa03ddd5082b0d2eb32429cd77ef7f08",
+    "forever/horde/07-ashenvale.guide": "acd6b44e223f1d46f5f2362b87972f27b08eb1bd248cd0ba64c63b2538b66b4f",
     "forever/horde/30-40/01-desolace.guide": "2c5e7c4a69451f30aa6f9bc522f99d148f72cf49309cbf3527bcfb71fa5f0d8b",
     "forever/horde/30-40/02-stranglethorn-vale.guide": "dd691923aad19988e2dc5633aec23284ddb85640206ce35af7a9fcda01ad71aa",
     "forever/horde/30-40/03-arathi-highlands.guide": "30db9a2a1a9ee06c064bb9dc7617909121f61c94a64de22a5714bac90d274177",
@@ -60,9 +58,11 @@
     "forever/horde/50-60/07-felwood.guide": "301be72e5f0a361ffb71f42208c7d276ee8f5fb03e200ae49642b43c6aa756f2",
     "forever/horde/orc-troll/01-durotar.guide": "03200f09ab1e88539cfab6406540643441916206c714d2c9e5b0819ac125ac66",
     "forever/horde/orc-troll/02-the-barrens.guide": "4a7b03f0d2e755a78918ae3c3c97a257a0c308ff349e209001b9fc7b12db9bb8",
-    "forever/horde/skyborne/01-zephras-isle.guide": "e933cc709622801d14d4f8b877ac1d9f721933152609cf3fc4b97609f955a3b3",
-    "forever/horde/tauren/01-mulgore.guide": "aad730409f0f057b5e7f6a9302e7d84d9dff27e3ae336d2118880d6dc4ac273c",
-    "forever/horde/undead/01-tirisfal-glades.guide": "93727e7f99d079497ca62227596ff5f9460b99332e00ab3968e333c3693da296",
-    "forever/alliance/06-wetlands.guide": "545ff4ffe45c706f6f2626c5549c82794a20fd13c6d390d51a5c30b5dee4d7f8"
+    "forever/horde/skyborne/01-zephras-isle.guide": "0a14d6c8b201599aa3896de437e684f4eff5406ed2308a778d6855d47c807fdd",
+    "forever/horde/tauren/01-mulgore.guide": "1bc1e043c32ba3f6bb9705b8f02b08e00beb3b1f691936a75be3f9e625610a77",
+    "forever/horde/undead/01-tirisfal-glades.guide": "74979ef40adf3f612e2d4fb8e2d2a63e176f2c9c1afcb3c79fb8473c080719f6",
+    "forever/alliance/06-wetlands.guide": "545ff4ffe45c706f6f2626c5549c82794a20fd13c6d390d51a5c30b5dee4d7f8",
+    "forever/alliance/03-darkshore-return.guide": "b247dedb7973d947e368706bcfa07ab3949082430ec02f2d0787617de38259d7",
+    "forever/alliance/03-loch-modan.guide": "2a3d8be293dc66c1bb6529cf71c76a1b6d01b26ec7b76c407e3984620598763a"
   }
 }

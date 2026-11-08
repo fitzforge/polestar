@@ -103,10 +103,10 @@ not ok	forever/alliance/nightelf/01-teldrassil.guide: the same pattern as #365, 
 not ok	forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers
 not ok	forever/collectibles/mounts/alliance/paladin-charger.guide: the same pattern as #365, the Enriched Manna Biscuits for Merideth Carlson, from Chillwind Camp: asked for again on the step that hands in 7645
 not ok	forever/collectibles/mounts/neutral/warlock-dreadsteed.guide: the same pattern as #365, the Xorothian Stardust for Gorzeeki Wildeyes, from Ur'dan in Felwood: asked for again on the step that hands in 7625
+not ok	forever/horde/02-the-barrens.guide: Fitz's report: Jorn Skyseer is passed by while The Angry Scytheclaws is missing, and open once it is done
+not ok	forever/horde/02-the-barrens.guide: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang
 not ok	forever/horde/04-the-barrens.guide: Fitz's report (#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet
 not ok	forever/horde/04-the-barrens.guide: Fitz's report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in
-not ok	forever/horde/04-the-barrens.guide: Fitz's report: Jorn Skyseer is passed by while The Angry Scytheclaws is missing, and open once it is done
-not ok	forever/horde/04-the-barrens.guide: Miguel Antunes's report (#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang
 not ok	forever/horde/05-stonetalon-mountains.guide: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's
 not ok	forever/horde/05-stonetalon-mountains.guide: Hotline's report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout
 not ok	forever/horde/05-stonetalon-mountains.guide: the Warsong update goals name the scouts who hand them over, from the data

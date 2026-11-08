@@ -1553,6 +1553,34 @@ number uses them; the bug report adds the guide's own index ("Step 7 of 33
 theirs: it keeps its number and says why it does not apply now
 (`Own.stepWhy`).
 
+#### Flight steps and the travel route
+
+A travel step holds, for the character, nothing open but gotos and a `fly`
+(a flight step: the walk to a flight master and the flight) or gotos alone
+(a walk): it is a way to the work after it (#1191, #1212; `Own.transitKind`).
+With the travel planner leading on Polestar's own arrow (`nav.travel` and
+`nav.arrow` on, not TomTom's arrow, not handed off; `Own.plannerFlies`) and the flight's end
+a node the character knows (`Nav.GetTaxiNode`, `Nav.GetKnownTaxiNodes`):
+
+- a flight step's arrow leads to the flight's end (`Own.flyAim`) and the
+  window marks the flight, so the route flies there in one flight from the
+  flight master that reaches it soonest, not via the one the step names;
+- a travel step passes (`stepDone`, `Own.flightOn`) when the next open step
+  after it, past walks on the same continent, is another flight step: the
+  stop between holds nothing left for the character (its work done, skipped,
+  unavailable or for other characters), so the route flies on directly;
+- a flight step whose next open step is work is judged once when the route
+  reaches it (`Own.flightJudged`, never on a taxi): it passes, with the walks
+  between, when `Nav.EstimateTravel` reaches that work at least
+  `Own.FLY_MARGIN` (60 s) or `Own.FLY_SHARE` (10%) sooner than landing at
+  the flight's end first (a nearer flight path the character knows, or a stop
+  whose own work is behind them). The verdict holds until the character
+  learns a flight path (`Own.flyVerdicts`).
+
+With the planner off the steps hold as written. `forge guide lint` reports a
+flight to a stop with nothing to do followed by another flight
+(`check_flight_hops`, a house rule).
+
 #### Focus: one person at a time
 
 A step's goals form **groups**, walked in authored order: a goal joins the
