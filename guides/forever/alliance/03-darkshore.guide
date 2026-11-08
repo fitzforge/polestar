@@ -115,7 +115,7 @@ step Auberdine
   accept 963                                  -- Cerellean Whiteclaw, on the pier
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
-  vendor nearest
+  vendor nearest optional
   accept 958 only Dwarf,Gnome,Human,Skyborne
   turnin 97894                                -- Gorbold Steelhand
   accept 982
@@ -217,7 +217,7 @@ step Auberdine
   turnin 4723 only Dwarf,Gnome,Human,Skyborne
   use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812 only Dwarf,Gnome,Human,Skyborne -- Fill the tube at the moonwell in the village
-  vendor nearest
+  vendor nearest optional
 
 step A Lesson to Learn
   only NightElf,Druid
@@ -296,7 +296,7 @@ step Auberdine
   turnin 4727                                 -- Gwennyth Bly'Leggonde
   turnin 4725
   turnin 1138                                 -- Gubber Blump, on the pier
-  vendor nearest
+  vendor nearest optional
 
 step Mist's Edge
   collect 5412 quest 1001 @33.8,38.4          -- Thresher Eyes; underwater
@@ -344,4 +344,3 @@ step Auberdine
   turnin 982                                  -- Gorbold Steelhand
   turnin 4763                                 -- Thundris Windweaver
   turnin 947                                  -- Barithras Moonshade
-  vendor nearest

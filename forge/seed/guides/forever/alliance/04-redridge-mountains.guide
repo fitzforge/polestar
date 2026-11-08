@@ -103,7 +103,7 @@ step Stormwind
   zone Stormwind City
   tip Train, then leave by the main gate and follow the road east through Elwynn Forest.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 18 and 20 spells
-  vendor nearest
+  vendor nearest optional
 
 step Woo Ping
   only Warrior
@@ -272,7 +272,7 @@ step Madame Eva
   turnin 101                              -- Madame Eva, inside
   turnin 148
   accept 149
-  vendor nearest
+  vendor nearest optional
 
 step Redridge Mountains
   zone Redridge Mountains
@@ -313,6 +313,7 @@ step Lakeshire
   accept 95999 optional                       -- The Wanted poster beside it
   accept 19 optional                          -- Marshal Marris
   accept 115 optional
+  vendor nearest optional
 
 # ---------------------------------------------------------------- East of the lake
 
@@ -364,8 +365,7 @@ step Corporal Keeshan
   complete 219
 
 step Back to Lakeshire
-  tip Into Lakeshire from the north with Keeshan: the inn, Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
-  vendor nearest
+  tip Into Lakeshire from the north with Keeshan: Bailiff Conacher and Magistrate Solomon in the town hall, Marshal Marris and Foreman Oslow at the north end of the bridge, then over the bridge to Guard Howe and the gryphons.
   turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 180                                  -- Magistrate Solomon, in the town hall
   turnin 169 optional

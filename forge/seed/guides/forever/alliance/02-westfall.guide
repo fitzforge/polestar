@@ -258,7 +258,7 @@ step Sentinel Hill
   turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
   turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
   accept 92745 only Dwarf,Gnome,NightElf,Skyborne
-  vendor nearest
+  vendor nearest optional
 
 # ---------------------------------------------------------------- The mines
 
@@ -300,7 +300,7 @@ step Back to Sentinel Hill
   turnin 14                                   -- Gryan Stoutmantle
   turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
   accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
-  vendor nearest
+  vendor nearest optional
 
 # ---------------------------------------------------------------- Stormwind and the boat
 

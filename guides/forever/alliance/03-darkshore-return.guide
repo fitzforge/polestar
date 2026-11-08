@@ -27,7 +27,7 @@ step Auberdine
   accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
   accept 948                                  -- Barithras Moonshade
-  vendor nearest
+  vendor nearest optional
   accept 4740                                 -- The WANTED poster
   accept 965                                  -- Sentinel Elissa Starbreeze
   accept 986                                  -- Terenthis
@@ -113,7 +113,7 @@ step Auberdine
   turnin 98042                                -- Thundris Windweaver
   turnin 986                                  -- Terenthis
   accept 993
-  vendor nearest
+  vendor nearest optional
 
 # ---------------------------------------------------------------- The north coast
 

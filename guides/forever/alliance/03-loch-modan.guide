@@ -45,6 +45,8 @@ next forever/alliance/03-darkshore-return
 
 step Boat to Menethil Harbor
   zone Darkshore
+  tip Sell and repair in Auberdine first: the next stretch is a long one.
+  vendor nearest optional
   goto 32.4,43.8 "Boat to Menethil Harbor"
 
 step Menethil Harbor
@@ -173,7 +175,7 @@ step Ironforge
   tip Gryth Thurden keeps the gryphons in the Great Forge; Prospector Stormpike is in the Hall of Explorers, north-east of it, on the way to the tram in Tinker Town.
   getfp "Ironforge" npc 1573                  -- Gryth Thurden, in the Great Forge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  vendor nearest
+  vendor nearest optional
   turnin 301                                  -- Prospector Stormpike, Hall of Explorers
 
 step Tram to Stormwind

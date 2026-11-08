@@ -5764,3 +5764,30 @@ test('Alliance 12-20 zone order: every quest the Eastern Kingdoms loop adds has 
 	}
 });
 // --- end of Alliance 12-20 zone order
+
+// --- Guide end (release blocker, 2026-11-08): 04-redridge-mountains' last step carried `vendor nearest` with its
+// hand-ins, so a player who handed everything in without visiting a vendor never reached the guide's end
+// (forge-addontest guides_end: the last step done ahead of the live one must end the guide). A vendor goal is
+// a check-off the Engine ticks only when a merchant window opens during its step, so a required one holds
+// any step whose real goals are done. The sell and repair stops are optional: no leveling guide's last step
+// waits on one, and in the Alliance 12-20 guides no step does.
+const forAllOnly = (o) => !(o && ((o.classes || []).length || (o.races || []).length));
+const waitsOnVendor = (st) => st.goals.some((g) => g.t === 'vendor' && !g.optional && forAllOnly(g.only)) && st.goals.some((g) => !['vendor', 'note'].includes(g.t) && !g.optional);
+test('Guide end: no leveling guide\'s last step for everyone waits on a vendor visit', { skip }, () => {
+	const offenders = [];
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const c = compiled(guide);
+		if (c.category && c.category !== 'Leveling') continue;
+		const last = [...c.steps].reverse().find((st) => forAllOnly(st.only) && !st.along && st.goals.some((g) => g.t !== 'note' && !g.optional));
+		if (last && last.goals.some((g) => g.t === 'vendor' && !g.optional && forAllOnly(g.only))) offenders.push(`${guide}: ${last.title}`);
+	}
+	assert.deepEqual(offenders, [], 'last steps with a vendor goal');
+});
+
+test('Alliance 12-20 zone order: no step waits on a vendor visit once its real goals are done', { skip }, () => {
+	const offenders = [];
+	for (const guide of ['02-westfall', '03-darkshore', '03-loch-modan', '03-darkshore-return', '04-redridge-mountains'].map((g) => `forever/alliance/${g}.guide`)) {
+		for (const st of compiled(guide).steps) if (forAllOnly(st.only) && waitsOnVendor(st)) offenders.push(`${guide}: ${st.title}`);
+	}
+	assert.deepEqual(offenders, [], 'steps holding on a vendor visit');
+});
