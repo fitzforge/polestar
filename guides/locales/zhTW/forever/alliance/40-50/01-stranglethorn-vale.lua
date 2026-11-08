@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "向北騎往道路西邊的山丘。{npc:2535}和{npc:2536}一起站在贊吉爾村莊北邊。",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "冷眼蜥蜴",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "冷眼蜥蜴躺在礦坑西邊的岩石上。",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "西北海岸",
@@ -405,6 +405,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "40級且有100金幣時就能學騎術，學會後會得到一匹坐騎。目前沒有已知的天裔精靈騎術訓練師；Forever 用戶端把{spell:1285849}歸在唯一的騎術技能下，所以離{zone:1453}最近的訓練師，也就是{zone:1429}東部{area:88}的{npc:4732}，應該能教（未確認）。逐風者由微風島{area:16638}的{npc:265756}販售；收藏品的「坐騎 · 40級」列出了牠們。",
 	-- ["Bloodsail pirates"] = "血帆海盜",
+	-- ["Cold Eye Basilisks"] = "冷眼蜥蜴",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "飛往{area:42}，向東騎過{zone:1430}進入{zone:1435}；{npc:5476}就站在剛過邊界的路旁。",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "沿著道路向東北前往{area:310}的風險投資公司營地；礦工、勘探員和工頭會掉落水晶。",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "逐風者：{npc:265756}，在微風島的{area:16638}。",
@@ -414,6 +415,7 @@ return {
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "從塞拉摩沿著塵泥沼澤的道路向西騎進{zone:1413}，再向北前往海岸邊的{area:392}。向{npc:16227}取得飛行路線，然後在碼頭搭船前往{area:35}。",
 	-- ["Skullsplitter ruins"] = "劈顱遺跡",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "從{object:28027}搭乘{area:2257}。{npc:5637}在{object:32356}旁的尋物公司大廳裡，{npc:1356}在大廳本身，{npc:2786}在{object:32383}。下一份指南會飛往{area:144}。",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "冷眼蜥蜴躺在礦坑西邊的岩石上。",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "暗霧蜘蛛在沼澤西北部的洞穴周圍築巢；每隻蜘蛛都會掉落眼睛。",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "泥石海龜和泥石刺殼龜在莊園東北方的岸邊曬太陽。",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "劈顱食人妖佔據礦坑東邊的遺跡；他們每一個都可能掉落獠牙，他們的豹子則一定會掉。",

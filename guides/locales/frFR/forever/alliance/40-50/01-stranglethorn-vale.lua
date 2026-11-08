@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Chevauchez vers le nord jusqu'aux collines à l'ouest de la route. {npc:2535} et {npc:2536} se tiennent ensemble juste au nord du village de Zanzil.",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "Basilics Oeil-de-glace",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Les Basilics Oeil-de-glace se tiennent sur les rochers à l'ouest de la mine.",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "La côte nord-ouest",
@@ -407,6 +407,7 @@ return {
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {zone:1429}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 po, vous pouvez apprendre à monter, et l'apprendre vous donne une monture. {npc:4732} l'enseigne aux humains à {area:88}, dans l'est de {zone:1429}, à côté des chevaux de {npc:384}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé). Collection, Montures · Niveau 40 liste toutes les couleurs.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 po, vous pouvez apprendre à monter, et l'apprendre vous donne une monture. {npc:4753} l'enseigne aux elfes de la nuit à {zone:1457}, à côté des sabres de {npc:4730} : le bateau de {area:17203} pour {area:442}, puis le vol pour {area:702}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé), comme {npc:4732} à {area:88}, dans {zone:1429}. Collection, Montures · Niveau 40 liste toutes les couleurs.",
 	-- ["Bloodsail pirates"] = "Pirates de la Voile sanglante",
+	-- ["Cold Eye Basilisks"] = "Basilics Oeil-de-glace",
 	-- ["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "Prenez un vol pour {area:42} et chevauchez vers l'est à travers {zone:1430} jusqu'à {zone:1435} ; {npc:5476} se tient au bord de la route juste après la frontière.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "Suivez la route vers le nord-est jusqu'au camp de la KapitalRisk de {area:310} ; les mineurs, géomètres et contremaîtres laissent tomber les cristaux.",
@@ -432,6 +433,7 @@ return {
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Partez au sud hors du {zone:1432}, par le col, jusqu'aux {zone:1418} ; {npc:2860} campe sur le site de fouilles.",
 	-- ["Skullsplitter ruins"] = "Ruines Skullsplitter",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Prenez le {area:2257} depuis {object:28027}. {npc:5637} se trouve dans la salle des Récupérateurs près de {object:32356}, {npc:1356} dans le hall lui-même, {npc:2786} dans {object:32383}. Le guide suivant continue en vol vers {area:144}.",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Les Basilics Oeil-de-glace se tiennent sur les rochers à l'ouest de la mine.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Les araignées de Sombrebrume nichent autour de la caverne, dans le nord-ouest du marais ; chaque araignée laisse tomber des yeux.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Les Tortues et Épineuses Rochefange se chauffent au soleil sur la rive au nord-est du manoir.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Les trolls Skullsplitter tiennent les ruines juste à l'est de la mine ; chacun peut laisser tomber des défenses, leurs panthères toujours.",

@@ -5660,14 +5660,14 @@
 			{
 				"a": [
 					"task",
-					212
+					609
 				],
 				"b": [
 					"task",
 					196
 				],
 				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks."
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks. (2026-11-08: A Meal Served Cold is skipped for its 30-minute limit, so the stalkers are anchored after Maury and Jon-Jon, task 609, on the same jungle loop.)"
 			},
 			{
 				"a": [
@@ -7671,6 +7671,12 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 212,
+				"faction": "Alliance",
+				"reason": "Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold must be handed back to Angus Stern in Stormwind within 30 minutes of the accept (quests.json limit 1800; mechanics 212 timed 1800 s, server). The route took it in Stormwind in 30-40/05-arathi-highlands at 36-38, collected the Chilled Basilisk Haunch in Stranglethorn two guides later and handed it in on the next Stormwind stop, hours later: it always ran out. Making it work needs a Stormwind-Stranglethorn-Stormwind trip of its own within the half hour; left out.",
+				"issue": "-"
+			},
 			{
 				"q": 1282,
 				"faction": "Alliance",

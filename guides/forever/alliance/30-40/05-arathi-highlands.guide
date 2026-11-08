@@ -12,6 +12,7 @@ next forever/alliance/30-40/06-badlands
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
 # moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
+# Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -83,8 +84,7 @@ step Fly to Stormwind
 
 step Stormwind
   zone Stormwind City
-  accept 212                          -- Angus Stern, Stormwind Harbor road
-  accept 1260
+  accept 1260                         -- Angus Stern, Stormwind Harbor road
 
 step The Binding
   only Warlock

@@ -4868,6 +4868,14 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	for (const i of [accept, turnin]) assert.deepEqual([...(list[i].goal.only?.races ?? [])].sort(), ['Dwarf', 'Gnome', 'NightElf', 'Skyborne'], `${list[i].goal.t} 647 keeps its races`);
 });
 
+// --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind
+// within 30 minutes. The route took it in Stormwind in 30-40/05 and handed it in two guides later: it always ran out. Left out.
+test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, () => {
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		assert.equal(goals(guide).filter(({ goal }) => goal.quest === 212).length, 0, `${guide}: no 212`);
+	}
+});
+
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
 // after the Kodo Graveyard, then walked back to the graveyard for the last hides.
 test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, no Kormek\'s Hut stop', { skip }, () => {
@@ -5396,7 +5404,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor 
 	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const stalkers = stepOf('the Jungle Stalkers (196)', (g) => g.t === 'kill' && g.quest === 196);
-	assert.equal(stalkers, stepOf('the basilisk haunch (212)', (g) => g.t === 'collect' && g.quest === 212), 'the raptors with the basilisks');
+	assert.equal(stalkers, stepOf("Maury's Clubbed Foot (609)", (g) => g.t === 'collect' && g.item === 3924) + 1, 'the raptors on the jungle loop, right after Maury (A Meal Served Cold is left out)');
 	const turnin = stepOf('turnin 196', is('turnin', 196));
 	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
 	assert.ok(turnin < stepOf('turnin 611', is('turnin', 611)), 'before the last Booty Bay stop');
@@ -5557,7 +5565,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 	assert.ok(toBB.length > 0 && toBB.every(({ step }) => step.only && JSON.stringify(step.only).includes('Human')), 'the Darkshire flight to Booty Bay is the Humans\' way back from Eastvale');
 	const jartsam = stepOf('Jartsam', train(4753));
 	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
-	assert.ok(jartsam > stepOf('turnin 212', is('turnin', 212)), 'after the Stormwind stop');
+	assert.ok(jartsam > stepOf('accept 1271', is('accept', 1271)), 'after the Stormwind stop');
 	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
 	const last = stepOf('turnin 609', is('turnin', 609));
 	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));

@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Reite nach Norden in die Hügel westlich der Straße. {npc:2535} und {npc:2536} stehen zusammen gleich nördlich von Zanzils Dorf.",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "Kaltaugenbasilisken",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Die Kaltaugenbasilisken liegen auf den Felsen westlich der Mine.",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "Die Nordwestküste",
@@ -405,6 +405,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "Mit 40 und 100 Gold kannst du reiten lernen, und dabei erhältst du ein Reittier. Es ist kein Reitlehrer der Himmelsgeborenen bekannt; der Forever-Client führt {spell:1285849} unter der einen Reitfertigkeit, also sollte {npc:4732} in {area:88} im östlichen {zone:1429}, der nächste Lehrer bei {zone:1453}, es lehren (unbestätigt). Die Windschreiter verkauft {npc:265756} in {area:16638} auf der Insel Zephras; Sammelobjekte, Reittiere · Stufe 40 listet sie.",
 	-- ["Bloodsail pirates"] = "Piraten der Blutsegelbukaniere",
+	-- ["Cold Eye Basilisks"] = "Kaltaugenbasilisken",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "Flieg nach {area:42} und reite nach Osten durch den {zone:1430} in die {zone:1435}; {npc:5476} steht gleich hinter der Grenze an der Straße.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "Folge der Straße nach Nordosten zum Lager der Venture Co. an der {area:310}; Minenarbeiter, Feldmesser und Großknechte lassen die Kristalle fallen.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Windschreiter: {npc:265756}, in {area:16638} auf der Insel Zephras.",
@@ -414,6 +415,7 @@ return {
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Reite von Theramore nach Westen über die Straße der Marschen ins {zone:1413} und nach Norden nach {area:392} an der Küste. Hol dir die Flugroute bei {npc:16227}, dann nimm am Steg das Boot nach {area:35}.",
 	-- ["Skullsplitter ruins"] = "Ruinen der Skullsplitter",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Nimm die {area:2257} vom {object:28027}. {npc:5637} ist in der Halle der Forscherliga beim {object:32356}, {npc:1356} in der Halle selbst, {npc:2786} im {object:32383}. Der nächste Guide fliegt weiter nach {area:144}.",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Die Kaltaugenbasilisken liegen auf den Felsen westlich der Mine.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Die Graunebelspinnen nisten um die Höhle im Nordwesten des Sumpfs; jede Spinne lässt Augen fallen.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Die Schlammpanzerschildkröten und Dornenschlammpanzer sonnen sich am Ufer nordöstlich des Anwesens.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Die Skullsplitter-Trolle halten die Ruinen gleich östlich der Mine; jeder von ihnen kann Hauer fallen lassen, ihre Panther immer.",

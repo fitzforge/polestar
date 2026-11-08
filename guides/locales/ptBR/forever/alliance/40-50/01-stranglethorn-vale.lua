@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Siga para o norte até as colinas a oeste da estrada. {npc:2535} e {npc:2536} ficam juntos, logo ao norte da aldeia de Zanzil.",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "Basiliscos Olho Frio",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Os Basiliscos Olho Frio ficam nas rochas a oeste da mina.",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "A costa noroeste",
@@ -405,6 +405,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "No nível 40, com 100 de ouro, você pode aprender a montar, e aprender lhe dá uma montaria. Não se conhece instrutor de montaria celonato; o cliente Forever coloca {spell:1285849} sob a mesma perícia de Montaria, então {npc:4732}, em {area:88} no leste de {zone:1429}, o instrutor mais perto de {zone:1453}, deve ensiná-la (não confirmado). Os Vagaventos são vendidos por {npc:265756} em {area:16638}, na Ilha de Zefras; Colecionáveis, Montarias · Nível 40 lista todos.",
 	-- ["Bloodsail pirates"] = "Piratas da Vela Sangrenta",
+	-- ["Cold Eye Basilisks"] = "Basiliscos Olho Frio",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "Voe para {area:42} e siga para o leste por {zone:1430} até {zone:1435}; {npc:5476} fica junto à estrada, logo depois da fronteira.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "Siga a estrada para nordeste até o acampamento da Empreendimentos S.A. em {area:310}; os mineradores, topógrafos e encarregados deixam cair os cristais.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Vagaventos: {npc:265756}, em {area:16638}, na Ilha de Zefras.",
@@ -413,6 +414,7 @@ return {
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Siga de Theramore para o oeste pela estrada do Pântano Vadeoso até {zone:1413} e depois para o norte até {area:392}, na costa. Aprenda a rota de voo com {npc:16227} e pegue o barco para {area:35} no cais.",
 	-- ["Skullsplitter ruins"] = "Ruínas Rachacrânio",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Pegue o {area:2257} no {object:28027}. {npc:5637} fica no salão da Recuperação Ilimitada, junto a {object:32356}; {npc:1356}, no próprio salão; {npc:2786}, em {object:32383}. O próximo guia voa até {area:144}.",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Os Basiliscos Olho Frio ficam nas rochas a oeste da mina.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "As aranhas Névoa Negra fazem ninho ao redor da caverna no noroeste do pântano; toda aranha deixa cair olhos.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Os Quelônios Pedralama e as Espicascas tomam sol na praia a nordeste do casarão.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Os trolls Rachacrânio dominam as ruínas logo a leste da mina; qualquer um deles pode deixar cair presas, e suas panteras sempre deixam.",

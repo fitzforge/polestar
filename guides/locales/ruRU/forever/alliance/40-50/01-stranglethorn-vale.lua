@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Езжайте на север к холмам к западу от дороги. {npc:2535} и {npc:2536} стоят вместе сразу к северу от деревни Занзила.",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "Ледоглазые василиски",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Ледоглазые василиски лежат на скалах к западу от шахты.",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "Северо-западное побережье",
@@ -405,6 +405,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. Учитель верховой езды для небеснорожденных неизвестен; клиент Forever относит навык «{spell:1285849}» к общему навыку верховой езды, поэтому обучить ему должен {npc:4732} ({area:88}, восток зоны {zone:1429}), ближайший учитель к городу {zone:1453} (не подтверждено). Буреногов продает {npc:265756} ({area:16638}, остров Зефрис); они перечислены в разделе «Коллекции», «Транспорт · 40-й уровень».",
 	-- ["Bloodsail pirates"] = "Пираты из шайки Кровавого Паруса",
+	-- ["Cold Eye Basilisks"] = "Ледоглазые василиски",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "Летите в поселок {area:42} и езжайте на восток через зону {zone:1430} в зону {zone:1435}; {npc:5476} стоит у дороги сразу за границей.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "Идите по дороге на северо-восток к лагерю Торговой компании ({area:310}); кристаллы падают с шахтеров, геодезистов и штейгеров.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Буреноги: {npc:265756}, {area:16638} на острове Зефрис.",
@@ -414,6 +415,7 @@ return {
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Езжайте из Терамора на запад по дороге через Пылевые топи в зону {zone:1413} и на север к побережью: {area:392}. Получите маршрут полета у NPC {npc:16227}, затем сядьте на корабль у причала: {area:35}.",
 	-- ["Skullsplitter ruins"] = "Руины Дробителей Черепов",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "В районе {object:28027} сядьте на поезд ({area:2257}). {npc:5637} – в зале Поисковой корпорации у здания {object:32356}, {npc:1356} – в самом зале, {npc:2786} – {object:32383}. Следующий гайд летит дальше: {area:144}.",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Ледоглазые василиски лежат на скалах к западу от шахты.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Пауки Мглистой пещеры гнездятся вокруг пещеры на северо-западе болота; глаза падают с каждого паука.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Глинистые черепахи и глинистые колючие черепахи греются на берегу к северо-востоку от усадьбы.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Тролли из племени Дробителей Черепов занимают руины сразу к востоку от шахты; клыки может уронить любой из них, а их пантеры – всегда.",

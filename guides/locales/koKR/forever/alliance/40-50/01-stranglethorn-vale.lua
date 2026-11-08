@@ -200,11 +200,11 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "북쪽으로 길 서쪽 언덕에 가세요. {npc:2535}와(과) {npc:2536}은(는) 잔질의 마을 바로 북쪽에 함께 서 있습니다.",
 
-	-- Step 60: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "{npc:690}",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "{npc:690}은(는) 광산 서쪽 바위 위에 엎드려 있습니다.",
+	-- Step 60: Jungle Stalkers
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["Jungle Stalkers"] = "",
+	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
+	["The Jungle Stalkers roam the slopes west of the mine."] = "",
 
 	-- Step 61: The north-west coast
 	["The north-west coast"] = "북서쪽 해안",
@@ -405,6 +405,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "40레벨에 100골드가 있으면 탈것 타기를 배울 수 있으며, 배우면 탈것도 하나 받습니다. 스카이본 탈것 상급자는 알려져 있지 않습니다. Forever 클라이언트는 {spell:1285849}을(를) 하나의 탈것 타기 기술로 분류하므로, {zone:1453}에서 가장 가까운 {zone:1429} 동부 {area:88}의 {npc:4732}이(가) 가르칠 것입니다(확인되지 않음). 돌풍타조는 제프라스 섬 {area:16638}의 {npc:265756}이(가) 팝니다. 수집품, 탈것 · 레벨 40에 나옵니다.",
 	-- ["Bloodsail pirates"] = "붉은해적단 해적",
+	-- ["Cold Eye Basilisks"] = "{npc:690}",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "{area:42}(으)로 날아간 뒤 동쪽으로 {zone:1430}을(를) 지나 {zone:1435}에 들어가세요. {npc:5476}은(는) 경계를 막 지난 길가에 서 있습니다.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "길을 따라 북동쪽 {area:310}의 투자개발회사 야영지로 가세요. 광부, 감시관, 현장감독이 수정을 떨어뜨립니다.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "돌풍타조: 제프라스 섬 {area:16638}의 {npc:265756}.",
@@ -414,6 +415,7 @@ return {
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "테라모어에서 먼지진흙 습지대 길을 따라 서쪽으로 {zone:1413}에 들어간 뒤, 북쪽으로 해안의 {area:392}까지 가세요. {npc:16227}에게서 비행 경로를 배운 뒤 부두에서 배를 타고 {area:35}(으)로 가세요.",
 	-- ["Skullsplitter ruins"] = "백골가루부족 폐허",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "{object:28027}에서 {area:2257}을(를) 타세요. {npc:5637}은(는) {object:32356} 옆 개척자 연맹 전당에, {npc:1356}은(는) 전당 안에, {npc:2786}은(는) {object:32383}에 있습니다. 다음 가이드에서 {area:144}(으)로 날아갑니다.",
+	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "{npc:690}은(는) 광산 서쪽 바위 위에 엎드려 있습니다.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "암흑안개 거미는 습지 북서쪽 거미굴 주변에 둥지를 틀고 있습니다. 거미는 모두 눈알을 떨어뜨립니다.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "{npc:4396}와(과) 뾰족껍질 진흙바위거북은 오두막 북동쪽 물가에서 햇볕을 쬡니다.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "백골가루부족 트롤은 광산 바로 동쪽 폐허를 차지하고 있습니다. 누구든 엄니를 떨어뜨릴 수 있고, 그들의 퓨마는 항상 떨어뜨립니다.",

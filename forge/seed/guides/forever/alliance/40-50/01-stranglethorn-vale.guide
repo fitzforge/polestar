@@ -12,7 +12,8 @@ next forever/alliance/40-50/02-badlands
 # Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
-# Left out: The Bloodsail Buccaneers (608).
+# Left out: The Bloodsail Buccaneers (608), and A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
+# Cold Eye Basilisks and back.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -379,9 +380,8 @@ step Maury and Jon-Jon
   tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
 
-step Cold Eye Basilisks
-  tip The Cold Eye Basilisks lie on the rocks west of the mine.
-  collect 2476 quest 212              -- Chilled Basilisk Haunch
+step Jungle Stalkers
+  tip The Jungle Stalkers roam the slopes west of the mine.
   kill 687 quest 196.1 @32.1,43.1 map 1434 -- Jungle Stalker
 
 # ---------------------------------------------------------------- The far north
@@ -489,8 +489,7 @@ step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
   sethome "Stormwind City"
-  turnin 212                          -- Angus Stern
-  accept 1271
+  accept 1271                         -- Angus Stern
   turnin 1271
   accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
