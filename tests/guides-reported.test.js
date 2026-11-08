@@ -4598,13 +4598,15 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 });
 
 // Flow re-order (2026-11-07): Alliance Stranglethorn 30-40 took Krazek's Cookery only on the second Rebel
-// Camp visit and handed it in on the last Booty Bay stop.
-test('forever/alliance/30-40/04-stranglethorn-vale.guide: flow re-order: Krazek\'s Cookery from the first Rebel Camp visit to the first Booty Bay stop', { skip }, () => {
-	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+// Camp visit and handed it in on the last Booty Bay stop. Since the 30-40 re-order the Rebel Camp's 37s (Bookie
+// Herod's chain, Krazek's Cookery) are taken on the northern loop (30-40/04b) when it starts.
+test('forever/alliance/30-40/04b-stranglethorn-vale.guide: flow re-order: Krazek\'s Cookery from the Rebel Camp visit to the Booty Bay stop of the same loop', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
-	assert.equal(stepOf('accept', 210), stepOf('accept', 204), 'taken from Kaleb with Bad Medicine on the first visit');
-	assert.equal(stepOf('turnin', 210), stepOf('accept', 201), 'handed to Krazek on the first Booty Bay stop');
+	assert.equal(stepOf('accept', 210), stepOf('accept', 574), 'taken from Kaleb with Special Forces');
+	assert.equal(stepOf('turnin', 210), stepOf('turnin', 601), 'handed to Krazek on the Booty Bay stop that ends the loop');
 	assert.equal(stepOf('accept', 627), stepOf('turnin', 210), 'Favor for Krazek taken there');
+	assert.ok(!goals('forever/alliance/30-40/04-stranglethorn-vale.guide').some(({ goal }) => [210, 328, 627].includes(goal.quest)), 'not on the first loop at 33-34');
 });
 
 // Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of
@@ -5295,25 +5297,32 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 // for one hand-in, reached the haunted island only on the northern loop, then walked from Booty Bay back to the island
 // for the water elementals, on to Westfall and flew to Booty Bay; Druids trained in Stormwind by way of Ironforge and the
 // tram and were then sent to Menethil's flight master; Raptor Mastery's level-40 Jungle Stalkers were an along list.
+// Since the 30-40 re-order (2026-11-07) the northern loop is the second Stranglethorn visit, after Desolace (04b).
 test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the island on the first loop, crocolisks and elementals on the northern one, Druids train in Stormwind', { skip }, () => {
 	const file = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
 	const list = goals(file);
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	assert.ok(at(list, 'complete 578', is('complete', 578)) < at(list, 'turnin 605', is('turnin', 605)), 'the haunted island before the Booty Bay return');
 	assert.equal(stepOf('turnin', 578), stepOf('turnin', 605), 'The Stone of the Tides handed in on that return');
-	const fly = list.findIndex(({ goal }) => goal.t === 'fly' && /Darkshire/.test(goal.dest || goal.to || goal.node || goal.text || ''));
-	const croc = at(list, 'collect 4104', (g) => g.t === 'collect' && g.item === 4104);
-	const elem = at(list, 'collect 3923', (g) => g.t === 'collect' && g.item === 3923);
-	assert.ok(croc > at(list, 'turnin 192', is('turnin', 192)) && elem > at(list, 'turnin 605', is('turnin', 605)), 'the crocolisks and the elementals on the northern loop');
-	assert.ok(fly < 0 || (croc > fly && elem > fly), 'after the flight north');
-	assert.equal(stepOf('turnin', 577), stepOf('turnin', 601), 'both handed in on the last Booty Bay stop');
 	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(JSON.stringify(goal))), 'no flight back to Booty Bay from Westfall');
+	assert.ok(!list.some(({ goal }) => [577, 601].includes(goal.quest) && goal.t !== 'accept'), 'the crocolisks and the elementals are worked on the northern loop');
+	assert.equal(stepOf('accept', 577), stepOf('turnin', 578), 'their quests taken on the Booty Bay stop that ends the first loop, where Drizzlik and the Baron stand');
+	assert.equal(stepOf('accept', 601), stepOf('turnin', 578), 'the elementals too');
 	assert.deepEqual(compiled(file).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const druid = list.filter(forClass('DRUID'));
 	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && step.only);
 	const sw = druid.findIndex(({ goal }) => goal.t === 'fly' && /Stormwind/.test(JSON.stringify(goal)));
 	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
 	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
+	const northFile = 'forever/alliance/30-40/04b-stranglethorn-vale.guide';
+	const north = goals(northFile);
+	const northStep = (t, q) => north[at(north, `${t} ${q}`, is(t, q))].s;
+	const croc = at(north, 'collect 4104', (g) => g.t === 'collect' && g.item === 4104);
+	const elem = at(north, 'collect 3923', (g) => g.t === 'collect' && g.item === 3923);
+	assert.ok(!north.some(({ goal }) => goal.t === 'accept' && [577, 601, 213].includes(goal.quest)), 'no Booty Bay stop at the start of the northern loop');
+	assert.ok(croc > 0 && elem > 0, 'the crocolisks and the elementals worked on the northern loop');
+	assert.equal(northStep('turnin', 577), northStep('turnin', 601), 'both handed in on the last Booty Bay stop');
+	assert.deepEqual(compiled(northFile).steps.filter((st) => st.along).map((st) => st.title), [], '04b: no along steps');
 });
 // Final route review, 30-40 (2026-11-07): the step after the flight into Grom'gol told the player to follow the road south to
 // Grom'gol.
@@ -5392,13 +5401,41 @@ test('forever/horde/30-40/01-desolace.guide: final review: training in the citie
 	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
 });
 // Final route review, 30-40 (2026-11-07): Alliance Wetlands & Hillsbrad put Druid training between Elling Trias's
-// hand-in and accept, though Sheldras stands across the city; it now sits on the walk from the Mage Quarter to the boat.
-test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid training on the walk to the harbour', { skip }, () => {
+// hand-in and accept, though Sheldras stands across the city; it now sits on the walk from the Mage Quarter, the last
+// Stormwind stop before 30-40/03's flight to Menethil Harbor.
+test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid training after the Mage Quarter, the last Stormwind stop', { skip }, () => {
 	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide').filter(forClass('DRUID'));
 	const train = list.findIndex(({ goal }) => goal.t === 'train');
 	assert.equal(list[at(list, 'turnin 1245', is('turnin', 1245))].s, list[at(list, 'accept 1246', is('accept', 1246))].s, 'Elling Trias in one stop');
 	assert.ok(train > at(list, 'accept 1301', is('accept', 1301)), 'after the Mage Quarter');
-	assert.ok(train < list.findIndex(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.location || '')), 'before the boat');
+	assert.equal(list[train].s, list[list.length - 1].s, 'the last step of the guide');
+	const next = goals('forever/alliance/30-40/03-ashenvale.guide');
+	assert.ok(next[0].goal.t === 'fly' && /Menethil/.test(JSON.stringify(next[0].goal)), 'the next guide opens with the flight to Menethil Harbor');
+});
+
+// --- Alliance 30-40 re-order (2026-11-07, zone order the quest levels fit): Wetlands & Hillsbrad 30-32, then one
+// crossing to Theramore for the Mirage Raceway and the Shady Rest quests (33-34; the Raceway was a crossing of its own
+// at 30 in 07-thousand-needles), Stranglethorn's first loop, Desolace's first visit (it was at 32, where the route
+// grinded for The Karnitol Shipwreck), Stranglethorn's northern loop (04b), then the Swamp of Sorrows, Arathi &
+// Alterac and the Badlands with Desolace's south loop. High accepts wait for the visit that works them.
+test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Desolace between the Stranglethorn loops, no early accepts of high quests', { skip }, () => {
+	const chain = ['07-thousand-needles', '30-40/01-hillsbrad-foothills', '30-40/03-ashenvale', '30-40/04-stranglethorn-vale', '30-40/02-desolace', '30-40/04b-stranglethorn-vale', '30-40/05-arathi-highlands', '30-40/06-badlands', '40-50/01-stranglethorn-vale'];
+	for (let i = 0; i + 1 < chain.length; i++) assert.equal(compiled(`forever/alliance/${chain[i]}.guide`).next, `forever/alliance/${chain[i + 1]}`, `${chain[i]} leads to ${chain[i + 1]}`);
+	const dust = goals('forever/alliance/30-40/03-ashenvale.guide');
+	for (const q of [1302, 1264, 1284, 1253, 1319, 1320, 1110, 1104, 1105, 1176, 1175, 1135]) assert.ok(dust.some(({ goal }) => is('turnin', q)(goal)), `30-40/03 hands in ${q}`);
+	assert.equal(dust.filter(({ goal }) => goal.t === 'goto' && /Boat to/.test(goal.text || goal.location || '')).length, 2, 'one crossing: the boat there and the boat back');
+	assert.ok(!goals(THOUSAND_NEEDLES).some(({ goal }) => [1110, 1104, 1179, 5762, 1106].includes(goal.quest)), '07 no longer crosses to the Mirage Raceway');
+	const late = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	for (const q of [1284, 1253, 1319, 1320]) assert.ok(!late.some(({ goal }) => goal.quest === q), `40-50/01 no longer carries ${q}`);
+	assert.ok(late.some(({ goal }) => is('accept', 1265)(goal)), '40-50/01 takes The Missing Diplomat on at Theramore');
+	// Accepts more than four levels over the quest's band wait for the visit that works them (the level model ground for them).
+	assert.ok(!goals('forever/alliance/30-40/02-desolace.guide').some(({ goal }) => is('accept', 1454)(goal)), 'The Karnitol Shipwreck (39) is taken on the south loop, not at the first Desolace visit');
+	assert.ok(goals(BADLANDS).some(({ goal }) => is('accept', 1454)(goal)), 'and taken there');
+	assert.ok(!goals(HILLSBRAD_ALLIANCE).some(({ goal }) => is('accept', 707)(goal)), 'Ironband Wants You! (37) is not taken at 32');
+	assert.ok(goals(ARATHI).some(({ goal }) => is('accept', 707)(goal)), 'it is taken on the Ironforge stop before Loch Modan');
+	assert.ok(!goals('forever/alliance/30-40/04b-stranglethorn-vale.guide').some(({ goal }) => is('accept', 209)(goal)), 'Skullsplitter Tusks (42) is not taken at 37');
+	assert.ok(at(late, 'accept 209', is('accept', 209)) < at(late, 'turnin 209', is('turnin', 209)), 'it is taken in 40-50/01 before its trolls');
+	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) assert.deepEqual(compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along).map((st) => st.title), [], `${g}: no along steps`);
 });
 
 
@@ -5628,7 +5665,7 @@ const ALLIANCE_VOLUME = {
 	'forever/alliance/04-redridge-mountains.guide': [163, 5], // Raven Hill; Jitters' Growling Gut
 	'forever/alliance/06-wetlands.guide': [469], // Daily Delivery
 	'forever/alliance/30-40/01-hillsbrad-foothills.guide': [632, 633, 634], // The Thandol Span; The Thandol Span; Plea to the Alliance
-	'forever/alliance/40-50/01-stranglethorn-vale.guide': [1319, 1320], // The Black Shield; The Black Shield
+	'forever/alliance/30-40/03-ashenvale.guide': [1319, 1320], // The Black Shield; The Black Shield (on the Theramore crossing since the 30-40 re-order)
 	'forever/alliance/40-50/07-un-goro-crater.guide': [2662], // Noggenfogger Elixir
 	'forever/alliance/dwarf/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
 	'forever/alliance/gnome/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
