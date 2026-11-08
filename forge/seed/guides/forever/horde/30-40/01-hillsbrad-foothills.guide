@@ -375,10 +375,11 @@ step Level 31
 step Hammerfall
   zone Arathi Highlands
   tip The orc stronghold at the eastern end of the road. Urda, the wind rider master, stands by the gate.
+  tip Rutherford Twing offers the Defiler's Basic Care Package only once you are Friendly with the Defilers (Arathi Basin): skip it if he doesn't offer it.
   accept 655                          -- Gor'mul, by the gate
   getfp "Hammerfall"
-  accept 8263                         -- Rutherford Twing
-  turnin 8263
+  accept 8263 optional                -- Rutherford Twing
+  turnin 8263 optional
   turnin 676                          -- Drum Fel
   accept 677
   turnin 655                          -- Tor'gan

@@ -1823,6 +1823,17 @@ for (const [q, title, giver, files] of [
 	});
 }
 
+// --- Hammerfall (never-taken check, 2026-11-08): the Defiler's Basic Care Package (8263) needs Friendly with the
+// Defilers (the game's quest data: RequiredMinRepFaction 510, 3000), which the leveling route never earns; Rutherford
+// Twing refused it to a level 28 player. Both ends are optional and the step says why.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Care Package is optional and says it needs Defilers reputation', { skip }, () => {
+	const file = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(file).filter(({ goal }) => goal.quest === 8263);
+	assert.ok(list.length >= 2, 'the accept and the hand-in');
+	for (const { goal } of list) assert.ok(goal.optional, `${goal.t} 8263 is optional`);
+	assert.match(stepTips(file, /^\s+accept 8263\b/).join(' '), /Friendly with the Defilers/);
+});
+
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
 // Town (98463); the guide keeps it, optional at both ends, with a tip to skip it.
 test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, with a tip to skip it`, { skip }, () => {

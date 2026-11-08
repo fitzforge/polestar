@@ -3798,6 +3798,26 @@
 				}
 			],
 			"faction": "Alliance"
+		},
+		{
+			"id": "0306-hammerfall-defilers-care-package-reputation",
+			"at": {
+				"quest": 8263,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"tip": "Rutherford Twing offers the Defiler's Basic Care Package only once you are Friendly with the Defilers (Arathi Basin): skip it if he doesn't offer it.",
+			"note": "Defiler's Basic Care Package (8263, Rutherford Twing 15126, Hammerfall) needs Friendly with the Defilers (510), which the leveling route never earns: the guide took and handed it in at Hammerfall as if anyone could. It is optional now, with a tip that says why.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "quest_template_addon 8263: RequiredMinRepFaction 510, RequiredMinRepValue 3000 (Friendly)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: Rutherford Twing refused 8263, 8264 and 8265 to a level 28 Horde character without Defilers reputation; nobody has been recorded taking 8263"
+				}
+			]
 		}
 	]
 }

@@ -6656,6 +6656,10 @@
 			{
 				"q": 98463,
 				"why": "Never-seen check (2026-11-08, 0.3.6): Barkeep Kelly in Southshore's inn was passed by 4 Alliance people in players' recordings, and none opened her window or was offered Talk of the Town; it stays on the Southshore stop (and its Booty Bay hand-in) as optional, with a tip to skip it if she doesn't offer it"
+			},
+			{
+				"q": 8263,
+				"why": "Never-taken check (2026-11-08, 0.3.6): Defiler's Basic Care Package needs Friendly with the Defilers (the game's quest data: RequiredMinRepFaction 510, value 3000), which the route never earns; Rutherford Twing refused it to a level 28 player. It stays at Hammerfall as optional, with a tip saying so"
 			}
 		],
 		"group": [

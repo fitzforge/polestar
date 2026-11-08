@@ -229,8 +229,8 @@ return {
 	["grind on {npc:2562}"] = "",
 
 	-- Step 48: Hammerfall
-	-- {npc:2851} Urda
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "길 동쪽 끝의 오크 요새입니다. 윈드라이더 조련사 {npc:2851}는 정문 옆에 서 있습니다.",
+	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
@@ -276,5 +276,6 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "{zone:1458}에 있는 동안 기술을 배우세요. 상급자는 {object:36070}, {object:36073}, {object:36082}에 있습니다(성기사: {npc:260093}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "길 동쪽 끝의 오크 요새입니다. 윈드라이더 조련사 {npc:2851}는 정문 옆에 서 있습니다.",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: {quest:515}을(를) 위해 경매장이나 연금술사에게서",
 }

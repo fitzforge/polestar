@@ -229,8 +229,8 @@ return {
 	["grind on {npc:2562}"] = "",
 
 	-- Step 48: Hammerfall
-	-- {npc:2851} Urda
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "位於道路東端的獸人要塞。雙足飛龍管理員{npc:2851}站在大門旁。",
+	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
@@ -276,5 +276,6 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "趁你在{zone:1458}時學習：訓練師都在{object:36070}、{object:36073}和{object:36082}（聖騎士：{npc:260093}）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "位於道路東端的獸人要塞。雙足飛龍管理員{npc:2851}站在大門旁。",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}：拍賣場或鍊金術師，用於{quest:515}。",
 }

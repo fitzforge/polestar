@@ -229,8 +229,8 @@ return {
 	["grind on {npc:2562}"] = "",
 
 	-- Step 48: Hammerfall
-	-- {npc:2851} Urda
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",
+	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
@@ -276,5 +276,6 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "Treine enquanto estiver em {zone:1458}: os instrutores ficam no {object:36070}, no {object:36073} e no {object:36082} (paladinos: {npc:260093}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: casa de leilões ou um alquimista, para {quest:515}.",
 }
