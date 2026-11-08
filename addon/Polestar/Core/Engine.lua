@@ -2070,7 +2070,7 @@ goalDone = function(s, g, goal)
 		-- In the zone or area: its zone or subzone text (inPlace).
 		return inPlace(goal)
 	elseif t == "hearth" or t == "fly" then
-		if inPlace(goal) then return true end
+		if inPlace(goal) or (t == "fly" and Own.landingReached(goal)) then return true end
 		-- Done once any later goal of the step is, like goto: a hearth followed
 		-- by a flight is behind the player once the flight lands. Later travel
 		-- goals count by their own place or check-off only (no recursion).
@@ -2865,7 +2865,8 @@ local function describe(goal)
 	elseif t == "getfp" then
 		return L["Get the flight path at"], place or N.Taxi(goal.node) or goal.location, "place", fmt(L["from %s"], N.Npc(goal.npc) or goal.npcName)
 	elseif t == "fly" then
-		return L["Fly to"], place or N.Taxi(goal.node) or goal.location, "place", nil
+		-- A landing the character has no flight path to: travel there (Own.unknownLanding).
+		return Own.unknownLanding(goal) and L["Go to"] or L["Fly to"], place or N.Taxi(goal.node) or goal.location, "place", nil
 	elseif t == "train" then
 		local _, npcName = npcOf(goal)
 		if goal.skillLine and rankCap(goal) then
@@ -3872,7 +3873,7 @@ local requestUpdate
 local function isArrivalGoal(goal)
 	local t = goal.t
 	if t == "die" then return not (UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) end
-	return t == "goto" or t == "explore"
+	return t == "goto" or t == "explore" or (t == "fly" and Own.unknownLanding(goal) ~= nil)
 end
 
 -- Whether the player (c, px, py) is within reach of a goal's place: its
@@ -4024,7 +4025,14 @@ function Own.arriveStep(s, c, px, py)
 	for g = 1, #goals do
 		local goal = goals[g]
 		if isArrivalGoal(goal) and not arrived[goal] and goalApplies(goal) then
-			local gc, gx, gy = goalWorld(goal)
+			local gc, gx, gy
+			if goal.t == "fly" then
+				-- A landing led as travel (Own.unknownLanding): its flight master's place.
+				local node = Own.unknownLanding(goal)
+				gc, gx, gy = Compat().MapToWorld(node.map, node.x, node.y, node.f)
+			else
+				gc, gx, gy = goalWorld(goal)
+			end
 			local dx, dy, r = (gx or 0) - px, (gy or 0) - py, goal.r or (goal.t == "die" and Own.DIE_RADIUS) or DEFAULT_RADIUS
 			local here = gc == c and dx * dx + dy * dy <= r * r
 			if not here and goal.t == "goto" and Own.enteredPlace(goals, g, goal) then here = true end
@@ -5714,6 +5722,12 @@ end
 --     Camp Taurajo), or a stop whose own work is behind the player. Judged
 --     once when the route reaches the step (Own.flightJudged), until the
 --     character learns a flight path.
+-- A flight step whose landing the character has no flight path to yet (a
+-- guide loaded mid-level that flies where they have never been) leads, with
+-- the planner on, to the landing as travel: its arrow and its goal read "Go
+-- to", the route walks, sails or takes the flights the character knows, and
+-- the goal is done on arriving there or once that flight path is learned
+-- (Own.unknownLanding, Own.landingReached).
 -- With the planner off the guide's steps hold as written.
 ---------------------------------------------------------------------------
 
@@ -5764,6 +5778,28 @@ function Own.knownLanding(goal)
 	local nav = ns.Nav
 	local node = goal and nav.GetTaxiNode(goal.node)
 	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
+end
+
+-- The landing node of a `fly` goal the character does not know, while the
+-- planner leads (see above); else nil.
+function Own.unknownLanding(goal)
+	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
+	local nav = ns.Nav
+	if nav.GetKnownTaxiNodes()[goal.node] then return nil end
+	local node = nav.GetTaxiNode(goal.node)
+	return node and node.map and node.x and node.y and node or nil
+end
+
+-- `fly` goals the arrow led to as travel (Own.flyAim): learning their flight
+-- path finishes them.
+Own.ledAsTravel = setmetatable({}, { __mode = "k" })
+
+-- A `fly` goal led as travel is done: arrived at its landing (a goto's
+-- radius, Own.arriveStep) or its flight path learned since.
+function Own.landingReached(goal)
+	if arrived[goal] then return true end
+	local nav = ns.Nav
+	return Own.ledAsTravel[goal] == true and nav and nav.GetKnownTaxiNodes and nav.GetKnownTaxiNodes()[goal.node] and true or false
 end
 
 -- The continent travel step s starts on (its first open goal) or, with
@@ -5875,7 +5911,7 @@ end
 function Own.flyAimed(s)
 	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
 	local goal, g = Own.flyGoal(s)
-	local node = Own.knownLanding(goal)
+	local node = Own.knownLanding(goal) or Own.unknownLanding(goal)
 	if not (node and node.map and node.x and node.y) then return nil end
 	return goal, g, node
 end
@@ -5885,6 +5921,7 @@ function Own.flyAim(s)
 	local goal, g, node = Own.flyAimed(s)
 	if not goal then return nil end
 	local verb, subject, _, detail = describe(goal)
+	if Own.unknownLanding(goal) then Own.ledAsTravel[goal] = true end
 	return {
 		map = node.map, x = node.x, y = node.y, f = node.f,
 		label = goalText(goal, verb, subject, detail),

@@ -257,6 +257,161 @@ fn a_flight_step_reached_on_a_taxi_is_not_judged_and_the_planner_off_keeps_every
 	assert_eq!(off, json!([1, 1440, "goto", 0]));
 }
 
+// A player who loaded a new guide mid-level was sent to Stormwind's flight master to "Fly to Menethil Harbor",
+// a flight path they had never learned. With the planner on, a flight to a landing the character does not know
+// leads to the landing as travel: the arrow aims at Menethil's flight master and reads "Go to", for the route to
+// walk, sail or take the flights the character knows, and the goal is done on arriving there (a goto's radius) or
+// once that flight path is learned. A known landing leads as before.
+const MENETHIL: &str = r#"
+stub.world.addMap(1453, { name = "Stormwind City", c = 0, left = 3000, right = -1000, top = -1000, bottom = -4000 })
+Polestar.RegisterGuide({ id = "test/menethil", pack = "test", title = "Wetlands", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Fly to Menethil Harbor", goals = {
+		{ t = "goto", map = 1453, x = 66.3, y = 62.1, text = "Stormwind flight master" },
+		{ t = "fly", location = "Menethil Harbor", node = 7 },
+	} },
+	{ title = "Menethil Harbor", goals = { { t = "getfp", location = "Menethil Harbor", node = 7, map = 1437, x = 9.5, y = 59.7 } } },
+} })
+"#;
+
+const MENETHIL_NAV: &str = r#"
+-- Taxi nodes sit on the Era map frames (f = "e"), as Nav/Travel.lua's data does: the same bounds here.
+Polestar.RegisterMapFrames({ era = {
+	[1437] = { c = 0, left = 3000, right = -1000, top = 3000, bottom = 0 },
+	[1453] = { c = 0, left = 3000, right = -1000, top = -1000, bottom = -4000 },
+} })
+NODES[2] = { id = 2, name = "Stormwind, Elwynn", c = 0, map = 1453, x = 66.3, y = 62.1, f = "e" }
+NODES[7] = { id = 7, name = "Menethil Harbor, Wetlands", c = 0, map = 1437, x = 9.5, y = 59.7, f = "e" }
+stub.world.moveTo(1453, 60, 70)
+local function at()
+	local wp = E.GetWaypoint()
+	return { E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false, wp and wp.label or false }
+end
+"#;
+
+#[test]
+fn a_flight_to_a_landing_the_character_never_learned_leads_there_as_travel_and_is_done_on_arrival_or_once_learned() {
+	let out = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true }}
+			E.SetGuide("test/menethil"); flush()
+			local r = {{ unknown = at() }}
+			-- On the way, still short of the landing (arrivals are polled every half second).
+			stub.world.moveTo(1437, 30, 50); stub.advance(1)
+			r.onTheWay = at()
+			stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+			r.arrived = at()
+			emit(r)
+			"#
+		),
+	);
+	assert_eq!(
+		out,
+		json!({
+			// Menethil Harbor unknown: the arrow leads to its flight master as travel, not to Stormwind's.
+			"unknown": [1, 1437, "fly", "Go to Menethil Harbor"],
+			"onTheWay": [1, 1437, "fly", "Go to Menethil Harbor"],
+			// Arrived at the landing: the step is done, on to the flight path there.
+			"arrived": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+
+	let learned = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true }}
+			E.SetGuide("test/menethil"); flush()
+			-- Learned by talking to a flight master short of the landing's radius: the flight map opens.
+			stub.world.moveTo(1437, 10.5, 59.7)
+			KNOWN[7] = true
+			stub.fire("TAXIMAP_OPENED"); flush()
+			emit(E.GetStepIndex())
+			"#
+		),
+	);
+	assert_eq!(learned, json!(2), "the flight path learned: the travel is behind the player");
+
+	let known = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true, [7] = true }}
+			E.SetGuide("test/menethil"); flush()
+			emit(at())
+			"#
+		),
+	);
+	let off = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true }}
+			Polestar.Set("nav.travel", false)
+			E.SetGuide("test/menethil"); flush()
+			emit(at())
+			"#
+		),
+	);
+	assert_eq!(
+		json!({ "known": known, "off": off }),
+		json!({
+			// A known landing: the flight leads to its end, as before.
+			"known": [1, 1437, "fly", "Fly to Menethil Harbor"],
+			// The planner off: the steps as written, the walk to Stormwind's flight master, unknown landing or not.
+			"off": [1, 1453, "goto", "Go to Stormwind flight master"],
+		})
+	);
+}
+
+// 0.3.5's Wetlands "Fly to Astranaar" for a player whose Darkshore work around it was skipped: the step is only the
+// walk to Auberdine's flight master and the flight. Flying to Astranaar from another flight master (here Stonetalon
+// Peak), or getting there any other way when Astranaar is unknown, finishes the whole step, the walk to Auberdine's
+// flight master included.
+const ASTRANAAR: &str = r#"
+Polestar.RegisterMapFrames({ era = { [1440] = { c = 1, left = 3000, right = -1000, top = 3000, bottom = 0 } } })
+Polestar.RegisterGuide({ id = "test/astranaar", pack = "test", title = "Wetlands", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Fly to Astranaar", goals = {
+		{ t = "goto", map = 1439, x = 36.3, y = 45.6, text = "Auberdine flight master" },
+		{ t = "fly", location = "Astranaar", node = 28 },
+	} },
+	{ title = "Astranaar", goals = { { t = "accept", quest = 1008, title = "The Zoram Strand", npc = 3880, map = 1440, x = 34.7, y = 48.8 } } },
+} })
+"#;
+
+#[test]
+fn a_flight_step_reached_by_another_way_is_done_whole_its_walk_to_the_named_flight_master_included() {
+	let trip = |known: &str, land: &str| {
+		run(
+			ASTRANAAR,
+			&format!(
+				r#"
+				KNOWN = {known}
+				E.SetGuide("test/astranaar"); flush()
+				local wp = E.GetWaypoint()
+				local r = {{ lead = {{ E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false }} }}
+				{land}
+				local v = E.GetStepView(1)
+				r.landed = {{ E.GetStepIndex(), v.goals[1].status, v.goals[2].status }}
+				emit(r)
+				"#
+			),
+		)
+	};
+	// Astranaar known: flown there from Stonetalon Peak; the client names the subzone on landing.
+	let known = trip("{ [26] = true, [28] = true, [33] = true }", r#"stub.world.moveTo(1440, 34.4, 48.0); stub.world.setZone("Ashenvale", "Astranaar"); stub.fire("ZONE_CHANGED"); stub.advance(1)"#);
+	// Astranaar unknown: walked there; arriving at its flight master is enough.
+	let unknown = trip("{ [26] = true, [33] = true }", "stub.world.moveTo(1440, 34.4, 48.0); stub.advance(1)");
+	assert_eq!(
+		json!({ "known": known, "unknown": unknown }),
+		json!({
+			"known": { "lead": [1, 1440, "fly"], "landed": [2, "done", "done"] },
+			"unknown": { "lead": [1, 1440, "fly"], "landed": [2, "done", "done"] },
+		})
+	);
+}
+
 // The report's trip on the real addon (TravelData's taxi nodes through Nav.GetTaxiNode, the known ones through
 // Nav.GetKnownTaxiNodes, the client's map frames): 0.3.4's Ashenvale after Webwinder Path in Stonetalon, a walk to
 // Astranaar's flight master and the flight to Auberdine. A Night Elf who knows Stonetalon Peak, Astranaar and
