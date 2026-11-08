@@ -5834,7 +5834,7 @@ end
 -- the planner (see above). True when it passes, with the walks after it.
 function Own.flightJudged(s)
 	-- Not before the quest log can be read (work would read done), nor on a taxi.
-	if not logReady or placing or Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
+	if not logReady or Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
 	local nav = ns.Nav
 	local landing = Own.knownLanding((Own.flyGoal(s)))
 	local n, kind = Own.travelOnto(s)
