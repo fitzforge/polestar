@@ -48,6 +48,7 @@ ns.RegisterDefaults("behavior", {
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
+	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd

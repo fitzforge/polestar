@@ -36,8 +36,11 @@
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
---     item. While the flight map is open on the live step, it takes the
---     marked flight instead (QoL/Flight.lua, Flight.Take). Independent of
+--     item. While it targets, or has nothing else to do, the mobs of the
+--     While you're here rows follow the step's own names, nearest row first
+--     (behavior.whileHereStepKey, #1316). While the flight map is open on the
+--     live step, it takes the marked flight instead (QoL/Flight.lua,
+--     Flight.Take). Independent of
 --     the buttons' settings.
 --   Mark target (off by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
@@ -1171,6 +1174,7 @@ local function stepGoal(view, raw, goals, optional)
 	end
 end
 
+local stepNames, stepSeen = {}, {}
 function Buttons.StepAction(view, raw)
 	-- The open flight map's marked node first: the press flies there.
 	local F = QoL.Flight
@@ -1181,10 +1185,29 @@ function Buttons.StepAction(view, raw)
 	local goals = view.goals or {}
 	local kind, value = stepGoal(view, raw, goals, false)
 	if not kind then kind, value = stepGoal(view, raw, goals, true) end
-	if kind then return kind, value end
-	local item = Buttons.ChooseQuestItem(view, raw)
-	if item then return "item", item end
-	return nil
+	if not kind then
+		local item = Buttons.ChooseQuestItem(view, raw)
+		if item then kind, value = "item", item end
+	end
+	-- Targeting, or with nothing else to do: the While you're here rows' mobs
+	-- after the step's own names (#1316; Buttons.HereNames, the target
+	-- button's own helpers). An item, the Hearthstone or an NPC keeps the key.
+	if (kind == "target" or not kind) and ns.Get("behavior.whileHereStepKey") then
+		wipe(stepNames)
+		wipe(stepSeen)
+		for i = 1, kind and #value or 0 do
+			stepNames[i], stepSeen[value[i]] = value[i], true
+		end
+		local here = Buttons.HereNames()
+		for i = 1, #here do
+			if not stepSeen[here[i]] then
+				stepSeen[here[i]] = true
+				stepNames[#stepNames + 1] = here[i]
+			end
+		end
+		if #stepNames > 0 then return "target", stepNames end
+	end
+	return kind, value
 end
 
 local step = { kind = nil, value = nil, list = {}, sig = nil, cycle = 1 }
@@ -1512,7 +1535,8 @@ ns.On("SETTING_CHANGED", function(path)
 		paintTarget(targetButton)
 		seeAll()
 	end
-	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
+	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui"
+		or path == "behavior.whileHereStepKey" or path == "behavior" or path == "" then refreshSoon() end
 end)
 ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
 
