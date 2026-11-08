@@ -71,6 +71,50 @@
 		],
 		"note": "The Great Cat Spirit (npc 11957), giver and ender of the druids' Cat Form quests (98394, 98396, 98731 for Night Elves; 98405, 98342, 98739 for Tauren), stands on the hill by the bridge in southern Moonglade at 54.5,75.0 (map 1450). The merged data had 58.39,73.52, about 90 yards east, where players found nobody. Replaces the map's points."
 	},
+	"13155": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							51.41,
+							59.23
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 7 people (5 established) opened his window 35 times at Wetlands 51.38-51.48,59.19-59.43 (map 1437), outside the Excavation Site instance (subzones Thandol Span and Excavation Site: Wetlands, no instance entered in the session for the Dragonmaw Rumors hand-ins): hand-ins of Dragonmaw Rumors (95663) and Open the Maw (95682), accepts of Open the Maw"
+		},
+		"note": "Deathstalker Agent (npc 13155), ender of Dragonmaw Rumors and giver and ender of Open the Maw (the Horde's Excavation Site: Wetlands quests), stands outside the instance at Wetlands 51.41,59.23 (map 1437). The merged data placed him nowhere, so the dungeon's pick-up and hand-in guides could not send anyone to him (#1326 sweep)."
+	},
+	"15991": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "e",
+					"pts": [
+						[
+							68.15,
+							29
+						],
+						[
+							70.18,
+							29.86
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 6 people (all who handed in the Alliance's Crest of Lordaeron, 95189) did so at Stormwind City 68.1-68.48,28.94-30.26 (4 people) and 70.17-70.2,29.84-29.88 (2 people), map 1453; 7 people (5 established) met her there, friendly"
+		},
+		"note": "Lady Dena Kennedy (npc 15991), ender of the Alliance's Crest of Lordaeron (95189, started by the crest that drops in the Ruins of Lordaeron), stands in Stormwind City between 68.15,29.0 and 70.18,29.86 (map 1453), where players handed it in. The merged data placed her nowhere, so the dungeon's hand-in guide listed the quest as turned in at no known place (#1326 sweep)."
+	},
 	"209797": {
 		"set": {
 			"rank": 1

@@ -145,6 +145,11 @@ test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so
 	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
 });
 
+test('dungeon turn-in NPCs the data placed nowhere stand where players hand in to them (#1326 sweep)', () => {
+	assert.deepEqual(corrections.npcs[13155].set.spawns, { 1437: { f: 'e', pts: [[51.41, 59.23]] } }, 'Deathstalker Agent: Dragonmaw Rumors and Open the Maw, Wetlands');
+	assert.deepEqual(corrections.npcs[15991].set.spawns, { 1453: { f: 'e', pts: [[68.15, 29], [70.18, 29.86]] } }, 'Lady Dena Kennedy: Crest of Lordaeron, Stormwind City');
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
