@@ -25,6 +25,7 @@ end
 
 local function repairOff() return not QoL.On("autoRepair") end
 local function markOff() return not QoL.On("markTarget") end
+local function targetOff() return not QoL.On("targetButton") end
 
 -- The eight raid icons, by the client's names, then a new one each press.
 local function markChoices()
@@ -103,7 +104,13 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator). An item a later step needs gets a lock, so you don't sell it."],
 		search = "bags, glow, quest item, inventory" },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
-		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
+		help = L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."], search = "target macro, find mob, keybind, hotkey" },
+	{ kind = "toggle", key = "qol.targetPlate", label = L["Show who it targets"], disabled = targetOff, child = true,
+		help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it."],
+		search = "target icon, target name, portrait, npc name, elite, boss" },
+	{ kind = "toggle", key = "qol.targetAnnounce", label = L["Name new targets in chat"], disabled = targetOff, child = true,
+		help = L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."],
+		search = "target chat, announce target, targeting" },
 	{ kind = "toggle", key = "qol.guideNameTarget", label = L["Click objectives to target"],
 		help = L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] },
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],

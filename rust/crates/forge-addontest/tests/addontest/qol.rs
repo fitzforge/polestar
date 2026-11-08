@@ -1032,6 +1032,254 @@ fn action_buttons_the_set_comes_back_where_it_was_left_after_a_reload() {
 	assert_eq!(out[0], json!(["TOPLEFT", "TOPLEFT", 40, -60]));
 }
 
+// The target button shows who it targets (qol.targetPlate, #1387): its icon the action of the name the next click
+// targets, the name in its kind's colour, the names after it as small icons, faces of elites and NPCs once seen.
+const LOOK: &str = r#"
+local B, t = Polestar.QoL.Buttons, PolestarTargetButton
+local function base(tex) local p = tex:GetTexture(); return p and p:match("([^\\/]+)$") end
+local TONES = { "danger", "success", "quest", "textDim" }
+local function tone(r, g, b)
+	for _, k in ipairs(TONES) do
+		local r2, g2, b2 = Polestar.Theme.Color(k)
+		if math.abs(r - r2) < 1e-6 and math.abs(g - g2) < 1e-6 and math.abs(b - b2) < 1e-6 then return k end
+	end
+	return "other"
+end
+local function face()
+	for _, region in ipairs({ t:GetRegions() }) do
+		if region.portraitOf and region:IsShown() then return region.portraitOf end
+	end
+	return false
+end
+local function look()
+	local minis = {}
+	for _, m in ipairs(t.Minis) do if m:IsShown() then minis[#minis + 1] = base(m) end end
+	return {
+		name = t.Label:GetText(), icon = t.Icon:IsShown() and base(t.Icon) or false, iconTone = tone(t.Icon:GetVertexColor()),
+		label = tone(t.Label:GetTextColor()), minis = minis, face = face(), badge = t.Badge:IsShown() and base(t.Badge) or false,
+	}
+end
+local function names()
+	local out = {}
+	for i, n in ipairs((B.TargetNames(nil, nil, true))) do out[i] = n end
+	return out
+end
+"#;
+
+fn look_run(script: &str) -> Vec<Value> {
+	run(&[LOOK, script].concat())
+}
+
+#[test]
+fn target_button_icon_and_name_follow_the_goal_type_a_sword_a_bag_a_skull_a_bubble_and_the_plate_turns_off() {
+	let out = look_run(r#"
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		emit(look())
+		q.step({ { t = "collect", item = 950, itemName = "Candle", quest = 7, oi = 2, npc = 300, npcName = "Kobold Laborer" } })
+		emit(look())
+		q.step({ { t = "kill", target = "Elder Stranglethorn Tiger", npc = 772, group = { kind = "elite", rank = 1 } } })
+		emit(look())
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Sir S. J. Erlgadin" } })
+		emit(look())
+		q.step({ { t = "talk", npc = 241, npcName = "Gryan Stoutmantle" } })
+		emit(look())
+		q.step({ { t = "accept", quest = 12, npc = 242, npcName = "Marshal Dughan" } })
+		emit(look())
+		emit(Polestar.GetDefault("qol.targetPlate"))
+		set("targetPlate", false)
+		emit(look())
+	"#);
+	let row = |name: &str, icon: &str, tone: &str| json!({ "name": name, "icon": icon, "iconTone": tone, "label": tone, "minis": [], "face": false, "badge": false });
+	assert_eq!(out[0], row("Kobold Vermin", "icon-kill", "danger"));
+	assert_eq!(out[1], row("Kobold Laborer", "icon-collect", "danger"));
+	assert_eq!(out[2], row("Elder Stranglethorn Tiger", "icon-elite", "quest"), "elite work: the skull in gold");
+	assert_eq!(out[3], row("Sir S. J. Erlgadin", "icon-turnin", "success"));
+	assert_eq!(out[4], row("Gryan Stoutmantle", "icon-talk", "success"));
+	assert_eq!(out[5], row("Marshal Dughan", "icon-accept", "success"));
+	assert_eq!(out[6], true, "on by default");
+	assert_eq!(out[7], json!({ "name": "Marshal Dughan", "icon": "qol-target", "iconTone": "danger", "label": "textDim", "minis": [], "face": false, "badge": false }), "off: the crosshair and the plain name");
+}
+
+#[test]
+fn target_button_names_the_step_s_npc_goals_when_it_has_no_mob_the_arrow_s_goal_first_with_the_npc_mark() {
+	let out = look_run(r#"
+		q.step({
+			{ t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" },
+			{ t = "accept", quest = 10, npc = 241, npcName = "Deputy Willem" },
+			{ t = "accept", quest = 11, npc = 240, npcName = "Marshal Dughan" },
+			{ t = "accept", quest = 12, npc = 243, npcName = "Done Giver", status = "done" },
+			{ t = "goto", map = 9000, x = 1, y = 1 },
+		})
+		emit({ t:GetAttribute("macrotext"), names(), t:IsShown() })
+		q.engine.waypoint = { stepIndex = q.engine.step, goalIndex = 2 }
+		Polestar.Fire("WAYPOINT_CHANGED", q.engine.waypoint)
+		stub.runTimers()
+		emit({ names(), t.Label:GetText() })
+		-- a mob to kill: the mobs only
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" }, { t = "kill", target = "Kobold Vermin" } })
+		emit(names())
+		-- the step key's list and the loot check keep to mobs
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		emit(#B.TargetNames())
+		set("markTarget", true)
+		emit(t:GetAttribute("macrotext"))
+	"#);
+	assert_eq!(out[0], json!(["/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Deputy Willem\n/cleartarget [dead]", ["Marshal Dughan", "Deputy Willem"], true]));
+	assert_eq!(out[1], json!([["Deputy Willem", "Marshal Dughan"], "Deputy Willem"]), "the arrow's goal first");
+	assert_eq!(out[2], json!(["Kobold Vermin"]));
+	assert_eq!(out[3], 0);
+	assert_eq!(out[4], "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1", "an NPC takes the NPC mark");
+}
+
+#[test]
+fn target_button_the_arrow_s_kill_goal_comes_first_and_each_click_moves_the_icon_name_and_small_icons_along() {
+	let out = look_run(r#"
+		q.step({
+			{ t = "kill", target = "Kobold Vermin" },
+			{ t = "kill", target = "Goldtooth", group = { kind = "elite", rank = 1 } },
+			{ t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer" },
+		})
+		emit(look())
+		q.click(t, true)
+		q.click(t, false)
+		emit(look())
+		q.click(t, false)
+		emit(look())
+		q.engine.waypoint = { stepIndex = q.engine.step, goalIndex = 3 }
+		Polestar.Fire("WAYPOINT_CHANGED", q.engine.waypoint)
+		stub.runTimers()
+		emit(names())
+	"#);
+	assert_eq!(out[0]["name"], "Kobold Vermin");
+	assert_eq!(out[0]["minis"], json!(["icon-elite", "icon-collect"]));
+	assert_eq!(out[1]["name"], "Goldtooth");
+	assert_eq!(out[1]["icon"], "icon-elite");
+	assert_eq!(out[1]["minis"], json!(["icon-collect", "icon-kill"]));
+	assert_eq!(out[2]["name"], "Kobold Laborer");
+	assert_eq!(out[2]["minis"], json!(["icon-kill", "icon-elite"]));
+	assert_eq!(out[3], json!(["Kobold Laborer", "Kobold Vermin", "Goldtooth"]));
+}
+
+#[test]
+fn target_button_in_combat_the_macro_waits_but_the_picture_still_updates_and_matches_what_the_click_does() {
+	let out = look_run(r#"
+		q.step({ { t = "kill", target = "Kobold Vermin" } })
+		local before = t:GetAttribute("macrotext")
+		q.combat(true)
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		emit({ t:GetAttribute("macrotext") == before, QoL.HasQueued("target"), look() })
+		-- a Kobold Vermin's nameplate shows it elite: only textures change
+		q.units.nameplate1 = { name = "Kobold Vermin", class = "elite", hostile = true }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+		emit({ t:GetAttribute("macrotext") == before, look() })
+		q.combat(false)
+		emit({ t:GetAttribute("macrotext"), look() })
+	"#);
+	assert_eq!(out[0][0], true, "the macro waits for the fight's end");
+	assert_eq!(out[0][1], true);
+	assert_eq!(out[0][2]["name"], "Kobold Vermin", "the picture says what the click still does");
+	assert_eq!(out[0][2]["icon"], "icon-kill");
+	assert_eq!(out[1][0], true);
+	assert_eq!(out[1][1]["icon"], false, "its face over the icon");
+	assert_eq!(out[1][1]["face"], "Kobold Vermin");
+	assert_eq!(out[1][1]["badge"], "icon-elite");
+	assert_eq!(out[1][1]["label"], "quest");
+	assert_eq!(out[2][0], "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]");
+	assert_eq!(out[2][1]["name"], "Marshal Dughan");
+	assert_eq!(out[2][1]["icon"], "icon-turnin");
+}
+
+#[test]
+fn target_button_faces_an_elite_or_rare_once_seen_and_an_npc_a_plain_mob_keeps_its_sword_players_never_count() {
+	let out = look_run(r#"
+		q.step({ { t = "kill", target = "Steelsnap", npc = 3058 }, { t = "kill", target = "Kolkar Pack Runner", npc = 3274 } })
+		emit(look())
+		q.target = { name = "Steelsnap", class = "rare", hostile = true }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		emit(look())
+		q.units.mouseover = { name = "Kolkar Pack Runner", class = "normal", hostile = true }
+		stub.fire("UPDATE_MOUSEOVER_UNIT")
+		emit(look())
+		q.units.mouseover = { name = "Steelsnap", player = true }
+		stub.fire("UPDATE_MOUSEOVER_UNIT")
+		local draws = #q.portraits
+		-- the NPC's nameplate was up before the step: the new names look around
+		q.units.nameplate2 = { name = "Sir S. J. Erlgadin", friend = true }
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Sir S. J. Erlgadin" } })
+		emit(look())
+		-- back to the tiger: its face is kept, drawn once
+		q.step({ { t = "kill", target = "Steelsnap", npc = 3058 } })
+		emit({ look(), #q.portraits - draws, draws })
+		set("targetPlate", false)
+		emit(look())
+	"#);
+	assert_eq!(out[0]["icon"], "icon-kill");
+	assert_eq!(out[0]["minis"], json!(["icon-kill"]));
+	assert_eq!(out[1]["face"], "Steelsnap");
+	assert_eq!(out[1]["badge"], "icon-elite");
+	assert_eq!(out[1]["label"], "quest");
+	assert_eq!(out[2]["minis"], json!(["icon-kill"]), "a plain mob keeps its sword");
+	assert_eq!(out[2]["face"], "Steelsnap");
+	assert_eq!(out[3]["face"], "Sir S. J. Erlgadin");
+	assert_eq!(out[3]["badge"], "icon-turnin");
+	assert_eq!(out[3]["label"], "success");
+	assert_eq!(out[4][0]["face"], "Steelsnap");
+	assert_eq!(out[4][1], 1, "only Sir S. J. Erlgadin drawn since");
+	assert_eq!(out[4][2], 2, "Steelsnap and the Kolkar, never the player");
+	assert_eq!(out[5]["face"], false);
+	assert_eq!(out[5]["icon"], "qol-target");
+}
+
+#[test]
+fn target_button_chat_note_is_off_by_default_and_names_a_new_set_once() {
+	let out = look_run(r#"
+		local function count()
+			local n = 0
+			for _, m in ipairs(stub.messages) do if m:find("Targeting: ", 1, true) then n = n + 1 end end
+			return n
+		end
+		q.step({ { t = "kill", target = "Kobold Vermin" } })
+		emit({ Polestar.GetDefault("qol.targetAnnounce"), count() })
+		set("targetAnnounce", true)
+		q.step({ { t = "kill", target = "Kobold Vermin" }, { t = "kill", target = "Kobold Worker" } })
+		emit(count())
+		emit(printed("Targeting: Kobold Vermin, Kobold Worker"))
+		set("markTarget", true)
+		q.step({ { t = "kill", target = "Kobold Vermin" }, { t = "kill", target = "Kobold Worker" } })
+		emit(count())
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		emit(count())
+	"#);
+	assert_eq!(out[0], json!([false, 0]));
+	assert_eq!(out[1], 1);
+	assert_eq!(out[2], true);
+	assert_eq!(out[3], 1, "the same names: no new line");
+	assert_eq!(out[4], 1, "no names: no line");
+}
+
+#[test]
+fn target_button_small_icons_sit_under_the_name_right_or_left_and_after_it_above_or_below() {
+	let out = look_run(r#"
+		q.step({ { t = "kill", target = "Kobold Vermin" }, { t = "kill", target = "Kobold Worker" } })
+		local function at()
+			local p, rel, rp, x, y = t.Label:GetPoint(1)
+			local mp, mrel, mrp = t.Minis[1]:GetPoint(1)
+			return { p, rp, y, mp, mrel == t.Label, mrp }
+		end
+		for _, side in ipairs({ "right", "left", "above" }) do
+			set("buttonTextSide", side)
+			emit(at())
+		end
+		q.step({ { t = "kill", target = "Kobold Vermin" } })
+		set("buttonTextSide", "right")
+		emit(at())
+	"#);
+	assert_eq!(out[0], json!(["LEFT", "RIGHT", 7, "TOPLEFT", true, "BOTTOMLEFT"]));
+	assert_eq!(out[1], json!(["RIGHT", "LEFT", 7, "TOPRIGHT", true, "BOTTOMRIGHT"]));
+	assert_eq!(out[2], json!(["BOTTOM", "TOP", 4, "LEFT", true, "RIGHT"]));
+	assert_eq!(out[3][2], 0, "one name: centred on the button");
+}
+
 // ---------------------------------------------------------------------------
 // XP and pace
 // ---------------------------------------------------------------------------

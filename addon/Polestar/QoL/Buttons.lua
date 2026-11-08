@@ -14,8 +14,16 @@
 --   Target: /targetexact for the current step's kill targets and the mobs
 --     that drop its collect items: the ones the guide sends you to for that
 --     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
---     loaded), passing over corpses; every click moves the next name to the
---     front.
+--     loaded), passing over corpses; on a step with no such mob, its NPC
+--     goals' NPCs (talk, accept, turn in, train...). The arrow's goal comes
+--     first; every click moves the next name to the front. With
+--     qol.targetPlate (on by default) its icon shows what you do with the
+--     name the next click targets (Buttons.TargetLook: a speech bubble, !,
+--     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
+--     it in that kind's colour, and a row of small icons for the names after
+--     it; an elite's or an NPC's face once one of them has been seen (the
+--     target, the mouseover or a nameplate: SetPortraitTexture, kept for the
+--     session), with the action as a badge.
 --   Rare: /targetexact for the rares in range (Polestar.Rares.Nearby): the
 --     button comes up when the addon spots one and goes when it dies or is
 --     out of sight; every click moves the next name to the front.
@@ -54,6 +62,12 @@ local SIZE = 36
 local RANGE_INTERVAL = 0.2
 local MAX_NAMES = 5
 local MACRO_LIMIT = 255
+-- The target button's small icons for the names after the next one: size,
+-- gap, how far the name moves up for them, and how many faces it keeps.
+local MINI = 14
+local MINI_GAP = 3
+local MINI_LIFT = 7
+local PORTRAIT_CAP = 16
 
 local Buttons = {}
 QoL.Buttons = Buttons
@@ -252,8 +266,26 @@ local function placeLabel(b)
 			end
 		end
 	end
+	-- The target button's row of small icons (b.Minis, b.miniCount shown):
+	-- right or left, a second line under the name, the pair centred on the
+	-- button; above or below, on the name's line after it.
+	local rows = (b.miniCount or 0) > 0
+	local side = a == LABEL_SIDE.left and "left" or a == LABEL_SIDE.right and "right" or nil
 	b.Label:ClearAllPoints()
-	b.Label:SetPoint(a[1], to, a[2], a[3], a[4])
+	b.Label:SetPoint(a[1], to, a[2], a[3], (rows and side) and MINI_LIFT or a[4])
+	local minis = b.Minis
+	if not minis then return end
+	for k = 1, #minis do
+		local m = minis[k]
+		m:ClearAllPoints()
+		if side == "left" then
+			if k == 1 then m:SetPoint("TOPRIGHT", b.Label, "BOTTOMRIGHT", 0, -3) else m:SetPoint("RIGHT", minis[k - 1], "LEFT", -MINI_GAP, 0) end
+		elseif side == "right" then
+			if k == 1 then m:SetPoint("TOPLEFT", b.Label, "BOTTOMLEFT", 0, -3) else m:SetPoint("LEFT", minis[k - 1], "RIGHT", MINI_GAP, 0) end
+		else
+			if k == 1 then m:SetPoint("LEFT", b.Label, "RIGHT", 6, 0) else m:SetPoint("LEFT", minis[k - 1], "RIGHT", MINI_GAP, 0) end
+		end
+	end
 end
 
 local function newButton(name, onEnter)
@@ -498,10 +530,23 @@ end
 -- Target button
 ---------------------------------------------------------------------------
 
-local names, nameSeen = {}, {}
--- Each open goal's names, in its own order, and how far each has been taken
--- (reused).
-local goalNames, goalPos, goalCount = {}, {}, 0
+-- Goals done with an NPC: the target button names their NPCs on a step with
+-- no mob to target, and the step key targets them by name.
+local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, sethome = true, getfp = true, learn = true }
+
+-- The picture of what you do with a name: its goal's verb glyph (Media/UI).
+-- An elite, rare or boss mob wears the skull instead (Buttons.TargetLook).
+local VERB_ICON = {
+	kill = "icon-kill", collect = "icon-collect", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
+	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
+}
+
+-- The names (reused), and for each its goal's verb, its NPC id (nil when
+-- not known) and whether the guide's data marks it elite, rare or a boss.
+local names, nameVerb, nameNpc, nameSpecial, nameSeen = {}, {}, {}, {}, {}
+-- Each open goal's names, in its own order, with their ids and marks, the
+-- goal's verb, step and index, and how far each has been taken (reused).
+local goalNames, goalIds, goalMarks, goalVerb, goalStep, goalIndex, goalPos, goalCount = {}, {}, {}, {}, {}, {}, {}, 0
 
 -- A name the button may put after "/targetexact": a string with no control
 -- characters. Names come from guide packs, which anyone can write, and a line
@@ -510,36 +555,81 @@ function Buttons.MacroSafeName(n)
 	return type(n) == "string" and n ~= "" and not n:find("%c")
 end
 
-local function addName(n)
-	if not Buttons.MacroSafeName(n) then return end
-	local list = goalNames[goalCount]
-	list[#list + 1] = n
+local function newGoal(verb, s, g)
+	goalCount = goalCount + 1
+	goalNames[goalCount] = wipe(goalNames[goalCount] or {})
+	goalIds[goalCount] = wipe(goalIds[goalCount] or {})
+	goalMarks[goalCount] = wipe(goalMarks[goalCount] or {})
+	goalVerb[goalCount], goalStep[goalCount], goalIndex[goalCount], goalPos[goalCount] = verb, s, g, 1
 end
 
-local function addDroppers(list)
+local function addName(n, id, special)
+	if not Buttons.MacroSafeName(n) then return end
+	local list = goalNames[goalCount]
+	local k = #list + 1
+	list[k] = n
+	goalIds[goalCount][k] = id or false
+	goalMarks[goalCount][k] = special and true or false
+end
+
+-- A collect's dominant source (`fromId`) with its rank (`fromRank`: 1 elite,
+-- 2 rare elite, 3 boss, 4 rare) marks that one creature.
+local function rankedSource(rg, id)
+	return id ~= nil and (tonumber(rg.fromRank) or 0) > 0 and rg.fromId == id
+end
+
+local function addDroppers(list, rg)
 	if type(list) ~= "table" then return end
 	for i = 1, #list do
 		local e = list[i]
-		addName(type(e) == "table" and e.name or e)
+		if type(e) == "table" then addName(e.name, e.id, rankedSource(rg, e.id)) else addName(e) end
 	end
 end
 
--- Names for the target button (reused list): one from each open goal in
--- guide order, then the next from each, up to MAX_NAMES, so a goal with many
--- mobs (five creatures drop the Nightsaber Fang) cannot crowd out the goals
--- after it. view, raw: QoL.CurrentStep()'s, when the caller has them.
-function Buttons.TargetNames(view, raw)
+-- The goal the arrow points at moves to the front (it keeps its own names'
+-- order): its names come first, then the others' in guide order.
+local function arrowFirst()
+	local E = ns.Engine
+	local wp = E and E.GetWaypoint and E.GetWaypoint()
+	if type(wp) ~= "table" or wp.goalIndex == nil then return end
+	for i = 2, goalCount do
+		if goalStep[i] == wp.stepIndex and goalIndex[i] == wp.goalIndex then
+			local n, ids, marks, verb, s, g = goalNames[i], goalIds[i], goalMarks[i], goalVerb[i], goalStep[i], goalIndex[i]
+			for j = i, 2, -1 do
+				goalNames[j], goalIds[j], goalMarks[j] = goalNames[j - 1], goalIds[j - 1], goalMarks[j - 1]
+				goalVerb[j], goalStep[j], goalIndex[j] = goalVerb[j - 1], goalStep[j - 1], goalIndex[j - 1]
+			end
+			goalNames[1], goalIds[1], goalMarks[1], goalVerb[1], goalStep[1], goalIndex[1] = n, ids, marks, verb, s, g
+			return
+		end
+	end
+end
+
+-- Names for the target button (reused lists): one from each open goal in
+-- guide order, the arrow's goal first, then the next from each, up to
+-- MAX_NAMES, so a goal with many mobs (five creatures drop the Nightsaber
+-- Fang) cannot crowd out the goals after it. view, raw: QoL.CurrentStep()'s,
+-- when the caller has them. npcs: on a step with no mob to name, the step's
+-- own NPC goals' NPCs (the target button; the step key and its loot check
+-- want mobs only). -> names, verbs, npc ids (nil: not known), marks (true:
+-- elite, rare or boss by the guide's data), all by index.
+function Buttons.TargetNames(view, raw, npcs)
 	wipe(names)
+	wipe(nameVerb)
+	wipe(nameNpc)
+	wipe(nameSpecial)
 	wipe(nameSeen)
 	goalCount = 0
 	if not view then view, raw = QoL.CurrentStep() end
-	if not view then return names end
+	if not view then return names, nameVerb, nameNpc, nameSpecial end
 	local QDB = ns.QuestDB
 	local qdb = QDB and QDB.IsLoaded and QDB.IsLoaded()
+	local E = ns.Engine
+	local stepIndex = view.index or (E and E.GetStepIndex and E.GetStepIndex())
 	-- The step's goals, then the Along the way list's (along steps and
 	-- pinned quests, #644: Engine.GetAlong), each with its raw goal.
 	local goals, raws = view.goals or {}, raw
-	local E = ns.Engine
+	local own = #goals
 	if E and E.GetAlong and E.AlongGoal then
 		local all, allRaw = {}, {}
 		for g = 1, #goals do all[g], allRaw[g] = goals[g], raw and raw[g] or goals[g] end
@@ -551,41 +641,59 @@ function Buttons.TargetNames(view, raw)
 		end
 		goals, raws = all, allRaw
 	end
+	local N = ns.Names
+	local named = false
 	for g = 1, #goals do
 		local gv = goals[g]
 		local rg = raws and raws[g] or gv
-		if QoL.Open(gv) then
-			goalCount = goalCount + 1
-			goalNames[goalCount] = wipe(goalNames[goalCount] or {})
-			goalPos[goalCount] = 1
+		if QoL.Open(gv) and (gv.t == "kill" or gv.t == "collect") then
+			if g <= own then newGoal(gv.t, stepIndex, g) else newGoal(gv.t, gv.step, gv.index) end
 			if gv.t == "kill" then
-				-- /targetexact needs the name as the client writes it.
-				local N = ns.Names
-				addName((N and N.Npc(rg.npc or gv.npc)) or rg.target or gv.subject)
-			elseif gv.t == "collect" then
+				-- /targetexact needs the name as the client writes it. Elite
+				-- work (compiled `group`) marks the mob.
+				local id = rg.npc or gv.npc
+				local group = rg.group or gv.party
+				addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+			else
 				-- The mobs the arrow leads to come first: the farm spot the engine
 				-- chose (`collect … nearest`), then the guide's own sources for this
 				-- point (`fromNpcs`). The item's droppers follow, and stand alone for
 				-- a goal with neither: they are ranked by drop chance over the whole
 				-- world, so for an item many creatures drop the best of them are
 				-- mostly in other zones.
-				local N = ns.Names
 				local npc = gv.npc or rg.npc
-				if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName) end
+				if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
 				local src = rg.fromNpcs or gv.fromNpcs
 				for i = 1, src and #src or 0 do
-					addName((N and N.Npc(src[i].npc)) or src[i].npcName)
+					addName((N and N.Npc(src[i].npc)) or src[i].npcName, src[i].npc, rankedSource(rg, src[i].npc))
 				end
 				if qdb then
 					if gv.quest and rg.oi and QDB.GetObjectiveMobs then
-						addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi))
+						addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi), rg)
 					elseif (gv.item or rg.item) and QDB.GetItemDroppers then
-						addDroppers(QDB.GetItemDroppers(gv.item or rg.item))
+						addDroppers(QDB.GetItemDroppers(gv.item or rg.item), rg)
 					end
 				end
 			end
+			named = named or #goalNames[goalCount] > 0
 		end
 	end
+	-- No mob to name: the NPCs of the step's own talk, accept, turn-in...
+	-- goals, in the client's language by their ids where Polestar.Names has
+	-- them.
+	if npcs and not named then
+		goalCount = 0
+		for g = 1, own do
+			local gv = goals[g]
+			local rg = raws and raws[g] or gv
+			if QoL.Open(gv) and NPC_VERBS[gv.t] then
+				newGoal(gv.t, stepIndex, g)
+				local id = gv.npc or rg.npc
+				addName((id and N and N.Npc(id)) or gv.npcName or rg.npcName, id)
+			end
+		end
+	end
+	arrowFirst()
 	local more = true
 	while more and #names < MAX_NAMES do
 		more = false
@@ -594,14 +702,15 @@ function Buttons.TargetNames(view, raw)
 			while list[p] and nameSeen[list[p]] do p = p + 1 end
 			if list[p] and #names < MAX_NAMES then
 				nameSeen[list[p]] = true
-				names[#names + 1] = list[p]
+				local k = #names + 1
+				names[k], nameVerb[k], nameNpc[k], nameSpecial[k] = list[p], goalVerb[i], goalIds[i][p] or nil, goalMarks[i][p]
 				p = p + 1
 				more = true
 			end
 			goalPos[i] = p
 		end
 	end
-	return names
+	return names, nameVerb, nameNpc, nameSpecial
 end
 
 -- NPCs: "exists" out of combat, not "help": a neutral NPC (Booty Bay,
@@ -682,23 +791,194 @@ function Buttons.TargetMacro(list, preferred, mark)
 	return text
 end
 
-local target = { list = {}, sig = nil, cycle = 1 }
+-- list, verbs, ids, marks: the names and what Buttons.TargetNames says of
+-- each (copies); kind: the mark they take ("npc" for NPC goals' names);
+-- namesSig: the names alone, for the chat note.
+local target = { list = {}, verbs = {}, ids = {}, marks = {}, kind = "mob", sig = nil, namesSig = "", cycle = 1 }
+
+-- Names seen in the world (the target, the mouseover, a nameplate) as an
+-- elite, rare or boss this session, and the faces of the names seen: one
+-- texture per name on the target button, SetPortraitTexture'd once, laid
+-- over the icon or a small icon while that name shows (at most
+-- PORTRAIT_CAP; the oldest is drawn over for a new one).
+local seenSpecial, portraits, portraitOrder = {}, {}, {}
+local ELITE_CLASS = { elite = true, rareelite = true, rare = true, worldboss = true }
+
+local function codexSpecial(id)
+	local C = ns.Codex
+	if not (id and C and C.IsLoaded and C.IsLoaded() and C.Npc) then return false end
+	local n = C.Npc(id)
+	return n ~= nil and (n.elite or n.rare or n.boss) and true or false
+end
+
+-- What the button shows for a name: glyph (Media/UI), colour token, and
+-- whether its face may stand in for the glyph. An NPC goal's verb in
+-- success (friendly); an elite, rare or boss (the guide's data, the Codex
+-- when loaded, or seen so this session) the skull in quest gold, with its
+-- face; any other mob its verb in danger (hostile).
+function Buttons.TargetLook(verb, name, id, special)
+	if NPC_VERBS[verb] then return VERB_ICON[verb], "success", true end
+	if special or (name and seenSpecial[name]) or codexSpecial(id) then return "icon-elite", "quest", true end
+	return VERB_ICON[verb] or "icon-kill", "danger", false
+end
+
+-- The face kept for name, or nil.
+function Buttons.Portrait(name)
+	return name and portraits[name] or nil
+end
+
+local function portraitFor(b, name)
+	local tex = portraits[name]
+	if tex then return tex end
+	if #portraitOrder >= PORTRAIT_CAP then
+		local old = table.remove(portraitOrder, 1)
+		tex = portraits[old]
+		portraits[old] = nil
+	else
+		tex = b:CreateTexture(nil, "ARTWORK", nil, 1)
+	end
+	tex:Hide()
+	portraits[name] = tex
+	portraitOrder[#portraitOrder + 1] = name
+	return tex
+end
+
+-- Repaint the target button from what its macro does now (b.aList at
+-- b.aCycle): plain textures and text, so at any time, in combat too.
+-- Without qol.targetPlate: the crosshair and the name in textDim.
+local function paintTarget(b)
+	local list, cycle = b.aList, b.aCycle or 1
+	local n = list and #list or 0
+	local name = list and list[cycle]
+	b.Label:SetText(name or "")
+	for _, tex in pairs(portraits) do tex:Hide() end
+	local shown = 0
+	local T = Theme()
+	if not (name and QoL.On("targetPlate")) then
+		b.Icon:SetTexture(media("qol-target"))
+		color(b.Icon, "danger")
+		b.Icon:Show()
+		b.Badge:Hide()
+		font(b.Label, "small")
+		color(b.Label, "textDim")
+		if T and T.SetOutline then T.SetOutline(b.Label, false) end
+	else
+		local glyph, tone, face = Buttons.TargetLook(b.aVerbs[cycle], name, b.aIds[cycle], b.aMarks[cycle])
+		local tex = face and portraits[name]
+		if tex then
+			tex:ClearAllPoints()
+			tex:SetAllPoints(b.Icon)
+			tex:Show()
+			b.Icon:Hide()
+			b.Badge:SetTexture(media(glyph))
+			color(b.Badge, tone)
+			b.Badge:Show()
+		else
+			b.Icon:SetTexture(media(glyph))
+			color(b.Icon, tone)
+			b.Icon:Show()
+			b.Badge:Hide()
+		end
+		-- On the game world: the label size, outlined like the transparent window.
+		font(b.Label, "label")
+		color(b.Label, tone)
+		if T and T.SetOutline then T.SetOutline(b.Label, true) end
+		for k = 1, math.min(n - 1, #b.Minis) do
+			local j = (cycle - 1 + k) % n + 1
+			local m = b.Minis[k]
+			local g2, t2, face2 = Buttons.TargetLook(b.aVerbs[j], list[j], b.aIds[j], b.aMarks[j])
+			local tex2 = face2 and portraits[list[j]]
+			m:SetTexture(media(g2))
+			color(m, t2)
+			if tex2 then
+				tex2:ClearAllPoints()
+				tex2:SetAllPoints(m)
+				tex2:Show()
+				m:Hide()
+			else
+				m:Show()
+			end
+			shown = k
+		end
+	end
+	for k = shown + 1, #b.Minis do b.Minis[k]:Hide() end
+	b.miniCount = shown
+	placeLabel(b)
+end
 
 local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine("mob"))
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind))
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
-		b.Label:SetText(b.applied or "")
+		b.aList, b.aVerbs, b.aIds, b.aMarks, b.aCycle = list, target.verbs, target.ids, target.marks, target.cycle
+		paintTarget(b)
 		if text then b:Show() else b:Hide() end
 	end)
 end
 
+-- A unit in the world (the target, the mouseover, a nameplate) named like
+-- one of the target button's names (the new ones, or the ones it shows
+-- while combat holds its macro): its classification marks an elite, rare
+-- or boss, and its face is kept for that name. A secret value (Forever
+-- hides units in combat) reads as unknown and is passed over.
+local function listed(list, name)
+	for i = 1, list and #list or 0 do
+		if list[i] == name then return true end
+	end
+	return false
+end
+
+local function seeUnit(unit)
+	local b = Buttons.target
+	if not (b and (target.list[1] or (b.aList and b.aList[1])) and QoL.On("targetPlate")) then return end
+	local C = ns.Compat
+	if C.Readable(UnitExists and UnitExists(unit)) ~= true or C.Readable(UnitIsPlayer and UnitIsPlayer(unit)) ~= false then return end
+	local name = C.Readable(UnitName and UnitName(unit))
+	if not name or not (listed(target.list, name) or listed(b.aList, name)) then return end
+	local changed = false
+	local class = UnitClassification and C.Readable(UnitClassification(unit))
+	if class and ELITE_CLASS[class] and not seenSpecial[name] then
+		seenSpecial[name], changed = true, true
+	end
+	if not portraits[name] and SetPortraitTexture then
+		SetPortraitTexture(portraitFor(b, name), unit)
+		changed = true
+	end
+	if changed then paintTarget(b) end
+end
+Buttons.SeeUnit = seeUnit
+
+-- The units there are now: a new list's names may already be in sight.
+local function seeAll()
+	seeUnit("target")
+	seeUnit("mouseover")
+	local NP = C_NamePlate
+	local plates = NP and NP.GetNamePlates and NP.GetNamePlates()
+	for i = 1, plates and #plates or 0 do
+		local unit = plates[i].namePlateUnitToken or (plates[i].UnitFrame and plates[i].UnitFrame.unit)
+		if type(unit) == "string" then seeUnit(unit) end
+	end
+end
+
+ns.RegisterEvent("PLAYER_TARGET_CHANGED", function() seeUnit("target") end)
+ns.RegisterEvent("UPDATE_MOUSEOVER_UNIT", function() seeUnit("mouseover") end)
+ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit) if type(unit) == "string" then seeUnit(unit) end end)
+
 local function targetTooltip(b, tip)
 	tip:SetText(L["Target"])
-	for i = 1, #target.list do tip:AddLine(target.list[i], 1, 1, 1) end
+	local T = Theme()
+	local plate = QoL.On("targetPlate")
+	for i = 1, #target.list do
+		local r, g, bl = 1, 1, 1
+		if plate and T and T.Color then
+			local _, tone = Buttons.TargetLook(target.verbs[i], target.list[i], target.ids[i], target.marks[i])
+			r, g, bl = T.Color(tone)
+		end
+		tip:AddLine(target.list[i], r, g, bl)
+	end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
 		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
 end
@@ -763,9 +1043,6 @@ end
 ---------------------------------------------------------------------------
 -- Step key
 ---------------------------------------------------------------------------
-
--- Goals done with an NPC, whom the step key targets by name.
-local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, sethome = true, getfp = true, learn = true }
 
 -- One clicked guide name, using the target button's macro and mark settings.
 -- The view's chosen NPC wins over the raw goal;
@@ -983,17 +1260,27 @@ local function refresh()
 	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
-	local list = QoL.On("targetButton") and guideShown and view and Buttons.TargetNames(view, raw) or {}
+	local list, verbs, ids, marks
+	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true) else list = {} end
 	-- The mark settings are part of both signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
-	local sig = mark .. concat(list, "\n")
+	local namesSig = concat(list, "\n")
+	local sig = mark .. namesSig
 	if sig ~= target.sig then
 		target.sig = sig
-		local copy = {}
-		for i = 1, #list do copy[i] = list[i] end
-		target.list = copy
+		local copy, cv, ci, cm = {}, {}, {}, {}
+		for i = 1, #list do copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i] end
+		target.list, target.verbs, target.ids, target.marks = copy, cv, ci, cm
+		-- NPC goals' names only come on a step with no mob to name.
+		target.kind = NPC_VERBS[cv[1]] and "npc" or "mob"
 		target.cycle = 1
+		-- The optional chat note, once per new set of names (not for a mark setting).
+		if namesSig ~= target.namesSig then
+			target.namesSig = namesSig
+			if #copy > 0 and QoL.On("targetAnnounce") then ns.Print(L["Targeting: %s"]:format(concat(copy, ", "))) end
+		end
 		applyTarget(targetButton)
+		seeAll()
 	end
 
 	-- Not tied to the step: a rare can turn up on any of them.
@@ -1053,11 +1340,27 @@ local function create()
 	targetButton.Icon:SetTexture(media("qol-target"))
 	targetButton.Icon:SetTexCoord(0, 1, 0, 1)
 	color(targetButton.Icon, "danger")
+	-- The action's glyph in the corner while a face stands in for the icon.
+	local badge = targetButton:CreateTexture(nil, "OVERLAY")
+	badge:SetSize(MINI, MINI)
+	badge:SetPoint("BOTTOMRIGHT", targetButton, "BOTTOMRIGHT", -1, 1)
+	badge:Hide()
+	targetButton.Badge = badge
+	-- The names after the next one, as small icons (placeLabel lays them out).
+	targetButton.Minis = {}
+	for k = 1, MAX_NAMES - 1 do
+		local m = targetButton:CreateTexture(nil, "OVERLAY")
+		m:SetSize(MINI, MINI)
+		m:Hide()
+		targetButton.Minis[k] = m
+	end
+	local T = Theme()
+	if T and T.OnChanged then T.OnChanged(function() paintTarget(targetButton) end) end
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
 		if n > 1 then target.cycle = target.cycle % n + 1 end
-		local marked = Buttons.AdvanceMark("mob")
+		local marked = Buttons.AdvanceMark(target.kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
 	rareButton = newButton("PolestarRareButton", rareTooltip)
@@ -1133,6 +1436,8 @@ ns.On("FLIGHT_MARK_CHANGED", refreshSoon)
 ns.On("QUESTDB_LOADED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
 ns.On("WHILE_HERE_CHANGED", refreshSoon)
+-- The target button names the arrow's goal first.
+ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	if path == "qol.buttonScale" or path == "qol" or path == "" then
@@ -1140,6 +1445,10 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
+	end
+	if path == "qol.targetPlate" or path == "qol" or path == "" then
+		paintTarget(targetButton)
+		seeAll()
 	end
 	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
 end)
