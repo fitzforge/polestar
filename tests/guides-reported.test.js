@@ -1399,7 +1399,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 // (Horde 12-30 re-chain) the walk runs south along the lake shore from the Yoricks' house to Ambermill, one
 // Sepulcher stop hands in everything, and the level 19-21 quests (Journey to Hillsbrad, Beren's Peril,
 // Watching the Roads) ride with the Sepulcher stop of the ride to Hillsbrad at 22. Fenris Isle's Rot Hide
-// gnolls (15-17, the keep 18-22) are left out at 12-15.
+// gnolls (15-17, the keep 18-22) are left out at 12-15. The Decrepit Ferry's boat on that shore is handed in on
+// the walk (final route review, 0.3.5): a hand-in to an object there is no Sepulcher stop.
 test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 quests on the ride to Hillsbrad, no Fenris Isle at 12-15`, { skip }, () => {
 	const list = goals(SILVERPINE);
 	const stop = list[at(list, 'accept 91921 (Return to Quinn (Again))', is('accept', 91921))].s;
@@ -1408,7 +1409,7 @@ test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 qu
 	}
 	const eyes = at(list, 'the murloc eyes (91920)', (g) => g.quest === 91920 && g.t === 'collect');
 	const pendants = at(list, 'the Dalaran Pendants (479)', (g) => g.quest === 479 && g.t === 'collect');
-	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
+	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional && goal.npc != null).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
 	assert.deepEqual(list.filter(({ goal }) => [443, 460, 461, 493, 516, 95981].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Fenris Isle, and the level 19-21 quests wait for the ride to Hillsbrad');
 	const ride = goals(STONETALON);
 	const sep = ride[at(ride, 'accept 493', is('accept', 493))].s;

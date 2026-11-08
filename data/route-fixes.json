@@ -10320,6 +10320,30 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 40-60 accept levels (2026-11-08): Secret Communication (minimum level 57) is taken and handed in to Bor Wildmane on the Cenarion Hold stop after the Twilight camps: the Encrypted Twilight Texts drop with or without the quest. Taken on arrival at 56.6, the level model ground 252 minutes to 57 before the accept."
+			},
+			{
+				"a": [
+					"task",
+					91920
+				],
+				"b": [
+					"turnin",
+					438
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Corpse Laden Boat (58.4,34.9) is on the lake shore that the walk from the Vile Fin murlocs (Wild Eyes) south to Ambermill follows. The route went from the Sepulcher to the ferry and back for The Decrepit Ferry and Rot Hide Clues, then walked past the boat again on that shore; the boat is now on the shore walk and Hadrec takes Rot Hide Clues on the Sepulcher stop after Ambermill, saving about 1,300 yd and a Sepulcher stop"
+			},
+			{
+				"a": [
+					"turnin",
+					438
+				],
+				"b": [
+					"task",
+					479
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Decrepit Ferry on the shore walk from the murlocs, before Ambermill (see the pair task 91920 before turnin 438)"
 			}
 		]
 	}
