@@ -46,6 +46,7 @@ ns.RegisterDefaults("behavior", {
 	whileHereRadius = 180, -- yards from its spawn area's edge at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
+	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd

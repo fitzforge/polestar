@@ -26,9 +26,11 @@
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
---     item. While the flight map is open on the live step, it takes the
---     marked flight instead (QoL/Flight.lua, Flight.Take). Independent of
---     the buttons' settings.
+--     item. While it targets, or has nothing else to do, the mobs of the
+--     While you're here rows follow the step's own names, nearest row first
+--     (behavior.whileHereStepKey, #1316). While the flight map is open on the
+--     live step, it takes the marked flight instead (QoL/Flight.lua,
+--     Flight.Take). Independent of the buttons' settings.
 --   Mark target (off by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
@@ -519,6 +521,69 @@ local function addDroppers(list)
 	end
 end
 
+local function startGoal()
+	goalCount = goalCount + 1
+	goalNames[goalCount] = wipe(goalNames[goalCount] or {})
+	goalPos[goalCount] = 1
+end
+
+-- The names of one open goal (view gv, raw rg) into the last started list.
+local function addGoalNames(gv, rg, qdb)
+	if gv.t == "kill" then
+		-- /targetexact needs the name as the client writes it.
+		local N = ns.Names
+		addName((N and N.Npc(rg.npc or gv.npc)) or rg.target or gv.subject)
+	elseif gv.t == "collect" then
+		-- The mobs the arrow leads to come first: the farm spot the engine
+		-- chose (`collect … nearest`), then the guide's own sources for this
+		-- point (`fromNpcs`). The item's droppers follow, and stand alone for
+		-- a goal with neither: they are ranked by drop chance over the whole
+		-- world, so for an item many creatures drop the best of them are
+		-- mostly in other zones.
+		local N = ns.Names
+		local npc = gv.npc or rg.npc
+		if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName) end
+		local src = rg.fromNpcs or gv.fromNpcs
+		for i = 1, src and #src or 0 do
+			addName((N and N.Npc(src[i].npc)) or src[i].npcName)
+		end
+		if qdb then
+			local QDB = ns.QuestDB
+			if gv.quest and rg.oi and QDB.GetObjectiveMobs then
+				addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi))
+			elseif (gv.item or rg.item) and QDB.GetItemDroppers then
+				addDroppers(QDB.GetItemDroppers(gv.item or rg.item))
+			end
+		end
+	end
+end
+
+-- The started lists into out: one name from each in order, then the next
+-- from each, up to MAX_NAMES, skipping the names in seen.
+local function interleave(out, seen)
+	local more = true
+	while more and #out < MAX_NAMES do
+		more = false
+		for i = 1, goalCount do
+			local list, p = goalNames[i], goalPos[i]
+			while list[p] and seen[list[p]] do p = p + 1 end
+			if list[p] and #out < MAX_NAMES then
+				seen[list[p]] = true
+				out[#out + 1] = list[p]
+				p = p + 1
+				more = true
+			end
+			goalPos[i] = p
+		end
+	end
+	return out
+end
+
+local function questDBLoaded()
+	local QDB = ns.QuestDB
+	return QDB and QDB.IsLoaded and QDB.IsLoaded() or false
+end
+
 -- Names for the target button (reused list): one from each open goal in
 -- guide order, then the next from each, up to MAX_NAMES, so a goal with many
 -- mobs (five creatures drop the Nightsaber Fang) cannot crowd out the goals
@@ -529,8 +594,7 @@ function Buttons.TargetNames(view, raw)
 	goalCount = 0
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return names end
-	local QDB = ns.QuestDB
-	local qdb = QDB and QDB.IsLoaded and QDB.IsLoaded()
+	local qdb = questDBLoaded()
 	-- The step's goals, then the Along the way list's (along steps and
 	-- pinned quests, #644: Engine.GetAlong), each with its raw goal.
 	local goals, raws = view.goals or {}, raw
@@ -548,55 +612,32 @@ function Buttons.TargetNames(view, raw)
 	end
 	for g = 1, #goals do
 		local gv = goals[g]
-		local rg = raws and raws[g] or gv
 		if QoL.Open(gv) then
-			goalCount = goalCount + 1
-			goalNames[goalCount] = wipe(goalNames[goalCount] or {})
-			goalPos[goalCount] = 1
-			if gv.t == "kill" then
-				-- /targetexact needs the name as the client writes it.
-				local N = ns.Names
-				addName((N and N.Npc(rg.npc or gv.npc)) or rg.target or gv.subject)
-			elseif gv.t == "collect" then
-				-- The mobs the arrow leads to come first: the farm spot the engine
-				-- chose (`collect … nearest`), then the guide's own sources for this
-				-- point (`fromNpcs`). The item's droppers follow, and stand alone for
-				-- a goal with neither: they are ranked by drop chance over the whole
-				-- world, so for an item many creatures drop the best of them are
-				-- mostly in other zones.
-				local N = ns.Names
-				local npc = gv.npc or rg.npc
-				if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName) end
-				local src = rg.fromNpcs or gv.fromNpcs
-				for i = 1, src and #src or 0 do
-					addName((N and N.Npc(src[i].npc)) or src[i].npcName)
-				end
-				if qdb then
-					if gv.quest and rg.oi and QDB.GetObjectiveMobs then
-						addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi))
-					elseif (gv.item or rg.item) and QDB.GetItemDroppers then
-						addDroppers(QDB.GetItemDroppers(gv.item or rg.item))
-					end
-				end
-			end
+			startGoal()
+			addGoalNames(gv, raws and raws[g] or gv, qdb)
 		end
 	end
-	local more = true
-	while more and #names < MAX_NAMES do
-		more = false
-		for i = 1, goalCount do
-			local list, p = goalNames[i], goalPos[i]
-			while list[p] and nameSeen[list[p]] do p = p + 1 end
-			if list[p] and #names < MAX_NAMES then
-				nameSeen[list[p]] = true
-				names[#names + 1] = list[p]
-				p = p + 1
-				more = true
-			end
-			goalPos[i] = p
+	return interleave(names, nameSeen)
+end
+
+-- The mobs of the While you're here rows (Engine.GetWhileHereList, nearest
+-- first) as the target button's names are made, one from each row in turn;
+-- none with behavior.whileHereStepKey off (#1316). A reused list.
+local hereNames, hereSeen = {}, {}
+function Buttons.HereNames()
+	wipe(hereNames)
+	wipe(hereSeen)
+	goalCount = 0
+	local E = ns.Engine
+	if not (ns.Get("behavior.whileHereStepKey") and E and E.GetWhileHereList and E.AlongGoal) then return hereNames end
+	local qdb = questDBLoaded()
+	for _, v in ipairs(E.GetWhileHereList()) do
+		if (v.t == "kill" or v.t == "collect") and QoL.Open(v) then
+			startGoal()
+			addGoalNames(v, E.AlongGoal(v.step, v.index) or v, qdb)
 		end
 	end
-	return names
+	return interleave(hereNames, hereSeen)
 end
 
 -- NPCs: "exists" out of combat, not "help": a neutral NPC (Booty Bay,
@@ -827,6 +868,7 @@ local function stepGoal(view, raw, goals, optional)
 	end
 end
 
+local stepNames, stepSeen = {}, {}
 function Buttons.StepAction(view, raw)
 	-- The open flight map's marked node first: the press flies there.
 	local F = QoL.Flight
@@ -837,10 +879,29 @@ function Buttons.StepAction(view, raw)
 	local goals = view.goals or {}
 	local kind, value = stepGoal(view, raw, goals, false)
 	if not kind then kind, value = stepGoal(view, raw, goals, true) end
-	if kind then return kind, value end
-	local item = Buttons.ChooseQuestItem(view, raw)
-	if item then return "item", item end
-	return nil
+	if not kind then
+		local item = Buttons.ChooseQuestItem(view, raw)
+		if item then kind, value = "item", item end
+	end
+	-- Targeting, or with nothing else to do: the While you're here rows' mobs
+	-- after the step's own names (#1316). An item, the Hearthstone or an NPC
+	-- keeps the key.
+	if kind == "target" or not kind then
+		wipe(stepNames)
+		wipe(stepSeen)
+		for i = 1, kind and #value or 0 do
+			stepNames[i], stepSeen[value[i]] = value[i], true
+		end
+		local here = Buttons.HereNames()
+		for i = 1, #here do
+			if not stepSeen[here[i]] then
+				stepSeen[here[i]] = true
+				stepNames[#stepNames + 1] = here[i]
+			end
+		end
+		if #stepNames > 0 then return "target", stepNames end
+	end
+	return kind, value
 end
 
 local step = { kind = nil, value = nil, list = {}, sig = nil, cycle = 1 }
@@ -1136,7 +1197,8 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
 	end
-	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
+	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui"
+		or path == "behavior.whileHereStepKey" or path == "behavior" or path == "" then refreshSoon() end
 end)
 ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
 

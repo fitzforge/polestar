@@ -225,6 +225,10 @@ local BUILTIN = {
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereStepKey", label = L["Step key targets their mobs"],
+			help = L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."],
+			search = "step key, target, targetexact, keybind, binding",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
