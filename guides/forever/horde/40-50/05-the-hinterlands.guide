@@ -9,7 +9,8 @@ next forever/horde/40-50/06-azshara
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933).
+# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933), Fall From Grace (2784),
+# The Disgraced One (2621), The Missing Orders (2622).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
 step Fly to Tarren Mill
@@ -222,6 +223,17 @@ step Fly to Stonard
 step Fel'zerul
   turnin 1444                         -- On the top floor
 
+step Fallen Hero of the Horde
+  tip The ghostly orc stands by the road where the swamp meets the canyon into the Blasted Lands. Listen to his story.
+  accept 2784
+
+step Fall From Grace
+  kill 7572 quest 2784.1 @34.3,66.1 map 1435
+
+step Fallen Hero of the Horde
+  turnin 2784
+  accept 2621                           -- for Dispatch Commander Ruag in Stonard, after the Blasted Lands
+
 step The bloodmages
   zone Blasted Lands
   tip Ride west out of Stonard and south through the canyon into the Blasted Lands; the two bloodmages stand by the road just inside.
@@ -312,3 +324,11 @@ step The bloodmages
   turnin 2583
   turnin 2585
   turnin 2581                           -- Bloodmage Drazial
+
+step Stonard
+  zone Swamp of Sorrows
+  tip Ride back north through the canyon to Stonard.
+  turnin 2621                           -- Dispatch Commander Ruag
+  accept 2622
+  turnin 2622                           -- Bengor
+  note Bengor's The Swamp Talker is a level 55 quest: leave it.
