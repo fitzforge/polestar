@@ -6551,3 +6551,18 @@ test('Horde 30-40: Call of Air is taken on the Orgrimmar stop at 31, not at 29',
 		.find((p) => p.a[0] === 'accept' && p.a[1] === 1431 && p.b[0] === 'accept' && p.b[1] === 1531);
 	assert.ok(pair, 'the order is a record');
 });
+
+// Final route review for 0.3.5 (Arathi 36-39, both sides): Sunken Treasure's escort step said the
+// professor goes down to the shore and naga ambush him; he walks up to the cave above Faldir's Cove and
+// summons two water elementals there (the server's script), as the writer's own 'Careful' tip said.
+// One guide-fixes tip for both sides.
+test('Sunken Treasure: the escort tip sends you up to the cave, where two water elementals come', { skip }, () => {
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 665 && f.tip);
+	assert.ok(rec, 'the tip is a record');
+	assert.match(rec.tip, /cave/);
+	assert.match(rec.tip, /water elementals/);
+	assert.doesNotMatch(rec.tip, /naga|shore|beach/);
+	for (const guide of ['forever/horde/30-40/05-arathi-highlands.guide', 'forever/alliance/30-40/05-arathi-highlands.guide']) {
+		assert.deepEqual(stepTips(guide, /^\s+complete 665\b/), [rec.tip], `${guide}: the step's tip is the record's`);
+	}
+});

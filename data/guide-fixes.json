@@ -3533,6 +3533,21 @@
 				}
 			],
 			"issue": 1257
+		},
+		{
+			"id": "sunken-treasure-escort-up-to-the-cave",
+			"at": {
+				"quest": 665,
+				"goal": "complete"
+			},
+			"tip": "Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming.",
+			"note": "Final route review 0.3.5: the Horde step said two Daggerspine naga ambush the professor on the way down to the shore, the Alliance one that naga attack in waves on the beach north of the cove; both contradicted the writer's own 'Careful' tip. The professor walks up to the cave and, at his last waypoint, summons two Vengeful Surges (water elementals, npc 2776) before completing the quest. One tip for both sides, with the 'Careful' tip folded in, since a tip record replaces the step's tips.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "smart_scripts 2768/276802 (summon group 1) and creature_summon_groups: two Vengeful Surge 2776 by the cave"
+				}
+			]
 		}
 	]
 }
