@@ -357,12 +357,16 @@ return {
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
 	["{item:279378}: the inn on the {area:1659}"] = "",
+
+	-- Step 58: Darnassus
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, in the {area:1658}"] = "{npc:3516} – здесь: {area:1658}",
 
-	-- Step 57: Cenarion Enclave
+	-- Step 59: Cenarion Enclave
 	-- {npc:4146} Jocaste · {area:1658} Cenarion Enclave · {spell:5149} Beast Training
 	["{npc:4146}, in the {area:1658}: {spell:5149}"] = "{npc:4146} ({area:1658}): {spell:5149}",
+
+	-- Step 61: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217}, in the {area:1658}"] = "{npc:4217} – здесь: {area:1658}",
 	-- {area:3425} Cenarion Hold
@@ -376,65 +380,65 @@ return {
 	-- {npc:11401} Priestess Alathea
 	["{npc:11401}, in the Temple of the Moon: Starshards"] = "{npc:11401} – в Храме Луны: Звездные осколки",
 
-	-- Step 58: Ilyenia Moonfire
+	-- Step 62: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 59: Ilyenia Moonfire
+	-- Step 63: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 60: Portal to Teldrassil
+	-- Step 64: Portal to Teldrassil
 	-- {quest:940} Teldrassil
 	["Portal to {quest:940}"] = "",
 
-	-- Step 61: Rut'theran Village
+	-- Step 65: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
 	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
 	["talk to {npc:3838} again: free with {quest:6342}"] = "",
 
-	-- Step 62: Auberdine
+	-- Step 66: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "Плакат «РАЗЫСКИВАЕТСЯ» у таверны",
 
-	-- Step 63: Return to Nessa
+	-- Step 67: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "Летите обратно сюда: {area:702} – от {npc:3841}, отдайте {item:16263}: {npc:10118} на пристани, затем летите обратно ({area:442}).",
 
-	-- Step 64: The Long Wash
+	-- Step 68: The Long Wash
 	-- {object:17182} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
 
-	-- Step 65: Auberdine
+	-- Step 69: Auberdine
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "{npc:3649} – в северной части деревни",
 
-	-- Step 66: Gubber Blump
+	-- Step 70: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
 	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "{npc:10216} – на пристани",
 
-	-- Step 67: Moonglade
+	-- Step 71: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Затем {npc:11800} ({area:2361}) доставит друидов прямо сюда: {area:702} – маршрут полета не нужен. {npc:11802} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Поговорите: {quest:5929}",
 
-	-- Step 68: Back to Darnassus
+	-- Step 72: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 69: The Moonkin Stone
+	-- Step 75: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Спуститесь обратно: {area:702}, затем летите сюда: {area:442}. {object:177525} стоит на холмах чуть восточнее деревни: используйте там {item:15208}, победите Лунокогтя и поговорите: {npc:12144}.",
 
-	-- Step 70: Body and Heart
+	-- Step 76: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "Еще раз летите сюда: {area:702} – и поднимитесь через портал к {npc:4217}, затем летите обратно ({area:442}).",
 

@@ -1796,6 +1796,10 @@ local gotoTarget, gotoStep, gotoGoal
 -- mouth and the cave); a goto farther off, or on another continent, is the
 -- last trip's end, not a way in (the zeppelin tower before the Barrens, #1128)
 local WAY_IN_YD = 500
+-- yards: a goal this near the target stands at its spot (another quest of the
+-- same NPC, an optional turn-in before the accept): no waypoint of its own, so
+-- the way in before it still leads to the target (#1338)
+local SAME_SPOT_YD = 3
 
 -- The goal's point in world yards: c, wx, wy | nil.
 local function worldOf(t)
@@ -1809,8 +1813,9 @@ end
 -- the arrow goes straight from there. Until then the target is walked like
 -- any other, so a goal aimed at ahead of its way in never leads onto the
 -- hill above the cave (#914). Only a goto on the target's continent within
--- WAY_IN_YD of it is a way in. The goto is found once per target; its state
--- is asked every time.
+-- WAY_IN_YD of it is a way in. Goals at the target's own spot (SAME_SPOT_YD)
+-- are looked past. The goto is found once per target; its state is asked
+-- every time.
 function Walk.FollowsGoto(target)
 	if target ~= gotoTarget then
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
@@ -1819,6 +1824,7 @@ function Walk.FollowsGoto(target)
 		local guide = E and E.GetGuide and E.GetGuide()
 		local steps = type(guide) == "table" and guide.steps
 		if type(steps) ~= "table" then return false end
+		local bc, bx, by = worldOf(target)
 		local s, g = target.stepIndex, target.goalIndex - 1
 		while s >= 1 and not gotoStep do
 			local goals = steps[s] and steps[s].goals
@@ -1827,13 +1833,13 @@ function Walk.FollowsGoto(target)
 				for k = g, 1, -1 do
 					local goal = goals[k]
 					if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
-						if goal.t == "goto" then
-							local ac, ax, ay = worldOf(goal)
-							local bc, bx, by = worldOf(target)
-							if ac and ac == bc and (ax - bx) ^ 2 + (ay - by) ^ 2 <= WAY_IN_YD * WAY_IN_YD then gotoStep, gotoGoal = s, k end
+						local ac, ax, ay = worldOf(goal)
+						local d2 = ac and ac == bc and (ax - bx) ^ 2 + (ay - by) ^ 2 or nil
+						if goal.t == "goto" or not (d2 and d2 <= SAME_SPOT_YD * SAME_SPOT_YD) then
+							if goal.t == "goto" and d2 and d2 <= WAY_IN_YD * WAY_IN_YD then gotoStep, gotoGoal = s, k end
+							s = 0
+							break
 						end
-						s = 0
-						break
 					end
 				end
 			end

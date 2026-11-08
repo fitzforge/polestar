@@ -1764,6 +1764,33 @@ fn a_reached_goto_is_a_way_in_only_on_the_target_s_continent_and_near_it_1128_th
 	assert_eq!(out, json!({ "near": true, "far": false, "other": false }));
 }
 
+// #1338 (Jaesais, Cure Poison in Darnassus): a building's door is the way in to an NPC upstairs, and a step
+// often has two goals at that NPC (an optional turn-in before the accept). The goal at the NPC's own spot is no
+// waypoint of its own, so the accept still follows the door; a goal elsewhere in between still ends the way in.
+#[test]
+fn a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_in_before_the_accept() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the NPC upstairs
+		local _, dx, dy = nav.mapPoint(0, 25)         -- the building's door, a guide goto
+		local _, ox, oy = nav.mapPoint(0, 60)         -- another NPC outside
+		local function follows(between)
+			local guide = { steps = {
+				{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+				{ goals = { between, { t = "accept", map = m, x = tx, y = ty } } },
+			} }
+			Polestar.Engine.GetGuide = function() return guide end
+			Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the door reached
+			return N.walk.FollowsGoto({ map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 2, kind = "accept" })
+		end
+		emit({
+			same = follows({ t = "turnin", map = m, x = tx, y = ty }),
+			elsewhere = follows({ t = "turnin", map = m, x = ox, y = oy }),
+		})"#,
+	);
+	assert_eq!(out, json!({ "same": true, "elsewhere": false }));
+}
+
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,
 // Pier Roost (300, 0) flies to Far Roost (-400, 0); the target (-400, -300).
 const BOAT: &str = r#"

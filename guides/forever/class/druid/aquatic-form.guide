@@ -41,6 +41,17 @@ zone Moonglade
 # Forever); the lockbox tips are the ones the leveling guides above use.
 
 # ---------------------------------------------------------------- Night Elves and Alliance Skyborne
+# Mathrengyl stands upstairs in the druids' building and the walking maps have no way up inside it:
+# without a waypoint the arrow led onto a ledge outside his floor, behind the wall (#1338). Each step
+# to him comes after a goto at the building's door on its south side, 35.8,11.6, where players'
+# recordings walk in; from there the arrow points straight at him.
+
+step Cenarion Enclave
+  only NightElf,Skyborne,Alliance
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. Skyborne: cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up.
+  level 16
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step A Lesson to Learn
   only NightElf,Skyborne,Alliance
@@ -83,6 +94,12 @@ step Pendant of the Sea Lion
   turnin 272                            -- Dendrite Starblaze
   accept 5061
   fly "Rut'theran Village"
+
+step Cenarion Enclave
+  only NightElf,Skyborne,Alliance
+  zone Darnassus
+  tip Take the portal up to Mathrengyl in the Cenarion Enclave. Aquatic Form: swim fast and breathe underwater.
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Aquatic Form
   only NightElf,Skyborne,Alliance

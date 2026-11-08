@@ -217,6 +217,8 @@ return {
 	["The portal in {area:702} leads up to {zone:1457}."] = "",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["{npc:9047}, in the {area:1658}"] = "{area:1658}의 {npc:9047}",
+
+	-- Step 60: Darnassus
 	-- {zone:1455} Ironforge
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "다음 가이드에서 훈련하는 {zone:1455}에는 드루이드 상급자가 없습니다",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
@@ -224,44 +226,44 @@ return {
 	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
 	["{quest:6762} in {area:493}: keep it"] = "{area:493}의 {quest:6762}: 보관하세요",
 
-	-- Step 57: Portal to Teldrassil
+	-- Step 61: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "",
 
-	-- Step 58: Rut'theran Village
+	-- Step 62: Rut'theran Village
 	-- {area:618} Winterspring
 	["Ranshalla in {area:618}: keep it"] = "",
 
-	-- Step 59: Feathermoon Stronghold
+	-- Step 63: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "{area:702}에서 {area:1116}(으)로 날아가세요.",
 	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
 	["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: {area:440}용으로 보관하세요",
 
-	-- Step 61: Boat to The Forgotten Coast
+	-- Step 65: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "",
 
-	-- Step 62: Zorbin Fandazzle
+	-- Step 66: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle · {area:1119} Twin Colossals
 	["Take the boat to the mainland and ride north-east to {npc:14637}'s camp by the {area:1119}."] = "배를 타고 본토로 건너가 북동쪽 {area:1119} 옆에 있는 {npc:14637}의 야영지로 가세요.",
 
-	-- Step 63: The Forgotten Coast: kill these as you meet them
+	-- Step 67: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {area:1119} Twin Colossals
 	["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "축소된 거인들은 {area:1119}을(를) 돌아다니고, 바다 정령들은 서쪽 해안을 따라 물속을 걷습니다.",
 
-	-- Step 65: Gregan Brewspewer
+	-- Step 69: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1119} Twin Colossals · {item:11243} Videre Elixir
 	["{npc:7775}'s camp lies north of the {area:1119}. He sells the {item:11243} once he has his bait."] = "{npc:7775}의 야영지는 {area:1119} 북쪽에 있습니다. 미끼를 받으면 {item:11243}을(를) 팝니다.",
 
-	-- Step 67: Fly to Theramore
+	-- Step 71: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	-- {area:489} Thalanaar
 	["{area:489} flight master"] = "",
 
-	-- Step 69: Ratchet
+	-- Step 73: Ratchet
 	-- {area:17} The Barrens · {area:392} Ratchet
 	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer
@@ -271,28 +273,28 @@ return {
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}: keep it for Un'Goro; inside"] = "",
 
-	-- Step 70: Fly to Everlook
+	-- Step 74: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 72: Donova Snowden
+	-- Step 76: Donova Snowden
 	["Ride west along the road to the hot springs."] = "길을 따라 서쪽 온천으로 가세요.",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	["{npc:9299} in {area:976}: keep it"] = "",
 
-	-- Step 74: Rabine Saturna
+	-- Step 78: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
 	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "{area:1769}에 들어가 터널의 {area:493} 갈림길을 따라 {area:2361}(으)로 가세요.",
 	-- {area:1377} Silithus
 	["For {area:1377}: keep it"] = "{area:1377}용: 보관하세요",
 
-	-- Step 75: Fly to Gadgetzan
+	-- Step 79: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 
-	-- Step 76: Gadgetzan
+	-- Step 80: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7583} Sprinkle
@@ -302,23 +304,23 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "",
 
-	-- Step 77: Gaeriyan
+	-- Step 81: Gaeriyan
 	-- {npc:9299} Gaeriyan
 	["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에서 기다리며, 묘비는 그 근처에 서 있습니다.",
 
-	-- Step 78: Broken Pillar
+	-- Step 82: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "남서쪽으로 {area:1938}의 {npc:7771} 야영지로 가세요.",
 	-- {quest:3444} The Stone Circle · {area:392} Ratchet
 	["{quest:3444} is in {area:392}"] = "{quest:3444}은(는) {area:392}에 있습니다",
 
-	-- Step 80: Fly to Marshal's Refuge
+	-- Step 84: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
-	-- Step 81: Linken
+	-- Step 85: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {area:538} Lakkari Tar Pits · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; {npc:9117} is up the hill behind it.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
 	-- {npc:9117} J.D. Collie
@@ -326,84 +328,84 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 
-	-- Step 83: Cenarion Hold
+	-- Step 87: Cenarion Hold
 	-- {area:1377} Silithus · {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride out of the crater's north-western pass into {area:1377} and on to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 84: Silithus: kill these as you meet them
+	-- Step 88: Silithus: kill these as you meet them
 	-- {area:1377} Silithus
 	["{area:1377}: kill these as you meet them"] = "",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "{npc:11740}은(는) 요새 북서쪽 모래언덕을 파고, {npc:11735}와(과) {npc:11738}은(는) 사방을 돌아다닙니다.",
 
-	-- Step 85: Level 56.89
+	-- Step 89: Level 56.89
 	["Level 56.89"] = "",
 	-- {item:9328} Super Snapper FX · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
 	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 	-- {npc:11740} Dredge Striker
 	["grind on {npc:11740}"] = "",
 
-	-- Step 86: Cenarion Hold
+	-- Step 90: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Follow the road south-west out of the pass to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, 얼라이언스 천막",
 
-	-- Step 87: Silithus: kill these as you meet them
+	-- Step 91: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["Dredge Crushers dig further west; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "{npc:11741}은(는) 더 서쪽을 파고, {npc:11736}, 돌꼬리채찍전갈, {npc:11739}이(가) 같은 모래밭에서 사냥합니다.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 88: Layo Starstrike
+	-- Step 92: Layo Starstrike
 	-- {npc:13220} Layo Starstrike
 	["Ride east to {npc:13220}."] = "동쪽으로 {npc:13220}에게 가세요.",
 
-	-- Step 89: Southwind Village
+	-- Step 93: Southwind Village
 	-- {npc:13220} Layo Starstrike
 	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "고통받는 드루이드와 고통받는 파수꾼이 {npc:13220} 남서쪽의 폐허가 된 마을을 떠돕니다.",
 
-	-- Step 91: The Hive'Ashi tower
+	-- Step 95: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "{area:2742} 탑",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "동쪽으로 {area:2738}의 {area:2742} 탑으로 가세요. 탑에 올라 딱딱한 실리시드 조각을 노리고 나타나는 잠복꾼을 처치하세요.",
 
-	-- Step 92: Layo Starstrike
+	-- Step 96: Layo Starstrike
 	-- {area:493} Moonglade
 	["Umber in {area:493}: keep it"] = "{area:493}의 움버: 보관하세요",
 
-	-- Step 94: Un'Goro Crater: kill these as you meet them
+	-- Step 98: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
 	["{area:490}: kill these as you meet them"] = "",
 
-	-- Step 95: Krakle
+	-- Step 99: Krakle
 	-- {area:541} Marshal's Refuge · {area:543} Golakka Hot Springs · {npc:10302} Krakle
 	["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "서쪽으로 {area:541}을(를) 지나 서쪽을 따라 남쪽의 {area:543}까지 가세요. 고블린 {npc:10302}이(가) 물가에 앉아 있습니다.",
 
-	-- Step 96: Krakle's Thermometer
+	-- Step 100: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 
-	-- Step 97: Krakle
+	-- Step 101: Krakle
 	-- {npc:9298} Donova Snowden · {area:618} Winterspring
 	["Ends with {npc:9298} in {area:618}: keep it"] = "{area:618}의 {npc:9298}에게서 끝납니다: 보관하세요",
 
-	-- Step 98: Northern Pylon
+	-- Step 102: Northern Pylon
 	["Northern Pylon"] = "북쪽 수정탑",
 
-	-- Step 100: The crater
+	-- Step 104: The crater
 	["The crater"] = "분화구",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
 	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
 
-	-- Step 102: Torwa Pathfinder
+	-- Step 106: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "비탈을 내려가 분화구로 가세요. {npc:9619}은(는) 비탈 아래에 진을 치고 있습니다.",
 	["The pelts come after loop 2, on the gorilla plateau"] = "가죽은 두 번째 순환 이후, 고릴라 고원에서 모읍니다",
 
-	-- Step 103: Lakkari Tar Pits: kill these as you meet them
+	-- Step 107: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "",
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -416,28 +418,28 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "",
 
-	-- Step 105: U'cha
+	-- Step 109: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 	["Below ground"] = "",
 
-	-- Step 106: Lar'korwi
+	-- Step 110: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}의 굴은 {npc:9619} 북쪽, 동쪽 절벽 아래 밀림에 있습니다. 그곳에서 {item:11568}을(를) 사용하세요. {npc:9684}은(는) 56레벨이니 생명력이 가득한 상태로 시작하세요.",
 
-	-- Step 107: Torwa Pathfinder
+	-- Step 111: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "분화구 남쪽을 가로질러 비탈 옆의 {npc:9619}에게 가세요.",
 
-	-- Step 108: The Marshlands: kill these as you meet them
+	-- Step 112: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "",
 
-	-- Step 109: Ringo
+	-- Step 113: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
 
-	-- Step 110: Escort Ringo
+	-- Step 114: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen

@@ -3083,9 +3083,11 @@ ends whose heights, `z`, lie 20 yd or more apart: a lift, which the engine
 rides), a walk between chain neighbours, to a chain node past its mouth, or
 from inside a chain (`leg.handmade`: the data's own links), and a
 guide goal whose last located goal before it, across steps, is a `goto`
-(the author's way in: a cave's mouth; the goto itself is walked) keep the
-straight arrow, so a target underground is never routed over the hill
-above it. `nav.navRouting` (default on, Guide > Arrow & routes) off, the
+(the author's way in: a cave's mouth, a building's door; the goto itself is
+walked; goals within 3 yd of the target, another quest of the same NPC,
+are looked past) keep the straight arrow, so a target underground is never
+routed over the hill above it, nor one upstairs onto a ledge outside its
+floor (#1338). `nav.navRouting` (default on, Guide > Arrow & routes) off, the
 engine missing, or Polestar_Nav not loaded: the straight arrow everywhere.
 `GetRouteGeometry` (rebuilt on `NAV_ROUTE_GEOMETRY`, which fires on every
 plan, leg change, target change and path arrival) gives the map lines the

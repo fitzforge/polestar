@@ -68,6 +68,16 @@ step Heeding the Call
   level 10
   accept 5925 optional                  -- Kal, Dolanaar; Denatharion's and Theridran's letters lead to the same place
 
+# Mathrengyl stands upstairs in the druids' building and the walking maps have no way up inside it:
+# without a waypoint the arrow led onto a ledge outside his floor, behind the wall (#1338). Each step
+# to him comes after a goto at the building's door on its south side, 35.8,11.6, where players'
+# recordings walk in; from there the arrow points straight at him.
+step Cenarion Enclave
+  only NightElf
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
+  goto 35.8,11.6 "Cenarion Enclave"
+
 step Mathrengyl Bearwalker
   only NightElf
   zone Darnassus
@@ -86,6 +96,11 @@ step Moonglade
   accept 5931
   getfp "Moonglade"
   fly "Rut'theran Village"
+
+step Cenarion Enclave
+  only NightElf
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
 
 step Back to Darnassus
   only NightElf
@@ -106,6 +121,7 @@ step Body and Heart
   zone Darnassus
   tip Fly back to Rut'theran Village and take the portal up to Mathrengyl.
   fly "Rut'theran Village"
+  goto 35.8,11.6 "Cenarion Enclave"
   turnin 6001                           -- Mathrengyl Bearwalker: Bear Form
 
 # ---------------------------------------------------------------- Tauren

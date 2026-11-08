@@ -382,6 +382,16 @@ step Darnassus
   turnin 4508                         -- Gracina Spiritmight, in the Temple of the Moon
   accept 4510
   turnin 4510                         -- Idriana, in the bank
+
+# Fandral stands at the top of the druids' building, and the walking maps have no way up inside it:
+# the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
+# south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus
+  zone Darnassus
   turnin 4902                         -- Arch Druid Fandral Staghelm, atop the Cenarion Enclave
 
 step Portal to Teldrassil

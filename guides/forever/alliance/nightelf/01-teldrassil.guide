@@ -429,6 +429,17 @@ step Darnassus
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
   accept 6344 only !Warrior                   -- Mydrannul
   use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
+
+# Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave, and the
+# walking maps have no way up inside it: the arrow led onto a ledge outside, behind the wall (#1338).
+# Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players'
+# recordings walk in there), makes the arrow point straight at him from there.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus
+  zone Darnassus
   turnin 935                                  -- Arch Druid Fandral Staghelm, in the Cenarion Enclave
   turnin 940
   accept 952
@@ -437,6 +448,14 @@ step Cenarion Enclave
   zone Darnassus
   accept 98046
   turnin 6103 only Hunter                     -- Jocaste, in the Cenarion Enclave: Beast Training
+
+step Cenarion Enclave
+  only Druid
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Cenarion Enclave
+  zone Darnassus
   turnin 5925 only Druid                      -- Mathrengyl Bearwalker, in the Cenarion Enclave
   accept 5921 only Druid
   use 279378 quest 98067.1 @33.39,16.77       -- the tunnel mouth below Cenarion Hold, on the way south
@@ -540,6 +559,15 @@ step Back to Darnassus
   zone Darnassus
   tip Nessa stands on the Rut'theran dock where you land. Then take the portal up to Mathrengyl in the Cenarion Enclave.
   turnin 6343                                 -- Nessa Shadowsong
+
+step Cenarion Enclave
+  only Druid
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Back to Darnassus
+  only Druid
+  zone Darnassus
   turnin 5931                                 -- Mathrengyl Bearwalker
   accept 6001
 
@@ -556,5 +584,6 @@ step Body and Heart
   zone Darnassus
   tip Fly to Rut'theran Village once more and take the portal up to Mathrengyl, then fly back to Auberdine.
   fly "Rut'theran Village"
+  goto 35.8,11.6 "Cenarion Enclave"
   turnin 6001                                 -- Mathrengyl Bearwalker: Bear Form
   fly "Auberdine"
