@@ -39,8 +39,8 @@ return {
 	-- Step 6: Uzzek at Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
 	["{npc:5810} at {area:379}"] = "",
-	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore · {area:380} Crossroads
-	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the {area:380}."] = "",
+	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore
+	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "",
 
 	-- Step 7: Singed Scales in Thunder Ridge
 	-- {area:369} Thunder Ridge
@@ -57,12 +57,12 @@ return {
 	["Back to {npc:5810} under his tree west of {area:379}."] = "",
 
 	-- Step 9: Thun'grim Firegaze
-	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {area:380} Crossroads
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}. Most slopes are too steep: climb the broad ridge on the north or east side."] = "",
+	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "",
 
 	-- Step 10: Forged Steel
-	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze · {area:380} Crossroads
-	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the {area:380}. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "",
+	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze
+	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "",
 	-- {item:6534} Forged Steel Bars · {object:58369} Stolen Iron Chest
 	["{item:6534}, from the {object:58369}"] = "",
 

@@ -40,7 +40,7 @@ return {
 	-- {area:77} Anvilmar · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
 	["The Spirit Stone stands on a snowy ridge north-west of {area:77}. The trail is easy to miss: it climbs the hill from the valley floor; at the small camp near the top turn left and the stone comes into view. Stand beside it, drink the {item:6635} and speak to the {npc:5891} before it fades."] = "",
 	-- {item:6635} Earth Sapta
-	["{item:6635}, beside the Spirit Stone"] = "",
+	["{item:6635}, beside the Spirit Stone"] = "{item:6635}, junto a la piedra de espíritu",
 	-- {item:6656} Rough Quartz
 	["it hands you the {item:6656}: keep it"] = "",
 

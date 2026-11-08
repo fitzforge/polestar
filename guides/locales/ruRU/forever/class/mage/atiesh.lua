@@ -27,7 +27,7 @@ return {
 	["Two more raid bosses, a full 40-player raid each, both pieces always drop: the {item:22733} from {npc:15990} on his throne at the top of Naxxramas, the {item:22734} from {npc:15727} at the bottom of the {area:16076}, behind the {area:3478} in southern {zone:1451}. Each boss comes back once a week."] = "",
 	-- {item:22733} Staff Head of Atiesh · {npc:15990} Kel'Thuzad
 	["{item:22733}: {npc:15990}, Naxxramas"] = "",
-	-- {item:22734} Base of Atiesh · {npc:15727} C'Thun · {area:16076} Temple of Ahn'Qiraj · {object:176146} Gate of Ahn'Qiraj
+	-- {item:22734} Base of Atiesh · {npc:15727} C'Thun · {area:16076} Temple of Ahn'Qiraj · {object:176146} Gate of Ahn'Qiraj (no name in this language: may be words)
 	["{item:22734}: {npc:15727}, {area:16076}, past the {object:176146}"] = "",
 
 	-- Step 4: Back to Anachronos
@@ -39,9 +39,9 @@ return {
 	-- Step 5: Atiesh, Hand of Sargeras
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "",
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane · {object:181206} Consecrated Earth · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
+	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
 	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "",
-	-- {object:181206} Consecrated Earth · {area:2279} Stratholme
+	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
 	["the befouled staff, on the {object:181206} inside {area:2279}"] = "",
 
 	-- Step 6: The Greatstaff

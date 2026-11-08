@@ -30,11 +30,11 @@ return {
 
 	-- Step 7: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "",
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} и {npc:2817} стоят лагерем вместе ({area:1877}), в центре зоны {area:3}.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "Моллюски – на северо-западном побережье Тернистой долины, в следующем гайде: сохраните задание",
 
 	-- Step 8: Agmond's End
-	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "",
+	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "Разбитый скелет лежит чуть восточнее огров, на краю лагеря троггов из племени Каменного Свода; хлопья падают с костегрызов и шаманов вокруг. Тельдарин сидит у разрушенного лагеря дальше к югу.",
 
 	-- Step 9: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
@@ -43,7 +43,7 @@ return {
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Огры из клана Гнилобрюхов стоят лагерем чуть южнее долины; лом падает с любого из них. Над равниной к востоку кружат канюки.\nРазбитый скелет лежит на краю лагеря троггов из племени Каменного Свода; убийца Агмонда ({quest:739}) ходит среди костегрызов.\nОсторожно: повелители из клана Гнилобрюхов – 44-45-го уровня. Они применяют {spell:5242} и {spell:1160}, а при здоровье ниже 50% зовут на помощь союзников в радиусе 15 м. Семеро из них стоят примерно в 750 м к югу (ориентир: {area:340}).",
 	-- {quest:739} Murdaloc · {area:3} Badlands
-	["The skeleton's next task, {quest:739}, waits until the later {area:3} guide at 43."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -57,8 +57,8 @@ return {
 	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Младшие каменные элементали бродят здесь: {area:1878}, к западу от {npc:2921}; осколки каменных элементалей для NPC {npc:1470} могут выпасть из любого каменного элементаля.",
 
 	-- Step 13: Lucien Tosselwrench
-	-- {npc:2921} Lotwil Veriatus
-	["{npc:2921}'s next test needs crafted gear: skip it."] = "Для следующего испытания {npc:2921} нужно изготовленное снаряжение: пропустите его.",
+	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
+	["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "",
 
 	-- Step 14: The Ancient Chest
 	-- {object:126260} Ancient Chest
@@ -71,8 +71,8 @@ return {
 	-- Step 15: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
 	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
-	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
+	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
 
 	-- Step 16: Theldurin the Lost
 	-- {area:345} Agmond's End
@@ -86,6 +86,11 @@ return {
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
 	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "Каменные элементали бродят к юго-востоку от {npc:2921}; на равнине к западу от них – гигантские канюки и старые скальные койоты.",
+
+	-- Step 18: Lotwil Veriatus
+	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
+	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
+	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
 
 	-- Step 19: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
@@ -107,15 +112,14 @@ return {
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 24: Theramore
-	["Theramore"] = "Остров Терамор",
-	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
-	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
-	-- {npc:5083} Clerk Lendry
-	["{npc:5083}, on the top floor"] = "",
-	-- {npc:4964} Commander Samaul
-	["{npc:4964}, on the top floor"] = "",
-	["for the Dustwallow loop in the next guide"] = "для круга по Пылевым топям в следующем гайде",
+	-- Step 24: Theramore flight master
+	["Theramore flight master"] = "",
+	-- {area:514} Foothold Citadel
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+
+	-- Step 25: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "",
 
 	-- Step 26: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
@@ -177,7 +181,7 @@ return {
 
 	-- Step 43: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
-	["The next guide starts in Theramore."] = "",
+	["The next guide starts in Theramore."] = "Следующий гайд начинается на острове Терамор.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам ({area:2405}); сундук с разбитого корабля лежит на берегу чуть западнее.",
@@ -199,11 +203,13 @@ return {
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Распорядитель полетов стоит у ворот ({area:514}); {npc:5083} и {npc:4964} – внутри цитадели.",
 	-- ["The next guide starts in Theramore."] = "Следующий гайд начинается на острове Терамор.",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "Следующее задание скелета, «Мурдалок», подождет до более позднего гайда по зоне {zone:1418} на 43-м уровне.",
+	-- ["Theramore"] = "Остров Терамор",
+	-- ["for the Dustwallow loop in the next guide"] = "для круга по Пылевым топям в следующем гайде",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "для NPC {npc:4454} ({area:439}): гайд по зоне {zone:1446} проходит там на 45-м уровне, сохраните задание",
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "Караван (это {npc:11626}) останавливается на дороге к востоку (ориентир: {area:606}). Возьмите задание и идите с кодо мимо места {area:602}, убивая нападающих демонов; потом поговорите со {npc:11596} в его лагере к востоку (ориентир: {area:596}).",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "Башня {npc:11863} стоит на холме к востоку от обломков корабля.",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277} держат в лагере кентавров к западу от кладбища. Освободите ее и защищайте по пути наружу; она остановится у кладбища.",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, в таверне",
-	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618} и {npc:2817} стоят лагерем вместе ({area:1877}), в центре зоны {zone:1418}.",
+	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "Для следующего испытания {npc:2921} нужно изготовленное снаряжение: пропустите его.",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "Следующее задание {npc:5638}, {item:6245}, – добыча на дальнем побережье: пропустите его.",
 }

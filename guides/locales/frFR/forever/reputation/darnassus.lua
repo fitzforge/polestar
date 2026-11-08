@@ -100,8 +100,8 @@ return {
 	-- Step 17: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "{area:186} : {npc:2080} et le lac",
-	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:736} Ban'ethil Hollow
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "{npc:2080} s'occupe de son jardin sur la rive sud-est du {area:259} ; {npc:2107} se tient dans le {area:736}, à l'est du village.",
+	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 18: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar
@@ -189,5 +189,6 @@ return {
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Les Mercenaires du Syndicat au Donjon de Stromgarde (niveau 31-32) en lâchent ici. L'hôtel des ventes convient aussi.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} recueille le tissu pour {faction:69}, à {faction:69}. Les premiers dons de laine, de soie, de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et rapportent le plus de réputation par étoffe ; ensuite, {quest:7801} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725} : {item:14047} livrée",
+	-- ["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "{npc:2080} s'occupe de son jardin sur la rive sud-est du {area:259} ; {npc:2107} se tient dans le {area:736}, à l'est du village.",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} demande 20 {item:14047} par rendu et se répète autant que vous voulez. Apportez du {item:14047} par multiples de 20 et rendez tout d'un coup, un rendu après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans {zone:1423}, ou l'hôtel des ventes.",
 }

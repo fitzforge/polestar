@@ -30,11 +30,11 @@ return {
 
 	-- Step 7: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "",
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "蚌壳在荆棘谷西北海岸，在下一份指南里：先留着",
 
 	-- Step 8: Agmond's End
-	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "",
+	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
 
 	-- Step 9: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
@@ -43,7 +43,7 @@ return {
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
 	-- {quest:739} Murdaloc · {area:3} Badlands
-	["The skeleton's next task, {quest:739}, waits until the later {area:3} guide at 43."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -57,8 +57,8 @@ return {
 	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "小型岩石元素在{npc:2921}西边的{area:1878}游荡；所有岩石元素都可能掉落{npc:1470}要的岩石元素碎片。",
 
 	-- Step 13: Lucien Tosselwrench
-	-- {npc:2921} Lotwil Veriatus
-	["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
+	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
+	["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "",
 
 	-- Step 14: The Ancient Chest
 	-- {object:126260} Ancient Chest
@@ -71,8 +71,8 @@ return {
 	-- Step 15: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
 	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
-	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
+	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
 
 	-- Step 16: Theldurin the Lost
 	-- {area:345} Agmond's End
@@ -86,6 +86,11 @@ return {
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
 	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}在{npc:2921}东南方游荡；{npc:2831}和{npc:2729}分布在它们西边的平原上。",
+
+	-- Step 18: Lotwil Veriatus
+	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
+	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
+	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
 
 	-- Step 19: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
@@ -107,15 +112,14 @@ return {
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 24: Theramore
-	["Theramore"] = "塞拉摩岛",
-	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
-	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
-	-- {npc:5083} Clerk Lendry
-	["{npc:5083}, on the top floor"] = "",
-	-- {npc:4964} Commander Samaul
-	["{npc:4964}, on the top floor"] = "",
-	["for the Dustwallow loop in the next guide"] = "留给下一份指南的尘泥沼泽环线",
+	-- Step 24: Theramore flight master
+	["Theramore flight master"] = "",
+	-- {area:514} Foothold Citadel
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+
+	-- Step 25: Nijel's Point
+	-- {npc:5638} Kreldig Ungor
+	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "",
 
 	-- Step 26: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
@@ -177,7 +181,7 @@ return {
 
 	-- Step 43: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
-	["The next guide starts in Theramore."] = "",
+	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
@@ -199,11 +203,13 @@ return {
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飞行管理员站在{area:514}大门旁；{npc:5083}和{npc:4964}在城堡里。",
 	-- ["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "骷髅的下一个任务“莫达洛克”留到之后43级的{zone:1418}指南。",
+	-- ["Theramore"] = "塞拉摩岛",
+	-- ["for the Dustwallow loop in the next guide"] = "留给下一份指南的尘泥沼泽环线",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "交给{area:439}的{npc:4454}：{zone:1446}指南会在45级经过那里，先留着",
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "{npc:11626}的车队停在{area:606}东边的路上。接下任务，跟着科多兽经过{area:602}，击杀袭击它们的恶魔；之后到{area:596}东边的营地与{npc:11596}交谈。",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔在残骸东边的山丘上。",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277}被关在墓地西边的半人马营地里。救出她，在出去的路上保护她；她会在墓地旁停下。",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店里",
-	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618}和{npc:2817}一起在{zone:1418}中部的{area:1877}扎营。",
+	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一个任务{item:6245}是远处海岸的掉落物：跳过。",
 }

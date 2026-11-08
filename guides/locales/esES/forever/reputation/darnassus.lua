@@ -100,8 +100,8 @@ return {
 	-- Step 17: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "",
-	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:736} Ban'ethil Hollow
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "",
+	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 18: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar

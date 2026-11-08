@@ -90,7 +90,6 @@ return {
 	["The coast and the road"] = "La côte et la route",
 	-- {quest:97223} Bloodtalon Matriarch · {area:362} Razor Hill
 	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "Les makruras et les clampants de l'écume arpentent les plages à l'est et au sud de Sen'jin. {quest:97223} est à l'est du village. Les araignées Ridgeshade sont le long de la route au sud de {area:362} et au nord-est de la Tanière.",
-	["Bloodtalon Matriarch Eggs"] = "Œufs de la matriarche griffesang",
 
 	-- Step 13: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
@@ -217,6 +216,7 @@ return {
 	["{npc:7952}: the raptors"] = "{npc:7952} : les raptors",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Bloodtalon Matriarch Eggs"] = "Œufs de la matriarche griffesang",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Les Adeptes noirs et Ombremages (niveau 58-60) en lâchent ici ; chaque Fléau tué ici compte aussi pour l'{object:92525} (voir ce guide). L'hôtel des ventes fonctionne aussi.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Les ogres Cognedune (niveau 45-48) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["Keep handing in {quest:7837} until {faction:530} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7837} jusqu'à être Exalté auprès de {faction:530}. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",

@@ -67,9 +67,9 @@ return {
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
 	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, na mina de {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["Goblin Woodcarvers, inside"] = "",
+	["Goblin Woodcarvers, inside"] = "Goblins Entalhadores, lá dentro",
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
-	["The {item:6995}"] = "",
+	["The {item:6995}"] = "A {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 

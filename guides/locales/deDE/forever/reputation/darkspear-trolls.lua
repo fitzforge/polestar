@@ -90,7 +90,6 @@ return {
 	["The coast and the road"] = "",
 	-- {quest:97223} Bloodtalon Matriarch · {area:362} Razor Hill
 	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "",
-	["Bloodtalon Matriarch Eggs"] = "",
 
 	-- Step 13: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village

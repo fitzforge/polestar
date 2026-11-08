@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:2458} Berserker Stance · {spell:1680} Whirlwind
-	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "",
+	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "{spell:2458} a nivel 30 y un hacha, espada o martillo de guerra de {spell:1680} a nivel 40.",
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894} de {quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176} acampa en el sureste de {zone:1416}, por encima de {zone:1424}; su caldera está a su lado. Pide una {item:3357}, un {item:3901} y la {quest:1714}, que su caldera prepara con tres talismanes.",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712} espera justo al norte del campamento de {npc:6176} y lleva el {item:6894}. {quest:1712} es élite: se recomienda ir en grupo.",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "{spell:2458} a nivel 30 y un hacha, espada o martillo de guerra de {spell:1680} a nivel 40.",
 }

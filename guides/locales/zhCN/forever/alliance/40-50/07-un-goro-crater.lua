@@ -14,16 +14,20 @@ return {
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "飞往{area:976}",
 	["Theramore flight master"] = "",
 
-	-- Step 5: Gadgetzan
+	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
 	["The flight from Theramore lands in {area:976}."] = "从塞拉摩起飞的航班降落在{area:976}。",
 
+	-- Step 6: Sprinkle
+	-- {npc:7564} Marin Noggenfogger
+	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
+
 	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{area:490}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -52,7 +56,7 @@ return {
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
-	["{area:537} and the eastern jungle"] = "",
+	["{area:537} and the eastern jungle"] = "{area:537}和东部丛林",
 	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑到陨石坑中央的{area:537}，然后向东进入东部丛林。水晶簇遍布陨石坑，许多在{area:537}周围：每种颜色多拿几个。{npc:6509}和血瓣花猛击者掉落花瓣；远征队的{item:11113}在东部丛林的一处废弃营地里。",
@@ -69,8 +73,6 @@ return {
 	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9998} Shizzle
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
-	-- {item:11834} Super Sticky Tar · {npc:6518} Tar Lurker · {npc:6519} Tar Lord
-	["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -79,9 +81,9 @@ return {
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	-- {area:541} Marshal's Refuge
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "",
-	["Pterrordax"] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Pterrordax"] = "翼手龙",
 	["grind on Pterrordax"] = "",
 
 	-- Step 20: Crate of Foodstuffs
@@ -139,33 +141,29 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 
-	-- Step 30: Royal Historian Archesonus
-	-- {object:171709} High Seat
-	["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
-	-- {zone:1428} Burning Steppes
-	["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
+	-- Step 30: Class trainer
+	["Class trainer"] = "职业训练师",
 
-	-- Step 31: Bind and train
-	["Bind and train"] = "设置炉石并训练",
-
-	-- Step 32: Xiggs Fuselighter
+	-- Step 31: Xiggs Fuselighter
 	-- {object:32359} Military Ward
 	["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
 
-	-- Step 35: Fly to Astranaar
+	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 36: Level 50.4
+	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	-- {area:3137} Talrendis Point
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
+	-- ["Bind and train"] = "设置炉石并训练",
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "穿过环形山南部，到坡道旁找{npc:9619}。",
 	-- ["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "从{area:144}飞往{area:1537}。",
@@ -183,7 +181,6 @@ return {
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑行到环形山中央的{area:537}，然后向东进入东部丛林。水晶簇遍布环形山，很多在{area:537}周围：每种颜色多拿几个。{item:11316}鞭笞者和猛击者掉落花瓣；探险队的{item:11113}在东部丛林的一处废弃营地里。",
 	-- ["Ride west back to the refuge."] = "向西骑回避难所。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "从{npc:9619}向西骑行：异种虫巢穴占据环形山南部。对孵化室（挂着幼虫的房间）使用采集瓶。格里什异种蝎和格里什工蝎掉落{quest:3764}；如果还需要击杀，{npc:9166}在南部悬崖筑巢。",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{zone:1449}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西经过{area:541}，再沿西侧向南到{area:543}：地精{npc:10302}坐在水边。",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "组队打{area:1417}代替刷怪会更快。单人刷怪就跳过此步骤。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "组队打{area:978}代替刷怪会更快。巨魔城市位于{zone:1446}西北部，就在{area:976}北边。",
@@ -193,12 +190,13 @@ return {
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}的猩猩成小群出现，目前不会给你掉落任何东西；{npc:9619}的毛皮任务稍后才有。别进最深的洞：{npc:9622}是55级。",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "毛皮在第二圈之后，在猩猩高地上",
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "水晶塔立在避难所东边的山坡上。{npc:9166}在周围山坡上盘旋：它们计入{npc:9997}的任务，并掉落{npc:9998}要的鳞片。",
+	-- ["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周围刷废土强盗或砂槌食人魔",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}刷{npc:5458}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}刷{npc:6514}",
-	-- ["{area:537} and the eastern jungle"] = "{area:537}和东部丛林",
 	-- ["{area:978} (optional)"] = "{area:978}（可选）",
+	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深处",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴在{npc:9619}北边的丛林中，东部悬崖下方：在那里使用{item:11568}。{npc:9684}是56级：满血开打。",

@@ -10,8 +10,8 @@ return {
 	["A rare off-hand orb or staff for your 20s, for fragments from two dungeons."] = "Une orbe de main gauche ou un bâton rare pour votre vingtaine, contre des fragments de deux donjons.",
 
 	-- Step 1: Doan Karhan
-	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:380} Crossroads · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
-	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the {area:380}. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247} campe à côté de {npc:6244}, sous une tente juste au nord-est du {area:378}, dans le sud des {zone:1413}. Les démonistes de l'Alliance le rejoignent depuis {area:392} ou Theramore ; ceux de la Horde descendent au sud depuis la {area:380}. Il veut des fragments de deux donjons : prenez la quête avant vos expéditions à {area:2797} et au {area:236}.",
+	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
+	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "",
 
 	-- Step 2: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {area:414} Zoram Strand · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai
@@ -40,5 +40,6 @@ return {
 	-- ["The Twilight Acolytes inside {area:2797}, a level 24-32 dungeon, each drop a {item:6914}: bring a group. The entrance is in the ruins on the north-west coast of {zone:1440}."] = "Les Acolytes du crépuscule de {area:2797}, un donjon de niveau 24-32, laissent chacun tomber un {item:6914} : venez en groupe. L'entrée se trouve dans les ruines de la côte nord-ouest d'{zone:1440}.",
 	-- ["{item:6914}, from the Twilight Acolytes"] = "{item:6914}, sur les Acolytes du crépuscule",
 	-- ["{item:6915}, from the Shadowfang Darksouls"] = "{item:6915}, sur les Ténébreux d'Ombrecroc",
+	-- ["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the {area:380}. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247} campe à côté de {npc:6244}, sous une tente juste au nord-est du {area:378}, dans le sud des {zone:1413}. Les démonistes de l'Alliance le rejoignent depuis {area:392} ou Theramore ; ceux de la Horde descendent au sud depuis la {area:380}. Il veut des fragments de deux donjons : prenez la quête avant vos expéditions à {area:2797} et au {area:236}.",
 	-- ["{npc:6247} camps in the southern {zone:1413}, east of the road north-east of {area:378}."] = "{npc:6247} campe dans le sud de {zone:1413}, à l'est de la route au nord-est de {area:378}.",
 }

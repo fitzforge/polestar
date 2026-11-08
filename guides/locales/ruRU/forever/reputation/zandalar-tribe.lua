@@ -27,7 +27,7 @@ return {
 	["{item:19707}; any of the nine colours does"] = "",
 
 	-- Step 3: A Bijou for Zanza
-	-- {object:180367} Altar of Zanza · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
+	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
 	["Destroy one bijou at the {object:180367}, the stone altar on the west side of {area:3357} (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "",
 
 	-- Step 4: Friendly: your class necklace
@@ -69,8 +69,8 @@ return {
 	-- Step 6: Zul'Gurub to Honored
 	-- {area:19} Zul'Gurub
 	["{area:19} to Honored"] = "",
-	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {spell:24361} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {spell:471400} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
-	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {spell:24361} (5g each), {item:20000} (12g), {item:20756} (4g) and {spell:471400} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
+	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {item:20004} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {spell:471400} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
+	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {spell:471400} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
 
 	-- Step 7: Honored: necklace, Savage Guard and mangoes
 	-- {item:22635} Savage Guard
@@ -102,9 +102,9 @@ return {
 	-- Step 8: Zul'Gurub to Revered
 	-- {area:19} Zul'Gurub
 	["{area:19} to Revered"] = "",
-	-- {quest:8201} A Collection of Heads · {npc:14910} Exzhal · {item:19883} Sacred Cord · {quest:8183} The Heart of Hakkar · {npc:14875} Molthor · {item:19682} Bloodvine Vest · {item:19685} Primal Batskin Jerkin · {item:19688} Blood Tiger Breastplate · {item:19690} Bloodsoul Breastplate · {item:19693} Darksoul Breastplate · {spell:24365} Mageblood Elixir · {quest:8243} Zanza's Potent Potables
+	-- {quest:8201} A Collection of Heads · {npc:14910} Exzhal · {item:19883} Sacred Cord · {quest:8183} The Heart of Hakkar · {npc:14875} Molthor · {item:19682} Bloodvine Vest · {item:19685} Primal Batskin Jerkin · {item:19688} Blood Tiger Breastplate · {item:19690} Bloodsoul Breastplate · {item:19693} Darksoul Breastplate · {item:20007} Mageblood Elixir · {quest:8243} Zanza's Potent Potables
 	-- plural, as words: Channeler's Heads = {item:19881} Channeler's Head
-	["Honored to Revered is 12,000: about three clears. Two one-time quests help: {quest:8201} ({npc:14910} on the isle: 200 for five Channeler's Heads from the High Priests, strung on his {item:19883}) and {quest:8183} (one per kill, for whoever loots it; {npc:14875} on the isle pays 200 and a Zandalarian Hero badge, charm or medallion). Revered opens {item:19682}, {item:19685}, {item:19688}, {item:19690}, {item:19693} and {spell:24365} (5g each), the Paragons of Power chests and mantles (150) and {quest:8243}."] = "",
+	["Honored to Revered is 12,000: about three clears. Two one-time quests help: {quest:8201} ({npc:14910} on the isle: 200 for five Channeler's Heads from the High Priests, strung on his {item:19883}) and {quest:8183} (one per kill, for whoever loots it; {npc:14875} on the isle pays 200 and a Zandalarian Hero badge, charm or medallion). Revered opens {item:19682}, {item:19685}, {item:19688}, {item:19690}, {item:19693} and {item:20007} (5g each), the Paragons of Power chests and mantles (150) and {quest:8243}."] = "",
 
 	-- Step 9: Revered: necklace, coins and bijous
 	["Revered: necklace, coins and bijous"] = "",

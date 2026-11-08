@@ -15,14 +15,16 @@ return {
 	-- Step 3: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
+	-- {area:415} Astranaar · {area:361} Felwood · {area:2479} Emerald Sanctuary
+	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}，在{npc:11554}东边不远的废墟中",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
 
 	-- Step 4: Grazle
-	-- {area:415} Astranaar · {area:361} Felwood · {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
+	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -31,20 +33,20 @@ return {
 
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "",
-	-- {item:9328} Super Snapper FX
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
+	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {area:361} Felwood
-	["{npc:15395} waits at the north end of {area:361}"] = "",
+	["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395}在{area:361}北端等候",
 	["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "",
-	-- {area:1763} Jaedenar
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
+	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
@@ -73,8 +75,8 @@ return {
 
 	-- Step 13: Level 52.9
 	["Level 52.9"] = "",
-	-- {area:2479} Emerald Sanctuary
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53."] = "",
+	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 
 	-- Step 15: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -156,5 +158,4 @@ return {
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016}，在{area:1770}",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}：三十个{quest:6031}，57级再次经过时交还",
 	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral"] = "{npc:11558}：木喉熊怪只有在中立时才会和你说话",
-	-- ["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395}在{zone:1448}北端等候",
 }

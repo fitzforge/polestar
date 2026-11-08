@@ -67,9 +67,9 @@ return {
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
 	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, in der Mine von {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["Goblin Woodcarvers, inside"] = "",
+	["Goblin Woodcarvers, inside"] = "Goblin-Holzschnitzer, drinnen",
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
-	["The {item:6995}"] = "",
+	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
@@ -116,7 +116,6 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to the {area:228}"] = "Zurück zum Ort {area:228}",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "Befreie sie mit dem Schlüssel und bleib dann in ihrer Nähe, während sie sich aus der Burg kämpft.",
 	-- ["Head south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Geh nach Süden durch {zone:1421} zum {area:228}. {npc:248840} steht in der Stadt; {npc:259611} hält in der Nähe des Eingangs Wache.",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "Noch kein Gegenstand: eine Rettungsgeschichte für Paladine der Verlassenen; die Fortsetzung, die {item:268484}, kann noch nicht abgeschlossen werden.",
@@ -126,7 +125,6 @@ return {
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Reite nach Süden durch {zone:1421} zum {area:228}. {npc:248840} steht im Ort; {npc:259611} hält nahe dem Eingang Wache.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "Die {area:172} liegt im See östlich vom {area:228}. Die verkohlten Überreste sind am Ufer.",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} führt die Paladine von Tyrs Wacht aus {area:16602} heraus, auf den Klippen nordwestlich von {area:156}.",
-	-- ["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} ist in {area:235} eingesperrt, am Nordende der Insel. Die Gnolle der Moderfelle um sie herum tragen den Schlüssel.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Ruf bei {zone:1458} und beim Irdenen Ring",
 }

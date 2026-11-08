@@ -13,10 +13,10 @@ return {
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "{spell:7328} pour ranimer les alliés tombés, plus une arme et un bouclier pour un nouveau paladin réprouvé.",
 
 	-- Step 1: Aramis Hammerhand
-	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell
-	["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. Holy Light hurts a Forsaken paladin a little each time: watch your health."] = "",
-	-- {npc:259377} Injured Deathguard
-	["Heal 5 {npc:259377} with Holy Light"] = "",
+	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
+	["Heal 5 {npc:259377} with {spell:635}"] = "Soignez 5 {npc:259377} avec {spell:635}",
 
 	-- Step 2: Coming to Terms
 	-- {npc:244808} Aramis Hammerhand · {npc:246143} Frightened Paladin
@@ -33,8 +33,8 @@ return {
 	["At 8 {npc:246152} in {area:159} sends you to the order's keep on the west coast. {quest:91317} in {area:16881} and the crypt under it hit hard at 8-9: come at 10 or later."] = "Au niveau 8, {npc:246152} à {area:159} vous envoie au donjon de l'ordre sur la côte ouest. {quest:91317} à {area:16881} et la crypte en dessous frappent fort aux niveaux 8-9 : venez au niveau 10 ou plus tard.",
 
 	-- Step 5: Bandarion Keep
-	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {npc:267009} Hadric Harlson · {area:159} Brill
-	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after A Righteous Cause from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "{area:16602} se dresse sur les falaises au nord-ouest de la {area:156} (la route vers l'ouest part vers 29,46). {npc:246349} attend à la porte. {npc:246389}, la maîtresse du donjon, et {npc:259190}, son maître des écuries, se tiennent à l'orée de la forêt juste au sud de lui. Ils n'ont du travail pour vous qu'à partir du niveau 10 et après Une cause juste, donnée par Leonid au donjon, la fin de la suite de quêtes de {npc:267009} qui commence au sud-est de {area:159} ; acceptez leurs quêtes quand vous les voyez.",
+	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {npc:267009} Hadric Harlson · {area:159} Brill
+	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
@@ -140,7 +140,6 @@ return {
 	-- ["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, {npc:246378} teaches you {spell:7328}."] = "Retour à {area:16602}, en traversant toutes les clairières : Billmuth, au rez-de-chaussée, prend les plans, {npc:246378} vous apprend {spell:7328}.",
 	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "Retour à {area:16602}. {npc:246378} vous remet le {item:6866} ; {npc:257655} attend au rez-de-chaussée du donjon.",
 	-- ["Back to {area:16602}: Billmuth takes the plans, {npc:246378} teaches you {spell:7328}."] = "Retour à {area:16602} : Billmuth prend les plans, {npc:246378} vous apprend {spell:7328}.",
-	-- ["Heal 5 {npc:259377} with {spell:635}"] = "Soignez 5 {npc:259377} avec {spell:635}",
 	-- ["Tarnished Drudges"] = "Manoeuvres ternis",
 	-- ["Tarnished Zealots"] = "Zélotes ternis",
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "Les membres de la Croisade écarlate qui campent autour de la {area:812} portent les plans d'attaque.",
@@ -148,6 +147,7 @@ return {
 	-- ["Tyr's Watch and {spell:7328}"] = "Tyr's Watch et {spell:7328}",
 	-- ["Vile Fin Attackers"] = "Attaquants aileron noir",
 	-- ["Vile Fin Seers"] = "Oracles aileron noir",
+	-- ["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after A Righteous Cause from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "{area:16602} se dresse sur les falaises au nord-ouest de la {area:156} (la route vers l'ouest part vers 29,46). {npc:246349} attend à la porte. {npc:246389}, la maîtresse du donjon, et {npc:259190}, son maître des écuries, se tiennent à l'orée de la forêt juste au sud de lui. Ils n'ont du travail pour vous qu'à partir du niveau 10 et après Une cause juste, donnée par Leonid au donjon, la fin de la suite de quêtes de {npc:267009} qui commence au sud-est de {area:159} ; acceptez leurs quêtes quand vous les voyez.",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} se dresse sur les falaises au nord-ouest de la {area:156}. {npc:246349} attend à la porte.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "La {area:812} se trouve à l'extrémité est des clairières. Utilisez le {item:6866} sur {npc:257663}, puis parlez-lui. Si vous perdez le symbole, {npc:246378} vous en donne un autre.",
 	-- ["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} vous donne un {item:282423} après Les Décérébrés : lisez-le, puis apportez-le à {npc:244808} près de l'église. Il vous demande de soigner cinq {npc:259377} étendus autour de {area:154}. {spell:635} blesse un peu un paladin réprouvé à chaque fois : surveillez votre vie.",

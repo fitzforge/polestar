@@ -21,8 +21,8 @@ return {
 	["At 10 {npc:3066}, the shaman trainer in {area:222}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5906}'s letter from {zone:1456}? It goes to {npc:5907} too: skip Narm."] = "",
 
 	-- Step 3: Kranal Fiss
-	-- {npc:5907} Kranal Fiss · {area:380} Crossroads · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
-	["{npc:5907} is not in the {area:380}: take the road north from the {area:380} and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
+	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
+	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
 
 	-- Step 4
 	-- {npc:5907} Kranal Fiss · {npc:3173} Swart
@@ -49,9 +49,9 @@ return {
 	["Back east over the bridge, then south along the {zone:1411} bank of the river to where the mountains meet the water. The trail up starts at the foot of the mountain beside a small dark stone carved with symbols, near the quilboar camp; it is narrow, and a slip costs fall damage. {npc:5900} keeps the shrine at the top."] = "",
 
 	-- Step 10: Fire Tar
-	-- {area:380} Crossroads · {item:5026} Fire Tar
+	-- {item:5026} Fire Tar
 	-- plural, as words: Fireballs = {spell:133} Fireball
-	["The Razormane casters north-east of the {area:380} drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "",
+	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "",
 
 	-- Step 11: Reagent Pouch
 	-- {spell:348} Immolate · {area:371} Dustwind Cave · {area:362} Razor Hill · {area:817} Skull Rock · {zone:1454} Orgrimmar
@@ -73,9 +73,9 @@ return {
 	-- Step 14: The Minor Manifestation of Fire
 	-- {npc:5893} Minor Manifestation of Fire
 	["The {npc:5893}"] = "",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
 	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words)
 	["{item:6636}, beside the {object:63674}"] = "",
 
 	-- Step 15: The Brazier of the Dormant Flame
@@ -107,15 +107,15 @@ return {
 	["Back to {npc:268592} at the Shrine of Flames."] = "",
 
 	-- Step 21: Kuramaa
-	-- {object:660848} Kuramaa's Stump · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
+	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
 	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "",
-	-- {object:660848} Kuramaa's Stump
+	-- {object:660848} Kuramaa's Stump (no name in this language: may be words)
 	["{object:660848}: knock on the bark"] = "",
 
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame
-	["The {object:148418}"] = "",
+	["The {object:148418}"] = "{object:148418}",
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
 	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "",
 	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar

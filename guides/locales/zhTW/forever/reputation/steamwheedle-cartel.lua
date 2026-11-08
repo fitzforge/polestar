@@ -21,7 +21,7 @@ return {
 	["{quest:7721}: 150 to every town"] = "",
 
 	-- Step 2: Zapped giants
-	["Zapped giants"] = "",
+	["Zapped giants"] = "被縮小的巨人",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:5357} Land Walker · {npc:5358} Cliff Giant · {npc:5361} Wave Strider · {item:18956} Miniaturization Residue
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "",
@@ -134,8 +134,8 @@ return {
 	["{item:274021}, Revered"] = "",
 
 	-- Step 14: Booty Bay: Gezzy Gunkgear
-	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274022} Tough Guy's Eyepatch
-	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "",
+	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274749} Souvenir Sea Shell · {item:274022} Tough Guy's Eyepatch
+	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "",
 	-- {item:274745} Deckswabber's Mitts
 	["{item:274745}, Friendly"] = "",
 	-- {item:274746} Sea Giant's Toe Ring
@@ -144,7 +144,8 @@ return {
 	["{item:274747}, Friendly"] = "",
 	-- {item:274748} Booty Bay Bruiser's Buckshot
 	["{item:274748}, Honored"] = "",
-	["Souvenir Sea Shell, Honored"] = "",
+	-- {item:274749} Souvenir Sea Shell
+	["{item:274749}, Honored"] = "",
 	-- {item:274022} Tough Guy's Eyepatch
 	["{item:274022}, Revered"] = "",
 

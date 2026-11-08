@@ -17,7 +17,7 @@ return {
 	-- {area:1446} Thorium Point · {zone:1427} Searing Gorge · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
 	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through {zone:1427} if you can; your first turn-in shows which. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
-	["The {object:179827} board"] = "",
+	["The {object:179827} board"] = "{object:179827}布告板",
 	-- {npc:14621} Overseer Maltorius
 	["{npc:14621} is elite"] = "",
 
@@ -36,7 +36,7 @@ return {
 
 	-- Step 3: Greater Lava Spiders
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "",
+	["Greater Lava Spiders"] = "{npc:5858}",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "",
 
 	-- Step 4: The Slag Pit
@@ -125,7 +125,7 @@ return {
 	-- Step 12: Lokhtos Darkbargainer to Revered
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Revered"] = "",
-	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
+	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock (no name in this language: may be words) · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in {area:1584}. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the {area:2717}, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside {area:1584}, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "",
 	-- {item:17010} Fiery Core · {area:2717} Molten Core

@@ -13,7 +13,7 @@ return {
 	-- Step 2: Shadow Priest Sarvis
 	-- {area:154} Deathknell
 	["Follow the path north into {area:154}; Sarvis stands in front of the church."] = "沿小路向北进入{area:154}；暗影牧师萨维斯站在教堂前。",
-	["Inside"] = "",
+	["Inside"] = "在里面",
 
 	-- Step 3: Mindless Zombies
 	-- plural, as words: Mindless Zombies = {npc:1501} Mindless Zombie
@@ -40,13 +40,13 @@ return {
 
 	-- Step 5: Injured Deathguard
 	-- {quest:90902} Rediscovering the Light · {npc:259377} Injured Deathguard · {spell:635} Holy Light
-	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "",
+	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "{quest:90902}：{npc:259377}躺在教堂周围，用{spell:635}治疗其中5人。",
 
 	-- Step 6: Deathknell: kill these as you meet them
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "{npc:1890}在{area:154}北半部的废弃房屋里游荡。{npc:1508}和夜行蝙蝠在村子周围游荡；{npc:1509}和{npc:1513}在村子东侧。{npc:1661}需要它们的爪子和翅膀：清理骷髅时顺路击杀遇到的它们。",
 
 	-- Step 7: Back to the church
@@ -120,7 +120,7 @@ return {
 	-- {npc:1496} Deathguard Dillinger · {npc:1742} Deathguard Bartholomew · {area:159} Brill
 	["{npc:1496} and {npc:1742} stand at the west end of {area:159}, where the road from Solliden comes in."] = "{npc:1496}和{npc:1742}站在{area:159}西端，索利丹农场方向的道路入口处。",
 	-- {npc:1742} Deathguard Bartholomew
-	["{npc:1742} stands by Dillinger a few minutes, then walks up to the graveyard north of town and back"] = "",
+	["{npc:1742}, beside Dillinger"] = "",
 
 	-- Step 22: Junior Apothecary Holland
 	-- {area:159} Brill
@@ -136,7 +136,7 @@ return {
 	-- Step 24: Eleanor Shackleton
 	["Eleanor camps just south-west of town."] = "埃莉诺·沙克尔顿在镇子西南方不远处扎营。",
 	-- {spell:1229451} Boosted Rest
-	["/sit by her campfire until you get {spell:1229451}"] = "",
+	["/sit by her campfire until you get {spell:1229451}"] = "在她的营火旁/sit，直到获得{spell:1229451}",
 
 	-- Step 25: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -332,12 +332,14 @@ return {
 	-- Step 57: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿道路返回{area:159}。{npc:2128}（法师）、{npc:2129}（牧师）、{npc:2127}（术士）和{npc:2130}（潜行者）在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
+	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
+	["{npc:1518}: for Renferrel at the {area:228}"] = "",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "{npc:2211}，在旅店的地下室里",
 
 	-- Step 58: Leonid Barthalomew the Revered
 	-- {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10); take them if they are offered. They send you into the cellar under {area:16881}, the next stop."] = "沿道路向西经过{area:157}到{area:16616}。莱尼德·巴萨罗梅站在{npc:246389}营地北边不远处。\n{npc:246389}和{npc:259190}在莱尼德南边不远处的森林边缘扎营。交还{quest:96896}（10级）后，所有职业都可以接受这两个任务；如果提供就接受。它们会让你进入{area:16881}下方的地下室，也就是下一站。",
+	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "听莱尼德·巴萨罗梅和{npc:246378}说话，然后再次与他交谈",
 
@@ -353,9 +355,9 @@ return {
 	-- {area:16881} Shadowvale
 	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers"] = "",
+	["Vile Fin Attackers"] = "{npc:250283}",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers"] = "",
+	["Vile Fin Seers"] = "{npc:250282}",
 
 	-- Step 61: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
@@ -386,19 +388,10 @@ return {
 	-- Step 66: Brill
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, inside"] = "",
-
-	-- Step 67: Zeppelin to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "",
-
-	-- Step 69: The Crossroads
-	-- {area:380} The Crossroads
-	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "",
-	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
-	["{npc:3449}: the harpies come later, in the {area:383}"] = "",
+	-- {area:159} Brill · {zone:1421} Silverpine Forest
+	["The next guide walks south from {area:159} into {zone:1421}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["/sit by her campfire until you get {spell:1229451}"] = "在她的营火旁/sit，直到获得{spell:1229451}",
 	-- ["Back to {area:159}."] = "返回{area:159}。",
 	-- ["Back to {area:16881} and down into the basement under the ruined house: the Shadowvale Lurchers and Mystics there drop the bones, and the {item:286269} is at the basement's south end."] = "返回{area:16881}，进入废屋下方的地下室。里面的影谷潜伏者和影谷秘法师会掉落骨头，{item:286269}在地下室南端。",
 	-- ["Back up the road to {area:159}."] = "沿道路返回{area:159}。",
@@ -411,6 +404,7 @@ return {
 	-- ["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}. From here on, kill the Duskbats and Darkhounds you pass: {npc:3549} wants their wings and hides."] = "沿道路向西北到{area:157}。{npc:1657}在磨坊南边的墓地里游荡；妮萨·阿加曼德、格里高·阿加曼德和{npc:1656}在磨坊里出没。断骨士兵和{npc:1523}掉落肋骨，{npc:1522}掉落头骨，其中任何一个都可能掉落{item:2839}。从这里开始，击杀路过的夜行蝙蝠和黑暗犬：{npc:3549}需要它们的翅膀和皮。",
 	-- ["Follow the road south back to {area:159}."] = "沿道路向南返回{area:159}。",
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "沿道路向西经过{area:157}到{area:16616}。莱尼德·巴萨罗梅站在{npc:246389}营地北边不远处。",
+	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10); take them if they are offered. They send you into the cellar under {area:16881}, the next stop."] = "沿道路向西经过{area:157}到{area:16616}。莱尼德·巴萨罗梅站在{npc:246389}营地北边不远处。\n{npc:246389}和{npc:259190}在莱尼德南边不远处的森林边缘扎营。交还{quest:96896}（10级）后，所有职业都可以接受这两个任务；如果提供就接受。它们会让你进入{area:16881}下方的地下室，也就是下一站。",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "为{npc:244808}解救洞内六名被网住的被遗忘者",
 	-- ["Greater Duskbats"] = "{npc:1553}",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "{npc:1553}在{area:159}周围的田野上空和北边的道路沿线飞行。",
@@ -471,7 +465,6 @@ return {
 	-- ["{npc:246389} and {npc:259190} camp at the forest's edge, just south of Leonid. Their quests need level 10."] = "{npc:246389}和{npc:259190}在森林边缘扎营，就在莱尼德·巴萨罗梅南边。他们的任务要求10级。",
 	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009}站在{npc:1495}的营地。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
-	-- ["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "{quest:90902}：{npc:259377}躺在教堂周围，用{spell:635}治疗其中5人。",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}：{npc:246143}逃进了教堂西边的山丘。",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897}占据着营地东南方不远处的农场。{item:275851}散落在教徒之间的地面上，教徒身上也带有一些。",
 }

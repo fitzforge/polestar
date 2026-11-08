@@ -33,8 +33,8 @@ return {
 	["{item:7119}, from the silithid"] = "",
 
 	-- Step 6: Thun'grim Firegaze
-	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {area:380} Crossroads · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
 
 	-- Step 7: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul

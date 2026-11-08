@@ -136,7 +136,7 @@ return {
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar
 	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use {spell:6268}, so start with the rod, not {spell:75}. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "Приручить: {npc:524}",
 
 	-- Step 18: Gray Forest Wolf
 	-- {spell:2641} Dismiss Pet · {area:87} Goldshire · {area:18} Crystal Lake
@@ -144,16 +144,16 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living wolf"] = "",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "Приручить: {npc:1922}",
 
 	-- Step 19: Young Forest Bear
 	-- {area:87} Goldshire
 	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear
 	["Dismiss the wolf. Young Forest Bears (level 8-9) roam the woods just south of {area:87}, with more south-west and south-east of town."] = "",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "Приручить: {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
-	["{npc:258930}, beside her: {spell:5149}"] = "",
+	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, рядом с ней: {spell:5149}",
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "",

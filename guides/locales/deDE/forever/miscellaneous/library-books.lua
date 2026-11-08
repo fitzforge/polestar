@@ -49,8 +49,8 @@ return {
 	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "Auf einem Fass in einem Zelt bei {area:2537}, im äußersten Südosten des Gebiets.",
 
 	-- Step 11: The Barrens
-	-- {area:382} Sludge Fen · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "",
+	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
+	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "",
 
 	-- Step 12: The Wailing Caverns' cave
 	-- {area:718} Wailing Caverns
@@ -61,8 +61,8 @@ return {
 	["Cave mouth at {area:387}"] = "",
 
 	-- Step 13: Orgrimmar
-	-- {object:172961} Valley of Spirits
-	["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Das Wandgemälde von Ta'zo ist die Steintafel, die im {object:172961} an der Wand lehnt, auf dem Weg zu den Magierlehrern. Benutze es, um das Buch zu nehmen.",
+	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "",
@@ -142,10 +142,10 @@ return {
 	["The library: third books (Horde)"] = "",
 
 	-- Step 36: The second Greater Friend of the Library
-	-- {quest:82208} Greater Friend of the Library
-	["The second {quest:82208}"] = "Die zweite {quest:82208}",
-	-- {npc:211033} Garion Wendell · {quest:82208} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
-	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:82208}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
+	-- {quest:79536} Greater Friend of the Library
+	["The second {quest:79536}"] = "",
+	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
+	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
 
 	-- Step 37: Level 60 books: Western Plaguelands
 	-- {zone:1422} Western Plaguelands
@@ -175,7 +175,7 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Level 60 books: {area:254}"] = "",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon
@@ -194,6 +194,8 @@ return {
 	-- ["From level 30, with more books still, {npc:211033} offers the second {quest:82208}."] = "Ab Stufe 30 bietet {npc:211033} mit noch mehr Büchern die zweite {quest:82208} an.",
 	-- ["Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a {quest:78150} reward."] = "Verlorene Bücher und Schriftrollen überall auf der Welt: Jedes bringt in der Bibliothek Erfahrung, und genug davon verdienen eine Belohnung von {quest:78150}.",
 	-- ["Once enough books are in, the librarian offers {quest:78150}. Take it when it appears."] = "Sind genug Bücher abgegeben, bietet der Bibliothekar {quest:78150} an. Nimm sie an, wenn sie erscheint.",
+	-- ["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Das Wandgemälde von Ta'zo ist die Steintafel, die im {object:172961} an der Wand lehnt, auf dem Weg zu den Magierlehrern. Benutze es, um das Buch zu nehmen.",
+	-- ["The second {quest:82208}"] = "Die zweite {quest:82208}",
 	-- ["Three books: scrolls outside the {area:718} entrance, the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "Drei Bücher: Schriftrollen vor dem Eingang der {area:718}, das Handbuch im Kontrollraum oben auf der Ölbohrinsel am {area:382} und der Goblin-Wälzer neben Gazlowe in {area:392}.",
 	-- ["{npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "{npc:211022} führt die Bibliothek im {object:36082}. Er bietet die Quest jedes Buchs an, solange das Buch in deinen Taschen ist: Nimm sie an und gib sie ab, eine nach der anderen, damit dein Questlog frei bleibt. Überspringe die Bücher, die du nicht gefunden hast.",
 	-- ["{npc:211033} keeps the library in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "{npc:211033} führt die Bibliothek im {object:2101}. Er bietet die Quest jedes Buchs an, solange das Buch in deinen Taschen ist: Nimm sie an und gib sie ab, eine nach der anderen, damit dein Questlog frei bleibt. Überspringe die Bücher, die du nicht gefunden hast.",

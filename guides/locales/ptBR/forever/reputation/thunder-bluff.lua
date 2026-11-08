@@ -16,8 +16,8 @@ return {
 	-- Step 1: Thunder Bluff: how it works
 	-- {faction:81} Thunder Bluff
 	["{faction:81}: how it works"] = "",
-	-- {faction:81} Thunder Bluff · {item:11040} Morrowgrain · {npc:14728} Rumstag Proudstrider · {quest:7825} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1412} Mulgore · {area:378} Camp Taurajo · {area:380} Crossroads · {zone:1441} Thousand Needles
-	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the {area:380} at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "",
+	-- {faction:81} Thunder Bluff · {item:11040} Morrowgrain · {npc:14728} Rumstag Proudstrider · {quest:7825} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1412} Mulgore · {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "",
 
 	-- Step 2: Everlook: Storm Shadowhoof
 	-- {npc:10303} Storm Shadowhoof · {faction:81} Thunder Bluff · {npc:10806} Ursius · {area:2255} Everlook
@@ -74,6 +74,8 @@ return {
 	["{area:17044} (optional hub)"] = "",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
 	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes (60 at a fifth), plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
+	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
+	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "",
 
@@ -83,56 +85,62 @@ return {
 	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
-	["{item:273181}, from Gloomrise Spinners"] = "",
+	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, das Tecelãs de Penumbrascente ({npc:264081})",
 
 	-- Step 12: The Skywatcher camp: hand in
 	["The Skywatcher camp: hand in"] = "",
+	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
 
-	-- Step 13: Camp Narache (optional hub)
+	-- Step 13: Broodmother Valraxx
+	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise
+	["{npc:264082}, at the heart of {area:17044}"] = "",
+
+	-- Step 15: Camp Narache (optional hub)
 	-- {area:221} Camp Narache
 	["{area:221} (optional hub)"] = "",
 	-- {area:221} Camp Narache · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2980} Grull Hawkwind · {npc:2981} Chief Hawkwind · {npc:3209} Brave Windfeather
 	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes (220 at a fifth). Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
 
-	-- Step 14: Greatmother Hawkwind and the plains
+	-- Step 16: Greatmother Hawkwind and the plains
 	-- {npc:2991} Greatmother Hawkwind
 	["{npc:2991} and the plains"] = "",
 	-- {npc:2991} Greatmother Hawkwind
 	["{npc:2991}'s tent is south-east of the camp; the water pitcher stands at the well beside it. Plainstriders graze all around."] = "",
 
-	-- Step 15: Camp Narache: hand in
+	-- Step 17: Camp Narache: hand in
 	-- {area:221} Camp Narache
 	["{area:221}: hand in"] = "",
 
-	-- Step 16: Seer Graytongue and the cougars
+	-- Step 18: Seer Graytongue and the cougars
 	-- {npc:2982} Seer Graytongue
 	["{npc:2982} and the cougars"] = "",
 	-- {npc:2982} Seer Graytongue
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
 	["{npc:2982} sits on the hill south of the camp; the Mountain Cougars live in those hills."] = "",
 
-	-- Step 17: Camp Narache: the Battleboars
+	-- Step 19: Camp Narache: the Battleboars
 	-- {area:221} Camp Narache
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["{area:221}: the Battleboars"] = "",
 
-	-- Step 18: Brambleblade Ravine
+	-- Step 20: Brambleblade Ravine
 	-- {quest:780} The Battleboars · {npc:8554} Chief Sharptusk Thornmantle · {area:358} Brambleblade Ravine · {item:4851} Dirt-stained Map · {quest:781} Attack on Camp Narache
 	["{quest:780} graze east of the camp; the Bristleback quilboar and {npc:8554} hold {area:358} beyond them. A {item:4851} lies in the ravine: reading it starts {quest:781}."] = "",
 
-	-- Step 19: Camp Narache: last hand-in
+	-- Step 21: Camp Narache: last hand-in
 	-- {area:221} Camp Narache
 	["{area:221}: last hand-in"] = "",
 	-- {quest:763} Rites of the Earthmother · {npc:2993} Baine Bloodhoof
 	["{quest:763}, +75: to {npc:2993}"] = "",
 
-	-- Step 21: Bloodhoof Village (optional hub)
+	-- Step 23: Bloodhoof Village (optional hub)
 	-- {area:222} Bloodhoof Village
 	["{area:222} (optional hub)"] = "",
 	-- {area:222} Bloodhoof Village · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2993} Baine Bloodhoof · {npc:2947} Harken Windtotem · {npc:2985} Ruul Eagletalon · {npc:3222} Brave Wildrunner · {npc:2988} Morin Cloudstalker
 	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes (200 at a fifth). {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
 
-	-- Step 22: Eastern Mulgore
+	-- Step 24: Eastern Mulgore
 	-- {zone:1412} Mulgore
 	["Eastern {zone:1412}"] = "",
 	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate · {quest:764} The Venture Co.
@@ -140,51 +148,51 @@ return {
 	-- {object:2908} Sealed Supply Crate
 	["the {object:2908}"] = "",
 
-	-- Step 23: Bloodhoof Village: hand in
+	-- Step 25: Bloodhoof Village: hand in
 	-- {area:222} Bloodhoof Village
 	["{area:222}: hand in"] = "",
 
-	-- Step 24: The mine, the centaurs and the plains
+	-- Step 26: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "",
 	-- {quest:765} Supervisor Fizsprocket · {npc:275767} Herak the Pillager · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765}. The Galak centaurs and {npc:275767} camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
 
-	-- Step 25: Bloodhoof Village: last hand-in
+	-- Step 27: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
 	["{area:222}: last hand-in"] = "",
 	-- {quest:99082} The High Chieftain · {npc:3057} Cairne Bloodhoof · {faction:81} Thunder Bluff
 	["{quest:99082}, +10: to {npc:3057} in {faction:81}"] = "",
 
-	-- Step 27: Bashana Runetotem: Morrowgrain Research
+	-- Step 29: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "",
 
-	-- Step 28: Rumstag Proudstrider: A Donation of Wool
+	-- Step 30: Rumstag Proudstrider: A Donation of Wool
 	-- {npc:14728} Rumstag Proudstrider · {item:14047} Runecloth · {quest:7825} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14728} offers the {item:14047} donation, and {quest:7825} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
 	-- {item:2592} Wool Cloth
 	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
 
-	-- Step 29: A Donation of Silk
+	-- Step 31: A Donation of Silk
 	-- {area:287} Hillsbrad
 	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
 	-- {item:4306} Silk Cloth
 	["{item:4306}: the Syndicate"] = "",
 
-	-- Step 30: A Donation of Mageweave
+	-- Step 32: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
 	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
 	-- {item:4338} Mageweave Cloth
 	["{item:4338}: the Jadefire satyrs"] = "",
 
-	-- Step 31: A Donation of Runecloth
+	-- Step 33: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
 	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
 	["{item:14047}: the Scarlet outside {area:2266}"] = "",
 
-	-- Step 32: Additional Runecloth to Honored
+	-- Step 34: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} até Honrado",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -192,7 +200,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "",
 
-	-- Step 33: Additional Runecloth to Revered
+	-- Step 35: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} até Reverenciado",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -200,7 +208,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "",
 
-	-- Step 34: Additional Runecloth to Exalted
+	-- Step 36: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} até Exaltado",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

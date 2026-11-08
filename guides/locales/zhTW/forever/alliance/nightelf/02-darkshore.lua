@@ -7,126 +7,130 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
-	["The WANTED poster outside the inn"] = "",
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "船停靠在村子西邊。飛行管理員站在旅店南邊的山丘上；任務給予者分布在主街沿線。",
+	["The WANTED poster outside the inn"] = "旅店外的通緝海報",
 
 	-- Step 2: The beach
-	["The beach"] = "",
+	["The beach"] = "海灘",
 	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
+	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村子下方的海岸爬行；{quest:983}站在碼頭南邊不遠的海灘上。黑海岸蛇頸龍在淺水中游動。{object:175207}在村子南邊不遠的岸上。",
 
 	-- Step 3: Auberdine
 	-- {npc:3649} Thundris Windweaver
-	["{npc:3649}, north end of the village"] = "",
+	["{npc:3649}, north end of the village"] = "{npc:3649}，在村子北端",
 
 	-- Step 4: Auberdine
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, by the inn"] = "",
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, upstairs in the inn"] = "",
 
 	-- Step 5: The skeletal turtle
-	["The skeletal turtle"] = "",
+	["The skeletal turtle"] = "海龜骨骸",
 	-- {item:12289} Sea Turtle Remains
 	["{item:12289}, on the beach west of the docks; underwater"] = "",
 
 	-- Step 6: Bears and the Blackwood camp
-	["Bears and the Blackwood camp"] = "",
-	-- {area:442} Auberdine
-	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
-
-	-- Step 7: Ameth'Aran
-	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
-	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "",
-	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
-	["Highborne Relics"] = "",
-	-- {object:17188} Lay of Ameth'Aran
-	["Read the {object:17188}"] = "",
-	-- {object:17189} Fall of Ameth'Aran
-	["Read the {object:17189}"] = "",
-
-	-- Step 8: The red crystal
-	["The red crystal"] = "",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "",
-
-	-- Step 9: Plagued bears
-	["Plagued bears"] = "",
+	["Bears and the Blackwood camp"] = "熊與黑木營地",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
 
-	-- Step 10: Bashal'Aran
+	-- Step 7: Ameth'Aran
+	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
+	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639}站在廢墟北緣。被詛咒的精靈貴族、悲苦的精靈貴族和{npc:2178}在廢墟中出沒；{npc:3667}的鬼魂在它們之間走動，貓頭鷹{npc:270196}在它們東邊盤旋。兩塊石板在廢墟中；一個{quest:4722}在廢墟西邊的岸上。",
+	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
+	["Highborne Relics"] = "精靈貴族的聖物",
+	-- {object:17188} Lay of Ameth'Aran
+	["Read the {object:17188}"] = "閱讀{object:17188}",
+	-- {object:17189} Fall of Ameth'Aran
+	["Read the {object:17189}"] = "閱讀{object:17189}",
+
+	-- Step 8: The red crystal
+	["The red crystal"] = "紅色水晶",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}東邊的山脈；{object:175524}在一處岩架上。",
+
+	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
-	["Grell Earrings"] = "",
+	["Grell Earrings"] = "劣魔耳環",
 	-- {item:5338} Ancient Moonstone Seal
 	-- plural, as words: Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["{item:5338}: Deth'ryll Satyrs"] = "",
+	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}：戴瑟雷薩特",
 
-	-- Step 11: Hearth to Auberdine
-	-- {area:442} Auberdine
-	["Hearth to {area:442}"] = "",
+	-- Step 11: Auberdine
+	["Fill the tube at the moonwell in the village"] = "在村子的月井裝滿試管",
 
-	-- Step 12: Auberdine
-	["Fill the tube at the moonwell in the village"] = "",
-
-	-- Step 13: Blackwood furbolgs
-	["Blackwood furbolgs"] = "",
+	-- Step 12: Blackwood furbolgs
+	["Blackwood furbolgs"] = "黑木熊怪",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "黑木探路者和黑木風語者佔據{area:442}東南方的營地。",
 
-	-- Step 14: The southern beaches
-	["The southern beaches"] = "",
+	-- Step 13: The southern beaches
+	["The southern beaches"] = "南部海灘",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "",
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南經過{area:447}：一個{quest:4728}在古樹之林西邊的岸上，另一個在更南邊的{area:450}附近。更西南方的灰霧智者和灰霧潮行者（18-20級）之間還有三具骨骸：指南把它們留到最後一輪，那時你的等級更接近牠們。",
+
+	-- Step 14: Ameth'Aran
+	-- {area:447} Ameth'Aran
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
 
 	-- Step 15: The red crystal
-	["Back north-east into the mountains to the crystal."] = "",
+	["Back north-east into the mountains to the crystal."] = "向東北回到山中的水晶那裡。",
 
-	-- Step 17: Boat to Stormwind Harbor
+	-- Step 16: Bashal'Aran
+	-- {npc:3650} Asterion · {area:442} Auberdine
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
+
+	-- Step 18: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 18: Stormwind flight master
+	-- Step 19: Manifest Clerk Philmor
+	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
+	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
+
+	-- Step 20: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
+	-- {npc:483} Elaine Trias
+	["{npc:483}, in her cheese shop"] = "",
+	-- {object:460004} Gatehouse Door (no name in this language: may be words)
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
 
-	-- Step 19: Woo Ping
+	-- Step 21: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
+
+	-- Step 22: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 20: Woo Ping
+	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 22: Class trainer
+	-- Step 24: Druid trainer
+	["Druid trainer"] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+
+	-- Step 26: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 23: Shaman trainer
+	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
-
-	-- Step 24: Druid trainer
-	["Druid trainer"] = "",
-	-- {npc:270459} Alfina Nightgaze · {zone:1416} Alterac Mountains · {area:87} Goldshire
-	["{npc:270459} in {zone:1416}; {area:87} has no druid trainer"] = "",
-
-	-- Step 28: Ameth'Aran
-	-- {area:447} Ameth'Aran
-	["The flame burns in the south of {area:447}."] = "",
-
-	-- Step 33: Into Elwynn Forest
-	-- {area:12} Elwynn Forest
-	["Into {area:12}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Into {area:148}"] = "前往{area:148}",

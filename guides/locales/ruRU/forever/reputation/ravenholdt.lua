@@ -35,12 +35,12 @@ return {
 	-- {area:280} Strahnbrad
 	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
 	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "",
+	["{item:275482}: pickpocket Barton"] = "{item:275482}: обчистите карманы Бартона",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
 	["{area:313}: a uniform"] = "",
-	-- {object:656157} Syndicate Footlocker · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
+	-- {object:656157} Syndicate Footlocker (no name in this language: may be words) · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
 	["The {object:656157} stands among the Syndicate camps of {area:313}, north of Stromgarde. Open it to finish {quest:96783} and take the {item:275706}."] = "",
 
 	-- Step 6: Stromgarde: Anastasia Miller
@@ -59,7 +59,7 @@ return {
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
-	["Back to {npc:13085}"] = "",
+	["Back to {npc:13085}"] = "Назад к {npc:13085}",
 	-- {quest:96782} Covert Extraction · {quest:96781} What's the Big Idea?
 	["{quest:96782}, after {quest:96781}"] = "",
 

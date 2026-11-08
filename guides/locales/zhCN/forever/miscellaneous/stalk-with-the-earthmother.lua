@@ -16,10 +16,10 @@ return {
 	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729}潜行在{zone:1456}主台地上、水池南边：走到箭头所指的位置，直到他的轮廓显现。他会交给你{item:206159}。任务4级即可接，但矿洞里有风险投资公司工人（8-9级）、监工（9-10级）和{npc:3051}（12级）：建议9或10级再去。",
 
 	-- Step 2: The Venture Co. Mine
-	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies
+	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
 	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "乘升降梯下去，向东南穿过{zone:1412}前往{area:360}。穿上伪装，然后打开矿洞内以及矿洞远端外侧斜坡上的{object:403041}；尽量待在上层，下层隧道怪物密集。共需五枚炸药。",
 	["Venture Co. Mine"] = "",
-	-- {object:403041} Blasting Supplies
+	-- {object:403041} Blasting Supplies (no name in this language: may be words)
 	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
 	["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "从{object:403041}中拾取5枚塞弗拉姆采矿炸药",
 

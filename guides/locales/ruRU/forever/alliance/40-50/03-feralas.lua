@@ -108,10 +108,10 @@ return {
 
 	-- Step 28: Grind to 45
 	["Grind to 45"] = "Гринд до 45",
-	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "",
+	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
-	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
+	["grind on {npc:5292} at {area:1105}, {area:357}"] = "гринд: {npc:5292}, {area:1105}, {area:357}",
 
 	-- Step 29: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
@@ -127,8 +127,8 @@ return {
 	-- Step 31: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "Пополнения {npc:14637} — 55-го уровня: пропустите их.",
-	-- {area:1108} Forgotten Coast · {zone:1446} Tanaris
-	["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Вы заканчиваете у причала ({area:1108}): гайд по зоне {zone:1446} начинается с пути отсюда на восток.",
+	-- {zone:1446} Tanaris · {area:489} Thalanaar
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
 
 	-- Step 32: Thalanaar
 	-- {zone:1441} Thousand Needles
@@ -148,7 +148,7 @@ return {
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Звоните в колокольчик всякий раз, когда {npc:7774} останавливается побродить, и ведите ее на юг к NPC {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Прохождение подземелья {area:978} вместо гринда в группе быстрее. Город троллей — на севере зоны {zone:1446}, следующей зоны маршрута; после этого вернитесь к {npc:14637} ({area:1108}).",
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Плывите с острова на юг: {area:1121}. Там змеестражи и колдуньи из клана Гребня Ненависти; {npc:8136} (уровень 47) ждет в пещере на южном краю. Сначала выманите его стражу.",
-	-- ["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "гринд: {npc:5292}, {area:1105}, {zone:1444}",
+	-- ["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Вы заканчиваете у причала ({area:1108}): гайд по зоне {zone:1446} начинается с пути отсюда на восток.",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "если у вас есть {quest:1100} из зоны {zone:1441}",
 	-- ["{area:978} instead of grinding"] = "{area:978} вместо гринда",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} бродит по холмам к северу от NPC {npc:7765}, среди гарпий из стаи Студеных Ключей; ее колокольчик в сундуке рядом.",

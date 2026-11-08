@@ -6,127 +6,123 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Astranaar
-	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
-
-	-- Step 2: Dartol's Rod
-	["Dartol's Rod"] = "Bastão de Transformação de Dartol",
-	-- {item:5475} Wooden Key
-	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
-	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "Os Ancientes Enlouquecidos e Ancientes Fenescidos ao norte do poço lunar carregam a {item:5475}; o baú gasto que ela abre fica entre eles.",
-
-	-- Step 3: The Howling Vale
-	-- {area:419} Howling Vale
-	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "Pegue o túnel para {area:419}; o tomo está nas ruínas no extremo oeste.",
-
-	-- Step 5: Anilia
-	-- {area:429} Xavian · {npc:3920} Anilia
-	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Siga a estrada para leste até os acampamentos de sátiros de {area:429}; {npc:3920} se esconde na borda deles.",
-
-	-- Step 6: Geltharis
-	-- {npc:4619} Geltharis · {area:429} Xavian
-	["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho.",
-
-	-- Step 7: Forest Song
-	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind
-	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, o posto avançado dos elfos noturnos no extremo leste da estrada: {npc:3848} fica lá.",
-
-	-- Step 8: The Dor'Danil Barrow Den: kill these as you meet them
-	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}: kill these as you meet them"] = "",
-	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
-
-	-- Step 9: Fallen Sky Lake
-	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
-	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
-	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
-
-	-- Step 11: Insane druids
-	["Insane druids"] = "",
-	-- {area:2358} Forest Song
-	["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
-	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
-	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
-	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
-
-	-- Step 12: Satyrnaar
-	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
-	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
-
-	-- Step 14: Night Run
-	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
-	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "O segundo {object:19901} fica no vale de {area:428}, no caminho para oeste.",
-
-	-- Step 16: Hidden Shrine
-	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "O santuário fica na colina logo a sudeste do poço lunar; suba pela trilha sinuosa.",
-
-	-- Step 19: Krolg
-	-- {npc:3897} Krolg · {area:421} Mystral Lake
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}.",
-
-	-- Step 20: Ran Bloodtooth
-	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
-	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
-
-	-- Step 22: Hearth to Astranaar
-	-- {area:415} Astranaar
-	["Hearth to {area:415}"] = "",
-
-	-- Step 25: Melyria and Illiyana
-	-- {npc:3901} Illiyana
-	["Melyria and {npc:3901}"] = "Melyria e {npc:3901}",
-
-	-- Step 27: Fly to Auberdine
-	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
-	-- {area:415} Astranaar
-	["{area:415} flight master"] = "",
-
-	-- Step 28: Boat to Menethil Harbor
+	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Fly to {area:150}"] = "",
 
-	-- Step 29: Glorin Steelbrow
+	-- Step 2: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "",
+	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} fica no andar de cima da fortaleza de Menethil.",
 	["Inside"] = "",
 
-	-- Step 31: Waterlogged Chest
-	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "",
+	-- Step 4: Waterlogged Chest
+	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "O navio naufragado está nas águas rasas ao sul da fortaleza.",
 
-	-- Step 32: Lightforge Ingots
-	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "Lingotes da Forja de Luz",
+	-- Step 5: Lightforge Ingots
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Os murlocs Guelrazul na praia a sudoeste de Menethil carregam os lingotes.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
 
+	-- Step 6: Glorin Steelbrow
+	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
+	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "",
+
+	-- Step 8: Theramore
+	["Theramore"] = "Theramore",
+	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
+	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "O mestre de voo fica junto ao portão de {area:514}; {npc:5083} e {npc:4964} estão dentro da cidadela.",
+	-- {npc:5083} Clerk Lendry
+	["{npc:5083}, on the top floor"] = "",
+	-- {npc:4964} Commander Samaul
+	["{npc:4964}, on the top floor"] = "",
+	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
+	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
+
+	-- Step 9: The Shady Rest Inn
+	-- {zone:1413} Barrens
+	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+
+	-- Step 10: Into Barrens
+	-- {zone:1413} Barrens
+	["Into {zone:1413}"] = "",
+
+	-- Step 11: Takar the Seer
+	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
+	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "Na estrada para o sul por {zone:1413}, {npc:6244} acampa a leste da estrada, a nordeste de {area:378}; chegue pelo leste e fique longe dos guardas da Horda.",
+	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
+	["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738}: em {zone:1440}, no caminho para {zone:1443}",
+	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
+	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: o íncubo, ao lado da súcubo; {item:190309} fica perto de {quest:1738}",
+
+	-- Step 12: Highperch
+	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+
+	-- Step 15: Mirage Raceway
+	-- {area:2240} Mirage Raceway
+	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Siga os cânions para o leste até as planícies de sal. Os goblins e gnomos de {area:2240} são neutros e dão missões às duas facções.",
+	-- {quest:5762} Hemet Nesingwary
+	["For {quest:5762} in Stranglethorn, later"] = "Para {quest:5762}, na Selva do Espinhaço, mais tarde",
+
+	-- Step 16: Mirage Raceway: kill these as you meet them
+	-- {area:2240} Mirage Raceway
+	["{area:2240}: kill these as you meet them"] = "",
+	-- {object:19868} Rocket Car Rubble
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+
+	-- Step 17: Mirage Raceway
+	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
+	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
+
+	-- Step 18: Gadgetzan
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+
+	-- Step 19: Fly to Theramore
+	["Fly to Theramore"] = "Voe para a Ilha Theramore",
+	-- {area:976} Gadgetzan
+	["{area:976} flight master"] = "",
+
+	-- Step 20: Theramore
+	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+
+	-- Step 21: Boat to Menethil Harbor
+	-- {area:150} Menethil Harbor
+	["Boat to {area:150}"] = "Navio para {area:150}",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Volte para oeste pela estrada até os acampamentos de sátiros de {area:429}.",
+	-- ["Dartol's Rod"] = "Bastão de Transformação de Dartol",
+	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Siga a estrada para leste até os acampamentos de sátiros de {area:429}; {npc:3920} se esconde na borda deles.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Siga a estrada para oeste saindo de {area:415}; {area:413} fica ao norte dela.",
 	-- ["From {area:608}"] = "De {area:608}",
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Insane druids"] = "Druidas insanos",
+	-- ["Lightforge Ingots"] = "Lingotes da Forja de Luz",
+	-- ["Melyria and {npc:3901}"] = "Melyria e {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Baús Enferrujados ficam em volta dos acampamentos furbolgs Umbrárvore a oeste dos Renegados; abra-os até um conter o Castão de Ferro.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Pegue o barco para {area:150} nas docas de {area:442}.",
+	-- ["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "Pegue o túnel para {area:419}; o tomo está nas ruínas no extremo oeste.",
+	-- ["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "Os Ancientes Enlouquecidos e Ancientes Fenescidos ao norte do poço lunar carregam a {item:5475}; o baú gasto que ela abre fica entre eles.",
 	-- ["The Forsaken's camp lies in the woods south of {area:2358}."] = "O acampamento dos Renegados fica na mata ao sul de {area:2358}.",
 	-- ["The moonwell lies in the hills north-east of {area:415}."] = "O poço lunar fica nas colinas a nordeste de {area:415}.",
+	-- ["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "O segundo {object:19901} fica no vale de {area:428}, no caminho para oeste.",
+	-- ["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "O santuário fica na colina logo a sudeste do poço lunar; suba pela trilha sinuosa.",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}."] = "Os três druidas ficam juntos no acampamento dos Renegados ao sul de {area:2358}.",
 	-- ["The two stand together at the western end of the road."] = "As duas ficam juntas no extremo oeste da estrada.",
 	-- ["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "O navio naufragado está nas águas rasas ao sul da fortaleza.",
 	-- ["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way."] = "O {npc:3931} anda pela margem de {quest:1035}, a sudoeste dos baús; o {object:669176} está ao norte do lago, no caminho.",
 	-- ["The {object:19901} stands in the satyr camp of {area:430}, further east along the road."] = "{object:19901} fica no acampamento de sátiros de {area:430}, mais a leste pela estrada.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} and {npc:221269} stand there."] = "{area:2358}, o posto avançado dos elfos noturnos no extremo leste da estrada: {npc:3848} e {npc:221269} ficam lá.",
+	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, o posto avançado dos elfos noturnos no extremo leste da estrada: {npc:3848} fica lá.",
 	-- ["{area:429} satyrs"] = "Sátiros de {area:429}",
 	-- ["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} fica no andar de cima da fortaleza de Menethil.",
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696} e seus guardas acampam logo a leste de {npc:3897}.",
+	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}.",
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: para {npc:1480} em Menethil, no fim deste guia",
+	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} e {npc:4962} estão todos na estalagem de Menethil; Tapoke luta com você quando você fala com {npc:4963}, mas desiste quando derrotado. {npc:1480} fica a uma curta caminhada a nordeste da estalagem.",
+	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
 }

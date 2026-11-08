@@ -908,13 +908,24 @@
 			{
 				"a": [
 					"turnin",
+					474
+				],
+				"b": [
+					"accept",
+					98230
+				],
+				"why": "Wetlands, #1299: Captain Stoutfist offers This Land Was Their Land only once Defeat Nek'rosh is handed in (it replaces #225's 'Nek'rosh's Gambit after Howin', which put 98230 first)"
+			},
+			{
+				"a": [
+					"turnin",
 					98230
 				],
 				"b": [
-					"turnin",
-					465
+					"accept",
+					98300
 				],
-				"why": "Hillsbrad (Alliance), Lou-Saydus #225: Nek'rosh's Gambit after Howin"
+				"why": "Wetlands, #1299: Howin Kindfeather refused Word to Ironforge to 5 people (2 established), none with This Land Was Their Land handed in, and nobody was seen offered it; taken (optional) right after 98230's hand-in"
 			},
 			{
 				"a": [
@@ -4223,11 +4234,11 @@
 					277
 				],
 				"b": [
-					"turnin",
-					98230
+					"accept",
+					98245
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): at 27-29 Fire Taboo is handed to Rethiel on the first stop (its flint came from the earlier visit), then Howin."
+				"why": "Flow (2026-11-07, Alliance 12-20): at 27-29 Fire Taboo is handed to Rethiel on the first stop (its flint came from the earlier visit), then Howin (Razormaw Needling)."
 			},
 			{
 				"a": [

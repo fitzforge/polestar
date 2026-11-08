@@ -16,15 +16,15 @@ return {
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "",
+	["Skyboat from {area:279}"] = "Небесный корабль: {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "",
 	-- {zone:2521} Zephras Isle
-	["Skyboat to {zone:2521}"] = "",
+	["Skyboat to {zone:2521}"] = "Небесный корабль: {zone:2521}",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["Skyboat from {zone:1456}"] = "",
+	["Skyboat from {zone:1456}"] = "Небесный корабль: {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
 	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "",
 
@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Back to Valanaar
 	-- {area:16638} Valanaar
-	["Back to {area:16638}"] = "",
+	["Back to {area:16638}"] = "Назад: {area:16638}",
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
 	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "",
 

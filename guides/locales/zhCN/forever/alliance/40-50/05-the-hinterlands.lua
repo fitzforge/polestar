@@ -17,7 +17,7 @@ return {
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
 
 	-- Step 3: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "在里面",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
@@ -30,7 +30,7 @@ return {
 	["{area:348} flight master"] = "",
 
 	-- Step 5: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "职业训练师",
 
 	-- Step 6: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -65,26 +65,30 @@ return {
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "{area:1517}挖掘场",
 	-- {area:3} Badlands · {area:1517} Uldaman
-	["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "向南穿过山口到{area:3}北缘：石窟穴居人在那里的{area:1517}外面挖掘。雕纹石罐和紫色蘑菇在它们的洞穴和隧道里，在地下城外面。",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "",
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
-	-- Step 16: Ironband's Excavation Site
+	-- Step 16: Back to Loch Modan
+	-- {area:38} Loch Modan
+	["Back to {area:38}"] = "",
+
+	-- Step 17: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "向北骑回铁环挖掘场的营地。",
 
-	-- Step 17: Thelsamar
+	-- Step 18: Thelsamar
 	-- {area:144} Thelsamar
 	["Ride back west along the loch to {area:144}."] = "",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 19: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 21: Rut'theran Village
+	-- Step 22: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，{npc:7916}的上方：从室内上楼，箭头无法区分楼层。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -93,45 +97,45 @@ return {
 	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}：先留着，羽毛在{zone:1428}指南结尾获得",
 	["the book on her table"] = "她桌上的书",
 
-	-- Step 23: Temple of the Moon
+	-- Step 24: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 
-	-- Step 26: Cenarion Enclave
+	-- Step 27: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
 
-	-- Step 28: Cenarion Enclave
+	-- Step 29: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
 
-	-- Step 29: Portal to Teldrassil
+	-- Step 30: Portal to Teldrassil
 	-- {area:141} Teldrassil
 	["Portal to {area:141}"] = "",
 
-	-- Step 30: Fly to Auberdine
+	-- Step 31: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 31: Boat to Stormwind Harbor
+	-- Step 32: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 32: Fly to Darkshire
+	-- Step 33: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
 
-	-- Step 35: The bloodmages
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "血法师",
 	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
 
-	-- Step 36: Nethergarde Keep
+	-- Step 37: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效，而血法师要的野兽需要更长时间。",
 	-- {quest:2990} Thadius Grimshade
@@ -141,27 +145,27 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
-	-- Step 37: Blasted Lands: kill these as you meet them
+	-- Step 38: Blasted Lands: kill these as you meet them
 	-- {area:4} Blasted Lands
 	["{area:4}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 38: The bloodmages
+	-- Step 39: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
 
-	-- Step 39: Fly to Booty Bay
+	-- Step 40: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "飞往{area:35}",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 40: Monogrammed Sash
+	-- Step 41: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 44: Facing Negolash
+	-- Step 45: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
@@ -177,7 +181,6 @@ return {
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "向东骑回{area:1438}，飞往{area:144}。",
 	-- ["Ride east through {zone:1430} into the {zone:1435} and south down the road into the {zone:1419}. The bloodmages' camp is the first stop beside the road."] = "向东骑过{zone:1430}进入{zone:1435}，再沿道路向南进入{zone:1419}。血法师营地是路旁的第一站。",
 	-- ["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it."] = "向北骑到{zone:1425}中部的{area:351}。{npc:2655}和{npc:2656}在周围爬行。",
-	-- ["Ride south through the pass into the {zone:1418}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "向南穿过山口到{zone:1418}北缘：石窟穴居人在那里的{area:1517}外面挖掘。雕纹石罐和紫色蘑菇在它们的洞穴和隧道里，在地下城外面。",
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "向东南骑到{area:355}，即{zone:1425}南部的邪枝阶梯神庙，爬到顶上。奇尔加和{npc:8636}（精英，50级）站在上面：摸到顶层就直接下来。",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "向西骑：{npc:5984}在血法师营地南边的干燥山丘上游荡；{npc:5988}（50级）在北部中间爬行。{npc:5982}秃鹫在整片区域上空盘旋。一次拉一只。",
 	-- ["Scorpoks and snickerfangs"] = "厚甲蝎和弯牙土狼",

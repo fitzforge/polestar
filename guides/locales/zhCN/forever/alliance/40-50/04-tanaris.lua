@@ -7,15 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}. {npc:4454} and {npc:4630} are in the camps beside the track.\n{npc:4709} stands by the goblin camp.\nWhile {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
+	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 	["He runs off to keep Rizzle busy"] = "他会跑去拖住Rizzle",
-	-- {object:20805} Rizzle's Unguarded Plans
-	["{object:20805}, inside"] = "",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "",
+	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{area:440}。{area:976}就在边界内。",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}，镇子北侧",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -111,8 +111,6 @@ return {
 	["Ride back west to {area:976}."] = "向西骑回{area:976}。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
-	-- {npc:7583} Sprinkle · {area:47} Hinterlands
-	["{npc:7583}'s next ingredient grows in the {area:47}, and the route never brings it back: skip it."] = "",
 	-- {npc:11758} Andi Lynn
 	["{npc:11758}, on the east side of town"] = "{npc:11758}，在镇子东侧",
 
@@ -132,13 +130,13 @@ return {
 	["for {zone:1457}: the route takes you there at 47"] = "交给{zone:1457}：路线会在47级带你去那里",
 
 	-- Step 25: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "飞往塞拉摩岛",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
 	-- Step 26: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "乘船前往{area:150}",
 
 	-- Step 27: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
@@ -146,7 +144,13 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 30: Sprinkle's Secret Ingredient
+	-- Step 28: Aerie Peak
+	-- {npc:5636} Gryphon Master Talonaxe
+	["{npc:5636}, beside the flight master"] = "",
+	-- {npc:7884} Fraggar Thundermantle
+	["{npc:7884}, inside"] = "",
+
+	-- Step 31: Sprinkle's Secret Ingredient
 	["Underwater"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -159,7 +163,6 @@ return {
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "向西北骑到沙丘中的森提帕尔虫巢腐化之巢。任何森提帕尔都可能掉落昆虫部件。",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "向南骑进{quest:3362}。灌木露水收集者掉落腺体；只有部分是饱满的，留下饱满的露水腺。{npc:5490}和灌木塑根者也在山谷里。灌木怪是48-50级，比你高：一次拉一个。",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "向南经过{area:1938}到{area:981}，即哈扎里隧道；谢申克的勘探设备在深处。",
-	-- ["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{zone:1446}。{area:976}就在边界内。",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向东南骑到{area:985}。{npc:7847}站在南边废土营地的中央：先清理他周围。",
 	-- ["Rizzle's plans"] = "Rizzle的设计图",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁的通缉布告",

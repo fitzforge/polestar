@@ -39,16 +39,16 @@ return {
 	-- Step 6: Uzzek at Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
 	["{npc:5810} at {area:379}"] = "{npc:5810} au {area:379}",
-	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore · {area:380} Crossroads
-	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the {area:380}."] = "{npc:5810} est facile à manquer : il se tient sous un petit auvent près d'un grand arbre juste à l'ouest du {area:379}, en contrebas du côté sud de la route, le poste en vue à l'est. Aller tout droit au sud depuis le poste ne mène pas à lui. Depuis {zone:1411}, traversez le pont vers l'ouest ; depuis {zone:1412}, allez au nord en passant la {area:380}.",
+	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore
+	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "",
 
 	-- Step 7: Singed Scales in Thunder Ridge
 	-- {area:369} Thunder Ridge
 	-- plural, as words: Singed Scales = {item:6486} Singed Scale
 	["Singed Scales in {area:369}"] = "Écailles roussies à la {area:369}",
-	-- {area:369} Thunder Ridge · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1413} Barrens
+	-- {area:369} Thunder Ridge · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1413} Barrens · {spell:5401} Lizard Bolt
 	-- plural, as words: Singed Scales = {item:6486} Singed Scale · Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast Lizard Bolt."] = "",
+	["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast {spell:5401}."] = "Il vous faut cinq Écailles roussies. Les Lézards-tonnerre (niveau 9-10) et les Foudroyants (10-11) vivent au fond de la crevasse de la {area:369}, au nord-ouest de {zone:1411}, au sud d'{zone:1454} : depuis le pont des {zone:1413}, tournez à gauche et suivez la rivière vers le nord pour y entrer. Les deux lâchent une écaille environ quatre fois sur cinq ; les deux lancent {spell:5401}.",
 	-- {item:6486} Singed Scale
 	["{item:6486}, from the lizards"] = "{item:6486}, sur les lézards",
 
@@ -57,12 +57,12 @@ return {
 	["Back to {npc:5810} under his tree west of {area:379}."] = "Retournez voir {npc:5810} sous son arbre, à l'ouest du {area:379}.",
 
 	-- Step 9: Thun'grim Firegaze
-	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {area:380} Crossroads
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}. Most slopes are too steep: climb the broad ridge on the north or east side."] = "La hutte de {npc:5878} se dresse au sommet de la {area:1699}, à l'est de la {area:380}. La plupart des pentes sont trop raides : montez par la large crête du côté nord ou est.",
+	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "",
 
 	-- Step 10: Forged Steel
-	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze · {area:380} Crossroads
-	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the {area:380}. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "Le {object:58369} se trouve près d'un chariot cassé, dans le camp Tranchecrin au nord-ouest de {npc:5878}, au nord-est de la {area:380}. Deux Tranchecrins le gardent et leurs chasseurs attirent d'autres hurans : éliminez-les un par un, puis ouvrez le coffre (il se remplit en quelques secondes, un ami peut donc le fouiller aussi).",
+	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze
+	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "",
 	-- {item:6534} Forged Steel Bars · {object:58369} Stolen Iron Chest
 	["{item:6534}, from the {object:58369}"] = "{item:6534}, dans le {object:58369}",
 
@@ -95,8 +95,10 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The four Agamand Weapon Racks stand among the buildings of {area:157}, north of {area:159}. The mills' undead attack on sight."] = "Les quatre Râteliers d'armes Agamand se trouvent parmi les bâtiments des {area:157}, au nord de {area:159}. Les morts-vivants des moulins attaquent à vue.",
-	-- ["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast {spell:5401}."] = "Il vous faut cinq Écailles roussies. Les Lézards-tonnerre (niveau 9-10) et les Foudroyants (10-11) vivent au fond de la crevasse de la {area:369}, au nord-ouest de {zone:1411}, au sud d'{zone:1454} : depuis le pont des {zone:1413}, tournez à gauche et suivez la rivière vers le nord pour y entrer. Les deux lâchent une écaille environ quatre fois sur cinq ; les deux lancent {spell:5401}.",
+	-- ["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the {area:380}. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "Le {object:58369} se trouve près d'un chariot cassé, dans le camp Tranchecrin au nord-ouest de {npc:5878}, au nord-est de la {area:380}. Deux Tranchecrins le gardent et leurs chasseurs attirent d'autres hurans : éliminez-les un par un, puis ouvrez le coffre (il se remplit en quelques secondes, un ami peut donc le fouiller aussi).",
 	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496} se tient à {area:159}. {npc:6390} attend dans le mausolée sur la colline juste au nord du bourg : ouvrez la grille et combattez-le.",
 	-- ["{npc:1500} is in the inn, the {area:2119}, in {area:159}."] = "{npc:1500} est à l'auberge, la {area:2119}, à {area:159}.",
+	-- ["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the {area:380}."] = "{npc:5810} est facile à manquer : il se tient sous un petit auvent près d'un grand arbre juste à l'ouest du {area:379}, en contrebas du côté sud de la route, le poste en vue à l'est. Aller tout droit au sud depuis le poste ne mène pas à lui. Depuis {zone:1411}, traversez le pont vers l'ouest ; depuis {zone:1412}, allez au nord en passant la {area:380}.",
+	-- ["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}. Most slopes are too steep: climb the broad ridge on the north or east side."] = "La hutte de {npc:5878} se dresse au sommet de la {area:1699}, à l'est de la {area:380}. La plupart des pentes sont trop raides : montez par la large crête du côté nord ou est.",
 	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} et une arme à une main au choix au niveau 10.",
 }

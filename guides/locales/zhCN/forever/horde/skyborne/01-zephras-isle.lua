@@ -28,7 +28,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker
 	["{npc:251361}'s errands"] = "{npc:251361}的差事",
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "从瞭望塔顶跳下，使用{spell:1259416}缓缓落到塔西边的{npc:251361}身旁。",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}：{item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -52,11 +52,11 @@ return {
 
 	-- Step 7: The standing stones
 	["The standing stones"] = "立石",
-	-- {npc:249363} Yala Windwatcher · {area:17678} Thendal Standing Stones · {npc:251143} Roiling Winds · {object:460001} Elemental Convergence · {spell:1259686} Skysight
+	-- {npc:249363} Yala Windwatcher · {area:17678} Thendal Standing Stones · {npc:251143} Roiling Winds · {object:460001} Elemental Convergence (no name in this language: may be words) · {spell:1259686} Skysight
 	-- plural, as words: Al'Aketh Converts = {npc:251160} Al'Aketh Convert
-	["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your {spell:1259686} racial ability next to it."] = "",
-	-- {spell:1259686} Skysight · {object:460001} Elemental Convergence
-	["Cast {spell:1259686} near the {object:460001}"] = "",
+	["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your {spell:1259686} racial ability next to it."] = "{npc:249363}站在村子东边的{area:17678}。{npc:251143}和{npc:251160}聚集在她北边不远处。{object:460001}就在她东北方：在它旁边施放你的种族技能{spell:1259686}。",
+	-- {spell:1259686} Skysight · {object:460001} Elemental Convergence (no name in this language: may be words)
+	["Cast {spell:1259686} near the {object:460001}"] = "在{object:460001}附近施放{spell:1259686}",
 
 	-- Step 8: The Cirrusfly Queen
 	["The queen hovers at the south-east end of the grove, on your way back from the stones."] = "卷云蝇后在林地东南端盘旋，就在你从立石返回的路上。",
@@ -100,7 +100,7 @@ return {
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "与{npc:251902}交谈",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
-	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "",
+	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的营火旁/sit，直到获得{spell:1229451}",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
@@ -185,6 +185,8 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "{npc:251727}在瓦伦妮亚·风暴之拳西边的田野里蹦跳。",
 
 	-- Step 33: Ayessa Dawnsinger
+	-- {npc:260628} Valennia Stormfist
+	["{npc:260628}, upstairs"] = "",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "与{npc:251968}交谈",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -257,7 +259,7 @@ return {
 	["{npc:252448} and {npc:256083}"] = "{npc:252448}和{npc:256083}",
 
 	-- Step 44: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "职业训练师",
 
 	-- Step 45: Warlock trainer
 	["Warlock trainer"] = "",
@@ -323,7 +325,7 @@ return {
 
 	-- Step 62: Desperate Times
 	-- {npc:253844} Valennia Stormfist
-	["talk to {npc:253844}"] = "",
+	["talk to {npc:253844}"] = "与{npc:253844}交谈",
 
 	-- Step 63: Zaal Stormshield
 	-- {npc:257196} Zaal Stormshield · {item:263993} Skybreaker Bulwark
@@ -383,7 +385,7 @@ return {
 	["Portal to {area:16630}"] = "",
 
 	-- Step 75: Confront Lorthuna
-	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar
+	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
 	["Take the Portal to {area:16630} in the shrine up to the heights. Fight east along the ledge to the Peacekeepers at its end, ride the wind current up to the upper terrace and tell {npc:252475} you are ready. Leave the {object:617084} up there alone until Rohash has withdrawn; then it takes you straight back to town."] = "",
 
 	-- Step 76: The Fate of Zephras
@@ -408,7 +410,7 @@ return {
 	-- {npc:259119} Alaana Stormwalker
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "你将永远离开这座岛。{npc:259119}在飞艇降落处等候。",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
-	["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}：先留着，两份指南后到{zone:1454}交给萨尔",
+	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}，在降落处旁：交给{zone:1456}的{npc:3033}",
 
@@ -430,7 +432,7 @@ return {
 
 	-- Step 86: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
 
 	-- Step 87: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -455,24 +457,25 @@ return {
 	["Into {area:17}"] = "",
 
 	-- Step 94: The Crossroads
-	-- {area:380} The Crossroads
-	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "",
-	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
-	["{npc:3449}: the harpies come later, in the {area:383}"] = "",
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "",
+
+	-- Step 95: To Orgrimmar
+	-- {area:1637} Orgrimmar
+	["To {area:1637}"] = "前往{area:1637}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的营火旁/sit，直到获得{spell:1229451}",
 	-- ["Back to {area:16624} with what you found."] = "带着你找到的东西返回{area:16624}。",
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "回到{npc:268592} Swiftburn处，然后向西进入{area:16623}：{npc:268605}的家在{npc:254588}所在湖泊南边的山丘里。",
 	-- ["Bandit Highwaymen"] = "强盗路霸",
-	-- ["Cast {spell:1259686} near the {object:460001}"] = "在{object:460001}附近施放{spell:1259686}",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "爬上村里的瞭望塔，从塔顶跳下，使用{spell:1259416}缓缓飘落。",
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Skypriest Faladiel站在{area:16638}北边、瀑布西边的山丘上。",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "沿道路向南到岛屿中部的{area:16624}。",
 	-- ["High Order Apprentices"] = "{npc:257521}",
 	-- ["Hippogryph nests"] = "角鹰兽巢穴",
 	-- ["Horde airship"] = "部落飞艇",
-	-- ["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "从瞭望塔顶跳下，使用{spell:1259416}缓缓落到塔西边的{npc:251361}身旁。",
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "乘升降梯离开{zone:1456}，沿道路向南经过{area:222}，穿过东边的山口进入{zone:1413}；从山口沿{area:458}向北到{area:380}，即{zone:1413}中部的部落城镇。",
 	-- ["Leaving {area:16635}"] = "离开{area:16635}",
@@ -514,10 +517,8 @@ return {
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "{npc:251676}在{area:16638}周围的低地上空飘荡。第一批{object:616467}在果园道路的西边。",
 	-- ["Windsong Crawlers"] = "{npc:254588}",
 	-- ["talk to {npc:251905}"] = "与{npc:251905}交谈",
-	-- ["talk to {npc:252383}"] = "与{npc:252383}交谈",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}就在降落处旁：乘升降梯上去，向双足飞龙管理员{npc:2995}学习飞行路线。",
 	-- ["{area:16624}, last time"] = "最后一次回到{area:16624}",
-	-- ["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your {spell:1259686} racial ability next to it."] = "{npc:249363}站在村子东边的{area:17678}。{npc:251143}和{npc:251160}聚集在她北边不远处。{object:460001}就在她东北方：在它旁边施放你的种族技能{spell:1259686}。",
 	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "{npc:250926}在村子西南方的山坡上潜行，就在去找{npc:252095}的路上。",
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374}让你去村子东边不远处的{area:16988}：在那里喝下{item:6635}以看到{npc:251166}，然后把{item:6656}带回给他。",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}站在村子里。",
@@ -525,10 +526,14 @@ return {
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095}在村子西南方的{area:16622}等候。奥拉凯斯营地就在她身后；{npc:256935}是营地首领。",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}站在{area:16638}东侧。",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377}站在{area:16638}中央。",
+	-- ["{npc:252377}: Defensive Stance"] = "{npc:252377}：防御姿态",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}站在{area:16638}西侧。",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}的{npc:252389}会三次交给你{item:15908}：在城镇西北方的湖边驯服一只{npc:254588}，在城镇西边的田野驯服一只{npc:251707}，在{area:16663}驯服一只{npc:250874}，每次驯服后都回到她那里。{npc:254411}站在她旁边。",
+	-- ["{npc:254411}: Beast Training"] = "{npc:254411}：训练野兽",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}在瞭望塔北边不远处的瀑布旁等候。",
+	-- ["{npc:255853}: Bear Form"] = "{npc:255853}：熊形态",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}在叛徒房子南边不远处的山坡上游荡。",
+	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}：先留着，两份指南后到{zone:1454}交给萨尔",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}的营火",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033}在{area:1639}训练德鲁伊。他会教你{spell:18960}；{npc:11802}的问候要等到你约23级的{spell:499}之旅时再去（forever/horde/04-the-barrens）。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",

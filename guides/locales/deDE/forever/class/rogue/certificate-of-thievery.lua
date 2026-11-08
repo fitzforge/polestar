@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {npc:6966} Lucius · {quest:2282} Alther's Mill · {quest:2300} SI:7 · {item:7676} Thistle Tea · {npc:7009} Arantir
-	["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}, then {item:7676} from {npc:7009}."] = "",
+	-- {npc:6966} Lucius · {quest:2282} Alther's Mill · {quest:2300} SI:7
+	["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}."] = "Dein erster Schlossknacker-Auftrag mit Stufe 16: die Kassette von {npc:6966} bei {quest:2282}, für {quest:2300}.",
 
 	-- Step 1: SI:7 (Goldshire)
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:6946} Renzik "The Shiv" · {zone:1453} Stormwind
@@ -45,15 +45,6 @@ return {
 	-- Step 9: Back to Lucius
 	-- {npc:6966} Lucius
 	["Back to {npc:6966}"] = "Zurück zu {npc:6966}",
-
-	-- Step 10: Horns of Nez'ra
-	-- {npc:7009} Arantir · {npc:6966} Lucius · {quest:2358} Horns of Nez'ra · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
-	-- plural, as words: Blackrock Grunts = {npc:440} Blackrock Grunt
-	["{npc:7009}, beside {npc:6966}, wants the {quest:2358}, which the Blackrock orcs of Redridge carry: the first one you kill drops them. The easiest are the Blackrock Grunts (level 19) and Outrunners (20) east of {area:69}; the Shadowcasters (22) and {npc:334} (26) are elite."] = "",
-	-- {quest:2358} Horns of Nez'ra
-	["{quest:2358}: any Blackrock orc"] = "",
-	-- {npc:7009} Arantir · {item:7676} Thistle Tea
-	["{npc:7009}: ten {item:7676}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165}, in the north of {zone:1455}."] = "Mit Stufe 16 schickt dich {npc:1234} in der {area:2102} in {area:131} zu {npc:5165}, im Norden von {zone:1455}.",

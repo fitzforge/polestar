@@ -144,7 +144,7 @@ return {
 	-- {area:272} Tarren Mill · {faction:68} Undercity
 	["{area:272} and the {faction:68}"] = "",
 	-- {npc:2055} Master Apothecary Faranell
-	["{npc:2055}, in the Apothecarium"] = "",
+	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, im Apothekarium",
 
 	-- Step 25: Deathknell (optional hub)
 	-- {area:154} Deathknell
@@ -171,7 +171,7 @@ return {
 	["{area:154}: hand in"] = "",
 
 	-- Step 29: The Scarlet camp
-	["The Scarlet camp"] = "",
+	["The Scarlet camp"] = "Das scharlachrote Lager",
 	-- {area:154} Deathknell · {npc:1667} Meven Korgal
 	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "",
 	-- {item:2885} Scarlet Crusade Documents · {npc:1667} Meven Korgal

@@ -168,7 +168,7 @@ return {
 	-- Step 33: Elwynn Forest: kill these as you meet them
 	-- {area:12} Elwynn Forest
 	["{area:12}: kill these as you meet them"] = "{area:12}：遇到就杀",
-	-- {object:694855} Overgrown Duskweed
+	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855}生长在葡萄园和斯通菲尔德农场周围的田野里；周围的石牙野猪提供血液。\n石牙野猪在葡萄园和农场之间吃草。",
 	-- {item:286215} Vial of Animal Blood
@@ -326,6 +326,8 @@ return {
 	["{npc:6306}, inside"] = "{npc:6306}，在里面",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}，趁威廉酿酒时",
+	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
+	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}：交给{zone:1453}的{npc:376}",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -440,9 +442,9 @@ return {
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "骑马穿过{area:87}，向东到{area:86}。{npc:6172}躺在湖南边：对他使用{item:6866}。他周围的{npc:474}带着{item:6846}。",
 	-- ["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it."] = "{npc:97}和河爪豺狼人前锋占据着要塞南边、{zone:1436}边境沿线的山丘。12级豺狼人{npc:100}在它们中间巡逻，带着{item:1307}：右键点击它。",
 	-- ["She sits inside the farmhouse."] = "她坐在农舍里。",
-	-- ["Sit (/sit) by his campfire until you have {spell:1229451}"] = "在他的营火旁坐下（/sit），直到获得{spell:1229451}",
 	-- ["Speak with {npc:1430}"] = "与{npc:1430}交谈",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "{npc:113}在葡萄园和农场之间吃草。",
+	-- ["Tame Beast"] = "驯服野兽",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "斯通菲尔德农场在矿洞西边。斯通菲尔德妈妈和波尼斯·斯通菲尔德姑妈站在房子旁。",
 	-- ["The murloc camp"] = "鱼人营地",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}、浸水的斧头和浸水的工具箱在桥南边的河里。{npc:330}是一头大野猪，和她的{npc:390}在河西边的{area:62}拱地：先把小猪拉开。沿途击杀{npc:118}和{npc:822}。",
@@ -456,7 +458,6 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}，在图书馆里",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在鱼人河岸东边的{area:798}站岗。之后向西北返回桥边。",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}站在修道院后面的马厩旁。",
-	-- ["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}，在她旁边：{spell:5149}",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}：两个都交给{zone:1453}的{npc:376}",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}：救赎",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}：仅限剥皮者，毛皮需要剥皮获得",

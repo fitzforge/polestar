@@ -326,6 +326,8 @@ return {
 	["{npc:6306}, inside"] = "{npc:6306}, внутри",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, пока Уильям варит зелье",
+	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
+	["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
 	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}: его принимает {npc:376} ({zone:1453})",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
@@ -440,7 +442,6 @@ return {
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Езжайте обратно через {area:87} и на восток. Цель: {area:86}. {npc:6172} лежит к югу от озера: используйте на нем {item:6866}. {item:6846} – у волшебников-плутов из Братства Справедливости вокруг.",
 	-- ["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it."] = "Недоростки и гонцы стаи Речной Лапы занимают холмы к югу от гарнизона, вдоль границы с зоной {zone:1436}. Среди них ходит гнолл 12-го уровня {npc:100}, у него {item:1307}: щелкните по нему правой кнопкой.",
 	-- ["She sits inside the farmhouse."] = "Она сидит в доме на ферме.",
-	-- ["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Сядьте (/sit) у его костра, пока не получите эффект «{spell:1229451}»",
 	-- ["Speak with {npc:1430}"] = "Поговорить: {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Вепри-камнеклыки пасутся между виноградниками и фермой.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "Ферма Стоунфилдов – к западу от рудника. Мамаша и \"Тетушка\" Бернис стоят у дома.",
@@ -456,7 +457,6 @@ return {
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, в библиотеке",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} несет дозор здесь: {area:798}, к востоку от берега мурлоков. Затем возвращайтесь на северо-запад к мосту.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} стоит за аббатством, у конюшен.",
-	-- ["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, рядом с ней: {spell:5149}",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: оба принимает {npc:376} ({zone:1453})",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Искупление",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: только для снятия шкур, шкуры нужно снимать",

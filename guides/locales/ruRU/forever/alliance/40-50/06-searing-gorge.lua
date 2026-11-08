@@ -16,9 +16,9 @@ return {
 
 	-- Step 4: The Grimesilt outhouse
 	["The Grimesilt outhouse"] = "Нужник Карьера Грязнули",
-	-- {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
+	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -26,14 +26,14 @@ return {
 
 	-- Step 6: Level 48.27
 	["Level 48.27"] = "",
-	-- {item:3985} Monogrammed Sash
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
+	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "",
 
 	-- Step 7: Thorium Point
-	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:1446} Thorium Point
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}. {area:1446} is the scaffolded camp on the north-west rim."] = "",
+	-- {area:1446} Thorium Point
+	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Доска: {object:179827}",
 
@@ -43,11 +43,12 @@ return {
 
 	-- Step 12: Greater Lava Spiders
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "",
+	["Greater Lava Spiders"] = "Большие лавовые пауки",
 	-- {npc:8436} Zamael Lunthistle
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "",
 
 	-- Step 13: Kalaran Windblade
+	["Kalaran Windblade"] = "",
 	-- {area:1446} Thorium Point
 	["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Каларан стоит на краю Котлована, к югу от места {area:1446}. Выслушайте его историю.",
 
@@ -73,14 +74,14 @@ return {
 
 	-- Step 22: Level 48.66
 	["Level 48.66"] = "",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "",
+	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "",
 
 	-- Step 24: Dark Iron dwarves
 	-- {object:147516} Dark Iron
-	["{object:147516} dwarves"] = "",
+	["{object:147516} dwarves"] = "Дворфы: {object:147516}",
 
 	-- Step 27: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
@@ -88,8 +89,8 @@ return {
 
 	-- Step 29: Level 48.98
 	["Level 48.98"] = "",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
+	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "",
 
@@ -102,7 +103,7 @@ return {
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
 	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
-	["For {npc:8256} in {area:1537}, later"] = "",
+	["For {npc:8256} in {area:1537}, later"] = "Для NPC {npc:8256} ({area:1537}), позже",
 
 	-- Step 34: Fly to Ironforge
 	-- {area:1537} Ironforge
@@ -111,10 +112,9 @@ return {
 	["{area:1446} flight master"] = "",
 
 	-- Step 35: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Учитель классовых навыков",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["For {npc:8256} in {zone:1455}, later"] = "Для NPC {npc:8256} ({zone:1455}), позже",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Из места {area:144} езжайте на юг в {zone:1418}, затем на запад мимо ордынского городка {area:340} (обойдите его стороной) и вверх по тропе: {zone:1427}. {area:1446} — лагерь с лесами на северо-западном краю.",
 	-- ["Golems and elementals"] = "Големы и элементали",
 	-- ["Greater Lava Spiders"] = "Большие лавовые пауки",

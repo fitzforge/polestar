@@ -8,15 +8,15 @@
 return {
 	-- Step 2: Fly to Grom'gol
 	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "",
+	["Fly to {object:3202}"] = "飛往{object:3202}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
 	-- Step 3: To Grom'gol
 	-- {object:3202} Grom'gol
 	["To {object:3202}"] = "前往{object:3202}",
-	-- {area:1237} Valormok · {zone:1454} Orgrimmar · {object:3202} Grom'gol
-	["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "從{area:1237}飛往{zone:1454}，走出正門前往飛艇塔，搭乘飛艇前往{object:3202}。",
+	-- {area:75} Stonard · {area:117} Grom'gol Base Camp
+	["The flight from {area:75} lands at {area:117}."] = "",
 
 	-- Step 4: Grom'gol Base Camp
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "飛往{area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
@@ -43,7 +43,8 @@ return {
 	-- Step 12: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "鐵齶蜥蜴",
-	["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "沿著道路向南走；蜥蜴在叢林中段、道路東邊的岩石上曬太陽。牠們的碎片很常掉落。",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
+	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 	["Below ground"] = "",
 
 	-- Step 13: Back to Grom'gol
@@ -60,7 +61,7 @@ return {
 
 	-- Step 21: Ride into Azshara
 	-- {area:16} Azshara
-	["Ride into {area:16}"] = "",
+	["Ride into {area:16}"] = "騎進{area:16}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "沿著道路從碎木崗哨向東騎。{npc:11548}在路旁不遠的{area:1235}等候，位於聯盟{area:3137}西邊幾步遠：從西邊過去，避開艾薩拉哨兵和加羅迪努斯（精英）。",
@@ -72,10 +73,10 @@ return {
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 23: Level 49.93
-	["Level 49.93"] = "",
-	-- {quest:8552} The Monogrammed Sash · {quest:591} The Mind's Eye
-	["If you skipped {quest:8552} or {quest:591}, grind here to level 49.93 to stay on the route's plan."] = "",
+	-- Step 23: Level 50
+	["Level 50"] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -127,13 +128,11 @@ return {
 
 	-- Step 37: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "飛往{area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
 	-- Step 38: Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Take the zeppelin back to {zone:1454}."] = "搭飛艇回到{zone:1454}。",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 	-- {npc:6986} Dran Droffers
@@ -150,13 +149,13 @@ return {
 
 	-- Step 41: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "飛往{area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
 	-- Step 42: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "",
+	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "飛往{zone:1456}；它在前往{area:1099}的路上。還沒有那裡的飛行路線？飛往{area:378}，然後向西騎過{zone:1412}。哈繆爾和{npc:4046}在{area:1639}；德魯伊和聖騎士在這裡學習（{npc:3033}、{npc:246344}）。",
 
 	-- Step 43: Class trainer
 	["Class trainer"] = "",
@@ -167,15 +166,13 @@ return {
 
 	-- Step 45: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
-	["Fly to {area:1099}"] = "",
+	["Fly to {area:1099}"] = "飛往{area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
 	-- Step 46: Camp Mojache
-	-- {area:976} Gadgetzan
-	["Stay here: the next guide starts with the flight to {area:976}."] = "",
-	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
+	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",
 
 	-- Step 47: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
@@ -200,21 +197,17 @@ return {
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "",
 
-	-- Step 56: Hearth to Camp Mojache
-	-- {area:1099} Camp Mojache
-	["Hearth to {area:1099}"] = "",
-
-	-- Step 57: Back to Camp Mojache
+	-- Step 56: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "返回{area:1099}",
 
-	-- Step 58: Fly to Gadgetzan
+	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "飛往{area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 59: Gadgetzan
+	-- Step 58: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7876} Tran'rek
@@ -222,22 +215,22 @@ return {
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}的焦油和匹斯特蘇格的樣本都來自{zone:1449}。",
 
-	-- Step 60: Marvon Rivetseeker
+	-- Step 59: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
-	["South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "",
+	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿著道路向南前往{area:1938}；{npc:7771}在旁邊紮營。從這裡往西的道路會下到{zone:1449}，下一份指南從那裡開始。",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "保留{quest:3444}：{npc:7771}的箱子要在下次造訪時打開。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "從{area:1237}飛往{zone:1454}，走出正門前往飛艇塔，搭乘飛艇前往{object:3202}。",
 	-- ["Fly to the {area:1497}"] = "飛往{area:1497}",
-	-- ["Fly to {area:1638}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "飛往{area:1638}；它在前往{area:1099}的路上。還沒有那裡的飛行路線？飛往{area:378}，然後向西騎過{zone:1412}。哈繆爾和{npc:4046}在{area:1639}；德魯伊和聖騎士在這裡學習（{npc:3033}、{npc:246344}）。",
+	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "沿著道路向南走；蜥蜴在叢林中段、道路東邊的岩石上曬太陽。牠們的碎片很常掉落。",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "在{area:3317}的飛行管理員處飛往{area:1497}。",
 	-- ["Highborne and Haldarr satyrs"] = "精靈貴族與哈達爾薩特",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "保留{area:1417}，交給{zone:1446}的{npc:7771}。",
-	-- ["Ride into {zone:1447}"] = "騎進{zone:1447}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北騎往{area:1108}；{npc:14637}在碼頭等候。",
-	-- ["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿著道路向南前往{area:1938}；{npc:7771}在旁邊紮營。從這裡往西的道路會下到{zone:1449}，下一份指南從那裡開始。",
 	-- ["Sea elementals"] = "海元素",
+	-- ["Take the zeppelin back to {zone:1454}."] = "搭飛艇回到{zone:1454}。",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "在{zone:1458}外的塔搭乘前往{zone:1454}的飛艇，然後飛往{area:431}。",
 	-- ["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "大地行者和峭壁巨人在碼頭北邊的山丘上遊蕩。先用{item:18904}電擊每一隻：縮小後牠們就不再是精英。每個被縮小的巨人都會掉落殘渣；也對牠的屍體使用靈魂精華容器。",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "海元素和巨型海元素在碼頭周圍的岸邊沖刷。",

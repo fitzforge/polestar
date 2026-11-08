@@ -9,15 +9,15 @@ return {
 	-- Step 1: Learn Herbalism
 	-- {skill:182} Herbalism
 	["Learn {skill:182}"] = "Изучите: {skill:182}",
-	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom · {object:656161} Stunted Silverleaf · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
+	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
 	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on {spell:2383} (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have {object:656160} and {object:656161} (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247841} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the {item:277113}, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:182}: hand it in to the herbalism trainer it names once you reach skill 20, for the {spell:1229705} recipe."] = "",
 
 	-- Step 2: Peacebloom & Silverleaf: Elwynn Forest (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf · {object:656160} Wilted Peacebloom · {item:2449} Earthroot · {skill:182} Herbalism
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
 
 	-- Step 4: Peacebloom & Silverleaf: Teldrassil (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf · {object:656160} Wilted Peacebloom · {item:2449} Earthroot · {skill:182} Herbalism
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
 
 	-- Step 5: Peacebloom & Silverleaf: Zephras Isle (1-50)

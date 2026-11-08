@@ -14,16 +14,20 @@ return {
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "Летите сюда: {area:976}",
 	["Theramore flight master"] = "",
 
-	-- Step 5: Gadgetzan
+	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
 	["The flight from Theramore lands in {area:976}."] = "Полет из Терамора приземляется в городе {area:976}.",
 
+	-- Step 6: Sprinkle
+	-- {npc:7564} Marin Noggenfogger
+	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
+
 	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {area:490}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -52,7 +56,7 @@ return {
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
-	["{area:537} and the eastern jungle"] = "",
+	["{area:537} and the eastern jungle"] = "{area:537} и восточные джунгли",
 	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Езжайте на юг: {area:537} в середине кратера, затем на восток в восточные джунгли. Скопления кристаллов стоят по всему кратеру, многие – вокруг места {area:537}: возьмите по несколько лишних каждого цвета. Лепестки падают с кровоцветов-хлыстунов и кровоцветов-крепкозубов; {item:11113} экспедиции лежит в заброшенном лагере в восточных джунглях.",
@@ -69,8 +73,6 @@ return {
 	["Northern Pylon"] = "Северный пилон",
 	-- {npc:9998} Shizzle
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
-	-- {item:11834} Super Sticky Tar · {npc:6518} Tar Lurker · {npc:6519} Tar Lord
-	["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}: падает с NPC {npc:6518} и {npc:6519}, в 60 м к югу",
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -79,9 +81,9 @@ return {
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	-- {area:541} Marshal's Refuge
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "",
-	["Pterrordax"] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Pterrordax"] = "Жутедактиль",
 	["grind on Pterrordax"] = "",
 
 	-- Step 20: Crate of Foodstuffs
@@ -139,33 +141,29 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
 
-	-- Step 30: Royal Historian Archesonus
-	-- {object:171709} High Seat
-	["Archesonus stands beside King Magni in the {object:171709}."] = "Аркессон стоит рядом с королем Магни ({object:171709}).",
-	-- {zone:1428} Burning Steppes
-	["The relics are in the {zone:1428}: keep it"] = "Реликвии – в зоне {zone:1428}: сохраните",
+	-- Step 30: Class trainer
+	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 31: Bind and train
-	["Bind and train"] = "Привяжите камень и обучитесь",
-
-	-- Step 32: Xiggs Fuselighter
+	-- Step 31: Xiggs Fuselighter
 	-- {object:32359} Military Ward
 	["Xiggs waits in the {object:32359}."] = "Зиггс ждет здесь: {object:32359}.",
 
-	-- Step 35: Fly to Astranaar
+	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 36: Level 50.4
+	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	-- {area:3137} Talrendis Point
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Аркессон стоит рядом с королем Магни ({object:171709}).",
+	-- ["Bind and train"] = "Привяжите камень и обучитесь",
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Пересеките юг кратера и вернитесь к {npc:9619} у спуска.",
 	-- ["Escort {npc:9999}"] = "Сопроводите NPC {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Летите из поселка {area:144} в {area:1537}.",
@@ -182,7 +180,6 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Езжайте на юг по восточной стороне. Молодые деметродоны пасутся в восточных джунглях, а у восточных утесов летает {npc:9165}; с тех и других падает чешуя для NPC {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Езжайте на запад назад в укрытие.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Езжайте от {npc:9619} на запад: улей силитидов занимает юг кратера. Используйте фиал для образцов на инкубаторе – камере со свисающими личинками. С ос и рабочих из улья Гориши падает предмет для задания «{quest:3764}»; если вам еще нужны убийства, на южных утесах гнездится {npc:9166}.",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {zone:1449}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Езжайте на запад мимо места {area:541} и на юг по западной стороне: {area:543}. {npc:10302}, гоблин, сидит у воды.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Пройти {area:1417} вместо убийства монстров в группе быстрее. Пропустите этот шаг, чтобы качаться в одиночку.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "Пройти {area:978} вместо убийства монстров в группе быстрее. Город троллей лежит на северо-западе зоны {zone:1446}, сразу к северу от города {area:976}.",
@@ -192,12 +189,13 @@ return {
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "Гориллы на плато ({area:1943}) ходят небольшими группами, и пока с них ничего не падает для вас; задание {npc:9619} на шкуры будет позже. Не заходите в самую глубокую пещеру: {npc:9622} – 55-го уровня.",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "Шкуры – после 2-го круга, на плато горилл",
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "Пилон стоит на склоне к востоку от укрытия. {npc:9166}: кружат над склонами вокруг него, засчитываются для {npc:9997} и роняют чешую для NPC {npc:9998}.",
+	-- ["The relics are in the {zone:1428}: keep it"] = "Реликвии – в зоне {zone:1428}: сохраните",
 	-- ["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с NPC {npc:9997}",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "убивайте Скитальцев Пустыни или огров из клана Песчаного Молота вокруг города {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "убивайте: {npc:5458} ({area:982}, {zone:1446})",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "убивайте: {npc:6514} ({area:1943}, {zone:1449})",
-	-- ["{area:537} and the eastern jungle"] = "{area:537} и восточные джунгли",
 	-- ["{area:978} (optional)"] = "{area:978} (необязательно)",
+	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}: падает с NPC {npc:6518} и {npc:6519}, в 60 м к югу",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117} – в глубине пещеры",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Логово зверя {npc:9684} – в джунглях к северу от {npc:9619}, под восточными утесами: используйте там {item:11568}. {npc:9684} – 56-го уровня: начинайте бой с полным здоровьем.",

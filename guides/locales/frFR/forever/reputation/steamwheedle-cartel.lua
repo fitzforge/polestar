@@ -134,8 +134,8 @@ return {
 	["{item:274021}, Revered"] = "{item:274021}, Révéré",
 
 	-- Step 14: Booty Bay: Gezzy Gunkgear
-	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274022} Tough Guy's Eyepatch
-	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, l'intendant de {faction:21}. Amical, équipement de niveau 30 : {item:274745} 1 po 10 pa (Force, Agilité), {item:274746} 1 po 48 pa (soins et dégâts des sorts), {item:274747} 1 po 3 pa (Intelligence, Esprit). Honoré : {item:274748}, une arme à feu, 3 po 11 pa (puissance d'attaque, Endurance) ; Souvenir Sea Shell, un collier, 1 po 66 pa (régénération de vie, Endurance). Révéré : {item:274022}, 5 po.",
+	-- {npc:265575} Gezzy Gunkgear · {faction:21} Booty Bay · {item:274745} Deckswabber's Mitts · {item:274746} Sea Giant's Toe Ring · {item:274747} Soggy Boots · {item:274748} Booty Bay Bruiser's Buckshot · {item:274749} Souvenir Sea Shell · {item:274022} Tough Guy's Eyepatch
+	["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); {item:274749}, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "",
 	-- {item:274745} Deckswabber's Mitts
 	["{item:274745}, Friendly"] = "{item:274745}, Amical",
 	-- {item:274746} Sea Giant's Toe Ring
@@ -144,7 +144,8 @@ return {
 	["{item:274747}, Friendly"] = "{item:274747}, Amical",
 	-- {item:274748} Booty Bay Bruiser's Buckshot
 	["{item:274748}, Honored"] = "{item:274748}, Honoré",
-	["Souvenir Sea Shell, Honored"] = "Souvenir Sea Shell, Honoré",
+	-- {item:274749} Souvenir Sea Shell
+	["{item:274749}, Honored"] = "",
 	-- {item:274022} Tough Guy's Eyepatch
 	["{item:274022}, Revered"] = "{item:274022}, Révéré",
 
@@ -204,4 +205,8 @@ return {
 	["Every town to Exalted"] = "Chaque ville jusqu'à Exalté",
 	-- {npc:14637} Zorbin Fandazzle
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "De Révéré à Exalté, il faut 21 000 de plus avec chaque ville : 840 remises à {npc:14637} ou 140 visites Libérez Knot !. Aucun intendant ne vend quoi que ce soit à Exalté : c'est seulement pour la barre de réputation.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Souvenir Sea Shell, Honored"] = "Souvenir Sea Shell, Honoré",
+	-- ["{npc:265575}, {faction:21}'s quartermaster. Friendly, level 30 gear: {item:274745} 1g 10s (Strength, Agility), {item:274746} 1g 48s (healing and spell damage), {item:274747} 1g 3s (Intellect, Spirit). Honored: {item:274748}, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: {item:274022}, 5g."] = "{npc:265575}, l'intendant de {faction:21}. Amical, équipement de niveau 30 : {item:274745} 1 po 10 pa (Force, Agilité), {item:274746} 1 po 48 pa (soins et dégâts des sorts), {item:274747} 1 po 3 pa (Intelligence, Esprit). Honoré : {item:274748}, une arme à feu, 3 po 11 pa (puissance d'attaque, Endurance) ; Souvenir Sea Shell, un collier, 1 po 66 pa (régénération de vie, Endurance). Révéré : {item:274022}, 5 po.",
 }

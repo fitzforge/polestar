@@ -13,7 +13,7 @@ return {
 	-- Step 2: Shadow Priest Sarvis
 	-- {area:154} Deathknell
 	["Follow the path north into {area:154}; Sarvis stands in front of the church."] = "Идите по тропе на север сюда: {area:154}; Сарвис стоит перед церковью.",
-	["Inside"] = "",
+	["Inside"] = "Внутри",
 
 	-- Step 3: Mindless Zombies
 	-- plural, as words: Mindless Zombies = {npc:1501} Mindless Zombie
@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Скелеты-костетрясы бродят по разрушенным домам в северной половине места {area:154}. Молодые падальщики и сумеречницы бродят вокруг деревни; косматые падальщики и облезлые сумеречницы – в ее восточной части. {npc:1661} нужны их лапы и крылья: убивайте их по пути, пока зачищаете скелетов.",
 
 	-- Step 7: Back to the church
@@ -120,7 +120,7 @@ return {
 	-- {npc:1496} Deathguard Dillinger · {npc:1742} Deathguard Bartholomew · {area:159} Brill
 	["{npc:1496} and {npc:1742} stand at the west end of {area:159}, where the road from Solliden comes in."] = "{npc:1496} и {npc:1742} стоят на западной окраине места {area:159}, где входит дорога от фермы Соллиден.",
 	-- {npc:1742} Deathguard Bartholomew
-	["{npc:1742} stands by Dillinger a few minutes, then walks up to the graveyard north of town and back"] = "",
+	["{npc:1742}, beside Dillinger"] = "",
 
 	-- Step 22: Junior Apothecary Holland
 	-- {area:159} Brill
@@ -136,7 +136,7 @@ return {
 	-- Step 24: Eleanor Shackleton
 	["Eleanor camps just south-west of town."] = "Элеанор стоит лагерем чуть к юго-западу от городка.",
 	-- {spell:1229451} Boosted Rest
-	["/sit by her campfire until you get {spell:1229451}"] = "",
+	["/sit by her campfire until you get {spell:1229451}"] = "/sit у ее костра, пока не получите {spell:1229451}",
 
 	-- Step 25: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -332,12 +332,14 @@ return {
 	-- Step 57: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Назад по дороге сюда: {area:159}. {npc:2128} (маги), {npc:2129} (жрецы), {npc:2127} (чернокнижники) и {npc:2130} (разбойники) стоят наверху в таверне: поднимитесь по лестнице внутри, Стрелка не различает этажи.",
+	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
+	["{npc:1518}: for Renferrel at the {area:228}"] = "",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "{npc:2211}, в подвале таверны",
 
 	-- Step 58: Leonid Barthalomew the Revered
 	-- {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10); take them if they are offered. They send you into the cellar under {area:16881}, the next stop."] = "Идите по дороге на запад мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания; берите их, если предлагают. Они отправят вас в подвал под местом {area:16881} – это следующая остановка.",
+	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Выслушайте Леонида и персонажа {npc:246378}, затем снова поговорите с ним",
 
@@ -353,9 +355,9 @@ return {
 	-- {area:16881} Shadowvale
 	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers"] = "",
+	["Vile Fin Attackers"] = "Налетчики из племени Злобного Плавника",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers"] = "",
+	["Vile Fin Seers"] = "Провидцы из племени Злобного Плавника",
 
 	-- Step 61: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
@@ -386,19 +388,10 @@ return {
 	-- Step 66: Brill
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, inside"] = "",
-
-	-- Step 67: Zeppelin to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "",
-
-	-- Step 69: The Crossroads
-	-- {area:380} The Crossroads
-	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "",
-	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
-	["{npc:3449}: the harpies come later, in the {area:383}"] = "",
+	-- {area:159} Brill · {zone:1421} Silverpine Forest
+	["The next guide walks south from {area:159} into {zone:1421}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["/sit by her campfire until you get {spell:1229451}"] = "/sit у ее костра, пока не получите {spell:1229451}",
 	-- ["Back to {area:159}."] = "Назад сюда: {area:159}.",
 	-- ["Back up the road to {area:159}."] = "Назад по дороге сюда: {area:159}.",
 	-- ["Balnir graves"] = "Могилы фермы Балнира",
@@ -410,6 +403,7 @@ return {
 	-- ["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}. From here on, kill the Duskbats and Darkhounds you pass: {npc:3549} wants their wings and hides."] = "Идите по дороге на северо-запад сюда: {area:157}. {npc:1657} бродит по кладбищу к югу от мельниц; Нисса, Грегор и {npc:1656} обитают на самих мельницах. Ребра падают с костетрясов-солдат и костеголовых солдат, черепа – с мрачнооких скелетов-заклинателей, а {item:2839} может упасть с любого. Отсюда убивайте встречных сумеречниц и псов тьмы: {npc:3549} нужны их крылья и шкуры.",
 	-- ["Follow the road south back to {area:159}."] = "Идите по дороге на юг обратно сюда: {area:159}.",
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "Идите по дороге на запад мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.",
+	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10); take them if they are offered. They send you into the cellar under {area:16881}, the next stop."] = "Идите по дороге на запад мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания; берите их, если предлагают. Они отправят вас в подвал под местом {area:16881} – это следующая остановка.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "Освободите шесть жертв в коконах в пещере для {npc:244808}",
 	-- ["Greater Duskbats"] = "Большие сумеречницы",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "Большие сумеречницы летают над полями вокруг места {area:159} и вдоль дороги на север.",

@@ -153,7 +153,7 @@ return {
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
-	["{npc:258930}, beside her: {spell:5149}"] = "",
+	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, 그녀 옆: {spell:5149}",
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "",

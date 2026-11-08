@@ -14,7 +14,7 @@ return {
 	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
 
 	-- Step 2: Deino
-	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
+	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
 	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "",
 
 	-- Step 3: The Xavian Waterfall
@@ -36,8 +36,8 @@ return {
 	["The {quest:1945}, dryads of level 24-25, roam around the {area:426} in central {zone:1440}; every one drops a hair and they come back after 5 minutes. They often resist fire (and some frost and shadow): arcane spells land best. Each runs for help at low health. Keep clear of the guards by the white tower of the retreat, who hit hard."] = "",
 
 	-- Step 6: Kil'hala
-	-- {npc:3484} Kil'hala · {area:380} Crossroads
-	["{npc:3484}, a troll tailor, works at the {area:380}. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
+	-- {npc:3484} Kil'hala
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "Мантия или туника для магов-нежити и магов-троллей ближе к 30-му уровню.",

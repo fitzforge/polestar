@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894}，来自{quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176}在{zone:1416}东南部、{zone:1424}上方扎营；他的大锅就在旁边。他要一个{item:3357}、一个{item:3901}和{quest:1714}，后者由他的大锅用三个护符熬制。",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712}在{npc:6176}营地北边不远处等候，身上带着{item:6894}。{quest:1712}是精英：建议组队。",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30级的{spell:2458}，以及40级的{spell:1680}斧、剑或战锤。",
 }

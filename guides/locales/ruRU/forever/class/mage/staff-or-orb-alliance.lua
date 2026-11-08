@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "",
+	["The Windstone Formations"] = "Огромные ветрокамни",
 	-- {area:16636} Falaath Village
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
 	["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of {area:16636}. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "",
@@ -50,7 +50,7 @@ return {
 
 	-- Step 8: Back to Jennea Cannon
 	-- {npc:5497} Jennea Cannon
-	["Back to {npc:5497}"] = "",
+	["Back to {npc:5497}"] = "Назад: {npc:5497}",
 	["Back up the Wizard's Sanctum and through the portal. The orb is an off-hand for a one-hand weapon; the staff is a two-hander."] = "",
 	-- {npc:5497} Jennea Cannon · {item:7508} Ley Orb · {item:9513} Ley Staff
 	["{npc:5497}: {item:7508} or {item:9513}"] = "",

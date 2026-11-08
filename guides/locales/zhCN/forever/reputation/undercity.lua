@@ -28,7 +28,7 @@ return {
 	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation, about 710 at 60 if the level 53 quests pay less. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "",
-	-- {object:176088} Scarlet Crusade Forward Camp
+	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
 	["the {object:176088}"] = "",
 
 	-- Step 4: Bulwark: the cauldrons
@@ -144,7 +144,7 @@ return {
 	-- {area:272} Tarren Mill · {faction:68} Undercity
 	["{area:272} and the {faction:68}"] = "",
 	-- {npc:2055} Master Apothecary Faranell
-	["{npc:2055}, in the Apothecarium"] = "",
+	["{npc:2055}, in the Apothecarium"] = "{npc:2055}，在炼金房",
 
 	-- Step 25: Deathknell (optional hub)
 	-- {area:154} Deathknell
@@ -171,7 +171,7 @@ return {
 	["{area:154}: hand in"] = "",
 
 	-- Step 29: The Scarlet camp
-	["The Scarlet camp"] = "",
+	["The Scarlet camp"] = "血色营地",
 	-- {area:154} Deathknell · {npc:1667} Meven Korgal
 	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "",
 	-- {item:2885} Scarlet Crusade Documents · {npc:1667} Meven Korgal

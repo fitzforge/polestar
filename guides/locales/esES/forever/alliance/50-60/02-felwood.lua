@@ -15,14 +15,16 @@ return {
 	-- Step 3: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "El {area:2479}",
+	-- {area:415} Astranaar · {area:361} Felwood · {area:2479} Emerald Sanctuary
+	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, en las ruinas justo al este de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
 
 	-- Step 4: Grazle
-	-- {area:415} Astranaar · {area:361} Felwood · {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
+	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -31,33 +33,36 @@ return {
 
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "",
-	-- {item:9328} Super Snapper FX
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
+	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {area:361} Felwood
-	["{npc:15395} waits at the north end of {area:361}"] = "",
+	["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395} espera en el extremo norte de {area:361}",
 	["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "",
-	-- {area:1763} Jaedenar
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
+	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited."] = "",
+	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "",
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "",
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar · {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold
 	["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} es el templo en ruinas al norte del claro. Algunos de sus cultores sueltan una {item:13140}, más o menos una de cada treinta muertes: abre la celda de {npc:11018} en {area:1770}, la cueva del fondo. Si cae, despeja la salida antes de liberarla; si no, sáltate sus misiones.",
+	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
 	-- {item:13140} Blood Red Key
 	["{item:13140}, a rare drop"] = "{item:13140}, botín poco común",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
@@ -70,8 +75,8 @@ return {
 
 	-- Step 13: Level 52.9
 	["Level 52.9"] = "",
-	-- {area:2479} Emerald Sanctuary
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53."] = "",
+	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 
 	-- Step 15: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -121,34 +126,31 @@ return {
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}."] = "",
 
-	-- Step 25: Oozes
-	["Oozes"] = "Mocos",
-	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
-	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "Los mocos malditos y corruptos se deslizan por los arroyos y charcas viles alrededor de {area:1763} y {area:1765}: mátalos y usa las jarras de moco vacías de Laris en sus restos.",
-
-	-- Step 26: Jaedenar again
+	-- Step 25: Jaedenar again
 	["Trey Lightforge's remains lie beside her."] = "",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
-	-- Step 28: The Emerald Sanctuary
-	-- {area:1998} Talonbranch Glade
-	["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Vuela desde {area:1998} al extremo del camino del Santuario, o cabalga al sur por él.",
+	-- Step 26: The Emerald Sanctuary
+	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "",
 
-	-- Step 29: The Emerald Sanctuary
+	-- Step 27: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
 	["The vial is filled in {zone:1457}: keep it; inside"] = "",
 	-- {zone:1413} Barrens
 	["Ends in the {zone:1413}: keep it"] = "Termina en {zone:1413}: guárdala",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Vuela desde {area:1998} al extremo del camino del Santuario, o cabalga al sur por él.",
+	-- ["Oozes"] = "Mocos",
 	-- ["Ride east to the night elf camp at {area:1998}."] = "Cabalga al este hasta el campamento elfo de la noche de {area:1998}.",
 	-- ["Ride north out of {area:415} into {zone:1448}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "Cabalga al norte desde {area:415} hasta {zone:1448}. {npc:11554}, el fúrbolg, está junto al camino, justo al sur del {area:2479}.",
 	-- ["Ride north to {area:1769} (or fly back to {area:1998} first) and through the tunnel into {zone:1452}; follow the road east to the goblin town of {area:2255}."] = "Cabalga al norte hasta {area:1769} (o vuela antes a {area:1998}) y cruza el túnel hasta {zone:1452}; sigue el camino al este hasta el pueblo goblin de {area:2255}.",
 	-- ["Take the boat from {area:702} to {area:442} and fly to {area:415}."] = "Toma el barco de {area:702} a {area:442} y vuela a {area:415}.",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "Los mocos malditos y corruptos se deslizan por los arroyos y charcas viles alrededor de {area:1763} y {area:1765}: mátalos y usa las jarras de moco vacías de Laris en sus restos.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Los vengadores pueden soltar un {quest:8470}.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Los sátiros Fuego de Jade ocupan el claro al oeste del camino, con {npc:9454} al fondo.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "El vial se llena en {zone:1457}: guárdala",
@@ -156,5 +158,4 @@ return {
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016}, en {area:1770}",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}: treinta {quest:6031}, que entregas cuando vuelvas a pasar a nivel 57",
 	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral",
-	-- ["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395} espera en el extremo norte de {zone:1448}",
 }

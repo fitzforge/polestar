@@ -31,7 +31,12 @@ return {
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "Südlich von {area:982} halten die Oger der Dünenbrecher ihr Truppenlager, mit {npc:12046} am östlichen Ende. Grab zwischen den Kämpfen {quest:3161}-Ornamente aus.",
 	["Below ground"] = "",
 
-	-- Step 9: Thistleshrub Valley: kill these as you meet them
+	-- Step 9: Noxious Lair
+	-- {npc:4196} Silithid Swarm
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+
+	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
 	-- {area:440} Tanaris
@@ -39,16 +44,11 @@ return {
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, seltene Beute",
 
-	-- Step 10: Tooga's escort
+	-- Step 11: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Eskorte: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} wartet im Tal. Bring ihn den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nach Nordosten durch die Wüste: Bleib nah bei ihm, geh langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und nutz keinen Ruhestein außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen.",
-
-	-- Step 11: Noxious Lair
-	-- {npc:4196} Silithid Swarm
-	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
 
 	-- Step 13: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -64,60 +64,51 @@ return {
 	["Scrimshank's gear"] = "Scrimshanks Ausrüstung",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 18: Hearth to Gadgetzan
-	-- {area:976} Gadgetzan
-	["Hearth to {area:976}"] = "",
-
-	-- Step 19: OOX-17/TN
+	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
 
-	-- Step 20: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["for {npc:7010} in {zone:1454}, around level 50"] = "",
+	["for {npc:7010} in {zone:1454}, around level 50"] = "für {npc:7010} in {zone:1454}, etwa auf Stufe 50",
 
-	-- Step 21: Boat to Powderfuse Port
+	-- Step 20: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 22: Into Searing Gorge
+	-- Step 21: Into Searing Gorge
 	-- {area:51} Searing Gorge
 	["Into {area:51}"] = "",
 
-	-- Step 24: The Grimesilt Dig Site
+	-- Step 23: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
-	-- {area:340} Kargath · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["Take the pass out of {area:340}'s west side into the {area:51}, then ride south-west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "",
+	["From {area:16727}, ride into the {area:51} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "das {object:173265}",
 
-	-- Step 26: Thorium Point
+	-- Step 25: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "",
+	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "Reite nach Nordwesten durch die Schlucht; {area:1446} ist das Lager mit den Gerüsten im Nordwesten.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Das Brett {object:179827}",
 
-	-- Step 27: Greater Lava Spider on the way
-	-- {npc:5858} Greater Lava Spider
-	["{npc:5858} on the way"] = "",
+	-- Step 26: The Cauldron's slavers and golems
+	-- {area:246} The Cauldron
+	["{area:246}'s slavers and golems"] = "",
+	-- {area:1446} Thorium Point
+	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "",
 
-	-- Step 28: Kalaran Windblade
+	-- Step 27: Kalaran Windblade
+	["Kalaran Windblade"] = "",
 	-- {area:1446} Thorium Point
 	["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Kalaran steht allein südlich von {area:1446}, am Rand des Kessels. Hör dir seine Geschichte an.",
 
-	-- Step 31: On the way
-	["On the way"] = "",
-	-- {npc:5854} Heavy War Golem · {area:1446} Thorium Point
-	["{npc:5854} along the way to {area:1446}"] = "",
-	-- {npc:5846} Dark Iron Taskmaster · {area:1446} Thorium Point
-	["{npc:5846} along the way to {area:1446}"] = "",
-	-- {npc:5844} Dark Iron Slaver · {area:1446} Thorium Point
-	["{npc:5844} along the way to {area:1446}"] = "",
-
-	-- Step 32: Searing Gorge: kill these as you meet them
+	-- Step 30: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
 	["{area:51}: kill these as you meet them"] = "",
 	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -126,28 +117,28 @@ return {
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, seltene Beute",
 
-	-- Step 33: Thorium Point
-	-- {area:1446} Thorium Point · {area:75} Stonard
-	["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "Reite zurück nach Norden zur {area:1446}. Bleib hier: Der nächste Guide beginnt mit dem Flug nach {area:75}.",
+	-- Step 31: Thorium Point
+	-- {area:1446} Thorium Point
+	["Ride back north to {area:1446}."] = "",
 
-	-- Step 35: The Steamsmiths' furnaces
-	["The Steamsmiths' furnaces"] = "",
+	-- Step 33: The Steamsmiths' furnaces
+	["The Steamsmiths' furnaces"] = "Die Öfen der Dampfschmiede",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
-	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "",
+	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Die Dampfschmiede der Dunkeleisenzwerge arbeiten an den Öfen mitten im Kessel; die Hälfte trägt {item:10551}, jeder zehnte {item:18959}. Sklaven, Sklavenhändler und Zuchtmeister tragen auch Dolche.",
 
-	-- Step 36: Kalaran Windblade
+	-- Step 34: Kalaran Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "Seine nächste Bitte braucht das {item:10552} von Elitekultisten: Lass sie aus.",
 
-	-- Step 38: Dark Iron Lookouts
+	-- Step 36: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
-	["Dark Iron Lookouts"] = "",
+	["Dark Iron Lookouts"] = "Ausgucke der Dunkeleisenzwerge",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
-	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "",
+	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Die Ausgucke der Dunkeleisenzwerge stehen auf den Kämmen um die Wachtürme südlich des Kessels; etwa jeder zehnte trägt {item:18960}.",
 
-	-- Step 41: The Key to Freedom
+	-- Step 37: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "Nur mit dem {item:11818}: zurück nach Osten zum {object:173265} an der Grabungsstätte.",
 
@@ -164,10 +155,9 @@ return {
 	-- ["Greater Lava Spiders"] = "Große Lavaspinnen",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Schwere Kriegsgolems patrouillieren im Kessel unter Kalaran und lassen das Öl fallen; die Magmaelementare und Lodernden Elementare zwischen ihnen lassen die Herzen fallen. Die Zuchtmeister und Sklavenhändler der Dunkeleisenzwerge treiben die Sklaven auf den Wegen an; ein Sklavenhändler kann {item:11818} fallen lassen: Behalte ihn.",
 	-- ["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}."] = "Nur mit dem Notsignalgeber: OOX-17/TN sitzt südöstlich von Scrimshanks Bau. Eskortiere ihn nach Norden nach {area:977}; seine Belohnung wartet bei Oglethorpe in {area:35}.",
-	-- ["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "Reite nach Nordwesten durch die Schlucht; {area:1446} ist das Lager mit den Gerüsten im Nordwesten.",
+	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "Reite zurück nach Norden zur {area:1446}. Bleib hier: Der nächste Guide beginnt mit dem Flug nach {area:75}.",
 	-- ["Ride south-west to {area:976}."] = "Reite nach Südwesten nach {area:976}.",
 	-- ["South down the road again."] = "Wieder die Straße hinunter nach Süden.",
-	-- ["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "Südlich vom Unterschlupf ({area:982}) halten die Oger der Dünenbrecher ihr Truppenlager, mit {npc:12046} am östlichen Ende. Grab zwischen den Kämpfen {quest:3161}-Ornamente aus.",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "Südöstlich von Gadgetzan lagern die Banditen der Wüstenläufer in den Dünen; {npc:7847} steht im östlichen Lager.",
 	-- ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south-west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Nimm den Pass auf der Westseite von {area:340} in die {zone:1427} und reite dann nach Südwesten zur Grabungsstätte. {object:173265} steht an ihrem Südende; die Geologen der Dunkeleisenzwerge graben gleich nördlich davon. Bring 15 {item:4306} mit (gibt es im Auktionshaus).",
 	-- ["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Die Ausgucke der Dunkeleisenzwerge stehen auf den Kämmen um die Wachtürme südlich des Kessels; etwa jeder zehnte trägt {item:18960}.",
@@ -177,7 +167,6 @@ return {
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "Das Boot nach {area:35} legt am Pier von {area:392} an, unterhalb des Hügels des Flugmeisters.",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "Westlich des Truppenlagers füllen die Kakteenwesen das Tal; nur die Disteltausammler tragen eine Taudrüse. Die meisten Mobs in {zone:1446} können selten den OOX-17/TN-Notsignalgeber fallen lassen: Behalte ihn, wenn du einen siehst.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "Im Westen schwärmen die Insekten der Centipaar um ihre Baue; jedes kann die Teile fallen lassen.",
-	-- ["for {npc:7010} in {area:1637}, around level 50"] = "für {npc:7010} in {area:1637}, etwa auf Stufe 50",
 	-- ["the {object:150075} in the square"] = "der {object:150075} auf dem Platz",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} öffnet sich im Norden des Kessels. Incendosaurier schwimmen in ihren Lavabecken: Pull sie an den Rand. Die geheimen Pläne liegen auf dem oberen Sims der Grube.",
 	-- ["{area:392} pier"] = "Pier von {area:392}",

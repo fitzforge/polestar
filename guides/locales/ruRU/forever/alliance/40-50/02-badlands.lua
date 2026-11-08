@@ -15,7 +15,7 @@ return {
 
 	-- Step 3: Boss Tho'grun
 	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
+	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Езжайте на запад через зону {zone:1418} к лагерю клана Гнилобрюхов ({area:342}). {npc:2944} стоит в его центре, вокруг – охотники на драконов и изверги.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -30,7 +30,7 @@ return {
 
 	-- Step 7: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "",
+	["Fly to {area:271}"] = "Летите сюда: {area:271}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
@@ -44,7 +44,7 @@ return {
 
 	-- Step 10: Aerie Peak
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
-	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "",
+	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток во {area:47}; {area:348} – сразу за границей. {npc:5635} принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
 	-- {quest:1450} Gryphon Master Talonaxe
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
@@ -67,7 +67,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "",
 	-- {area:47} The Hinterlands
-	["Talonaxe's next task waits for a later {area:47} guide."] = "",
+	["Talonaxe's next task waits for a later {area:47} guide."] = "Следующее задание Разящего Когтя подождет до более позднего гайда по {area:47}.",
 
 	-- Step 14: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -83,6 +83,8 @@ return {
 	["{npc:4944}, on the top floor"] = "",
 	-- {npc:4968} Lady Jaina Proudmoore
 	["{npc:4968}, on the top floor"] = "",
+	-- {npc:4794} Morgan Stern
+	["{npc:4794}, inside"] = "",
 
 	-- Step 17: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
@@ -104,12 +106,9 @@ return {
 	-- ["On to Feathermoon"] = "В Крепость Оперенной Луны",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Езжайте на север. Цель: {area:144}; оттуда летите сюда: {area:271}. {npc:3980} проповедует у таверны.",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток в зону {zone:1425}; {area:348} – сразу за границей. Фалстад принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
-	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток во {zone:1425}; {area:348} – сразу за границей. {npc:5635} принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Езжайте на юг из зоны {zone:1432} через перевал в зону {zone:1418}; {npc:2860} стоит лагерем у раскопок.",
-	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Езжайте на запад через зону {zone:1418} к лагерю клана Гнилобрюхов ({area:342}). {npc:2944} стоит в его центре, вокруг – охотники на драконов и изверги.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Езжайте на запад. Цель: {area:1877}, в центре зоны {zone:1418}; {npc:2817} стоит лагерем рядом с Мартеком.",
 	-- ["Take the boat to Theramore from the far pier."] = "Сядьте на корабль до острова Терамор у дальнего причала.",
-	-- ["Talonaxe's next task waits for a later {zone:1425} guide."] = "Следующее задание Разящего Когтя подождет до более позднего гайда по {zone:1425}.",
 	-- ["The battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers."] = "Разбитый скелет лежит на краю лагеря троггов из племени Каменного Свода; убийца Эгмонда ({quest:739}) ходит среди костегрызов.",
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "убивайте цель {npc:2725} ({area:339}, {zone:1418})",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",

@@ -18,96 +18,83 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 3: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
-	-- {npc:256386} Dokimi · {area:380} Crossroads
-	["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} está en {area:380}. Abre cada caja que te dé y llévale lo que haya dentro.",
-
-	-- Step 4: Liv Rizzlefix
+	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "El taller de Liv está en el extremo norte de los muelles de {area:392}; {object:149036} está dentro.",
 	["Inside"] = "",
 
-	-- Step 5: Islen Waterseer
+	-- Step 4: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901} acampa en la orilla, justo al norte de {area:392}.",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "El agua purificada se entrega en {area:2479}, en {zone:1448}: guárdala para más adelante.",
 
-	-- Step 6: Hearth to Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Hearth to {area:1637}"] = "",
+	-- Step 5: Dokimi's crates
+	-- {npc:256386} Dokimi
+	["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
+	-- {npc:256386} Dokimi · {area:1237} Valormok
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
 
-	-- Step 7: Vehena
-	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
-
-	-- Step 8: Rashona Straglash
-	-- {object:172958} Valley of Honor
-	["In the {object:172958}."] = "En {object:172958}.",
-	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
-
-	-- Step 9: Fly to Valormok
+	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Vuela a {area:1237}",
+	["Crossroads flight master"] = "",
 
-	-- Step 11: Ruins of Eldarath
+	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Ve al este, a las ruinas de la costa. Llena los cuatro viales del químico Cuely en las pozas de marea de la orilla; los naga Látigo de Ira patrullan entre ellas.",
 
-	-- Step 12: Thalassian Base Camp
+	-- Step 9: Thalassian Base Camp
 	-- {area:1227} Bay of Storms
 	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Los elfos de sangre acampan en los acantilados del noreste, junto a {area:1227}.",
 
-	-- Step 13: Magus Rimtori's camp
+	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Campamento de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
 
-	-- Step 14: Ag'tor Bloodfist
+	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
 	["Ride back west to {area:1237}."] = "Vuelve al oeste a {area:1237}.",
 
-	-- Step 15: Fly to Orgrimmar
+	-- Step 12: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 16: Paladin trainer
+	-- Step 13: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 17: Orgrimmar
+	-- Step 14: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 18: Belgrom Rockmaul
+	-- Step 15: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "",
+	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Vuela a {zone:1454}; {npc:4485} está en {object:172958}.",
 
-	-- Step 19: Into Durotar
+	-- Step 16: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 20: Zeppelin to Undercity
+	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 21: Prompt Potion Runner
-	-- {npc:11044} Doctor Martin Felben
-	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, en El Apothecarium",
+	-- Step 18: Chemist Cuely
+	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, a su lado",
 
-	-- Step 22: The Undercity
+	-- Step 19: The Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
 	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
 
-	-- Step 23: Royal Quarter
+	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, cerca",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
@@ -119,12 +106,14 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Las dos donaciones de {item:14047} se entregan más adelante en la ruta: empieza a guardar {item:14047}.",
 	-- ["Fly to the {area:380}"] = "Vuela a {area:380}",
-	-- ["Fly to {area:1637}; {npc:4485} is in the {object:172958}."] = "Vuela a {area:1637}; {npc:4485} está en {object:172958}.",
+	-- ["In the {object:172958}."] = "En {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "En {object:172961}. Lleva el paño de lana, el paño de seda y la tela de paño mágico en las bolsas.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Abre {object:149036} para coger {item:10556}",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "El campamento de Rimtori está en el extremo este del campamento base. Lee {object:151286} allí y luego mata al Magus.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La torre del zepelín está justo al noreste de la puerta principal de {zone:1454}; toma el zepelín a {zone:1458}.",
 	-- ["Zeppelin to the {zone:1458}"] = "Zepelín a {zone:1458}",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
+	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, en El Apothecarium",
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, en {object:36072}",
+	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} está en {area:380}. Abre cada caja que te dé y llévale lo que haya dentro.",
 }

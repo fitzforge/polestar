@@ -15,8 +15,8 @@ return {
 	-- Step 3: To Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["To {object:3202}"] = "Vers {object:3202}",
-	-- {area:1237} Valormok · {zone:1454} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words)
-	["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "Prenez un vol de {area:1237} pour {zone:1454}, sortez par la grande porte jusqu'aux tours des zeppelins et prenez le zeppelin pour {object:3202}.",
+	-- {area:75} Stonard · {area:117} Grom'gol Base Camp
+	["The flight from {area:75} lands at {area:117}."] = "",
 
 	-- Step 4: Grom'gol Base Camp
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay
@@ -43,7 +43,8 @@ return {
 	-- Step 12: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basilics gueule de fer",
-	["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "Suivez la route vers le sud ; les basilics se prélassent sur les rochers à l'est, au milieu de la jungle. Leurs éclats tombent souvent.",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
+	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 	["Below ground"] = "Sous terre",
 
 	-- Step 13: Back to Grom'gol
@@ -72,10 +73,10 @@ return {
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} se promène autour de {area:1235} : cherchez dans le cercle sur la carte",
 
-	-- Step 23: Level 49.93
-	["Level 49.93"] = "Niveau 49.93",
-	-- {quest:8552} The Monogrammed Sash · {quest:591} The Mind's Eye
-	["If you skipped {quest:8552} or {quest:591}, grind here to level 49.93 to stay on the route's plan."] = "Si vous avez passé {quest:8552} ou {quest:591}, tuez des monstres ici jusqu'au niveau 49.93 pour rester dans le plan de la route.",
+	-- Step 23: Level 50
+	["Level 50"] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "tuez en boucle : {npc:6125}",
 
@@ -132,8 +133,6 @@ return {
 	["{area:1237} flight master"] = "Maître de vol de {area:1237}",
 
 	-- Step 38: Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Take the zeppelin back to {zone:1454}."] = "Reprenez le zeppelin pour {zone:1454}.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- {npc:6986} Dran Droffers
@@ -172,10 +171,8 @@ return {
 	["{zone:1456} flight master"] = "Maître de vol des {zone:1456}",
 
 	-- Step 46: Camp Mojache
-	-- {area:976} Gadgetzan
-	["Stay here: the next guide starts with the flight to {area:976}."] = "Restez ici : le prochain guide commence par le vol vers {area:976}.",
-	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "{npc:7854}, à l'intérieur",
+	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
+	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776} : les ours sont à {zone:1448}",
 
 	-- Step 47: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
@@ -200,21 +197,17 @@ return {
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Les Élémentaires marins et les Embruns ondoient le long du rivage autour du quai.\nLes Marcheurs des terres et les Géants des falaises parcourent les collines au nord du quai. Frappez d'abord chacun avec l'{item:18904} : une fois rapetissés, ils ne sont plus élites. Chaque géant rapetissé lâche du résidu ; utilisez aussi le Récipient de Muisek sur son corps.",
 
-	-- Step 56: Hearth to Camp Mojache
-	-- {area:1099} Camp Mojache
-	["Hearth to {area:1099}"] = "Pierre de foyer vers {area:1099}",
-
-	-- Step 57: Back to Camp Mojache
+	-- Step 56: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "Retour à {area:1099}",
 
-	-- Step 58: Fly to Gadgetzan
+	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Maître de vol de {area:1099}",
 
-	-- Step 59: Gadgetzan
+	-- Step 58: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 	-- {npc:7876} Tran'rek
@@ -222,22 +215,31 @@ return {
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "Le goudron de {npc:7876} et les échantillons de l'Alchimiste Pestlezugg viennent de {zone:1449}.",
 
-	-- Step 60: Marvon Rivetseeker
+	-- Step 59: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
-	["South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Redescendez la route vers le sud.\nAllez vers le sud par la route jusqu'au {area:1938} ; {npc:7771} campe à côté. D'ici, la route vers l'ouest descend dans le {zone:1449}, où commence le prochain guide.",
+	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Suivez la route vers le sud jusqu'à {area:1938} ; {npc:7771} campe à côté. De là, la route vers l'ouest descend dans {zone:1449}, où commence le guide suivant.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Gardez {quest:3444} : le coffre de {npc:7771} s'ouvre lors d'une visite ultérieure.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "Prenez un vol de {area:1237} pour {zone:1454}, sortez par la grande porte jusqu'aux tours des zeppelins et prenez le zeppelin pour {object:3202}.",
 	-- ["Fly to the {area:1497}"] = "Prendre un vol pour {area:1497}",
 	-- ["Fly to {area:1638}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Prenez un vol pour {area:1638} ; c'est sur la route de {area:1099}. Pas encore de trajet aérien là-bas ? Prenez un vol pour {area:378} et traversez {zone:1412} vers l'ouest. Hamuul et {npc:4046} sont sur {area:1639} ; druides et paladins s'entraînent ici ({npc:3033}, {npc:246344}).",
+	-- ["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
+	-- ["Fly to {zone:1456}"] = "Prendre un vol pour {zone:1456}",
+	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "Suivez la route vers le sud ; les basilics se prélassent sur les rochers à l'est, au milieu de la jungle. Leurs éclats tombent souvent.",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "Chez le maître de vol de {area:3317}, prenez un vol pour {area:1497}.",
+	-- ["Hearth to {area:1099}"] = "Pierre de foyer vers {area:1099}",
 	-- ["Highborne and Haldarr satyrs"] = "Bien-nés et satyres Haldarr",
+	-- ["If you skipped {quest:8552} or {quest:591}, grind here to level 49.93 to stay on the route's plan."] = "Si vous avez passé {quest:8552} ou {quest:591}, tuez des monstres ici jusqu'au niveau 49.93 pour rester dans le plan de la route.",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Gardez {area:1417} pour {npc:7771}, à {zone:1446}.",
+	-- ["Level 49.93"] = "Niveau 49.93",
 	-- ["Ride into {zone:1447}"] = "Entrer en {zone:1447}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Allez au nord-ouest jusqu'à {area:1108} ; {npc:14637} attend sur le quai.",
-	-- ["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Suivez la route vers le sud jusqu'à {area:1938} ; {npc:7771} campe à côté. De là, la route vers l'ouest descend dans {zone:1449}, où commence le guide suivant.",
 	-- ["Sea elementals"] = "Elémentaires marins",
+	-- ["South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Redescendez la route vers le sud.\nAllez vers le sud par la route jusqu'au {area:1938} ; {npc:7771} campe à côté. D'ici, la route vers l'ouest descend dans le {zone:1449}, où commence le prochain guide.",
+	-- ["Stay here: the next guide starts with the flight to {area:976}."] = "Restez ici : le prochain guide commence par le vol vers {area:976}.",
+	-- ["Take the zeppelin back to {zone:1454}."] = "Reprenez le zeppelin pour {zone:1454}.",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "Prenez le zeppelin pour {zone:1454} à la tour devant {zone:1458}, puis prenez un vol pour {area:431}.",
 	-- ["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Les Marcheurs des terres et les Géants des falaises parcourent les collines au nord du quai. Réduisez d'abord chacun avec l'{item:18904} : réduits, ils ne sont plus élites. Chaque géant réduit lâche un résidu ; utilisez aussi le récipient miniaturisé sur son corps.",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "Les Elémentaires marins et les Embruns ondoient le long du rivage autour du quai.",
@@ -245,4 +247,5 @@ return {
 	-- ["{npc:6986}, the {object:172959}"] = "{npc:6986}, {object:172959}",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776} : les ours sont dans {zone:1448}",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} se trouve dans {object:36082}.",
+	-- ["{npc:7854}, inside"] = "{npc:7854}, à l'intérieur",
 }

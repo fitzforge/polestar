@@ -136,13 +136,13 @@ return {
 
 	-- Step 23: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
-	["{item:8831} (Alliance)"] = "",
+	["{item:8831} (Alliance)"] = "{item:8831} (얼라이언스)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
 	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1425} is marked."] = "",
 
 	-- Step 24: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
-	["{item:8831} (Horde)"] = "",
+	["{item:8831} (Horde)"] = "{item:8831} (호드)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
 	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1444} is marked."] = "",
 

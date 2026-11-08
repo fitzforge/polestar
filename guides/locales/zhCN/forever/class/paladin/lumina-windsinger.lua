@@ -67,9 +67,9 @@ return {
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
 	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}的矿洞里",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["Goblin Woodcarvers, inside"] = "",
+	["Goblin Woodcarvers, inside"] = "地精木匠，在副本内",
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
-	["The {item:6995}"] = "",
+	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
@@ -116,7 +116,6 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to the {area:228}"] = "回到{area:228}",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "用钥匙放她出来，然后在她杀出要塞时紧跟着她。",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "暂无物品：一段被遗忘者圣骑士的营救故事；其续篇{item:268484}目前还无法完成。",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "离开{area:235}后，卢米娜会在{area:228}等你。再次与她交谈，听听路上到底发生了什么。",
@@ -125,7 +124,6 @@ return {
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "向南穿过{zone:1421}前往{area:228}。{npc:248840}站在镇里；{npc:259611}在入口附近守望。",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172}位于{area:228}东边的湖中。烧焦的遗骸就在岛的岸边。",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378}在{area:156}西北的悬崖上，于{area:16602}内领导Tyr's Watch的圣骑士。",
-	-- ["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862}被关在岛北端的{area:235}里。她周围的腐皮豺狼人身上带着钥匙。",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "{zone:1458}和大地之环声望",
 }

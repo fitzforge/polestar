@@ -111,6 +111,18 @@ version throughout.
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
 
+   `forge i18n guides sync` and `forge guide compile` read the client's
+   AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside
+   the reference data (`<data>/../sources`). Without it they still run, but
+   place names stop being `{area:N}` tokens: sync then rewrites every
+   language's guide-text keys and moves their translations to the "No longer
+   in the guide" blocks (0.3.5 shipped that way). Run them in a checkout
+   where `data/forever` is a real folder (not a symlink into a tree without
+   `sources`) and `data/sources` holds the AreaTable; compile prints
+   `areas: N of M place goals got an area (AreaTable <build>)`. Before
+   packing, compare each `addon/Polestar_<locale>/Texts.lua`'s entry count
+   with the last release's: a large drop means translations went missing.
+
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
    (names only, highest total first; amounts are never stored).
 

@@ -49,7 +49,7 @@ return {
 	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "",
 
 	-- Step 11: The Barrens
-	-- {area:382} Sludge Fen · {object:407566} Goblin Tome · {area:392} Ratchet
+	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
 	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "Две книги: руководство в диспетчерской на вершине нефтяной вышки в зоне {area:382} и {object:407566} рядом с Газлоу в {area:392}.",
 
 	-- Step 12: The Wailing Caverns' cave
@@ -61,7 +61,7 @@ return {
 	["Cave mouth at {area:387}"] = "",
 
 	-- Step 13: Orgrimmar
-	-- {object:405149} Mural of Ta'zo · {object:172961} Valley of Spirits
+	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
 	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149} — каменная плита, прислонённая к стене в {object:172961}, по пути к учителям магов. Используйте её, чтобы взять книгу.",
 
 	-- Step 14: The library: first books

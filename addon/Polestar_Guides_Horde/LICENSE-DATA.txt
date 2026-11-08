@@ -25,12 +25,32 @@ Revision: 22b51464f1625f6ef6275771de1f5466c6f5d19e
 License: GPL-3.0; quest objective counts only, used as facts: an objective whose count QuestieDB and pfQuest lack takes the matching quest_template count
 CMaNGOS (https://github.com/cmangos/classic-db)
 
+EG Link output: World of Warcraft: Forever
+------------------------------------------
+URL: https://github.com/JIVESCORP/eg-link-output-wowf
+Revision: d98f94821b69cccf81b03a542df3755b60055217
+License: CC BY 4.0; facts used: quest levels, XP, objectives and counts, next quests, givers and enders, races, quest-tied drop rates
+EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.
+
+Factoruide databases (with the VMaNGOS values they carry)
+---------------------------------------------------------
+URL: https://github.com/Factoruide
+License: GPL-2.0-or-later, taken under GPL-3.0; facts used where the sources above lack them
+Factoruide contributors
+
 Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)
 ------------------------------------------------------------------------------------------------------------------
 URL: https://github.com/advocaite/TrinityCore/tree/forever
 Revision: forever-tdb-2026-10-14 + 367ac384fa20
 License: GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions (gathering nodes too), sniffed drop rates, class trainer lists and costs, profession trainers' learn ranks and costs
 TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch
+
+forever-vo captures
+-------------------
+URL: https://github.com/quinn-dougherty/forever-vo
+Revision: f3b8d4c600394a094bc7729b2bdcbbc1ddbbdb52
+License: NOASSERTION; quest givers and enders captured in game, used as facts
+forever-vo contributors
 
 pfQuest
 -------
@@ -60,6 +80,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+Polestar quest mechanics: kinds, parameters and steps (facts in our own words), checked against the Forever TrinityCore world DB
+--------------------------------------------------------------------------------------------------------------------------------
+License: Polestar original work; structured facts from CMaNGOS classic-db (GPL-3.0) and the Forever TrinityCore world DB (GPL-2.0) used as facts
+TrinityCore and the advocaite/TrinityCore `forever` branch; CMaNGOS (https://github.com/cmangos/classic-db)
+
 Quest XP for quests QuestieDB lacks: two Forever web quest databases (one from the beta client's quest cache)
 -------------------------------------------------------------------------------------------------------------
 Revision: 561 quests; cache data/sources/webxp/quest-xp.json
@@ -68,7 +93,7 @@ License: Public web pages; facts (XP numbers) only, used locally with permission
 QuestieDB (Questie-Forever), baked Forever store and support data
 -----------------------------------------------------------------
 URL: https://github.com/Questie/QuestieDB
-Revision: 1.0.6 36ca1ca86f6c1838de479c7c7452eb0a57d5c135
+Revision: 1.0.10 a37877c1490027ee48e5722bf602adf34f95a6dc
 License: No license file in Questie/Questie or Questie/QuestieDB; CurseForge lists GPL-3.0, and the maintainers ask that it be treated as all rights reserved (https://github.com/Questie/Questie/issues/4447). Read from the local install; facts only (quest, NPC, object and item facts, no code or text) ship in Polestar's packs, credited here, and come out if the maintainers ask (data build --no-questie).
 Code: Logonz Data: Muehe/TheCrux(BreakBB)/Drejjmit/Dyaxler/Cheeq/TechnoHunter/Yttrium/Everyone else
 

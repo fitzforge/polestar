@@ -58,7 +58,6 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Редкий плащ на 30-м уровне из старой истории о заклинании «{spell:407778}»; пока завершить ее могут только паладины Альянса.",
 	-- ["Back to {area:413}."] = "Назад: {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Призыватели, воители и следопыты из клана Черной Горы стоят лагерем на северо-западе Красногорья; с них падает {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Поднимитесь на вершину башни ({area:444}) на севере зоны {zone:1439}. Обыщите там странную сферу: она дает Сферу Алталакса, с которой начинается задание.",

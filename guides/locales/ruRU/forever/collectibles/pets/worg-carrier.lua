@@ -18,7 +18,7 @@ return {
 	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
 	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "",
 	-- {area:1583} Blackrock Spire
-	["Lower {area:1583}"] = "",
+	["Lower {area:1583}"] = "{area:1583}: нижняя часть",
 
 	-- Step 3: Back to Kibler
 	-- {npc:10260} Kibler

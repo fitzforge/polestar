@@ -1,6 +1,6 @@
 {
   "name": "polestar",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "private": true,
   "description": "Leveling guides for World of Warcraft: Forever: the addon, its data pipeline and the authoring toolchain",
   "bin": {

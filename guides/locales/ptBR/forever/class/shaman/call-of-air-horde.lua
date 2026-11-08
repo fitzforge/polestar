@@ -81,7 +81,7 @@ return {
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill · {item:280607} Lightning's Grasp · {item:280605} Tidebringer's Claw · {item:280604} Rage of the Storm · {item:280696} Elementalist's Guard
 	["{npc:6176} camps in the ruins in the east of {zone:1416}: from {area:272} follow the river east of town north into the hills. Pick your weapon: {item:280607}, {item:280605} or {item:280604}; the {item:280696} shield comes with it."] = "",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:280696} Elementalist's Guard
-	["{npc:6176}: the {item:280696} and your weapon"] = "",
+	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: o {item:280696} e sua arma",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "No nível 30, {npc:5892} no {object:172957} manda você a {npc:5905} em {zone:1441}.",

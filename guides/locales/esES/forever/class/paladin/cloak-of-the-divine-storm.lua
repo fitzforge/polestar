@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Una capa rara a nivel 30 de la antigua historia de {spell:407778}; por ahora solo los paladines de la Alianza pueden terminarla.",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "El orbe extraño",
@@ -58,7 +58,6 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Una capa rara a nivel 30 de la antigua historia de {spell:407778}; por ahora solo los paladines de la Alianza pueden terminarla.",
 	-- ["Back to {area:413}."] = "Vuelve a {area:413}.",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Los invocadores, campeones y rastreadores Roca Negra acampan en el noroeste de las Montañas Crestagrana; sueltan la {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Sube a lo alto de la {area:444}, en el norte de {zone:1439}. Despoja el orbe extraño de arriba: te da el orbe de Althalaxx, que inicia la misión.",

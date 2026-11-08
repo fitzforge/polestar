@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Fly to Grom'gol
 	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "",
+	["Fly to {object:3202}"] = "Летите: {object:3202}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
@@ -43,7 +43,8 @@ return {
 	-- Step 12: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Железозубые василиски",
-	["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "Идите по дороге на юг; василиски греются на камнях к востоку от нее посреди джунглей. Осколки падают часто.",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
+	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 	["Below ground"] = "",
 
 	-- Step 13: Back to Grom'gol
@@ -60,7 +61,7 @@ return {
 
 	-- Step 21: Ride into Azshara
 	-- {area:16} Azshara
-	["Ride into {area:16}"] = "",
+	["Ride into {area:16}"] = "Въезжайте: {area:16}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Езжайте на восток по дороге от Заставы Расщепленного Дерева. {npc:11548} ждет здесь: {area:1235}, чуть в стороне от дороги, в нескольких шагах к западу от места {area:3137} (Альянс): подходите с запада и держитесь подальше от часовых Азшары и Джарродена (элита).",
@@ -72,10 +73,10 @@ return {
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 23: Level 49.93
-	["Level 49.93"] = "",
-	-- {quest:8552} The Monogrammed Sash · {quest:591} The Mind's Eye
-	["If you skipped {quest:8552} or {quest:591}, grind here to level 49.93 to stay on the route's plan."] = "",
+	-- Step 23: Level 50
+	["Level 50"] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -132,8 +133,6 @@ return {
 	["{area:1237} flight master"] = "",
 
 	-- Step 38: Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Take the zeppelin back to {zone:1454}."] = "Летите на дирижабле обратно: {zone:1454}.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- {npc:6986} Dran Droffers
@@ -150,16 +149,16 @@ return {
 
 	-- Step 41: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
 	-- Step 42: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "",
+	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Летите в {zone:1456}; это по пути к месту {area:1099}. Маршрута полета туда еще нет? Летите в {area:378} и езжайте на запад через {zone:1412}. Хамуул и {npc:4046} — здесь: {area:1639}; друиды и паладины обучаются здесь ({npc:3033}, {npc:246344}).",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Учитель классовых навыков",
 
 	-- Step 44: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga
@@ -167,13 +166,13 @@ return {
 
 	-- Step 45: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
-	["Fly to {area:1099}"] = "",
+	["Fly to {area:1099}"] = "Летите сюда: {area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
 	-- Step 46: Camp Mojache
-	-- {area:976} Gadgetzan
-	["Stay here: the next guide starts with the flight to {area:976}."] = "",
+	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
+	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: медведи — в зоне {zone:1448}",
 
 	-- Step 47: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
@@ -204,7 +203,7 @@ return {
 
 	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "Летите сюда: {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
@@ -218,21 +217,20 @@ return {
 
 	-- Step 59: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
-	["South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "",
+	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Езжайте на юг по дороге к месту {area:1938}; {npc:7771} стоит лагерем рядом. Отсюда дорога на запад ведет вниз в {zone:1449}, где начинается следующий гайд.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Сохраните {quest:3444}: сундук {npc:7771} откроется при следующем визите.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "Летите из места {area:1237} в {zone:1454}, выйдите из главных ворот к башням дирижаблей и летите на дирижабле: {object:3202}.",
 	-- ["Fly to the {area:1497}"] = "Летите: {area:1497}",
-	-- ["Fly to {area:1638}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Летите в {area:1638}; это по пути к месту {area:1099}. Маршрута полета туда еще нет? Летите в {area:378} и езжайте на запад через {zone:1412}. Хамуул и {npc:4046} — здесь: {area:1639}; друиды и паладины обучаются здесь ({npc:3033}, {npc:246344}).",
+	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "Идите по дороге на юг; василиски греются на камнях к востоку от нее посреди джунглей. Осколки падают часто.",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "От распорядителя полетов ({area:3317}) летите в {area:1497}.",
 	-- ["Highborne and Haldarr satyrs"] = "Высокорожденные и сатиры из племени Халдарр",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Сохраните {area:1417} для {npc:7771} ({zone:1446}).",
-	-- ["Ride into {zone:1447}"] = "Въезжайте: {zone:1447}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Езжайте на северо-запад: {area:1108}; {npc:14637} ждет на причале.",
-	-- ["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Езжайте на юг по дороге к месту {area:1938}; {npc:7771} стоит лагерем рядом. Отсюда дорога на запад ведет вниз в {zone:1449}, где начинается следующий гайд.",
 	-- ["Sea elementals"] = "Морские элементали",
+	-- ["Take the zeppelin back to {zone:1454}."] = "Летите на дирижабле обратно: {zone:1454}.",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "Летите на дирижабле в {zone:1454} от башни у города {zone:1458}, затем летите в {area:431}.",
 	-- ["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Сухопутные бродяги и скальные великаны бродят по холмам к северу от причала. Сначала ударьте каждого предметом {item:18904}: уменьшенные, они больше не элита. С каждого уменьшенного великана падает осадок; используйте на его теле и сосуд для уменьшенных горных великанов.",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "Морские элементали и морские валы плещутся у берега вокруг причала.",

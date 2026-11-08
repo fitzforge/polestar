@@ -48,13 +48,13 @@ return {
 	-- {item:12815} Beacon Torch · {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone · {faction:72} Stormwind
 	["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "Marca {npc:10903} con la {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "Marca {npc:10904} con la {item:12815}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "Marca {npc:10905} con la {item:12815}",
 	-- {item:13194} Felstone Field Cauldron Key · {npc:11075} Cauldron Lord Bilemaw
 	["{item:13194}, from {npc:11075}"] = "",
 	-- {object:176361} Scourge Cauldron

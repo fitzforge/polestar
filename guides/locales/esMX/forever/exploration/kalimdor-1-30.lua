@@ -107,8 +107,8 @@ return {
 	-- Step 22: The Barrens (1/4)
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "Cruza los puentes de {area:814} hacia el oeste, saliendo de {zone:1411} hacia {zone:1413}. {area:385}, en el este, es un fuerte de la Alianza.",
-	-- {area:392} Ratchet · {area:380} The Crossroads · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "Rutas de vuelo aquí: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378}).",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -162,11 +162,8 @@ return {
 	["Flight path here: {area:484} (Nyse)."] = "Ruta de vuelo aquí: {area:484} (Nyse).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "Cruza los puentes de {area:814} hacia el oeste, saliendo de {zone:1411} hacia {zone:1413}. {area:385}, en el este, es un fuerte de la Alianza.",
-	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "Cruza {area:814} hacia el este desde el norte de {zone:1413} hasta {zone:1411}: territorio de la Horda, con guardias en {area:362}, {area:367} y {zone:1454}.",
 	-- ["Flight path here: {zone:1456} (Tal)."] = "Ruta de vuelo aquí: {zone:1456} (Tal).",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "Rutas de vuelo aquí: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378}).",
-	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "Vuela a {area:378} y camina al sur por {zone:1413} hasta {area:485}, que baja a {zone:1441}.",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "Desde el sur de {zone:1413}, toma {area:485} para bajar a {zone:1441}. {area:484} es un pueblo de la Horda.",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "Vuelve a {zone:1413} y ve al oeste por {area:1702} hasta {zone:1442}. {area:460} es el pueblo de la Horda; {area:467}, en el norte, es de la Alianza.",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "Vuelve al oeste cruzando {zone:1413}; el camino al oeste desde {area:378} sube a {zone:1412}, territorio tauren con guardias en {area:222} y {zone:1456}.",

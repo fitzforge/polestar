@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Fly to Grom'gol
 	-- {object:3202} Grom'gol
-	["Fly to {object:3202}"] = "",
+	["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "飞往{area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
@@ -43,7 +43,8 @@ return {
 	-- Step 12: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "铁腭蜥蜴",
-	["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "沿道路向南；蜥蜴在丛林中部道路东边的岩石上晒太阳。它们经常掉落碎片。",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
+	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 	["Below ground"] = "",
 
 	-- Step 13: Back to Grom'gol
@@ -60,7 +61,7 @@ return {
 
 	-- Step 21: Ride into Azshara
 	-- {area:16} Azshara
-	["Ride into {area:16}"] = "",
+	["Ride into {area:16}"] = "骑马进入{area:16}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "沿道路向东离开碎木岗哨。{npc:11548}在道路旁的{area:1235}等候，位于联盟{area:3137}西边几步远：从西边过去，避开艾萨拉哨兵和加罗迪努斯（精英）。",
@@ -72,10 +73,10 @@ return {
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 23: Level 49.93
-	["Level 49.93"] = "",
-	-- {quest:8552} The Monogrammed Sash · {quest:591} The Mind's Eye
-	["If you skipped {quest:8552} or {quest:591}, grind here to level 49.93 to stay on the route's plan."] = "",
+	-- Step 23: Level 50
+	["Level 50"] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -127,13 +128,11 @@ return {
 
 	-- Step 37: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
 	-- Step 38: Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Take the zeppelin back to {zone:1454}."] = "乘飞艇返回{zone:1454}。",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 	-- {npc:6986} Dran Droffers
@@ -150,16 +149,16 @@ return {
 
 	-- Step 41: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
 	-- Step 42: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "",
+	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "飞往{zone:1456}；它在前往{area:1099}的路上。还没有那里的飞行路线？飞往{area:378}，再向西骑马穿过{zone:1412}。哈缪尔和{npc:4046}在{area:1639}；德鲁伊和圣骑士在这里训练（{npc:3033}，{npc:246344}）。",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "职业训练师",
 
 	-- Step 44: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga
@@ -167,13 +166,13 @@ return {
 
 	-- Step 45: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
-	["Fly to {area:1099}"] = "",
+	["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
 	-- Step 46: Camp Mojache
-	-- {area:976} Gadgetzan
-	["Stay here: the next guide starts with the flight to {area:976}."] = "",
+	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
+	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",
 
 	-- Step 47: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
@@ -204,7 +203,7 @@ return {
 
 	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
@@ -218,21 +217,20 @@ return {
 
 	-- Step 59: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
-	["South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "",
+	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿道路向南骑往{area:1938}；{npc:7771}在旁边扎营。从这里向西的道路通往{zone:1449}，下一个指南从那里开始。",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "留着{quest:3444}：{npc:7771}的箱子要之后再来时才能打开。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "从{area:1237}飞往{zone:1454}，从正门走到飞艇塔，乘飞艇前往{object:3202}。",
 	-- ["Fly to the {area:1497}"] = "飞往{area:1497}",
-	-- ["Fly to {area:1638}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "飞往{area:1638}；它在前往{area:1099}的路上。还没有那里的飞行路线？飞往{area:378}，再向西骑马穿过{zone:1412}。哈缪尔和{npc:4046}在{area:1639}；德鲁伊和圣骑士在这里训练（{npc:3033}，{npc:246344}）。",
+	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "沿道路向南；蜥蜴在丛林中部道路东边的岩石上晒太阳。它们经常掉落碎片。",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "从{area:3317}的飞行管理员处飞往{area:1497}。",
 	-- ["Highborne and Haldarr satyrs"] = "上层精灵和哈达尔萨特",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "留着{area:1417}给{zone:1446}的{npc:7771}。",
-	-- ["Ride into {zone:1447}"] = "骑马进入{zone:1447}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
-	-- ["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿道路向南骑往{area:1938}；{npc:7771}在旁边扎营。从这里向西的道路通往{zone:1449}，下一个指南从那里开始。",
 	-- ["Sea elementals"] = "海元素",
+	-- ["Take the zeppelin back to {zone:1454}."] = "乘飞艇返回{zone:1454}。",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "在{zone:1458}外的塔上乘飞艇前往{zone:1454}，然后飞往{area:431}。",
 	-- ["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "大地行者和峭壁巨人在码头北边的山丘上游荡。先用{item:18904}电击每一个：被缩小后，它们就不再是精英。每个被电击的巨人都会掉落残渣；也对它的尸体使用灵魂精华容器。",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "海元素和巨型海元素沿着码头周围的海岸漂荡。",

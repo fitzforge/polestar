@@ -25,8 +25,8 @@ return {
 	-- {npc:7051} Malformed Defias Drone · {spell:921} Pick Pocket · {spell:2983} Sprint
 	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
 	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "",
-	-- {item:7923} Defias Tower Key · {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone
-	["{item:7923}: {spell:921} the {npc:7051}"] = "",
+	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
+	["{spell:921} the {npc:7051} for the {item:7923}"] = "",
 
 	-- Step 4: Klaven's journal
 	["Klaven's journal"] = "",

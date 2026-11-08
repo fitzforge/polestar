@@ -95,5 +95,4 @@ return {
 	-- ["{item:6894} from {quest:1712}"] = "{item:6894} — {quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176} разбил лагерь на юго-востоке зоны {zone:1416}, над {zone:1424}; рядом стоит его котел. Ему нужны {item:3357}, {item:3901} и {quest:1714}, которую котел варит из трех амулетов.",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712} ждет чуть севернее лагеря {npc:6176} и несет {item:6894}. {quest:1712} — элита: лучше собрать группу.",
-	-- ["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "{spell:2458} на 30-м уровне и топор, меч или боевой молот ({spell:1680}) на 40-м.",
 }

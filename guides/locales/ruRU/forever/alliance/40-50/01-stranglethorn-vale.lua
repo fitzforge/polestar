@@ -9,30 +9,34 @@ return {
 	-- Step 1: Theramore
 	["Theramore"] = "Терамор",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
-	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "",
+	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "Задание «{quest:1260}» – у таверны; {npc:4897}, поставщица в нескольких шагах к югу, продает специи, которые нужны Ярлу.",
 	-- {quest:1260} Morgan Stern
 	["{quest:1260}, inside"] = "",
+	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
+	["{npc:4964}, on the top floor of {area:514}"] = "",
 	-- {item:3713} Soothing Spices
-	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
+	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}: для Ярла «Болотного Глаза»",
 
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it."] = "Идите по дороге на северо-запад из Терамора к сторожевой башне ({area:503}). По болоту вокруг нее бродят глинистые землеглоты.",
 
 	-- Step 3: Archmage Tervosh
 	-- {area:514} Foothold Citadel
-	["Back in Theramore: Tervosh waits with Lady Jaina in the tower of {area:514}."] = "",
+	["Back in Theramore: Tervosh waits with Lady Jaina in the tower of {area:514}."] = "Назад в Терамор: Тервош ждет вместе с леди Джайной в башне ({area:514}).",
 	["Upstairs"] = "",
 
 	-- Step 6: Theramore
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "",
+	-- {npc:4794} Morgan Stern · {area:8} Swamp of Sorrows
+	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "",
 
 	-- Step 7: Swamplight Manor
 	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Идите по дороге на север к разрушенной усадьбе; Ярл живет в лачуге рядом с ней, а рыхлая земля – у угла дома.",
 	-- {quest:1218} Soothing Spices
-	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "",
+	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "{quest:1218}: для Ярла «Болотного Глаза»",
 	["with the spices from Theramore"] = "со специями из Терамора",
 
 	-- Step 8: "Stinky" Ignatz
@@ -53,7 +57,7 @@ return {
 
 	-- Step 12: The Shady Rest Inn
 	-- {area:17} Barrens
-	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "",
 
 	-- Step 13: Theramore
 	-- {area:514} Foothold Citadel
@@ -89,18 +93,18 @@ return {
 
 	-- Step 21: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "Корабль: {area:150}",
 
 	-- Step 22: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
 	-- Step 24: Riding at 40
 	["Riding at 40"] = "Верховая езда на 40-м уровне",
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {area:12} Elwynn Forest · {npc:384} Katie Hunter
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. {npc:4732} обучает людей ({area:88}, восток зоны {area:12}) рядом с лошадьми, которых продает {npc:384}. Возможно, в Forever любая раса может учиться у любого учителя верховой езды (не подтверждено). Все цвета – в разделе «Коллекции», «Транспорт · 40-й уровень».",
 	-- {npc:384} Katie Hunter
 	["{npc:384}: other colours, 20g"] = "{npc:384}: другие цвета, 20 з.",
 
@@ -118,7 +122,7 @@ return {
 
 	-- Step 47: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 
@@ -127,11 +131,11 @@ return {
 	["{npc:773}, upstairs"] = "",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "для NPC {npc:770} ({area:99}), на северном круге",
-	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
-	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: для задания «{quest:2864}» (зона {zone:1446}), сохраните",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487} – верхний этаж",
-	["Inside"] = "",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
+	["Inside"] = "Внутри",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Следующее поручение Морского Рога ведет обратно в Нагорье Арати: пропустите его.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
@@ -183,7 +187,7 @@ return {
 	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
 	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Капитаны стоят на кораблях, бросивших якорь у берега ({area:43}), у каждого – команда пиратов 42-45-го уровня: Штиллец (45) и Кильватель (46) – на ближних палубах, {npc:2546} (48) – на флагмане. На 42-м уровне это бой для группы или для конца гайда; если пойдете, сначала зачистите каждую палубу. Свиток Кортелло лежит на обломках корабля у берега.",
 	-- {area:8} Swamp of Sorrows
-	["for the {area:8} later"] = "",
+	["for the {area:8} later"] = "для зоны {area:8}, позже",
 
 	-- Step 58: Zanzil's village
 	["Zanzil's village"] = "Деревня Занзила",
@@ -227,37 +231,41 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
 
-	-- Step 68: Booty Bay
+	-- Step 68: Level 42.06
+	["Level 42.06"] = "",
+	-- {quest:193} Panther Mastery · {area:1517} Uldaman
+	["If you skipped {quest:193}, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	-- {npc:690} Cold Eye Basilisk
+	["grind on {npc:690}"] = "",
+
+	-- Step 69: Raptor Mastery
+	-- {npc:730} Tethis
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+
+	-- Step 73: Level 42.1
+	["Level 42.1"] = "",
+	-- {quest:196} Raptor Mastery · {area:1517} Uldaman
+	["If you skipped {quest:196}, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+
+	-- Step 74: Big Game Hunter
+	-- {npc:731} King Bangalash
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
+
+	-- Step 76: Level 42.16
+	["Level 42.16"] = "",
+	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
+	["If you skipped {quest:208}, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+
+	-- Step 77: Booty Bay
+	-- {area:35} Booty Bay
+	["Ride south down the road to {area:35}."] = "",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "Следующее поручение {npc:2498} про Занзила начинается в зоне {zone:1441}: пропустите его.",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "Следующее задание Маккинли отправляет вас к элитным ограм: пропустите его.",
-
-	-- Step 69: Level 42.23
-	["Level 42.23"] = "",
-	-- {quest:193} Panther Mastery
-	["If you skipped {quest:193}, grind here to level 42.23 to stay on the route's plan."] = "",
-	-- {npc:690} Cold Eye Basilisk
-	["grind on {npc:690}"] = "",
-
-	-- Step 70: Raptor Mastery
-	-- {npc:730} Tethis
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-
-	-- Step 74: Level 42.27
-	["Level 42.27"] = "",
-	-- {quest:196} Raptor Mastery
-	["If you skipped {quest:196}, grind here to level 42.27 to stay on the route's plan."] = "",
-
-	-- Step 75: Big Game Hunter
-	-- {npc:731} King Bangalash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
-
-	-- Step 77: Level 42.33
-	["Level 42.33"] = "",
-	-- {quest:208} Big Game Hunter
-	["If you skipped {quest:208}, grind here to level 42.33 to stay on the route's plan."] = "",
+	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
+	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: для задания «{quest:2864}» (зона {zone:1446}), сохраните",
 
 	-- Step 78: Fly to Stormwind
 	-- {area:35} Booty Bay
@@ -266,8 +274,8 @@ return {
 	-- Step 79: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} готовит в здании {object:2169}; {npc:5384} – {object:28027}.",
-	-- {npc:5694} High Sorcerer Andromath · {area:1438} Nethergarde Keep
-	["{npc:5694}: for {area:1438}, keep it"] = "{npc:5694}: для места {area:1438}, сохраните",
+	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
+	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
 
 	-- Step 80: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
@@ -280,7 +288,7 @@ return {
 	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171} – в Соборе Света",
 
 	-- Step 83: Stormwind City
-	["Stormwind City"] = "",
+	["Stormwind City"] = "Штормград",
 
 	-- Step 84: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
@@ -296,7 +304,7 @@ return {
 
 	-- Step 88: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {area:12} Elwynn Forest
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. {npc:4753} обучает ночных эльфов (город {zone:1457}) рядом с саблезубами, которых продает {npc:4730}: корабль ({area:17203} – {area:442}), затем полет в {area:702}. Возможно, в Forever любая раса может учиться у любого учителя верховой езды (не подтверждено), например у NPC {npc:4732} ({area:88}, зона {area:12}). Все цвета – в разделе «Коллекции», «Транспорт · 40-й уровень».",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730}: другие цвета, 20 з.",
 
@@ -314,7 +322,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 93: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
@@ -325,8 +333,8 @@ return {
 
 	-- Step 97: Level 42.46
 	["Level 42.46"] = "",
-	-- {quest:543} The Perenolde Tiara
-	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan."] = "",
+	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
+	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:766} Tangled Horror
 	["grind on {npc:766}"] = "",
 
@@ -346,6 +354,9 @@ return {
 
 	-- Step 101: Misty Reed Strand
 	["The driftwood washes up along the eastern shore."] = "Плавник выносит на восточный берег.",
+	-- {item:5938} Pristine Crawler Leg
+	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler
+	["{item:5938}, from the Silt Crawlers on the same shore"] = "",
 
 	-- Step 102: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
@@ -357,11 +368,11 @@ return {
 
 	-- Step 106: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Поезд до {zone:1455}",
 
 	-- Step 109: Ironforge
-	-- {area:2257} Deeprun Tram · {object:28027} Dwarven District · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers · {npc:1356} Prospector Stormpike · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern · {area:144} Thelsamar
-	["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "В районе {object:28027} сядьте на поезд ({area:2257}). {npc:5637} – в зале Поисковой корпорации у здания {object:32356}, {npc:1356} – в самом зале, {npc:2786} – {object:32383}. Следующий гайд летит дальше: {area:144}.",
+	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
+	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "В городе {zone:1453} нет учителя шаманов",
 
@@ -383,39 +394,35 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 117: Hammertoe's Digsite
+	-- Step 116: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
-	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "",
+	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "Езжайте на юг из зоны {zone:1432} через перевал в зону {area:3}; {npc:2860} стоит лагерем у раскопок.",
 
-	-- Step 118: Garek
+	-- Step 117: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
-	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "",
+	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} стоит лагерем в одиночестве ({area:1898}), к юго-востоку от раскопок.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. Учитель верховой езды для небеснорожденных неизвестен; клиент Forever относит навык «{spell:1285849}» к общему навыку верховой езды, поэтому обучить ему должен {npc:4732} ({area:88}, восток зоны {zone:1429}), ближайший учитель к городу {zone:1453} (не подтверждено). Буреногов продает {npc:265756} ({area:16638}, остров Зефрис); они перечислены в разделе «Коллекции», «Транспорт · 40-й уровень».",
-	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {zone:1429}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. {npc:4732} обучает людей ({area:88}, восток зоны {zone:1429}) рядом с лошадьми, которых продает {npc:384}. Возможно, в Forever любая раса может учиться у любого учителя верховой езды (не подтверждено). Все цвета – в разделе «Коллекции», «Транспорт · 40-й уровень».",
-	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "На 40-м уровне, имея 100 золотых, можно научиться верховой езде, и при обучении вы получите транспорт. {npc:4753} обучает ночных эльфов (город {zone:1457}) рядом с саблезубами, которых продает {npc:4730}: корабль ({area:17203} – {area:442}), затем полет в {area:702}. Возможно, в Forever любая раса может учиться у любого учителя верховой езды (не подтверждено), например у NPC {npc:4732} ({area:88}, зона {zone:1429}). Все цвета – в разделе «Коллекции», «Транспорт · 40-й уровень».",
-	-- ["Back in Theramore: Tervosh waits with Lady Jaina in the tower of {area:514}."] = "Назад в Терамор: Тервош ждет вместе с леди Джайной в башне ({area:514}).",
 	-- ["Bloodsail pirates"] = "Пираты из шайки Кровавого Паруса",
 	-- ["Fly to {area:42} and ride east through {zone:1430} into the {zone:1435}; {npc:5476} stands by the road just past the border."] = "Летите в поселок {area:42} и езжайте на восток через зону {zone:1430} в зону {zone:1435}; {npc:5476} стоит у дороги сразу за границей.",
 	-- ["Follow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals."] = "Идите по дороге на северо-восток к лагерю Торговой компании ({area:310}); кристаллы падают с шахтеров, геодезистов и штейгеров.",
-	-- ["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it."] = "Идите по дороге на северо-запад из Терамора к сторожевой башне ({area:503}). По болоту вокруг нее бродят глинистые землеглоты.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Буреноги: {npc:265756}, {area:16638} на острове Зефрис.",
 	-- ["Klannoc offers The Windwatcher next (1791): the {spell:1680} weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "Затем Кланнок предлагает задание «Ветростраж» (1791): цепочка оружия ({spell:1680}) с элитным противником в конце описана в классовом гайде воина «Оружие Смерча».",
 	-- ["Mudrock tortoises"] = "Глинистые черепахи",
 	-- ["Ride back west along the road; {npc:217412} stands a short way north of Biggs."] = "Езжайте по дороге назад на запад; {npc:217412} стоит немного к северу от Биггса.",
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "Езжайте из Терамора на запад по дороге через Пылевые топи в зону {zone:1413} и на север к побережью: {area:392}. Получите маршрут полета у NPC {npc:16227}, затем сядьте на корабль у причала: {area:35}.",
 	-- ["Skullsplitter ruins"] = "Руины Дробителей Черепов",
+	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "В районе {object:28027} сядьте на поезд ({area:2257}). {npc:5637} – в зале Поисковой корпорации у здания {object:32356}, {npc:1356} – в самом зале, {npc:2786} – {object:32383}. Следующий гайд летит дальше: {area:144}.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Пауки Мглистой пещеры гнездятся вокруг пещеры на северо-западе болота; глаза падают с каждого паука.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Глинистые черепахи и глинистые колючие черепахи греются на берегу к северо-востоку от усадьбы.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Тролли из племени Дробителей Черепов занимают руины сразу к востоку от шахты; клыки может уронить любой из них, а их пантеры – всегда.",
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "Сгоревшая таверна стоит у дороги на запад, в сторону зоны {zone:1413}; значок стражника лежит в пепле, а следы копыт – в грязи рядом с таверной.",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "Следующий свиток загадки лежит на западе Пылевых топей: пропустите его.",
 	-- ["for Stoley in {zone:1446}: keep it"] = "для Столи (зона {zone:1446}): сохраните",
-	-- ["for the {zone:1435} later"] = "для зоны {zone:1435}, позже",
-	-- ["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}: для Ярла «Болотного Глаза»",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: для NPC {npc:1344} (зона {zone:1432}), сохраните",
 	-- ["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields."] = "{npc:4966} удерживает башню с несколькими дезертирами. Он нападет на вас: бейте его, пока он не сдастся.",
+	-- ["{npc:5694}: for {area:1438}, keep it"] = "{npc:5694}: для места {area:1438}, сохраните",
 	-- ["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "{object:56910} – высокое здание над гаванью; большинство дающих задания – на его этажах или на причалах внизу.",
 	-- ["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "Задание «{quest:1260}» – у таверны; {npc:4897}, поставщица в нескольких шагах к югу, продает специи, которые нужны Ярлу.",
 }

@@ -64,8 +64,8 @@ return {
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "",
-	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants."] = "",
+	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "",
 	-- {npc:15196} Deathclasp
@@ -82,6 +82,8 @@ return {
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "",
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -96,6 +98,8 @@ return {
 	-- Step 12: Noggle Ficklespragg and Proudhorn
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "",
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -119,7 +123,7 @@ return {
 	["Back to Ortell"] = "",
 
 	-- Step 18: Bronzebeard's Encampment
-	["Bronzebeard's Encampment"] = "",
+	["Bronzebeard's Encampment"] = "Acampamento Barbabronze",
 	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
 	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
@@ -130,6 +134,8 @@ return {
 	-- Step 19: Back to Cenarion Hold with news
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	["Natalia, elite: group up"] = "",
 
 	-- Step 20: Rubbings and brains

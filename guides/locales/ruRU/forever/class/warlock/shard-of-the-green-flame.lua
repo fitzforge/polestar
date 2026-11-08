@@ -35,7 +35,7 @@ return {
 	-- Step 6: Kroshius
 	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
 	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
-	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains
+	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
 	["{item:18626}, at {object:179677}"] = "{item:18626} — у объекта {object:179677}",
 
 	-- Step 7: Back to Niby the Almighty

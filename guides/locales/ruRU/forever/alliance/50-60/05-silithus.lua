@@ -14,69 +14,69 @@ return {
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "Корабль: {area:35}",
 
 	-- Step 3: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
 	-- Step 4: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
-	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "",
+	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "Плывите на корабле: {area:392} → {area:35}, затем летите в {zone:1453}.",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520} – ходит вдоль каналов",
 	-- {npc:10778} Janice Felstone
-	["For {npc:10778}: keep it"] = "",
+	["For {npc:10778}: keep it"] = "Для персонажа {npc:10778}: сохраните задание",
 
 	-- Step 5: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332} – в здании ШРУ",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
-	["{quest:6184} at {area:3197}: keep it"] = "",
+	["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} ({area:3197}): сохраните задание",
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Поезд до {zone:1455}",
 
 	-- Step 7: Ironforge
-	["Its jars are filled on the next Un'Goro visit"] = "",
+	["Its jars are filled on the next Un'Goro visit"] = "Его флаконы наполняются при следующем посещении Кратера Ун'Горо",
 	-- {npc:14724} Bubulo Acerbus
-	["{npc:14724}, by the tram"] = "",
+	["{npc:14724}, by the tram"] = "{npc:14724} – у метро",
 
 	-- Step 8: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Fly to {area:2268}"] = "",
+	["Fly to {area:2268}"] = "Летите сюда: {area:2268}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 10: Light's Hope Chapel
-	-- {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
-	["Ride on north to {area:3197} and fly to {area:2268}."] = "",
+	-- Step 9: Light's Hope Chapel
+	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "",
 
-	-- Step 11: Scourge Champions
+	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions"] = "",
+	["Scourge Champions"] = "Воители Плети",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "",
+	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Воители Плети (59) бродят здесь: {area:2270}, к северу от места {area:2268}. Проводите предметом {item:13156} {npc:11063} над каждым убитым: нужны ему черепа, которые резонируют. Выманивайте по одному.",
 	-- {item:13155} Resonating Skull
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["{item:13155}, from the Scourge Champions"] = "",
+	["{item:13155}, from the Scourge Champions"] = "{item:13155}: с воителей Плети",
 
-	-- Step 12: Light's Hope Chapel
-	["Chromie in Andorhal: keep it"] = "",
+	-- Step 11: Light's Hope Chapel
+	["Chromie in Andorhal: keep it"] = "Хроми в Андорале: сохраните задание",
 
-	-- Step 13: Infiltrator Hameya
+	-- Step 12: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
 	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 14: The Undercroft
+	-- Step 13: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
 	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
-	["{item:14613}, from {npc:11886}"] = "",
+	["{item:14613}, from {npc:11886}"] = "{item:14613}: с персонажа {npc:11886}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Chromie in Andorhal: keep it"] = "Хроми в Андорале: сохраните задание",
@@ -100,9 +100,7 @@ return {
 	-- ["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised."] = "Езжайте на юго-запад к {area:2261}. Холмик земли – внутри. {npc:11886} – элитный противник: лучше собрать группу.",
 	-- ["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Езжайте на юго-запад к лагерю ({npc:7771}): {area:1938}.",
 	-- ["Scourge Champions"] = "Воители Плети",
-	-- ["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Воители Плети (59) бродят здесь: {area:2270}, к северу от места {area:2268}. Проводите предметом {item:13156} {npc:11063} над каждым убитым: нужны ему черепа, которые резонируют. Выманивайте по одному.",
 	-- ["Sixty {item:2592}, if you carry them"] = "Шестьдесят шт. {item:2592}, если они у вас есть",
-	-- ["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "Плывите на корабле: {area:392} → {area:35}, затем летите в {zone:1453}.",
 	-- ["Take the {area:2257} to {zone:1455}."] = "Поезжайте на метро ({area:2257}) сюда: {zone:1455}.",
 	-- ["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}."] = "Смоляные твари барахтаются здесь: {area:538}; пепел носят огненные элементали в центре ({area:537}); железу – осы из улья Гориши на юге ({area:540}). С любого существа в кратере может упасть {item:11018}.",
 	-- ["The crater"] = "Кратер",
@@ -119,5 +117,4 @@ return {
 	-- ["{npc:3520}, who walks the canals"] = "{npc:3520} – ходит вдоль каналов",
 	-- ["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299} ждет на кладбище чуть восточнее города; надгробие стоит рядом.",
 	-- ["{quest:3444} is in {area:392}"] = "{quest:3444} – здесь: {area:392}",
-	-- ["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} ({area:3197}): сохраните задание",
 }

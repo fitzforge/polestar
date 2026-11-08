@@ -8,9 +8,9 @@
 return {
 	-- Step 2: Into Un'Goro Crater
 	-- {area:490} Un'Goro Crater
-	["Into {area:490}"] = "",
+	["Into {area:490}"] = "{area:490}(으)로",
 	-- {area:1938} Broken Pillar · {area:490} Un'Goro Crater · {area:541} Marshal's Refuge
-	["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "",
+	["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "{area:1938}에서 서쪽으로 가 {area:490}(으)로 구불구불 내려가는 긴 비탈길을 타고, 분화구 북쪽 벽을 따라 절벽 동굴 속 야영지인 {area:541}(으)로 가세요. 이곳 주민은 모두 중립입니다.",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
@@ -26,18 +26,18 @@ return {
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast
-	["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "",
+	["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "잿구덩이는 야영지 바로 남쪽에 있습니다. 송진괴물, 송진껍질괴물, 송진이끼괴물이 {item:11834}을(를) 떨어뜨립니다.",
 
-	-- Step 5: The Gorishi hive
-	["The Gorishi hive"] = "고리쉬 벌집",
+	-- Step 5: Pterrordax
+	["Pterrordax"] = "테러닥스",
 	-- {npc:9998} Shizzle
-	["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. Pterrordax nest on the cliffs above the hive; their scales are for {npc:9998}."] = "",
+	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "",
 	["grind on Pterrordax"] = "",
 
 	-- Step 6: Power Crystals and soil
-	["Power Crystals and soil"] = "",
+	["Power Crystals and soil"] = "마력의 수정과 흙",
 	-- {area:537} Fire Plume Ridge
-	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "",
+	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "수정 무더기는 분화구 곳곳에 있으며 {area:537} 주변에 많습니다. 수정탑용으로 색깔별로 몇 개씩 더 챙기세요.",
 
 	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
@@ -80,16 +80,16 @@ return {
 	["Underwater"] = "",
 
 	-- Step 18: Lashers and Threshers
-	["Lashers and Threshers"] = "",
+	["Lashers and Threshers"] = "채찍줄기와 덩이줄기",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "",
+	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "동쪽을 따라 북쪽으로 가세요. 채찍줄기 붉은꽃잎덩굴손과 덩이줄기 붉은꽃잎덩굴손이 정글에 가득합니다.",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "",
 
 	-- Step 19: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
 	["{area:490}: kill these as you meet them"] = "",
-	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "",
+	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 
 	-- Step 20: Marshal's Refuge
 	-- {npc:9998} Shizzle
@@ -104,18 +104,18 @@ return {
 	["The pylon stands on the slope east of the refuge."] = "수정탑은 야영지 동쪽 비탈에 있습니다.",
 
 	-- Step 22: Gorillas
-	["Gorillas"] = "",
+	["Gorillas"] = "고릴라",
 	-- {npc:9622} U'cha
-	["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "",
+	["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "고릴라는 북동쪽 고원에 삽니다. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}이(가) 삽니다.",
 	-- {npc:9623} A-Me 01
 	["{npc:9623}, the robot on the plateau; below ground"] = "",
 	-- {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "",
+	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "그다음 {npc:9623}은(는) {skill:202} 아이템인 {item:10561}을(를) 원합니다. 가지고 있지 않으면 건너뛰세요.",
 
-	-- Step 23: Level 51.81
-	["Level 51.81"] = "",
-	-- {area:16985} The Shaper's Terrace
-	["Top up here to level 51.81 before the hand-ins at {area:16985}: they take you to level 52."] = "",
+	-- Step 23: Level 52
+	["Level 52"] = "",
+	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
+	["Top up here to level 52: {quest:4061} at {area:340} needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:6509} Bloodpetal Lasher
 	["grind on {npc:6509}"] = "",
 
@@ -147,12 +147,10 @@ return {
 	-- Step 30: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
-	-- {npc:10041} Gorishi Hive Queen
-	["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "페슬저그의 다음 퀘스트는 정예 우두머리 {npc:10041}이(가) 필요합니다. 건너뛰세요.",
 
 	-- Step 31: Orgrimmar
-	-- {area:1637} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
-	["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
+	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
+	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
 
 	-- Step 32: Back to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -168,11 +166,9 @@ return {
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "",
 
-	-- Step 35: Fly to Kargath
-	-- {area:340} Kargath
-	["Fly to {area:340}"] = "{area:340}(으)로 비행",
-	-- {zone:1454} Orgrimmar · {object:3202} Grom'gol · {area:340} Kargath · {area:3} Badlands
-	["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "",
+	-- Step 35: Kargath
+	-- {area:340} Kargath · {area:3} Badlands
+	["{area:340} is built into the cliffs on the {area:3}' west edge."] = "",
 
 	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -209,11 +205,11 @@ return {
 
 	-- Step 42: Kargath
 	-- {area:1584} Blackrock Depths
-	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "",
+	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "테오도라의 다음 심부름은 마을 동쪽의 로트윌을 거쳐 {area:1584}(으)로 이어집니다. 건너뛰세요.",
 
 	-- Step 43: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "",
+	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
@@ -226,54 +222,56 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 46: Oran Snakewrithe
-	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
-	["{npc:7825} stands in the {object:36082}."] = "",
-
-	-- Step 47: Undercity
+	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{object:36078}, 박쥐 조련사 옆의 {npc:10879}",
+
+	-- Step 47: Oran Snakewrithe
+	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
+	["{npc:7825} stands in the {object:36082}."] = "{npc:7825}은(는) {object:36082}에 있습니다.",
+
+	-- Step 48: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",
 
-	-- Step 49: The Bulwark
+	-- Step 50: The Bulwark
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
-	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "",
+	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "{zone:1458}을(를) 나와 길을 따라 동쪽으로 {area:85}을(를) 지나 경계의 포세이큰 요새인 {area:152}로 가세요.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5401}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
 
-	-- Step 50: Janice Felstone
-	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark · {npc:10778} Janice Felstone
-	["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- Step 51: Janice Felstone
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
+	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
 	["Upstairs"] = "",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
 	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
 
-	-- Step 51: Scarlet forward camp
-	["Scarlet forward camp"] = "",
+	-- Step 52: Scarlet forward camp
+	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "",
+	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
 
-	-- Step 53: Augustus the Touched
+	-- Step 54: Augustus the Touched
 	-- {zone:1422} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
+	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 
-	-- Step 54: Terrordale: kill these as you meet them
+	-- Step 55: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
 	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "",
 
-	-- Step 55: Light's Hope Chapel
+	-- Step 56: Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "남쪽 길로 돌아가 지역을 가로질러 동쪽 {area:2268}까지 가세요.",
 
-	-- Step 56: Eastern Plaguelands: kill these as you meet them
+	-- Step 57: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
 	["{area:139}: kill these as you meet them"] = "",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
@@ -281,28 +279,28 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
 
-	-- Step 57: Pamela Redpath
+	-- Step 58: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 
-	-- Step 58: Pamela's Doll
+	-- Step 59: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변 집들에 있습니다. 가방에서 합치세요.",
 
-	-- Step 59: Pamela Redpath
+	-- Step 60: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "{quest:5152}은(는) 보관하세요. 말레네는 {zone:1422}의 {area:197}에 삽니다.",
 
-	-- Step 60: Zaeldarr the Outcast
+	-- Step 61: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "",
 
-	-- Step 61: Pestilent Scar
+	-- Step 62: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 62: Back to Light's Hope Chapel
+	-- Step 63: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	["The next guide starts here, at the chapel's flight master."] = "다음 가이드는 여기 예배당의 비행 조련사에서 시작합니다.",
@@ -316,14 +314,12 @@ return {
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "{object:3202}행 비행선을 타기 전에 {area:1637}(으)로 날아가 기술을 배우세요. 이 가이드 후반의 {zone:1458}에는 사냥꾼과 주술사 상급자가 없습니다.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "{area:1637}(으)로 날아가 {object:3202}행 비행선을 탄 뒤, 그곳에서 {zone:1418} 서쪽 끝 절벽에 지어진 {area:340}(으)로 날아가세요.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "{area:1638}(으)로 날아가 {area:1639}의 {npc:3033}에게 기술을 배운 뒤, {area:1637}(으)로 날아가 {object:3202}행 비행선을 타세요.",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {zone:1423}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
-	-- ["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "{area:1938}에서 서쪽으로 가 {zone:1449}(으)로 구불구불 내려가는 긴 비탈길을 타고, 분화구 북쪽 벽을 따라 절벽 동굴 속 야영지인 {area:541}(으)로 가세요. 이곳 주민은 모두 중립입니다.",
+	-- ["Fly to {area:340}"] = "{area:340}(으)로 비행",
 	-- ["Gorillas"] = "고릴라",
-	-- ["Into {zone:1449}"] = "{zone:1449}(으)로",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "미끼는 보관하세요. {npc:9684}은(는) 레벨 56이며, 두 번째 순회 때 그 소굴을 지납니다.",
 	-- ["Lashers and Threshers"] = "채찍줄기와 덩이줄기",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}(으)로 데려가세요. 기절하면 {item:11804}을(를) 사용해 깨우세요.",
-	-- ["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "{zone:1458}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 경계의 포세이큰 요새인 {area:152}로 가세요.",
+	-- ["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "페슬저그의 다음 퀘스트는 정예 우두머리 {npc:10041}이(가) 필요합니다. 건너뛰세요.",
 	-- ["Power Crystals and soil"] = "마력의 수정과 흙",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "동쪽 {area:537}(으)로 가서 올라가 정상 근처 용암 분출구에서 {npc:10541}을(를) 사용한 뒤, 서쪽 {npc:10302}에게 돌아가세요.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "동쪽을 따라 북쪽으로 가세요. 채찍줄기 붉은꽃잎덩굴손과 덩이줄기 붉은꽃잎덩굴손이 정글에 가득합니다.",
@@ -333,15 +329,14 @@ return {
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "간헐천 남쪽에서 스테고돈이 풀을 뜯습니다. 공룡 뼈는 스테고돈이 떨어뜨리거나 땅에 놓여 있습니다. 근처 디메트로돈은 {npc:9998}이(가) 원하는 비늘을 지니고 있습니다. 라바사우루스는 남서쪽에서 무리 지어 사냥합니다. 발톱은 {npc:8659}에게 가져가며, 가끔 구겨진 일지를 지닌 개체가 있습니다(희귀 획득물: 얻었을 때만 퀘스트를 받으세요). 레벨 57 스테고돈인 그러프는 피하세요.",
 	-- ["Termite mounds"] = "흰개미집",
 	-- ["Thaurissan dig site"] = "타우릿산 발굴지",
+	-- ["The Gorishi hive"] = "고리쉬 벌집",
 	-- ["The Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "큰 흰개미집이 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 흰개미집마다 {item:15042}을(를) 사용하세요.",
 	-- ["The book lies in the ruined inn of {area:2627}."] = "책은 {area:2627}의 무너진 여관에 있습니다.",
-	-- ["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "수정 무더기는 분화구 곳곳에 있으며 {area:537} 주변에 많습니다. 수정탑용으로 색깔별로 몇 개씩 더 챙기세요.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "고릴라는 북동쪽 고원에 삽니다. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}이(가) 삽니다.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "실리시드 벌집이 분화구 남쪽을 채우고 있습니다. 병정 고리쉬와 일꾼 고리쉬가 향낭을 떨어뜨립니다. 첫 번째 방 안의 알 덩어리에 빈 채집 약병을 사용하세요. 맨 아래의 여왕 고리쉬는 정예 우두머리이니 그 방에는 들어가지 마세요. {npc:9166}은(는) 벌집 위 절벽에 둥지를 틉니다. 그 비늘은 {npc:9998}에게 갑니다.",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "잿구덩이는 야영지 바로 남쪽에 있습니다. 송진괴물, 송진껍질괴물, 송진이끼괴물이 {item:11834}을(를) 떨어뜨립니다.",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
-	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "테오도라의 다음 심부름은 마을 동쪽의 로트윌을 거쳐 {area:1584}(으)로 이어집니다. 건너뛰세요.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "{area:340}의 테오도라 퀘스트는 레벨 52가 필요합니다. 야영지 바로 남쪽의 송진껍질괴물과 우두머리 송진괴물이 가장 가까운 사냥터입니다.",
 	-- ["Western jungle"] = "서쪽 정글",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "{zone:1449}, {area:538}에서 송진껍질괴물 사냥",
