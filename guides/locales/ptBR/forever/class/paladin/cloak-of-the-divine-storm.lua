@@ -20,20 +20,20 @@ return {
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "",
+	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "{npc:3663} fica em {area:413}, no oeste de {zone:1440}, ao sul da estrada de {zone:1439}. Ele manda você a {zone:1453} com o orbe.",
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
-	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "",
+	["{npc:5492} stands in the Cathedral of Light; she sends you to a warlock for a second opinion."] = "{npc:5492} fica na Catedral da Luz; ela manda você a um bruxo para uma segunda opinião.",
 
 	-- Step 4: Ursula Deline
 	-- {npc:5495} Ursula Deline · {object:2101} Mage Quarter · {object:2164} Slaughtered Lamb · {item:209778} Summoner's Salt
-	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "",
+	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "{npc:5495}, a instrutora de bruxo, fica no santuário dos bruxos do {object:2101}, no porão de {object:2164}. Ela quer 14 {item:209778} para ler o orbe.",
 
 	-- Step 5: Summoner's Salt
 	-- {item:209778} Summoner's Salt · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Summoners = {npc:4463} Blackrock Summoner · Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "",
+	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "Os Evocadores, Campeões e Rastreadores Rocha Negra (nível 22-25, não elite) acampam no noroeste de Cristarrubra e deixam cair o {item:209778}; você precisa de 14. Dois Lança-sombras Rocha Negra elite (22-23) ficam na boca da caverna, na ponta leste do acampamento: puxe pelos lados deles. Os acampamentos Rocha Negra a leste de {area:69} também deixam cair o sal, mas os Lança-sombras, Sentinelas e Caçadores de lá são elite (nível 21-24), e o {npc:334} (26) também: fique no noroeste.",
 
 	-- Step 6: Back to Ursula Deline
 	-- {npc:5495} Ursula Deline
@@ -43,7 +43,7 @@ return {
 	["Motes of Mannoroth"] = "Partículas de Mannoroth",
 	-- {area:435} Demon Fall Canyon · {zone:1440} Ashenvale · {area:431} Splintertree Post · {spell:686} Shadow Bolt · {spell:348} Immolate
 	-- plural, as words: Mannoroc Lashers = {npc:11697} Mannoroc Lasher · Searing Infernals = {npc:6073} Searing Infernal · Legion Hounds = {npc:6071} Legion Hound
-	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "",
+	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435} fica no sudeste de {zone:1440}, a leste de {area:431} (acampamento da Horda: contorne). As Açoitadeiras Mannoroc, os Infernais Abrasadores, os Guardas Vis e os Farejadores Legionários (nível 29-30, não elite) deixam cair as Partículas de Mannoroth; você precisa de 12. Abaixo do nível 27, mais ou menos, é difícil sozinho: venha com outro jogador ou mais tarde. Os Guardas Vis derrubam você, as Açoitadeiras soltam {spell:686} e {spell:348}, e os Infernais mantêm um escudo de fogo. Renascem em cinco minutos.",
 
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
@@ -55,7 +55,7 @@ return {
 
 	-- Step 9: Return to Delgren
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
-	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
+	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "De volta a {npc:3663}, em {area:413}, no oeste de {zone:1440}, atravessando a zona inteira.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:413}."] = "De volta a {area:413}.",
