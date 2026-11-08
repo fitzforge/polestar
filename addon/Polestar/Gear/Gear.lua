@@ -531,8 +531,23 @@ local function racialBonus(info, w, asOffhand)
 	return s
 end
 
+local SCHOOLS = { spArcane = true, spFire = true, spFrost = true, spHoly = true, spNature = true, spShadow = true }
+
+-- A spec's damage splits over its spell schools, so bonus damage to several
+-- schools is worth at most its largest single bonus at the spell power weight
+-- (or the largest school weight, for a scale with school weights only): +34
+-- Fire and +34 Shadow is no better than +34 Spell Power to a Warlock (#1324).
+local function schoolCap(w, top)
+	local wTop = w.sp or 0
+	for k in pairs(SCHOOLS) do
+		local x = w[k] or 0
+		if x > wTop then wTop = x end
+	end
+	return wTop * top
+end
+
 local function scoreWith(info, w, asOffhand)
-	local s = 0
+	local s, school, top = 0, 0, 0
 	for k, v in pairs(info.stats) do
 		if k == "dps" then
 			if RANGED_INV[info.inv] then
@@ -540,11 +555,18 @@ local function scoreWith(info, w, asOffhand)
 			elseif MELEE_INV[info.inv] then
 				s = s + (w.dps or 0) * v * (asOffhand and OFFHAND_DPS or 1)
 			end
+		elseif SCHOOLS[k] then
+			school = school + (w[k] or 0) * v
+			if v > top then top = v end
 		else
 			s = s + (w[k] or 0) * v
 		end
 	end
-	return s + racialBonus(info, w, asOffhand)
+	if school > 0 then
+		local cap = schoolCap(w, top)
+		if school > cap then school = cap end
+	end
+	return s + school + racialBonus(info, w, asOffhand)
 end
 Gear.ScoreWith = scoreWith
 

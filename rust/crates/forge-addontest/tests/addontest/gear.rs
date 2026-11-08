@@ -26,6 +26,11 @@ const FIXTURE: &str = r#"{
 	[9033] = "13 22 17 2 2 7 agi3 dmin12 dmax22 speed1800",
 	[9040] = "16 20 15 2 4 1 sta3",
 	[9050] = "7 76 60 4 4 1 sta16 int21 spi21 armor101 heal46 mpr7 cls16",
+	[9060] = "17 25 0 3 2 10 sta14 spFire34 spShadow34 dmin36 dmax55 speed2900 cls256",
+	[9061] = "17 33 28 3 2 10 sta14 sp36 heal36 dmin59 dmax90 speed3600",
+	[9062] = "16 30 25 2 4 1 spFire10 spFrost10",
+	[9063] = "16 30 25 2 4 1 sp10",
+	[9064] = "16 30 25 2 4 1 spShadow20",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -600,4 +605,57 @@ fn a_miscellaneous_weapon_is_a_profession_tool_never_an_upgrade_even_with_more_d
 	);
 	assert_eq!(out[0], json!({ "up": false, "usable": false, "scored": false }));
 	assert!(!out[1].to_string().contains("Polestar"), "no gear line on a tool's tooltip: {}", out[1]);
+}
+
+// #1324: Staff of Soran'ruk (+34 Fire, +34 Shadow) against Spine of the Devourer (+36 Spell Power).
+#[test]
+fn bonus_damage_to_several_schools_is_worth_no_more_than_its_largest_bonus_as_spell_power_soranruk_is_no_upgrade_over_spine_of_the_devourer() {
+	let out = run(
+		r#"
+		g.equip(16, "item:9061")
+		local res = {}
+		for _, spec in ipairs({ "affliction", "demonology", "destruction" }) do
+			Polestar.Set("gear.spec.WARLOCK", spec)
+			local up, _, pct = G.IsUpgrade("item:9060")
+			res[spec] = { up = up, pct = pct }
+		end
+		emit(res)
+	"#,
+		Opts { cls: "WARLOCK", class_name: "Warlock", class_id: 9, level: 30, ..Default::default() },
+	);
+	for spec in ["affliction", "demonology", "destruction"] {
+		let r = &out[0][spec];
+		assert_eq!(r["up"], false, "{spec}: {r}");
+		assert!(r["pct"].as_f64().unwrap() < 0.0, "{spec}: {r}");
+	}
+}
+
+#[test]
+fn a_fire_mage_values_fire_and_frost_damage_together_no_higher_than_the_same_spell_power() {
+	let out = run(
+		r#"
+		Polestar.Set("gear.spec.MAGE", "fire")
+		emit({ G.ScoreItem("item:9062"), G.ScoreItem("item:9063") })
+	"#,
+		Opts { cls: "MAGE", class_name: "Mage", class_id: 8, level: 30, ..Default::default() },
+	);
+	let (schools, sp) = (out[0][0].as_f64().unwrap(), out[0][1].as_f64().unwrap());
+	assert!(schools <= sp + 1e-9, "Fire 10 + Frost 10 scores {schools}, Spell Power 10 {sp}");
+}
+
+#[test]
+fn a_custom_scale_with_school_weights_only_keeps_their_value_and_two_schools_count_as_the_larger_bonus() {
+	let out = run(
+		r#"
+		local _, one = G.Scales.Import('( Pawn: v1: "Shadow": ShadowSpellDamage=1 )', "WARLOCK")
+		local _, two = G.Scales.Import('( Pawn: v1: "Both": ShadowSpellDamage=1, FireSpellDamage=1 )', "WARLOCK")
+		Polestar.Set("gear.spec.WARLOCK", "custom:" .. one.scale.id)
+		emit({ G.ScoreItem("item:9064"), G.ScoreItem("item:9060") })
+		Polestar.Set("gear.spec.WARLOCK", "custom:" .. two.scale.id)
+		emit({ G.ScoreItem("item:9064"), G.ScoreItem("item:9060") })
+	"#,
+		Opts { cls: "WARLOCK", class_name: "Warlock", class_id: 9, level: 30, ..Default::default() },
+	);
+	assert_eq!(out[0], json!([20, 34]), "Shadow only: +20 Shadow is 20, +34 Fire +34 Shadow is 34");
+	assert_eq!(out[1], json!([20, 34]), "Shadow and Fire: the two bonuses count as the larger one");
 }
