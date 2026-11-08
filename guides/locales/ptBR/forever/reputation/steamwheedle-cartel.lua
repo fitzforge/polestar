@@ -205,5 +205,4 @@ return {
 	["Every town to Exalted"] = "Todas as cidades até Exaltado",
 	-- {npc:14637} Zorbin Fandazzle
 	["Revered to Exalted is 21,000 more with each town: 840 of {npc:14637}'s turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only."] = "De Reverenciado a Exaltado são mais 21.000 com cada cidade: 840 entregas de {npc:14637} ou 140 passagens por Liberdade ainda que tardia. Nenhum intendente vende algo para Exaltado: isto é só para a barra do título.",
-
 }

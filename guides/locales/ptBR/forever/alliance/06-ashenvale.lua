@@ -283,12 +283,14 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "A seguir: treino em {zone:1453}, depois a estrada para leste por Elwynn e para o sul até {zone:1431}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada, por {area:331}, até {npc:11219}, em {area:413}; toque o chifre de novo sempre que ele adormecer.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada: furbolgs no trecho de {zone:1439} e mortos-vivos mais perto de {area:413}.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "De volta à Catedral da Luz: {npc:928} fica lá dentro.",
 	-- ["Black Oozes"] = "Gosmas Pretas",
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "Gosmas Pretas rastejam pelo pântano ao norte da estrada da {area:1025}, a oeste do acampamento de {npc:2093}. Qualquer gosma pode ter a bolsa de {npc:2111}.",
 	-- ["Cathedral of Light"] = "Catedral da Luz",
 	-- ["Dragonmaw camp"] = "Acampamento Presa do Dragão",
 	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "Escolte Kerlonian até {area:413} em {zone:1440}.",
+	-- ["Escort {npc:11218} to {area:413} in {area:331}."] = "Escolte {npc:11218} até {area:413}, em {area:331}.",
 	-- ["Fen Creepers"] = "Rastejantes do Pântano",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "Rastejantes do Pântano se escondem nas poças do pântano a noroeste da {area:1025}.",
 	-- ["Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Siga a estrada para leste. Crocoliscos do Pantanal Jovens espreitam nas poças ao norte do sítio de escavação.",
@@ -343,6 +345,4 @@ return {
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, na Catedral da Luz",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164} fica no {object:2101}.",
 	-- ["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
-	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "De volta ao norte, a partir da glaive (Druidas: ao sul pela estrada, a partir de {area:442}) até {area:448}, onde {npc:11218} dorme ao lado de Arbal. Pegue a missão dele, abra o baú dele para pegar {item:13536}, use-o para acordá-lo e leve-o ao sul pela estrada, por {area:331}, até {npc:11219}, em {area:413}; toque o chifre de novo sempre que ele adormecer.\nCuidado: emboscadas programadas de três monstros cada atacam ao longo da estrada: furbolgs no trecho de {zone:1439} e mortos-vivos mais perto de {area:413}.",
-	-- ["Escort {npc:11218} to {area:413} in {area:331}."] = "Escolte {npc:11218} até {area:413}, em {area:331}.",
 }

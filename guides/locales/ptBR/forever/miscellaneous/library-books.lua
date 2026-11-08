@@ -188,5 +188,4 @@ return {
 	["The level 60 books: {npc:7825}"] = "Os livros de nível 60: {npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter (no name in this language: may be words)
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, ao lado de {npc:211022}, no Bairro Mágico, pega os livros de nível 60: a missão de cada livro é oferecida enquanto o livro está nas suas bolsas. Pegue e entregue um de cada vez (o Polestar ainda não consegue acompanhar essas missões para a Horda).",
-
 }
