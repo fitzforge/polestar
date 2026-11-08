@@ -6,7 +6,7 @@
 --
 --   Dungeons.PickupPlan(key) -> plan | nil, reason
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
---         done = n, later = n }
+--         done = n, later = n, closedBy = { [questId] = { questId } } }
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
@@ -21,8 +21,12 @@
 --       Runetotem and Nara Wildmane before Leaders of the Fang), which are
 --       then done on the way as its prerequisites; pre: the open
 --       prerequisites, in the order they are done
---       (all of `pre`, one of `preAny`: Lookup.QuestChain). A quest done on
---       the way to another is neither a take of its own nor carried.
+--       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
+--       breadcrumbs of the page's chain each before the quest it leads to
+--       (an errand turned in at that quest's giver, which nothing requires:
+--       The Greenwarden before Tramping Paws, #1226; closedBy: the quest
+--       that closes each). A quest done on the way to another is neither a
+--       take of its own nor carried.
 --       carried: the page's quests already in the log. giver: a point
 --       { kind, id, name, map, x, y, f }. Each accept carries the page's
 --       `closedBy`, so the Engine passes it once taken on the way.
@@ -189,6 +193,82 @@ local function notYours(key, pq, rec, p)
 	return nil
 end
 
+-- Whether quest record r starts at an NPC or object of `ends` (a record's
+-- start/end lists).
+local function startsAt(r, ends)
+	local st = r.start
+	if not (st and type(ends) == "table") then return false end
+	for _, kind in ipairs({ "npc", "object" }) do
+		for _, a in ipairs(st[kind] or {}) do
+			for _, b in ipairs(ends[kind] or {}) do
+				if a == b then return true end
+			end
+		end
+	end
+	return false
+end
+
+-- Whether every prerequisite of record r is done (all of `pre`, one of
+-- `preAny`).
+local function preDone(r)
+	for _, id in ipairs(r.pre or {}) do
+		if not done(id) then return false end
+	end
+	local any = r.preAny or {}
+	if #any == 0 then return true end
+	for _, id in ipairs(any) do
+		if done(id) then return true end
+	end
+	return false
+end
+
+-- pre (a page quest's open prerequisites, in order) with the open
+-- breadcrumbs of its chain spliced in (#1226: Wetlands' The Greenwarden from
+-- Menethil Harbor before Tramping Paws, on the way to Rethiel). A breadcrumb
+-- is a quest the page's chain lists that no quest of the chain names as a
+-- prerequisite (the game does not require it), an errand this character can
+-- take now that is turned in at the giver of one of the open prerequisites
+-- still to take: it goes right before that one, and `closedBy[id]` names
+-- the quest that closes it, so the Engine passes it once that is taken.
+-- -> pre (a new list when one is spliced in)
+local function withBreadcrumbs(pq, rec, pre, onPage, from, p, closedBy)
+	local ids = type(pq.chain) == "table" and pq.chain or nil
+	if not ids or #pre == 0 then return pre end
+	local C, Lk = ns.Codex, LK()
+	local named = { [pq.id] = true }
+	local function name(r)
+		for _, id in ipairs(r.pre or {}) do named[id] = true end
+		for _, id in ipairs(r.preAny or {}) do named[id] = true end
+	end
+	name(rec)
+	for _, r in ipairs(pre) do
+		named[r.id] = true
+		name(r)
+	end
+	local before = {}
+	for _, id in ipairs(ids) do
+		local b = not (named[id] or onPage[id] or done(id) or inLog(id)) and C.Quest(id) or nil
+		if b and not Lk.QuestBlock(b, p) and preDone(b) and errand(b, from, p) then
+			for _, r in ipairs(pre) do
+				if not inLog(r.id) and startsAt(r, b["end"]) then
+					local list = before[r.id] or {}
+					before[r.id] = list
+					list[#list + 1] = b
+					closedBy[id] = { r.id }
+					break
+				end
+			end
+		end
+	end
+	if not next(before) then return pre end
+	local out = {}
+	for _, r in ipairs(pre) do
+		for _, b in ipairs(before[r.id] or {}) do out[#out + 1] = b end
+		out[#out + 1] = r
+	end
+	return out
+end
+
 function Dungeons.PickupPlan(key)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -204,7 +284,7 @@ function Dungeons.PickupPlan(key)
 	local quests = Dungeons.Quests(key)
 	local onPage = {}
 	for _, q in ipairs(quests) do onPage[q.id] = true end
-	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0 }
+	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, closedBy = {} }
 	for _, pq in ipairs(quests) do
 		local rec = C.Quest(pq.id)
 		if not notYours(key, pq, rec, p) then
@@ -237,6 +317,7 @@ function Dungeons.PickupPlan(key)
 				if ok and wait then
 					plan.later = plan.later + 1
 				elseif ok then
+					pre = withBreadcrumbs(pq, rec, pre, onPage, from, p, plan.closedBy)
 					plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre }
 				end
 			end
@@ -529,7 +610,15 @@ local function route(key, plan)
 			for _, t in ipairs(s.accepts) do step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver) end
 			lastGiver = s.giverKey
 		else
-			steps[#steps + 1] = Lk.QuestStep(s.rec, s.inP or pos)
+			local step = Lk.QuestStep(s.rec, s.inP or pos)
+			-- A breadcrumb's accept knows the quest that closes it.
+			local by = plan.closedBy and plan.closedBy[s.rec.id]
+			if by and step then
+				for _, g in ipairs(step.goals or {}) do
+					if g.t == "accept" and g.quest == s.rec.id then g.closedBy = by end
+				end
+			end
+			steps[#steps + 1] = step
 			lastGiver = nil
 		end
 		pos = s.outP or pos
