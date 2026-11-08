@@ -2102,7 +2102,6 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 -- L["How close"] = ""
 -- L["Include nearby hand-ins"] = ""
--- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 -- L["Wait for Spoken"] = ""
 -- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 -- L["Dynamic Questing"] = ""
@@ -2114,6 +2113,9 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["Always go back for it"] = ""
 -- L["Always skip it"] = ""
 -- L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
+-- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
+-- L["Hand-ins: how far out of your way"] = ""
+-- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"

@@ -1306,7 +1306,38 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   not an objective the live step works itself, with mobs at most
   `HERE_ABOVE` levels over the player, whatever is left (no size cap: the
   player is there already). With `behavior.whileHereTurnins`, a later
-  `turnin` of a ready quest counts too (its NPC within `HERE_TURNIN` yards).
+  `turnin` of a ready quest counts too, weighed by what it costs rather than
+  by its distance (a hand-in is a short walk to one NPC and a click): its
+  detour (`Own.hereDetour`, on every poll: the seconds of extra walking to
+  visit the NPC and go on to where the waypoint leads, against going there
+  straight; straight lines `HERE_WINDING` (1.25, Nav's `WALK_DETOUR`) times
+  longer at `HERE_SPEED`, as the router counts open ground; headed nowhere
+  or to another continent, there and back) at most
+  `behavior.whileHereTurninSeconds` (0 to 60, 20 by default, Options'
+  "Hand-ins: how far out of your way", apart from "How close"; 0: in town
+  only), or any detour for an NPC within `HERE_TOWN` (100) yards while the
+  player rests in a town (`IsResting`: an inn's or a city's rest area, the
+  same town); never past `HERE_FAR` (250) yards, however little the detour.
+  It shows once the walk confirms it (`Own.hereTurninOk`, in
+  `Own.hereMayShow`): not on another floor (the goal's `z` against Nav's
+  walking floor, more than `HERE_FLOOR` (8) yards apart: Undercity's
+  levels, a Thunder Bluff rise), in town a walk at most `HERE_WALK` times
+  the straight line, else the router's detour (`Nav.EstimateTravel` there,
+  on to the waypoint, less the waypoint straight from here) within the
+  seconds: an NPC across a river is minutes out of the way. One turned away
+  (`Own.hereWalked`) is weighed again `HERE_RECHECK` (15) s on, after
+  `HERE_REPICK` yards moved, at another waypoint or a new setting, never
+  quiet for the zone. It goes once out of town with its detour past
+  `HERE_CLEAR` times the seconds and `HERE_SLACK` (10) more, or past
+  `HERE_CLEAR` times `HERE_FAR`. Never one the route reaches anyway in its
+  next `HERE_SOON` (2) steps for the character (`Own.hereSoon`: the hand-in's
+  own step, or an open goal at the same NPC or object): the guide sends the
+  player there in a moment. When waiting costs XP (`Own.hereXpLoss`: at the
+  guide's hand-in the character will be more levels over the quest than now,
+  past the 5 that keep its full reward, `Levels.Share`; that level from the
+  guide's `level` goals on the way and, with the Codex, `Levels.ForGuide`
+  of the steps between, `Own.herePlanned`), it may be `HERE_XP` (2) times
+  the seconds out of the way.
   A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
   each guide's goals with a quest and a place by map once (weak per guide).
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
@@ -5735,9 +5766,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   to Shortest Path Forever`), after Where so the bug bot still finds Arrow and
   Where by position and reads this line by its style word; "While here:"
   (`Engine.WhileHereState`, English words) with the line shown (its text,
-  quest, step, yards) or "none", the radius and the count of candidates, and
-  without a line the nearest candidate's quest, step and yards and why it
-  does not show (out of radius, quiet, in combat, an instance, a flight, an
+  quest, step, yards) or "none", the radius, a hand-in's seconds out of the
+  way ("hand-ins 20 s", or off) and the count of candidates, and
+  without a line the nearest candidate's quest, step and yards (a hand-in's
+  detour too) and why it does not show (out of radius, out of the way,
+  turned away by the walk, quiet, in combat, an instance, a flight, an
   escort, no candidates, off); other packs that are on; and the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
   Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns

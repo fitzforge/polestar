@@ -46,6 +46,7 @@ local world = {
 	zone = "Elwynn Forest", subzone = "Northshire Valley",
 	inInstance = false,
 	indoors = false, -- IsIndoors(): in a cave, mine or building
+	resting = false, -- IsResting(): in a town's or a city's rest area
 	maps = {},
 	log = {},
 	completed = {},
@@ -387,6 +388,7 @@ function UnitGUID(unit)
 end
 function UnitOnTaxi(unit) return unit == "player" and world.onTaxi or false end
 function IsIndoors() return world.indoors end
+function IsResting() return world.resting end
 function UnitAffectingCombat(unit) return unit == "player" and stub.inCombat or false end
 function GetZoneText() return world.zone or "" end
 function GetRealZoneText() return world.zone or "" end
