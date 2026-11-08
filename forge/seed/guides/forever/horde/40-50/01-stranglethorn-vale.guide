@@ -382,17 +382,13 @@ step Swamp of Sorrows
 
 step Into the Swamp of Sorrows
   zone Swamp of Sorrows
-  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
+  tip Follow the road east from Duskwood through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp just off the road where it comes in from Deadwind Pass.
   accept 1389                           -- Magtoor
 
 step Stonard
-  tip Head east to Stonard, in the reeds south of the road.
-  accept 698                            -- Dar, inside
-# ---------------------------------------------------------------- Stonard
-
-step Stonard
   zone Swamp of Sorrows
-  tip You start in Stonard. Bind here: you hearth back after the coast.
+  tip Head east to Stonard, in the reeds south of the road. Bind here: you hearth back after the coast.
+  accept 698                            -- Dar, inside
   accept 1430                           -- Dar, inside
   getfp "Stonard" npc 6026              -- Breyk
   turnin 1420                           -- Helgrum the Swift, upstairs

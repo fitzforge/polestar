@@ -6545,3 +6545,15 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol b
 	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
 	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
 });
+
+// The Swamp of Sorrows part of Stranglethorn's guide told you to "keep going north into Duskwood" after the Duskwood
+// stop, and its second Stonard step opened with "You start in Stonard", a leftover of a split guide. One Stonard stop
+// for Dar's two quests, the bind and the flight path.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the swamp tips match the way in, one Stonard stop', { skip }, () => {
+	const file = 'forever/horde/40-50/01-stranglethorn-vale.guide';
+	assert.doesNotMatch(stepTips(file, /accept 1389/).join(' '), /north into Duskwood/);
+	assert.doesNotMatch(stepTips(file, /accept 1430/).join(' '), /You start in/);
+	const list = goals(file);
+	const stonard = list[at(list, 'accept 698', is('accept', 698))].s;
+	for (const q of [1430, 1424]) assert.equal(list[at(list, `accept ${q}`, is('accept', q))].s, stonard, `${q} on the one Stonard stop`);
+});
