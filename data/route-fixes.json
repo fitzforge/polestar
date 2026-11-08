@@ -3783,6 +3783,78 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): from Agama'gor the walk goes north to Mankrik at the Crossroads and flies to Orgrimmar from there; the Blood Shard goes to Mangletooth on the Camp Taurajo stop after Hezrul, with Jorn's quests, instead of a Taurajo stop for it alone."
+			},
+			{
+				"a": [
+					"task",
+					905
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					3281
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"turnin",
+					891
+				],
+				"b": [
+					"turnin",
+					905
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					3281
+				],
+				"b": [
+					"task",
+					888
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					888
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+			},
+			{
+				"a": [
+					"turnin",
+					891
+				],
+				"b": [
+					"turnin",
+					888
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
 			}
 		],
 		"notes": [
@@ -5323,26 +5395,26 @@
 			{
 				"a": [
 					"turnin",
-					848
+					875
 				],
 				"b": [
 					"accept",
 					6541
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Report to Kadrak is taken from Thork on the Crossroads stop at 17 that the walk makes anyway; Kadrak is the next guide's first stop."
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Egg Hunt (Korran) and Report to Kadrak (Thork) are offered from level 17 (Forever's quest data). The Crossroads stop after the Razormane camp comes at about 16 (the level model ground 57 minutes there for the Egg Hunt accept); the stop after Echeyakee, about 25 minutes later, is at 17. Both are carried to their work anyway (the Field of Giants at 21, Kadrak at the end of the stay)."
 			},
 			{
 				"a": [
 					"turnin",
-					848
+					869
 				],
 				"b": [
 					"accept",
 					868
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Egg Hunt is taken from Korran on the Crossroads stop at 17; its eggs lie in the Field of Giants beside Jorn's thunderhawks, and Korran takes them on the last Crossroads stop of the same stay."
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Egg Hunt (Korran) and Report to Kadrak (Thork) are offered from level 17 (Forever's quest data). The Crossroads stop after the Razormane camp comes at about 16 (the level model ground 57 minutes there for the Egg Hunt accept); the stop after Echeyakee, about 25 minutes later, is at 17. Both are carried to their work anyway (the Field of Giants at 21, Kadrak at the end of the stay)."
 			},
 			{
 				"a": [
@@ -8852,15 +8924,15 @@
 			},
 			{
 				"a": [
-					"task",
-					888
+					"turnin",
+					892
 				],
 				"b": [
 					"turnin",
 					845
 				],
 				"faction": "Horde",
-				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest"
+				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest. Horde 12-30 flow follow-up (2026-11-08): anchored on The Missing Shipment (892), the last Ratchet hand-in of the first stop, since Stolen Booty's crates now wait for the walk to Northwatch Hold"
 			},
 			{
 				"a": [
