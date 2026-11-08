@@ -13,7 +13,8 @@
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
 -- nav.worldPins / nav.minimapPins switch Nav's layers on each surface; nav.trailDots the trail,
--- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off).
+-- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off), and
+-- nav.minimapRoute keeps it off the minimap.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -378,6 +379,8 @@ end
 local function updateTrail(world, minimap)
 	local target = Nav.GetTarget()
 	local lines = ns.RouteLines and ns.RouteLines.Active()
+	-- "Route line on the minimap" off takes the trail off it too; the pin stays.
+	minimap = minimap and ns.Get("nav.minimapRoute") ~= false
 	if lines or Nav.HandedOff() or not (target and ns.Get("nav.trailDots") and (world or minimap)) then
 		Pins.ClearTrail()
 		return
