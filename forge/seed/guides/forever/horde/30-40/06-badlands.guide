@@ -110,5 +110,4 @@ step Kargath
   tip Head north back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   turnin 1419                         -- Neeka Bloodscar
   turnin 2258                         -- Jarkal Mossmeld, inside
-  vendor nearest
   note The next guide flies from Kargath to Booty Bay.

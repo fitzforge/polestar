@@ -245,6 +245,7 @@ step Grom'gol
   turnin 629
   turnin 568
   accept 569
+  vendor nearest
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
@@ -302,5 +303,4 @@ step Grom'gol
   turnin 570                          -- Far Seer Mok'thardin
   accept 572                          -- Far Seer Mok'thardin: for forever/horde/40-50/01-stranglethorn-vale
   accept 584                          -- Nimboya: for forever/horde/40-50/01-stranglethorn-vale
-  vendor nearest
   note The next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
