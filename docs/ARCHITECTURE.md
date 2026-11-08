@@ -1471,12 +1471,15 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   the saved state, lists the open accepts that are no longer open, and puts
   the state back, with nothing evaluated or fired (the guide window's Skip
   button and the Skip this quest menu item: "Skipping also skips: …").
-  After a skip, a guide with no live step whose undo would open a later
-  step (`Engine.SkippedOut`: the first step skipped by hand, not a `when`
-  or `skipto` one, whose skip left out the steps that follow from it) is not
-  "Guide complete": the window says the rest follows from the skipped step,
+  After a skip, a guide that is no leveling guide (`Own.everyStep`: a class
+  quest, a dungeon, a profession…) with no live step whose undo would open a
+  later step (`Engine.SkippedOut`: the first step skipped by hand, not a
+  `when` or `skipto` one, whose skip left out the steps that follow from it)
+  is not complete: no `GUIDE_COMPLETED` and no hand-off, "started" in the
+  guide list, and the window says the rest follows from the skipped step,
   with Undo the skip (`Engine.Unskip`) and Choose a guide; taking that
-  step's quests by hand brings the rest back too (#1372). With no step
+  step's quests by hand brings the rest back too (#1372). A leveling guide
+  skipped to its end finishes, hands off and asks as before. With no step
   open, the guide menu's Skip this step is off and `/polestar skip` says
   there is nothing to skip.
 - **Quests that leave the log** after the route has passed their accept

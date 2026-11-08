@@ -5179,7 +5179,8 @@ local function evaluateLoaded(active)
 		end
 	end
 
-	if not current then
+	-- A skip that left the rest out is no completion (Engine.SkippedOut).
+	if not current and not Engine.SkippedOut() then
 		local id = guide.id
 		if not completedFired[id] then
 			completedFired[id] = true
@@ -5461,7 +5462,7 @@ function Engine.GetGuideState(id)
 	if open then
 		use(tabs[open])
 		done, total = progressLoaded()
-		finished = finished or computed == nil
+		finished = finished or (computed == nil and not Engine.SkippedOut())
 		useActive()
 	end
 	if finished and not (Own.passedWhole[id] and Own.allQuestsDone(g) == false) then return "done", done, total end
@@ -7565,12 +7566,15 @@ end
 -- jump is saved as "jump": neither is the player's to undo here) whose undo
 -- would open a later step, one that follows from it (its quest's accept, or
 -- a prerequisite, is in the skipped step). Skipping Brine in Call of Water
--- leaves every later step without its quest: the guide is not done then,
--- and the window says so, with the undo, instead of "Guide complete". Tried
--- on the saved skips and put straight back, as Engine.SkipLoses does.
--- -> { step, title } | nil
+-- leaves every later step without its quest: the guide is not done then.
+-- It does not complete (no GUIDE_COMPLETED, no hand-off, not "done" in the
+-- guide list) and the window says so, with the undo, instead of "Guide
+-- complete". Only in a guide that is no leveling guide (Own.everyStep): a
+-- leveling guide the player skipped to its end finishes and hands off as
+-- before, its end window asking (Own.noteEnd). Tried on the saved skips
+-- and put straight back, as Engine.SkipLoses does. -> { step, title } | nil
 function Engine.SkippedOut()
-	if not guide or computed then return nil end
+	if not guide or computed or not Own.everyStep(guide) then return nil end
 	local sk = skippedFor(guide.id)
 	if not sk then return nil end
 	if not player then refreshPlayer() end

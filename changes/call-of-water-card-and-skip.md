@@ -7,7 +7,8 @@ section: players
   the next part, which read as though your quest were not taken. A tick on
   the next part says the one in your log is another quest of that name
   (#1372).
-- Skipping a step the rest of a guide follows from no longer says "Guide
+- In a class quest (or another guide that isn't a leveling guide), skipping
+  a step the rest of the guide follows from no longer says "Guide
   complete": the window says why nothing is left and offers to undo the
   skip. The menu's Skip is off when there is no step, and `/polestar skip`
   says when there is nothing to skip (#1372).

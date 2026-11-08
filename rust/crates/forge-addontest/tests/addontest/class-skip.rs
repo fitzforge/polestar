@@ -129,8 +129,12 @@ fn a_hand_tick_on_the_next_call_of_water_says_the_one_in_the_log_is_another_ques
 #[test]
 fn skipping_the_step_the_rest_follows_from_says_so_and_offers_the_undo_instead_of_guide_complete() {
 	let out = run(r#"
+		local completed = 0
+		Polestar.On("GUIDE_COMPLETED", function() completed = completed + 1 end)
 		GF.SkipStep(); flush()
-		emit(snap())
+		local sn = snap()
+		sn.completed, sn.state = completed, E.GetGuideState("test/class/call-of-water")
+		emit(sn)
 		local before = #stub.messages
 		SlashCmdList.POLESTAR("skip")
 		emit({ printed = table.concat(stub.messages, "\n", before + 1) })
@@ -144,6 +148,9 @@ fn skipping_the_step_the_rest_follows_from_says_so_and_offers_the_undo_instead_o
 		"You skipped Brine, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."
 	);
 	assert_eq!(skipped["primary"], "Undo the skip");
+	// Not a completion: no GUIDE_COMPLETED (no hand-off), and the guide list keeps it started.
+	assert_eq!(skipped["completed"], 0, "{skipped}");
+	assert_eq!(skipped["state"], "started", "{skipped}");
 	// /polestar skip with no step open says so instead of doing nothing.
 	assert!(out[1]["printed"].as_str().unwrap_or("").ends_with("Nothing to skip: the guide has no step open."), "{}", out[1]);
 	// The undo brings Brine back as the live step.
@@ -206,4 +213,17 @@ fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
 	});
 	assert_eq!(out[0]["live"], 2, "{}", out[0]);
 	assert_eq!(out[0]["accept"], "active", "{}", out[0]);
+}
+
+#[test]
+fn a_leveling_guide_skipped_to_its_end_still_finishes_as_before() {
+	let out = run(r#"
+		local g = Polestar.Guides.Get("test/class/call-of-water")
+		g.category = nil
+		E.SetGuide(nil); E.SetGuide("test/class/call-of-water"); stub.advance(3)
+		E.Goto(2); flush()
+		GF.SkipStep(); flush()
+		emit(snap())"#);
+	assert_eq!(out[0]["live"], false, "{}", out[0]);
+	assert_ne!(out[0]["empty"], "The rest of this guide follows from a skipped step", "{}", out[0]);
 }
