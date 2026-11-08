@@ -135,6 +135,21 @@ fn the_last_step_done_with_steps_left_open_ends_the_guide_once_it_stays_on_the_l
 	assert_eq!(reload, json!({ "log": {}, "ended": true }));
 }
 
+// A screenshot report after 0.3.5: 0.3.5 reused guide ids for new content (forever/horde/04-the-barrens was The
+// Barrens 19-23, now The Barrens & Stonetalon Mountains 24-26). A character that reached the end of the old guide
+// kept its end flag, and the guide window said "You've reached the end of this guide" on every step of the new one
+// (GF.EndOffer reads E.GuideEnded). A pack update that changes the guide's steps forgets that end; the same steps
+// keep it.
+#[test]
+fn a_guide_whose_steps_changed_in_an_update_forgets_the_old_guide_s_end_the_same_steps_keep_it() {
+	let saved = |shape: &str| format!(r#"PolestarCharDB = {{ schema = 1, shapes = {{ ["test/durotar"] = {shape} }}, guideEnds = {{ ["test/durotar"] = true }} }}"#);
+	let script = r#"emit({ ended = E.GuideEnded("test/durotar"), saved = PolestarCharDB.guideEnds["test/durotar"] or false, step = E.GetStepIndex(), shape = PolestarCharDB.shapes["test/durotar"] })"#;
+	let changed = run(Run { next: NEXT, saved: Some(&saved(r#""7-12345""#)), script });
+	assert_eq!(json!([changed["ended"], changed["saved"], changed["step"]]), json!([false, false, 1]), "the old guide's end is forgotten on an open step");
+	let same = run(Run { next: NEXT, saved: Some(&saved(&serde_json::to_string(&changed["shape"]).unwrap())), script });
+	assert_eq!(json!([same["ended"], same["saved"]]), json!([true, true]), "the same steps: the end stays");
+}
+
 #[test]
 fn playing_it_through_ends_it_complete_and_start_next_loads_the_next_guide_in_the_same_tab() {
 	let out = run(Run {

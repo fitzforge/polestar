@@ -3744,6 +3744,9 @@ local function checkShape(g)
 		local old = s.stepKeys[g.id]
 		-- Saved before step keys existed: nothing to match them by, all dropped.
 		Own.remap(g.id, type(old) == "table" and Own.matchSteps(old, Own.stepKeys(g)) or {})
+		-- Its end reached is the old guide's (0.3.5 reused ids for new
+		-- content): the new one says so again when the player gets there.
+		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
 	end
 	s.shapes[g.id] = h
 	if stored ~= h or type(s.stepKeys[g.id]) ~= "table" then s.stepKeys[g.id] = Own.stepKeys(g) end
