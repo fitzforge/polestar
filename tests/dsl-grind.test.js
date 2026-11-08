@@ -10,6 +10,7 @@ const { guideText, lineOf, compile, plain } = require('./helpers/dsl');
 test('a grind level goal takes its mob\'s spawn areas as a kill would, and warns without spawns', () => {
 	const r = compile(guideText(['step One', '  goto 47.6,35.1', '  level 12 grind 6 -- grind on Kobold Vermin', '  kill 6']));
 	assert.deepEqual(r.errors, []);
+	assert.deepEqual(r.warnings.filter((w) => w.includes('already leads')), [], "the goto is the grind's fallback, no redundant goto");
 	const [, level, kill] = plain(r.guides[0].steps)[0].goals;
 	assert.deepEqual([level.t, level.level, level.grind, level.npcName, level.note], ['level', 12, 6, 'Kobold Vermin', 'grind on Kobold Vermin']);
 	assert.deepEqual([level.map, level.x, level.y, level.f], [1429, 49, 32.4, 'e'], "the spawn nearest the goto, as `kill 6`'s");

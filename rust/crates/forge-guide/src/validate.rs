@@ -642,7 +642,14 @@ fn check_redundant_gotos(g: &V, data: &Data, diag: &mut Diagnostics) {
 				continue;
 			}
 			let Some(next) = goals[i + 1..].iter().find(|goal| t_of(goal) != "note") else { continue };
-			if t_of(next) == "goto" || next.get("x").is_undef() || next.get("optional").truthy() || !next.get("map").strict_eq(&goto.get("map")) || unspawned_target(data, next) {
+			// (A grind's goto is where the arrow leads when its mob has no spawns: the Engine's fallback, kept.)
+			if t_of(next) == "goto"
+				|| t_of(next) == "level"
+				|| next.get("x").is_undef()
+				|| next.get("optional").truthy()
+				|| !next.get("map").strict_eq(&goto.get("map"))
+				|| unspawned_target(data, next)
+			{
 				continue;
 			}
 			if stringify(&or(next.get("only"), V::Null), None) != stringify(&or(goto.get("only"), V::Null), None) {

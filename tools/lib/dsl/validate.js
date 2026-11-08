@@ -337,7 +337,8 @@ function checkRedundantGotos(g, data, diag) {
 		step.goals.forEach((goto, i) => {
 			if (goto.t !== 'goto' || goto.x === undefined) return;
 			const next = step.goals.slice(i + 1).find((goal) => goal.t !== 'note');
-			if (!next || next.t === 'goto' || next.x === undefined || next.optional || next.map !== goto.map || unspawnedTarget(data, next)) return;
+			// (A grind's goto is where the arrow leads when its mob has no spawns: the Engine's fallback, kept.)
+			if (!next || next.t === 'goto' || next.t === 'level' || next.x === undefined || next.optional || next.map !== goto.map || unspawnedTarget(data, next)) return;
 			if (JSON.stringify(next.only || null) !== JSON.stringify(goto.only || null)) return;
 			const at = worldPoint(data, goto.map, goto.x, goto.y, goto.f);
 			if (!at) return;
