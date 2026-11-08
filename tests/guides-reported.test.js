@@ -6398,3 +6398,20 @@ test("GuardMoony's report (#1070): Hezrul Bloodmark's step says he walks the oas
 	const rec = fixes.find((f) => f.at && f.at.quest === 852 && f.at.goal === 'objective');
 	assert.ok(rec && /walks that shore/.test(rec.tip), 'the guide-fixes record holds the tip');
 });
+
+// #934: Winterspring's "Level 55.05" top-up ground on "Timbermaw Mystic" during the Timbermaw quests; killing
+// Timbermaw costs their reputation (Forever TDB creature_onkill_reputation: 11552 -25 with 576), and the
+// point was a lone Winterfall Runner. The top-up now grinds the Winterfall camp by Frostfire Hot Springs
+// (7441/7442 +5/+6 with 576).
+test('#934: Winterspring (Alliance): the level 55.05 top-up grinds Winterfall furbolgs, never Timbermaw', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const top = list[at(list, 'level 55.05', (g) => g.t === 'level' && g.level === 55 && Math.abs((g.frac || 0) - 0.05) < 1e-9)];
+	const arrow = list.find((g) => g.step === top.step && g.goal.t === 'goto');
+	assert.ok(arrow && located(arrow), 'the top-up has a camp');
+	assert.doesNotMatch(arrow.goal.text || '', /Timbermaw/, 'not a Timbermaw camp');
+	assert.match(arrow.goal.text || '', /Winterfall/);
+	assert.ok(Math.abs(arrow.goal.x - 31.4) < 2 && Math.abs(arrow.goal.y - 36) < 2, 'the Frostfire Hot Springs camp');
+	for (const { step, goal } of list) {
+		if (goal.t === 'goto' && step.goals.some((g) => g.t === 'level')) assert.doesNotMatch(goal.text || '', /Timbermaw/, `${step.label || step.title}: no top-up on Timbermaw`);
+	}
+});
