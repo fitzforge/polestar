@@ -116,20 +116,18 @@ step Nafien
   accept 8461
 
 step Felpaw Village
-  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. The Avengers can drop a Deadwood Ritual Totem.
+  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   kill 7156 quest 8461.1              -- Deadwood Den Watcher
   kill 7157 quest 8461.2              -- Deadwood Avenger
   kill 7158 quest 8461.3              -- Deadwood Shaman
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
 
 step Nafien
   turnin 8461
   accept 8465                         -- Salfa stands at the Winterspring end of the tunnel: keep it
   accept 8467 optional
-
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
 
 step Nafien
   when onquest 8467

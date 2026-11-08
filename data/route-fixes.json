@@ -8034,6 +8034,15 @@
 				"q": 6031,
 				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Runecloth: Meilosh needs Friendly with the Timbermaw (quest_template_addon RequiredMinRepFaction 576, 3000) and 30 Runecloth; the Winterspring top-up on the Winterfall furbolgs brings both, so the quest is taken and handed in on the 58 pass of Timbermaw Hold (06), not offered at 53.",
 				"issue": "-"
+			},
+			{
+				"q": 2874,
+				"after": [
+					"turnin",
+					2873
+				],
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Deliver to MacKinley is taken from Stoley with Stoley's Shipment (04, Steamwheedle Port) and handed in on the Booty Bay stop at the end of 05, which the route now makes for everyone.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -8118,8 +8127,9 @@
 			},
 			{
 				"q": 608,
-				"reason": "RevA2 c13 Alliance 40-50 read: the Bloodsail captains (45, 46, 48) stand on ship decks with crews of 42-45; the seed writes them optional, yet the route counts them and the model grinds 41.2 -> 42.0 before Captain Keelhaul (40-50/01-stranglethorn-vale:328), a hidden grind the guide never shows. It is on level only on a Stranglethorn visit at 48-50, which this route does not make",
-				"issue": ""
+				"reason": "RevA2 c13 Alliance 40-50 read: the Bloodsail captains (45, 46, 48) stand on ship decks with crews of 42-45; the seed writes them optional, yet the route counts them and the model grinds 41.2 -> 42.0 before Captain Keelhaul (40-50/01-stranglethorn-vale:328), a hidden grind the guide never shows. It is on level only on a Stranglethorn visit at 48-50, which this route does not make. Alliance (0.3.7 quest volume, 2026-11-09): the Hinterlands guide now ends with a Booty Bay stop at 48 for everyone, where the captains are level; the include record takes it there",
+				"issue": "",
+				"faction": "Horde"
 			},
 			{
 				"q": 5218,
@@ -11388,6 +11398,18 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40 audit (2026-11-09): Lotwil's Large Stone Slabs come from the Rock Elementals (92) beside Agmond's End (35-46,74-88), where the route goes for Theldurin; Lotwil (26,45) takes them on the walk back to Kargath instead of a walk back to his camp from the basin and out again."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					608
+				],
+				"faction": "Alliance",
+				"why": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): The Bloodsail Buccaneers (608; the three captains, 45-48, on the ships south of Booty Bay) is taken and handed in on the Booty Bay stop at the end of 40-50/05 at 48, right after Deliver to MacKinley's hand-in. The skip of 608 holds for the Horde only."
 			}
 		]
 	}

@@ -92,7 +92,7 @@ step Lost Rigger Cove: kill these as you meet them
 
 step Steamwheedle Port
   turnin 2873                         -- Stoley, inside
-  note Stoley's next delivery goes back to Booty Bay: skip it.
+  accept 2874                         -- "Sea Wolf" MacKinley in Booty Bay: the route takes you there at the end of the Hinterlands guide, keep it
   turnin 2875                         -- Security Chief Bilgewhizzle, inside
   turnin 8366
   turnin 8365                         -- Haughty Modiste

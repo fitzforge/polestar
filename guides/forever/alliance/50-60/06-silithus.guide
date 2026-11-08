@@ -318,9 +318,10 @@ step Toxic Horrors
   collect 12822 quest 5086.1 @49.8,27.4 map 1448
 
 step Kernda
-  when onquest 8471
+  when onquest 8470,8471
   tip Kernda stands just inside the Timbermaw Hold cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in Winterspring brought you to.
-  turnin 8471                         -- Kernda, just inside the cave: walks around here: look inside the circle on the map
+  turnin 8470                         -- Kernda, just inside the cave: walks around here: look inside the circle on the map
+  turnin 8471
 
 step Meilosh
   when has 14047 x30
