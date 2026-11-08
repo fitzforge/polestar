@@ -6559,3 +6559,22 @@ test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up 
 	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 4726 && f.at.goal === 'accept');
 	assert.equal(rec && rec.level, 52, 'a level record keeps it on a refresh');
 });
+
+// Final route review before 0.3.5, Alliance 40-60: Searing Gorge starts at the Grimesilt outhouse in the south-east
+// (Caught!), but the ride in from Thelsamar was described on the later Thorium Point step, and the outhouse step
+// said to ride east across the Cauldron. Both tips are records now.
+test('forever/alliance/40-50/06-searing-gorge.guide: final review: the ride in is on the first stop, Thorium Point from the dig site', { skip }, () => {
+	const guide = 'forever/alliance/40-50/06-searing-gorge.guide';
+	const list = goals(guide);
+	const outhouse = list[at(list, 'accept 4449', is('accept', 4449))];
+	const point = list[at(list, 'accept 7722', is('accept', 7722))];
+	assert.ok(outhouse.s < point.s, 'the outhouse comes first');
+	assert.match(outhouse.step.note, /Thelsamar/, 'the first stop says how to get in');
+	assert.doesNotMatch(point.step.note, /Thelsamar/, 'Thorium Point starts from the dig site');
+	const recs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const quest of [4449, 7722]) {
+		const rec = recs.find((f) => f.at.quest === quest && f.at.goal === 'accept' && f.tip);
+		assert.ok(rec, `${quest}: the tip is a record`);
+		assert.deepEqual(stepTips(guide, new RegExp(`^  accept ${quest}\\b`)), [rec.tip]);
+	}
+});
