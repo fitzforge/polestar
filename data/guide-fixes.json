@@ -3671,6 +3671,28 @@
 					"ref": "Dearest Natalia's objectives in Forever's quest data: 'Frankal Questioned' and 'Rutgar Questioned', credited by the dwarves' conversations"
 				}
 			]
+		},
+		{
+			"id": "1339-loch-modan-fishing-toolbox-places",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86614,
+				"goal": "accept"
+			},
+			"tip": "South along the west shore. The Discarded Fishing Toolbox lies on the loch bed at one of several places: east of Thelsamar (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the Monogrammed Silver Hair Clip comes with it.",
+			"note": "Silver of the Waves: the Discarded Fishing Toolbox (object 665289) lies at one of several places on the loch bed, and the tip named only the spot east of Thelsamar, so a player standing there found nothing to click (#1339). The tip names the four places players took the quest at (forever-db/corrections/objects.json 665289), and says the toolbox offers the quest directly: the old tip said to open it for the hair clip, which comes with the quest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 7 people took 86614 from the toolbox, at 48.0,39.7 (4), 45.69,43.36, 50.63,53.29 and 48.74,54.42; every window recorded is the toolbox's own quest window, and the clip is never looted: the accept gives it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1339: the reporter stood 2 yd from 48.06,39.70 and found nothing to click"
+				}
+			],
+			"issue": 1339,
+			"pr": 1342
 		}
 	]
 }
