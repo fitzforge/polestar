@@ -13,15 +13,15 @@ return {
 
 	-- Step 2: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda Armas de Haste com {npc:11867} ({object:2096}, 1 ouro); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 3: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Armas de Haste com {npc:11867} ({object:2096}, 1 ouro); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 4: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 
 	-- Step 5: Shaman training
 	["Shaman training"] = "Treino de xamã",
@@ -30,9 +30,9 @@ return {
 
 	-- Step 6: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Voe para {area:108}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 7: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
@@ -42,15 +42,15 @@ return {
 
 	-- Step 8: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
-	["Back to {area:12}"] = "",
+	["Back to {area:12}"] = "De volta a {area:12}",
 
 	-- Step 10: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "No último andar",
 
 	-- Step 11: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Na estrada para leste, depois de {area:91}, saia da ponte para o norte até {area:86}. {npc:6172} está caído ao sul do lago: use o {item:6866} nele. Os Teurgos Proscritos Défias em volta dele carregam a {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Use o {item:6866} em {npc:6172}",
 	-- {item:6846} Defias Script
@@ -67,9 +67,9 @@ return {
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, no extremo norte da cidade",
 	-- {npc:265} Madame Eva
-	["{npc:265}, in her house by the tavern; inside"] = "",
+	["{npc:265}, in her house by the tavern; inside"] = "{npc:265}, na casa dela junto à taberna; lá dentro",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, lá dentro",
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Taberna Corvo Escarlate",
 	-- {npc:267} Clerk Daltry
@@ -79,22 +79,22 @@ return {
 	-- {npc:268} Sirra Von'Indi
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}, na casa atrás da prefeitura",
 	-- {npc:633} Elaine Carevin
-	["{npc:633}, at the south end of town; inside"] = "",
+	["{npc:633}, at the south end of town; inside"] = "{npc:633}, na ponta sul da cidade; lá dentro",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
-	["{npc:633}: {npc:288}, at {quest:163}"] = "",
+	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}: {npc:288}, em {quest:163}",
 	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
 	["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, de {npc:3133}, se não tiver nenhum",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, lá dentro",
 	-- {npc:302} Blind Mary
-	["For {npc:302}, on the hill south-east of town"] = "",
+	["For {npc:302}, on the hill south-east of town"] = "Para {npc:302}, no morro a sudeste da cidade",
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
-	["{area:121}: kill these as you meet them"] = "",
+	["{area:121}: kill these as you meet them"] = "{area:121}: vá matando estes pelo caminho",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {area:10} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
-	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
+	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Guerreiros e Magos Descarnados andam entre os túmulos a sudeste de {area:42}, abaixo da casa de {npc:302} no morro. Todo esqueleto de {area:10} pode deixar cair um {item:2378}.\nCuidado: como os esqueletos ficam perto uns dos outros, entrar correndo costuma puxar vários de uma vez.",
 
 	-- Step 16: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
@@ -114,13 +114,13 @@ return {
 
 	-- Step 19: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
-	["{area:1097}: kill these as you meet them"] = "",
+	["{area:1097}: kill these as you meet them"] = "{area:1097}: vá matando estes pelo caminho",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
 	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "",
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "",
+	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Veneracnas Pigmeias, Venaracnas e Reclusas Verdes",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -128,23 +128,23 @@ return {
 
 	-- Step 21: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "O cemitério fica ao norte do vilarejo. Horrores Descarnados e Malévolos Descarnados andam pela metade sul. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 
 	-- Step 22: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
-	["Head back east along the road to the {area:245}."] = "",
+	["Head back east along the road to the {area:245}."] = "Volte para leste pela estrada até {area:245}.",
 
 	-- Step 23: Yorgen Farmstead
 	["The mound of loose dirt lies south of the farmhouse, by the old stump."] = "O monte de terra solta fica ao sul da casa da fazenda, junto ao velho toco.",
 
 	-- Step 24: Darkshire
 	-- {npc:268} Sirra Von'Indi
-	["{npc:268}, inside"] = "",
+	["{npc:268}, inside"] = "{npc:268}, lá dentro",
 	-- {npc:272} Chef Grual
-	["{npc:272}, in the Scarlet Raven Tavern"] = "",
+	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}, na Scarlet Raven Tavern",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 
@@ -165,9 +165,9 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
 	-- {npc:900} Bailiff Conacher
-	["{npc:900}, in the town hall"] = "",
+	["{npc:900}, in the town hall"] = "{npc:900}, na prefeitura",
 	["The Wanted poster by the inn"] = "O cartaz de procura-se perto da estalagem",
 
 	-- Step 30: Bellygrub
@@ -176,31 +176,31 @@ return {
 
 	-- Step 31: Martie Jainrose
 	-- {npc:342} Martie Jainrose
-	["{npc:342}'s garden is at the west end of town."] = "",
+	["{npc:342}'s garden is at the west end of town."] = "A horta de {npc:342} fica na ponta oeste da cidade.",
 
 	-- Step 32: Lakeshire
 	-- {npc:342} Martie Jainrose
-	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "",
-	["The Wanted poster on the town hall doorway"] = "",
-	["The Wanted poster beside it"] = "",
+	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "De volta a leste pela cidade, saindo da horta de {npc:342}: dois cartazes de PROCURA-SE ficam na porta da prefeitura.",
+	["The Wanted poster on the town hall doorway"] = "O cartaz de PROCURA-SE na porta da prefeitura",
+	["The Wanted poster beside it"] = "O cartaz de PROCURA-SE ao lado dele",
 
 	-- Step 33: Lake Everstill: kill these as you meet them
 	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "",
+	["{area:68}: kill these as you meet them"] = "{area:68}: vá matando estes pelo caminho",
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Grandes Tarântulas rastejam pelas encostas em volta do moinho a nordeste do lago.",
 
 	-- Step 34: Blackrock camps
-	["Blackrock camps"] = "",
+	["Blackrock camps"] = "Acampamentos Rocha Negra",
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
 	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."] = "",
 	-- {item:280841} Stolen Weapon
-	["{item:280841}: weapon racks and swords on the ground"] = "",
+	["{item:280841}: weapon racks and swords on the ground"] = "{item:280841}: cavaletes de armas e espadas no chão",
 	-- {item:280839} Blackrock Supplies
-	["{item:280839}: meat haunches, grain sacks, water barrels"] = "",
+	["{item:280839}: meat haunches, grain sacks, water barrels"] = "{item:280839}: pernis de carne, sacos de grãos, barris de água",
 
 	-- Step 35: Incinerator Gar'im
-	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "",
+	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "Incinerador Gar'im fica na caverna no extremo sul dos acampamentos, com seu diabrete e dois orcs. Elite: forme grupo se puder; sozinho, puxe antes os orcs da entrada e interrompa o feitiço de fogo dele.",
 
 	-- Step 36: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -210,7 +210,7 @@ return {
 
 	-- Step 37: A Watchful Eye
 	-- {object:31} Old Lion Statue
-	["The {object:31} stands at the valley's east edge."] = "",
+	["The {object:31} stands at the valley's east edge."] = "A {object:31} fica na borda leste do vale.",
 
 	-- Step 38: Looking Further
 	-- {area:2099} Stonewatch Keep
@@ -219,20 +219,20 @@ return {
 	-- Step 39: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "",
+	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "A fortaleza fica ao lado da torre. {npc:334} (elite) espera na sala do alto da fortaleza com dois guardas e um dragão; Lança-sombras Rocha Negra (elite) e Sentinelas Rocha Negra ficam no lado oeste, então puxe um de cada vez na subida e vá rente à parede direita ao entrar na sala dele para não puxá-lo de uma vez. Elite: forme grupo se puder.",
 
 	-- Step 40: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
-	["{npc:435}, below ground"] = "",
+	["{npc:435}, below ground"] = "{npc:435}, no subterrâneo",
 
 	-- Step 41: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se esconde no extremo norte do vale, na divisa com {zone:1428}. Escolte-o até {area:69}; orcs Rocha Negra emboscam vocês no caminho.",
 	-- {npc:349} Corporal Keeshan
-	["{npc:349}, below ground"] = "",
+	["{npc:349}, below ground"] = "{npc:349}, no subterrâneo",
 
 	-- Step 42: Back to Lakeshire
 	-- {area:69} Lakeshire
