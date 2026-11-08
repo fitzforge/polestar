@@ -76,6 +76,7 @@ fn every_locale_has_its_language_status_and_translators() {
 	for l in &forge_guide::locales::LOCALES {
 		assert!(!l.language.is_empty(), "{}", l.code);
 		assert!(l.status == "ai" || l.status == "reviewed", "{}", l.code);
-		assert_eq!(l.translators.is_empty(), l.status == "ai", "{}: a reviewed locale names its translators", l.code);
+		// A reviewed locale names its translators; an AI-made one may name those who reviewed part of it.
+		assert!(l.status == "ai" || !l.translators.is_empty(), "{}: a reviewed locale names its translators", l.code);
 	}
 }

@@ -19,7 +19,9 @@ notes). The list, with each language's status and translators, is
   American Spanish (`esMX`, CDVolvik), French (`frFR`, Yendi).
 - **ai**: made by a machine. On that client, Options > About says so and
   links to the Discord. Spanish of Spain (`esES`), Korean (`koKR`), Brazilian
-  Portuguese (`ptBR`), Russian (`ruRU`), Chinese (`zhCN`, `zhTW`).
+  Portuguese (`ptBR`), Russian (`ruRU`), Chinese (`zhCN`, `zhTW`). An AI-made
+  language may name translators who reviewed part of it (`zhCN`: 山猫, the
+  Westfall guide).
 
 Spain's and Latin America's clients use different words for game terms
 (mazmorra, calabozo), so `esES` and `esMX` are separate files. English clients

@@ -27,7 +27,7 @@ pub static LOCALES: [Locale; 9] = [
 	Locale { code: "koKR", language: "Korean", status: "ai", translators: &[] },
 	Locale { code: "ptBR", language: "Portuguese (Brazil)", status: "ai", translators: &[] },
 	Locale { code: "ruRU", language: "Russian", status: "ai", translators: &[] },
-	Locale { code: "zhCN", language: "Chinese (simplified)", status: "ai", translators: &[] },
+	Locale { code: "zhCN", language: "Chinese (simplified)", status: "ai", translators: &["山猫"] },
 	Locale { code: "zhTW", language: "Chinese (traditional)", status: "ai", translators: &[] },
 ];
 

@@ -19,7 +19,7 @@ const LOCALES = {
 	koKR: { language: 'Korean', status: 'ai', translators: [] },
 	ptBR: { language: 'Portuguese (Brazil)', status: 'ai', translators: [] },
 	ruRU: { language: 'Russian', status: 'ai', translators: [] },
-	zhCN: { language: 'Chinese (simplified)', status: 'ai', translators: [] },
+	zhCN: { language: 'Chinese (simplified)', status: 'ai', translators: ['山猫'] },
 	zhTW: { language: 'Chinese (traditional)', status: 'ai', translators: [] },
 };
 
