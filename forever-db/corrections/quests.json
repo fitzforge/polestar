@@ -4348,6 +4348,27 @@
 		],
 		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Angerfang Encampment on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners."
 	},
+	"98230": {
+		"set": {
+			"pre": [
+				474
+			],
+			"preAny": [
+				474
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Captain Stoutfist refused This Land Was Their Land to 9 people who could take it (4 established), none of whom had handed in Defeat Nek'rosh (474); the one character it was offered to (20261107T061701Z-de3dc8531bec2328-l5tenxxtuasy-ry63289xsu) was still refused it with War Banners, From the Ashes and Nek'rosh's Gambit done, again right after handing in Old Habits (98223), and offered it 0.1 s after handing in Defeat Nek'rosh"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1299"
+			}
+		],
+		"note": "This Land Was Their Land (Wetlands, Captain Stoutfist, for Howin Kindfeather) is offered only once Defeat Nek'rosh (474) is handed in; the data named no prerequisite, so 0.3.5 sent players to take it on their first Menethil visit, where Stoutfist doesn't offer it (#1299). Defeat Nek'rosh is a group quest, so the guides take this one only on the group branch, after Nek'rosh's head is handed in."
+	},
 	"98252": {
 		"set": {
 			"pre": [

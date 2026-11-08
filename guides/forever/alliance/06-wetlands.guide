@@ -10,6 +10,7 @@ next forever/alliance/07-thousand-needles
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
+# Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
@@ -95,7 +96,6 @@ step Menethil Harbor
   accept 289
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
   accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
-  accept 98230                            -- Captain Stoutfist: for Howin Kindfeather in the Green Belt
   accept 281                              -- Karl Boran, on the pier north of the inn
   accept 471                              -- James Halloran, by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
@@ -194,7 +194,6 @@ step Rethiel the Greenwarden
 
 step Howin Kindfeather
   tip Howin Kindfeather camps among the Fenrunners, just west of Rethiel.
-  turnin 98230                            -- Howin Kindfeather
   accept 98245                            -- Razormaw Incisors: from the raptors by the Dragonmaw Gates, on the Wetlands loop of 30-40/01-hillsbrad-foothills
   accept 98300 optional                   -- For King Magni in Ironforge, at the end of 30-40/01-hillsbrad-foothills
 

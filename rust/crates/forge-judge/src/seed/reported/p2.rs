@@ -256,8 +256,6 @@ fn lou_saydus(ctx: &Ctx, c: &mut Check) {
 	let list = ctx.goals(HILLSBRAD_ALLIANCE);
 	c.eq(find(&list, is("accept", 98221)), None, "From the Ashes is not taken again");
 	let lit = at!(c, list, "turnin 465", is("turnin", 465));
-	let h = at!(c, needles, "turnin 98230 (Howin, on the Wetlands visit)", is("turnin", 98230));
-	c.ok(h < needles.len(), "Howin is visited first, on the 27-29 Wetlands visit");
 	let b = at!(c, list, "accept 98223", is("accept", 98223));
 	c.ok(lit < b, "before the Tattered Spellbook");
 }

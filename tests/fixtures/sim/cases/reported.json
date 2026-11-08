@@ -3378,24 +3378,24 @@
 		},
 		{
 			"id": "C29a",
-			"title": "Wetlands: Nek'rosh's Gambit (465) handed in after This Land Was Their Land (98230)",
+			"title": "Wetlands: This Land Was Their Land (98230) taken only after Defeat Nek'rosh (474) is handed in",
 			"faction": "Alliance",
 			"property": "before",
 			"a": {
-				"quest": 98230,
+				"quest": 474,
 				"step": "turnin"
 			},
 			"b": {
-				"quest": 465,
-				"step": "turnin"
+				"quest": 98230,
+				"step": "accept"
 			},
 			"source": {
 				"refs": [
-					"#225",
-					"tests/guides-reported.test.js \"Nek'rosh's Gambit\""
+					"#1299",
+					"tests/guides-reported.test.js \"This Land Was Their Land\""
 				],
 				"credit": [
-					"Lou-Saydus"
+					"Bennistrov"
 				]
 			}
 		},

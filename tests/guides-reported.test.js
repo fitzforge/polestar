@@ -1710,8 +1710,27 @@ test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
 	const lit = at(list, 'turnin 465', is('turnin', 465));
-	assert.ok(at(needles, 'turnin 98230 (Howin, on the Wetlands visit)', is('turnin', 98230)) >= 0, 'Howin is visited first, on the 27-29 Wetlands visit');
 	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
+});
+
+// --- Wetlands (Bennistrov, #1299): 0.3.5 took This Land Was Their Land (98230) on the first Menethil visit,
+// where Captain Stoutfist doesn't offer it. Players' recordings: refused to 9 people who could take it, none of
+// whom had handed in Defeat Nek'rosh (474); offered to the one character right after 474's hand-in.
+test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat Nek'rosh is handed in, on its group branch (#1299)`, { skip }, () => {
+	assert.ok(!goals(WETLANDS).some(({ goal }) => goal.quest === 98230), `${WETLANDS} does not take it on the first Menethil visit`);
+	let seen = 0;
+	for (const guide of allGuides()) {
+		const list = goals(guide);
+		for (const { step, goal } of list.filter(({ goal }) => goal.quest === 98230)) {
+			seen++;
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(474) && !p.neg), `${guide}: ${goal.t} 98230 is under when group 474`);
+		}
+		const take = list.findIndex(({ goal }) => is('accept', 98230)(goal));
+		if (take < 0) continue;
+		assert.ok(at(list, 'turnin 474', is('turnin', 474)) < take, `${guide}: Defeat Nek'rosh is handed in before 98230 is taken`);
+		assert.ok(take < at(list, 'turnin 98230', is('turnin', 98230)), `${guide}: handed in to Howin after it is taken`);
+	}
+	assert.equal(seen, 2, 'one accept and one hand-in');
 });
 
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
@@ -4915,7 +4934,7 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
-	assert.ok(!hills.some(({ goal }) => goal.quest === 98230 || goal.quest === 293), "Howin's quests and Cleansing the Eye are handed in on the 27-29 Wetlands trip");
+	assert.ok(!hills.some(({ goal }) => goal.quest === 293), 'Cleansing the Eye is handed in on the 27-29 Wetlands trip');
 });
 
 // Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
