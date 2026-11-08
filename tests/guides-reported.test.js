@@ -5754,7 +5754,7 @@ for (const { side, quest, after, says, todo } of FOLLOW_UPS) test(`Every ${side}
 // poro (#1065): Escorting Erland, a level 11 quest, came in the 16-19 Silverpine guide after a level 16.51
 // target. Players run about a level above the route's targets (their recordings), so the level reached is
 // rounded up: at 17 the quest is grey. It is taken while it still gives experience.
-test('Every Horde route (#1065): Escorting Erland is taken before the route reaches the level at which it is grey', { skip, todo: '#1065: fails on next; fixed by #1210' }, () => {
+test('Every Horde route (#1065): Escorting Erland is taken before the route reaches the level at which it is grey', { skip }, () => {
 	const qlvl = data.quest(435).level;
 	for (const { who, list } of routes('Horde')) {
 		list.forEach((e, i) => {
@@ -5836,7 +5836,7 @@ test('Every route (#1117): only Warriors are sent to Alonso for the Dragonslayer
 
 // Konky88 (#1212): from Zoram'gar the guide flew a Troll Shaman to Camp Taurajo and walked on into Mulgore,
 // for the Earthen Ring and Thunder Bluff. A character who knows Thunder Bluff's flight path flies there.
-test('Every Horde route (#1212): no flight to Camp Taurajo on the way to Mulgore or Thunder Bluff when Thunder Bluff\'s flight path is known', { skip, todo: '#1212: fails on next; fixed by #1210' }, () => {
+test('Every Horde route (#1212): no flight to Camp Taurajo on the way to Mulgore or Thunder Bluff when Thunder Bluff\'s flight path is known', { skip }, () => {
 	const hops = [];
 	for (const { who, list } of routes('Horde')) {
 		const known = new Set();
