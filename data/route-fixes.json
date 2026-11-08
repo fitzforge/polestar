@@ -7978,6 +7978,15 @@
 				],
 				"reason": "Quest volume, Alliance 50-60 (2026-11-08): Wandering Shay (49) follows The Giant Guardian on the same stop: Shay's chest and the escort back to Rockbiter are a few hundred yards from Gregan's camp.",
 				"issue": "-"
+			},
+			{
+				"q": 6185,
+				"after": [
+					"turnin",
+					6184
+				],
+				"reason": "Quest volume, Alliance 50-60 (2026-11-08): The Eastern Plagues (60, from 56, 8300 XP) is taken from Flint Shadowmore when Flint Shadowmore is handed in at Chillwind Camp; the three remains are at the Marris Stead on the way back from Egan, and it goes back to Flint with A Plague Upon Thee on the last Chillwind stop, before the route's last top-up would have ground the same XP. Nathanos is not fought.",
+				"issue": "-"
 			}
 		],
 		"skip": [

@@ -481,6 +481,7 @@ step Chillwind Camp
   turnin 5801                         -- Alchemist Arbington
   accept 5803 optional                -- Araj the Summoner is a level 61 elite
   turnin 6184                         -- Flint Shadowmore
+  accept 6185                         -- Flint Shadowmore: the agents' remains lie at the Marris Stead in the Eastern Plaguelands
   turnin 5903                         -- Nathaniel Dumah
   accept 5904
 
@@ -526,6 +527,15 @@ step Egan
   goto 11.4,26.6 "Egan"
   turnin 5281
 
+step The Marris Stead
+  zone Eastern Plaguelands
+  tip Ride south to the Marris Stead, the farm north-west of Darrowshire. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.
+  tip Careful: Nathanos Blightcaller (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him.
+  collect 16003 quest 6185.1          -- SI:7 Insignia (Rutger)
+  collect 16002 quest 6185.3          -- SI:7 Insignia (Turyen)
+  collect 16001 quest 6185.2          -- SI:7 Insignia (Fredo)
+  complete 6185
+
 step Artist Renfray
   when onquest 5846
   zone Western Plaguelands
@@ -537,10 +547,10 @@ step Scholomance (optional)
   tip Running Scholomance (Caer Darrow, south-east Western Plaguelands) or Stratholme instead of grinding gets you there faster in a group. Skip this step to grind solo.
   note Scholomance fits levels 58 to 60; The Key to Scholomance is handed in at Chillwind Camp below.
 
-step Grind to 60
+step Level 59.93
   zone Eastern Plaguelands
-  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  level 60 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
+  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at Chillwind Camp: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  level 59.93 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
 
 step Western Plaguelands
   zone Western Plaguelands
@@ -550,6 +560,8 @@ step Chillwind Camp
   zone Western Plaguelands
   tip Ride back south-west to Chillwind Camp.
   turnin 6389                         -- Nathaniel Dumah
+  turnin 6185                         -- Flint Shadowmore
+  note Flint's next task goes to Stormwind: you are level 60 now, skip it.
   turnin 5803 optional                -- Alchemist Arbington
   accept 5505 optional
   turnin 5505 optional
