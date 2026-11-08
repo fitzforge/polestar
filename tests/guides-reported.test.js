@@ -1806,6 +1806,19 @@ test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a gro
 	}
 });
 
+// --- Tarren Mill (refusal gate's hand-in-first step, 2026-11-08): all 6 people who took Dalaran Patrols (545) had just
+// handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took it without; the route left 93680 out
+// and accepted 545 right after Prison Break In. Key to the City is taken with 544 and handed in before 545's accept.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is handed in before Dalaran Patrols is accepted', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const take = at(list, 'accept 93680', is('accept', 93680));
+	const key = at(list, 'collect 279469', (g) => g.t === 'collect' && g.item === 279469);
+	const done = at(list, 'turnin 93680', is('turnin', 93680));
+	const patrols = at(list, 'accept 545', is('accept', 545));
+	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
+	assert.ok(take < key && key < done && done < patrols, 'the key, its hand-in, then Dalaran Patrols');
+});
+
 // --- Quest data checked against players' recordings and EG Link (2026-11-08, 0.3.6 round 3): Kerlonian's escort ends
 // at his bag in southern Darkshore, Slimy Menace's lines are Murloc x7 then Streamrunner x4, Desperate Prayer goes to
 // High Priest Rohan in Ironforge, and Frostmane Hold is explored at the cave's far end.
