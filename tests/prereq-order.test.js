@@ -14,16 +14,17 @@ const skip = needs('quests.json', 'npcs.json', 'objects.json');
 
 let data = null;
 // files: { name: text } -> the check's findings as "file:line quest<-missing race path-start".
-function check(files) {
+// recorded: data/recorded-unlocks.json's `quests` shape, { quest: { after: [ids] } }.
+function check(files, recorded) {
 	const { compileSources } = require('../tools/lib/dsl/project');
 	const { loadData } = require('../tools/lib/dsl/data');
 	const { DATA } = require('../tools/lib/paths');
 	const { prereqOrder } = require('../tools/lib/route/prereq-order');
 	data = data || loadData(DATA);
 	const { guides } = compileSources(Object.entries(files).map(([file, text]) => ({ file, source: file, text })), data);
-	return [...new Set(prereqOrder(guides, data).map((v) => `${v.file}:${v.line} ${v.quest}<-${v.missing.join(',')} ${v.race} ${v.path[0]}`))];
+	return [...new Set(prereqOrder(guides, data, { recorded }).map((v) => `${v.file}:${v.line} ${v.quest}<-${v.missing.join(',')} ${v.race} ${v.path[0]}`))];
 }
-const head = (id, more = '') => `guide ${id}\ntitle ${id}\nfaction Alliance\nlevels 20-30\nzone Wetlands\n${more}\n`;
+const head = (id, more = '', faction = 'Alliance') => `guide ${id}\ntitle ${id}\nfaction ${faction}\nlevels 20-30\nzone Wetlands\n${more}\n`;
 
 // Karl Boran's Reclaiming Goods (281) follows Claws from the Deep (279).
 test('a hand-in on one start does not count for another: each start\'s path is played alone', { skip }, () => {
@@ -47,4 +48,25 @@ test('an accept before its prerequisite\'s hand-in, or after a hand-in the chara
 test('`when group` is played both ways: a group step\'s accept needs its prerequisite too', { skip }, () => {
 	const g = head('t/group', 'race Dwarf') + 'step Karl Boran\n  when group 281\n  accept 281\n\nstep Karl Boran\n  accept 279\n  turnin 279\n';
 	assert.deepEqual(check({ 'group.guide': g }), ['group.guide:9 281<-279 Dwarf t/group']);
+});
+
+// #1299: the data named no prerequisite for This Land Was Their Land, which the giver offers only after Defeat
+// Nek'rosh, so the check above passed an accept nobody could take. data/recorded-unlocks.json lists quests
+// players' recordings show offered only right after a hand-in. Here Claws from the Deep (279, no prerequisite
+// in the data) plays as if recorded after The Third Fleet (288).
+test('a recorded unlock is needed before the accept, as one of the data\'s own prerequisites or the recorded hand-ins', { skip }, () => {
+	const early = head('t/early', 'race Dwarf') + 'step Karl Boran\n  accept 279\n';
+	assert.deepEqual(check({ 'early.guide': early }, { 279: { after: [288] } }), ['early.guide:8 279<-288 Dwarf t/early']);
+	assert.deepEqual(check({ 'early.guide': early }), [], 'without the recording the data sees nothing wrong');
+	const after = head('t/after', 'race Dwarf') + 'step Menethil\n  accept 288\n  turnin 288\n  accept 279\n';
+	assert.deepEqual(check({ 'after.guide': after }, { 279: { after: [288] } }), []);
+	// Reclaiming Goods (281) has the data prerequisite 279: either one opens it here, so the recording only widens.
+	const own = head('t/own', 'race Dwarf') + 'step Karl Boran\n  accept 279\n  turnin 279\n  accept 281\n';
+	assert.deepEqual(check({ 'own.guide': own }, { 281: { after: [288] } }), []);
+});
+
+test('a recorded hand-in that is the quest\'s breadcrumb never blocks it', { skip }, () => {
+	// The Forgotten Pools (870) is offered right after The Barrens Oases (886), its breadcrumb, for players who carried it.
+	const g = head('t/pools', 'race Orc', 'Horde') + 'step Tonga Runetotem\n  accept 870\n';
+	assert.deepEqual(check({ 'pools.guide': g }, { 870: { after: [886] } }), []);
 });

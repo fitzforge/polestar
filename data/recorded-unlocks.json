@@ -1,0 +1,5553 @@
+{
+	"_about": "Quests players' recordings show offered only after a hand-in. For each quest: `after`, the quests handed in within 5 seconds before a giver offered it (one of them unlocks it); `offeredAfter`, how many people were offered it right after each; `refusedWithout`, how many people the giver refused it to, in gossip windows, while they had none of `after` handed in (`established` of them with 3 days of history). Counts of people only. Built from the maintainer's recordings archive by the refusal sweep (#1299); tests/prereq-order.test.js plays every leveling path with `after` as an extra any-of prerequisite, so a guide that accepts such a quest before any of `after` is handed in fails.",
+	"quests": {
+		"7": {
+			"after": [
+				783
+			],
+			"offeredAfter": {
+				"783": 28
+			},
+			"refusedWithout": 26,
+			"established": 10
+		},
+		"11": {
+			"after": [
+				239
+			],
+			"offeredAfter": {
+				"239": 17
+			},
+			"refusedWithout": 15,
+			"established": 4
+		},
+		"13": {
+			"after": [
+				12,
+				102
+			],
+			"offeredAfter": {
+				"12": 32,
+				"102": 1
+			},
+			"refusedWithout": 34,
+			"established": 10
+		},
+		"14": {
+			"after": [
+				13
+			],
+			"offeredAfter": {
+				"13": 22
+			},
+			"refusedWithout": 38,
+			"established": 10
+		},
+		"15": {
+			"after": [
+				7
+			],
+			"offeredAfter": {
+				"7": 22
+			},
+			"refusedWithout": 26,
+			"established": 10
+		},
+		"19": {
+			"after": [
+				20,
+				98387
+			],
+			"offeredAfter": {
+				"20": 12,
+				"98387": 18
+			},
+			"refusedWithout": 31,
+			"established": 7
+		},
+		"21": {
+			"after": [
+				15
+			],
+			"offeredAfter": {
+				"15": 21
+			},
+			"refusedWithout": 26,
+			"established": 10
+		},
+		"28": {
+			"after": [
+				27,
+				98340
+			],
+			"offeredAfter": {
+				"27": 6,
+				"98340": 1
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"29": {
+			"after": [
+				26,
+				6121
+			],
+			"offeredAfter": {
+				"26": 8,
+				"6121": 3
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"30": {
+			"after": [
+				28
+			],
+			"offeredAfter": {
+				"28": 6
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"31": {
+			"after": [
+				30
+			],
+			"offeredAfter": {
+				"30": 6
+			},
+			"refusedWithout": 8,
+			"established": 4
+		},
+		"35": {
+			"after": [
+				40,
+				62
+			],
+			"offeredAfter": {
+				"40": 28,
+				"62": 7
+			},
+			"refusedWithout": 24,
+			"established": 6
+		},
+		"37": {
+			"after": [
+				35
+			],
+			"offeredAfter": {
+				"35": 22
+			},
+			"refusedWithout": 18,
+			"established": 6
+		},
+		"38": {
+			"after": [
+				36
+			],
+			"offeredAfter": {
+				"36": 38
+			},
+			"refusedWithout": 34,
+			"established": 10
+		},
+		"39": {
+			"after": [
+				52,
+				71
+			],
+			"offeredAfter": {
+				"52": 2,
+				"71": 19
+			},
+			"refusedWithout": 21,
+			"established": 6
+		},
+		"54": {
+			"after": [
+				21,
+				91752
+			],
+			"offeredAfter": {
+				"21": 23,
+				"91752": 1
+			},
+			"refusedWithout": 30,
+			"established": 10
+		},
+		"59": {
+			"after": [
+				39,
+				76,
+				147
+			],
+			"offeredAfter": {
+				"39": 20,
+				"76": 2,
+				"147": 1
+			},
+			"refusedWithout": 33,
+			"established": 8
+		},
+		"61": {
+			"after": [
+				60
+			],
+			"offeredAfter": {
+				"60": 21
+			},
+			"refusedWithout": 18,
+			"established": 5
+		},
+		"63": {
+			"after": [
+				220
+			],
+			"offeredAfter": {
+				"220": 2
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"69": {
+			"after": [
+				68,
+				265
+			],
+			"offeredAfter": {
+				"68": 4,
+				"265": 1
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"70": {
+			"after": [
+				69
+			],
+			"offeredAfter": {
+				"69": 3
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"76": {
+			"after": [
+				40,
+				62
+			],
+			"offeredAfter": {
+				"40": 6,
+				"62": 22
+			},
+			"refusedWithout": 31,
+			"established": 8
+		},
+		"79": {
+			"after": [
+				78
+			],
+			"offeredAfter": {
+				"78": 1
+			},
+			"refusedWithout": 10,
+			"established": 3
+		},
+		"97": {
+			"after": [
+				80
+			],
+			"offeredAfter": {
+				"80": 1
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"99": {
+			"after": [
+				424
+			],
+			"offeredAfter": {
+				"424": 5
+			},
+			"refusedWithout": 30,
+			"established": 12
+		},
+		"112": {
+			"after": [
+				60,
+				107
+			],
+			"offeredAfter": {
+				"60": 13,
+				"107": 21
+			},
+			"refusedWithout": 18,
+			"established": 5
+		},
+		"115": {
+			"after": [
+				20,
+				98387
+			],
+			"offeredAfter": {
+				"20": 7,
+				"98387": 11
+			},
+			"refusedWithout": 31,
+			"established": 7
+		},
+		"119": {
+			"after": [
+				118,
+				147
+			],
+			"offeredAfter": {
+				"118": 13,
+				"147": 1
+			},
+			"refusedWithout": 11,
+			"established": 2
+		},
+		"122": {
+			"after": [
+				119
+			],
+			"offeredAfter": {
+				"119": 11
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"124": {
+			"after": [
+				119
+			],
+			"offeredAfter": {
+				"119": 11
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"126": {
+			"after": [
+				122,
+				124
+			],
+			"offeredAfter": {
+				"122": 1,
+				"124": 10
+			},
+			"refusedWithout": 14,
+			"established": 4
+		},
+		"131": {
+			"after": [
+				34,
+				130
+			],
+			"offeredAfter": {
+				"34": 2,
+				"130": 28
+			},
+			"refusedWithout": 26,
+			"established": 7
+		},
+		"135": {
+			"after": [
+				14,
+				132
+			],
+			"offeredAfter": {
+				"14": 1,
+				"132": 32
+			},
+			"refusedWithout": 38,
+			"established": 9
+		},
+		"141": {
+			"after": [
+				135
+			],
+			"offeredAfter": {
+				"135": 30
+			},
+			"refusedWithout": 30,
+			"established": 8
+		},
+		"142": {
+			"after": [
+				141,
+				143
+			],
+			"offeredAfter": {
+				"141": 30,
+				"143": 1
+			},
+			"refusedWithout": 40,
+			"established": 9
+		},
+		"143": {
+			"after": [
+				121
+			],
+			"offeredAfter": {
+				"121": 11
+			},
+			"refusedWithout": 16,
+			"established": 4
+		},
+		"144": {
+			"after": [
+				143
+			],
+			"offeredAfter": {
+				"143": 6
+			},
+			"refusedWithout": 41,
+			"established": 9
+		},
+		"145": {
+			"after": [
+				144
+			],
+			"offeredAfter": {
+				"144": 5
+			},
+			"refusedWithout": 18,
+			"established": 4
+		},
+		"147": {
+			"after": [
+				39,
+				76,
+				123,
+				176
+			],
+			"offeredAfter": {
+				"39": 1,
+				"76": 1,
+				"123": 9,
+				"176": 3
+			},
+			"refusedWithout": 33,
+			"established": 8
+		},
+		"149": {
+			"after": [
+				101,
+				148
+			],
+			"offeredAfter": {
+				"101": 9,
+				"148": 14
+			},
+			"refusedWithout": 17,
+			"established": 4
+		},
+		"156": {
+			"after": [
+				158,
+				266
+			],
+			"offeredAfter": {
+				"158": 11,
+				"266": 1
+			},
+			"refusedWithout": 6,
+			"established": 2
+		},
+		"157": {
+			"after": [
+				154
+			],
+			"offeredAfter": {
+				"154": 12
+			},
+			"refusedWithout": 17,
+			"established": 4
+		},
+		"159": {
+			"after": [
+				156
+			],
+			"offeredAfter": {
+				"156": 11
+			},
+			"refusedWithout": 10,
+			"established": 3
+		},
+		"166": {
+			"after": [
+				12,
+				155
+			],
+			"offeredAfter": {
+				"12": 1,
+				"155": 28
+			},
+			"refusedWithout": 31,
+			"established": 8
+		},
+		"218": {
+			"after": [
+				182,
+				234,
+				3365
+			],
+			"offeredAfter": {
+				"182": 16,
+				"234": 1,
+				"3365": 1
+			},
+			"refusedWithout": 14,
+			"established": 2
+		},
+		"227": {
+			"after": [
+				225
+			],
+			"offeredAfter": {
+				"225": 2
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"233": {
+			"after": [
+				179
+			],
+			"offeredAfter": {
+				"179": 14
+			},
+			"refusedWithout": 17,
+			"established": 4
+		},
+		"234": {
+			"after": [
+				233
+			],
+			"offeredAfter": {
+				"233": 14
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"239": {
+			"after": [
+				39,
+				76
+			],
+			"offeredAfter": {
+				"39": 7,
+				"76": 17
+			},
+			"refusedWithout": 34,
+			"established": 8
+		},
+		"247": {
+			"after": [
+				2,
+				23,
+				24
+			],
+			"offeredAfter": {
+				"2": 3,
+				"23": 1,
+				"24": 4
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"252": {
+			"after": [
+				251,
+				401
+			],
+			"offeredAfter": {
+				"251": 4,
+				"401": 5
+			},
+			"refusedWithout": 15,
+			"established": 4
+		},
+		"265": {
+			"after": [
+				262
+			],
+			"offeredAfter": {
+				"262": 12
+			},
+			"refusedWithout": 17,
+			"established": 4
+		},
+		"266": {
+			"after": [
+				265
+			],
+			"offeredAfter": {
+				"265": 12
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"268": {
+			"after": [
+				163,
+				453
+			],
+			"offeredAfter": {
+				"163": 1,
+				"453": 11
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"272": {
+			"after": [
+				29
+			],
+			"offeredAfter": {
+				"29": 8
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"275": {
+			"after": [
+				277
+			],
+			"offeredAfter": {
+				"277": 7
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"276": {
+			"after": [
+				463
+			],
+			"offeredAfter": {
+				"463": 9
+			},
+			"refusedWithout": 8,
+			"established": 4
+		},
+		"277": {
+			"after": [
+				276
+			],
+			"offeredAfter": {
+				"276": 9
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"282": {
+			"after": [
+				218,
+				3365
+			],
+			"offeredAfter": {
+				"218": 18,
+				"3365": 1
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"289": {
+			"after": [
+				288
+			],
+			"offeredAfter": {
+				"288": 9
+			},
+			"refusedWithout": 8,
+			"established": 3
+		},
+		"290": {
+			"after": [
+				289
+			],
+			"offeredAfter": {
+				"289": 7
+			},
+			"refusedWithout": 8,
+			"established": 3
+		},
+		"291": {
+			"after": [
+				287,
+				98323
+			],
+			"offeredAfter": {
+				"287": 16,
+				"98323": 1
+			},
+			"refusedWithout": 16,
+			"established": 2
+		},
+		"319": {
+			"after": [
+				315,
+				318
+			],
+			"offeredAfter": {
+				"315": 1,
+				"318": 13
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"320": {
+			"after": [
+				319
+			],
+			"offeredAfter": {
+				"319": 15
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"325": {
+			"after": [
+				322
+			],
+			"offeredAfter": {
+				"322": 1
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"350": {
+			"after": [
+				393
+			],
+			"offeredAfter": {
+				"393": 6
+			},
+			"refusedWithout": 33,
+			"established": 8
+		},
+		"353": {
+			"after": [
+				1097
+			],
+			"offeredAfter": {
+				"1097": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"355": {
+			"after": [
+				354,
+				361,
+				362
+			],
+			"offeredAfter": {
+				"354": 22,
+				"361": 2,
+				"362": 24
+			},
+			"refusedWithout": 24,
+			"established": 9
+		},
+		"359": {
+			"after": [
+				358
+			],
+			"offeredAfter": {
+				"358": 28
+			},
+			"refusedWithout": 10,
+			"established": 2
+		},
+		"360": {
+			"after": [
+				359,
+				97558
+			],
+			"offeredAfter": {
+				"359": 25,
+				"97558": 3
+			},
+			"refusedWithout": 18,
+			"established": 6
+		},
+		"364": {
+			"after": [
+				363
+			],
+			"offeredAfter": {
+				"363": 35
+			},
+			"refusedWithout": 32,
+			"established": 13
+		},
+		"368": {
+			"after": [
+				365,
+				367
+			],
+			"offeredAfter": {
+				"365": 6,
+				"367": 28
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"369": {
+			"after": [
+				365,
+				368
+			],
+			"offeredAfter": {
+				"365": 1,
+				"368": 27
+			},
+			"refusedWithout": 25,
+			"established": 10
+		},
+		"370": {
+			"after": [
+				427
+			],
+			"offeredAfter": {
+				"427": 23
+			},
+			"refusedWithout": 28,
+			"established": 10
+		},
+		"371": {
+			"after": [
+				370,
+				374
+			],
+			"offeredAfter": {
+				"370": 22,
+				"374": 2
+			},
+			"refusedWithout": 28,
+			"established": 10
+		},
+		"372": {
+			"after": [
+				371
+			],
+			"offeredAfter": {
+				"371": 21
+			},
+			"refusedWithout": 28,
+			"established": 10
+		},
+		"374": {
+			"after": [
+				427,
+				99134,
+				99141
+			],
+			"offeredAfter": {
+				"427": 5,
+				"99134": 2,
+				"99141": 4
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"389": {
+			"after": [
+				373,
+				399
+			],
+			"offeredAfter": {
+				"373": 26,
+				"399": 1
+			},
+			"refusedWithout": 28,
+			"established": 8
+		},
+		"391": {
+			"after": [
+				389
+			],
+			"offeredAfter": {
+				"389": 20
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"392": {
+			"after": [
+				387,
+				391
+			],
+			"offeredAfter": {
+				"387": 2,
+				"391": 8
+			},
+			"refusedWithout": 17,
+			"established": 4
+		},
+		"393": {
+			"after": [
+				392
+			],
+			"offeredAfter": {
+				"392": 7
+			},
+			"refusedWithout": 30,
+			"established": 8
+		},
+		"395": {
+			"after": [
+				394
+			],
+			"offeredAfter": {
+				"394": 5
+			},
+			"refusedWithout": 34,
+			"established": 8
+		},
+		"396": {
+			"after": [
+				395
+			],
+			"offeredAfter": {
+				"395": 5
+			},
+			"refusedWithout": 31,
+			"established": 8
+		},
+		"401": {
+			"after": [
+				251
+			],
+			"offeredAfter": {
+				"251": 5
+			},
+			"refusedWithout": 15,
+			"established": 4
+		},
+		"405": {
+			"after": [
+				358
+			],
+			"offeredAfter": {
+				"358": 28
+			},
+			"refusedWithout": 10,
+			"established": 2
+		},
+		"407": {
+			"after": [
+				365,
+				367
+			],
+			"offeredAfter": {
+				"365": 24,
+				"367": 1
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"408": {
+			"after": [
+				355,
+				360
+			],
+			"offeredAfter": {
+				"355": 20,
+				"360": 2
+			},
+			"refusedWithout": 20,
+			"established": 7
+		},
+		"413": {
+			"after": [
+				311,
+				315
+			],
+			"offeredAfter": {
+				"311": 1,
+				"315": 13
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"422": {
+			"after": [
+				421,
+				481
+			],
+			"offeredAfter": {
+				"421": 20,
+				"481": 8
+			},
+			"refusedWithout": 25,
+			"established": 12
+		},
+		"423": {
+			"after": [
+				422
+			],
+			"offeredAfter": {
+				"422": 9
+			},
+			"refusedWithout": 28,
+			"established": 12
+		},
+		"424": {
+			"after": [
+				423
+			],
+			"offeredAfter": {
+				"423": 7
+			},
+			"refusedWithout": 29,
+			"established": 12
+		},
+		"426": {
+			"after": [
+				404
+			],
+			"offeredAfter": {
+				"404": 27
+			},
+			"refusedWithout": 25,
+			"established": 10
+		},
+		"430": {
+			"after": [
+				429,
+				445,
+				3221
+			],
+			"offeredAfter": {
+				"429": 20,
+				"445": 2,
+				"3221": 4
+			},
+			"refusedWithout": 29,
+			"established": 10
+		},
+		"434": {
+			"after": [
+				2746
+			],
+			"offeredAfter": {
+				"2746": 5
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"438": {
+			"after": [
+				437,
+				449
+			],
+			"offeredAfter": {
+				"437": 23,
+				"449": 4
+			},
+			"refusedWithout": 27,
+			"established": 12
+		},
+		"440": {
+			"after": [
+				439
+			],
+			"offeredAfter": {
+				"439": 21
+			},
+			"refusedWithout": 29,
+			"established": 12
+		},
+		"441": {
+			"after": [
+				440
+			],
+			"offeredAfter": {
+				"440": 14
+			},
+			"refusedWithout": 18,
+			"established": 6
+		},
+		"442": {
+			"after": [
+				448
+			],
+			"offeredAfter": {
+				"448": 6
+			},
+			"refusedWithout": 30,
+			"established": 12
+		},
+		"443": {
+			"after": [
+				439
+			],
+			"offeredAfter": {
+				"439": 22
+			},
+			"refusedWithout": 29,
+			"established": 12
+		},
+		"444": {
+			"after": [
+				443,
+				91920
+			],
+			"offeredAfter": {
+				"443": 18,
+				"91920": 5
+			},
+			"refusedWithout": 33,
+			"established": 11
+		},
+		"448": {
+			"after": [
+				446
+			],
+			"offeredAfter": {
+				"446": 6
+			},
+			"refusedWithout": 33,
+			"established": 11
+		},
+		"450": {
+			"after": [
+				447
+			],
+			"offeredAfter": {
+				"447": 20
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"451": {
+			"after": [
+				450
+			],
+			"offeredAfter": {
+				"450": 18
+			},
+			"refusedWithout": 31,
+			"established": 10
+		},
+		"453": {
+			"after": [
+				158,
+				266
+			],
+			"offeredAfter": {
+				"158": 5,
+				"266": 12
+			},
+			"refusedWithout": 6,
+			"established": 2
+		},
+		"457": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 21
+			},
+			"refusedWithout": 24,
+			"established": 8
+		},
+		"465": {
+			"after": [
+				464,
+				98189,
+				98221
+			],
+			"offeredAfter": {
+				"464": 2,
+				"98189": 1,
+				"98221": 4
+			},
+			"refusedWithout": 9,
+			"established": 4
+		},
+		"479": {
+			"after": [
+				482
+			],
+			"offeredAfter": {
+				"482": 24
+			},
+			"refusedWithout": 28,
+			"established": 11
+		},
+		"480": {
+			"after": [
+				479,
+				516,
+				95981
+			],
+			"offeredAfter": {
+				"479": 8,
+				"516": 5,
+				"95981": 9
+			},
+			"refusedWithout": 28,
+			"established": 11
+		},
+		"481": {
+			"after": [
+				478
+			],
+			"offeredAfter": {
+				"478": 25
+			},
+			"refusedWithout": 28,
+			"established": 11
+		},
+		"482": {
+			"after": [
+				421,
+				423,
+				424,
+				481
+			],
+			"offeredAfter": {
+				"421": 4,
+				"423": 1,
+				"424": 1,
+				"481": 24
+			},
+			"refusedWithout": 25,
+			"established": 12
+		},
+		"492": {
+			"after": [
+				369
+			],
+			"offeredAfter": {
+				"369": 20
+			},
+			"refusedWithout": 26,
+			"established": 10
+		},
+		"499": {
+			"after": [
+				496
+			],
+			"offeredAfter": {
+				"496": 14
+			},
+			"refusedWithout": 15,
+			"established": 5
+		},
+		"502": {
+			"after": [
+				501
+			],
+			"offeredAfter": {
+				"501": 12
+			},
+			"refusedWithout": 15,
+			"established": 5
+		},
+		"503": {
+			"after": [
+				533
+			],
+			"offeredAfter": {
+				"533": 3
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"513": {
+			"after": [
+				509
+			],
+			"offeredAfter": {
+				"509": 9
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"517": {
+			"after": [
+				515
+			],
+			"offeredAfter": {
+				"515": 1
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"524": {
+			"after": [
+				517
+			],
+			"offeredAfter": {
+				"517": 1
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"528": {
+			"after": [
+				527
+			],
+			"offeredAfter": {
+				"527": 14
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"529": {
+			"after": [
+				528,
+				546
+			],
+			"offeredAfter": {
+				"528": 12,
+				"546": 1
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"532": {
+			"after": [
+				529,
+				546
+			],
+			"offeredAfter": {
+				"529": 9,
+				"546": 1
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"539": {
+			"after": [
+				532
+			],
+			"offeredAfter": {
+				"532": 10
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"541": {
+			"after": [
+				539,
+				567
+			],
+			"offeredAfter": {
+				"539": 9,
+				"567": 2
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"545": {
+			"after": [
+				544,
+				93680
+			],
+			"offeredAfter": {
+				"544": 1,
+				"93680": 2
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"550": {
+			"after": [
+				541
+			],
+			"offeredAfter": {
+				"541": 2
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"741": {
+			"after": [
+				731
+			],
+			"offeredAfter": {
+				"731": 15
+			},
+			"refusedWithout": 32,
+			"established": 8
+		},
+		"750": {
+			"after": [
+				747
+			],
+			"offeredAfter": {
+				"747": 16
+			},
+			"refusedWithout": 19,
+			"established": 9
+		},
+		"763": {
+			"after": [
+				757
+			],
+			"offeredAfter": {
+				"757": 11
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"767": {
+			"after": [
+				763
+			],
+			"offeredAfter": {
+				"763": 11
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"776": {
+			"after": [
+				775,
+				99082
+			],
+			"offeredAfter": {
+				"775": 9,
+				"99082": 3
+			},
+			"refusedWithout": 10,
+			"established": 5
+		},
+		"780": {
+			"after": [
+				750
+			],
+			"offeredAfter": {
+				"750": 13
+			},
+			"refusedWithout": 19,
+			"established": 9
+		},
+		"788": {
+			"after": [
+				4641
+			],
+			"offeredAfter": {
+				"4641": 25
+			},
+			"refusedWithout": 22,
+			"established": 10
+		},
+		"789": {
+			"after": [
+				788
+			],
+			"offeredAfter": {
+				"788": 25
+			},
+			"refusedWithout": 23,
+			"established": 10
+		},
+		"809": {
+			"after": [
+				829,
+				832
+			],
+			"offeredAfter": {
+				"829": 16,
+				"832": 3
+			},
+			"refusedWithout": 46,
+			"established": 14
+		},
+		"824": {
+			"after": [
+				25,
+				1918
+			],
+			"offeredAfter": {
+				"25": 2,
+				"1918": 5
+			},
+			"refusedWithout": 14,
+			"established": 5
+		},
+		"825": {
+			"after": [
+				784,
+				830,
+				96821
+			],
+			"offeredAfter": {
+				"784": 20,
+				"830": 9,
+				"96821": 1
+			},
+			"refusedWithout": 21,
+			"established": 8
+		},
+		"828": {
+			"after": [
+				806,
+				99049
+			],
+			"offeredAfter": {
+				"806": 17,
+				"99049": 7
+			},
+			"refusedWithout": 21,
+			"established": 7
+		},
+		"831": {
+			"after": [
+				784,
+				830,
+				96821
+			],
+			"offeredAfter": {
+				"784": 6,
+				"830": 22,
+				"96821": 1
+			},
+			"refusedWithout": 21,
+			"established": 8
+		},
+		"845": {
+			"after": [
+				844
+			],
+			"offeredAfter": {
+				"844": 47
+			},
+			"refusedWithout": 21,
+			"established": 6
+		},
+		"846": {
+			"after": [
+				843
+			],
+			"offeredAfter": {
+				"843": 14
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"849": {
+			"after": [
+				846
+			],
+			"offeredAfter": {
+				"846": 10
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"851": {
+			"after": [
+				850,
+				855
+			],
+			"offeredAfter": {
+				"850": 35,
+				"855": 7
+			},
+			"refusedWithout": 44,
+			"established": 14
+		},
+		"852": {
+			"after": [
+				851,
+				855
+			],
+			"offeredAfter": {
+				"851": 20,
+				"855": 3
+			},
+			"refusedWithout": 45,
+			"established": 14
+		},
+		"870": {
+			"after": [
+				886
+			],
+			"offeredAfter": {
+				"886": 10
+			},
+			"refusedWithout": 8,
+			"established": 4
+		},
+		"872": {
+			"after": [
+				871,
+				5041
+			],
+			"offeredAfter": {
+				"871": 40,
+				"5041": 10
+			},
+			"refusedWithout": 51,
+			"established": 16
+		},
+		"874": {
+			"after": [
+				913
+			],
+			"offeredAfter": {
+				"913": 7
+			},
+			"refusedWithout": 19,
+			"established": 6
+		},
+		"877": {
+			"after": [
+				870
+			],
+			"offeredAfter": {
+				"870": 41
+			},
+			"refusedWithout": 51,
+			"established": 17
+		},
+		"879": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"880": {
+			"after": [
+				877
+			],
+			"offeredAfter": {
+				"877": 36
+			},
+			"refusedWithout": 52,
+			"established": 17
+		},
+		"881": {
+			"after": [
+				903
+			],
+			"offeredAfter": {
+				"903": 43
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"882": {
+			"after": [
+				3261
+			],
+			"offeredAfter": {
+				"3261": 12
+			},
+			"refusedWithout": 19,
+			"established": 6
+		},
+		"888": {
+			"after": [
+				892
+			],
+			"offeredAfter": {
+				"892": 42
+			},
+			"refusedWithout": 43,
+			"established": 15
+		},
+		"889": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"890": {
+			"after": [
+				887,
+				895
+			],
+			"offeredAfter": {
+				"887": 40,
+				"895": 12
+			},
+			"refusedWithout": 43,
+			"established": 15
+		},
+		"892": {
+			"after": [
+				890,
+				1492
+			],
+			"offeredAfter": {
+				"890": 42,
+				"1492": 3
+			},
+			"refusedWithout": 43,
+			"established": 15
+		},
+		"903": {
+			"after": [
+				842,
+				845
+			],
+			"offeredAfter": {
+				"842": 1,
+				"845": 46
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"905": {
+			"after": [
+				881
+			],
+			"offeredAfter": {
+				"881": 30
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"906": {
+			"after": [
+				879,
+				97250
+			],
+			"offeredAfter": {
+				"879": 14,
+				"97250": 2
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"907": {
+			"after": [
+				882
+			],
+			"offeredAfter": {
+				"882": 8
+			},
+			"refusedWithout": 19,
+			"established": 6
+		},
+		"913": {
+			"after": [
+				907
+			],
+			"offeredAfter": {
+				"907": 7
+			},
+			"refusedWithout": 19,
+			"established": 6
+		},
+		"920": {
+			"after": [
+				917,
+				97236
+			],
+			"offeredAfter": {
+				"917": 19,
+				"97236": 1
+			},
+			"refusedWithout": 11,
+			"established": 6
+		},
+		"922": {
+			"after": [
+				918,
+				919
+			],
+			"offeredAfter": {
+				"918": 16,
+				"919": 5
+			},
+			"refusedWithout": 16,
+			"established": 6
+		},
+		"941": {
+			"after": [
+				927
+			],
+			"offeredAfter": {
+				"927": 1
+			},
+			"refusedWithout": 14,
+			"established": 7
+		},
+		"944": {
+			"after": [
+				948,
+				952
+			],
+			"offeredAfter": {
+				"948": 22,
+				"952": 3
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"952": {
+			"after": [
+				940
+			],
+			"offeredAfter": {
+				"940": 17
+			},
+			"refusedWithout": 12,
+			"established": 6
+		},
+		"970": {
+			"after": [
+				967
+			],
+			"offeredAfter": {
+				"967": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"972": {
+			"after": [
+				220
+			],
+			"offeredAfter": {
+				"220": 2
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"973": {
+			"after": [
+				970,
+				1010
+			],
+			"offeredAfter": {
+				"970": 6,
+				"1010": 2
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"985": {
+			"after": [
+				984
+			],
+			"offeredAfter": {
+				"984": 29
+			},
+			"refusedWithout": 38,
+			"established": 10
+		},
+		"986": {
+			"after": [
+				985
+			],
+			"offeredAfter": {
+				"985": 26
+			},
+			"refusedWithout": 40,
+			"established": 10
+		},
+		"993": {
+			"after": [
+				986
+			],
+			"offeredAfter": {
+				"986": 21
+			},
+			"refusedWithout": 43,
+			"established": 10
+		},
+		"994": {
+			"after": [
+				993
+			],
+			"offeredAfter": {
+				"993": 14
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"995": {
+			"after": [
+				993
+			],
+			"offeredAfter": {
+				"993": 14
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"1017": {
+			"after": [
+				1016
+			],
+			"offeredAfter": {
+				"1016": 7
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"1024": {
+			"after": [
+				1023
+			],
+			"offeredAfter": {
+				"1023": 9
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"1025": {
+			"after": [
+				1023
+			],
+			"offeredAfter": {
+				"1023": 9
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"1065": {
+			"after": [
+				1064
+			],
+			"offeredAfter": {
+				"1064": 1
+			},
+			"refusedWithout": 14,
+			"established": 7
+		},
+		"1066": {
+			"after": [
+				1065
+			],
+			"offeredAfter": {
+				"1065": 2
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"1072": {
+			"after": [
+				1071
+			],
+			"offeredAfter": {
+				"1071": 4
+			},
+			"refusedWithout": 6,
+			"established": 2
+		},
+		"1075": {
+			"after": [
+				1071
+			],
+			"offeredAfter": {
+				"1071": 4
+			},
+			"refusedWithout": 6,
+			"established": 2
+		},
+		"1076": {
+			"after": [
+				1075
+			],
+			"offeredAfter": {
+				"1075": 3
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"1077": {
+			"after": [
+				1076
+			],
+			"offeredAfter": {
+				"1076": 1
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"1094": {
+			"after": [
+				1093
+			],
+			"offeredAfter": {
+				"1093": 17
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"1095": {
+			"after": [
+				1094
+			],
+			"offeredAfter": {
+				"1094": 9
+			},
+			"refusedWithout": 52,
+			"established": 15
+		},
+		"1096": {
+			"after": [
+				1095
+			],
+			"offeredAfter": {
+				"1095": 2
+			},
+			"refusedWithout": 8,
+			"established": 3
+		},
+		"1134": {
+			"after": [
+				1008
+			],
+			"offeredAfter": {
+				"1008": 3
+			},
+			"refusedWithout": 8,
+			"established": 3
+		},
+		"1140": {
+			"after": [
+				973
+			],
+			"offeredAfter": {
+				"973": 6
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"1338": {
+			"after": [
+				353,
+				1339
+			],
+			"offeredAfter": {
+				"353": 1,
+				"1339": 10
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"1359": {
+			"after": [
+				429,
+				3221
+			],
+			"offeredAfter": {
+				"429": 11,
+				"3221": 19
+			},
+			"refusedWithout": 30,
+			"established": 11
+		},
+		"1489": {
+			"after": [
+				880
+			],
+			"offeredAfter": {
+				"880": 29
+			},
+			"refusedWithout": 52,
+			"established": 17
+		},
+		"1490": {
+			"after": [
+				1489
+			],
+			"offeredAfter": {
+				"1489": 25
+			},
+			"refusedWithout": 29,
+			"established": 11
+		},
+		"1491": {
+			"after": [
+				865
+			],
+			"offeredAfter": {
+				"865": 34
+			},
+			"refusedWithout": 48,
+			"established": 15
+		},
+		"1508": {
+			"after": [
+				1507
+			],
+			"offeredAfter": {
+				"1507": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"1513": {
+			"after": [
+				1512
+			],
+			"offeredAfter": {
+				"1512": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"1515": {
+			"after": [
+				1511
+			],
+			"offeredAfter": {
+				"1511": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"1530": {
+			"after": [
+				1528,
+				1529
+			],
+			"offeredAfter": {
+				"1528": 2,
+				"1529": 1
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"1580": {
+			"after": [
+				1579
+			],
+			"offeredAfter": {
+				"1579": 2
+			},
+			"refusedWithout": 7,
+			"established": 1
+		},
+		"1688": {
+			"after": [
+				1685
+			],
+			"offeredAfter": {
+				"1685": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"1689": {
+			"after": [
+				1688
+			],
+			"offeredAfter": {
+				"1688": 5
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"1882": {
+			"after": [
+				1881
+			],
+			"offeredAfter": {
+				"1881": 7
+			},
+			"refusedWithout": 6,
+			"established": 4
+		},
+		"1961": {
+			"after": [
+				1960
+			],
+			"offeredAfter": {
+				"1960": 3
+			},
+			"refusedWithout": 5,
+			"established": 3
+		},
+		"2138": {
+			"after": [
+				2118
+			],
+			"offeredAfter": {
+				"2118": 30
+			},
+			"refusedWithout": 37,
+			"established": 10
+		},
+		"2139": {
+			"after": [
+				2138
+			],
+			"offeredAfter": {
+				"2138": 22
+			},
+			"refusedWithout": 39,
+			"established": 10
+		},
+		"2206": {
+			"after": [
+				2205
+			],
+			"offeredAfter": {
+				"2205": 1
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"2459": {
+			"after": [
+				2438
+			],
+			"offeredAfter": {
+				"2438": 18
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"2499": {
+			"after": [
+				2498
+			],
+			"offeredAfter": {
+				"2498": 5
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"2746": {
+			"after": [
+				2745
+			],
+			"offeredAfter": {
+				"2745": 7
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"2922": {
+			"after": [
+				2923,
+				2931
+			],
+			"offeredAfter": {
+				"2923": 5,
+				"2931": 1
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"3065": {
+			"after": [
+				788
+			],
+			"offeredAfter": {
+				"788": 2
+			},
+			"refusedWithout": 3,
+			"established": 3
+		},
+		"3086": {
+			"after": [
+				788
+			],
+			"offeredAfter": {
+				"788": 3
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"3087": {
+			"after": [
+				788
+			],
+			"offeredAfter": {
+				"788": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"3090": {
+			"after": [
+				788
+			],
+			"offeredAfter": {
+				"788": 5
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"3092": {
+			"after": [
+				747
+			],
+			"offeredAfter": {
+				"747": 4
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"3094": {
+			"after": [
+				747
+			],
+			"offeredAfter": {
+				"747": 7
+			},
+			"refusedWithout": 9,
+			"established": 4
+		},
+		"3096": {
+			"after": [
+				364
+			],
+			"offeredAfter": {
+				"364": 3
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"3097": {
+			"after": [
+				364
+			],
+			"offeredAfter": {
+				"364": 5
+			},
+			"refusedWithout": 6,
+			"established": 3
+		},
+		"3098": {
+			"after": [
+				364
+			],
+			"offeredAfter": {
+				"364": 9
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"3100": {
+			"after": [
+				7
+			],
+			"offeredAfter": {
+				"7": 3
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"3101": {
+			"after": [
+				7
+			],
+			"offeredAfter": {
+				"7": 3
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"3103": {
+			"after": [
+				7
+			],
+			"offeredAfter": {
+				"7": 7
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"3105": {
+			"after": [
+				7
+			],
+			"offeredAfter": {
+				"7": 4
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"3115": {
+			"after": [
+				179
+			],
+			"offeredAfter": {
+				"179": 6
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"3116": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 4
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"3117": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 4
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"3118": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 4
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"3119": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 4
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"3120": {
+			"after": [
+				456
+			],
+			"offeredAfter": {
+				"456": 10
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"3221": {
+			"after": [
+				437,
+				449,
+				96204
+			],
+			"offeredAfter": {
+				"437": 9,
+				"449": 19,
+				"96204": 1
+			},
+			"refusedWithout": 26,
+			"established": 11
+		},
+		"3261": {
+			"after": [
+				905
+			],
+			"offeredAfter": {
+				"905": 19
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"3301": {
+			"after": [
+				880
+			],
+			"offeredAfter": {
+				"880": 29
+			},
+			"refusedWithout": 52,
+			"established": 17
+		},
+		"3365": {
+			"after": [
+				3364
+			],
+			"offeredAfter": {
+				"3364": 14
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"3901": {
+			"after": [
+				364,
+				1470
+			],
+			"offeredAfter": {
+				"364": 32,
+				"1470": 1
+			},
+			"refusedWithout": 32,
+			"established": 13
+		},
+		"3921": {
+			"after": [
+				902
+			],
+			"offeredAfter": {
+				"902": 30
+			},
+			"refusedWithout": 55,
+			"established": 16
+		},
+		"4021": {
+			"after": [
+				852
+			],
+			"offeredAfter": {
+				"852": 15
+			},
+			"refusedWithout": 47,
+			"established": 14
+		},
+		"4681": {
+			"after": [
+				3524
+			],
+			"offeredAfter": {
+				"3524": 37
+			},
+			"refusedWithout": 41,
+			"established": 12
+		},
+		"4761": {
+			"after": [
+				984
+			],
+			"offeredAfter": {
+				"984": 26
+			},
+			"refusedWithout": 38,
+			"established": 10
+		},
+		"4762": {
+			"after": [
+				958,
+				4761
+			],
+			"offeredAfter": {
+				"958": 8,
+				"4761": 24
+			},
+			"refusedWithout": 41,
+			"established": 10
+		},
+		"4763": {
+			"after": [
+				2178,
+				4762
+			],
+			"offeredAfter": {
+				"2178": 1,
+				"4762": 23
+			},
+			"refusedWithout": 30,
+			"established": 6
+		},
+		"4812": {
+			"after": [
+				4811,
+				98025
+			],
+			"offeredAfter": {
+				"4811": 26,
+				"98025": 6
+			},
+			"refusedWithout": 31,
+			"established": 9
+		},
+		"5042": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5043": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5044": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5045": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5046": {
+			"after": [
+				878,
+				5052
+			],
+			"offeredAfter": {
+				"878": 6,
+				"5052": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5052": {
+			"after": [
+				878
+			],
+			"offeredAfter": {
+				"878": 16
+			},
+			"refusedWithout": 17,
+			"established": 6
+		},
+		"5061": {
+			"after": [
+				272
+			],
+			"offeredAfter": {
+				"272": 7
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"5621": {
+			"after": [
+				5622
+			],
+			"offeredAfter": {
+				"5622": 3
+			},
+			"refusedWithout": 3,
+			"established": 3
+		},
+		"5624": {
+			"after": [
+				5623
+			],
+			"offeredAfter": {
+				"5623": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"5650": {
+			"after": [
+				5651
+			],
+			"offeredAfter": {
+				"5651": 8
+			},
+			"refusedWithout": 8,
+			"established": 3
+		},
+		"5727": {
+			"after": [
+				5726
+			],
+			"offeredAfter": {
+				"5726": 34
+			},
+			"refusedWithout": 38,
+			"established": 13
+		},
+		"5728": {
+			"after": [
+				5727
+			],
+			"offeredAfter": {
+				"5727": 37
+			},
+			"refusedWithout": 39,
+			"established": 13
+		},
+		"5729": {
+			"after": [
+				5728
+			],
+			"offeredAfter": {
+				"5728": 32
+			},
+			"refusedWithout": 40,
+			"established": 13
+		},
+		"5730": {
+			"after": [
+				5729,
+				5761
+			],
+			"offeredAfter": {
+				"5729": 31,
+				"5761": 1
+			},
+			"refusedWithout": 46,
+			"established": 14
+		},
+		"5921": {
+			"after": [
+				5923,
+				5925
+			],
+			"offeredAfter": {
+				"5923": 1,
+				"5925": 6
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"5922": {
+			"after": [
+				5928
+			],
+			"offeredAfter": {
+				"5928": 6
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"5929": {
+			"after": [
+				5921
+			],
+			"offeredAfter": {
+				"5921": 7
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"5930": {
+			"after": [
+				5922
+			],
+			"offeredAfter": {
+				"5922": 6
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"5931": {
+			"after": [
+				5929
+			],
+			"offeredAfter": {
+				"5929": 7
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"5932": {
+			"after": [
+				5930
+			],
+			"offeredAfter": {
+				"5930": 6
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"6001": {
+			"after": [
+				5931
+			],
+			"offeredAfter": {
+				"5931": 6
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"6002": {
+			"after": [
+				5932
+			],
+			"offeredAfter": {
+				"5932": 6
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"6081": {
+			"after": [
+				6082
+			],
+			"offeredAfter": {
+				"6082": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6082": {
+			"after": [
+				6083
+			],
+			"offeredAfter": {
+				"6083": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6083": {
+			"after": [
+				6062
+			],
+			"offeredAfter": {
+				"6062": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6101": {
+			"after": [
+				6063
+			],
+			"offeredAfter": {
+				"6063": 4
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"6102": {
+			"after": [
+				6101
+			],
+			"offeredAfter": {
+				"6101": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"6103": {
+			"after": [
+				6102
+			],
+			"offeredAfter": {
+				"6102": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"6122": {
+			"after": [
+				6121
+			],
+			"offeredAfter": {
+				"6121": 10
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"6123": {
+			"after": [
+				6122
+			],
+			"offeredAfter": {
+				"6122": 10
+			},
+			"refusedWithout": 10,
+			"established": 3
+		},
+		"6124": {
+			"after": [
+				6123
+			],
+			"offeredAfter": {
+				"6123": 9
+			},
+			"refusedWithout": 10,
+			"established": 3
+		},
+		"6125": {
+			"after": [
+				6124
+			],
+			"offeredAfter": {
+				"6124": 9
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"6127": {
+			"after": [
+				6126
+			],
+			"offeredAfter": {
+				"6126": 5
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"6128": {
+			"after": [
+				6127
+			],
+			"offeredAfter": {
+				"6127": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6129": {
+			"after": [
+				6128
+			],
+			"offeredAfter": {
+				"6128": 6
+			},
+			"refusedWithout": 6,
+			"established": 3
+		},
+		"6130": {
+			"after": [
+				6129
+			],
+			"offeredAfter": {
+				"6129": 6
+			},
+			"refusedWithout": 9,
+			"established": 4
+		},
+		"6261": {
+			"after": [
+				6281
+			],
+			"offeredAfter": {
+				"6281": 14
+			},
+			"refusedWithout": 11,
+			"established": 2
+		},
+		"6281": {
+			"after": [
+				6181
+			],
+			"offeredAfter": {
+				"6181": 15
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"6283": {
+			"after": [
+				6282
+			],
+			"offeredAfter": {
+				"6282": 6
+			},
+			"refusedWithout": 12,
+			"established": 4
+		},
+		"6285": {
+			"after": [
+				6261
+			],
+			"offeredAfter": {
+				"6261": 13
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"6322": {
+			"after": [
+				6323
+			],
+			"offeredAfter": {
+				"6323": 5
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"6323": {
+			"after": [
+				6321
+			],
+			"offeredAfter": {
+				"6321": 5
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"6324": {
+			"after": [
+				6322
+			],
+			"offeredAfter": {
+				"6322": 5
+			},
+			"refusedWithout": 18,
+			"established": 8
+		},
+		"6341": {
+			"after": [
+				6344
+			],
+			"offeredAfter": {
+				"6344": 16
+			},
+			"refusedWithout": 16,
+			"established": 7
+		},
+		"6342": {
+			"after": [
+				6341
+			],
+			"offeredAfter": {
+				"6341": 18
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"6343": {
+			"after": [
+				6342
+			],
+			"offeredAfter": {
+				"6342": 18
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"6362": {
+			"after": [
+				6361
+			],
+			"offeredAfter": {
+				"6361": 5
+			},
+			"refusedWithout": 32,
+			"established": 11
+		},
+		"6363": {
+			"after": [
+				6362
+			],
+			"offeredAfter": {
+				"6362": 6
+			},
+			"refusedWithout": 7,
+			"established": 3
+		},
+		"6364": {
+			"after": [
+				6363
+			],
+			"offeredAfter": {
+				"6363": 6
+			},
+			"refusedWithout": 29,
+			"established": 10
+		},
+		"6382": {
+			"after": [
+				882
+			],
+			"offeredAfter": {
+				"882": 7
+			},
+			"refusedWithout": 16,
+			"established": 6
+		},
+		"6383": {
+			"after": [
+				235,
+				742
+			],
+			"offeredAfter": {
+				"235": 3,
+				"742": 2
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6384": {
+			"after": [
+				6365
+			],
+			"offeredAfter": {
+				"6365": 19
+			},
+			"refusedWithout": 23,
+			"established": 6
+		},
+		"6385": {
+			"after": [
+				6384
+			],
+			"offeredAfter": {
+				"6384": 17
+			},
+			"refusedWithout": 21,
+			"established": 7
+		},
+		"6386": {
+			"after": [
+				6385
+			],
+			"offeredAfter": {
+				"6385": 13
+			},
+			"refusedWithout": 23,
+			"established": 7
+		},
+		"6388": {
+			"after": [
+				6391
+			],
+			"offeredAfter": {
+				"6391": 7
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"6391": {
+			"after": [
+				6387
+			],
+			"offeredAfter": {
+				"6387": 8
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"6392": {
+			"after": [
+				6388
+			],
+			"offeredAfter": {
+				"6388": 7
+			},
+			"refusedWithout": 20,
+			"established": 3
+		},
+		"6481": {
+			"after": [
+				6421
+			],
+			"offeredAfter": {
+				"6421": 2
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"6563": {
+			"after": [
+				6562
+			],
+			"offeredAfter": {
+				"6562": 9
+			},
+			"refusedWithout": 7,
+			"established": 5
+		},
+		"6565": {
+			"after": [
+				6563,
+				6564,
+				6921,
+				6922
+			],
+			"offeredAfter": {
+				"6563": 2,
+				"6564": 9,
+				"6921": 1,
+				"6922": 1
+			},
+			"refusedWithout": 10,
+			"established": 5
+		},
+		"6621": {
+			"after": [
+				216,
+				6641
+			],
+			"offeredAfter": {
+				"216": 7,
+				"6641": 1
+			},
+			"refusedWithout": 11,
+			"established": 5
+		},
+		"8372": {
+			"after": [
+				1684
+			],
+			"offeredAfter": {
+				"1684": 1
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"8386": {
+			"after": [
+				8372
+			],
+			"offeredAfter": {
+				"8372": 1
+			},
+			"refusedWithout": 11,
+			"established": 4
+		},
+		"65601": {
+			"after": [
+				1507
+			],
+			"offeredAfter": {
+				"1507": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"65610": {
+			"after": [
+				65601
+			],
+			"offeredAfter": {
+				"65601": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"76160": {
+			"after": [
+				76156
+			],
+			"offeredAfter": {
+				"76156": 4
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"76240": {
+			"after": [
+				76160
+			],
+			"offeredAfter": {
+				"76160": 3
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"87760": {
+			"after": [
+				4725,
+				4727,
+				4728,
+				4731,
+				4732,
+				4733
+			],
+			"offeredAfter": {
+				"4725": 1,
+				"4727": 1,
+				"4728": 1,
+				"4731": 3,
+				"4732": 5,
+				"4733": 21
+			},
+			"refusedWithout": 35,
+			"established": 7
+		},
+		"91294": {
+			"after": [
+				91285
+			],
+			"offeredAfter": {
+				"91285": 10
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"91752": {
+			"after": [
+				91745
+			],
+			"offeredAfter": {
+				"91745": 15
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"91758": {
+			"after": [
+				21,
+				91752
+			],
+			"offeredAfter": {
+				"21": 5,
+				"91752": 12
+			},
+			"refusedWithout": 30,
+			"established": 10
+		},
+		"91772": {
+			"after": [
+				91758
+			],
+			"offeredAfter": {
+				"91758": 11
+			},
+			"refusedWithout": 12,
+			"established": 4
+		},
+		"91775": {
+			"after": [
+				54,
+				91772
+			],
+			"offeredAfter": {
+				"54": 7,
+				"91772": 11
+			},
+			"refusedWithout": 32,
+			"established": 8
+		},
+		"91777": {
+			"after": [
+				40,
+				62,
+				91775
+			],
+			"offeredAfter": {
+				"40": 1,
+				"62": 3,
+				"91775": 12
+			},
+			"refusedWithout": 31,
+			"established": 8
+		},
+		"91859": {
+			"after": [
+				448,
+				91858
+			],
+			"offeredAfter": {
+				"448": 2,
+				"91858": 6
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"91921": {
+			"after": [
+				91920
+			],
+			"offeredAfter": {
+				"91920": 16
+			},
+			"refusedWithout": 31,
+			"established": 11
+		},
+		"92422": {
+			"after": [
+				99156
+			],
+			"offeredAfter": {
+				"99156": 16
+			},
+			"refusedWithout": 11,
+			"established": 4
+		},
+		"92434": {
+			"after": [
+				545
+			],
+			"offeredAfter": {
+				"545": 2
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"92461": {
+			"after": [
+				92460
+			],
+			"offeredAfter": {
+				"92460": 17
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"92467": {
+			"after": [
+				92466,
+				92470
+			],
+			"offeredAfter": {
+				"92466": 3,
+				"92470": 1
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"92469": {
+			"after": [
+				92465
+			],
+			"offeredAfter": {
+				"92465": 15
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"92481": {
+			"after": [
+				92461
+			],
+			"offeredAfter": {
+				"92461": 3
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"92482": {
+			"after": [
+				92461,
+				92474
+			],
+			"offeredAfter": {
+				"92461": 5,
+				"92474": 1
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"92484": {
+			"after": [
+				92461
+			],
+			"offeredAfter": {
+				"92461": 3
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"92485": {
+			"after": [
+				92461
+			],
+			"offeredAfter": {
+				"92461": 5
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"92517": {
+			"after": [
+				92514,
+				93461
+			],
+			"offeredAfter": {
+				"92514": 5,
+				"93461": 6
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92528": {
+			"after": [
+				92529
+			],
+			"offeredAfter": {
+				"92529": 10
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"92529": {
+			"after": [
+				93036
+			],
+			"offeredAfter": {
+				"93036": 11
+			},
+			"refusedWithout": 11,
+			"established": 2
+		},
+		"92550": {
+			"after": [
+				92528
+			],
+			"offeredAfter": {
+				"92528": 10
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92579": {
+			"after": [
+				92550,
+				93927
+			],
+			"offeredAfter": {
+				"92550": 4,
+				"93927": 4
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92640": {
+			"after": [
+				94568
+			],
+			"offeredAfter": {
+				"94568": 14
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"92642": {
+			"after": [
+				93320
+			],
+			"offeredAfter": {
+				"93320": 13
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92643": {
+			"after": [
+				92880,
+				92881
+			],
+			"offeredAfter": {
+				"92880": 5,
+				"92881": 13
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"92644": {
+			"after": [
+				92643
+			],
+			"offeredAfter": {
+				"92643": 14
+			},
+			"refusedWithout": 14,
+			"established": 2
+		},
+		"92645": {
+			"after": [
+				93320
+			],
+			"offeredAfter": {
+				"93320": 13
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92646": {
+			"after": [
+				93958
+			],
+			"offeredAfter": {
+				"93958": 6
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92682": {
+			"after": [
+				92679
+			],
+			"offeredAfter": {
+				"92679": 10
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"92683": {
+			"after": [
+				92679
+			],
+			"offeredAfter": {
+				"92679": 11
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"92684": {
+			"after": [
+				92679
+			],
+			"offeredAfter": {
+				"92679": 11
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"92685": {
+			"after": [
+				92682,
+				92683,
+				92684
+			],
+			"offeredAfter": {
+				"92682": 3,
+				"92683": 7,
+				"92684": 11
+			},
+			"refusedWithout": 13,
+			"established": 3
+		},
+		"92693": {
+			"after": [
+				92685
+			],
+			"offeredAfter": {
+				"92685": 13
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"92699": {
+			"after": [
+				92701,
+				93948
+			],
+			"offeredAfter": {
+				"92701": 6,
+				"93948": 2
+			},
+			"refusedWithout": 11,
+			"established": 1
+		},
+		"92700": {
+			"after": [
+				92579
+			],
+			"offeredAfter": {
+				"92579": 4
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92701": {
+			"after": [
+				92550,
+				93927
+			],
+			"offeredAfter": {
+				"92550": 4,
+				"93927": 7
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92703": {
+			"after": [
+				92693
+			],
+			"offeredAfter": {
+				"92693": 13
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"92708": {
+			"after": [
+				92700
+			],
+			"offeredAfter": {
+				"92700": 4
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"92709": {
+			"after": [
+				92699
+			],
+			"offeredAfter": {
+				"92699": 6
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"92745": {
+			"after": [
+				92742,
+				92744
+			],
+			"offeredAfter": {
+				"92742": 16,
+				"92744": 18
+			},
+			"refusedWithout": 32,
+			"established": 9
+		},
+		"92747": {
+			"after": [
+				92745
+			],
+			"offeredAfter": {
+				"92745": 24
+			},
+			"refusedWithout": 36,
+			"established": 9
+		},
+		"92748": {
+			"after": [
+				92747
+			],
+			"offeredAfter": {
+				"92747": 24
+			},
+			"refusedWithout": 38,
+			"established": 9
+		},
+		"92749": {
+			"after": [
+				92748
+			],
+			"offeredAfter": {
+				"92748": 23
+			},
+			"refusedWithout": 23,
+			"established": 6
+		},
+		"92750": {
+			"after": [
+				92748
+			],
+			"offeredAfter": {
+				"92748": 23
+			},
+			"refusedWithout": 23,
+			"established": 6
+		},
+		"92751": {
+			"after": [
+				92750
+			],
+			"offeredAfter": {
+				"92750": 18
+			},
+			"refusedWithout": 20,
+			"established": 6
+		},
+		"92752": {
+			"after": [
+				92749,
+				92751
+			],
+			"offeredAfter": {
+				"92749": 8,
+				"92751": 12
+			},
+			"refusedWithout": 24,
+			"established": 6
+		},
+		"92753": {
+			"after": [
+				92752
+			],
+			"offeredAfter": {
+				"92752": 16
+			},
+			"refusedWithout": 39,
+			"established": 9
+		},
+		"92834": {
+			"after": [
+				92840
+			],
+			"offeredAfter": {
+				"92840": 7
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92840": {
+			"after": [
+				99260
+			],
+			"offeredAfter": {
+				"99260": 7
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92860": {
+			"after": [
+				92840
+			],
+			"offeredAfter": {
+				"92840": 6
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"92871": {
+			"after": [
+				93746
+			],
+			"offeredAfter": {
+				"93746": 7
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"92880": {
+			"after": [
+				92642,
+				92645
+			],
+			"offeredAfter": {
+				"92642": 4,
+				"92645": 14
+			},
+			"refusedWithout": 14,
+			"established": 2
+		},
+		"92881": {
+			"after": [
+				92880
+			],
+			"offeredAfter": {
+				"92880": 13
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"92947": {
+			"after": [
+				93065
+			],
+			"offeredAfter": {
+				"93065": 12
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93036": {
+			"after": [
+				92517
+			],
+			"offeredAfter": {
+				"92517": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93065": {
+			"after": [
+				92640
+			],
+			"offeredAfter": {
+				"92640": 13
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"93089": {
+			"after": [
+				94369
+			],
+			"offeredAfter": {
+				"94369": 7
+			},
+			"refusedWithout": 14,
+			"established": 2
+		},
+		"93090": {
+			"after": [
+				93836
+			],
+			"offeredAfter": {
+				"93836": 6
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"93160": {
+			"after": [
+				93159
+			],
+			"offeredAfter": {
+				"93159": 12
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93172": {
+			"after": [
+				93159
+			],
+			"offeredAfter": {
+				"93159": 12
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93320": {
+			"after": [
+				92860,
+				92871
+			],
+			"offeredAfter": {
+				"92860": 6,
+				"92871": 7
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"93459": {
+			"after": [
+				93165
+			],
+			"offeredAfter": {
+				"93165": 2
+			},
+			"refusedWithout": 14,
+			"established": 2
+		},
+		"93735": {
+			"after": [
+				92700
+			],
+			"offeredAfter": {
+				"92700": 4
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"93737": {
+			"after": [
+				93735
+			],
+			"offeredAfter": {
+				"93735": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"93738": {
+			"after": [
+				93737
+			],
+			"offeredAfter": {
+				"93737": 2
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"93739": {
+			"after": [
+				95350
+			],
+			"offeredAfter": {
+				"95350": 6
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"93740": {
+			"after": [
+				93746
+			],
+			"offeredAfter": {
+				"93746": 7
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"93746": {
+			"after": [
+				93738
+			],
+			"offeredAfter": {
+				"93738": 6
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"93835": {
+			"after": [
+				93958
+			],
+			"offeredAfter": {
+				"93958": 7
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"93836": {
+			"after": [
+				92646
+			],
+			"offeredAfter": {
+				"92646": 6
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"93926": {
+			"after": [
+				92528
+			],
+			"offeredAfter": {
+				"92528": 10
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93927": {
+			"after": [
+				93926
+			],
+			"offeredAfter": {
+				"93926": 11
+			},
+			"refusedWithout": 11,
+			"established": 2
+		},
+		"93948": {
+			"after": [
+				92550,
+				93927
+			],
+			"offeredAfter": {
+				"92550": 8,
+				"93927": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"93949": {
+			"after": [
+				92579,
+				92701,
+				93948
+			],
+			"offeredAfter": {
+				"92579": 1,
+				"92701": 1,
+				"93948": 9
+			},
+			"refusedWithout": 9,
+			"established": 1
+		},
+		"93958": {
+			"after": [
+				92947
+			],
+			"offeredAfter": {
+				"92947": 13
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"93963": {
+			"after": [
+				94947
+			],
+			"offeredAfter": {
+				"94947": 7
+			},
+			"refusedWithout": 7,
+			"established": 1
+		},
+		"94369": {
+			"after": [
+				93835
+			],
+			"offeredAfter": {
+				"93835": 7
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"94411": {
+			"after": [
+				92595
+			],
+			"offeredAfter": {
+				"92595": 5
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"94413": {
+			"after": [
+				92596
+			],
+			"offeredAfter": {
+				"92596": 7
+			},
+			"refusedWithout": 7,
+			"established": 1
+		},
+		"94436": {
+			"after": [
+				94435
+			],
+			"offeredAfter": {
+				"94435": 8
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"94438": {
+			"after": [
+				94436
+			],
+			"offeredAfter": {
+				"94436": 8
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"94441": {
+			"after": [
+				94440
+			],
+			"offeredAfter": {
+				"94440": 8
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"94488": {
+			"after": [
+				94485,
+				94486,
+				94487
+			],
+			"offeredAfter": {
+				"94485": 9,
+				"94486": 9,
+				"94487": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"94489": {
+			"after": [
+				94485,
+				94486,
+				94487
+			],
+			"offeredAfter": {
+				"94485": 9,
+				"94486": 9,
+				"94487": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"94491": {
+			"after": [
+				94488,
+				94489,
+				94490
+			],
+			"offeredAfter": {
+				"94488": 8,
+				"94489": 9,
+				"94490": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"94568": {
+			"after": [
+				92644
+			],
+			"offeredAfter": {
+				"92644": 14
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"94638": {
+			"after": [
+				94006
+			],
+			"offeredAfter": {
+				"94006": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"94793": {
+			"after": [
+				94864
+			],
+			"offeredAfter": {
+				"94864": 2
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"94863": {
+			"after": [
+				94792
+			],
+			"offeredAfter": {
+				"94792": 2
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"94864": {
+			"after": [
+				94863
+			],
+			"offeredAfter": {
+				"94863": 2
+			},
+			"refusedWithout": 3,
+			"established": 1
+		},
+		"94946": {
+			"after": [
+				93089
+			],
+			"offeredAfter": {
+				"93089": 7
+			},
+			"refusedWithout": 13,
+			"established": 2
+		},
+		"95034": {
+			"after": [
+				96204
+			],
+			"offeredAfter": {
+				"96204": 6
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"95111": {
+			"after": [
+				95036
+			],
+			"offeredAfter": {
+				"95036": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"95140": {
+			"after": [
+				95126
+			],
+			"offeredAfter": {
+				"95126": 3
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"95161": {
+			"after": [
+				92415
+			],
+			"offeredAfter": {
+				"92415": 5
+			},
+			"refusedWithout": 6,
+			"established": 4
+		},
+		"95349": {
+			"after": [
+				93090
+			],
+			"offeredAfter": {
+				"93090": 6
+			},
+			"refusedWithout": 15,
+			"established": 3
+		},
+		"95495": {
+			"after": [
+				95494,
+				95507
+			],
+			"offeredAfter": {
+				"95494": 16,
+				"95507": 12
+			},
+			"refusedWithout": 21,
+			"established": 10
+		},
+		"95508": {
+			"after": [
+				95621
+			],
+			"offeredAfter": {
+				"95621": 15
+			},
+			"refusedWithout": 17,
+			"established": 8
+		},
+		"95621": {
+			"after": [
+				95495
+			],
+			"offeredAfter": {
+				"95495": 16
+			},
+			"refusedWithout": 17,
+			"established": 8
+		},
+		"95646": {
+			"after": [
+				275
+			],
+			"offeredAfter": {
+				"275": 2
+			},
+			"refusedWithout": 10,
+			"established": 4
+		},
+		"95647": {
+			"after": [
+				95737
+			],
+			"offeredAfter": {
+				"95737": 7
+			},
+			"refusedWithout": 7,
+			"established": 2
+		},
+		"95774": {
+			"after": [
+				899,
+				4921
+			],
+			"offeredAfter": {
+				"899": 5,
+				"4921": 10
+			},
+			"refusedWithout": 36,
+			"established": 13
+		},
+		"95803": {
+			"after": [
+				91317
+			],
+			"offeredAfter": {
+				"91317": 9
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"95981": {
+			"after": [
+				482
+			],
+			"offeredAfter": {
+				"482": 21
+			},
+			"refusedWithout": 28,
+			"established": 11
+		},
+		"95998": {
+			"after": [
+				96627
+			],
+			"offeredAfter": {
+				"96627": 22
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"96031": {
+			"after": [
+				96608
+			],
+			"offeredAfter": {
+				"96608": 1
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96044": {
+			"after": [
+				98323
+			],
+			"offeredAfter": {
+				"98323": 1
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96046": {
+			"after": [
+				96608
+			],
+			"offeredAfter": {
+				"96608": 5
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96047": {
+			"after": [
+				287,
+				98323
+			],
+			"offeredAfter": {
+				"287": 1,
+				"98323": 1
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96055": {
+			"after": [
+				96608
+			],
+			"offeredAfter": {
+				"96608": 3
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96056": {
+			"after": [
+				96608
+			],
+			"offeredAfter": {
+				"96608": 10
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96101": {
+			"after": [
+				96638
+			],
+			"offeredAfter": {
+				"96638": 11
+			},
+			"refusedWithout": 11,
+			"established": 2
+		},
+		"96261": {
+			"after": [
+				96259,
+				96294
+			],
+			"offeredAfter": {
+				"96259": 6,
+				"96294": 2
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"96390": {
+			"after": [
+				96392,
+				96408
+			],
+			"offeredAfter": {
+				"96392": 21,
+				"96408": 1
+			},
+			"refusedWithout": 31,
+			"established": 9
+		},
+		"96392": {
+			"after": [
+				96408
+			],
+			"offeredAfter": {
+				"96408": 15
+			},
+			"refusedWithout": 12,
+			"established": 3
+		},
+		"96393": {
+			"after": [
+				96390,
+				96391
+			],
+			"offeredAfter": {
+				"96390": 15,
+				"96391": 41
+			},
+			"refusedWithout": 39,
+			"established": 10
+		},
+		"96604": {
+			"after": [
+				96652
+			],
+			"offeredAfter": {
+				"96652": 18
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"96605": {
+			"after": [
+				96659
+			],
+			"offeredAfter": {
+				"96659": 11
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"96606": {
+			"after": [
+				96630
+			],
+			"offeredAfter": {
+				"96630": 19
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"96607": {
+			"after": [
+				86784,
+				96656
+			],
+			"offeredAfter": {
+				"86784": 2,
+				"96656": 27
+			},
+			"refusedWithout": 23,
+			"established": 9
+		},
+		"96608": {
+			"after": [
+				420,
+				96628
+			],
+			"offeredAfter": {
+				"420": 1,
+				"96628": 17
+			},
+			"refusedWithout": 14,
+			"established": 3
+		},
+		"96626": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 22
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"96627": {
+			"after": [
+				21,
+				91752
+			],
+			"offeredAfter": {
+				"21": 23,
+				"91752": 1
+			},
+			"refusedWithout": 23,
+			"established": 7
+		},
+		"96629": {
+			"after": [
+				96608
+			],
+			"offeredAfter": {
+				"96608": 14
+			},
+			"refusedWithout": 16,
+			"established": 3
+		},
+		"96634": {
+			"after": [
+				96606
+			],
+			"offeredAfter": {
+				"96606": 20
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"96646": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 11
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"96655": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 19
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"96658": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 28
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"96659": {
+			"after": [
+				757
+			],
+			"offeredAfter": {
+				"757": 10
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"96661": {
+			"after": [
+				96605
+			],
+			"offeredAfter": {
+				"96605": 11
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"96896": {
+			"after": [
+				96899
+			],
+			"offeredAfter": {
+				"96899": 20
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"96897": {
+			"after": [
+				96895
+			],
+			"offeredAfter": {
+				"96895": 23
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"96898": {
+			"after": [
+				96895
+			],
+			"offeredAfter": {
+				"96895": 23
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"96899": {
+			"after": [
+				96897,
+				96898
+			],
+			"offeredAfter": {
+				"96897": 21,
+				"96898": 22
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97222": {
+			"after": [
+				97220
+			],
+			"offeredAfter": {
+				"97220": 3
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"97249": {
+			"after": [
+				97246
+			],
+			"offeredAfter": {
+				"97246": 19
+			},
+			"refusedWithout": 29,
+			"established": 9
+		},
+		"97282": {
+			"after": [
+				835,
+				97281
+			],
+			"offeredAfter": {
+				"835": 15,
+				"97281": 20
+			},
+			"refusedWithout": 20,
+			"established": 7
+		},
+		"97287": {
+			"after": [
+				96984
+			],
+			"offeredAfter": {
+				"96984": 2
+			},
+			"refusedWithout": 4,
+			"established": 2
+		},
+		"97289": {
+			"after": [
+				97288
+			],
+			"offeredAfter": {
+				"97288": 24
+			},
+			"refusedWithout": 3,
+			"established": 2
+		},
+		"97290": {
+			"after": [
+				97289
+			],
+			"offeredAfter": {
+				"97289": 24
+			},
+			"refusedWithout": 20,
+			"established": 10
+		},
+		"97291": {
+			"after": [
+				97290
+			],
+			"offeredAfter": {
+				"97290": 24
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"97292": {
+			"after": [
+				97291
+			],
+			"offeredAfter": {
+				"97291": 21
+			},
+			"refusedWithout": 4,
+			"established": 3
+		},
+		"97899": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 1
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97901": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 1
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97904": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 1
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97905": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 4
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97906": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 1
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97907": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 6
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97908": {
+			"after": [
+				96604
+			],
+			"offeredAfter": {
+				"96604": 10
+			},
+			"refusedWithout": 19,
+			"established": 8
+		},
+		"97916": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 2
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97917": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 1
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97919": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 3
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97921": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 7
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97923": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 6
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97924": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 11
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97925": {
+			"after": [
+				95998
+			],
+			"offeredAfter": {
+				"95998": 1
+			},
+			"refusedWithout": 22,
+			"established": 6
+		},
+		"97926": {
+			"after": [
+				97914
+			],
+			"offeredAfter": {
+				"97914": 27
+			},
+			"refusedWithout": 29,
+			"established": 9
+		},
+		"97933": {
+			"after": [
+				96605
+			],
+			"offeredAfter": {
+				"96605": 4
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"97934": {
+			"after": [
+				96605
+			],
+			"offeredAfter": {
+				"96605": 1
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"97935": {
+			"after": [
+				96605
+			],
+			"offeredAfter": {
+				"96605": 2
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"97936": {
+			"after": [
+				96605
+			],
+			"offeredAfter": {
+				"96605": 6
+			},
+			"refusedWithout": 8,
+			"established": 2
+		},
+		"97942": {
+			"after": [
+				96606
+			],
+			"offeredAfter": {
+				"96606": 1
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"97944": {
+			"after": [
+				96606
+			],
+			"offeredAfter": {
+				"96606": 5
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"97948": {
+			"after": [
+				96606
+			],
+			"offeredAfter": {
+				"96606": 6
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"97949": {
+			"after": [
+				96606
+			],
+			"offeredAfter": {
+				"96606": 14
+			},
+			"refusedWithout": 18,
+			"established": 7
+		},
+		"97951": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 3
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97955": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 4
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97957": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 8
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97959": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 11
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97960": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 6
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97961": {
+			"after": [
+				96607
+			],
+			"offeredAfter": {
+				"96607": 4
+			},
+			"refusedWithout": 24,
+			"established": 10
+		},
+		"97964": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 1
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"97968": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 3
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"97969": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 1
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"97970": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 2
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"97971": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 8
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"97973": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 1
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"98021": {
+			"after": [
+				94947
+			],
+			"offeredAfter": {
+				"94947": 4
+			},
+			"refusedWithout": 7,
+			"established": 1
+		},
+		"98024": {
+			"after": [
+				95350
+			],
+			"offeredAfter": {
+				"95350": 4
+			},
+			"refusedWithout": 6,
+			"established": 1
+		},
+		"98065": {
+			"after": [
+				98046
+			],
+			"offeredAfter": {
+				"98046": 17
+			},
+			"refusedWithout": 16,
+			"established": 7
+		},
+		"98072": {
+			"after": [
+				471
+			],
+			"offeredAfter": {
+				"471": 6
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"98094": {
+			"after": [
+				528,
+				546
+			],
+			"offeredAfter": {
+				"528": 9,
+				"546": 1
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"98190": {
+			"after": [
+				98189
+			],
+			"offeredAfter": {
+				"98189": 8
+			},
+			"refusedWithout": 9,
+			"established": 4
+		},
+		"98191": {
+			"after": [
+				98190
+			],
+			"offeredAfter": {
+				"98190": 4
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"98216": {
+			"after": [
+				299
+			],
+			"offeredAfter": {
+				"299": 4
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"98219": {
+			"after": [
+				98191
+			],
+			"offeredAfter": {
+				"98191": 4
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"98230": {
+			"after": [
+				474
+			],
+			"offeredAfter": {
+				"474": 1
+			},
+			"refusedWithout": 9,
+			"established": 4
+		},
+		"98283": {
+			"after": [
+				275
+			],
+			"offeredAfter": {
+				"275": 8
+			},
+			"refusedWithout": 11,
+			"established": 4
+		},
+		"98286": {
+			"after": [
+				96101
+			],
+			"offeredAfter": {
+				"96101": 1
+			},
+			"refusedWithout": 12,
+			"established": 2
+		},
+		"98291": {
+			"after": [
+				98246
+			],
+			"offeredAfter": {
+				"98246": 1
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"98298": {
+			"after": [
+				99
+			],
+			"offeredAfter": {
+				"99": 3
+			},
+			"refusedWithout": 31,
+			"established": 12
+		},
+		"98299": {
+			"after": [
+				99
+			],
+			"offeredAfter": {
+				"99": 3
+			},
+			"refusedWithout": 31,
+			"established": 12
+		},
+		"98310": {
+			"after": [
+				98216
+			],
+			"offeredAfter": {
+				"98216": 1
+			},
+			"refusedWithout": 4,
+			"established": 1
+		},
+		"98319": {
+			"after": [
+				98322
+			],
+			"offeredAfter": {
+				"98322": 17
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"98323": {
+			"after": [
+				98319
+			],
+			"offeredAfter": {
+				"98319": 15
+			},
+			"refusedWithout": 15,
+			"established": 2
+		},
+		"98362": {
+			"after": [
+				98738,
+				98739
+			],
+			"offeredAfter": {
+				"98738": 2,
+				"98739": 2
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"98389": {
+			"after": [
+				376,
+				1470,
+				3901
+			],
+			"offeredAfter": {
+				"376": 7,
+				"1470": 1,
+				"3901": 3
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"98394": {
+			"after": [
+				98393
+			],
+			"offeredAfter": {
+				"98393": 5
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"98397": {
+			"after": [
+				98731,
+				98738
+			],
+			"offeredAfter": {
+				"98731": 5,
+				"98738": 1
+			},
+			"refusedWithout": 8,
+			"established": 1
+		},
+		"98403": {
+			"after": [
+				932
+			],
+			"offeredAfter": {
+				"932": 19
+			},
+			"refusedWithout": 17,
+			"established": 7
+		},
+		"98427": {
+			"after": [
+				764,
+				765,
+				98424
+			],
+			"offeredAfter": {
+				"764": 4,
+				"765": 5,
+				"98424": 7
+			},
+			"refusedWithout": 7,
+			"established": 4
+		},
+		"98545": {
+			"after": [
+				96896,
+				96899
+			],
+			"offeredAfter": {
+				"96896": 20,
+				"96899": 13
+			},
+			"refusedWithout": 15,
+			"established": 6
+		},
+		"98581": {
+			"after": [
+				179
+			],
+			"offeredAfter": {
+				"179": 3
+			},
+			"refusedWithout": 5,
+			"established": 1
+		},
+		"98601": {
+			"after": [
+				364
+			],
+			"offeredAfter": {
+				"364": 13
+			},
+			"refusedWithout": 12,
+			"established": 4
+		},
+		"98823": {
+			"after": [
+				95664
+			],
+			"offeredAfter": {
+				"95664": 6
+			},
+			"refusedWithout": 6,
+			"established": 2
+		},
+		"98824": {
+			"after": [
+				95810
+			],
+			"offeredAfter": {
+				"95810": 5
+			},
+			"refusedWithout": 5,
+			"established": 2
+		},
+		"99050": {
+			"after": [
+				99047
+			],
+			"offeredAfter": {
+				"99047": 16
+			},
+			"refusedWithout": 16,
+			"established": 7
+		},
+		"99051": {
+			"after": [
+				806,
+				837,
+				99049
+			],
+			"offeredAfter": {
+				"806": 1,
+				"837": 1,
+				"99049": 16
+			},
+			"refusedWithout": 19,
+			"established": 7
+		},
+		"99052": {
+			"after": [
+				99051
+			],
+			"offeredAfter": {
+				"99051": 17
+			},
+			"refusedWithout": 16,
+			"established": 5
+		},
+		"99080": {
+			"after": [
+				99101
+			],
+			"offeredAfter": {
+				"99101": 10
+			},
+			"refusedWithout": 10,
+			"established": 3
+		},
+		"99082": {
+			"after": [
+				745,
+				746,
+				99080
+			],
+			"offeredAfter": {
+				"745": 3,
+				"746": 2,
+				"99080": 9
+			},
+			"refusedWithout": 11,
+			"established": 3
+		},
+		"99101": {
+			"after": [
+				99081
+			],
+			"offeredAfter": {
+				"99081": 10
+			},
+			"refusedWithout": 9,
+			"established": 3
+		},
+		"99130": {
+			"after": [
+				99129
+			],
+			"offeredAfter": {
+				"99129": 20
+			},
+			"refusedWithout": 26,
+			"established": 7
+		},
+		"99131": {
+			"after": [
+				47,
+				99130
+			],
+			"offeredAfter": {
+				"47": 10,
+				"99130": 21
+			},
+			"refusedWithout": 25,
+			"established": 7
+		},
+		"99156": {
+			"after": [
+				356
+			],
+			"offeredAfter": {
+				"356": 37
+			},
+			"refusedWithout": 20,
+			"established": 7
+		},
+		"99161": {
+			"after": [
+				99160,
+				99162
+			],
+			"offeredAfter": {
+				"99160": 11,
+				"99162": 1
+			},
+			"refusedWithout": 10,
+			"established": 1
+		}
+	}
+}
