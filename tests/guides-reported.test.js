@@ -2250,6 +2250,38 @@ test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look t
 	assert.equal(list[buy].goal.optional, true, 'the buy is optional');
 });
 
+// uNBEx and Bennistrov (#1348): Herble keeps one Bronze Tube and is nearly always sold out (no tube in 30
+// merchant windows of 19 players' recordings; Billibub Cogspinner in Stormwind none in 20 of 14). The players
+// who handed Look to the Stars in bought it at the Stormwind Auction House, so the Stormwind stop before
+// Darkshire sends them there, without holding anyone who has no use for it.
+const STORMWIND_AH = { map: 1453, x: 61.2, y: 71.3 };
+const atAuctionHouse = (g) => g.map === STORMWIND_AH.map && Math.hypot(g.x - STORMWIND_AH.x, g.y - STORMWIND_AH.y) <= 1;
+test(`${REDRIDGE}: uNBEx's report (#1348): the Bronze Tube comes from the Stormwind Auction House before Darkshire`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const ah = at(list, 'collect 4371 at the Auction House', (g) => g.t === 'collect' && g.item === 4371);
+	assert.ok(atAuctionHouse(list[ah].goal), 'the arrow leads to the Trade District Auction House');
+	assert.equal(list[ah].goal.optional, true, 'optional: a player with a tube, or without the money, is not held');
+	const take = at(list, 'accept 174 (Look to the Stars)', is('accept', 174));
+	assert.ok(list[ah].s < list[take].s, 'on a stop before Darkshire, where Look to the Stars is taken');
+});
+
+// The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
+// and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
+test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {
+	let seen = 0;
+	for (const guide of allGuides()) {
+		if (!fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').includes('4371')) continue;
+		for (const { goal } of goals(guide)) {
+			if (goal.item !== 4371 || (goal.t !== 'buy' && goal.t !== 'collect')) continue;
+			seen++;
+			if (goal.t === 'buy') assert.equal(goal.optional, true, `${guide}: buy 4371 is optional`);
+			else if (!goal.optional) assert.ok(atAuctionHouse(goal), `${guide}: a required Bronze Tube is collected at the Auction House`);
+			assert.notEqual(goal.npc, 5519, `${guide}: not Billibub Cogspinner, sold out in every recorded window`);
+		}
+	}
+	assert.ok(seen >= 4, `the Bronze Tube goals were found (${seen})`);
+});
+
 // --- Zephras Isle (Sato, 0.2.3).
 
 const ZEPHRAS_HORDE = 'forever/horde/skyborne/01-zephras-isle.guide';
