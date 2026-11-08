@@ -1200,6 +1200,8 @@ L["Did you mean:"] = "Meintest du:"
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["Route line on the minimap"] = ""
+-- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2635,6 +2637,15 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "Dezent"
 L["Dazzling"] = "Strahlend"
 L["Route line style"] = "Stil der Routenlinie"
+-- L["Dot colour"] = ""
+-- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
+-- L["Cyan"] = ""
+-- L["Magenta"] = ""
+-- L["White"] = ""
+-- L["Minimap opacity"] = ""
+-- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["Minimap size"] = ""
+-- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide: %d"

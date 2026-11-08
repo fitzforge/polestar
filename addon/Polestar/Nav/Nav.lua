@@ -39,6 +39,7 @@ ns.RegisterDefaults("nav", {
 	hideArrowWithGuide = false,
 	worldPins = true,
 	minimapPins = true,
+	minimapRoute = true, -- the route line (or trail) on the minimap; off keeps the pin (Maps/RouteLines.lua, Nav/Layers.lua)
 	trailDots = true,
 	openmapDots = true, -- the trail on OpenMap's stitched map (Nav/Pins.lua; OpenMap's menu switch)
 	tomtom = true,

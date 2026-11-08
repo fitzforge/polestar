@@ -78,10 +78,11 @@ class TextureCache {
 	load(name) {
 		if (!this.src.has(name)) {
 			const fid = /^fid:(\d+)$/.exec(name);
-			// "Nav/<name>": Polestar's Media/Nav textures (pins, glow, arrow).
-			const nav = /^Nav\/([\w-]+)$/.exec(name);
+			// "Nav/<name>", "Map/<name>": Polestar's Media/Nav textures (pins,
+			// glow, arrow) and Media/Map ones (medallions, map glyphs).
+			const sub = /^(Nav|Map)\/([\w-]+)$/.exec(name);
 			const file = fid ? (this.clientArt ? path.join(this.clientArt, `${fid[1]}.tga`) : null)
-				: nav ? path.join(this.dir, '..', 'Nav', nav[1] + '.tga') : path.join(this.dir, name + '.tga');
+				: sub ? path.join(this.dir, '..', sub[1], sub[2] + '.tga') : path.join(this.dir, name + '.tga');
 			this.src.set(name, file && fs.existsSync(file) ? readTGA(file) : null);
 		}
 		return this.src.get(name);
@@ -263,8 +264,8 @@ function textureName(p) {
 	if (typeof p === 'number' || /^\d+$/.test(String(p))) return `fid:${p}`;
 	const m = /Polestar\\Media\\UI\\([\w-]+)$/.exec(p);
 	if (m) return m[1];
-	const nav = /Polestar\\Media\\Nav\\([\w-]+)$/.exec(p);
-	if (nav) return `Nav/${nav[1]}`;
+	const sub = /Polestar\\Media\\(Nav|Map)\\([\w-]+)$/.exec(p);
+	if (sub) return `${sub[1]}/${sub[2]}`;
 	if (/WHITE8X8/i.test(p)) return 'white';
 	return null;
 }

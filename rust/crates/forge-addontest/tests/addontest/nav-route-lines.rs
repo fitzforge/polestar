@@ -693,3 +693,106 @@ fn the_committed_flightpaths_lua_holds_the_real_network_s_tracks_not_a_test_fixt
 	assert!(f(&out["pairs"]) > 200.0, "{} tracks", out["pairs"]);
 	assert!(f(&out["stormwindToSentinel"]) >= 6.0, "Stormwind to Sentinel Hill has its bends");
 }
+
+// Issue #1381: a herbalist's route dots sat on the minimap's own herb blips. "Route line on the minimap"
+// (nav.minimapRoute) takes the line off the minimap, and the trail that stands in for it while route lines
+// are off, and keeps the guide pin there and the line on the world map.
+#[test]
+fn route_line_on_the_minimap_off_takes_the_line_and_the_trail_off_the_minimap_and_keeps_the_guide_pin() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -150)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local function pins() return #Pins.GetMinimapFrames("nav.target") end
+		local r = { default = Polestar.Get("nav.minimapRoute"), line = R.GetStrokes("minimap").n, pin = pins() }
+		Polestar.Set("nav.minimapRoute", false)
+		stub.advance(0.3)
+		r.offLine, r.offFrame = R.GetStrokes("minimap").n, R.GetMinimapFrame():IsShown()
+		r.offPin, r.offWorld, r.offTrail = pins(), shown(worldPin()), Pins.GetTrail() ~= nil
+		-- Route lines off: the trail stands in on the world map, not on the minimap.
+		Polestar.Set("nav.routeLines", false)
+		stub.advance(0.3)
+		local t = Pins.GetTrail()
+		r.trailWorld, r.trailMinimap = t and t.world or false, t and t.minimap or false
+		r.trailDots = #Pins.GetTrailFrames("minimap")
+		Polestar.Set("nav.routeLines", true)
+		Polestar.Set("nav.minimapRoute", true)
+		stub.advance(0.3)
+		r.backLine, r.backPin = R.GetStrokes("minimap").n, pins()
+		emit(r)"#,
+	);
+	assert_eq!(out["default"], true, "on by default");
+	assert!(f(&out["line"]) > 3.0, "the minimap line: {} strokes", out["line"]);
+	assert_eq!(out["pin"], 1);
+	assert_eq!(out["offLine"], 0, "off: no minimap line");
+	assert_eq!(out["offFrame"], false);
+	assert_eq!(out["offPin"], 1, "the guide pin stays");
+	assert!(f(&out["offWorld"]) > 3.0, "the world map keeps its line");
+	assert_eq!(out["offTrail"], false, "the lines still stand in for the trail");
+	assert_eq!(out["trailWorld"], true);
+	assert_eq!(out["trailMinimap"], false, "nor does the trail come back on the minimap");
+	assert_eq!(out["trailDots"], 0);
+	assert!(f(&out["backLine"]) > 3.0 && out["backPin"] == 1, "on again: the line is back");
+}
+
+// Issue #1381: Dot colour paints every leg one high-contrast colour on both maps; the minimap's opacity and
+// size fade and scale its line alone (dots, spacing and the gap at the pin together), kept in range.
+#[test]
+fn the_dot_colour_tints_every_leg_on_both_maps_the_minimap_opacity_and_size_change_the_minimap_line_alone() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local function look()
+			local mm, world = R.GetMinimapFrame().lines[1], worldPin().lines[1]
+			local r, g, b = mm:GetVertexColor()
+			local wr, wg, wb = world:GetVertexColor()
+			return { mm = { r, g, b }, world = { wr, wg, wb }, alpha = mm:GetAlpha(), worldAlpha = world:GetAlpha(),
+				width = mm:GetThickness(), worldWidth = world:GetThickness(), n = R.GetStrokes("minimap").n }
+		end
+		local r = { defaults = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha"), Polestar.Get("nav.minimapRouteSize") } }
+		r.route = look()
+		Polestar.Set("nav.dotColor", "magenta")
+		stub.advance(0.3)
+		r.magenta = look()
+		Polestar.Set("nav.minimapRouteAlpha", 0.5)
+		Polestar.Set("nav.minimapRouteSize", 1.5)
+		stub.advance(0.3)
+		r.styled = look()
+		Polestar.Set("nav.minimapRouteAlpha", 0)
+		Polestar.Set("nav.minimapRouteSize", 9)
+		stub.advance(0.3)
+		r.clamped = look()
+		Polestar.Set("nav.dotColor", "route")
+		stub.advance(0.3)
+		r.back = look()
+		r.colors = R.DOT_COLORS
+		emit(r)"#,
+	);
+	assert_eq!(out["defaults"], json!(["route", 1, 1]));
+	let route = &out["route"];
+	assert_eq!(route["mm"], route["world"], "the route colours on both maps");
+	assert_ne!(route["mm"], json!([1, 0.3, 0.85]));
+	let magenta = json!([1, 0.3, 0.85]);
+	assert_eq!(out["colors"]["magenta"], magenta);
+	assert_eq!(out["magenta"]["mm"], magenta, "the minimap's dots in the chosen colour");
+	assert_eq!(out["magenta"]["world"], magenta, "and the world map's");
+	assert_eq!(out["route"]["alpha"], 1);
+	let styled = &out["styled"];
+	assert!(near(f(&styled["alpha"]), 0.5), "minimap opacity 50%: {}", styled["alpha"]);
+	assert!(near(f(&styled["width"]), f(&route["width"]) * 1.5), "minimap size 150%: {} from {}", styled["width"], route["width"]);
+	assert!(f(&styled["n"]) < f(&route["n"]), "larger dots sit further apart: {} from {}", styled["n"], route["n"]);
+	assert_eq!(styled["worldAlpha"], route["worldAlpha"], "the world map keeps its own opacity");
+	assert_eq!(styled["worldWidth"], route["worldWidth"], "and its own size");
+	assert!(near(f(&out["clamped"]["alpha"]), 0.2), "opacity no lower than 20%: {}", out["clamped"]["alpha"]);
+	assert!(near(f(&out["clamped"]["width"]), f(&route["width"]) * 1.5), "size no larger than 150%");
+	assert_eq!(out["back"]["mm"], route["mm"], "Route colours again");
+}

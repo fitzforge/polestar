@@ -869,7 +869,7 @@ fn the_hand_off_off_polestar_guides_again_and_its_journey_is_cancelled_on_again_
 }
 
 // The guidance options that do nothing while it guides, by settings key.
-const GREYED: [&str; 24] = [
+const GREYED: [&str; 25] = [
 	"nav.arrow",
 	"nav.hideArrowWithGuide",
 	"nav.arrowEta",
@@ -885,6 +885,7 @@ const GREYED: [&str; 24] = [
 	"nav.arrowScale",
 	"nav.arrowAlpha",
 	"nav.trailDots",
+	"nav.minimapRoute",
 	"nav.mapPlan",
 	"nav.routeStyle",
 	"nav.answerTomTom",
