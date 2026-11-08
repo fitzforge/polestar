@@ -4564,6 +4564,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows): see turnin 1393 before turnin 1389."
+			},
+			{
+				"a": [
+					"turnin",
+					93680
+				],
+				"b": [
+					"accept",
+					545
+				],
+				"faction": "Horde",
+				"why": "Hand-in-first check (2026-11-08): Magus Wordeen Voidglare offered Dalaran Patrols right after the Key to the City hand-in to all 6 people (4 established) who took it; nobody took it without (players' recordings). Their refusals all came before Prison Break In (544), so whether 93680 is required is not proven: the guide hands it in first either way."
 			}
 		],
 		"notes": [
@@ -7728,6 +7740,15 @@
 				],
 				"reason": "It's All Fun and Games Until... (98042) is offered by the Twilight Tome only once The Twilight Camp (949) is handed in to it (19 people in players' recordings, every one right after that hand-in): the accept comes after the turn-in at the tome, not before it (#1352).",
 				"issue": 1352
+			},
+			{
+				"q": 93680,
+				"after": [
+					"accept",
+					544
+				],
+				"reason": "Hand-in-first check (2026-11-08): all 6 people (4 established) who took Dalaran Patrols (545) had just handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took 545 without it; the route left 93680 out. It comes with Prison Break In (544): the Grimy Key drops from Warden Belamoore and Kegan Darkmar, beside 544's traitors in Dalaran's crater.",
+				"issue": "-"
 			}
 		],
 		"skip": [
