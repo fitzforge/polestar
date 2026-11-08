@@ -928,8 +928,10 @@ local function patternOf(fmt)
 	return "^" .. p .. "$"
 end
 
+-- In the client's chat lockdown (encounters, dungeons) the system line is a
+-- secret string, and matching one throws: it reads as no answer.
 local function onSystem(_, text)
-	if not pushQuest or type(text) ~= "string" then return end
+	if not pushQuest or type(text) ~= "string" or ns.Compat.IsSecret(text) then return end
 	if not pushPatterns then
 		pushPatterns = {}
 		for global, why in pairs(PUSH_ERRORS) do

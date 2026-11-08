@@ -1167,6 +1167,31 @@ emit(P.ShareFor(goal) == nil)"#
 	assert_eq!(out[7], true, "a quest the game will not share: no Share");
 }
 
+// In the client's chat lockdown (encounters, dungeons: CHAT_MSG_SYSTEM is SecretInChatMessagingLockdown in Forever's
+// ChatInfoDocumentation) the share's answer comes as a secret string, and matching one throws. Lua 5.1 has no secret
+// type, so the stub marks the line secret through issecretvalue: a handler that parsed it would mark Dee "already
+// done"; the share's answer reads as no answer instead.
+#[test]
+fn party_a_secret_system_line_after_a_share_is_never_parsed() {
+	let out = group(&format!(
+		"{QDB}{}",
+		r#"
+local secret = {}
+function issecretvalue(v) return type(v) == "string" and secret[v] ~= nil end
+local goal = { t = "kill", quest = 33, oi = 1, status = "active" }
+p.join("Dee")
+p.set("Dee", { level = 12, class = "WARRIOR", race = "Human" })
+w.onQuest(33, { 8 })
+emit(P.Share(33))
+secret[ERR_QUEST_PUSH_ALREADY_DONE_S:format("Dee")] = true
+p.pushResult("Dee", "ERR_QUEST_PUSH_ALREADY_DONE_S")
+stub.advance(1)
+emit(P.Line(goal))"#
+	));
+	assert_eq!(out[0], true);
+	assert_eq!(out[1], "Not on this quest: Dee", "the secret line is passed over, never parsed");
+}
+
 const PANEL_GUIDE: &str = r#"
 local E = Polestar.Engine
 E.GetGuide = function() return { id = "test/g", pack = "test", steps = { [5] = { title = "Kobold Camp" } } } end
