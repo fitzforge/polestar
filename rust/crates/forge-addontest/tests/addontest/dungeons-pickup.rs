@@ -1178,3 +1178,58 @@ emit({ page = { d.entrance.map, d.entrance.x, d.entrance.y }, arrow = { D.Entran
 	let alliance = run(&sides, &enter, Opts { race: "Human", faction: "Alliance", cls: "PALADIN", done: vec![], log: vec![], ..Default::default() }).remove(0);
 	assert_eq!(json!([alliance["page"], alliance["arrow"]]), json!([[1421, 50, 60], [1421, 50, 60]]), "the Alliance: its own");
 }
+
+// #1328: with six tabs open, a Dungeons guide (Lookup.Guide) used to take the active tab's place, often the
+// leveling guide, though its buttons say it opens in a new tab and every caller has a "Six tabs is the limit"
+// line for this. It is refused now and no tab changes; a hand-in still takes the tab of a pick-up guide at its
+// last step, whichever tab is active.
+const SIX_TABS: &str = r#"
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+for i = 1, 6 do
+	Polestar.RegisterGuide({ id = "test/f" .. i, pack = "test", title = "Filler " .. i, minLevel = 1, maxLevel = 60, steps = { { goals = { { t = "level", level = 60 } } } } })
+end
+local E = Polestar.Engine
+while #E.GetTabs() > 0 do E.CloseTab(1) end
+"#;
+
+#[test]
+fn with_six_tabs_open_a_dungeon_guide_never_takes_the_active_tab_a_hand_in_still_takes_the_finished_pick_up_s_tab() {
+	let pack = default_pack();
+	let refused = run(
+		&pack,
+		&(SIX_TABS.to_string()
+			+ &k(r#"
+for i = 1, 6 do E.OpenTab("test/f" .. i, false) end
+E.SelectTab(1)
+local id, why = D.PickUp("{KEY}")
+emit({ id = id or false, why = why or false, tabs = tabIds(), active = E.GetGuide().id })"#)),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(refused, json!({ "id": false, "why": "tabs", "tabs": ["test/f1", "test/f2", "test/f3", "test/f4", "test/f5", "test/f6"], "active": "test/f1" }));
+
+	let opts = Opts { done: vec![1098, 1740, 1011, 1014], log: vec![], ready: vec![1013], ..Default::default() };
+	let handed = run(
+		&pack,
+		&(SIX_TABS.to_string()
+			+ &k(r#"
+D.PickUp("{KEY}")
+for i = 1, 5 do E.OpenTab("test/f" .. i, false) end
+E.SelectTab(3)
+stub.world.accept(1016, { 1 })
+stub.advance(0.6)
+local id, why = D.HandIn("{KEY}")
+emit({ id = id or false, why = why or false, tabs = tabIds(), active = E.GetGuide().id })"#)),
+		opts,
+	)
+	.remove(0);
+	assert_eq!(
+		handed,
+		json!({
+			"id": "lookup/handin/shadowfang-keep",
+			"why": false,
+			"tabs": ["lookup/handin/shadowfang-keep", "test/f1", "test/f2", "test/f3", "test/f4", "test/f5"],
+			"active": "lookup/handin/shadowfang-keep",
+		})
+	);
+}

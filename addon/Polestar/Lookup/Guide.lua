@@ -778,7 +778,10 @@ local function register(def)
 end
 
 -- Opens guideId in a tab. A generated guide already open is reloaded in its
--- own tab (the tab holds the guide table it was opened with).
+-- own tab (the tab holds the guide table it was opened with). Six tabs open:
+-- nil, "tabs" (its callers say "Six tabs is the limit"), as the guide menu
+-- and the class heads-up do; the active tab, often the leveling guide, is
+-- never replaced (#1328).
 local function openTab(guideId, rebuilt)
 	local E = ns.Engine
 	if not (E and ns.IsLoggedIn()) then return nil, "login" end
@@ -796,8 +799,6 @@ local function openTab(guideId, rebuilt)
 		end
 	end
 	if E.OpenTab(guideId, true) then return guideId end
-	-- Every tab is in use: replace the active tab's guide.
-	if E.SetGuide(guideId) then return guideId end
 	return nil, "tabs"
 end
 

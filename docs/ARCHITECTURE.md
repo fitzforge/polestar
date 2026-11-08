@@ -4768,7 +4768,9 @@ Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, tu
   learn, craft at the profession's trainer), reputation (rep, then buy from
   the quartermaster). It is registered in pack `lookup`, category `Lookup`, id
   `lookup/<kind>/<id>`, never saved, and opened in a new tab
-  (`Engine.OpenTab`); a saved tab holding one is rebuilt at `ADDON_LOADED`.
+  (`Engine.OpenTab`; with six tabs open nil, `"tabs"`, and the caller says
+  "Six tabs is the limit": the active tab is never replaced); a saved tab
+  holding one is rebuilt at `ADDON_LOADED`.
   A mount (`Lookup.IsMount`: the Codex's `mount` kind, items teaching a spell
   of the client's Mount table; the one test of "is it a mount") is never built
   from its best source (`Guide` without an index returns nil, `"mount"`): such
@@ -4925,7 +4927,8 @@ the last step lists the rest as notes ("Not finished yet: …", "Turned in
 inside the dungeon: …"). Nothing routable: nil, "nothing", and
 `Dungeons.HandinText(plan)` says why in one line. `Dungeons.HandIn` puts the
 guide in the tab of the dungeon's pick-up guide when that one is finished or
-at its last step (its job ends at the entrance), else in a new tab. A
+at its last step (its job ends at the entrance; with six tabs open that tab
+is closed first to make room), else in a new tab. A
 finished pick-up guide's "Guide complete" panel (UI/GuideFrame.lua) offers
 "Hand in the quests" while the dungeon has quests in the log.
 

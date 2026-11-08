@@ -268,11 +268,21 @@ function Dungeons.HandIn(key)
 	if not Dungeons.IsEnabled() then return nil, "off" end
 	local Lk = LK()
 	if not (Lk and Lk.Guide) then return nil, "missing" end
-	local _, pickupId = pickupDone(key)
+	local E = ns.Engine
+	local done, pickupId = pickupDone(key)
 	local gid, reason = Lk.Guide(KIND, key)
+	if not gid and reason == "tabs" and done then
+		-- Six tabs: the finished pick-up guide gives up its tab first.
+		E.CloseTab(done)
+		gid, reason = Lk.Guide(KIND, key)
+		if not gid then return gid, reason end
+		for i, t in ipairs(E.GetTabs()) do
+			if t.guideId == gid and i ~= done then E.MoveTab(i, done) end
+		end
+		return gid
+	end
 	if not (gid and pickupId) then return gid, reason end
 	-- The hand-in takes the finished pick-up guide's place.
-	local E = ns.Engine
 	local at, from
 	for i, t in ipairs(E.GetTabs()) do
 		if t.guideId == pickupId then at = i end
