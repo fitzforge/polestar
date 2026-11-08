@@ -502,6 +502,10 @@ return {
 	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "Les Têtes-tonnerre paissent dans les plaines juste au sud du {area:378}. {quest:884}, un lézard-tonnerre bleu, erre parmi eux : sa pointe caudale lance une quête.",
 
+	-- Step 129: Jorn Skyseer
+	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
+	["Warriors: take {quest:1824} from {npc:6394} now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to {npc:6394}."] = "",
+
 	-- Step 130: Cry of the Thunderhawk
 	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
 	["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Les Faucons-tonnerre des nuages tournoient au-dessus des mêmes plaines au sud du camp.",

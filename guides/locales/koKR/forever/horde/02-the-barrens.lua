@@ -502,6 +502,10 @@ return {
 	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "천둥꼬리도마뱀이 {area:378} 바로 남쪽 평원에서 풀을 뜯습니다. 파란 천둥꼬리도마뱀 {quest:884}이(가) 그 사이를 돌아다니며, 그 꼬리가시로 퀘스트가 시작됩니다.",
 
+	-- Step 129: Jorn Skyseer
+	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
+	["Warriors: take {quest:1824} from {npc:6394} now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to {npc:6394}."] = "",
+
 	-- Step 130: Cry of the Thunderhawk
 	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
 	["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "비단천둥매가 야영지 남쪽 같은 평원 위를 맴돕니다.",

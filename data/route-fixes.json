@@ -3786,6 +3786,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					907
+				],
+				"b": [
+					"accept",
+					1824
+				],
+				"faction": "Horde",
+				"why": "Timed-quest check (2026-11-08, #1319's pattern): Trial at the Field of Giants runs for 30 minutes from the accept (quests.json limit 1800; mechanics 1824 timed 1800 s, server). Warriors took it on the first Camp Taurajo stop and did the thunder lizards, Jorn, the thunderhawks and the eggs before the antennae; it is taken from Ruga on Jorn's stop after the thunder lizards (Enraged Thunder Lizards handed in), the last Camp Taurajo stop before the antennae."
+			},
+			{
+				"a": [
+					"accept",
+					1824
+				],
+				"b": [
+					"task",
+					913
+				],
+				"faction": "Horde",
+				"why": "Timed-quest check (2026-11-08): Trial at the Field of Giants (30 minutes) is taken on Jorn's stop, before the thunderhawks south of the camp, so Warriors don't walk back to Camp Taurajo for it."
+			},
+			{
+				"a": [
 					"task",
 					5052,
 					0

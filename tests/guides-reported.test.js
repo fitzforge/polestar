@@ -1261,6 +1261,20 @@ test(`${BARRENS}: a Warrior hands Speak with Thun'grim to Thun'grim on the last 
 	assert.ok(turnin > at(list, 'turnin 1824', is('turnin', 1824)), "after Ruga's hand-in at Camp Taurajo");
 });
 
+// Timed-quest check (2026-11-08, #1319's pattern): Trial at the Field of Giants runs for 30 minutes. Warriors took it on
+// the first Camp Taurajo stop and did the thunder lizards, the thunderhawks and the eggs before the antennae; it is taken
+// on Jorn's stop after the thunder lizards, with a tip naming the limit.
+test(`${BARRENS}: a Warrior takes Trial at the Field of Giants (30 minutes) on Jorn's stop, after the thunder lizards`, { skip }, () => {
+	const list = goals(BARRENS).filter(forClass('WARRIOR'));
+	const accept = at(list, 'accept 1824', is('accept', 1824));
+	assert.equal(list[accept].s, list[at(list, 'turnin 907', is('turnin', 907))].s, "on Jorn's stop that hands in the thunder lizards");
+	assert.ok(accept > at(list, 'collect 5143', (g) => g.t === 'collect' && g.item === 5143), 'after the thunder lizards');
+	assert.ok(accept < at(list, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164), 'before the thunderhawks');
+	assert.ok(accept < at(list, 'collect 7119', (g) => g.t === 'collect' && g.item === 7119), 'before the antennae');
+	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('30 minutes'), 'the step names the time limit');
+	assert.equal(list.filter(({ goal }) => is('accept', 1824)(goal)).length, 1, 'one accept');
+});
+
 test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
 	const list = goals(BARRENS);
 	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));

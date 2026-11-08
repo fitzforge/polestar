@@ -4086,6 +4086,27 @@
 			],
 			"issue": 1319,
 			"faction": "Alliance"
+		},
+		{
+			"id": "barrens-trial-field-of-giants-time-limit",
+			"faction": "Horde",
+			"at": {
+				"quest": 1824,
+				"goal": "accept"
+			},
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now, not earlier: it runs for 30 minutes from the accept. The thunderhawks and the eggs come first, the antennae last, then straight back to Ruga.",
+			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "Forever server data, quest 1824: 30-minute limit (quests.json limit 1800; mechanics 1824 timed 1800 s, server)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 1 person (not on our guide) abandoned 1824 after 172 minutes, then took it again and handed it in 7.3 minutes later"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }
