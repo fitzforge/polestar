@@ -712,6 +712,12 @@ emit({ objective = q.objectives[1], take = take, pre = pre, steps = steps, talk 
 	assert_eq!(out["talk"]["name"], json!("Giver Two"));
 	assert_eq!(out["talk"]["oi"], json!(1), "counted by the quest's first objective line");
 	assert_eq!((out["talk"]["map"].clone(), out["talk"]["x"].clone(), out["talk"]["y"].clone()), (json!(1421), json!(60), json!(60)), "the arrow points at Giver Two");
+
+	// #1256: B already in the log, Giver Two not yet spoken to. The guide still sends the player there and
+	// back before the dungeon quest, instead of to its giver for a quest it cannot offer yet.
+	let logged = run(&own, &script, Opts { done: vec![1098], log: vec![1013, 90501], ..Default::default() }).remove(0);
+	assert_eq!(logged["take"], json!([90503]));
+	assert_eq!(logged["steps"], json!(["accept:90501 talk:90501 turnin:90501", "accept:90503"]), "B's step comes first: its accept is already done, the talk and the hand-in are left");
 }
 
 // #1226 (rockzors, Gnome Warlock 27, Excavation Site: Wetlands): Horrors in the Highland's chain starts with
