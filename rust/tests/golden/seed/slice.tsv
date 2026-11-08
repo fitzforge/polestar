@@ -38,14 +38,14 @@ not ok	forever/alliance/02-westfall.guide: Alba Fairmoon's chain is not given to
 not ok	forever/alliance/02-westfall.guide: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill
 not ok	forever/alliance/02-westfall.guide: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's
 not ok	forever/alliance/02-westfall.guide: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in
+not ok	forever/alliance/03-darkshore-return.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them
 not ok	forever/alliance/03-darkshore.guide: Deadshot's report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine
 not ok	forever/alliance/03-darkshore.guide: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (#241)
 not ok	forever/alliance/03-darkshore.guide: Wogi's report: with Skip grey quests on, a Human at 20 leaves out the grey quests, keeps the Buzzbox chain, and one on the route's level keeps them all
 not ok	forever/alliance/03-darkshore.guide: XooVe's report (#216): a grey quest Skip grey quests keeps says which quest it opens
 not ok	forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, never uses the empty bowl after the filled one is collected, and uses the bowl where Xabraxxis comes
 not ok	forever/alliance/03-darkshore.guide: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)
-not ok	forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them
-not ok	forever/alliance/04-redridge-mountains.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
+not ok	forever/alliance/03-loch-modan.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
 not ok	forever/alliance/04-redridge-mountains.guide: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill
 not ok	forever/alliance/04-redridge-mountains.guide: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step
 not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat
