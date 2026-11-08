@@ -139,8 +139,6 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "海角的下一个差事要回阿拉希：跳过。",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	-- {zone:1446} Tanaris
-	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 
 	-- Step 49: Bloodsail camp
 	["Bloodsail camp"] = "血帆营地",
@@ -180,6 +178,8 @@ return {
 	["Ride back down to town; Shaky stands at the tunnel mouth."] = "骑回镇上；“病鬼”菲利普站在隧道口。",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it"] = "交给塞拉摩的{npc:2616}：留着",
+	-- {zone:1446} Tanaris
+	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 57: The Bloodsail captains

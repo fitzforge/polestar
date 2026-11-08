@@ -139,8 +139,6 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "시혼의 다음 심부름은 아라시로 돌아갑니다. 건너뛰세요.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	-- {zone:1446} Tanaris
-	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 
 	-- Step 49: Bloodsail camp
 	["Bloodsail camp"] = "붉은해적단 야영지",
@@ -180,6 +178,8 @@ return {
 	["Ride back down to town; Shaky stands at the tunnel mouth."] = "마을로 다시 내려가세요. 겁쟁이 필립은 터널 입구에 서 있습니다.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it"] = "테라모어의 {npc:2616}에게 줄 것: 보관하세요",
+	-- {zone:1446} Tanaris
+	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 57: The Bloodsail captains

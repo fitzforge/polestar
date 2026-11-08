@@ -139,8 +139,6 @@ return {
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Seehorns nächster Auftrag führt zurück nach Arathi: Überspring ihn.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	-- {zone:1446} Tanaris
-	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 
 	-- Step 49: Bloodsail camp
 	["Bloodsail camp"] = "Lager der Blutsegelbukaniere",
@@ -180,6 +178,8 @@ return {
 	["Ride back down to town; Shaky stands at the tunnel mouth."] = "Reite zurück hinab in den Ort; Zitterhand steht am Tunneleingang.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it"] = "für {npc:2616} in Theramore: Behalte es",
+	-- {zone:1446} Tanaris
+	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 57: The Bloodsail captains

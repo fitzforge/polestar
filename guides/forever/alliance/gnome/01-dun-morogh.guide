@@ -297,6 +297,7 @@ step Kharanos
   level 10 only Hunter
   level 10 only Shaman
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
+  level 10 only Priest
   accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Steelgrill's Depot

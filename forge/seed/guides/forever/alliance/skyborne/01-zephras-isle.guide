@@ -281,7 +281,9 @@ step Skyhoppers
 
 step The road to Valanaar
   tip Nyalah Brightfire and Alvarion Windfield stand on Valanaar's west side, beside the inn; Seena Skybreaker and Quel'ana Quickgale train just west of Nyalah. Windsong Crawlers line the shore further west, around 51,70.
+  level 10 only Warrior
   accept 94003 only Warrior                   -- Seena Skybreaker, beside Nyalah: Zaal Stormshield holds the Bulwark at the Shrine of Akir
+  level 10 only Hunter
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                                -- Alvarion Windfield

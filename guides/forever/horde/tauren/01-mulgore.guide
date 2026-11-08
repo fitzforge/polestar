@@ -391,6 +391,7 @@ step Preparation for Ceremony
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
   accept 1523 only Shaman -- Xanis Flameweaver, a few steps from Clarice Foster on Spirit Rise
 

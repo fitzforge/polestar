@@ -7405,3 +7405,41 @@ test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest
 		assert.ok(Math.abs(goal.x - 68.6) < 0.5 && Math.abs(goal.y - 45.2) < 0.5, `${file} ${goal.t} ${goal.quest}: at the camp (${goal.x},${goal.y})`);
 	}
 });
+
+// --- Level sweep (2026-11-08, #1320's class of report: a guide asks for a quest the character is too low to take).
+// The calibrated level model, run at every accept of every start, had these taken 0.05-0.6 below the quest's
+// minimum level; players' recordings had 8 Scourge Paladins at Aramis Hammerhand's Coming to Terms at levels 2-3
+// (minimum 4). Each is now taken where every start is at its level, or behind a `level` gate for the players it is
+// for (guide-fixes `only`); Tanaris (Horde 40-50) and the Barrens (Horde 15-21) start where every start enters them.
+test('Level sweep: accepts below their minimum level are moved or gated', { skip }, () => {
+	const step = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	// A level goal of at least `n` for `cls` (none other) before the accept, in its step.
+	const gated = (file, q, n, cls) => {
+		const list = goals(file);
+		const i = at(list, `${file}: accept ${q}`, is('accept', q));
+		const gate = list.slice(0, i).reverse().find(({ goal, s }) => s === list[i].s && goal.t === 'level');
+		assert.ok(gate && gate.goal.level >= n, `${file}: a level ${n} gate before accept ${q}`);
+		if (cls) assert.match(JSON.stringify(gate.goal.only), new RegExp(cls, 'i'), `${file}: the gate before ${q} is for ${cls}`);
+		else assert.equal(gate.goal.only, undefined, `${file}: the gate before ${q} is for everyone`);
+	};
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
+	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 617), "Stoley's Debt on the Booty Bay stop after the naga");
+	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
+	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
+	gated('forever/alliance/dwarf/01-dun-morogh.guide', 5637, 10, 'Priest');
+	gated('forever/alliance/gnome/01-dun-morogh.guide', 94824, 10, 'Priest');
+	for (const side of ['alliance', 'horde']) {
+		gated(`forever/${side}/skyborne/01-zephras-isle.guide`, 94003, 10, 'Warrior');
+		gated(`forever/${side}/skyborne/01-zephras-isle.guide`, 94978, 10, 'Hunter');
+	}
+	gated('forever/horde/skyborne/01-zephras-isle.guide', 97243, 10, 'Shaman');
+	gated('forever/horde/tauren/01-mulgore.guide', 264, 12);
+	const tirisfal = goals('forever/horde/undead/01-tirisfal-glades.guide');
+	assert.equal(step(tirisfal, 'accept', 91208), step(tirisfal, 'turnin', 3902), 'Coming to Terms after Scavenging Deathknell');
+	assert.ok(step(tirisfal, 'accept', 91209) >= step(tirisfal, 'turnin', 91208), 'Continue Your Training once Coming to Terms is handed in');
+	const all = headers();
+	assert.ok(all['forever/horde/40-50/04-tanaris'].min <= 46, 'Tanaris starts at 46: every start enters it at 45.96');
+	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: Orc and Troll Rogues, Mages and Priests enter them at 13.99');
+});

@@ -299,9 +299,7 @@ step Booty Bay
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
-  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   sethome "Booty Bay"                 -- Upstairs
-  accept 348                          -- Fin Fizracket
   accept 595                          -- First Mate Crazz
 
 # ---------------------------------------------------------------- The Bloodsail
@@ -333,6 +331,7 @@ step Wild Shore: kill these as you meet them
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
+  accept 348                          -- Fin Fizracket
   turnin 604                          -- Fleet Master Seahorn
   turnin 576                          -- Dizzy One-Eye
 
@@ -358,6 +357,7 @@ step Booty Bay
   accept 607
   turnin 617                          -- Privateer Bloads
   accept 623                          -- for Privateer Groy in Theramore: keep it
+  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 348                          -- Fin Fizracket
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   accept 609

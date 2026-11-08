@@ -173,6 +173,7 @@ step Marshal's Refuge
   turnin 4288
   accept 4321
   turnin 4321
+  level 50 only Priest
 
 step To Stoutlager Inn
   zone Loch Modan

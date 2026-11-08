@@ -445,6 +445,7 @@ step Kharanos
   tip Back east through Kharanos: the class quests here wait for level 10.
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
+  level 10 only Priest
   accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
   accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 

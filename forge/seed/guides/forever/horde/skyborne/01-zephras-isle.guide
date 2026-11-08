@@ -279,6 +279,7 @@ step Ayessa Dawnsinger
   accept 93735
   complete 92708 @59.15,79.73         -- talk to Ayessa Dawnsinger
   turnin 92708
+  level 10 only Shaman
   accept 97243 only Shaman            -- Sessaria Skystride, beside Ayessa: Call of Fire
   accept 93736                        -- Endaria Mistgaze
 
@@ -289,6 +290,7 @@ step Nyalah and Alvarion
   sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
   talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  level 10 only Hunter
   accept 94978 only Hunter            -- Quel'ana Quickgale, a few steps west of Nyalah: Taming the Beast, the first rod
   accept 93317                        -- Nyalah Brightfire, inside
 
@@ -297,6 +299,7 @@ step Riaani Nightwind
   turnin 93735
   accept 93737
   talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  level 10 only Warrior
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 # ---------------------------------------------------------------- Windfield Orchard
@@ -623,6 +626,7 @@ step Northern Mulgore
 step Clarice Foster
   zone Thunder Bluff
   tip Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.
+  level 12
   accept 264
 
 step Class trainer

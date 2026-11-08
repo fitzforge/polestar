@@ -3920,6 +3920,139 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "0306-level-sweep-desperate-prayer-10",
+			"at": {
+				"quest": 5637,
+				"goal": "accept"
+			},
+			"faction": "Alliance",
+			"level": 10,
+			"only": "Priest",
+			"note": "Level sweep (2026-11-08): Desperate Prayer needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Dwarf Priest. The Hunters' and Shamans' level-10 accepts there are gated already; the Priests' was not.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Dwarf Priest at level 8 on that step"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-confounding-flash-10",
+			"at": {
+				"quest": 94824,
+				"goal": "accept"
+			},
+			"faction": "Alliance",
+			"level": 10,
+			"only": "Priest",
+			"note": "Level sweep (2026-11-08): Confounding Flash needs level 10; the calibrated level model reaches Kharanos' class-quest stop at 9.48 for a Gnome Priest, the step's only ungated level-10 accept.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: Maxan Anvol did not offer it to a Gnome Priest at level 9 on that step"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-skybreaker-bulwark-10",
+			"at": {
+				"quest": 94003,
+				"goal": "accept"
+			},
+			"level": 10,
+			"only": "Warrior",
+			"note": "Level sweep (2026-11-08): The Skybreaker Bulwark needs level 10; the calibrated level model reaches Seena Skybreaker at 9.72 (Alliance) and 9.80 (Horde) for a Skyborne Warrior.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-skyborne-taming-the-beast-10",
+			"at": {
+				"quest": 94978,
+				"goal": "accept"
+			},
+			"level": 10,
+			"only": "Hunter",
+			"note": "Level sweep (2026-11-08): Taming the Beast (Quel'ana Quickgale) needs level 10; the calibrated level model reaches her at 9.72 (Alliance) and 9.71 (Horde) for a Skyborne Hunter.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: Quel'ana Quickgale did not offer it to 4 Alliance Skyborne Hunters at level 9 on that step"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-skyborne-call-of-fire-10",
+			"at": {
+				"quest": 97243,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"level": 10,
+			"only": "Shaman",
+			"note": "Level sweep (2026-11-08): Call of Fire (Sessaria Skystride) needs level 10; the calibrated level model reaches her at 9.84 for a Horde Skyborne Shaman.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: Sessaria Skystride did not offer it to a Skyborne Shaman at level 9 on that step"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-until-death-do-us-part-12",
+			"at": {
+				"quest": 264,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"level": 12,
+			"note": "Level sweep (2026-11-08): Until Death Do Us Part needs level 12; the calibrated level model reaches Clarice Foster at 11.95 for a Tauren Warrior or Druid (Skyborne arrive at 14.5 or more, where the gate holds nobody).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "0306-level-sweep-cenarion-aid-priest-50",
+			"at": {
+				"quest": 4321,
+				"goal": "turnin"
+			},
+			"faction": "Alliance",
+			"level": 50,
+			"after": true,
+			"only": "Priest",
+			"note": "Level sweep (2026-11-08): Cenarion Aid (8254, High Priest Rohan in Ironforge, Priests only) needs level 50; the calibrated level model reaches Ironforge at 49.71. Priests reach 50 after J.D. Collie's hand-ins in Un'Goro (Making Sense of It, 4321), before the flight north, where a gate costs about 5 minutes and Azshara's level 50.4 top-up would take them there anyway.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				}
+			]
 		}
 	]
 }

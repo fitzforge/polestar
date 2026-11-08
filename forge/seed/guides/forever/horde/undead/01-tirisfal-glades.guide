@@ -71,8 +71,6 @@ step Back to the church
   accept 6395                         -- Novice Elreth
   turnin 3901                         -- Shadow Priest Sarvis, inside
   accept 98389                        -- Aramis Hammerhand, inside
-  accept 91208 only Paladin           -- Aramis Hammerhand
-  accept 91209 only Paladin
   train class
   accept 3902                         -- Deathguard Saltain
   accept 380                          -- Executor Arren, in the church
@@ -83,6 +81,7 @@ step Scavenging Deathknell
 
 step Back to Deathknell
   turnin 3902                         -- Deathguard Saltain
+  accept 91208 only Paladin           -- Aramis Hammerhand
 
 step The Frightened Paladin
   only Paladin
@@ -101,6 +100,7 @@ step Night Web's Hollow
 step Back to Deathknell
   turnin 98389                        -- Aramis Hammerhand, inside
   turnin 91208 only Paladin           -- Aramis Hammerhand
+  accept 91209 only Paladin
   turnin 380                          -- Executor Arren
   accept 381
 

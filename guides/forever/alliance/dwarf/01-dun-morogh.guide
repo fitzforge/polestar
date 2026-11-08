@@ -302,6 +302,7 @@ step Kharanos
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   level 10 only Shaman
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
+  level 10 only Priest
   accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
 
 step Steelgrill's Depot

@@ -1578,18 +1578,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					348
-				],
-				"b": [
-					"accept",
-					595
-				],
-				"why": "c10 30-60 review (Alliance): Stranglethorn Fever is Booty Bay's first accept off the Ratchet boat, as in v1. Taken after the tavern's accepts, the Ratchet flight path and the Booty Bay bind (v1's Ratchet step before it) ride with it, so the guide wrote 'Ratchet: getfp' after landing in Booty Bay and sent Warriors back by boat to Fray Island and Ratchet",
-				"faction": "Alliance"
-			},
-			{
-				"a": [
 					"task",
 					827
 				],
@@ -10730,6 +10718,54 @@
 				],
 				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
 				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					587
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Alliance",
+				"why": "Level sweep (2026-11-08): Stranglethorn Fever (minimum level 40) is taken on the Booty Bay stop after the Wild Shore, as on the Horde side, not on arrival at 39.85-39.92 (the calibrated level model, every Alliance start), where the model ground to 40 before the accept. It replaces the c10 pair that took it before First Mate Crazz's Bloodsail note (595): the Ratchet flight path is now learnt in the Barrens before the boat, and the Booty Bay bind stays on the arrival stop."
+			},
+			{
+				"a": [
+					"turnin",
+					617
+				],
+				"b": [
+					"accept",
+					2872
+				],
+				"faction": "Alliance",
+				"why": "Level sweep (2026-11-08): Stoley's Debt (minimum level 40) is taken on the Booty Bay stop after the naga reeds (Akiris by the Bundle), at 40.6, not on arrival at 39.87-39.94 (the calibrated level model, every Alliance start); Stoley is in Tanaris, two guides on."
+			},
+			{
+				"a": [
+					"turnin",
+					3902
+				],
+				"b": [
+					"accept",
+					91208
+				],
+				"faction": "Horde",
+				"why": "Level sweep (2026-11-08): Coming to Terms (Aramis Hammerhand, Scourge Paladins) needs level 4. Taken on the church stop, players' recordings had 8 Scourge Paladins there at levels 2-3 (0.3.1-0.3.4); every recorded one was 4.02 or more at the Scavenging Deathknell hand-in, beside Aramis, on the way to the Frightened Paladin."
+			},
+			{
+				"a": [
+					"turnin",
+					91208
+				],
+				"b": [
+					"accept",
+					91209
+				],
+				"faction": "Horde",
+				"why": "Level sweep (2026-11-08): Continue Your Training needs Coming to Terms handed in (its prerequisite) and level 4; it was listed with Coming to Terms' accept, before either."
 			}
 		]
 	}
