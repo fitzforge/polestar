@@ -121,7 +121,7 @@ step Twilight Outpost
 
 step Level 58
   when level<58
-  tip Bor Wildmane's next errand, Dearest Natalia, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost.
+  tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost.
   goto 33.8,47.8 map 1451 "Twilight Avenger"
   level 58                            -- grind on Twilight Avenger
 
@@ -129,7 +129,7 @@ step Cenarion Hold
   tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
   accept 8318                         -- Bor Wildmane, on the west side of the Hold: the texts are already in your bags
   turnin 8318
-  accept 8304
+  accept 8304                         -- Commander Mar'alith
   turnin 8281                         -- Windcaller Proudhorn
   turnin 8278                         -- Beetix Ficklespragg
   accept 8282                         -- Noggle Ficklespragg
@@ -147,6 +147,7 @@ step Noggle's Lost Satchel
   collect 20379 quest 8282.1
 
 step Dearest Natalia
+  tip Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.
   kill 15171 quest 8304.1 @40.8,88.9 map 1451
   kill 15170 quest 8304.2 @41.3,88.5 map 1451
 
@@ -158,7 +159,7 @@ step Back to Cenarion Hold
   turnin 8287                         -- Commander Mar'alith
   turnin 8304
   turnin 8282                         -- Noggle Ficklespragg
-  note Mar'alith's Dearest Natalia needs level 58 and leads into Hive'Regal among elites. Skip it.
+  note Mar'alith's next errand, Into the Maw of Madness, leads into Hive'Regal among elites. Skip it.
 
 step Hermit Ortell
   turnin 8323                         -- Below ground
@@ -345,7 +346,6 @@ step The Bulwark
   zone Tirisfal Glades
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
-  note Dithers offers Skeletal Fragments (Scholomance). Skip it.
   turnin 5098                         -- High Executor Derrington
   accept 105
   accept 838

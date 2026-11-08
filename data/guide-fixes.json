@@ -3465,7 +3465,7 @@
 				"goal": "accept"
 			},
 			"level": 58,
-			"note": "Dearest Natalia needs level 58; Bor Wildmane offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
+			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
 			"source": [
 				{
 					"kind": "client",
@@ -3533,6 +3533,23 @@
 				}
 			],
 			"issue": 1257
+		},
+		{
+			"id": "horde-4060-dearest-natalia-question-them",
+			"faction": "Horde",
+			"at": {
+				"quest": 8304,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.",
+			"note": "Dearest Natalia's two objectives are 'Frankal Questioned' and 'Rutgar Questioned': the credit comes from going through each dwarf's conversation at Bronzebeard's Encampment, not from a kill. The step had no tip, only two kill goals; the Alliance guide's step already says to question them.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Dearest Natalia's objectives in Forever's quest data: 'Frankal Questioned' and 'Rutgar Questioned', credited by the dwarves' conversations"
+				}
+			]
 		}
 	]
 }

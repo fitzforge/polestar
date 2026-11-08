@@ -6598,3 +6598,22 @@ test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in wher
 	assert.deepEqual(between.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location), ['Valormok'], 'one flight, the Crossroads to Valormok');
 	assert.ok(!between.some(({ goal }) => goal.map === 1454), 'no Orgrimmar stop between the crates and Valormok');
 });
+
+// Silithus: Dearest Natalia comes from Commander Mar'alith (the top-up named Bor Wildmane), its two dwarves are
+// questioned, not killed (the step had only two kill goals and no tip), and two notes said to skip what the guide had
+// just taken: Dearest Natalia itself and Dithers' Skeletal Fragments.
+test('forever/horde/50-60/06-silithus.guide: final review: Dearest Natalia from Mar\'alith, questioned not killed, no stale skip notes', { skip }, () => {
+	const file = 'forever/horde/50-60/06-silithus.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 8304 && f.tip && f.faction === 'Horde');
+	assert.ok(rec, 'the tip is a record');
+	assert.deepEqual(stepTips(file, /kill 15171 quest 8304/), [rec.tip]);
+	assert.match(rec.tip, /Question them/);
+	const top = stepTips(file, /^\s+level 58\b/).join(' ');
+	assert.match(top, /Mar'alith/);
+	assert.doesNotMatch(top, /Bor Wildmane/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	assert.doesNotMatch(text, /Dearest Natalia needs level 58 and leads/);
+	assert.doesNotMatch(text, /Skeletal Fragments \(Scholomance\)\. Skip it/);
+	const list = goals(file);
+	at(list, 'turnin 964', is('turnin', 964));
+});
