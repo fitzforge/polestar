@@ -237,9 +237,33 @@ step Everlook
   tip Ride back to Talrendis Point and fly to Everlook.
   turnin 5163                         -- Umi Rumplesnicker
 
+step Everlook
+  zone Winterspring
+  accept 6604                         -- Harlo Wigglesworth
+
+step Starfall Village
+  zone Winterspring
+  tip Ride north-west up the road to Starfall Village.
+  turnin 6604                         -- Jaron Stoneshaper
+  accept 4861
+
 step Donova Snowden
   turnin 980
   accept 4842
+
+# ---------------------------------------------------------------- The south
+
+step Jaron's camp
+  tip Ride back east past Everlook and south-east down the valley to Jaron's damaged crate in the snow at Mazthoril, with his wrecked wagon just east of it.
+  turnin 4861                         -- Damaged Crate
+  accept 4863
+  turnin 4863                         -- Jaron's Wagon
+  accept 4864
+
+step Jaron's supplies
+  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
+  collect 12524 quest 4864.2          -- Blue-feathered Amulet
+  collect 12525 quest 4864.1          -- Jaron's Supplies
 
 # ---------------------------------------------------------------- Winterspring and Moonglade
 
@@ -255,6 +279,11 @@ step Darkwhisper Gorge
   tip Follow Donova's directions to the mouth of Darkwhisper Gorge, past the Frostmaul giants: pass them one at a time.
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
+
+step Starfall Village
+  zone Winterspring
+  tip Ride north up the valley, past Everlook, to Starfall Village.
+  turnin 4864                         -- Jaron Stoneshaper
 
 step Donova Snowden
   turnin 4842
@@ -484,6 +513,12 @@ step Tirion Fordring
   zone Eastern Plaguelands
   turnin 5845 optional
   accept 5846
+
+step Egan
+  zone Eastern Plaguelands
+  tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
+  goto 11.4,26.6 "Egan"
+  turnin 5281
 
 step Artist Renfray
   when onquest 5846

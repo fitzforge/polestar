@@ -7261,6 +7261,15 @@
 				"q": 127,
 				"reason": "Alliance 12-20 re-order, 2026-11-07: Selling Fish (level 21, from 16, 1250 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Dockmaster Baren on the first Lakeshire stop; the Spotted Sunfish drop from the murlocs round the Sunken Chest the loop swims to. Recordings: offered to 17 characters, 16 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 1258,
+				"after": [
+					"turnin",
+					1204
+				],
+				"reason": "Alliance 40-60 order (2026-11-08, #1228): ... and Bugs (40) is taken from Morgan Stern with Mudrock Soup and Bugs; the Silt Crawlers drop the legs (80%) on the Swamp of Sorrows shore where the route picks up the driftwood, and it goes back to Morgan Stern on the next Theramore stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -7519,6 +7528,12 @@
 				"faction": "Horde",
 				"reason": "Horde 30-40 re-order (2026-11-07): Regthar Deathgate (640 XP) was handed in on a trip from Orgrimmar to the Crossroads and up to the Forgotten Pools at the end of the old Arathi guide; the new order passes the Crossroads by flight only, so it is left out with its follow-up The Kolkar of Desolace (1362).",
 				"issue": ""
+			},
+			{
+				"q": 5249,
+				"faction": "Alliance",
+				"reason": "Alliance 40-60 order (2026-11-08, #1228): To Winterspring! (from 53) was taken at the end of Felwood at about 52.7, so the route ground to 53 for a 580 XP walk; Wynd Nightchaser gives The Ruins of Kel'Theril without it.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -9589,18 +9604,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					892
-				],
-				"b": [
-					"turnin",
-					845
-				],
-				"faction": "Horde",
-				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest. Horde 12-30 flow follow-up (2026-11-08): anchored on The Missing Shipment (892), the last Ratchet hand-in of the first stop, since Stolen Booty's crates now wait for the walk to Northwatch Hold"
-			},
-			{
-				"a": [
 					"accept",
 					855
 				],
@@ -10033,6 +10036,174 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): Wenikee takes the Nugget Slugs on the walk back from the Boulder Lode Mine to the Crossroads; Rilli Greasygob (3923) goes on to the Orgrimmar trip at 20."
+			},
+			{
+				"a": [
+					"task",
+					3661
+				],
+				"b": [
+					"accept",
+					5092
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): the first Western Plaguelands stop (Clear the Way, the Felstone Field cauldron, Janice Felstone; level 52-53 quests at 51) follows the Hinterlands feathers: Aerie Peak flies to Southshore, and Chillwind Camp is a short ride north from there."
+			},
+			{
+				"a": [
+					"turnin",
+					5217
+				],
+				"b": [
+					"accept",
+					3823
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): the Burning Steppes come after the first Western Plaguelands stop, so their level 52-56 quests start at about 52 instead of 50.4, where FIFTY! YEP! (56) made the route grind before Morgan's Vigil."
+			},
+			{
+				"a": [
+					"turnin",
+					3449
+				],
+				"b": [
+					"accept",
+					3702
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): The Smoldering Ruins of Thaurissan (54) is taken from Royal Historian Archesonus on the Ironforge stop between Azshara and the Burning Steppes, where its relics are, not on the 49.8 Ironforge stop after Un'Goro (it made the route grind to 49 before the accept)."
+			},
+			{
+				"a": [
+					"turnin",
+					2864
+				],
+				"b": [
+					"accept",
+					2877
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Skulk Rock Clean-up (48) is taken from Fraggar Thundermantle when the route lands at Aerie Peak after Tanaris (about 47), not on the first Aerie Peak visit at 42.6; its oozes are killed on the next guide's Skulk Rock stop as before."
+			},
+			{
+				"a": [
+					"turnin",
+					2864
+				],
+				"b": [
+					"accept",
+					2989
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): The Altar of Zul (48) is taken from Gryphon Master Talonaxe on the same Aerie Peak landing after Tanaris, not at 42.8 on the second Aerie Peak stop of the Badlands guide (the model ground to 43 for it); the altar is climbed on the next guide's Hinterlands loop as before."
+			},
+			{
+				"a": [
+					"turnin",
+					2941
+				],
+				"b": [
+					"turnin",
+					2641
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): The Borrower (2941) goes to Curgle Cranklehop (52.4,26.9) first on the Gadgetzan stop, then Sprinkle and Marin Noggenfogger on the way out south to Un'Goro; the stop used to end at Curgle and walk back past Sprinkle."
+			},
+			{
+				"a": [
+					"accept",
+					5021
+				],
+				"b": [
+					"task",
+					5216
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first and the Felstone Field cauldron (Cauldron Lord Bilemaw) on the way back south to the camp."
+			},
+			{
+				"a": [
+					"task",
+					611
+				],
+				"b": [
+					"accept",
+					2864
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Tran'rek (45) is taken from Krazek on the last Booty Bay stop of the Stranglethorn visit (about 42) instead of the first (39.7); the model ground for the accept, and the turn-in is in Tanaris either way."
+			},
+			{
+				"a": [
+					"turnin",
+					6028
+				],
+				"b": [
+					"accept",
+					5097
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): All Along the Watchtowers (56) and Target: Dalson's Tears (55) are taken on the Chillwind Camp stop on the way to the Eastern Plaguelands at 55.5, where the route used to walk past Valorfist and MacDonnell, and The Wildlife Suffers Too (54) from Mulgris at the Writhing Haunt on the road east; their work stays on the Western Plaguelands loop after it."
+			},
+			{
+				"a": [
+					"turnin",
+					6028
+				],
+				"b": [
+					"accept",
+					4984
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): The Wildlife Suffers Too (54) is taken from Mulgris Deepriver at the Writhing Haunt, which the road from Chillwind Camp to the Eastern Plaguelands passes, not on a stop of its own on the next loop."
+			},
+			{
+				"a": [
+					"turnin",
+					4493
+				],
+				"b": [
+					"accept",
+					4504
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Super Sticky (54) is taken from Tran'rek on the 57 Gadgetzan stop, with the Un'Goro visit where its tar is collected (Lakkari Tar Pits), not at 48.4 before the first Un'Goro visit (a grind to 49 for the accept)."
+			},
+			{
+				"a": [
+					"turnin",
+					5163
+				],
+				"b": [
+					"accept",
+					6604
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): Enraged Wildkin (59) and Jaron Stoneshaper's chain (4861, 4863, 4864, all 59) are done on the Winterspring visit at 58-59: Harlo in Everlook, Jaron at Starfall Village on the road west, his crate and wagon at Mazthoril on the way to Darkwhisper Gorge. At 53 the accept made the route grind a level first."
+			},
+			{
+				"a": [
+					"turnin",
+					5181
+				],
+				"b": [
+					"accept",
+					5281
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-60 order (2026-11-08, #1228): The Restless Souls (60, from 55) is taken from Caretaker Alen on the 58 Light's Hope stop and handed to Egan in Terrordale before the last grind there, not at 54.6 (a grind to 55 for the accept)."
+			},
+			{
+				"a": [
+					"turnin",
+					892
+				],
+				"b": [
+					"turnin",
+					845
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest. Horde 12-30 flow follow-up (2026-11-08): anchored on The Missing Shipment (892), the last Ratchet hand-in of the first stop, since Stolen Booty's crates now wait for the walk to Northwatch Hold"
 			}
 		]
 	}

@@ -9,7 +9,7 @@ next forever/alliance/50-60/03-winterspring
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: To Winterspring! (5249).
+# Left out: To Winterspring! (5249).
 
 step Fly to Astranaar
   zone Teldrassil
@@ -179,7 +179,6 @@ step Jaedenar again
 step The Emerald Sanctuary
   tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
   turnin 5156                         -- Taronn Redfeather
-  accept 5249
 
 step The Emerald Sanctuary
   turnin 939 optional
