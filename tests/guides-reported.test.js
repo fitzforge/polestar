@@ -6617,3 +6617,12 @@ test('forever/horde/50-60/06-silithus.guide: final review: Dearest Natalia from 
 	const list = goals(file);
 	at(list, 'turnin 964', is('turnin', 964));
 });
+
+// Felwood, Moonglade & Winterspring: two Donova Snowden steps in a row, the way there on the second.
+test('forever/horde/50-60/07-felwood.guide: final review: one Donova stop with the way there', { skip }, () => {
+	const file = 'forever/horde/50-60/07-felwood.guide';
+	const list = goals(file);
+	const donova = list[at(list, 'turnin 980', is('turnin', 980))].s;
+	assert.equal(list[at(list, 'accept 5087', is('accept', 5087))].s, donova, 'Toxic Horrors on the same stop');
+	assert.match(stepTips(file, /turnin 980/).join(' '), /Timbermaw tunnel/);
+});
