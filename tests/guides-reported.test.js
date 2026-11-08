@@ -1374,6 +1374,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[WETLANDS, 98072, [471], true],
 		[WETLANDS, 98072, [471]],
 		[WETLANDS, 98219, [98191]],
+		// Bennistrov (#1354): Bolvar offers his A Friend of the Family once Captain Stoutfist's is handed in to him.
+		[WETLANDS, 98191, [98190]],
 		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
 		// only once Never Coming Back is handed in to him.
 		[STONETALON, 98252, [98251]],
@@ -1400,6 +1402,21 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 			assert.ok(at(list, `${guide}: turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${quest} is taken after ${pre} is handed in`);
 		}
 	}
+});
+
+// Bennistrov (#1354): a Night Elf Druid at 30 had skipped Captain Stoutfist's A Friend of the Family (98190). At
+// Stormwind Keep the turn-in read "You skipped this quest", but the guide still sent them to Bolvar for his A
+// Friend of the Family (98191), which he offers only once 98190 is handed in to him: the data had no
+// prerequisite (correction 98191, from the follow-up sweep of players' recordings).
+test(`${WETLANDS}: Bennistrov's report (#1354): Bolvar's A Friend of the Family goes with the skipped one before it`, { skip }, () => {
+	const druid = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'DRUID', className: 'Druid', level: 30 };
+	const skipped = questGoalStatus(WETLANDS, 98191, druid, { after: 'E.SkipQuest(98190)' });
+	assert.ok(skipped.length >= 2, `98191's goals: ${skipped.join(', ')}`);
+	assert.ok(skipped.every((s) => / (skipped|na)$/.test(s)), `with 98190 skipped, 98191 is not open: ${skipped.join(', ')}`);
+	const done = questGoalStatus(WETLANDS, 98191, druid, { skills: 'w.complete({ 98190 })' });
+	assert.ok(done.every((s) => !/ (skipped|na)$/.test(s)), `with 98190 handed in, 98191 is open: ${done.join(', ')}`);
+	const list = goals(WETLANDS);
+	assert.deepEqual(list[at(list, 'accept 98191', is('accept', 98191))].goal.pre, [98190], 'Bolvar\'s A Friend of the Family needs Captain Stoutfist\'s');
 });
 
 // Flow audit, Silverpine: the south loop came back to the Sepulcher, walked 1,100 yd east to grind on the

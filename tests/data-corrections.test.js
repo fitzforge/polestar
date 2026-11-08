@@ -127,6 +127,38 @@ test('Crocs of the Sky waits for Apprentice\'s Duties, and The Shamed Lieutenant
 	assert.deepEqual(blocks(98219, 928), { all: [], any: [98191] }, 'Lord Grayson Shadowbreaker, Stormwind');
 });
 
+// Bennistrov (#1354): Highlord Bolvar Fordragon's A Friend of the Family (98191) is offered only once Captain
+// Stoutfist's (98190) is handed in to him. Without the prerequisite the guide still sent a player who had skipped
+// 98190 to Bolvar for 98191. The follow-up sweep (players' recordings: taken only after the quest before, refused
+// before it; a second source agreeing) found the same gap in these chains.
+test('Follow-ups wait for the quest before them, so a skipped one takes its follow-up with it (#1354 sweep)', () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	for (const [id, npc, any, who] of [
+		[98191, 1748, [98190], 'Highlord Bolvar Fordragon, Stormwind (#1354)'],
+		[98394, 11802, [98393], 'Dendrite Starblaze, Moonglade (Druid cat form)'],
+		[98396, 11957, [98394], 'the Great Cat Spirit'],
+		[98731, 11957, [98396], 'the Great Cat Spirit'],
+		[98397, 11802, [98731, 98738], 'Dendrite Starblaze: either blessing'],
+		[78089, 3663, [78088], 'Delgren the Purifier (Paladin cloak)'],
+		[78090, 5492, [78089], 'Katherine the Pure'],
+		[78092, 5495, [78091], 'Ursula Deline'],
+		[91859, 248840, [91858], 'Trevan Rol (Lumina Windsinger chain)'],
+		[91860, 259611, [91859], 'Deathguard Baldren'],
+		[96204, 248755, [91862], 'Lumina Windsinger'],
+		[95034, 259620, [96204], 'Lumina Windsinger'],
+		[96264, 259023, [94789], 'Veyric Thunderhame (Shaman Call of Air)'],
+		[92519, 12920, [97539], 'Doctor Gregory Victor, Hammerfall'],
+		[92457, 269127, [92432], 'Image of Archmage Modera (Kirin Tor)'],
+	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
+	const fenris = corrections.quests[91861];
+	assert.ok(fenris, 'a correction for 91861');
+	assert.deepEqual(blockingPrereqs({ id: 91861, start: { object: [566037] }, ...fenris.set }), { all: [], any: [91860] }, 'the Charred Remains');
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
