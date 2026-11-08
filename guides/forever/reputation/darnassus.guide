@@ -93,11 +93,25 @@ step Lakeshire: Magistrate Solomon
   tip Magistrate Solomon waits in the town hall of Lakeshire; his next quest takes you to Stormwind Keep (the Stormwind guide follows it). Other Darnassus quests at this level, for when you pass by: Erelas Ambersky in Rut'theran Village has a wildkin chain into Winterspring (325 in all, with Ranshalla's escort), Arei's escort in Felwood pays 150 after the Emerald Sanctuary's chain, Mulgris Deepriver at the Writhing Haunt in the Western Plaguelands 100 for the Glyphed Oaken Branch, and Put Her Down in Upper Blackrock Spire 100 with a group.
   turnin 4183
 
+# Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave, and the
+# walking maps have no way up inside it: the arrow led onto a ledge outside, behind the wall (#1338).
+# Before the first of them in a visit, a goto at the building's door on its south side, 35.8,11.6
+# (players' recordings walk in there), makes the arrow point straight at him from there.
 step Morrowgrain (optional)
-  label dn-morrowgrain
+  label dn-morrowgrain-start
   zone Darnassus
   tip Morrowgrain to Darnassus takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. Innkeeper Saelienne sends you to Arch Druid Fandral Staghelm in the Cenarion Enclave; he wants 20 Un'Goro Soil. (The innkeepers of Stormwind and Ironforge give the same start.)
   accept 3763                         -- Assisting Arch Druid Staghelm, +10
+
+step Cenarion Enclave
+  when done dn-morrowgrain-start
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Morrowgrain (optional)
+  label dn-morrowgrain
+  when done dn-morrowgrain-start
+  zone Darnassus
   turnin 3763                         -- Arch Druid Fandral Staghelm
   accept 3764                         -- Un'Goro Soil, +100
 
@@ -112,7 +126,27 @@ step Darnassus: Morrowgrain Research
   zone Darnassus
   tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
   turnin 3764                         -- Jenal
+
+step Cenarion Enclave
+  when done dn-morrowgrain
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus: Morrowgrain Research
+  when done dn-morrowgrain
+  zone Darnassus
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
   accept 3781                         -- Morrowgrain Research, +10
+
+step Cenarion Enclave
+  when done dn-morrowgrain
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Darnassus: Morrowgrain Research
+  when done dn-morrowgrain
+  zone Darnassus
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
   turnin 3781                         -- Mathrengyl Bearwalker
   accept 3785                         -- Morrowgrain Research, +100
   buy 11020 npc 4217                  -- Evergreen Pouch
@@ -123,6 +157,7 @@ step Darnassus: Morrowgrain Research
 step Morrowgrain to Darnassus
   when done dn-morrowgrain
   tip Every 10 Morrowgrain: 50 reputation at Mathrengyl Bearwalker. Keep the pouch and buy seeds as you go. It is slow: about 9 casings, 90 minutes of pouch waits, 18 Un'Goro Soil and 9 seed packets for each hand-in, a little over 30 reputation an hour, so run it beside the Runecloth. Quintis Jonespyre at Feathermoon Stronghold in Feralas takes Morrowgrain at the same rate, 25 for 5, after his own quest.
+  goto 35.8,11.6 "Cenarion Enclave" optional
   collect 11040 x10 optional @35.4,8.4 -- Morrowgrain
   turnin 3803 direct optional         -- Mathrengyl Bearwalker: Morrowgrain to Darnassus, +50
 
