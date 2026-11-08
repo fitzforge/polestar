@@ -3671,6 +3671,38 @@
 					"ref": "Dearest Natalia's objectives in Forever's quest data: 'Frankal Questioned' and 'Rutgar Questioned', credited by the dwarves' conversations"
 				}
 			]
+		},
+		{
+			"id": "1370-piznik-group",
+			"at": {
+				"quest": 1090,
+				"goal": "accept"
+			},
+			"tip": "Piznik's defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.",
+			"note": "Gerenzo's Orders (1090): Piznik's defence in the Windshear Mine is asked as a group quest (route-fixes deliberate.group, #1370). Both routes reach it at 20-23, at or below the quest's level 22.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 1090: 15 people. Not known grouped: 9 of 11 finished, at 23-28; the two who lost it (a level 23 Troll Shaman, a level 25 Undead Mage) were alone, died at Piznik, failed the quest and abandoned it. Grouped: 4 of 4 finished, at 23-26"
+				}
+			],
+			"issue": 1370
+		},
+		{
+			"id": "1370-piznik-waves",
+			"at": {
+				"quest": 1090,
+				"goal": "accept"
+			},
+			"tip": "Piznik mines at the bottom of the Windshear Mine on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails.",
+			"note": "Gerenzo's Orders (1090): what the defence is, so the group question is answered knowing it (#1370). Replaces the old 'Venture Co. raiders' wording: the attackers are the mine's Windshear kobolds.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 1090: completion 5.0 minutes after the accept at Piznik (71.8,60.1) in 12 of 13 finished runs; 11-18 kills in those five minutes (median 12), all Windshear kobolds: Vermin 3998 (20-21), Digger 3999 (21-22), Tunnel Rat 4001 (19-20), Stonecutter 4002 (22-23), Geomancer 4003 (20-21), Overlord 4004 (21-22); the failed runs end with Piznik (4276) killed and a quest-failed event"
+				}
+			],
+			"issue": 1370
 		}
 	]
 }

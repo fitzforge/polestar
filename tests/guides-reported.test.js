@@ -7213,3 +7213,27 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 	}
 	assert.ok(n >= 19, `the grind steps are found (${n})`);
 });
+
+// --- Windshear Mine (Emil, #1370): Gerenzo's Orders is Piznik's five-minute defence at the bottom of the mine,
+// with kobold waves (19-23) and a fail when he dies. Players lost it alone at 23 and 25; both routes reach it at
+// 20-23. It is asked as a group quest in both guides, with what the defence is, Ziz's hand-in of the follow-up
+// with it; Super Reaper 6000 (1093) and the crag's quests stay for everyone, and the Alliance arrow into
+// Stonetalon no longer leads into the mine.
+test("Emil's report (#1370): Gerenzo's Orders is asked as a group quest; Windshear Crag's other quests are not", { skip }, () => {
+	for (const guide of [ASHENVALE, BARRENS]) {
+		const list = goals(guide);
+		const gerenzo = list.filter(({ goal }) => goal.quest === 1090 || goal.quest === 1092);
+		assert.deepEqual(gerenzo.map(({ goal }) => `${goal.t} ${goal.quest}`).sort(), ['accept 1090', 'accept 1092', 'complete 1090', 'turnin 1090', 'turnin 1092'], `${guide}: Gerenzo's Orders' goals`);
+		for (const { step, goal } of gerenzo) {
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(1090) && !p.neg), `${guide}: ${goal.t} ${goal.quest} is under when group 1090`);
+			if (goal.quest === 1090) assert.equal(step.title, 'Piznik', `${guide}: ${goal.t} 1090 on Piznik's step`);
+		}
+		assert.match(stepTips(guide, /^step Piznik$/).join(' '), /grouping up is encouraged[\s\S]*If he dies, the quest fails/, `${guide}: the step says what the defence is`);
+		const reaper = list.filter(({ goal }) => goal.quest === 1093);
+		assert.ok(reaper.length >= 2, `${guide}: Super Reaper 6000 is still taken`);
+		for (const { step, goal } of reaper) assert.ok(!(step.when || []).some((p) => p.k === 'group'), `${guide}: ${goal.t} 1093 is for everyone`);
+	}
+	const ally = goals(ASHENVALE);
+	const into = ally[at(ally, 'goto Windshear Crag', ({ t, text }) => t === 'goto' && /Windshear Crag/.test(text || ''))].goal;
+	assert.ok(Math.hypot(into.x - 71.9, into.y - 60.0) > 10, `the Stonetalon arrow (${into.x},${into.y}) is not Piznik's spot in the mine`);
+});

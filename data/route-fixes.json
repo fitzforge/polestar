@@ -6733,6 +6733,11 @@
 				"q": 7850,
 				"size": 3,
 				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): the Vessels of Tainted Blood sit on Jintha'Alor's terraces among its elite trolls."
+			},
+			{
+				"q": 1090,
+				"size": 2,
+				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
 			}
 		]
 	},
