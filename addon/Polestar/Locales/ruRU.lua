@@ -538,9 +538,17 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "Показывать, кому ещё нужна добыча для заданий"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "В окне добычи или при розыгрыше — строка под предметом задания, который ещё нужен участнику группы, но не вам. За вас ничего не передаётся и не пишется."
 L["Party panel"] = "Панель группы"
-L["Tell my party in chat when I finish a quest objective"] = "Сообщать группе в чат, когда я выполняю задачу задания"
-L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Одна строка в чате группы со ссылкой на задание, когда вы выполняете задачу, и ещё одна, когда задание можно сдать. Её видят все в группе, с Polestar или без. Никогда в одиночку или в рейде."
 L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = "Открывается само, когда у кого-то в группе тоже есть Polestar: уровень каждого участника, его шаг и что ему еще нужно из ваших заданий; щелкните имя, чтобы направить на него стрелку. Если закрыть, останется закрытым; /polestar party открывает снова."
+L["Tell my party about objectives and ready quests"] = "Сообщать группе о задачах и готовых к сдаче заданиях"
+L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Строка в чате группы со ссылкой на задание, когда вы выполняете его задачи, и ещё одна, когда задание можно сдать. Её видит вся группа, с Polestar или без. Никогда в одиночку или в рейде."
+L["Tell my party when I loot an item that starts a quest"] = "Сообщать группе, когда я получаю предмет, начинающий задание"
+L["A party chat line with the item's link and the quest it starts."] = "Строка в чате группы со ссылкой на предмет и задание, которое он начинает."
+L["Show my own lines in my chat too"] = "Показывать мои строки и в моём чате"
+L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] = "Выключено: группа видит строки, которые Polestar пишет за вас, а ваш чат остаётся без них."
+L["Hide other players' Polestar lines"] = "Скрывать строки Polestar других игроков"
+L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "Строки Polestar участников группы исчезают из вашего чата. Видимые, они отмечены звездой Polestar."
+L["Only when someone in the party doesn't have Polestar"] = "Только если у кого-то в группе нет Polestar"
+L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "В чат ничего не уходит, пока у всех в группе есть Polestar: они видят ваш прогресс в своём гайде."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "большое улучшение"
@@ -2959,11 +2967,6 @@ L["The party panel shows with the guide window."] = "Панель группы �
 L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = "Пока ни у кого из группы не замечен Polestar. Панель откроется сама, как только он появится."
 L["The party panel comes back after combat."] = "Панель группы вернётся после боя."
 
--- Quests/PartyChat.lua
-L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar сообщил группе, что вы выполнили задачу задания (выключить: Настройки > Задания > Задания > Группа)."
-L["Ready to turn in: %s"] = "Можно сдать: %s"
-L["Finished: %s - %s"] = "Выполнено: %s - %s"
-
 -- UI/DungeonToast.lua
 L["LEVEL %d · DUNGEON"] = "УРОВЕНЬ %d · ПОДЗЕМЕЛЬЕ"
 L["%s is open to you"] = "Вам доступно подземелье «%s»"
@@ -2977,6 +2980,14 @@ L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = "Сно�
 
 -- UI/WhileHere.lua
 L["While you're here"] = "Пока вы здесь"
+
+-- Quests/PartyChat.lua
+L["{rt1} Polestar: "] = "{звезда} Polestar: "
+L["party chat: %s %s"] = "%s %s"
+L["party chat: , "] = ", "
+L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar сообщил группе в чате о ходе ваших заданий (изменить: Настройки > Задания > Задания > Группа)."
+L["%s is ready to turn in"] = "%s можно сдать"
+L["looted %s, which starts %s"] = "добыча %s начинает задание %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

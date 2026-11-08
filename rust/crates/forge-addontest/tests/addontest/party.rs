@@ -568,7 +568,8 @@ Polestar.Widgets.OnOptionsRegistered(function(spec)
 	end
 end)
 emit(keys)
-emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel"), Polestar.Get("party.chat") })"#,
+emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel"), Polestar.Get("party.chat"), Polestar.Get("party.chatLoot") })
+emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Polestar.Get("party.chatOnlyNeeded") })"#,
 		LIVE_STUBS,
 		SHOWN_FILES,
 		true,
@@ -582,10 +583,15 @@ emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("pa
 			"Questing/Group/party.waitForGroup",
 			"Questing/Group/party.lootNeeds",
 			"Questing/Group/party.panel",
-			"Questing/Group/party.chat"
+			"Questing/Group/party.chat",
+			"Questing/Group/party.chatLoot",
+			"Questing/Group/party.chatEcho",
+			"Questing/Group/party.chatHideOthers",
+			"Questing/Group/party.chatOnlyNeeded"
 		])
 	);
-	assert_eq!(out[1], json!([true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
+	assert_eq!(out[1], json!([true, true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
+	assert_eq!(out[2], json!([false, false, false]), "own lines, hiding others' and the Polestar-only quiet start off");
 }
 
 // Found by the final review (Codex and a fresh reviewer).

@@ -538,9 +538,17 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "퀘스트 전리품이 필요한 사람 알리기"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "전리품 창이나 주사위 굴림에서, 파티원은 아직 필요하지만 나는 필요 없는 퀘스트 아이템 아래에 한 줄을 표시합니다. 나 대신 포기하거나 말하는 것은 없습니다."
 L["Party panel"] = "파티 창"
-L["Tell my party in chat when I finish a quest objective"] = "퀘스트 임무를 완료하면 채팅으로 파티에 알리기"
-L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "임무를 완료하면 퀘스트 링크와 함께 파티 채팅에 한 줄, 퀘스트를 제출할 수 있게 되면 한 줄을 보냅니다. Polestar 사용 여부와 관계없이 파티원 모두가 봅니다. 혼자일 때나 공격대에서는 보내지 않습니다."
 -- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
+L["Tell my party about objectives and ready quests"] = "퀘스트 임무와 제출 가능한 퀘스트를 파티에 알리기"
+L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "퀘스트 임무를 완료하면 퀘스트 링크와 함께 파티 채팅에 한 줄, 퀘스트를 제출할 수 있게 되면 또 한 줄을 보냅니다. Polestar 사용 여부와 관계없이 파티 모두가 봅니다. 혼자일 때나 공격대에서는 보내지 않습니다."
+L["Tell my party when I loot an item that starts a quest"] = "퀘스트를 시작하는 아이템을 획득하면 파티에 알리기"
+L["A party chat line with the item's link and the quest it starts."] = "아이템 링크와 그 아이템이 시작하는 퀘스트를 파티 채팅에 한 줄로 보냅니다."
+L["Show my own lines in my chat too"] = "내 채팅에도 내 메시지 표시"
+L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] = "끄면: 파티는 Polestar가 대신 보낸 메시지를 보고, 내 채팅에는 표시되지 않습니다."
+L["Hide other players' Polestar lines"] = "다른 플레이어의 Polestar 메시지 숨기기"
+L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "파티원의 Polestar 메시지가 채팅에서 사라집니다. 표시될 때는 Polestar 별이 붙습니다."
+L["Only when someone in the party doesn't have Polestar"] = "파티에 Polestar가 없는 사람이 있을 때만"
+L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "파티 모두가 Polestar를 쓰는 동안에는 채팅에 아무것도 보내지 않습니다. 그들은 가이드에서 내 진행 상황을 봅니다."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -2959,11 +2967,6 @@ L["Show or hide the party panel"] = "파티 창 표시/숨기기"
 -- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
 -- L["The party panel comes back after combat."] = ""
 
--- Quests/PartyChat.lua
-L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar가 파티에 퀘스트 임무 완료를 알렸습니다 (끄려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
-L["Ready to turn in: %s"] = "제출 가능: %s"
-L["Finished: %s - %s"] = "완료: %s - %s"
-
 -- UI/DungeonToast.lua
 -- L["LEVEL %d · DUNGEON"] = ""
 -- L["%s is open to you"] = ""
@@ -2977,6 +2980,14 @@ L["Finished: %s - %s"] = "완료: %s - %s"
 
 -- UI/WhileHere.lua
 -- L["While you're here"] = ""
+
+-- Quests/PartyChat.lua
+L["{rt1} Polestar: "] = "{rt1} Polestar: "
+L["party chat: %s %s"] = "%s %s"
+L["party chat: , "] = ", "
+L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar가 채팅으로 파티에 퀘스트 진행 상황을 알렸습니다 (바꾸려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
+L["%s is ready to turn in"] = "%s 제출 가능"
+L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

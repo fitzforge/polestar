@@ -51,29 +51,8 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 	return added
 end
 
--- Items that start a quest: built from the database on first use.
-local startItems
-local function questsStartedBy(itemID)
-	if not startItems then
-		startItems = {}
-		local F = Q.F
-		for _, q in ipairs(Q.QuestIds()) do
-			for _, it in Q.Each(Q.QuestRecord(q)[F.START_ITEM]) do
-				local list = startItems[it]
-				if not list then
-					list = {}
-					startItems[it] = list
-				end
-				list[#list + 1] = q
-			end
-		end
-		for _, list in pairs(startItems) do table.sort(list) end
-	end
-	return startItems[itemID]
-end
-
 local function addStartLines(tt, itemID)
-	local list = questsStartedBy(itemID)
+	local list = Q.StartedBy(itemID)
 	if not list then return 0 end
 	local qc, tc = Q.Color("quest"), Q.Color("text")
 	local added = 0

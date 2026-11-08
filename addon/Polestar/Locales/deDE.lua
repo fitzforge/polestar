@@ -2112,9 +2112,17 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "Sagen, wer noch Questbeute braucht"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "Im Beutefenster oder bei einem Wurf eine Zeile zu einem Questgegenstand, den ein Gruppenmitglied noch braucht und du nicht. Nichts wird für dich gepasst oder gesagt."
 L["Party panel"] = "Gruppenfenster"
-L["Tell my party in chat when I finish a quest objective"] = "Meiner Gruppe im Chat sagen, wenn ich ein Questziel erledige"
-L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Eine Zeile im Gruppenchat mit dem Link der Quest, wenn du ein Ziel erledigst, und eine, wenn die Quest bereit zur Abgabe ist. Alle in der Gruppe sehen sie, ob mit Polestar oder ohne. Nie allein oder im Schlachtzug."
 -- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
+L["Tell my party about objectives and ready quests"] = "Meiner Gruppe Questziele und abgabebereite Quests sagen"
+L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Eine Zeile im Gruppenchat mit dem Link der Quest, wenn du ihre Ziele erledigst, und eine, wenn die Quest abgegeben werden kann. Die ganze Gruppe sieht sie, mit oder ohne Polestar. Nie allein oder im Schlachtzug."
+L["Tell my party when I loot an item that starts a quest"] = "Meiner Gruppe sagen, wenn ich einen Gegenstand erbeute, der eine Quest startet"
+L["A party chat line with the item's link and the quest it starts."] = "Eine Zeile im Gruppenchat mit dem Link des Gegenstands und der Quest, die er startet."
+L["Show my own lines in my chat too"] = "Meine eigenen Zeilen auch in meinem Chat zeigen"
+L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] = "Aus: Deine Gruppe sieht die Zeilen, die Polestar für dich sagt, und dein Chat bleibt frei davon."
+L["Hide other players' Polestar lines"] = "Polestar-Zeilen anderer Spieler ausblenden"
+L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "Die Polestar-Zeilen deiner Gruppenmitglieder verschwinden aus deinem Chat. Sichtbar tragen sie den Stern von Polestar."
+L["Only when someone in the party doesn't have Polestar"] = "Nur wenn jemand in der Gruppe Polestar nicht hat"
+L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "Nichts geht in den Chat, solange alle in deiner Gruppe Polestar nutzen: Sie sehen deinen Fortschritt in ihrem Guide."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Aufzug nach %s"
@@ -2942,11 +2950,6 @@ L["Show or hide the party panel"] = "Gruppenfenster ein- oder ausblenden"
 -- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
 -- L["The party panel comes back after combat."] = ""
 
--- Quests/PartyChat.lua
-L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar hat deiner Gruppe gesagt, dass du ein Questziel erledigt hast (ausschalten unter Optionen > Questen > Quests > Gruppe)."
-L["Ready to turn in: %s"] = "Bereit zur Abgabe: %s"
-L["Finished: %s - %s"] = "Erledigt: %s - %s"
-
 -- UI/DungeonToast.lua
 -- L["LEVEL %d · DUNGEON"] = ""
 -- L["%s is open to you"] = ""
@@ -2960,6 +2963,14 @@ L["Finished: %s - %s"] = "Erledigt: %s - %s"
 
 -- UI/WhileHere.lua
 -- L["While you're here"] = ""
+
+-- Quests/PartyChat.lua
+L["{rt1} Polestar: "] = "{rt1} Polestar: "
+L["party chat: %s %s"] = "%s %s"
+L["party chat: , "] = ", "
+L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar hat deiner Gruppe im Chat von deinem Questfortschritt erzählt (ändern unter Optionen > Questen > Quests > Gruppe)."
+L["%s is ready to turn in"] = "%s kann abgegeben werden"
+L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
