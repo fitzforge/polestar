@@ -6036,8 +6036,9 @@ test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to 
 	}
 });
 
-test('Desolace (Horde 30): a Shaman flies from Freewind Post straight to Sun Rock Retreat, not back to Orgrimmar first (#1191)', { skip }, () => {
-	const list = goals('forever/horde/30-40/01-desolace.guide').filter(forClass('SHAMAN'));
+// Since the Horde 30-40 re-order Desolace is entered at 33 from the Shimmering Flats (30-40/02-thousand-needles).
+test('Desolace (Horde 33): a Shaman flies from Freewind Post straight to Sun Rock Retreat, not back to Orgrimmar first (#1191)', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
 	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
 	const at = flights.indexOf('Freewind Post');
 	assert.ok(at >= 0, flights.join(', '));
