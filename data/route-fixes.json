@@ -7854,6 +7854,25 @@
 				],
 				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Gurubashi Legends of Old (level 40, 3150 XP, Horde) from Kin'weelay on the Grom'gol stop where The Troll Witchdoctor is handed in; the Third Troll Legend comes from the Fall of Gurubashi in Zul'Kunda, where the guide goes for Gan'zulah and Nezzliok, and Kin'weelay takes it on the cauldron stop after.",
 				"issue": "-"
+			},
+			{
+				"q": 1392,
+				"reason": "Quest volume, Horde 40-60 (0.3.7): Noboru the Cudgel (level 39, 2250 XP) starts from Noboru's Cudgel, which Noboru drops every time (Forever's loot data and the server's loot table: 100%), on the swamp loop of 40-50/01; Magtoor takes it at the Harborage on the way out. The guide took it but left the hand-in optional, so the level model and the guide end never counted it.",
+				"issue": "-"
+			},
+			{
+				"q": 2978,
+				"reason": "Quest volume, Horde 40-60 (0.3.7): The Gordunni Scroll (level 43, 1800 XP) starts from the scroll lying inside the Gordunni Outpost (an object, 100%), on 40-50/02's ogre stop; Rok Orhan takes it at Camp Mojache on the next stop. The hand-in was optional although the accept was not.",
+				"issue": "-"
+			},
+			{
+				"q": 2979,
+				"after": [
+					"turnin",
+					2978
+				],
+				"reason": "Quest volume, Horde 40-60 (0.3.7): Dark Ceremony (level 46, 4050 XP), Rok Orhan's follow-up: the Gordunni Orb from the Mage-Lords in the Ruins of Isildien, a stop 40-50/02 makes for A Threat in Feralas; its follow-up The Gordunni Orb (3002) was already taken. The hand-in was optional although the accept and the orb were not.",
+				"issue": "-"
 			}
 		],
 		"skip": [

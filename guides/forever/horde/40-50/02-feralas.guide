@@ -338,7 +338,7 @@ step Camp Mojache
   turnin 2862                           -- Hadoken Swiftstrider
   accept 2863                           -- Alpha Strike: one hour from now
   turnin 2975                           -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2978 optional
+  turnin 2978
   accept 2979
   accept 2980
   turnin 2987                           -- Orwin Gizzmick
@@ -408,7 +408,7 @@ step Camp Mojache
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
-  turnin 2979 optional -- Rok Orhan
+  turnin 2979                           -- Rok Orhan
   accept 3002                           -- for Orgrimmar, around level 45
 
 step Fly to Orgrimmar

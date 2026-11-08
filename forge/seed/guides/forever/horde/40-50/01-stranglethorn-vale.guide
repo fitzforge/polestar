@@ -426,5 +426,5 @@ step Galen's Strongbox
 
 step The Harborage
   tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
-  turnin 1392 optional -- Magtoor
+  turnin 1392                           -- Magtoor
   turnin 1389

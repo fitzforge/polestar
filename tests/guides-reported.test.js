@@ -6142,8 +6142,8 @@ const HORDE_VOLUME = {
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
 	// Horde 40-60 (2026-11-08, 0.3.6)
 	'forever/horde/30-40/06-badlands.guide': [1137], // News for Fizzle, to the Mirage Raceway on 40-50/02's ride to Tanaris
-	'forever/horde/40-50/01-stranglethorn-vale.guide': [95748], // The Gurubashi Legends of Old
-	'forever/horde/40-50/02-feralas.guide': [1190, 1191, 1194], // Keeping Pace; Zamek's Distraction; Rizzle's Schematics
+	'forever/horde/40-50/01-stranglethorn-vale.guide': [95748, 1392], // The Gurubashi Legends of Old; Noboru the Cudgel (0.3.7: its hand-in was optional)
+	'forever/horde/40-50/02-feralas.guide': [1190, 1191, 1194, 2978, 2979], // Keeping Pace; Zamek's Distraction; Rizzle's Schematics; The Gordunni Scroll and Dark Ceremony (0.3.7: their hand-ins were optional)
 	'forever/horde/40-50/03-feralas.guide': [1428], // Continued Threat
 	'forever/horde/40-50/04-tanaris.guide': [654, 864], // Tanaris Field Sampling; Return to Apothecary Zinge
 	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
