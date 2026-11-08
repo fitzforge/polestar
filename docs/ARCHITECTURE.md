@@ -1822,19 +1822,29 @@ and both of its values start on `"ask"`.
   unavailable for now (a level, a missing prerequisite, a giver's refusal)
   comes back, so it is no end; out for good (closed, skipped by the player)
   passes, but a step of nothing else is void.
-- **Ahead of the live step** (`Own.endDoneAhead`), by goal kind: quest
-  state, level, bags, flight paths as they are; goto and explore by arrival,
-  polled out of turn for the last step (`Own.endWatch`: Dun Morogh's walk to
-  Westfall); fly, hearth, enter by being there; train, vendor and talk at
-  their named NPC (latched out of turn). None of the place kinds while an
-  open step between the live one and the last has work in that place
-  (`Own.placeClear`: Darkshore visits Elwynn before it ends there), so
-  passing by never ends a guide. `train class` (any class trainer) never
-  counts out of turn, only on screen. tests/addontest/guides-end.rs plays
-  every leveling guide's last step ahead (with the reference data), a
-  class's or race's own last steps first (no end), and guides-end-early.rs
-  plays every one in order, each hand-in after its giver's window (no end
-  while a step is live).
+- **The record** (`CharState().guideEnds`) is not the end itself: with a live
+  step it stands only while the end still holds (`Own.endHolds`, judged as
+  above at every evaluation); one that no longer does (a quest of the last
+  step abandoned) is forgotten, and reached again it asks again. Reset guide
+  progress (`Engine.ResetProgress`) forgets it, so does a pack update that
+  changes the guide's steps (checkShape), and every record saved before
+  0.3.6 is dropped once on load (`guideEndsV`): 0.3.5 reused guide ids and
+  ended guides by where the player stood.
+- **Ahead of the live step** (`Own.endDoneAhead`), by what the game keeps:
+  quest state, level, bags, flight paths, spells. Never by where the player
+  is or has been, nor by an NPC's window (`Own.byPresence`: goto, explore,
+  fly, hearth, enter, die; train, vendor, sethome, a talk with no quest):
+  0.3.5 ended Hillsbrad Foothills & Arathi Highlands (30-32) at step 2 when
+  the player walked into the Undercity, where it flies at the end and stops
+  on the way. Such a goal counts once its step is on screen, when it is
+  ticked, or when work after it in the step is done (the walk to the last
+  turn-in). tests/addontest/guides-end.rs plays every leveling guide's last
+  step ahead (with the reference data), a class's or race's own last steps
+  first (no end), and lists the guides whose last step is a place
+  (no end ahead); guides-end-early.rs plays every one in order, each
+  hand-in after its giver's window and each move in its map's zone (no end
+  while a step is live), optionally as a character with an older route's
+  quests done (`GUIDES_END_HISTORY`).
 - **Ask:** no hand-off by itself (the catch-up still passes guides done
   whole); `GUIDE_END` fires after the evaluation and the guide-end window
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed

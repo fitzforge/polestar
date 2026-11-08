@@ -561,8 +561,11 @@ function ns.CharState()
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
-	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; forgotten when a pack update changes the guide's steps (checkShape).
-	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
+	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
+		s.guideEnds, s.guideEndsV = {}, 2
+	end
 	return s
 end
 

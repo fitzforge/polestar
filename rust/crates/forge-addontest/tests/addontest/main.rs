@@ -160,6 +160,8 @@ mod guides_compiled;
 mod guides_end;
 #[path = "guides-end-early.rs"]
 mod guides_end_early;
+#[path = "guides-end-places.rs"]
+mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;

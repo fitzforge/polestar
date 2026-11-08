@@ -4075,68 +4075,32 @@ function Own.enteredPlace(goals, g, goal)
 end
 
 -- The end of a leveling guide reached ahead of the live step (a player who
--- skipped ahead: Own.noteEnd). Its last step for everyone (a class's or a
--- race's own steps are not the end: Own.forSome) is Own.endLast(), with
--- behavior.guideEnd "ask", before the end was told, and while the live step
--- is an earlier one. Its goals count by kind:
--- - quest state, level, bags, flight paths, spells: as they are;
--- - goto and explore: by arrival, watched out of turn (Own.endWatch: Dun
---   Morogh's walk on to Westfall), or a later goal of the step;
--- - fly, hearth, enter, explore's map: being there, and a named NPC (train,
---   vendor, talk): visited, latched out of turn (latch);
--- - none of these while an open step before it still has work in that place
---   (Own.placeClear: Darkshore visits Elwynn before it ends there), so passing
---   by mid-guide never ends it;
--- - `train class` (any trainer of the class, Own.nothingToTrain): not out of
---   turn; it counts once the step is on screen, or ticked.
-function Own.endLast()
-	if not (guide and computed) or not Own.endAsks(guide) or ns.CharState().guideEnds[guide.id] then return nil end
-	local s = Own.lastWork(computed, true)
-	return s
+-- skipped ahead: Own.noteEnd): its last step for everyone (a class's or a
+-- race's own steps are not the end: Own.forSome) done out of turn, by what
+-- the game keeps: quest state, the level, bags, flight paths, spells. Never
+-- by where the player is or has been, nor by an NPC's window (goto,
+-- explore, fly, hearth, enter, die; train, vendor, sethome, a talk with no
+-- quest: Own.byPresence): the Undercity, the last stop of Hillsbrad (30-32),
+-- is also its fifth, a hub the player visits to train, and a zone the
+-- route crosses (0.3.5: "You've reached the end of this guide" at step 2).
+-- Those count once their step is on screen, or ticked, or when later work
+-- of the step is done (a walk to the turn-in: Own.laterWorkDone).
+Own.PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true }
+function Own.byPresence(goal)
+	local t = goal.t
+	if t == "train" then return not isProfessionTrain(goal) end
+	return Own.PRESENCE[t] or (t == "talk" and not goal.quest) or false
 end
 
--- Whether no open step from the live one up to step s has work in goal's
--- place (its area, location or map).
-function Own.placeClear(s, goal)
-	local steps = guide.steps
-	local area, map = goal.area, goal.map
-	local loc = type(goal.location) == "string" and goal.location:lower() or nil
-	for i = computed, s - 1 do
-		local step = steps[i]
-		if stepApplies(step) and not isSkipped(i) then
-			for _, o in ipairs(step.goals) do
-				if goalApplies(o) and ((area and o.area == area) or (map and o.map == map)
-					or (loc and type(o.location) == "string" and o.location:lower() == loc)) then
-					if not stepDone(i) then return false end
-					break
-				end
-			end
-		end
+-- Whether a goal after goal g of step s that counts as it is (not
+-- Own.byPresence, not a note) is done.
+function Own.laterWorkDone(s, g)
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if later.t ~= "note" and not Own.byPresence(later) and goalApplies(later) and goalDone(s, j, later) then return true end
 	end
-	return true
-end
-
--- The last step watched for arrival out of turn: Own.endLast() with a goto or
--- explore whose place is clear. Worked out once per evaluation (the poll
--- between them reuses it). -> step index | nil
-Own.endWatchCache = setmetatable({}, { __mode = "k" })
-function Own.endWatch()
-	local last = Own.endLast()
-	if not last then return nil end
-	local c = Own.endWatchCache[guide]
-	if c and c.gen == generation and c.computed == computed then return c.s or nil end
-	local watch = false
-	for _, goal in ipairs(guide.steps[last].goals) do
-		if (goal.t == "goto" or goal.t == "explore") and goalApplies(goal) then
-			if not Own.placeClear(last, goal) then
-				watch = false
-				break
-			end
-			watch = true
-		end
-	end
-	Own.endWatchCache[guide] = { gen = generation, computed = computed, s = watch and last or false }
-	return watch and last or nil
+	return false
 end
 
 -- Whether step s, the last one, is done out of turn (see above).
@@ -4145,11 +4109,7 @@ function Own.endDoneAhead(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
-		local t = goal.t
-		if not goal.optional and goalApplies(goal) and not checked(s, g) then
-			if t == "train" and goal.class then return false end
-			if (t == "fly" or t == "hearth" or t == "enter" or t == "explore") and not arrived[goal] and not Own.placeClear(s, goal) then return false end
-		end
+		if not goal.optional and goalApplies(goal) and not checked(s, g) and Own.byPresence(goal) and not Own.laterWorkDone(s, g) then return false end
 	end
 	return true
 end
@@ -4215,14 +4175,10 @@ function Own.arriveStep(s, c, px, py)
 	return hit
 end
 
--- Loaded tab: the current step's arrivals, and a watched last step's
--- (Own.endWatch); true if any.
+-- Loaded tab: the current step's arrivals; true if any.
 local function arriveLoaded(c, px, py)
 	if not (guide and current) then return false end
-	local hit = Own.arriveStep(current, c, px, py)
-	local last = Own.endWatch()
-	if last and last ~= current and Own.arriveStep(last, c, px, py) then hit = true end
-	return hit
+	return Own.arriveStep(current, c, px, py)
 end
 
 local function checkArrival()
@@ -4263,12 +4219,9 @@ function Own.arrivalOpen(s)
 	return false
 end
 
--- The current step, or a watched last step (Own.endWatch), waits on an arrival.
+-- The current step waits on an arrival.
 local function needsArrival()
-	if not (guide and current) then return false end
-	if Own.arrivalOpen(current) then return true end
-	local last = Own.endWatch()
-	return last ~= nil and last ~= current and Own.arrivalOpen(last)
+	return guide ~= nil and current ~= nil and Own.arrivalOpen(current)
 end
 
 local function updateTicker()
@@ -4378,15 +4331,13 @@ end
 local function latch(kind, npc)
 	if not (guide and current and player) then return false end
 	local hit = false
-	-- Pass 3: the end of a leveling guide ahead of the live step
-	-- (Own.endLast), at the NPC its goal names only.
-	for pass = 1, 3 do
-		local s = pass == 1 and current or pass == 2 and computed or Own.endLast()
-		if s and (pass == 1 or s ~= current) and (pass ~= 3 or s ~= computed) then
+	for pass = 1, 2 do
+		local s = pass == 1 and current or computed
+		if s and (pass == 1 or s ~= current) then
 			local goals = guide.steps[s].goals
 			for g = 1, #goals do
 				local goal = goals[g]
-				local ok = goal.t == kind and goalApplies(goal) and (pass ~= 3 or goal.npc ~= nil)
+				local ok = goal.t == kind and goalApplies(goal)
 				if ok then
 					if kind == "talk" then
 						ok = goal.npc == npc and Own.talkCounts(goal)
@@ -4940,7 +4891,9 @@ end
 -- placed this session (Own.endOpen), and for the last step done ahead, that
 -- step seen open (Own.lastOpen), so a guide opened, or brought back by a
 -- login, already at its end does not ask; and once per guide per character
--- (CharState().guideEnds[guideId], kept over a reload or relog).
+-- (CharState().guideEnds[guideId], kept over a reload or relog). That record
+-- is not the end itself: with a live step, it stands only while the end
+-- still holds (Own.endHolds), and Engine.ResetProgress forgets it.
 -- info = { guideId, undone (open steps left), live (the live step, nil when
 -- all are done), next (the guide the hand-off goes to, nil with none or a
 -- choice to make), choose (true: a route choice the player makes) }.
@@ -5006,6 +4959,17 @@ function Own.forSome(step)
 	return any
 end
 
+-- Whether the end of the loaded guide holds with the live step before it:
+-- its last step for everyone (`last`, Own.lastWork) done, on screen or
+-- ahead of the live step (Own.endDoneAhead), its work really done, not
+-- only passed over as unavailable for now (Own.endWorkDone, #998), and not
+-- skipped.
+function Own.endHolds(last)
+	if last == nil or isSkipped(last) or not Own.endWorkDone(last) then return false end
+	if last == current then return stepDone(last) end
+	return Own.endDoneAhead(last)
+end
+
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
@@ -5014,7 +4978,6 @@ function Own.noteEnd()
 	if computed and stepDone(computed) and Own.levelHold() == computed then return end
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
-	if ends[id] then return end
 	-- The end done ahead is judged on the last step for everyone (Own.forSome).
 	-- With the live step past it, a class's or race's own steps after it
 	-- still to come (Own.lastWork from the live step) are no end yet: the end
@@ -5023,6 +4986,18 @@ function Own.noteEnd()
 	if computed then
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
 		Own.endOpen[id] = true
+		local holds = Own.endHolds(last)
+		-- An end told before stands only while it holds: a quest of the last
+		-- step abandoned, or a record from before 0.3.6 that slipped through
+		-- (Init.lua drops those), and it is forgotten; reached again, it is
+		-- told again.
+		if ends[id] then
+			if not holds then
+				ends[id] = nil
+				Own.lastOpen[id] = last
+			end
+			return
+		end
 		-- Its last step done ahead of the live step (Own.endDoneAhead; on
 		-- screen as any step), once that same step was seen open: one that
 		-- reads done from the start (its quest not offered to this character),
@@ -5031,14 +5006,12 @@ function Own.noteEnd()
 		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
 		-- optional goals or notes are offered, not the end (Own.lastWork).
 		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
-		local done = last ~= nil and not waits and not isSkipped(last) and Own.endWorkDone(last)
-			and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
-		if not done then
+		if waits or not holds then
 			if last then Own.lastOpen[id] = last end
 			return
 		end
 		if Own.lastOpen[id] ~= last then return end
-	elseif not Own.endOpen[id] then
+	elseif ends[id] or not Own.endOpen[id] then
 		return
 	end
 	ends[id] = true
@@ -7895,13 +7868,17 @@ function Engine.CycleWaypoint(dir)
 	return false
 end
 
--- Forget check-offs, skips and the saved view for the active guide.
+-- Forget check-offs, skips, the saved view and the end reached for the
+-- active guide: placed again as if just opened, it tells its end again only
+-- when the player gets there (Own.noteEnd).
 function Engine.ResetProgress()
 	if not guide then return end
 	local state = ns.CharState()
 	state.manual[guide.id] = nil
 	state.skipped[guide.id] = nil
 	state.when[guide.id] = nil
+	state.guideEnds[guide.id] = nil
+	Own.endOpen[guide.id], Own.lastOpen[guide.id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	evaluate()
 end
