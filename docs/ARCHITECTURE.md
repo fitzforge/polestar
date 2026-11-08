@@ -2863,7 +2863,13 @@ of the player's faction not learnt yet, on the start's or the target's
 continent, is a vertex too: walked to, learnt there (5 s) and flown from to
 known ones, never flown to and never walked on from (no walk measure from it;
 otherwise Rut'theran's would beat the Darnassus portal, #989) (#1174:
-Ironforge's, beside a player who knows Menethil Harbor). It orders by
+Ironforge's, beside a player who knows Menethil Harbor). The known flight
+masters (`flags.taxi`) come from the flight map when one opens, the game's
+"New flight path discovered", and the world map's flight points
+(`C_TaxiMap.GetTaxiNodesForMap`, a node's `isUndiscovered`), read on every
+loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
+while Polestar was not running counts before the next flight map (#1308);
+a client that reads no node as undiscovered is not trusted. It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,

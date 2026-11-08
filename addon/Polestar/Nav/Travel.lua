@@ -1248,6 +1248,46 @@ local function recordTaxiMap()
 	return added
 end
 
+-- The world map's flight points list what this character has discovered
+-- anywhere, with no flight master open (C_TaxiMap.GetTaxiNodesForMap, each
+-- node's isUndiscovered, as the client's own world map reads them), so a
+-- flight path learnt while Polestar was not running counts before the next
+-- flight map opens (#1308). Read once per zone map that has a flight master
+-- in the travel data; only adds, like the flight map. A client that reads
+-- no node at all as undiscovered is not trusted: every character has some.
+-- -> true when a node was added.
+function Travel.RecordWorldTaxi()
+	local get = C_TaxiMap and C_TaxiMap.GetTaxiNodesForMap
+	if not get then return false end
+	local seen, found, anyUndiscovered = {}, {}, false
+	for _, node in ipairs(taxiList) do
+		local mapID = node.map
+		if mapID and not seen[mapID] then
+			seen[mapID] = true
+			local ok, list = pcall(get, mapID)
+			if ok and type(list) == "table" then
+				for _, info in ipairs(list) do
+					local id = type(info) == "table" and info.nodeID
+					if id and info.isUndiscovered == true then
+						anyUndiscovered = true
+					elseif id and info.isUndiscovered == false and taxi[id] then
+						found[#found + 1] = id
+					end
+				end
+			end
+		end
+	end
+	if not anyUndiscovered then return false end
+	local known, added = knownSet(), false
+	for _, id in ipairs(found) do
+		if not known[id] then
+			known[id] = true
+			added = true
+		end
+	end
+	return added
+end
+
 local function runSpeed()
 	local fn = ns.Compat and ns.Compat.GetRunSpeed
 	local ok, s
@@ -2500,6 +2540,13 @@ ns.RegisterEvent("TAXIMAP_OPENED", function()
 	if recordTaxiMap() then Travel.Replan() end
 end)
 ns.RegisterEvent("UI_INFO_MESSAGE", onInfoMessage)
+-- The world map's discovered flight points: on login and every loading
+-- screen, and when the client says a node's status changed (#1308).
+local function onWorldTaxi()
+	if Travel.RecordWorldTaxi() then Travel.Replan() end
+end
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", onWorldTaxi)
+ns.RegisterEvent("TAXI_NODE_STATUS_CHANGED", onWorldTaxi)
 
 ns.OnLogin(function()
 	refreshFaction()

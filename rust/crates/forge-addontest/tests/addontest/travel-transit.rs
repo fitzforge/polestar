@@ -214,6 +214,40 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 	assert_eq!(out["stops"], json!([1, 2, 3]));
 }
 
+// A flight path learnt while Polestar was not running: the world map's flight points (C_TaxiMap.GetTaxiNodesForMap,
+// isUndiscovered) make it known on the next loading screen, with no flight map opened (#1308: from Ironforge the
+// arrow walked to the Wetlands until the flight map there showed Menethil Harbor). A client that reads no node as
+// undiscovered, or gives no such field, is not trusted.
+#[test]
+fn a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen() {
+	let out = run(r#"
+		local r = {}
+		local nodes
+		C_TaxiMap.GetTaxiNodesForMap = function(mapID)
+			if mapID ~= 9000 then return {} end
+			return nodes
+		end
+		local function reload(list)
+			known()
+			nodes = list
+			stub.fire("PLAYER_ENTERING_WORLD")
+			target(0, -780, "Kobolds")
+			return route()
+		end
+		nav.place(0, 600)
+		r.none = reload({})
+		r.world = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false }, { nodeID = 3, isUndiscovered = true } })
+		r.saved = { Polestar.CharState().flags.taxi[1] == true, Polestar.CharState().flags.taxi[2] == true, Polestar.CharState().flags.taxi[3] == true }
+		r.allKnown = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false } })
+		r.noField = reload({ { nodeID = 1 }, { nodeID = 2 }, { nodeID = 3 } })
+		emit(r)"#);
+	assert_eq!(out["none"], json!(["walk|Kobolds"]), "East Hold unknown: walked");
+	assert_eq!(out["world"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["saved"], json!([true, true, false]), "only the discovered nodes, saved");
+	assert_eq!(out["allKnown"], json!(["walk|Kobolds"]), "no node read as undiscovered: not trusted");
+	assert_eq!(out["noField"], json!(["walk|Kobolds"]));
+}
+
 #[test]
 fn c9_a_flight_leg_carries_no_wait_only_flying_time_and_the_stops() {
 	let out = run(r#"
