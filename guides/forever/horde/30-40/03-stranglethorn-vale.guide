@@ -215,6 +215,7 @@ step Fly to Grom'gol
   zone Stranglethorn Vale
   goto 26.8,77.0 "Booty Bay flight master"
   fly "Grom'gol"
+  accept 570                          -- Far Seer Mok'thardin, beside the flight master: the Shadowmaw and tigress parts come after the trolls
 
 # ---------------------------------------------------------------- Raptors, Mosh'Ogg, Shadowmaw
 step Stranglethorn Vale: kill these as you meet them
@@ -244,7 +245,6 @@ step Grom'gol
   turnin 629
   turnin 568
   accept 569
-  accept 570                          -- Far Seer Mok'thardin: the Shadowmaw and tigress parts come on the next loop
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale

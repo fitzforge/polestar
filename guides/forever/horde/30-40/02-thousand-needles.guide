@@ -328,9 +328,9 @@ step Sargeron
   kill 4672 quest 1434.2
   kill 4673 quest 1434.3
   kill 4675 quest 1434.4
-  kill 4671 quest 97265.1 @76.5,20.5 map 1443 -- Hatefury Trickster
-  kill 4675 quest 97265.2
   kill 4674 quest 97265.3 @75.7,15.8 map 1443 -- Hatefury Shadowstalker
+  kill 4675 quest 97265.2
+  kill 4671 quest 97265.1 @76.5,20.5 map 1443 -- Hatefury Trickster, on the way south
   kill 4672 quest 97265.4
   kill 4670 quest 97265.5
 
