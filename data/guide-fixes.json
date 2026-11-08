@@ -3563,6 +3563,10 @@
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
 				}
 			]
 		},
@@ -3578,6 +3582,10 @@
 			"source": [
 				{
 					"kind": "pfquest",
+					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
+				},
+				{
+					"kind": "questie",
 					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
 				}
 			]
