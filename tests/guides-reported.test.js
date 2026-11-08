@@ -4631,7 +4631,11 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 888) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
 	assert.ok(work(903) > stepOf('accept', 855), 'the prowlers on the west loop');
 	const eche = work(881);
-	assert.ok(work(880) < work(875) && work(875) < stepOf('turnin', 3921) && stepOf('turnin', 3922) < eche, 'Lushwater, the Dry Hills, Wenikee, then Echeyakee');
+	assert.ok(work(880) < work(875) && work(875) < eche, 'Lushwater, the Dry Hills, then Echeyakee');
+	// Since the Horde 12-30 re-chain Samophlange waits for the Ratchet stop at 18 (no walk from the Sludge Fen
+	// to Ratchet and back to the Razormane camp), and Wenikee's Nugget Slugs go with the second Sludge Fen visit.
+	const fen = stepOf('accept', 858);
+	assert.ok(stepOf('turnin', 902) < stepOf('turnin', 3921) && stepOf('turnin', 3921) < fen && fen < work(3922) && work(3922) < stepOf('turnin', 3922), 'Samophlange at Ratchet, Wenikee around the second Sludge Fen visit');
 	const last = stepOf('turnin', 869);
 	assert.ok(eche < last, 'the raptor heads after Echeyakee');
 	for (const [t, q] of [['turnin', 881], ['turnin', 880], ['turnin', 875]]) assert.equal(stepOf(t, q), last, `${t} ${q} on the final Crossroads visit`);

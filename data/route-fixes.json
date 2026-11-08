@@ -8752,18 +8752,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					3922
-				],
-				"b": [
-					"task",
-					881
-				],
-				"faction": "Horde",
-				"why": "Flow review (#1159), Barrens 12-16: Echeyakee's lair (55.9,17.2) lies on the walk back south from Wenikee to the Crossroads; the hunt and the last raptor heads (#1135, after Echeyakee) come there, both handed in on the final Crossroads visit"
-			},
-			{
-				"a": [
 					"task",
 					865
 				],
@@ -8772,7 +8760,7 @@
 					3921
 				],
 				"faction": "Horde",
-				"why": "Flow review (#1159), Barrens 12-16: the Sunscale Scytheclaws for Raptor Horns prowl the plains east of the Dry Hills (44.1,14.4), which the last loop crosses on its way north-east to Wenikee; the horn is taken there, not past the Sludge Fen after the walk has crossed them"
+				"why": "Horde 12-30 re-chain (2026-11-07): the Sunscale Scytheclaws for Raptor Horns prowl the plains east of the Dry Hills (44.1,14.4), on the last Dry Hills loop to Echeyakee; Wenikee comes later, on the walk from Walton to the second Sludge Fen visit."
 			},
 			{
 				"a": [
@@ -9136,6 +9124,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Prerequisite order (#1184): Prospector Whelgar offers For Further Study only once Gleaning Our Future (98310) is handed in (corrections: 98313)."
+			},
+			{
+				"a": [
+					"task",
+					881
+				],
+				"b": [
+					"turnin",
+					902
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Samophlange is handed to Sputtervalve on the Ratchet stop at 18 (Northwatch Hold), not on a trip of its own from the Sludge Fen console at 16, which walked 2,000 yd to Ratchet and 800 yd back to the Razormane camp."
+			},
+			{
+				"a": [
+					"turnin",
+					95508
+				],
+				"b": [
+					"turnin",
+					3921
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Wenikee (49.1,11.2) stands on the walk from Walton to the Sludge Fen shredder: Wenikee Boltbucket and Nugget Slugs (the slugs at the Fen's drill site) go with that visit, not with a loop of their own north of the Dry Hills."
+			},
+			{
+				"a": [
+					"task",
+					896
+				],
+				"b": [
+					"turnin",
+					3922
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Wenikee takes the Nugget Slugs on the walk back from the Boulder Lode Mine to the Crossroads; Rilli Greasygob (3923) goes on to the Orgrimmar trip at 20."
 			}
 		]
 	}

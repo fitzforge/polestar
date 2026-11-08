@@ -24,11 +24,11 @@ next forever/horde/05-stonetalon-mountains
 #
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
-# Regthar -> the Dry Hills -> the Sludge Fen console -> Ratchet -> the Razormane camp -> the
-# Crossroads -> the Stagnant and Lushwater oases -> the Dry Hills and Wenikee -> Echeyakee -> the
-# Crossroads -> Ratchet: Northwatch Hold and Gilthares' escort -> the Raptor Grounds and the nests
-# -> the Crossroads -> the Dry Hills (Vrang, Walton) -> the Sludge Fen shredder and the Boulder
-# Lode Mine -> the Crossroads -> Verog -> Camp Taurajo (flight path) -> the Bristleback camps ->
+# Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
+# the Stagnant and Lushwater oases -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
+# (Samophlange handed in): Northwatch Hold and Gilthares' escort -> the Raptor Grounds and the
+# nests -> the Crossroads -> the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
+# and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog -> Camp Taurajo (flight path) -> the Bristleback camps ->
 # Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Ishamuhale -> the
 # Crossroads, Regthar,
 # Hezrul -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
@@ -417,13 +417,7 @@ step Samophlange
   accept 901
   collect 5089 quest 901.1 @52.8,10.4 map 1413 -- Inside
   turnin 901
-  accept 902                          -- Sputtervalve in Ratchet: later, on the way
-
-step Ratchet
-  tip East to Ratchet, on the coast.
-  turnin 902                          -- Sputtervalve
-  accept 1483                         -- Sputtervalve: keep it, Ziz Fizziks is on the Webwinder Path in Stonetalon, at the end of this guide
-  accept 3921
+  accept 902                          -- Sputtervalve in Ratchet: on the next Ratchet stop
 
 # ---------------------------------------------------------------- North-east loop
 
@@ -503,21 +497,8 @@ step The Dry Hills
   accept 819
 
 step Raptor Horns
-  tip On the way north-east to Wenikee: Sunscale Scytheclaws prowl the plains east of the Dry Hills; any of them can drop an Intact Raptor Horn for Mebok in Ratchet.
+  tip On the way east to Echeyakee: Sunscale Scytheclaws prowl the plains east of the Dry Hills; any of them can drop an Intact Raptor Horn for Mebok in Ratchet.
   collect 5055 quest 865.1 @44.1,14.4
-
-step Wenikee Boltbucket
-  tip North-east to the Mor'shan Rampart; Wenikee stands at the camp just south of it.
-  turnin 3921
-  accept 3922
-
-step Nugget Slugs
-  tip The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.
-  collect 11143 quest 3922.1
-
-step Wenikee Boltbucket
-  turnin 3922
-  accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the next guide's Orgrimmar visit
 
 step Echeyakee
   zone The Barrens
@@ -605,6 +586,9 @@ step Ratchet
 
 step Ratchet
   zone The Barrens
+  turnin 902                          -- Sputtervalve
+  accept 1483                         -- Sputtervalve: keep it, Ziz Fizziks is on the Webwinder Path in Stonetalon, at the end of this guide
+  accept 3921                         -- Sputtervalve: Wenikee stands on the road north of the Crossroads, on the way to the Sludge Fen
   accept 891                          -- Captain Thalo'thas Brightsun
   vendor nearest
 
@@ -709,6 +693,12 @@ step Walton
   complete 95508                      -- Assist Walton: stay by him when Terry Longdrink and the Kul Tiras marines come up the ridge
   turnin 95508
 
+step Wenikee Boltbucket
+  zone The Barrens
+  tip East from Walton toward the Sludge Fen: Wenikee stands at the camp on the road north of the Crossroads.
+  turnin 3921
+  accept 3922
+
 step Ignition
   tip Wizzlecrank's Shredder stands inside the Venture Co. camp in the Sludge Fen; Supervisor Lugwizzle carries the key.
   accept 858                          -- Wizzlecrank's Shredder
@@ -728,13 +718,23 @@ step The Escape
   goto 55.4,7.7
   complete 863
 
+step Nugget Slugs
+  tip The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen.
+  collect 11143 quest 3922.1
+
 step Boulder Lode Mine
   tip The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the Cats Eye Emerald.
   collect 5097 quest 896.1
 
+step Wenikee Boltbucket
+  zone The Barrens
+  tip West from the mine to Wenikee's camp, then south down the road to the Crossroads.
+  turnin 3922
+  accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the Orgrimmar trip at 20
+
 step the Crossroads
   zone The Barrens
-  tip From the mine, south-west across the plains to the Crossroads: Darsok stands on the tower platform, Tonga Runetotem at the south gate.
+  tip South down the road to the Crossroads: Darsok stands on the tower platform, Tonga Runetotem at the south gate.
   turnin 876                          -- Darsok Swiftdagger
   accept 1060
   turnin 6128 only Tauren,Druid       -- Tonga Runetotem
