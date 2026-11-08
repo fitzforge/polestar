@@ -514,8 +514,13 @@ step Auberdine
   accept 954                                  -- Thundris Windweaver, north end of the village
   accept 958
   accept 984                                  -- Terenthis
-  accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 2118                                 -- Tharnariun Treetender
+
+step Gubber Blump
+  zone Darkshore
+  when skill Fishing 1
+  tip Fishers only: Gubber Blump stands on the pier. His Darkshore Grouper is fished from the pier itself.
+  accept 1141 optional                        -- Gubber Blump, on the pier
 
 step Moonglade
   only Druid

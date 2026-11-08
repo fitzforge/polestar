@@ -2,7 +2,7 @@
 guide forever/alliance/03-darkshore
 title Darkshore
 faction Alliance
-levels 15-18
+levels 17-19
 zone Darkshore
 next forever/alliance/03-loch-modan
 
@@ -130,7 +130,12 @@ step Auberdine
   getfp "Auberdine"
   accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   accept 1138                                 -- Gubber Blump, on the pier
-  accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
+
+step Gubber Blump
+  zone Darkshore
+  when skill Fishing 1
+  tip Fishers only: Gubber Blump stands on the pier. His Darkshore Grouper is fished from the pier itself.
+  accept 1141 optional                        -- Gubber Blump, on the pier
 
 # ---------------------------------------------------------------- The beach
 

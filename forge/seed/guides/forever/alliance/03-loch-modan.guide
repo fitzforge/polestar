@@ -2,7 +2,7 @@
 guide forever/alliance/03-loch-modan
 title Loch Modan, Redridge Mountains & Westfall
 faction Alliance
-levels 18-20
+levels 19-21
 zone Loch Modan
 next forever/alliance/03-darkshore-return
 
@@ -193,6 +193,13 @@ step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
   goto 65.2,69.7 "Elwynn Forest"
+
+step Guard Thomas
+  only NightElf
+  zone Elwynn Forest
+  when onquest 35
+  tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
+  turnin 35                                   -- Guard Thomas, on the bridge
 
 step Three Corners
   zone Redridge Mountains

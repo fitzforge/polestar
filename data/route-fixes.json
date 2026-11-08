@@ -3449,6 +3449,42 @@
 			{
 				"a": [
 					"turnin",
+					35
+				],
+				"b": [
+					"turnin",
+					65
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-08, Alliance 1-30): Night Elves take Further Concerns from Marshal Dughan with A Fishy Peril at the end of their Darkshore guide (level 14) and then walk the Elwynn road past Guard Thomas' bridge (73.97,72.18) on 03-loch-modan's way from Stormwind to Redridge at about 19; the order carried it to 04-redridge-mountains, about ten levels after the accept. Handed in on that walk, before Wiley the Black takes The Defias Brotherhood in Lakeshire. Humans, Dwarves and Gnomes hand it in long before either."
+			},
+			{
+				"a": [
+					"turnin",
+					6388
+				],
+				"b": [
+					"accept",
+					97263
+				],
+				"faction": "Alliance",
+				"why": "Final route review follow-up (2026-11-08, Dwarf and Gnome Dun Morogh): Ironforge is one round of the city from the Great Forge, where the Thelsamar gryphon lands: Golnir and Gryth (Ride to Ironforge, the flight path), east to the Misplaced Packages by Tinker Town's mailbox (72.3,48.6), north to Eldrun (47.1,13.8) and the Forlorn Cavern's trainers, west to the Mystic Ward, south through the Commons to Senator Barin (39.5,57.5), east through the Military Ward to the tram (78.0,51.4). Before, a bare goto sent players to the mailbox first, back to the Great Forge for the flight path, then across the city four more times."
+			},
+			{
+				"a": [
+					"turnin",
+					97263
+				],
+				"b": [
+					"turnin",
+					291
+				],
+				"faction": "Alliance",
+				"why": "Final route review follow-up (2026-11-08, Dwarf and Gnome Dun Morogh): Eldrun's package is handed in on the northern leg of the Ironforge round, before the senator in the High Seat on the western one (see the Golnir pair)."
+			},
+			{
+				"a": [
+					"turnin",
 					7732
 				],
 				"b": [

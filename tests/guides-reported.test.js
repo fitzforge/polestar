@@ -812,7 +812,11 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Th
 	assert.equal(accept, at(list, 'turnin 287 (Frostmane Hold)', is('turnin', 287)) + 1, 'taken right after Frostmane Hold is handed in');
 	const turnin = at(list, 'turnin 291 (Senator Barin Redstone)', is('turnin', 291));
 	assert.ok(turnin > accept, 'handed in later');
-	assert.equal(list[turnin].step, list[at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram')].step, 'in the Deeprun Tram step');
+	// Final route review (2026-11-08): Ironforge is one round of the city, so the senator is a stop of that round,
+	// in Ironforge before the tram, not a step of its own after it.
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	assert.ok(turnin < tram, 'handed in before the tram');
+	assert.equal(list[turnin].goal.map, 1455, 'in Ironforge');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after`, { skip }, () => {
@@ -6740,4 +6744,88 @@ test('30-40: every written grind step says where, and names a dungeon to run ins
 			}
 		}
 	}
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): Night Elves take Further Concerns (35) from Marshal Dughan
+// at the end of their Darkshore guide (level 14), then walk the Elwynn road past Guard Thomas' bridge on
+// 03-loch-modan's way to Redridge at about 19; the route carried it to 04-redridge-mountains at about 24.
+test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Further Concerns to Guard Thomas on the Elwynn road', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const thomas = at(list, 'turnin 35', is('turnin', 35));
+	const { step } = list[thomas];
+	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
+	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
+	const road = at(list, 'goto 65.2,69.7', (g) => g.t === 'goto' && Math.abs(g.x - 65.2) < 0.1 && Math.abs(g.y - 69.7) < 0.1);
+	const wiley = at(list, 'turnin 65', is('turnin', 65));
+	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
+	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): 06-ashenvale walked from Menethil Harbor through Dun Algaz, Loch
+// Modan and the North Gate pass to Ironforge for Lomac Gearstrip, though every Alliance character has had both the
+// Menethil Harbor and the Ironforge flight paths since 03-loch-modan (06-wetlands flies the same leg).
+test('forever/alliance/06-ashenvale.guide: final review: Menethil Harbor to Ironforge by gryphon', { skip }, () => {
+	const list = goals('forever/alliance/06-ashenvale.guide');
+	const boran = at(list, 'turnin 279', is('turnin', 279));
+	const lomac = at(list, 'turnin 1072', is('turnin', 1072));
+	const between = list.slice(boran + 1, lomac).map(({ goal }) => goal);
+	assert.ok(between.some((g) => g.t === 'fly'), 'a flight to Ironforge');
+	assert.ok(!between.some((g) => g.t === 'goto' && (g.map === 1432 || g.map === 1426)), 'no walk through Loch Modan or Dun Morogh');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): in 06-ashenvale the walk into Stonetalon ("Head south past Mystral
+// Lake into the Talondeep Path") was the tip of the Kaela and Gaxim step, after Piznik's mine, and Ziz Fizziks' hand-in
+// and his next quest were two steps at one hut.
+test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip before Piznik, Ziz Fizziks in one step', { skip }, () => {
+	const guide = 'forever/alliance/06-ashenvale.guide';
+	const list = goals(guide);
+	at(list, 'accept 1090', is('accept', 1090));
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.ok(lines.indexOf('Talondeep Path tunnel') >= 0 && lines.indexOf('Talondeep Path tunnel') < lines.indexOf('accept 1090'), 'the tunnel tip comes before Piznik');
+	assert.ok(!stepTips(guide, /turnin 1070/).some((t) => /Talondeep/.test(t)), 'not on the Kaela and Gaxim step');
+	const ziz = at(list, 'turnin 1092', is('turnin', 1092));
+	const reaper = at(list, 'accept 1093', is('accept', 1093));
+	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): The Weathered Grave (225) and Morgan Ladimore (227) are talk-only
+// (level 35, from 28) and the Duskwood return walks past the grave at 29-30, but an old race filter offered them to
+// Dwarves and Skyborne only. Every race takes them (optional, offered from 28).
+test('forever/alliance/07-thousand-needles.guide: final review: The Weathered Grave for every race from 28', { skip }, () => {
+	const list = goals('forever/alliance/07-thousand-needles.guide');
+	for (const [t, q] of [['accept', 225], ['turnin', 225], ['accept', 227], ['turnin', 227]]) {
+		const { step, goal } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(!(goal.only && goal.only.races) && !(step.only && step.only.races), `${t} ${q} has no race filter`);
+	}
+	assert.ok(list[at(list, 'accept 225', is('accept', 225))].goal.optional, 'optional: offered from 28');
+});
+
+// Ingest report (2026-11-08): 7 of the 13 players who took The Family and the Fishing Pole (1141) on 0.3.4 abandoned it
+// at 13-24; the accept said "only with Fishing" but was offered to everyone. It is a step of its own for characters
+// with Fishing now.
+test('Auberdine: The Family and the Fishing Pole is offered only to characters with Fishing', { skip }, () => {
+	for (const guide of ['forever/alliance/nightelf/01-teldrassil.guide', 'forever/alliance/03-darkshore.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 1141', is('accept', 1141))];
+		assert.ok((step.when || []).some((p) => p.k === 'skill' && !p.neg && /fishing/i.test(JSON.stringify(p))), `${guide}: under when skill Fishing`);
+		assert.ok(step.goals.every((g) => g.quest === 1141), `${guide}: nothing else waits on the gate`);
+	}
+});
+
+// Final route review follow-up (2026-11-08): the Dwarf and Gnome starts crossed Ironforge five times after the
+// Thelsamar gryphon (a bare goto to Tinker Town's mailbox, back to the Great Forge for the flight path, the Hall of
+// Arms, the Forlorn Cavern, the Military Ward, the High Seat, then the tram). Now one round: Great Forge, Tinker Town,
+// the Forlorn Cavern, the Mystic Ward, the High Seat, the Military Ward, the tram.
+for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: final review: Ironforge in one round of the city`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const gryth = at(list, 'turnin 6388', is('turnin', 6388));
+	const fp = at(list, 'getfp Ironforge', (g) => g.t === 'getfp' && /Ironforge/.test(g.location || g.text || ''));
+	assert.equal(list[fp].step, list[gryth].step, 'the flight path with Gryth');
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	const city = list.slice(gryth, tram + 1);
+	assert.ok(!city.some(({ goal }) => goal.t === 'goto' && goal.text === 'Ironforge'), 'no bare goto into Tinker Town');
+	const order = [is('accept', 97263), is('turnin', 97263), is('turnin', 291)].map((p, k) => at(list, `stop ${k}`, p));
+	assert.ok(gryth < order[0] && order[0] < order[1] && order[1] < order[2] && order[2] < tram, 'Tinker Town, Eldrun, the senator, the tram');
+	const trains = city.filter(({ goal }) => goal.t === 'train' && goal.class === true).map(({ goal }) => goal);
+	assert.ok(trains.every((g) => g.only), 'each trainer stop names its classes');
 });

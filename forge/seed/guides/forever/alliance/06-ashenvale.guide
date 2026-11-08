@@ -2,7 +2,7 @@
 guide forever/alliance/06-ashenvale
 title Ashenvale, Wetlands & Stonetalon Mountains
 faction Alliance
-levels 20-24
+levels 22-25
 zone Ashenvale
 next forever/alliance/04-redridge-mountains
 
@@ -101,6 +101,7 @@ step Astranaar
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
+  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, by the Windshear Mine.
   goto 71.9,60.0 "Stonetalon Mountains"
 
 step Piznik
@@ -113,18 +114,17 @@ step Piznik
 
 step Windshear Crag
   zone Stonetalon Mountains
-  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag. Kaela and Gaxim camp on the Webwinder Path south-west of the crag.
+  tip Kaela and Gaxim camp on the Webwinder Path, south-west of the mine.
   turnin 1070                             -- Kaela Shadowspear
   accept 1085
   turnin 1085                             -- Gaxim Rustfizzle
   accept 1071
 
-step Webwinder Path
-  turnin 1092                             -- Ziz Fizziks, inside
-
-step Windshear Crag
+step Ziz Fizziks
   zone Stonetalon Mountains
-  accept 1093                             -- Ziz Fizziks, in the hut north of them; inside
+  tip His hut stands just north of Kaela and Gaxim.
+  turnin 1092                             -- Ziz Fizziks, inside
+  accept 1093
 
 step Windshear Crag: kill these as you meet them
   zone Stonetalon Mountains
@@ -317,26 +317,16 @@ step Menethil
 
 # ---------------------------------------------------------------- Ironforge
 
-step Into Loch Modan
-  zone Loch Modan
-  goto 25.6,10.5 "Into Loch Modan"
-
-step Into Dun Morogh
-  zone Dun Morogh
-  goto 84.4,31.1 "Into Dun Morogh"
-
-step Into Ironforge
+step Fly to Ironforge
+  zone Wetlands
+  tip Shellei Brondir is the flight master by Menethil's inn: you have both flight paths since your first trip east.
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Ironforge"
   zone Ironforge
-  goto 21.6,77.8 "Into Ironforge"
 
 step Ironforge
   zone Ironforge
-  goto 72.1,51.9 "Ironforge"
-
-step Ironforge
-  zone Ironforge
-  tip Head east along the Wetlands road, south through Dun Algaz into Loch Modan and west through the tunnel into Dun Morogh to Ironforge.
-  getfp "Ironforge" npc 1573              -- Gryth Thurden, in the Great Forge
+  tip The gryphons land in the Great Forge. Lomac Gearstrip stands in Tinker Town, east of it, by the Deeprun Tram.
   turnin 1072                             -- Lomac Gearstrip, Tinker Town
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
