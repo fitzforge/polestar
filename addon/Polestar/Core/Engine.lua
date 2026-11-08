@@ -6148,10 +6148,15 @@ end
 -- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
 --
 -- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
--- allocation-free): the nearest candidate within behavior.whileHereRadius
--- yards of its nearest spawn area's edge (HERE_TURNIN of a hand-in's NPC),
--- checked once against the walk there (Nav.EstimateTravel, budgeted: a walk
--- over HERE_WALK times the straight line is a cliff or a cave floor). It goes
+-- allocation-free), measured from the player wherever the live step leads:
+-- of the candidates within behavior.whileHereRadius yards of one of their
+-- spawn areas' edge (not an alternative place: an elite camp or one past the
+-- guide's picks; HERE_TURNIN of a hand-in's NPC), the one whose target spawns
+-- in the fewest places on the map (`places`: a pool's mushrooms before
+-- zhevra found all over the zone, which can wait for another spot), then the
+-- nearest; checked once against the walk there (Nav.EstimateTravel,
+-- budgeted: a walk over HERE_WALK times the straight line is a cliff or a
+-- cave floor). It goes
 -- past HERE_CLEAR times that radius, once done, after HERE_SECONDS without
 -- progress on it (a line being worked never expires), or on a
 -- dismiss (Engine.DismissWhileHere). One at a time; during a fight none
@@ -6314,9 +6319,11 @@ function Own.hereBuild()
 						if ok then kind, left = Own.hereFits(s, g, goal, live, shown) end
 						if kind then
 							n = n + 1
-							-- spot, d, pick: Own.hereDistance's and Own.herePick's, set
-							-- here so the poll adds no keys.
-							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, spot = false, d = false, pick = 0 }
+							-- places: where the target spawns on the map (Own.hereTick
+							-- prefers the fewest). spot, d, pick: Own.hereDistance's and
+							-- Own.herePick's, set here so the poll adds no keys.
+							local spots = kind == "work" and goal.spots
+							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1, spot = false, d = false, pick = 0 }
 						end
 					end
 				end
@@ -6475,12 +6482,15 @@ function Own.hereTick(c, px, py)
 		local pc, dx, dy = Own.herePickC, px - (Own.herePickX or 0), py - (Own.herePickY or 0)
 		if pc ~= c or dx * dx + dy * dy > Own.HERE_REPICK * Own.HERE_REPICK then Own.herePick(c, px, py) end
 	end
+	-- Of those in reach, the one whose target spawns in the fewest places on
+	-- the map (a camp or a pool before mobs found all over the zone), then
+	-- the nearest.
 	local quiet, list, best, bestD = Own.hereQuiet, Own.hereList, nil, nil
 	for i = 1, Own.hereN do
 		local e = list[i]
 		if not quiet[e.goal] then
 			local d = Own.hereDistance(e, c, px, py)
-			if d and d <= Own.hereReach(e) and (not bestD or d < bestD) then best, bestD = e, d end
+			if d and d <= Own.hereReach(e) and (not best or e.places < best.places or (e.places == best.places and d < bestD)) then best, bestD = e, d end
 		end
 	end
 	if not best then return false end

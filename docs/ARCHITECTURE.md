@@ -1297,9 +1297,11 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
   cached world points, no tables, a message only when the shown distance
   moves by `HERE_STEP`) measures from the player, wherever the live step's
-  target is: the nearest within `behavior.whileHereRadius` yards of its
-  nearest spawn area at the player's level becomes the line, after one
-  budgeted walk check
+  target is: of those within `behavior.whileHereRadius` yards of a spawn area
+  at the player's level (not an `alt` place), the one whose target spawns in
+  the fewest places on the map (`places`, its spots with the alternatives;
+  a point counts 1), then the nearest, becomes the line, so a pool or camp
+  wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
   radius, once done, after `HERE_SECONDS` with no progress on it (each

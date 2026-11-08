@@ -223,14 +223,47 @@ fn with_more_candidates_than_the_poll_measures_the_nearest_are_measured() {
 	assert!(kib < 0.5, "2000 polls picking the nearest again allocated {kib:.2} KiB");
 }
 
+// Of two objectives in reach, the one whose target spawns in fewer places wins: spiders found in eight camps all over
+// the zone (the player stands in one) wait for another camp; the single murloc 30 yd off is the line. Away from the
+// murloc, a spider camp in reach shows. Before: the nearest edge, the spiders (0 yd), always.
+const SPREAD: &str = r#"
+local camps = {}
+for _, p in ipairs({ { 47.6, 37.6 }, { 30, 70 }, { 20, 20 }, { 70, 20 }, { 10, 50 }, { 80, 80 }, { 25, 85 }, { 65, 75 } }) do
+	camps[#camps + 1] = { x = p[1], y = p[2], r = 20, n = 2 }
+end
+Polestar.RegisterGuide({
+	id = "test/spread", pack = "test", title = "Spread", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "Spiders", goals = { { t = "kill", target = "Spider", npc = 42, count = 1, quest = 52, oi = 1, map = 1429, x = 47.6, y = 37.6, spots = camps } } },
+		{ title = "Murlocs", goals = { { t = "kill", target = "Murloc", npc = 40, count = 1, quest = 50, oi = 1, map = 1429, x = 47.6, y = 36.1 } } },
+	},
+})
+"#;
+
+#[test]
+fn of_two_objectives_in_reach_the_one_found_in_fewer_places_is_the_line() {
+	let out = run_guide(
+		SPREAD,
+		"test/spread",
+		r#"
+		at(47.6, 37.6); emit(here())
+		E.DismissWhileHere()
+		at(30.0, 70.0); emit(here())                    -- another spider camp, the murloc far
+	"#,
+	);
+	assert_eq!(out, vec![json!("3:1 Kill Murloc, 1 more 30"), json!("2:1 Kill Spider, 1 more 0")]);
+}
+
 // Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (15), Fungal Spores
 // (848) in the log at 0/1, chasing plainstriders and raptors for the slow beak and head drops (background goals)
 // out to the Stagnant Oasis, the arrow 946 yd off on the camp. The spores' Laden Mushrooms grow there, yet no line
 // came: the spores' step (39, after the flight back from Ratchet and the trips to Durotar for other classes) lay
-// past where the scan stopped at the flight. The guide as shipped (guides/forever/horde/02-the-barrens.guide,
+// past where the scan stopped at the flight. The Zhevra (845) are a candidate too; no runner spawns within reach of
+// the oasis, and at a runner camp they show. The guide as shipped (guides/forever/horde/02-the-barrens.guide,
 // compiled with data/forever; skipped with a note without it).
 #[test]
-fn barrens_razormane_camp_at_the_stagnant_oasis_the_fungal_spores_line_shows() {
+fn barrens_chasing_slow_drops_to_the_stagnant_oasis_the_fungal_spores_line_shows_and_the_zhevra_at_a_runner_camp() {
 	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 	use forge_addontest::run::root;
 	let data_dir = root().join("data/forever");
@@ -260,6 +293,7 @@ w.onQuest(5041, {{ {{ text = "Supplies for the Crossroads: 0/1", type = "item", 
 w.onQuest(871, {{ 12, 12, 12 }})
 w.onQuest(867, {{ {{ text = "Witchwing Talon: 0/8", type = "item", required = 8, fulfilled = 0 }} }})
 w.onQuest(870, {{ 1 }})
+w.onQuest(845, {{ {{ text = "Zhevra Hooves: 0/4", type = "item", required = 4, fulfilled = 0 }} }})
 w.bindLocation = "The Crossroads"
 "#,
 		f.get("c").to_js_string(),
@@ -283,7 +317,12 @@ local v, x = E.GetWhileHere(), E.GetWaypoint()
 local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
 local wc, wx, wy = Polestar.Compat.MapToWorld(x.map, x.x, x.y, x.f)
 emit({{ live = E.GetLiveStep(), arrow = x.stepIndex, arrowYards = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5) or false,
-	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false }})
+	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false,
+	zhevra = cands():find("18:1:work", 1, true) ~= nil }})
+-- A Zhevra Runner camp on the road south of the Crossroads, the spores 600 yd off.
+w.moveTo(1413, 56.3, 32.6); stub.advance(0.6); stub.advance(0.6)
+emit(here())
+w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 w.progress(848, 1, 1); flush(); stub.advance(0.6)
 emit(here())
 "#,
@@ -296,7 +335,9 @@ emit(here())
 	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores, 1 more", "{}", out[0]);
 	assert_eq!(out[0]["yards"], 0, "inside the mushrooms' spawn area at the oasis: {}", out[0]);
-	assert_eq!(out[1], json!("none"), "ready to hand in: no line");
+	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too, but no runner spawns within reach of the oasis: {}", out[0]);
+	assert_eq!(out[1], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner spawn the zhevra show");
+	assert_eq!(out[2], json!("none"), "ready to hand in: no line");
 }
 
 // Fitz: chasing one step's mobs through another step's objective, "I just do it, I'm here already". A big count
