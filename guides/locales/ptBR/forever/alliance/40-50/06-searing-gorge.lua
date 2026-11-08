@@ -8,11 +8,11 @@
 return {
 	-- Step 1: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Para {area:2101}",
 
 	-- Step 2: Into Searing Gorge
 	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "",
+	["Into {area:51}"] = "Rumo a {area:51}",
 
 	-- Step 4: The Grimesilt outhouse
 	["The Grimesilt outhouse"] = "A casinha de Pedrassuja",
@@ -25,11 +25,11 @@ return {
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "A próxima tarefa do prisioneiro, Livro-Caixa de {zone:1446}, manda você para {zone:1435} e {zone:1445}: pule.",
 
 	-- Step 6: Level 48.27
-	["Level 48.27"] = "",
+	["Level 48.27"] = "Nível 48.27",
 	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "mate {npc:5839} até subir",
 
 	-- Step 7: Thorium Point
 	-- {area:1446} Thorium Point
@@ -45,7 +45,7 @@ return {
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
 	["Greater Lava Spiders"] = "Aranhas de Lava Abrasadoras",
 	-- {npc:8436} Zamael Lunthistle
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até Kalaran.",
 
 	-- Step 13: Kalaran Windblade
 	["Kalaran Windblade"] = "",
@@ -54,30 +54,30 @@ return {
 
 	-- Step 16: Firewatch Ridge: kill these as you meet them
 	-- {area:1442} Firewatch Ridge
-	["{area:1442}: kill these as you meet them"] = "",
+	["{area:1442}: kill these as you meet them"] = "{area:1442}: vá matando estes pelo caminho",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron (no name in this language: may be words) · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 
 	-- Step 19: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "",
+	["{area:51}: kill these as you meet them"] = "{area:51}: vá matando estes pelo caminho",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} se abre no norte de O Caldeirão. As Instruções Secretas: Fluxo Ígneo ficam na saliência superior; Incendossauros nadam nas poças de lava mais adentro, então puxe-os até a borda. Fique longe de {npc:14621} e de seus guardas de elite lá no fundo.",
 	-- {item:18922} Secret Plans: Fiery Flux
-	["{item:18922}; below ground"] = "",
+	["{item:18922}; below ground"] = "{item:18922}; no subterrâneo",
 
 	-- Step 20: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:14621} é elite de nível 50: a maioria das classes encara sozinha no nível 52, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 22: Level 48.66
-	["Level 48.66"] = "",
+	["Level 48.66"] = "Nível 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "mate {npc:9318} até subir",
 
 	-- Step 24: Dark Iron dwarves
 	-- {object:147516} Dark Iron (no name in this language: may be words)
@@ -85,19 +85,19 @@ return {
 
 	-- Step 27: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:5860} (elite nível 50) pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 29: Level 48.98
-	["Level 48.98"] = "",
+	["Level 48.98"] = "Nível 48.98",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "mate {npc:5844} até subir",
 
 	-- Step 30: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
-	["Below ground"] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:3181} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 32: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -107,12 +107,12 @@ return {
 
 	-- Step 34: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "Mestre de voo de {area:1446}",
 
 	-- Step 35: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "De {area:144}, cavalgue para o sul até {zone:1418}, depois para o oeste passando pela cidade da Horda, {area:340} (mantenha distância), e suba a trilha até {zone:1427}. {area:1446} é o acampamento com andaimes na borda noroeste.",

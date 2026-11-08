@@ -17,24 +17,24 @@ return {
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "A casa dela fica na colina a sudeste de {area:42}, acima de {area:121}.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
-	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "",
+	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}: o {npc:511} na cripta do cemitério é nível 26; ele fica para a sua volta a {zone:1431}",
 
 	-- Step 3: Tranquil Gardens Cemetery
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}: saque raro dos monstros de {zone:1431}",
 
 	-- Step 5: Abercrombie
-	["Head west along the road once more."] = "",
+	["Head west along the road once more."] = "Siga para oeste pela estrada mais uma vez.",
 
 	-- Step 7: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "De volta a {area:42}",
 	-- {area:42} Darkshire
-	["Head back east to {area:42}."] = "",
+	["Head back east to {area:42}."] = "Volte para leste até {area:42}.",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, lá dentro",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, na prefeitura",
 	-- {npc:273} Tavernkeep Smitts
@@ -48,18 +48,18 @@ return {
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "Horrores Descarnados andam pela encosta entre {area:42} e {area:121}, a sudeste da cidade; eles deixam cair as Flores do Mal.",
 
 	-- Step 10: Abercrombie
-	["Head west to the hermit once more."] = "",
+	["Head west to the hermit once more."] = "Siga para oeste até o ermitão mais uma vez.",
 
 	-- Step 11: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Costelas de Carniçal",
 	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Todo carniçal da metade norte de {area:492} pode deixar cair uma costela: Comedores de Carne, Mastigossos, Vetores da Peste e Devora-Cérebros.\nCuidado: um {npc:948} solta {spell:3428} quando morre, o que traz bicho a mais.",
 
 	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
@@ -74,13 +74,13 @@ return {
 
 	-- Step 17: Agent Kearnen
 	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
-	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "",
+	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Siga para oeste pela estrada, saindo de {area:94} rumo a {area:40}. {npc:7024} vigia a torre de {npc:7053} das colinas logo depois da divisa. O {npc:7051} (nível 23) que guarda a torre está com a chave; o diário do Filipe está no baú lá em cima.",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}, no baú",
 
 	-- Step 18: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Siga para o norte por Elwynn até {zone:1453}; Mathias Shaw fica na SI:7, em {object:2100}.",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Venenos e {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -95,19 +95,19 @@ return {
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
 
 	-- Step 20: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 	["Level 22 and 24 spells"] = "Feitiços dos níveis 22 e 24",
 
 	-- Step 21: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
-	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "",
+	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "Continue até {zone:1453}: {npc:6173} e {npc:6171} ficam na Catedral da Luz, no caminho até o mestre de grifos.",
 	["Cathedral of Light"] = "Catedral da Luz",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",
 
 	-- Step 23: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 
 	-- Step 24: Shaman training
 	["Shaman training"] = "Treinamento de xamã",
@@ -115,9 +115,9 @@ return {
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} no {object:28027} até {zone:1455}, treine com {npc:258098} e volte de metrô.",
 
 	-- Step 25: Rogue training
-	["Rogue training"] = "",
+	["Rogue training"] = "Treino de Ladino",
 	-- {zone:1453} Stormwind
-	["Train here, in {zone:1453}, before you go on."] = "",
+	["Train here, in {zone:1453}, before you go on."] = "Treine aqui, em {zone:1453}, antes de seguir.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Continue para o oeste até {area:94}. {object:673515} brilha junto à casa em ruínas ao sul da estrada.",

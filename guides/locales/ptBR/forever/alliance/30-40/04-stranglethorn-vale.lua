@@ -10,7 +10,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Voar para {area:42}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Mestre de voo de {area:150}",
 
 	-- Step 3: Nesingwary's Expedition
 	-- {zone:1431} Duskwood · {area:99} Rebel Camp
@@ -44,11 +44,11 @@ return {
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, na cabana",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod
-	["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "",
+	["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "{npc:469}: os registros do {quest:200}, no circuito do norte (04b)",
 
 	-- Step 12: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
-	["{area:101}: kill these as you meet them"] = "",
+	["{area:101}: kill these as you meet them"] = "{area:101}: vá matando estes pelo caminho",
 	-- {area:99} Rebel Camp
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Os rebeldes de Kurzen dominam o complexo a leste de {area:99}; trabalhe pela borda externa, onde ficam os Guerrilheiros da Selva e os Curandeiros, e saqueie os caixotes de suprimentos junto às barracas.",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
@@ -56,15 +56,15 @@ return {
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "",
-	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+	["{area:33}: kill these as you meet them"] = "{area:33}: vá matando estes pelo caminho",
+	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Cuidado: há acampamentos troll perto da área dos tigres, e os trolls podem entrar na briga se você puxar sem cuidado.\nCuidado: o ninho de raptores tem filhotes que entram na briga quando você ataca os adultos.",
 
 	-- Step 15: Level 34
-	["Level 34"] = "",
+	["Level 34"] = "Nível 34",
 	-- {area:796} Scarlet Monastery
 	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "mate {npc:1085} até subir",
 
 	-- Step 16: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
@@ -83,32 +83,32 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay
 	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "Siga a estrada principal para o sul por toda a selva, passando o desvio para {object:3202}, até {area:35}, no cabo ao sul.",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, by the bank; inside"] = "",
+	["{npc:2495}, by the bank; inside"] = "{npc:2495}, junto ao banco; lá dentro",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern (no name in this language: may be words)
 	["{npc:6807}, {object:56910}; upstairs"] = "",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern (no name in this language: may be words)
 	["{npc:2832}, in the {object:56910}; upstairs"] = "",
 	-- {npc:773} Krazek
-	["{npc:773}, in the tavern; upstairs"] = "",
+	["{npc:773}, in the tavern; upstairs"] = "{npc:773}, na taberna; no andar de cima",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, na taberna",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}: os Cristais Rolados, no circuito do norte",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, no andar de cima da taberna",
 
 	-- Step 19: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Voe para {area:108}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Mestre de voo de {area:35}",
 
 	-- Step 21: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}: vá matando estes pelo caminho",
 	-- {area:108} Sentinel Hill · {zone:1436} Westfall · {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
@@ -130,16 +130,16 @@ return {
 
 	-- Step 25: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, lá dentro",
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "",
+	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "{npc:2495}: os Crocolíscos Arapuca, no circuito do norte",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, no andar de cima",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, no andar de cima",
 	-- {npc:2496} Baron Revilgaz
-	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
+	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "{npc:2496}: os elementais da água surgem em volta da ilha assombrada, no circuito do norte",
 
 	-- Step 26: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -148,13 +148,13 @@ return {
 	-- Step 28: Druid training
 	["Druid training"] = "Treinamento de druida",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
+	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "{npc:5504}, a instrutora de druida, fica em {zone:1453}, a noroeste do {object:2101}.",
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Voe para {area:415}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Mestre de voo de {area:442}",
 
 	-- Step 31: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine

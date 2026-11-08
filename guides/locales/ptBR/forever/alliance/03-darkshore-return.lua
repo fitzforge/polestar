@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis
-	["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "",
+	["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
 	["The WANTED poster"] = "O cartaz de PROCURA-SE",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "{quest:948} é o ancião do Bosque; {npc:270269} e {npc:11218} dormem ao lado dele.",
 
 	-- Step 4: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
-	["The {quest:952}"] = "",
+	["The {quest:952}"] = "{quest:952}",
 	-- {quest:1003} Buzzbox 525
 	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
 	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "Ursocardos Grisalhos vagam pelas colinas ao redor do Bosque; {quest:1003} fica a oeste dele, no meio deles.",
@@ -51,7 +51,7 @@ return {
 
 	-- Step 7: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
-	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "",
+	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "{area:450} fica na costa ao sul da praia de {npc:10323}. Proteja o prospector enquanto ele procura o fóssil.\nCuidado: emboscadores aparecem quando ele passa por certos pontos: um batedor sai de baixo da rampa de tábuas, e mais batedores saem quando ele olha a tenda.",
 
 	-- Step 8: Murkdeep's beach
 	-- {npc:10323} Murkdeep
@@ -60,7 +60,7 @@ return {
 	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
 
 	-- Step 11: The shore west of the Grove
-	["The shore west of the Grove"] = "",
+	["The shore west of the Grove"] = "A costa a oeste do Bosque",
 	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
 	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
 
@@ -72,7 +72,7 @@ return {
 	["She gives you the {item:15826}"] = "Ela lhe dá o {item:15826}",
 
 	-- Step 13: On the way
-	["On the way"] = "",
+	["On the way"] = "No caminho",
 
 	-- Step 14: The naga
 	["The naga"] = "Os nagas",
@@ -86,13 +86,13 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde na ilhota em frente às ruínas. As partes da chave caem de Florestruzes Gigantes (topo), murlocs Brumagris (meio) e Tiscorais Furiosos (base).",
-	["Underwater"] = "",
+	["Underwater"] = "Debaixo d'água",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: o {object:177792} debaixo d'água na costa norte, a oeste das ruínas",
 
 	-- Step 16: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
-	["{area:452}: kill these as you meet them"] = "",
+	["{area:452}: kill these as you meet them"] = "{area:452}: vá matando estes pelo caminho",
 
 	-- Step 17: Back south
 	["Back south"] = "De volta ao sul",
@@ -103,8 +103,8 @@ return {
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
-	["{npc:3692}, inside {area:455}"] = "",
-	["His walk ends at the road, where Grimclaw waits"] = "",
+	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
+	["His walk ends at the road, where Grimclaw waits"] = "A caminhada dele termina na estrada, onde Garratroz espera",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: use o {item:15826} neles; vagam por toda {zone:1439}",
 
@@ -114,7 +114,7 @@ return {
 
 	-- Step 20: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Mestre de voo de {area:442}",
 
 	-- Step 21: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
@@ -122,7 +122,7 @@ return {
 
 	-- Step 24: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Use {spell:18960}",
 
 	-- Step 25: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -130,7 +130,7 @@ return {
 
 	-- Step 26: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:11802} Dendrite Starblaze
 	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}: as boas-vindas de Sheldras Lunárvore",
 
