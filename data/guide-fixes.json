@@ -3385,6 +3385,29 @@
 				}
 			],
 			"pr": 1173
+		},
+		{
+			"id": "1070-barrens-hezrul-walks-the-shore",
+			"faction": "Horde",
+			"at": {
+				"quest": 852,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to Regthar on your last Crossroads stop.",
+			"note": "Hezrul Bloodmark: the step points at his spawn (46.0,41.1), but he walks the oasis's west shore. GuardMoony (#1070, 0.3.1) stood at 46.12,37.09 and gave that as the right spot; players' recordings saw npc 3396 hostile on 1413 at 45-47,36-42 (22 players) and 14 players killed him along it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 3396: seen by 22 players at 1413 (45,39) (46,36)-(46,42) (47,38)-(47,40); killed 18 times by 14"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1070"
+				}
+			],
+			"issue": 1070,
+			"pr": 1218
 		}
 	]
 }

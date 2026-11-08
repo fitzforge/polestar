@@ -6382,3 +6382,19 @@ test('Alliance 40-60 order: the quests the route passes are taken (... and Bugs,
 	const ws = goals(A('50-60/03-winterspring'));
 	for (const q of [5097, 5219, 4984]) assert.ok(ws.some(({ goal }) => is('accept', q)(goal)), `${q} taken where the Winterspring guide passes its giver on the way to the Eastern Plaguelands`);
 });
+
+// GuardMoony's report (#1070): Hezrul Bloodmark walks the west shore of Lushwater Oasis (players' recordings see
+// him from 46,36 to 46,42), so the step's arrow at his spawn isn't always where he is. The step says he walks
+// that shore, and the guide-fixes record carries the same tip so a Forge round keeps it.
+test("GuardMoony's report (#1070): Hezrul Bloodmark's step says he walks the oasis shore", { skip }, () => {
+	// Whichever Barrens guide holds Hezrul (02 since the Horde 12-30 rework, #1210; 04 before it).
+	const holds = (g) => g.t === 'collect' && g.quest === 852;
+	const guide = ['forever/horde/02-the-barrens.guide', 'forever/horde/04-the-barrens.guide'].find((f) => goals(f).some(({ goal }) => holds(goal)));
+	assert.ok(guide, 'a Barrens guide takes Hezrul\'s Head');
+	const list = goals(guide);
+	const { step } = list[at(list, "Hezrul's Head", holds)];
+	assert.match(step.note || '', /walks that shore, from about 46,36 in the north to 46,42 in the south/);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const rec = fixes.find((f) => f.at && f.at.quest === 852 && f.at.goal === 'objective');
+	assert.ok(rec && /walks that shore/.test(rec.tip), 'the guide-fixes record holds the tip');
+});
