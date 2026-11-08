@@ -6066,7 +6066,7 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 	const starts = { Orc: ORC_DUROTAR, Troll: TROLL_DUROTAR, Tauren: MULGORE, Undead: TIRISFAL, Skyborne: ZEPHRAS_HORDE };
 	const WORK = new Set(['kill', 'collect', 'interact', 'use', 'complete', 'escort', 'talk']);
 	for (const [race, start] of Object.entries(starts)) {
-		const chain = hordeChainFrom(start).filter((g) => !/\/(30-40|40-50|50-60)\//.test(g));
+		const chain = chainFrom(start).filter((g) => !/\/(30-40|40-50|50-60)\//.test(g));
 		assert.deepEqual(chain.slice(1).map((g) => g.replace('forever/horde/', '')), ['03-silverpine-forest.guide', '02-the-barrens.guide', '05-stonetalon-mountains.guide', '06-hillsbrad-foothills.guide', '04-the-barrens.guide', '07-ashenvale.guide'], `${race}: the 12-30 chain`);
 		const fits = (o) => !o || !o.races || o.races.includes(race);
 		const cls = (o) => o && o.classes;
