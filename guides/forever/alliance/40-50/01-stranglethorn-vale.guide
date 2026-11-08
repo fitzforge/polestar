@@ -419,22 +419,12 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
 
-step Booty Bay
-  turnin 611                          -- Baron Revilgaz
-  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
-  turnin 209                          -- Kebok, upstairs
-  turnin 621                          -- Inside
-  note MacKinley's next task sends you after elite ogres: skip it.
-  turnin 600                          -- Crank Fizzlebub
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
-
-step Level 42.23
+step Level 42.06
   when !group 193
-  when level<42.23
-  tip If you skipped Panther Mastery, grind here to level 42.23 to stay on the route's plan.
+  when level<42.06
+  tip If you skipped Panther Mastery, grind here to level 42.06 to stay on the route's plan.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.23                          -- grind on Cold Eye Basilisk
+  level 42.06                          -- grind on Cold Eye Basilisk
 
 step Raptor Mastery
   when group 197
@@ -453,12 +443,12 @@ step Hemet Nesingwary
   when group 208
   accept 208
 
-step Level 42.27
+step Level 42.1
   when !group 197
-  when level<42.27
-  tip If you skipped Raptor Mastery, grind here to level 42.27 to stay on the route's plan.
+  when level<42.1
+  tip If you skipped Raptor Mastery, grind here to level 42.1 to stay on the route's plan.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.27                          -- grind on Cold Eye Basilisk
+  level 42.1                           -- grind on Cold Eye Basilisk
 
 step Big Game Hunter
   when group 208
@@ -470,12 +460,23 @@ step Hemet Nesingwary
   when group 208
   turnin 208
 
-step Level 42.33
+step Level 42.16
   when !group 208
-  when level<42.33
-  tip If you skipped Big Game Hunter, grind here to level 42.33 to stay on the route's plan.
+  when level<42.16
+  tip If you skipped Big Game Hunter, grind here to level 42.16 to stay on the route's plan.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.33                          -- grind on Cold Eye Basilisk
+  level 42.16                          -- grind on Cold Eye Basilisk
+
+step Booty Bay
+  tip Ride south down the road to Booty Bay.
+  turnin 611                          -- Baron Revilgaz
+  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
+  turnin 209                          -- Kebok, upstairs
+  turnin 621                          -- Inside
+  note MacKinley's next task sends you after elite ogres: skip it.
+  turnin 600                          -- Crank Fizzlebub
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
 
 # ---------------------------------------------------------------- Stormwind
 

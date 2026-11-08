@@ -6665,3 +6665,20 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: final review: the tit
 	assert.match(guide.title, /Un'Goro Crater/);
 	assert.match(guide.title, /Silithus/);
 });
+
+// Final route review before 0.3.5, Alliance 40-60: after the last Booty Bay stop, Stranglethorn rode back north for the
+// Nesingwary hunts (Tethis, King Bangalash) or, solo, for top-ups on the Cold Eye Basilisks, then south again to fly.
+// They come before that stop now, after the Crystalvein Mine, with the top-ups lowered by the Booty Bay experience.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the northern hunts and solo top-ups before the last Booty Bay stop', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const last = at(list, 'turnin 611', is('turnin', 611));
+	const fly = list.findIndex((e, i) => i > last && e.goal.t === 'fly');
+	assert.ok(at(list, 'turnin 208', is('turnin', 208)) < last, 'Big Game Hunter before Booty Bay');
+	assert.ok(at(list, 'collect 3877', (g) => g.t === 'collect' && g.quest === 197) < last, 'Tethis before Booty Bay');
+	const ups = list.filter(({ goal, step }) => goal.t === 'level' && (step.when || []).some((w) => w.k === 'group' && [w.q].flat().some((q) => [193, 197, 208].includes(q))));
+	assert.equal(ups.length, 3, 'three solo top-ups for the Nesingwary hunts');
+	for (const e of ups) assert.ok(list.indexOf(e) < last, `top-up to ${e.goal.level} before Booty Bay`);
+	assert.ok(!list.slice(last, fly).some(({ goal }) => goal.t === 'level'), 'no grind between Booty Bay and the flight');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(rf.some((p) => p.a[0] === 'turnin' && p.a[1] === 208 && p.b[0] === 'turnin' && p.b[1] === 611), 'a route-fixes pair keeps it');
+});

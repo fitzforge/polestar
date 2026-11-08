@@ -2965,6 +2965,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					611
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance Stranglethorn Vale 40-50): the hunts around Nesingwary's camp (Raptor Mastery's Tethis, Big Game Hunter's King Bangalash) and their solo top-ups on the Cold Eye Basilisks (36.3,42.3) come after the Crystalvein Mine and Zul'Mamwe, before the last Booty Bay stop (27,77). The guide went to Booty Bay first and then rode north for them and back south to fly; the top-up targets drop by the Booty Bay hand-ins' experience (about 17,400, 0.17 of level 42)."
+			},
+			{
+				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08): see turnin 208 before turnin 611; the whole last Booty Bay stop (611, 209, 621, 600, 609) comes after the northern hunts."
+			},
+			{
+				"a": [
 					"task",
 					4291
 				],
