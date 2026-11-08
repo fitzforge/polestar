@@ -59,7 +59,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 # handed in.
 #
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
-# Sponsorship (1178) for Gazlowe in Ratchet and Centaur Bounty (1366) for the second Desolace
+# Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
+# docks in Ratchet, and Centaur Bounty (1366) for the second Desolace
 # visit (forever/horde/30-40/04-dustwallow-marsh); Alliance Relations (1436) and Hunting in
 # Stranglethorn (5763) for the next guide.
 
@@ -212,6 +213,7 @@ step Mirage Raceway
   zone Thousand Needles
   tip South-west back to the raceway.
   turnin 1110                         -- Kravel Koalbeard
+  accept 1111                         -- Kravel Koalbeard: his parts order goes to Wharfmaster Dizzywig in Ratchet, later on the route
   turnin 1104                         -- Fizzle Brassbolts
   turnin 1105                         -- Wizzle Brassbolts
   accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, at 39

@@ -9,7 +9,8 @@ next forever/horde/30-40/06-badlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Lord Aliden Perenolde (507), Taretha's Gift (508), Ward Restocking (92519).
+# Added here: Lord Aliden Perenolde (507), Taretha's Gift (508), Ward Restocking (92519),
+# WANTED: Baron Vardus (566).
 
 # Alterac and the second Arathi visit at 38-39 (the 2026-11-07 re-order): Strahnbrad, the
 # Perenolde manor and the Dalaran ruins from Tarren Mill, then Arathi from west to east and
@@ -53,6 +54,7 @@ step Fly to Tarren Mill
 step Tarren Mill
   zone Hillsbrad Foothills
   accept 503                          -- Krusk, inside the inn
+  accept 566                          -- The WANTED poster by the inn
   sethome "Tarren Mill"
 
 step Alterac Mountains
@@ -76,6 +78,11 @@ step Tarren Mill
   tip Krusk waits inside the inn at Tarren Mill, back south down the road.
   turnin 506                          -- Krusk, inside
   accept 507
+
+step Baron Vardus
+  zone Alterac Mountains
+  tip Baron Vardus (40) carries the head. He turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing Gol'dir, this step is done.
+  collect 3626 quest 566              -- Head of Baron Vardus
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -106,6 +113,7 @@ step Tarren Mill
   turnin 545                          -- Magus Wordeen Voidglare, inside
   note The magus offers a dungeon errand next: leave it.
   turnin 508                          -- Krusk, inside the inn
+  turnin 566                          -- High Executor Darthalia
 
 # ---------------------------------------------------------------- Into Arathi
 
