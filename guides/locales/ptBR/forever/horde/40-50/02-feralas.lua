@@ -10,7 +10,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Voe para {object:3202}",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Mestre de voo de {area:75}",
 
 	-- Step 3: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -25,7 +25,7 @@ return {
 	-- {npc:3362} Ogunaro Wolfrunner · {npc:4752} Kildar
 	["Wolves: {npc:3362}, beside {npc:4752}."] = "Lobos: {npc:3362}, ao lado de {npc:4752}.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "",
+	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Montaria e Vagaventos: {npc:265756}, em {area:17684}, {area:16638}, na Ilha de Zefras.",
 
 	-- Step 8: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
@@ -39,7 +39,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
 	-- Step 11: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -57,7 +57,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Voe para {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 16: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -67,7 +67,7 @@ return {
 
 	-- Step 17: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {area:440} Tanaris
@@ -75,32 +75,32 @@ return {
 
 	-- Step 22: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: vá matando estes pelo caminho",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
+	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Os bandidos e ladrões acampam nas dunas a leste de {area:976}. Qualquer Errante pode carregar um cantil: guarde dez, cinco para cada recompensa do Rastamala.\nCuidado: os Ladinos Errantes (nível 43-44) andam furtivos, então podem chegar sem ser vistos.",
 	["water pouches in your bags"] = "bolsas de água nas bolsas",
 
 	-- Step 24: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Siga para o nordeste até o porto goblin na costa.",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, lá dentro",
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
 
 	-- Step 25: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: vá matando estes pelo caminho",
 	-- {npc:7883} Andre Firebeard
-	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "",
-	["Upstairs"] = "",
+	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Ao sul pela costa, os piratas dos Mares do Sul ocupam a enseada. {npc:7883} e a carga roubada ficam no cais, lá no fundo. Qualquer pirata pode deixar cair um chapéu, os sequestradores mais que todos.\nCuidado: dois ou três piratas ficam com {npc:7883}, e muitos outros piratas da vila entram na briga assim que ela começa.",
+	["Upstairs"] = "No andar de cima",
 
 	-- Step 26: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
+	["{area:985}: kill these as you meet them"] = "{area:985}: vá matando estes pelo caminho",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Os magos das sombras, ladinos e assassinos acampam a sudeste de {area:976}.\nA sudeste de Geringontzan, os bandidos Errantes acampam nas dunas; {npc:7847} fica no acampamento do leste.\nCuidado: os Ladinos Errantes ficam furtivos fora de combate, então ladinos escondidos podem entrar numa briga que você começar num acampamento.\nCuidado: dois Ladinos Errantes furtivos acompanham o Califa aonde ele for. No acampamento onde ele surge, dois magos das sombras e seus lacaios estão perto o bastante para entrar na luta. Lá perto das torres dá para enfrentá-lo sem eles.",
 
 	-- Step 27: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
@@ -112,22 +112,22 @@ return {
 
 	-- Step 29: Fly to Freewind Post
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
 	-- Step 31: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
-	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
+	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777} anda por {area:1099}: procure dentro do círculo no mapa",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
 	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, por volta do nível 45",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, lá dentro",
 
 	-- Step 32: Gordunni Outpost
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it."] = "Ao norte dos gnolls, os ogros ocupam um posto no alto de uma colina; puxe os Ogros-magos até você. O cobalto está nos montes de terra em volta do posto, e o pergaminho fica no chão lá dentro.",
 
 	-- Step 33: Woodpaw north camp
 	["Woodpaw north camp"] = "Acampamento Patábua do norte",
-	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "",
+	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "Os gnolls Patábua acampam nas colinas logo a noroeste de Mojache; qualquer um pode deixar cair uma juba.\nCuidado: todo gnoll Patábua, menos o Macho Alfa, sai correndo atrás de ajuda com 15% de vida, o que pode trazer mais gnolls para a briga.",
 
 	-- Step 34: Camp Mojache
 	-- {quest:2863} Alpha Strike
@@ -135,8 +135,8 @@ return {
 
 	-- Step 35: Feralas: kill these as you meet them
 	-- {area:357} Feralas
-	["{area:357}: kill these as you meet them"] = "",
-	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "",
+	["{area:357}: kill these as you meet them"] = "{area:357}: vá matando estes pelo caminho",
+	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Os dardejantes esvoaçam sobre o bosque logo a oeste de Mojache; quase todos deixam cair uma asa. Os Machos Alfa Patábua lideram os acampamentos a sudoeste dele: mate-os dentro de uma hora.\nCuidado: a maioria dos Machos Alfa fica em acampamentos pequenos de tenda com mais 2 a 4 gnolls que entram na briga, e outros gnolls patrulham entre os acampamentos.",
 
 	-- Step 37: Grimtotem camp
 	["Grimtotem camp"] = "Acampamento Temível Totem",
@@ -156,11 +156,11 @@ return {
 
 	-- Step 41: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
+	["{area:2522}: kill these as you meet them"] = "{area:2522}: vá matando estes pelo caminho",
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} anda por {area:2522}: procure dentro do círculo no mapa",
 
 	-- Step 42: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
@@ -176,13 +176,13 @@ return {
 	-- {area:357} Feralas
 	["the Rage Scar yetis, on the next visit to {area:357}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010}, em {zone:1454}",
 
 	-- Step 45: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
 	-- Step 46: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words)

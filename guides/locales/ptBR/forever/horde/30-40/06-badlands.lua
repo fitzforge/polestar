@@ -26,7 +26,7 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "para Helgrum, em {area:75}, por volta do nível 42",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, lá dentro",
 
 	-- Step 5: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: vá matando estes pelo caminho",
 	-- {area:1878} The Dustbowl · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",
@@ -58,18 +58,18 @@ return {
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
 	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Continue para o norte pela estrada; o baú fica no sítio de escavação de {area:1517}, ao pé das ruínas a noroeste da estrada.",
-	["Below ground"] = "",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 13: Agmond's End
 	-- {area:1877} Valley of Fangs
-	["Head back south down the road, past the {area:1877}."] = "",
+	["Head back south down the road, past the {area:1877}."] = "Volte para o sul pela estrada, passando por {area:1877}.",
 
 	-- Step 14: The Dustbowl: kill these as you meet them
 	-- {area:1878} The Dustbowl
-	["{area:1878}: kill these as you meet them"] = "",
+	["{area:1878}: kill these as you meet them"] = "{area:1878}: vá matando estes pelo caminho",
 	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "",
+	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "Todo elemental da rocha de {zone:1418} deixa cair os estilhaços para {npc:6868}: os Elementais Inferiores da Rocha (37) na planície a oeste do acampamento de {npc:2921} são os tranquilos, mais ou menos um a cada cinco. Só os Elementais Maiores da Rocha (42-44, bem acima de você) nos barrancos do sudoeste deixam cair as braçadeiras para {npc:2921}, também uns um a cada cinco: puxe um de cada vez e descanse entre as lutas, ou deixe para lá. Pelo caminho, continue matando os coiotes e urubus que ainda faltam.",
 
 	-- Step 15: The Dustbowl
 	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing

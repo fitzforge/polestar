@@ -8,13 +8,13 @@
 return {
 	-- Step 1: Fly to Zoram'gar Outpost
 	-- {area:2897} Zoram'gar Outpost
-	["Fly to {area:2897}"] = "",
+	["Fly to {area:2897}"] = "Voe para {area:2897}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea
-	["{npc:12736} stands in the outpost."] = "",
+	["{npc:12736} stands in the outpost."] = "{npc:12736} fica no assentamento.",
 
 	-- Step 3: Blackfathom Deeps ruins
 	-- {area:2797} Blackfathom Deeps
@@ -27,7 +27,7 @@ return {
 	["The Sapphires are blue crystals on the walls of the tunnels leading to the {area:2797} portal, underground and outside the instance: swim down from the pit, under the wall, into the cave. The satyrs and naga in the tunnels are elite: grouping up is advised. The crystals respawn quickly, so there is no need to go deep."] = "As Safiras são cristais azuis nas paredes dos túneis que levam ao portal das {area:2797}, no subsolo e fora da instância: nade para baixo a partir do fosso, por baixo da parede, até a caverna. Os sátiros e nagas dos túneis são elite: é recomendado formar grupo. Os cristais reaparecem rápido, então não é preciso ir fundo.",
 
 	-- Step 5: Zoram'gar Outpost
-	["Back to Zoram'gar from the ruins before heading east for good."] = "",
+	["Back to Zoram'gar from the ruins before heading east for good."] = "De volta ao Assentamento Zoram'gar, saindo das ruínas, antes de seguir para o leste de vez.",
 	-- {npc:12736} Je'neu Sancrea · {area:2797} Blackfathom Deeps
 	["{npc:12736} offers a {area:2797} quest next; leave it unless you have a group."] = "{npc:12736} oferece em seguida uma missão das {area:2797}; deixe-a de lado a menos que tenha um grupo.",
 
@@ -45,7 +45,7 @@ return {
 	-- {npc:210995} Alonso · {area:421} Mystral Lake
 	["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, uma novidade do Forever, fica na margem oeste do {area:421} com três missões rápidas de Matadragões.",
 	-- {npc:210995} Alonso · {area:1276} The Talondeep Path
-	["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "",
+	["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} pode não oferecer estas para todas as classes; se não oferecer, siga em frente.; anda por {area:1276}: o mapa marca onde procurar",
 
 	-- Step 9: Tideress
 	-- {npc:12759} Tideress · {area:421} Mystral Lake · {item:16408} Befouled Water Globe
@@ -61,11 +61,11 @@ return {
 
 	-- Step 12: Sharptalon
 	-- {npc:12676} Sharptalon
-	["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest."] = "",
+	["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest."] = "{npc:12676}, uma grande sabre-da-noite, ronda a mata a sudeste do Acampamento de Lenhadores Brado Guerreiro, no caminho para o norte, rumo ao Posto Machadada. A garra dela inicia a próxima missão de caça.",
 
 	-- Step 16: Splintertree Post
 	-- {npc:12196} Innkeeper Kaylisk
-	["{npc:12196}, beside her"] = "",
+	["{npc:12196}, beside her"] = "{npc:12196}, ao lado dela",
 	-- {npc:12718} Gurda Ragescar
 	["{npc:12718}: only if you carry the manual pages"] = "{npc:12718}: só se você tiver as páginas do manual",
 
@@ -81,7 +81,7 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {area:2897} Zoram'gar Outpost
-	["{area:2897} flight master"] = "",
+	["{area:2897} flight master"] = "Mestre de voo de {area:2897}",
 
 	-- Step 23: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:246344} Alodan the Hopeful
@@ -96,11 +96,11 @@ return {
 	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
 	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
-	["{npc:259118}: {quest:96261} comes once this is handed in"] = "",
+	["{npc:259118}: {quest:96261} comes once this is handed in"] = "{npc:259118}: {quest:96261} vem depois que esta for entregue",
 
 	-- Step 28: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
-	["{area:17044}: kill these as you meet them"] = "",
+	["{area:17044}: kill these as you meet them"] = "{area:17044}: vá matando estes pelo caminho",
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
 	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
 	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} sits at the north end: her {item:273658} starts {quest:96294}."] = "Ao norte do acampamento, aranhas infestam o cemitério em {area:17044}. Use o {item:273015} de {npc:264074} nos Cadáveres Roídos; as Tecelãs deixam cair a {item:273181}. {npc:264082} fica no extremo norte: o {item:273658} dela inicia {quest:96294}.",
@@ -112,7 +112,7 @@ return {
 
 	-- Step 29: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} só oferece {quest:96261} depois que {quest:96259} for entregue.",
 
 	-- Step 31: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -127,23 +127,23 @@ return {
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "De volta ao sul até o acampamento, depois suba até {zone:1456} para o voo até o {area:378}.",
 
 	-- Step 34: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 36: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {area:215} Mulgore · {area:222} Bloodhoof Village · {npc:2995} Tal
-	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "",
+	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Voe para {area:1638} se já tiver a rota de voo. Senão, voe para {area:378}, siga para oeste até {area:215}, passando por {area:222}, até {area:1638} e pegue a rota de voo com {npc:2995} no platô central.",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
 	["Speak with {npc:3057}, in {area:1638}: {quest:93739}"] = "Fale com {npc:3057}, em {area:1638}: {quest:93739}",
 	-- {npc:3057} Cairne Bloodhoof
-	["Talk to {npc:3057}"] = "",
+	["Talk to {npc:3057}"] = "Fale com {npc:3057}",
 
 	-- Step 37: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:199} com {npc:11869} (10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 38: Fly to Camp Taurajo
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 39: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
@@ -161,9 +161,9 @@ return {
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "",
 	-- {npc:4877} Jandia
-	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "",
+	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}: os suprimentos roubados dela estão no mesmo covil de harpias",
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
-	["{npc:11116}, beside {npc:4877}"] = "",
+	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}, ao lado de {npc:4877}",
 
 	-- Step 43: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "Desça de elevador. O ovo está num ninho no fundo do cânion em um de três lugares: a sudeste das mesetas (52.3,55.2), a leste (56.4,50.4) ou a sudoeste (37.6,56.1).",
@@ -177,7 +177,7 @@ return {
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} fica no alto de uma meseta a leste dos acampamentos Galath. Para o {quest:1149}, ande até o fim das tábuas ao lado dele: você cai em segurança.",
 	-- {npc:2986} Dorn Plainstalker
-	["{npc:2986}, below ground"] = "",
+	["{npc:2986}, below ground"] = "{npc:2986}, no subterrâneo",
 
 	-- Step 48: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
@@ -191,7 +191,7 @@ return {
 	["{object:176344}, south-east camp"] = "{object:176344}, acampamento sudeste",
 
 	-- Step 49: Level 28.9
-	["Level 28.9"] = "",
+	["Level 28.9"] = "Nível 28.9",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps · {area:1717} Razorfen Kraul
 	["Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "",
 	-- {area:2097} Darkcloud Pinnacle
@@ -205,7 +205,7 @@ return {
 
 	-- Step 51: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "A oeste do Posto Confinalvo, as mantícoras fazem ninho nos penhascos de {area:482}; os ovos ficam nos ninhos. {npc:10427} espera no lado leste da área dos ninhos: liberte-o e mantenha-o vivo na volta até {area:2237}.\nCuidado: mantícoras de nível 28-29 voam por cima e podem ser puxadas sem aviso. Um bando de três mantícoras pode emboscar você depois que passar a primeira coluna lá embaixo.",
 
 	-- Step 52: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
@@ -213,40 +213,40 @@ return {
 
 	-- Step 54: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:10992} é elite de nível 30: a maioria das classes encara sozinha no nível 32, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 55: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Mate o {npc:10720} que vem atrás de {npc:10638}",
 
 	-- Step 58: Level 29.49
-	["Level 29.49"] = "",
+	["Level 29.49"] = "Nível 29.49",
 	-- {quest:5151} Hypercapacitor Gizmo · {area:487} Roguefeather Den · {area:2797} Blackfathom Deeps · {area:796} Scarlet Monastery
 	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:4101} Screeching Roguefeather
-	["grind on {npc:4101}"] = "",
+	["grind on {npc:4101}"] = "mate {npc:4101} até subir",
 
 	-- Step 59: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
+	["{area:483}: kill these as you meet them"] = "{area:483}: vá matando estes pelo caminho",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies
 	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}, no chão em volta do covil",
 
 	-- Step 60: Freewind Post
 	-- {area:484} Freewind Post · {area:487} Roguefeather Den · {npc:2986} Dorn Plainstalker
 	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "",
 	-- {npc:10645} Thalia Amberhide
-	["{npc:10645}, inside"] = "",
+	["{npc:10645}, inside"] = "{npc:10645}, lá dentro",
 	-- {npc:4877} Jandia
-	["{npc:4877}, inside"] = "",
+	["{npc:4877}, inside"] = "{npc:4877}, lá dentro",
 
 	-- Step 61: Test of Endurance
 	-- {npc:2986} Dorn Plainstalker
-	["{npc:2986}'s mesa is north-east of Freewind."] = "",
+	["{npc:2986}'s mesa is north-east of Freewind."] = "A mesa de {npc:2986} fica a nordeste de Vento Livre.",
 	-- {npc:2986} Dorn Plainstalker · {quest:1151} Test of Strength · {quest:1150} Test of Endurance
-	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "",
+	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "{npc:2986} oferece {quest:1151} depois que {quest:1150} for entregue",
 
 	-- Step 62: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch · {area:2237} Whitereach Post
@@ -256,7 +256,7 @@ return {
 	-- {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats
 	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "",
 	-- {zone:1454} Orgrimmar
-	["The next guide flies on from here to the Crossroads and {zone:1454}."] = "",
+	["The next guide flies on from here to the Crossroads and {zone:1454}."] = "O próximo guia voa daqui para a Encruzilhada e para {zone:1454}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "De volta a sudoeste até o {area:421}. Elementais da Água Contaminados flutuam pelas margens; o gazebo fica na ilha, com vista para o posto avançado da Aliança.",

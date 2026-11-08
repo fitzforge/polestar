@@ -10,7 +10,7 @@ return {
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
 	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
 	-- {quest:2478} Mission: Possible But Not Probable
-	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "",
+	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "{quest:2478} é para nível 23 ou mais: os zangões da torre são 25 e Gallywix é um elite 23. Faça quando puder, com um grupo, a partir dos Venenos do guia de classe (Horda).",
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {area:331} Ashenvale
@@ -29,7 +29,7 @@ return {
 	-- Step 6: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "No caminho para oeste, {npc:267214} está preso numa ravina ao sul da estrada principal, a sudeste de {area:415}. Cervos Galhassombra e Ursos do Vale Gris andam pela mata em toda a volta.",
 
 	-- Step 7: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -41,13 +41,13 @@ return {
 	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
 	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
 	-- {npc:12721} Mitsuwa
-	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "",
+	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}: os amuletos troll ficam no Covil dos Pelocardo, a leste do assentamento",
 	-- {npc:12717} Muglash
-	["{npc:12717}: take it last, his escort starts at once"] = "",
+	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}: pegue por último, a escolta dele começa na hora",
 
 	-- Step 9: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} anda para o norte pela praia até um braseiro naga. Apague o braseiro e depois proteja-o das ondas de nagas até Vorsha morrer; os nagas Cauda da Ira soltam as cabeças que {npc:12719} quer.",
 	["Naga brazier"] = "Braseiro naga",
 
 	-- Step 10: Naga heads
@@ -55,19 +55,19 @@ return {
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "Toda naga Iracauda ao longo da praia ao norte do posto deixa cair cabeças.",
 
 	-- Step 11: Zoram'gar Outpost
-	["Back to the outpost before heading east to Thistlefur."] = "",
+	["Back to the outpost before heading east to Thistlefur."] = "De volta ao assentamento antes de seguir para o leste, rumo aos Pelocardo.",
 
 	-- Step 12: Thistlefur Village
-	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
+	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "A leste de Zoram'gar, os furbolgs Pelocardo lotam a aldeia e as colinas em volta do covil deles.\nCuidado: um Xamã com 15% de vida ou menos sai correndo atrás de ajuda, o que pode trazer mais furbolgs.",
 
 	-- Step 13: Thistlefur Hold
 	["Thistlefur Hold"] = "Toca dos Pelocardo",
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
-	["Below ground"] = "",
+	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "Dentro do covil, Baús dos Trolls ficam ao longo dos túneis. {npc:12818} está preso lá no fundo: liberte-o e proteja até a saída; depois ele corre para casa, em {area:428}.\nCuidado: há duas emboscadas certas, cada uma com três Pelocardos (um Xamã, um Desbravador e um Vingador, Ursino ou Vigia do Covil): a primeira quando você volta à bifurcação do túnel dentro da caverna, a segunda logo depois do portão por onde {npc:3987} anda.",
+	["Below ground"] = "No subterrâneo",
 	-- {npc:12818} Ruul Snowhoof
-	["{npc:12818}, below ground"] = "",
+	["{npc:12818}, below ground"] = "{npc:12818}, no subterrâneo",
 
 	-- Step 14: Zoram'gar Outpost
 	-- {npc:12757} Karang Amakkar · {area:331} Ashenvale
@@ -77,25 +77,25 @@ return {
 	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
 	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "",
 	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside the inn"] = "",
+	["{npc:12837}, inside the inn"] = "{npc:12837}, dentro da estalagem",
 
 	-- Step 16: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1637} Orgrimmar
 	["Back out of the inn to the flight master and fly to {area:1637}."] = "",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 
 	-- Step 17: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 18: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instrutor de druida",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} em {zone:1412}; {zone:1454} não tem instrutor de druida",
 
 	-- Step 20: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {item:6626} Dogran's Pendant
@@ -109,7 +109,7 @@ return {
 
 	-- Step 23: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 24: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
@@ -121,7 +121,7 @@ return {
 
 	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
-	["{zone:1421}: kill these as you meet them"] = "",
+	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: vá matando estes pelo caminho",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
@@ -135,7 +135,7 @@ return {
 	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "",
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
-	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
+	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, das Almas Torturadas no meio das ruínas; no subterrâneo",
 
 	-- Step 27: The Offering of Blood
 	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul

@@ -27,8 +27,8 @@ return {
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "As taboas e o capim-lança crescem junto à água no {object:172958}, a leste do Drag.",
 
 	-- Step 6: Class trainer
-	["Class trainer"] = "",
-	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
+	["Class trainer"] = "Instrutor de classe",
+	["Train while you are in the city: Druids and Paladins have no trainer here."] = "Treine enquanto estiver na cidade: Druidas e Paladinos não têm instrutor aqui.",
 
 	-- Step 7: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
@@ -49,29 +49,29 @@ return {
 
 	-- Step 13: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
-	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "",
+	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949} fica na Fortaleza Grommash. Ele oferece {quest:98024} e {quest:93739} depois que você entregar {quest:95350}.",
 	-- {npc:4949} Thrall
 	["{npc:4949}, inside Grommash Hold"] = "{npc:4949}, dentro da Fortaleza Grommash",
 	-- {npc:4949} Thrall · {zone:1413} Barrens
-	["{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide"] = "",
+	["{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide"] = "{npc:4949}: guarde, Thork na Encruzilhada, no guia de {zone:1413}",
 	-- {npc:4949} Thrall · {quest:93739} Exploring the Horde
 	["{npc:4949}: {quest:93739}, a tour of the Horde's leaders"] = "{npc:4949}: {quest:93739}, um passeio pelos líderes da Horda",
 	-- {npc:3230} Nazgrel
 	["Speak with {npc:3230}, in Grommash Hold"] = "Fale com {npc:3230}, na Fortaleza Grommash",
 	-- {npc:3230} Nazgrel
-	["Talk to {npc:3230}"] = "",
+	["Talk to {npc:3230}"] = "Fale com {npc:3230}",
 	-- {npc:10540} Vol'jin
 	["Speak with {npc:10540}, in Grommash Hold"] = "Fale com {npc:10540}, na Fortaleza Grommash",
 	-- {npc:10540} Vol'jin
-	["Talk to {npc:10540}"] = "",
+	["Talk to {npc:10540}"] = "Fale com {npc:10540}",
 
 	-- Step 14: Nazgrel
 	-- {npc:3230} Nazgrel
-	["{npc:3230}, in Grommash Hold"] = "",
+	["{npc:3230}, in Grommash Hold"] = "{npc:3230}, na Fortaleza Grommash",
 
 	-- Step 16: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 17: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
@@ -81,7 +81,7 @@ return {
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} é a cidade-cripta dos Renegados no meio da floresta. Todos de quem você precisa ficam em volta da entrada da cripta; {npc:2226}, o adestrador de morcegos, fica logo a leste dela.",
 	-- {npc:1952} High Executor Hadrec
-	["{npc:1952}, below ground"] = "",
+	["{npc:1952}, below ground"] = "{npc:1952}, no subterrâneo",
 
 	-- Step 21: Border Crossings
 	-- {object:1627} Dalaran Crate
@@ -109,13 +109,13 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} espera a nordeste da casa. Escolte-o de volta até {npc:1950}; worgs atacam no caminho.",
 	-- {npc:1978} Deathstalker Erland
-	["{npc:1978}, inside"] = "",
+	["{npc:1978}, inside"] = "{npc:1978}, lá dentro",
 
 	-- Step 29: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
-	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "",
+	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}: Zilda em {zone:1458}, no caminho para o zepelim, no fim",
 	-- {area:233} Ambermill
 	["{area:233} comes later, down the lake shore"] = "",
 
@@ -125,17 +125,17 @@ return {
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
 	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "",
 	-- {object:1571} Dusty Spellbooks
-	["{object:1571}; upstairs"] = "",
+	["{object:1571}; upstairs"] = "{object:1571}; no andar de cima",
 
 	-- Step 31: Quinn Yorick
 	["North again to the Yoricks' house."] = "De novo ao norte até a casa dos Yorick.",
 	-- {npc:1951} Quinn Yorick
-	["{npc:1951}, inside"] = "",
+	["{npc:1951}, inside"] = "{npc:1951}, lá dentro",
 
 	-- Step 32: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Murlocs Pinavil",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
-	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "",
+	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Siga a margem do lago para o sudeste a partir da casa dos Yorick: os Retalhadores Pinavil e os Caçamarés que andam por ela soltam os olhos de murloc.",
 
 	-- Step 33: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
@@ -151,18 +151,18 @@ return {
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: para o Quintino, na estrada ao norte, no final",
 	-- {npc:1938} Dalar Dawnweaver
-	["{npc:1938}, just north of Allister"] = "",
+	["{npc:1938}, just north of Allister"] = "{npc:1938}, logo ao norte de Allister",
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 36: The Ivar Patch
 	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {area:85}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 38: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
-	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
+	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} fica a uma curta caminhada para o norte pela estrada, saindo das torres do zepelim; {npc:1499} está na prefeitura.",
 
 	-- Step 40: The Undercity
 	-- {object:1661} The Undercity (no name in this language: may be words) · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
@@ -170,9 +170,9 @@ return {
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, no Apothecarium",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, in the Apothecarium"] = "",
+	["{npc:5204}, in the Apothecarium"] = "{npc:5204}, no Apothecarium",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "",
+	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}: Hermógenes na Encruzilhada, no próximo guia",
 
 	-- Step 41: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words)
@@ -180,7 +180,7 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words) · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Fale com {npc:10181}, no {object:36126}: {quest:93739}",
 	-- {npc:10181} Lady Sylvanas Windrunner
-	["Talk to {npc:10181}"] = "",
+	["Talk to {npc:10181}"] = "Fale com {npc:10181}",
 
 	-- Step 42: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -191,14 +191,14 @@ return {
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
 
 	-- Step 48: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 49: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instrutor de druida",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} em {zone:1412}; {zone:1454} não tem instrutor de druida",
 
 	-- Step 52: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
@@ -211,7 +211,7 @@ return {
 
 	-- Step 55: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
-	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
+	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}: {npc:4049}, na estrada que entra em Torres de Pedra, no próximo guia",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "Em {area:2362}",

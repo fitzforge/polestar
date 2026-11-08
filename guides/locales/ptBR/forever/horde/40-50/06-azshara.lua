@@ -10,7 +10,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Voe até {object:3202}",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Mestre de voo de {area:75}",
 
 	-- Step 3: To Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -32,20 +32,20 @@ return {
 	-- {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["Continue south to {area:35}. {npc:7406} has his workshop on the upper ring of the bay."] = "Continue para o sul até {area:35}. {npc:7406} tem sua oficina no anel superior da baía.",
 	-- {npc:7406} Oglethorpe Obnoticus
-	["{npc:7406}, inside"] = "",
+	["{npc:7406}, inside"] = "{npc:7406}, lá dentro",
 	["Only once all three robots are home"] = "Só depois que os três robôs estiverem em casa",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
 
 	-- Step 7: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:8552} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 12: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basiliscos Ferroqueixo",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
 	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
-	["Below ground"] = "",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 13: Back to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -53,7 +53,7 @@ return {
 
 	-- Step 15: The Mind's Eye
 	-- {npc:818} Mai'Zoth
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:818} (elite nível 47) pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\nCuidado: dois guardas elite lançadores de feitiço, por volta do nível 45, ficam com {npc:818} e entram na luta junto com ele.",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -68,17 +68,17 @@ return {
 
 	-- Step 22: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
-	["{area:1236}: kill these as you meet them"] = "",
+	["{area:1236}: kill these as you meet them"] = "{area:1236}: vá matando estes pelo caminho",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "As Aparições Altaneiras assombram as ruínas logo ao norte do santuário; os Sátiros Haldarr acampam um pouco mais ao norte.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
-	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
+	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} anda por {area:1235}: procure dentro do círculo no mapa",
 
 	-- Step 23: Level 50
-	["Level 50"] = "",
+	["Level 50"] = "Nível 50",
 	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
-	["grind on {npc:6125}"] = "",
+	["grind on {npc:6125}"] = "mate {npc:6125} até subir",
 
 	-- Step 24: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
@@ -107,7 +107,7 @@ return {
 
 	-- Step 32: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: vá matando estes pelo caminho",
 	-- {npc:8420} Kim'jael
 	["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "Siga para o sudoeste até as ruínas. As quatro tabuletas ficam entre as ruínas, guardadas por nagas Iralisca; qualquer Sirena ou Mirmidão pode carregar a runa de {npc:8420}.",
 
@@ -124,13 +124,13 @@ return {
 	-- Step 35: Archmage Xylem
 	-- {area:1237} Valormok
 	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "A torre de Tauriel fica no penhasco logo ao norte de {area:1237}; a trilha sobe pelo lado norte.",
-	["Upstairs"] = "",
+	["Upstairs"] = "No andar de cima",
 
 	-- Step 37: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Mestre de voo de {area:1237}",
 
 	-- Step 38: Orgrimmar
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
@@ -143,22 +143,22 @@ return {
 	["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "Guarde o pagamento de {npc:8659} e {quest:3504} de Ag'tor: eles voltam para {area:1237} numa visita futura.",
 
 	-- Step 40: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 41: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
 	-- Step 42: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
 	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Voe para {zone:1456}; fica no caminho para {area:1099}. Ainda não tem a rota de voo? Voe para {area:378} e siga para o oeste por {zone:1412}. Hamuul e {npc:4046} ficam em {area:1639}; Druidas e Paladinos treinam aqui ({npc:3033}, {npc:246344}).",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 44: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga
@@ -168,7 +168,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Voe para {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 46: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
@@ -192,10 +192,10 @@ return {
 
 	-- Step 54: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "",
+	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Os Elementais do Mar e os Borrifos do Mar vão e vêm pela praia em volta do cais.\nOs Terrâmbulos e os Gigantes do Penhasco andam pelas colinas ao norte do cais. Dê uma zapeada em cada um com o {item:18904} antes: encolhidos, deixam de ser elite. Todo gigante zapeado deixa cair resíduo; use também o Recipiente de Muisec no corpo dele.",
 
 	-- Step 56: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -205,11 +205,11 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
 	-- Step 58: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, ao lado do mestre de voo",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater

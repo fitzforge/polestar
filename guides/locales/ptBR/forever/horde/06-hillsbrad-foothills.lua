@@ -14,14 +14,14 @@ return {
 	-- {object:556670} WANTED (no name in this language: may be words)
 	["The {object:556670} poster by the inn"] = "",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, lá dentro",
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
-	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {area:272}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "",
+	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {area:272}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "Depois de entregar Missão: possível, mas não provável a Shenthul, leve {quest:2479} a {npc:2391}, em {area:272}. Fique ao lado dele até o objetivo da poção terminar e entregue a continuação para aprender Venenos. Termine mesmo que o veneno de Zanzil já tenha saído; só tirar a penalidade não ensina a perícia.",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}: Venenos",
-	["Poison chain unfinished? Resume your current stage in the Class guide Poisons (Horde); completed quests do not need restarting. Arrange a group for Gallywix, finish the Hinott follow-up, then return to this leveling guide."] = "",
+	["Poison chain unfinished? Resume your current stage in the Class guide Poisons (Horde); completed quests do not need restarting. Arrange a group for Gallywix, finish the Hinott follow-up, then return to this leveling guide."] = "Cadeia dos venenos pela metade? Retome a etapa em que parou no guia de classe Venenos (Horda); missões já concluídas não precisam ser refeitas. Junte um grupo para o Gallywix, termine a continuação do Hinoto e depois volte para este guia de evolução.",
 
 	-- Step 3: Bears, creepers and lions
 	["Bears, creepers and lions"] = "Ursos, rastejantes e leões",
@@ -34,15 +34,15 @@ return {
 	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "As fazendas a leste da cidade de {area:287}. {npc:232} trabalha no campo perto da casa da fazenda ao norte, {npc:2403} no que fica mais a sudeste; Lavradores e Fazendeiros estão por toda parte. {npc:2451} cuida do campo ao sul das fazendas.",
 
 	-- Step 5: Mountain Lion Blood
-	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
+	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "Cuidado: quando um leão é atacado, os leões por perto vêm ajudar, e os ursos negros que dividem esses campos também podem entrar na briga.",
 
 	-- Step 6: Tarren Mill
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, lá dentro",
 	-- {npc:2230} Umpi
-	["{npc:2230}, next to Lydon; inside"] = "",
+	["{npc:2230}, next to Lydon; inside"] = "{npc:2230}, ao lado de Lindolfo; lá dentro",
 	-- {quest:567} Dangerous!
-	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "",
+	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "O cartaz {quest:567}: Kalaba com os camponeses, Urbano na ferraria; o escrivão e o mineiro na visita por volta do nível 30; lá dentro",
 
 	-- Step 7: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
@@ -50,27 +50,27 @@ return {
 
 	-- Step 8: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
-	["{area:286}: kill these as you meet them"] = "",
+	["{area:286}: kill these as you meet them"] = "{area:286}: vá matando estes pelo caminho",
 	-- {area:287} Hillsbrad
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "",
+	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Os Camponeses trabalham nos campos ao sul das casas da fazenda. Todo humano de {area:287} deixa cair crânios; os Camponeses são os que mais deixam.\nCuidado: um camponês fugido que chega à prefeitura pode voltar com um monte de reforço, incluindo soldados de {area:287}; lentidão, enraizar e efeitos parecidos impedem a fuga.",
 	-- {item:3692} Hillsbrad Human Skull
 	["{item:3692}: the Peasants in the fields"] = "{item:3692}: os Camponeses de Eira dos Montes nos campos",
 	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
-	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
+	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "{npc:2451} anda por {area:286}: procure dentro do círculo no mapa",
 
 	-- Step 9: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: ordens para {npc:270438}, a caminho do Forte do Desterro",
 	-- {npc:2216} Apothecary Lydon · {item:3502} Mudsnout Blossoms
-	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "",
+	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "{npc:2216}, lá dentro: os {item:3502} crescem a sudoeste do Forte do Desterro, no caminho até lá",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
-	["{area:275}: kill these as you meet them"] = "",
+	["{area:275}: kill these as you meet them"] = "{area:275}: vá matando estes pelo caminho",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull e {npc:2238} estão acorrentados nas construções do pátio de {area:275}; abra os dois cadeados.\nDe {area:272}, siga para sudeste pelas colinas rumo a {area:275}. Ladinos e Vigias da Camarilha ocupam os acampamentos pelo caminho.",
 	-- {npc:2261} Syndicate Watchman
-	["{npc:2261} walks around here: look inside the circle on the map"] = "",
+	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} anda por aqui: procure dentro do círculo no mapa",
 	["Drull's ball and chain"] = "Bola e corrente de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
@@ -83,10 +83,10 @@ return {
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
-	["{npc:270438}, once {quest:98094} is in"] = "",
+	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, depois que {quest:98094} estiver entregue",
 
 	-- Step 13: The southern peak
-	["The southern peak"] = "",
+	["The southern peak"] = "O pico sul",
 	-- {area:290} Dun Garok
 	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "",
 
@@ -94,10 +94,10 @@ return {
 	["The smithy"] = "A ferraria",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "A ferraria fica no meio da cidade de {area:287}. {npc:2404} e seus aprendizes trabalham na forja; o {object:1736} está empilhado ao lado. {npc:2449} anda pela rua ao norte dela.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 15: The western peak
-	["The western peak"] = "",
+	["The western peak"] = "O pico oeste",
 	-- {area:287} Hillsbrad
 	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "",
 
@@ -112,7 +112,7 @@ return {
 	["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, em {zone:1458}",
 
 	-- Step 18: The northern peak
-	["The northern peak"] = "",
+	["The northern peak"] = "O pico norte",
 	-- {area:272} Tarren Mill
 	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "",
 
@@ -124,7 +124,7 @@ return {
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
 	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Mestre de voo de {area:272}",
 
 	-- Step 21: Fly to the Undercity
 	-- {area:1497} Undercity
@@ -167,7 +167,7 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
 	-- Step 31: Orgrimmar
-	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
+	["Train before you fly on: the next guide flies from here to the Crossroads."] = "Treine antes de seguir voo: o próximo guia voa daqui até a Encruzilhada.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull e {npc:2238} estão acorrentados nos prédios do pátio de {area:275}; abra as duas trancas.",
