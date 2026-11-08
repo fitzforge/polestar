@@ -355,6 +355,44 @@ emit({ take = g, target = p and p.name or false })"#);
 	assert_eq!(horde, json!({ "take": ["90200:Anastasia Hartwell"], "target": "Anastasia Hartwell" }), "the Alliance trainer next door is not for the Horde, nor a quest only an Alliance NPC gives");
 }
 
+// Storm, Earth, and Fire (79358 in the 0.3.5 data) is turned in to Rau Cliffrunner (Horde) or Veyric Thunderhame
+// (no side in the Codex); the page keeps the first, Rau, so 0.3.5's hand-in guide sent Alliance Shamans to the
+// Horde's NPC. The character's own side picks the ender, as Dungeons.Giver picks the giver: the page's when it is
+// theirs, else the Codex ender of their side; the Dungeons page's Ends line reads the same.
+#[test]
+fn a_quest_turned_in_to_npcs_of_both_sides_storm_earth_and_fire_the_alliance_hands_it_in_to_its_own_ender_never_the_page_s_horde_one() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, faction: Value, map: i32, x: i32, y: i32| json!({ "id": id, "name": name, "level": 37, "levelMax": null, "faction": faction, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] });
+	c["npcs"]["9011"] = npc(9011, "Rau Cliffrunner", json!("H"), 1413, 46, 52);
+	c["npcs"]["9012"] = npc(9012, "Veyric Thunderhame", Value::Null, 1421, 60, 28);
+	c["quests"]["90300"] = json!({
+		"id": 90300, "title": "Storm, Earth, and Fire", "level": 25, "minLevel": 18, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [9012], "object": [], "item": [] }, "end": { "npc": [9011, 9012], "object": [] },
+		"objectives": [], "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90300"] = json!({ "area": 209 });
+	let journal = plain(&journal_of(&c, &i));
+	let page = journal["dungeons"][KEY]["quests"].as_array().unwrap().iter().find(|q| q["id"] == 90300).unwrap().clone();
+	assert_eq!(page["finish"]["name"], "Rau Cliffrunner", "the page keeps the first ender");
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local plan = D.HandinPlan("{KEY}")
+local ender
+for _, h in ipairs(plan.hand) do if h.quest.id == 90300 then ender = h.ender.name end end
+local turnin
+for _, s in ipairs(D.HandinGuide("{KEY}").steps) do
+	for _, g in ipairs(s.goals) do if g.t == "turnin" and g.quest == 90300 then turnin = g.npcName end end
+end
+local e = D.Ender and D.Ender(D.Quest("{KEY}", 90300), Polestar.PlayerPoint())
+emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or false })"#);
+	let shaman = run(&own, &script, Opts { race: "Dwarf", faction: "Alliance", cls: "SHAMAN", level: 40, ready: vec![90300], ..Default::default() }).remove(0);
+	assert_eq!(shaman, json!({ "plan": "Veyric Thunderhame", "guide": "Veyric Thunderhame", "ender": "Veyric Thunderhame" }), "an Alliance Shaman hands it in to Veyric");
+	let horde = run(&own, &script, Opts { race: "Troll", cls: "SHAMAN", level: 40, ready: vec![90300], ..Default::default() }).remove(0);
+	assert_eq!(horde, json!({ "plan": "Rau Cliffrunner", "guide": "Rau Cliffrunner", "ender": "Rau Cliffrunner" }), "the Horde keeps the page's Rau");
+}
+
 #[test]
 fn pickup_opens_the_guide_in_a_new_tab_and_it_plays_to_the_end_the_giver_link_points_at_the_first_prerequisite_still_to_do() {
 	let pack = default_pack();

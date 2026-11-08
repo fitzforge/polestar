@@ -10,8 +10,9 @@
 --       plan = { dungeon, hand = { { quest, rec, ender } }, unfinished = { quest, ... },
 --         inside = { quest, ... }, unplaced = { quest, ... } }
 --       the page's quests in the log: hand (objectives done, turned in
---       outside at `ender`, a point { kind, id, name, map, x, y, f }: the
---       page's own place first, else the Codex's ender nearest the player),
+--       outside at `ender`, a point { kind, id, name, map, x, y, f }:
+--       Dungeons.Ender, the page's own place when it is the character's
+--       side's, else the Codex's ender of that side nearest the player),
 --       unfinished (objectives still open), inside (done, turned in inside
 --       the dungeon), unplaced (done, nowhere known). No follow-up search:
 --       the Dungeons page asks for the plan on every render.
@@ -48,10 +49,6 @@ local function LK() return ns.Lookup end
 local function done(id) return ns.Compat.IsQuestCompleted(id) and true or false end
 local function inLog(id) return ns.Compat.IsOnQuest(id) and true or false end
 
-local function located(p)
-	return type(p) == "table" and p.map ~= nil and p.x ~= nil and p.y ~= nil
-end
-
 -- Lookup.QuestEnd's { npc|object, name, spawn } -> a point.
 local function endPoint(e)
 	if not (e and e.spawn) then return nil end
@@ -67,16 +64,6 @@ local function finished(id, rec)
 	local C = ns.Compat
 	if C.IsQuestReadyForTurnIn(id) then return true end
 	return rec ~= nil and #(rec.objectives or {}) == 0 and C.GetQuestObjectives(id) == nil
-end
-
--- A page quest's turn-in outside the dungeon -> point | nil. The page's own
--- place first (DungeonJournal), else the Codex ender nearest `from`.
-local function enderOf(pq, rec, from)
-	local f = pq.finish
-	if f and (f.kind == "npc" or f.kind == "object") and f.id and located(f) then
-		return { kind = f.kind, id = f.id, name = f.name, map = f.map, x = f.x, y = f.y, f = f.f }
-	end
-	return rec and endPoint(LK().QuestEnd(rec["end"], from)) or nil
 end
 
 local function titleOf(pq, rec) return pq.title or (rec and rec.title) or "" end
@@ -96,7 +83,7 @@ function Dungeons.HandinPlan(key)
 			elseif pq.finish and pq.finish.inside then
 				plan.inside[#plan.inside + 1] = pq
 			else
-				local ender = enderOf(pq, rec, from)
+				local ender = Dungeons.Ender(pq, from, rec)
 				if ender then
 					plan.hand[#plan.hand + 1] = { quest = pq, rec = rec, ender = ender }
 				else
