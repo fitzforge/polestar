@@ -85,6 +85,12 @@ const GLYPHS = {
 		line(8.6, 15.4, 5.2, 18.8, 2.6),
 		dot(4.3, 19.7, 1.9),
 	),
+	// An elite, rare or boss (the target button): a skull, its eyes, nose
+	// and the gaps between its teeth cut out.
+	'icon-elite': subtract(
+		union(dot(12, 10, 8.2), box(12, 17.6, 5, 3.6, 1.2)),
+		union(dot(8.7, 10.6, 2.4), dot(15.3, 10.6, 2.4), poly([[12, 13.2], [13.4, 15.8], [10.6, 15.8]]), line(10.3, 18.8, 10.3, 22, 1.3), line(13.7, 18.8, 13.7, 22, 1.3)),
+	),
 	'icon-collect': union(
 		subtract(dot(12, 15, 6.8), line(9, 9.2, 15, 9.2, 1)),
 		poly([[9.6, 6.2], [14.4, 6.2], [15.2, 9.6], [8.8, 9.6]]),

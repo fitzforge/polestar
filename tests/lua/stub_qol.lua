@@ -109,19 +109,45 @@ function UnitXPMax(unit) if unit == "player" then return q.xpMax end end
 function GetXPExhaustion() return q.rested end
 function GetMaxPlayerLevel() return q.maxLevel end
 function UnitIsGhost(unit) return unit == "player" and q.ghost end
-function UnitExists(unit) if unit == "target" then return q.target end return unit == "player" end
--- q.target as a table { name, npc, dead, hostile, player }: the target the
--- step key's interact stage reads.
-local function targetOf(unit) return unit == "target" and type(q.target) == "table" and q.target or nil end
+function UnitExists(unit)
+	if unit == "target" then return q.target end
+	if q.units[unit] then return true end
+	return unit == "player"
+end
+-- q.target as a table { name, npc, dead, hostile, player, class }: the target the
+-- step key's interact stage reads. q.units[token]: other units the same way
+-- (mouseover, nameplateN).
+q.units = {}
+local function targetOf(unit)
+	if unit == "target" then return type(q.target) == "table" and q.target or nil end
+	return q.units[unit]
+end
 function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
 function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
 function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end
 function UnitIsFriend(_, unit) local t = targetOf(unit) return t and t.friend or false end
+function UnitClassification(unit) local t = targetOf(unit) return t and t.class or "normal" end
 local unitName = UnitName
 function UnitName(unit)
 	local t = targetOf(unit)
 	if t then return t.name end
 	return unitName(unit)
+end
+-- Portraits: the texture keeps the name of the unit it was drawn from;
+-- q.portraits lists every draw.
+q.portraits = {}
+function SetPortraitTexture(tex, unit)
+	local t = targetOf(unit)
+	tex.portraitOf = t and t.name
+	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
+end
+C_NamePlate = C_NamePlate or {}
+function C_NamePlate.GetNamePlates()
+	local out = {}
+	for token in pairs(q.units) do
+		if token:find("^nameplate") then out[#out + 1] = { namePlateUnitToken = token } end
+	end
+	return out
 end
 -- Key bindings: q.bindings[command] = { key, ... }; override bindings land in
 -- q.overrides[key] = command ("CLICK <button>:LeftButton" for a click).
