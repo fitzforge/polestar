@@ -172,9 +172,9 @@ fn strays(ctx: &Ctx, c: &mut Check) {
 		("forever/alliance/03-darkshore.guide", "Grizzled Scalp", |g| t_is(g, "collect") && num_is(g, "item", 5414.0), [37.0, 46.0, 69.0, 83.0]),
 		("forever/alliance/50-60/02-felwood.guide", "Jadefire Hellcaller (Jadefire Run)", |g| t_is(g, "kill") && num_is(g, "npc", 7111.0), [38.0, 44.0, 13.0, 23.0]),
 		("forever/horde/05-stonetalon-mountains.guide", "Stonetalon Sap", |g| t_is(g, "collect") && num_is(g, "item", 5582.0), [32.0, 41.0, 9.0, 21.0]),
-		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Lasher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6509.0), [55.0, 77.0, 20.0, 50.0]),
-		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Thresher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6511.0), [55.0, 77.0, 20.0, 50.0]),
-		("forever/horde/40-50/03-feralas.guide", "Marsh Flesheater (huts on the western shore)", |g| t_is(g, "kill") && num_is(g, "npc", 751.0), [60.0, 75.0, 75.0, 100.0]),
+		("forever/horde/50-60/01-azshara.guide", "Bloodpetal Lasher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6509.0), [55.0, 77.0, 20.0, 50.0]),
+		("forever/horde/50-60/01-azshara.guide", "Bloodpetal Thresher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6511.0), [55.0, 77.0, 20.0, 50.0]),
+		("forever/horde/40-50/03-stranglethorn-vale.guide", "Marsh Flesheater (huts on the western shore)", |g| t_is(g, "kill") && num_is(g, "npc", 751.0), [60.0, 75.0, 75.0, 100.0]),
 	];
 	let in_camp = |[x0, x1, y0, y1]: [f64; 4], p: &V| {
 		let (x, y) = (n(p, "x"), n(p, "y"));
@@ -207,8 +207,8 @@ fn strays(ctx: &Ctx, c: &mut Check) {
 		("forever/alliance/50-60/01-burning-steppes.guide", 7972.0),
 		("forever/class/priest/blood-of-morphaz.guide", 7972.0),
 		("forever/alliance/50-60/03-winterspring.guide", 12840.0),
-		("forever/horde/50-60/01-un-goro-crater.guide", 12840.0),
-		("forever/horde/40-50/02-feralas.guide", 8705.0),
+		("forever/horde/50-60/01-azshara.guide", 12840.0),
+		("forever/horde/40-50/02-tanaris.guide", 8705.0),
 		("forever/class/shaman/darkreaver.guide", 18335.0),
 	];
 	for (guide, item) in kept {
@@ -687,11 +687,9 @@ fn typed_coords_zone(ctx: &Ctx, c: &mut Check) {
 }
 
 /// Guides that never pass the inn before their hearth, so a bind there would add a detour.
-const HEARTH_ON_AN_EARLIER_BIND: [&str; 2] = [
+const HEARTH_ON_AN_EARLIER_BIND: [&str; 1] = [
 	// Enters the Badlands from Ironband's dig site in south-east Loch Modan; Thelsamar is off the way.
 	"forever/alliance/30-40/06-badlands.guide Stoutlager Inn",
-	// Starts at the Broken Pillar and goes down into the crater; Gadgetzan is to the north.
-	"forever/horde/50-60/01-un-goro-crater.guide Gadgetzan",
 ];
 
 fn hearth_bound(ctx: &Ctx, c: &mut Check) {

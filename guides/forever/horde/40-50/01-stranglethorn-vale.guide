@@ -2,15 +2,28 @@
 guide forever/horde/40-50/01-stranglethorn-vale
 title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
-levels 39-43
+levels 39-42
 zone Stranglethorn Vale
-next forever/horde/40-50/02-feralas
+next forever/horde/40-50/02-tanaris
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
-# Left out: The Bloodsail Buccaneers (608).
+# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Booty Bay (the Snapjaw
+# skins, Hostile Takeover and Sunken Treasure; Kebok's tusks and Crank Fizzlebub's crystals taken
+# for the north) -> fly to Grom'gol -> Nesingwary's camp -> north through Duskwood and Deadwind
+# Pass -> the Swamp of Sorrows' 35-43 quests (the Harborage, Stonard, Galen, Noboru, Misty Reed
+# Post) -> fly to Grom'gol -> Zul'Kunda -> the Bubbling Cauldron -> the jungle stalkers -> the
+# Venture Co. mine -> Zul'Mamwe and Balia'mah -> Nesingwary -> Grom'gol, where the next guide
+# takes the zeppelin to Orgrimmar.
+#
+# The Swamp of Sorrows comes first: its quests (35-43) are the lowest of the band and the
+# route reaches Kargath at about 38-40. Stranglethorn's 44-46 quests in the south (the
+# Bloodsail, Mistvale, Zanzil, Mok'thardin's last two parts, Speaking with Gan'zulah and
+# Yenniku) wait for the second visit at 45 (forever/horde/40-50/03-stranglethorn-vale).
+#
+# Carried to the second visit: Skullsplitter Tusks (209) and Venture Company Mining (600),
+# finished here, handed in at Booty Bay at 45. Grim Message (2932) goes to the Hinterlands.
 
 step Fly to Booty Bay
   zone Badlands
@@ -24,103 +37,11 @@ step Booty Bay
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
-  accept 348                            -- Fin Fizracket
   accept 2872                           -- for Stoley in Tanaris; on the top floor
-  accept 606                            -- "Sea Wolf" MacKinley
   turnin 669
-  accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
   accept 2864                           -- Krazek: for Tran'rek in Gadgetzan; upstairs
-  accept 617                            -- Privateer Bloads
   vendor nearest
-  accept 595                            -- First Mate Crazz
-
-# ---------------------------------------------------------------- Booty Bay
-
-# Route from the Polestar route simulator's Horde consensus (Tauren export),
-# visit 31 (Stranglethorn Vale, levels 40.2-42.3) and visit 32 (Swamp of
-# Sorrows, 42.3-42.5) of the export it was written from; the October
-# refresh's export has them as visits 30 (Stranglethorn 40.9-42.9) and 28
-# (Swamp of Sorrows 36-40 quests, at 40.0-40.4, before Desolace). Checked by
-# lint, not play-tested on Forever yet. Era + known Forever quests only.
-#
-# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Booty Bay -> the
-# Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
-# Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
-# -> Grom'gol (bind) -> Nesingwary -> Zul'Kunda -> hearth to Grom'gol ->
-# jungle stalkers -> the naga shore and the Holy Spring -> Booty Bay (bind)
-# -> the ghost pirates -> Zul'Mamwe and the Balia'mah and Ziata'jai trophy
-# skulls -> Grom'gol -> hearth to Booty Bay -> fly Grom'gol -> Nesingwary ->
-# north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
-# (flight path) -> Galen's escort, the Draenethyst crystals, Noboru and
-# Galen's strongbox -> crocolisks -> the Harborage -> Misty Reed Post -> the
-# snappers on the strand -> Misty Reed Post.
-#
-# Deviations from the simulator's order:
-# - One stay at Zul'Mamwe for Speaking with Gan'zulah (586), Split Bone
-#   Necklace (598), Skullsplitter Tusks (209) and Speaking with Nezzliok
-#   (585), instead of a separate Zul'Mamwe visit on the way north: every
-#   Skullsplitter drops the tusks, and the necklaces alone need a long stay
-#   there.
-# - Speaking with Nezzliok (585) is taken at the Bubbling Cauldron with
-#   Speaking with Gan'zulah (586), not at level 44 (export visit 38): its
-#   three trophy piles stand at Zul'Mamwe, Ziata'jai and Balia'mah, all on
-#   the same Zul'Mamwe loop, so merging saves a later trip from Grom'gol.
-# - Witch Doctor Unbagwa's part of Stranglethorn Fever (349) is taken before
-#   the gorillas, so the fangs and the giblets come from the same kills.
-# - Binds: the simulator's Booty Bay bind on arrival is dropped (replaced by
-#   Grom'gol before any hearth). Grom'gol (for the hearth back from
-#   Zul'Kunda) and Booty Bay are kept.
-# - Hearthstone: the simulator rebinds at Grom'gol, hearths there from
-#   Nesingwary and flies to Booty Bay for Voodoo Dues. Here the Booty Bay
-#   bind carries you from Grom'gol to Booty Bay, and one flight back to
-#   Grom'gol puts Nesingwary on the road north. The Stonard bind is dropped:
-#   the route never hearths to it before the next bind.
-# - Swamp of Sorrows: the Harborage (Noboru the Cudgel) after the
-#   crocolisks, so the west of the swamp is visited once before riding to
-#   Misty Reed Post.
-# - Added in the October refresh, from the new export (Forever above 30
-#   cannot be checked in game until launch on 4 November: from the data, not
-#   from play): Draenethyst Crystals (1389). Magtoor gives it at the
-#   Harborage, so the route stops there first on the way in; the crystals
-#   stand in the Fallow Sanctuary on the way up to Galen's cage.
-#
-# Turned in here from earlier guides: Sunken Treasure (669, from Shakes
-# O'Breen in forever/horde/30-40/05-arathi-highlands) at Fleet Master Seahorn
-# on the first Booty Bay stop; the export hands it in at level 44, on a
-# separate Booty Bay trip that the route drops. Report to Helgrum (1420, from
-# the Badlands). The Troll Witchdoctor (1240, from forever/horde/30-40/04-
-# dustwallow-marsh) at Kin'weelay in Grom'gol.
-#
-# Optional: The Bloodsail Buccaneers (608): the three captains are 45-48 on
-# decks crewed by 42-45 pirates, at about 41.
-#
-# Accepted here, finished later on the route: Stoley's Debt (2872) and
-# Tran'rek (2864) in Tanaris; Cortello's Riddle (624) in the Swamp of
-# Sorrows; Grim Message (2932) in the Hinterlands, around level 48.
-#
-# Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
-# O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# (1182: its chain 1178-1181 starts at Pozzik in Thousand Needles and runs
-# through Gazlowe in Ratchet, none of it on the route, and Cozzle's
-# footlocker sits in the Venture Co. camp at Lake Nazferiti, off this loop).
-# Left out from the refreshed export:
-# - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
-#   in the Drowned City ("gather some friends", the Forever client's
-#   quest cache, read from the beta client). The data places its giver Mazu'kon in north-west
-#   Mulgore (32.5,20.6), which the export visits for it alone at 43.3; no
-#   other source places him, so it is not added.
-# - Lost in Transit (93663, new, Dar in Stonard to Magtoor): the data has no
-#   place for the missing courier or the Courier's Shipment.
-# - My Little Friends (93176, new, Amaryllis Webb west of Stonard): its
-#   critters are an Arbor Tarantula in Stranglethorn, a Hay Weevil in Arathi
-#   and a Flesh Picker in Desolace (data), caught with a kit you only get
-#   here; the route has left all three zones by now.
-# - Neeka Bloodscar (1418): the export takes it in the Swamp before the
-#   Badlands; here the Badlands come first and Report to Helgrum (1420)
-#   arrives from Neeka instead.
-
-# ---------------------------------------------------------------- The way in
 
 step Fly to Grom'gol
   zone Stranglethorn Vale
@@ -130,85 +51,9 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 598                            -- Kin'weelay
+  accept 2932                           -- Nimboya: for the Hinterlands, around level 48
 
-step Jungle Stalkers
-  tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
-  collect 3863 quest 572
-
-step Far Seer Mok'thardin
-  turnin 572
-  accept 571
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 32.9,66.2 "Stranglethorn Vale"
-
-step Bloodsail Correspondence
-  tip Leave town by the tunnel; the note lies in the pirates' cove just north of Booty Bay.
-  turnin 595
-  accept 597
-
-step Booty Bay
-  turnin 597                            -- First Mate Crazz
-  accept 599
-  accept 576                            -- Dizzy One-Eye
-  turnin 599                            -- Fleet Master Seahorn
-  accept 604
-  accept 587                            -- Deeg, on the top floor
-
-# ---------------------------------------------------------------- The Bloodsail Buccaneers
-step The Wild Shore
-  zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
-  collect 3920 quest 604.2
-  collect 3921 quest 604.3
-  collect 3910 quest 587.1
-  collect 3897 quest 576.1
-  kill 1563 quest 604.1
-
-step Booty Bay
-  turnin 587                            -- Deeg, on the top floor
-  turnin 604                            -- Fleet Master Seahorn
-  turnin 576                            -- Dizzy One-Eye
-
-step The Bloodsail ships
-  tip Optional, and tough at 41: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
-  collect 4056 "Cortello's Riddle" optional
-  accept 624 optional                   -- for a later stop in the Swamp of Sorrows
-
-# ---------------------------------------------------------------- North through the jungle
-
-step Witch Doctor Unbagwa
-  tip Take the road north out of Booty Bay; Unbagwa sits on a hill in Mistvale Valley, east of the road.
-  accept 349                          -- Inside Spirit Den
-
-step Mistvale gorillas
-  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang.
-  collect 2799 quest 349.1
-  collect 3862 quest 571 @33.0,66.1 map 1434
-
-step Witch Doctor Unbagwa
-  tip Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then Mokk. Fight them one at a time.
-  turnin 349                          -- Inside Spirit Den
-  collect 2797 quest 348.1
-
-step Mistvale gorillas
-  collect 3919 quest 606.1
-
-step Venture Co. mine
-  tip Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.
-  tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
-  collect 3917 quest 600.1
-
-step Grom'gol Base Camp
-  turnin 571                          -- Far Seer Mok'thardin
-  sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek
-  accept 573                            -- Far Seer Mok'thardin
+# ---------------------------------------------------------------- Nesingwary
 
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
@@ -225,65 +70,106 @@ step Nesingwary's camp
   when group 193
   accept 193
 
+# ---------------------------------------------------------------- North to the Swamp of Sorrows
+
+step Duskwood
+  zone Duskwood
+  goto 87.8,35.6 "Duskwood"
+
+step Deathstalker Zraedus
+  accept 1372
+  turnin 1372
+
+step Swamp of Sorrows
+  zone Swamp of Sorrows
+  goto 26.0,31.4 "Swamp of Sorrows"
+
+step Into the Swamp of Sorrows
+  zone Swamp of Sorrows
+  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
+  accept 1389                           -- Magtoor
+
+step Stonard
+  tip Head east to Stonard, in the reeds south of the road.
+  accept 698                            -- Dar, inside
+
+step Stonard
+  zone Swamp of Sorrows
+  tip Bind here: from Misty Reed Post on the coast you hearth back to Stonard for the flight to Grom'gol.
+  getfp "Stonard" npc 6026              -- Breyk
+  turnin 1420                           -- Helgrum the Swift, upstairs
+  sethome "Stonard" npc 6930            -- Innkeeper Karakul, upstairs
+  accept 1424                           -- Fel'zerul, on the top floor
+
+step Sawtooth crocolisks
+  tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
+  tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
+  collect 6169 quest 698.1
+
+step Noboru the Cudgel
+  zone Swamp of Sorrows
+  tip Noboru wanders the clearing south-west of the Fallow Sanctuary; his cudgel starts a quest.
+  kill 5477 @54.9,34.1
+  collect 6196 "Noboru's Cudgel"
+  accept 1392
+
+step Draenethyst crystals
+  tip Head north-east to the Fallow Sanctuary. The crystals stand along the way up to Galen Goodward's cage.
+  collect 6071 x6 quest 1389.1          -- Draenethyst Crystals
+
+step Galen's Escape
+  tip Galen Goodward is held in the Fallow Sanctuary in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him.
+  accept 1393
+  complete 1393
+
+step The Harborage
+  tip Follow the road west to the draenei camp at the Harborage, near the way in from Deadwind Pass.
+  turnin 1392 optional -- Magtoor
+  turnin 1389
+
+step Galen's Strongbox
+  tip His strongbox waits at his old camp north of Stonard.
+  turnin 1393
+
+step Misty Reed Post
+  tip Head back east past Stonard and follow the road south-east to the small Horde post on the shore.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
+# ---------------------------------------------------------------- Back to Stranglethorn
+
+step Fly to Grom'gol
+  zone Swamp of Sorrows
+  goto 46.1,54.7 "Stonard flight master"
+  fly "Grom'gol"
+  zone Stranglethorn Vale
+
 step Zul'Kunda
-  tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
+  tip North of Grom'gol, past the expedition's hill, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
   collect 3904 quest 584.1
   collect 3905 quest 584.2
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
-  accept 586
   accept 585
-  accept 2932                           -- Nimboya: for the Hinterlands, around level 48
-
-# ---------------------------------------------------------------- South to Booty Bay
 
 step Jungle stalkers
-  tip The stalker raptors hunt the jungle south of Grom'gol, out towards the west coast.
+  zone Stranglethorn Vale
+  tip The Jungle Stalkers hunt the jungle south of Grom'gol, out to the west coast. Kill them for Nesingwary and take their feathers for Mok'thardin.
+  collect 3863 quest 572
   kill 687 quest 196.1
 
-step The Cape of Stranglethorn: kill these as you meet them
-  zone Stranglethorn Vale
-  tip Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them.
-  collect 4029 quest 617.1
-  kill 1907 quest 573.1
-  collect 737 quest 573.2 @29.0,61.9
+step Far Seer Mok'thardin
+  turnin 572
 
-step Booty Bay
-  tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
-  turnin 606                            -- "Shaky" Phillipe
-  accept 607
-  sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
-  turnin 617                            -- Privateer Bloads
-  turnin 600                          -- Inside
-  turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
-  accept 609
-  turnin 348                            -- Fin Fizracket
-  vendor nearest
-
-step Zanzil's camps
-  tip North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture.
-  collect 4016 quest 621.1
-
-# ---------------------------------------------------------------- Voodoo Dues and Zul'Mamwe
-
-step Pirate ghosts
-  tip The three ghostly pirates haunt the jungle north of Booty Bay, near Zanzil's camps: Maury and Jon-Jon stand together, Chucky further east.
-  kill 2537 @40.0,58.2
-  collect 3926 quest 609.3
-  kill 2535 @35.3,51.3
-  collect 3924 quest 609.1
-  kill 2536 @34.9,51.8
-  collect 3925 quest 609.2
+step Venture Co. mine
+  tip East of Grom'gol, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.
+  collect 3917 quest 600.1
 
 step Zul'Mamwe
-  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
+  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   goto 45.4,36.2 "Skullsplitter warriors"
   collect 1524 quest 209.1
-  kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
-  kill 781 quest 586.2
-  kill 783 quest 586.3
-  collect 3909 quest 586.4 @44.3,45.0 -- Below ground
   collect 3908 quest 585.3
 
 step Balia'mah Ruins: kill these as you meet them
@@ -294,31 +180,7 @@ step Balia'mah Ruins: kill these as you meet them
   collect 3906 quest 585.1
   collect 3907 quest 585.2
 
-step Grom'gol Base Camp
-  tip Head west to Grom'gol.
-  turnin 598                            -- Kin'weelay
-  turnin 586                            -- the Bubbling Cauldron
-  turnin 585
-  turnin 573                            -- Far Seer Mok'thardin
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
-step Booty Bay
-  turnin 609                            -- "Sea Wolf" MacKinley, on the top floor
-  turnin 621                            -- Crank Fizzlebub, inside
-  turnin 209                            -- Kebok, upstairs
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 35.7,10.8 "Stranglethorn Vale"
+# ---------------------------------------------------------------- Nesingwary and Grom'gol
 
 step Nesingwary's Expedition
   tip Head north up the road to the hunters' camp.
@@ -373,70 +235,7 @@ step Level 42.74
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
   level 42.74                          -- grind on Skullsplitter Warrior
 
-step Duskwood
-  zone Duskwood
-  goto 87.8,35.6 "Duskwood"
-
-step Deathstalker Zraedus
-  accept 1372
-  turnin 1372
-
-step Swamp of Sorrows
-  zone Swamp of Sorrows
-  goto 26.0,31.4 "Swamp of Sorrows"
-
-# ---------------------------------------------------------------- Swamp of Sorrows
-
-step Into the Swamp of Sorrows
-  zone Swamp of Sorrows
-  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
-  accept 1389                           -- Magtoor
-
-step Stonard
-  tip Head east to Stonard, in the reeds south of the road.
-  accept 698                            -- Dar, inside
-# ---------------------------------------------------------------- Stonard
-
-step Stonard
-  zone Swamp of Sorrows
-  tip You start in Stonard. Bind here: you hearth back after the coast.
-  accept 1430                           -- Dar, inside
-  getfp "Stonard" npc 6026              -- Breyk
-  turnin 1420                           -- Helgrum the Swift, upstairs
-  sethome "Stonard" npc 6930            -- Innkeeper Karakul, upstairs
-  accept 1424                           -- Fel'zerul, on the top floor
-
-step Sawtooth crocolisks
-  tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
-  tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
-  collect 6169 quest 698.1
-
-step Noboru the Cudgel
-  zone Swamp of Sorrows
-  tip Noboru wanders the clearing south-west of the Fallow Sanctuary; his cudgel starts a quest.
-  kill 5477 @54.9,34.1
-  collect 6196 "Noboru's Cudgel"
-  accept 1392
-
-step Draenethyst crystals
-  tip Ride north-east to the Fallow Sanctuary. The crystals stand along the way up to Galen Goodward's cage.
-  collect 6071 x6 quest 1389.1          -- Draenethyst Crystals
-
-step Galen's Escape
-  tip Galen Goodward is held in the Fallow Sanctuary in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him.
-  accept 1393
-  complete 1393
-
-step The Harborage
-  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass.
-  turnin 1392 optional -- Magtoor
-  turnin 1389
-
-step Galen's Strongbox
-  tip His strongbox waits at his old camp north of Stonard.
-  turnin 1393
-
-step Misty Reed Post
-  tip Ride back east past Stonard and follow the road south-east to the small Horde post on the shore.
-  turnin 698                            -- Tok'Kar
-  accept 699
+step Grom'gol Base Camp
+  tip Back south to Grom'gol.
+  turnin 598                            -- Kin'weelay
+  turnin 585

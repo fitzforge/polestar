@@ -716,7 +716,7 @@ fn ferocitas_loot(ctx: &Ctx, c: &mut Check) {
 }
 
 fn pirate_hats(ctx: &Ctx, c: &mut Check) {
-	for guide in [TANARIS_ALLIANCE, "forever/horde/40-50/02-feralas.guide"] {
+	for guide in [TANARIS_ALLIANCE, "forever/horde/40-50/02-tanaris.guide"] {
 		let Some(list) = goals(ctx, c, guide) else { return };
 		let Some(i) = at(c, &list, &format!("{guide}: the Southsea Pirate Hat collect"), collect(20519.0, Some(Some(8365.0)))) else { return };
 		let goal = &list[i].goal;

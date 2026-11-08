@@ -3,14 +3,16 @@ guide forever/horde/50-60/04-azshara
 title Azshara & The Barrens
 faction Horde
 levels 56-56
-zone Azshara
+zone Orgrimmar
 next forever/horde/50-60/05-eastern-plaguelands
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-
-# ---------------------------------------------------------------- Orgrimmar
+# Flow: Orgrimmar -> fly to Ratchet (Liv Rizzlefix, Islen Waterseer, Dokimi) -> Orgrimmar -> fly to Valormok
+# (the three payments for Jediga) -> fly to Orgrimmar -> zeppelin to the Undercity (the Royal Quarter).
+#
+# Chemist Cuely's vials are filled on the first Azshara visit (50-60/01-azshara) and handed in after Un'Goro.
 
 step Orgrimmar
   zone Orgrimmar
@@ -24,8 +26,6 @@ step Fly to Ratchet
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Ratchet"
   zone The Barrens
-
-# ---------------------------------------------------------------- The Barrens
 
 step Liv Rizzlefix
   tip Liv's workshop is at the north end of Ratchet's docks; Marvon's Chest stands inside it.
@@ -63,15 +63,11 @@ step Rashona Straglash
   accept 7824 optional
   note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
 
-# ---------------------------------------------------------------- Orgrimmar
-
 step Fly to Valormok
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Valormok"
   zone Azshara
-
-# ---------------------------------------------------------------- Valormok
 
 step Valormok
   turnin 3562                         -- Jediga
@@ -79,12 +75,6 @@ step Valormok
   turnin 3564
   turnin 3504                         -- Ag'tor Bloodfist
   accept 3505
-
-step Ruins of Eldarath
-  when onquest 3568
-  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
-  goto 35.0,55.0 "Ruins of Eldarath"
-  complete 3568
 
 step Thalassian Base Camp
   tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms.
@@ -120,8 +110,6 @@ step Orgrimmar
   tip Fly to Orgrimmar and train.
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
-# ---------------------------------------------------------------- Orgrimmar and the Undercity
-
 step Belgrom Rockmaul
   zone Orgrimmar
   tip Fly to Orgrimmar; Belgrom is in the Valley of Honor.
@@ -134,15 +122,6 @@ step Into Durotar
 step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
-
-step Chemist Cuely
-  zone Undercity
-  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
-  turnin 3568                         -- Chemist Cuely
-  accept 3569
-  turnin 3569                         -- Thersa Windsong, beside him
-  accept 3570 npc 8390
-  turnin 3570
 
 step The Undercity
   zone Undercity

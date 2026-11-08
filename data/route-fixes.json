@@ -3554,18 +3554,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					7734
-				],
-				"b": [
-					"turnin",
-					3128
-				],
-				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Horde Feralas 45-47): the guide rides into Camp Mojache from the Rage Scar yetis in the north-west, past Jangdor Swiftstrider's hut first; the order went to Witch Doctor Uzer'i, across to Talo Thornhoof and back to Jangdor before the flight master (the flow audit: 150 yd over walking order)"
-			},
-			{
-				"a": [
 					"task",
 					82,
 					0
@@ -3579,18 +3567,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					5094
-				],
-				"b": [
-					"turnin",
-					2782
-				],
-				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Horde Un'Goro 51-53, the Undercity stop): the flight lands at the bat master, and Harbinger Balthazad stands beside him; the order walked past him to Oran Snakewrithe in the Magic Quarter and came back for A Call to Arms. The seed takes Balthazad first"
-			},
-			{
-				"a": [
 					"turnin",
 					5152
 				],
@@ -3600,18 +3576,6 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Horde Felwood & Western Plaguelands 53-55): the guide enters the Western Plaguelands from Tarren Mill at Sorrow Hill, where Marlene Redpath lives, but the order rode north to Mulgris at the Writhing Haunt and back south to Marlene before Andorhal; Marlene, then Mulgris on the way north"
-			},
-			{
-				"a": [
-					"turnin",
-					584
-				],
-				"b": [
-					"accept",
-					2932
-				],
-				"faction": "Horde",
-				"why": "Horde 30-40 re-order (2026-11-07): Grim Message (level 42, for the Hinterlands at 48) is taken from Nimboya on the 40-50 Stranglethorn visit's Grom'gol stop with the Bloodscalp heads, not at 36 on the 30-40 visit, five levels under it."
 			},
 			{
 				"a": [
@@ -3756,6 +3720,306 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40 re-order (2026-11-07): The Dustwallow accepts for 40-50/03-feralas (Overlord Mok'Morokk's Concern, Army of the Black Dragon, Identifying the Brood, quest level 43) are taken on the last Brackenwall stop, the latest point of the visit."
+			},
+			{
+				"a": [
+					"accept",
+					5094
+				],
+				"b": [
+					"turnin",
+					3542
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Harbinger Balthazad stands beside the bat master in the Trade Quarter; on the Undercity stop after Un'Goro (52-54) he comes before Andron Gant and Chemist Cuely (the final route review's order, kept now that Oran Snakewrithe's hand-ins moved to the stop after the Hinterlands)."
+			},
+			{
+				"a": [
+					"accept",
+					196
+				],
+				"b": [
+					"task",
+					572
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Mok'thardin's feathers drop from the Jungle Stalkers south of Grom'gol, the same mobs as Raptor Mastery (196): gathered with 196's kills on the Grom'gol loop after the Swamp of Sorrows, at about 40-41 (replaces the RevH2 pair that waited for Stranglethorn Fever, now on the second visit at 45)."
+			},
+			{
+				"a": [
+					"turnin",
+					1393
+				],
+				"b": [
+					"task",
+					584
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): The Swamp of Sorrows' 35-43 quests (Magtoor, Galen, Noboru, Report to Helgrum, Misty Reed Post) come first, on the walk from Nesingwary's camp through Duskwood at 38-40, before Stranglethorn's 40-42 quests (Zul'Kunda, the jungle stalkers, the Venture Co. mine, Zul'Mamwe): the route reaches Kargath at about 38.5, and the swamp's quests are the lowest of the band. Both other orders do the Swamp before Tanaris too."
+			},
+			{
+				"a": [
+					"turnin",
+					1389
+				],
+				"b": [
+					"task",
+					196
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Swamp of Sorrows before the Grom'gol loop (see the Galen pair): Nesingwary's hunts and the Bloodscalp quests come after the swamp."
+			},
+			{
+				"a": [
+					"turnin",
+					585
+				],
+				"b": [
+					"accept",
+					1690
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Stranglethorn's first visit (40-42, the north and Zul'Mamwe) ends at Grom'gol before the zeppelin to Orgrimmar and Tanaris (42-43), as both other orders split Stranglethorn around Tanaris, Dustwallow and Feralas."
+			},
+			{
+				"a": [
+					"turnin",
+					1691
+				],
+				"b": [
+					"accept",
+					1166
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Dustwallow Marsh's Brackenwall chain (Mok'Morokk, Tharg, Draz'Zilb, level 43-45) comes after Tanaris' first visit, by flight from Gadgetzan, at 43, as both other orders have it; then a flight to Freewind Post for Feralas."
+			},
+			{
+				"a": [
+					"turnin",
+					1173
+				],
+				"b": [
+					"accept",
+					2987
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Dustwallow Marsh (43) before Feralas' first visit (43-45)."
+			},
+			{
+				"a": [
+					"turnin",
+					2980
+				],
+				"b": [
+					"accept",
+					586
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Stranglethorn's 44-46 quests (Speaking with Gan'zulah, the Fate of Yenniku and the Singing Crystals, the Bloodsail chain, Stranglethorn Fever, Scaring Shaky and Voodoo Dues, Akiris reeds, Zanzil's Secret, Mok'thardin's last two parts) wait for a second visit at 45, after Feralas; the first visit took them at 40-41, up to five levels under them."
+			},
+			{
+				"a": [
+					"turnin",
+					2980
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Second Stranglethorn visit at 45 (see the Gan'zulah pair)."
+			},
+			{
+				"a": [
+					"turnin",
+					2980
+				],
+				"b": [
+					"accept",
+					571
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Second Stranglethorn visit at 45 (see the Gan'zulah pair): Mok'thardin's Enchantment parts 2 and 3 (levels 41 and 44) are taken on that visit's first Grom'gol stop."
+			},
+			{
+				"a": [
+					"turnin",
+					589
+				],
+				"b": [
+					"turnin",
+					1424
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): The Swamp of Sorrows' 43-45 quests (the Soggy Scroll, the Pool of Tears, Misty Reed Post's murlocs, Continued Threat) come right after the second Stranglethorn visit, by flight from Grom'gol to Stonard, at 46-47."
+			},
+			{
+				"a": [
+					"turnin",
+					589
+				],
+				"b": [
+					"accept",
+					1430
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Fresh Meat (Dar, Stonard, level 44) is taken on the second Swamp of Sorrows stay at 46, where its Monstrous Crawlers on the east coast are killed, not at 40 on the first stay."
+			},
+			{
+				"a": [
+					"turnin",
+					1430
+				],
+				"b": [
+					"accept",
+					3362
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Tanaris' main visit (47-48) comes after the second Swamp of Sorrows stay: Stonard, then the hearth to Camp Mojache (Neeru's task), then the flight to Gadgetzan."
+			},
+			{
+				"a": [
+					"turnin",
+					113
+				],
+				"b": [
+					"accept",
+					7839
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): The Hinterlands (48-49) come after Tanaris' main visit: Gadgetzan, Orgrimmar (Rise of the Silithid), the Undercity, Tarren Mill."
+			},
+			{
+				"a": [
+					"turnin",
+					2933
+				],
+				"b": [
+					"turnin",
+					2782
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Leaving the Hinterlands by Tarren Mill (Venom Bottles) and the Undercity (Rin'ji's Secret and Oran's quests) on the way to Orgrimmar and Feralas, the same day as the Hinterlands, not four levels later."
+			},
+			{
+				"a": [
+					"turnin",
+					7843
+				],
+				"b": [
+					"accept",
+					3124
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Feralas' last visit (49-50: Uzer'i's chain after Wild Hearts from the Hinterlands, Zorbin's giants, the Northspring, the Rage Scar yetis) comes after the Hinterlands, as both other orders have it."
+			},
+			{
+				"a": [
+					"turnin",
+					3129
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): The Searing Gorge comes after Feralas, on one boat trip from Tanaris to Powderfuse Port with the Burning Steppes (50-52), instead of two trips (the gorge at 48, the Steppes at 52)."
+			},
+			{
+				"a": [
+					"turnin",
+					7728
+				],
+				"b": [
+					"accept",
+					3821
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Searing Gorge, then Kargath (Dreadmaul Rock) and the Burning Steppes, on one trip."
+			},
+			{
+				"a": [
+					"turnin",
+					3822
+				],
+				"b": [
+					"turnin",
+					1444
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): After the Burning Steppes (Rise of the Machines, which needs level 52, is left: Kargath is passed at about 50.5): Kargath, then Stonard (Return to Fel'Zerul) and the Blasted Lands bloodmages (level 50), then Grom'gol and Booty Bay, then the zeppelin to Orgrimmar."
+			},
+			{
+				"a": [
+					"turnin",
+					2581
+				],
+				"b": [
+					"turnin",
+					2932
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Grim Message and the Booty Bay hand-ins (Deliver to MacKinley, the OOX robots, the message in a bottle) come after the Blasted Lands, on the way to the Grom'gol zeppelin."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					5535
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Azshara (52-53) comes after the Eastern Kingdoms trip (Searing Gorge, Burning Steppes, Blasted Lands, Stranglethorn), as both other orders have it, instead of at 50 before them."
+			},
+			{
+				"a": [
+					"accept",
+					3568
+				],
+				"b": [
+					"accept",
+					5535
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Chemist Cuely's Seeping Corruption is taken on the Undercity stop after the Hinterlands, so its vials fill at the Ruins of Eldarath on the first Azshara visit; handed in on the Undercity stop after Un'Goro."
+			},
+			{
+				"a": [
+					"turnin",
+					3565
+				],
+				"b": [
+					"accept",
+					4284
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Un'Goro's first visit (53) comes after Azshara: Orgrimmar, Thunder Bluff (Un'Goro Soil, Magatha), the flight to Gadgetzan."
+			},
+			{
+				"a": [
+					"turnin",
+					3125
+				],
+				"b": [
+					"turnin",
+					3128
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Natural Materials goes to Witch Doctor Uzer'i on the Mojache stop where its last part (the forest walkers' logs, gathered with the sprite darters) is ready, not carried round the Forgotten Coast and the Northspring (the flow audit's passed ender); Jangdor's Improved Quality and Talo's harpies still meet on the last Mojache stop."
+			},
+			{
+				"a": [
+					"accept",
+					2932
+				],
+				"b": [
+					"task",
+					584
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 re-order (2026-11-08): Grim Message: Nimboya stands at the Bubbling Cauldron on the first Grom'gol stop of the 40-42 visit (after the flight from Booty Bay), so his quest is taken there rather than on the later cauldron stop with the Bloodscalp heads (replaces the 30-40 re-order's pair, written when that stop was the first)."
 			}
 		],
 		"notes": [
@@ -6622,6 +6886,24 @@
 				],
 				"reason": "Horde 30-40 re-order (2026-11-07): Doctor Gregory Victor's Ward Restocking (offered after Silky Sutures): the Packaged Tonics are in Apothecary Jorell's shack at Go'shek Farm, on the 38-39 loop south of Hammerfall with Boulderfist Hall and the Fleshstalkers.",
 				"issue": ""
+			},
+			{
+				"q": 1428,
+				"after": [
+					"turnin",
+					1427
+				],
+				"reason": "Horde 40-60 re-order (2026-11-08): Continued Threat (Katar, Misty Reed Post) is offered when Threat From the Sea is handed in at the same post; its Marsh Inkspewers, Flesheaters and Oracles are the murlocs along the strand the visit already works. Both other orders take it.",
+				"issue": ""
+			},
+			{
+				"q": 580,
+				"after": [
+					"accept",
+					595
+				],
+				"reason": "Horde 40-60 re-order (2026-11-08): Whiskey Slim's Lost Grog: Whiskey Slim stands in Booty Bay's inn on the second Stranglethorn visit's first Booty Bay stop; his twelve bottles of Pupellyverbos Port lie on the Hinterlands beaches between Revantusk Village and the Overlook Cliffs, where the route kills the turtles at 48, and he is handed them on the Booty Bay stop at 51. Both other orders take it.",
+				"issue": ""
 			}
 		],
 		"skip": [
@@ -6821,6 +7103,11 @@
 				"q": 1361,
 				"faction": "Horde",
 				"reason": "Horde 30-40 re-order (2026-11-07): Regthar Deathgate (640 XP) was handed in on a trip from Orgrimmar to the Crossroads and up to the Forgotten Pools at the end of the old Arathi guide; the new order passes the Crossroads by flight only, so it is left out with its follow-up The Kolkar of Desolace (1362).",
+				"issue": ""
+			},
+			{
+				"q": 4061,
+				"reason": "Horde 40-60 re-order (2026-11-08): The Rise of the Machines needs level 52; the route passes Kargath once, at about 50.5, on the boat trip to the Searing Gorge and the Burning Steppes, and never comes back.",
 				"issue": ""
 			}
 		],
@@ -7086,66 +7373,6 @@
 				],
 				"why": "Darkshore: Fruit of the Sea (Gubber Blump, Auberdine) is taken before Buzzbox 827's crawler legs, so its crab chunks come from the same Encrusted Tide Crawlers on the first shore loop, not a second one at 17.4",
 				"source": "critic"
-			},
-			{
-				"a": [
-					"turnin",
-					1420
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1424
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1428
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1430
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					624
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
 			},
 			{
 				"a": [
@@ -7581,18 +7808,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					348
-				],
-				"b": [
-					"task",
-					572
-				],
-				"why": "RevH2 c13 35-60 read: Mok'thardin's feathers drop from the Jungle Stalkers (40-41) south of Grom'gol, the same mobs as Raptor Mastery (196), which c13 kills at 42.4 (Orc 40-50/01-stranglethorn-vale:201). c13 sends the player for the feathers at 36.6 instead (30-40/02-stranglethorn-vale:346, judge under-level 4.3) and the model grinds 252 hidden minutes to 38 first. Gather them on the second Stranglethorn stay, from 40.8, with 196's kills; at about 40.5 572 is on level",
-				"source": "review"
-			},
-			{
-				"a": [
 					"turnin",
 					96630
 				],
@@ -7974,42 +8189,6 @@
 				],
 				"faction": "Alliance",
 				"why": "ZoneFix c18 read (Alliance 30-40): Mor'Ladim's follow-ups (The Daughter Who Lived, A Daughter's Love at Morgan Ladimore's grave by Raven Hill) on the same Duskwood stay, before Stranglethorn (Human.json order[971-974] flew from Darkshire to Sentinel Hill for the grave and walked back into Stranglethorn)"
-			},
-			{
-				"a": [
-					"turnin",
-					208
-				],
-				"b": [
-					"accept",
-					1389
-				],
-				"faction": "Horde",
-				"why": "ZoneFix c18 read (Horde 40-50): Magtoor (Draenethyst Crystals) stands at the Harborage on the walk into the Swamp of Sorrows, so he is taken when Stranglethorn is done, on that walk-in. c18 walked from Nesingwary's camp into the Swamp for his accept alone (a 16-minute walk), hearthed to Booty Bay for Nesingwary's last hunts, and walked the same road back later (Orc 40-50/01-stranglethorn-vale:346-371, 432; Orc.json order[1065] -> [1066-1072] -> [1073]). Big Game Hunter is the last of those hunts"
-			},
-			{
-				"a": [
-					"turnin",
-					193
-				],
-				"b": [
-					"accept",
-					1389
-				],
-				"faction": "Horde",
-				"why": "ZoneFix c18 read (Horde 40-50): Panther Mastery's last hunt before the walk into the Swamp of Sorrows (pair above; Orc.json order[1066, 1069])"
-			},
-			{
-				"a": [
-					"turnin",
-					197
-				],
-				"b": [
-					"accept",
-					1389
-				],
-				"faction": "Horde",
-				"why": "ZoneFix c18 read (Horde 40-50): Raptor Mastery's last hunt before the walk into the Swamp of Sorrows (pair above; Orc.json order[1067-1068])"
 			},
 			{
 				"a": [
