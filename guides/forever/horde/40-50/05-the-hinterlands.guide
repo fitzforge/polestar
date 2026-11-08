@@ -118,7 +118,7 @@ step Wildkin Muisek
 # ---------------------------------------------------------------- The west
 step The Altar of Zul: kill these as you meet them
   zone The Hinterlands
-  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
+  tip South-west of the lake, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
   tip South-west, the Silvermane Howlers roam the hills east of the Witherbark villages.
   kill 4466 quest 7844.1
   kill 4467 quest 7844.2

@@ -222,7 +222,7 @@ step Zorbin Fandazzle
 # ---------------------------------------------------------------- West: screechers and OOX-22/FE
 
 step Rogue Vale screechers
-  tip Ride west into the middle of Feralas. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
+  tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
   use 10699 "Yeh'kinya's Bramble" @45.0,38.0
   kill 8612 quest 3520.1
 

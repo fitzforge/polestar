@@ -6557,3 +6557,18 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the swamp t
 	const stonard = list[at(list, 'accept 698', is('accept', 698))].s;
 	for (const q of [1430, 1424]) assert.equal(list[at(list, `accept ${q}`, is('accept', q))].s, stonard, `${q} on the one Stonard stop`);
 });
+
+// Tips that pointed the wrong way: the Ironjaw Basilisks lie north of Booty Bay on the road back to Grom'gol ("follow
+// the road south"); the Altar of Zul is south-west of Valorwind Lake ("on the way back east"); Rogue Vale opens just
+// north of Zorbin's dock ("ride west into the middle of Feralas"); Felstone Farm is reached from the Bulwark, where the
+// step before ends ("leave the Undercity"). Marvon's step had the same direction twice.
+test('Horde 40-60 final review: tips point the way the route goes', { skip }, () => {
+	const H = (n) => `forever/horde/${n}.guide`;
+	const basilisks = stepTips(H('40-50/06-azshara'), /collect 3911 quest 589/).join(' ');
+	assert.match(basilisks, /north out of Booty Bay/);
+	assert.doesNotMatch(basilisks, /road south/);
+	assert.equal(stepTips(H('40-50/06-azshara'), /turnin 3380/).length, 1, "one tip at Marvon's camp");
+	assert.doesNotMatch(stepTips(H('40-50/05-the-hinterlands'), /kill 2925 quest 7828/).join(' '), /back east/);
+	assert.doesNotMatch(stepTips(H('40-50/03-feralas'), /kill 8612 quest 3520/).join(' '), /Ride west/);
+	assert.doesNotMatch(stepTips(H('50-60/01-un-goro-crater'), /accept 5021/).join(' '), /Leave the Undercity/);
+});

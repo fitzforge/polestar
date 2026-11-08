@@ -73,7 +73,7 @@ step Princess Poobah
   turnin 594
 
 step Ironjaw Basilisks
-  tip Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often.
+  tip Follow the road north out of Booty Bay; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to Grom'gol. Their shards drop often.
   collect 3911 quest 589              -- Below ground
 
 step Back to Grom'gol
@@ -350,7 +350,6 @@ step Gadgetzan
   note Tran'rek's tar and Pestlezugg's samples come from Un'Goro Crater.
 
 step Marvon Rivetseeker
-  tip South down the road again.
   tip Ride south along the road to the Broken Pillar; Marvon Rivetseeker camps beside it. From here the road west leads down into Un'Goro Crater, where the next guide starts.
   turnin 3380                         -- Marvon Rivetseeker
   accept 3444
