@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Camp Narache
-	-- {area:221} Camp Narache · {npc:2980} Grull Hawkwind
-	["You start on the mesa of {area:221}. {npc:2980} and the chief stand by the big tent in the middle."] = "你从{area:221}的台地上出发。{npc:2980}和鹰风酋长站在中央的大帐篷旁。",
+	-- {object:2972} Camp Narache (no name in this language: may be words) · {npc:2980} Grull Hawkwind
+	["You start on the mesa of {object:2972}. {npc:2980} and the chief stand by the big tent in the middle."] = "",
 	-- {npc:2981} Chief Hawkwind
 	["{npc:2981}, inside"] = "",
 
@@ -17,8 +17,8 @@ return {
 	["{npc:2991} sits by the tent on the camp's eastern edge; the {object:2907} stands next to her."] = "{npc:2991}坐在营地东缘的帐篷旁；{object:2907}就在她旁边。",
 
 	-- Step 3: Camp Narache: kill these as you meet them
-	-- {area:221} Camp Narache
-	["{area:221}: kill these as you meet them"] = "{area:221}：遇到就击杀",
+	-- {object:2972} Camp Narache (no name in this language: may be words)
+	["{object:2972}: kill these as you meet them"] = "",
 	-- {npc:2980} Grull Hawkwind
 	["Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to {npc:2980}."] = "平原陆行鸟在营地周围的台地上游荡：返回{npc:2980}的路上收集它们的肉和羽毛。",
 
@@ -31,7 +31,7 @@ return {
 	["{npc:3062}, the shaman trainer in camp"] = "{npc:3062}，营地里的萨满祭司训练师",
 	-- {npc:3060} Gart Mistrunner
 	["{npc:3060}, the druid trainer beside him"] = "{npc:3060}，他旁边的德鲁伊训练师",
-	["Inside"] = "",
+	["Inside"] = "在里面",
 
 	-- Step 5: The Hunt Continues
 	-- {npc:6775} Antur Fallow · {npc:2980} Grull Hawkwind
@@ -39,8 +39,8 @@ return {
 	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775}站在营地西端，位于{npc:2961}出没的山丘西北角：接下他的任务，从那里向南和向东猎杀美洲狮，然后回到{npc:2980}处。",
 
 	-- Step 6: Grull Hawkwind
-	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
-	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "",
+	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {object:2972} Camp Narache (no name in this language: may be words)
+	["{npc:3209}, next to {npc:2980}; walks around {object:2972}: look inside the circle on the map"] = "",
 
 	-- Step 7: Seer Graytongue
 	["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "沿小路向南离开营地，到山脚下灰舌先知的帐篷。",
@@ -51,31 +51,29 @@ return {
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "熏香十分钟就会燃尽：沿南边的山丘一直向东跑到{object:660739}。",
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
-	-- {area:220} Red Cloud Mesa
-	["{area:220}: kill these as you meet them"] = "",
+	["Red Cloud Mesa: kill these as you meet them"] = "",
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
+	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "斗猪在神龛北边吃草；刺背野猪人占据着东北方的峡谷。{npc:8554}站在峡谷东端，{object:3076}在营地的地上。",
 	["Below ground"] = "",
 
 	-- Step 10: Deathskip to Red Cloud Mesa
-	-- {area:220} Red Cloud Mesa
-	["Deathskip to {area:220}"] = "",
+	["Deathskip to Red Cloud Mesa"] = "",
 	-- {npc:2954} Bristleback Battleboar · {npc:6491} Spirit Healer
 	["Die to the mobs at 63.7,78.4 ({npc:2954}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
 	-- Step 11: Camp Narache
 	["Back west to the camp."] = "向西返回营地。",
-	-- {npc:3209} Brave Windfeather · {area:221} Camp Narache
-	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "",
+	-- {npc:3209} Brave Windfeather · {object:2972} Camp Narache (no name in this language: may be words)
+	["{npc:3209} walks around {object:2972}: look inside the circle on the map"] = "",
 
 	-- Step 12: Seer Ravenfeather
-	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1516} Call of Earth
-	["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888}站在{area:221}。{quest:1516}需要4级，交完这里的任务就能达到。",
+	-- {npc:5888} Seer Ravenfeather · {object:2972} Camp Narache (no name in this language: may be words) · {quest:1516} Call of Earth
+	["{npc:5888} stands in {object:2972}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "",
 
 	-- Step 13: Ritual Salve
-	-- {area:358} Brambleblade Ravine
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "向东返回{area:358}：{npc:2953}站在那里的野猪人中间。",
+	["Back east to Brambleblade Ravine: the Bristleback Shamans stand among the quilboar there."] = "",
 
 	-- Step 14: Call of Earth
 	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta · {item:6656} Rough Quartz
@@ -84,17 +82,16 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}：{npc:5873}和你的{item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "",
-	-- {spell:1229451} Boosted Rest
-	["/sit by Kaga's campfire until you get {spell:1229451}"] = "",
+	-- {npc:265810} Kaga Wildhoof · {object:2968} Bloodhoof Village (no name in this language: may be words)
+	["Follow the road north out of Red Cloud Mesa. {npc:265810} waits on the road just south of {object:2968}; /sit by her campfire until you get Boosted Rest."] = "",
+	["/sit by Kaga's campfire until you get Boosted Rest"] = "",
 
 	-- Step 16: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof
 	-- plural, as words: Novice Warriors = {npc:10721} Novice Warrior
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "{npc:3063}的任务：击败他旁边的三名{npc:10721}（或在决斗中击败玩家）。",
-	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
-	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	-- {npc:3222} Brave Wildrunner · {object:2968} Bloodhoof Village (no name in this language: may be words)
+	["{npc:3222} walks around {object:2968}: look inside the circle on the map"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -107,8 +104,8 @@ return {
 	["{object:2910}, 170 yd east"] = "{object:2910}，东边170码",
 
 	-- Step 20: Winterhoof Water Well
-	-- {npc:2988} Morin Cloudstalker · {quest:99079} Longwalker Malah · {area:821} Rolling Plains
-	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "水井在村子东南方。{npc:2988}在水井旁扎营，{quest:99079}站在东边不远处的{area:821}上。",
+	-- {npc:2988} Morin Cloudstalker · {quest:99079} Longwalker Malah
+	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the Rolling Plains a little east."] = "",
 	-- {npc:2988} Morin Cloudstalker
 	["{npc:2988} walks around here: look inside the circle on the map"] = "",
 
@@ -124,6 +121,7 @@ return {
 	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}站在村子北缘。Kyle想要平原陆行鸟身上的{item:287505}。",
 
 	-- Step 24: Thunderhorn Water Well
+	["Thunderhorn Water Well"] = "",
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "水井在村子北边。成年平原陆行鸟在水井周围吃草：它们掉落凯尔要的{item:287505}。",
@@ -135,8 +133,7 @@ return {
 	["{npc:277182}, at the north end of the village"] = "{npc:277182}，在村子北端",
 
 	-- Step 26: Galak Camp: kill these as you meet them
-	-- {area:474} Galak Camp
-	["{area:474}: kill these as you meet them"] = "",
+	["Galak Camp: kill these as you meet them"] = "",
 	-- {npc:275789} Malah Longwind
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
 	["Prairie Wolf Alphas roam among the wolves on the plains around {npc:275789} and the Galak camp to the east."] = "草原狼前锋在{npc:275789}和东边加拉克营地周围的平原上，混在狼群中游荡。",
@@ -146,8 +143,8 @@ return {
 	["The wrecked caravan lies north-west of the centaurs, east of the road to {zone:1456}."] = "被毁的商队在半人马西北方、通往{zone:1456}的道路东边。",
 
 	-- Step 29: Morin Cloudstalker
-	-- {area:396} Winterhoof Water Well
-	["Back south-east to the {area:396}."] = "向东南返回{area:396}。",
+	-- {object:2913} Winterhoof Water Well (no name in this language: may be words)
+	["Back south-east to the {object:2913}."] = "",
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
@@ -155,33 +152,33 @@ return {
 	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "加拉克半人马在水井东边的平原上扎营；{npc:275767}是他们的首领。",
 
 	-- Step 31: The Venture Co. Mine
+	["The Venture Co. Mine"] = "",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
 	["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "地精在水井东北方的山丘里开矿。{quest:765}站在矿洞深处；他的{item:281031}开始{quest:98424}，其余几页在矿洞里。",
 
 	-- Step 32: Wildmane Water Well
-	-- {zone:1456} Thunder Bluff · {area:398} Wildmane Water Well · {zone:1412} Mulgore
-	["Cross north-west past {zone:1456} to the {area:398} in the far north of {zone:1412}."] = "向西北经过{zone:1456}，到{zone:1412}最北边的{area:398}。",
+	["Wildmane Water Well"] = "",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore
+	["Cross north-west past {zone:1456} to the Wildmane Water Well in the far north of {zone:1412}."] = "",
 
 	-- Step 33: Seer Wiserunner
-	-- {npc:2984} Seer Wiserunner · {area:404} Bael'dun Digsite
-	["{npc:2984} stands at the edge of the {area:404}, south of the well."] = "{npc:2984}站在水井南边的{area:404}边缘。",
+	-- {npc:2984} Seer Wiserunner
+	["{npc:2984} stands at the edge of the Bael'dun Digsite, south of the well."] = "",
 
 	-- Step 34: Dangers of the Windfury
-	-- {area:819} Windfury Ridge
-	["The Windfury harpies hold {area:819}, north and west of the well."] = "风怒鹰身人占据着水井北边和西边的{area:819}。",
+	["The Windfury harpies hold Windfury Ridge, north and west of the well."] = "",
 
 	-- Step 35: Dwarven Digging
-	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}的矮人带着勘察员的锄头。在挖掘场里矮人的熔炉上砸碎它们。",
+	["The dwarves of the Bael'dun Digsite carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}，在挖掘场的熔炉旁",
 
 	-- Step 36: Sharing the Land
-	-- {area:818} Palemane Rock · {npc:272203} Perith Stormhoof
-	["The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "白鬃豺狼人占据着挖掘场南边、血蹄村西边的{area:818}。{npc:272203}被关在他们的营地里：带他出来。",
-	-- {npc:2950} Palemane Skinner · {area:16677} Bristleback Retreat
-	["{npc:2950} walks around {area:16677}: look inside the circle on the map"] = "",
+	-- {npc:272203} Perith Stormhoof
+	["The Palemane gnolls hold Palemane Rock, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "",
+	-- {npc:2950} Palemane Skinner
+	["{npc:2950} walks around Bristleback Retreat: look inside the circle on the map"] = "",
 	-- {npc:2951} Palemane Poacher
 	["{npc:2951}, below ground"] = "",
 
@@ -192,18 +189,26 @@ return {
 	["{npc:2948}, for Hamuul in {zone:1456}"] = "{npc:2948}，交给{zone:1456}的大德鲁伊哈缪尔·符文图腾",
 
 	-- Step 38: Yaw Sharpmane
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker · {npc:2970} Swoop
-	["{npc:3065} stands at the north end of {area:222}. Tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a {npc:2970} to the north-west."] = "",
+	-- {npc:3065} Yaw Sharpmane · {object:2968} Bloodhoof Village (no name in this language: may be words) · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker · {npc:2970} Swoop
+	["{npc:3065} stands at the north end of {object:2968}. Tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a {npc:2970} to the north-west."] = "",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}驯服它",
+	-- {npc:2956} Adult Plainstrider
+	["Tame {npc:2956}"] = "",
+	-- {npc:2959} Prairie Stalker
+	["Tame {npc:2959}"] = "",
+	-- {npc:2970} Swoop
+	["Tame {npc:2970}"] = "",
+	["Tame Beast"] = "驯服野兽",
 
 	-- Step 40: Red Rocks
-	-- {area:225} Red Rocks · {zone:1456} Thunder Bluff · {npc:3233} Lorekeeper Raintotem · {npc:2994} Ancestral Spirit
+	["Red Rocks"] = "",
+	-- {zone:1456} Thunder Bluff · {npc:3233} Lorekeeper Raintotem · {npc:2994} Ancestral Spirit
 	-- plural, as words: Bristleback Interlopers = {npc:3232} Bristleback Interloper
-	["Head north to {area:225}, east of {zone:1456}. {npc:3233} stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the {npc:2994} waits on top."] = "向北到{zone:1456}东边的{area:225}。{npc:3233}站在岩石脚下；{npc:3232}在墓地里挖掘，{npc:2994}在顶上等候。",
-	-- {item:5203} Flatland Prowler Claw · {area:225} Red Rocks
+	["Head north to Red Rocks, east of {zone:1456}. {npc:3233} stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the {npc:2994} waits on top."] = "",
+	-- {item:5203} Flatland Prowler Claw
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler
-	["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203}：平原徘徊者在{area:225}周围的平原上游荡",
+	["{item:5203}: Flatland Prowlers roam the plains around Red Rocks"] = "",
 
 	-- Step 42: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
@@ -224,29 +229,29 @@ return {
 	["{item:278083}, from {npc:3027}"] = "{item:278083}，来自{npc:3027}",
 	-- {npc:6746} Innkeeper Pala · {quest:5922} Moonglade
 	["{npc:6746}, at the south end of the central rise: the hearth from {quest:5922} brings you back here"] = "",
-	-- {npc:6746} Innkeeper Pala · {quest:5926} Heeding the Call · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:6746}: {quest:5926}, for {npc:3033} on {area:1639}"] = "",
+	-- {npc:6746} Innkeeper Pala · {quest:5926} Heeding the Call · {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words)
+	["{npc:6746}: {quest:5926}, for {npc:3033} on {object:50507}"] = "",
 
 	-- Step 44: Hunter Rise
-	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
-	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "在{area:1641}朝南的悬崖上，于仪式垫和香炉处使用{item:278078}。",
-	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
-	["Spread the {item:278078} off {area:1641}"] = "在{area:1641}散播{item:278078}",
-	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn · {area:380} Crossroads
-	["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}：交给{area:380}的{quest:860}",
+	-- {item:278078} Prepared Incense · {object:50494} Hunter Rise (no name in this language: may be words)
+	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {object:50494}."] = "",
+	-- {item:278078} Prepared Incense · {object:50494} Hunter Rise (no name in this language: may be words)
+	["Spread the {item:278078} off {object:50494}"] = "",
+	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn
+	["{npc:3441}: for {quest:860} at the Crossroads"] = "",
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
 	["{npc:3039}, beside {npc:3041}"] = "",
 
 	-- Step 46: Ansekhwa
-	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	-- {npc:11869} Ansekhwa
+	["While you're here: learn Two-Handed Maces from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 47: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
 	-- Step 48: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "职业训练师",
 
 	-- Step 49: Rogue trainer
 	["Rogue trainer"] = "",
@@ -259,26 +264,26 @@ return {
 	["{npc:3156} in {zone:1411}; {zone:1412} has no warlock trainer"] = "",
 
 	-- Step 52: Clarice Foster
-	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543}站在{area:2197}，即{area:1640}下方的洞穴里：走进去下楼，箭头无法区分楼层。",
-	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {area:1640} Spirit Rise
-	["{npc:5906}, a few steps from {npc:5543} on {area:1640}"] = "",
+	-- {npc:5543} Clarice Foster · {object:50495} Spirit Rise (no name in this language: may be words)
+	["{npc:5543} stands in the Pools of Vision, the cave under {object:50495}: go down inside, the arrow cannot tell the floors apart."] = "",
+	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {object:50495} Spirit Rise (no name in this language: may be words)
+	["{npc:5906}, a few steps from {npc:5543} on {object:50495}"] = "",
 
 	-- Step 54: Elder Rise
-	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem · {area:380} Crossroads
-	["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}：交给{area:380}的{npc:3448}",
+	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem
+	["{npc:5769}: for {npc:3448} at the Crossroads"] = "",
 
 	-- Step 55: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} trains druids in the Cenarion Circle's tent on {area:1639}."] = "",
+	-- {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words)
+	["{npc:3033} trains druids in the Cenarion Circle's tent on {object:50507}."] = "",
 
 	-- Step 56: Moonglade
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5930}在西北方的树林里。{npc:11802}站在他所在建筑的楼上：走进去上楼，箭头无法区分楼层。",
+	-- {quest:5922} Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit
+	["Cast Teleport: {quest:5922}. {npc:11802} is in Nighthaven; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 57: Back to Thunder Bluff
-	-- {area:1639} Elder Rise
-	["Cross to {area:1639}."] = "穿过去到{area:1639}。",
+	-- {object:50507} Elder Rise (no name in this language: may be words)
+	["Cross to {object:50507}."] = "",
 
 	-- Step 58: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -286,64 +291,85 @@ return {
 	-- {zone:1412} Mulgore · {item:15710} Cenarion Lunardust
 	["The stone stands in the pass out of {zone:1412}, on your way east. Use the {item:15710} there and defeat Lunaclaw."] = "石头在离开{zone:1412}的山口里，就在你向东的路上。在那里使用{item:15710}并击败月爪枭兽。",
 
-	-- Step 59: Back to The Barrens
-	-- {area:17} The Barrens
-	["Back to {area:17}"] = "",
-
-	-- Step 60: Into Mulgore
+	-- Step 59: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
 
-	-- Step 61: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "",
+	-- Step 60: Into The Barrens
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "",
 
-	-- Step 63: Crossroads
-	-- {zone:1412} Mulgore · {area:380} Crossroads · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork · {npc:3615} Devrak · {npc:3464} Gazrog · {area:17} The Barrens
-	["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {npc:3448} stands at the south gate, {quest:860} by the inn; {npc:3449}, {npc:3429} and {npc:3615} on the tower platform, then Helbrim and {npc:3464} by the north gate and the inn. {area:17} guide starts here.\n{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "从东南方的山口离开{zone:1412}，沿道路到{area:380}。{npc:3448}在南门，{quest:860}在旅店旁；{npc:3449}、{npc:3429}和{npc:3615}在塔楼平台上，然后是北门和旅店旁的赫布林和{npc:3464}。{area:17}指南从这里开始。\n{area:380}是本指南的大本营。你需要找的人都在旅店附近几步之内。",
-	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
-	["{npc:3449}: the harpies come later, in the {area:383}"] = "",
+	-- Step 62: The Crossroads
+	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {object:4102} The Crossroads (no name in this language: may be words) · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {object:4102}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 	-- {npc:3615} Devrak
-	["{npc:3615}, the wind rider master"] = "",
+	["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
 
-	-- Step 64: Jahan Hawkwing
-	-- {npc:3483} Jahan Hawkwing · {area:380} Crossroads · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
-	["{npc:3483} sells armor on the north side of the {area:380}. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
+	-- Step 63: Jahan Hawkwing
+	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
+	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
 
-	-- Step 65: Class turn-in in Thunder Bluff
-	-- {area:1638} Thunder Bluff
-	["Class turn-in in {area:1638}"] = "",
+	-- Step 64: Class turn-in in Thunder Bluff
+	-- {zone:1456} Thunder Bluff
+	["Class turn-in in {zone:1456}"] = "",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
+	-- Step 66: To Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "",
+	-- {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/sit by Kaga's campfire until you get {spell:1229451}"] = "在Kaga的营火旁/sit，直到获得{spell:1229451}",
+	-- ["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "向东返回{area:358}：{npc:2953}站在那里的野猪人中间。",
+	-- ["Back south-east to the {area:396}."] = "向东南返回{area:396}。",
 	-- ["Back to Bloodhoof"] = "返回血蹄村",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "斗猪在神龛北边吃草；刺背野猪人占据着东北方的峡谷。{npc:8554}站在峡谷东端，{item:4851}在营地的地上。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5930}在西北方的树林里。",
+	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5930}在西北方的树林里。{npc:11802}站在他所在建筑的楼上：走进去上楼，箭头无法区分楼层。",
 	-- ["Class turn-ins in {area:1638}"] = "在{area:1638}交职业任务",
+	-- ["Cross north-west past {zone:1456} to the {area:398} in the far north of {zone:1412}."] = "向西北经过{zone:1456}，到{zone:1412}最北边的{area:398}。",
+	-- ["Cross to {area:1639}."] = "穿过去到{area:1639}。",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "在村子周围的平原上收集完狼心、美洲狮股骨、陆行鸟鳞片和猛鹫胃。",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "{npc:3566}在{area:225}周围的平原上游荡",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路向北离开{area:220}。{npc:265810}在{area:222}南边不远处的路上等候；在她的营火旁/sit，直到获得{spell:1229451}。",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人马和{npc:2960}",
+	-- ["Head north to {area:225}, east of {zone:1456}. {npc:3233} stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the {npc:2994} waits on top."] = "向北到{zone:1456}东边的{area:225}。{npc:3233}站在岩石脚下；{npc:3232}在墓地里挖掘，{npc:2994}在顶上等候。",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用炉石返回{area:222}，然后向北骑到{area:1639}。",
+	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {npc:3448} stands at the south gate, {quest:860} by the inn; {npc:3449}, {npc:3429} and {npc:3615} on the tower platform, then Helbrim and {npc:3464} by the north gate and the inn. {area:17} guide starts here.\n{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "从东南方的山口离开{zone:1412}，沿道路到{area:380}。{npc:3448}在南门，{quest:860}在旅店旁；{npc:3449}、{npc:3429}和{npc:3615}在塔楼平台上，然后是北门和旅店旁的赫布林和{npc:3464}。{area:17}指南从这里开始。\n{area:380}是本指南的大本营。你需要找的人都在旅店附近几步之内。",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "从东南方的山口离开{zone:1412}，沿道路到{area:380}。{quest:860}站在旅店旁，{npc:3448}在南门。{zone:1413}指南从这里开始。",
 	-- ["Plainstriders roam the grass all around the camp."] = "平原陆行鸟在营地周围的草地上游荡。",
 	-- ["Prairie Wolf Alphas"] = "草原狼前锋",
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "骑到{area:222}，用{item:15908}驯服：平原上的一只{npc:2956}，村子北边的一只{npc:2959}，西北方的一只猛鹫。",
 	-- ["Speak with {npc:3067}"] = "与{npc:3067}交谈",
+	-- ["Spread the {item:278078} off {area:1641}"] = "在{area:1641}散播{item:278078}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "猛鹫在血蹄村周围的平原上空滑翔。",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "加拉克半人马在{area:821}北边的平原上扎营；掠夺者赫拉克是他们的首领。{npc:2960}在狼群中游荡。",
+	-- ["The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "白鬃豺狼人占据着挖掘场南边、血蹄村西边的{area:818}。{npc:272203}被关在他们的营地里：带他出来。",
+	-- ["The Windfury harpies hold {area:819}, north and west of the well."] = "风怒鹰身人占据着水井北边和西边的{area:819}。",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}的矮人带着勘察员的锄头。在挖掘场里矮人的熔炉上砸碎它们。",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "{area:404}的矮人带着{item:4702}。在{area:222}的熔炉上砸碎它们。",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "水井在村子北边。{item:4808}在水井周围，{item:4809}在附近的树下。沿途击杀狼、美洲狮、平原陆行鸟和猛鹫，完成{quest:766}和{quest:761}。",
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "水井在村子北边。水井石在水井周围，{object:2912}在附近的树下。沿途击杀狼、美洲狮、平原陆行鸟和猛鹫，完成{quest:766}和{quest:761}。",
 	-- ["The well lies south-east of the village."] = "水井在村子东南方。",
+	-- ["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "水井在村子东南方。{npc:2988}在水井旁扎营，{quest:99079}站在东边不远处的{area:821}上。",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "在{area:1641}朝南的悬崖上，于仪式垫和香炉处使用{item:278078}。",
+	-- ["You start on the mesa of {area:221}. {npc:2980} and the chief stand by the big tent in the middle."] = "你从{area:221}的台地上出发。{npc:2980}和鹰风酋长站在中央的大帐篷旁。",
+	-- ["{area:221}: kill these as you meet them"] = "{area:221}：遇到就击杀",
+	-- ["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203}：平原徘徊者在{area:225}周围的平原上游荡",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "漫行者{npc:275789}站在水井东边不远处的{area:821}上。",
+	-- ["{npc:2984} stands at the edge of the {area:404}, south of the well."] = "{npc:2984}站在水井南边的{area:404}边缘。",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}在血蹄村东南方的{area:396}旁扎营。",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991}坐在营地东缘的帐篷旁；{item:4755}就在她旁边。",
 	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}，战士训练师",
 	-- ["{npc:3209}, next to {npc:2980}"] = "{npc:3209}，在{npc:2980}旁边",
+	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}：交给{area:380}的{quest:860}",
+	-- ["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543}站在{area:2197}，即{area:1640}下方的洞穴里：走进去下楼，箭头无法区分楼层。",
+	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}：交给{area:380}的{npc:3448}",
+	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888}站在{area:221}。{quest:1516}需要4级，交完这里的任务就能达到。",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "中央台地的{npc:6746}让你去{area:1639}找{npc:3033}。",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130}和{quest:756}",
 }

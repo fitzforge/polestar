@@ -12,16 +12,16 @@ return {
 	["Cloth, {npc:9616}'s ooze quests and the {zone:1426} hubs, which pay {zone:1455} too: best done while leveling."] = "",
 	-- {faction:54} Gnomeregan Exiles
 	["Exalted with {faction:54}: in Classic, other races may buy the mechanostriders"] = "",
-	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
-	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "",
-	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "",
+	-- {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
+	["400 Gnomeregan reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "",
+	-- {zone:1426} Dun Morogh · {zone:1455} Ironforge
+	["About 3,000 Gnomeregan reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus
 	["{npc:14724}, the cloth quartermaster"] = "",
-	-- {npc:14724} Bubulo Acerbus · {faction:54} Gnomeregan Exiles · {object:171524} Tinker Town · {zone:1455} Ironforge · {item:14047} Runecloth · {quest:7812} Additional Runecloth · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron · {area:132} Coldridge Valley · {area:131} Kharanos · {area:133} Gnomeregan · {zone:1453} Stormwind · {zone:1457} Darnassus
-	["{npc:14724} takes cloth for the {faction:54}; he stands in {object:171524} in {zone:1455}, by the tram. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7812} pays 50 for every 20 {item:14047}, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do {zone:1426} (levels 1-12) and {npc:4077}'s quests in Stonetalon (20-25) while you level. After the donations come {npc:9616}'s ooze quests and {quest:4262} (400), then the optional {zone:1426} hubs, best rate first: {area:132} (about 38 a minute at full value), {area:131} (26), the quarry (17). Every {area:133} gain also gives a quarter as much to {zone:1453}, {zone:1455} and {zone:1457}, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "",
+	-- {npc:14724} Bubulo Acerbus · {faction:54} Gnomeregan Exiles · {object:171524} Tinker Town · {zone:1455} Ironforge · {item:14047} Runecloth · {quest:7812} Additional Runecloth · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron · {zone:1453} Stormwind · {zone:1457} Darnassus
+	["{npc:14724} takes cloth for the {faction:54}; he stands in {object:171524} in {zone:1455}, by the tram. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7812} pays 50 for every 20 {item:14047}, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do {zone:1426} (levels 1-12) and {npc:4077}'s quests in Stonetalon (20-25) while you level. After the donations come {npc:9616}'s ooze quests and {quest:4262} (400), then the optional {zone:1426} hubs, best rate first: Coldridge Valley (about 38 a minute at full value), Kharanos (26), the quarry (17). Every Gnomeregan gain also gives a quarter as much to {zone:1453}, {zone:1455} and {zone:1457}, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "",
 	-- {item:2592} Wool Cloth · {zone:1432} Loch Modan · {zone:1437} Wetlands
 	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "",
 
@@ -38,16 +38,15 @@ return {
 	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7812}."] = "",
 
 	-- Step 5: Tinker Town: Laris Geardawdle
-	-- {npc:9616} Laris Geardawdle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{npc:9616} in {object:171524} wants ooze samples for her research: 150 {area:133} reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars."] = "",
+	-- {npc:9616} Laris Geardawdle · {object:171524} Tinker Town
+	["{npc:9616} in {object:171524} wants ooze samples for her research: 150 Gnomeregan reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars."] = "",
 
 	-- Step 6: Felwood: Cursed and Tainted Oozes
 	-- {zone:1448} Felwood
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{zone:1448}: Cursed and Tainted Oozes"] = "",
-	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "",
+	["The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains."] = "",
 
 	-- Step 7: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -57,95 +56,92 @@ return {
 	-- {zone:1449} Un'Goro Crater
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze
 	["{zone:1449}: Primal Oozes"] = "",
-	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "",
+	["The Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "",
 
 	-- Step 9: Tinker Town: hand in
 	-- {object:171524} Tinker Town
 	["{object:171524}: hand in"] = "",
 
 	-- Step 10: Morgan's Vigil: Jalinda Sprig
-	-- {npc:9561} Jalinda Sprig · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:133} Gnomeregan · {area:1584} Blackrock Depths
-	["{npc:9561} at {area:2418}, in the south-east of the {zone:1428}, wants {quest:4262} dead: 100 {area:133} reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a {area:1584} group: 100 more, in full."] = "",
+	-- {npc:9561} Jalinda Sprig
+	["Morgan's Vigil: {npc:9561}"] = "",
+	-- {npc:9561} Jalinda Sprig · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron
+	["{npc:9561} at Morgan's Vigil, in the south-east of the {zone:1428}, wants {quest:4262} dead: 100 Gnomeregan reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a Blackrock Depths group: 100 more, in full."] = "",
 
 	-- Step 11: Blackrock Mountain: Overmaster Pyron
-	-- {area:254} Blackrock Mountain · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:1584} Blackrock Depths
-	["{area:254} stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of {area:1584} but outside the dungeon: at 60 you take him alone."] = "",
+	-- {quest:4262} Overmaster Pyron
+	["Blackrock Mountain: {quest:4262}"] = "",
+	-- {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron
+	["Blackrock Mountain stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone."] = "",
 
 	-- Step 12: Morgan's Vigil: hand in
-	-- {area:2418} Morgan's Vigil
-	["{area:2418}: hand in"] = "",
+	["Morgan's Vigil: hand in"] = "",
 
 	-- Step 13: Coldridge Valley
-	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation (230 at a fifth) in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["Coldridge Valley"] = "",
+	-- {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer
+	["Optional: the Dwarf and Gnome start valley south-west of Kharanos, about 1,150 reputation (230 at a fifth) in 30 minutes at 60. {npc:658} and {npc:713} stand at Anvilmar. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
 
 	-- Step 14: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
 	["Coldridge: wolves, troggs and {npc:8416}'s things"] = "",
-	-- {area:77} Anvilmar · {npc:8416} Felix Whindlebolt
-	["The wolves roam the valley floor; the troggs dig in the camps east of {area:77}; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "",
+	-- {npc:8416} Felix Whindlebolt
+	["The wolves roam the valley floor; the troggs dig in the camps east of Anvilmar; {npc:8416}'s box, chest and bucket lie in the trogg camps."] = "",
 
 	-- Step 15: Coldridge: Anvilmar and Talin Keeneye
-	-- {area:77} Anvilmar · {npc:714} Talin Keeneye
-	["Coldridge: {area:77} and {npc:714}"] = "",
+	-- {npc:714} Talin Keeneye
+	["Coldridge: Anvilmar and {npc:714}"] = "",
 
 	-- Step 16: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
 	["Coldridge: {npc:786} and the troll cave"] = "",
-	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
-	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "",
+	-- {npc:786} Grelin Whitebeard
+	["{npc:786} camps south of Anvilmar, at the mouth of the troll cave; the journal lies at the back of the cave."] = "",
 
 	-- Step 17: Coldridge: the hot Mornbrew
 	["Coldridge: the hot Mornbrew"] = "",
-	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
-	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at {area:77}."] = "",
+	-- {npc:836} Durnan Furcutter
+	["The Scalding Mornbrew cools in five minutes: run straight to {npc:836} at Anvilmar."] = "",
 
 	-- Step 18: Coldridge: on to Kharanos
-	-- {area:131} Kharanos
-	["Coldridge: on to {area:131}"] = "",
-	-- {npc:1252} Senir Whitebeard · {area:131} Kharanos
-	["{npc:1252}, in {area:131}"] = "",
+	["Coldridge: on to Kharanos"] = "",
+	-- {npc:1252} Senir Whitebeard
+	["{npc:1252}, in Kharanos"] = "",
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, in the inn"] = "",
 
 	-- Step 19: Kharanos
-	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["Kharanos"] = "",
+	["Optional: Kharanos and the Brewnall and Gnomeregan roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the Thunderbrew Distillery and at Steelgrill's Depot east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
 
 	-- Step 20: Kharanos: the hills and the depot
-	-- {area:131} Kharanos
-	["{area:131}: the hills and the depot"] = "",
-	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
-	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "",
+	["Kharanos: the hills and the depot"] = "",
+	["The boars and bears roam around Kharanos; the wendigos live in the Grizzled Den south-west of town; the leper gnomes at the Gnomeregan road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "",
 
 	-- Step 21: Kharanos: back in town
-	-- {area:131} Kharanos
-	["{area:131}: back in town"] = "",
+	["Kharanos: back in town"] = "",
 
 	-- Step 22: Kharanos: Brewnall and Frostmane Hold
-	-- {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{area:131}: Brewnall and {quest:287}"] = "",
-	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "",
+	-- {quest:287} Frostmane Hold
+	["Kharanos: Brewnall and {quest:287}"] = "",
+	-- {npc:1374} Rejold Barleybrew · {quest:287} Frostmane Hold
+	["{npc:1374} stands by Brewnall Village on the lake north-west of Kharanos; {quest:287} is the troll cave west of it."] = "",
 	["walk to the back of the cave"] = "",
 
 	-- Step 23: Kharanos: last hand-in
-	-- {area:131} Kharanos
-	["{area:131}: last hand-in"] = "",
+	["Kharanos: last hand-in"] = "",
 
 	-- Step 24: The quarry and Amberstill Ranch
-	-- {area:803} Amberstill Ranch
-	["The quarry and {area:803}"] = "",
-	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation (100 at a fifth) in 30 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
+	["The quarry and Amberstill Ranch"] = "",
+	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {object:149024} Gol'Bolar Quarry (no name in this language: may be words)
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {object:149024} and Amberstill Ranch, about 500 reputation (100 at a fifth) in 30 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
 
 	-- Step 25: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
 	["The quarry: troggs, spies and {npc:1388}"] = "",
-	-- {area:134} Gol'Bolar Quarry · {npc:1388} Vagash · {area:803} Amberstill Ranch
-	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "",
+	-- {object:149024} Gol'Bolar Quarry (no name in this language: may be words) · {npc:1388} Vagash
+	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {object:149024}; {npc:1388}, a big snow leopard, prowls the hills above Amberstill Ranch."] = "",
 
 	-- Step 26: The Reports
 	-- {npc:1274} Senator Barin Redstone
@@ -154,8 +150,8 @@ return {
 	-- Step 27: Additional Runecloth to Honored
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Honored"] = "{quest:7812}: 우호적까지",
-	-- {quest:7812} Additional Runecloth · {item:14047} Runecloth · {npc:9616} Laris Geardawdle · {npc:9561} Jalinda Sprig · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off if it paid in full. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	-- {quest:7812} Additional Runecloth · {item:14047} Runecloth · {npc:9616} Laris Geardawdle · {npc:9561} Jalinda Sprig · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {object:171524} Tinker Town
+	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off if it paid in full. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s Gnomeregan dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
 
 	-- Step 28: Additional Runecloth to Revered
 	-- {quest:7812} Additional Runecloth
@@ -166,8 +162,8 @@ return {
 	-- Step 29: Additional Runecloth to Exalted
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Exalted"] = "{quest:7812}: 확고한 동맹까지",
-	-- {item:14047} Runecloth · {npc:7955} Milli Featherwhistle · {area:189} Steelgrill's Depot · {zone:1426} Dun Morogh
-	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:7955} at {area:189} in {zone:1426} sells her mechanostriders to other races in Classic; the Mechanostrider and Swift Mechanostrider guides cover them."] = "",
+	-- {item:14047} Runecloth · {npc:7955} Milli Featherwhistle · {zone:1426} Dun Morogh
+	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:7955} at Steelgrill's Depot in {zone:1426} sells her mechanostriders to other races in Classic; the Mechanostrider and Swift Mechanostrider guides cover them."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "이곳의 암흑의 수행사제와 어둠마법사(레벨 58-60)가 떨어뜨립니다. 이곳에서 스컬지를 처치할 때마다 {object:92525} 평판도 오릅니다(해당 가이드 참고). 경매장도 이용할 수 있습니다.",

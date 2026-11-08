@@ -25,14 +25,14 @@ return {
 	-- {npc:7051} Malformed Defias Drone
 	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
 	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and Pick Pocket it from behind: it always has the key. It hits hard: if stealth breaks, Sprint away. Watch for the pair of Defias Drones that also patrol."] = "",
-	-- {item:7923} Defias Tower Key · {npc:7051} Malformed Defias Drone
-	["{item:7923}: Pick Pocket the {npc:7051}"] = "",
+	-- {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
+	["Pick Pocket the {npc:7051} for the {item:7923}"] = "",
 
 	-- Step 4: Klaven's journal
 	["Klaven's journal"] = "Le journal de Klaven",
-	-- {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest · {area:97} Alther's Mill
+	-- {npc:7053} Klaven Mortwake · {object:123214} Duskwood Chest
 	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
-	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the Touch of Zanzil, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
+	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at Alther's Mill in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the Touch of Zanzil, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
 	["{item:7908}: the {object:123214}, top floor"] = "{item:7908} : le {object:123214}, dernier étage",
 

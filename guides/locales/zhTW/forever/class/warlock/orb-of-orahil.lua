@@ -11,24 +11,24 @@ return {
 	["An off-hand orb or a staff for your late 30s, down the felhound's or the infernal's path, your pick."] = "30多級後期的副手寶珠或法杖，走地獄犬或地獄火的路線，任你選擇。",
 
 	-- Step 1: Knowledge of the Orb of Orahil (Stormwind)
-	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "35級時，{object:2101}{object:2164}的{npc:461}會派你去找{area:392}的{npc:6266}。",
+	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender
+	["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 2: Knowledge of the Orb of Orahil (Ironforge)
-	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "35級時，{zone:1455}的{npc:5172}會派你去找{area:392}的{npc:6266}。",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender
+	["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 3: Knowledge of the Orb of Orahil (Orgrimmar)
-	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "35級時，{object:172960}的{npc:3326}會派你去找{area:392}的{npc:6266}。",
+	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender
+	["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 4: Knowledge of the Orb of Orahil (Undercity)
-	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar
-	["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "35級時，{object:36082}的{npc:4563}會派你去找{area:392}的{npc:6266}。從{zone:1420}出發的飛艇飛往{zone:1411}。",
+	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {zone:1420} Tirisfal Glades · {zone:1411} Durotar
+	["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in Ratchet. The zeppelin from {zone:1420} flies to {zone:1411}."] = "",
 
 	-- Step 5: Menara Voidrender
-	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "",
+	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan
+	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above Ratchet."] = "",
 
 	-- Step 6: Choose an acolyte
 	["Choose an acolyte"] = "選擇一名侍僧",
@@ -40,9 +40,10 @@ return {
 	["{npc:6252}: he gives you the {item:12646}"] = "{npc:6252}：他會給你{item:12646}",
 
 	-- Step 7: Mannoroc Coven
-	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:1120} Drain Soul
+	["Mannoroc Coven"] = "",
+	-- {zone:1443} Desolace · {object:176946} Shadowprey Village (no name in this language: may be words) · {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter · Ley Hunters = {npc:4685} Ley Hunter · Lesser Infernals = {npc:4676} Lesser Infernal
-	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
+	["Mannoroc Coven fills south-central {zone:1443}, east of {object:176946}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with Drain Soul: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
 	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}，來自火刃召喚師",
@@ -53,18 +54,18 @@ return {
 
 	-- Step 8: The demon's spirit
 	["The demon's spirit"] = "惡魔的靈魂",
-	-- {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "",
+	-- {npc:6266} Menara Voidrender
+	["Back to {npc:6266} in the tower above Ratchet with the spirit and the gem first: her orb follows from it."] = "",
 
 	-- Step 9: Tabetha
-	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb · {spell:710} Banish
-	["{npc:6546} lives at her farm in the middle of {zone:1445}, south of the road from the {zone:1413} and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Before you accept Cleansing, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the {npc:6549} out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or {spell:710} and damage over time, a level 35-38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from {npc:6546} again."] = "",
+	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb
+	["{npc:6546} lives at her farm in the middle of {zone:1445}, south of the road from the {zone:1413} and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Before you accept Cleansing, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the {npc:6549} out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or Banish and damage over time, a level 35-38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from {npc:6546} again."] = "",
 
 	-- Step 10: The Orb of Dar'Orahil
 	-- {item:15108} Orb of Dar'Orahil
 	["The {item:15108}"] = "{item:15108}",
-	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
-	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
+	-- {npc:6266} Menara Voidrender · {item:15108} Orb of Dar'Orahil
+	["Back to {npc:6266} in the tower above Ratchet with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she makes the orb"] = "",
 
@@ -75,6 +76,10 @@ return {
 	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "35級時，{object:172960}的{npc:3326}會派你去找{area:392}的{npc:6266}。",
+	-- ["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "35級時，{object:36082}的{npc:4563}會派你去找{area:392}的{npc:6266}。從{zone:1420}出發的飛艇飛往{zone:1411}。",
+	-- ["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "35級時，{object:2101}{object:2164}的{npc:461}會派你去找{area:392}的{npc:6266}。",
+	-- ["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "35級時，{zone:1455}的{npc:5172}會派你去找{area:392}的{npc:6266}。",
 	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, wait while she completes the {item:15108}, then speak to her again."] = "帶著淨化過的寶珠回到{area:392}上方塔裡的{npc:6266}那裡。走地獄犬路線時，等她完成{item:15108}，然後再和她說話。",
 	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit first: {npc:6546}'s cleansing follows it."] = "先帶著靈魂回到{area:392}上方塔裡的{npc:6266}：之後才是{npc:6546}的淨化。",
 	-- ["On the infernal path, wait while {npc:6266} completes the {item:15107}, then speak to her again."] = "走地獄火路線時，等{npc:6266}完成{item:15107}，然後再和她說話。",

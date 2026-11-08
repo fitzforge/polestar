@@ -13,20 +13,20 @@ return {
 	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "Les sorts de prêtre troll : {quest:5652} au niveau 10, {quest:5642} au niveau 20. Gratuits, sans objectif.",
 
 	-- Step 1: Hex of Weakness: Tai'jin
-	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10, {npc:3706}, the priest trainer inside the barracks of {area:362} (the first building on the right as you come up the road from the {area:363}), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {area:362} is on the road north to the city."] = "Au niveau 10, {npc:3706}, le maître des prêtres dans la caserne de {area:362} (le premier bâtiment à droite en montant la route depuis la {area:363}), vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}. {area:362} est sur la route qui monte vers le nord à la ville.",
+	-- {npc:3706} Tai'jin · {object:3224} Razor Hill (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10, {npc:3706}, the priest trainer inside the barracks of {object:3224} (the first building on the right as you come up the road from the Valley of Trials), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {object:3224} is on the road north to the city."] = "",
 	-- {npc:3706} Tai'jin · {quest:5652} Hex of Weakness
 	["{npc:3706}: take his {quest:5652} letter"] = "{npc:3706} : prenez sa lettre {quest:5652}",
 
 	-- Step 2: Hex of Weakness: Var'jun
-	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {area:222} Bloodhoof Village · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "Au niveau 10 en {zone:1412}, {npc:11407}, juste au sud-ouest du {area:222}, vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}.",
+	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {object:2968} Bloodhoof Village (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10 in {zone:1412}, {npc:11407}, just south-west of {object:2968}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:11407} Var'jun · {quest:5652} Hex of Weakness
 	["{npc:11407}: take the {quest:5652} letter"] = "{npc:11407} : prenez la lettre {quest:5652}",
 
 	-- Step 3: Hex of Weakness: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "Au niveau 10 aux {zone:1456}, {npc:3044}, le maître des prêtres dans la grotte sous la {area:1640}, vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}.",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {object:50495}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:3044} Miles Welsh · {quest:5652} Hex of Weakness
 	["{npc:3044}: take his {quest:5652} letter"] = "{npc:3044} : prenez sa lettre {quest:5652}",
 
@@ -43,8 +43,8 @@ return {
 	-- Step 6: Hex of Weakness: Tai'jin's letter
 	-- {quest:5654} Hex of Weakness · {npc:3706} Tai'jin
 	["{quest:5654}: {npc:3706}'s letter"] = "{quest:5654} : la lettre de {npc:3706}",
-	-- {area:362} Razor Hill · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:6018} Ur'kyo · {quest:5654} Hex of Weakness
-	["Follow the road north from {area:362} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "Suivez la route vers le nord depuis {area:362} jusqu'à {zone:1454}, puis vers l'ouest jusqu'à {object:172961} : {npc:6018} prend la lettre et vous apprend {quest:5654}.",
+	-- {object:3224} Razor Hill (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:6018} Ur'kyo · {quest:5654} Hex of Weakness
+	["Follow the road north from {object:3224} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "",
 
 	-- Step 7: Hex of Weakness: Var'jun's letter
 	-- {quest:5655} Hex of Weakness · {npc:11407} Var'jun
@@ -63,8 +63,8 @@ return {
 	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (the zeppelin from {zone:1420} lands outside {zone:1454})."] = "Remettez la lettre à {npc:6018} dans {object:172961}, à {zone:1454} (le zeppelin depuis {zone:1420} se pose devant {zone:1454}).",
 
 	-- Step 10: Shadowguard: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "Au niveau 20 aux {zone:1456}, {npc:3044}, dans la grotte sous la {area:1640}, vous remet une lettre {quest:5642} pour {npc:6018} à {zone:1454}.",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 20 in {zone:1456}, {npc:3044} in the cave under {object:50495} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:3044} Miles Welsh · {quest:5642} Shadowguard
 	["{npc:3044}: take his {quest:5642} letter"] = "{npc:3044} : prenez sa lettre {quest:5642}",
 
@@ -87,7 +87,12 @@ return {
 	["{quest:5643}: {npc:4606}'s letter"] = "{quest:5643} : la lettre de {npc:4606}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "Au niveau 10 en {zone:1412}, {npc:11407}, juste au sud-ouest du {area:222}, vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}.",
+	-- ["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "Au niveau 10 aux {zone:1456}, {npc:3044}, le maître des prêtres dans la grotte sous la {area:1640}, vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}.",
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "Au niveau 10, allez voir {npc:6018} dans la {object:172961}, à l'ouest d'{zone:1454}. Les maîtres des prêtres d'ailleurs ({npc:3706} à {area:362}, {npc:3044} à {zone:1456}) vous envoient à lui avec une quête du même nom.",
+	-- ["At 10, {npc:3706}, the priest trainer inside the barracks of {area:362} (the first building on the right as you come up the road from the {area:363}), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {area:362} is on the road north to the city."] = "Au niveau 10, {npc:3706}, le maître des prêtres dans la caserne de {area:362} (le premier bâtiment à droite en montant la route depuis la {area:363}), vous remet une lettre {quest:5652} pour {npc:6018} à {zone:1454}. {area:362} est sur la route qui monte vers le nord à la ville.",
+	-- ["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "Au niveau 20 aux {zone:1456}, {npc:3044}, dans la grotte sous la {area:1640}, vous remet une lettre {quest:5642} pour {npc:6018} à {zone:1454}.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "Au niveau 20, {npc:6018} enseigne {quest:5642}. {npc:3044} à {zone:1456} et Aelthalyste à {zone:1458} vous envoient à lui avec une quête du même nom.",
+	-- ["Follow the road north from {area:362} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "Suivez la route vers le nord depuis {area:362} jusqu'à {zone:1454}, puis vers l'ouest jusqu'à {object:172961} : {npc:6018} prend la lettre et vous apprend {quest:5654}.",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Les sorts de prêtre troll : {quest:5652} au niveau 10, {quest:5642} au niveau 20.",
 }

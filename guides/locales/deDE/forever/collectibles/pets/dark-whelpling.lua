@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Black whelps
 	["Black whelps"] = "Schwarze Welpen",
-	-- {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {zone:1418} Badlands
+	-- {zone:1445} Dustwallow Marsh · {zone:1418} Badlands
 	-- plural, as words: Searing Whelps = {npc:4324} Searing Whelp · Scalding Whelps = {npc:2725} Scalding Whelp
-	["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the {area:511}, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "",
-	-- {area:511} Wyrmbog
-	["The {area:511}"] = "{area:511}",
+	["The Searing Whelps of the Wyrmbog in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the Wyrmbog, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "",
+	["The Wyrmbog"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42) and the Scalding Whelps of eastern {zone:1418} (level 41) drop it about once in 900 kills in our data. The waypoint is the {area:511}; the {zone:1418} whelps are the same grind."] = "Die Sengenden Welpen im {area:511} in den südlichen {zone:1445} (Stufe 42) und die Brühenden Welpen im östlichen {zone:1418} (Stufe 41) lassen ihn laut unseren Daten etwa einmal in 900 Kills fallen. Der Wegpunkt ist {area:511}; die Welpen im {zone:1418} sind derselbe Grind.",
+	-- ["The {area:511}"] = "{area:511}",
 }

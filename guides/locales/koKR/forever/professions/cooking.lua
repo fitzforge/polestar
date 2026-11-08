@@ -45,9 +45,9 @@ return {
 	["{npc:1995} (58%) in {zone:1438}, or wherever the arrow points"] = "",
 
 	-- Step 8: Herb Baked Egg (1-50)
-	-- {item:6888} Herb Baked Egg · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2678} Mild Spices · {zone:1438} Teldrassil · {item:6889} Small Egg · {zone:1439} Darkshore · {item:6290} Brilliant Smallfish · {npc:6286} Zarrin · {area:186} Dolanaar · {item:5472} Kaldorei Spider Kabob
+	-- {item:6888} Herb Baked Egg · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2678} Mild Spices · {zone:1438} Teldrassil · {item:6889} Small Egg · {zone:1439} Darkshore · {item:6290} Brilliant Smallfish · {npc:6286} Zarrin · {item:5472} Kaldorei Spider Kabob
 	-- plural, as words: Small Spider Legs = {item:5465} Small Spider Leg
-	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "",
+	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in Dolanaar gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "",
 
 	-- Step 9: Charred Wolf Meat: ingredients
 	-- {npc:250873} Juvenile Vuldren
@@ -82,9 +82,9 @@ return {
 	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "",
 
 	-- Step 19: Coyote Steak (50-90)
-	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
+	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {object:81} Sentinel Hill (no name in this language: may be words) · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
 	-- plural, as words: Coyotes = {npc:834} Coyote
-	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {area:108} also gives {item:733} and {item:724} quests that use what you loot here."] = "",
+	["{spell:2541} is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 50 for 1s. Coyotes roam the middle of {zone:1436}; {npc:235} on the farm north of {object:81} also gives {item:733} and {item:724} quests that use what you loot here."] = "",
 
 	-- Step 20: Crab Cake: shopping
 	-- {spell:2544} Crab Cake
@@ -186,8 +186,8 @@ return {
 	["{npc:3239} (59%), Owatanka (35%) in {zone:1413}, or wherever the arrow points"] = "{zone:1413}의 {npc:3239} (59%), 오와탄카 (35%), 또는 화살표가 가리키는 곳",
 
 	-- Step 40: Crispy Lizard Tail (100-130)
-	-- {item:5479} Crispy Lizard Tail · {object:29784} Basic Campfire · {item:5488} Recipe: Crispy Lizard Tail · {npc:3489} Zargh · {area:380} Crossroads · {item:3735} Recipe: Hot Lion Chops
-	["{item:5479} is orange from 100 (yellow at 140, green at 160, grey at 180): about 30 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. {item:5488} costs 4s at its vendor; the arrow picks the nearest one of your faction. {npc:3489}, the butcher beside this vendor at the {area:380}, sells {item:3735} (18s), the recipe after Expert: buy it now."] = "",
+	-- {item:5479} Crispy Lizard Tail · {object:29784} Basic Campfire · {item:5488} Recipe: Crispy Lizard Tail · {npc:3489} Zargh · {item:3735} Recipe: Hot Lion Chops
+	["{item:5479} is orange from 100 (yellow at 140, green at 160, grey at 180): about 30 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. {item:5488} costs 4s at its vendor; the arrow picks the nearest one of your faction. {npc:3489}, the butcher beside this vendor at the Crossroads, sells {item:3735} (18s), the recipe after Expert: buy it now."] = "",
 
 	-- Step 41: Expert Cooking
 	-- {skill:185} Cooking
@@ -243,16 +243,16 @@ return {
 	["{npc:2560} (38%) in {zone:1417}, or wherever the arrow points"] = "",
 
 	-- Step 50: Roast Raptor (175-225)
-	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {area:320} Refuge Pointe · {npc:2821} Keena · {area:321} Hammerfall · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
-	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "",
+	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {object:2685} Refuge Pointe (no name in this language: may be words) · {npc:2821} Keena · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
+	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {object:2685} (Alliance) and {npc:2821} at Hammerfall (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "",
 
 	-- Step 51: Dirge Quikcleave
-	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1455}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
+	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {zone:1446} Tanaris · {zone:1455} Ironforge
+	["Artisan {skill:185} comes from {npc:8125} in Gadgetzan ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "",
 
 	-- Step 52: Dirge Quikcleave
-	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1454}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
+	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {zone:1446} Tanaris · {zone:1454} Orgrimmar
+	["Artisan {skill:185} comes from {npc:8125} in Gadgetzan ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "",
 
 	-- Step 53: Giant Eggs
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
@@ -287,11 +287,13 @@ return {
 	["{npc:2929} (54%) in {zone:1425}, or wherever the arrow points"] = "",
 
 	-- Step 59: Monster Omelet (225-300)
-	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven
-	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "",
+	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {object:151975} Steamwheedle Port (no name in this language: may be words) · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven
+	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {object:151975}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "진영의 모든 {skill:185} 상급자가 초급 {skill:185}을(를) 가르칩니다(캐릭터 레벨 5). 화살표가 가장 가까운 곳을 가리킵니다.",
+	-- ["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1454}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
+	-- ["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1455}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "이곳에서 낚시로 {item:6291} 약 50개를 잡으세요({skill:356} 가이드 참고).",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "이곳에서 낚시로 {item:6361} 약 68개를 잡으세요({skill:356} 가이드 참고).",
 	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072}; the arrow picks its nearest seller for your faction. Buy it and read it."] = "숙련 {skill:185}은(는) 최대 숙련도를 225로 올립니다. 숙련도 125, 캐릭터 레벨 20이 필요합니다. 책 {item:16072}(으)로 배우며, 화살표가 진영의 가장 가까운 판매 상인을 가리킵니다. 사서 읽으세요.",

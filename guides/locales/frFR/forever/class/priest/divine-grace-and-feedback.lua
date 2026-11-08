@@ -13,14 +13,14 @@ return {
 	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "Les sorts de prêtre humain : {quest:94773} au niveau 10 (nouveau dans Forever), {spell:13896} au niveau 20. Gratuits, sans objectif.",
 
 	-- Step 1: Divine Grace: Priestess Josetta
-	-- {npc:377} Priestess Josetta · {area:87} Goldshire · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["At 10, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a letter for {npc:376}. {area:87} is on the road north to {zone:1453}, so it costs no detour."] = "Au niveau 10, {npc:377}, à l'étage de l'auberge de la Fierté du lion à {area:87}, vous remet une lettre pour {npc:376}. {area:87} est sur la route qui monte vers le nord à {zone:1453} : aucun détour.",
+	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
+	["At 10, {npc:377}, upstairs in the Lion's Pride Inn in Goldshire, hands you a letter for {npc:376}. Goldshire is on the road north to {zone:1453}, so it costs no detour."] = "",
 	-- {npc:377} Priestess Josetta · {quest:94773} Divine Grace
 	["{npc:377}: take her {quest:94773} letter"] = "{npc:377} : prenez sa lettre {quest:94773}",
 
 	-- Step 2: Divine Grace: Laurna Morninglight
-	-- {zone:1438} Teldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["A Human priest in {zone:1438} at 10: {npc:3600}, in the building at the north edge of {area:186}, hands you a letter for {npc:376} in {zone:1453}."] = "Un prêtre humain à {zone:1438} au niveau 10 : {npc:3600}, dans le bâtiment au bord nord de {area:186}, vous remet une lettre pour {npc:376} à {zone:1453}.",
+	-- {zone:1438} Teldrassil · {npc:3600} Laurna Morninglight · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
+	["A Human priest in {zone:1438} at 10: {npc:3600}, in the building at the north edge of Dolanaar, hands you a letter for {npc:376} in {zone:1453}."] = "",
 	-- {npc:3600} Laurna Morninglight · {quest:94773} Divine Grace
 	["{npc:3600}: take her {quest:94773} letter"] = "{npc:3600} : prenez sa lettre {quest:94773}",
 
@@ -37,8 +37,8 @@ return {
 	-- Step 5: Divine Grace: Laurna Morninglight's letter
 	-- {quest:94775} Divine Grace · {npc:3600} Laurna Morninglight
 	["{quest:94775}: {npc:3600}'s letter"] = "{quest:94775} : la lettre de {npc:3600}",
-	-- {npc:3600} Laurna Morninglight · {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {zone:1438} Teldrassil · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor · {quest:94775} Divine Grace
-	["Hand {npc:3600}'s letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1438}: the boat from {area:702} to {area:442}, then the boat to {area:17203}): she teaches {quest:94775}."] = "Remettez la lettre de {npc:3600} à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (depuis {zone:1438} : le bateau du {area:702} à {area:442}, puis le bateau pour le {area:17203}) : elle vous apprend {quest:94775}.",
+	-- {npc:3600} Laurna Morninglight · {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {zone:1438} Teldrassil · {quest:94775} Divine Grace
+	["Hand {npc:3600}'s letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1438}: the boat from Rut'theran Village to Auberdine, then the boat to Stormwind Harbor): she teaches {quest:94775}."] = "",
 
 	-- Step 6: Divine Grace: a letter from another trainer
 	-- {quest:94776} Divine Grace
@@ -65,8 +65,8 @@ return {
 	["Any {quest:94779} letter goes to {npc:376} at the altar of the Cathedral of Light."] = "Toute lettre {quest:94779} va à {npc:376}, à l'autel de la cathédrale de la Lumière.",
 
 	-- Step 10: Feedback: High Priest Rohan
-	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward · {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:171524} Tinker Town
-	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you a letter for {npc:376} in {zone:1453}. The {area:2257} from {object:171524} takes you there."] = "Au niveau 20 à {zone:1455}, {npc:11406}, dans la salle des Mystères ({object:32362}), vous remet une lettre pour {npc:376} à {zone:1453}. Le {area:2257}, depuis {object:171524}, vous y emmène.",
+	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward · {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:171524} Tinker Town
+	["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you a letter for {npc:376} in {zone:1453}. The Deeprun Tram from {object:171524} takes you there."] = "",
 	-- {npc:11406} High Priest Rohan · {quest:5676} Arcane Feedback
 	["{npc:11406}: take his {quest:5676} letter"] = "{npc:11406} : prenez sa lettre {quest:5676}",
 
@@ -83,18 +83,24 @@ return {
 	-- Step 13: Feedback: Rohan's letter
 	-- {spell:13896} Feedback
 	["{spell:13896}: Rohan's letter"] = "{spell:13896} : la lettre de Rohan",
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1455} Ironforge · {spell:13896} Feedback
-	["Hand Rohan's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (the {area:2257} from {object:171524} in {zone:1455}): she teaches {spell:13896}."] = "Remettez la lettre de Rohan à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (le {area:2257} depuis {object:171524}, à {zone:1455}) : elle vous apprend {spell:13896}.",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:171524} Tinker Town · {zone:1455} Ironforge · {spell:13896} Feedback
+	["Hand Rohan's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (the Deeprun Tram from {object:171524} in {zone:1455}): she teaches {spell:13896}."] = "",
 
 	-- Step 14: Feedback: Alathea's letter
 	-- {spell:13896} Feedback
 	["{spell:13896}: Alathea's letter"] = "{spell:13896} : la lettre d'Alathea",
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {zone:1457} Darnassus · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor · {spell:13896} Feedback
-	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "Remettez la lettre d'Alathea à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (depuis {zone:1457} : le portail qui descend au {area:702}, le bateau pour {area:442}, puis le bateau pour le {area:17203}) : elle vous apprend {spell:13896}.",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {zone:1457} Darnassus · {spell:13896} Feedback
+	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to Rut'theran Village, the boat to Auberdine, then the boat to Stormwind Harbor): she teaches {spell:13896}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A Human priest in {zone:1438} at 10: {npc:3600}, in the building at the north edge of {area:186}, hands you a letter for {npc:376} in {zone:1453}."] = "Un prêtre humain à {zone:1438} au niveau 10 : {npc:3600}, dans le bâtiment au bord nord de {area:186}, vous remet une lettre pour {npc:376} à {zone:1453}.",
 	-- ["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "Au niveau 10, allez voir {npc:376} à l'autel de la cathédrale de la Lumière, sur la {object:2098} de {zone:1453}, et acceptez sa quête : elle vous apprend {quest:94773} sur-le-champ. Pas besoin de lettre ; celle d'un autre maître fonctionne aussi (étapes suivantes). {quest:94773} soigne instantanément un allié sous la moitié de sa vie et dissipe {spell:6788}, ce qui vous permet de lui remettre un bouclier (temps de recharge de 5 minutes) ; ne fonctionne pas sur vous-même. Les prêtres humains n'ont pas Prière du désespoir dans Forever : c'est leur sort à la place.",
 	-- ["At 10, go to {npc:376} in the Cathedral of Light. {npc:377} in {area:87} sends you to her with a quest of the same name."] = "Au niveau 10, allez voir {npc:376} dans la cathédrale de la Lumière. {npc:377}, à {area:87}, vous envoie la voir avec une quête du même nom.",
+	-- ["At 10, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a letter for {npc:376}. {area:87} is on the road north to {zone:1453}, so it costs no detour."] = "Au niveau 10, {npc:377}, à l'étage de l'auberge de la Fierté du lion à {area:87}, vous remet une lettre pour {npc:376}. {area:87} est sur la route qui monte vers le nord à {zone:1453} : aucun détour.",
+	-- ["At 20 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) hands you a letter for {npc:376} in {zone:1453}. The {area:2257} from {object:171524} takes you there."] = "Au niveau 20 à {zone:1455}, {npc:11406}, dans la salle des Mystères ({object:32362}), vous remet une lettre pour {npc:376} à {zone:1453}. Le {area:2257}, depuis {object:171524}, vous y emmène.",
 	-- ["At 20, {npc:376} teaches {spell:13896}. {npc:11406} in {zone:1455} and {npc:11401} in {zone:1457} send you to her with a quest of the same name."] = "Au niveau 20, {npc:376} enseigne {spell:13896}. {npc:11406}, à {zone:1455}, et {npc:11401}, à {zone:1457}, vous envoient la voir avec une quête du même nom.",
+	-- ["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "Remettez la lettre d'Alathea à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (depuis {zone:1457} : le portail qui descend au {area:702}, le bateau pour {area:442}, puis le bateau pour le {area:17203}) : elle vous apprend {spell:13896}.",
+	-- ["Hand Rohan's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (the {area:2257} from {object:171524} in {zone:1455}): she teaches {spell:13896}."] = "Remettez la lettre de Rohan à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (le {area:2257} depuis {object:171524}, à {zone:1455}) : elle vous apprend {spell:13896}.",
+	-- ["Hand {npc:3600}'s letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1438}: the boat from {area:702} to {area:442}, then the boat to {area:17203}): she teaches {quest:94775}."] = "Remettez la lettre de {npc:3600} à {npc:376}, à l'autel de la cathédrale de la Lumière de {zone:1453} (depuis {zone:1438} : le bateau du {area:702} à {area:442}, puis le bateau pour le {area:17203}) : elle vous apprend {quest:94775}.",
 	-- ["The Human priest spells: {quest:94773} at 10, {spell:13896} at 20."] = "Les sorts de prêtre humain : {quest:94773} au niveau 10, {spell:13896} au niveau 20.",
 }

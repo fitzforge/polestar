@@ -7,25 +7,25 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Skyboat from Dalaran
-	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "Barco celeste desde {area:279}",
-	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["Skyboat from Dalaran"] = "",
+	-- {zone:2521} Zephras Isle · {zone:1456} Thunder Bluff
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of Dalaran about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Barco celeste a {zone:2521}",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Barco celeste desde {zone:1456}",
-	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	-- {zone:2521} Zephras Isle · {zone:1456} Thunder Bluff
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of Skywatcher Plateau, north of {zone:1456}, about every five minutes (another flies from Dalaran; either faction may take either)."] = "",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Cántales a las ranas",
-	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	-- {item:268109} Musical Gustjumper
+	["From Thendal Village follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Skyboat from {area:279}"] = "Barco celeste desde {area:279}",
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Selecciona una de las ranas de aquí y escribe /sing; aparece {item:268109}. Interactúa con él para obtener la mascota.",
 	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} es la isla inicial de los Cielonatos; cualquiera puede visitarla. Un barco celeste sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, más o menos cada cinco minutos (otro vuela desde {area:279}; cualquier facción puede tomar cualquiera). Omite esto si ya estás en la isla.",
 	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} es la isla inicial de los Cielonatos; cualquiera puede visitarla. Un barco celeste sale del lado norte de {area:279} más o menos cada cinco minutos (otro vuela desde el norte de {zone:1456}; cualquier facción puede tomar cualquiera). Omite esto si ya estás en la isla.",

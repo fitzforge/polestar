@@ -12,18 +12,18 @@ return {
 	["A dagger at 10 from your home town's rogue quests."] = "Une dague au niveau 10, tirée des quêtes de voleur de votre ville natale.",
 
 	-- Step 1: Seek out SI: 7
-	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
-	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train Pick Pocket if you lack it: this chain needs it."] = "",
+	-- {npc:917} Keryn Sylvius · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
+	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in Goldshire, gives you a package for {npc:332} in {zone:1453}. Train Pick Pocket if you lack it: this chain needs it."] = "",
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
 	["Head north to {zone:1453}. Shaw stands upstairs in the SI:7 building in {object:2100} (the quest says the Barracks; it means SI:7)."] = "Dirigez-vous vers le nord jusqu'à {zone:1453}. Shaw se tient à l'étage du bâtiment du SI:7, dans la {object:2100} (la quête parle de la caserne ; il s'agit du SI:7).",
 
 	-- Step 3: Defias Dockmaster
-	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire
-	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and Pick Pocket him from behind: the schedule never drops from his corpse. Do not open with Sap or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "",
-	-- {item:7675} Defias Shipping Schedule · {npc:6846} Defias Dockmaster
-	["{item:7675}: Pick Pocket the {npc:6846}"] = "",
+	-- {npc:6846} Defias Dockmaster
+	["The {npc:6846} (level 10, a goblin) works in the dock house at Jerod's Landing, on the river at Elwynn's southern edge, south of Goldshire. Stealth in and Pick Pocket him from behind: the schedule never drops from his corpse. Do not open with Sap or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "",
+	-- {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
+	["Pick Pocket the {npc:6846} for the {item:7675}"] = "",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "Retour auprès de Mathias Shaw",
@@ -31,48 +31,53 @@ return {
 	["{npc:332}, SI:7"] = "{npc:332}, SI:7",
 
 	-- Step 5: Road to Salvation
-	-- {npc:1234} Hogral Bakkan · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge
-	["At 10 {npc:1234}, the rogue trainer in the {area:2102} in {area:131}, sends you to {npc:5165} in {zone:1455}."] = "Au niveau 10, {npc:1234}, le maître des voleurs de {area:2102} à {area:131}, vous envoie voir {npc:5165} à {zone:1455}.",
+	-- {npc:1234} Hogral Bakkan · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge
+	["At 10 {npc:1234}, the rogue trainer in the Thunderbrew Distillery in Kharanos, sends you to {npc:5165} in {zone:1455}."] = "",
 
 	-- Step 6: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {zone:1455} Ironforge
 	["{npc:5165} is in the {object:32383}, the rogue quarter in the north of {zone:1455}: go into the building with a shady dealer outside and down the stairs."] = "{npc:5165} est dans {object:32383}, le quartier des voleurs au nord de {zone:1455} : entrez dans le bâtiment devant lequel se tient un marchand louche et descendez l'escalier.",
 
 	-- Step 7: Onin MacHammar
-	-- {area:133} Gnomeregan · {npc:6886} Onin MacHammar · {npc:1211} Leper Gnome
-	["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "Dirigez-vous vers l'ouest jusqu'à {area:133}. Au bord de la route qui mène à l'entrée se dresse une tour en spirale en bois : {npc:6886} attend camouflé sur la plate-forme du sommet, à côté d'un {npc:1211} de niveau 10 ; vous ne le voyez donc que de près.",
+	-- {npc:6886} Onin MacHammar · {npc:1211} Leper Gnome
+	["Head west to Gnomeregan. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "",
 
 	-- Step 8: Back to Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard
 	["Back to {npc:5165}"] = "Retour auprès de {npc:5165}",
 
 	-- Step 9: The Apple Falls
-	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {npc:4163} Syurna · {zone:1457} Darnassus
-	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "Au niveau 10, {npc:3599}, le maître des voleurs de l'auberge de {area:186}, vous remet une rose pour {npc:4163} à {zone:1457}. Si vous perdez la rose, abandonnez la quête et reprenez-la.",
+	-- {npc:3599} Jannok Breezesong · {npc:4163} Syurna · {zone:1457} Darnassus
+	["At 10 {npc:3599}, the rogue trainer in the Dolanaar inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "",
 
 	-- Step 10: Syurna
-	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
-	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "Dirigez-vous vers l'ouest jusqu'à {zone:1457}. {npc:4163} est sous terre dans l'{area:1658} : l'accès est l'ouverture au pied de l'arbre fendu à gauche de l'arbre de l'archidruide, près du maître des sabres-de-nuit. Son marqueur sur la carte s'affiche à la surface.",
+	-- {zone:1457} Darnassus · {npc:4163} Syurna
+	["Head west to {zone:1457}. {npc:4163} is below ground in the Cenarion Enclave: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "",
 
 	-- Step 11: Sethir the Ancient
-	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade
-	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then Sprint away. He is back 8 1/2 minutes after a death."] = "",
+	-- {npc:6909} Sethir the Ancient · {object:12360} Oracle Glade (no name in this language: may be words)
+	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {object:12360}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then Sprint away. He is back 8 1/2 minutes after a death."] = "",
 	-- {item:7737} Sethir's Journal
-	["{item:7737}: Pick Pocket Sethir the Ancient"] = "{item:7737} : Vol à la tire sur Sethir l'Ancien",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna
 	["Back to {npc:4163}"] = "Retour auprès de {npc:4163}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10 {npc:1234}, the rogue trainer in the {area:2102} in {area:131}, sends you to {npc:5165} in {zone:1455}."] = "Au niveau 10, {npc:1234}, le maître des voleurs de {area:2102} à {area:131}, vous envoie voir {npc:5165} à {zone:1455}.",
+	-- ["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "Au niveau 10, {npc:3599}, le maître des voleurs de l'auberge de {area:186}, vous remet une rose pour {npc:4163} à {zone:1457}. Si vous perdez la rose, abandonnez la quête et reprenez-la.",
 	-- ["At 10 {npc:3599}, the rogue trainer in {area:186}, gives you a rose for {npc:4163} in {zone:1457}."] = "Au niveau 10, {npc:3599}, le maître des voleurs de {area:186}, vous remet une rose pour {npc:4163} à {zone:1457}.",
 	-- ["At 10 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}."] = "Au niveau 10, {npc:917}, le maître des voleurs de l'auberge de la Fierté du lion à {area:87}, vous remet un paquet pour {npc:332} à {zone:1453}.",
 	-- ["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "Au niveau 10, {npc:917}, le maître des voleurs à l'étage de l'auberge de la Fierté du lion à {area:87}, vous remet un paquet pour {npc:332} à {zone:1453}. Apprenez {spell:921} si vous ne l'avez pas : cette suite en a besoin.",
+	-- ["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "Dirigez-vous vers l'ouest jusqu'à {area:133}. Au bord de la route qui mène à l'entrée se dresse une tour en spirale en bois : {npc:6886} attend camouflé sur la plate-forme du sommet, à côté d'un {npc:1211} de niveau 10 ; vous ne le voyez donc que de près.",
+	-- ["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "Dirigez-vous vers l'ouest jusqu'à {zone:1457}. {npc:4163} est sous terre dans l'{area:1658} : l'accès est l'ouverture au pied de l'arbre fendu à gauche de l'arbre de l'archidruide, près du maître des sabres-de-nuit. Son marqueur sur la carte s'affiche à la surface.",
 	-- ["Ride north to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Chevauchez vers le nord jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}.",
 	-- ["Ride west to {zone:1457}. {npc:4163} stands in the north-west of the city."] = "Chevauchez vers l'ouest jusqu'à {zone:1457}. {npc:4163} se trouve dans le nord-ouest de la ville.",
 	-- ["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "Le {npc:6846} (niveau 10, un gobelin) travaille dans la maison du quai, au {area:797}, sur la rivière à la limite sud de la forêt d'Elwynn, au sud de {area:87}. Entrez camouflé et utilisez {spell:921} sur lui par-derrière : le programme ne tombe jamais de son cadavre. N'ouvrez pas avec {spell:2070} ni par un combat : il appelle trois vagues de gardes du corps. Tenez-vous loin des cheminées de la maison ; elles vous font sortir du camouflage. Il revient 2 à 5 minutes après sa mort.",
 	-- ["The {npc:6846} stands by the river at Elwynn's southern edge, south of {area:87}. He carries the shipping schedule."] = "Le {npc:6846} se tient au bord de la rivière, à la limite sud d'Elwynn, au sud de {area:87}. Il porte le calendrier des expéditions.",
 	-- ["{item:7675}: {spell:921} the {npc:6846}"] = "{item:7675} : {spell:921} sur le {npc:6846}",
+	-- ["{item:7737}: Pick Pocket Sethir the Ancient"] = "{item:7737} : Vol à la tire sur Sethir l'Ancien",
 	-- ["{npc:5165} stands in the north of {zone:1455}."] = "{npc:5165} se trouve dans le nord de {zone:1455}.",
 	-- ["{npc:6886} waits near {area:133}, in western {zone:1426}."] = "{npc:6886} attend près de {area:133}, dans l'ouest de {zone:1426}.",
 	-- ["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "{npc:6909} (satyre de niveau 12) vit au bout d'une grande branche au nord de la {area:264} : passez par la brèche en V dans le mur au nord de la clairière et avancez le long de la branche. Faites-lui les poches pour le journal ; le tuer ne le donne pas, et un combat fait sortir trois Serviteurs de Sethir. Il fait des allers-retours entre la branche principale et une branche latérale : attendez camouflé au bout de la branche principale et volez-le par-derrière quand il revient. Puis utilisez {spell:2983} pour fuir. Il revient 8 minutes et demie après sa mort.",

@@ -11,30 +11,32 @@ return {
 	["A rare off-hand for your 50s from {npc:14469} and {npc:14470} in {zone:1448}, the camp that also offers An Imp's Request."] = "50多級時從{zone:1448}{npc:14469}和{npc:14470}取得的稀有副手，這個營地也提供「小鬼的要求」。",
 
 	-- Step 1: Niby the Almighty
-	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
+	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
 
 	-- Step 2: Jaedenar
-	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
+	["Jaedenar"] = "",
+	-- {npc:9516} Lord Banehollow
 	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
-	["{area:1763} lies just south of {area:1997}, west of the road. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "",
+	["Jaedenar lies just south of Bloodvenom Post, west of the road. Of its two caves, Shadow Hold is the northern one, further up the hill; the other has no Legionnaires. Shadow Hold's tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of Jaedenar and Shadow Hold are all hostile."] = "",
 
 	-- Step 3: Azshara
 	-- {zone:1447} Azshara
 	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "",
 
 	-- Step 4: The Dark Portal
-	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands
-	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "",
+	["The Dark Portal"] = "",
+	-- {zone:1419} Blasted Lands
+	["The Felguard Sentries (level 54) walk around the Dark Portal in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "",
 
 	-- Step 5: Impsy
 	-- {npc:14470} Impsy · {item:18626} Fel Fire · {npc:14467} Kroshius
 	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "",
 
 	-- Step 6: Kroshius
-	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
-	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
+	-- {npc:14467} Kroshius · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
+	["{npc:14467}' remains lie in Shatter Scar Vale, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
 	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
 	["{item:18626}, at {object:179677}"] = "{item:18626}，在{object:179677}",
 

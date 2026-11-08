@@ -16,29 +16,31 @@ return {
 	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1455} reputation. {npc:13843} recruits outside the {object:32372}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
 
 	-- Step 2: Lieutenant Haggerdin
-	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {area:287} Hillsbrad
-	["The Stormpike camp stands outside the {zone:1459} gate, on the {zone:1416} side above {area:287}. Take every quest here: they all pay 100 or more, once."] = "",
-	-- {quest:7162} Proving Grounds · {item:17849} Stormpike Banner · {area:3058} Icewing Cavern
-	["{quest:7162}: the {item:17849} in {area:3058}, 100"] = "",
+	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains
+	["The Stormpike camp stands outside the {zone:1459} gate, on the {zone:1416} side above Hillsbrad. Take every quest here: they all pay 100 or more, once."] = "",
+	-- {quest:7162} Proving Grounds · {item:17849} Stormpike Banner
+	["{quest:7162}: the {item:17849} in Icewing Cavern, 100"] = "",
 	-- {npc:13777} Sergeant Durgen Stormpike
 	["{npc:13777}: assault a graveyard, 100"] = "",
 	["destroy a tower or bunker banner, 100"] = "",
 	["capture a mine, 100"] = "",
 
 	-- Step 3: Dun Baldar
-	-- {area:2959} Dun Baldar
-	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2959} in the north. Before the gates open, take the quests in the town: they are done during the battle."] = "",
+	["Dun Baldar"] = "",
+	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at Dun Baldar in the north. Before the gates open, take the quests in the town: they are done during the battle."] = "",
 
 	-- Step 4: Icewing Cavern
-	-- {area:3058} Icewing Cavern · {area:2959} Dun Baldar · {item:17849} Stormpike Banner
-	["{area:3058} lies southwest of {area:2959}. The {item:17849} stands at the back of the cave, past the yetis and harpies."] = "",
+	["Icewing Cavern"] = "",
+	-- {item:17849} Stormpike Banner
+	["Icewing Cavern lies southwest of Dun Baldar. The {item:17849} stands at the back of the cave, past the yetis and harpies."] = "",
 
 	-- Step 5: The battle
 	["The battle"] = "",
-	-- {npc:11946} Drek'Thar · {quest:7223} Armor Scraps · {area:3301} Snowfall Graveyard · {area:2963} Coldtooth Mine · {npc:13154} Commander Louis Philips · {area:2962} Tower Point · {npc:13597} Frostwolf Explosives Expert · {area:2961} Frostwolf Village · {quest:7301} Fallen Sky Lords · {npc:11947} Captain Galvangar
-	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the {area:3301} or any Horde graveyard, burn a Horde tower (click its banner), and take {area:2963}. {npc:13154} stands at {area:2962}; the {npc:13597} at {area:2961}. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "",
+	-- {npc:11946} Drek'Thar · {quest:7223} Armor Scraps · {npc:13154} Commander Louis Philips · {npc:13597} Frostwolf Explosives Expert · {quest:7301} Fallen Sky Lords · {npc:11947} Captain Galvangar
+	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the Snowfall Graveyard or any Horde graveyard, burn a Horde tower (click its banner), and take Coldtooth Mine. {npc:13154} stands at Tower Point; the {npc:13597} at Frostwolf Village. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "",
 	["assault a graveyard"] = "",
 	["Iceblood Tower banner"] = "",
+	["Coldtooth Mine"] = "",
 	-- {npc:13437} Wing Commander Ichman
 	["{npc:13437}'s spot"] = "",
 	-- {npc:13439} Wing Commander Vipore
@@ -47,8 +49,7 @@ return {
 	["{npc:13438}'s spot"] = "",
 
 	-- Step 6: Back in Dun Baldar
-	-- {area:2959} Dun Baldar
-	["Back in {area:2959}"] = "",
+	["Back in Dun Baldar"] = "",
 
 	-- Step 7: Back at the gate
 	["Back at the gate"] = "",
@@ -100,25 +101,26 @@ return {
 	-- Step 14: Warmaster Laggrond
 	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains
 	["The Frostwolf camp stands outside the {zone:1459} gate in the {zone:1416}. Take every quest here: they all pay 100 or more, once."] = "",
-	-- {quest:7161} Proving Grounds · {item:17850} Frostwolf Banner · {area:3337} Wildpaw Cavern
-	["{quest:7161}: the {item:17850} in {area:3337}, 100"] = "",
+	-- {quest:7161} Proving Grounds · {item:17850} Frostwolf Banner
+	["{quest:7161}: the {item:17850} in Wildpaw Cavern, 100"] = "",
 	-- {npc:13776} Corporal Teeka Bloodsnarl
 	["{npc:13776}: assault a graveyard, 100"] = "",
 	["capture a tower or bunker, 100"] = "",
 
 	-- Step 15: Frostwolf Village
-	-- {area:2961} Frostwolf Village
-	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2961} in the south. Before the gates open, take the quests in the village: they are done during the battle."] = "",
+	["Frostwolf Village"] = "",
+	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at Frostwolf Village in the south. Before the gates open, take the quests in the village: they are done during the battle."] = "",
 
 	-- Step 16: Wildpaw Cavern
-	-- {area:3337} Wildpaw Cavern · {area:2978} Frostwolf Keep · {item:17850} Frostwolf Banner
-	["{area:3337} lies south of {area:2978}. The {item:17850} stands at the back of the cave, past the gnolls."] = "",
+	["Wildpaw Cavern"] = "",
+	-- {item:17850} Frostwolf Banner
+	["Wildpaw Cavern lies south of Frostwolf Keep. The {item:17850} stands at the back of the cave, past the gnolls."] = "",
 
 	-- Step 17: The battle
-	-- {npc:11948} Vanndar Stormpike · {item:17422} Armor Scraps · {area:3301} Snowfall Graveyard · {area:2957} Irondeep Mine · {npc:13320} Commander Karl Philips · {area:3304} Icewing Bunker · {npc:13598} Stormpike Explosives Expert · {area:2959} Dun Baldar · {quest:7302} Fallen Sky Lords · {npc:11949} Captain Balinda Stonehearth
-	["Most of this happens on the way to {npc:11948}. Loot {item:17422} from Alliance players and guards you kill. Assault the {area:3301} or any Alliance graveyard, burn an Alliance bunker (click its banner), and take {area:2957}. {npc:13320} stands at {area:3304}; the {npc:13598} in {area:2959}. {quest:7302} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11949} 125 and Vanndar about 300."] = "",
-	-- {area:3305} Stonehearth Bunker
-	["{area:3305} banner"] = "",
+	-- {npc:11948} Vanndar Stormpike · {item:17422} Armor Scraps · {npc:13320} Commander Karl Philips · {npc:13598} Stormpike Explosives Expert · {quest:7302} Fallen Sky Lords · {npc:11949} Captain Balinda Stonehearth
+	["Most of this happens on the way to {npc:11948}. Loot {item:17422} from Alliance players and guards you kill. Assault the Snowfall Graveyard or any Alliance graveyard, burn an Alliance bunker (click its banner), and take Irondeep Mine. {npc:13320} stands at Icewing Bunker; the {npc:13598} in Dun Baldar. {quest:7302} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11949} 125 and Vanndar about 300."] = "",
+	["Stonehearth Bunker banner"] = "",
+	["Irondeep Mine"] = "",
 	-- {npc:13179} Wing Commander Guse
 	["{npc:13179}'s spot"] = "",
 	-- {npc:13180} Wing Commander Jeztor
@@ -127,8 +129,7 @@ return {
 	["{npc:13181}'s spot"] = "",
 
 	-- Step 18: Back in Frostwolf Village
-	-- {area:2961} Frostwolf Village
-	["Back in {area:2961}"] = "",
+	["Back in Frostwolf Village"] = "",
 
 	-- Step 19: Back at the gate
 	-- {npc:15350} Horde Warbringer · {quest:8369} Invaders of Alterac Valley · {zone:1459} Alterac Valley

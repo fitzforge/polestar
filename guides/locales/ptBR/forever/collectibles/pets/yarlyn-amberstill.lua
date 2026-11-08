@@ -11,8 +11,8 @@ return {
 	["{npc:1263}'s Rabbits"] = "Coelhos de {npc:1263}",
 
 	-- Step 1: Yarlyn Amberstill
-	-- {npc:1263} Yarlyn Amberstill · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
-	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	-- {npc:1263} Yarlyn Amberstill · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
+	["{npc:1263} stands at Amberstill Ranch, east of Kharanos on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
 	-- {item:8497} Rabbit Crate (Snowshoe)
 	["{item:8497}, 20s"] = "{item:8497}, 20s",
 	["20s"] = "20s",

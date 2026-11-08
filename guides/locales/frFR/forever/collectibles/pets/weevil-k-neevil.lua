@@ -26,9 +26,9 @@ return {
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
 	["{npc:217590} in {zone:1443}"] = "{npc:217590} en {zone:1443}",
-	-- {area:596} Kodo Graveyard · {zone:1443} Desolace
+	-- {zone:1443} Desolace
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Les Pique-chair se nourrissent dans le {area:596}, au milieu du sud de {zone:1443}. Utilisez l'outil du kit sur l'un d'eux.",
+	["The Flesh Pickers feed in the Kodo Graveyard in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb
@@ -37,5 +37,6 @@ return {
 	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "Remettez les trois spécimens à {npc:217412} : elle vous donne {item:280456} et 35 pa.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Les Pique-chair se nourrissent dans le {area:596}, au milieu du sud de {zone:1443}. Utilisez l'outil du kit sur l'un d'eux.",
 	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412} vous donne un Kit d’entomologiste novice : utilisez ses objets pour attraper {npc:217588}, un spécimen de charançon des foins et {npc:217590}. Cette quête est indiquée comme source du charançon mais ne rapporte que de l'argent ; la mascotte peut venir du {npc:217589} que vous attrapez. Si vous perdez le kit, elle en vend un autre.",
 }

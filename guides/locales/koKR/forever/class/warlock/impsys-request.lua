@@ -31,31 +31,30 @@ return {
 	["One {item:14256}: the Jadefire satyrs of {zone:1448} drop it about one kill in fourteen, and so do the Legashi satyrs and the Felguard Sentries you hunt for Niby's essences. Quicker: buy one at the Auction House. You need it for the trainer's {quest:8419} or for {npc:14470}'s own {quest:8420}, the same errand: whichever you hold."] = "",
 
 	-- Step 6: Impsy
-	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls · {quest:8419} An Imp's Request · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
-	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Hand him the trainer's {quest:8419} with the cloth. Next he wants ten {item:20613} and four {item:20614}."] = "",
+	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {quest:8419} An Imp's Request · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
+	["{npc:14470} waits beside {npc:14469} on a rise just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Hand him the trainer's {quest:8419} with the cloth. Next he wants ten {item:20613} and four {item:20614}."] = "",
 
 	-- Step 7: Impsy: Hot and Itchy
-	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls · {quest:8420} Hot and Itchy · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
-	["{npc:14470} waits beside {npc:14469} on a rise just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. Take his own {quest:8420} and hand him the cloth at once. Next he wants ten {item:20613} and four {item:20614}."] = "",
+	-- {npc:14470} Impsy · {npc:14469} Niby the Almighty · {quest:8420} Hot and Itchy · {item:20613} Rotting Wood · {item:20614} Bloodvenom Essence
+	["{npc:14470} waits beside {npc:14469} on a rise just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Take his own {quest:8420} and hand him the cloth at once. Next he wants ten {item:20613} and four {item:20614}."] = "",
 
 	-- Step 8: Rotting Wood and Bloodvenom
 	-- {item:20613} Rotting Wood
 	["{item:20613} and Bloodvenom"] = "{item:20613}와(과) 피멍울",
-	-- {area:1767} Irontree Woods · {zone:1448} Felwood · {area:1998} Talonbranch Glade · {item:20613} Rotting Wood · {npc:7149} Withered Protector · {npc:14470} Impsy
+	-- {zone:1448} Felwood · {object:177106} Talonbranch Glade (no name in this language: may be words) · {item:20613} Rotting Wood · {npc:7149} Withered Protector · {npc:14470} Impsy
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Irontree treants (level 52) of {area:1767}, in northern {zone:1448} west of {area:1998}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "",
+	["The Irontree treants (level 52) of Irontree Woods, in northern {zone:1448} west of {object:177106}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "",
 
 	-- Step 9: Impsy again
 	-- {npc:14470} Impsy
 	["{npc:14470} again"] = "다시 {npc:14470}",
-	-- {npc:14470} Impsy · {item:20609} Voodoo Feathers · {area:1417} Sunken Temple
-	["{npc:14470} now wants six {item:20609} from the {area:1417}: a dungeon run."] = "",
+	-- {npc:14470} Impsy · {item:20609} Voodoo Feathers
+	["{npc:14470} now wants six {item:20609} from the Sunken Temple: a dungeon run."] = "",
 
 	-- Step 10: The Sunken Temple
-	-- {area:1417} Sunken Temple
-	["The {area:1417}"] = "{area:1417}",
-	-- {area:1417} Sunken Temple · {area:1477} Temple of Atal'Hakkar · {area:74} Pool of Tears · {npc:5716} Zul'Lor
-	["The {area:1417} ({area:1477}, level 50-56, a group of five) stands in the middle of the {area:74}: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52."] = "",
+	["The Sunken Temple"] = "",
+	-- {npc:5716} Zul'Lor
+	["The Sunken Temple (Temple of Atal'Hakkar, level 50-56, a group of five) stands in the middle of the Pool of Tears: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52."] = "",
 	-- {npc:5716} Zul'Lor
 	-- plural, as words: Amber Voodoo Feathers = {item:20606} Amber Voodoo Feather
 	["Amber Voodoo Feathers: Gasher, {npc:5716}"] = "",
@@ -75,6 +74,7 @@ return {
 	-- ["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448}."] = "50레벨에 {zone:1455}의 {npc:5172}이(가) 당신을 {zone:1448}의 {npc:14470}에게 보냅니다.",
 	-- ["The Irontree treants in northern {zone:1448} drop the {item:20613}; the Tainted Oozes around {area:1763} the {item:20614}."] = "{zone:1448} 북부의 강철나무정령이 {item:20613}을(를), {area:1763} 주변의 부패한 수액괴물이 {item:20614}을(를) 떨어뜨립니다.",
 	-- ["The six troll guardians of the {area:1417}, a level 50 dungeon, each drop a Voodoo Feather: bring a group of five. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance."] = "50레벨 던전인 {area:1417}의 트롤 수호자 여섯이 각각 부두 깃털을 떨어뜨립니다. 5인 파티를 데려가세요. 사원은 {area:74} 한가운데에 있으며, 물속으로 헤엄쳐 내려가면 입구가 나옵니다.",
+	-- ["The {area:1417}"] = "{area:1417}",
 	-- ["{npc:14470} waits beside {npc:14469} in central {zone:1448}, just east of {area:1763}. This chain is {npc:14470}'s own and is not part of the Dreadsteed chain; Niby and {npc:14470} also give the {item:18762} chain here."] = "{npc:14470}은(는) {zone:1448} 중부, {area:1763} 바로 동쪽에서 {npc:14469} 옆에 있습니다. 이 연계 퀘스트는 {npc:14470}의 개인 퀘스트로 공포마 연계 퀘스트에 속하지 않습니다. 나이비와 {npc:14470}은(는) 이곳에서 {item:18762} 연계 퀘스트도 줍니다.",
 	-- ["{npc:14470} wants one {item:14256}: the Jadefire satyrs and the demons of {area:1763} drop it."] = "{npc:14470}은(는) {item:14256} 하나를 원합니다. 비취불꽃의 사티로스와 {area:1763}의 악마가 떨어뜨립니다.",
 }

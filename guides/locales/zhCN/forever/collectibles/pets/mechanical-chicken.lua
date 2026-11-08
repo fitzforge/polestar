@@ -9,14 +9,14 @@ return {
 	-- Step 1: OOX-22/FE Distress Beacon in Feralas
 	-- {item:8705} OOX-22/FE Distress Beacon · {zone:1444} Feralas
 	["{item:8705} in {zone:1444}"] = "{zone:1444}的{item:8705}",
-	-- {zone:1444} Feralas · {area:1108} Forgotten Coast
+	-- {zone:1444} Feralas
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
-	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "",
+	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the Forgotten Coast and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "",
 
 	-- Step 2: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "营救自动导航机器人OOX-22/FE",
-	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
+	-- {object:3204} Booty Bay (no name in this language: may be words)
+	["Right-click the beacon. OOX-22/FE sits in a cave near Feral Scar Vale, among yetis and apes. Its escort runs west along the road to the dock on the Forgotten Coast with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {object:3204}; keep the quest for later."] = "",
 	["Escort OOX-22/FE"] = "护送自动导航机器人OOX-22/FE",
 
 	-- Step 3: OOX-17/TN Distress Beacon in Tanaris
@@ -28,8 +28,8 @@ return {
 
 	-- Step 4: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "营救自动导航机器人OOX-17/TN",
-	-- {area:981} Gaping Chasm · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:35} Booty Bay
-	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "",
+	-- {zone:1446} Tanaris · {object:151975} Steamwheedle Port (no name in this language: may be words) · {object:3204} Booty Bay (no name in this language: may be words)
+	["OOX-17/TN stands in the hills near the Gaping Chasm in south-east {zone:1446}. Its escort to {object:151975} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {object:3204} too."] = "",
 	["Escort OOX-17/TN"] = "护送自动导航机器人OOX-17/TN",
 
 	-- Step 5: OOX-09/HL Distress Beacon in the Hinterlands
@@ -40,16 +40,15 @@ return {
 
 	-- Step 6: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "营救自动导航机器人OOX-09/HL",
-	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "",
+	["OOX-09/HL waits on the largest island of the lake west of Skulk Rock. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "",
 	["Escort OOX-09/HL"] = "护送自动导航机器人OOX-09/HL",
 
 	-- Step 7: Oglethorpe Obnoticus in Booty Bay
-	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["{npc:7406} in {area:35}"] = "{area:35}的{npc:7406}",
-	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {npc:2490} First Mate Crazz · {quest:3721} An OOX of Your Own · {item:10398} Mechanical Chicken
-	["{npc:7406} is in {area:35}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "",
+	-- {npc:7406} Oglethorpe Obnoticus · {object:3204} Booty Bay (no name in this language: may be words)
+	["{npc:7406} in {object:3204}"] = "",
+	-- {npc:7406} Oglethorpe Obnoticus · {object:3204} Booty Bay (no name in this language: may be words) · {npc:2490} First Mate Crazz · {quest:3721} An OOX of Your Own · {item:10398} Mechanical Chicken
+	["{npc:7406} is in {object:3204}, upstairs in the building north of the inn, above {npc:2490}. Hand in all three rescues; at level 45 he then offers {quest:3721}, which you turn straight back in for the {item:10398}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Each robot starts with a distress beacon that mobs in its zone drop (about 1-2.5% per kill in our data). Start in {zone:1444}."] = "每个机器人都从一个定位器开始，由所在地区的怪物掉落（我们的数据显示每次击杀约1-2.5%）。从{zone:1444}开始。",
@@ -58,5 +57,6 @@ return {
 	-- ["Take the beacon to OOX-09/HL at the head of the river near {area:351}, then escort it to the shore beyond Overlook Cliff."] = "把定位器带到{area:351}附近河流源头的自动导航机器人OOX-09/HL处，然后护送它到望海崖另一边的岸边。",
 	-- ["Take the beacon to OOX-17/TN in {zone:1446}, then escort it to {area:977}. Its turn-in is in {area:35} too."] = "把定位器带到{zone:1446}的自动导航机器人OOX-17/TN处，然后护送它到{area:977}。它的任务也在{area:35}交还。",
 	-- ["Take the beacon to OOX-22/FE in a cave near {area:1105}, then escort it to the dock on the {area:1108}. Its turn-in is in {area:35}; keep it for later."] = "把定位器带到{area:1105}附近一个洞穴里的自动导航机器人OOX-22/FE处，然后护送它到{area:1108}的码头。它的任务在{area:35}交还；先留着。",
+	-- ["{npc:7406} in {area:35}"] = "{area:35}的{npc:7406}",
 	-- ["{npc:7406} is in {area:35}. With all three robots home he offers {quest:3721}, whose reward is the {item:10398}; it needs level 45."] = "{npc:7406}在{area:35}。三个机器人都回家后，他会提供{quest:3721}，奖励是{item:10398}；需要45级。",
 }

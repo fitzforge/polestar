@@ -15,9 +15,9 @@ return {
 	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "No nível 60, {npc:5149} na {object:32362} manda você a {quest:7638} na Catedral da Luz de {zone:1453}.",
 
 	-- Step 2: Lord Grayson Shadowbreaker
-	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
+	-- {spell:23214} Summon Charger · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["The {spell:23214} chain is long: {area:2279}, Dire Maul West and {area:2057} with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "",
+	["The {spell:23214} chain is long: Stratholme, Dire Maul West and Scholomance with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, Catedral da Luz",
 
@@ -29,13 +29,13 @@ return {
 
 	-- Step 4: Back to Lord Grayson
 	["Back to Lord Grayson"] = "De volta a Lorde Grayson",
-	-- {item:18752} Exorcism Censer · {area:2627} Terrordale
-	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
+	-- {item:18752} Exorcism Censer
+	["Lord Grayson blesses the censer into the {item:18752} for Terrordale."] = "",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {zone:1423} Eastern Plaguelands · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
+	["Terrordale lies in the far north-west of the {zone:1423}, west of the Stratholme gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their Wailing Dead lowers all your stats by 30%: fight them one at a time and use Turn Undead. The patches come back quickly; several paladins can work side by side."] = "",
 	-- {item:18752} Exorcism Censer
 	["{item:18752}, inside a green patch"] = "",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
@@ -51,8 +51,8 @@ return {
 	-- Step 8: Grimand Elmore's materials
 	-- {npc:1416} Grimand Elmore
 	["{npc:1416}'s materials"] = "Materiais de {npc:1416}",
-	-- {item:14047} Runecloth · {area:2255} Everlook · {area:2577} Dire Maul · {item:8836} Arthas' Tears · {skill:182} Herbalism · {area:3197} Chillwind Camp · {item:12360} Arcanite Bar · {item:12359} Thorium Bar · {item:12363} Arcane Crystal
-	["{item:14047} drops from humanoids of level 50 and up ({area:2255}'s Bruisers, the Scarlet Crusade in the Plaguelands, the {area:2577} ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around {area:3197}. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "",
+	-- {item:14047} Runecloth · {item:8836} Arthas' Tears · {skill:182} Herbalism · {item:12360} Arcanite Bar · {item:12359} Thorium Bar · {item:12363} Arcane Crystal
+	["{item:14047} drops from humanoids of level 50 and up (Everlook's Bruisers, the Scarlet Crusade in the Plaguelands, the Dire Maul ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around Chillwind Camp. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "",
 	-- {item:14047} Runecloth
 	["{item:14047} x40"] = "",
 	-- {item:8836} Arthas' Tears
@@ -61,9 +61,10 @@ return {
 	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "",
 
 	-- Step 9: Stratholme Holy Water
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
+	-- {zone:1423} Eastern Plaguelands
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
-	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "",
+	["Stratholme is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "",
+	["Stratholme"] = "",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
 	["Stratholme Supply Crates, inside"] = "",
 
@@ -81,20 +82,22 @@ return {
 	-- Step 12: Enriched Manna Biscuits
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits"] = "Biscoitos de Maná Enriquecidos",
-	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn (no name in this language: may be words) · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
+	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn (no name in this language: may be words) · {npc:10857} Argent Quartermaster Lightspark · {npc:11536} Quartermaster Miranda Breechlock
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "",
-	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at Chillwind Camp or {npc:11536} at Light's Hope Chapel. Scourgestones and the Plaguelands quests raise the standing."] = "",
+	-- {npc:10857} Argent Quartermaster Lightspark
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "Biscoitos de Maná Enriquecidos: {npc:10857}, {area:3197}",
+	["Enriched Manna Biscuits: {npc:10857}, Chillwind Camp"] = "",
 
 	-- Step 13: Merideth Carlson
-	-- {npc:2357} Merideth Carlson · {area:271} Southshore · {quest:7645} Manna-Enriched Horse Feed
-	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
+	-- {npc:2357} Merideth Carlson · {quest:7645} Manna-Enriched Horse Feed
+	["{npc:2357} breeds horses in Southshore's stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
 
 	-- Step 14: Dire Maul: Tendris Warpwood
-	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
-	["{area:2577} lies in central {zone:1444}. From the gate at the foot of the ruins, walk up through the outer courtyards to the West wing's door at their north end; it needs a {item:18249} (from Pusillin in Dire Maul East) or a rogue's lockpicking. {npc:11489} (level 60 elite) stands at the far end of the West wing's first courtyard. Once attacked he calls every {npc:11459} still alive in the courtyard: kill them first. His death frees the {quest:7643}: talk to it to give it the horse feed and the {item:18753}, and it blesses the barding. A group of five at 60."] = "",
+	-- {npc:11489} Tendris Warpwood
+	["Dire Maul: {npc:11489}"] = "",
+	-- {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
+	["Dire Maul lies in central {zone:1444}. From the gate at the foot of the ruins, walk up through the outer courtyards to the West wing's door at their north end; it needs a {item:18249} (from Pusillin in Dire Maul East) or a rogue's lockpicking. {npc:11489} (level 60 elite) stands at the far end of the West wing's first courtyard. Once attacked he calls every {npc:11459} still alive in the courtyard: kill them first. His death frees the {quest:7643}: talk to it to give it the horse feed and the {item:18753}, and it blesses the barding. A group of five at 60."] = "",
 	["Dire Maul West's door"] = "",
 	-- {npc:11489} Tendris Warpwood
 	["{npc:11489}, inside the West wing"] = "{npc:11489}, dentro da ala Oeste",
@@ -111,8 +114,9 @@ return {
 	["{item:18792}, from the satchel"] = "",
 
 	-- Step 18: The Great Ossuary
-	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {spell:1105} Seal of Wisdom · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger
-	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; the door needs the {item:13704} (The Key to {area:2057}). Clear the {object:179746}, Rattlegore's room in the basement, then use the {item:18746} at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with {spell:1105}, Justice, Righteousness and then Light, which stuns them. {npc:14516} (level 62 elite) comes after the last; he mind-controls players. Loot the {item:18749}, use it inside the Ossuary to redeem it, and give it and the {item:18792} to {npc:14568}. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the {object:179746}, after the mount, lets you fight him again."] = "",
+	-- {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger
+	["Scholomance lies under Caer Darrow, the island town in the south-east of the {zone:1422}; the door needs the {item:13704} (The Key to Scholomance). Clear the {object:179746}, Rattlegore's room in the basement, then use the {item:18746} at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with Seal of Wisdom, Justice, Righteousness and then Light, which stuns them. {npc:14516} (level 62 elite) comes after the last; he mind-controls players. Loot the {item:18749}, use it inside the Ossuary to redeem it, and give it and the {item:18792} to {npc:14568}. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the {object:179746}, after the mount, lets you fight him again."] = "",
+	["Scholomance"] = "",
 	-- {item:18749} Charger's Lost Soul · {object:179746} The Great Ossuary (no name in this language: may be words)
 	["{item:18749}, inside the {object:179746}"] = "",
 
@@ -120,6 +124,7 @@ return {
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "Um {item:12800} vem de veios de tório, um {item:18335} dos elites das {zone:1422}, ambos raramente: a Casa de Leilões é a fonte habitual.",
 	-- ["Arcanite Bars: the Auction House"] = "Barras de Arcanita: a Casa de Leilões",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Leve 150 de ouro para {npc:1416} junto com os materiais.",
+	-- ["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "Biscoitos de Maná Enriquecidos: {npc:10857}, {area:3197}",
 	-- ["Supply Crates, inside"] = "Caixotes de Suprimentos, lá dentro",
 	-- ["Terrordale Spirits"] = "Espíritos da Várzea do Medo",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "A série de {spell:23214} é longa: passa por {area:2279}, {area:2577} e {area:2057}, e custa cerca de 350 de ouro em doações além dos materiais. Lorde Grayson fica na Catedral da Luz.",

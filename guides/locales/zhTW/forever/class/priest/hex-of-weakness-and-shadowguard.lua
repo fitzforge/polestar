@@ -13,20 +13,20 @@ return {
 	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "",
 
 	-- Step 1: Hex of Weakness: Tai'jin
-	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10, {npc:3706}, the priest trainer inside the barracks of {area:362} (the first building on the right as you come up the road from the {area:363}), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {area:362} is on the road north to the city."] = "",
+	-- {npc:3706} Tai'jin · {object:3224} Razor Hill (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10, {npc:3706}, the priest trainer inside the barracks of {object:3224} (the first building on the right as you come up the road from the Valley of Trials), hands you a {quest:5652} letter for {npc:6018} in {zone:1454}. {object:3224} is on the road north to the city."] = "",
 	-- {npc:3706} Tai'jin · {quest:5652} Hex of Weakness
 	["{npc:3706}: take his {quest:5652} letter"] = "",
 
 	-- Step 2: Hex of Weakness: Var'jun
-	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {area:222} Bloodhoof Village · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
+	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {object:2968} Bloodhoof Village (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10 in {zone:1412}, {npc:11407}, just south-west of {object:2968}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:11407} Var'jun · {quest:5652} Hex of Weakness
 	["{npc:11407}: take the {quest:5652} letter"] = "",
 
 	-- Step 3: Hex of Weakness: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {object:50495}, hands you a {quest:5652} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:3044} Miles Welsh · {quest:5652} Hex of Weakness
 	["{npc:3044}: take his {quest:5652} letter"] = "",
 
@@ -43,8 +43,8 @@ return {
 	-- Step 6: Hex of Weakness: Tai'jin's letter
 	-- {quest:5654} Hex of Weakness · {npc:3706} Tai'jin
 	["{quest:5654}: {npc:3706}'s letter"] = "",
-	-- {area:362} Razor Hill · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:6018} Ur'kyo · {quest:5654} Hex of Weakness
-	["Follow the road north from {area:362} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "",
+	-- {object:3224} Razor Hill (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:6018} Ur'kyo · {quest:5654} Hex of Weakness
+	["Follow the road north from {object:3224} into {zone:1454} and west to the {object:172961}: {npc:6018} takes the letter and teaches {quest:5654}."] = "",
 
 	-- Step 7: Hex of Weakness: Var'jun's letter
 	-- {quest:5655} Hex of Weakness · {npc:11407} Var'jun
@@ -63,8 +63,8 @@ return {
 	["Hand the letter to {npc:6018} in the {object:172961}, {zone:1454} (the zeppelin from {zone:1420} lands outside {zone:1454})."] = "",
 
 	-- Step 10: Shadowguard: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {quest:5642} Shadowguard · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["At 20 in {zone:1456}, {npc:3044} in the cave under {object:50495} hands you a {quest:5642} letter for {npc:6018} in {zone:1454}."] = "",
 	-- {npc:3044} Miles Welsh · {quest:5642} Shadowguard
 	["{npc:3044}: take his {quest:5642} letter"] = "",
 

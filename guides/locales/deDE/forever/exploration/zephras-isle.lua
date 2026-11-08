@@ -11,16 +11,41 @@ return {
 	["Exploration: {zone:2521}"] = "Erkundung: {zone:2521}",
 
 	-- Step 1: Zephras Isle (1/3)
-	-- {zone:2521} Zephras Isle · {area:17221} Skywall
-	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
+	-- {zone:2521} Zephras Isle
+	["{zone:2521} is the Skyborne starting island, a world of its own in Skywall; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
 	["Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."] = "Himmelsgeborene starten hier. Alle anderen nehmen ein Himmelsboot, etwa alle fünf Minuten; jede Fraktion darf jedes nehmen.",
-	-- {area:279} Dalaran · {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
-	["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "Das Himmelsboot legt an der Nordseite von {area:279} im {zone:1416} ab (ein weiteres fliegt nördlich von {zone:1456}).",
-	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["The skyboat leaves the cliffs south of {area:17045}, north of {zone:1456} (another flies from {area:279})."] = "Das Himmelsboot legt an den Klippen südlich des {area:17045} ab, nördlich von {zone:1456} (ein weiteres fliegt von {area:279}).",
+	-- {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
+	["The skyboat leaves the north side of Dalaran in the {zone:1416} (another flies from north of {zone:1456})."] = "",
+	-- {zone:1456} Thunder Bluff
+	["The skyboat leaves the cliffs south of Skywatcher Plateau, north of {zone:1456} (another flies from Dalaran)."] = "",
 	["any one of these names counts"] = "jeder dieser Namen zählt",
+	["Valanaar / Valanaar Skydocks"] = "",
+	["Gustberry Lowlands"] = "",
+	["East Pylon Watchtower"] = "",
+	["Rohashi Spires"] = "",
+	["Shrine of Akir"] = "",
+	["Shadowgale Forest"] = "",
+	["Ruins of Ban'aethal"] = "",
+
+	-- Step 2: Zephras Isle (2/3)
+	["Thendal Standing Stones / Thendal Village"] = "",
+	["Thendal Village"] = "",
+	["Thendal Grove"] = "",
+	["Windsong Standing Stones"] = "",
+	["Shen'dar Village"] = "",
+	["Windsong Lake"] = "",
+	["Falaath Village"] = "",
+
+	-- Step 3: Zephras Isle (3/3)
+	["Shen'dar Highlands"] = "",
+	["West Pylon Watchtower"] = "",
+	["Overlook Standing Stones"] = "",
+	["Windfield Orchard"] = "",
+	["Fairweather Stables"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Die ganze Weltkarte mit einem Charakter zu erkunden ist eine Forever-Vermächtnisherausforderung (1 accountweiter Vermächtnispunkt).",
+	-- ["The skyboat leaves the cliffs south of {area:17045}, north of {zone:1456} (another flies from {area:279})."] = "Das Himmelsboot legt an den Klippen südlich des {area:17045} ab, nördlich von {zone:1456} (ein weiteres fliegt von {area:279}).",
+	-- ["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "Das Himmelsboot legt an der Nordseite von {area:279} im {zone:1416} ab (ein weiteres fliegt nördlich von {zone:1456}).",
 	-- ["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit, and its map counts towards exploring the world. 20 areas to discover here, levels 3-12."] = "{zone:2521} ist die Startinsel der Himmelsgeborenen, eine eigene Welt in {area:17221}; jeder kann sie besuchen, und ihre Karte zählt zur Erkundung der Welt. Hier gibt es 20 Gebiete zu entdecken, Stufe 3-12.",
 }

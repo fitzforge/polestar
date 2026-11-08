@@ -12,10 +12,11 @@ return {
 	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "Des recettes pour travailleurs du cuir, tailleurs, enchanteurs et alchimistes, d'Amical à Révéré",
 
 	-- Step 1: Grazle
-	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["{faction:576} starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; {npc:11554}, {npc:15395} and {npc:11556} talk to everyone. {npc:11554} waits by the road in the south of {zone:1448}, near the {area:2479}. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain."] = "{faction:576} commence à Hostile (2 500 sur 3 000) : ses furbolgs vous attaquent donc dans leurs tunnels ; {npc:11554}, {npc:15395} et {npc:11556} parlent à tout le monde. {npc:11554} attend au bord de la route dans le sud de {zone:1448}, près du {area:2479}. Chaque furbolg Mort-bois ou Tombe-hiver que vous tuez donne 5 de réputation jusqu'au dernier point d'Honoré : les quêtes ci-dessous rapportent donc deux fois. L'atout d'Héritage Diplomate ajoute jusqu'à 10 % à chaque gain.",
+	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood
+	["{faction:576} starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; {npc:11554}, {npc:15395} and {npc:11556} talk to everyone. {npc:11554} waits by the road in the south of {zone:1448}, near the Emerald Sanctuary. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain."] = "",
 
 	-- Step 2: Deadwood Village
+	["Deadwood Village"] = "",
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw · {quest:8460} Timbermaw Ally
 	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. In Classic, quests 6 or more levels below you pay less and grey mobs give about a fifth: at level 60 {quest:8460} paid 30 instead of 150 and these furbolgs about 1 a kill. Do it while leveling if you can."] = "Les furbolgs Mort-bois (niveau 48-50) tiennent le village à l'extrémité sud de {zone:1448}. Gardez chaque {item:21377} : elles valent 10 de réputation chacune plus tard et comptent toujours. {npc:9464} (15 de réputation) et le rare {npc:14342} (25) vivent ici et comptent jusqu'à Exalté. Dans Classic, les quêtes 6 niveaux ou plus sous le vôtre rapportent moins et les monstres gris donnent environ un cinquième : au niveau 60, {quest:8460} rapportait 30 au lieu de 150 et ces furbolgs environ 1 par victime. Faites-le pendant votre progression si vous pouvez.",
 	-- {npc:14342} Ragepaw
@@ -30,6 +31,7 @@ return {
 	["{npc:15395} stands at the {zone:1448} mouth of the Timbermaw tunnel, at the top of the road in the north of {zone:1448}."] = "{npc:15395} se tient à l'entrée côté {zone:1448} du tunnel des Grumegueules, en haut de la route dans le nord de {zone:1448}.",
 
 	-- Step 5: Felpaw Village
+	["Felpaw Village"] = "",
 	-- {npc:9462} Chieftain Bloodmaw
 	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "Les Mort-bois du nord (niveau 53-55) campent juste au sud du tunnel. Ils laissent des plumes environ une fois sur deux : le meilleur endroit pour les plumes. {npc:9462} donne 15 jusqu'à Exalté.",
 
@@ -44,8 +46,9 @@ return {
 	["Walk through the tunnel to its {zone:1452} mouth; {npc:11556} stands just outside. Do not attack any Timbermaw: each one costs 25 reputation."] = "Traversez le tunnel jusqu'à sa sortie côté {zone:1452} ; {npc:11556} se tient juste dehors. N'attaquez aucun Grumegueule : chacun coûte 25 de réputation.",
 
 	-- Step 8: Winterfall Village
-	-- {area:2244} Winterfall Village · {zone:1452} Winterspring · {area:2255} Everlook · {item:21383} Winterfall Spirit Beads · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall
-	["{area:2244} lies in the east of {zone:1452}, just past {area:2255}. Keep every {item:21383} you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. {npc:10199} (rare) and {npc:10738}, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas."] = "Le {area:2244} se trouve dans l'est du {zone:1452}, juste après {area:2255}. Gardez toutes les {item:21383} que vous ramassez (10 de réputation chacune plus tard). Les Chamans, Protecteurs et Ursas partagent leurs points d'apparition : tuez tous les furbolgs du village pour faire apparaître ceux qu'il vous faut ; d'autres Ursas parcourent la crête juste au sud-ouest du village. {npc:10199} (rare) et {npc:10738}, dans la grotte du fond, donnent 25 jusqu'à Exalté. Alliance : L'incursion des Tombe-hiver des Éleveurs de sabres-d'hiver demande les mêmes Chamans et Ursas.",
+	["Winterfall Village"] = "",
+	-- {zone:1452} Winterspring · {item:21383} Winterfall Spirit Beads · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall
+	["Winterfall Village lies in the east of {zone:1452}, just past Everlook. Keep every {item:21383} you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. {npc:10199} (rare) and {npc:10738}, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas."] = "",
 	-- {npc:10199} Grizzle Snowpaw
 	["{npc:10199}, rare"] = "{npc:10199}, rare",
 	-- {npc:10738} High Chief Winterfall
@@ -59,15 +62,14 @@ return {
 
 	-- Step 10: Unfriendly to Neutral
 	["Unfriendly to Neutral"] = "D'Inamical à Neutre",
-	-- {zone:1448} Felwood · {area:2246} Frostfire Hot Springs · {area:2243} Timbermaw Post · {npc:11556} Salfa · {area:2244} Winterfall Village
-	["Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the {zone:1448} mouth of the tunnel; the Winterfall camps around {area:2246} and {area:2243}, just south and south-east of {npc:11556} (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and {area:2244} in the east. Pick the least crowded. Keep all feathers and beads."] = "D'Inamical à Neutre, il faut 3 000 : environ 540 victimes de plus après ces quêtes. Trois camps : les Mort-bois du nord près de l'entrée côté {zone:1448} du tunnel ; les camps Tombe-hiver autour des {area:2246} et du {area:2243}, juste au sud et au sud-est de {npc:11556} (les Guides donnent 6 par victime, les Protecteurs et Totémiques 5, le plus court trajet vers une remise) ; et le {area:2244} à l'est. Choisissez le moins fréquenté. Gardez toutes les plumes et perles.",
+	-- {zone:1448} Felwood · {npc:11556} Salfa
+	["Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the {zone:1448} mouth of the tunnel; the Winterfall camps around Frostfire Hot Springs and Timbermaw Post, just south and south-east of {npc:11556} (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and Winterfall Village in the east. Pick the least crowded. Keep all feathers and beads."] = "",
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
 	["Deadwood Headdress Feathers: keep them"] = "{item:21377} : gardez-les",
 	-- {item:21383} Winterfall Spirit Beads
 	["{item:21383}: keep them"] = "{item:21383} : gardez-les",
-	-- {area:2246} Frostfire Hot Springs
 	-- plural, as words: Winterfall Pathfinders = {npc:7442} Winterfall Pathfinder
-	["Winterfall Pathfinders, {area:2246}"] = "Guides Tombe-hiver, {area:2246}",
+	["Winterfall Pathfinders, Frostfire Hot Springs"] = "",
 
 	-- Step 11: Deadwood Ritual Totem
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood
@@ -128,8 +130,8 @@ return {
 	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "À Exalté, {npc:11555}, dans le tunnel près de {npc:11557}, donne {quest:8481} : plantez sa {item:21144} à l'entrée de la grotte de {npc:10738} et vainquez le démon {npc:15623} (niveau 62, élite : venez en groupe). La récompense est {item:21326}, un bijou qui appelle un allié grumegueule, et 200 de réputation.",
 
 	-- Step 21: Xandivious
-	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
-	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, la grotte du fond. Nettoyez d'abord les furbolgs autour de l'entrée, plantez la torche, tuez {npc:15623} et prenez l'essence dans son sac démoniaque.",
+	-- {npc:15623} Xandivious
+	["Winterfall Village, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "",
 	-- {npc:15623} Xandivious
 	["{npc:15623}, 25 reputation"] = "{npc:15623}, 25 de réputation",
 
@@ -143,7 +145,12 @@ return {
 	-- ["Keep turning in feathers and beads until Exalted."] = "Continuez à rendre plumes et perles jusqu'à Exalté.",
 	-- ["The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too."] = "Les Mort-bois du nord (niveau 53-55) tiennent les camps juste au sud du tunnel. Gardez aussi leurs plumes.",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "Les camps Mort-bois du nord près du tunnel sont le meilleur endroit pour les plumes (35 % de chances de butin). Donnez les plumes à {npc:15395} au tunnel, ou à {npc:11554} au sud.",
+	-- ["Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the {zone:1448} mouth of the tunnel; the Winterfall camps around {area:2246} and {area:2243}, just south and south-east of {npc:11556} (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and {area:2244} in the east. Pick the least crowded. Keep all feathers and beads."] = "D'Inamical à Neutre, il faut 3 000 : environ 540 victimes de plus après ces quêtes. Trois camps : les Mort-bois du nord près de l'entrée côté {zone:1448} du tunnel ; les camps Tombe-hiver autour des {area:2246} et du {area:2243}, juste au sud et au sud-est de {npc:11556} (les Guides donnent 6 par victime, les Protecteurs et Totémiques 5, le plus court trajet vers une remise) ; et le {area:2244} à l'est. Choisissez le moins fréquenté. Gardez toutes les plumes et perles.",
+	-- ["Winterfall Pathfinders, {area:2246}"] = "Guides Tombe-hiver, {area:2246}",
+	-- ["{area:2244} lies in the east of {zone:1452}, just past {area:2255}. Keep every {item:21383} you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. {npc:10199} (rare) and {npc:10738}, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas."] = "Le {area:2244} se trouve dans l'est du {zone:1452}, juste après {area:2255}. Gardez toutes les {item:21383} que vous ramassez (10 de réputation chacune plus tard). Les Chamans, Protecteurs et Ursas partagent leurs points d'apparition : tuez tous les furbolgs du village pour faire apparaître ceux qu'il vous faut ; d'autres Ursas parcourent la crête juste au sud-ouest du village. {npc:10199} (rare) et {npc:10738}, dans la grotte du fond, donnent 25 jusqu'à Exalté. Alliance : L'incursion des Tombe-hiver des Éleveurs de sabres-d'hiver demande les mêmes Chamans et Ursas.",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "Le {area:2244} est à l'est de {zone:1452}. Gardez chaque {item:21383} ramassée : {npc:11556} les prend.",
+	-- ["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, la grotte du fond. Nettoyez d'abord les furbolgs autour de l'entrée, plantez la torche, tuez {npc:15623} et prenez l'essence dans son sac démoniaque.",
+	-- ["{faction:576} starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; {npc:11554}, {npc:15395} and {npc:11556} talk to everyone. {npc:11554} waits by the road in the south of {zone:1448}, near the {area:2479}. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain."] = "{faction:576} commence à Hostile (2 500 sur 3 000) : ses furbolgs vous attaquent donc dans leurs tunnels ; {npc:11554}, {npc:15395} et {npc:11556} parlent à tout le monde. {npc:11554} attend au bord de la route dans le sud de {zone:1448}, près du {area:2479}. Chaque furbolg Mort-bois ou Tombe-hiver que vous tuez donne 5 de réputation jusqu'au dernier point d'Honoré : les quêtes ci-dessous rapportent donc deux fois. L'atout d'Héritage Diplomate ajoute jusqu'à 10 % à chaque gain.",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576} commence Hostile, et ses furbolgs des tunnels attaquent jusqu'à ce que vous soyez Inamical. Chaque furbolg Mort-bois ou Tombe-hiver tué l'augmente : les quêtes ci-dessous rapportent donc deux fois. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{faction:576} to Exalted"] = "{faction:576} jusqu'à Exalté",
 	-- ["{faction:576} to Revered"] = "{faction:576} jusqu'à Révéré",

@@ -8,27 +8,26 @@
 return {
 	-- Guide
 	["Zandalar Tribe Reputation"] = "",
-	-- {area:19} Zul'Gurub
-	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "",
+	["Shoulder and head enchants, a class necklace upgraded at every standing, and Zul'Gurub's set pieces."] = "",
 	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "",
 	-- {npc:15042} Zanza the Restless
 	["{npc:15042}'s head and leg enchants, from Friendly"] = "",
 
 	-- Step 1: Yojamba Isle
-	-- {area:3357} Yojamba Isle · {zone:1434} Stranglethorn Vale · {area:122} Zuuldaia Ruins · {faction:270} Zandalar Tribe · {npc:15070} Vinchaxa · {npc:14921} Rin'wosho the Trader · {npc:14902} Jin'rokh the Breaker · {npc:14903} Al'tabim the All-Seeing · {npc:14904} Maywiki of Zuldazar · {npc:14905} Falthir the Sightless · {area:19} Zul'Gurub
-	["{area:3357} is the small island off the north-west coast of {zone:1434}, west of the {area:122}: swim over from the coast. Everyone starts Neutral with the {faction:270}. {npc:15070} takes coins and bijous, {npc:14921} sells the recipes and trades Honor Tokens, and {npc:14902}, {npc:14903}, {npc:14904} and {npc:14905} hand out the class necklaces and the set pieces. Almost all Zandalar reputation comes from {area:19}, a 20-player raid, and {area:19} is not among the first raids Blizzard has announced for Forever: until it opens there is no Zandalar reputation to earn, and no coins or bijous on the auction house either. Once it is open, the only solo way is buying coins and bijous on the auction house (75 per bijou, 25 per set of three coins). The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "",
+	["Yojamba Isle"] = "",
+	-- {zone:1434} Stranglethorn Vale · {faction:270} Zandalar Tribe · {npc:15070} Vinchaxa · {npc:14921} Rin'wosho the Trader · {npc:14902} Jin'rokh the Breaker · {npc:14903} Al'tabim the All-Seeing · {npc:14904} Maywiki of Zuldazar · {npc:14905} Falthir the Sightless
+	["Yojamba Isle is the small island off the north-west coast of {zone:1434}, west of the Zuuldaia Ruins: swim over from the coast. Everyone starts Neutral with the {faction:270}. {npc:15070} takes coins and bijous, {npc:14921} sells the recipes and trades Honor Tokens, and {npc:14902}, {npc:14903}, {npc:14904} and {npc:14905} hand out the class necklaces and the set pieces. Almost all Zandalar reputation comes from Zul'Gurub, a 20-player raid, and Zul'Gurub is not among the first raids Blizzard has announced for Forever: until it opens there is no Zandalar reputation to earn, and no coins or bijous on the auction house either. Once it is open, the only solo way is buying coins and bijous on the auction house (75 per bijou, 25 per set of three coins). The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "",
 
 	-- Step 2: Zul'Gurub to Friendly
-	-- {area:19} Zul'Gurub
-	["{area:19} to Friendly"] = "",
-	-- {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale · {area:3398} Edge of Madness · {npc:15114} Gahz'ranka · {npc:11382} Bloodlord Mandokir · {item:22637} Primal Hakkari Idol · {item:19881} Channeler's Head · {quest:8240} A Bijou for Zanza
-	["{area:19} is the troll city in the north-east of {zone:1434}: a 20-player raid. Trash pays 3 to 5 each until 11,999 of 12,000 Honored, one point short of Revered; the Speakers 15, Ohgan 15, the {area:3398} boss 25, {npc:15114} and the five High Priests 100, {npc:11382} and Jin'do 200 and Hakkar 400, all the way to Exalted. A full clear is about 4,050: one clear reaches Friendly (3,000). Loot every coin, bijou, {item:22637}, {item:19881} and Primal Hakkari set piece. Coins and bijous pay the same at any standing: save them until the trash stops counting, except one bijou for {quest:8240}."] = "",
+	["Zul'Gurub to Friendly"] = "",
+	-- {zone:1434} Stranglethorn Vale · {npc:15114} Gahz'ranka · {npc:11382} Bloodlord Mandokir · {item:22637} Primal Hakkari Idol · {item:19881} Channeler's Head · {quest:8240} A Bijou for Zanza
+	["Zul'Gurub is the troll city in the north-east of {zone:1434}: a 20-player raid. Trash pays 3 to 5 each until 11,999 of 12,000 Honored, one point short of Revered; the Speakers 15, Ohgan 15, the Edge of Madness boss 25, {npc:15114} and the five High Priests 100, {npc:11382} and Jin'do 200 and Hakkar 400, all the way to Exalted. A full clear is about 4,050: one clear reaches Friendly (3,000). Loot every coin, bijou, {item:22637}, {item:19881} and Primal Hakkari set piece. Coins and bijous pay the same at any standing: save them until the trash stops counting, except one bijou for {quest:8240}."] = "",
 	-- {item:19707} Red Hakkari Bijou
 	["{item:19707}; any of the nine colours does"] = "",
 
 	-- Step 3: A Bijou for Zanza
-	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
-	["Destroy one bijou at the {object:180367}, the stone altar on the west side of {area:3357} (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "",
+	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
+	["Destroy one bijou at the {object:180367}, the stone altar on the west side of Yojamba Isle (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "",
 
 	-- Step 4: Friendly: your class necklace
 	["Friendly: your class necklace"] = "",
@@ -56,9 +55,9 @@ return {
 	-- Step 5: Zanza the Restless's enchants, from Friendly
 	-- {npc:15042} Zanza the Restless
 	["{npc:15042}'s enchants, from Friendly"] = "",
-	-- {npc:15042} Zanza the Restless · {area:19} Zul'Gurub · {item:22637} Primal Hakkari Idol · {npc:11380} Jin'do the Hexxer · {npc:11382} Bloodlord Mandokir · {item:19813} Punctured Voodoo Doll
+	-- {npc:15042} Zanza the Restless · {item:22637} Primal Hakkari Idol · {npc:11380} Jin'do the Hexxer · {npc:11382} Bloodlord Mandokir · {item:19813} Punctured Voodoo Doll
 	-- plural, as words: Jinxed Hoodoo Piles = {object:180228} Jinxed Hoodoo Pile
-	["{npc:15042}, a spirit just inside {area:19}'s entrance, trades your class's head and leg enchant for a {item:22637} ({npc:11380} or {npc:11382}, about 90%) and your class's {item:19813} (the Jinxed Hoodoo Piles scattered through {area:19}, now and then from its trash): 100 reputation each, as often as you like."] = "",
+	["{npc:15042}, a spirit just inside Zul'Gurub's entrance, trades your class's head and leg enchant for a {item:22637} ({npc:11380} or {npc:11382}, about 90%) and your class's {item:19813} (the Jinxed Hoodoo Piles scattered through Zul'Gurub, now and then from its trash): 100 reputation each, as often as you like."] = "",
 	-- {item:22637} Primal Hakkari Idol
 	["{item:22637}, Jin'do or Mandokir"] = "",
 	-- {item:19813} Punctured Voodoo Doll
@@ -67,17 +66,16 @@ return {
 	["{npc:15042}: idol and doll, 100"] = "",
 
 	-- Step 6: Zul'Gurub to Honored
-	-- {area:19} Zul'Gurub
-	["{area:19} to Honored"] = "",
-	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {spell:24361} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {spell:471400} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
-	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {spell:24361} (5g each), {item:20000} (12g), {item:20756} (4g) and {spell:471400} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
+	["Zul'Gurub to Honored"] = "",
+	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
+	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and Major Troll's Blood Elixir (5g each), {item:20000} (12g), {item:20756} (4g) and Magnificent Trollshine (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
 
 	-- Step 7: Honored: necklace, Savage Guard and mangoes
 	-- {item:22635} Savage Guard
 	["Honored: necklace, {item:22635} and mangoes"] = "",
-	-- {npc:15042} Zanza the Restless · {item:18331} Arcanum of Protection · {item:22635} Savage Guard · {npc:14368} Lorekeeper Lydros · {area:2577} Dire Maul · {item:18335} Pristine Black Diamond · {item:12735} Frayed Abomination Stitching · {item:12938} Blood of Heroes · {item:12753} Skin of Shadow · {npc:14921} Rin'wosho the Trader · {quest:8196} Essence Mangoes
+	-- {npc:15042} Zanza the Restless · {item:18331} Arcanum of Protection · {item:22635} Savage Guard · {npc:14368} Lorekeeper Lydros · {item:18335} Pristine Black Diamond · {item:12735} Frayed Abomination Stitching · {item:12938} Blood of Heroes · {item:12753} Skin of Shadow · {npc:14921} Rin'wosho the Trader · {quest:8196} Essence Mangoes
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["{npc:15042} takes an {item:18331}, Rapidity or Focus for the {item:22635} head and leg enchant: 200 reputation each, again and again. The Arcanum binds to you, so it never sells: {npc:14368} in the library of {area:2577} makes it from the matching Libram ({area:2577} drops, and on the auction house), a {item:18335} and Large Brilliant Shards, plus {item:12735}, two {item:12938} or two {item:12753}. {npc:14921} trades {quest:8196} for an Honor Token."] = "",
+	["{npc:15042} takes an {item:18331}, Rapidity or Focus for the {item:22635} head and leg enchant: 200 reputation each, again and again. The Arcanum binds to you, so it never sells: {npc:14368} in the library of Dire Maul makes it from the matching Libram (Dire Maul drops, and on the auction house), a {item:18335} and Large Brilliant Shards, plus {item:12735}, two {item:12938} or two {item:12753}. {npc:14921} trades {quest:8196} for an Honor Token."] = "",
 	-- {npc:14902} Jin'rokh the Breaker · {item:19574} Strength of Mugamba
 	["{npc:14902}: {item:19574}, Honored"] = "",
 	-- {npc:14902} Jin'rokh the Breaker · {item:19579} Heathen's Brand
@@ -100,11 +98,10 @@ return {
 	["{quest:8196}: one {item:19858}"] = "",
 
 	-- Step 8: Zul'Gurub to Revered
-	-- {area:19} Zul'Gurub
-	["{area:19} to Revered"] = "",
-	-- {quest:8201} A Collection of Heads · {npc:14910} Exzhal · {item:19883} Sacred Cord · {quest:8183} The Heart of Hakkar · {npc:14875} Molthor · {item:19682} Bloodvine Vest · {item:19685} Primal Batskin Jerkin · {item:19688} Blood Tiger Breastplate · {item:19690} Bloodsoul Breastplate · {item:19693} Darksoul Breastplate · {spell:24365} Mageblood Elixir · {quest:8243} Zanza's Potent Potables
+	["Zul'Gurub to Revered"] = "",
+	-- {quest:8201} A Collection of Heads · {npc:14910} Exzhal · {item:19883} Sacred Cord · {quest:8183} The Heart of Hakkar · {npc:14875} Molthor · {item:19682} Bloodvine Vest · {item:19685} Primal Batskin Jerkin · {item:19688} Blood Tiger Breastplate · {item:19690} Bloodsoul Breastplate · {item:19693} Darksoul Breastplate · {quest:8243} Zanza's Potent Potables
 	-- plural, as words: Channeler's Heads = {item:19881} Channeler's Head
-	["Honored to Revered is 12,000: about three clears. Two one-time quests help: {quest:8201} ({npc:14910} on the isle: 200 for five Channeler's Heads from the High Priests, strung on his {item:19883}) and {quest:8183} (one per kill, for whoever loots it; {npc:14875} on the isle pays 200 and a Zandalarian Hero badge, charm or medallion). Revered opens {item:19682}, {item:19685}, {item:19688}, {item:19690}, {item:19693} and {spell:24365} (5g each), the Paragons of Power chests and mantles (150) and {quest:8243}."] = "",
+	["Honored to Revered is 12,000: about three clears. Two one-time quests help: {quest:8201} ({npc:14910} on the isle: 200 for five Channeler's Heads from the High Priests, strung on his {item:19883}) and {quest:8183} (one per kill, for whoever loots it; {npc:14875} on the isle pays 200 and a Zandalarian Hero badge, charm or medallion). Revered opens {item:19682}, {item:19685}, {item:19688}, {item:19690}, {item:19693} and Mageblood Elixir (5g each), the Paragons of Power chests and mantles (150) and {quest:8243}."] = "",
 
 	-- Step 9: Revered: necklace, coins and bijous
 	["Revered: necklace, coins and bijous"] = "",

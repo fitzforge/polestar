@@ -12,57 +12,50 @@ return {
 	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "",
 
 	-- Step 1: Elwynn Forest
-	-- {area:91} Tower of Azora · {area:87} Goldshire
-	["Halfway up the {area:91}, east of {area:87}. Nothing hostile inside."] = "",
+	["Halfway up the Tower of Azora, east of Goldshire. Nothing hostile inside."] = "",
 
 	-- Step 2: Westfall
-	-- {area:20} Moonbrook · {area:108} Sentinel Hill
-	["Two books: one in a house at {area:20}, one at {area:108} (Alliance only)."] = "",
+	-- {object:81} Sentinel Hill (no name in this language: may be words)
+	["Two books: one in a house at Moonbrook, one at {object:81} (Alliance only)."] = "",
 	["Rumi of Gnomeregan"] = "",
 
 	-- Step 3: Duskwood
-	-- {area:2098} Dawning Wood Catacombs · {zone:1431} Duskwood
-	["The spellbook lies in the {area:2098}, the crypt in north-western {zone:1431}. Undead fill it; a corpse run works if you are low."] = "",
+	-- {zone:1431} Duskwood
+	["The spellbook lies in the Dawning Wood Catacombs, the crypt in north-western {zone:1431}. Undead fill it; a corpse run works if you are low."] = "",
 
 	-- Step 5: Loch Modan
-	-- {area:144} Thelsamar · {area:108} Sentinel Hill
-	["Scrolls in the Mo'grosh ogre cave in the north-east. The ogres in the cave are level 18-19 elites: grouping up is advised. (Rumi of Gnomeregan also lies in {area:144}, if you missed it at {area:108}.)"] = "",
+	-- {object:81} Sentinel Hill (no name in this language: may be words)
+	["Scrolls in the Mo'grosh ogre cave in the north-east. The ogres in the cave are level 18-19 elites: grouping up is advised. (Rumi of Gnomeregan also lies in Thelsamar, if you missed it at {object:81}.)"] = "",
 
 	-- Step 6: Wetlands
-	-- {area:118} Whelgar's Excavation Site · {zone:1437} Wetlands
-	["At {area:118}, the dig in the middle of the {zone:1437}."] = "",
+	-- {zone:1437} Wetlands
+	["At Whelgar's Excavation Site, the dig in the middle of the {zone:1437}."] = "",
 
 	-- Step 7: Silverpine Forest
-	-- {area:233} Ambermill
-	["At {area:233}, the mage village in south-eastern Silverpine."] = "",
+	["At Ambermill, the mage village in south-eastern Silverpine."] = "",
 
 	-- Step 8: Tirisfal Glades
-	-- {area:159} Brill
-	["On a shelf in {area:159}'s apothecary."] = "",
+	["On a shelf in Brill's apothecary."] = "",
 
 	-- Step 9: Darkshore
-	-- {area:443} Ruins of Mathystra · {zone:1439} Darkshore
-	["Down the stairs at the {area:443} in northern {zone:1439}."] = "",
+	-- {zone:1439} Darkshore
+	["Down the stairs at the Ruins of Mathystra in northern {zone:1439}."] = "",
 
 	-- Step 10: Stonetalon Mountains
-	-- {area:2537} Grimtotem Post
-	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "",
+	["On a barrel in a tent at Grimtotem Post, in the far south-east of the zone."] = "",
 
 	-- Step 11: The Barrens
-	-- {area:382} Sludge Fen · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "",
+	-- {object:407566} Goblin Tome (no name in this language: may be words)
+	["Two books: the manual in the control room at the top of the oil rig at the Sludge Fen, and the {object:407566} beside Gazlowe in Ratchet."] = "",
 
 	-- Step 12: The Wailing Caverns' cave
-	-- {area:718} Wailing Caverns
-	["The {area:718}' cave"] = "",
-	-- {area:387} Lushwater Oasis · {area:718} Wailing Caverns
-	["The scrolls lie underground, in the cave below {area:387} by the {area:718} entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "",
-	-- {area:387} Lushwater Oasis
-	["Cave mouth at {area:387}"] = "",
+	["The Wailing Caverns' cave"] = "",
+	["The scrolls lie underground, in the cave below Lushwater Oasis by the Wailing Caverns entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "",
+	["Cave mouth at Lushwater Oasis"] = "",
 
 	-- Step 13: Orgrimmar
-	-- {object:172961} Valley of Spirits
-	["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
+	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "",
@@ -79,26 +72,22 @@ return {
 	["With 10 different books handed in, the librarian offers {quest:78150}: a choice of two necklaces ({item:277203} or {item:277204}). Take it when it appears."] = "",
 
 	-- Step 17: Alterac Mountains
-	-- {area:1357} Gallows' Corner
-	["Inside the first tower of the ogre fort at {area:1357}, in the middle of the zone."] = "",
+	["Inside the first tower of the ogre fort at Gallows' Corner, in the middle of the zone."] = "",
 
 	-- Step 18: Arathi Highlands
 	["Beside a tent entrance in the troll village in south-eastern Arathi."] = "",
 
 	-- Step 19: Stranglethorn Vale
-	-- {area:310} Crystalvein Mine
-	["On a bench beside the {area:310} entrance, in the middle of the zone."] = "",
+	["On a bench beside the Crystalvein Mine entrance, in the middle of the zone."] = "",
 
 	-- Step 20: Badlands
 	["Inside a crypt near the middle of the zone, reached from the path to its south."] = "",
 
 	-- Step 21: Swamp of Sorrows
-	-- {area:1477} Temple of Atal'Hakkar
-	["On the top walkway of the {area:1477}, outside the dungeon."] = "",
+	["On the top walkway of the Temple of Atal'Hakkar, outside the dungeon."] = "",
 
 	-- Step 23: Thousand Needles
-	-- {area:2097} Darkcloud Pinnacle
-	["Inside a hut on the {area:2097} mesa."] = "",
+	["Inside a hut on the Darkcloud Pinnacle mesa."] = "",
 
 	-- Step 24: Dustwallow Marsh
 	["On the ground at the eastern side of the murloc camp in north-eastern Dustwallow."] = "",
@@ -118,19 +107,20 @@ return {
 	["From level 20, with 20 different books handed in, {npc:211033} offers {quest:79536}: {item:281634} or {item:281635}."] = "",
 
 	-- Step 28: The Hinterlands
-	-- {area:353} Shadra'Alor · {zone:1425} The Hinterlands
-	["In the troll ruins of {area:353}, in the south of the {zone:1425}."] = "",
+	-- {zone:1425} The Hinterlands
+	["In the troll ruins of Shadra'Alor, in the south of the {zone:1425}."] = "",
 
 	-- Step 29: Searing Gorge
 	["On a table inside a tent near the middle of the zone."] = "",
 
 	-- Step 30: Blackrock Mountain
-	-- {area:254} Blackrock Mountain · {npc:8888} Franclorn Forgewright · {npc:14387} Lothos Riftwaker
-	["Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "",
+	["Blackrock Mountain"] = "",
+	-- {npc:8888} Franclorn Forgewright · {npc:14387} Lothos Riftwaker
+	["Inside Blackrock Mountain, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "",
 
 	-- Step 32: Azshara
-	-- {area:1236} Haldarr Encampment · {zone:1447} Azshara
-	["On a crate in the {area:1236}, in the far west of {zone:1447}."] = "",
+	-- {zone:1447} Azshara
+	["On a crate in the Haldarr Encampment, in the far west of {zone:1447}."] = "",
 
 	-- Step 33: Tanaris
 	["On a bookshelf in the middle building of the pirate camp on the eastern coast."] = "",
@@ -142,40 +132,37 @@ return {
 	["The library: third books (Horde)"] = "",
 
 	-- Step 36: The second Greater Friend of the Library
-	-- {quest:82208} Greater Friend of the Library
-	["The second {quest:82208}"] = "",
-	-- {npc:211033} Garion Wendell · {quest:82208} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
-	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:82208}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
+	-- {quest:79536} Greater Friend of the Library
+	["The second {quest:79536}"] = "",
+	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
+	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
 
 	-- Step 37: Level 60 books: Western Plaguelands
 	-- {zone:1422} Western Plaguelands
 	["Level 60 books: {zone:1422}"] = "",
-	-- {item:228141} Necromancy 101 · {area:2298} Caer Darrow · {area:2057} Scholomance · {item:228132} Undead Potatoes · {area:199} Felstone Field
-	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on {area:2298}, above {area:2057} (outside the dungeon); {item:228132} at {area:199}."] = "",
+	-- {item:228141} Necromancy 101 · {item:228132} Undead Potatoes
+	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on Caer Darrow, above Scholomance (outside the dungeon); {item:228132} at Felstone Field."] = "",
 
 	-- Step 38: Level 60 books: Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Level 60 books: {zone:1423}"] = "",
-	-- {item:228135} A Study of the Light · {area:2268} Light's Hope Chapel · {item:228138} The Knight and the Lady · {area:2264} Corin's Crossing · {area:2279} Stratholme · {item:228140} Scourge: Undead Menace or Misunderstood? · {area:2277} Plaguewood
-	["{item:228135} is inside {area:2268}. {item:228138} lies at {area:2264}; other copies lie elsewhere in the zone (one by the {area:2279} gates), and you can take only one. {item:228140} is on a table in {area:2277}: wait for the patrolling elite to clear the creatures beside it and walk on."] = "",
+	-- {item:228135} A Study of the Light · {item:228138} The Knight and the Lady · {object:176970} Corin's Crossing (no name in this language: may be words) · {item:228140} Scourge: Undead Menace or Misunderstood?
+	["{item:228135} is inside Light's Hope Chapel. {item:228138} lies at {object:176970}; other copies lie elsewhere in the zone (one by the Stratholme gates), and you can take only one. {item:228140} is on a table in Plaguewood: wait for the patrolling elite to clear the creatures beside it and walk on."] = "",
 
 	-- Step 39: Level 60 books: Timbermaw Hold
-	-- {area:1769} Timbermaw Hold
-	["Level 60 books: {area:1769}"] = "",
-	-- {item:228134} Northern Kalimdor - A Comprehensive Guide · {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1452} Winterspring
-	["{item:228134} lies inside the {area:1769} tunnel between {zone:1448} and {zone:1452}."] = "",
+	["Level 60 books: Timbermaw Hold"] = "",
+	-- {item:228134} Northern Kalimdor - A Comprehensive Guide · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{item:228134} lies inside the Timbermaw Hold tunnel between {zone:1448} and {zone:1452}."] = "",
 
 	-- Step 40: Level 60 books: Everlook
-	-- {area:2255} Everlook
-	["Level 60 books: {area:2255}"] = "",
-	-- {item:228136} Ka-Boom! · {area:2255} Everlook
-	["{item:228136} sits on a shelf behind the alchemy supplier in {area:2255}."] = "",
+	["Level 60 books: Everlook"] = "",
+	-- {item:228136} Ka-Boom!
+	["{item:228136} sits on a shelf behind the alchemy supplier in Everlook."] = "",
 
 	-- Step 41: Level 60 books: Blackrock Mountain
-	-- {area:254} Blackrock Mountain
-	["Level 60 books: {area:254}"] = "",
-	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "",
+	["Level 60 books: Blackrock Mountain"] = "",
+	-- {item:228133} Magma or Lava?
+	["{item:228133} lies inside Blackrock Mountain, in the mine passage towards Blackrock Depths beyond the Molten Core quest giver. The waypoint marks the mountain."] = "",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon

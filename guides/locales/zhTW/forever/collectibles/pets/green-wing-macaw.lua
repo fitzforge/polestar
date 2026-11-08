@@ -7,16 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: The Deadmines: Defias Pirates
-	-- {area:1581} The Deadmines
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["{area:1581}: Defias Pirates"] = "{area:1581}：迪菲亞海盜",
-	-- {area:1581} The Deadmines · {area:20} Moonbrook
+	["The Deadmines: Defias Pirates"] = "",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
-	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
-	-- {area:1581} The Deadmines
-	["{area:1581} portal, at the bottom of the mine"] = "",
+	["The Deadmines is a group of five at level 17-26, under Moonbrook: go in at the Moonbrook mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
+	["The Deadmines, in the Moonbrook mine"] = "",
+	["The Deadmines portal, at the bottom of the mine"] = "",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
 	["Defias Pirates, on the ship"] = "",
 
@@ -24,4 +20,5 @@ return {
 	-- ["Defias Pirates"] = "迪菲亞海盜",
 	-- ["{area:1581} is a group of five under {area:20}; the instance portal is inside the {area:20} mine. The Defias Pirates on and around the ship drop the macaw about 3.5% of the time in our data."] = "{area:1581}是{area:20}底下的五人地城；副本傳送門在{area:20}的礦坑裡。根據我們的資料，船上和船周圍的迪菲亞海盜大約有3.5%機率掉落這隻金剛鸚鵡。",
 	-- ["{area:1581} portal, inside the {area:20} mine"] = "{area:1581}傳送門，在{area:20}的礦坑裡",
+	-- ["{area:1581}: Defias Pirates"] = "{area:1581}：迪菲亞海盜",
 }

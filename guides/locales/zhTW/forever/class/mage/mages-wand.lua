@@ -18,12 +18,12 @@ return {
 	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
 
 	-- Step 3: Tabetha
-	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens
-	["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}. Level 38-41 elites roam the east side of her farm, and swimming in passes level 42 Muckshells: come in from the west along the road from the {zone:1413}. Her cottage is no refuge: mobs follow you inside. Take both her quests."] = "",
+	-- {npc:6546} Tabetha · {zone:1413} Barrens
+	["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the Stonemaul Ruins. Level 38-41 elites roam the east side of her farm, and swimming in passes level 42 Muckshells: come in from the west along the road from the {zone:1413}. Her cottage is no refuge: mobs follow you inside. Take both her quests."] = "",
 
 	-- Step 4: Magus Tirth
-	-- {npc:6548} Magus Tirth · {area:439} Shimmering Flats · {zone:1441} Thousand Needles
-	["{npc:6548} spends his days at the race track in the {area:439}, south-east {zone:1441}."] = "{npc:6548}整天待在{zone:1441}東南部{area:439}的賽道上。",
+	-- {npc:6548} Magus Tirth · {object:151976} Shimmering Flats (no name in this language: may be words) · {zone:1441} Thousand Needles
+	["{npc:6548} spends his days at the race track in the {object:151976}, south-east {zone:1441}."] = "",
 
 	-- Step 5: "Plucky" Johnson
 	["\"Plucky\" Johnson"] = "膽大的約翰森",
@@ -32,19 +32,18 @@ return {
 	-- Step 6: Witherbark trolls and the Bolt Charged Bramble
 	-- {item:7272} Bolt Charged Bramble
 	["Witherbark trolls and the {item:7272}"] = "",
-	-- {area:321} Hammerfall · {item:7273} Witherbark Totem Stick · {area:336} Circle of Outer Binding · {item:7272} Bolt Charged Bramble
-	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of {area:321}; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the {area:336} (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "",
-	-- {area:336} Circle of Outer Binding
-	["at the middle stone of the {area:336}"] = "",
+	-- {item:7273} Witherbark Totem Stick · {item:7272} Bolt Charged Bramble
+	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of Hammerfall; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the Circle of Outer Binding (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "",
+	["at the middle stone of the Circle of Outer Binding"] = "",
 
 	-- Step 7: Jade
-	-- {npc:6546} Tabetha · {item:1529} Jade · {area:271} Southshore
+	-- {npc:6546} Tabetha · {item:1529} Jade
 	-- plural, as words: Torn Fin Coastrunners = {npc:2375} Torn Fin Coastrunner
-	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of {area:271} drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "",
+	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of Southshore drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "",
 
 	-- Step 8: Rituals of Power
-	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades · {npc:6487} Arcanist Doan · {item:5535} Compendium of the Fallen
-	["Tirth sold the book to the Scarlet Crusade. The {area:796} stands in north-eastern {zone:1420}; take the Library wing with a group of five. The book is in the last long hallway, the one that ends in {npc:6487}'s round room: on the left-hand shelf as you face his room, next to the {item:5535}. Take the thick, highlighted blue book sticking out of the shelf; a magnifying-glass cursor means a book you can only read."] = "",
+	-- {zone:1420} Tirisfal Glades · {npc:6487} Arcanist Doan · {item:5535} Compendium of the Fallen
+	["Tirth sold the book to the Scarlet Crusade. The Scarlet Monastery stands in north-eastern {zone:1420}; take the Library wing with a group of five. The book is in the last long hallway, the one that ends in {npc:6487}'s round room: on the left-hand shelf as you face his room, next to the {item:5535}. Take the thick, highlighted blue book sticking out of the shelf; a magnifying-glass cursor means a book you can only read."] = "",
 	-- {quest:1951} Rituals of Power
 	["{quest:1951}: Scarlet Monastery Library"] = "{quest:1951}：血色修道院圖書館",
 
@@ -63,4 +62,5 @@ return {
 	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453}{object:2101}巫師聖所的{npc:5497}會派你去找{npc:6546}；{zone:1455}的彬克也提供同一任務。",
 	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}的法師訓練師之一{npc:5885}會派你去找{npc:6546}；{zone:1458}的{npc:4568}和{zone:1456}的{npc:3048}也提供同一任務。",
 	-- ["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}."] = "隱士{npc:6546}住在塞拉摩島西邊沼澤深處的小屋，就在{area:508}北邊。",
+	-- ["{npc:6548} spends his days at the race track in the {area:439}, south-east {zone:1441}."] = "{npc:6548}整天待在{zone:1441}東南部{area:439}的賽道上。",
 }

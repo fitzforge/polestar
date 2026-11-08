@@ -8,25 +8,26 @@
 return {
 	-- Guide
 	["Thorium Brotherhood Reputation"] = "瑟银兄弟会声望",
-	-- {npc:12944} Lokhtos Darkbargainer · {area:2717} Molten Core · {object:147516} Dark Iron
-	["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "{npc:12944}的{area:2717}配方：火焰抗性装备、{object:147516}护甲以及崇拜级的史诗武器图纸。",
+	-- {npc:12944} Lokhtos Darkbargainer · {object:147516} Dark Iron
+	["{npc:12944}'s Molten Core recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "",
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944}'s 29 recipes, from Friendly to Exalted"] = "{npc:12944}的29个配方，从友善到崇拜",
 
 	-- Step 1: Thorium Point
-	-- {area:1446} Thorium Point · {zone:1427} Searing Gorge · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
-	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through {zone:1427} if you can; your first turn-in shows which. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
+	["Thorium Point"] = "",
+	-- {zone:1427} Searing Gorge · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
+	["Thorium Point is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through {zone:1427} if you can; your first turn-in shows which. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
-	["The {object:179827} board"] = "",
+	["The {object:179827} board"] = "{object:179827}布告板",
 	-- {npc:14621} Overseer Maltorius
 	["{npc:14621} is elite"] = "",
 
 	-- Step 2: Golems and Dark Iron dwarves
 	-- {object:147516} Dark Iron
 	["Golems and {object:147516} dwarves"] = "",
-	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
+	-- {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
-	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "",
+	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below Thorium Point. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["{item:18959}, Dark Iron Steamsmiths"] = "",
@@ -36,27 +37,27 @@ return {
 
 	-- Step 3: Greater Lava Spiders
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "",
+	["Greater Lava Spiders"] = "{npc:5858}",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "",
 
 	-- Step 4: The Slag Pit
-	-- {area:1443} The Slag Pit · {item:18922} Secret Plans: Fiery Flux · {npc:14621} Overseer Maltorius · {npc:14636} Chambermaid Pillaclencher · {npc:14628} Evonice Sootsmoker · {area:1446} Thorium Point
+	["The Slag Pit"] = "",
+	-- {item:18922} Secret Plans: Fiery Flux · {npc:14621} Overseer Maltorius · {npc:14636} Chambermaid Pillaclencher · {npc:14628} Evonice Sootsmoker
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur · Incendosaur Scales = {item:18944} Incendosaur Scale
-	["{area:1443} is the cave in the north of the Cauldron. The {item:18922} lie on a bench on its upper ledge, beside {npc:14621}: a level 50 elite with guards, easy at 60, worth a group below 55. Incendosaurs swim in the lava pools inside and around the north rim; every one drops two to four Incendosaur Scales. Keep every scale: Burninate's turn-ins take two each. If you find {npc:14636}'s ornate pillow in the dwarves' sleeping quarters, take it to {npc:14628} at {area:1446} for 100 more."] = "",
+	["The Slag Pit is the cave in the north of the Cauldron. The {item:18922} lie on a bench on its upper ledge, beside {npc:14621}: a level 50 elite with guards, easy at 60, worth a group below 55. Incendosaurs swim in the lava pools inside and around the north rim; every one drops two to four Incendosaur Scales. Keep every scale: Burninate's turn-ins take two each. If you find {npc:14636}'s ornate pillow in the dwarves' sleeping quarters, take it to {npc:14628} at Thorium Point for 100 more."] = "",
 	-- {item:18946} Head of Overseer Maltorius
 	["{item:18946}, elite: group up below 55"] = "",
 	-- {item:18950} Chambermaid Pillaclencher's Pillow
 	["{item:18950}, if you find it"] = "",
 
 	-- Step 5: Back to Thorium Point
-	-- {area:1446} Thorium Point
-	["Back to {area:1446}"] = "",
+	["Back to Thorium Point"] = "",
 
 	-- Step 6: Imperial Plate, for Blacksmiths
 	["Imperial Plate, for Blacksmiths"] = "",
-	-- {npc:14567} Derotain Mudsipper · {area:976} Gadgetzan · {quest:7652} A Blue Light Bargain
+	-- {npc:14567} Derotain Mudsipper · {quest:7652} A Blue Light Bargain
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Blacksmiths with 265 skill can buy their way up with Thorium Bars: {npc:14567} in {area:976} trades the Imperial Plate plans for bars, and each pays Brotherhood reputation. {quest:7652} opens them (100). Belt 20 bars (100), Bracer 20 (100), Shoulders 20 (100), Boots 40 (150), Helm 50 (200), Chest 60 (200), Leggings 60 (200): 1,150 reputation for 270 Thorium Bars. They count at any standing, so do them before Burninate's turn-ins."] = "",
+	["Blacksmiths with 265 skill can buy their way up with Thorium Bars: {npc:14567} in Gadgetzan trades the Imperial Plate plans for bars, and each pays Brotherhood reputation. {quest:7652} opens them (100). Belt 20 bars (100), Bracer 20 (100), Shoulders 20 (100), Boots 40 (150), Helm 50 (200), Chest 60 (200), Leggings 60 (200): 1,150 reputation for 270 Thorium Bars. They count at any standing, so do them before Burninate's turn-ins."] = "",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["Belt, 20 Thorium Bars"] = "",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
@@ -87,9 +88,9 @@ return {
 	-- Step 9: Fiery Flux to Friendly
 	-- {item:18942} Fiery Flux
 	["{item:18942} to Friendly"] = "",
-	-- {item:3356} Kingsblood · {item:4234} Heavy Leather · {area:1446} Thorium Point · {item:2772} Iron Ore
+	-- {item:3356} Kingsblood · {item:4234} Heavy Leather · {item:2772} Iron Ore
 	-- plural, as words: Incendosaur Scales = {item:18944} Incendosaur Scale · Iron Bars = {item:3575} Iron Bar · Incendosaurs = {npc:9318} Incendosaur
-	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the {area:1446} quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "",
+	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the Thorium Point quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "",
 	-- {item:18944} Incendosaur Scale
 	["{item:18944}, 2 per turn-in"] = "",
 	["Coal, 1 per turn-in"] = "",
@@ -105,31 +106,32 @@ return {
 	-- Step 10: Gaining Acceptance to Honored
 	-- {quest:7737} Gaining Acceptance
 	["{quest:7737} to Honored"] = "",
-	-- {quest:7737} Gaining Acceptance · {item:18945} Dark Iron Residue · {object:147516} Dark Iron · {area:1584} Blackrock Depths · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {npc:12944} Lokhtos Darkbargainer · {item:16979} Flarecore Gloves · {item:16982} Corehound Boots · {item:16983} Molten Helm · {item:17014} Dark Iron Bracers · {item:273572} Enchant Weapon - Strength
-	["Friendly to Honored is 6,000 reputation. While you are Friendly Burninate takes {quest:7737} instead: 25 reputation for 4 {item:18945}, 240 turn-ins and 960 residue in all. About a third of the {object:147516} dwarves in {area:1584} drop residue, sometimes several at once; it also sells on the Auction House. {item:11370} or {area:2717} materials at {npc:12944} (next steps) count here too. {npc:12944}'s shop opens at Friendly: {item:16979} 8g, {item:16982} 15g, {item:16983} 16g, {item:17014} 7g, {item:273572} 3g, Transmute Elemental Fire 12g."] = "",
+	-- {quest:7737} Gaining Acceptance · {item:18945} Dark Iron Residue · {object:147516} Dark Iron · {item:11370} Dark Iron Ore · {npc:12944} Lokhtos Darkbargainer · {item:16979} Flarecore Gloves · {item:16982} Corehound Boots · {item:16983} Molten Helm · {item:17014} Dark Iron Bracers · {item:273572} Enchant Weapon - Strength
+	["Friendly to Honored is 6,000 reputation. While you are Friendly Burninate takes {quest:7737} instead: 25 reputation for 4 {item:18945}, 240 turn-ins and 960 residue in all. About a third of the {object:147516} dwarves in Blackrock Depths drop residue, sometimes several at once; it also sells on the Auction House. {item:11370} or Molten Core materials at {npc:12944} (next steps) count here too. {npc:12944}'s shop opens at Friendly: {item:16979} 8g, {item:16982} 15g, {item:16983} 16g, {item:17014} 7g, {item:273572} 3g, Transmute Elemental Fire 12g."] = "",
 	-- {item:18945} Dark Iron Residue
 	["{item:18945}, 4 per turn-in"] = "",
 
 	-- Step 11: The Shadowforge Key
 	-- {item:11000} Shadowforge Key
 	["The {item:11000}"] = "",
-	-- {npc:12944} Lokhtos Darkbargainer · {npc:8888} Franclorn Forgewright · {area:1445} Blackrock Mountain · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths · {item:10999} Ironfel · {item:11000} Shadowforge Key
-	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of {area:1445}: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. {area:1584} is a five-player dungeon: group up."] = "",
+	-- {npc:12944} Lokhtos Darkbargainer · {npc:8888} Franclorn Forgewright · {npc:9056} Fineous Darkvire · {item:10999} Ironfel · {item:11000} Shadowforge Key
+	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of Blackrock Mountain: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in Blackrock Depths, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. Blackrock Depths is a five-player dungeon: group up."] = "",
 	-- {npc:8888} Franclorn Forgewright
 	["{npc:8888}, as a ghost"] = "",
-	-- {item:10999} Ironfel · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths
-	["{item:10999}, {npc:9056} inside {area:1584}"] = "",
-	-- {object:164689} Monument of Franclorn Forgewright · {area:1584} Blackrock Depths
-	["{object:164689}, Shrine of Thaurissan in {area:1584}"] = "",
+	-- {item:10999} Ironfel · {npc:9056} Fineous Darkvire
+	["{item:10999}, {npc:9056} inside Blackrock Depths"] = "",
+	-- {object:164689} Monument of Franclorn Forgewright
+	["{object:164689}, Shrine of Thaurissan in Blackrock Depths"] = "",
 
 	-- Step 12: Lokhtos Darkbargainer to Revered
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Revered"] = "",
-	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
+	-- {npc:12944} Lokhtos Darkbargainer · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock (no name in this language: may be words) · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
-	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in {area:1584}. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the {area:2717}, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside {area:1584}, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "",
-	-- {item:17010} Fiery Core · {area:2717} Molten Core
-	["{item:17010}: Firewalkers, Flameguards and Firelords in the {area:2717}"] = "",
+	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in Blackrock Depths. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the Molten Core, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside Blackrock Depths, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "",
+	["Blackrock Mountain"] = "",
+	-- {item:17010} Fiery Core
+	["{item:17010}: Firewalkers, Flameguards and Firelords in the Molten Core"] = "",
 	-- {item:17011} Lava Core
 	-- plural, as words: Lava Elementals = {npc:12076} Lava Elemental · Lava Reavers = {npc:12100} Lava Reaver · Molten Destroyers = {npc:11659} Molten Destroyer
 	["{item:17011}: Lava Elementals, Lava Reavers and Molten Destroyers"] = "",
@@ -144,8 +146,8 @@ return {
 	["{item:11370}: Dark Iron Deposits, {skill:186} 230"] = "",
 
 	-- Step 13: A Binding Contract
-	-- {item:17203} Sulfuron Ingot · {npc:11988} Golemagg the Incinerator · {area:2717} Molten Core · {npc:12944} Lokhtos Darkbargainer · {item:18592} Plans: Sulfuron Hammer · {item:17204} Eye of Sulfuras · {item:17182} Sulfuras, Hand of Ragnaros
-	["Carry a {item:17203} ({npc:11988}, the {area:2717}) to {npc:12944} and he offers you a contract: ask about the offer and take it. Handing in the contract with the ingot pays 200 reputation and {item:18592}, the hammer Blacksmiths later join with the {item:17204} into {item:17182}."] = "",
+	-- {item:17203} Sulfuron Ingot · {npc:11988} Golemagg the Incinerator · {npc:12944} Lokhtos Darkbargainer · {item:18592} Plans: Sulfuron Hammer · {item:17204} Eye of Sulfuras · {item:17182} Sulfuras, Hand of Ragnaros
+	["Carry a {item:17203} ({npc:11988}, the Molten Core) to {npc:12944} and he offers you a contract: ask about the offer and take it. Handing in the contract with the ingot pays 200 reputation and {item:18592}, the hammer Blacksmiths later join with the {item:17204} into {item:17182}."] = "",
 	-- {item:18628} Thorium Brotherhood Contract · {npc:12944} Lokhtos Darkbargainer
 	["{item:18628}, from {npc:12944}"] = "",
 	-- {item:17203} Sulfuron Ingot
@@ -154,8 +156,8 @@ return {
 	-- Step 14: Lokhtos Darkbargainer to Exalted
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Exalted"] = "",
-	-- {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {item:19165} Flarecore Leggings · {item:19157} Chromatic Gauntlets · {item:19162} Corehound Belt · {item:19163} Molten Belt · {item:17013} Dark Iron Leggings · {item:19164} Dark Iron Gauntlets · {item:16988} Fiery Chain Shoulders · {item:19166} Black Amnesty · {item:273577} Enchant Weapon - Mighty Intellect · {item:19170} Ebon Hand · {item:20039} Dark Iron Boots
-	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. The {area:2717} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "",
+	-- {item:17012} Core Leather · {item:11370} Dark Iron Ore · {item:19165} Flarecore Leggings · {item:19157} Chromatic Gauntlets · {item:19162} Corehound Belt · {item:19163} Molten Belt · {item:17013} Dark Iron Leggings · {item:19164} Dark Iron Gauntlets · {item:16988} Fiery Chain Shoulders · {item:19166} Black Amnesty · {item:273577} Enchant Weapon - Mighty Intellect · {item:19170} Ebon Hand · {item:20039} Dark Iron Boots
+	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. The Molten Core materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Burninate"] = "回到博恩奈特处",
@@ -171,5 +173,6 @@ return {
 	-- ["{item:18942} supplies to Friendly"] = "{item:18942}补给刷到友善",
 	-- ["{npc:12944} to Honored"] = "{npc:12944}：刷到尊敬",
 	-- ["{npc:12944} trades in the Grim Guzzler inside {area:1584}. His Favor Amongst the Brotherhood turn-ins take {item:11099} (mined from Dark Iron Deposits with {skill:186}), {item:11382}, {item:17010}, {item:17011} and {item:17012}. {npc:14387} at the {area:1445} entrance offers attunement to the {area:2717}."] = "{npc:12944}在{area:1584}内的黑铁酒吧做买卖。他的“兄弟会的好感”任务收取{item:11099}（用{skill:186}从{object:165658}开采）、{item:11382}、{item:17010}、{item:17011}和{item:17012}。{area:1445}入口处的{npc:14387}提供{area:2717}的进入资格。",
+	-- ["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "{npc:12944}的{area:2717}配方：火焰抗性装备、{object:147516}护甲以及崇拜级的史诗武器图纸。",
 	-- ["{npc:14624}: Restoring Fiery Flux Supplies"] = "{npc:14624}：炽热助熔剂的补给",
 }

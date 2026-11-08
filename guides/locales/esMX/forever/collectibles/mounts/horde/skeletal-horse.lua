@@ -8,16 +8,17 @@
 return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
-	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
-	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} to Undead for 100g (10% less at Honored with {faction:68}), and it comes with a skeletal horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
+	["{npc:4773} and {npc:4731}'s stable are in Brill, {zone:1420}. At 40 {npc:4773} teaches {skill:762} to Undead for 100g (10% less at Honored with {faction:68}), and it comes with a skeletal horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 
 	-- Step 2: Undead Horsemanship for other races
-	-- {spell:10906} Undead Horsemanship
-	["{spell:10906} for other races"] = "",
-	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	["Undead Horsemanship for other races"] = "",
+	-- {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
+	["Any Horde race can buy these skeletal horses, but riding one also takes Undead Horsemanship, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	-- {npc:4773} Velma Warnam
+	["{npc:4773}, Undead Horsemanship"] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

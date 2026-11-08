@@ -10,8 +10,8 @@ return {
 	["A robe or a blouse for Alliance mages in their late 20s."] = "Une robe ou une blouse pour les mages de l'Alliance vers la fin de la vingtaine de niveaux.",
 
 	-- Step 1: Bink (Ironforge)
-	-- {npc:5144} Bink · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
-	["{npc:5144} teaches mages in {zone:1455}'s {object:32362}. Take the {area:2257} from {object:171524} to {zone:1453} afterwards."] = "{npc:5144} forme les mages dans le {object:32362} d'{zone:1455}. Prenez ensuite le {area:2257} depuis {object:171524} jusqu'à {zone:1453}.",
+	-- {npc:5144} Bink · {zone:1455} Ironforge · {object:32362} Mystic Ward · {object:171524} Tinker Town · {zone:1453} Stormwind
+	["{npc:5144} teaches mages in {zone:1455}'s {object:32362}. Take the Deeprun Tram from {object:171524} to {zone:1453} afterwards."] = "",
 
 	-- Step 2: Jennea Cannon (Stormwind)
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter
@@ -28,10 +28,9 @@ return {
 	["{quest:1939} waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers."] = "{quest:1939} attend sur la passerelle en spirale du Sanctuaire des sorciers, juste après la porte de la salle des portails quand vous descendez depuis les maîtres de classe.",
 
 	-- Step 5: The Tower of Ilgalar
-	-- {area:96} Tower of Ilgalar
-	["The {area:96}"] = "La {area:96}",
-	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {area:96} Tower of Ilgalar
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' Mana Burn interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "",
+	["The Tower of Ilgalar"] = "",
+	-- {zone:1429} Elwynn Forest
+	["Head east through {zone:1429} into Redridge, or fly to Lakeshire. The Tower of Ilgalar stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' Mana Burn interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "",
 
 	-- Step 6: Back to Andromath
 	["Back to Andromath"] = "Retour auprès d'Andromath",
@@ -39,9 +38,9 @@ return {
 	-- Step 7: Carrion Recluses
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse
 	["Carrion Recluses"] = "Solitaires putrides",
-	-- {area:492} Raven Hill Cemetery · {zone:1431} Duskwood · {npc:522} Mor'Ladim
+	-- {zone:1431} Duskwood · {npc:522} Mor'Ladim
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Black Widow Hatchlings = {npc:930} Black Widow Hatchling
-	["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, Paralyzing Poison) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "",
+	["Raven Hill Cemetery in western {zone:1431}: the six Carrion Recluses (level 25-26, green, Paralyzing Poison) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "",
 
 	-- Step 8: Wynne Larson
 	-- {npc:1309} Wynne Larson · {object:23296} Larson Clothiers · {object:2101} Mage Quarter
@@ -52,8 +51,10 @@ return {
 	-- ["Carrion Recluses lurk in the woods of western {zone:1431} and each one drops the silk. The Black Widow Hatchlings further east drop it now and then."] = "Les Solitaires putrides rôdent dans les bois de l'ouest du {zone:1431} et chacun laisse tomber la soie. Les Jeunes veuves noires plus à l'est la laissent tomber de temps en temps.",
 	-- ["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' {spell:2691} interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "Traversez la {zone:1429} vers l'est jusqu'aux Carmines, ou volez jusqu'à {area:69}. La {area:96} se dresse isolée à l'est de la zone. Montez jusqu'au tout dernier étage (pas celui d'en dessous) : le traité est le livre qui dépasse de l'étagère là où arrive l'escalier. Deux chiens gnolls et un lanceur de sorts gnoll gardent l'étagère ; la {spell:2691} des chiens interrompt le clic, combattez-les donc dans l'escalier, hors de leur vue. Morganth (élite de niveau 26) se tient de l'autre côté du dernier étage : vous n'avez pas besoin de lui, restez sur le bord gauche de la rampe pour qu'il ne bouge pas. Le livre revient deux secondes après que quelqu'un l'a pris. Si vous mourez, votre fantôme peut remonter et revenir à la vie à côté.",
 	-- ["Ride east through {zone:1429} into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library."] = "Traversez la {zone:1429} vers l'est jusqu'aux Carmines. La tour du mage déchu Ilgalar se dresse à l'est de la zone ; le traité est dans sa bibliothèque.",
+	-- ["The {area:96}"] = "La {area:96}",
 	-- ["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, {spell:3609}) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "{area:492}, dans l'ouest du {zone:1431} : les six Solitaires putrides (niveau 25-26, verts, {spell:3609}) arpentent les tombes, la statue centrale et la berge, et chacun laisse tomber une soie ; ils reviennent au bout de 5 minutes. Les Jeunes veuves noires (24-25) sur les pentes à l'est du cimetière la laissent tomber environ une fois sur six : mêlez-les à vos victimes en attendant. {npc:522}, un squelette élite de niveau 35, arpente le cimetière : méfiez-vous de lui.",
 	-- ["{npc:1309} works at {object:23296} in the {object:2101}."] = "{npc:1309} travaille chez {object:23296}, dans le {object:2101}.",
+	-- ["{npc:5144} teaches mages in {zone:1455}'s {object:32362}. Take the {area:2257} from {object:171524} to {zone:1453} afterwards."] = "{npc:5144} forme les mages dans le {object:32362} d'{zone:1455}. Prenez ensuite le {area:2257} depuis {object:171524} jusqu'à {zone:1453}.",
 	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}."] = "{npc:5497} se tient dans le Sanctuaire du Sorcier, la tour du {object:2101}.",
 	-- ["{quest:1939} is in the Wizard's Sanctum too."] = "{quest:1939} se trouve aussi dans le Sanctuaire du Sorcier.",
 }

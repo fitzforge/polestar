@@ -13,20 +13,20 @@ return {
 	["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20. Free, no objectives."] = "Les sorts de prêtre elfe de la nuit : {spell:10797} au niveau 10, {spell:2651} au niveau 20. Gratuits, sans objectif.",
 
 	-- Step 1: Starshards: Laurna Morninglight
-	-- {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
-	["At 10, {npc:3600}, the priest trainer in the building at the north edge of {area:186}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}. {area:186} is on the road west to {zone:1457}."] = "Au niveau 10, {npc:3600}, la maîtresse des prêtres dans le bâtiment au bord nord de {area:186}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}. {area:186} est sur la route qui mène à l'ouest à {zone:1457}.",
+	-- {npc:3600} Laurna Morninglight · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
+	["At 10, {npc:3600}, the priest trainer in the building at the north edge of Dolanaar, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}. Dolanaar is on the road west to {zone:1457}."] = "",
 	-- {npc:3600} Laurna Morninglight · {quest:5628} Returning Home
 	["{npc:3600}: take {quest:5628}"] = "{npc:3600} : acceptez {quest:5628}",
 
 	-- Step 2: Starshards: Priestess Josetta
-	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {area:87} Goldshire · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
-	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "Au niveau 10 dans la {zone:1429}, {npc:377}, à l'étage de l'auberge de la Fierté du lion à {area:87}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}.",
+	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
+	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in Goldshire, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "",
 	-- {npc:377} Priestess Josetta · {quest:5628} Returning Home
 	["{npc:377}: take {quest:5628}"] = "{npc:377} : acceptez {quest:5628}",
 
 	-- Step 3: Starshards: Maxan Anvol
-	-- {zone:1426} Dun Morogh · {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
-	["At 10 in {zone:1426}, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "Au niveau 10 en {zone:1426}, {npc:1226}, le maître des prêtres dans la {area:2102} à {area:131}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}.",
+	-- {zone:1426} Dun Morogh · {npc:1226} Maxan Anvol · {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
+	["At 10 in {zone:1426}, {npc:1226}, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "",
 	-- {npc:1226} Maxan Anvol · {quest:5628} Returning Home
 	["{npc:1226}: take {quest:5628}"] = "{npc:1226} : acceptez {quest:5628}",
 
@@ -49,38 +49,38 @@ return {
 	-- Step 7: Starshards: Laurna Morninglight's letter
 	-- {spell:10797} Starshards · {npc:3600} Laurna Morninglight
 	["{spell:10797}: {npc:3600}'s letter"] = "{spell:10797} : la lettre de {npc:3600}",
-	-- {area:186} Dolanaar · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {npc:11401} Priestess Alathea · {quest:5629} Returning Home · {spell:10797} Starshards
-	["Take the road west from {area:186} into {zone:1457} and go up to the upper balcony of the Temple of the Moon, beside {npc:7999}: {npc:11401} takes {quest:5629} and teaches {spell:10797}."] = "Prenez la route vers l'ouest depuis {area:186} jusqu'à {zone:1457} et montez au balcon supérieur du temple de la Lune, à côté de {npc:7999} : {npc:11401} prend {quest:5629} et vous apprend {spell:10797}.",
+	-- {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {npc:11401} Priestess Alathea · {quest:5629} Returning Home · {spell:10797} Starshards
+	["Take the road west from Dolanaar into {zone:1457} and go up to the upper balcony of the Temple of the Moon, beside {npc:7999}: {npc:11401} takes {quest:5629} and teaches {spell:10797}."] = "",
 
 	-- Step 8: Starshards: Josetta's letter
 	-- {spell:10797} Starshards
 	["{spell:10797}: Josetta's letter"] = "{spell:10797} : la lettre de Josetta",
-	-- {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["{quest:5628} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5628} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {quest:5628} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{quest:5628} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 9: Starshards: Maxan Anvol's letter
 	-- {spell:10797} Starshards · {npc:1226} Maxan Anvol
 	["{spell:10797}: {npc:1226}'s letter"] = "{spell:10797} : la lettre de {npc:1226}",
-	-- {quest:5630} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["{quest:5630} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5630} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {quest:5630} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{quest:5630} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 10: Starshards: Joshua's letter
 	-- {spell:10797} Starshards
 	["{spell:10797}: Joshua's letter"] = "{spell:10797} : la lettre de Joshua",
-	-- {quest:5631} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["{quest:5631} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5631} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {quest:5631} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{quest:5631} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 11: Starshards: Nara's letter
 	-- {spell:10797} Starshards
 	["{spell:10797}: Nara's letter"] = "{spell:10797} : la lettre de Nara",
-	-- {quest:5632} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["{quest:5632} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5632} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {quest:5632} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{quest:5632} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 12: Starshards: Braenna Flintcrag's letter
 	-- {spell:10797} Starshards · {npc:5142} Braenna Flintcrag
 	["{spell:10797}: {npc:5142}'s letter"] = "{spell:10797} : la lettre de {npc:5142}",
-	-- {quest:5633} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["{quest:5633} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5633} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {quest:5633} Returning Home · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{quest:5633} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 13: Elune's Grace: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {spell:2651} Elune's Grace · {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:11397} Nara Meideros
@@ -101,23 +101,35 @@ return {
 	-- Step 16: Elune's Grace: Laurena's letter
 	-- {quest:5673} Elune's Grace
 	["{quest:5673}: Laurena's letter"] = "{quest:5673} : la lettre de Laurena",
-	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["Hand Laurena's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Laurena à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["Hand Laurena's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 17: Elune's Grace: Nara's letter
 	-- {quest:5674} Elune's Grace
 	["{quest:5674}: Nara's letter"] = "{quest:5674} : la lettre de Nara",
-	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["Hand Nara's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Nara à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["Hand Nara's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- Step 18: Elune's Grace: Rohan's letter
 	-- {quest:5675} Elune's Grace
 	["{quest:5675}: Rohan's letter"] = "{quest:5675} : la lettre de Rohan",
-	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {area:17203} Stormwind Harbor · {area:150} Menethil Harbor · {area:442} Auberdine · {area:702} Rut'theran Village
-	["Hand Rohan's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Rohan à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- {npc:11401} Priestess Alathea · {zone:1457} Darnassus · {npc:7999} Tyrande Whisperwind · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["Hand Rohan's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from Stormwind Harbor (or {object:1162}) to Auberdine, the boat on to Rut'theran Village, then the portal up into {zone:1457}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10 in {zone:1426}, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "Au niveau 10 en {zone:1426}, {npc:1226}, le maître des prêtres dans la {area:2102} à {area:131}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}.",
+	-- ["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}."] = "Au niveau 10 dans la {zone:1429}, {npc:377}, à l'étage de l'auberge de la Fierté du lion à {area:87}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}.",
 	-- ["At 10, go to {npc:11401} in the Temple of the Moon. Priest trainers elsewhere ({npc:3600} in {area:186}, {npc:377} in {area:87}, {npc:1226} in {area:131}) send you to her with {quest:5628}."] = "Au niveau 10, allez voir {npc:11401} dans le Temple de la Lune. Les maîtres des prêtres ailleurs ({npc:3600} à {area:186}, {npc:377} à {area:87}, {npc:1226} à {area:131}) vous envoient à elle avec {quest:5628}.",
+	-- ["At 10, {npc:3600}, the priest trainer in the building at the north edge of {area:186}, hands you {quest:5628}, a letter for {npc:11401} in {zone:1457}. {area:186} is on the road west to {zone:1457}."] = "Au niveau 10, {npc:3600}, la maîtresse des prêtres dans le bâtiment au bord nord de {area:186}, vous remet {quest:5628}, une lettre pour {npc:11401} à {zone:1457}. {area:186} est sur la route qui mène à l'ouest à {zone:1457}.",
 	-- ["At 20, {npc:11401} teaches {quest:5672}. {npc:376} in {zone:1453} and {npc:11406} in {zone:1455} send you to her with a quest of the same name."] = "Au niveau 20, {npc:11401} vous apprend {quest:5672}. {npc:376} à {zone:1453} et {npc:11406} à {zone:1455} vous envoient à elle avec une quête du même nom.",
+	-- ["Hand Laurena's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Laurena à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["Hand Nara's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Nara à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["Hand Rohan's letter to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "Remettez la lettre de Rohan à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["Take the road west from {area:186} into {zone:1457} and go up to the upper balcony of the Temple of the Moon, beside {npc:7999}: {npc:11401} takes {quest:5629} and teaches {spell:10797}."] = "Prenez la route vers l'ouest depuis {area:186} jusqu'à {zone:1457} et montez au balcon supérieur du temple de la Lune, à côté de {npc:7999} : {npc:11401} prend {quest:5629} et vous apprend {spell:10797}.",
 	-- ["The Night Elf priest spells: {spell:10797} at 10, {spell:2651} at 20."] = "Les sorts de prêtre elfe de la nuit : {spell:10797} au niveau 10, {spell:2651} au niveau 20.",
+	-- ["{quest:5628} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5628} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["{quest:5630} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5630} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["{quest:5631} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5631} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["{quest:5632} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5632} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
+	-- ["{quest:5633} goes to {npc:11401}, on the upper balcony of the Temple of the Moon in {zone:1457}, beside {npc:7999}: take the boat from {area:17203} (or {area:150}) to {area:442}, the boat on to {area:702}, then the portal up into {zone:1457}."] = "{quest:5633} va à {npc:11401}, sur le balcon supérieur du temple de la Lune à {zone:1457}, à côté de {npc:7999} : prenez le bateau du {area:17203} (ou de {area:150}) pour {area:442}, puis le bateau pour le {area:702}, et enfin le portail qui monte à {zone:1457}.",
 }

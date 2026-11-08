@@ -11,8 +11,8 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Apprenez la monte",
-	-- {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7954} Binjy Featherwhistle · {npc:7955} Milli Featherwhistle · {skill:762} Riding · {faction:54} Gnomeregan Exiles
-	["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} to Gnomes for 100g (10% less at Honored with {faction:54}), and it comes with a mechanostrider. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "Le {area:189} est juste à l'est de {area:131} ; {npc:7954} se tient à côté des mécanotrotteurs de {npc:7955}. Au niveau 40, {npc:7954} enseigne la {skill:762} aux Gnomes pour 100 po (10 % de moins à Honoré auprès des {faction:54}), avec un mécanotrotteur. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
+	-- {npc:7954} Binjy Featherwhistle · {npc:7955} Milli Featherwhistle · {skill:762} Riding · {faction:54} Gnomeregan Exiles
+	["Steelgrill's Depot is just east of Kharanos; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} to Gnomes for 100g (10% less at Honored with {faction:54}), and it comes with a mechanostrider. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:7954} Binjy Featherwhistle
 	["{npc:7954}, riding trainer"] = "{npc:7954}, maître de monte",
 
@@ -42,5 +42,6 @@ return {
 	-- ["Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race."] = "Era ne permettait qu'aux nains et aux gnomes de monter les mécanotrotteurs ; le client Forever l'autorise à toutes les races de l'Alliance.",
 	-- ["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "Dans Classic, seuls les Nains et les Gnomes pouvaient monter les mécanotrotteurs ; dans Forever, toute race de l'Alliance peut apprendre {spell:10907}.",
 	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "{area:189} est juste à l'est de {area:131} ; {npc:7954} se tient à côté des mécanotrotteurs de {npc:7955}. Au niveau 40, {npc:7954} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de l'Alliance de les monter.",
+	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} to Gnomes for 100g (10% less at Honored with {faction:54}), and it comes with a mechanostrider. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "Le {area:189} est juste à l'est de {area:131} ; {npc:7954} se tient à côté des mécanotrotteurs de {npc:7955}. Au niveau 40, {npc:7954} enseigne la {skill:762} aux Gnomes pour 100 po (10 % de moins à Honoré auprès des {faction:54}), avec un mécanotrotteur. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
 	-- ["{spell:10907} for other races"] = "{spell:10907} pour les autres races",
 }

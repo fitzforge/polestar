@@ -9,17 +9,18 @@ return {
 	-- Guide
 	-- {item:9514} Arcane Staff
 	["Ley or {item:9514} or Orb (Horde)"] = "Лей, {item:9514} или сфера (Орда)",
-	-- {area:368} Echo Isles
-	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "Посох или сфера для левой руки на 10-м уровне: орки и тролли — здесь: {area:368}, нежить — на ферме в Тирисфале.",
+	["A staff or an off-hand orb at 10: Orcs and Trolls on the Echo Isles, the Undead at a Tirisfal farm."] = "",
 
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "Ун'Тува",
-	-- {area:367} Sen'jin Village · {zone:1411} Durotar · {area:362} Razor Hill · {zone:1454} Orgrimmar · {quest:1883} Speak with Un'thuwa · {npc:7311} Uthel'nay · {object:172961} Valley of Spirits · {quest:1884} Ju-Ju Heaps · {zone:1458} Undercity · {area:165} Balnir Farmstead
-	["Un'thuwa, the troll mage trainer, stands in {area:367} on the {zone:1411} coast south of {area:362}. Orcs coming from {zone:1454} can take {quest:1883} from {npc:7311} in the {object:172961} first; it is only a pointer and Un'thuwa gives {quest:1884} without it. Taking it shuts out the {zone:1458}'s {area:165}."] = "",
+	-- {object:3276} Sen'jin Village (no name in this language: may be words) · {zone:1411} Durotar · {object:3224} Razor Hill (no name in this language: may be words) · {zone:1454} Orgrimmar · {quest:1883} Speak with Un'thuwa · {npc:7311} Uthel'nay · {object:172961} Valley of Spirits · {quest:1884} Ju-Ju Heaps · {zone:1458} Undercity
+	["Un'thuwa, the troll mage trainer, stands in {object:3276} on the {zone:1411} coast south of {object:3224}. Orcs coming from {zone:1454} can take {quest:1883} from {npc:7311} in the {object:172961} first; it is only a pointer and Un'thuwa gives {quest:1884} without it. Taking it shuts out the {zone:1458}'s Balnir Farmstead."] = "",
 
 	-- Step 2: Cain Firesong (Brill)
-	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "На 10-м уровне {npc:2128}, учитель магов (локация: {area:159}) на втором этаже таверны {area:2119}, отправит вас к NPC {npc:4568} (зона: {zone:1458}). Взяв это задание, вы закроете себе задание {quest:1884}; если в журнале заданий есть {quest:1883} (из зоны {zone:1454} или {zone:1456}), сначала откажитесь от него, иначе {npc:2128} не даст вам это задание. (Тролль, взявший это задание здесь: {area:159}, следует шагам про Балнир; нежить, взявшая {quest:1884} в Сен'джине, — шагам про {area:368}.)",
+	-- {npc:2128} Cain Firesong
+	["{npc:2128} (Brill)"] = "",
+	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff
+	["At 10 {npc:2128}, the Brill mage trainer upstairs in the Gallows' End Tavern, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in Brill follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the Echo Isles steps.)"] = "",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps
@@ -36,12 +37,12 @@ return {
 	["Un'thuwa: {item:7508} or {item:9513}"] = "",
 
 	-- Step 5: Anastasia Hartwell
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and take the lift down into the {zone:1458}. Anastasia stands in the {object:36082}, the north-east ring of the city."] = "",
+	-- {zone:1458} Undercity · {object:36082} Magic Quarter
+	["Walk south from Brill to the Ruins of Lordaeron and take the lift down into the {zone:1458}. Anastasia stands in the {object:36082}, the north-east ring of the city."] = "",
 
 	-- Step 6: The Balnir Farmstead
-	-- {quest:1882} The Balnir Farmstead · {area:159} Brill · {area:152} Bulwark · {skill:182} Herbalism
-	["{quest:1882} lies south-east of {area:159}, south of the road east to the {area:152}. The snapdragons grow in the farm's garden and look more like bushes than flowers; any of them will do and you need no {skill:182}. They come back within seconds."] = "",
+	-- {quest:1882} The Balnir Farmstead · {skill:182} Herbalism
+	["{quest:1882} lies south-east of Brill, south of the road east to the Bulwark. The snapdragons grow in the farm's garden and look more like bushes than flowers; any of them will do and you need no {skill:182}. They come back within seconds."] = "",
 
 	-- Step 7: Back to Anastasia
 	["Back to Anastasia"] = "",
@@ -49,7 +50,9 @@ return {
 	["{npc:4568}: {item:7507} or {item:9514}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "Посох или сфера для левой руки на 10-м уровне: орки и тролли — здесь: {area:368}, нежить — на ферме в Тирисфале.",
 	-- ["A staff or an orb at 10 for Horde mages, worth a short trip back to the {area:368}."] = "Посох или сфера на 10-м уровне для магов Орды; стоит ненадолго вернуться сюда: {area:368}.",
+	-- ["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "На 10-м уровне {npc:2128}, учитель магов (локация: {area:159}) на втором этаже таверны {area:2119}, отправит вас к NPC {npc:4568} (зона: {zone:1458}). Взяв это задание, вы закроете себе задание {quest:1884}; если в журнале заданий есть {quest:1883} (из зоны {zone:1454} или {zone:1456}), сначала откажитесь от него, иначе {npc:2128} не даст вам это задание. (Тролль, взявший это задание здесь: {area:159}, следует шагам про Балнир; нежить, взявшая {quest:1884} в Сен'джине, — шагам про {area:368}.)",
 	-- ["Un'thuwa stands in {area:367}, on the {zone:1411} coast south of {area:362}."] = "Ун'Тува стоит здесь: {area:367}, на побережье зоны {zone:1411} к югу от места {area:362}.",
 	-- ["Wade across to the {area:368}, south-east of Sen'jin. Zalazane placed the heaps among his huts on the main isle: click a heap to destroy it."] = "Перейдите вброд. Цель: {area:368}, к юго-востоку от деревни Сен'джин. Залазан разложил кучи среди своих хижин на главном острове: щелкните по куче, чтобы уничтожить ее.",
 }

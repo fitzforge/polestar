@@ -13,14 +13,14 @@ return {
 	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "Ваш {item:5175}: без него нельзя использовать ни один тотем земли. Вместе с ним на 4-м уровне становится доступен {spell:8071}.",
 
 	-- Step 1: Canaga Earthcaller
-	-- {npc:5887} Canaga Earthcaller · {area:363} Valley of Trials
-	["{npc:5887} stands just outside the Den, the cave in the middle of the {area:363}. The quest opens at level 4."] = "",
+	-- {npc:5887} Canaga Earthcaller
+	["{npc:5887} stands just outside the Den, the cave in the middle of the Valley of Trials. The quest opens at level 4."] = "",
 
 	-- Step 2: Felstalker Hooves
 	["Felstalker Hooves"] = "",
-	-- {area:365} Burning Blade Coven · {npc:3102} Felstalker
+	-- {npc:3102} Felstalker
 	-- plural, as words: Felstalkers = {npc:3102} Felstalker · Vile Familiars = {npc:3101} Vile Familiar
-	["Felstalkers (level 3-4) prowl the slope below the {area:365}, the cave in the north of the valley, and just inside its mouth among the Vile Familiars. Nearly every {npc:3102} drops a hoof (four kills in five); they respawn in a little over three minutes."] = "",
+	["Felstalkers (level 3-4) prowl the slope below the Burning Blade Coven, the cave in the north of the valley, and just inside its mouth among the Vile Familiars. Nearly every {npc:3102} drops a hoof (four kills in five); they respawn in a little over three minutes."] = "",
 
 	-- Step 3: Canaga Earthcaller
 	-- {npc:5887} Canaga Earthcaller · {quest:1462} Earth Sapta
@@ -35,10 +35,11 @@ return {
 	["{npc:5887}: a new {quest:1463}"] = "",
 
 	-- Step 5: Spirit Rock
-	-- {area:639} Spirit Rock · {area:638} Hidden Path · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
-	["{area:639} sits on a ledge in the hills just south of the Den. The {area:638} up starts at the foot of the hills south-west of the Den, between two idle peons; it climbs south-west into the hills, then bends back east to the rock. Stand right beside the stone and drink the {item:6635}: the {npc:5891} appears for a short while, so speak to it at once (walk almost under it if it does not answer). Coming back, you can drop down the ledge towards the Den instead of walking the path."] = "",
-	-- {item:6635} Earth Sapta · {area:639} Spirit Rock
-	["{item:6635}, beside {area:639}"] = "",
+	["Spirit Rock"] = "",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["Spirit Rock sits on a ledge in the hills just south of the Den. The Hidden Path up starts at the foot of the hills south-west of the Den, between two idle peons; it climbs south-west into the hills, then bends back east to the rock. Stand right beside the stone and drink the {item:6635}: the {npc:5891} appears for a short while, so speak to it at once (walk almost under it if it does not answer). Coming back, you can drop down the ledge towards the Den instead of walking the path."] = "",
+	-- {item:6635} Earth Sapta
+	["{item:6635}, beside Spirit Rock"] = "",
 	-- {item:6656} Rough Quartz
 	["it hands you the {item:6656}: keep it"] = "",
 
@@ -50,17 +51,16 @@ return {
 	["the level 4 shaman spells"] = "",
 
 	-- Step 7: Seer Ravenfeather
-	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache
-	["{npc:5888} stands in {area:221}. She may show no quest mark over her head: speak to her anyway. The quest opens at level 4."] = "",
+	-- {npc:5888} Seer Ravenfeather · {object:2972} Camp Narache (no name in this language: may be words)
+	["{npc:5888} stands in {object:2972}. She may show no quest mark over her head: speak to her anyway. The quest opens at level 4."] = "",
 
 	-- Step 8: Ritual Salve
-	-- {area:358} Brambleblade Ravine · {spell:403} Lightning Bolt
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "",
+	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of Brambleblade Ravine, east of the camp, and throw the odd Lightning Bolt. Four kills in five drop a salve; they respawn in about four minutes."] = "",
 
 	-- Step 9: Seer Ravenfeather
-	-- {area:221} Camp Narache · {quest:1462} Earth Sapta
-	["Back to the Seer in {area:221}. She hands you the {quest:1462}: do not drink it yet."] = "",
+	-- {object:2972} Camp Narache (no name in this language: may be words) · {quest:1462} Earth Sapta
+	["Back to the Seer in {object:2972}. She hands you the {quest:1462}: do not drink it yet."] = "",
 
 	-- Step 10: Lost the Earth Sapta?
 	-- {quest:1462} Earth Sapta
@@ -71,10 +71,11 @@ return {
 	["{npc:5888}: a new {quest:1462}"] = "",
 
 	-- Step 11: Kodo Rock
-	-- {area:637} Kodo Rock · {npc:2991} Greatmother Hawkwind · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
-	["{area:637} is a small pillar on a low mound due east of {npc:2991}'s well, east of the camp; it only shows from about fifteen yards away, and hostile boars graze around it. Stand beside it and drink the {item:6635}, then speak to the {npc:5891} before it fades (drink again if it does)."] = "",
-	-- {item:6635} Earth Sapta · {area:637} Kodo Rock
-	["{item:6635}, beside {area:637}"] = "",
+	["Kodo Rock"] = "",
+	-- {npc:2991} Greatmother Hawkwind · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["Kodo Rock is a small pillar on a low mound due east of {npc:2991}'s well, east of the camp; it only shows from about fifteen yards away, and hostile boars graze around it. Stand beside it and drink the {item:6635}, then speak to the {npc:5891} before it fades (drink again if it does)."] = "",
+	-- {item:6635} Earth Sapta
+	["{item:6635}, beside Kodo Rock"] = "",
 
 	-- Step 12: Seer Ravenfeather
 	-- {item:6656} Rough Quartz · {item:5175} Earth Totem
@@ -83,22 +84,21 @@ return {
 	["{npc:5888}: {spell:8071} and your {item:5175}"] = "",
 
 	-- Step 13: Windshaper Boro
-	-- {npc:251374} Windshaper Boro · {area:16635} Thendal Village
-	["{npc:251374}, the shaman trainer, stands in {area:16635}. The quest opens at level 3."] = "",
+	-- {npc:251374} Windshaper Boro
+	["{npc:251374}, the shaman trainer, stands in Thendal Village. The quest opens at level 3."] = "",
 
 	-- Step 14: Signet of Akir
 	-- {item:251924} Signet of Akir · {npc:252095} Hanaa Nightwind
 	["Any Al'Aketh cultist can carry the {item:251924}: the Converts (level 2-3) around the standing stones just east of the village, or the Brutes and Neophytes (level 4) in the camp beyond {npc:252095}, south-west of the village. Keep killing until one drops it."] = "",
 
 	-- Step 15: Windshaper Boro
-	-- {area:16635} Thendal Village · {quest:1462} Earth Sapta
-	["Back to Boro in {area:16635}. He hands you the {quest:1462}: do not drink it yet."] = "",
+	-- {quest:1462} Earth Sapta
+	["Back to Boro in Thendal Village. He hands you the {quest:1462}: do not drink it yet."] = "",
 
 	-- Step 16: The Rise of Spirits
-	-- {area:16988} Rise of Spirits
-	["The {area:16988}"] = "",
-	-- {area:16988} Rise of Spirits · {item:6635} Earth Sapta · {npc:251166} Minor Manifestation of Earth
-	["The {area:16988} is the hilltop shrine north-east of Boro: the path up starts on the hill just above the clearing where the flies were. Drink the {item:6635} beside the shrine and speak to the {npc:251166} before it fades."] = "",
+	["The Rise of Spirits"] = "",
+	-- {item:6635} Earth Sapta · {npc:251166} Minor Manifestation of Earth
+	["The Rise of Spirits is the hilltop shrine north-east of Boro: the path up starts on the hill just above the clearing where the flies were. Drink the {item:6635} beside the shrine and speak to the {npc:251166} before it fades."] = "",
 	-- {item:6635} Earth Sapta
 	["{item:6635}, beside the shrine"] = "",
 
