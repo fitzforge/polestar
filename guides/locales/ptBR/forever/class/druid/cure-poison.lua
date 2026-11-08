@@ -12,42 +12,42 @@ return {
 
 	-- Step 1: Lessons Anew
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:4217} fica no andar de cima do prédio dos druidas em {area:1658}. Sem {skill:182}? Compre cinco {item:2449} na Casa de Leilões antes: você vai precisar mais tarde.",
 
 	-- Step 2: Lessons Anew
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {npc:270459} Alfina Nightgaze · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:4217} fica no andar de cima do prédio dos druidas em {area:1658}; {npc:270459}, junto ao Portal Celonato, não dá esta missão. Use {spell:18960} e pegue o voo de {npc:11800} no meio de {area:2361} (ela leva druidas para {area:702}, sem precisar de rota de voo), depois suba pelo portal. Sem {skill:182}? Compre cinco {item:2449} na Casa de Leilões antes: você vai precisar mais tarde.",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine · {zone:1450} Moonglade
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "Use {spell:18960}: {npc:11802} fica no andar de cima do prédio ao seu lado. Ele entrega a {item:15844}. Depois voe para {area:442} (aprenda a rota de voo de {zone:1450} com o Sindrayl antes, se ainda não tiver).",
 
 	-- Step 4: Cliffspring Falls
 	-- {area:442} Auberdine · {area:445} Cliffspring Falls · {item:15844} Empty Cliffspring Falls Sampler · {item:12350} Empty Sampling Tube
-	["Head north-east from {area:442} to {area:445}. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the {item:15844} (not the {item:12350} of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight."] = "",
+	["Head north-east from {area:442} to {area:445}. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the {item:15844} (not the {item:12350} of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight."] = "Siga para nordeste de {area:442} até {area:445}. Fique na boca da caverna no alto da cachoeira, não no rio lá embaixo, e use a {item:15844} (não o {item:12350} de outra missão). Nagas ocupam a subida, um lançador de feitiço espera na outra margem, e encher a amostra chama mais dois (um Cavalga-onda e um Toxicólogo, nível 15): limpe o caminho antes e esteja pronto para a briga.",
 	-- {item:15844} Empty Cliffspring Falls Sampler
-	["{item:15844}, at the cave mouth"] = "",
+	["{item:15844}, at the cave mouth"] = "{item:15844}, na boca da caverna",
 
 	-- Step 5: Alanndarian Nightsong
 	-- {area:442} Auberdine
-	["Back in {area:442}, at the north end of the village."] = "",
+	["Back in {area:442}, at the north end of the village."] = "De volta a {area:442}, na ponta norte da vila.",
 
 	-- Step 6: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851} e {item:2449}",
 	-- {area:442} Auberdine · {skill:182} Herbalism · {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere · {npc:1302} Bernard Gump · {zone:1453} Stormwind
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
-	["The Lunar Fungal Blooms are tiny white-spotted mushrooms on the floors and walls of the small moonkin caves in the hills just east and south-east of {area:442}; each gives one or two fungus, and each cave holds only a few, so go from cave to cave (they regrow in three minutes). The moonkin there are irritable. No {skill:182} needed for the blooms. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it ({npc:1313} or {npc:1302} in {zone:1453}, or the Auction House)."] = "",
+	["The Lunar Fungal Blooms are tiny white-spotted mushrooms on the floors and walls of the small moonkin caves in the hills just east and south-east of {area:442}; each gives one or two fungus, and each cave holds only a few, so go from cave to cave (they regrow in three minutes). The moonkin there are irritable. No {skill:182} needed for the blooms. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it ({npc:1313} or {npc:1302} in {zone:1453}, or the Auction House)."] = "Os Brotos Fúngicos Lunares são cogumelinhos de pintas brancas no chão e nas paredes das cavernas luniscantes pequenas nas colinas logo a leste e a sudeste de {area:442}; cada um dá um ou dois fungos, e cada caverna tem poucos, então vá de caverna em caverna (crescem de novo em três minutos). Os luniscantes de lá são irritadiços. Não precisa de {skill:182} para os brotos. A {item:2449} precisa de {skill:182}: herboristas colhem por toda {zone:1439}, e quem não é compra ({npc:1313} ou {npc:1302}, em {zone:1453}, ou na Casa de Leilões).",
 
 	-- Step 7: Alanndarian Nightsong
 	-- {item:15826} Curative Animal Salve · {item:15851} Lunar Fungus
-	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "",
+	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "Ela entrega o {item:15826}: dez doses, uma por cervo. Destrua o {item:15851} que sobrar.",
 
 	-- Step 8: Sickly Deer
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
-	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
+	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "Use o {item:15826} em {npc:12298} vivos (nível 5, com uma nuvem verde em cima): eles andam por {zone:1439}, de {area:456} até a divisa com {zone:1440}, muitos em volta do acampamento furbolg Bosquenero a nordeste de {area:442}. Truque de druida: prenda um cervo com {spell:339}, aplique o bálsamo antes de a raiz dar dano, e a morte pela raiz conta uma segunda vez. Gastou uma dose num cervo que não contou? Abandone a missão e pegue de novo com {npc:3702} para ganhar bálsamo novo.",
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
-	["Use the {item:15826} on {npc:12298}"] = "",
+	["Use the {item:15826} on {npc:12298}"] = "Use o {item:15826} em {npc:12298}",
 
 	-- Step 9: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
@@ -55,13 +55,13 @@ return {
 
 	-- Step 10: Power over Poison
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
-	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "",
+	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "{npc:4217}, no andar de cima em {area:1658}, ensina {spell:8946}.",
 
 	-- Step 11: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
 	["{npc:3033} stands in the druids' hut on {area:1639}; {npc:262560}, the Skyborne druid trainer where the airship from Zephras Isle lands in northern {zone:1412}, gives the same quest. No {skill:182}? {npc:3490} at the Crossroads sells {item:2449} later, or buy five on the Auction House now."] = "",
 	-- {npc:3033} Turak Runetotem · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore
-	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "",
+	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "{npc:3033}, ou {npc:262560} no norte de {zone:1412}",
 
 	-- Step 12: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -72,11 +72,11 @@ return {
 	-- plural, as words: Burning Blade Toxicologists = {npc:12319} Burning Blade Toxicologist
 	["From the Crossroads head north to {area:384} and climb to the bubbling {object:19464} on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the {item:15842}: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run."] = "",
 	-- {item:15842} Empty Dreadmist Peak Sampler
-	["{item:15842}, standing in the pool"] = "",
+	["{item:15842}, standing in the pool"] = "{item:15842}, de pé dentro do poço",
 
 	-- Step 14: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "",
+	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "{npc:3448} fica na Encruzilhada. Sem {skill:182}? {npc:3490}, a poucos passos, junto ao mestre de mantícoras, vende {item:2449} a 80 cobres cada, três de cada vez até repor o estoque.",
 	-- {item:2449} Earthroot
 	["{item:2449}; herbalists pick it on the plains"] = "{item:2449}; herbalistas a colhem nas planícies",
 
@@ -89,7 +89,7 @@ return {
 
 	-- Step 16: Tonga Runetotem
 	-- {item:15826} Curative Animal Salve
-	["He hands you the {item:15826}: ten doses, one per gazelle."] = "",
+	["He hands you the {item:15826}: ten doses, one per gazelle."] = "Ele entrega o {item:15826}: dez doses, uma por gazela.",
 
 	-- Step 17: Sickly Gazelles
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
@@ -99,7 +99,7 @@ return {
 	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
 	-- {item:15826} Curative Animal Salve
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on Sickly Gazelles"] = "",
+	["Use the {item:15826} on Sickly Gazelles"] = "Use o {item:15826} nas Gazelas Doentes",
 
 	-- Step 18: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -107,7 +107,7 @@ return {
 
 	-- Step 19: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
-	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "{npc:3033}, em {area:1639}, ensina {spell:8946}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back in {area:442}."] = "De volta a {area:442}.",

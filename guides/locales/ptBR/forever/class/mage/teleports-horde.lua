@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Teleports and Portals (Horde)"] = "",
-	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "",
+	["Teleports and Portals (Horde)"] = "Teleportes e Portais (Horda)",
+	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "Os teleportes para as cidades nos níveis 20 e 30 e os portais de grupo nos níveis 40 e 50, com o instrutor de portais de cada cidade.",
 
 	-- Step 1: Teleport: Orgrimmar
 	-- {object:173161} Darkbriar Lodge (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits (no name in this language: may be words) · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation
 	["At 20 go to {object:173161} in {zone:1454}'s {object:172961}, where the mage trainers live. {npc:5958}, the portal trainer, stands on the upper floor and teaches {spell:3567} for 20 silver. Every teleport burns one {item:17031} (10 silver at any reagent vendor), so carry a few."] = "",
 	-- {item:17031} Rune of Teleportation
-	["{item:17031}, 10s each"] = "",
+	["{item:17031}, 10s each"] = "{item:17031}, 10 pratas cada",
 
 	-- Step 2: Teleport: Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {object:36082} Magic Quarter (no name in this language: may be words) · {spell:3563} Teleport: Undercity · {npc:4575} Hannah Akeley
@@ -26,11 +26,11 @@ return {
 
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
-	["Portals to {zone:1454} and the {zone:1458}"] = "",
+	["Portals to {zone:1454} and the {zone:1458}"] = "Portais para {zone:1454} e {zone:1458}",
 	-- {item:17032} Rune of Portals · {npc:5958} Thuul · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {spell:11417} Portal: Orgrimmar · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {spell:11418} Portal: Undercity
 	["At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one {item:17032} (20 silver at any reagent vendor). {npc:5958} in {object:173161} has {spell:11417}; teleport to the {zone:1458} for {npc:2492}'s {spell:11418}."] = "",
 	-- {item:17032} Rune of Portals
-	["{item:17032}, 20s each"] = "",
+	["{item:17032}, 20s each"] = "{item:17032}, 20 pratas cada",
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
