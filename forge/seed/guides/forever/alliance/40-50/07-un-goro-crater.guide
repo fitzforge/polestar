@@ -196,6 +196,7 @@ step Mystic Ward
   accept 3449                         -- Four rune rubbings in Azshara: keep it
   accept 3450
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
+  accept 8250 npc 7312 only Mage      -- Dink, the mage trainer: for Sanath Lim-yo in Azshara, keep it
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
