@@ -17,7 +17,9 @@
 -- whether a party member is on the player's shard.
 --
 -- Live Forever realms (build 70862): addon messages are refused on every channel,
--- plain channel text goes out only inside a click or keypress; addon whispers and invites from code go through.
+-- plain channel text goes out only inside a click or keypress (measured with
+-- one client); addon whispers and invites from code are what the other layer
+-- addons rely on there (their source, not measured here).
 -- So a request goes out two ways. Plain lines on the hidden custom channel
 -- PolestarLayer, sent only by Layer.Request and Layer.Ask, synchronously
 -- inside the click or typed command that called them:
@@ -432,9 +434,12 @@ function Layer.RefreshNow()
 		showDialog()
 		return true
 	end
-	local g = gen
+	-- The dialog belongs to the group the offer came with: a group left or
+	-- joined in the meantime (groupGen) leaves the state to the game's
+	-- SHARD_TRANSFER or SHARD_TRANSFER_CANCELLED.
+	local g, gg = gen, groupGen
 	ns.After(CONFIRM_WAIT, function()
-		if g ~= gen or transfer ~= "refreshing" then return end
+		if g ~= gen or gg ~= groupGen or transfer ~= "refreshing" then return end
 		transfer = "offered"
 		changed()
 		showDialog()
@@ -766,10 +771,13 @@ local function onGroupJoined()
 	if transfer == "offered" then startAuto() end
 end
 
--- Leaving any group ends the hop group; timers armed in it then return.
+-- Leaving any group ends the hop group and the request (hopped or not, it
+-- is over: a late claimed invite does not bring the player back without a
+-- new click, and a request that outlived PENDING inside the hop group does
+-- not stay waiting); timers armed in the group then return.
 local function onGroupLeft()
 	groupGen = groupGen + 1
-	hopGroup, joinedFrom = false, nil
+	hopGroup, joinedFrom, asked = false, nil, nil
 	stopAuto()
 	changed()
 end

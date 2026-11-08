@@ -417,6 +417,41 @@ test('layer hop: with the gamepad interface the refresh dialog fallback stays ou
 	assert.deepEqual(out[0], [true, true, 1, 0, 'offered'], 'the confirm is tried, the dialog is not shown');
 });
 
+test('layer hop: leaving a group ends the request: a late claimed invite is not accepted, a request that outlived its wait in the hop group does not stay; the refresh dialog of a group left is not shown', () => {
+	const stale = run(`
+		Ly.Request("*")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		stub.runTimers()
+		local accepted = #calls("AcceptGroup")
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
+		wait(121)
+		local kept = Ly.Status().asked ~= nil
+		lay.group = 0
+		stub.fire("GROUP_LEFT")
+		local cleared = Ly.Status().asked == nil
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		stub.runTimers()
+		emit({ accepted, kept, cleared, #calls("AcceptGroup") })
+	`);
+	assert.deepEqual(stale[0], [1, true, true, 1], 'the request outlives its wait inside the hop group and ends with it');
+	const regroup = run(`
+		lay.confirmFires = false
+		lay.eviction = 60
+		stub.fire("SHARD_TRANSFER_IMMINENT")
+		local ok = Ly.RefreshNow()
+		lay.group = 0
+		stub.fire("GROUP_LEFT")
+		lay.group = 3
+		stub.fire("GROUP_JOINED")
+		wait(3.1)
+		emit({ ok, #calls("StaticPopup_Show"), Ly.Status().transfer })
+	`);
+	assert.deepEqual(regroup[0], [true, 0, 'refreshing'], 'no dialog for the old group; the game\'s events settle the state');
+});
+
 test('layer hop: leaving the hop group ends it; a group joined by hand next is never left, by the command or a timer armed in the hop group', () => {
 	const join = `
 		set("layerLeaveAfter", true)
