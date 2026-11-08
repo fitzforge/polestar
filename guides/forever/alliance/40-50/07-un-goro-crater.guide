@@ -197,7 +197,7 @@ step Mystic Ward
   accept 3450
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
 
-step Bind and train
+step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 

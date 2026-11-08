@@ -6628,3 +6628,30 @@ test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and no
 	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
 	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
 });
+
+// Final route review before 0.3.5, Alliance 40-60: texts from an older order. Vital Supplies was "for Nethergarde
+// Keep, keep it" though Watchmaster Sorigal in Darkshire takes it a few steps later; the Ironforge stop opened with
+// the tram ride already taken and said the next guide flies to Thelsamar (this one does); Sigrun Ironhew's dig was two
+// steps with the way in on the second; Feralas said you end at the dock with Thalanaar still to come; Felwood said
+// to ride out of Astranaar on its second stop; Un'Goro's "Bind and train" binds nowhere.
+test('alliance 40-60: final review: travel tips, notes and titles match where the player is', { skip }, () => {
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const supplies = stv[at(stv, 'accept 1477', is('accept', 1477))];
+	assert.ok(stv.some(({ goal }) => goal.t === 'turnin' && goal.quest === 1477), 'Vital Supplies is handed in on this guide');
+	assert.doesNotMatch(supplies.goal.note || '', /Nethergarde/, 'so it is not "for Nethergarde Keep"');
+	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
+	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
+	const sigrun = stv[at(stv, 'turnin 733', is('turnin', 733))];
+	assert.equal(sigrun.s, stv[at(stv, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
+	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
+	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
+	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
+	assert.ok(!feralas.some((e) => e.s < last.s && /You end at/.test(texts(e))), 'no "you end here" before Thalanaar');
+	const felwood = goals('forever/alliance/50-60/02-felwood.guide');
+	const firstNote = felwood.find(({ step }) => step.note);
+	assert.match(firstNote.step.note, /Astranaar/, 'Felwood\'s way in is on its first stop');
+	assert.equal(felwood.filter(({ step }, i, a) => /Astranaar/.test(step.note || '') && (i === 0 || a[i - 1].step !== step)).length, 1, 'and only there');
+	const ungoro = compiled('forever/alliance/40-50/07-un-goro-crater.guide');
+	for (const step of ungoro.steps.filter((st) => /\bBind\b/.test(st.title))) assert.ok(step.goals.some((g) => g.t === 'sethome'), `"${step.title}" binds`);
+});

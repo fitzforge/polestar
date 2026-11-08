@@ -491,7 +491,7 @@ step Stormwind
   turnin 212                          -- Angus Stern
   accept 1271
   turnin 1271
-  accept 1477                         -- High Sorcerer Andromath: for Nethergarde Keep, keep it
+  accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
   turnin 1363                         -- Acolyte Dellis
   accept 1364
@@ -654,7 +654,7 @@ step Roetten Stonehammer
 
 step Ironforge
   zone Ironforge
-  tip Take the Deeprun Tram from the Dwarven District. Roetten is in the Reclaimers' hall by the Hall of Explorers, Prospector Stormpike in the hall itself, Gerrig Bonegrip in the Forlorn Cavern. The next guide flies on to Thelsamar.
+  tip Roetten is in the Reclaimers' hall by the Hall of Explorers, Gerrig Bonegrip in the Forlorn Cavern.
   turnin 1467                         -- Roetten Stonehammer
   turnin 727                          -- Gerrig Bonegrip
   train class only Shaman             -- Stormwind has no shaman trainer
@@ -698,14 +698,13 @@ step Badlands
   zone Badlands
   goto 53.8,43.3 "Badlands"
 
-step Hammertoe's Digsite
-  turnin 733                          -- Sigrun Ironhew
 # ---------------------------------------------------------------- The Badlands
 
 step Hammertoe's Digsite
   zone Badlands
   tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
-  accept 706                          -- Sigrun Ironhew
+  turnin 733                          -- Sigrun Ironhew
+  accept 706
 
 step Garek
   tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
