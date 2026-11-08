@@ -98,10 +98,10 @@ step Hillsbrad Fields: kill these as you meet them
   kill 2451 quest 567.4               -- Farmer Kalaba walks around Hillsbrad Fields: look inside the circle on the map
 
 step Tarren Mill
-  turnin 546                          -- Deathguard Samsa
   turnin 528                          -- High Executor Darthalia
   accept 98094 npc 2215               -- High Executor Darthalia: orders for Deathstalker Masoj, on the way to Durnholde
   accept 529
+  turnin 546                          -- Deathguard Samsa
   accept 509                          -- Apothecary Lydon, inside: the Mudsnout Blossoms grow south-west of Durnholde, on the walk there
 
 # ---------------------------------------------------------------- East: Durnholde

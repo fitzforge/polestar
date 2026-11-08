@@ -72,20 +72,16 @@ step Grelin Whitebeard
   turnin 234                                  -- Grelin Whitebeard
   accept 182
 
-step Frostmane Troll Whelp on the way
-  along until q182
-  kill 706 quest 182 -- Frostmane Troll Whelp along the way to Grelin Whitebeard
-
 step Coldridge Valley: kill these as you meet them
   zone Dun Morogh
   tip Frostmane Troll Whelps fill the slopes south and east of Grelin's camp.
+  kill 706 quest 182                          -- Frostmane Troll Whelp
   collect 16314 quest 3361 @26.3,79.3         -- Felix's Bucket of Bolts
   collect 16313 quest 3361 @22.8,80.0         -- Felix's Chest
   collect 10438 quest 3361 @20.9,76.1         -- Felix's Box
   collect 6753 quest 1599.1 only Warlock      -- Feather Charms, from the Frostmane Novices
 
 step Grelin Whitebeard
-  label q182
   turnin 182
   accept 218
   accept 3364                                 -- Nori Pridedrift: timed, five minutes to reach Durnan in Anvilmar

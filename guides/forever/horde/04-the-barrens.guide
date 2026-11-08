@@ -56,14 +56,14 @@ step Malaka'jin
 
 step Sun Rock Retreat
   tip Up the Webwinder Path past Ziz Fizziks and west to Sun Rock Retreat.
-  getfp "Sun Rock Retreat"
-  accept 6393                         -- Tsunaman
-  accept 6562                         -- Je'neu Sancrea at Zoram'gar, next guide
-  accept 6282
-  accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
+  accept 6562                         -- Tsunaman: Je'neu Sancrea at Zoram'gar, next guide
+  accept 6393
   accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, later in this guide
+  accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
+  accept 6282
   sethome "Sun Rock Retreat"
   accept 1087                         -- Braelyn Firehand, outside the gate
+  getfp "Sun Rock Retreat"
   accept 6301                         -- Tammra Windfield
   vendor nearest
 
@@ -101,10 +101,10 @@ step The Charred Vale: kill these as you meet them
   kill 4025 quest 6282.2
 
 step Sun Rock Retreat
-  turnin 6393                         -- Tsunaman, up on the ledge
-  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
-  turnin 6282                         -- Maggran Earthbinder
   turnin 6381                         -- Tammra Windfield
+  turnin 6282                         -- Maggran Earthbinder
+  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
+  turnin 6393                         -- Tsunaman, up on the ledge
 
 step Malaka'jin
   tip Head back down the Webwinder Path to Malaka'jin.
@@ -119,10 +119,10 @@ step The Barrens
 step Camp Taurajo
   zone The Barrens
   tip From Malaka'jin follow the road east to Seereth's camp, then south-east across the plains to Camp Taurajo.
-  sethome "Camp Taurajo"
-  accept 874                          -- Jorn Skyseer
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
+  accept 874                          -- Jorn Skyseer
   accept 879                          -- Mangletooth, in the cage
+  sethome "Camp Taurajo"
 
 step The Barrens
   only Shaman

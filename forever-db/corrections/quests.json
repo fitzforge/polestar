@@ -3538,6 +3538,34 @@
 		},
 		"note": "The Quarry's Smith (Dun Morogh, blacksmiths) asks for 12 Copper Bars, then 4 Toughened Boar Hides, so the hide is objective 2. The merged data listed only the hide, so `quest 95217.1` named it. Found by TP1186 in #727."
 	},
+	"95495": {
+		"set": {
+			"pre": [
+				95494,
+				95507
+			],
+			"preAll": [
+				95494,
+				95507
+			],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Vrang Wildgore's window left The Hermit Tanner out for 4 people with only Bruised Pride and Lion Hides (95494) handed in, 5 with only Vrang's Game (95507) and 16 with neither; all 11 people who took it had handed in both first"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 95507 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95494, 95507]"
+			}
+		],
+		"note": "The Hermit Tanner (Barrens, Vrang Wildgore) is offered only once both of Vrang's quests are handed in, Bruised Pride and Lion Hides (95494) and Vrang's Game (95507): in players' recordings Vrang left it out for people who had handed in only one of them, and everyone who took it had handed in both. The server's quest records name 95507 as its previous quest; the merged data had no prerequisite."
+	},
 	"95508": {
 		"set": {
 			"objectives": [
@@ -3547,6 +3575,12 @@
 					"count": 1,
 					"text": "Assist Walton"
 				}
+			],
+			"pre": [
+				95621
+			],
+			"preAny": [
+				95621
 			]
 		},
 		"source": [
@@ -3557,9 +3591,38 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row sources: manual"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Walton's window left Unwelcome Guests out for 12 people while Trouble in the Valley (95621) was in their log and offered it once 95621 was handed in; all 11 people who took it had handed 95621 in first"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95621]"
 			}
 		],
-		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives."
+		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives. Walton offers it only once Trouble in the Valley (95621) is handed in: players' recordings show him leaving it out while 95621 is in the log and offering it right after the hand-in, and a second, independent quest database has the same link; the merged data had no prerequisite."
+	},
+	"95621": {
+		"set": {
+			"pre": [
+				95495
+			],
+			"preAny": [
+				95495
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: Walton's window left Trouble in the Valley out for 12 people while The Hermit Tanner (95495) was in their log; all 11 people who took it had handed 95495 in first"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [95495]"
+			}
+		],
+		"note": "Trouble in the Valley (Barrens, Walton) is offered only once The Hermit Tanner (95495) is handed in to Walton: players' recordings show him leaving it out while 95495 is still in the log, and a second, independent quest database has the same link; the merged data had no prerequisite."
 	},
 	"95737": {
 		"set": {
