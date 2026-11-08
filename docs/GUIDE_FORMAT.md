@@ -818,8 +818,12 @@ getfp goals got a taxi node").
 
 Every goal that needs a group says so in the guide window, under the goal
 (once per card when several goals share it), and a guide with such a goal on
-its route (not `optional`) carries a "Group" chip in the guide menu. The
-compiler writes `group` on the goal, first match wins:
+the route every player follows carries a "Group" chip in the guide menu: not
+an `optional` goal, not one in a step with `when group <quest>` or `when
+dungeon "<Name>"` (only a player who chose the group way follows it) or of a
+quest accepted only in such a step, and not the turn-in of a dungeon or raid
+quest (the run was the group content). The compiler writes `group` on the
+goal, first match wins:
 
 1. the author's `group [N]`: `{ kind = "group", size = N }` ("Group of N
    advised"; "Group advised" without `N`);

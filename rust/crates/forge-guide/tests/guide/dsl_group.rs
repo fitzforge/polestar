@@ -71,6 +71,31 @@ fn the_guide_is_flagged_group_when_a_goal_of_its_route_needs_a_group_not_for_an_
 	assert!(groups(&guide(&["step S", "  kill 6"])).0.get("group").is_undef());
 }
 
+// #1358: Dun Morogh's "Group" chip came from Vagash (an elite) behind `when group 314`, which only a player who
+// chose the group way follows. The chip is for the route every player follows.
+#[test]
+fn the_guide_flag_leaves_out_opt_in_group_steps_their_quests_later_goals_and_a_dungeon_quest_s_turn_in() {
+	let flag = |body: &[&str]| groups(&guide(body)).0.get("group");
+	// Behind `when group` or `when dungeon`: opt-in.
+	assert!(flag(&["step S", "  when group 7", "  kill 95003"]).is_undef());
+	assert!(flag(&["step S", "  when dungeon \"Hollow Deeps\"", "  accept 9600"]).is_undef());
+	// The quest accepted only in a `when group` step: its later goals go with it.
+	assert!(flag(&["step A", "  when group 9600", "  accept 9600", "", "step B", "  kill 95040 quest 9600"]).is_undef());
+	// A dungeon quest's turn-in in the guide after the one that runs it: the run was the group content.
+	let head = |id: &str, next: &str| format!("guide {id}\ntitle {id}\nfaction Alliance\ncategory Class\nlevels 1-60\nzone Elwynn Forest\n{next}\n");
+	let run = format!("{}\nstep S\n  accept 9600\n", head("t/run", "next t/handin"));
+	let handin = format!("{}\nstep S\n  turnin 9600\n", head("t/handin", ""));
+	let r = compile_files(&[("run.guide", &run), ("handin.guide", &handin)], &group_data(), None);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let flag_of = |id: &str| r.guides.iter().find(|g| g.get("id").as_str() == Some(id)).unwrap().get("group");
+	assert_eq!(flag_of("t/run"), V::Bool(true));
+	assert!(flag_of("t/handin").is_undef());
+	// The solo way (`when !group`), a quest accepted on the route too, the dungeon quest's accept: the route.
+	assert_eq!(flag(&["step S", "  when !group 7", "  kill 95003"]), V::Bool(true));
+	assert_eq!(flag(&["step A", "  when group 9600", "  accept 9600", "", "step B", "  accept 9600", "  kill 95040 quest 9600"]), V::Bool(true));
+	assert_eq!(flag(&["step S", "  accept 9600"]), V::Bool(true));
+}
+
 #[test]
 fn the_compiled_group_reaches_the_pack_goal_and_guide_keys_in_guides_lua() {
 	let r = compile_with(&guide(&["step S", "  accept 9600", "  kill 95003 group 3"]), &group_data());
