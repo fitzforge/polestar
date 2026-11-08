@@ -134,7 +134,11 @@ step The Ruins of Mathystra
   collect 7500 quest 2098 @56.9,13.1 map 1439
   collect 7499 quest 2098 @55.5,12.6 map 1439 -- Underwater
   turnin 2098
-  collect 15883 x1 only NightElf,Druid        -- Half Pendant of Aquatic Agility: the Strange Lockbox under the water off the north coast, west of the ruins
+
+step Strange Lockbox
+  only NightElf,Druid
+  when onquest 272
+  collect 15883 x1                            -- Half Pendant of Aquatic Agility: the Strange Lockbox under the water off the north coast, west of the ruins
 
 step Mist's Edge: kill these as you meet them
   zone Darkshore

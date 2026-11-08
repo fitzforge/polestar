@@ -56,7 +56,11 @@ next forever/horde/06-hillsbrad-foothills
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
 # Kadrak, and hand Mission: Possible But Not Probable (2478, optional: Gallywix is elite) to Shenthul on
-# the Orgrimmar stop. Warlocks bind the succubus (The Binding, 1513) on the Orgrimmar stop.
+# the Orgrimmar stop. Warlocks bind the succubus (The Binding, 1513) on the Orgrimmar stop. Tauren
+# Druids carrying Trial of the Sea Lion (30, from forever/horde/02-the-barrens) open the Strange
+# Lockbox off the coast west of the Dead Field on the way to the Sepulcher: its Half Pendant of
+# Aquatic Endurance drops only while the quest is in the log (#1386). The pendant is joined and
+# handed in at the end of the next guide.
 
 # ---------------------------------------------------------------- The Sludge Fen (Rogues)
 
@@ -205,6 +209,13 @@ step Zeppelin to Undercity
   goto 50.8,13.5 "Zeppelin to Undercity"
 
 # ---------------------------------------------------------------- Silverpine Forest
+
+step Strange Lockbox
+  only Tauren,Druid
+  zone Silverpine Forest
+  when onquest 30
+  tip From the zeppelin towers, run south into Silverpine and west past the Dead Field to the coast: the Strange Lockbox lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion. Then on to the Sepulcher.
+  collect 15882                         -- Half Pendant of Aquatic Endurance, from the Strange Lockbox
 
 step The Sepulcher
   zone Silverpine Forest

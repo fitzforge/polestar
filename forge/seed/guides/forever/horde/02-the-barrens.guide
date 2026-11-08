@@ -75,6 +75,10 @@ next forever/horde/05-stonetalon-mountains
 # Aelthalyste in the Undercity on the Hillsbrad guide's stop). Rogues The Shattered Salute / Deep
 # Cover / Mission: Possible But Not Probable (2460, 2458, 2478 optional). Tauren Druids: Trial of
 # the Lake at 16 and Cure Poison (6126-6130), Cat Form at 20 (98340-98362; 98341 for Skyborne).
+# Trial of the Sea Lion (30) is taken at 16 and carried: the Sludge Fen's half pendant on this
+# guide's walk north, the Silverpine half on the ride to Hillsbrad at 21 (its lockbox gives it only
+# while the quest is in the log, #1386), the pendant joined and handed in from the Undercity at the
+# end of forever/horde/06-hillsbrad-foothills, as Aquatic Form (31) at Turak.
 #
 # Class training: Orgrimmar at 20 for everyone but Druids and Paladins; Druids in Thunder Bluff at
 # 16 and 20; Paladins in Thunder Bluff at about 21.
@@ -526,7 +530,7 @@ step Trial of the Lake
   use 15877 @36.0,41.4                -- At the Shrine of Remulos
   complete 28 only Tauren
   turnin 28 only Tauren -- Tajarri, at the Shrine of Remulos
-  accept 30 only Tauren
+  accept 30 only Tauren               -- Trial of the Sea Lion, carried: one half pendant in the Sludge Fen in this guide, the other underwater off Silverpine on the way to Hillsbrad at 21; the pendant is handed in after Hillsbrad
   fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
 
 step Fly to Ratchet
@@ -1035,10 +1039,7 @@ step The Great Cat Spirit
 step Moonglade
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  collect 15885 quest 30.1 only Tauren -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
-  turnin 30 only Tauren               -- Dendrite Starblaze
-  accept 31 only Tauren
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   turnin 6129 only Tauren             -- Dendrite Starblaze
   accept 6130 only Tauren
 
@@ -1093,7 +1094,6 @@ step Turak Runetotem
   only Druid
   zone Thunder Bluff
   fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
-  turnin 31 only Tauren               -- Turak Runetotem: Aquatic Form
   turnin 6130 only Tauren             -- Turak Runetotem: Cure Poison
   turnin 98362 only Skyborne,Tauren -- Turak Runetotem: Cat Form
 

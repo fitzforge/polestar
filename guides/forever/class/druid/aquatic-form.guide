@@ -22,9 +22,13 @@ zone Moonglade
 # Night Elves find the halves in Darkshore and Westfall, Tauren in the Barrens
 # and Silverpine Forest.
 # The leveling guides carry the chain inline (Night Elves in
-# alliance/03-darkshore, 04-redridge-mountains and 06-ashenvale; Tauren in
-# horde/03-silverpine-forest and 04-the-barrens): this guide is for druids off
-# our route. Skyborne: Forever's quest data opens the Alliance chain (26, 29, 272,
+# alliance/03-darkshore, 03-darkshore-return, 04-redridge-mountains and
+# 06-wetlands; Tauren in horde/02-the-barrens, 05-stonetalon-mountains and
+# 06-hillsbrad-foothills): this guide is for druids off our route. The
+# Strange Lockboxes give their half pendants only while Trial of the Sea Lion
+# is in the log (#1386; players' recordings: every lockbox loot came with
+# it), so the lockbox steps here come after its accept.
+# Skyborne: Forever's quest data opens the Alliance chain (26, 29, 272,
 # 5061) to Alliance Skyborne druids (corrections.json, checked 2026-10-16),
 # and the server race mask in the KB (EG) the Horde chain (27, 28, 30, 31) to
 # Horde Skyborne (forever-db/corrections/quests.json, this branch): the

@@ -7744,3 +7744,64 @@ test('#1357: a training step carries its town, and the town has a trainer of eac
 		}
 	}
 });
+
+// Ash's report (#1386, Tauren Druid 13): Silverpine Forest at 12-15 sent Tauren Druids to the Strange Lockbox
+// off the Dead Field's coast for the Half Pendant of Aquatic Endurance, but its half pendant drops only while
+// Trial of the Sea Lion (30, from level 16, taken in the Barrens guide after it) is in the log: items.json has it
+// as a quest item, and in players' recordings every Strange Lockbox loot (4 people, all four boxes) came with 30
+// or 272 open. The Barrens' Moonglade hand-in then waited for a half no one had. Now 30 is carried from the
+// Barrens: the Silverpine box on the ride to Hillsbrad at 21, on the way, the pendant joined and handed
+// in from the Undercity at the end of Hillsbrad, Aquatic Form at Turak. The sweep: no class step in a leveling
+// guide collects or uses a quest-only item without its quest gated or accepted before it in the same guide.
+test("Ash's report (#1386): a class step collects a quest-only item only with its quest in the log; the Tauren Sea Lion chain runs accept, halves, hand-in", { skip }, () => {
+	const needed = new Map(); // item -> quests that need it (objective or required item)
+	data = data || loadData(DATA);
+	for (const q of Object.values(data.quests)) {
+		for (const o of q.objectives || []) if (o.type === 'item' && o.id) needed.set(o.id, [...(needed.get(o.id) || []), q.id]);
+		for (const i of q.requiredItems || []) needed.set(i, [...(needed.get(i) || []), q.id]);
+	}
+	const startItems = new Set(Object.values(data.quests).flatMap((q) => (q.start && q.start.item) || []));
+	const classOnly = ({ step, goal }) => [step.only, goal.only].some((o) => o && o.classes && o.classes.length);
+	let checked = 0;
+	for (const file of allGuides().filter((f) => /^forever\/(alliance|horde)\//.test(f))) {
+		const list = goals(file);
+		list.forEach(({ step, goal }, i) => {
+			if (!['collect', 'use'].includes(goal.t) || goal.quest || !classOnly(list[i])) return;
+			const item = data.items[goal.item];
+			const qs = needed.get(goal.item);
+			if (!item || !item.questItem || startItems.has(goal.item) || !qs) return;
+			checked++;
+			const gated = (step.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && !p.neg && [p.q].flat().some((q) => qs.includes(q)));
+			const before = list.slice(0, i).some(({ goal: g }) => g.t === 'accept' && qs.includes(g.quest));
+			assert.ok(gated || before, `${file} "${step.title}": ${goal.t} ${goal.item} (${item.name}) drops only for quest ${qs.join('/')}: gate the step on it`);
+		});
+	}
+	assert.ok(checked >= 6, `the class steps with quest items are found (${checked})`);
+
+	// The Tauren Druid's route through the chain, guide after guide.
+	const route = ['forever/horde/03-silverpine-forest.guide', 'forever/horde/02-the-barrens.guide', STONETALON, 'forever/horde/06-hillsbrad-foothills.guide'];
+	const tauren = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Tauren'));
+	const list = route.flatMap((f) => goals(f).map((e) => ({ ...e, file: f }))).filter(tauren).filter(forClass('DRUID'));
+	const take = at(list, 'accept 30', is('accept', 30));
+	const agility = at(list, 'collect 15883', (g) => g.t === 'collect' && g.item === 15883);
+	const endurance = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
+	const join = at(list, 'collect 15885 quest 30.1', (g) => g.t === 'collect' && g.item === 15885 && g.quest === 30);
+	const hand = at(list, 'turnin 30', is('turnin', 30));
+	const form = at(list, 'accept 31', is('accept', 31));
+	const turak = at(list, 'turnin 31', is('turnin', 31));
+	assert.ok(take < agility && take < endurance && agility < join && endurance < join && join < hand && hand < form && form < turak, 'accept, both halves, join, hand in, Aquatic Form');
+	assert.equal(list.filter(({ goal }) => goal.t === 'collect' && goal.item === 15882).length, 1, 'one Silverpine lockbox step');
+	assert.equal(list[endurance].file, STONETALON, 'the Silverpine half on the ride to Hillsbrad');
+	for (const i of [agility, endurance, join, hand]) {
+		assert.ok(list[i].step.when.some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(30)), `${list[i].goal.t} ${list[i].goal.item || list[i].goal.quest}: only with 30 in the log`);
+	}
+	// The hand-in leaves from the Undercity: the zeppelin steps are for everyone but a Druid who just took Aquatic Form.
+	const hills = goals('forever/horde/06-hillsbrad-foothills.guide');
+	for (const title of ['Zeppelin to Orgrimmar', 'Orgrimmar']) {
+		const { step } = hills.find(({ step, goal }) => step.title === title && goal.t === 'goto');
+		assert.ok(step.when.some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(31)), `${title}: not after Aquatic Form`);
+	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.deepEqual(stepTips('forever/horde/06-hillsbrad-foothills.guide', /^\s+turnin 30\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-30').tip], 'the hand-in step carries the record tip');
+	assert.deepEqual(stepTips('forever/horde/02-the-barrens.guide', /^\s+turnin 6129\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-6129').tip], "the Barrens' Moonglade step carries its record tip");
+});

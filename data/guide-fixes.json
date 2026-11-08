@@ -1042,8 +1042,8 @@
 				"quest": 30,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. #1386 moved the hand-in from the Barrens' Cat Form visit to a Tauren Druid step of its own at the end of forever/horde/06-hillsbrad-foothills (the Silverpine half drops only while Trial of the Sea Lion is in the log, so it is opened on the ride to Hillsbrad at 21); that step is Tauren only, so the tip no longer names them.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -1054,7 +1054,29 @@
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
 				}
 			],
-			"pr": 960
+			"pr": 960,
+			"issue": 1386
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-6129",
+			"faction": "Horde",
+			"at": {
+				"quest": 6129,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven (see upstairs-dendrite-starblaze-turnin-30). The Barrens' druid Moonglade step at 20 kept the Trial of the Sea Lion tip until #1386 moved that hand-in to forever/horde/06-hillsbrad-foothills; this step now hands in Cure Poison's part (6129) to Dendrite, with the teleport and the floor sentence.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"issue": 1386
 		},
 		{
 			"id": "upstairs-dendrite-starblaze-turnin-98340",

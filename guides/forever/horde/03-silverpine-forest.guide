@@ -69,9 +69,11 @@ next forever/horde/02-the-barrens
 #
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
 # (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo on the
-# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids open the Strange Lockbox
-# on the coast west of the Dead Field for Trial of the Sea Lion (30), which they take in Moonglade
-# in the next guide.
+# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids leave the Strange Lockbox
+# on the coast west of the Dead Field alone here: its Half Pendant of Aquatic Endurance drops only
+# while Trial of the Sea Lion (30, from level 16) is in the log (#1386). They take the quest in
+# Moonglade in the next guide and open the lockbox on the ride through Silverpine at 21
+# (forever/horde/05-stonetalon-mountains).
 #
 # Class training: Orgrimmar on arrival at 12 and at the end at 15 for everyone but Druids and
 # Paladins (no trainer of theirs there). Paladins train in Brill on the way through Tirisfal Glades.
@@ -240,11 +242,6 @@ step The Dead Field
   tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
   collect 3622 quest 437.1
   complete 437 @45.1,21.7
-
-step Strange Lockbox
-  only Tauren,Druid
-  tip The Strange Lockbox lies on the coast west of the Dead Field. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion.
-  collect 15882
 
 step Malden's Orchard
   tip Follow the road north-east to the Yoricks' house at Malden's Orchard.
