@@ -5720,6 +5720,10 @@ Polestar.Rares.History() -> { [key] = { kind, id, name, level, t, first, n, map,
 Polestar.Rares.Info(kind, id) -> { kind, id, name, level, levelMax, elite, instance, spawns, loot } | nil
 Polestar.Rares.BuildPins(o) -> pins                 -- pure pin selection
 Polestar.Rares.Show(kind, id)                       -- SHOW_RARES: the hub section at it
+Polestar.Rares.FOUNDER                              -- "Fitz Polestar", the founder's character
+Polestar.Rares.IsFounder(name) -> bool              -- that full name exactly ("-Realm" allowed)
+Polestar.Rares.DecideFounder(ctx) -> action, reason -- pure; "alert" | "skip"
+Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
 ```
 
 - **Detection** (APIs verified against `.ref/wow-ui-source-forever`, 1.60.1):
@@ -5755,6 +5759,25 @@ Polestar.Rares.Show(kind, id)                       -- SHOW_RARES: the hub secti
   or no waypoint) and "Show rare" (the section),
   `rares.toastSeconds` with a drain line, held under the cursor, draggable
   (`rares.toastPoint`).
+- **The founder** (`rares.founder`, on; Discovery → Rares → When a rare
+  shows up): a player unit on the nameplate, target or mouseover path goes
+  to `FounderSighting`, which matches `Compat.UnitFullName(unit)` (Forever's
+  names carry a surname: `UnitName` gives first name and surname, or the
+  two in one string) against `Rares.FOUNDER` exactly; "Fitz Poletsar" or
+  "Fitz" alone never match. `DecideFounder`: module or option off, the
+  player is the founder (his own client), an instance (battlegrounds and
+  arenas too) or combat → skip; after this session's alert, skip while he
+  is still listed (`stillHere`) or within 30 minutes (`cooldown`; session
+  only, `GetTime`). The alert is `RARE_SPOTTED` with `kind = "founder"`
+  (`enemy` when his faction differs; both factions get it): the toast shows
+  a gold star, "The Polestar founder is nearby!", his name and zone, a
+  nudge to wave (another line for the other faction) and no waypoint or
+  section button. Nothing enters the history. He is listed in `Nearby()`
+  for the rare button while shown (looked at every 45 s), and the button's
+  macro for him is `Buttons.FounderMacro`: `/cleartarget [nocombat]`,
+  `/targetexact Fitz Polestar`, `/targetexact [noexists] Fitz` (Forever's
+  own unit menu targets a surnamed player by first name when regional
+  unique names are off), `/wave`. Only the player's click runs it.
 - **Pins**: layers `rares.rare` and `rares.treasure` through `Polestar.Pins`,
   world map and minimap per kind (`rares.worldRares`, `worldTreasures`,
   `minimapRares`, `minimapTreasures`; all off by default, Map → Rares & travel →

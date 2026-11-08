@@ -23,8 +23,14 @@
 --   Rares.Nearest(spawns, point) -> spawn, yards      nearest spawn on the player's continent
 --   Rares.Show(kind, id)                              open the hub section at it (SHOW_RARES)
 --   Rares.Nearby() -> { name, ... }                   rares in range now, newest sighting first (reused list)
--- Messages: RARE_SPOTTED(alert) when an alert fires; RARES_HISTORY(key) when
--- the history changes; RARE_NEARBY when the rares in range change.
+--   Rares.FOUNDER                                     the founder's character name ("Fitz Polestar")
+--   Rares.IsFounder(name) -> bool                     that name, exactly (a "-Realm" suffix allowed)
+--   Rares.DecideFounder(ctx) -> action, reason        pure; "alert" | "skip"
+--     ctx = { get, now (GetTime), inCombat, inInstance, self, alerted (GetTime of this session's alert), present }
+--   Rares.FounderSighting(unit, source, guid) -> action, reason   the live path for a player unit
+-- Messages: RARE_SPOTTED(alert) when an alert fires (alert.kind "founder" for
+-- the founder); RARES_HISTORY(key) when the history changes; RARE_NEARBY when
+-- the rares (and the founder) in range change.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -46,6 +52,7 @@ ns.RegisterDefaults("rares", {
 	mouseover = true,
 	-- Alerts.
 	alerts = true,
+	founder = true, -- say when the founder is nearby (Rares.FOUNDER)
 	treasureAlerts = true,
 	sound = true,
 	soundKit = "raid",
@@ -61,6 +68,13 @@ ns.RegisterDefaults("rares", {
 	minimapTreasures = false,
 	hideGrey = false,
 })
+
+-- Polestar's founder, Fitz, plays this character on Forever's EU PvP realms
+-- (his client's GetRealmName reads "CAMWOW EU5 Realm 8 PvP"). Forever's
+-- names carry a surname, so this is the full name as Compat.UnitFullName
+-- gives it. When he comes into sight, one alert says so and the rare button
+-- offers to target him and wave (QoL/Buttons.lua, Buttons.FounderMacro).
+Rares.FOUNDER = "Fitz Polestar"
 
 local HISTORY_MAX = 400
 local CLASS_RARE = { rare = true, rareelite = true }
@@ -261,8 +275,10 @@ end
 -- Text
 ---------------------------------------------------------------------------
 
--- The palette name for a kind: Theme's rare token, treasures the object colour.
+-- The palette name for a kind: Theme's rare token, treasures the object
+-- colour, the founder the quest gold.
 function Rares.ColorName(kind)
+	if kind == "founder" then return "quest" end
 	return kind == "treasure" and "object" or "rare"
 end
 
@@ -467,6 +483,104 @@ function Rares.Sighting(s, where)
 	end
 	return action, reason
 end
+
+---------------------------------------------------------------------------
+-- The founder (rares.founder)
+---------------------------------------------------------------------------
+
+-- At most one alert per FOUNDER_EVERY seconds a session, and none again
+-- while he stays in range; never in an instance (battlegrounds and arenas
+-- too), never in combat, never on his own client.
+local FOUNDER_EVERY = 30 * 60
+local founderAlerted, founderTimer = nil, false
+
+function Rares.IsFounder(name)
+	if type(name) ~= "string" then return false end
+	return name == Rares.FOUNDER or name:match("^(.-)%-") == Rares.FOUNDER
+end
+
+function Rares.DecideFounder(ctx)
+	local cfg = ctx.get
+	if not cfg("enabled") or not cfg("founder") then return "skip", "off" end
+	if ctx.self then return "skip", "self" end
+	if ctx.inInstance then return "skip", "instance" end
+	if ctx.inCombat then return "skip", "combat" end
+	if ctx.alerted then
+		if ctx.present then return "skip", "stillHere" end
+		if ctx.now - ctx.alerted < FOUNDER_EVERY then return "skip", "cooldown" end
+	end
+	return "alert", nil
+end
+
+-- While he is listed for the rare button, look again every NEAR_FOR
+-- seconds: still shown (target, mouseover, a nameplate) keeps him, else he
+-- has left and the next sighting may alert once the half hour is up.
+local function checkFounder()
+	founderTimer = false
+	local e = nearby.founder
+	if not e then return end
+	if stillShown(e) then
+		e.at = clock()
+		founderTimer = true
+		ns.After(NEAR_FOR, checkFounder)
+	else
+		nearby.founder = nil
+		ns.Fire("RARE_NEARBY")
+	end
+end
+
+local function trackFounder(name, guid)
+	local e = nearby.founder
+	if not e then
+		e = {}
+		nearby.founder = e
+	end
+	e.name, e.guid, e.at = name, guid, clock()
+	if not founderTimer and C_Timer and C_Timer.After then
+		founderTimer = true
+		ns.After(NEAR_FOR, checkFounder)
+	end
+	ns.Fire("RARE_NEARBY")
+end
+
+-- A player unit seen by a detection path (Detect.lua): the founder, or nothing.
+function Rares.FounderSighting(unit, source, guid)
+	local C = ns.Compat
+	local readable = C.Readable
+	local name = C.UnitFullName(unit)
+	if not Rares.IsFounder(name) or not readable(UnitIsPlayer(unit)) then return "skip", "notFounder" end
+	local present = nearby.founder ~= nil
+	local now = clock()
+	local action, reason = Rares.DecideFounder({
+		get = get, now = now, inCombat = C.InCombat(), inInstance = C.IsInInstance(), alerted = founderAlerted,
+		present = present,
+		self = Rares.IsFounder(C.UnitFullName("player")) or (UnitIsUnit and readable(UnitIsUnit(unit, "player"))) and true or false,
+	})
+	if action == "alert" and not ns.GuideShown() then action, reason = "skip", "hidden" end
+	if action == "alert" or reason == "stillHere" then trackFounder(name, guid) end
+	if action ~= "alert" then return action, reason end
+	founderAlerted = now
+	local mine = readable(UnitFactionGroup("player"))
+	local his = readable(UnitFactionGroup(unit))
+	local Q = ns.QoL
+	local me = ns.PlayerPoint()
+	fire({
+		kind = "founder", name = name, source = source, inSight = true,
+		enemy = type(mine) == "string" and type(his) == "string" and mine ~= his or false,
+		button = Q and Q.On and Q.On("rareButton") and true or false,
+		zone = mapName(me and me.map),
+	})
+	return action, reason
+end
+
+ns.On("SETTING_CHANGED", function(path)
+	if path ~= "rares.founder" and path ~= "rares.enabled" then return end
+	if get("enabled") and get("founder") then return end
+	if nearby.founder then
+		nearby.founder = nil
+		ns.Fire("RARE_NEARBY")
+	end
+end)
 
 -- Combat ended: the held alert, if it is still fresh and still due.
 function Rares.Release()

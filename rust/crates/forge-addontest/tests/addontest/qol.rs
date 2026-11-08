@@ -822,6 +822,28 @@ fn rare_button_targets_the_rares_in_range_comes_up_and_goes_with_them_each_click
 }
 
 #[test]
+fn rare_button_the_founder_in_front_targets_him_by_full_name_then_first_name_and_waves_rares_keep_their_macro() {
+	let out = run(r#"
+		local b = PolestarRareButton
+		local nearby = { "Fitz Polestar", "Hogger" }
+		Polestar.Rares = { Nearby = function() return nearby end, IsFounder = function(n) return n == "Fitz Polestar" end }
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ b:GetAttribute("type"), b:GetAttribute("macrotext"), b:IsShown(), b.Label:GetText() })
+		q.click(b, false)
+		emit(b:GetAttribute("macrotext"))
+		q.click(b, false)
+		emit(b:GetAttribute("macrotext"))
+		emit({ Polestar.QoL.Buttons.FounderMacro("Bad\n/run X()") or "nil" })
+	"#);
+	let founder = "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave";
+	assert_eq!(out[0], json!(["macro", founder, true, "Fitz Polestar"]));
+	assert_eq!(out[1], "/cleartarget [nocombat]\n/targetexact Hogger\n/cleartarget [dead]", "a rare in front: its own macro, the founder left out");
+	assert_eq!(out[2], founder, "and back to him");
+	assert_eq!(out[3], json!(["nil"]));
+}
+
+#[test]
 fn rare_button_its_icon_is_gold_apart_from_the_red_target_button() {
 	let out = run(r#"
 		emit({ PolestarRareButton.Icon:GetVertexColor() })
