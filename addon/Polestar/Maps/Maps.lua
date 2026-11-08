@@ -295,8 +295,11 @@ function Maps.CompactFrame(name, posKey, defaultPoint, dx, dy)
 	f:SetMovable(true)
 	f:EnableMouse(true)
 	f:RegisterForDrag("LeftButton")
+	-- A window, as the toasts are: the window skin (the Player's Frame Rule),
+	-- the game's looks giving it the guide window's light frame (#1390).
+	f.psLight = true
 	local T = ns.Theme
-	if T and T.Skin then T.Skin(f, "panel") end
+	if T and T.Skin then T.Skin(f, "window") end
 	local function place()
 		f:ClearAllPoints()
 		local p = ns.Get(posKey)

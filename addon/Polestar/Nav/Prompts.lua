@@ -245,7 +245,11 @@ local function create()
 	local hl = b:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetTexture(media)
 	hl:SetAllPoints(icon)
-	if T and T.Wash then hl:SetVertexColor(T.Wash("hover")) else hl:SetVertexColor(1, 1, 1, 0.07) end
+	local function paintHover()
+		if T and T.Wash then hl:SetVertexColor(T.Wash("hover")) else hl:SetVertexColor(1, 1, 1, 0.07) end
+	end
+	paintHover()
+	b.Hl = hl
 
 	b.Cooldown = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
 	b.Cooldown:SetAllPoints(icon)
@@ -254,6 +258,7 @@ local function create()
 	if T and T.OnChanged then
 		T.OnChanged(function()
 			themeColor(bg, "panel")
+			paintHover()
 			paintBorder(b, false)
 		end)
 	end
