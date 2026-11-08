@@ -6109,17 +6109,14 @@ test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after
 	assert.ok(idx(hb, 'turnin', 637) < idx(hb, 'accept', 683), "Sara Balloo's Plea after Sully Balloo's Letter");
 });
 
-// Flow (2026-11-08, Alliance 12-20): the givers the Eastern Kingdoms loop passes at level 20 are taken there:
-// A Watchful Eye from Theocritus on the road through Elwynn, Mathias and the Defias for Rogues on the SI:7 stop
-// (both from level 20, so each is a `when level>=20` step; the later guides still offer them below 20).
-test('forever/alliance/03-loch-modan.guide: A Watchful Eye and the Rogues\' Mathias and the Defias are taken on the stops that pass their givers, from level 20', { skip }, () => {
+// Flow (2026-11-08, Alliance 12-20): A Watchful Eye and the Rogues' Mathias and the Defias (both from level 20) are
+// not taken on the Eastern Kingdoms loop: players pass Theocritus and SI:7 at 19-20 there, and a level 20 step on
+// those stops cost the level model a grind (#1219's round on 60c8c38dc). They stay at 24 and on 06-ashenvale.
+test('forever/alliance/03-loch-modan.guide: A Watchful Eye and Mathias and the Defias wait for the 24 visit and Ashenvale\'s Stormwind stop', { skip }, () => {
 	const list = goals(LOCH_MODAN);
-	const eye = list.find(({ goal }) => is('accept', 94)(goal));
-	assert.ok(eye && (eye.step.when || []).some((p) => p.k === 'level'), 'Theocritus from level 20');
-	const shaw = list.find(({ goal }) => is('accept', 2360)(goal));
-	assert.ok(shaw && shaw.step.only && shaw.step.only.classes.includes('ROGUE'), 'Rogues only');
-	assert.ok(at(list, 'turnin 135 (Shaw)', is('turnin', 135)) < list.indexOf(shaw) && list.indexOf(shaw) < at(list, 'turnin 120 (General Marcus)', is('turnin', 120)), 'on the SI:7 stop, before the general');
-	assert.ok(goals(REDRIDGE).some(({ goal }) => is('accept', 94)(goal)), 'still offered at 24 for anyone below 20 at the tower');
+	for (const q of [94, 2360]) assert.ok(!list.some(({ goal }) => is('accept', q)(goal)), `${q} is not taken on the loop`);
+	assert.ok(goals(REDRIDGE).some(({ goal }) => is('accept', 94)(goal)), 'A Watchful Eye at 24');
+	assert.ok(goals('forever/alliance/06-ashenvale.guide').some(({ goal }) => is('accept', 2360)(goal)), 'Mathias and the Defias on 06-ashenvale');
 });
 
 // --- Flights with nothing to do in between (#1191): a flight to a stop where nothing is left for the

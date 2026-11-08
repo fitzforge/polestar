@@ -38,10 +38,11 @@ next forever/alliance/03-darkshore-return
 # lighthouse trip. Messenger to Westfall and Darkshire (143, 145): another round trip each.
 # Marshal Marris's Blackrock quests (20, 98387), Alther's Mill (98386) and Murloc Poachers (150,
 # from 20) are taken here, at their givers, and done on the 24 visit (04-redridge-mountains), where
-# level 20-21 quests still give full XP; A Watchful Eye (94, from 20) is taken from Theocritus on the
-# road through Elwynn, and Rogues take Mathias and the Defias (2360, from 20) on the SI:7 stop.
-# Givers passed and left for later, by level: Solomon's Law (91, level 23; Galardell's Shadowhide
-# gnolls are 23-25, worked at 24), Blackrock Bounty and An Unwelcome Guest (128, 34: levels 24-25),
+# level 20-21 quests still give full XP. Givers passed and left for later, by level: A Watchful Eye
+# (94, from 20: players pass the Tower of Azora at 19-20, and its statue is worked on the 24 visit,
+# where Theocritus gives it), Mathias and the Defias for Rogues (2360, from 20: a Human Rogue is
+# 19.x on the SI:7 stop; 06-ashenvale's Stormwind stop gives it),
+# Solomon's Law (91, level 23; Galardell's Shadowhide gnolls are 23-25, worked at 24), Blackrock Bounty and An Unwelcome Guest (128, 34: levels 24-25),
 # the Wanted posters (elites, 24+), and on the boat into Menethil The Greenwarden, Young Crocolisk
 # Skins and Spoils of War (463, 484, 98197: level 21-22, 3+ over at 18.7; taken at 22-24).
 
@@ -193,11 +194,6 @@ step Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
   goto 65.2,69.7 "Elwynn Forest"
 
-step Theocritus
-  when level>=20
-  tip The road passes the Tower of Azora: Theocritus, on its top floor, gives A Watchful Eye from level 20. The Old Lion Statue is on your next Redridge visit, at about 24; below 20 he gives it then.
-  accept 94                                   -- On the top floor
-
 step Three Corners
   zone Redridge Mountains
   tip The road crosses into Redridge at Three Corners. Guard Parker walks around the crossroads.
@@ -305,16 +301,6 @@ step Stormwind
   tip Master Mathias Shaw is upstairs in the SI:7 building in Old Town: the stairs are hard to see at first. General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the Trade District.
   turnin 135                                  -- Master Mathias Shaw, SI:7; upstairs
   accept 141
-
-step Master Mathias Shaw
-  only Rogue
-  zone Stormwind City
-  when level>=20
-  tip Rogues: Shaw gives Mathias and the Defias from level 20, on this stop. Agent Kearnen in Westfall takes it at the end of Duskwood's second loop.
-  accept 2360                                 -- Master Mathias Shaw
-
-step General Marcus Jonathan
-  zone Stormwind City
   turnin 120                                  -- General Marcus Jonathan, outside the main gate
   accept 121
   fly "Sentinel Hill"

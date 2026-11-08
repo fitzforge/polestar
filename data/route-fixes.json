@@ -3975,30 +3975,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 12-20 (2026-11-07): see turnin 1002 before turnin 965."
-			},
-			{
-				"a": [
-					"accept",
-					94
-				],
-				"b": [
-					"accept",
-					244
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-08, Alliance 12-20): A Watchful Eye (94, from level 20) is taken from Theocritus at the Tower of Azora on 03-loch-modan's walk through Elwynn to Redridge when the player is 20 there (else on 04-redridge-mountains' walk past him); its statue is worked at 24."
-			},
-			{
-				"a": [
-					"turnin",
-					135
-				],
-				"b": [
-					"accept",
-					2360
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-08, Alliance 12-20): Rogues take Mathias and the Defias (2360, from level 20) from Master Mathias Shaw on 03-loch-modan's SI:7 stop for the Defias chain when 20 there, instead of a later walk to SI:7 (06-ashenvale's Stormwind stop keeps it for anyone below 20)."
 			}
 		],
 		"notes": [
