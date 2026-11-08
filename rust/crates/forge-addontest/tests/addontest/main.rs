@@ -3,6 +3,8 @@
 #![recursion_limit = "512"]
 mod alts;
 mod automation;
+#[path = "automation-accept-off.rs"]
+mod automation_accept_off;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
 #[path = "automation-spoken.rs"]
