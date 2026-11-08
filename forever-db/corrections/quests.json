@@ -1711,7 +1711,14 @@
 	"6981": {
 		"set": {
 			"xp": 5150,
-			"objectives": []
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 3442,
+					"count": 1,
+					"text": "Speak with someone in Ratchet about the Glowing Shard"
+				}
+			]
 		},
 		"source": [
 			{
@@ -1725,9 +1732,13 @@
 			{
 				"kind": "client",
 				"ref": "quest cache, build 1.60.1.70450"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08 of 6981, 30 people (15 established): the quest log lists one line at the accept, Speak with someone in Ratchet about the Glowing Shard (an event line); for each of the 25 people who completed it, it completed as Sputtervalve's (3442) window opened in Ratchet, and all who handed it in did so at Falla Sagewind (8418)"
 			}
 		],
-		"note": "The Glowing Shard (Wailing Caverns) rewards 5,150 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394. The quest asks only for the item that starts it (10441); the extra kill objective was wrong."
+		"note": "The Glowing Shard (Wailing Caverns) rewards 5,150 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394. The extra kill objective was wrong; the quest log's one line is to speak with Sputtervalve in Ratchet, done after the run on the way to Falla Sagewind, so the dungeon's hand-in guide routes it there (#1326)."
 	},
 	"7042": {
 		"set": {

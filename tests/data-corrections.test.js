@@ -141,6 +141,10 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
 
+test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
+	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');

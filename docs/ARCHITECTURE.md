@@ -4916,18 +4916,24 @@ The hand-in guide is the run's other half (`addon/Polestar/Dungeons/Handin.lua`,
 planner kind `handin`, `lookup/handin/<key>`, `Dungeons.HandIn(key)`).
 `Dungeons.HandinPlan(key)` sorts the page's quests in the log: `hand`
 (objectives done, by `Compat.IsQuestReadyForTurnIn`, or a delivery with no
-objectives; turned in outside at the page's ender, else the Codex ender
-nearest the player), `unfinished`, `inside` (turned in inside the dungeon)
-and `unplaced`; it searches no follow-ups, so the page can ask for it on
-every render. `Dungeons.HandinFollowUps(plan)` adds the quests the `hand`
-quests open (`Codex.FollowUps(id)`: the quests whose `pre` or `preAny` name
+objectives, or only talk lines left: each open quest-log line a talk
+objective of the Codex quest at a placed NPC of the character's side, kept
+as `talks` with the line's `oi`, as The Glowing Shard's Sputtervalve in
+Ratchet, #1326; turned in outside at the page's ender, else the Codex ender
+nearest the player), `unfinished` (any other line open), `inside` (turned
+in inside the dungeon) and `unplaced`; it searches no follow-ups, so the
+page can ask for it on every render. `Dungeons.HandinFollowUps(plan)` adds
+the quests the `hand` quests open (`Codex.FollowUps(id)`: the quests whose
+`pre` or `preAny` name
 it, one scan of the quest records per id, kept until the quest chunks
 change): every `pre` done or handed in here and one of `preAny` likewise,
 takeable now (`Lookup.QuestBlock`: faction, race, class, level), not done or
 in the log, from the NPC or object a quest it waits on is turned in to or
 one within 60 seconds of it (`ns.TravelCost`). `Dungeons.HandinGuide(key)`
 makes a stop per turn-in place (its turn-ins, then the follow-ups that same
-NPC gives) and per other follow-up giver (after the turn-ins it waits on),
+NPC gives), per NPC a `talks` line is at (a talk goal on that line, before
+the turn-in place of its quest) and per other follow-up giver (after the
+turn-ins it waits on),
 ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`);
 the last step lists the rest as notes ("Not finished yet: …", "Turned in
 inside the dungeon: …"). Nothing routable: nil, "nothing", and

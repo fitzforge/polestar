@@ -393,6 +393,67 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 	assert_eq!(horde, json!({ "plan": "Rau Cliffrunner", "guide": "Rau Cliffrunner", "ender": "Rau Cliffrunner" }), "the Horde keeps the page's Rau");
 }
 
+// #1326 (TrustmeXD): The Glowing Shard (6981) drops inside Wailing Caverns, and its one quest-log line is to speak
+// to Sputtervalve in Ratchet, after the run, before Falla Sagewind takes it. The Codex had no line for it, so the
+// hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
+// an NPC outside is now handed in: a stop at that NPC (the talk goal on its line) before the turn-in, the
+// follow-up taken there after. Here 90600 is that quest on the fixture's page, 90601 one whose open line is a kill
+// outside (still unfinished: a kill is real work, not a hand-in errand).
+#[test]
+fn a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_after_that_talk_1326_the_glowing_shard_and_sputtervalve() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9030"] = sideless_npc(9030, "Sputtervalve", 1413, 62, 37);
+	c["npcs"]["9031"] = sideless_npc(9031, "Falla Sagewind", 1413, 48, 32);
+	let quest = |id: i32, title: &str, start: Value, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 26, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": start, "end": { "npc": [9031], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	let by_item = json!({ "npc": [], "object": [], "item": [90620] });
+	c["quests"]["90600"] = quest(90600, "The Glowing Shard", by_item.clone(), &[], json!([{ "type": "talk", "id": 9030, "count": 1, "text": "Speak with someone in Ratchet about the Glowing Shard" }]));
+	c["quests"]["90601"] = quest(90601, "A Kill Left", by_item, &[], json!([{ "type": "kill", "id": 90621, "count": 1, "text": "Test Mob" }]));
+	c["quests"]["90602"] = quest(90602, "In Nightmares", json!({ "npc": [9031], "object": [], "item": [] }), &[90600], json!([]));
+	i["forever"]["quests"]["90600"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90601"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local plan = D.HandinPlan("{KEY}")
+local hand, unfinished, talk = {}, {}, false
+for _, h in ipairs(plan.hand) do
+	if h.quest.id >= 90600 then hand[#hand + 1] = h.quest.id end
+end
+for _, q in ipairs(plan.unfinished) do if q.id >= 90600 then unfinished[#unfinished + 1] = q.id end end
+local steps = {}
+for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90600 then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+		if g.t == "talk" then talk = { npc = g.npc, name = g.npcName, oi = g.oi, map = g.map, x = g.x, y = g.y } end
+	end
+	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
+end
+emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
+
+	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
+	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
+	assert_eq!(open["unfinished"], json!([90601]), "a kill left outside is still unfinished");
+	assert_eq!(
+		open["steps"],
+		json!(["Sputtervalve talk:90600", "Falla Sagewind turnin:90600 accept:90602"]),
+		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up"
+	);
+	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
+
+	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
+	let ready = run(&own, &script, Opts { at: Some(BARRENS), ready: vec![90600], ..Default::default() }).remove(0);
+	assert_eq!(ready["hand"], json!([90600]));
+	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602"]), "no talk left");
+}
+
 #[test]
 fn pickup_opens_the_guide_in_a_new_tab_and_it_plays_to_the_end_the_giver_link_points_at_the_first_prerequisite_still_to_do() {
 	let pack = default_pack();
