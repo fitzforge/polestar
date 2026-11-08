@@ -6836,7 +6836,9 @@ test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip 
 	assert.ok(!stepTips(guide, /turnin 1070/).some((t) => /Talondeep/.test(t)), 'not on the Kaela and Gaxim step');
 	const ziz = at(list, 'turnin 1092', is('turnin', 1092));
 	const reaper = at(list, 'accept 1093', is('accept', 1093));
-	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
+	// #1370: the hand-in of Gerenzo's Orders (1092) is a group-quest step of its own, right before the Super Reaper
+	// step: still one stop at Ziz Fizziks.
+	assert.ok(list[reaper].s - list[ziz].s <= 1 && list[reaper].s >= list[ziz].s, 'one stop at Ziz Fizziks');
 });
 
 // Final route review, Alliance 1-30 (2026-11-08): The Weathered Grave (225) and Morgan Ladimore (227) are talk-only
