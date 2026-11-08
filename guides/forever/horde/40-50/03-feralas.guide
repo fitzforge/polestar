@@ -174,31 +174,9 @@ step Level 45.41
   goto 37.5,68.3 map 1445 "Firemane Scout"
   level 45.41                          -- grind on Firemane Scout
 
-step Fly to Gadgetzan
+step Fly to Camp Mojache
   zone Dustwallow Marsh
   goto 35.6,31.8 "Brackenwall Village flight master"
-  fly "Gadgetzan"
-  zone Tanaris
-
-step Tanaris
-  zone Tanaris
-  goto 66.6,22.3 "Tanaris"
-
-step Steamwheedle Port
-  turnin 8365                           -- Haughty Modiste
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas
-  turnin 2873                           -- Stoley, inside
-  accept 2874                           -- for Booty Bay, around level 50
-  turnin 2875                           -- Security Chief Bilgewhizzle, inside
-  turnin 8366
-
-step Tanaris
-  zone Tanaris
-  goto 51.6,25.5 "Tanaris"
-
-step Fly to Camp Mojache
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
   fly "Camp Mojache"
   zone Feralas
 

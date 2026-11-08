@@ -6642,3 +6642,25 @@ test('forever/horde/40-50/05-the-hinterlands.guide: final review: Jintha\'Alor o
 	const groups = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
 	for (const q of [7849, 7845, 7850]) assert.ok(groups.some((g) => g.q === q && g.size >= 2 && g.size <= 4), `${q} is a group quest record`);
 });
+
+// --- Final route review follow-ups, Horde 40-60 (2026-11-08) ---
+
+// Feralas & Tanaris: the four Steamwheedle Port quests are finished at Lost Rigger Cove on the first Tanaris visit but
+// waited for the 45-47 guide, whose flight from Brackenwall went to Gadgetzan, rode to the port and back, and flew on
+// to Camp Mojache for them alone. They are handed in on the way back to Gadgetzan, Yeh'kinya's Screecher Spirits taken
+// there; the 45-47 guide flies Brackenwall to Camp Mojache.
+test('Horde 43-47 follow-up: the Steamwheedle Port hand-ins on the first Tanaris visit, no Tanaris detour from Brackenwall', { skip }, () => {
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const cove = at(fer, 'collect 9246 quest 2875', (g) => g.t === 'collect' && g.item === 9246);
+	const gadgetzan = at(fer, 'turnin 1691', is('turnin', 1691));
+	for (const [t, q] of [['turnin', 8365], ['turnin', 2873], ['turnin', 2875], ['turnin', 8366], ['accept', 3520]]) {
+		const i = at(fer, `${t} ${q}`, is(t, q));
+		assert.ok(i > cove && i < gadgetzan, `${t} ${q} between Lost Rigger Cove and Gadgetzan`);
+	}
+	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	assert.ok(!sw.some(({ goal }) => goal.map === 1446), 'no Tanaris stop in the 45-47 guide');
+	const fly = sw.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.ok(fly.includes('Camp Mojache') && !fly.includes('Gadgetzan'), 'Brackenwall flies to Camp Mojache');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
+	assert.ok(!pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 3520), 'the swamp-stay pairs anchor on the screecher work, not the accept');
+});

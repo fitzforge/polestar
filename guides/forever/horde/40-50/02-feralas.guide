@@ -37,8 +37,8 @@ step Orgrimmar
 # Grom'gol -> zeppelin to Orgrimmar (training, riding; Druids and Paladins:
 # Thunder Bluff for training; Warlocks: Ratchet for the Felsteed) -> fly
 # Freewind Post -> Gadgetzan (flight path) -> eastern
-# Wastewander camps -> Gadgetzan -> southern Wastewander camps ->
-# Steamwheedle Port -> Lost Rigger Cove -> Steamwheedle Port -> Gadgetzan ->
+# Wastewander camps -> Gadgetzan -> Steamwheedle Port -> Lost Rigger Cove ->
+# southern Wastewander camps -> Steamwheedle Port (every hand-in) -> Gadgetzan ->
 # fly Freewind Post -> Camp Mojache (flight path, bind) -> Woodpaw north camp
 # and the Gordunni Outpost -> Mojache -> sprite darters and Woodpaw alphas ->
 # Mojache -> Grimtotem camp and the Woodpaw battle map -> Mojache -> one
@@ -78,7 +78,8 @@ step Orgrimmar
 # Brill), all optional.
 #
 # Accepted here, finished later on the route: Screecher Spirits (3520,
-# Steamwheedle Port, around 46.7), Deliver to MacKinley (2874) in Booty Bay
+# Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
+# end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
 # around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
 # Hinterlands, Improved Quality (7734) on the next Feralas visit.
@@ -263,6 +264,15 @@ step Waterspring Field: kill these as you meet them
   kill 5623 quest 1691.2
   kill 5615 quest 1691.1
   collect 8723 quest 2781.1 @61.8,38.2
+
+step Steamwheedle Port
+  tip Ride north-east back to the port: Stoley, the Haughty Modiste and the Security Chief take what Lost Rigger Cove gave you. Gadgetzan is west of it.
+  turnin 8365                           -- Haughty Modiste
+  turnin 2873                           -- Stoley, inside
+  accept 2874                           -- for Booty Bay, around level 50
+  turnin 2875                           -- Security Chief Bilgewhizzle, inside
+  turnin 8366
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Gadgetzan
   turnin 1878
