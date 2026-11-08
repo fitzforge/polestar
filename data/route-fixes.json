@@ -6426,7 +6426,6 @@
 		"include": [
 			{
 				"q": 1135,
-				"faction": "Alliance",
 				"reason": "Alliance 30-40 re-order (2026-11-07): Highperch Venom (Fiora Longears, Theramore; 3,650 XP) on the Thousand Needles leg of the Theramore crossing at 33-34 (30-40/03): the Great Lift comes down by Highperch, so the wyverns are a short walk west before the Mirage Raceway.",
 				"issue": "-"
 			},
@@ -7403,24 +7402,6 @@
 				"faction": "Alliance",
 				"reason": "ZoneFix c18 read (Alliance 50-60): the Super Egg-O-Matic's Hippogryph Egg is in southern Feralas, which the Alliance reach only at Feathermoon by boat or at Thalanaar, and v1 drops it for that (06-silithus header: 'Feralas (The Super Egg-O-Matic 2741 ...'). c18 inserted it: a flight to Thalanaar for the egg and a hearth back at 58 (Human 50-60/06-silithus:209-225; Human.json order[2215-2216])",
 				"issue": ""
-			},
-			{
-				"q": 1175,
-				"reason": "Level fit (#977): A Bump in the Road's Saltstone Gazers are 34-35 and its ground a median 34 at the route's 30.2-30.4 (c19r Human order and Orc order, Mirage Raceway); no later visit. 2,650 XP. The writer's level fit leaves it out on its own (Horde 30-40 re-order (2026-11-07): Alliance only; the Horde route comes back to the Shimmering Flats at 33-34 in 30-40/02-thousand-needles and takes it there)",
-				"issue": 977,
-				"faction": "Alliance"
-			},
-			{
-				"q": 1105,
-				"reason": "Level fit (#977): Hardened Shells' Sparkleshell tortoises (32 the easiest) stand in ground a median 33 at the route's 30.0 (Mirage Raceway); no later visit. 2,450 XP (Horde 30-40 re-order (2026-11-07): Alliance only; the Horde route comes back to the Shimmering Flats at 33-34 in 30-40/02-thousand-needles and takes it there)",
-				"issue": 977,
-				"faction": "Alliance"
-			},
-			{
-				"q": 1176,
-				"reason": "Level fit (#977): Load Lightening's vultures fly over ground a median 33 at the route's 29.9-30.2 (Mirage Raceway); no later visit. 1,850 XP (Horde 30-40 re-order (2026-11-07): Alliance only; the Horde route comes back to the Shimmering Flats at 33-34 in 30-40/02-thousand-needles and takes it there)",
-				"issue": 977,
-				"faction": "Alliance"
 			},
 			{
 				"q": 2844,
