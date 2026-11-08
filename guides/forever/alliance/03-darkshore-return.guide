@@ -55,7 +55,6 @@ step The Grove of the Ancients
 step The Master's Glaive
   tip Moonstalker Sires prowl the woods around the glaive. The Scrying Bowl and the Twilight Tome sit at the bottom of the crater; Therylune stands on its north side.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
-  accept 98042
   accept 945                                  -- Therylune
   complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
@@ -64,6 +63,7 @@ step The Master's Glaive
   accept 949
   turnin 949                                  -- The Twilight Tome
   accept 950
+  accept 98042                                -- The Twilight Tome, once it has The Twilight Camp
   collect 279279 quest 98042                  -- Peerless Eye: Twilight Disciples and Thugs
 
 step Prospector Remtravel

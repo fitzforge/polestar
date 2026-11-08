@@ -5585,5 +5585,20 @@
 			}
 		],
 		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
+	},
+	"98042": {
+		"set": {
+			"pre": [
+				949
+			],
+			"preAny": [
+				949
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: 19 people took It's All Fun and Games Until... (98042) at the Twilight Tome (object 12666), every one seconds after handing The Twilight Camp (949) in there, none before it (sessions 20261104T232008Z to 20261108T001845Z)"
+		},
+		"note": "It's All Fun and Games Until... starts at the Twilight Tome in the Master's Glaive, which offers it only once The Twilight Camp (949) is handed in to it. The merged data had no prerequisite, so the guide sent players to the tome for it before that hand-in, when there was nothing to take (#1352)."
 	}
 }

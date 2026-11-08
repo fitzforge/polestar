@@ -7603,6 +7603,15 @@
 				],
 				"reason": "Alliance 40-60 order (2026-11-08, #1228): ... and Bugs (40) is taken from Morgan Stern with Mudrock Soup and Bugs; the Silt Crawlers drop the legs (80%) on the Swamp of Sorrows shore where the route picks up the driftwood, and it goes back to Morgan Stern on the next Theramore stop.",
 				"issue": "-"
+			},
+			{
+				"q": 98042,
+				"after": [
+					"turnin",
+					949
+				],
+				"reason": "It's All Fun and Games Until... (98042) is offered by the Twilight Tome only once The Twilight Camp (949) is handed in to it (19 people in players' recordings, every one right after that hand-in): the accept comes after the turn-in at the tome, not before it (#1352).",
+				"issue": 1352
 			}
 		],
 		"skip": [
