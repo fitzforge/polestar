@@ -253,9 +253,9 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 		Polestar.Set("maps.minimapButton", false)
 		emit({ before = before ~= nil, start = start, fired = fired, menu = menu, picked = picked, dragging = dragging, saved = saved,
 			stopped = stopped, corner = corner, resized = resized, hidden = not b:IsShown() })"#,
-		None,
+		MINIMAP_BUTTON_OFF,
 	);
-	assert_eq!(out["before"], false, "no frame while off");
+	assert_eq!(out["before"], false, "no frame while turned off");
 	// 225 degrees (south-west) at 70 + 5 px from the centre.
 	assert_eq!(out["start"], json!([true, -53, -53]));
 	assert_eq!(out["menu"], true, "right-click opens Polestar's menu on the button");
@@ -267,6 +267,79 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 	assert_eq!(out["corner"], json!([true, 75, 75]), "the square's corner, not the circle");
 	assert_eq!(out["resized"], json!([true, 145, 0]), "on the edge of the resized minimap");
 	assert_eq!(out["hidden"], true);
+}
+
+const MINIMAP_BUTTON_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { maps = { minimapButton = false } } }");
+
+#[test]
+fn the_minimap_button_shows_on_a_fresh_profile_and_turning_it_off_is_stored_so_it_stays_off() {
+	let out = run(
+		r#"
+		local b = stub.frame("PolestarMinimapButton")
+		local fresh = { exists = b ~= nil, shown = b and b:IsShown(), parent = b and b:GetParent() == Minimap, stored = (PolestarDB.settings.maps or {}).minimapButton }
+		Polestar.Set("maps.minimapButton", false)
+		emit({ fresh = fresh, hidden = not b:IsShown(), stored = PolestarDB.settings.maps.minimapButton })"#,
+		None,
+	);
+	assert_eq!(out["fresh"], json!({ "exists": true, "shown": true, "parent": true }), "on by default, nothing stored");
+	assert_eq!(out["hidden"], true);
+	assert_eq!(out["stored"], false, "an explicit off is stored, so a later default can't turn it back on");
+}
+
+#[test]
+fn a_minimap_button_turned_off_stays_off_after_a_reload() {
+	let out = run(r#"emit({ exists = stub.frame("PolestarMinimapButton") ~= nil, on = Polestar.Get("maps.minimapButton") })"#, MINIMAP_BUTTON_OFF);
+	assert_eq!(out, json!({ "exists": false, "on": false }));
+}
+
+// Minimap button collectors gather the minimap's named Button children: a flyout reparents them into its own
+// panel, a row re-anchors them on the minimap. Once moved, the button is theirs: a drag, a resized minimap or a
+// changed angle leaves it where they put it, and its clicks still work.
+#[test]
+fn a_minimap_button_collector_owns_its_place_once_it_moves_the_button_and_clicks_still_work() {
+	let out = run(
+		r#"
+		local fired = {}
+		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		local b = stub.frame("PolestarMinimapButton")
+		local collected = b:IsObjectType("Button") and b:GetParent() == Minimap and not b:GetName():match("%d$") and b:GetWidth() >= 20 and b.Icon ~= nil
+		local function at() local p, rel, _, x, y = b:GetPoint(1); return { p, rel == Minimap, x, y } end
+		-- A flyout: reparented into the collector's panel, in a grid cell.
+		local panel = CreateFrame("Frame", nil, UIParent)
+		b:SetParent(panel)
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", panel, "TOPLEFT", 4, -4)
+		b:SetSize(24, 24)
+		stub.cursor = { 200, 70 }
+		b:GetScript("OnDragStart")(b)
+		local dragged = b:GetScript("OnUpdate") ~= nil
+		b:GetScript("OnDragStop")(b)
+		Minimap:SetSize(280, 280)
+		stub.RunScript(Minimap, "OnSizeChanged", 280, 280)
+		Polestar.Set("maps.minimapButtonAngle", 90)
+		local inFlyout = at()
+		b:Click("LeftButton")
+		b:Click("RightButton")
+		local menu = Polestar.Widgets.MenuShown(b)
+		Polestar.Widgets.HideMenu()
+		-- A row on the minimap: back on Minimap, anchored by the collector.
+		b:SetParent(Minimap)
+		b:ClearAllPoints()
+		b:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", 0, 30)
+		Minimap:SetSize(300, 300)
+		stub.RunScript(Minimap, "OnSizeChanged", 300, 300)
+		Polestar.Set("maps.minimapButtonAngle", 180)
+		emit({ collected = collected, dragged = dragged, angle = Polestar.Get("maps.minimapButtonAngle"), inFlyout = inFlyout,
+			parent = b:GetParent() == Minimap, onRow = at(), fired = fired, menu = menu })"#,
+		None,
+	);
+	assert_eq!(out["collected"], true, "a named Button child of Minimap, at least 20 wide, its name not ending in a digit, icon at .Icon");
+	assert_eq!(out["dragged"], false, "a drag inside the collector doesn't pull it back to the edge");
+	assert_eq!(out["angle"], 180);
+	assert_eq!(out["inFlyout"], json!(["TOPLEFT", false, 4, -4]), "neither a resize nor a new angle moves it out of the grid");
+	assert_eq!(out["onRow"], json!(["BOTTOMRIGHT", true, 0, 30]), "nor off the collector's row");
+	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["menu"], true, "right-click still opens Polestar's menu");
 }
 
 // ---------------------------------------------------------------------------

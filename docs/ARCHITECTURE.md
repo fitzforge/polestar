@@ -339,7 +339,7 @@ reloads the UI when it changes). With it on, Polestar:
 - registers no slash command: `/polestar`, `/pole`, `/way` (Nav/Journey)
   and `/psrec` (Polestar_Recorder, which reads the style itself). The chat
   box calls a command's function, then closes itself in that function's
-  taint. The minimap button, on by default then (`maps.minimapButton`), and
+  taint. The minimap button (`maps.minimapButton`, on by default) and
   the key bindings open Polestar; the Recorder page calls
   `PolestarRecorder_Command`;
 - adds no entry to the world map and minimap tracking menus
@@ -4378,14 +4378,20 @@ flight timer and the instance tracker are set under Quality of Life.
   (`maps.coords`, `Maps/WorldMap.lua`). `maps.minimapCoords` adds a readout at
   the bottom of the minimap (`Maps/Coords.lua`, 5 Hz, repainted only when the
   tenth changes). Both use `Maps.FormatCoords`.
-- Minimap button (`maps.minimapButton`, off by default; `Maps/MinimapButton.lua`):
+- Minimap button (`maps.minimapButton`, on by default; turning it off stores
+  `false`, so it stays off; `Maps/MinimapButton.lua`):
   click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
   the window, Guides, Lookup, Options, Report a problem; each fires the
   existing event), a drag moves it
   around the minimap's edge and saves `maps.minimapButtonAngle` (degrees, 0 =
   east). A square minimap (`GetMinimapShape`) puts it on the square's edge,
   and a resized one (`OnSizeChanged`) moves it to the new edge.
-  No frame exists until the setting is first turned on. The addon
+  Minimap button collectors gather it like any addon's (a `Button` named
+  `PolestarMinimapButton`, a `Minimap` child, its icon at `.Icon`). Once one
+  has reparented it or anchored it elsewhere (`ours()`: parent and last
+  anchor no longer what `place()` set), neither a drag nor a resize moves
+  it back to the edge; clicks work as before.
+  No frame exists until the setting is first on. The addon
   compartment (clients with `AddonCompartmentFrame`) gets the same through
   the .toc's `AddonCompartmentFunc*` globals (`Polestar_OnAddonCompartment*`):
   click toggles the window, right-click opens the menu, hover the tooltip.

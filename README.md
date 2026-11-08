@@ -84,8 +84,10 @@ Good to know:
 
 - `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
   and Rares. `/polestar options` holds every setting; quest markers on the map
-  are off until you turn them on under **Map**. Right-click the minimap
-  button for a short menu.
+  are off until you turn them on under **Map**. The Polestar button on the
+  minimap's edge shows or hides the guide window with a click; right-click it
+  for a short menu, drag it to move it (Options, Map, Guide & quests,
+  Minimap button turns it off).
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
   ahead or back.
 - **Updating:** the CurseForge app and the Polestar Client update Polestar for
@@ -792,7 +794,7 @@ packs, Gamepad, Recorder and About, with a search that finds any setting.
 With the game's gamepad interface on (Options, Gamepad, Enable Gamepad UI)
 there are no slash commands: the game blocks gamepad actions after any
 addon command typed in chat, until the game freezes. Polestar's minimap
-button (on by default then) and its key bindings open the guide and the
+button (on by default) and its key bindings open the guide and the
 settings instead, and Polestar keeps out of the game's own windows.
 
 <details>

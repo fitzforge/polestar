@@ -140,7 +140,7 @@ never in saved variables.
 | `ZoneLevels.lua` | (registers data) | Generated: each zone's level range |
 | `Reveal.lua` | `Maps` | The world map without fog of war |
 | `Coords.lua` | `Maps` | The player's coordinates under the minimap |
-| `MinimapButton.lua` | `Maps` | The optional Polestar button on the minimap's edge |
+| `MinimapButton.lua` | `Maps` | The Polestar button on the minimap's edge (on by default) |
 | `Dungeons.lua` | `Maps` | Dungeon entrance pins on the world map |
 | `TravelPins.lua` | `Maps` | Flight master and transport pins |
 | `FlightTimer.lua` | `Maps` | Destination and time left while on a flight |
