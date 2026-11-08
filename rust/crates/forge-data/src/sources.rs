@@ -343,8 +343,8 @@ fn raw_json(http: &Http, file: &Path, url: &str, log: &dyn Fn(&str)) -> Result<(
 	Ok((forge_guide::js::parse_json(&text)?, fetched))
 }
 
-/// The EG Link output at its pinned commit: data/index.json and every listed dataset of the Forever
-/// product. -> files fetched
+/// The EG Link output at its pinned commit: data/index.json and every listed dataset of both Forever
+/// products the index lists, the beta and the live game. -> files fetched
 pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, String> {
 	let commit = crate::players::EG_COMMIT;
 	let dir = sources.join("eg-link").join(&commit[..12]);
@@ -352,15 +352,16 @@ pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, 
 	let url = |f: &str| format!("https://raw.githubusercontent.com/{repo}/{commit}/data/{f}");
 	let (index, f) = raw_json(http, &dir.join("index.json"), &url("index.json"), log)?;
 	let mut n = usize::from(f);
-	let product = crate::players::EG_PRODUCT;
-	let builds = index.get("products").get(product);
-	for (build, sets) in builds.entries() {
-		for d in crate::players::DATASETS {
-			if !sets.get(d).truthy() {
-				continue;
+	for product in crate::players::EG_PRODUCTS {
+		let builds = index.get("products").get(product);
+		for (build, sets) in builds.entries() {
+			for d in crate::players::DATASETS {
+				if !sets.get(d).truthy() {
+					continue;
+				}
+				let rel = format!("{product}/{build}/{d}.json");
+				n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
 			}
-			let rel = format!("{product}/{build}/{d}.json");
-			n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
 		}
 	}
 	Ok(n)

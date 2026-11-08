@@ -85,6 +85,7 @@ fn checkout(root: &Path) {
 	}
 	put(root, "data/sources/eg-link/d98f/index.json", "{}\n");
 	put(root, "data/sources/eg-link/d98f/wow_classic_beta/1.60.1.70450/quests.enUS.json", "{\"quests\":{}}\n");
+	put(root, "data/sources/eg-link/d98f/wowf/1.60.1.70862/quests.enUS.json", "{\"quests\":{}}\n");
 	for f in ["forever-db/corrections/quests.json", "data/rules.json", "data/sim/params.json", "addon/Polestar_Nav/PACK.json", "data/crossings.json", "data/forever/travel.json"] {
 		put(root, f, "{}\n");
 	}
@@ -124,6 +125,7 @@ fn pack_leaves_private_data_out() {
 	}
 	// Newest builds only.
 	assert!(p.dir.join("data/sources/wago/1.15.9.70003/UiMap.csv").exists());
+	assert!(p.dir.join("data/sources/eg-link/d98f/wowf/1.60.1.70862/quests.enUS.json").exists());
 	assert!(!p.dir.join("data/sources/wago/1.15.8.60000").exists());
 	assert!(!p.dir.join("data/sources/wago/1.60.1.70425").exists());
 	let c = Connection::open(p.dir.join("data/local/kb/forever-kb.sqlite")).unwrap();

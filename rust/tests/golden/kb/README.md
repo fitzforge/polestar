@@ -13,7 +13,7 @@ Inputs. They are the data golden's (`../data/input`: pfQuest, client table slice
   - Quests, spawns, names, loot, vendors and trainers are cut to the data slice's ids.
   - The class training tables are whole.
   - There is no world.sqlite.
-- `input/sources/eg-link/d98f94821b69/`: the EG Link output (Efficient Games, CC BY 4.0). index.json is cut to the three newest builds, and their datasets are cut to the slice's quests, units, objects and items.
+- `input/sources/eg-link/d98f94821b69/`: the EG Link output (Efficient Games, CC BY 4.0). index.json is cut to the three newest builds, and their datasets are cut to the slice's quests, units, objects and items. The test renames the folder to the pinned commit (`EG_COMMIT`).
 - `input/sources/wago/`: QuestXP.csv (Era) verbatim; Forever Item.csv and SpellName.csv cut to the items and the extract's training spells.
 - `input/local/`: synthetic files written for this golden. They are quest-mechanics.json, quest-steps.json, web-verdicts.json and forever-tdb/analysis/mechanics.json, for a few slice quests. Between them they cover: kinds kept by two sources, a TDB-confirmed kind, a TDB-refuted kind, a web-refuted kind, a TDB-added kind, a low-confidence param, steps and gotchas.
 - `input/sim/world-{horde,alliance}.json`: synthetic quest lists (the sim-v2 world's quests).

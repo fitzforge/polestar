@@ -47,6 +47,11 @@ fn kb_build_matches_golden() {
 	let sources = root.join("data/sources");
 	common::copy_tree(&data.join("sources"), &sources);
 	common::copy_tree(&g.join("input/sources"), &sources);
+	// The EG Link slice keeps the name of the commit it was cut from; the loader reads the pinned one.
+	let pinned = &forge_data::players::EG_COMMIT[..12];
+	if pinned != "d98f94821b69" {
+		std::fs::rename(sources.join("eg-link/d98f94821b69"), sources.join("eg-link").join(pinned)).unwrap();
+	}
 	common::copy_tree(&common::golden("extracts").join("expected"), &sources.join("cmangos/22b51464f162"));
 	common::copy_tree(&data.join("data"), &root.join("data"));
 	common::copy_tree(&data.join("recordings"), &root.join("data/recordings"));
