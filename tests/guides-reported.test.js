@@ -6392,6 +6392,39 @@ test('Alliance 40-60 order: the quests the route passes are taken (... and Bugs,
 	for (const q of [5097, 5219, 4984]) assert.ok(ws.some(({ goal }) => is('accept', q)(goal)), `${q} taken where the Winterspring guide passes its giver on the way to the Eastern Plaguelands`);
 });
 
+// GuardMoony's report (#1070): Hezrul Bloodmark walks the west shore of Lushwater Oasis (players' recordings see
+// him from 46,36 to 46,42), so the step's arrow at his spawn isn't always where he is. The step says he walks
+// that shore, and the guide-fixes record carries the same tip so a Forge round keeps it.
+test("GuardMoony's report (#1070): Hezrul Bloodmark's step says he walks the oasis shore", { skip }, () => {
+	// Whichever Barrens guide holds Hezrul (02 since the Horde 12-30 rework, #1210; 04 before it).
+	const holds = (g) => g.t === 'collect' && g.quest === 852;
+	const guide = ['forever/horde/02-the-barrens.guide', 'forever/horde/04-the-barrens.guide'].find((f) => goals(f).some(({ goal }) => holds(goal)));
+	assert.ok(guide, 'a Barrens guide takes Hezrul\'s Head');
+	const list = goals(guide);
+	const { step } = list[at(list, "Hezrul's Head", holds)];
+	assert.match(step.note || '', /walks that shore, from about 46,36 in the north to 46,42 in the south/);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const rec = fixes.find((f) => f.at && f.at.quest === 852 && f.at.goal === 'objective');
+	assert.ok(rec && /walks that shore/.test(rec.tip), 'the guide-fixes record holds the tip');
+});
+
+// #934: Winterspring's "Level 55.05" top-up ground on "Timbermaw Mystic" during the Timbermaw quests; killing
+// Timbermaw costs their reputation (Forever TDB creature_onkill_reputation: 11552 -25 with 576), and the
+// point was a lone Winterfall Runner. The top-up now grinds the Winterfall camp by Frostfire Hot Springs
+// (7441/7442 +5/+6 with 576).
+test('#934: Winterspring (Alliance): the level 55.05 top-up grinds Winterfall furbolgs, never Timbermaw', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const top = list[at(list, 'level 55.05', (g) => g.t === 'level' && g.level === 55 && Math.abs((g.frac || 0) - 0.05) < 1e-9)];
+	const arrow = list.find((g) => g.step === top.step && g.goal.t === 'goto');
+	assert.ok(arrow && located(arrow), 'the top-up has a camp');
+	assert.doesNotMatch(arrow.goal.text || '', /Timbermaw/, 'not a Timbermaw camp');
+	assert.match(arrow.goal.text || '', /Winterfall/);
+	assert.ok(Math.abs(arrow.goal.x - 31.4) < 2 && Math.abs(arrow.goal.y - 36) < 2, 'the Frostfire Hot Springs camp');
+	for (const { step, goal } of list) {
+		if (goal.t === 'goto' && step.goals.some((g) => g.t === 'level')) assert.doesNotMatch(goal.text || '', /Timbermaw/, `${step.label || step.title}: no top-up on Timbermaw`);
+	}
+});
+
 // --- Horde 40-60 accept levels (2026-11-08). The level model ground before accepts it could not take at the route's
 // level (a minimum level above it, or a quest 5+ levels over): 1,287 minutes for an Orc Warrior, 409 of them in Feralas
 // at 46 for The Strength of Corruption (minimum 47). Each is now taken on a later stop at the same giver, or a written

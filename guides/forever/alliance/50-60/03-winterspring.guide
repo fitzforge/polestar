@@ -85,9 +85,9 @@ step Donova Snowden
 
 step Level 55.05
   when level<55.05
-  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56.
-  goto 27.9,34.5 map 1452 "Timbermaw Mystic"
-  level 55.05                          -- grind on Timbermaw Mystic
+  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need.
+  goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
+  level 55.05                          -- grind on Winterfall Pathfinder
 
 step Everlook
   turnin 4809                         -- Felnok Steelspring
