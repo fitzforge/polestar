@@ -227,10 +227,12 @@ step Beren's Peril
   turnin 95883                        -- Below ground
 
 step The Offering of Blood
-  tip Use the Tortured Soul at the Offering Stone for a willing sacrifice and kill the Tortured Soul that answers. The Tortured Soul is elite: grouping up is advised.
+  tip The quest hands you a Tortured Soul: use it beside the Offering Stone to offer your blood, then kill the elite spirit that answers.
+  tip The Tortured Soul is elite: grouping up is advised.
   goto 58.1,69.8 "Offering Stone"
   accept 95885 optional               -- Below ground
-  kill 212753 quest 95885.1 optional
+  use 210713 optional @58.1,69.8 map 1421 -- Tortured Soul, beside the Offering Stone: summons the elite spirit
+  kill 212753 quest 95885.3 optional
   turnin 95885 optional               -- Below ground
 
 step Hillsbrad Foothills

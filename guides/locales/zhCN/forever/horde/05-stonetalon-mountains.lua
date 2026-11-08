@@ -138,8 +138,10 @@ return {
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
 	-- Step 27: The Offering of Blood
-	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "在{object:645153}使用{npc:212753}作为自愿的祭品，杀死回应的{npc:212753}。{quest:95883}是精英任务：建议组队。",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
+	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
@@ -173,6 +175,7 @@ return {
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "道路向北攀升，即{area:1076}。{quest:1483}的小屋在道路向东分岔通往{area:461}的地方。",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864}在{area:428}东边朝{area:430}方向的道路上巡逻。",
 	-- ["To the {area:1497}"] = "前往{area:1497}",
+	-- ["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "在{object:645153}使用{npc:212753}作为自愿的祭品，杀死回应的{npc:212753}。{quest:95883}是精英任务：建议组队。",
 	-- ["{area:431} is just north up the road."] = "{area:431}就在道路北边不远处。",
 	-- ["{item:16746}, from the {item:16783}"] = "{item:16746}，从{item:16783}中取得",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "{item:271350}，来自废墟中的被折磨的灵魂",

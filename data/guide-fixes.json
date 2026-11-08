@@ -3818,6 +3818,24 @@
 					"ref": "players' in-game recordings to 2026-11-08: Rutherford Twing refused 8263, 8264 and 8265 to a level 28 Horde character without Defilers reputation; nobody has been recorded taking 8263"
 				}
 			]
+		},
+		{
+			"id": "1317-offering-of-blood-use-the-soul",
+			"faction": "Horde",
+			"at": {
+				"quest": 95885,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "The quest hands you a Tortured Soul: use it beside the Offering Stone to offer your blood, then kill the elite spirit that answers.",
+			"note": "The Offering of Blood: the step said to use the Tortured Soul but its goal waited on the quest log's first line; the stone gives the Tortured Soul (210713) at the accept, its use beside the stone summons the elite Tortured Soul (212753), and that kill is line 3.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08 of 95885, 12 people (4 established): the offering is cast at the stone a few seconds after the accept, with no item looted, and the kill of 212753 ticks line 3 for all 9 people who finished it"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

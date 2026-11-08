@@ -138,8 +138,10 @@ return {
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
 	-- Step 27: The Offering of Blood
-	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Usa {npc:212753} en {object:645153} como sacrificio voluntario y mata a {npc:212753} que responde. {quest:95883} es élite: se recomienda ir en grupo.",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
+	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
@@ -171,6 +173,7 @@ return {
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "El camino sube al norte como {area:1076}. {quest:1483} tiene una choza donde el camino se bifurca al este hacia {area:461}.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrulla el camino al este de {area:428}, hacia {area:430}.",
 	-- ["To the {area:1497}"] = "A {area:1497}",
+	-- ["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Usa {npc:212753} en {object:645153} como sacrificio voluntario y mata a {npc:212753} que responde. {quest:95883} es élite: se recomienda ir en grupo.",
 	-- ["{area:431} is just north up the road."] = "{area:431} está justo al norte, camino arriba.",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "{item:271350}, de las almas torturadas entre las ruinas",
 	-- ["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, de cualquier arpía Furia Sangrienta",

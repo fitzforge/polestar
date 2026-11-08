@@ -3671,13 +3671,24 @@
 			],
 			"preAny": [
 				95883
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Willingly offer blood" },
+				{ "type": "event", "id": null, "count": 1, "text": "Release Tortured Soul" },
+				{ "type": "kill", "id": 212753, "count": 1, "text": "Tortured Soul" }
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Offering of Blood 9 times to 6 characters, each time with The Tortured Soul (95883) handed in, 5 of them in the window of that hand-in; never before it"
-		},
-		"note": "The Offering of Blood follows The Tortured Soul at the Offering Stone in Beren's Peril; our data had no prerequisite (#1175)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Offering of Blood 9 times to 6 characters, each time with The Tortured Soul (95883) handed in, 5 of them in the window of that hand-in; never before it"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08 of 95885, 12 people (4 established): the quest log lists two lines at the accept, Willingly offer blood and Release Tortured Soul; each of the 9 people who finished it cast the offering at the stone (spell 426754) a few seconds after the accept, with no item looted, and the kill of the elite Tortured Soul (212753) ticked line 3 and completed the quest"
+			}
+		],
+		"note": "The Offering of Blood follows The Tortured Soul at the Offering Stone in Beren's Peril; our data had no prerequisite (#1175). The stone hands over a Tortured Soul (210713) with the quest; used beside the stone, it makes the offering and summons the elite Tortured Soul (212753), whose kill is the quest log's third line. Our data had only the kill, as line 1, so the guide waited on the wrong line. The first two lines are scripted credits with no object of their own, kept as events at the stone."
 	},
 	"95981": {
 		"set": {

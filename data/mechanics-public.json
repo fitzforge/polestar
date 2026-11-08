@@ -107,6 +107,37 @@
 				}
 			],
 			"note": "Suntara Stones (3367) is an escort: Forever's quest data lists its one objective as the Dorius Escort event, ending at the Singed Letter (object 175704) in Dustfire Valley, and the server data marks it an escort. Taken and left behind, it fails, so the route takes it right before the walk."
+		},
+		"95885": {
+			"kinds": [
+				{
+					"kind": "summon-by-item",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "summon-by-item",
+					"item": 210713,
+					"npc": 212753,
+					"npcName": "Tortured Soul",
+					"place": {
+						"objects": [
+							645153
+						],
+						"objectName": "Offering Stone",
+						"positions": [
+							{
+								"map": 1421,
+								"x": 58.1,
+								"y": 69.8
+							}
+						]
+					},
+					"provided": true
+				}
+			],
+			"note": "The Offering of Blood (95885): the Offering Stone in Beren's Peril hands over a Tortured Soul (210713) with the quest; used beside the stone it makes the offering and summons the elite Tortured Soul (212753), whose kill completes the quest. Source: players' in-game recordings to 2026-11-08, 12 people (4 established), the offering cast at the stone a few seconds after the accept with no item looted, then the kill ticking the quest's last line (#1317)."
 		}
 	}
 }

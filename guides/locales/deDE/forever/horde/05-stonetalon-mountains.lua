@@ -138,8 +138,10 @@ return {
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
 	-- Step 27: The Offering of Blood
-	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Benutze {npc:212753} an {object:645153} für ein freiwilliges Opfer und töte {npc:212753}, die antwortet. {quest:95883} ist Elite: Such dir am besten eine Gruppe.",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
+	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
@@ -178,6 +180,7 @@ return {
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "Die Straße steigt als {area:1076} nach Norden an. {quest:1483} hat eine Hütte, wo die Straße nach Osten zum {area:461} abzweigt.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrouilliert auf der Straße östlich von {area:428} Richtung {area:430}.",
 	-- ["To the {area:1497}"] = "Nach {area:1497}",
+	-- ["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Benutze {npc:212753} an {object:645153} für ein freiwilliges Opfer und töte {npc:212753}, die antwortet. {quest:95883} ist Elite: Such dir am besten eine Gruppe.",
 	-- ["{area:431} is just north up the road."] = "{area:431} liegt gleich nördlich die Straße hinauf.",
 	-- ["{item:16746}, from the {item:16783}"] = "{item:16746}, aus dem {item:16783}",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "{item:271350}, von den Gequälten Seelen in den Ruinen",

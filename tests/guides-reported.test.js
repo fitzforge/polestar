@@ -5186,6 +5186,24 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
 });
 
+// Thin-data audit (#1317): The Offering of Blood's quest log has three lines, Willingly offer blood, Release Tortured
+// Soul, then the elite Tortured Soul's kill (players' recordings, 12 people: the kill ticks line 3). The data had only
+// the kill, as line 1, so the guide's goal waited on the wrong line; the Tortured Soul the stone hands over is used
+// beside the stone to summon the elite.
+test(`${STONETALON}: thin-data audit: The Offering of Blood uses the Tortured Soul at the stone and waits on the kill's own line (#1317)`, { skip }, () => {
+	const objectives = loadCorrections().quests['95885'].set.objectives;
+	assert.equal(objectives.length, 3, 'three objective lines');
+	assert.equal(objectives[2].id, 212753, 'the kill is line 3');
+	const list = goals(STONETALON);
+	const take = at(list, 'accept 95885', is('accept', 95885));
+	const use = list.findIndex(({ goal }, i) => i > take && goal.t === 'use' && goal.item === 210713);
+	assert.ok(use > take, 'the Tortured Soul is used after the accept');
+	assert.ok(list[use].goal.map === 1421 && Math.hypot(list[use].goal.x - 58.1, list[use].goal.y - 69.8) < 1, 'beside the Offering Stone');
+	const kill = list.findIndex(({ goal }) => goal.t === 'kill' && goal.quest === 95885);
+	assert.ok(kill > use, 'then the kill');
+	assert.equal(list[kill].goal.oi, 3, 'on line 3');
+});
+
 // Final route review before 0.3.5, Horde 1-30: three walks back to a town between two pieces of work on one road
 // (Jorn in Camp Taurajo between his thunderhawks and the Field of Giants' eggs south of them; Tarren Mill between the
 // bears on the slope down to Hillsbrad Fields and the fields; the Sepulcher and the Decrepit Ferry, a boat the later
