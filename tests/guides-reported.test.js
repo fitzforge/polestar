@@ -6585,3 +6585,15 @@ test('forever/alliance/07-thousand-needles.guide: final review: The Weathered Gr
 	}
 	assert.ok(list[at(list, 'accept 225', is('accept', 225))].goal.optional, 'optional: offered from 28');
 });
+
+// Ingest report (2026-11-08): 7 of the 13 players who took The Family and the Fishing Pole (1141) on 0.3.4 abandoned it
+// at 13-24; the accept said "only with Fishing" but was offered to everyone. It is a step of its own for characters
+// with Fishing now.
+test('Auberdine: The Family and the Fishing Pole is offered only to characters with Fishing', { skip }, () => {
+	for (const guide of ['forever/alliance/nightelf/01-teldrassil.guide', 'forever/alliance/03-darkshore.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 1141', is('accept', 1141))];
+		assert.ok((step.when || []).some((p) => p.k === 'skill' && !p.neg && /fishing/i.test(JSON.stringify(p))), `${guide}: under when skill Fishing`);
+		assert.ok(step.goals.every((g) => g.quest === 1141), `${guide}: nothing else waits on the gate`);
+	}
+});
