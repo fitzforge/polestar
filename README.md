@@ -580,6 +580,13 @@ guides you there instead.
 - **The step's item glows in your bags** (and in Baganator): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
+- **The Target button** (Options, Questing, Buttons; bindable): targets the
+  step's mobs by name, or the NPCs it sends you to when it has no mob, the
+  arrow's goal first and the next name on each click. Its icon shows what
+  you do with the one it targets next (a speech bubble, ! or ? for an NPC, a
+  sword or a bag for a mob, a skull for an elite, rare or boss, or their face
+  once you have seen them), with the name beside it in green, red or gold
+  and small icons for the names after it.
 - **Mark what they target** (Options, Questing, Buttons; off by default): the
   target button and the step key put a raid icon on the mob or NPC they
   target — a skull and a star by default, configurable — leaving icons

@@ -473,6 +473,26 @@ Polestar.RegisterOptions({ page = "Questing", tab = "Quests", section = "Quest d
 // Every module that registers options, for the pages they fill.
 const MODULE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Quests/Quests.xml', 'Gear/Gear.xml', 'Maps/Maps.xml', 'QoL/QoL.xml', 'Lookup/Lookup.xml',
 	'Dungeons/Dungeons.xml', 'UI/UI.xml', 'Rares/Rares.xml'];
+// The target button over the world: a step's goals fed straight to the
+// buttons (QoL.CurrentStep), and a frame around the button and its name
+// plate so the picture takes the plate in (the roots' box is the button's).
+function targetScene(goals, { side = 'right', extra = '' } = {}) {
+	const area = side === 'left' ? '"RIGHT", PolestarTargetButton, "RIGHT", 4, 0' : '"LEFT", PolestarTargetButton, "LEFT", -4, 0';
+	return `Polestar.Set("qol.buttonTextSide", "${side}")
+${extra}
+local raw = ${goals}
+local view = { index = 1, status = "current", goals = {} }
+for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target, quest = g.quest, npc = g.npc, npcName = g.npcName } end
+Polestar.QoL.CurrentStep = function() return view, raw end
+Polestar.QoL.Buttons.Refresh()
+local area = CreateFrame("Frame", "PolestarPreviewTargetArea", UIParent)
+area:SetSize(250, 56)
+area:SetPoint(${area})`;
+}
+const TIGERS = '{ { t = "kill", target = "Elder Stranglethorn Tiger", group = { kind = "elite", rank = 1 } }, { t = "kill", target = "Stranglethorn Tiger" }, { t = "kill", target = "Young Stranglethorn Tiger" } }';
+const KOBOLDS = '{ { t = "kill", target = "Kobold Vermin" }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer" } }';
+const GIVERS = '{ { t = "turnin", quest = 9, npc = 240, npcName = "Sir S. J. Erlgadin" }, { t = "accept", quest = 10, npc = 241, npcName = "Gryan Stoutmantle" }, { t = "talk", npc = 242, npcName = "Marshal Dughan" } }';
+const TARGET = ['PolestarTargetButton', 'PolestarPreviewTargetArea'];
 // Six more pages from third-party modules, in the game font: the list
 // scrolls in its own area, clear of the version and the stage chip.
 const MANY_PAGES = `Polestar.Set("ui.font", "game")
@@ -1686,6 +1706,19 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "rare", id = 61, name = "Thuros Lightfingers", level = 11 }, { map = 1429, x = 89.2, y = 79.1 }, true); a.yards = 87; Polestar.Fire("RARE_SPOTTED", a); stub.advance(4)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true); a.yards = 412; Polestar.Fire("RARE_SPOTTED", a)') },
+		],
+	},
+	{
+		file: 'target-button.svg',
+		title: "The target button shows who it targets: an elite tiger's skull in gold and the tigers after it; a mob to kill and the bag for a collect's dropper; a step with no mob, its NPCs (? to turn in, ! to accept, a bubble to talk); the name on the left; the elite's face once seen (Polestar's emblem stands in for the game's portrait); the setting off",
+		backdrop: 'terrain',
+		panels: [
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS) },
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(KOBOLDS) },
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(GIVERS) },
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { side: 'left' }) },
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "target" then return true end return exists and exists(u) end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "target" then return "Elder Stranglethorn Tiger" end return unitName(u) end; UnitClassification = function() return "elite" end; SetPortraitTexture = function(tex) tex:SetTexture(Polestar.Theme.Media("emblem")) end' }) },
+			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'Polestar.Set("qol.targetPlate", false)' }) },
 		],
 	},
 ];
