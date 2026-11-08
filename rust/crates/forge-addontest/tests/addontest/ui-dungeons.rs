@@ -848,13 +848,6 @@ fn a_french_client_a_dungeon_page_and_the_codex_name_quests_npcs_and_items_in_fr
 		stubs: vec!["stub_ui.lua"],
 		before: format!(
 			r#"function GetLocale() return "frFR" end
-do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\]Locales[/\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
-	end
-end
 {fr}
 {}"#,
 			pack.stub_lua

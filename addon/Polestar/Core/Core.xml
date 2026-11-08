@@ -1,14 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Init.lua"/>
-	<Script file="..\Locales\deDE.lua"/>
-	<Script file="..\Locales\esMX.lua"/>
-	<Script file="..\Locales\frFR.lua"/>
-	<Script file="..\Locales\esES.lua"/>
-	<Script file="..\Locales\ptBR.lua"/>
-	<Script file="..\Locales\ruRU.lua"/>
-	<Script file="..\Locales\koKR.lua"/>
-	<Script file="..\Locales\zhCN.lua"/>
-	<Script file="..\Locales\zhTW.lua"/>
 	<Script file="Compat.lua"/>
 	<Script file="Data.lua"/>
 	<Script file="LuaChunks.lua"/>
@@ -16,6 +7,7 @@
 	<Script file="Names.lua"/>
 	<Script file="Hooks.lua"/>
 	<Script file="GuideTexts.lua"/>
+	<Script file="Locale.lua"/>
 	<Script file="Guides.lua"/>
 	<Script file="Levels.lua"/>
 	<Script file="Import.lua"/>

@@ -3,8 +3,8 @@
 -- missing here, or commented out, shows in English. Grouped by the file that
 -- first uses each key. docs/TRANSLATING.md explains the rest.
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "esES") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "esES") then return end
 local L = ns.L
 
 -- Core/Init.lua

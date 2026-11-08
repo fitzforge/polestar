@@ -611,8 +611,9 @@ pub struct Written {
 }
 
 /// Writes each language with names into its language folder addons_dir/Polestar_<locale>, leaving our
-/// guides' Texts.lua there alone: the names' files the folder no longer gets are removed, and those of
-/// a language left without any (the folder too once it holds no texts). The retired
+/// guides' Texts.lua and the interface strings (Interface.lua) there alone: the names' files the folder
+/// no longer gets are removed, and those of a language left without any (the folder too once it holds
+/// neither). The retired
 /// Polestar_Names_<locale> folder (before 0.3.0) is removed.
 pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta: &Meta, s: &Sources) -> Result<Vec<Written>, String> {
 	let mut written = Vec::new();
@@ -633,7 +634,7 @@ pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta
 			}
 		}
 		if files.is_empty() {
-			if dir.is_dir() && !dir.join("Texts.lua").exists() {
+			if dir.is_dir() && !dir.join("Texts.lua").exists() && !dir.join(forge_guide::toc::INTERFACE_FILE).exists() {
 				std::fs::remove_dir_all(&dir).map_err(io(&dir))?;
 			}
 			continue;

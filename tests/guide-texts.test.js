@@ -74,13 +74,6 @@ function view(addons, folder, { locale = 'enUS', names = null, texts = [], scrip
 		stubs: ['stub_world.lua', 'stub_packs.lua'],
 		before: `function GetLocale() return ${JSON.stringify(locale)} end
 LOCALIZED_CLASS_NAMES_MALE = { WARRIOR = ${JSON.stringify(locale === 'frFR' ? 'Guerrier' : 'Warrior')} }
-do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\\\]Locales[/\\\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
-	end
-end
 ${names ? names.stubLua : ''}
 ${packs}
 stub.world.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
