@@ -768,7 +768,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]), anchor });
+		recs.push(Rec {
+			file: "guide-fixes",
+			r,
+			slot: format!("{anchor:?} {kind}"),
+			want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]),
+			anchor,
+		});
 	}
 	// Background records last: their mention tips join the tips the other records set (a tip record
 	// replaces every tip of its step).

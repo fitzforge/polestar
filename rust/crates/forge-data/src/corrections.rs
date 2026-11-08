@@ -1388,7 +1388,10 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
 		}
 		let only = r.get("only");
-		if !only.is_undef() && (r.get("level").is_undef() || !only.as_str().is_some_and(|o| !o.is_empty() && o.split(',').all(|x| !x.trim().is_empty() && x.trim().chars().all(|c| c.is_ascii_alphabetic() || c == '!')))) {
+		if !only.is_undef()
+			&& (r.get("level").is_undef()
+				|| !only.as_str().is_some_and(|o| !o.is_empty() && o.split(',').all(|x| !x.trim().is_empty() && x.trim().chars().all(|c| c.is_ascii_alphabetic() || c == '!'))))
+		{
 			ck.err(format!("{at}.only"), "`only` is a class or race list (`Priest`, `Warrior,Hunter`), on a level gate");
 		}
 		check_record(ck, &at, r, &mut ids);
