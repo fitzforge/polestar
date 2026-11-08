@@ -298,10 +298,7 @@ fn api_target_gives_the_guide_s_goal_in_c_map_terms_and_the_leg_the_arrow_is_on_
 	assert_eq!(out[0], json!({ "none": true, "minor": 1 }));
 	assert_eq!(out[1]["map"], 9000);
 	assert!(near(&out[1]["x"], 0.4) && near(&out[1]["y"], 0.6), "{}", out[1]);
-	assert_eq!(
-		json!([out[1]["title"], out[1]["kind"], out[1]["quest"], out[1]["area"], out[1]["next"], out[1]["fresh"]]),
-		json!(["Kill Kobold Vermin", "kill", 7, 30, false, true])
-	);
+	assert_eq!(json!([out[1]["title"], out[1]["kind"], out[1]["quest"], out[1]["area"], out[1]["next"], out[1]["fresh"]]), json!(["Kill Kobold Vermin", "kill", 7, 30, false, true]));
 	assert_eq!(out[2]["map"], 9000);
 	assert!(near(&out[2]["x"], 0.3) && near(&out[2]["y"], 0.3), "{}", out[2]);
 	assert_eq!(json!([out[2]["kind"], out[2]["title"]]), json!(["walk", "Walk to the flight master"]));
