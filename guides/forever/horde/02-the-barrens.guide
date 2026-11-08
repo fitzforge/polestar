@@ -374,7 +374,7 @@ step The Crossroads
   accept 903
 
 step Regthar Deathgate
-  tip South to Regthar's watch post on the Kolkar border.
+  tip West to Regthar's watch post on the Kolkar border.
   accept 855
   accept 850
 
@@ -954,7 +954,7 @@ step Grunt Dogran
   only Warlock
   tip Dogran is chained up in the quilboar camp west of the road.
   turnin 1515
-  accept 1512                         -- Keep it: Gan'rul in Orgrimmar, at the end of this guide
+  accept 1512                         -- Keep it: Gan'rul in Orgrimmar, on the next guide's Orgrimmar stop
 
 step Enraged Thunder Lizards
   tip Thunderheads graze on the plains just south of Camp Taurajo. Owatanka, a blue thunder lizard, roams among them: his Tailspike starts a quest.

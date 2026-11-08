@@ -320,7 +320,7 @@ step Darkcloud Pinnacle
 
 step Level 28.9
   when level<28.9
-  tip Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself.
+  tip Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run Razorfen Kraul (its entrance is at the Barrens' southern edge, near the Great Lift) and come back.
   goto 33.8,40.0 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
   level 28.9                          -- grind on the Grimtotem below Darkcloud Pinnacle
 

@@ -5008,6 +5008,45 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
 });
 
+// Final route review before 0.3.5, Horde 1-30: three walks back to a town between two pieces of work on one road
+// (Jorn in Camp Taurajo between his thunderhawks and the Field of Giants' eggs south of them; Tarren Mill between the
+// bears on the slope down to Hillsbrad Fields and the fields; the Sepulcher and the Decrepit Ferry, a boat the later
+// shore walk to Ambermill passes), and texts that sent players the wrong way or to the wrong guide.
+test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after Hillsbrad Fields, the Decrepit Ferry on the shore walk; tips that match the route', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const [a, b] of [[['task', 868], ['turnin', 913]], [['task', 527], ['turnin', 496]], [['task', 91920], ['turnin', 438]], [['turnin', 438], ['task', 479]]]) {
+		assert.ok(fixes.overrides.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === `${a}` && `${p.b}` === `${b}`), `pair ${a} before ${b} is a record the build keeps`);
+	}
+	const barrens = goals(BARRENS);
+	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
+	assert.ok(wings < eggs && eggs < jorn, 'the thunderhawks, the eggs, then Jorn on the way back north');
+	assert.ok(!barrens.slice(wings + 1, eggs).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the hawks and the eggs');
+	const warrior = barrens.filter(forClass('WARRIOR'));
+	assert.equal(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s, warrior[at(warrior, 'turnin 913', is('turnin', 913))].s, 'Ruga and Jorn on one Camp Taurajo stop');
+	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
+	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
+	const egg = at(barrens, 'accept 868', is('accept', 868));
+	assert.equal(barrens[egg].s, barrens[at(barrens, 'turnin 4921', is('turnin', 4921))].s, 'Egg Hunt with Mankrik\'s Lost in Battle');
+	assert.ok(!barrens.slice(egg + 1, eggs).some(({ goal }) => goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
+	assert.match(barrens[at(barrens, 'accept 855', is('accept', 855))].step.note, /^West to Regthar/, 'Regthar is west of the Crossroads');
+	assert.doesNotMatch(barrens[at(barrens, 'accept 1512', is('accept', 1512))].goal.note, /end of this guide/, 'The Binding is on the next guide\'s Orgrimmar stop');
+	const hills = goals(HILLSBRAD_HORDE);
+	const bears = at(hills, 'collect 3476', (g) => g.t === 'collect' && g.item === 3476);
+	const farmers = at(hills, 'kill 2266 quest 527.1', (g) => g.t === 'kill' && g.quest === 527);
+	assert.ok(bears < farmers && farmers < at(hills, 'turnin 496', is('turnin', 496)), 'the bears, the fields, then Lydon');
+	assert.deepEqual(hills.slice(bears + 1, farmers).filter(({ goal }) => ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Tarren Mill stop between the bears and the fields');
+	const pine = goals(SILVERPINE);
+	const ferry = at(pine, 'turnin 438', is('turnin', 438));
+	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry && ferry < at(pine, 'collect 3354', (g) => g.t === 'collect' && g.item === 3354), 'the boat between the murlocs and Ambermill');
+	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 479', is('turnin', 479))].s, 'Rot Hide Clues on the Sepulcher stop after Ambermill');
+	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
+	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
+	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');
+	assert.match(grind.note, /Razorfen Kraul/, 'the top-up names the dungeon that fits');
+});
+
 // Final route review, Horde 1-30: a second Tarren Mill bind step (from the arrival at the end of the previous guide)
 // stood between Lydon's hand-ins and Hillsbrad Fields, and the Undercity step told Skyborne to fly from the Crossroads.
 test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren Mill bind, the Undercity tip fits the trip', { skip }, () => {
