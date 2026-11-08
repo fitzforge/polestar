@@ -486,7 +486,8 @@ fn unknown_zone_names_are_errors_at_the_zone_line() {
 // with no known spawns leaves the goal without a place (the goto leads) and warns; `grind` applies to `level` only.
 #[test]
 fn a_grind_level_goal_takes_its_mobs_spawn_areas_as_a_kill_would_and_warns_without_spawns() {
-	let (g, _) = goals_of(&["step One", "  goto 47.6,35.1", "  level 12 grind 6 -- grind on Kobold Vermin", "  kill 6"]);
+	let (g, placed) = goals_of(&["step One", "  goto 47.6,35.1", "  level 12 grind 6 -- grind on Kobold Vermin", "  kill 6"]);
+	assert!(placed.warned("already leads").is_empty(), "the goto is the grind's fallback, no redundant goto: {}", placed.text);
 	let (level, kill) = (&g[1], &g[2]);
 	assert_eq!(json!([level["t"], level["level"], level["grind"], level["npcName"], level["note"]]), json!(["level", 12, 6, "Kobold Vermin", "grind on Kobold Vermin"]));
 	assert_eq!(json!([level["map"], level["x"], level["y"], level["f"]]), json!([1429, 49, 32.4, "e"]), "the spawn nearest the goto, as `kill 6`'s");

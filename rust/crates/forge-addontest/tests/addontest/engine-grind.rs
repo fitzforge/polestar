@@ -39,9 +39,7 @@ fn run(script: &str) -> Value {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\nE.SetGuide(\"test/stv\")\nflush()\n{script}"
-		),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\nE.SetGuide(\"test/stv\")\nflush()\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
