@@ -16,7 +16,7 @@ return {
 
 	-- Step 3: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:829} Neeru Fireblade
-	["The {object:172960} is the canyon under the {object:172982}; {quest:829} stands at its far end."] = "",
+	["The {object:172960} is the canyon under the {object:172982}; {quest:829} stands at its far end."] = "{object:172960} est le canyon sous {object:172982} ; {quest:829} se tient tout au fond.",
 
 	-- Step 4: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
@@ -31,8 +31,8 @@ return {
 	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
 
 	-- Step 7: Sayoc
-	-- {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn Two-Handed Axes from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:197} auprès de {npc:11868} ({object:172958}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 
 	-- Step 8: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -74,13 +74,12 @@ return {
 	["Zeppelin to {zone:1458}"] = "Zeppelin pour {zone:1458}",
 
 	-- Step 17: Brill
-	["Brill"] = "",
-	-- {npc:246152} Shari Stilwell
-	["{npc:246152} trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "",
+	-- {npc:246152} Shari Stilwell · {area:159} Brill
+	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} entraîne les paladins à {area:159}, à courte distance au nord par la route depuis les tours des zeppelins. Redescendez la même route pour la forêt des Pins argentés.",
 
 	-- Step 19: The Sepulcher
-	-- {object:1675} The Sepulcher (no name in this language: may be words) · {npc:2226} Karos Razok
-	["{object:1675} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "",
+	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
+	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} est la ville-crypte des Réprouvés, au milieu de la forêt. Tous ceux dont vous avez besoin se tiennent autour de l'entrée de la crypte ; {npc:2226}, le maître des chauves-souris, est juste à l'est.",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, sous terre",
 
@@ -89,17 +88,16 @@ return {
 	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood."] = "Suivez la route vers le sud. {object:1627} se trouve au bord, au nord de Bois-du-Bûcher.",
 
 	-- Step 22: The Dead Field
-	["The Dead Field"] = "",
-	-- {npc:1983} Nightlash
-	["North of the Sepulcher. {npc:1983} haunts the Dead Field: kill it, then walk across the field."] = "",
+	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field."] = "Au nord de {area:228}. {npc:1983} hante le {area:240} : tuez-le, puis traversez le champ.",
 
 	-- Step 23: Strange Lockbox
-	-- {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance
-	["The {object:177790} lies on the coast west of the Dead Field. It holds the {item:15882} for Trial of the Sea Lion."] = "",
+	-- {object:177790} Strange Lockbox · {area:240} The Dead Field · {item:15882} Half Pendant of Aquatic Endurance
+	["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "",
 
 	-- Step 24: Malden's Orchard
-	["Malden's Orchard"] = "",
-	["Follow the road north-east to the Yoricks' house at Malden's Orchard."] = "",
+	-- {area:238} Malden's Orchard
+	["Follow the road north-east to the Yoricks' house at {area:238}."] = "Suivez la route vers le nord-est jusqu'à la maison des Yorick, à {area:238}.",
 
 	-- Step 25: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
@@ -114,16 +112,18 @@ return {
 	["{npc:1978}, inside"] = "{npc:1978}, à l'intérieur",
 
 	-- Step 29: The Sepulcher
-	-- {npc:1938} Dalar Dawnweaver
-	["{npc:1938}: his books lie in the Valgan's Field farmhouse, on the walk north"] = "",
+	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
+	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "",
-	["Ambermill comes later, down the lake shore"] = "",
+	-- {area:233} Ambermill
+	["{area:233} comes later, down the lake shore"] = "",
 
 	-- Step 30: Valgan's Field farmhouse
-	["Valgan's Field farmhouse"] = "",
-	-- {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
-	["On the road north, the farmhouse at Valgan's Field: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "",
+	-- {area:227} Valgan's Field
+	["{area:227} farmhouse"] = "",
+	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
+	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "",
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "",
 
@@ -138,39 +138,35 @@ return {
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "",
 
 	-- Step 33: The Decrepit Ferry
-	-- {object:1593} Corpse Laden Boat
-	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to Ambermill."] = "",
+	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
+	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
 
 	-- Step 34: Ambermill
-	["Ambermill"] = "",
-	-- {npc:2120} Archmage Ataeric
-	["Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
+	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
+	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
 
 	-- Step 35: The Sepulcher
-	["Back north-west up the road to the Sepulcher."] = "",
+	-- {area:228} The Sepulcher
+	["Back north-west up the road to the {area:228}."] = "",
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937} : pour Quinn, sur la route du nord à la fin",
 	-- {npc:1938} Dalar Dawnweaver
 	["{npc:1938}, just north of Allister"] = "",
-	-- {npc:1499} Magistrate Sevren
-	["{npc:1499} in Brill, on the way to the zeppelin at the end"] = "",
+	-- {npc:1499} Magistrate Sevren · {area:159} Brill
+	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 36: The Ivar Patch
-	["The Ivar Patch"] = "",
-	-- {zone:1420} Tirisfal Glades · {quest:425} Ivar the Foul
-	["Take the road north toward {zone:1420}: the Yoricks' house at Malden's Orchard is on the way. {quest:425} lurks a short walk west of it."] = "",
+	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route vers le nord en direction des {area:85} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à quelques pas à l'ouest.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 38: Magistrate Sevren
-	-- {npc:1499} Magistrate Sevren
-	["Brill is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
-
-	-- Step 39: Tirisfal Glades
-	["Ruins of Lordaeron"] = "",
+	-- {area:159} Brill · {npc:1499} Magistrate Sevren
+	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} est à quelques pas au nord en remontant la route depuis les tours du zeppelin ; {npc:1499} est dans l'hôtel de ville.",
 
 	-- Step 40: The Undercity
-	-- {object:1661} The Undercity · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
-	["{object:1661} lies under the Ruins of Lordaeron, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
+	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
+	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, dans l'Apothicarium",
 	-- {npc:5204} Apothecary Zinge
@@ -205,13 +201,13 @@ return {
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} en {zone:1412} ; {zone:1454} n'a pas de maître des druides",
 
 	-- Step 52: Sayoc
-	-- {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn Two-Handed Axes from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Pendant que vous y êtes : apprenez {spell:197} auprès de {npc:11868} ({object:172958}, 10 pièces d'argent) ; les armes à deux mains font progresser un Paladin le plus vite.",
 
 	-- Step 54: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to Far Watch Post and the Crossroads."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "",
 
 	-- Step 55: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
@@ -232,7 +228,6 @@ return {
 	-- ["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Suivez la rive du lac vers le sud-est en direction de {area:172} : les Déchiqueteurs Aileron noir et les Chasse-marée Aileron noir qui la longent lâchent les yeux de murloc.",
 	-- ["Follow the road north out of Silverpine into {zone:1420} and east to the zeppelin towers outside the {area:153}. Take the zeppelin to {zone:1454}."] = "Suivez la route vers le nord hors de la forêt des Pins argentés, dans {zone:1420}, puis vers l'est jusqu'aux tours des zeppelins devant {area:153}. Prenez le zeppelin pour {zone:1454}.",
 	-- ["Follow the road north out of Silverpine into {zone:1420} and on to {area:159}: {npc:246152} trains Paladins there. The zeppelin towers are a short walk south down the road."] = "Suivez la route vers le nord hors de la forêt des Pins argentés, dans {zone:1420}, jusqu'à {area:159} : {npc:246152} y entraîne les paladins. Les tours des zeppelins sont à courte distance au sud par la route.",
-	-- ["Follow the road north-east to the Yoricks' house at {area:238}."] = "Suivez la route vers le nord-est jusqu'à la maison des Yorick, à {area:238}.",
 	-- ["From the {area:380}, follow the road north-east to {area:1637} and walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}."] = "Depuis {area:380}, suivez la route vers le nord-est jusqu'à {area:1637} et entrez par la porte principale. {npc:3310}, le maître des coursiers du vent, se tient sur la tour de {object:172982}.",
 	-- ["From the {area:380}, follow the road north-east to {zone:1454} and walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}."] = "Depuis la {area:380}, suivez la route vers le nord-est jusqu'à {zone:1454} et entrez par la grande porte. {npc:3310}, le maître des coursiers du vent, se tient sur la tour, dans la {object:172982}.",
 	-- ["Hearth to the {area:228}"] = "Pierre de foyer vers {area:228}",
@@ -245,7 +240,6 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Les Worgs chamarrés rôdent sur les collines autour de la maison. Marchez ensuite vers le sud le long de la rive du lac : les Déchiqueteurs et les Chasse-marée Aileron noir y lâchent les yeux de murloc.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Retournez au nord jusqu'à la maison des Yorick. {quest:425} rôde à courte distance à l'ouest.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Au nord de {area:228}. Cinglenuit hante {area:240} : tuez-le, puis traversez le champ.",
-	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field."] = "Au nord de {area:228}. {npc:1983} hante le {area:240} : tuez-le, puis traversez le champ.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Au nord-est des réfugiés, les Manouvriers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Seulement si {npc:1938} vous a donné {quest:98298} : les Hurle-sang rôdent dans les bois au sud-ouest de {area:233}, à l'est de Bois-du-Bûcher ; ils lâchent {item:280375}.",
 	-- ["Road to Silverpine"] = "Route de la forêt des Pins argentés",
@@ -253,7 +247,6 @@ return {
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Au sud-ouest de Moulin-de-l'Ambre, les manouvriers et gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.",
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest.\nCareful: The cave passages are narrow, so it is easy to pull extra mobs. Three mobs guard the entrance, and one of them walks a short patrol away from the other two."] = "Au sud-ouest de Moulin-de-l'Ambre, les Manouvriers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.\nAttention : les passages de la grotte sont étroits, il est facile d'attirer des monstres en plus. Trois monstres gardent l'entrée, et l'un d'eux fait une courte patrouille à l'écart des deux autres.",
 	-- ["Swim back and follow the road west to the {area:228}."] = "Revenez à la nage et suivez la route vers l'ouest jusqu'à {area:228}.",
-	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route vers le nord en direction des {area:85} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à quelques pas à l'ouest.",
 	-- ["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route du nord vers {zone:1420} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à courte distance à l'ouest.",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Les Réfugiés malades et hagards errent sur la route au sud de Bois-du-Bûcher, vers {area:230}.",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Les Rôdeurs lacustres et les Oracles Aileron noir se trouvent sur la rive du lac au sud de {area:237}, à l'est de {area:228}.",
@@ -263,14 +256,11 @@ return {
 	-- ["The zeppelin towers stand just outside {zone:1454}'s main gate. Take the zeppelin to {zone:1420} (the other one goes to {object:3202})."] = "Les tours des zeppelins se dressent juste devant la porte principale d'{zone:1454}. Prenez le zeppelin pour {zone:1420} (l'autre va à {object:3202}).",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} se trouve à l'embarcadère du bac, sur la rive du lac à l'est de {area:228}.",
-	-- ["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end."] = "{object:172960} est le canyon sous {object:172982} ; {npc:3216} se tient tout au fond.",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790} se trouve sur la côte à l'ouest du {area:240}. Il contient {item:15882} pour {quest:30}.",
 	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["To {zone:1454}"] = "Vers {zone:1454}",
 	-- ["Top up here to level 16.51 before the hand-ins at {area:239}: they take you to level 17."] = "Montez ici jusqu'au niveau 16.51 avant de rendre les quêtes ({area:239}) : elles vous font passer au niveau 17.",
 	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "Entrez par la porte principale. {npc:268701} se tient dans {object:172982} ; {object:173016} est à quelques pas au nord.",
-	-- ["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Pendant que vous y êtes : apprenez {spell:197} auprès de {npc:11868} ({object:172958}, 10 pièces d'argent) ; les armes à deux mains font progresser un Paladin le plus vite.",
-	-- ["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:197} auprès de {npc:11868} ({object:172958}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 	-- ["Worgs and murlocs"] = "Worgs et murlocs",
 	-- ["Zeppelin to {zone:1420}"] = "Zeppelin pour {zone:1420}",
 	-- ["Zeppelin tower"] = "Tour du zeppelin",
@@ -283,8 +273,6 @@ return {
 	-- ["the {area:228}"] = "le {area:228}",
 	-- ["{area:130}: kill these as you meet them"] = "{area:130} : tuez-les au passage",
 	-- ["{area:1338} shore"] = "Rive de {area:1338}",
-	-- ["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} est à quelques pas au nord en remontant la route depuis les tours du zeppelin ; {npc:1499} est dans l'hôtel de ville.",
-	-- ["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} est la ville-crypte des Réprouvés, au milieu de la forêt. Tous ceux dont vous avez besoin se tiennent autour de l'entrée de la crypte ; {npc:2226}, le maître des chauves-souris, est juste à l'est.",
 	-- ["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it.\nSwim back and follow the road west to the {area:228}."] = "Le {area:228} est la ville-crypte des Réprouvés, au milieu de la forêt. Tous ceux dont vous avez besoin se tiennent autour de l'entrée de la crypte ; {npc:2226}, le dresseur de chauves-souris, est juste à l'est.\nRetournez à la nage et suivez la route vers l'ouest jusqu'au {area:228}.",
 	-- ["{area:233} comes later, on the southern loop"] = "{area:233} viendra plus tard, sur la boucle sud",
 	-- ["{area:263} of Shadow is the canyon under the {object:172982}; {npc:3216} stands at its far end."] = "{area:263} de l'ombre est le canyon sous {object:172982} ; {npc:3216} se tient tout au bout.",
@@ -299,7 +287,6 @@ return {
 	-- ["{npc:1769} on the way"] = "{npc:1769} en chemin",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938} : prenez-la s'il la propose ; elle peut faire suite à sa série {quest:98298}, que l'itinéraire ne suit pas",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121} : {quest:516}, sur la boucle sud",
-	-- ["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} entraîne les paladins à {area:159}, à courte distance au nord par la route depuis les tours des zeppelins. Redescendez la même route pour la forêt des Pins argentés.",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} et {npc:268682} sont assis derrière le fort Grommash, dans la {object:172957} ; les Rochers lisses se trouvent autour d'eux. Entraînez-vous pendant que vous êtes en ville (les Druides et les Paladins n'ont pas de maître ici). Le prochain guide commence auprès de {npc:3310}, le maître des coursiers du vent, dans la {object:172982}.",
 	-- ["{npc:3348} and {npc:3347} run the alchemy shop in the {object:172959}; {npc:11046} is next door."] = "{npc:3348} et {npc:3347} tiennent la boutique d'alchimie dans {object:172959} ; {npc:11046} est juste à côté.",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018} se tient dans {object:172961}, à l'ouest de la ville.",

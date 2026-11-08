@@ -17,8 +17,8 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "Entraînez-vous pendant que vous êtes à {zone:1458} : les maîtres se trouvent dans {object:36070}, {object:36073} et {object:36082} (paladins : {npc:260093}).",
 
 	-- Step 3: Fly to Tarren Mill
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["Fly to {object:1772}"] = "",
+	-- {area:272} Tarren Mill
+	["Fly to {area:272}"] = "",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "Maître de vol de {zone:1458}",
 
@@ -27,15 +27,15 @@ return {
 	["{npc:2229}, inside the inn"] = "",
 
 	-- Step 6: Gol'dir
-	-- {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
-	["Head north past Valik's camp to Strahnbrad, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam Strahnbrad, and the buildings hold many Syndicate mobs, mages among them."] = "",
+	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
+	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
 	["Inside"] = "À l'intérieur",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "{quest:503}, au dernier étage",
 
 	-- Step 8: Tarren Mill
-	-- {npc:2229} Krusk · {object:1772} Tarren Mill (no name in this language: may be words)
-	["{npc:2229} waits inside the inn at {object:1772}, back south down the road."] = "",
+	-- {npc:2229} Krusk · {area:272} Tarren Mill
+	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, à l'intérieur",
 
@@ -43,17 +43,19 @@ return {
 	["Perenolde manor"] = "",
 
 	-- Step 10: Lord Aliden Perenolde
-	-- {quest:507} Lord Aliden Perenolde · {npc:2317} Elysa
-	["Head north-west through the mountains to the Perenolde manor on the northern shore of Lordamere Lake. {quest:507} (41) waits in a room upstairs: he shields himself, puts you to sleep and heals below half health. {npc:2317} stands beside him."] = "",
+	-- {area:1339} Lordamere Lake · {quest:507} Lord Aliden Perenolde · {npc:2317} Elysa
+	["Head north-west through the mountains to the Perenolde manor on the northern shore of {area:1339}. {quest:507} (41) waits in a room upstairs: he shields himself, puts you to sleep and heals below half health. {npc:2317} stands beside him."] = "",
 
 	-- Step 11: Old Dalaran Ruins: kill these as you meet them
-	["Old Dalaran Ruins: kill these as you meet them"] = "",
+	-- {area:17707} Old Dalaran Ruins
+	["{area:17707}: kill these as you meet them"] = "{area:17707} : tuez-les au passage",
+	-- {area:279} Dalaran
 	-- plural, as words: Dalaran Summoners = {npc:2358} Dalaran Summoner · Elemental Slaves = {npc:2359} Elemental Slave
-	["South along the lake shore to the ruins around the Dalaran crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves."] = "",
+	["South along the lake shore to the ruins around the {area:279} crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves."] = "",
 
 	-- Step 13: Tarren Mill
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["Head back east to {object:1772}."] = "",
+	-- {area:272} Tarren Mill
+	["Head back east to {area:272}."] = "Retournez vers l'est jusqu'à {area:272}.",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside"] = "{npc:2437}, à l'intérieur",
 	-- {npc:2410} Magus Wordeen Voidglare
@@ -61,18 +63,17 @@ return {
 	["The magus offers a dungeon errand next: leave it."] = "",
 
 	-- Step 15: Northfold Manor
-	["Northfold Manor"] = "",
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
+	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall
 	-- plural, as words: Bloodstone Amulets = {item:4495} Bloodstone Amulet
-	["Head east out of {object:1772} through Thoradin's Wall. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "",
+	["Head east out of {area:272} through {area:1057}. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "",
 
 	-- Step 16: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
 	["The {object:138492}"] = "{object:138492}",
-	["Follow the road east. The violet shards glow just off the road a short way west of Hammerfall."] = "",
+	-- {area:321} Hammerfall
+	["Follow the road east. The violet shards glow just off the road a short way west of {area:321}."] = "",
 
 	-- Step 17: Hammerfall
-	["Hammerfall"] = "",
 	-- {npc:12920} Doctor Gregory Victor
 	["{npc:12920}, at the south gate"] = "",
 
@@ -88,7 +89,6 @@ return {
 	["{npc:2706}'s next {quest:671} is {npc:2783}, a level 40 elite warlock in Stromgarde's Syndicate quarter."] = "",
 
 	-- Step 20: Drywhisker Gorge
-	["Drywhisker Gorge"] = "",
 	["North-east of Hammerfall the Drywhisker kobolds mine the gorge; the Kobolds at the mouth and the Diggers and Surveyors deeper in all drop the Motes of Myzrael.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Au nord-est de Trépas-d'Orgrim, les kobolds Drywhisker exploitent la gorge ; les Kobolds à l'entrée, et les Fouilleurs et les Géomètres plus loin, lâchent tous des Particules de Myzrael.\nAttention : chaque type de kobold fuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Fouilleurs à 15 %), ce qui peut en attirer d'autres.",
 
 	-- Step 21: Iridescent Shards
@@ -99,19 +99,20 @@ return {
 	-- Step 22: The Stone of East Binding
 	-- {object:2691} Stone of East Binding
 	["The {object:2691}"] = "{object:2691}",
-	-- {object:180105} Circle of Binding
+	-- {object:180105} Circle of Binding · {area:321} Hammerfall
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of Hammerfall.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
+	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Chaque {object:180105} est un anneau de pierres levées ; la clé repose sur la pierre en son centre. Le cercle de l'est se trouve sur les collines au nord-ouest de {area:321}.\nAttention : chaque pierre centrale est gardée par environ trois élémentaires proches du niveau 39, qui attaquent ensemble si vous cliquez sur la pierre sans les avoir éliminés : des Exilés ardents à l'ouest, des Exilés foudroyants au cercle extérieur, des Exilés grimpeurs à l'est.",
 
 	-- Step 23: Boulderfist Hall
-	["Boulderfist Hall"] = "",
+	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
-	["The Boulderfist Brutes camp outside the ogres' hall south of Hammerfall; the Magus stand among them. Pull them one at a time."] = "",
+	["The Boulderfist Brutes camp outside the ogres' hall south of {area:321}; the Magus stand among them. Pull them one at a time."] = "Les Brutes Rochepoing ({npc:2566}) campent devant la salle des ogres au sud de {area:321} ; les Magus se tiennent parmi elles. Attirez-les un par un.",
 
 	-- Step 24: Fleshstalker raptors
 	["Fleshstalker raptors"] = "Raptors charognards",
+	-- {area:316} Boulderfist Hall
 	-- plural, as words: Highland Fleshstalkers = {npc:2561} Highland Fleshstalker
-	["Highland Fleshstalkers (36-37) hunt the southern highlands, a pack north of Boulderfist Hall and another on the plain to its west. Pull them one at a time."] = "",
+	["Highland Fleshstalkers (36-37) hunt the southern highlands, a pack north of {area:316} and another on the plain to its west. Pull them one at a time."] = "Des Charognards des hautes-terres ({npc:2561}) (36-37) chassent dans le sud des hautes-terres, une meute au nord de {area:316} et une autre dans la plaine à son ouest. Attirez-les un par un.",
 
 	-- Step 25: Go'shek Farm
 	["Go'shek Farm"] = "",
@@ -119,8 +120,10 @@ return {
 	["{npc:2733}'s lab shack stands at Go'shek Farm, south-west of the raptors' plain; the case of {item:278462} is inside."] = "",
 
 	-- Step 26: Back to Hammerfall
-	["Back to Hammerfall"] = "",
-	["Back north-east to Hammerfall."] = "",
+	-- {area:321} Hammerfall
+	["Back to {area:321}"] = "Retour à {area:321}",
+	-- {area:321} Hammerfall
+	["Back north-east to {area:321}."] = "",
 
 	-- Step 27: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "",
@@ -135,22 +138,22 @@ return {
 	["Head west; the outer circle stands in the middle of the highlands."] = "",
 
 	-- Step 29: Circle of West Binding
-	["Circle of West Binding"] = "",
-	["The western circle is near Thoradin's Wall, north-west of the outer one."] = "",
+	-- {area:1057} Thoradin's Wall
+	["The western circle is near {area:1057}, north-west of the outer one."] = "",
 
 	-- Step 30: The Stone of Inner Binding
 	-- {object:2702} Stone of Inner Binding
 	["The {object:2702}"] = "{object:2702}",
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "Le cercle intérieur se trouve au sud du cercle ouest, à l'est de Stromgarde.",
-	["The stone's next task needs Fozruk, a level 42 elite who roams west of Hammerfall: leave it."] = "",
+	-- {area:321} Hammerfall
+	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "",
 
 	-- Step 31: Stromgarde
 	["Stromgarde"] = "",
-	-- {npc:2783} Marez Cowl · {npc:2773} Or'Kalar
-	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the Tower of Arathor ({npc:2773} waits in one of the roofless houses beside it)."] = "",
+	-- {npc:2783} Marez Cowl · {area:325} Tower of Arathor · {npc:2773} Or'Kalar
+	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "",
 
 	-- Step 32: Faldir's Cove
-	["Faldir's Cove"] = "",
 	-- {npc:2766} Lolo the Lookout
 	["Head south to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "",
 
@@ -158,18 +161,19 @@ return {
 	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "",
 
 	-- Step 35: The Drowned Reef: kill these as you meet them
-	["The Drowned Reef: kill these as you meet them"] = "",
+	-- {area:328} The Drowned Reef
+	["{area:328}: kill these as you meet them"] = "{area:328} : tuez-les au passage",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "À l'ouest de la crique, les Ecumeurs ({npc:2595}) et Sorcières Daguéchine (38-40) tiennent le rivage : attirez-les un par un. Les deux épaves gisent dans les hauts-fonds au large, les cartes et journaux à l'intérieur ; les gemmes reposent au fond de la mer autour des épaves.",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 36: Faldir's Cove
-	-- {npc:2487} Fleet Master Seahorn · {object:3204} Booty Bay (no name in this language: may be words)
-	["for {npc:2487} in {object:3204}, around level 41"] = "",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {zone:1418} Badlands
-	["The next guide crosses the {object:2673} into the {zone:1437} and heads for the {zone:1418}."] = "",
+	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
+	["for {npc:2487} in {area:35}, around level 41"] = "",
+	-- {area:880} Thandol Span · {zone:1437} Wetlands · {zone:1418} Badlands
+	["The next guide crosses the {area:880} into the {zone:1437} and heads for the {zone:1418}."] = "",
 
 	-- Step 37: Back to Hammerfall
-	-- {object:2673} Thandol Span (no name in this language: may be words)
-	["Only if you ran Stromgarde with a group: back to Hammerfall for its hand-ins, then on to the {object:2673}."] = "",
+	-- {area:321} Hammerfall · {area:880} Thandol Span
+	["Only if you ran Stromgarde with a group: back to {area:321} for its hand-ins, then on to the {area:880}."] = "",
 }

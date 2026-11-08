@@ -7,26 +7,27 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 3: Fly to Gadgetzan
-	["Fly to Gadgetzan"] = "",
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "飞往{area:976}",
 	["Theramore flight master"] = "",
 
 	-- Step 4: Gadgetzan
-	["Gadgetzan"] = "",
-	["The flight from Theramore lands in Gadgetzan."] = "",
+	-- {area:976} Gadgetzan
+	["The flight from Theramore lands in {area:976}."] = "从塞拉摩起飞的航班降落在{area:976}。",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of Gadgetzan to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{area:490}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -46,7 +47,6 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}站在避难所外面。",
 
 	-- Step 13: Marshal's Refuge
-	["Marshal's Refuge"] = "",
 	-- {object:157936} Un'Goro Dirt Pile
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
@@ -55,13 +55,11 @@ return {
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
-	["Fire Plume Ridge and the eastern jungle"] = "",
-	-- {item:11113} Crate of Foodstuffs
+	-- {area:537} Fire Plume Ridge
+	["{area:537} and the eastern jungle"] = "{area:537}和东部丛林",
+	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "",
-
-	-- Step 15: Lakkari Tar Pits
-	["Lakkari Tar Pits"] = "",
+	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑到陨石坑中央的{area:537}，然后向东进入东部丛林。水晶簇遍布陨石坑，许多在{area:537}周围：每种颜色多拿几个。{npc:6509}和血瓣花猛击者掉落花瓣；远征队的{item:11113}在东部丛林的一处废弃营地里。",
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
@@ -77,12 +75,14 @@ return {
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
 
 	-- Step 18: A-Me 01
-	["Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	-- {area:1943} Ironstone Plateau
+	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	["Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead."] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	["Pterrordax"] = "翼手龙",
 	["grind on Pterrordax"] = "",
 
@@ -97,9 +97,9 @@ return {
 
 	-- Step 22: The Gorishi hive
 	["The Gorishi hive"] = "格里什虫巢",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "",
 
@@ -122,13 +122,14 @@ return {
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避难所入口",
 
 	-- Step 26: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
 
 	-- Step 27: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 28: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -148,12 +149,15 @@ return {
 	["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
 
 	-- Step 34: Fly to Astranaar
-	["Fly to Astranaar"] = "",
-	["Auberdine flight master"] = "",
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
 
 	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	["Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
@@ -172,20 +176,16 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向东骑行到{area:537}，爬上去，在山顶附近的熔岩喷口使用{npc:10541}。",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "沿环形山东侧向北骑行到{area:541}，即北面悬崖洞穴中的营地。远离精英魔暴龙和剑龙。从这里开始，沿途遇到的每个能量水晶和{object:157936}都拾取。",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿东侧向北骑行到猩猩高地。55级的猩猩{npc:9622}坐在最深的洞里：先清理洞口的猩猩。",
-	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "沿东部悬崖向南骑行，到坡道脚下找{npc:9619}。",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿东侧向南骑行。幼双帆龙在东部丛林吃草，{npc:9165}在东部悬崖附近飞行；两者都掉落{npc:9998}要的鳞片。",
-	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑到陨石坑中央的{area:537}，然后向东进入东部丛林。水晶簇遍布陨石坑，许多在{area:537}周围：每种颜色多拿几个。{npc:6509}和血瓣花猛击者掉落花瓣；远征队的{item:11113}在东部丛林的一处废弃营地里。",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑行到环形山中央的{area:537}，然后向东进入东部丛林。水晶簇遍布环形山，很多在{area:537}周围：每种颜色多拿几个。{item:11316}鞭笞者和猛击者掉落花瓣；探险队的{item:11113}在东部丛林的一处废弃营地里。",
 	-- ["Ride west back to the refuge."] = "向西骑回避难所。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "从{npc:9619}向西骑行：异种虫巢穴占据环形山南部。对孵化室（挂着幼虫的房间）使用采集瓶。格里什异种蝎和格里什工蝎掉落{quest:3764}；如果还需要击杀，{npc:9166}在南部悬崖筑巢。",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{zone:1449}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西经过{area:541}，再沿西侧向南到{area:543}：地精{npc:10302}坐在水边。",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "组队打{area:1417}代替刷怪会更快。单人刷怪就跳过此步骤。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "组队打{area:978}代替刷怪会更快。巨魔城市位于{zone:1446}西北部，就在{area:976}北边。",
 	-- ["The Centipaar silithid crawl around the {area:982} in western {zone:1446}, just east of the crater ramp. The Workers are the easiest pulls."] = "森提帕尔异种虫在{zone:1446}西部的{area:982}周围爬行，就在环形山坡道东边。森提帕尔工蝎最容易拉。",
 	-- ["The east side"] = "东侧",
-	-- ["The flight from Theramore lands in {area:976}."] = "从塞拉摩起飞的航班降落在{area:976}。",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "猩猩生活在{area:541}东边的{area:1943}。毛皮留给{npc:9619}。别进最深的洞：{npc:9622}是55级。",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}的猩猩成小群出现，目前不会给你掉落任何东西；{npc:9619}的毛皮任务稍后才有。别进最深的洞：{npc:9622}是55级。",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "毛皮在第二圈之后，在猩猩高地上",
@@ -195,7 +195,6 @@ return {
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周围刷废土强盗或砂槌食人魔",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}刷{npc:5458}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}刷{npc:6514}",
-	-- ["{area:537} and the eastern jungle"] = "{area:537}和东部丛林",
 	-- ["{area:978} (optional)"] = "{area:978}（可选）",
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",

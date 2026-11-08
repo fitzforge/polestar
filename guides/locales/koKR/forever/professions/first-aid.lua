@@ -49,8 +49,8 @@ return {
 	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "15-30레벨 인간형 몹이 {item:2592}을(를) 떨어뜨립니다(경매장에서 사도 됩니다).",
 
 	-- Step 10: Wool Bandage (80-115)
-	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac
-	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells."] = "",
+	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
+	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "",
 
 	-- Step 11: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -106,8 +106,8 @@ return {
 	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
 
 	-- Step 23: Trauma
-	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in Hammerfall. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth
+	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
 
 	-- Step 24: Triage
 	-- {quest:6624} Triage
@@ -120,8 +120,6 @@ return {
 	-- {quest:6622} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
 	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "",
-	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, Hammerfall"] = "",
 
 	-- Step 27: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -129,8 +127,8 @@ return {
 	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "",
 
 	-- Step 28: Heavy Mageweave Bandage
-	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "",
 
 	-- Step 29: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -141,8 +139,8 @@ return {
 	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "",
 
 	-- Step 31: Runecloth Bandage
-	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629}(숙련도 260)은(는) 전문 제조법입니다. {quest:6622}의 의사만 가르칩니다(테라모어 섬의 {npc:12939}, {area:321}의 {npc:12920}).",
 
 	-- Step 32: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
@@ -169,7 +167,6 @@ return {
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544}은(는) 225부터 노란색입니다(노란색 210, 회색 270). 260까지 약 88번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요. {item:8544}은(는) 270까지 노란색이라, 이 제조법 하나로 260까지 올리면 의사에게 두 번 갈 필요가 없습니다.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: 의사의 천막에 있는 부상병을 의사가 주는 붕대로 치료하세요. 누구도 죽기 전에 가장 위독한 병사부터 치료하세요.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: 의사의 천막에 있는 부상병을 의사가 주는 붕대로 치료하세요. 누구도 죽기 전에 가장 위독한 병사부터 치료하세요.",
-	-- ["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629}(숙련도 260)은(는) 전문 제조법입니다. {quest:6622}의 의사만 가르칩니다(테라모어 섬의 {npc:12939}, {area:321}의 {npc:12920}).",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277}은(는) 80부터 노란색입니다(노란색 80, 회색 150). 115까지 약 49번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요. 진영의 모든 {skill:129} 상급자가 가르칩니다. 화살표가 가장 가까운 곳을 가리킵니다.",
 	-- ["{spell:3278} is yellow from 115 (yellow at 115, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere."] = "{spell:3278}은(는) 115부터 노란색입니다(노란색 115, 회색 185). 125까지 약 11번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
 	-- ["{spell:3278} is yellow from 125 (yellow at 115, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278}은(는) 125부터 노란색입니다(노란색 115, 회색 185). 150까지 약 38번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",

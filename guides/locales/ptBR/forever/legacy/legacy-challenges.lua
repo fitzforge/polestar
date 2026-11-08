@@ -90,10 +90,10 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Aventura: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
-	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley
-	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s Blackrock Mountain)"] = "",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
+	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
+	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, no Pico da Rocha Negra Superior, depois de Mea Culpa (sem ponto de surgimento nos dados: a seta leva a {npc:16033}, em {area:254})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{npc:16033} a oferece depois que {quest:8996} for entregue",
 
@@ -111,64 +111,63 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Masmorras: nível 15-25",
-	-- {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
-	-- {npc:11519} Bazzalan
-	["Ragefire Chasm: {npc:11519} (or Hall of Thanes)"] = "",
-	-- {npc:261319} Durgen Dirgehammer
-	["Hall of Thanes: {npc:261319} (or Ragefire Chasm)"] = "",
-	-- {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["Ruins of Lordaeron (Forever's, {zone:1420}): {npc:256035}"] = "",
-	-- {npc:3678} Disciple of Naralex
-	["Wailing Caverns (appears after the {npc:3678}'s event)"] = "",
-	["The Deadmines"] = "",
-	-- {zone:1437} Wetlands · {npc:260326} Relic Guardian
-	["Excavation Site: {zone:1437} (Forever's): {npc:260326}"] = "",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
+	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718} (aparece após o evento do {npc:3678})",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Masmorras: nível 26-45",
-	-- {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and Krol'dok Stronghold (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
-	["Blackfathom Deeps"] = "",
-	["Gnomeregan"] = "",
 	["the final boss of the Drowned City"] = "",
-	["Scarlet Monastery: Graveyard"] = "",
-	["Scarlet Monastery: Library"] = "",
-	["Scarlet Monastery: Armory"] = "",
-	["Scarlet Monastery: Cathedral"] = "",
-	["Razorfen Kraul"] = "",
-	["the final boss of Krol'dok Stronghold"] = "",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Graveyard"] = "{area:796}: Cemitério",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Library"] = "{area:796}: Biblioteca",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Armory"] = "{area:796}: Arsenal",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Cathedral"] = "{area:796}: Catedral",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Masmorras: nível 46-60",
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, Blackmaw Hold and the Shaper's Terrace are new in Forever and not in our data: tick them off yourself."] = "",
-	["Razorfen Downs"] = "",
-	["Uldaman"] = "",
-	["Zul'Farrak"] = "",
-	["Maraudon"] = "",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
 	["the final boss of Alcaz Prison"] = "",
-	["Sunken Temple"] = "",
-	["Blackrock Depths"] = "",
-	["the final boss of Blackmaw Hold"] = "",
-	["Lower Blackrock Spire"] = "",
-	["Upper Blackrock Spire"] = "",
-	["Scholomance"] = "",
-	["Stratholme, Live side"] = "",
-	["Stratholme, Undead side"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
+	-- {area:1583} Blackrock Spire
+	["Lower {area:1583}"] = "{area:1583} Inferior",
+	-- {area:1583} Blackrock Spire
+	["Upper {area:1583}"] = "{area:1583} Superior",
+	-- {area:2279} Stratholme
+	["{area:2279}, Live side"] = "{area:2279}, lado vivo",
+	-- {area:2279} Stratholme
+	["{area:2279}, Undead side"] = "{area:2279}, lado morto-vivo",
 	["Dire Maul East"] = "Gládio Cruel Leste",
 	["Dire Maul North"] = "Gládio Cruel Norte",
 	["Dire Maul West"] = "Gládio Cruel Oeste",
-	["the final boss of the Shaper's Terrace"] = "",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "Raides: {npc:10184}",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {npc:10184}'s Lair is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in Kargath ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh
-	["{npc:10184}'s Lair, {zone:1445}"] = "",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "Raides: Hyjal Summit",
@@ -178,8 +177,8 @@ return {
 
 	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "Raides: Barrow Deeps",
-	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or Blackmaw Hold and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "todos os 8 chefes das Profundezas dos Túmulos",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -194,27 +193,17 @@ return {
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "O Forever adiciona as masmorras {area:16919} e {area:153}; seus chefes e faixas ainda não estão nos nossos dados.",
 	-- ["Forever's new dungeons"] = "As novas masmorras do Forever",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "Matar {npc:10184} vale um ponto. No Classic, o covil dela exige sintonização: {item:16309} para a Aliança, {item:16663} para a Horda.",
-	-- ["Lower {area:1583}"] = "{area:1583} Inferior",
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "O chefe final de todas as masmorras de nível 15-25, juntos, vale um ponto. Marque cada chefe ao matá-lo; o agrupamento segue as faixas de nível usuais do Classic, então confira a lista exata no painel de Legado no jogo.",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "O chefe final de todas as masmorras de nível 26-45, juntos, vale um ponto.",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "O chefe final de todas as masmorras de nível 46-60, juntos, vale um ponto.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "A série de missões de {npc:16042} vale um ponto. É a cadeia do conjunto de masmorra de nível 60: {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) mandam você, por À procura de Anthion e As últimas palavras de Anthion, até {npc:16033} em {area:254}, cujas Três reis das chamas, as partes esquerda e direita de Amuleto do Lorde Valthalak, Preparativos finais e Mea Culpa, {npc:16042} terminam com {quest:8996}. {quest:8997} então leva às missões de classe Deixando o melhor para o final.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "A série de missões de {npc:16042} vale um ponto. É a cadeia do conjunto de masmorra de nível 60: {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) mandam você, por À procura de Anthion e As últimas palavras de Anthion, até {npc:16033} em {area:254}, cujas Três reis das chamas, as partes esquerda e direita do Amuleto do Lorde Valthalak, Preparativos finais e {quest:8995} terminam com {quest:8996}. {quest:8997} então leva às missões de classe Deixando o melhor para o final.",
-	-- ["Upper {area:1583}"] = "{area:1583} Superior",
 	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "Qual missão a Blizzard conta como o fim da série ({quest:8996} ou Deixando o melhor para o final da sua classe) não está confirmado até os dados de Legado serem registrados.",
 	-- ["the final boss of {area:153}"] = "o chefe final de {area:153}",
 	-- ["the final boss of {area:16919}"] = "o chefe final de {area:16919}",
 	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (nível 41-51; pode contar na faixa 46-60)",
 	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919} e {area:153} são novas no Forever. Seus chefes, níveis e faixa de Legado não estão nos nossos dados, então marque-as você mesmo.",
-	-- ["{area:2279}, Live side"] = "{area:2279}, lado vivo",
-	-- ["{area:2279}, Undead side"] = "{area:2279}, lado morto-vivo",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: a última morte usual; {area:717} não tem chefe final fixo",
-	-- ["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718} (aparece após o evento do {npc:3678})",
-	-- ["{area:796}: Armory"] = "{area:796}: Arsenal",
-	-- ["{area:796}: Cathedral"] = "{area:796}: Catedral",
-	-- ["{area:796}: Graveyard"] = "{area:796}: Cemitério",
-	-- ["{area:796}: Library"] = "{area:796}: Biblioteca",
 	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012} então oferece Deixando o melhor para o final da sua classe, a melhoria final do conjunto de masmorra.",
 	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013} então oferece Deixando o melhor para o final da sua classe, a melhoria final do conjunto de masmorra.",
-	-- ["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, no Pico da Rocha Negra Superior, depois de Mea Culpa (sem ponto de surgimento nos dados: a seta leva a {npc:16033}, em {area:254})",
 }

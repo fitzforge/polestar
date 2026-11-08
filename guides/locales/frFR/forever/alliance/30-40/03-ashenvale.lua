@@ -7,16 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
 
 	-- Step 2: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
 	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} se tient à l'étage supérieur du donjon de Menethil.",
 	["Inside"] = "À l'intérieur",
-
-	-- Step 3: Deepwater Tavern
-	["Deepwater Tavern"] = "",
 
 	-- Step 4: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "L'épave du Flying Osprey repose dans les hauts-fonds au sud du donjon.",
@@ -32,14 +29,14 @@ return {
 
 	-- Step 8: Theramore
 	["Theramore"] = "Theramore",
-	-- {object:21057} Foothold Citadel (no name in this language: may be words) · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
-	["The flight master stands by the gate of {object:21057}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
+	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
+	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Le maître de vol se tient près de la porte de {area:514} ; {npc:5083} et {npc:4964} sont dans la citadelle.",
 	-- {npc:5083} Clerk Lendry
 	["{npc:5083}, on the top floor"] = "{npc:5083}, au dernier étage",
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}, au dernier étage",
-	-- {npc:4456} Fiora Longears · {zone:1441} Thousand Needles
-	["{npc:4456}: the wyverns are in {zone:1441}, later in this guide"] = "",
+	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
+	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
 
 	-- Step 9: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -50,26 +47,26 @@ return {
 	["Into {zone:1413}"] = "Vers les {zone:1413}",
 
 	-- Step 11: Takar the Seer
-	-- {zone:1413} Barrens · {npc:6244} Takar the Seer
-	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of Camp Taurajo; come in from the east and keep clear of the Horde guards."] = "",
+	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
+	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "Sur la route vers le sud à travers les {zone:1413}, {npc:6244} campe à l'est de la route, au nord-est du {area:378} ; arrivez par l'est et évitez les gardes de la Horde.",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
 	["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738} : en {zone:1440}, en route vers {zone:1443}",
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602} : l'incube, à côté de la succube ; la {item:190309} est près de {quest:1738}",
 
 	-- Step 12: Highperch
-	["Highperch"] = "",
-	-- {object:19844} Great Lift · {zone:1441} Thousand Needles
-	["Down the {object:19844} into {zone:1441}, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac."] = "",
+	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
 	-- Step 15: Mirage Raceway
-	["Mirage Raceway"] = "",
-	["Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions."] = "",
+	-- {area:2240} Mirage Raceway
+	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Suivez les canyons vers l'est jusqu'aux Salines. Les gobelins et les gnomes de {area:2240} sont neutres et donnent des quêtes aux deux factions.",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "Pour {quest:5762} à Strangleronce, plus tard",
 
 	-- Step 16: Mirage Raceway: kill these as you meet them
-	["Mirage Raceway: kill these as you meet them"] = "",
+	-- {area:2240} Mirage Raceway
+	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
@@ -79,25 +76,24 @@ return {
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
 
 	-- Step 18: Gadgetzan
-	["Gadgetzan"] = "",
-	-- {object:151976} Shimmering Flats (no name in this language: may be words) · {zone:1446} Tanaris · {npc:7823} Bera Stonehammer
-	["From the raceway follow the road south out of the {object:151976} into {zone:1446}; Gadgetzan is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
 
 	-- Step 19: Fly to Theramore
 	["Fly to Theramore"] = "Volez jusqu'à Theramore",
-	["Gadgetzan flight master"] = "",
+	-- {area:976} Gadgetzan
+	["{area:976} flight master"] = "Maître de vol de {area:976}",
 
 	-- Step 20: Theramore
-	-- {npc:4456} Fiora Longears · {object:21057} Foothold Citadel (no name in this language: may be words) · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {object:21057}; {npc:4941} stands in the town."] = "",
+	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
 
 	-- Step 21: Boat to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Boat to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Boat to {area:150}"] = "Bateau pour {area:150}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Retournez vers l'ouest par la route jusqu'aux camps de satyres de {area:429}.",
-	-- ["Boat to {area:150}"] = "Bateau pour {area:150}",
 	-- ["Dartol's Rod"] = "Bâtonnet de transformation de Dartol",
 	-- ["Fly to {area:442}"] = "Prendre un vol pour {area:442}",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Suivez la route vers l'est jusqu'aux camps de satyres de {area:429} ; {npc:3920} se cache à leur lisière.",

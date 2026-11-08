@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["{object:176946} flight master"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
 	-- Step 2: Thunder Bluff
-	-- {object:176946} Shadowprey Village (no name in this language: may be words) · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words) · {zone:1454} Orgrimmar
-	["Fly from {object:176946} to {zone:1456} and train with {npc:3033} on {object:50507}; fly on to {zone:1454} from there."] = "",
+	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Back to {zone:1454}"] = "",
+	-- {area:1637} Orgrimmar
+	["Back to {area:1637}"] = "",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
@@ -46,14 +46,15 @@ return {
 	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 나중에 {npc:716}이(가) 요구합니다.",
 
 	-- Step 9: Nesingwary's Expedition: kill these as you meet them
-	["Nesingwary's Expedition: kill these as you meet them"] = "",
+	-- {area:100} Nesingwary's Expedition
+	["{area:100}: kill these as you meet them"] = "",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.\nHead west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it.\nCareful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "",
 
 	-- Step 10: Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {npc:2858} Gringer
-	["Follow the road south to {object:3204} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "",
+	-- {area:35} Booty Bay · {npc:2858} Gringer
+	["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "길을 따라 골짜기 남쪽 끝의 {area:35}(으)로 가서 절벽의 터널로 들어가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 훨씬 높습니다. 호드 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "",
 	-- {npc:2498} Crank Fizzlebub
@@ -67,8 +68,8 @@ return {
 	-- Step 11: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} flight master"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
 
 	-- Step 12: Grom'gol
 	-- {npc:2497} Nimboya · {object:3202} Grom'gol
@@ -83,8 +84,9 @@ return {
 	-- Step 16: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
+	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp."] = "",
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
 
 	-- Step 17: Nesingwary's camp
 	-- {object:3202} Grom'gol
@@ -101,26 +103,27 @@ return {
 	["Back north to the camp."] = "북쪽의 야영지로 돌아가세요.",
 
 	-- Step 20: The Savage Coast: kill these as you meet them
-	["The Savage Coast: kill these as you meet them"] = "",
+	-- {area:301} The Savage Coast
+	["{area:301}: kill these as you meet them"] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 22: Level 35
 	["Level 35"] = "",
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {object:3202} Grom'gol
+	-- {area:35} Booty Bay · {object:3202} Grom'gol · {area:796} Scarlet Monastery
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{object:3204}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "",
 	-- {npc:686} Lashtail Raptor
 	["grind on {npc:686}"] = "",
 
 	-- Step 23: Fly to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Fly to {object:3204}"] = "",
-	-- {object:3202} Grom'gol · {object:3204} Booty Bay (no name in this language: may be words)
-	["Head south down the coast to {object:3202} and fly to {object:3204}."] = "",
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay
+	["Head south down the coast to {object:3202} and fly to {area:35}."] = "",
 
 	-- Step 24: Fly to Grom'gol
 	-- {npc:2465} Far Seer Mok'thardin
@@ -132,12 +135,13 @@ return {
 	["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "채찍꼬리랩터(35-36)는 {object:3202} 바로 북동쪽 정글에서 사냥합니다.",
 
 	-- Step 26: The Vile Reef
-	-- {item:4094} Tablet Shard
-	["North-west of Grom'gol the Vile Reef lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "",
+	-- {area:104} Vile Reef · {item:4094} Tablet Shard
+	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "그롬골 북서쪽 해안 앞바다 물속에 {area:104}이(가) 있습니다. {item:4094}은(는) 가라앉은 폐허 옆 바닥에 있습니다. 숨과 멀록을 조심하세요.",
 	["Underwater"] = "",
 
 	-- Step 27: Ruins of Zul'Kunda: kill these as you meet them
-	["Ruins of Zul'Kunda: kill these as you meet them"] = "",
+	-- {area:102} Ruins of Zul'Kunda
+	["{area:102}: kill these as you meet them"] = "",
 	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "",
@@ -159,8 +163,9 @@ return {
 
 	-- Step 32: Venture Co. camp
 	["Venture Co. camp"] = "투자개발회사 야영지",
+	-- {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Head north to Lake Nazferiti, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "",
+	["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "",
 
 	-- Step 33: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "모쉬오그일족 야영지",
@@ -169,8 +174,9 @@ return {
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
+	-- {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "",
 

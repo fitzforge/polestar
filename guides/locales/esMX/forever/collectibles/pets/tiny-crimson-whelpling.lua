@@ -9,9 +9,9 @@ return {
 	-- Step 1: Wetlands whelps
 	-- {zone:1437} Wetlands
 	["{zone:1437} whelps"] = "Crías de {zone:1437}",
-	-- {zone:1437} Wetlands · {object:381} Grim Batol (no name in this language: may be words)
+	-- {zone:1437} Wetlands · {area:1037} Grim Batol
 	-- plural, as words: Red Whelps = {npc:1042} Red Whelp · Crimson Whelps = {npc:1069} Crimson Whelp · Flamesnorting Whelps = {npc:1044} Flamesnorting Whelp
-	["The red whelps live in the hills of the eastern {zone:1437}, towards {object:381}: about 50 of them, back about five minutes after a kill in Classic's data. Red Whelps (levels 23-24) and Crimson Whelps (25-26) drop the whelpling about once in 650 kills, the Flamesnorting Whelps (26-27) mixed in with them only once in 1,600, so expect a long farm. It can be traded, so the Auction House may be quicker."] = "",
+	["The red whelps live in the hills of the eastern {zone:1437}, towards {area:1037}: about 50 of them, back about five minutes after a kill in Classic's data. Red Whelps (levels 23-24) and Crimson Whelps (25-26) drop the whelpling about once in 650 kills, the Flamesnorting Whelps (26-27) mixed in with them only once in 1,600, so expect a long farm. It can be traded, so the Auction House may be quicker."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Red, Crimson and Flamesnorting Whelps (levels 23-26) in the eastern {zone:1437} drop it about once in 600-1,600 kills in our data."] = "Las Crías rojas, Crías carmesí y Crías escupefuego (niveles 23-26) del este de {zone:1437} lo sueltan más o menos una vez cada 600-1,600 muertes según nuestros datos.",

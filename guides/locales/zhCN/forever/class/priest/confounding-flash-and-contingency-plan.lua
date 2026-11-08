@@ -13,20 +13,20 @@ return {
 	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "Forever新增的侏儒牧师法术：10级学{quest:94817}，20级学{quest:94818}。免费，没有任务目标。",
 
 	-- Step 1: Confounding Flash: Maxan Anvol
-	-- {npc:1226} Maxan Anvol · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
-	["At 10, {npc:1226}, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}. Kharanos is on the road up to the city."] = "",
+	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
+	["At 10, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}. {area:131} is on the road up to the city."] = "",
 	-- {npc:1226} Maxan Anvol · {quest:94817} Confounding Flash
 	["{npc:1226}: take his {quest:94817} letter"] = "",
 
 	-- Step 2: Confounding Flash: Priestess Josetta
-	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
-	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in Goldshire, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}."] = "",
+	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {area:87} Goldshire · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
+	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}."] = "",
 	-- {npc:377} Priestess Josetta · {quest:94817} Confounding Flash
 	["{npc:377}: take her {quest:94817} letter"] = "",
 
 	-- Step 3: Confounding Flash: High Priestess Laurena
-	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {object:28027} Dwarven District
-	["At 10 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94817} letter for {npc:258785} in {zone:1455} (the Deeprun Tram from the {object:28027})."] = "",
+	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
+	["At 10 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94817} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "",
 	-- {npc:376} High Priestess Laurena · {quest:94817} Confounding Flash
 	["{npc:376}: take her {quest:94817} letter"] = "",
 
@@ -37,14 +37,14 @@ return {
 	-- Step 5: Confounding Flash: Maxan Anvol's letter
 	-- {quest:94824} Confounding Flash · {npc:1226} Maxan Anvol
 	["{quest:94824}: {npc:1226}'s letter"] = "",
-	-- {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94824} Confounding Flash
-	["Follow the road up from Kharanos into {zone:1455} and to the {object:32362}: {npc:258785} in the {object:32386} takes the letter and teaches {quest:94824}."] = "",
+	-- {area:131} Kharanos · {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94824} Confounding Flash
+	["Follow the road up from {area:131} into {zone:1455} and to the {object:32362}: {npc:258785} in the {object:32386} takes the letter and teaches {quest:94824}."] = "",
 
 	-- Step 6: Confounding Flash: Josetta's letter
 	-- {quest:94822} Confounding Flash
 	["{quest:94822}: Josetta's letter"] = "",
-	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Hand the letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the Deeprun Tram from {zone:1453}'s {object:28027}."] = "",
+	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
+	["Hand the letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "",
 
 	-- Step 7: Confounding Flash: Laurena's letter
 	-- {quest:94821} Confounding Flash
@@ -69,20 +69,20 @@ return {
 	["Any {quest:94826} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
 
 	-- Step 11: Contingency Plan: High Priestess Laurena
-	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94818} Contingency Plan · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {object:28027} Dwarven District
-	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94818} letter for {npc:258785} in {zone:1455} (the Deeprun Tram from the {object:28027})."] = "",
+	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94818} Contingency Plan · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
+	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94818} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "",
 	-- {npc:376} High Priestess Laurena · {quest:94818} Contingency Plan
 	["{npc:376}: take her {quest:94818} letter"] = "",
 
 	-- Step 12: Contingency Plan: High Priestess Mims
-	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94818} Contingency Plan
-	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with Renew and Power Word: Shield). 5-minute cooldown."] = "",
+	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94818} Contingency Plan · {spell:139} Renew · {spell:17} Power Word: Shield
+	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with {spell:139} and {spell:17}). 5-minute cooldown."] = "",
 
 	-- Step 13: Contingency Plan: Laurena's letter
 	-- {quest:94819} Contingency Plan
 	["{quest:94819}: Laurena's letter"] = "",
-	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Hand Laurena's letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the Deeprun Tram from {zone:1453}'s {object:28027}."] = "",
+	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
+	["Hand Laurena's letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "",
 
 	-- Step 14: Contingency Plan: a letter from another trainer
 	-- {quest:94820} Contingency Plan

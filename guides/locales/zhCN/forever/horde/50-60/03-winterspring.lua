@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	-- {area:618} Winterspring
+	["Into {area:618}"] = "",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	["{npc:11556} stands right at the {zone:1452} exit of Timbermaw Hold's tunnel, where you come out."] = "",
+	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{area:618}出口处，也就是你出来的地方。",
 
 	-- Step 4: Everlook
-	["Everlook"] = "",
-	["Everlook is the goblin town on the east side of the valley."] = "",
-	-- {npc:11754} Meggi Peppinrocker
-	["{npc:11754} walks around Everlook: look inside the circle on the map"] = "",
+	-- {area:2255} Everlook
+	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255}是山谷东侧的地精城镇。",
+	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
+	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
 	["Gregor's and Harlo's quests lead to other zones: keep them."] = "格雷戈和哈鲁的任务会把你带到其他地区：留着它们。",
 	-- {npc:11118} Innkeeper Vizzie
 	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
@@ -27,11 +27,13 @@ return {
 
 	-- Step 5: Ice Thistle yetis
 	["Ice Thistle yetis"] = "冰蓟雪人",
-	["The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "",
+	-- {area:2255} Everlook
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮；只有冰蓟雪人女王和冰蓟雪人王掉落角，所以交还后再去打它们。",
 
 	-- Step 7: Level 55.04
 	["Level 55.04"] = "",
-	["Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead."] = "",
+	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 	-- {npc:7460} Ice Thistle Patriarch
 	["grind on {npc:7460}"] = "",
 
@@ -43,20 +45,23 @@ return {
 
 	-- Step 9: Chillwind chimaeras
 	["Chillwind chimaeras"] = "冰风奇美拉",
-	["The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite."] = "",
+	-- {area:2255} Everlook · {area:2245} Mazthoril
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "奇美拉在{area:2255}南边和西边的雪原上游荡。远离{area:2245}的洞穴：里面的蓝龙龙人都是精英。",
 
 	-- Step 10: Umi Rumplesnicker
-	["Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later."] = "",
+	-- {area:976} Gadgetzan
+	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "乌米的第三个恶作剧针对的是{area:976}和安戈洛环形山的地精：留到之后。",
 
 	-- Step 11: Donova Snowden
-	-- {npc:9298} Donova Snowden
-	["{npc:9298} camps among the steaming pools of Frostfire Hot Springs, in the west of the valley."] = "",
+	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
+	["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298}在山谷西部{area:2246}的热气腾腾的水池间扎营。",
 	["Linken's letter"] = "林克的信",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}来自{zone:1444}的{npc:7775}，在本指南稍后。",
 
 	-- Step 12: Frostfire Hot Springs: kill these as you meet them
-	["Frostfire Hot Springs: kill these as you meet them"] = "",
+	-- {area:2246} Frostfire Hot Springs
+	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。",
@@ -72,36 +77,37 @@ return {
 	-- Step 14: Raging Owlbeasts
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts"] = "狂暴的枭兽",
+	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
 
 	-- Step 15: Winterfall Village
-	["Winterfall Village"] = "",
-	-- {npc:10738} High Chief Winterfall
-	["The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "",
+	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
+	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "熊怪村庄占满了{area:2255}东北的山谷。先杀冬泉萨满祭司；他们会治疗。后面洞穴里的{npc:10738}是精英：别进去。",
 
 	-- Step 16: Fly to Camp Mojache
-	-- {object:176945} Camp Mojache (no name in this language: may be words)
-	["Fly to {object:176945}"] = "",
-	["Everlook flight master"] = "",
+	-- {area:1099} Camp Mojache
+	["Fly to {area:1099}"] = "飞往{area:1099}",
+	-- {area:2255} Everlook
+	["{area:2255} flight master"] = "",
 
 	-- Step 18: The Videre Elixir
-	-- {npc:7775} Gregan Brewspewer · {object:152578} Lower Wilds (no name in this language: may be words) · {object:176945} Camp Mojache (no name in this language: may be words)
-	["{npc:7775}, a dwarf, camps in the {object:152578} north-west of {object:176945}; he has the elixir."] = "",
+	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "矮人{npc:7775}在{area:1099}西北的{area:1137}扎营；他有药剂。",
 
 	-- Step 20: Fly to Thunder Bluff
-	-- {zone:1456} Thunder Bluff
-	["Fly to {zone:1456}"] = "",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["{object:176946} flight master"] = "",
+	-- {area:1638} Thunder Bluff
+	["Fly to {area:1638}"] = "飞往{area:1638}",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "{area:2408}的飞行管理员",
 
 	-- Step 21: Bluff Runner Windstrider
-	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {object:50494} Hunter Rise (no name in this language: may be words)
-	["{npc:10881} and {npc:14728} stand on {object:50494}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
+	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 22: Elder Rise
-	-- {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words) · {npc:246344} Alodan the Hopeful
-	["{npc:3033} on {object:50507}; {npc:246344}"] = "",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
+	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等候：留到之后。",
 
@@ -110,8 +116,8 @@ return {
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
 	-- Step 24: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
@@ -130,9 +136,6 @@ return {
 	-- ["Back at {area:1099}."] = "回到{area:1099}。",
 	-- ["Back to {area:2255}"] = "返回{area:2255}",
 	-- ["Chillwind chimaeras"] = "冰风奇美拉",
-	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
-	-- ["Fly to {area:1637}"] = "飞往{area:1637}",
-	-- ["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- ["From Krakle in Un'Goro"] = "来自安戈洛的克拉兰克",
 	-- ["Frostfire Winterfall camp"] = "冰火温泉的冬泉熊怪营地",
 	-- ["Frostfire Winterfall camps"] = "冰火温泉的冬泉熊怪营地",
@@ -143,17 +146,8 @@ return {
 	-- ["Ride back west to {area:2246}."] = "向西骑回{area:2246}。",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "沿道路向西经过{area:2251}；狂暴的枭兽在它北边的山丘上游荡。",
-	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "奇美拉在{area:2255}南边和西边的雪原上游荡。远离{area:2245}的洞穴：里面的蓝龙龙人都是精英。",
-	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "熊怪村庄占满了{area:2255}东北的山谷。先杀冬泉萨满祭司；他们会治疗。后面洞穴里的{npc:10738}是精英：别进去。",
-	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮；只有冰蓟雪人女王和冰蓟雪人王掉落角，所以交还后再去打它们。",
-	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "乌米的第三个恶作剧针对的是{area:976}和安戈洛环形山的地精：留到之后。",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "在{zone:1452}的{area:2244}刷{npc:7440}",
-	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255}是山谷东侧的地精城镇。",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}，在他旁边",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556}站在{area:1769}隧道的{zone:1452}出口旁，在温泉北边。",
-	-- ["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{area:618}出口处，也就是你出来的地方。",
-	-- ["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
-	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "矮人{npc:7775}在{area:1099}西北的{area:1137}扎营；他有药剂。",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087}收购用你的{quest:3761}种出来的{item:11040}。",
-	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298}在山谷西部{area:2246}的热气腾腾的水池间扎营。",
 }

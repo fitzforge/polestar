@@ -12,16 +12,15 @@ return {
 	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "Un bâton ou un orbe de main gauche au niveau 10, auprès du maître des mages de votre ville d'origine ; les Éolides y ajoutent une baguette.",
 
 	-- Step 1: Anathamaas Aetherwind (Valanaar)
-	-- {npc:252373} Anathamaas Aetherwind
-	["{npc:252373} (Valanaar)"] = "",
-	-- {npc:252373} Anathamaas Aetherwind · {npc:256507} Belann Windwood
-	["At 10 {npc:252373}, the Valanaar mage trainer, sends you to {npc:256507}, the staff merchant a few steps away in the same town."] = "",
+	-- {npc:252373} Anathamaas Aetherwind · {area:16638} Valanaar · {npc:256507} Belann Windwood
+	["At 10 {npc:252373}, the {area:16638} mage trainer, sends you to {npc:256507}, the staff merchant a few steps away in the same town."] = "Au niveau 10, {npc:252373}, le maître des mages de {area:16638}, vous envoie voir {npc:256507}, la marchande de bâtons à quelques pas dans la même ville.",
 
 	-- Step 2: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
 	["The Windstone Formations"] = "Les Formations de pierre des vents",
+	-- {area:16636} Falaath Village
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of Falaath Village. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "",
+	["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of {area:16636}. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "La branche est posée au sol parmi les Formations de pierre des vents, le sanctuaire du vent sur l'éminence à l'ouest du camp de Fillion, au sud du {area:16636}. Elle ne scintille pas : regardez donc le sol près des pierres ; elle peut se trouver à deux endroits.",
 
 	-- Step 3: Back to Belann Windwood
 	-- {npc:256507} Belann Windwood
@@ -30,16 +29,12 @@ return {
 	["{quest:1861} (the next steps) waits for you with {npc:5497} in {zone:1453}, at about 15."] = "{quest:1861} (les étapes suivantes) vous attend auprès de {npc:5497} à {zone:1453}, vers le niveau 15.",
 
 	-- Step 4: Zaldimar Wefhellt (Goldshire)
-	-- {npc:328} Zaldimar Wefhellt
-	["{npc:328} (Goldshire)"] = "",
-	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {npc:5144} Bink · {zone:1455} Ironforge
-	["At 10 {npc:328}, the Goldshire mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {npc:5144}'s quest in {zone:1455}; you get one staff-or-orb quest."] = "",
+	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire · {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {npc:5144} Bink · {zone:1455} Ironforge
+	["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {npc:5144}'s quest in {zone:1455}; you get one staff-or-orb quest."] = "Au niveau 10, {npc:328}, le maître des mages de {area:87}, à l'étage de l'auberge de la Fierté du lion, vous envoie voir {npc:5497} à {zone:1453}. L'accepter vous ferme la quête de {npc:5144} à {zone:1455} ; vous n'avez droit qu'à une quête de bâton ou d'orbe.",
 
 	-- Step 5: Magis Sparkmantle (Kharanos)
-	-- {npc:1228} Magis Sparkmantle
-	["{npc:1228} (Kharanos)"] = "",
-	-- {npc:1228} Magis Sparkmantle · {npc:5144} Bink · {zone:1455} Ironforge · {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake · {npc:328} Zaldimar Wefhellt
-	["At 10 {npc:1228}, the Kharanos mage trainer in the Thunderbrew Distillery, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {npc:5497}'s {quest:1861}; you get one staff-or-orb quest. (A Gnome who took {npc:328}'s quest in Goldshire instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "",
+	-- {npc:1228} Magis Sparkmantle · {area:131} Kharanos · {area:2102} Thunderbrew Distillery · {npc:5144} Bink · {zone:1455} Ironforge · {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake · {npc:328} Zaldimar Wefhellt · {area:87} Goldshire
+	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {npc:5497}'s {quest:1861}; you get one staff-or-orb quest. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "Au niveau 10, {npc:1228}, le maître des mages de {area:131} à la {area:2102}, vous envoie voir {npc:5144} à {zone:1455}. L'accepter vous ferme {quest:1861} de {npc:5497} ; vous n'avez droit qu'à une quête de bâton ou d'orbe. (Un gnome qui a plutôt pris la quête de {npc:328} à {area:87} suit les étapes de {quest:1861} ; un humain qui a pris celle-ci, les étapes du Gizmonitor.)",
 
 	-- Step 6: Jennea Cannon
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5497} Jennea Cannon · {item:7207} Jennea's Flask · {quest:1861} Mirror Lake
@@ -65,8 +60,9 @@ return {
 	["{npc:5144} teaches mages in the {object:32362}, at the back of {zone:1455} past the {object:32386}."] = "{npc:5144} enseigne aux mages dans {object:32362}, au fond de {zone:1455}, après la salle des Mystères.",
 
 	-- Step 10: Bink's Toolbox
+	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
-	["Head west along the road to Gnomeregan. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "",
+	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Suivez la route vers l'ouest jusqu'à {area:133}. Juste au nord de son entrée se dressent deux cabanes ; la boîte à outils est dans la plus haute, à l'est, celle qui a l'ascenseur : une petite boîte grise au rez-de-chaussée, à moitié sous la table à côté de l'ascenseur. Des Gnomes lépreux (niveau 8) gardent les cabanes : attirez-les un par un. Il n'y a qu'une boîte à outils et elle met 15 minutes à revenir après que quelqu'un l'a ouverte : si elle a disparu, attendez à proximité.",
 
 	-- Step 11: Back to Bink
 	-- {npc:5144} Bink
@@ -77,15 +73,7 @@ return {
 	-- Step 12: Belann Windwood's wand (optional)
 	-- {npc:256507} Belann Windwood
 	["{npc:256507}'s wand (optional)"] = "La baguette de {npc:256507} (facultatif)",
-	-- {npc:256507} Belann Windwood · {zone:2521} Zephras Isle · {npc:252373} Anathamaas Aetherwind · {item:262668} Wind-Infused Bough · {item:263430} Windbough Wand
+	-- {npc:256507} Belann Windwood · {area:16638} Valanaar · {zone:2521} Zephras Isle · {npc:252373} Anathamaas Aetherwind · {item:262668} Wind-Infused Bough · {area:16636} Falaath Village · {item:263430} Windbough Wand
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit Valanaar on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of Falaath Village, for the {item:263430}. It does not shut out the staff or the orb."] = "",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {npc:5497}'s {quest:1861}; you get one staff-or-orb quest. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "Au niveau 10, {npc:1228}, le maître des mages de {area:131} à la {area:2102}, vous envoie voir {npc:5144} à {zone:1455}. L'accepter vous ferme {quest:1861} de {npc:5497} ; vous n'avez droit qu'à une quête de bâton ou d'orbe. (Un gnome qui a plutôt pris la quête de {npc:328} à {area:87} suit les étapes de {quest:1861} ; un humain qui a pris celle-ci, les étapes du Gizmonitor.)",
-	-- ["At 10 {npc:252373}, the {area:16638} mage trainer, sends you to {npc:256507}, the staff merchant a few steps away in the same town."] = "Au niveau 10, {npc:252373}, le maître des mages de {area:16638}, vous envoie voir {npc:256507}, la marchande de bâtons à quelques pas dans la même ville.",
-	-- ["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {npc:5144}'s quest in {zone:1455}; you get one staff-or-orb quest."] = "Au niveau 10, {npc:328}, le maître des mages de {area:87}, à l'étage de l'auberge de la Fierté du lion, vous envoie voir {npc:5497} à {zone:1453}. L'accepter vous ferme la quête de {npc:5144} à {zone:1455} ; vous n'avez droit qu'à une quête de bâton ou d'orbe.",
-	-- ["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Suivez la route vers l'ouest jusqu'à {area:133}. Juste au nord de son entrée se dressent deux cabanes ; la boîte à outils est dans la plus haute, à l'est, celle qui a l'ascenseur : une petite boîte grise au rez-de-chaussée, à moitié sous la table à côté de l'ascenseur. Des Gnomes lépreux (niveau 8) gardent les cabanes : attirez-les un par un. Il n'y a qu'une boîte à outils et elle met 15 minutes à revenir après que quelqu'un l'a ouverte : si elle a disparu, attendez à proximité.",
-	-- ["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of {area:16636}. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "La branche est posée au sol parmi les Formations de pierre des vents, le sanctuaire du vent sur l'éminence à l'ouest du camp de Fillion, au sud du {area:16636}. Elle ne scintille pas : regardez donc le sol près des pierres ; elle peut se trouver à deux endroits.",
-	-- ["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "La quête de {npc:256507} est aussi ouverte aux mages humains et gnomes, si vous passez un jour à {area:16638} sur {zone:2521}, le foyer des Éolides : {npc:252373}, le maître des mages de la ville, vous envoie voir {npc:256507} juste à côté, qui veut une {item:262668} ramassée au sol près des Formations de pierre des vents au sud du {area:16636}, pour la {item:263430}. Elle ne vous ferme ni le bâton ni l'orbe.",
+	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "La quête de {npc:256507} est aussi ouverte aux mages humains et gnomes, si vous passez un jour à {area:16638} sur {zone:2521}, le foyer des Éolides : {npc:252373}, le maître des mages de la ville, vous envoie voir {npc:256507} juste à côté, qui veut une {item:262668} ramassée au sol près des Formations de pierre des vents au sud du {area:16636}, pour la {item:263430}. Elle ne vous ferme ni le bâton ni l'orbe.",
 }

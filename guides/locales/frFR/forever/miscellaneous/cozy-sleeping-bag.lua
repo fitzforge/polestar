@@ -35,9 +35,10 @@ return {
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "La \"terre jumelle\" de la note, c'est {zone:1436} : le même feu de camp éteint se trouve dans l'ouest de {zone:1436}.",
 
 	-- Step 5: Stonetalon Mountains
-	-- {object:19559} Sun Rock Retreat (no name in this language: may be words) · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills north-west of {object:19559}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
-	["The road west runs through Honor's Stand, a Horde post; this way goes round it."] = "",
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "La cachette suivante est un petit camp dans les collines au nord-ouest de {area:460}, au milieu de {zone:1442}. Quittez la route là où un sentier monte vers l'ouest dans les collines et suivez-le jusqu'au camp ; {object:424005} est posé sur une caisse à côté de la tente.",
+	-- {area:1702} Honor's Stand
+	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
 	["North of Honor's Stand"] = "Au nord d'Honor's Stand",
 	["Path into the hills"] = "Sentier vers les collines",
 
@@ -49,19 +50,14 @@ return {
 	-- Step 7: The dam in Loch Modan
 	-- {zone:1432} Loch Modan
 	["The dam in {zone:1432}"] = "Le barrage du {zone:1432}",
-	["The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+	-- {area:146} Stonewrought Dam
+	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "La figurine se trouve sur une corniche juste sous le sommet de {area:146}, sur sa face nord. Descendez lentement ; marcher à reculons évite de dépasser la corniche.",
 
 	-- Step 8: Thoradin's Wall
-	["Thoradin's Wall"] = "",
-	["At the gate in Thoradin's Wall between Arathi and Hillsbrad, turn north and follow the wall on the Hillsbrad side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "À la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
 	["Fallen cart"] = "Charrette renversée",
 
 	-- Step 9: The hidden camp
 	["The hidden camp"] = "Le camp caché",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "À la porte de {area:1057}, entre Arathi et {area:287}, tournez vers le nord et suivez le mur côté {area:287} jusqu'à une charrette renversée appuyée contre lui. Sautez sur la charrette et son échelle pour monter sur le mur, puis passez par les rochers jusqu'au camp caché. Certains personnages ne passent pas sous le filet de chargement du camp ; une autre race ou une forme plus petite passe.",
-	-- ["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "La figurine se trouve sur une corniche juste sous le sommet de {area:146}, sur sa face nord. Descendez lentement ; marcher à reculons évite de dépasser la corniche.",
-	-- ["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "La cachette suivante est un petit camp dans les collines au nord-ouest de {area:460}, au milieu de {zone:1442}. Quittez la route là où un sentier monte vers l'ouest dans les collines et suivez-le jusqu'au camp ; {object:424005} est posé sur une caisse à côté de la tente.",
-	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
 }

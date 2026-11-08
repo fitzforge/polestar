@@ -13,8 +13,8 @@ return {
 	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "Заклинания жрецов-нежити: {spell:2652} на 10-м уровне, {quest:5644} (новое в Forever) на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Touch of Weakness: Tai'jin
-	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {object:3224} Razor Hill (no name in this language: may be words) · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1411}, {npc:3706}, the priest trainer inside the barracks of {object:3224}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
+	["At 10 in {zone:1411}, {npc:3706}, the priest trainer inside the barracks of {area:362}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
 	-- {npc:3706} Tai'jin · {spell:2652} Touch of Weakness
 	["{npc:3706}: take his {spell:2652} letter"] = "",
 
@@ -25,20 +25,20 @@ return {
 	["{npc:6018}: take his {spell:2652} letter"] = "",
 
 	-- Step 3: Touch of Weakness: Var'jun
-	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {object:2968} Bloodhoof Village (no name in this language: may be words) · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1412}, {npc:11407}, just south-west of {object:2968}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {area:222} Bloodhoof Village · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
+	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
 	-- {npc:11407} Var'jun · {spell:2652} Touch of Weakness
 	["{npc:11407}: take the {spell:2652} letter"] = "",
 
 	-- Step 4: Touch of Weakness: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {object:50495}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
+	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
 	-- {npc:3044} Miles Welsh · {spell:2652} Touch of Weakness
 	["{npc:3044}: take his {spell:2652} letter"] = "",
 
 	-- Step 5: Touch of Weakness: Aelthalyste
-	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {quest:5658} Touch of Weakness
-	["At 10, go to {npc:4606}, the priest trainer in the {zone:1458}'s {object:36070}: she gives {quest:5658} and takes it back at once. No letter needed. From Brill, follow the road south to the ruined city of Lordaeron; the {zone:1458}'s lifts are at the back of the throne room. {quest:5658} strikes the next melee attacker for Shadow damage and lowers its melee attack power for 2 minutes."] = "",
+	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {quest:5658} Touch of Weakness · {area:159} Brill
+	["At 10, go to {npc:4606}, the priest trainer in the {zone:1458}'s {object:36070}: she gives {quest:5658} and takes it back at once. No letter needed. From {area:159}, follow the road south to the ruined city of Lordaeron; the {zone:1458}'s lifts are at the back of the throne room. {quest:5658} strikes the next melee attacker for Shadow damage and lowers its melee attack power for 2 minutes."] = "",
 
 	-- Step 6: Touch of Weakness: Tai'jin's letter
 	-- {quest:5660} Touch of Weakness · {npc:3706} Tai'jin
@@ -69,14 +69,14 @@ return {
 	["{npc:6018}: take his {quest:5644} letter"] = "",
 
 	-- Step 11: Dark Sacrifice: Miles Welsh
-	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {object:50495} Spirit Rise (no name in this language: may be words) · {quest:5644} Dark Sacrifice · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 20 in {zone:1456}, {npc:3044} in the cave under {object:50495} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "",
+	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5644} Dark Sacrifice · {npc:4606} Aelthalyste · {zone:1458} Undercity
+	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "",
 	-- {npc:3044} Miles Welsh · {quest:5644} Dark Sacrifice
 	["{npc:3044}: take his {quest:5644} letter"] = "",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
-	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of Devouring Plague, which every priest now learns from the trainer)."] = "",
+	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice · {spell:2944} Devouring Plague
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo

@@ -16,9 +16,8 @@ return {
 	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "",
 
 	-- Step 2: The Venture Co. Mine
-	["The Venture Co. Mine"] = "",
-	-- {zone:1412} Mulgore · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the Venture Co. Mine. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
 	["Venture Co. Mine"] = "Mine de la KapitalRisk",
 	-- {object:403041} Blasting Supplies (no name in this language: may be words)
 	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
@@ -31,9 +30,9 @@ return {
 	-- Step 4: Windfury Cones
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones"] = "Cônes Furie-des-vents",
-	-- {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
+	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
+	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Les Cônes Furie-des-vents gisent au sol sous les arbres à nids des harpies, sur la {area:819}, au nord-ouest des {zone:1456} ; les harpies n'en lâchent pas. Les Ensorceleuses (niveau 9-10) et les Matriarches (10-11) Furie-des-vents s'y tiennent serrées : ramassez les cônes sur les bords. Une fois que vous en avez huit, utilisez le {item:206176} pour les broyer.",
 	["grind the eight cones"] = "broyez les huit cônes",
 
 	-- Step 5: Boarton Shadetotem
@@ -57,6 +56,5 @@ return {
 	-- ["Fish Chunks"] = "Morceaux de poisson",
 	-- ["Loot 5 Seaforium Mining Charges from the Blasting Supplies"] = "Ramassez 5 charges de mine en seaforium dans les fournitures d'explosifs",
 	-- ["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Descendez par l'ascenseur et traversez {zone:1412} vers le sud-est jusqu'à la {area:360}. Mettez le déguisement, puis ouvrez les chariots de fournitures d'explosifs dans la mine et sur la pente à l'extérieur, de l'autre côté ; restez si possible dans les niveaux supérieurs, les tunnels du bas sont bondés. Cinq charges.",
-	-- ["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Les Cônes Furie-des-vents gisent au sol sous les arbres à nids des harpies, sur la {area:819}, au nord-ouest des {zone:1456} ; les harpies n'en lâchent pas. Les Ensorceleuses (niveau 9-10) et les Matriarches (10-11) Furie-des-vents s'y tiennent serrées : ramassez les cônes sur les bords. Une fois que vous en avez huit, utilisez le {item:206176} pour les broyer.",
 	-- ["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the Venture Co Disguise. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se cache, camouflé, sur la mesa principale des {zone:1456}, au sud de son bassin : marchez là où pointe la flèche jusqu'à voir sa silhouette. Il vous remet le déguisement de la KapitalRisk. La quête s'ouvre au niveau 4, mais la mine abrite des Ouvriers de la KapitalRisk (niveau 8-9), des Contremaîtres (9-10) et {npc:3051} (12) : allez-y au niveau 9 ou 10.",
 }

@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["{object:176946} flight master"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
 	-- Step 2: Thunder Bluff
-	-- {object:176946} Shadowprey Village (no name in this language: may be words) · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words) · {zone:1454} Orgrimmar
-	["Fly from {object:176946} to {zone:1456} and train with {npc:3033} on {object:50507}; fly on to {zone:1454} from there."] = "",
+	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Back to {zone:1454}"] = "",
+	-- {area:1637} Orgrimmar
+	["Back to {area:1637}"] = "Retour à {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Maître de vol des {zone:1456}",
 
@@ -46,14 +46,15 @@ return {
 	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Suivez la route vers le nord depuis {object:3202} ; le camp de chasse de Nesingwary se trouve sur la colline au nord-est de la rivière. Dès maintenant, gardez chaque page de {quest:338} ramassée : {npc:716} les demandera plus tard.",
 
 	-- Step 9: Nesingwary's Expedition: kill these as you meet them
-	["Nesingwary's Expedition: kill these as you meet them"] = "",
+	-- {area:100} Nesingwary's Expedition
+	["{area:100}: kill these as you meet them"] = "{area:100} : tuez-les au passage",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.\nHead west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it.\nCareful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Les Jeunes tigres de Strangleronce rôdent à l'ouest du camp, les Jeunes panthères au sud et à l'est.\nAllez vers l'ouest après le camp. Les Raptors de Strangleronce (33-34) chassent dans les clairières, et les trolls Bloodscalp tiennent les ruines sur la côte : chaque Bloodscalp peut lâcher une défense. Le {item:4614} est un butin très rare sur eux : si vous en obtenez un, lisez-le.\nAttention : les camps trolls ont de nombreuses patrouilles, d'autres trolls rejoignent donc souvent le combat.",
 
 	-- Step 10: Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {npc:2858} Gringer
-	["Follow the road south to {object:3204} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "",
+	-- {area:35} Booty Bay · {npc:2858} Gringer
+	["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "Suivez la route vers le sud jusqu'à {area:35}, à la pointe sud de la vallée, et entrez par le tunnel dans les falaises. Restez sur la route : la jungle alentour est bien au-dessus de votre niveau. {npc:2858}, le maître de vol de la Horde, attend sur le ponton supérieur.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, à l'intérieur",
 	-- {npc:2498} Crank Fizzlebub
@@ -67,8 +68,8 @@ return {
 	-- Step 11: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Prendre un vol pour {object:3202}",
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} flight master"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
 	-- Step 12: Grom'gol
 	-- {npc:2497} Nimboya · {object:3202} Grom'gol (no name in this language: may be words)
@@ -83,8 +84,9 @@ return {
 	-- Step 16: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
+	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp."] = "",
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
 
 	-- Step 17: Nesingwary's camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -101,26 +103,27 @@ return {
 	["Back north to the camp."] = "Retournez au camp, au nord.",
 
 	-- Step 20: The Savage Coast: kill these as you meet them
-	["The Savage Coast: kill these as you meet them"] = "",
+	-- {area:301} The Savage Coast
+	["{area:301}: kill these as you meet them"] = "{area:301} : tuez-les au passage",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "À l'ouest après le camp, des Basilics de cristal (34-35) se tiennent sur les rochers ; chaque Bloodscalp du village plus loin peut lâcher une oreille.\n{npc:729}, un tigre de niveau 37, rôde au sommet de la colline au sud-ouest du camp.\nAttention : le nid de raptors abrite de jeunes raptors qui rejoignent le combat quand vous attaquez les adultes.",
 
 	-- Step 22: Level 35
 	["Level 35"] = "",
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {object:3202} Grom'gol (no name in this language: may be words)
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{object:3204}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "",
 	-- {npc:686} Lashtail Raptor
 	["grind on {npc:686}"] = "",
 
 	-- Step 23: Fly to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Fly to {object:3204}"] = "",
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {object:3204} Booty Bay (no name in this language: may be words)
-	["Head south down the coast to {object:3202} and fly to {object:3204}."] = "",
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "Prendre un vol pour {area:35}",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay
+	["Head south down the coast to {object:3202} and fly to {area:35}."] = "Descendez la côte vers le sud jusqu'à Grom'gol et volez jusqu'à {area:35}.",
 
 	-- Step 24: Fly to Grom'gol
 	-- {npc:2465} Far Seer Mok'thardin
@@ -132,12 +135,13 @@ return {
 	["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "Les Raptors flagellants (35-36) chassent dans la jungle juste au nord-est de {object:3202}.",
 
 	-- Step 26: The Vile Reef
-	-- {item:4094} Tablet Shard
-	["North-west of Grom'gol the Vile Reef lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "",
+	-- {area:104} Vile Reef · {item:4094} Tablet Shard
+	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "Au nord-ouest de Grom'gol, {area:104} s'étend sous l'eau au large de la côte. L'{item:4094} repose au fond de la mer près des ruines englouties ; surveillez votre souffle et les murlocs.",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 27: Ruins of Zul'Kunda: kill these as you meet them
-	["Ruins of Zul'Kunda: kill these as you meet them"] = "",
+	-- {area:102} Ruins of Zul'Kunda
+	["{area:102}: kill these as you meet them"] = "{area:102} : tuez-les au passage",
 	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "Les Chasseurs de tête Bloodscalp (36-37) du village sur la côte portent les têtes réduites.\nLes trolls Bloodscalp tiennent les ruines plus haut sur la côte, au nord du récif, et le village au-delà ; chacun peut lâcher un {item:3915}. Continuez à ramasser des pages de {quest:338}.",
@@ -159,8 +163,9 @@ return {
 
 	-- Step 32: Venture Co. camp
 	["Venture Co. camp"] = "Camp de la KapitalRisk",
+	-- {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Head north to Lake Nazferiti, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "",
+	["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "",
 
 	-- Step 33: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "Camp Mosh'Ogg",
@@ -169,8 +174,9 @@ return {
 
 	-- Step 34: Level 36
 	["Level 36"] = "Niveau 36",
+	-- {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "tuez en boucle : {npc:1142}",
 

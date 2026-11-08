@@ -26,9 +26,9 @@ return {
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
 	["{npc:217590} in {zone:1443}"] = "",
-	-- {zone:1443} Desolace
+	-- {area:596} Kodo Graveyard · {zone:1443} Desolace
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	["The Flesh Pickers feed in the Kodo Graveyard in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb

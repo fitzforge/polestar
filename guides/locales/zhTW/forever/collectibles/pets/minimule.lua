@@ -11,9 +11,9 @@ return {
 
 	-- Step 1: Azeroth Commerce Authority
 	["Azeroth Commerce Authority"] = "艾澤拉斯貿易協會",
-	-- {zone:1433} Redridge Mountains · {npc:214101} Marcy Baker
+	-- {area:1002} Three Corners · {zone:1433} Redridge Mountains · {npc:214101} Marcy Baker
 	-- plural, as words: Waylaid Crates = {item:248549} Waylaid Crate
-	["The Alliance camp is at Three Corners in western {zone:1433}. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to {npc:214101}, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with the Azeroth Commerce Authority. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there."] = "",
+	["The Alliance camp is at {area:1002} in western {zone:1433}. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to {npc:214101}, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with the Azeroth Commerce Authority. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there."] = "",
 	["1,500 Merchant's Favor"] = "1,500 Merchant's Favor",
 
 	-- Step 2: Durotar Supply and Logistics

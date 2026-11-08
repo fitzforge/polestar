@@ -6,12 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Guide
-	["Winterspring Frostsaber"] = "",
-
 	-- Step 1: Wintersaber Trainers
-	-- {npc:10618} Rivern Frostwind · {object:177140} Frostsaber Rock (no name in this language: may be words) · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers
-	["{npc:10618} stands on top of {object:177140} in the far north of {zone:1452}. Only the Alliance can earn the {faction:589}' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it."] = "",
+	-- {npc:10618} Rivern Frostwind · {area:2241} Frostsaber Rock · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers
+	["{npc:10618} stands on top of {area:2241} in the far north of {zone:1452}. Only the Alliance can earn the {faction:589}' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it."] = "",
 
 	-- Step 2: Reins of the Winterspring Frostsaber
 	-- {faction:589} Wintersaber Trainers

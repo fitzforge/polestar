@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Tarren Mill
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["{object:1772} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "",
+	-- {area:272} Tarren Mill
+	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} – ваша база в этом гайде: камень возвращения дважды вернет вас сюда. Все стоят вокруг городской площади.",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Наполните {item:7768} у колодца рядом с таверной: {object:107045}",
 	-- {object:556670} WANTED
@@ -17,8 +17,8 @@ return {
 	["{npc:2229}, inside"] = "",
 
 	-- Step 2: Serge Hinott
-	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {object:1772} Tarren Mill (no name in this language: may be words)
-	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {object:1772}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "",
+	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
+	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {area:272}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}: Яды",
 	["Poison chain unfinished? Resume your current stage in the Class guide Poisons (Horde); completed quests do not need restarting. Arrange a group for Gallywix, finish the Hinott follow-up, then return to this leveling guide."] = "",
@@ -30,9 +30,8 @@ return {
 	["West of Tarren Mill, Gray Bears, Forest Moss Creepers and Starving Mountain Lions roam the hills on the way down to the farms. The creepers drop {item:3477} rarely; you need only one."] = "К западу от Мельницы Таррен по холмам на пути к фермам бродят серые медведи, лесные моховые ползуны и голодные горные львы. {item:3477} падает с ползунов редко; нужен только один.",
 
 	-- Step 4: Hillsbrad Fields
-	["Hillsbrad Fields"] = "",
-	-- {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
-	["The farms east of Hillsbrad town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "",
+	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
+	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "Фермы к востоку от городка {area:287}. {npc:232} работает на поле у северного фермерского дома, {npc:2403} — на поле юго-восточнее; батраки и фермеры повсюду. {npc:2451} ухаживает за полем к югу от ферм.",
 
 	-- Step 5: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
@@ -46,16 +45,18 @@ return {
 	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "",
 
 	-- Step 7: Stanley
-	-- {npc:2274} Stanley · {npc:232} Farmer Ray
-	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in Hillsbrad Fields."] = "",
+	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
+	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} — собака NPC {npc:232}, у северного фермерского дома ({area:286}).",
 
 	-- Step 8: Hillsbrad Fields: kill these as you meet them
-	["Hillsbrad Fields: kill these as you meet them"] = "",
-	["The Peasants work the fields south of the farmhouses. Every Hillsbrad human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping."] = "",
+	-- {area:286} Hillsbrad Fields
+	["{area:286}: kill these as you meet them"] = "",
+	-- {area:287} Hillsbrad
+	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "",
 	-- {item:3692} Hillsbrad Human Skull
 	["{item:3692}: the Peasants in the fields"] = "{item:3692}: хилсбрадские крестьяне на полях",
-	-- {npc:2451} Farmer Kalaba
-	["{npc:2451} walks around Hillsbrad Fields: look inside the circle on the map"] = "",
+	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
+	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
 
 	-- Step 9: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
@@ -64,10 +65,10 @@ return {
 	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
-	-- {object:1776} Durnholde Keep (no name in this language: may be words)
-	["{object:1776}: kill these as you meet them"] = "",
-	-- {npc:2238} Tog'thar · {object:1776} Durnholde Keep (no name in this language: may be words) · {object:1772} Tarren Mill (no name in this language: may be words)
-	["Drull and {npc:2238} are chained inside {object:1776}'s courtyard buildings; open both locks.\nFrom {object:1772} go south-east into the hills on the way to {object:1776}. Rogues and Watchmen hold the camps along the way."] = "",
+	-- {area:275} Durnholde Keep
+	["{area:275}: kill these as you meet them"] = "",
+	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "Ядро и цепь Друлла",
@@ -79,31 +80,32 @@ return {
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "К юго-западу от Дарнхольда на склонах над рекой растет {item:3502}.",
 
 	-- Step 12: Deathstalker Masoj
-	-- {object:1784} Dun Garok (no name in this language: may be words)
-	["Masoj hides on the hillside above {object:1784}, south of Durnholde, on the way down to the blossoms."] = "",
+	-- {area:290} Dun Garok
+	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, после сдачи задания {quest:98094}",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "Южная вершина",
-	-- {object:1784} Dun Garok (no name in this language: may be words)
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {object:1784}, just south of him: use a vial at the top."] = "",
+	-- {area:290} Dun Garok
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "Кузница",
-	-- {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
-	["The smithy stands in the middle of Hillsbrad town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "",
+	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
+	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
 	["Inside"] = "Внутри",
 
 	-- Step 15: The western peak
 	["The western peak"] = "Западная вершина",
-	["From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "",
+	-- {area:287} Hillsbrad
+	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Из городка {area:287} идите на север в предгорья Альтерака: западная склянка ставится на холме сразу за границей.",
 
 	-- Step 16: Back to Tarren Mill
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["Back to {object:1772}"] = "",
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["East along the foothills, then down into {object:1772}."] = "",
+	-- {area:272} Tarren Mill
+	["Back to {area:272}"] = "Назад: {area:272}",
+	-- {area:272} Tarren Mill
+	["East along the foothills, then down into {area:272}."] = "",
 
 	-- Step 17: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -111,24 +113,24 @@ return {
 
 	-- Step 18: The northern peak
 	["The northern peak"] = "Северная вершина",
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["The northern peak rises south-east of {object:1772}, on the way down towards Durnholde."] = "",
+	-- {area:272} Tarren Mill
+	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Северная вершина возвышается к юго-востоку от места {area:272}, по пути вниз к Дарнхольду.",
 
 	-- Step 19: Deathstalker Masoj
-	-- {object:1784} Dun Garok (no name in this language: may be words)
-	["Back down to Masoj on the hillside above {object:1784}."] = "",
+	-- {area:290} Dun Garok
+	["Back down to Masoj on the hillside above {area:290}."] = "Спуститесь обратно к Масоджу на склон над местом {area:290}.",
 
 	-- Step 20: The Sepulcher
-	-- {object:1772} Tarren Mill (no name in this language: may be words) · {npc:2121} Shadow Priest Allister
-	["Walk back up to {object:1772} and fly to the Sepulcher: {npc:2121} stands by the crypt entrance."] = "",
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["{object:1772} flight master"] = "",
+	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
+	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
+	-- {area:272} Tarren Mill
+	["{area:272} flight master"] = "",
 
 	-- Step 21: Fly to the Undercity
-	-- {zone:1458} Undercity
-	["Fly to the {zone:1458}"] = "",
-	-- {npc:2226} Karos Razok · {zone:1458} Undercity
-	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {zone:1458}."] = "",
+	-- {area:1497} Undercity
+	["Fly to the {area:1497}"] = "",
+	-- {npc:2226} Karos Razok · {area:1497} Undercity
+	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
 
 	-- Step 22: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
@@ -137,19 +139,20 @@ return {
 	-- Step 23: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, в Аптекарии",
-	["Keep it: the Hillsbrad coast, later on the route"] = "",
+	-- {area:287} Hillsbrad
+	["Keep it: the {area:287} coast, later on the route"] = "Сохраните его: побережье ({area:287}), позже по маршруту",
 
 	-- Step 24: Archibald
-	-- {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 25: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
 
 	-- Step 26: Archibald
-	-- {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
 
 	-- Step 27: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
@@ -167,18 +170,13 @@ return {
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back down to Masoj on the hillside above {area:290}."] = "Спуститесь обратно к Масоджу на склон над местом {area:290}.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Друлл и {npc:2238} прикованы в постройках внутреннего двора ({area:275}); откройте оба замка.",
 	-- ["Fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Идите по дороге на юг к раскопкам дворфов: {area:359}. {npc:3421} прячется у южного края раскопок; {object:3646} стоит на дне котлована.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Из места {area:272} идите на юго-восток в холмы по пути к месту {area:275}. Лагеря на пути занимают разбойники и сторожа Синдиката.",
-	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Из городка {area:287} идите на север в предгорья Альтерака: западная склянка ставится на холме сразу за границей.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:1638} и обучитесь здесь: {area:1639}, затем летите дальше в {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Используйте Камень возвращения: {area:378}, и летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
-	-- ["Keep it: the {area:287} coast, later on the route"] = "Сохраните его: побережье ({area:287}), позже по маршруту",
-	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
-	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Нервотреп еще жив? Классовый гайд «Яды (Орда)» снова проводит цепочку от Шентула, с группой для Нервотрепа.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Нервотреп еще жив? Классовый гайд «{spell:2842} (Орда)» снова проводит цепочку от Шентула, с группой для Нервотрепа.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Только если Нервотреп пал в {zone:1413} («Миссия: выполнима, но с трудом»): {npc:2391} стоит здесь: {area:272}. Подождите рядом, пока он варит лекарство, затем заберите награду: Яды.",
@@ -188,10 +186,7 @@ return {
 	-- ["Syndicate camps"] = "Лагеря Синдиката",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Летите на дирижабле от башен у города {zone:1458} в {zone:1454} и обучитесь перед дальнейшим полетом.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Хилсбрадские крестьяне работают на полях к югу от фермерских домов. С каждого человека ({area:287}) падают черепа; чаще всего — с крестьян.",
-	-- ["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "Фермы к востоку от городка {area:287}. {npc:232} работает на поле у северного фермерского дома, {npc:2403} — на поле юго-восточнее; батраки и фермеры повсюду. {npc:2451} ухаживает за полем к югу от ферм.",
-	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Северная вершина возвышается к юго-востоку от места {area:272}, по пути вниз к Дарнхольду.",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {item:3564} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
-	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Ратуша — в западной части места {area:287}. {npc:2335} (30) и {npc:2448} внутри, там же Регистрационная книга Хилсбрада; рядом висит Хилсбрадское официальное объявление. По городку ходят члены совета Хилсбрада.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} — к югу от городка {area:287}. В туннелях работают шахтеры; {npc:2305} (30) и {npc:2450} (29) — в глубине.",
 	-- ["The {object:1763} poster by the inn"] = "Плакат у таверны: {object:1763}",
@@ -199,10 +194,8 @@ return {
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Плакат «{quest:567}»: его цели попадутся по пути",
 	-- ["Town hall"] = "Ратуша",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Вы прибываете в таверну, где привязан ваш камень: {area:272}. Все стоят вокруг городской площади.",
-	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} – ваша база в этом гайде: камень возвращения дважды вернет вас сюда. Все стоят вокруг городской площади.",
 	-- ["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} стоит наверху ({area:1718}), рядом с NPC {npc:12576}.",
 	-- ["{npc:2230}, next to Lydon"] = "{npc:2230}, рядом с Лидоном",
-	-- ["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} — собака NPC {npc:232}, у северного фермерского дома ({area:286}).",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:3442}, by the docks in {area:392}"] = "{npc:3442}, у причалов ({area:392})",
 	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "Хижина ({npc:5899}) стоит на гребне над водопоем свинобразов, к югу от места {area:378}, по пути в {area:359}.",

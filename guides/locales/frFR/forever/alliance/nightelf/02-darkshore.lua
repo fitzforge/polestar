@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	["Auberdine"] = "",
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Le bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale.",
 	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
 
@@ -34,9 +33,9 @@ return {
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Les ours et le camp Noirbois",
-	-- {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of Auberdine: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "les Ours des chardons enragés les plus proches de {npc:3701}",
@@ -53,8 +52,8 @@ return {
 
 	-- Step 8: The red crystal
 	["The red crystal"] = "Le cristal rouge",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Escaladez les montagnes à l'est d'{area:447} ; le {object:175524} repose sur une corniche.",
 
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -71,28 +70,30 @@ return {
 
 	-- Step 12: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Les furbolgs Noirbois",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Des Guides Noirbois et des Messagers du Vent Noirbois tiennent le camp au sud-est d'{area:442}.",
 
 	-- Step 13: The southern beaches
 	["The southern beaches"] = "Les plages du sud",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {quest:4728} Beached Sea Creature
+	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {object:12894}: one {quest:4728} lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "",
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Suivez la côte vers le sud au-delà d'{area:447} : une {quest:4728} gît sur la côte à l'ouest du Bosquet des Anciens, une autre plus au sud près de l'{area:450}. Trois autres restes gisent plus au sud-ouest parmi les Oracles Grisebrume et les Chasse-marée Grisebrume (18-20) : le guide les garde pour la dernière boucle, quand vous serez plus proche de leur niveau.",
 
 	-- Step 14: Ameth'Aran
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["Back north to {object:12894}: the flame burns in the south of the ruins."] = "",
+	-- {area:447} Ameth'Aran
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Retournez au nord-est dans les montagnes jusqu'au cristal.",
 
 	-- Step 16: Bashal'Aran
-	-- {npc:3650} Asterion
-	["North along the hills to {npc:3650}, then west down to Auberdine."] = "",
+	-- {npc:3650} Asterion · {area:442} Auberdine
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
 
 	-- Step 18: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "Bateau pour {area:17203}",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
@@ -111,8 +112,8 @@ return {
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 22: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 
 	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -120,24 +121,20 @@ return {
 
 	-- Step 24: Druid trainer
 	["Druid trainer"] = "Maître des druides",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
-	["{npc:5504} in {zone:1453}; Goldshire has no druid trainer"] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "Maître de classe",
 
 	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "Maître des chamans",
-	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh
-	["{npc:257446} in {zone:1426}; Goldshire has no shaman trainer"] = "",
+	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} à {zone:1426} ; {area:87} n'a pas de maître des chamans",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south"] = "Retour au sud",
-	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Des Guides Noirbois et des Messagers du Vent Noirbois tiennent le camp au sud-est d'{area:442}.",
-	-- ["Boat to {area:17203}"] = "Bateau pour {area:17203}",
-	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Escaladez les montagnes à l'est d'{area:447} ; le {object:175524} repose sur une corniche.",
 	-- ["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Suivez la côte vers le nord-est jusqu'aux {area:443}. Des Reliques de Mathystra jonchent les ruines ; des Myrmidons, des Ensorceleuses et des Guerriers Tempécaille les gardent, et des Maîtresses des bêtes Tempécaille arpentent le rivage.",
-	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Suivez la côte vers le sud au-delà d'{area:447} : une {quest:4728} gît sur la côte à l'ouest du Bosquet des Anciens, une autre plus au sud près de l'{area:450}. Trois autres restes gisent plus au sud-ouest parmi les Oracles Grisebrume et les Chasse-marée Grisebrume (18-20) : le guide les garde pour la dernière boucle, quand vous serez plus proche de leur niveau.",
 	-- ["Follow the road north."] = "Suivez la route vers le nord.",
 	-- ["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Suivez la route vers le sud. Onu est l'ancien du Bosquet ; {npc:270269} et {npc:11218} dorment à côté de lui.",
 	-- ["Hearth to {area:442}"] = "Pierre de foyer vers {area:442}",
@@ -150,8 +147,6 @@ return {
 	-- ["The flame burns in the south of {area:447}."] = "La flamme brûle au sud d'{area:447}.",
 	-- ["The naga"] = "Les nagas",
 	-- ["The {area:448}"] = "{area:448}",
-	-- ["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
-	-- ["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} à {zone:1426} ; {area:87} n'a pas de maître des chamans",
 	-- ["{npc:270459} in {zone:1416}; {area:87} has no druid trainer"] = "{npc:270459} dans {zone:1416} ; {area:87} n'a pas de maître des druides",
 	-- ["{npc:3666}, by the inn"] = "{npc:3666}, près de l'auberge",
 }

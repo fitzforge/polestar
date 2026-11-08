@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Auberdine
-	["Auberdine"] = "",
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
 	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
@@ -43,9 +42,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "染病的熊",
-	-- {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of Auberdine. Use {quest:2139} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "{npc:2164}在{area:442}东边的山丘上游荡。对一只使用{quest:2139}，然后把它引回他身边。",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -56,8 +55,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Kill Rabid Thistle Bears in the hills east of Auberdine, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
+	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "在{area:442}东边的山丘上击杀{npc:2164}，然后走到它们东南方的熊怪营地：暂时不用击杀任何东西。",
 
 	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -71,8 +71,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "红色水晶",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}东边的山脉；{object:175524}位于一处岩架上。",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -88,44 +88,44 @@ return {
 	["Fill the tube at the moonwell in the village"] = "在村里的月亮井装满试管",
 
 	-- Step 15: A Lesson to Learn
-	-- {npc:4217} Mathrengyl Bearwalker
-	["Fly from Auberdine to Rut'theran Village and take the portal up to {npc:4217} in the Cenarion Enclave."] = "",
+	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
+	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "从{area:442}飞往{area:702}，乘传送门上去找{area:1658}的{npc:4217}。",
 
 	-- Step 18: Moonglade
-	-- {zone:1450} Moonglade
-	["Cast Teleport: {zone:1450}"] = "",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 
 	-- Step 19: Trial of the Lake
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {object:177117} Shrine of Remulos (no name in this language: may be words) · {npc:11799} Tajarri
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast Teleport: {zone:1450}. {npc:11802} stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the {object:177117} in the north-west, use it there and speak to {npc:11799}. Then fly back to Auberdine from Nighthaven."] = "",
-	-- {quest:6122} The Principal Source
-	["{quest:6122}: fill the sampler at Cliffspring Falls"] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。{item:15877}在{area:2361}下方{area:656}湖底的容器里：拿一个到西北方的{area:2362}，在那里使用并与{npc:11799}交谈。然后从{area:2361}飞回{area:442}。",
+	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
+	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}：在{area:445}装满取样器",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，来自湖中的{object:177785}",
-	-- {object:177117} Shrine of Remulos (no name in this language: may be words)
-	["At the {object:177117}"] = "",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "在{area:2362}",
 	-- {zone:1439} Darkshore · {zone:1436} Westfall
 	["The half pendants lie in {zone:1439} and {zone:1436}: later on the route"] = "两块吊坠碎片在{zone:1439}和{zone:1436}：在路线后面",
 
 	-- Step 20: Blackwood furbolgs
 	["Blackwood furbolgs"] = "黑木熊怪",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
 
 	-- Step 21: The Ancient Flame
 	-- {object:16393} Ancient Flame
 	["The {object:16393}"] = "{object:16393}",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["The flame burns in the south of {object:12894}."] = "",
+	-- {area:447} Ameth'Aran
+	["The flame burns in the south of {area:447}."] = "火焰在{area:447}南部燃烧。",
 
 	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向东北回到山里的水晶处。",
 
 	-- Step 23: Cliffspring Falls
-	["Cliffspring Falls"] = "",
-	-- {quest:954} Bashal'Aran
-	["Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of {quest:954}."] = "",
+	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}，在瀑布处",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -138,14 +138,14 @@ return {
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}：在{object:174795}装满{item:12346}",
 
 	-- Step 26: Mist's Edge
-	["Mist's Edge"] = "",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "",
 
 	-- Step 27: The bay wrecks
 	["The bay wrecks"] = "海湾沉船",
+	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of Auberdine; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -158,9 +158,6 @@ return {
 	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "月夜猛虎在{quest:954}和塔之间的山丘上潜行。{quest:1002}立在塔西边的山丘上。",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "{item:5413}",
-
-	-- Step 30: Cliffspring River
-	["Cliffspring River"] = "",
 
 	-- Step 31: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
@@ -183,8 +180,8 @@ return {
 
 	-- Step 33: The northern Blackwood camp
 	["The northern Blackwood camp"] = "北边的黑木营地",
-	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
-	["The furbolg camp south of the Cliffspring River keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
+	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "{area:456}南边的熊怪营地里，坚果、水果和谷物储存在篝火旁。各取一份样本，并备好{item:12347}（在{object:174795}装满{item:12346}），然后在离河流最近的篝火旁使用净化碗，召出腐化熊怪的萨特萨巴克希斯。{item:12355}在他的恶魔之包里。",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "在离河流最近的篝火旁使用，召出萨巴克希斯",
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}里",
@@ -199,39 +196,31 @@ return {
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At the {area:2362}"] = "在{area:2362}",
 	-- ["Back south"] = "返回南方",
 	-- ["Back to {npc:11802}"] = "返回{npc:11802}处",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "返回{area:2361}的{npc:11802}，然后飞往{area:702}（途经{area:442}）。",
 	-- ["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "返回{area:2361}的{npc:11802}，然后那里的{npc:11800}会把德鲁伊直接送到{area:702}。{npc:11802}在他所在建筑的楼上：从室内上去，箭头无法区分楼层。",
-	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
 	-- ["Boat to {zone:1453}"] = "乘船前往{zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。{item:15877}在{area:2361}下方{area:656}湖底的容器里：拿一个到西北方的{area:2362}，在那里使用并与{npc:11799}交谈。然后从{area:2361}飞回{area:442}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果还没有那里的飞行路线，就去学习。",
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。如果还没有那里的飞行路线，就去学习。",
-	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。{item:15877}在{area:2361}下方{area:656}湖底的容器里：拿一个到西北方的{area:2362}，在那里使用并与{npc:11799}交谈。然后从{area:2361}飞回{area:442}。",
-	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}东边的山脉；{object:175524}位于一处岩架上。",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "护送她离开主宰之剑；在{zone:1440}交给瑟瑞希尔",
 	-- ["Fine Moonstalker Pelts"] = "{item:5386}",
-	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "从{area:442}飞往{area:702}，乘传送门上去找{area:1658}的{npc:4217}。",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；雷鳞侍从、雷鳞巫师和雷鳞战士占据着那里，雷鳞兽王在岸边巡逻。",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；{npc:2181}、雷鳞巫师和雷鳞战士占据着那里。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有三具搁浅的遗骸：在{area:443}附近、{quest:954}北边和{quest:954}西边。",
-	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
 	-- ["Follow the road north."] = "沿道路向北。",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "沿道路向南。{quest:948}是古树之林的古树；{npc:270269}和{npc:11218}睡在他旁边。",
 	-- ["Grizzled Scalps"] = "{item:5414}",
 	-- ["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "{npc:2165}在林地周围的山丘上游荡；{quest:1003}就在林地西边的熊群之中。",
 	-- ["Hearth to {area:442}"] = "用炉石返回{area:442}",
 	-- ["Hearthstone on cooldown? Follow the coast road back south."] = "炉石在冷却？沿海岸道路返回南方。",
-	-- ["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "在{area:442}东边的山丘上击杀{npc:2164}，然后走到它们东南方的熊怪营地：暂时不用击杀任何东西。",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "{npc:2237}在主宰之剑周围的树林里潜行。{object:10076}和{object:12666}在陨坑底部；{npc:3584}站在陨坑北侧。",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "暗夜精灵从{area:442}飞往{area:702}；天裔乘{area:442}码头的船前往，并在那里学习鲁瑟兰村的飞行路线。乘传送门上去找{area:1658}的{npc:4217}。",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是{npc:2190}和{npc:2189}，东缘是{npc:2212}。{quest:1001}立在废墟西边的路旁。",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "仅当暮光信徒或暮光暴徒掉落了{item:5352}：右键点击它",
-	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "{npc:2164}在{area:442}东边的山丘上游荡。对一只使用{quest:2139}，然后把它引回他身边。",
 	-- ["Read both tablets"] = "阅读两块石板",
 	-- ["Scaber Stalks"] = "{item:5271}",
 	-- ["She gives you the {item:15826}"] = "她会给你{item:15826}",
@@ -242,8 +231,6 @@ return {
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村子西边。飞行管理员站在旅店南边的山丘上；任务给予者分布在主街上。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
 	-- ["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:2913} and {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村子西边：{npc:3644}在码头与岸边相接处等候。先上去找村子北端的{npc:2913}和{npc:3649}，再沿主街下到旅店。飞行管理员站在旅店南边的山丘上。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "洞穴在瀑布南边：整个洞里都长着{item:5271}，{item:5270}在最深处。{npc:6788}的巢穴在瀑布南边的山丘上；{object:177624}在她北边的萨特营地。",
-	-- ["The flame burns in the south of {area:447}."] = "火焰在{area:447}南部燃烧。",
-	-- ["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "{area:456}南边的熊怪营地里，坚果、水果和谷物储存在篝火旁。各取一份样本，并备好{item:12347}（在{object:174795}装满{item:12346}），然后在离河流最近的篝火旁使用净化碗，召出腐化熊怪的萨特萨巴克希斯。{item:12355}在他的恶魔之包里。",
 	-- ["The naga"] = "纳迦",
 	-- ["The relics of the Barrow Dens"] = "兽穴里的遗物",
 	-- ["The southern beaches"] = "南部海滩",
@@ -276,7 +263,6 @@ return {
 	-- ["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上。钥匙碎片掉落自凶猛的森林陆行鸟（上段）、灰雾鱼人（中段）和狂暴暗礁蟹（下段）。",
 	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上；雷鳞兽王在岸边巡逻。钥匙碎片掉落自{npc:2323}（上段）、灰雾鱼人（中段）和{npc:2236}（下段）。",
 	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003}立在古树之林西边。",
-	-- ["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}：在{area:445}装满取样器",
 	-- ["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}：交齐全部九具搁浅的遗骸后，{npc:10219}会提供这个任务",
 	-- ["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}（暗夜精灵）和{npc:272054}（天裔）在{area:493}南部等候。三件遗物在它们东边的{area:2363}里。最初几周的报告称：其他玩家正在拾取某件遗物时，你拾取不到东西：稍等片刻再试。",
 }

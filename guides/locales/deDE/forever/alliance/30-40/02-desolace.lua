@@ -7,27 +7,26 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Nijel's Point
-	-- {object:19559} Sun Rock Retreat (no name in this language: may be words) · {object:19556} Charred Vale (no name in this language: may be words) · {zone:1443} Desolace · {object:176948} Nijel's Point (no name in this language: may be words)
-	["Follow the road west past {object:19559} (Horde) and south-west through the {object:19556} into {zone:1443}; {object:176948} stands at the top of the pass."] = "",
+	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
+	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Folge der Straße nach Westen an {area:460} (Horde) vorbei und nach Südwesten durch {area:465} nach {zone:1443}; {area:608} liegt oben am Pass.",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Truhe der Malems",
-	-- {object:176948} Nijel's Point (no name in this language: may be words)
-	["The chest lies in the ruins south-west of {object:176948}."] = "",
+	-- {area:608} Nijel's Point
+	["The chest lies in the ruins south-west of {area:608}."] = "Die Truhe liegt in den Ruinen südwestlich von {area:608}.",
 
 	-- Step 3: Sargeron
-	["Sargeron"] = "",
-	-- {object:176948} Nijel's Point (no name in this language: may be words)
+	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of Sargeron, east of {object:176948}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
 
 	-- Step 6: Azore Aldamort
-	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill west of Thunder Axe Fortress: take his quest first, the sceptre he wants is in the fortress."] = "",
+	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "{npc:11863}s Turm steht auf dem Hügel westlich von {area:599}: Nimm zuerst seine Quest an, das Zepter, das er will, ist in der Festung.",
 
 	-- Step 7: Dalinda Malem
-	-- {npc:5644} Dalinda Malem · {object:176948} Nijel's Point (no name in this language: may be words)
-	["{npc:5644} hides inside the Burning Blade's fortress south-west of {object:176948}."] = "",
+	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
+	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Burning Blade südwestlich von {area:608}.",
 	["Inside"] = "",
 
 	-- Step 8: Tyranis Malem and the Seer
@@ -46,54 +45,47 @@ return {
 	-- {npc:5644} Dalinda Malem
 	["{npc:5644}, inside"] = "",
 	["Out of Thunder Axe Fortress"] = "Raus aus der Festung Thunder Axe",
-	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {object:176948} Nijel's Point (no name in this language: may be words)
-	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {object:176948} at the end of the guide."] = "",
+	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
+	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Führ {npc:5644} aus der Festung; sie geht ihrer Wege, sobald ihr draußen seid. {npc:5642} nimmt die Abgabe am Ende des Guides in {area:608} entgegen.",
 
 	-- Step 10: Smeed Scrabblescrew
-	-- {npc:11596} Smeed Scrabblescrew
-	["{npc:11596}'s camp is on the road south of Kolkar Village, by the Kodo Graveyard."] = "",
+	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
+	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}s Lager liegt an der Straße südlich von {area:609}, beim {area:596}.",
 
 	-- Step 11: Kodo Graveyard
-	["Kodo Graveyard"] = "",
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4700} Aged Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp. There, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
 
 	-- Step 13: Kolkar Village
-	["Kolkar Village"] = "",
-	-- {npc:5752} Corporal Melkins
-	["The Kolkar roam the plains around Kolkar Village; their ears are for {npc:5752}."] = "",
+	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
+	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Die Kolkar streifen über die Ebenen um {area:609}; ihre Ohren sind für {npc:5752}.",
 
 	-- Step 15: Fly to Auberdine
-	["Fly to Auberdine"] = "",
-	-- {object:176948} Nijel's Point (no name in this language: may be words)
-	["{object:176948} flight master"] = "",
+	-- {area:442} Auberdine
+	["Fly to {area:442}"] = "",
+	-- {area:608} Nijel's Point
+	["{area:608} flight master"] = "",
 
 	-- Step 16: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "Die Karawane eskortieren",
-	-- ["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Folge der Straße nach Westen an {area:460} (Horde) vorbei und nach Südwesten durch {area:465} nach {zone:1443}; {area:608} liegt oben am Pass.",
 	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Geh von {area:415} nach Nordwesten in die Hügel: {quest:1738} ist ein leuchtender Baum nördlich der Straße nach {area:413}. Hast du {quest:65602} angenommen, liegt {item:190309} in einem Haus zwischen den Bäumen nördlich von {area:413} (26,6, 22,0). Geh dann zurück an {area:415} vorbei zum {area:1276}.",
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "Reite von {area:415} nach Südwesten zum {area:1276}, einem Tunnel durch die Berge ins Steinkrallengebirge.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Reite von {area:415} nach Nordwesten in die Hügel: {quest:1738} ist ein leuchtender Baum nördlich der Straße nach {area:413}. Falls du {quest:65602} angenommen hast, liegt {item:190309} in einem Haus zwischen den Bäumen nördlich von {area:413} (26.6,22.0). Dann zurück an {area:415} vorbei zum {area:1276}.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "Von {npc:1573} in {zone:1455}",
-	-- ["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Führ {npc:5644} aus der Festung; sie geht ihrer Wege, sobald ihr draußen seid. {npc:5642} nimmt die Abgabe am Ende des Guides in {area:608} entgegen.",
 	-- ["Scorpashi venom"] = "Skorpashigift",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "Nimm das Schiff von Menethils Anlegestelle nach {area:442}.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Nimm das Schiff von Menethils Anlegestelle nach {area:442}. {npc:3649} steht in {area:442}, nördlich des Flugmeisters.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "Gizeltons Karawane wartet bei {area:2407}.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "Die Satyrn der Zornsäer halten die Ruinen von {area:603}, östlich von {area:608}.",
-	-- ["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Die Kolkar streifen über die Ebenen um {area:609}; ihre Ohren sind für {npc:5752}.",
 	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Die Skorpashi-Skorpide jagen in den Hügeln um {area:2407} an der Straße nach Süden.",
-	-- ["The chest lies in the ruins south-west of {area:608}."] = "Die Truhe liegt in den Ruinen südwestlich von {area:608}.",
 	-- ["The {area:1276}"] = "{area:1276}",
 	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Benutze {npc:11596}s {item:13892} an einem {npc:4700} und führ den gezähmten Kodo zu seinem Lager zurück, fünfmal; Gealterte Kodos lassen auch die Bälge fallen.",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "Geh mit der Karawane nach Süden an {area:609} vorbei; unterwegs überfallen sie Wegelagerer der Kolkar. Bleib dicht dran, bis sie bei {area:2617} anhält. Die Wegelagerer sind Stufe 34-35 und kommen in Wellen: Überspring sie, wenn du unter 33 bist.",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, nördlich von {area:413}",
-	-- ["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}s Lager liegt an der Straße südlich von {area:609}, beim {area:596}.",
-	-- ["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "{npc:11863}s Turm steht auf dem Hügel westlich von {area:599}: Nimm zuerst seine Quest an, das Zepter, das er will, ist in der Festung.",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, von Sylessa in Menethil",
-	-- ["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Burning Blade südwestlich von {area:608}.",
 }

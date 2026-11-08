@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Auberdine
-	["Auberdine"] = "",
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
 	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
@@ -43,9 +42,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Ursos empestados",
-	-- {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of Auberdine. Use {quest:2139} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Ursocardos Raivosos vagam pelas colinas logo a leste de {area:442}. Use {quest:2139} em um e leve-o de volta até ele.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -56,8 +55,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Ursos e o acampamento Bosquenero",
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Kill Rabid Thistle Bears in the hills east of Auberdine, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
+	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "Mate Ursocardos Raivosos nas colinas a leste de {area:442} e depois suba até o acampamento furbolg a sudeste deles: nada para matar ainda.",
 
 	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -71,8 +71,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "O cristal vermelho",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -88,44 +88,44 @@ return {
 	["Fill the tube at the moonwell in the village"] = "Encha o tubo no poço lunar do vilarejo",
 
 	-- Step 15: A Lesson to Learn
-	-- {npc:4217} Mathrengyl Bearwalker
-	["Fly from Auberdine to Rut'theran Village and take the portal up to {npc:4217} in the Cenarion Enclave."] = "",
+	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
+	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
 
 	-- Step 18: Moonglade
-	-- {zone:1450} Moonglade
-	["Cast Teleport: {zone:1450}"] = "",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 
 	-- Step 19: Trial of the Lake
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {object:177117} Shrine of Remulos (no name in this language: may be words) · {npc:11799} Tajarri
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast Teleport: {zone:1450}. {npc:11802} stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the {object:177117} in the north-west, use it there and speak to {npc:11799}. Then fly back to Auberdine from Nighthaven."] = "",
-	-- {quest:6122} The Principal Source
-	["{quest:6122}: fill the sampler at Cliffspring Falls"] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "",
+	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
+	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: encha o amostrador em {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}, de um {object:177785} no lago",
-	-- {object:177117} Shrine of Remulos (no name in this language: may be words)
-	["At the {object:177117}"] = "",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "Em {area:2362}",
 	-- {zone:1439} Darkshore · {zone:1436} Westfall
 	["The half pendants lie in {zone:1439} and {zone:1436}: later on the route"] = "As metades do pingente ficam em {zone:1439} e {zone:1436}: mais adiante na rota",
 
 	-- Step 20: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Furbolgs Bosqueneros",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
 
 	-- Step 21: The Ancient Flame
 	-- {object:16393} Ancient Flame
 	["The {object:16393}"] = "{object:16393}",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["The flame burns in the south of {object:12894}."] = "",
+	-- {area:447} Ameth'Aran
+	["The flame burns in the south of {area:447}."] = "A chama arde no sul de {area:447}.",
 
 	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
 
 	-- Step 23: Cliffspring Falls
-	["Cliffspring Falls"] = "",
-	-- {quest:954} Bashal'Aran
-	["Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of {quest:954}."] = "",
+	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, na cachoeira",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -138,14 +138,14 @@ return {
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
 
 	-- Step 26: Mist's Edge
-	["Mist's Edge"] = "",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "",
 
 	-- Step 27: The bay wrecks
 	["The bay wrecks"] = "Os naufrágios da baía",
+	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of Auberdine; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -158,9 +158,6 @@ return {
 	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "Espreitalunas rondam as colinas entre {quest:954} e a torre. {quest:1002} fica na colina a oeste da torre.",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Presas de Espreitaluna",
-
-	-- Step 30: Cliffspring River
-	["Cliffspring River"] = "",
 
 	-- Step 31: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
@@ -183,8 +180,8 @@ return {
 
 	-- Step 33: The northern Blackwood camp
 	["The northern Blackwood camp"] = "",
-	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
-	["The furbolg camp south of the Cliffspring River keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
+	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}, em {object:177624}",
@@ -199,36 +196,29 @@ return {
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At the {area:2362}"] = "Em {area:2362}",
 	-- ["Back south"] = "De volta ao sul",
 	-- ["Back to {npc:11802}"] = "De volta a {npc:11802}",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "Volte a {npc:11802} em {area:2361} e depois voe para {area:702} (passando por {area:442}).",
-	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
 	-- ["Boat to {zone:1453}"] = "Barco para {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Adornos de Altar ficam nos recipientes no fundo de {area:656}, abaixo de {area:2361}: leve um até {area:2362} a noroeste, use-o lá e fale com {npc:11799}. Depois voe de volta para {area:442} a partir de {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; aprenda a rota de voo de lá se ainda não a tiver.",
-	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escolte-a para fora da glaive; Therysil recebe a entrega em {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
-	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Siga a costa para nordeste até {area:443}. {quest:951} estão entre as ruínas; Mirmidões Skamatrom, Feiticeiras Skamatrom e Guerreiros Skamatrom as ocupam, e Senhoras das Feras Skamatrom andam pela costa.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "Siga a costa para nordeste até {area:443}. {quest:951} estão entre as ruínas; Mirmidões Skamatrom, Feiticeiras Skamatrom e Guerreiros Skamatrom as ocupam.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}. Mais três restos estão mais a sudoeste, entre Oráculos e Caçamarés Brumagris (18-20): o guia os deixa para a última volta, quando você estiver mais perto do nível deles.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais três restos encalhados estão na costa norte: perto de {area:443}, ao norte de {quest:954} e a oeste de {quest:954}.",
-	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
 	-- ["Follow the road north."] = "Siga a estrada para o norte.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Siga a estrada para o sul. {quest:948} é o anciente do Bosque; {npc:270269} e {npc:11218} dormem ao lado dele.",
 	-- ["Grizzled Scalps"] = "Escalpos Grisalhos",
 	-- ["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "Ursocardos Grisalhos vagam pelas colinas ao redor do Bosque; {quest:1003} fica a oeste dele, no meio deles.",
 	-- ["Hearth to {area:442}"] = "Pedra de Regresso para {area:442}",
 	-- ["Hearthstone on cooldown? Follow the coast road back south."] = "Pedra de Regresso em recarga? Volte para o sul pela estrada costeira.",
-	-- ["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "Mate Ursocardos Raivosos nas colinas a leste de {area:442} e depois suba até o acampamento furbolg a sudeste deles: nada para matar ainda.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:10076} e {object:12666} ficam no fundo da cratera; {npc:3584} fica no lado norte.",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "Elfos Noturnos voam de {area:442} para {area:702}; Celonatos pegam o barco na doca de {area:442} e aprendem lá a rota de voo. Pegue o portal para subir até {npc:4217} em {area:1658}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Siga as colinas para o norte. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes as enchem, e Sátiros Deth'ryll a borda leste. {quest:1001} fica junto à estrada a oeste das ruínas.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Só se um Discipulo ou Capanga tiver deixado cair {item:5352}: clique com o botão direito nele",
-	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Ursocardos Raivosos vagam pelas colinas logo a leste de {area:442}. Use {quest:2139} em um e leve-o de volta até ele.",
 	-- ["Read both tablets"] = "Leia as duas tábuas",
 	-- ["Scaber Stalks"] = "Galhos de Piolho",
 	-- ["She gives you the {item:15826}"] = "Ela lhe dá o {item:15826}",
@@ -237,7 +227,6 @@ return {
 	-- ["The WANTED poster"] = "O cartaz de PROCURA-SE",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "O barco atraca a oeste do vilarejo. O mestre de voo fica na colina ao sul da estalagem; os recrutadores de missões estão espalhados pela rua principal.",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "A caverna fica ao sul das cachoeiras: Galhos de Piolho crescem por toda ela, e o {item:5270} bem no fundo. A {npc:6788} se entoca nas colinas ao sul das cachoeiras; {object:177624} está no acampamento de sátiros ao norte dela.",
-	-- ["The flame burns in the south of {area:447}."] = "A chama arde no sul de {area:447}.",
 	-- ["The naga"] = "Os nagas",
 	-- ["The relics of the Barrow Dens"] = "As relíquias dos Templos de Tempesfúria",
 	-- ["The southern beaches"] = "As praias do sul",
@@ -267,7 +256,6 @@ return {
 	-- ["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde na ilhota em frente às ruínas. As partes da chave caem de Florestruzes Gigantes (topo), murlocs Brumagris (meio) e Tiscorais Furiosos (base).",
 	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde na ilhota em frente às ruínas; Senhoras das Feras Escamarraio andam pela costa. As partes da chave caem de Florestruzes Gigantes (topo), murlocs Brumagris (meio) e Tiscorais Furiosos (base).",
 	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003} fica a oeste do Bosque.",
-	-- ["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: encha o amostrador em {area:445}",
 	-- ["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}: {npc:10219} a oferece depois que os nove restos encalhados forem entregues",
 	-- ["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (Elfos Noturnos) e o {npc:272054} (Celonatos) esperam no sul de {area:493}. As três relíquias ficam em {area:2363}, a leste deles. Relatos das primeiras semanas dizem que uma relíquia não dá saque enquanto outro jogador a saqueia: espere um pouco e tente de novo.",
 }

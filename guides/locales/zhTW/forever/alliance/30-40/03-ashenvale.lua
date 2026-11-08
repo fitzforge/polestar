@@ -7,16 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
 
 	-- Step 2: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
 	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}站在米奈希爾城堡的上層。",
 	["Inside"] = "",
-
-	-- Step 3: Deepwater Tavern
-	["Deepwater Tavern"] = "",
 
 	-- Step 4: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "沉船殘骸在城堡南邊的淺水處。",
@@ -32,14 +29,14 @@ return {
 
 	-- Step 8: Theramore
 	["Theramore"] = "塞拉摩",
-	-- {object:21057} Foothold Citadel (no name in this language: may be words) · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
-	["The flight master stands by the gate of {object:21057}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
+	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
+	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飛行管理員站在{area:514}的大門旁；{npc:5083}和{npc:4964}在要塞裡面。",
 	-- {npc:5083} Clerk Lendry
 	["{npc:5083}, on the top floor"] = "",
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
-	-- {npc:4456} Fiora Longears · {zone:1441} Thousand Needles
-	["{npc:4456}: the wyverns are in {zone:1441}, later in this guide"] = "",
+	-- {npc:4456} Fiora Longears · {area:400} Thousand Needles
+	["{npc:4456}: the wyverns are in {area:400}, later in this guide"] = "",
 
 	-- Step 9: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -50,26 +47,26 @@ return {
 	["Into {zone:1413}"] = "",
 
 	-- Step 11: Takar the Seer
-	-- {zone:1413} Barrens · {npc:6244} Takar the Seer
-	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of Camp Taurajo; come in from the east and keep clear of the Horde guards."] = "",
+	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
+	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "在向南穿過{zone:1413}的道路上，{npc:6244}在道路東邊、{area:378}東北方紮營；從東邊過去，避開部落衛兵。",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
 	["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738}：在{zone:1440}，前往{zone:1443}的路上",
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}：夢魔在魅魔旁邊；{item:190309}在{quest:1738}附近",
 
 	-- Step 12: Highperch
-	["Highperch"] = "",
-	-- {object:19844} Great Lift · {zone:1441} Thousand Needles
-	["Down the {object:19844} into {zone:1441}, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac."] = "",
+	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
 	-- Step 15: Mirage Raceway
-	["Mirage Raceway"] = "",
-	["Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions."] = "",
+	-- {area:2240} Mirage Raceway
+	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "沿著峽谷向東前往鹽湖。{area:2240}的哥布林和地精是中立的，兩個陣營都能接他們的任務。",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "交給荊棘谷的{quest:5762}，稍後",
 
 	-- Step 16: Mirage Raceway: kill these as you meet them
-	["Mirage Raceway: kill these as you meet them"] = "",
+	-- {area:2240} Mirage Raceway
+	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
@@ -79,21 +76,21 @@ return {
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
 
 	-- Step 18: Gadgetzan
-	["Gadgetzan"] = "",
-	-- {object:151976} Shimmering Flats (no name in this language: may be words) · {zone:1446} Tanaris · {npc:7823} Bera Stonehammer
-	["From the raceway follow the road south out of the {object:151976} into {zone:1446}; Gadgetzan is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
 
 	-- Step 19: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
-	["Gadgetzan flight master"] = "",
+	-- {area:976} Gadgetzan
+	["{area:976} flight master"] = "",
 
 	-- Step 20: Theramore
-	-- {npc:4456} Fiora Longears · {object:21057} Foothold Citadel (no name in this language: may be words) · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {object:21057}; {npc:4941} stands in the town."] = "",
+	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
 
 	-- Step 21: Boat to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Boat to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Boat to {area:150}"] = "搭船前往{area:150}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",

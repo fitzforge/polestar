@@ -11,18 +11,16 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Apprendre à monter",
-	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {object:2968} Bloodhoof Village (no name in this language: may be words) · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {object:2968}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} to Tauren for 100g (10% less at Honored with {faction:81}), and it comes with a kodo. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} to Tauren for 100g (10% less at Honored with {faction:81}), and it comes with a kodo. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:3690} et les kodos de {npc:3685} sont au {area:222}, en {zone:1412}. Au niveau 40, {npc:3690} enseigne la {skill:762} aux Taurens pour 100 po (10 % de moins à Honoré auprès des {faction:81}), avec un kodo. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, maître de monte",
 
 	-- Step 2: Kodo Riding for other races
-	-- {skill:762} Riding
-	["Kodo {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes Kodo Riding, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
-	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, Kodo Riding"] = "",
+	-- {spell:18995} Kodo Riding
+	["{spell:18995} for other races"] = "{spell:18995} pour les autres races",
+	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Toute race de la Horde peut acheter ces kodos, mais en monter un demande aussi {spell:18995}, que seuls les Taurens reçoivent avec la {skill:762}. {npc:3690} l'enseigne aux autres races une fois Exaltées auprès des {faction:81} (le guide de réputation des Pitons-du-Tonnerre montre le chemin). D'ici là, n'achetez pas de kodo pour ce personnage.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",
@@ -37,9 +35,6 @@ return {
 	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "Le {item:277960} est un nouveau kodo de Forever (niveau 40, 20 po dans le client) dont la source n'est pas encore connue.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Toute race de la Horde peut acheter ces kodos, mais en monter un demande aussi {spell:18995}, que seuls les Taurens reçoivent avec la {skill:762}. {npc:3690} l'enseigne aux autres races une fois Exaltées auprès des {faction:81} (le guide de réputation des Pitons-du-Tonnerre montre le chemin). D'ici là, n'achetez pas de kodo pour ce personnage.",
 	-- ["{item:275993} and {item:277960} are new Forever kodos (level 40, 20g in the client) whose source is not known yet."] = "{item:275993} et {item:277960} sont de nouveaux kodos de Forever (niveau 40, 20 po dans le client) dont la source n'est pas encore connue.",
 	-- ["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "Les kodos de {npc:3690} et {npc:3685} se trouvent à {area:222}, {zone:1412}. Au niveau 40, {npc:3690} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de la Horde de les monter.",
-	-- ["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} to Tauren for 100g (10% less at Honored with {faction:81}), and it comes with a kodo. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:3690} et les kodos de {npc:3685} sont au {area:222}, en {zone:1412}. Au niveau 40, {npc:3690} enseigne la {skill:762} aux Taurens pour 100 po (10 % de moins à Honoré auprès des {faction:81}), avec un kodo. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
-	-- ["{spell:18995} for other races"] = "{spell:18995} pour les autres races",
 }

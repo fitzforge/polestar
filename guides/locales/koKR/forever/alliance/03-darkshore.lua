@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Auberdine
-	["Auberdine"] = "",
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
 	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
@@ -43,9 +42,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "병든 곰",
-	-- {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of Auberdine. Use {quest:2139} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -56,8 +55,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "곰과 검은나무일족 야영지",
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Kill Rabid Thistle Bears in the hills east of Auberdine, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
+	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "{area:442} 동쪽 언덕에서 광포한 엉겅퀴곰을 처치한 다음, 그 남동쪽의 펄볼그 야영지로 걸어가십시오. 아직 처치할 것은 없습니다.",
 
 	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -71,8 +71,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "붉은 수정",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "{area:447} 동쪽의 산을 오르십시오. {object:175524}은(는) 바위 턱 위에 있습니다.",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -88,44 +88,44 @@ return {
 	["Fill the tube at the moonwell in the village"] = "마을의 달샘에서 시험관을 채우십시오",
 
 	-- Step 15: A Lesson to Learn
-	-- {npc:4217} Mathrengyl Bearwalker
-	["Fly from Auberdine to Rut'theran Village and take the portal up to {npc:4217} in the Cenarion Enclave."] = "",
+	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
+	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "{area:442}에서 {area:702}(으)로 날아간 다음, 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 
 	-- Step 18: Moonglade
-	-- {zone:1450} Moonglade
-	["Cast Teleport: {zone:1450}"] = "",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 
 	-- Step 19: Trial of the Lake
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {object:177117} Shrine of Remulos (no name in this language: may be words) · {npc:11799} Tajarri
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast Teleport: {zone:1450}. {npc:11802} stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the {object:177117} in the north-west, use it there and speak to {npc:11799}. Then fly back to Auberdine from Nighthaven."] = "",
-	-- {quest:6122} The Principal Source
-	["{quest:6122}: fill the sampler at Cliffspring Falls"] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "",
+	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
+	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}, 호수 안의 {object:177785}에서",
-	-- {object:177117} Shrine of Remulos (no name in this language: may be words)
-	["At the {object:177117}"] = "",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "{area:2362}에서",
 	-- {zone:1439} Darkshore · {zone:1436} Westfall
 	["The half pendants lie in {zone:1439} and {zone:1436}: later on the route"] = "반쪽 펜던트는 {zone:1439}와(과) {zone:1436}에 있습니다: 경로 후반에",
 
 	-- Step 20: Blackwood furbolgs
 	["Blackwood furbolgs"] = "검은나무일족 펄볼그",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "검은나무일족 길잡이와 검은나무일족 풍수사가 {area:442} 남동쪽 야영지를 지키고 있습니다.",
 
 	-- Step 21: The Ancient Flame
 	-- {object:16393} Ancient Flame
 	["The {object:16393}"] = "{object:16393}",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["The flame burns in the south of {object:12894}."] = "",
+	-- {area:447} Ameth'Aran
+	["The flame burns in the south of {area:447}."] = "불꽃은 {area:447} 남쪽에서 타오르고 있습니다.",
 
 	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "북동쪽 산으로 돌아가 수정에게 가십시오.",
 
 	-- Step 23: Cliffspring Falls
-	["Cliffspring Falls"] = "",
-	-- {quest:954} Bashal'Aran
-	["Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of {quest:954}."] = "",
+	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 두 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽.",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, 폭포에서",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -138,14 +138,14 @@ return {
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
 
 	-- Step 26: Mist's Edge
-	["Mist's Edge"] = "",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "",
 
 	-- Step 27: The bay wrecks
 	["The bay wrecks"] = "만의 난파선",
+	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of Auberdine; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -158,9 +158,6 @@ return {
 	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "달표범이 {quest:954}와(과) 탑 사이의 언덕을 배회합니다. {quest:1002}은(는) 탑 서쪽 언덕에 서 있습니다.",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "달표범 송곳니",
-
-	-- Step 30: Cliffspring River
-	["Cliffspring River"] = "",
 
 	-- Step 31: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale
@@ -183,8 +180,8 @@ return {
 
 	-- Step 33: The northern Blackwood camp
 	["The northern Blackwood camp"] = "",
-	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
-	["The furbolg camp south of the Cliffspring River keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
+	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}, {object:177624} 안에",
@@ -199,36 +196,29 @@ return {
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At the {area:2362}"] = "{area:2362}에서",
 	-- ["Back south"] = "다시 남쪽으로",
 	-- ["Back to {npc:11802}"] = "{npc:11802}에게 돌아가기",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "{area:2361}의 {npc:11802}에게 돌아간 다음, ({area:442}을(를) 거쳐) {area:702}(으)로 날아가십시오.",
-	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "검은나무일족 길잡이와 검은나무일족 풍수사가 {area:442} 남동쪽 야영지를 지키고 있습니다.",
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. {item:15877}은(는) {area:2361} 아래 {area:656} 바닥의 용기 속에 있습니다. 하나를 북서쪽의 {area:2362}(으)로 가져가 그곳에서 사용하고 {npc:11799}와(과) 대화하세요. 그런 다음 {area:2361}에서 {area:442}(으)로 날아 돌아오세요.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 비행 경로가 없다면 그곳에서 배우세요.",
-	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "{area:447} 동쪽의 산을 오르십시오. {object:175524}은(는) 바위 턱 위에 있습니다.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다",
 	-- ["Fine Moonstalker Pelts"] = "고급 달표범 모피",
-	-- ["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "{area:442}에서 {area:702}(으)로 날아간 다음, 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있으며, 폭풍비늘 야수조련사가 해안을 거닙니다.",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있습니다.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다. 더 남서쪽의 잿빛안개멀록 점술사와 잿빛안개멀록 바다사냥꾼(18-20) 사이에 사체가 세 개 더 있습니다. 가이드는 레벨이 더 가까워지는 마지막 순환 때 이들을 처리합니다.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 세 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽, {quest:954} 서쪽.",
-	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 두 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽.",
 	-- ["Follow the road north."] = "길을 따라 북쪽으로 가십시오.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "길을 따라 남쪽으로 가십시오. {quest:948}은(는) 고대정령의 숲에 있는 고대정령입니다. {npc:270269}와(과) {npc:11218}이(가) 그 곁에서 잠들어 있습니다.",
 	-- ["Grizzled Scalps"] = "불곰 가죽",
 	-- ["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "엉겅퀴불곰이 숲 주변 언덕을 돌아다닙니다. {quest:1003}은(는) 그 서쪽, 곰들 사이에 서 있습니다.",
 	-- ["Hearth to {area:442}"] = "귀환석으로 {area:442}에 가십시오",
 	-- ["Hearthstone on cooldown? Follow the coast road back south."] = "귀환석이 재사용 대기 중이라면 해안 길을 따라 남쪽으로 돌아가십시오.",
-	-- ["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "{area:442} 동쪽 언덕에서 광포한 엉겅퀴곰을 처치한 다음, 그 남동쪽의 펄볼그 야영지로 걸어가십시오. 아직 처치할 것은 없습니다.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:10076}와(과) {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다.",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 그곳의 루테란 비행 경로를 익히십시오. 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있습니다.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "신도나 암살단원이 {item:5352}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하십시오",
-	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오.",
 	-- ["Read both tablets"] = "두 석판을 모두 읽으십시오",
 	-- ["Scaber Stalks"] = "껄껄이그물버섯",
 	-- ["She gives you the {item:15826}"] = "그녀가 {item:15826}을(를) 줍니다",
@@ -237,7 +227,6 @@ return {
 	-- ["The WANTED poster"] = "현상수배 포스터",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "배는 마을 서쪽에 정박합니다. 비행 조련사는 여관 남쪽 언덕에 있고, 퀘스트 제공자들은 큰길을 따라 흩어져 있습니다.",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "동굴은 폭포 남쪽에 있습니다. {item:5271}은(는) 동굴 곳곳에 자라고, {item:5270}은(는) 맨 안쪽에 있습니다. {npc:6788}은(는) 폭포 남쪽 언덕에 둥지를 틀고 있고, {object:177624}은(는) 그 북쪽 사티로스 야영지에 놓여 있습니다.",
-	-- ["The flame burns in the south of {area:447}."] = "불꽃은 {area:447} 남쪽에서 타오르고 있습니다.",
 	-- ["The naga"] = "나가",
 	-- ["The relics of the Barrow Dens"] = "지하굴의 유물",
 	-- ["The southern beaches"] = "남쪽 해변",
@@ -269,7 +258,6 @@ return {
 	-- ["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있습니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",
 	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있고, 폭풍비늘 야수조련사가 해안을 거닙니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",
 	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003}은(는) 고대정령의 숲 서쪽에 서 있습니다.",
-	-- ["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 	-- ["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}: 떠밀려 온 사체 아홉 개를 모두 반납하면 {npc:10219}이(가) 줍니다",
 	-- ["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}(나이트 엘프)와(과) {npc:272054}(스카이본)이(가) {area:493} 남쪽에서 기다립니다. 세 유물은 그 동쪽의 {area:2363}에 있습니다. 첫 몇 주의 제보에 따르면 다른 플레이어가 유물을 획득하는 중에는 아무것도 나오지 않습니다: 잠시 기다렸다가 다시 시도하십시오.",
 }

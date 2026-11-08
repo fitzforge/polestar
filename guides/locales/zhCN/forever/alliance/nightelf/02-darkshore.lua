@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	["Auberdine"] = "",
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "船停靠在村子西边。飞行管理员站在旅店南边的山丘上；任务发布者分布在主街上。",
 	["The WANTED poster outside the inn"] = "旅店外的通缉布告",
 
@@ -34,9 +33,9 @@ return {
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
-	-- {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of Auberdine: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡：对其中一只使用{item:7586}将其捕获。然后走到它们东边不远处的熊怪营地：暂时无需击杀任何怪物。",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -53,8 +52,8 @@ return {
 
 	-- Step 8: The red crystal
 	["The red crystal"] = "红色水晶",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}东边的山脉；{object:175524}位于一处岩架上。",
 
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -71,28 +70,30 @@ return {
 
 	-- Step 12: Blackwood furbolgs
 	["Blackwood furbolgs"] = "黑木熊怪",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
 
 	-- Step 13: The southern beaches
 	["The southern beaches"] = "南部海滩",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {quest:4728} Beached Sea Creature
+	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {object:12894}: one {quest:4728} lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "",
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
 
 	-- Step 14: Ameth'Aran
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["Back north to {object:12894}: the flame burns in the south of the ruins."] = "",
+	-- {area:447} Ameth'Aran
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "向北返回{area:447}：火焰在废墟南部燃烧。",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向东北回到山里的水晶处。",
 
 	-- Step 16: Bashal'Aran
-	-- {npc:3650} Asterion
-	["North along the hills to {npc:3650}, then west down to Auberdine."] = "",
+	-- {npc:3650} Asterion · {area:442} Auberdine
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "沿山丘向北找到{npc:3650}，然后向西下山前往{area:442}。",
 
 	-- Step 18: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
@@ -111,8 +112,8 @@ return {
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 22: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习{spell:202}（{object:2096}，10银币）；双手武器能让战士升级最快。",
 
 	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -120,21 +121,17 @@ return {
 
 	-- Step 24: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
-	["{npc:5504} in {zone:1453}; Goldshire has no druid trainer"] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}在{zone:1453}；{area:87}没有德鲁伊训练师",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "职业训练师",
 
 	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "萨满祭司训练师",
-	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh
-	["{npc:257446} in {zone:1426}; Goldshire has no shaman trainer"] = "",
+	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446}在{zone:1426}；{area:87}没有萨满祭司训练师",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "向北返回{area:447}：火焰在废墟南部燃烧。",
 	-- ["Into {area:148}"] = "前往{area:148}",
-	-- ["North along the hills to {npc:3650}, then west down to {area:442}."] = "沿山丘向北找到{npc:3650}，然后向西下山前往{area:442}。",
-	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡：对其中一只使用{item:7586}将其捕获。然后走到它们东边不远处的熊怪营地：暂时无需击杀任何怪物。",
-	-- ["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}在{zone:1453}；{area:87}没有德鲁伊训练师",
 }

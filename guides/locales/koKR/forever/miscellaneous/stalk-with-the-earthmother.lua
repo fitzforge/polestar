@@ -16,9 +16,8 @@ return {
 	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "",
 
 	-- Step 2: The Venture Co. Mine
-	["The Venture Co. Mine"] = "",
-	-- {zone:1412} Mulgore · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the Venture Co. Mine. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
 	["Venture Co. Mine"] = "",
 	-- {object:403041} Blasting Supplies (no name in this language: may be words)
 	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
@@ -31,9 +30,9 @@ return {
 	-- Step 4: Windfury Cones
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones"] = "",
-	-- {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
+	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
+	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
 	["grind the eight cones"] = "",
 
 	-- Step 5: Boarton Shadetotem

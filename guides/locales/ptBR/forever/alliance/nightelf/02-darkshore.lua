@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	["Auberdine"] = "",
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "O barco atraca a oeste do vilarejo. O mestre de voo fica na colina ao sul da estalagem; os recrutadores de missões estão espalhados pela rua principal.",
 	["The WANTED poster outside the inn"] = "O cartaz de PROCURA-SE em frente à estalagem",
 
@@ -34,9 +33,9 @@ return {
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Ursos e o acampamento Bosquenero",
-	-- {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of Auberdine: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -53,8 +52,8 @@ return {
 
 	-- Step 8: The red crystal
 	["The red crystal"] = "O cristal vermelho",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
 
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -71,28 +70,30 @@ return {
 
 	-- Step 12: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Furbolgs Bosqueneros",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
 
 	-- Step 13: The southern beaches
 	["The southern beaches"] = "As praias do sul",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {quest:4728} Beached Sea Creature
+	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {object:12894}: one {quest:4728} lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "",
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}. Mais três restos estão mais a sudoeste, entre Oráculos e Caçamarés Brumagris (18-20): o guia os deixa para a última volta, quando você estiver mais perto do nível deles.",
 
 	-- Step 14: Ameth'Aran
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["Back north to {object:12894}: the flame burns in the south of the ruins."] = "",
+	-- {area:447} Ameth'Aran
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
 
 	-- Step 16: Bashal'Aran
-	-- {npc:3650} Asterion
-	["North along the hills to {npc:3650}, then west down to Auberdine."] = "",
+	-- {npc:3650} Asterion · {area:442} Auberdine
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
 
 	-- Step 18: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
@@ -111,8 +112,8 @@ return {
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 22: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -120,16 +121,16 @@ return {
 
 	-- Step 24: Druid trainer
 	["Druid trainer"] = "",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
-	["{npc:5504} in {zone:1453}; Goldshire has no druid trainer"] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "",
 
 	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "",
-	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh
-	["{npc:257446} in {zone:1426}; Goldshire has no shaman trainer"] = "",
+	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Into {area:148}"] = "Rumo a {area:148}",

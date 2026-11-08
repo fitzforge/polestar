@@ -8,18 +8,19 @@
 return {
 	-- Guide
 	["Kirin Tor Reputation"] = "",
-	["New in Forever: Dalaran's mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "",
+	-- {area:279} Dalaran
+	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
 	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "",
 
 	-- Step 1: Skyborne: the recipes now
 	["Skyborne: the recipes now"] = "",
-	-- {faction:2740} Kirin Tor · {npc:32287} Archmage Alvareaux
-	["Alliance Skyborne start Friendly with the {faction:2740}, and their arrival quests The Magical City of Dalaran and Exploring the Alliance pay 100 more each, so {npc:32287} sells you the Azure recipes at once (10g each, they need skill 175). He stands upstairs in the building with the {faction:2740} banners in Dalaran, past the Sky Enclave. Buy the ones for your profession."] = "",
+	-- {faction:2740} Kirin Tor · {npc:32287} Archmage Alvareaux · {area:279} Dalaran
+	["Alliance Skyborne start Friendly with the {faction:2740}, and their arrival quests The Magical City of Dalaran and Exploring the Alliance pay 100 more each, so {npc:32287} sells you the Azure recipes at once (10g each, they need skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}, past the Sky Enclave. Buy the ones for your profession."] = "",
 
 	-- Step 2: An Alarming Request
-	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {npc:246748} Archmage Modera
-	["{npc:247264} of the {faction:2740} waits in Southshore. He sends you to {npc:246748}'s image by the shore of Lordamere Lake, outside Dalaran's walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "",
+	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
@@ -38,16 +39,16 @@ return {
 	["Back to Modera's image"] = "",
 
 	-- Step 6: Archmage Celindra
-	-- {npc:252085} Archmage Celindra
-	["{npc:252085} waits in the Violet Citadel in Dalaran."] = "",
+	-- {npc:252085} Archmage Celindra · {area:279} Dalaran
+	["{npc:252085} waits in the Violet Citadel in {area:279}."] = "",
 
 	-- Step 7: Past Due
-	-- {npc:264265} Magus Olvek · {npc:6487} Arcanist Doan · {zone:1420} Tirisfal Glades
-	["{npc:264265} in Dalaran wants a book back from {npc:6487}, the last boss of the Scarlet Monastery's Library (levels 33 to 41), in {zone:1420}."] = "",
+	-- {npc:264265} Magus Olvek · {area:279} Dalaran · {npc:6487} Arcanist Doan · {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
+	["{npc:264265} in {area:279} wants a book back from {npc:6487}, the last boss of the {area:796}'s Library (levels 33 to 41), in {zone:1420}."] = "",
 
 	-- Step 8: Arcanist Doan
-	-- {zone:1420} Tirisfal Glades
-	["The Scarlet Monastery stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "",
+	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
+	["The {area:796} stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "",
 	-- {item:273169} The Lost Magic of the Runemasters · {npc:6487} Arcanist Doan
 	["{item:273169}, from {npc:6487}"] = "",
 
@@ -62,8 +63,8 @@ return {
 	-- Step 11: Archmage Alvareaux: the Azure recipes
 	-- {npc:32287} Archmage Alvareaux
 	["{npc:32287}: the Azure recipes"] = "",
-	-- {npc:32287} Archmage Alvareaux · {faction:2740} Kirin Tor
-	["{npc:32287} sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the {faction:2740} banners in Dalaran. Buy the ones for your profession."] = "",
+	-- {npc:32287} Archmage Alvareaux · {faction:2740} Kirin Tor · {area:279} Dalaran
+	["{npc:32287} sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the {faction:2740} banners in {area:279}. Buy the ones for your profession."] = "",
 
 	-- Step 12: City of Dalaran runs to Exalted
 	["City of Dalaran runs to Exalted"] = "",
@@ -72,6 +73,6 @@ return {
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard
 	["The {item:285327}"] = "",
-	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {item:285327} Kirin Tor Tabard
-	["{npc:32287} and {npc:28776}, the tabard vendor in Dalaran, sell the {item:285327} at Exalted for 25g."] = "",
+	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
+	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "",
 }

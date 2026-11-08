@@ -16,13 +16,8 @@ return {
 	["{item:13335} needs level 60 and Journeyman {skill:762} to ride (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides."] = "{item:13335} erfordert zum Reiten Stufe 60 und {skill:762} (Geselle) (Forever-Client). Trainiere es beim Reitlehrer deines Volkes; siehe die Guides für Reittiere mit Stufe 60.",
 
 	-- Step 2: Stratholme: Baron Rivendare
-	-- {npc:10440} Baron Rivendare
-	["Stratholme: {npc:10440}"] = "",
-	-- {object:175461} Service Entrance · {object:175440} Elders' Square · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare
-	["Stratholme is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "",
+	-- {area:2279} Stratholme · {object:175461} Service Entrance · {object:175440} Elders' Square · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare
+	["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} ist für eine Gruppe von fünf, Stufe 58-60. {object:175461} bei {object:175440} im Nordwesten von {zone:1423} führt zur Seite der Untoten; {npc:10440} wartet am Ende im Schlachthaus. Laut unseren Daten fallen die Zügel mit 0.02% Wahrscheinlichkeit (pfQuest, Era): etwa einmal in fünftausend Kills. Nichts deutet darauf hin, dass Forever das geändert hat.",
 	-- {object:175461} Service Entrance
 	["Stratholme {object:175461}"] = "{object:175461} von Stratholme",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} ist für eine Gruppe von fünf, Stufe 58-60. {object:175461} bei {object:175440} im Nordwesten von {zone:1423} führt zur Seite der Untoten; {npc:10440} wartet am Ende im Schlachthaus. Laut unseren Daten fallen die Zügel mit 0.02% Wahrscheinlichkeit (pfQuest, Era): etwa einmal in fünftausend Kills. Nichts deutet darauf hin, dass Forever das geändert hat.",
 }

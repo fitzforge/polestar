@@ -7,9 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Boat to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Boat to {object:1162}"] = "",
-	["Sell and repair in Auberdine first: the next stretch is a long one."] = "",
+	-- {area:150} Menethil Harbor
+	["Boat to {area:150}"] = "乘船前往{area:150}",
+	-- {area:442} Auberdine
+	["Sell and repair in {area:442} first: the next stretch is a long one."] = "",
 
 	-- Step 2: Menethil Harbor
 	-- {zone:1437} Wetlands
@@ -18,25 +19,23 @@ return {
 	-- Step 3: Into Loch Modan
 	-- {zone:1432} Loch Modan
 	["Into {zone:1432}"] = "",
-	-- {object:1668} Dun Algaz · {zone:1437} Wetlands
-	["Follow the road east out of Menethil and south through the {object:1668} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "",
+	-- {area:836} Dun Algaz · {zone:1437} Wetlands
+	["Follow the road east out of Menethil and south through the {area:836} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "",
 
 	-- Step 4: Algaz Station
-	["Algaz Station"] = "",
-	-- {npc:1343} Mountaineer Stormpike
-	["{npc:1343} stands at the Algaz Station, at the south end of the pass."] = "",
+	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
+	["{npc:1343} stands at the {area:925}, at the south end of the pass."] = "",
 
 	-- Step 5: Silver Stream Mine
-	["Silver Stream Mine"] = "",
 	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "",
 	-- {item:2640} Miners' Gear
 	["{item:2640}, from the crates; below ground"] = "",
 
 	-- Step 6: Back to the Algaz Station
-	["Back to the Algaz Station"] = "",
+	-- {area:925} Algaz Station
+	["Back to the {area:925}"] = "",
 
 	-- Step 7: Stonewrought Dam
-	["Stonewrought Dam"] = "",
 	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
 
 	-- Step 8: The Suspicious Barrel
@@ -47,13 +46,12 @@ return {
 
 	-- Step 10: The loch
 	["The loch"] = "",
-	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {item:278051} Monogrammed Silver Hair Clip
-	["South along the west shore. A {object:665289} lies on the loch bed east of Thelsamar (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "",
+	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
+	["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "",
 	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words)
 	["{object:665289}; underwater"] = "",
 
 	-- Step 11: Thelsamar
-	["Thelsamar"] = "",
 	-- {npc:1684} Khara Deepwater · {npc:1105} Jern Hornhelm
 	["{npc:1684} stands on the shore north-east of town, {npc:1105} by the inn."] = "",
 
@@ -72,7 +70,6 @@ return {
 	["Right-click the {quest:86613}"] = "",
 
 	-- Step 15: The Farstrider Lodge
-	["The Farstrider Lodge"] = "",
 	-- {npc:1154} Marek Ironheart · {npc:1187} Daryl the Youngling
 	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "",
 	-- {npc:1154} Marek Ironheart
@@ -99,8 +96,8 @@ return {
 	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "",
 
 	-- Step 20: Thelsamar
-	-- {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
-	["Back west along the south shore to Thelsamar: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "",
+	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
+	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
 	["For {npc:1356} in {zone:1455}"] = "",
 
@@ -134,35 +131,32 @@ return {
 	["Tram to {zone:1453}"] = "",
 
 	-- Step 27: Elwynn Forest
-	-- {zone:1453} Stormwind
-	["From the tram, leave {zone:1453} by the main gate and follow the road through Goldshire and east through Elwynn to Redridge."] = "",
+	-- {zone:1453} Stormwind · {area:87} Goldshire
+	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "",
 
 	-- Step 28: Guard Thomas
-	-- {npc:261} Guard Thomas · {npc:240} Marshal Dughan · {quest:35} Further Concerns
-	["{npc:261} guards the bridge on this road east, past the Tower of Azora: {npc:240}'s {quest:35}, from your walk through Goldshire, goes to him."] = "",
+	-- {npc:261} Guard Thomas · {area:91} Tower of Azora · {npc:240} Marshal Dughan · {quest:35} Further Concerns · {area:87} Goldshire
+	["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "",
 	-- {npc:261} Guard Thomas
 	["{npc:261}, on the bridge"] = "",
 
 	-- Step 29: Three Corners
-	["Three Corners"] = "",
-	-- {npc:464} Guard Parker
-	["The road crosses into Redridge at Three Corners. {npc:464} walks around the crossroads."] = "",
-	-- {npc:464} Guard Parker
-	["{npc:464} walks around Three Corners: look inside the circle on the map"] = "",
+	-- {area:1002} Three Corners · {npc:464} Guard Parker
+	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "",
+	-- {npc:464} Guard Parker · {area:1002} Three Corners
+	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "",
 
 	-- Step 30: Lakeridge Highway
-	["Lakeridge Highway"] = "",
-	-- {npc:1070} Deputy Feldon
-	["Follow the road along the south shore of Lake Everstill to the gryphon master. {npc:1070} stands by the road next to her."] = "",
+	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "",
 
 	-- Step 31: Lakeshire
-	["Lakeshire"] = "",
 	-- {npc:8965} Shawn · {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:382} Marshal Marris · {npc:415} Verner Osgood · {npc:344} Magistrate Solomon · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:379} Darcy · {npc:343} Chef Breanna
 	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} and {npc:382} stand there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "",
 	-- {npc:382} Marshal Marris
 	["{npc:382}: the Blackrock camps are for your next Redridge visit, at about 24"] = "",
-	-- {npc:415} Verner Osgood · {npc:514} Smith Argus
-	["{npc:415}: for {npc:514} in Goldshire"] = "",
+	-- {npc:415} Verner Osgood · {npc:514} Smith Argus · {area:87} Goldshire
+	["{npc:415}: for {npc:514} in {area:87}"] = "",
 	-- {npc:344} Magistrate Solomon · {npc:466} General Marcus Jonathan · {zone:1453} Stormwind
 	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "",
 	-- {npc:266} Wiley the Black
@@ -173,12 +167,15 @@ return {
 	["{npc:343}, inside"] = "",
 
 	-- Step 32: Guard Parker
-	["West along the road to Three Corners first; the gnolls are on the way back east."] = "",
+	-- {area:1002} Three Corners
+	["West along the road to {area:1002} first; the gnolls are on the way back east."] = "",
 
 	-- Step 33: Lakeridge Highway: kill these as you meet them
-	["Lakeridge Highway: kill these as you meet them"] = "",
+	-- {area:1001} Lakeridge Highway
+	["{area:1001}: kill these as you meet them"] = "",
+	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
-	["Redridge Mongrels and Thrashers hold the hills east of Three Corners, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round Three Corners."] = "",
+	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
@@ -190,9 +187,9 @@ return {
 	["East along the road to the gryphon master; {npc:1070} stands beside her."] = "",
 
 	-- Step 35: Sunken Chest
-	-- {item:1467} Spotted Sunfish
+	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Back toward town, swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "",
+	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "",
 
@@ -205,38 +202,38 @@ return {
 	-- Step 37: Lakeshire
 	-- {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren · {npc:342} Martie Jainrose · {npc:379} Darcy · {npc:343} Chef Breanna
 	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, {npc:381} on the docks, then {npc:342}'s garden at the west end; {npc:379} and {npc:343} are in the inn."] = "",
-	-- {zone:1436} Westfall
-	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {zone:1436}"] = "",
+	-- {area:40} Westfall
+	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {area:40}"] = "",
 
 	-- Step 38: Dockmaster Baren
-	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers
-	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24."] = "",
+	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
+	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "",
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks"] = "",
 
 	-- Step 39: Goldshire
-	["Goldshire"] = "",
-	["West out of Redridge by Three Corners and along the road through Elwynn to Goldshire."] = "",
+	-- {area:1002} Three Corners · {area:87} Goldshire
+	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "",
 
 	-- Step 40: Smith Argus
-	-- {npc:514} Smith Argus
-	["{npc:514} works at the Goldshire smithy."] = "",
+	-- {npc:514} Smith Argus · {area:87} Goldshire
+	["{npc:514} works at the {area:87} smithy."] = "",
 
 	-- Step 41: Westfall
-	-- {zone:1436} Westfall
-	["West through Westbrook into {zone:1436}."] = "",
+	-- {area:40} Westfall
+	["West through Westbrook into {area:40}."] = "",
 
 	-- Step 42: Sentinel Hill
-	-- {object:81} Sentinel Hill (no name in this language: may be words) · {npc:234} Gryan Stoutmantle
-	["Down the road to {object:81}. {npc:234} stands at the top of the stone tower."] = "",
+	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
+	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "",
 	-- {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
 	["For {npc:332} in {zone:1453}"] = "",
 
 	-- Step 43: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飞往{zone:1453}",
-	-- {object:81} Sentinel Hill (no name in this language: may be words)
-	["{object:81} flight master"] = "",
+	-- {area:108} Sentinel Hill
+	["{area:108} flight master"] = "",
 
 	-- Step 44: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
@@ -253,22 +250,22 @@ return {
 	-- Step 46: The Defias Messenger
 	-- {npc:550} Defias Messenger
 	["The {npc:550}"] = "",
-	-- {npc:550} Defias Messenger · {object:83} Jangolode Mine (no name in this language: may be words)
-	["South along the road to Moonbrook. The {npc:550} starts in front of the Moonbrook smithy and walks north to the Gold Coast Quarry and the back of the {object:83}, then back: look along his road. Slow him when he runs at 30% health."] = "",
+	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
+	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "",
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
 	["{item:1381}: the {npc:550}"] = "",
 
 	-- Step 47: Westfall Lighthouse
-	["Westfall Lighthouse"] = "",
-	-- {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
-	["South-west from Moonbrook to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "",
+	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
+	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "",
 
 	-- Step 48: Sentinel Hill
-	-- {object:81} Sentinel Hill (no name in this language: may be words) · {npc:467} The Defias Traitor
-	["Back north up the road to {object:81}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "",
+	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
+	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "",
 
 	-- Step 49: The Defias Traitor
-	["Stay with the traitor as he walks south to Moonbrook; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below Moonbrook."] = "",
+	-- {area:20} Moonbrook
+	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "",
 
@@ -283,9 +280,9 @@ return {
 	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
 
 	-- Step 52: Redridge Canyons
-	["Redridge Canyons"] = "",
+	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast Fireball from range, and the gnolls run for help at low health."] = "",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "",
@@ -299,7 +296,8 @@ return {
 	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "",
 
 	-- Step 54: Fly to Stormwind
-	-- {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to Auberdine for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "",
-	["Lakeshire flight master"] = "",
+	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "",
 }

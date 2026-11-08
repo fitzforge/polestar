@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Auberdine
-	["Auberdine"] = "",
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "배는 마을 서쪽에 정박합니다. 비행 조련사는 여관 남쪽 언덕에 있고, 퀘스트 제공자들은 큰길을 따라 흩어져 있습니다.",
 	["The WANTED poster outside the inn"] = "여관 밖의 현상수배 포스터",
 
@@ -34,9 +33,9 @@ return {
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "곰과 검은나무일족 야영지",
-	-- {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of Auberdine: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -53,8 +52,8 @@ return {
 
 	-- Step 8: The red crystal
 	["The red crystal"] = "붉은 수정",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {object:12894}; the {object:175524} sits on a ledge."] = "",
+	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
+	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "{area:447} 동쪽의 산을 오르십시오. {object:175524}은(는) 바위 턱 위에 있습니다.",
 
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -71,28 +70,30 @@ return {
 
 	-- Step 12: Blackwood furbolgs
 	["Blackwood furbolgs"] = "검은나무일족 펄볼그",
+	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "검은나무일족 길잡이와 검은나무일족 풍수사가 {area:442} 남동쪽 야영지를 지키고 있습니다.",
 
 	-- Step 13: The southern beaches
 	["The southern beaches"] = "남쪽 해변",
-	-- {object:12894} Ameth'Aran (no name in this language: may be words) · {quest:4728} Beached Sea Creature
+	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {object:12894}: one {quest:4728} lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "",
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다. 더 남서쪽의 잿빛안개멀록 점술사와 잿빛안개멀록 바다사냥꾼(18-20) 사이에 사체가 세 개 더 있습니다. 가이드는 레벨이 더 가까워지는 마지막 순환 때 이들을 처리합니다.",
 
 	-- Step 14: Ameth'Aran
-	-- {object:12894} Ameth'Aran (no name in this language: may be words)
-	["Back north to {object:12894}: the flame burns in the south of the ruins."] = "",
+	-- {area:447} Ameth'Aran
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "북동쪽 산으로 돌아가 수정에게 가십시오.",
 
 	-- Step 16: Bashal'Aran
-	-- {npc:3650} Asterion
-	["North along the hills to {npc:3650}, then west down to Auberdine."] = "",
+	-- {npc:3650} Asterion · {area:442} Auberdine
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
 
 	-- Step 18: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
@@ -111,8 +112,8 @@ return {
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 22: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -120,16 +121,16 @@ return {
 
 	-- Step 24: Druid trainer
 	["Druid trainer"] = "",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
-	["{npc:5504} in {zone:1453}; Goldshire has no druid trainer"] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "",
 
 	-- Step 27: Shaman trainer
 	["Shaman trainer"] = "",
-	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh
-	["{npc:257446} in {zone:1426}; Goldshire has no shaman trainer"] = "",
+	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Into {area:148}"] = "{area:148}(으)로",

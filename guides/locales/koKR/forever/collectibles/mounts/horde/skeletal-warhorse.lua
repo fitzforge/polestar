@@ -12,17 +12,16 @@ return {
 	-- Step 1: Journeyman Riding
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
-	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
-	["{npc:4773} and {npc:4731}'s stable are in Brill, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "",
+	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
+	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, 탈것 상급자",
 
 	-- Step 2: Undead Horsemanship for other races
-	["Undead Horsemanship for other races"] = "",
-	-- {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes Undead Horsemanship, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
-	-- {npc:4773} Velma Warnam
-	["{npc:4773}, Undead Horsemanship"] = "",
+	-- {spell:10906} Undead Horsemanship
+	["{spell:10906} for other races"] = "",
+	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
+	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

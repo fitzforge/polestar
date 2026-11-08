@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1447} Azshara
-	["Experience at 50 through {zone:1447} and the Sunken Temple; Classic's item choice may be gone on Forever."] = "",
+	-- {zone:1447} Azshara · {area:1417} Sunken Temple
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "Опыт на 50-м уровне через зону {zone:1447} и {area:1417}; на Forever выбора предмета из классики может не быть.",
 	["Experience"] = "Опыт",
 
 	-- Step 1: Magecraft (Stormwind)
@@ -20,24 +20,24 @@ return {
 	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
 
 	-- Step 3: Sanath Lim-yo
-	-- {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {npc:8379} Archmage Xylem
-	["Fly to Talrendis Point (Alliance) or Valormok (Horde). {npc:8395} camps below his master's tower, a short way east of Valormok: from the fork of {zone:1447}'s main road at the Ruins of Eldarath, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
+	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "{npc:8379}, в башне",
 
 	-- Step 4: Glittering Dust
-	-- {zone:1447} Azshara
+	-- {area:1220} Thalassian Base Camp · {zone:1447} Azshara · {spell:8349} Fire Nova · {spell:133} Fireball · {spell:139} Renew
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor
-	["The blood elves hold the Thalassian Base Camp on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, Fire Nova up close) and Reclaimers (52-53, Fireball, and they heal and Renew each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
+	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
 	["Back to {npc:8395}, who teleports you up to the tower."] = "Вернитесь: {npc:8395}, он телепортирует вас в башню.",
 
 	-- Step 6: Enchanted Coral
-	-- {npc:7864} Lingering Highborne
+	-- {area:1221} Ruins of Eldarath · {area:1237} Valormok · {area:1223} Temple of Zin-Malor · {npc:7864} Lingering Highborne
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren · Spitelash Screamers = {npc:6193} Spitelash Screamer
-	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the Ruins of Eldarath and the bay east of Valormok, often three together, and a few stand inside the Temple of Zin-Malor; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "",
+	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "",
 
 	-- Step 7: Archmage Xylem again
 	-- {npc:8379} Archmage Xylem
@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: Morphaz
 	["Morphaz"] = "Морфаз",
-	-- {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched
-	["The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, Acid Breath and Wing Flap) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
+	-- {area:1477} The Temple of Atal'Hakkar · {area:1417} Sunken Temple · {area:74} Pool of Tears · {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched · {spell:12533} Acid Breath · {spell:11019} Wing Flap
+	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, {spell:12533} and {spell:11019}) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
 	-- {item:20085} Arcane Shard
 	["{item:20085}: Morphaz"] = "{item:20085}: Морфаз",
 
@@ -60,7 +60,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "Вернитесь: {zone:1447}, {npc:8395} и башня.",
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "Опыт на 50-м уровне через зону {zone:1447} и {area:1417}; на Forever выбора предмета из классики может не быть.",
 	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "Опыт на 50-м уровне через зону {zone:1447} и {area:1417}; Forever убрал выбор предмета из классики.",
 	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней своего учителя: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Он телепортирует вас наверх к NPC {npc:8379}.",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "Морфаз, зеленый дракон, ждет в глубине: {area:1477} ({area:1417}, {area:74}). Группа из пяти, уровень 50-54. Убейте его ради предмета {item:20085}.",

@@ -25,7 +25,8 @@ return {
 	-- {npc:14984} Sergeant Maclear · {zone:1461} Arathi Basin
 	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:14984}, three for the Brigadier General. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "Attaquer une base, c'est cliquer sur sa bannière jusqu'à ce qu'elle change : inutile de la tenir. Quatre marques en tout : une pour {npc:14984}, trois pour le général de brigade. L'équipement JcJ de Forever coûte aussi des Marques d'honneur en plus de l'honneur : décidez de ce que vous voulez avant de les rendre. Vous pouvez porter au plus 30 marques de {zone:1461} : rendez-les ou dépensez-les avant d'atteindre ce nombre.",
 	["Assault the Mine banner"] = "Attaquez la bannière de la mine",
-	["Assault the Lumber Mill banner"] = "",
+	-- {area:3422} Lumber Mill
+	["Assault the {area:3422} banner"] = "Attaquez la bannière de la {area:3422}",
 	["Assault the Blacksmith banner"] = "Attaquez la bannière de la forge",
 	["Assault the Farm banner"] = "Attaquez la bannière de la ferme",
 	-- {item:20559} Arathi Basin Mark of Honor
@@ -33,14 +34,14 @@ return {
 	["three more marks"] = "trois marques de plus",
 
 	-- Step 3: Back to Refuge Pointe
-	-- {object:2685} Refuge Pointe (no name in this language: may be words)
-	["Back to {object:2685}"] = "",
+	-- {area:320} Refuge Pointe
+	["Back to {area:320}"] = "Retour à {area:320}",
 	["hand in the three marks first"] = "rendez d'abord les trois marques",
 
 	-- Step 4: League of Arathor to Friendly
 	["League of Arathor to Friendly"] = "La Ligue d'Arathor : Amical",
-	-- {quest:8374} Claiming Arathi Basin · {object:2685} Refuge Pointe (no name in this language: may be words)
-	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General ({quest:8374}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {object:2685} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General."] = "",
+	-- {quest:8374} Claiming Arathi Basin · {area:320} Refuge Pointe
+	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General ({quest:8374}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:320} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General."] = "De Neutre à Amical, il faut 3000 de réputation. Dans Classic, une victoire rapportait 100 et ses 3 marques en rapportent 50 de plus chez le général de brigade ({quest:8374}, encore et encore) : environ 150 par victoire, soit une vingtaine de victoires. Forever n'a pas publié ses taux de champs de bataille, alors comptez les parties à titre indicatif. Sous le niveau 50, les quêtes de {area:320} existent en une version pour votre tranche (dès le niveau 20) : 200 pour l'attaque des bases, 200 pour une marque, puis 100 et 50 par lot de 3 marques chez le général de brigade.",
 	-- {npc:15351} Alliance Brigadier General · {quest:8374} Claiming Arathi Basin
 	["{npc:15351}: {quest:8374} again, 50 reputation for 3 marks"] = "{npc:15351} : {quest:8374} à nouveau, 50 de réputation pour 3 marques",
 
@@ -82,7 +83,6 @@ return {
 	["all five bases held at once"] = "les cinq bases tenues en même temps",
 
 	-- Step 11: Hammerfall
-	["Hammerfall"] = "",
 	-- {npc:15021} Deathmaster Dwire
 	["{npc:15021}: assault four bases, 200"] = "{npc:15021} : attaquez quatre bases, 200",
 	-- {npc:15022} Deathstalker Mortis
@@ -96,13 +96,14 @@ return {
 	["Assault the Stables banner"] = "Attaquez la bannière des écuries",
 
 	-- Step 13: Back to Hammerfall
-	["Back to Hammerfall"] = "",
+	-- {area:321} Hammerfall
+	["Back to {area:321}"] = "Retour à {area:321}",
 
 	-- Step 14: The Defilers to Friendly
 	-- {faction:510} The Defilers
 	["{faction:510} to Friendly"] = "{faction:510} : Amical",
-	-- {quest:8370} Conquering Arathi Basin
-	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer ({quest:8370}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at Hammerfall come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer."] = "",
+	-- {quest:8370} Conquering Arathi Basin · {area:321} Hammerfall
+	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer ({quest:8370}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:321} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer."] = "De Neutre à Amical, il faut 3000 de réputation. Dans Classic, une victoire rapportait 100 et ses 3 marques en rapportent 50 de plus chez le Porteguerre ({quest:8370}, encore et encore) : environ 150 par victoire, soit une vingtaine de victoires. Forever n'a pas publié ses taux de champs de bataille, alors comptez les parties à titre indicatif. Sous le niveau 50, les quêtes de {area:321} existent en une version pour votre tranche (dès le niveau 20) : 200 pour l'attaque des bases, 200 pour une marque, puis 100 et 50 par lot de 3 marques chez le Porteguerre.",
 	-- {npc:15350} Horde Warbringer · {quest:8370} Conquering Arathi Basin
 	["{npc:15350}: {quest:8370} again, 50 reputation for 3 marks"] = "{npc:15350} : {quest:8370} à nouveau, 50 de réputation pour 3 marques",
 
@@ -145,16 +146,11 @@ return {
 	["At Exalted, {npc:15021} asks your team to hold all five bases at the same time. It pays 200 reputation and the {item:20131}, the only way to get it."] = "À Exalté, {npc:15021} demande à votre équipe de tenir les cinq bases en même temps. Cela rapporte 200 de réputation et le {item:20131}, seul moyen de l'obtenir.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Assault the {area:3422} banner"] = "Attaquez la bannière de la {area:3422}",
-	-- ["Back to {area:320}"] = "Retour à {area:320}",
-	-- ["Back to {area:321}"] = "Retour à {area:321}",
 	-- ["Exalted with the League of Arathor earns a Legacy Point."] = "Être exalté auprès de La Ligue d'Arathor rapporte un point d'héritage.",
 	-- ["Exalted with {faction:510} earns a Legacy Point."] = "Être exalté auprès de {faction:510} rapporte un point d'héritage.",
 	-- ["Keep playing {zone:1461}. On Call to Arms: {zone:1461} weekends the {npc:15350} in the capitals takes three Arathi Basin Marks of Honor for extra reputation."] = "Continuez à jouer au {zone:1461}. Pendant les week-ends de l'Appel aux armes du {zone:1461}, {npc:15350} des capitales prend trois Marques d'honneur du bassin d'Arathi contre un supplément de réputation.",
 	-- ["Keep playing {zone:1461}. On Call to Arms: {zone:1461} weekends the {npc:15351} in the capitals takes three Arathi Basin Marks of Honor for extra reputation."] = "Continuez à jouer au {zone:1461}. Pendant les week-ends de l'Appel aux armes du {zone:1461}, {npc:15351} des capitales prend trois Marques d'honneur du bassin d'Arathi contre un supplément de réputation.",
 	-- ["Keep playing {zone:1461}; wins with many bases held pay the most."] = "Continuez à jouer {zone:1461} ; les victoires avec beaucoup de bases tenues rapportent le plus.",
-	-- ["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General ({quest:8374}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:320} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General."] = "De Neutre à Amical, il faut 3000 de réputation. Dans Classic, une victoire rapportait 100 et ses 3 marques en rapportent 50 de plus chez le général de brigade ({quest:8374}, encore et encore) : environ 150 par victoire, soit une vingtaine de victoires. Forever n'a pas publié ses taux de champs de bataille, alors comptez les parties à titre indicatif. Sous le niveau 50, les quêtes de {area:320} existent en une version pour votre tranche (dès le niveau 20) : 200 pour l'attaque des bases, 200 pour une marque, puis 100 et 50 par lot de 3 marques chez le général de brigade.",
-	-- ["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer ({quest:8370}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:321} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer."] = "De Neutre à Amical, il faut 3000 de réputation. Dans Classic, une victoire rapportait 100 et ses 3 marques en rapportent 50 de plus chez le Porteguerre ({quest:8370}, encore et encore) : environ 150 par victoire, soit une vingtaine de victoires. Forever n'a pas publié ses taux de champs de bataille, alors comptez les parties à titre indicatif. Sous le niveau 50, les quêtes de {area:321} existent en une version pour votre tranche (dès le niveau 20) : 200 pour l'attaque des bases, 200 pour une marque, puis 100 et 50 par lot de 3 marques chez le Porteguerre.",
 	-- ["{faction:509} fights for {zone:1461} from {area:320}. Their reputation comes from the battleground: the resources your team gathers pay it to everyone, so holding more bases for longer pays more. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:509} se bat pour {zone:1461} depuis {area:320}. Sa réputation vient du champ de bataille : les ressources que votre équipe accumule la rapportent à tous, donc tenir plus de bases plus longtemps rapporte plus. Inscrivez-vous auprès de n'importe quel maître de guerre. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{faction:510} fight for {zone:1461} from {area:321}. Their reputation comes from the battleground: the resources your team gathers pay it to everyone, so holding more bases for longer pays more. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:510} se battent pour {zone:1461} depuis {area:321}. Leur réputation vient du champ de bataille : les ressources que votre équipe accumule la rapportent à tous, donc tenir plus de bases plus longtemps rapporte plus. Inscrivez-vous auprès de n'importe quel maître de guerre. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14983}'s The Battle for {zone:1461}! (assault every base) and Control Four Bases / Control Five Bases are one-time quests; {npc:14984} beside him takes Arathi Resource Crates."] = "La bataille pour {zone:1461} ! de {npc:14983} (attaquer chaque base) et Contrôler quatre bases / Prendre cinq bases sont des quêtes uniques ; {npc:14984}, à côté de lui, prend les Caisses de ressources d'Arathi.",

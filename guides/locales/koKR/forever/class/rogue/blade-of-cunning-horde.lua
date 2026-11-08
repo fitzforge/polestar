@@ -12,24 +12,24 @@ return {
 	["A dagger at 10 from your home town's rogue quests."] = "고향 마을 도적 퀘스트로 얻는 10레벨 단검입니다.",
 
 	-- Step 1: Therzok
-	-- {npc:3170} Kaplak · {object:3224} Razor Hill (no name in this language: may be words) · {quest:1859} Therzok · {zone:1454} Orgrimmar · {quest:1963} The Shattered Hand
-	["At 10 {npc:3170}, the rogue trainer in {object:3224}, sends you to {quest:1859} in {zone:1454}. It is only a pointer: an Orc already in {zone:1454} can skip it and take {quest:1963} from {quest:1859} straight away."] = "",
+	-- {npc:3170} Kaplak · {area:362} Razor Hill · {quest:1859} Therzok · {zone:1454} Orgrimmar · {quest:1963} The Shattered Hand
+	["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}. It is only a pointer: an Orc already in {zone:1454} can skip it and take {quest:1963} from {quest:1859} straight away."] = "",
 
 	-- Step 2: The Shattered Hand
 	-- {quest:1859} Therzok · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:1963} The Shattered Hand
 	["{quest:1859} stands in the {object:172960}, the canyon under the {object:172982}. Trolls: take {quest:1963} from him at 10."] = "{quest:1859}은(는) {object:172982} 아래 협곡인 {object:172960}에 있습니다. 트롤은 10레벨에 그에게서 {quest:1963}을(를) 수락하십시오.",
 
 	-- Step 3: Tazan
-	-- {npc:6494} Tazan
-	["{npc:6494} (level 13, not elite) is a troll pirate on the Merchant Coast south of Ratchet: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "",
+	-- {npc:6494} Tazan · {area:391} Merchant Coast · {area:392} Ratchet
+	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "",
 
 	-- Step 4: Back to Therzok
 	-- {npc:6446} Therzok
 	["Back to {npc:6446}"] = "{npc:6446}에게 돌아가기",
 
 	-- Step 5: Tazan's Key
-	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead."] = "",
+	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "",
 	-- {item:7208} Tazan's Key
 	["Pick Pocket Gamon for {item:7208}"] = "",
 	-- {item:7209} Tazan's Satchel
@@ -42,8 +42,8 @@ return {
 	["{npc:6446}'s reward"] = "{npc:6446}의 보상",
 
 	-- Step 7: Mennet Carkad
-	-- {npc:2130} Marion Call · {quest:1885} Mennet Carkad · {zone:1458} Undercity
-	["At 10 {npc:2130}, the rogue trainer upstairs in the Gallows' End Tavern in Brill, sends you to {quest:1885} in the {zone:1458}."] = "",
+	-- {npc:2130} Marion Call · {area:2119} Gallows' End Tavern · {area:159} Brill · {quest:1885} Mennet Carkad · {zone:1458} Undercity
+	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "",
 
 	-- Step 8: The Rogues' Quarter
 	-- {object:36073} Rogues' Quarter
@@ -52,8 +52,8 @@ return {
 	["{quest:1885} stands in the {object:36073}."] = "{quest:1885}은(는) {object:36073}에 있습니다.",
 
 	-- Step 9: Astor Hadren
-	-- {npc:6497} Astor Hadren · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the Sepulcher and the {zone:1458}, north of the Sepulcher. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
+	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad

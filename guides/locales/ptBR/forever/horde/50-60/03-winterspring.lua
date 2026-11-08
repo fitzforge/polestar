@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	-- {area:618} Winterspring
+	["Into {area:618}"] = "",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	["{npc:11556} stands right at the {zone:1452} exit of Timbermaw Hold's tunnel, where you come out."] = "",
+	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
 
 	-- Step 4: Everlook
-	["Everlook"] = "",
-	["Everlook is the goblin town on the east side of the valley."] = "",
-	-- {npc:11754} Meggi Peppinrocker
-	["{npc:11754} walks around Everlook: look inside the circle on the map"] = "",
+	-- {area:2255} Everlook
+	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} é a cidade goblin no lado leste do vale.",
+	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
+	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
 	["Gregor's and Harlo's quests lead to other zones: keep them."] = "As missões de Gregor e Harlo levam a outras zonas: guarde-as.",
 	-- {npc:11118} Innkeeper Vizzie
 	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
@@ -27,11 +27,13 @@ return {
 
 	-- Step 5: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo de Gelo",
-	["The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "",
+	-- {area:2255} Everlook
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo; só Matriarcas e Patriarcas deixam cair chifres, então deixe-os para depois da entrega.",
 
 	-- Step 7: Level 55.04
 	["Level 55.04"] = "",
-	["Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead."] = "",
+	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 	-- {npc:7460} Ice Thistle Patriarch
 	["grind on {npc:7460}"] = "",
 
@@ -43,20 +45,23 @@ return {
 
 	-- Step 9: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Quimeras Ventogelante",
-	["The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite."] = "",
+	-- {area:2255} Everlook · {area:2245} Mazthoril
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "As quimeras vagam pelos campos de neve ao sul e a oeste de {area:2255}. Fique longe da caverna de {area:2245}: seus dracônicos azuis são elite.",
 
 	-- Step 10: Umi Rumplesnicker
-	["Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later."] = "",
+	-- {area:976} Gadgetzan
+	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "A terceira pegadinha de Umi tem como alvo goblins em {area:976} e na Cratera Un'Goro: guarde-a para depois.",
 
 	-- Step 11: Donova Snowden
-	-- {npc:9298} Donova Snowden
-	["{npc:9298} camps among the steaming pools of Frostfire Hot Springs, in the west of the valley."] = "",
+	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
+	["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} acampa entre as poças fumegantes de {area:2246}, no oeste do vale.",
 	["Linken's letter"] = "A carta de Linken",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} vem de {npc:7775} em {zone:1444}, mais adiante neste guia.",
 
 	-- Step 12: Frostfire Hot Springs: kill these as you meet them
-	["Frostfire Hot Springs: kill these as you meet them"] = "",
+	-- {area:2246} Frostfire Hot Springs
+	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Desbravadores, Vigias do Covil e Totêmicos dividem os acampamentos furbolg em volta das fontes termais; Ferujas Maltrapilhas vagam pelas encostas entre eles. Mate os Totêmicos primeiro. Guarde todo {item:14047} que saquear para Meilosh.",
@@ -72,36 +77,37 @@ return {
 	-- Step 14: Raging Owlbeasts
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts"] = "Ferujas Furiosas",
+	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
 
 	-- Step 15: Winterfall Village
-	["Winterfall Village"] = "",
-	-- {npc:10738} High Chief Winterfall
-	["The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "",
+	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
+	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "A aldeia furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738}, na caverna ao fundo, é elite: não entre.",
 
 	-- Step 16: Fly to Camp Mojache
-	-- {object:176945} Camp Mojache (no name in this language: may be words)
-	["Fly to {object:176945}"] = "",
-	["Everlook flight master"] = "",
+	-- {area:1099} Camp Mojache
+	["Fly to {area:1099}"] = "Voe para {area:1099}",
+	-- {area:2255} Everlook
+	["{area:2255} flight master"] = "",
 
 	-- Step 18: The Videre Elixir
-	-- {npc:7775} Gregan Brewspewer · {object:152578} Lower Wilds (no name in this language: may be words) · {object:176945} Camp Mojache (no name in this language: may be words)
-	["{npc:7775}, a dwarf, camps in the {object:152578} north-west of {object:176945}; he has the elixir."] = "",
+	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "{npc:7775}, um anão, acampa em {area:1137}, a noroeste de {area:1099}; ele tem o elixir.",
 
 	-- Step 20: Fly to Thunder Bluff
-	-- {zone:1456} Thunder Bluff
-	["Fly to {zone:1456}"] = "",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["{object:176946} flight master"] = "",
+	-- {area:1638} Thunder Bluff
+	["Fly to {area:1638}"] = "Voe para {area:1638}",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 
 	-- Step 21: Bluff Runner Windstrider
-	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {object:50494} Hunter Rise (no name in this language: may be words)
-	["{npc:10881} and {npc:14728} stand on {object:50494}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
+	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 22: Elder Rise
-	-- {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words) · {npc:246344} Alodan the Hopeful
-	["{npc:3033} on {object:50507}; {npc:246344}"] = "",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
+	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} em {area:1639}; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} espera em {zone:1450}: guarde-a para depois.",
 
@@ -110,8 +116,8 @@ return {
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
 	-- Step 24: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
@@ -130,9 +136,6 @@ return {
 	-- ["Back at {area:1099}."] = "De volta a {area:1099}.",
 	-- ["Back to {area:2255}"] = "De volta a {area:2255}",
 	-- ["Chillwind chimaeras"] = "Quimeras Ventogelante",
-	-- ["Fly to {area:1099}"] = "Voe para {area:1099}",
-	-- ["Fly to {area:1637}"] = "Voe para {area:1637}",
-	-- ["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- ["From Krakle in Un'Goro"] = "De Gualter, na Cratera Un'Goro",
 	-- ["Frostfire Winterfall camp"] = "Acampamento Invernoso das fontes termais",
 	-- ["Frostfire Winterfall camps"] = "Acampamentos Invernosos das fontes termais",
@@ -143,16 +146,8 @@ return {
 	-- ["Ride back west to {area:2246}."] = "Volte para oeste até {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Vá para leste e depois desça para o sul por {area:2249}. Os Gigantes Friomalho de lá são elite de nível 59: fique no meio e não pare. A estranha fonte está na entrada de {area:2256}, no extremo sul.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Siga a estrada para oeste passando por {area:2251}; Ferujas Furiosas vagam pelas colinas ao norte dele.",
-	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "As quimeras vagam pelos campos de neve ao sul e a oeste de {area:2255}. Fique longe da caverna de {area:2245}: seus dracônicos azuis são elite.",
-	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "A aldeia furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738}, na caverna ao fundo, é elite: não entre.",
-	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo; só Matriarcas e Patriarcas deixam cair chifres, então deixe-os para depois da entrega.",
-	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "A terceira pegadinha de Umi tem como alvo goblins em {area:976} e na Cratera Un'Goro: guarde-a para depois.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "mate {npc:7440} em {area:2244}, {zone:1452}",
-	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} é a cidade goblin no lado leste do vale.",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, ao lado dele",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} fica na saída para {zone:1452} do túnel de {area:1769}, ao norte das fontes termais.",
-	-- ["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} em {area:1639}; {npc:246344}",
-	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "{npc:7775}, um anão, acampa em {area:1137}, a noroeste de {area:1099}; ele tem o elixir.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} compra {item:11040} cultivado com o seu {quest:3761}.",
-	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} acampa entre as poças fumegantes de {area:2246}, no oeste do vale.",
 }
