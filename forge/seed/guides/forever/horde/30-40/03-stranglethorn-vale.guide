@@ -201,7 +201,7 @@ step Level 35
   zone Stranglethorn Vale
   tip Booty Bay's and Grom'gol's next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
   goto 30.4,23.6 map 1434 "Lashtail Raptors"
-  level 35                            -- grind on Lashtail Raptor
+  level 35 grind 686                  -- grind on Lashtail Raptor
 
 step Fly to Booty Bay
   tip Head south down the coast to Grom'gol and fly to Booty Bay.
@@ -295,7 +295,7 @@ step Level 36
   zone Stranglethorn Vale
   tip Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
   goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
-  level 36                            -- grind on Mosh'Ogg Brute
+  level 36 grind 1142                 -- grind on Mosh'Ogg Brute
 
 step Grom'gol
   tip Back to Grom'gol.

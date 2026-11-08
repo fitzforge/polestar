@@ -39,7 +39,7 @@ step Level 48.27
   when level<48.27
   tip If you skipped The Monogrammed Sash or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 63.3,60.6 map 1427 "Dark Iron Geologist"
-  level 48.27                          -- grind on Dark Iron Geologist
+  level 48.27 grind 5839               -- grind on Dark Iron Geologist
 
 # ---------------------------------------------------------------- Thorium Point
 
@@ -130,7 +130,7 @@ step Level 48.66
   when level<48.66
   tip If you skipped WANTED: Overseer Maltorius, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 46.0,22.0 map 1427 "Incendosaur"
-  level 48.66                          -- grind on Incendosaur
+  level 48.66 grind 9318               -- grind on Incendosaur
 
 step Thorium Point
   turnin 7727
@@ -160,7 +160,7 @@ step Level 48.98
   when level<48.98
   tip If you skipped The Flame's Casing, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
   goto 39.2,38.9 map 1427 "Dark Iron Slaver"
-  level 48.98                          -- grind on Dark Iron Slaver
+  level 48.98 grind 5844               -- grind on Dark Iron Slaver
 
 step Margol's Horn
   when group 3181

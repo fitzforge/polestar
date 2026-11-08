@@ -157,7 +157,7 @@ step Level 37.5
   zone Dustwallow Marsh
   tip Desolace's last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past Witch Hill, until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
   goto 54.3,14.8 map 1445 "Mirefin murlocs"
-  level 37.5                          -- grind on Mirefin Coastrunner
+  level 37.5 grind 4362               -- grind on Mirefin Coastrunner
 
 step Brackenwall Village
   tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
