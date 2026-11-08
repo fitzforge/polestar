@@ -1367,16 +1367,16 @@ function Party.PointAt(unit)
 	local _, name = memberKey(unit)
 	stopFollow()
 	local label = name and L["Party: %s"]:format(name) or L["Party"]
-	if not Nav.SetTarget(map, x, y, label) then return false end
-	follow = { unit = unit, label = label, target = Nav.GetTarget(), map = map, x = x, y = y }
+	local target = Nav.SetTarget(map, x, y, label)
+	if not target then return false end
+	follow = { unit = unit, label = label, target = target, map = map, x = x, y = y }
 	if C_Timer and C_Timer.NewTicker then
 		follow.ticker = ns.NewTicker(FOLLOW, function()
 			if not follow or Nav.GetTarget() ~= follow.target then return stopFollow() end
 			local m2, x2, y2 = ns.Compat.GetUnitMapPosition(follow.unit)
 			if not m2 then return end
 			if m2 ~= follow.map or math.abs(x2 - follow.x) + math.abs(y2 - follow.y) > 0.5 then
-				Nav.SetTarget(m2, x2, y2, follow.label)
-				follow.target, follow.map, follow.x, follow.y = Nav.GetTarget(), m2, x2, y2
+				follow.target, follow.map, follow.x, follow.y = Nav.SetTarget(m2, x2, y2, follow.label), m2, x2, y2
 			end
 		end)
 	end
