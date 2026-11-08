@@ -170,16 +170,14 @@ step Winterspring
   goto 31.3,45.2 "Winterspring"
 
 step Donova Snowden
-  turnin 980                          -- From Krakle in Un'Goro
-  accept 4842
-
-# ---------------------------------------------------------------- Winterspring
-
-step Donova Snowden
   zone Winterspring
   tip Back into the Timbermaw tunnel and take the Winterspring exit; Donova camps by the hot springs just outside.
+  turnin 980                          -- From Krakle in Un'Goro
+  accept 4842
   turnin 5086 optional
   accept 5087 optional
+
+# ---------------------------------------------------------------- Winterspring
 
 step Winterfall Runners
   tip Only if you carry Winterfall Runners: the runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
@@ -208,7 +206,7 @@ step Meilosh
 step Level 59.9
   zone Winterspring
   when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60.
+  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 27.9,34.5 map 1452 "Winterfall Totemic"
   level 59.9                          -- grind on Winterfall Totemic
 

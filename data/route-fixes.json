@@ -2965,6 +2965,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					611
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance Stranglethorn Vale 40-50): the hunts around Nesingwary's camp (Raptor Mastery's Tethis, Big Game Hunter's King Bangalash) and their solo top-ups on the Cold Eye Basilisks (36.3,42.3) come after the Crystalvein Mine and Zul'Mamwe, before the last Booty Bay stop (27,77). The guide went to Booty Bay first and then rode north for them and back south to fly; the top-up targets drop by the Booty Bay hand-ins' experience (about 17,400, 0.17 of level 42)."
+			},
+			{
+				"a": [
+					"turnin",
+					208
+				],
+				"b": [
+					"turnin",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08): see turnin 208 before turnin 611; the whole last Booty Bay stop (611, 209, 621, 600, 609) comes after the northern hunts."
+			},
+			{
+				"a": [
 					"task",
 					4291
 				],
@@ -3449,6 +3473,42 @@
 			{
 				"a": [
 					"turnin",
+					35
+				],
+				"b": [
+					"turnin",
+					65
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-08, Alliance 1-30): Night Elves take Further Concerns from Marshal Dughan with A Fishy Peril at the end of their Darkshore guide (level 14) and then walk the Elwynn road past Guard Thomas' bridge (73.97,72.18) on 03-loch-modan's way from Stormwind to Redridge at about 19; the order carried it to 04-redridge-mountains, about ten levels after the accept. Handed in on that walk, before Wiley the Black takes The Defias Brotherhood in Lakeshire. Humans, Dwarves and Gnomes hand it in long before either."
+			},
+			{
+				"a": [
+					"turnin",
+					6388
+				],
+				"b": [
+					"accept",
+					97263
+				],
+				"faction": "Alliance",
+				"why": "Final route review follow-up (2026-11-08, Dwarf and Gnome Dun Morogh): Ironforge is one round of the city from the Great Forge, where the Thelsamar gryphon lands: Golnir and Gryth (Ride to Ironforge, the flight path), east to the Misplaced Packages by Tinker Town's mailbox (72.3,48.6), north to Eldrun (47.1,13.8) and the Forlorn Cavern's trainers, west to the Mystic Ward, south through the Commons to Senator Barin (39.5,57.5), east through the Military Ward to the tram (78.0,51.4). Before, a bare goto sent players to the mailbox first, back to the Great Forge for the flight path, then across the city four more times."
+			},
+			{
+				"a": [
+					"turnin",
+					97263
+				],
+				"b": [
+					"turnin",
+					291
+				],
+				"faction": "Alliance",
+				"why": "Final route review follow-up (2026-11-08, Dwarf and Gnome Dun Morogh): Eldrun's package is handed in on the northern leg of the Ironforge round, before the senator in the High Seat on the western one (see the Golnir pair)."
+			},
+			{
+				"a": [
+					"turnin",
 					7732
 				],
 				"b": [
@@ -3546,38 +3606,38 @@
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					493
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15."
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					516
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up."
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					95981
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22."
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
@@ -4216,6 +4276,210 @@
 				],
 				"faction": "Horde",
 				"why": "Follow-up rule (#310, tests/guides-patterns.test.js \"a follow-up is taken right after its prerequisite is handed in to the same giver\"): Apothecary Renferrel offers Return to Quinn (Again) as Wild Eyes is handed in, so it is taken then, before the walk to Dalar Dawnweaver (66 yd) for Dalar's Analysis, not on a walk back to Renferrel after it"
+			},
+			{
+				"a": [
+					"accept",
+					1431
+				],
+				"b": [
+					"accept",
+					1531
+				],
+				"faction": "Horde",
+				"why": "Final route review 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30 (Forever's quest data, minLevel 30). The 30-40/01 Orgrimmar stop comes at about 29.4, where Searn Firewarder has nothing to give a Shaman; 30-40/02's Orgrimmar stop, where Craven Drok gives Alliance Relations (also from 30), comes at about 31.7, before the flight to Freewind Post and Prate Cloudseer."
+			},
+			{
+				"a": [
+					"accept",
+					571
+				],
+				"b": [
+					"turnin",
+					577
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Stranglethorn Vale 39-43): the visit starts at Kargath since the 30-40 rework (#1204), so it flies to Grom'gol first (Kin'weelay, the Jungle Stalkers' feathers, Mok'thardin) and from there to Booty Bay. Taken after Booty Bay's arrival stop, it flew Kargath to Booty Bay, Booty Bay to Grom'gol and back again: one flight more, a leftover of the Ratchet boat that used to land in Booty Bay."
+			},
+			{
+				"a": [
+					"turnin",
+					7833
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Winterspring 55-56 / Azshara 56): the Orgrimmar cloth donations are handed in on the stop that takes them, at the end of the Winterspring guide, as the Thunder Bluff ones already were: each is sixty cloth carried in the bags (optional, see deliberate.optional). Handed in on the Azshara guide's second Orgrimmar stop, they cost a landing in Orgrimmar between the Crossroads and Valormok and a walk from the Valley of Spirits to the Valley of Honor for nothing else. The Runecloth donations (7836, 7824) are taken there too and still handed in by 50-60/07-felwood (deliberate.stay)."
+			},
+			{
+				"a": [
+					"turnin",
+					7834
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7835
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7836
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7826
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7827
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7831
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7824
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					8365
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Feralas & Tanaris 43-45): the four Steamwheedle Port quests are finished at Lost Rigger Cove, just south of the port, on the first Tanaris visit, so they are handed in on the ride back to Gadgetzan (with Yeh'kinya's Screecher Spirits taken there). They waited for the 45-47 guide, whose flight from Brackenwall Village went to Gadgetzan, rode to Steamwheedle Port and back and flew on to Camp Mojache for them alone."
+			},
+			{
+				"a": [
+					"turnin",
+					2873
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					2875
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					8366
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"accept",
+					3520
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					1393
+				],
+				"b": [
+					"turnin",
+					1389
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows 39-43 and 45-47): the first swamp stay is one pass, the Harborage on the way in, Stonard, the crocolisks, Noboru, the Fallow Sanctuary, Galen's strongbox north of Stonard, then the Harborage for Magtoor's hand-ins, and the ride back to Stonard's flight master. It went Fallow Sanctuary -> Harborage (far west) -> strongbox (back east) -> Misty Reed Post (far south-east) for Lack of Surplus alone -> Stonard. Tok'Kar takes the flanks on the second stay, which rides to Misty Reed Post anyway after the Pool of Tears (Lack of Surplus is level 40, full experience at 45)."
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"turnin",
+					698
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows): see turnin 1393 before turnin 1389."
 			}
 		],
 		"notes": [
@@ -4253,10 +4517,6 @@
 			{
 				"q": 1003,
 				"why": "XooVe #216: Buzzbox chain"
-			},
-			{
-				"q": 6543,
-				"why": "Stonetalon tests (Kadrak's goals, Hotline #278, Warsong update goals): The Warsong Reports stays, taken at Kadrak"
 			},
 			{
 				"q": 6563,
@@ -5731,7 +5991,7 @@
 			},
 			{
 				"a": [
-					"turnin",
+					"task",
 					913
 				],
 				"b": [
@@ -5740,7 +6000,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle."
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
 			},
 			{
 				"a": [
@@ -5757,14 +6017,14 @@
 			{
 				"a": [
 					"turnin",
-					869
+					4921
 				],
 				"b": [
 					"accept",
 					868
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Egg Hunt (Korran) and Report to Kadrak (Thork) are offered from level 17 (Forever's quest data). The Crossroads stop after the Razormane camp comes at about 16 (the level model ground 57 minutes there for the Egg Hunt accept); the stop after Echeyakee, about 25 minutes later, is at 17. Both are carried to their work anyway (the Field of Giants at 21, Kadrak at the end of the stay)."
+				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data); its eggs are worked in the Field of Giants south of Camp Taurajo at about 20-21. #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it that long: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Final route review (2026-11-08): it is taken on the last Crossroads stop before the eggs (Mankrik's Lost in Battle hand-in, Korran a few yards away), before the Orgrimmar trip at 20"
 			}
 		],
 		"after": [
@@ -6159,6 +6419,10 @@
 		],
 		"optional": [
 			{
+				"q": 565,
+				"why": "Final route review 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak needs a Hillman's Cloak (3719, Leatherworking) and a Bolt of Woolen Cloth (2997, Tailoring) besides the yeti fur and Fine Thread; no vendor sells either (Forever's item data: no vendors), and the route has no step that gets them. Optional, so the route does not count on it and the yeti cave is only for players who take it."
+			},
+			{
 				"q": 515,
 				"why": "RevH1 c14 read: Elixir of Agony part 2 needs a Strong Troll's Blood Potion (item 3388, Alchemy only; no vendor sells it). v1's Desolace header says to skip the chain without one and marks its Hillsbrad steps optional, but the route counted it, so c14 walks every player to the Daggerspine and Torn Fin shores (30-40/01-desolace:376-390) and later to the Shindigger keg on the south-east coast (01-desolace:449-456) for an optional chain most cannot finish"
 			},
@@ -6443,6 +6707,21 @@
 				"q": 679,
 				"size": 3,
 				"why": "Horde 30-40 re-order (2026-11-07): Call to Arms part 3: Boulderfist Shaman and Lords in Stromgarde are elites (38-40), on the same group trip"
+			},
+			{
+				"q": 7849,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): Forever's quest data marks Separation Anxiety (7849), Kidnapped Elder Torntusk! (7845) and Dark Vessels (7850) as group quests (type 1), and every Vilebranch troll in Jintha'Alor is elite (rank 1, 46-50) in Forever's creature data: the skull pile, the bone pile, the Vessels of Tainted Blood and Elder Torntusk at the top all lie among them. The guide sent a solo player at about 48 through them. A group of 3, taken with the solo fallback (one 'when group 7849' choice for the three, the top-up after Revantusk covers the skipped experience)."
+			},
+			{
+				"q": 7845,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): Elder Torntusk is held at the top of Jintha'Alor among its elite trolls."
+			},
+			{
+				"q": 7850,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): the Vessels of Tainted Blood sit on Jintha'Alor's terraces among its elite trolls."
 			}
 		]
 	},
@@ -7566,6 +7845,12 @@
 				"faction": "Alliance",
 				"reason": "Alliance 40-60 order (2026-11-08, #1228): To Winterspring! (from 53) was taken at the end of Felwood at about 52.7, so the route ground to 53 for a 580 XP walk; Wynd Nightchaser gives The Ruins of Kel'Theril without it.",
 				"issue": "-"
+			},
+			{
+				"q": 6543,
+				"faction": "Horde",
+				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -7950,66 +8235,6 @@
 				],
 				"why": "Darkshore: Fruit of the Sea (Gubber Blump, Auberdine) is taken before Buzzbox 827's crawler legs, so its crab chunks come from the same Encrusted Tide Crawlers on the first shore loop, not a second one at 17.4",
 				"source": "critic"
-			},
-			{
-				"a": [
-					"turnin",
-					1420
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1424
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1428
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1430
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					624
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
 			},
 			{
 				"a": [
@@ -8940,13 +9165,14 @@
 			{
 				"a": [
 					"turnin",
-					6081
+					840
 				],
 				"b": [
 					"turnin",
-					840
+					6081
 				],
-				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Durotar ends in Orgrimmar since the Horde 12-30 re-chain, and Conscript of the Horde is handed to Kargal at Far Watch Post before the road north to the city; Hunters hand Training the Beast to Ormak there after it. Replaces #1077's pair (Ormak before Far Watch), written when Far Watch came after Orgrimmar."
 			},
 			{
 				"a": [
@@ -10252,6 +10478,18 @@
 			{
 				"a": [
 					"turnin",
+					5168
+				],
+				"b": [
+					"accept",
+					5281
+				],
+				"faction": "Alliance",
+				"why": "Final route review before 0.3.5 (2026-11-08, Alliance 40-60): on the 58 Light's Hope stop Heroes of Darrowshire (5168) goes to Carlin Redpath with Villains of Darrowshire (5181), and Marauders of Darrowshire (5206, needs both) is taken there, before the walk to Caretaker Alen for The Restless Souls; the guide went Carlin, Alen, Carlin again."
+			},
+			{
+				"a": [
+					"turnin",
 					892
 				],
 				"b": [
@@ -10320,6 +10558,138 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 40-60 accept levels (2026-11-08): Secret Communication (minimum level 57) is taken and handed in to Bor Wildmane on the Cenarion Hold stop after the Twilight camps: the Encrypted Twilight Texts drop with or without the quest. Taken on arrival at 56.6, the level model ground 252 minutes to 57 before the accept."
+			},
+			{
+				"a": [
+					"task",
+					91920
+				],
+				"b": [
+					"turnin",
+					438
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Corpse Laden Boat (58.4,34.9) is on the lake shore that the walk from the Vile Fin murlocs (Wild Eyes) south to Ambermill follows. The route went from the Sepulcher to the ferry and back for The Decrepit Ferry and Rot Hide Clues, then walked past the boat again on that shore; the boat is now on the shore walk and Hadrec takes Rot Hide Clues on the Sepulcher stop after Ambermill, saving about 1,300 yd and a Sepulcher stop"
+			},
+			{
+				"a": [
+					"turnin",
+					438
+				],
+				"b": [
+					"task",
+					479
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Decrepit Ferry on the shore walk from the murlocs, before Ambermill (see the pair task 91920 before turnin 438)"
+			},
+			{
+				"a": [
+					"task",
+					527
+				],
+				"b": [
+					"turnin",
+					496
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Hillsbrad 22): the bears and creepers for Elixir of Suffering roam the hills west of Tarren Mill on the way down to Hillsbrad Fields, where the lions for Mountain Lion Blood stand too (#1123). The route walked back up to Tarren Mill for Lydon's hand-in and Umpi's delivery between the hills and the fields, then down the same slope again; both go on the Tarren Mill stop after the fields, with Battle of Hillsbrad and Mountain Lion Blood, saving about 1,000 yd"
+			},
+			{
+				"a": [
+					"task",
+					868
+				],
+				"b": [
+					"turnin",
+					913
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Barrens 21): Jorn Skyseer stands in Camp Taurajo; his thunderhawks circle just south of it and the Field of Giants' Silithid eggs lie just south of them. The route walked back into the camp to hand in Cry of the Thunderhawk between the hawks and the eggs, then south again and back north past him; the wings are handed in on the walk back north after the eggs (and the Warriors' antennae, Ruga beside him), saving about 600 yd"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Orc and Troll Durotar): Conscript of the Horde (taken at Razor Hill at 10) was carried through the whole Silverpine stay to Far Watch Post at 14, against the rule that only class quests cross zones. It is handed to Kargal at the end of the Durotar guide (Shamans on the way to Kranal Fiss), and Warriors hand Veteran Uzzek in beside him and take the Thunder Ridge lizards on the road north to Orgrimmar. Measured with the calibrated level model: +0.02 h to 60 on average (Durotar +3.7 min, the Barrens -0.6), the cheapest of the three ways out (leaving it out: +0.06 h)"
+			},
+			{
+				"a": [
+					"task",
+					1498
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Warriors take Path of Defense from Uzzek beside Kargal at the end of the Durotar guide and gather the Singed Scales on Thunder Ridge on the road north to Orgrimmar (see the pair turnin 840 before accept 97246)."
+			},
+			{
+				"a": [
+					"turnin",
+					1420
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1424
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1428
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1430
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					624
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
 			}
 		]
 	}

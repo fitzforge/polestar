@@ -27,7 +27,7 @@ step Felwood
 
 step The Emerald Sanctuary
   zone Felwood
-  tip Ride north out of Astranaar into Felwood to the druids' camp on the road just past the border.
+  tip From Talrendis Point ride into Felwood: the Emerald Sanctuary is the druids' camp on the road just past the Ashenvale border.
   turnin 5159                         -- Greta Mosshoof
   accept 5165
   turnin 4441 optional
@@ -234,7 +234,6 @@ step Fly to Everlook
 step Everlook
   when onquest 5163
   zone Winterspring
-  tip Ride back to Talrendis Point and fly to Everlook.
   turnin 5163                         -- Umi Rumplesnicker
 
 step Everlook
@@ -270,7 +269,7 @@ step Jaron's supplies
 step Ranshalla
   zone Winterspring
   tip Ranshalla waits at Owl Wing Thicket, south of Everlook.
-  turnin 979                          -- Ranshalla: her escort comes later on the route
+  turnin 979                          -- Ranshalla
   tip Protect Ranshalla while she lights the torches on the way to the Altar of Elune.
   accept 4901
   complete 4901
@@ -290,7 +289,7 @@ step Donova Snowden
 
 step Dire Maul (optional)
   tip Running Dire Maul in Feralas instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Dire Maul fits levels 55 to 60; the Rabid Shardtooth grind below gets you to 59 alone.
+  note Dire Maul fits levels 55 to 60; alone, the Terrordale grind at the end of this guide gets you to 60.
 
 step Donova Snowden
   tip Keep west on the road to Donova's camp beside the hot springs.
@@ -533,7 +532,7 @@ step Scholomance (optional)
 
 step Grind to 60
   zone Eastern Plaguelands
-  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there.
+  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   level 60 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
 
 step Western Plaguelands

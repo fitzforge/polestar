@@ -46,7 +46,7 @@ step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
 
-step Fly to Grom'gol
+step Grom'gol
   zone Stranglethorn Vale
   getfp "Grom'gol"
   accept 638                          -- Nimboya: for Arathi, later on the route
@@ -199,7 +199,7 @@ step Nesingwary's camp
 step Level 35
   when level<35
   zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to Grom'gol: kill them until level 35.
+  tip Booty Bay's and Grom'gol's next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
   goto 30.4,23.6 map 1434 "Lashtail Raptors"
   level 35                            -- grind on Lashtail Raptor
 
@@ -282,7 +282,7 @@ step Shadowmaw panthers
   kill 1142 quest 569.1
 
 step Venture Co. camp
-  tip Head north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals.
+  tip Head north to Lake Nazferiti, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals.
   collect 4106 quest 213
 
 step Mosh'Ogg camp
@@ -293,7 +293,7 @@ step Mosh'Ogg camp
 step Level 36
   when level<36
   zone Stranglethorn Vale
-  tip Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery's Graveyard and Library from the Undercity on the next guide's way through.
+  tip Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
   goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
   level 36                            -- grind on Mosh'Ogg Brute
 

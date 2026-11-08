@@ -244,6 +244,8 @@ test(`${TIRISFAL}: yiliev0's report (#674): Gordo's report is searched for along
 
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
+	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
+	if (!list.some(({ goal }) => goal.quest === 6543)) return;
 	for (const [item, npc, name] of [[16764, 12862, 'Warsong Scout'], [16763, 12863, 'Warsong Runner'], [16765, 12864, 'Warsong Outrider']]) {
 		const { goal } = list[at(list, `collect ${item} (${name})`, (g) => g.t === 'collect' && g.item === item)];
 		assert.deepEqual(goal.fromNpcs, [{ npc, npcName: name }], `${name} is the goal's hand-over NPC`);
@@ -324,8 +326,10 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
-	// Horde 12-30 re-chain: Durotar ends in Orgrimmar, and Far Watch Post (Kargal) opens the Barrens guide after Silverpine.
-	assert.ok(!list.some(({ goal }) => is('turnin', 840)(goal)), 'Kargal at Far Watch Post is the Barrens guide\'s');
+	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Since the final route review (0.3.5) Conscript of the Horde is
+	// handed to Kargal at Far Watch Post before Orgrimmar (no carry through Silverpine), after Orgnil.
+	const mage = list.filter(forClass('MAGE'));
+	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
 	const orgnil = list[threat].goal.npc;
 	assert.deepEqual(list.slice(threat + 1).filter(({ goal }) => goal.npc === orgnil && !goal.optional && !is('turnin', 99051)(goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
@@ -337,7 +341,7 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
 		// Far Watch Post (Kargal, Uzzek) comes first on the walk from Orgrimmar; the Crossroads stop takes Meats to Orgrimmar.
 		const first = list[at(list, `${race}: accept 6365`, is('accept', 6365))].step;
-		assert.ok(list.findIndex(({ goal }) => is('turnin', 840)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post before the Crossroads`);
+		assert.ok(list.findIndex(({ goal }) => is('accept', 842)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post (Crossroads Conscription) before the Crossroads`);
 		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
@@ -808,7 +812,11 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Th
 	assert.equal(accept, at(list, 'turnin 287 (Frostmane Hold)', is('turnin', 287)) + 1, 'taken right after Frostmane Hold is handed in');
 	const turnin = at(list, 'turnin 291 (Senator Barin Redstone)', is('turnin', 291));
 	assert.ok(turnin > accept, 'handed in later');
-	assert.equal(list[turnin].step, list[at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram')].step, 'in the Deeprun Tram step');
+	// Final route review (2026-11-08): Ironforge is one round of the city, so the senator is a stop of that round,
+	// in Ironforge before the tram, not a step of its own after it.
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	assert.ok(turnin < tram, 'handed in before the tram');
+	assert.equal(list[turnin].goal.map, 1455, 'in Ironforge');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after`, { skip }, () => {
@@ -1399,7 +1407,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 // (Horde 12-30 re-chain) the walk runs south along the lake shore from the Yoricks' house to Ambermill, one
 // Sepulcher stop hands in everything, and the level 19-21 quests (Journey to Hillsbrad, Beren's Peril,
 // Watching the Roads) ride with the Sepulcher stop of the ride to Hillsbrad at 22. Fenris Isle's Rot Hide
-// gnolls (15-17, the keep 18-22) are left out at 12-15.
+// gnolls (15-17, the keep 18-22) are left out at 12-15. The Decrepit Ferry's boat on that shore is handed in on
+// the walk (final route review, 0.3.5): a hand-in to an object there is no Sepulcher stop.
 test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 quests on the ride to Hillsbrad, no Fenris Isle at 12-15`, { skip }, () => {
 	const list = goals(SILVERPINE);
 	const stop = list[at(list, 'accept 91921 (Return to Quinn (Again))', is('accept', 91921))].s;
@@ -1408,7 +1417,7 @@ test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 qu
 	}
 	const eyes = at(list, 'the murloc eyes (91920)', (g) => g.quest === 91920 && g.t === 'collect');
 	const pendants = at(list, 'the Dalaran Pendants (479)', (g) => g.quest === 479 && g.t === 'collect');
-	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
+	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional && goal.npc != null).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
 	assert.deepEqual(list.filter(({ goal }) => [443, 460, 461, 493, 516, 95981].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Fenris Isle, and the level 19-21 quests wait for the ride to Hillsbrad');
 	const ride = goals(STONETALON);
 	const sep = ride[at(ride, 'accept 493', is('accept', 493))].s;
@@ -2597,10 +2606,11 @@ const STONETALON_HORDE = 'forever/horde/05-stonetalon-mountains.guide';
 
 test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's`, { skip }, () => {
 	const list = goals(STONETALON_HORDE);
-	const kadrak = [is('turnin', 6541), is('accept', 6543), is('turnin', 6543)].map((p, i) => list[at(list, `Kadrak goal ${i + 1}`, p)].goal);
-	for (const g of kadrak) assert.equal(g.map, 1413, `${g.t} ${g.quest} is on The Barrens (1413), not ${g.map}`);
-	const scout = list[at(list, 'the Warsong Scout Update', (g) => g.t === 'collect' && g.item === 16764)].goal;
-	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
+	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
+	const kadrak = list[at(list, 'turnin 6541', is('turnin', 6541))].goal;
+	assert.equal(kadrak.map, 1413, `${kadrak.t} ${kadrak.quest} is on The Barrens (1413), not ${kadrak.map}`);
+	const outrunners = list[at(list, 'the Ashenvale Outrunners', (g) => g.t === 'kill' && g.npc === 12856)].goal;
+	assert.equal(outrunners.map, 1440, 'the Outrunners are still in Ashenvale');
 });
 
 // Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
@@ -2995,6 +3005,8 @@ test("#289: a quest item picked up from objects is collected at one of the objec
 test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout', { skip }, () => {
 	const guide = 'forever/horde/05-stonetalon-mountains.guide';
 	const list = goals(guide);
+	// Left out since the final route review (route-fixes skip 6543); holds whenever a build takes it again.
+	if (!list.some(({ goal }) => is('accept', 6543)(goal))) return;
 	const reports = at(list, 'the Warsong Reports', (g) => g.t === 'collect' && g.item === 16746 && !g.quest);
 	assert.equal(list[reports].goal.count || 1, 1, 'any report in the bags shows the bundle was opened');
 	assert.equal(list[reports].step, list[at(list, 'accept 6543', is('accept', 6543))].step, 'opened on the Kadrak step');
@@ -4671,10 +4683,15 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 // Flow review, Durotar: Warriors walked past Kargal Battlescar, 3 yd from Uzzek, to the thunder lizards
 // and back for Conscript of the Horde. Troll Durotar: Lar Prowltusk on the first Sen'jin stop (as the
 // Orc guide), Razor Hill once after Tiragarde Keep, the eggs and tiger fur where the coast walk meets them.
-for (const race of ['Orc', 'Troll']) test(`forever/horde/02-the-barrens.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop`, { skip }, () => {
-	const list = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+// Since the final route review (0.3.5) that Far Watch stop ends the Durotar guide: Kargal and Uzzek together, the
+// lizards on Thunder Ridge on the road north to Orgrimmar, Path of Defense to Uzzek when the Barrens guide passes.
+for (const race of ['Orc', 'Troll']) test(`forever/horde/${race.toLowerCase()}/01-durotar.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal with Uzzek`, { skip }, () => {
+	const list = goals(`forever/horde/${race.toLowerCase()}/01-durotar.guide`).filter(forClass('WARRIOR'));
 	assert.equal(list[at(list, 'turnin 840', is('turnin', 840))].s, list[at(list, 'turnin 1505', is('turnin', 1505))].s, 'with Uzzek, before the lizards');
 	assert.equal(list.filter(({ goal }) => is('turnin', 840)(goal)).length, 1, 'handed in once');
+	assert.ok(at(list, 'turnin 1505', is('turnin', 1505)) < at(list, 'collect 6486', (g) => g.t === 'collect' && g.item === 6486), 'the lizards after Uzzek');
+	const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+	assert.ok(at(barrens, 'turnin 1498', is('turnin', 1498)) < at(barrens, 'accept 6365', is('accept', 6365)), 'Path of Defense to Uzzek on the way to the Crossroads');
 });
 
 test(`${TROLL_DUROTAR}: flow review: Lar Prowltusk on the first Sen'jin stop, Razor Hill once after the keep, eggs and fur on the coast walk`, { skip }, () => {
@@ -4962,13 +4979,14 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
-	// Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop (#1159); the last Far Watch step is for
-	// everyone else, or its hand-in is one a Warrior no longer holds.
-	// (Far Watch Post opens the Barrens guide since the Horde 12-30 re-chain.)
-	for (const race of ['Orc', 'Troll']) {
-		const warrior = barrens.filter(forRaceOf(race)).filter(forClass('WARRIOR')).filter(({ goal }) => is('turnin', 840)(goal));
-		assert.equal(warrior.length, 1, `${race}: a Warrior hands in 840 once`);
+	// Conscript of the Horde is handed in once, at the end of the Durotar guides (final route review, 0.3.5): Shamans
+	// at Far Watch on the way to Kranal, everyone else before Orgrimmar; the Barrens guide carries none.
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		for (const cls of ['WARRIOR', 'SHAMAN', 'MAGE']) {
+			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
+		}
 	}
+	assert.ok(!barrens.some(({ goal }) => is('turnin', 840)(goal)), 'no Conscript of the Horde carried into the Barrens');
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
@@ -4981,7 +4999,8 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	const thalo = at(early, 'accept 891', is('accept', 891));
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
 	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
-	assert.ok(eggs > at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs after Jorn\'s thunderhawks, before Korran');
+	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	assert.ok(eggs > wings && eggs < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs right after Jorn\'s thunderhawks, before his hand-in and Korran');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
@@ -5004,6 +5023,48 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	const sunrock = goals('forever/horde/04-the-barrens.guide');
 	const jinzil = sunrock[at(sunrock, 'accept 1058', is('accept', 1058))].step;
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
+});
+
+// Final route review before 0.3.5, Horde 1-30: three walks back to a town between two pieces of work on one road
+// (Jorn in Camp Taurajo between his thunderhawks and the Field of Giants' eggs south of them; Tarren Mill between the
+// bears on the slope down to Hillsbrad Fields and the fields; the Sepulcher and the Decrepit Ferry, a boat the later
+// shore walk to Ambermill passes), and texts that sent players the wrong way or to the wrong guide.
+test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after Hillsbrad Fields, the Decrepit Ferry on the shore walk; tips that match the route', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const [a, b] of [[['task', 868], ['turnin', 913]], [['task', 527], ['turnin', 496]], [['task', 91920], ['turnin', 438]], [['turnin', 438], ['task', 479]]]) {
+		assert.ok(fixes.overrides.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === `${a}` && `${p.b}` === `${b}`), `pair ${a} before ${b} is a record the build keeps`);
+	}
+	const barrens = goals(BARRENS);
+	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
+	assert.ok(wings < eggs && eggs < jorn, 'the thunderhawks, the eggs, then Jorn on the way back north');
+	assert.ok(!barrens.slice(wings + 1, eggs).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the hawks and the eggs');
+	const warrior = barrens.filter(forClass('WARRIOR'));
+	assert.equal(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s, warrior[at(warrior, 'turnin 913', is('turnin', 913))].s, 'Ruga and Jorn on one Camp Taurajo stop');
+	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
+	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
+	const egg = at(barrens, 'accept 868', is('accept', 868));
+	assert.equal(barrens[egg].s, barrens[at(barrens, 'turnin 4921', is('turnin', 4921))].s, 'Egg Hunt with Mankrik\'s Lost in Battle');
+	assert.ok(!barrens.slice(egg + 1, eggs).some(({ goal }) => goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
+	assert.match(barrens[at(barrens, 'accept 855', is('accept', 855))].step.note, /^West to Regthar/, 'Regthar is west of the Crossroads');
+	assert.doesNotMatch(barrens[at(barrens, 'accept 1512', is('accept', 1512))].goal.note, /end of this guide/, 'The Binding is on the next guide\'s Orgrimmar stop');
+	const hills = goals(HILLSBRAD_HORDE);
+	const bears = at(hills, 'collect 3476', (g) => g.t === 'collect' && g.item === 3476);
+	const farmers = at(hills, 'kill 2266 quest 527.1', (g) => g.t === 'kill' && g.quest === 527);
+	assert.ok(bears < farmers && farmers < at(hills, 'turnin 496', is('turnin', 496)), 'the bears, the fields, then Lydon');
+	assert.deepEqual(hills.slice(bears + 1, farmers).filter(({ goal }) => ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Tarren Mill stop between the bears and the fields');
+	const pine = goals(SILVERPINE);
+	const ferry = at(pine, 'turnin 438', is('turnin', 438));
+	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry && ferry < at(pine, 'collect 3354', (g) => g.t === 'collect' && g.item === 3354), 'the boat between the murlocs and Ambermill');
+	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 479', is('turnin', 479))].s, 'Rot Hide Clues on the Sepulcher stop after Ambermill');
+	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
+	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
+	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');
+	assert.match(grind.note, /Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead\.$/, 'the top-up names the dungeons that fit, in the writer\'s sentence');
+	// The Warsong Reports: its walks east of Night Run and back to Kadrak cost more than its XP (measured): left out.
+	assert.ok(fixes.overrides.skip.some((r) => r.q === 6543 && r.faction === 'Horde'), 'the skip is a record');
+	assert.ok(!goals(STONETALON_HORDE).some(({ goal }) => goal.quest === 6543), 'no Warsong Reports in Ashenvale at 21');
 });
 
 // Final route review, Horde 1-30: a second Tarren Mill bind step (from the arrival at the end of the previous guide)
@@ -6530,4 +6591,574 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.ok(rec, 'the tip is a record');
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
+});
+
+// Final route review for 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30, and the
+// 30-40/01 Orgrimmar stop comes at about 29.4, so Searn Firewarder had nothing for the Shaman the step
+// sent there. The accept is on 30-40/02's Orgrimmar stop (about 31.7, after Alliance Relations, also
+// from 30), before Prate Cloudseer takes it at Freewind Post; a route-fixes pair keeps it there.
+test('Horde 30-40: Call of Air is taken on the Orgrimmar stop at 31, not at 29', { skip }, () => {
+	data = data || loadData(DATA);
+	assert.equal(data.quests[1531].minLevel, 30, 'Call of Air is offered from level 30');
+	const first = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept' && goal.quest === 1531), 'no Call of Air on the 29.4 Orgrimmar stop');
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
+	const relations = at(list, 'accept 1431', is('accept', 1431));
+	const air = at(list, 'accept 1531', is('accept', 1531));
+	const prate = at(list, 'turnin 1531', is('turnin', 1531));
+	const fly = at(list, 'fly to Freewind Post', (g) => g.t === 'fly' && /Freewind/.test(g.location || ''));
+	assert.ok(relations < air && air < fly && fly < prate, 'Alliance Relations, Call of Air, the flight, then Prate');
+	const pair = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs
+		.find((p) => p.a[0] === 'accept' && p.a[1] === 1431 && p.b[0] === 'accept' && p.b[1] === 1531);
+	assert.ok(pair, 'the order is a record');
+});
+
+// Final route review for 0.3.5 (Arathi 36-39, both sides): Sunken Treasure's escort step said the
+// professor goes down to the shore and naga ambush him; he walks up to the cave above Faldir's Cove and
+// summons two water elementals there (the server's script), as the writer's own 'Careful' tip said.
+// One guide-fixes tip for both sides.
+test('Sunken Treasure: the escort tip sends you up to the cave, where two water elementals come', { skip }, () => {
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 665 && f.tip);
+	assert.ok(rec, 'the tip is a record');
+	assert.match(rec.tip, /cave/);
+	assert.match(rec.tip, /water elementals/);
+	assert.doesNotMatch(rec.tip, /naga|shore|beach/);
+	for (const guide of ['forever/horde/30-40/05-arathi-highlands.guide', 'forever/alliance/30-40/05-arathi-highlands.guide']) {
+		assert.deepEqual(stepTips(guide, /^\s+complete 665\b/), [rec.tip], `${guide}: the step's tip is the record's`);
+	}
+});
+
+// Final route review for 0.3.5 (Horde Stranglethorn 34-37): the step that lands from the zeppelin was
+// titled "Fly to Grom'gol"; the tigers' tip put them east of Nesingwary's camp along the lake (they are
+// around and south of it, the panthers west); the Venture Co. step sent you north past Nesingwary's camp
+// (the geologists' lake is south-east of it). The tigers' tip is a guide-fixes record, the other two are
+// seed lines.
+test('Horde Stranglethorn: the Grom\'gol landing, the tigers and the Venture Co. camp are where the steps say', { skip }, () => {
+	const guide = 'forever/horde/30-40/03-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fp = at(list, 'getfp Grom\'gol', (g) => g.t === 'getfp' && /Grom'gol/.test(g.location || ''));
+	assert.doesNotMatch(list[fp].step.title || '', /^Fly/, 'the zeppelin landing is not titled as a flight');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 186 && f.faction === 'Horde' && f.tip);
+	assert.ok(rec, 'the tigers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /kill 682 quest 186\b/), [rec.tip]);
+	assert.doesNotMatch(rec.tip, /hills east of the camp|along the lake shore/);
+	const [venture] = stepTips(guide, /^step Venture Co\. camp/);
+	assert.doesNotMatch(venture, /past Nesingwary/);
+	assert.match(venture, /Lake Nazferiti/);
+});
+
+// Final route review for 0.3.5 (Alliance Badlands 38-39): Lotwil's level 42 bracers were listed at his
+// hand-in with no word on where they drop (the Greater Rock Elementals, 42-44, in the south-west); a note
+// said Lotwil's next test needs crafted gear (that is Lucien's quest); and another said the skeleton's next
+// task, Murdaloc, waits for a later guide right under the accept of Murdaloc itself.
+test('Alliance Badlands: Lotwil\'s bracers, Lucien\'s crafted bracers and Murdaloc are described as they are', { skip }, () => {
+	const guide = 'forever/alliance/30-40/06-badlands.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 712 && f.faction === 'Alliance' && f.tip);
+	assert.ok(rec, 'the bracers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /^\s+accept 712\b/), [rec.tip]);
+	assert.match(rec.tip, /Greater Rock Elementals/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.doesNotMatch(text, /Lotwil's next test needs crafted gear/);
+	assert.doesNotMatch(text, /The skeleton's next task, Murdaloc/);
+});
+
+// Final route review for 0.3.5 (Alliance Stranglethorn 33-35): after Booty Bay the route flies to Sentinel
+// Hill and walks south out of Westfall to the Crystal Spine Basilisks in Stranglethorn's north-west, but
+// the step's tip still said to walk back north to a mine in the middle of the jungle.
+test('Alliance Stranglethorn: the basilisk step after the Sentinel Hill flight says the way leads south from Westfall', { skip }, () => {
+	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fly = at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || ''));
+	const shards = at(list, 'collect 3918 quest 605', (g) => g.t === 'collect' && g.quest === 605);
+	assert.ok(fly < shards, 'the flight to Sentinel Hill comes before the basilisks');
+	const [tip] = stepTips(guide, /collect 3918 quest 605\b/);
+	assert.doesNotMatch(tip, /back north|middle of the jungle/);
+	assert.match(tip, /Sentinel Hill/);
+});
+
+// Final route review for 0.3.5 (Alliance 30-32): the route flies into Ironforge and hands in at the Hall of
+// Explorers and to Magni on the High Seat, but both steps were titled "Deeprun Tram", which this visit
+// never takes (it flies on to Stormwind).
+test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tram', { skip }, () => {
+	const steps = compiled('forever/alliance/30-40/01-hillsbrad-foothills.guide').steps;
+	assert.deepEqual(steps.filter((s) => /Deeprun Tram/.test(s.title || '')).map((s) => s.title), []);
+	const stormpike = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 514));
+	assert.equal(stormpike.title, 'Hall of Explorers');
+});
+
+// Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
+// (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
+// by Tarren Mill had no dungeon to run instead of the yetis.
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the Graveyard', { skip }, () => {
+	data = data || loadData(DATA);
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
+	const [t31] = stepTips(guide, /^\s+level 31\b/);
+	assert.doesNotMatch(t31, /start at 31/);
+	const [t30] = stepTips(guide, /^\s+level 30\b/);
+	assert.match(t30, /Scarlet Monastery/);
+});
+
+// Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
+// Cloak and a Bolt of Woolen Cloth, which no vendor sells and no step gets. It is optional, with its yeti
+// cave only for players who took it, and a route-fixes record keeps it so.
+test('Alliance 30-40: Bartolo\'s Yeti Fur Cloak is optional and says what it needs', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const item of [3719, 2997]) assert.deepEqual(data.items[item].vendors || [], [], `${item} is not sold`);
+	const first = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const acc = first[at(first, 'accept 565', is('accept', 565))];
+	assert.ok(acc.goal.optional, 'the accept is optional');
+	assert.match(acc.goal.note || '', /Hillman's Cloak/);
+	const fur = first[at(first, 'collect 3720', (g) => g.t === 'collect' && g.quest === 565)];
+	assert.ok(fur.goal.optional || /565/.test(JSON.stringify(fur.step.when || fur.step.conditions || '')), 'the yeti fur is only for those on it');
+	const last = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(last[at(last, 'turnin 565', is('turnin', 565))].goal.optional, 'the hand-in is optional');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional.find((o) => o.q === 565);
+	assert.ok(rec, 'optional is a record');
+});
+
+// Final route review for 0.3.5 (Alliance 32-33): from the Mirage Raceway the guide walked back west to the
+// Great Lift, north through the Barrens and east through Dustwallow to Theramore (about 5,800 yd). It now
+// takes the road south to Gadgetzan (about 1,000 yd), learns the flight path and flies to Theramore.
+test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to Theramore, not back through the Barrens', { skip }, () => {
+	const list = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const race = at(list, 'turnin 1175', is('turnin', 1175));
+	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(g.location || ''));
+	const fly = at(list, 'fly Theramore', (g) => g.t === 'fly' && /Theramore/.test(g.location || ''));
+	const fiora = at(list, 'turnin 1135', is('turnin', 1135));
+	assert.ok(race < fp && fp < fly && fly < fiora, 'Raceway, Gadgetzan, the flight, then Theramore');
+	assert.ok(!list.slice(race, fiora).some(({ goal }) => goal.t === 'goto' && goal.map === 1445 && goal.x < 40), 'no walk past the Shady Rest Inn');
+});
+
+// Final route review for 0.3.5 (Fitz: grind if we must, but say so): every written grind step in 30-40
+// names where to grind and a dungeon to run instead, in the writer's sentence.
+test('30-40: every written grind step says where, and names a dungeon to run instead', { skip }, () => {
+	const dir = path.join(OFFICIAL_DIR, 'forever');
+	for (const side of ['horde', 'alliance']) {
+		for (const f of fs.readdirSync(path.join(dir, side, '30-40'))) {
+			const guide = `forever/${side}/30-40/${f}`;
+			for (const { step, goal } of goals(guide)) {
+				if (goal.t !== 'level') continue;
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /until level/, `${guide}: "${step.title}" says where`);
+			}
+		}
+	}
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): Night Elves take Further Concerns (35) from Marshal Dughan
+// at the end of their Darkshore guide (level 14), then walk the Elwynn road past Guard Thomas' bridge on
+// 03-loch-modan's way to Redridge at about 19; the route carried it to 04-redridge-mountains at about 24.
+test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Further Concerns to Guard Thomas on the Elwynn road', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const thomas = at(list, 'turnin 35', is('turnin', 35));
+	const { step } = list[thomas];
+	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
+	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
+	const road = at(list, 'goto 65.2,69.7', (g) => g.t === 'goto' && Math.abs(g.x - 65.2) < 0.1 && Math.abs(g.y - 69.7) < 0.1);
+	const wiley = at(list, 'turnin 65', is('turnin', 65));
+	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
+	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): 06-ashenvale walked from Menethil Harbor through Dun Algaz, Loch
+// Modan and the North Gate pass to Ironforge for Lomac Gearstrip, though every Alliance character has had both the
+// Menethil Harbor and the Ironforge flight paths since 03-loch-modan (06-wetlands flies the same leg).
+test('forever/alliance/06-ashenvale.guide: final review: Menethil Harbor to Ironforge by gryphon', { skip }, () => {
+	const list = goals('forever/alliance/06-ashenvale.guide');
+	const boran = at(list, 'turnin 279', is('turnin', 279));
+	const lomac = at(list, 'turnin 1072', is('turnin', 1072));
+	const between = list.slice(boran + 1, lomac).map(({ goal }) => goal);
+	assert.ok(between.some((g) => g.t === 'fly'), 'a flight to Ironforge');
+	assert.ok(!between.some((g) => g.t === 'goto' && (g.map === 1432 || g.map === 1426)), 'no walk through Loch Modan or Dun Morogh');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): in 06-ashenvale the walk into Stonetalon ("Head south past Mystral
+// Lake into the Talondeep Path") was the tip of the Kaela and Gaxim step, after Piznik's mine, and Ziz Fizziks' hand-in
+// and his next quest were two steps at one hut.
+test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip before Piznik, Ziz Fizziks in one step', { skip }, () => {
+	const guide = 'forever/alliance/06-ashenvale.guide';
+	const list = goals(guide);
+	at(list, 'accept 1090', is('accept', 1090));
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.ok(lines.indexOf('Talondeep Path tunnel') >= 0 && lines.indexOf('Talondeep Path tunnel') < lines.indexOf('accept 1090'), 'the tunnel tip comes before Piznik');
+	assert.ok(!stepTips(guide, /turnin 1070/).some((t) => /Talondeep/.test(t)), 'not on the Kaela and Gaxim step');
+	const ziz = at(list, 'turnin 1092', is('turnin', 1092));
+	const reaper = at(list, 'accept 1093', is('accept', 1093));
+	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
+});
+
+// Final route review, Alliance 1-30 (2026-11-08): The Weathered Grave (225) and Morgan Ladimore (227) are talk-only
+// (level 35, from 28) and the Duskwood return walks past the grave at 29-30, but an old race filter offered them to
+// Dwarves and Skyborne only. Every race takes them (optional, offered from 28).
+test('forever/alliance/07-thousand-needles.guide: final review: The Weathered Grave for every race from 28', { skip }, () => {
+	const list = goals('forever/alliance/07-thousand-needles.guide');
+	for (const [t, q] of [['accept', 225], ['turnin', 225], ['accept', 227], ['turnin', 227]]) {
+		const { step, goal } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(!(goal.only && goal.only.races) && !(step.only && step.only.races), `${t} ${q} has no race filter`);
+	}
+	assert.ok(list[at(list, 'accept 225', is('accept', 225))].goal.optional, 'optional: offered from 28');
+});
+
+// Ingest report (2026-11-08): 7 of the 13 players who took The Family and the Fishing Pole (1141) on 0.3.4 abandoned it
+// at 13-24; the accept said "only with Fishing" but was offered to everyone. It is a step of its own for characters
+// with Fishing now.
+test('Auberdine: The Family and the Fishing Pole is offered only to characters with Fishing', { skip }, () => {
+	for (const guide of ['forever/alliance/nightelf/01-teldrassil.guide', 'forever/alliance/03-darkshore.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 1141', is('accept', 1141))];
+		assert.ok((step.when || []).some((p) => p.k === 'skill' && !p.neg && /fishing/i.test(JSON.stringify(p))), `${guide}: under when skill Fishing`);
+		assert.ok(step.goals.every((g) => g.quest === 1141), `${guide}: nothing else waits on the gate`);
+	}
+});
+
+// Final route review follow-up (2026-11-08): the Dwarf and Gnome starts crossed Ironforge five times after the
+// Thelsamar gryphon (a bare goto to Tinker Town's mailbox, back to the Great Forge for the flight path, the Hall of
+// Arms, the Forlorn Cavern, the Military Ward, the High Seat, then the tram). Now one round: Great Forge, Tinker Town,
+// the Forlorn Cavern, the Mystic Ward, the High Seat, the Military Ward, the tram.
+for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: final review: Ironforge in one round of the city`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const gryth = at(list, 'turnin 6388', is('turnin', 6388));
+	const fp = at(list, 'getfp Ironforge', (g) => g.t === 'getfp' && /Ironforge/.test(g.location || g.text || ''));
+	assert.equal(list[fp].step, list[gryth].step, 'the flight path with Gryth');
+	const tram = at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram');
+	const city = list.slice(gryth, tram + 1);
+	assert.ok(!city.some(({ goal }) => goal.t === 'goto' && goal.text === 'Ironforge'), 'no bare goto into Tinker Town');
+	const order = [is('accept', 97263), is('turnin', 97263), is('turnin', 291)].map((p, k) => at(list, `stop ${k}`, p));
+	assert.ok(gryth < order[0] && order[0] < order[1] && order[1] < order[2] && order[2] < tram, 'Tinker Town, Eldrun, the senator, the tram');
+	const trains = city.filter(({ goal }) => goal.t === 'train' && goal.class === true).map(({ goal }) => goal);
+	assert.ok(trains.every((g) => g.only), 'each trainer stop names its classes');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the Gadgetzan stop told the player to skip Sprinkle's next
+// ingredient ("the route never brings it back") right before accepting it; the route takes it, collects it in
+// the Hinterlands and hands it in on the Un'Goro guide's Gadgetzan stop.
+test('forever/alliance/40-50/04-tanaris.guide: final review: no note to skip Sprinkle\'s Secret Ingredient, which the route takes', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const take = at(list, 'accept 2641', is('accept', 2641));
+	const stop = list.filter(({ s }) => s === list[take].s);
+	assert.ok(!stop.some(({ goal }) => goal.t === 'note' && /Sprinkle/.test(goal.text) && /skip/i.test(goal.text)), 'no skip note on the stop that takes it');
+	assert.ok(list.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'its ingredient is collected');
+	assert.ok(goals('forever/alliance/40-50/07-un-goro-crater.guide').some(({ goal }) => goal.t === 'turnin' && goal.quest === 2641), 'and handed in at Gadgetzan in the Un\'Goro guide');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the Burning Steppes topped up to 51.39 on the Dreadmaul Rock
+// ogres on the way to Flame Crest, then rode back to the same ogres for a top-up to 52 right after the Flame Crest
+// accepts. Nothing between gives experience: one top-up to 52 on the way (guide-fixes level record).
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up to 52 at Dreadmaul Rock before Flame Crest, no ride back', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const crest = at(list, 'accept 4726', is('accept', 4726));
+	const vigil = at(list, 'accept 3824', is('accept', 3824));
+	const grinds = list.filter(({ goal }) => goal.t === 'level');
+	const between = grinds.filter(({ s }) => s > list[vigil].s && s < list[crest].s);
+	assert.ok(between.some(({ goal }) => goal.level >= 52), 'the top-up to 52 is on the way to Flame Crest');
+	const after = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4726);
+	assert.ok(!grinds.some(({ s }) => s > list[crest].s && s < list[after].s), 'no top-up between the Flame Crest accepts and their hand-ins');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 4726 && f.at.goal === 'accept');
+	assert.equal(rec && rec.level, 52, 'a level record keeps it on a refresh');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: Searing Gorge starts at the Grimesilt outhouse in the south-east
+// (Caught!), but the ride in from Thelsamar was described on the later Thorium Point step, and the outhouse step
+// said to ride east across the Cauldron. Both tips are records now.
+test('forever/alliance/40-50/06-searing-gorge.guide: final review: the ride in is on the first stop, Thorium Point from the dig site', { skip }, () => {
+	const guide = 'forever/alliance/40-50/06-searing-gorge.guide';
+	const list = goals(guide);
+	const outhouse = list[at(list, 'accept 4449', is('accept', 4449))];
+	const point = list[at(list, 'accept 7722', is('accept', 7722))];
+	assert.ok(outhouse.s < point.s, 'the outhouse comes first');
+	assert.match(outhouse.step.note, /Thelsamar/, 'the first stop says how to get in');
+	assert.doesNotMatch(point.step.note, /Thelsamar/, 'Thorium Point starts from the dig site');
+	const recs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const quest of [4449, 7722]) {
+		const rec = recs.find((f) => f.at.quest === quest && f.at.goal === 'accept' && f.tip);
+		assert.ok(rec, `${quest}: the tip is a record`);
+		assert.deepEqual(stepTips(guide, new RegExp(`^  accept ${quest}\\b`)), [rec.tip]);
+	}
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the 58 Light's Hope stop handed Villains of Darrowshire to Carlin
+// Redpath, walked to Caretaker Alen, and came back to Carlin for Heroes of Darrowshire, under a tip from an older
+// order ("ride on north to Chillwind Camp and fly to Light's Hope Chapel"). Carlin's hand-ins are one visit now.
+test('forever/alliance/50-60/05-silithus.guide: final review: Carlin Redpath\'s two hand-ins in one visit, then Caretaker Alen', { skip }, () => {
+	const list = goals('forever/alliance/50-60/05-silithus.guide');
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	const [villains, heroes, marauders, alen] = [idx('turnin', 5181), idx('turnin', 5168), idx('accept', 5206), idx('accept', 5281)];
+	assert.ok(villains < heroes && heroes < marauders && marauders < alen, 'Carlin, Carlin, Carlin, then Alen');
+	assert.equal(list[villains].s, list[alen].s, 'one Light\'s Hope stop');
+	assert.ok(!list.slice(villains, alen + 1).some(({ step }) => /Chillwind/.test(step.note || '')), 'no tip about riding to Chillwind Camp');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: after Winterspring's top-up to 55.05 (before the Everlook
+// hand-ins) the guide still said "Short of level 54 after the yetis? Run the Sunken Temple" and "keep killing yetis
+// until level 54: Harlo's wildkin quests are red before that" (Harlo's quests are in the last guide, at 58-59).
+test('forever/alliance/50-60/03-winterspring.guide: final review: no level-54 advice after the top-up to 55', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const topUp = list.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 55);
+	assert.ok(topUp >= 0, 'the top-up to 55 is in the guide');
+	const later = list.slice(topUp).filter(({ step }, i, a) => i === 0 || step !== a[i - 1].step).map(({ step }) => step);
+	for (const step of later) {
+		const text = [step.note || '', ...step.goals.filter((g) => g.t === 'note').map((g) => g.text)].join(' ');
+		assert.doesNotMatch(text, /level 54\b/, `"${step.title}" asks for a level the player already has`);
+	}
+});
+
+// Final route review before 0.3.5, Alliance 40-60: texts in the last guide from an older order. The Felwood stop
+// said to ride out of Astranaar (the route flies to Talrendis Point), Everlook said to ride back to Talrendis Point
+// right after the flight from there, Ranshalla's hand-in said her escort comes later (it is the next goal), and the
+// Dire Maul note pointed at a Rabid Shardtooth grind the guide doesn't have (its grind is in Terrordale).
+test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and notes match the route', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const sanctuary = list[at(list, 'turnin 5159', is('turnin', 5159))];
+	const flight = list.slice(0, list.indexOf(sanctuary)).reverse().find(({ goal }) => goal.t === 'fly');
+	assert.match(flight.goal.location || flight.step.title, /Talrendis/, 'the route flies to Talrendis Point');
+	assert.doesNotMatch(texts(sanctuary), /Astranaar/, 'and the Felwood stop says so');
+	const everlook = list[at(list, 'turnin 5163', is('turnin', 5163))];
+	assert.doesNotMatch(texts(everlook), /fly to Everlook/, 'no flight to Everlook after landing there');
+	const ranshalla = list[at(list, 'turnin 979', is('turnin', 979))];
+	assert.equal(ranshalla.s, list[at(list, 'complete 4901', is('complete', 4901))].s, 'her escort is on the same step');
+	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
+	const dm = list.find(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text));
+	assert.ok(dm, 'the Dire Maul note is in the guide');
+	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level >= 60);
+	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 is in Terrordale');
+	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
+	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
+});
+
+// Final route review before 0.3.5, Alliance 40-60: texts from an older order. Vital Supplies was "for Nethergarde
+// Keep, keep it" though Watchmaster Sorigal in Darkshire takes it a few steps later; the Ironforge stop opened with
+// the tram ride already taken and said the next guide flies to Thelsamar (this one does); Sigrun Ironhew's dig was two
+// steps with the way in on the second; Feralas said you end at the dock with Thalanaar still to come; Felwood said
+// to ride out of Astranaar on its second stop; Un'Goro's "Bind and train" binds nowhere.
+test('alliance 40-60: final review: travel tips, notes and titles match where the player is', { skip }, () => {
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const supplies = stv[at(stv, 'accept 1477', is('accept', 1477))];
+	assert.ok(stv.some(({ goal }) => goal.t === 'turnin' && goal.quest === 1477), 'Vital Supplies is handed in on this guide');
+	assert.doesNotMatch(supplies.goal.note || '', /Nethergarde/, 'so it is not "for Nethergarde Keep"');
+	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
+	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
+	const sigrun = stv[at(stv, 'turnin 733', is('turnin', 733))];
+	assert.equal(sigrun.s, stv[at(stv, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
+	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
+	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
+	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
+	assert.ok(!feralas.some((e) => e.s < last.s && /You end at/.test(texts(e))), 'no "you end here" before Thalanaar');
+	const felwood = goals('forever/alliance/50-60/02-felwood.guide');
+	const firstNote = felwood.find(({ step }) => step.note);
+	assert.match(firstNote.step.note, /Astranaar/, 'Felwood\'s way in is on its first stop');
+	assert.equal(felwood.filter(({ step }, i, a) => /Astranaar/.test(step.note || '') && (i === 0 || a[i - 1].step !== step)).length, 1, 'and only there');
+	const ungoro = compiled('forever/alliance/40-50/07-un-goro-crater.guide');
+	for (const step of ungoro.steps.filter((st) => /\bBind\b/.test(st.title))) assert.ok(step.goals.some((g) => g.t === 'sethome'), `"${step.title}" binds`);
+});
+
+// Final route review before 0.3.5, Alliance 40-60: the 56-58 guide spends about a quarter of its quest goals in
+// Un'Goro Crater and Silithus, but its title named only the Plaguelands and Feralas.
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: the title names Un\'Goro Crater and Silithus', { skip }, () => {
+	const guide = compiled('forever/alliance/50-60/04-western-plaguelands.guide');
+	const zones = new Set(guide.steps.flatMap((step) => step.goals.filter((g) => ['accept', 'turnin'].includes(g.t) && g.map).map((g) => g.map)));
+	assert.ok(zones.has(1449) && zones.has(1451), 'it quests in Un\'Goro Crater (1449) and Silithus (1451)');
+	assert.match(guide.title, /Un'Goro Crater/);
+	assert.match(guide.title, /Silithus/);
+});
+
+// Final route review before 0.3.5, Alliance 40-60: after the last Booty Bay stop, Stranglethorn rode back north for the
+// Nesingwary hunts (Tethis, King Bangalash) or, solo, for top-ups on the Cold Eye Basilisks, then south again to fly.
+// They come before that stop now, after the Crystalvein Mine, with the top-ups lowered by the Booty Bay experience.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the northern hunts and solo top-ups before the last Booty Bay stop', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const last = at(list, 'turnin 611', is('turnin', 611));
+	const fly = list.findIndex((e, i) => i > last && e.goal.t === 'fly');
+	assert.ok(at(list, 'turnin 208', is('turnin', 208)) < last, 'Big Game Hunter before Booty Bay');
+	assert.ok(at(list, 'collect 3877', (g) => g.t === 'collect' && g.quest === 197) < last, 'Tethis before Booty Bay');
+	const ups = list.filter(({ goal, step }) => goal.t === 'level' && (step.when || []).some((w) => w.k === 'group' && [w.q].flat().some((q) => [193, 197, 208].includes(q))));
+	assert.equal(ups.length, 3, 'three solo top-ups for the Nesingwary hunts');
+	for (const e of ups) assert.ok(list.indexOf(e) < last, `top-up to ${e.goal.level} before Booty Bay`);
+	assert.ok(!list.slice(last, fly).some(({ goal }) => goal.t === 'level'), 'no grind between Booty Bay and the flight');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(rf.some((p) => p.a[0] === 'turnin' && p.a[1] === 208 && p.b[0] === 'turnin' && p.b[1] === 611), 'a route-fixes pair keeps it');
+});
+
+// Final route review before 0.3.5 (Main's grind policy): every written grind step of Alliance 40-60 ("Level N" top-ups,
+// solo fallbacks, "Grind to N") ends its tip with the dungeon a group can run instead, the writer's sentence.
+test('alliance 40-60: final review: every written grind step offers a dungeon for its level', { skip }, () => {
+	const bands = [['the Uldaman dungeon', 40, 45], ["the Zul'Farrak dungeon", 44, 48], ['the Maraudon dungeon', 46, 52], ['the Sunken Temple dungeon', 50, 54], ['the Blackrock Depths dungeon', 52, 58], ['the Blackrock Spire dungeon (Lower)', 55, 60], ['the Scholomance dungeon', 58, 60], ['the Stratholme dungeon', 58, 60]];
+	const want = (lv) => bands.map(([n, lo, hi], i) => ({ n, i, d: Math.abs((lo + hi) / 2 - lv), ok: lo <= lv && lv <= hi })).filter((b) => b.ok).sort((a, b) => a.d - b.d || a.i - b.i).slice(0, 2).map((b) => b.n).join(' or ');
+	for (const guide of allGuides().filter((g) => /^forever\/alliance\/(40-50|50-60)\//.test(g))) {
+		for (const step of compiled(guide).steps) {
+			const m = /^(?:Level ([\d.]+)|Grind to (\d+))$/.exec(step.title);
+			if (!m) continue;
+			const lv = Math.floor(Number(m[1] || m[2]));
+			assert.ok((step.note || '').endsWith(`Or, with a group, run ${want(lv)} instead.`), `${guide} "${step.title}": ${step.note}`);
+		}
+	}
+});
+
+// --- Final route review before 0.3.5, Horde 40-60 (2026-11-08) ---
+
+// Stranglethorn Vale 39-43 starts at Kargath since the 30-40 rework: it flew to Booty Bay, on to Grom'gol for
+// Kin'weelay, the Jungle Stalkers and Mok'thardin, and back to Booty Bay. Now Kargath flies to Grom'gol first and on to
+// Booty Bay: one flight less. The zone-entry arrow that pointed 1,000 yd past the Bloodsail cove is gone too.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol before Booty Bay on the flight from Kargath', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const cove = at(list, 'turnin 595', is('turnin', 595));
+	assert.equal(list.slice(0, cove).filter(({ goal }) => goal.t === 'fly').length, 2, "Kargath to Grom'gol, Grom'gol to Booty Bay");
+	const bay = at(list, 'turnin 577', is('turnin', 577));
+	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
+	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
+});
+
+// The Swamp of Sorrows part of Stranglethorn's guide told you to "keep going north into Duskwood" after the Duskwood
+// stop, and its second Stonard step opened with "You start in Stonard", a leftover of a split guide. One Stonard stop
+// for Dar's two quests, the bind and the flight path.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the swamp tips match the way in, one Stonard stop', { skip }, () => {
+	const file = 'forever/horde/40-50/01-stranglethorn-vale.guide';
+	assert.doesNotMatch(stepTips(file, /accept 1389/).join(' '), /north into Duskwood/);
+	assert.doesNotMatch(stepTips(file, /accept 1430/).join(' '), /You start in/);
+	const list = goals(file);
+	const stonard = list[at(list, 'accept 698', is('accept', 698))].s;
+	for (const q of [1430, 1424]) assert.equal(list[at(list, `accept ${q}`, is('accept', q))].s, stonard, `${q} on the one Stonard stop`);
+});
+
+// Tips that pointed the wrong way: the Ironjaw Basilisks lie north of Booty Bay on the road back to Grom'gol ("follow
+// the road south"); the Altar of Zul is south-west of Valorwind Lake ("on the way back east"); Rogue Vale opens just
+// north of Zorbin's dock ("ride west into the middle of Feralas"); Felstone Farm is reached from the Bulwark, where the
+// step before ends ("leave the Undercity"). Marvon's step had the same direction twice.
+test('Horde 40-60 final review: tips point the way the route goes', { skip }, () => {
+	const H = (n) => `forever/horde/${n}.guide`;
+	const basilisks = stepTips(H('40-50/06-azshara'), /collect 3911 quest 589/).join(' ');
+	assert.match(basilisks, /north out of Booty Bay/);
+	assert.doesNotMatch(basilisks, /road south/);
+	assert.equal(stepTips(H('40-50/06-azshara'), /turnin 3380/).length, 1, "one tip at Marvon's camp");
+	assert.doesNotMatch(stepTips(H('40-50/05-the-hinterlands'), /kill 2925 quest 7828/).join(' '), /back east/);
+	assert.doesNotMatch(stepTips(H('40-50/03-feralas'), /kill 8612 quest 3520/).join(' '), /Ride west/);
+	assert.doesNotMatch(stepTips(H('50-60/01-un-goro-crater'), /accept 5021/).join(' '), /Leave the Undercity/);
+});
+
+// Felwood & Western Plaguelands: the top-up to 52.63 ground on Northridge's Scarlet Mages, then walked on to Kirsta
+// Deepshadow on the hill above for Unfinished Business, which wants those Scarlets. Kirsta first: the grind counts.
+test('forever/horde/50-60/02-felwood.guide: final review: Kirsta before the Northridge top-up', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const top = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
+	assert.ok(top >= 0, 'the top-up is in the guide');
+	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < top, 'Unfinished Business before the Scarlet grind');
+});
+
+// Winterspring ended in Orgrimmar taking the Wool, Silk and Mageweave donations, and the Azshara guide landed in
+// Orgrimmar again between the Crossroads and Valormok just to hand them in, from the Valley of Spirits to the Valley of
+// Honor. They are handed in on the stop that takes them, as the Thunder Bluff ones are; the Runecloth ones are taken
+// there and still handed in at the end of the route.
+test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in where they are taken', { skip }, () => {
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	for (const q of [7833, 7834, 7835, 7826, 7827, 7831]) {
+		assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} on the stop that takes it`);
+	}
+	for (const q of [7836, 7824]) at(ws, `accept ${q}`, is('accept', q));
+	const az = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!az.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no donation stop in the Azshara guide');
+	const between = az.slice(at(az, 'turnin 91904', is('turnin', 91904)) + 1, at(az, 'turnin 3562', is('turnin', 3562)));
+	assert.deepEqual(between.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location), ['Valormok'], 'one flight, the Crossroads to Valormok');
+	assert.ok(!between.some(({ goal }) => goal.map === 1454), 'no Orgrimmar stop between the crates and Valormok');
+});
+
+// Silithus: Dearest Natalia comes from Commander Mar'alith (the top-up named Bor Wildmane), its two dwarves are
+// questioned, not killed (the step had only two kill goals and no tip), and two notes said to skip what the guide had
+// just taken: Dearest Natalia itself and Dithers' Skeletal Fragments.
+test('forever/horde/50-60/06-silithus.guide: final review: Dearest Natalia from Mar\'alith, questioned not killed, no stale skip notes', { skip }, () => {
+	const file = 'forever/horde/50-60/06-silithus.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 8304 && f.tip && f.faction === 'Horde');
+	assert.ok(rec, 'the tip is a record');
+	assert.deepEqual(stepTips(file, /kill 15171 quest 8304/), [rec.tip]);
+	assert.match(rec.tip, /Question them/);
+	const top = stepTips(file, /^\s+level 58\b/).join(' ');
+	assert.match(top, /Mar'alith/);
+	assert.doesNotMatch(top, /Bor Wildmane/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	assert.doesNotMatch(text, /Dearest Natalia needs level 58 and leads/);
+	assert.doesNotMatch(text, /Skeletal Fragments \(Scholomance\)\. Skip it/);
+	const list = goals(file);
+	at(list, 'turnin 964', is('turnin', 964));
+});
+
+// Felwood, Moonglade & Winterspring: two Donova Snowden steps in a row, the way there on the second.
+test('forever/horde/50-60/07-felwood.guide: final review: one Donova stop with the way there', { skip }, () => {
+	const file = 'forever/horde/50-60/07-felwood.guide';
+	const list = goals(file);
+	const donova = list[at(list, 'turnin 980', is('turnin', 980))].s;
+	assert.equal(list[at(list, 'accept 5087', is('accept', 5087))].s, donova, 'Toxic Horrors on the same stop');
+	assert.match(stepTips(file, /turnin 980/).join(' '), /Timbermaw tunnel/);
+});
+
+// The Hinterlands: Separation Anxiety, Kidnapped Elder Torntusk! and Dark Vessels are group quests in Forever's data,
+// and every Vilebranch troll in Jintha'Alor is elite; the guide sent a solo player at about 48 up through them. They
+// are taken, done and handed in only with a group, and the top-up after Revantusk covers them when skipped.
+test('forever/horde/40-50/05-the-hinterlands.guide: final review: Jintha\'Alor only with a group', { skip }, () => {
+	const list = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	for (const q of [7849, 7845, 7850]) {
+		const steps = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(steps.length >= 2, `${q} is in the guide`);
+		for (const { step, goal } of steps) assert.ok((step.when || []).some((w) => w.k === 'group' && w.q === 7849), `${goal.t} ${q} is on a 'when group 7849' step`);
+	}
+	const top = list.find(({ goal }) => goal.t === 'level' && goal.level === 49);
+	assert.ok(top && !(top.step.when || []).some((w) => w.k === 'group'), 'the top-up is for everyone below its level');
+	const groups = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	for (const q of [7849, 7845, 7850]) assert.ok(groups.some((g) => g.q === q && g.size >= 2 && g.size <= 4), `${q} is a group quest record`);
+});
+
+// --- Final route review follow-ups, Horde 40-60 (2026-11-08) ---
+
+// Feralas & Tanaris: the four Steamwheedle Port quests are finished at Lost Rigger Cove on the first Tanaris visit but
+// waited for the 45-47 guide, whose flight from Brackenwall went to Gadgetzan, rode to the port and back, and flew on
+// to Camp Mojache for them alone. They are handed in on the way back to Gadgetzan, Yeh'kinya's Screecher Spirits taken
+// there; the 45-47 guide flies Brackenwall to Camp Mojache.
+test('Horde 43-47 follow-up: the Steamwheedle Port hand-ins on the first Tanaris visit, no Tanaris detour from Brackenwall', { skip }, () => {
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const cove = at(fer, 'collect 9246 quest 2875', (g) => g.t === 'collect' && g.item === 9246);
+	const gadgetzan = at(fer, 'turnin 1691', is('turnin', 1691));
+	for (const [t, q] of [['turnin', 8365], ['turnin', 2873], ['turnin', 2875], ['turnin', 8366], ['accept', 3520]]) {
+		const i = at(fer, `${t} ${q}`, is(t, q));
+		assert.ok(i > cove && i < gadgetzan, `${t} ${q} between Lost Rigger Cove and Gadgetzan`);
+	}
+	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	assert.ok(!sw.some(({ goal }) => goal.map === 1446), 'no Tanaris stop in the 45-47 guide');
+	const fly = sw.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.ok(fly.includes('Camp Mojache') && !fly.includes('Gadgetzan'), 'Brackenwall flies to Camp Mojache');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
+	assert.ok(!pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 3520), 'the swamp-stay pairs anchor on the screecher work, not the accept');
+});
+
+// Swamp of Sorrows, first stay: the Fallow Sanctuary, the Harborage in the far west, back east to Galen's strongbox,
+// then the far south-east coast for Lack of Surplus alone. Now one pass: the strongbox on the way back west, the
+// Harborage last; Tok'Kar takes the flanks on the second stay, which rides to Misty Reed Post anyway.
+test('Horde Swamp of Sorrows follow-up: the first stay is one pass, Tok\'Kar on the second', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	assert.ok(at(stv, 'turnin 1393', is('turnin', 1393)) < at(stv, 'turnin 1389', is('turnin', 1389)), 'the strongbox before the Harborage');
+	assert.ok(!stv.some(({ goal }) => is('turnin', 698)(goal) || is('accept', 699)(goal)), 'no Misty Reed Post in the first stay');
+	assert.equal(stv[stv.length - 1].goal.quest, 1389, 'the guide ends at the Harborage');
+	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	const pool = at(sw, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175);
+	const tok = at(sw, 'turnin 698', is('turnin', 698));
+	assert.ok(pool < tok && tok < at(sw, 'collect 6168 quest 699', (g) => g.t === 'collect' && g.item === 6168), 'the pool, Tok\'Kar, then the snappers');
+});
+
+// Main's grind policy (2026-11-08): every written grind step ("Level N" top-ups and solo fallbacks) ends its tip with
+// the dungeons whose band holds N ("Or, with a group, run the <Name> dungeon instead."), the sentence the forge writer writes from the next build. Horde 40-60 by hand.
+test('Horde 40-60: every grind step offers the dungeons at its level', { skip }, () => {
+	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/40-50')).map((f) => `forever/horde/40-50/${f}`)
+		.concat(fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`));
+	let n = 0;
+	for (const file of files) {
+		const lines = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8').split('\n');
+		lines.forEach((l, i) => {
+			const m = l.match(/^step Level ([\d.]+)$/);
+			if (!m) return;
+			n++;
+			const tips = stepTips(file, new RegExp(`^step Level ${m[1].replace('.', '\\.')}$`)).join(' ');
+			assert.match(tips, /Or, with a group, run the [A-Z][^.]* dungeon( \([A-Za-z ]+\))? instead\.$/, `${file}:${i + 1}`);
+			if (Math.floor(+m[1]) >= 58) assert.match(tips, /Scholomance/, `${file}:${i + 1}: a 58-60 dungeon`);
+		});
+	}
+	assert.ok(n >= 19, `the grind steps are found (${n})`);
 });

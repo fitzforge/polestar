@@ -570,31 +570,30 @@ step Thelsamar
 
 step Golnir Bouldertoe
   zone Ironforge
+  tip The gryphons land in the Great Forge: Golnir Bouldertoe works at its north end, and Gryth Thurden keeps the gryphons where you landed.
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
   turnin 6388                                 -- Gryth Thurden, the gryphon master where you landed
-
-step Buliwyf Stonehand
-  only Paladin
-  zone Ironforge
-  when money>=10s
-  when !skill "Two-Handed Axes" 1
-  tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
-  train 11865                         -- Buliwyf Stonehand
-
-step Ironforge
-  zone Ironforge
-  goto 72.4,48.6 "Ironforge"
-
-# ---------------------------------------------------------------- Ironforge
-
-step Inn and flight master
   getfp "Ironforge"
+
+# ---------------------------------------------------------------- Ironforge: one round of the city
+
+step Tinker Town
+  zone Ironforge
+  tip East from the Great Forge into Tinker Town: the Misplaced Packages lie by its mailbox. From here the guide goes once round the city: north to the Forlorn Cavern, west to the Mystic Ward, south through the Commons to the High Seat, east through the Military Ward and back to Tinker Town for the tram.
+  accept 97263 optional                       -- Misplaced Packages, by the mailbox in Tinker Town
+
+step The Forlorn Cavern
+  zone Ironforge
+  tip North of the Great Forge: Eldrun Stormbreaker, the shaman trainer, stands at the south end of the Forlorn Cavern, the rogue and warlock trainers and Lago Blackwrench just north of him.
+  turnin 97263 optional                       -- Eldrun Stormbreaker
+  accept 1715 only Warlock                    -- Lago Blackwrench: Gakin the Darkbinder in Stormwind takes it
+  train class only Rogue,Shaman,Warlock
 
 step The Tome of Divinity
   only Paladin
   zone Ironforge
-  tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
+  tip West from the Forlorn Cavern into the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
   level 12 only Paladin
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
@@ -633,26 +632,31 @@ step Muiredon Battleforge
   accept 1785
   turnin 1785                                 -- Tiza Battleforge: Redemption
 
-step Ironforge class quests
-  only Hunter,Priest,Warlock
+step The Mystic Ward
+  only Paladin,Priest,Mage
   zone Ironforge
-  tip Belia Thundergranite is in the Hall of Arms, High Priestess Mims in the Hall of Mysteries, Lago Blackwrench in the Forlorn Cavern.
+  tip The paladin, priest and mage trainers are in the Hall of Mysteries, in the Mystic Ward.
+  train class only Paladin,Priest,Mage
+
+step The High Seat
+  zone Ironforge
+  tip South through the Commons: Senator Barin Redstone stands in the High Seat with King Magni.
+  turnin 291                                  -- Senator Barin Redstone, in the High Seat with King Magni
+
+step Buliwyf Stonehand
+  only Paladin
+  zone Ironforge
+  when money>=10s
+  when !skill "Two-Handed Axes" 1
+  tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
+  train 11865                         -- Buliwyf Stonehand
+
+step The Military Ward
+  only Warrior,Hunter
+  zone Ironforge
+  tip East to the Military Ward: the warrior trainers and Buliwyf Stonehand in the Hall of Arms, the hunter trainers beside it.
   turnin 6086 only Hunter                     -- Belia Thundergranite: Beast Training
-  accept 1715 only Warlock                    -- Lago Blackwrench: Gakin the Darkbinder in Stormwind takes it
-
-step The Deeprun Tram
-  zone Ironforge
-  tip Follow the road up to Ironforge and train with your class trainer. The Deeprun Tram leaves from Tinker Town, in the east of the city. Ride it to Stormwind.
-  accept 97263 optional                       -- Misplaced Packages, by the mailbox in Tinker Town
-  turnin 97263 optional                       -- Eldrun Stormbreaker, the shaman trainer, north of the Great Forge
-
-step Class trainer
-  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Druid trainer
-  only Druid
-  train class only Druid -- Theridran in Stormwind City; Dun Morogh has no druid trainer
+  train class only Warrior,Hunter
 
 step Buliwyf Stonehand
   only Warrior
@@ -670,10 +674,13 @@ step Buliwyf Stonehand
   tip While you're here: learn Two-Handed Maces from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Warrior fastest.
   train 11865                         -- Buliwyf Stonehand
 
+step Druid trainer
+  only Druid
+  train class only Druid -- Theridran in Stormwind City; Dun Morogh has no druid trainer
+
 step The Deeprun Tram
   zone Ironforge
-  train class
-  turnin 291                                  -- Senator Barin Redstone, in the High Seat with King Magni
+  tip East back into Tinker Town: the Deeprun Tram leaves from its east end. Ride it to Stormwind.
   goto 78.0,51.4 "Deeprun Tram"
 
 step Tram to Stormwind

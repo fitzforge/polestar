@@ -70,7 +70,7 @@ step Agmond's End: kill these as you meet them
   collect 3404 quest 703              -- Buzzard Wing
   collect 7847 quest 2500             -- Buzzard Gizzard
   accept 739                          -- Battered Dwarven Skeleton
-  note The skeleton's next task, Murdaloc, waits until the later Badlands guide at 43.
+  note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
   accept 709                          -- Theldurin the Lost
@@ -89,7 +89,7 @@ step Lotwil Veriatus
   accept 711
 
 step Lucien Tosselwrench
-  note Lotwil's next test needs crafted gear: skip it.
+  note Lucien Tosselwrench, beside Lotwil, wants Patterned Bronze Bracers, a blacksmith's craft: skip him unless you carry a pair.
 
 # ---------------------------------------------------------------- The north
 
@@ -113,6 +113,7 @@ step Rock Elementals
   collect 4627 quest 711              -- Large Stone Slab
 
 step Lotwil Veriatus
+  tip Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.
   turnin 711
   accept 712 optional
   collect 4628 quest 712 optional     -- Bracers of Rock Binding

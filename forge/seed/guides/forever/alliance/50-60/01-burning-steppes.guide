@@ -232,11 +232,11 @@ step Morgan's Vigil
   turnin 3823                         -- Oralius
   accept 3824
 
-step Level 51.39
-  when level<51.39
-  tip Top up here to level 51.39 before the hand-ins at Flame Crest: they take you to level 52.
+step Level 52
+  when level<52
+  tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
-  level 51.39                          -- grind on Firegut Ogre Mage
+  level 52                          -- grind on Firegut Ogre Mage
 
 # ---------------------------------------------------------------- Flame Crest and the Ruins of Thaurissan
 
@@ -244,12 +244,6 @@ step Flame Crest
   tip Follow the road west, then climb north to the goblin camp on Flame Crest.
   accept 4726                         -- Tinkee Steamboil
   accept 4296                         -- Maxwort Uberglint
-
-step Level 52
-  when level<52
-  tip Top up here to level 52 before the hand-ins at Flame Crest: they take you to level 53.
-  goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
-  level 52                          -- grind on Firegut Ogre Mage
 
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
@@ -283,7 +277,7 @@ step Cyrus Therepentous
 step Level 52.08
   when !group 4023
   when level<52.08
-  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan.
+  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 89.6,51.2 map 1428 "Ember Worg"
   level 52.08                          -- grind on Ember Worg
 

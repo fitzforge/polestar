@@ -50,8 +50,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 #
 # Class training: Hunters and Shamans in Orgrimmar at the start, Druids in Thunder Bluff on the
 # flight to Freewind Post. Shamans hand the Shard of Water to Islen Waterseer by Ratchet on the
-# way (Call of Water 96: your Water Totem) and Call of Air (1531) to Prate Cloudseer by
-# Freewind Post.
+# way (Call of Water 96: your Water Totem), and take Call of Air (1531, offered from level 30)
+# from Searn Firewarder on the Orgrimmar stop for Prate Cloudseer by Freewind Post.
 #
 # All the Mirage Raceway's quests are worked in one visit here (Rocket Car Parts and Salt Flat
 # Venom used to be done alone at 29-30 at the end of forever/horde/07-ashenvale): Fizzle offers
@@ -81,6 +81,12 @@ step Orgrimmar trainers
   zone Orgrimmar
   tip Train while you are in the city.
   train class
+
+step Searn Firewarder
+  only Shaman
+  zone Orgrimmar
+  tip Searn Firewarder stands in the Valley of Wisdom.
+  accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
 
 step Nogg
   when dungeon "Gnomeregan"
@@ -198,7 +204,7 @@ step Shimmering Flats: kill these as you meet them
 step Level 32.5
   when level<32.5
   zone Thousand Needles
-  tip Desolace's quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run Razorfen Kraul (its entrance is at the Barrens' southern edge, a short flight from Freewind) and come back.
+  tip Desolace's quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the Scarlet Monastery dungeon (Graveyard or Library) instead.
   goto 71.0,78.0 map 1441 "Sparkleshell Snappers"
   level 32.5                          -- grind on Sparkleshell Snapper
 
@@ -260,7 +266,7 @@ step Scrabblescrew's Camp
 step Level 33
   when level<33
   zone Desolace
-  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33.
+  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 59.9,54.6 map 1443 "Scorpashi Lashers"
   level 33                            -- grind on Scorpashi Lasher
 

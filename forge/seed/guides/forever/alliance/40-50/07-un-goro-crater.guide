@@ -128,7 +128,7 @@ step A-Me 01
 
 step Level 49.51
   when level<49.51
-  tip Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50.
+  tip Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead.
   goto 57.0,10.2 map 1449 "Pterrordax"
   level 49.51                          -- grind on Pterrordax
 
@@ -197,7 +197,7 @@ step Mystic Ward
   accept 3450
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
 
-step Bind and train
+step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
@@ -224,6 +224,6 @@ step Fly to Astranaar
 step Level 50.4
   zone Azshara
   when level<50.4
-  tip Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51.
+  tip Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
   goto 17.0,69.4 map 1447 "Highborne Apparition"
   level 50.4                          -- grind on Highborne Apparition

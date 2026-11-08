@@ -642,7 +642,7 @@ step Traditions of the Bluff
 step Turak Runetotem
   only Druid
   zone Thunder Bluff
-  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 23 (forever/horde/04-the-barrens).
+  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 21 (forever/horde/02-the-barrens).
   turnin 94911                        -- Turak Runetotem
   accept 94913
   train class

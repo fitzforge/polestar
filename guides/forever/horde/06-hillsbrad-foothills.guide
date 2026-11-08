@@ -17,8 +17,8 @@ next forever/horde/04-the-barrens
 # Horde 12-30 in the order the quest levels fit (2026-11-07): Hillsbrad at 22-24, between the first
 # Ashenvale visit and the Barrens' and Stonetalon's level 23-27 quests (forever/horde/04-the-barrens).
 #
-# Flow: Tarren Mill (flight path, bind) -> the hills west of town -> Tarren Mill -> Hillsbrad
-# Fields -> Tarren Mill -> Stanley and the peasants -> Tarren Mill -> Durnholde Keep, the Mudsnout
+# Flow: Tarren Mill (flight path, bind) -> the hills west of town and Hillsbrad Fields, the lions on
+# the way back -> Tarren Mill -> Stanley and the peasants -> Tarren Mill -> Durnholde Keep, the Mudsnout
 # Blossoms, Masoj and the southern peak -> Hillsbrad town's smithy -> the western peak -> Tarren
 # Mill -> the northern peak -> Masoj -> fly to the Sepulcher (Allister: Beren's Peril, Watching the
 # Roads) -> the Undercity (Faranell, training) -> zeppelin to Orgrimmar. The next guide flies from
@@ -59,11 +59,6 @@ step Bears, creepers and lions
   collect 3476 quest 496.1 @54.3,39.6
   collect 3477 quest 496.2
 
-step Tarren Mill
-  turnin 496                          -- Apothecary Lydon, inside
-  accept 499
-  turnin 499                          -- Umpi, next to Lydon; inside
-
 step Hillsbrad Fields
   tip The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms.
   kill 2266 quest 527.1
@@ -81,6 +76,9 @@ step Tarren Mill
   accept 546                          -- Deathguard Samsa
   turnin 501                          -- Apothecary Lydon, inside
   accept 502
+  turnin 496                          -- Apothecary Lydon, inside
+  accept 499
+  turnin 499                          -- Umpi, next to Lydon; inside
   accept 567                          -- The Dangerous! poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside
 
 # ---------------------------------------------------------------- West: Stanley, peasants and skulls

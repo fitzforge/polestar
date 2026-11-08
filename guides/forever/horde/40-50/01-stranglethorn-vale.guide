@@ -12,11 +12,28 @@ next forever/horde/40-50/02-feralas
 # Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
 # Left out: The Bloodsail Buccaneers (608).
 
-step Fly to Booty Bay
+step Fly to Grom'gol
   zone Badlands
   goto 4.1,44.9 "Kargath flight master"
-  fly "Booty Bay"
+  fly "Grom'gol"
   zone Stranglethorn Vale
+
+step Grom'gol Base Camp
+  turnin 1240                           -- Kin'weelay
+  accept 598                            -- Kin'weelay
+
+step Jungle Stalkers
+  tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
+  collect 3863 quest 572
+
+step Far Seer Mok'thardin
+  turnin 572
+  accept 571
+
+step Fly to Booty Bay
+  zone Stranglethorn Vale
+  goto 32.5,29.3 "Grom'gol flight master"
+  fly "Booty Bay"
 
 step Booty Bay
   zone Stranglethorn Vale
@@ -41,7 +58,8 @@ step Booty Bay
 # (Swamp of Sorrows 36-40 quests, at 40.0-40.4, before Desolace). Checked by
 # lint, not play-tested on Forever yet. Era + known Forever quests only.
 #
-# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Booty Bay -> the
+# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Grom'gol
+# (Kin'weelay, the jungle stalkers, Mok'thardin) -> fly to Booty Bay -> the
 # Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
 # Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
 # -> Grom'gol (bind) -> Nesingwary -> Zul'Kunda -> hearth to Grom'gol ->
@@ -49,9 +67,9 @@ step Booty Bay
 # -> the ghost pirates -> Zul'Mamwe and the Balia'mah and Ziata'jai trophy
 # skulls -> Grom'gol -> hearth to Booty Bay -> fly Grom'gol -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
-# (flight path) -> Galen's escort, the Draenethyst crystals, Noboru and
-# Galen's strongbox -> crocolisks -> the Harborage -> Misty Reed Post -> the
-# snappers on the strand -> Misty Reed Post.
+# (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
+# escort -> Galen's strongbox -> the Harborage, where the next guide rides back
+# to Stonard's flight master.
 #
 # Deviations from the simulator's order:
 # - One stay at Zul'Mamwe for Speaking with Gan'zulah (586), Split Bone
@@ -73,9 +91,10 @@ step Booty Bay
 #   bind carries you from Grom'gol to Booty Bay, and one flight back to
 #   Grom'gol puts Nesingwary on the road north. The Stonard bind is dropped:
 #   the route never hearths to it before the next bind.
-# - Swamp of Sorrows: the Harborage (Noboru the Cudgel) after the
-#   crocolisks, so the west of the swamp is visited once before riding to
-#   Misty Reed Post.
+# - Swamp of Sorrows: one pass east and back west (final review, 0.3.5).
+#   Lack of Surplus (698) is handed to Tok'Kar on the Misty Reed stop of
+#   forever/horde/40-50/03-feralas instead of a ride to the far south-east
+#   coast and back here.
 # - Added in the October refresh, from the new export (Forever above 30
 #   cannot be checked in game until launch on 4 November: from the data, not
 #   from play): Draenethyst Crystals (1389). Magtoor gives it at the
@@ -118,32 +137,6 @@ step Booty Bay
 #   arrives from Neeka instead.
 
 # ---------------------------------------------------------------- The way in
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Grom'gol Base Camp
-  turnin 1240                           -- Kin'weelay
-  accept 598                            -- Kin'weelay
-
-step Jungle Stalkers
-  tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
-  collect 3863 quest 572
-
-step Far Seer Mok'thardin
-  turnin 572
-  accept 571
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 32.9,66.2 "Stranglethorn Vale"
 
 step Bloodsail Correspondence
   tip Leave town by the tunnel; the note lies in the pirates' cove just north of Booty Bay.
@@ -224,7 +217,7 @@ step Nesingwary's camp
   accept 193
 
 step Zul'Kunda
-  tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
+  tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead.
   collect 3904 quest 584.1
   collect 3905 quest 584.2
   level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
@@ -353,7 +346,7 @@ step Sir S. J. Erlgadin
 
 step Level 42.68
   when level<42.68
-  tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan.
+  tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
   level 42.68                          -- grind on Skullsplitter Warrior
 
@@ -370,7 +363,7 @@ step Hemet Nesingwary
 step Level 42.74
   when !group 208
   when level<42.74
-  tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan.
+  tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
   level 42.74                          -- grind on Skullsplitter Warrior
 
@@ -390,17 +383,13 @@ step Swamp of Sorrows
 
 step Into the Swamp of Sorrows
   zone Swamp of Sorrows
-  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
+  tip Follow the road east from Duskwood through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp just off the road where it comes in from Deadwind Pass.
   accept 1389                           -- Magtoor
 
 step Stonard
-  tip Head east to Stonard, in the reeds south of the road.
-  accept 698                            -- Dar, inside
-# ---------------------------------------------------------------- Stonard
-
-step Stonard
   zone Swamp of Sorrows
-  tip You start in Stonard. Bind here: you hearth back after the coast.
+  tip Head east to Stonard, in the reeds south of the road. Bind here.
+  accept 698                            -- Dar, inside
   accept 1430                           -- Dar, inside
   getfp "Stonard" npc 6026              -- Breyk
   turnin 1420                           -- Helgrum the Swift, upstairs
@@ -409,7 +398,6 @@ step Stonard
 
 step Sawtooth crocolisks
   tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
-  tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
   collect 6169 quest 698.1
 
 step Noboru the Cudgel
@@ -428,16 +416,11 @@ step Galen's Escape
   accept 1393
   complete 1393
 
-step The Harborage
-  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass.
-  turnin 1392 optional -- Magtoor
-  turnin 1389
-
 step Galen's Strongbox
-  tip His strongbox waits at his old camp north of Stonard.
+  tip His strongbox waits at his old camp north of Stonard, on the way back west.
   turnin 1393
 
-step Misty Reed Post
-  tip Ride back east past Stonard and follow the road south-east to the small Horde post on the shore.
-  turnin 698                            -- Tok'Kar
-  accept 699
+step The Harborage
+  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
+  turnin 1392 optional -- Magtoor
+  turnin 1389

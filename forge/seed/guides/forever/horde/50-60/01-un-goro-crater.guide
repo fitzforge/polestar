@@ -225,7 +225,7 @@ step Gorillas
 
 step Level 52
   when level<52
-  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55.
+  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
   level 52                          -- grind on Bloodpetal Lasher
 
@@ -400,7 +400,7 @@ step The Bulwark
 
 step Janice Felstone
   zone Western Plaguelands
-  tip Leave the Undercity and ride east along the road through Tirisfal Glades, past the Bulwark. Felstone Farm is the first farm along the road; Janice waits in the house.
+  tip From the Bulwark, follow the road east into the Western Plaguelands. Felstone Farm is the first farm along the road; Janice waits in the house.
   accept 5021                         -- Upstairs
   turnin 5021                         -- Janice's Parcel, beside the house; inside
   accept 5023
