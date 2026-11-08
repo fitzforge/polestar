@@ -51,7 +51,7 @@ local q = {
 	loot = 0,
 	specialItems = {}, -- questID -> itemID (quest log special item)
 	engine = { step = nil, view = nil, guide = nil, waypoint = nil },
-	nav = { target = nil, sets = {}, releases = 0, clears = 0, route = nil, ci = 1, boundInn = nil },
+	nav = { target = nil, sets = {}, releases = 0, clears = 0, unholds = 0, route = nil, ci = 1, boundInn = nil },
 	pins = {},
 	cooldowns = {},
 	inRange = nil,
@@ -737,7 +737,21 @@ function Nav.SetTarget(map, x, y, label, f)
 	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
 	q.nav.target = t
 	table.insert(q.nav.sets, t)
-	return true
+	return t
+end
+-- Nav.Hold (the death helper): the target until Nav.Unhold, which brings back
+-- the one from before (q.nav.under).
+function Nav.Hold(map, x, y, label, f)
+	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = t, t
+	table.insert(q.nav.sets, t)
+	return t
+end
+function Nav.Unhold()
+	if not q.nav.held then return end
+	q.nav.unholds = q.nav.unholds + 1
+	q.nav.target, q.nav.held, q.nav.under = q.nav.under, nil, nil
 end
 function Nav.GetTarget() return q.nav.target end
 function Nav.ReleaseTarget()

@@ -23,7 +23,7 @@
 --       API.Navigate(owner, map, x, y, title) -> true | false   point the arrow there
 --       API.Cancel(owner) -> true | false   the owner's target, while shown, lets go
 --       API.Active() -> active, owner       anything guided to; owner when an API caller set it
---     A target set by the death helper over an owner's comes back theirs when handed back.
+--     While the death helper holds the arrow (Nav.Hold) an owner's target waits underneath, theirs again once it lets go.
 --   * TomTom's waypoint calls while TomTom is not installed (nav.answerTomTom,
 --     off by default: an addon reading TomTom's settings would find none):
 --     the global TomTom answers AddWaypoint, AddMFWaypoint, AddZWaypoint,
@@ -313,8 +313,7 @@ end)
 local API = { version = 1 }
 Nav.API = API
 
--- The target an API caller set: owner, Nav's target table, and the spot (to
--- know it again when the death helper hands it back).
+-- The target an API caller set: { owner, target } (Nav's target table).
 local owned
 
 local function fraction(v) return number(v) and v >= 0 and v <= 1 end
@@ -344,9 +343,9 @@ end
 function API.Navigate(owner, map, x, y, title)
 	if not ownerName(owner) or (title ~= nil and type(title) ~= "string") then return false end
 	local p = apiPoint(map, x, y)
-	if not (p and Nav.SetTarget(p.map, p.x, p.y, title)) then return false end
-	local t = Nav.GetTarget()
-	owned = { owner = owner, target = t, map = t.map, x = t.x, y = t.y, label = t.label }
+	local t = p and Nav.SetTarget(p.map, p.x, p.y, title)
+	if not t then return false end
+	owned = { owner = owner, target = t }
 	return true
 end
 
@@ -728,17 +727,6 @@ end
 ---------------------------------------------------------------------------
 -- Wiring
 ---------------------------------------------------------------------------
-
--- A target replaced by another is not the owner's while it is away (Active
--- names no owner, Cancel does nothing); the same spot set again, as the
--- death helper hands it back, is theirs again.
-ns.On("WAYPOINT_CHANGED", function()
-	local t = Nav.GetTarget()
-	if owned and t and t ~= owned.target and t.kind == "manual" and t.map == owned.map and t.x == owned.x
-		and t.y == owned.y and t.label == owned.label then
-		owned.target = t
-	end
-end)
 
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or path == "nav.answerTomTom" or path == "nav.spfHandoff" then

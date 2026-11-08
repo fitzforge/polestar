@@ -26,6 +26,8 @@ mod compile_pack;
 mod core;
 #[path = "data-addons.rs"]
 mod data_addons;
+#[path = "death-arrow.rs"]
+mod death_arrow;
 #[path = "docs-packs.rs"]
 mod docs_packs;
 #[path = "dsl-farm.rs"]

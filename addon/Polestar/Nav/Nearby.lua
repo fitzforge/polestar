@@ -511,8 +511,9 @@ function Nearby.Go(key, line)
 	end
 	local name = place.name
 	if BY_KEY[key].titled and place.sub and place.sub ~= "" then name = format("%s (%s)", name, place.sub) end
-	if not Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z) then return false end
-	trip = { target = Nav.GetTarget(), name = name, label = kindLabel(key, line) }
+	local target = Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z)
+	if not target then return false end
+	trip = { target = target, name = name, label = kindLabel(key, line) }
 	ns.Fire("NEARBY_TRIP", trip)
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL

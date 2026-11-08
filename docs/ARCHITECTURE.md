@@ -2334,8 +2334,12 @@ colour change repaints live without a reload.
 ```lua
 Polestar.Nav.SetTarget(map, x, y, label, f, stop, z)   -- user picked a goal; overrides the engine waypoint until the step changes;
                                                         -- stop: what stands there ("dungeon", "trainer", ...), for the hand-off below;
-                                                        -- z: the height of the NPC or object there, optional (the walk ends on its floor)
+                                                        -- z: the height of the NPC or object there, optional (the walk ends on its floor);
+                                                        -- returns the override (the target table) or false
 Polestar.Nav.ClearTarget()
+Polestar.Nav.Hold(map, x, y, label, f) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper)
+Polestar.Nav.Unhold()
+Polestar.Nav.IsHeld() -> bool
 Polestar.Nav.GetTarget() -> waypoint | nil
 Polestar.Nav.GetDistance() -> yards | nil      -- to an area target's edge, 0 inside it
 ```
@@ -2399,6 +2403,15 @@ waypoint; `Nav.GetTarget()` is the point actually being guided to. Nav fires
 `WAYPOINT_CHANGED` when it sets or drops an override. `ClearTarget` hides the
 Engine's waypoint until the Engine announces a different one or the step changes.
 
+`Nav.Hold` sits above both: the death helper (`QoL/Death.lua`) holds the
+arrow on the corpse (or the Spirit Healer, the dungeon's entrance) for as
+long as the character is a ghost (#1382). A step change, the Engine's next
+waypoint, a point picked by hand and another addon's `SetTarget` all go on
+underneath without touching the arrow (no replan, no `WAYPOINT_CHANGED`);
+`Nav.Unhold` once alive shows what is underneath then (a picked point only
+while the step is still the one it was picked on, as an override always is).
+While held, `Nav.HiddenWithGuide()` is false.
+
 ### Nav API — journeys for players and other addons
 
 `Nav/Journey.lua` and `Nav/Nearby.lua` (adapted from Shortest Path Forever by
@@ -2442,8 +2455,8 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   open Shift-click stays Blizzard's (links into chat). A spot on no zone (open
   sea, the world map, the minimap's corner) prints one line and plans nothing.
 - **Ownership**: a target replaced by another is not the owner's while it is
-  away; the same spot and label set again (the death helper hands a picked
-  point back once you are alive, `QoL/Death.lua`) is theirs again.
+  away; while the death helper holds the arrow (`Nav.Hold`) the owner's target
+  waits underneath and is theirs again once it lets go.
 - **TomTom stand-in** (`nav.answerTomTom`, off): while TomTom is neither loaded
   nor enabled in the AddOns list, the global `TomTom` answers `AddWaypoint`,
   `AddMFWaypoint`, `AddZWaypoint` (0-100), `AddWaypointToCurrentZone`,
@@ -5759,7 +5772,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `quest`, `npc`, `item`, `object` ids, `map <id> @x,y` as a guide writes it
   (`live` unless in the Era frame) and `spot i of n` for the arrow's spawn
   spot; the arrow's target and distance (and "your own waypoint" with its
-  position when the player set it); where the player stands (zone, subzone,
+  position when the player set it, the position alone while it is held on the
+  way back to the corpse); where the player stands (zone, subzone,
   `map <id> @x,y live`); "Routes:" with the route style (`nav.routeStyle`:
   `fastest`, `balanced` or `roads`, in English) and only the routing settings
   away from their defaults (`real paths off`, `travel planner off`, `handed
