@@ -22,6 +22,8 @@ next forever/alliance/03-darkshore
 # Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
 # Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
 # part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
+# Alba Fairmoon's Toxic Soil chain (92742 to 92748) is for every Alliance race, Humans included: players'
+# recordings show Humans taking and handing it in (2026-11-08), so #144's Human exclusion is lifted.
 
 # ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
 
@@ -198,8 +200,8 @@ step Sentinel Hill
   turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
   getfp "Sentinel Hill"
   accept 153                                  -- Scout Galiaan
-  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
-  accept 92744 only Dwarf,Gnome,NightElf,Skyborne
+  accept 92742                                -- Alba Fairmoon, beside Scout Galiaan
+  accept 92744
 
 step Sentinel Hill
   when onquest 98021
@@ -219,7 +221,7 @@ step Molsen Farm: kill these as you meet them
   collect 732 quest 38.4                      -- Okra
   collect 255155 optional                     -- Precessive Autocognition Assembly
   accept 92910 optional
-  collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
+  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
   collect 723 quest 22                        -- Goretusk Liver
   collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
 
@@ -230,14 +232,14 @@ step Furlbrow's Pumpkin Farm: kill these as you meet them
   tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
   tip Careful: Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
   collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
-  collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne @43.5,9.2 map 1436 live -- Longshore Murloc Gills
+  collect 254548 quest 92744 @43.5,9.2 map 1436 live -- Longshore Murloc Gills
   collect 730 quest 38.2 @43.5,9.2            -- Murloc Eye
   collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
   collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them, from Jangolode Mine to the Jansen Stead
 
 step The Jansen Stead
   collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
-  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
+  collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow
 
@@ -255,22 +257,20 @@ step Sentinel Hill
   turnin 102                                  -- Captain Danuvin
   turnin 153                                  -- Scout Galiaan
   sethome "Sentinel Hill"
-  turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
-  accept 92745 only Dwarf,Gnome,NightElf,Skyborne
+  turnin 92742                                -- Alba Fairmoon
+  turnin 92744
+  accept 92745
   vendor nearest optional
 
 # ---------------------------------------------------------------- The mines
 
 step Jangolode Mine
-  only Dwarf,Gnome,NightElf,Skyborne
   tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
-  kill 1236 quest 92745.1 only Dwarf,Gnome,NightElf,Skyborne -- Kobold Diggers
+  kill 1236 quest 92745.1                     -- Kobold Diggers
 
 step The Gold Coast Quarry
-  only Dwarf,Gnome,NightElf,Skyborne
   tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
-  kill 1426 quest 92745.2 only Dwarf,Gnome,NightElf,Skyborne -- Riverpaw Miners
+  kill 1426 quest 92745.2                     -- Riverpaw Miners
 
 # ---------------------------------------------------------------- West and south
 
@@ -285,8 +285,8 @@ step Moonbrook: kill these as you meet them
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
   accept 14
-  turnin 92745 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  accept 92747 only Dwarf,Gnome,NightElf,Skyborne
+  turnin 92745                                -- Alba Fairmoon
+  accept 92747
 
 step Moonbrook and the Defias hills
   tip Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.
@@ -294,12 +294,12 @@ step Moonbrook and the Defias hills
   kill 121 quest 14
   kill 449 quest 14
   kill 122 quest 14
-  collect 254676 quest 92747.1 only Dwarf,Gnome,NightElf,Skyborne -- Suspicious Industrial Supplies, from the crates around Moonbrook
+  collect 254676 quest 92747.1                -- Suspicious Industrial Supplies, from the crates around Moonbrook
 
 step Back to Sentinel Hill
   turnin 14                                   -- Gryan Stoutmantle
-  turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
-  accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
+  turnin 92747                                -- Alba Fairmoon
+  accept 92748                                -- For Sprite Jumpsprocket in Stormwind's Dwarven District
   vendor nearest optional
 
 # ---------------------------------------------------------------- Stormwind and the boat
@@ -392,7 +392,7 @@ step Stormwind
   zone Stormwind City
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
-  turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
   turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square

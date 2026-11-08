@@ -1924,16 +1924,18 @@ test(`${WETLANDS}: thin-data audit: Uncovering the Past warns of the elite Goaz 
 	assert.match([].concat(step.note || []).join(' '), /Goaz Warders \(elite, 32\)/);
 });
 
-// --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
-// Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
+// --- Westfall (#144, lifted 2026-11-08): Alba Fairmoon's Toxic Soil chain is for
+// every Alliance race, Humans included. Players' recordings show Human characters
+// taking and handing it in (9 people for Testing the Wells, 7 for Moonbrook
+// Espionage), and the server's race mask in players' caches has Human.
 
-test(`${WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)`, { skip }, () => {
+test(`${WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)`, { skip }, () => {
 	const chain = new Set([92742, 92744, 92745, 92747, 92748]);
 	const list = goals(WESTFALL).filter(({ goal }) => chain.has(goal.quest));
 	assert.ok(list.length > 0, 'the chain is in the guide');
 	for (const { step, goal } of list) {
 		const races = [step.only, goal.only].flatMap((o) => (o && o.races) || []);
-		assert.ok(races.length && !races.includes('Human'), `${goal.t} ${goal.quest} is for its races only, not Humans`);
+		assert.ok(!races.length || races.includes('Human'), `${goal.t} ${goal.quest} is open to Humans`);
 	}
 });
 
