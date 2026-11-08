@@ -6419,8 +6419,11 @@ for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: A
 });
 
 test('Horde quest volume: every added quest has its include record in the route fixes', () => {
-	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
-	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Flow coverage|Quest volume/.test(e.reason)), `include ${q} is recorded`);
+	const ov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
+	// record is a Horde pair that places it.
+	const horde = (q) => ov.pairs.some((p) => p.faction === 'Horde' && p.b[1] === q && /Quest volume|take and do it there/.test(p.why));
+	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume/.test(e.reason)) || horde(q), `include ${q} is recorded`);
 });
 
 // Barrens carry-over (2026-11-07, re-chained the same day): the Barrens are two stays, 15-21

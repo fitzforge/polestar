@@ -6826,5 +6826,29 @@
 			}
 		],
 		"note": "Gol'dir (Alterac Mountains): two objectives, the Rusted Iron Key and finding where Gol'dir is held. The merged data also asked to kill Gol'dir (2316), the prisoner who takes the hand-in, so the hand-in looked impossible."
+	},
+	"95748": {
+		"set": {
+			"start": {
+				"npc": [
+					2519
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2519
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "start npc 2519, end npc 2519"
+			}
+		],
+		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
 	}
 }
