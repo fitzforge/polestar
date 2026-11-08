@@ -482,7 +482,8 @@ line of an objective the quest no longer has goes (#859).
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
 step's tip, `level` puts a `level N` gate right before the goal (with `"after": true`, right after
-it, so the hand-ins up to it count towards the level). `early` (on an accept) is a take on the way:
+it, so the hand-ins up to it count towards the level; with `"only": "Priest"`, a class or race list,
+the gate is `level N only Priest` and holds those players alone). `early` (on an accept) is a take on the way:
 right after the step of `early.after`, an `along until` step (with the record's title, `when` and tip)
 lists the quest's accept and objectives until the quest's own step, which gets a `label` and still
 takes it for everyone else. `background` (on an objective, #1135) makes a slow, zone-wide collection

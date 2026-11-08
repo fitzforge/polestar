@@ -14,7 +14,8 @@
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
-//!   `after: true`, right after it: the hand-ins at the anchor count towards the level). `background` (on an objective,
+//!   `after: true`, right after it: the hand-ins at the anchor count towards the level; with `only`, a
+//!   class or race list, the gate holds only those players: `level N only Priest`). `background` (on an objective,
 //!   #1135) makes a slow, zone-wide collection a goal of the whole stay: listed on the way from the
 //!   quest's accept to its hand-in, with a finish step before the hand-in (apply_background).
 //!
@@ -412,7 +413,7 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 			}
 		}
 		if let Some(lv) = r["level"].as_u64() {
-			let gate = format!("{ind}level {lv}");
+			let gate = format!("{ind}level {lv}{}", r["only"].as_str().map_or(String::new(), |o| format!(" only {o}")));
 			if r["after"] == true {
 				// Right after the anchor goal (the hand-ins before it count towards the level).
 				let next = (i + 1..step.1).find(|&k| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#'));
@@ -767,7 +768,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}{}", r["tip"], r["level"], r["along"], r["early"], r["when"], r["background"]), anchor });
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}{}{}", r["tip"], r["level"], r["only"], r["along"], r["early"], r["when"], r["background"]), anchor });
 	}
 	// Background records last: their mention tips join the tips the other records set (a tip record
 	// replaces every tip of its step).
@@ -925,6 +926,20 @@ mod tests {
 		] });
 		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
 		assert_eq!(out, "step Menethil\n  tip Level 28 first.\n  turnin 484\n  turnin 98282                 -- Caitlin\n  level 28\n  vendor nearest\n\nstep Ironforge\n  accept 1179\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_level_gate_with_only_holds_those_players_alone() {
+		// Level sweep (2026-11-08): Desperate Prayer needs level 10, and Kharanos is passed at 9.5; only
+		// the Priests wait for it, the step's other classes go on.
+		let seed = "step Kharanos\n  accept 94449 only Shaman\n  accept 5637 only Priest,Dwarf          -- Maxan Anvol\n";
+		let fixes = json!({ "fixes": [{ "id": "gate", "at": { "quest": 5637, "goal": "accept" }, "level": 10, "only": "Priest" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(out, "step Kharanos\n  accept 94449 only Shaman\n  level 10 only Priest\n  accept 5637 only Priest,Dwarf          -- Maxan Anvol\n");
 		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
 		let (again, rows) = run(&out, json!({}), fixes, &[]);
 		assert_eq!(again, out);

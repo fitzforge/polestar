@@ -1359,9 +1359,10 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level (after?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
+/// objective, objective? }, tip | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
-/// (a level gate only): the gate goes right after the anchor goal, not before it. `early: { after: { quest, goal:
+/// (a level gate only): the gate goes right after the anchor goal, not before it. `only` (a level gate only): a
+/// class or race list the gate holds (`level N only Priest`), the others pass. `early: { after: { quest, goal:
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
@@ -1381,10 +1382,14 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "only", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
+		}
+		let only = r.get("only");
+		if !only.is_undef() && (r.get("level").is_undef() || !only.as_str().is_some_and(|o| !o.is_empty() && o.split(',').all(|x| !x.trim().is_empty() && x.trim().chars().all(|c| c.is_ascii_alphabetic() || c == '!')))) {
+			ck.err(format!("{at}.only"), "`only` is a class or race list (`Priest`, `Warrior,Hunter`), on a level gate");
 		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
