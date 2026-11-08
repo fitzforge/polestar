@@ -67,16 +67,14 @@ step Donova Snowden
 
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and, rarely, a Winterfall Ritual Totem: right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
+  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-up below): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
   collect 12771                       -- Empty Firewater Flask
   accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
   kill 7440 quest 5082.2              -- Winterfall Den Watcher
   kill 7441 quest 5082.3              -- Winterfall Totemic
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  collect 14047 quest 6031.1 optional -- Runecloth, for Meilosh later
-  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop
-  accept 8471 optional                -- For Kernda in Timbermaw Hold: keep it
+  collect 14047 x30 optional          -- Runecloth: keep thirty for Meilosh in Timbermaw Hold
 
 step Donova Snowden
   turnin 5082
@@ -88,6 +86,12 @@ step Level 55.05
   tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
   goto 27.9,34.5 map 1452 "Timbermaw Mystic"
   level 55.05 grind 11552              -- grind on Timbermaw Mystic
+
+step Winterfall Ritual Totem
+  tip Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it.
+  goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
+  collect 20742                       -- Winterfall Ritual Totem
+  accept 8471                         -- For Kernda in Timbermaw Hold: keep it
 
 step Everlook
   turnin 4809                         -- Felnok Steelspring
