@@ -6558,3 +6558,18 @@ test('forever/alliance/06-ashenvale.guide: final review: Menethil Harbor to Iron
 	assert.ok(between.some((g) => g.t === 'fly'), 'a flight to Ironforge');
 	assert.ok(!between.some((g) => g.t === 'goto' && (g.map === 1432 || g.map === 1426)), 'no walk through Loch Modan or Dun Morogh');
 });
+
+// Final route review, Alliance 1-30 (2026-11-08): in 06-ashenvale the walk into Stonetalon ("Head south past Mystral
+// Lake into the Talondeep Path") was the tip of the Kaela and Gaxim step, after Piznik's mine, and Ziz Fizziks' hand-in
+// and his next quest were two steps at one hut.
+test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip before Piznik, Ziz Fizziks in one step', { skip }, () => {
+	const guide = 'forever/alliance/06-ashenvale.guide';
+	const list = goals(guide);
+	at(list, 'accept 1090', is('accept', 1090));
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.ok(lines.indexOf('Talondeep Path tunnel') >= 0 && lines.indexOf('Talondeep Path tunnel') < lines.indexOf('accept 1090'), 'the tunnel tip comes before Piznik');
+	assert.ok(!stepTips(guide, /turnin 1070/).some((t) => /Talondeep/.test(t)), 'not on the Kaela and Gaxim step');
+	const ziz = at(list, 'turnin 1092', is('turnin', 1092));
+	const reaper = at(list, 'accept 1093', is('accept', 1093));
+	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
+});

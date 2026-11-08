@@ -101,6 +101,7 @@ step Astranaar
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
+  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, by the Windshear Mine.
   goto 71.9,60.0 "Stonetalon Mountains"
 
 step Piznik
@@ -113,18 +114,17 @@ step Piznik
 
 step Windshear Crag
   zone Stonetalon Mountains
-  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag. Kaela and Gaxim camp on the Webwinder Path south-west of the crag.
+  tip Kaela and Gaxim camp on the Webwinder Path, south-west of the mine.
   turnin 1070                             -- Kaela Shadowspear
   accept 1085
   turnin 1085                             -- Gaxim Rustfizzle
   accept 1071
 
-step Webwinder Path
-  turnin 1092                             -- Ziz Fizziks, inside
-
-step Windshear Crag
+step Ziz Fizziks
   zone Stonetalon Mountains
-  accept 1093                             -- Ziz Fizziks, in the hut north of them; inside
+  tip His hut stands just north of Kaela and Gaxim.
+  turnin 1092                             -- Ziz Fizziks, inside
+  accept 1093
 
 step Windshear Crag: kill these as you meet them
   zone Stonetalon Mountains
