@@ -8,18 +8,20 @@
 return {
 	-- Guide
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff
-	["A one-hand blade or mace at 11 from {npc:205729}'s three tests in and around {zone:1456}."] = "",
+	["A one-hand blade or mace at 11 from {npc:205729}'s three tests in and around {zone:1456}, for a Tauren of any class."] = "11级时完成{npc:205729}在{zone:1456}内外的三项考验，可获得一把单手剑或单手锤，适合任何职业的牛头人。",
 
 	-- Step 1: Boarton Shadetotem
-	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {npc:3051} Supervisor Fizsprocket
+	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206159} Venture Co Disguise · {npc:3051} Supervisor Fizsprocket
 	-- plural, as words: Venture Co. Workers = {npc:2978} Venture Co. Worker
-	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the Venture Co Disguise. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "",
+	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729}潜行在{zone:1456}主台地上、水池南边：走到箭头所指的位置，直到他的轮廓显现。他会交给你{item:206159}。任务4级即可接，但矿洞里有风险投资公司工人（8-9级）、监工（9-10级）和{npc:3051}（12级）：建议9或10级再去。",
 
 	-- Step 2: The Venture Co. Mine
-	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "乘升降梯下去，向东南穿过{zone:1412}前往{area:360}。穿上伪装，然后打开矿洞内以及矿洞远端外侧斜坡上的{object:403041}；尽量待在上层，下层隧道怪物密集。共需五枚炸药。",
 	["Venture Co. Mine"] = "",
-	["Loot 5 Seaforium Mining Charges from the Blasting Supplies"] = "",
+	-- {object:403041} Blasting Supplies
+	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
+	["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "从{object:403041}中拾取5枚塞弗拉姆采矿炸药",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
@@ -44,7 +46,6 @@ return {
 	["{item:6291}: the Auction House, or the pool"] = "",
 
 	-- Step 7: Fish Chunks
-	["Fish Chunks"] = "",
 	-- {npc:205729} Boarton Shadetotem · {item:206344} Knife Set · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh
 	["Stand beside {npc:205729} and use the {item:206344} on the smallfish: it only counts next to him. Then take your weapon: the {item:277988} or the {item:278002}."] = "",
 	-- {npc:205729} Boarton Shadetotem

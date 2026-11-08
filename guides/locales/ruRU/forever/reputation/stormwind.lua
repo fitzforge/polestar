@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Stormwind Reputation"] = "Репутация: Штормград",
 	-- {zone:1422} Western Plaguelands
-	["Cloth, the {zone:1422}' cauldron quests and the Elwynn hubs: the quests pay most while you level."] = "",
+	["Cloth, the {zone:1422}' cauldron quests and the Elwynn hubs: the quests pay most while you level."] = "Ткань, задания с котлами (зона {zone:1422}) и задания Элвиннского леса: во время прокачки задания дают больше всего.",
 	-- {faction:72} Stormwind
-	["Exalted with {faction:72}: in Classic, other races may buy the horses"] = "",
+	["Exalted with {faction:72}: in Classic, other races may buy the horses"] = "Превознесение у фракции {faction:72}: в Classic другие расы могут покупать лошадей",
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
-	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "",
+	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "Около 1150 репутации ({faction:72}) за задания уровня 52-58: {area:3197} и зона {zone:1428}",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "Около 4500 репутации ({faction:72}) за задания низкого уровня в Элвиннском лесу и в подземелье {area:717} (в Classic на 60 уровне – пятая часть)",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham

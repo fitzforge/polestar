@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Supply Factions Reputation"] = "",
+	["Supply Factions Reputation"] = "补给阵营声望",
 	-- {npc:10636} Pack Kodo
-	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "",
-	["Profession recipes at Friendly and Honored"] = "",
+	["Forever's trade camps: their best recipes, the Minimule and the {npc:10636} need standing, not only Merchant's Favor."] = "Forever的贸易营地：最好的配方、迷你骡子和{npc:10636}需要声望等级，而不仅仅是Merchant's Favor。",
+	["Profession recipes at Friendly and Honored"] = "友善和尊敬时的专业配方",
 
 	-- Step 1: Your first Waylaid Crate or writ
 	-- {item:248549} Waylaid Crate
@@ -55,7 +55,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley, {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、地精传送器的工程师{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位于{object:3202}以南约800码处；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "",
 	-- {item:7506} Gnomish Universal Remote
@@ -214,7 +214,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley, {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、在飞艇式传送平台的{npc:7853}，以及{npc:2663}。{npc:14508}站在{object:3202}以南约800码处，靠近{area:1741}；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
 
 	-- Step 21: Wetlands writ customers again
 	-- {zone:1437} Wetlands

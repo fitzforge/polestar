@@ -1,7 +1,9 @@
 -- Travel planner: how to get to the target. Dijkstra over
 --   walking (straight lines on one continent at run speed, plus walking paths
 --     learned from recordings, which are trusted more than straight lines),
---   flights between the flight masters this character knows,
+--   flights between the flight masters this character knows (and out of one
+--     it has not learnt yet on the start's or the target's continent: walked
+--     to, learnt there and flown from, never flown to),
 --   boats, zeppelins, the Deeprun Tram (faction-filtered, timed by
 --     Nav/Transit.lua when it knows the timetable) and walk-in portals,
 --   the Hearthstone, when it is off cooldown and the bind location is a known
@@ -346,6 +348,12 @@ function Nav.GetTravelData()
 	return { taxi = taxiList, taxiById = taxi, flights = flights, transports = transports, inns = inns, portals = portals, build = Travel.build }
 end
 
+-- One taxi node of the loaded network by id (read-only), or nil; for callers
+-- on hot paths (the Engine's flight steps), with no table built.
+function Nav.GetTaxiNode(id)
+	return id and taxi[id] or nil
+end
+
 ---------------------------------------------------------------------------
 -- Planner (pure: everything it needs comes in `p`)
 --
@@ -553,13 +561,20 @@ local function planRoute(p)
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
-	local taxiV = {}
+	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
+	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
+	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
+	local taxiV, learnV = {}, {}
 	local skip = p.skip
 	for _, node in ipairs(walkOnly and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
-		elseif (known[node.id] or node.class) and allowed(node.faction, faction, node.class) then
+		elseif not allowed(node.faction, faction, node.class) then
+			-- the other faction's, or another class's
+		elseif known[node.id] or node.class then
 			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map)
+		elseif node.c == p.c or node.c == tg.c then
+			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map)] = true
 		end
 	end
 	local rideTo, rideCost, dockEnd, dockOf, dockSide, portalV = {}, {}, {}, {}, {}, {}
@@ -710,7 +725,7 @@ local function planRoute(p)
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
 		for v = 1, keys do
-			if v ~= 2 and vc[v] == tg.c and not sealed(v) then
+			if v ~= 2 and vc[v] == tg.c and not sealed(v) and not learnV[v] then
 				-- A dock carries its height (a board point's deck, a tram or zeppelin end's floor): the walk from it starts there.
 				if places then places[#places + 1] = { wx = vx[v], wy = vy[v], z = vkind[v] == DOCK and dockEnd[v].z or nil, start = v == 1 or nil } end
 				if walkCost then
@@ -893,6 +908,8 @@ local function planRoute(p)
 						end
 					end
 				end
+			elseif learnV[u] then
+				-- a flight master not learnt yet: flown out of only, never walked on from (#989's portal stays the way up)
 			elseif sealed(u) then
 				-- explicit links only (below)
 			elseif not covered[cu] then
@@ -929,7 +946,7 @@ local function planRoute(p)
 				end
 			end
 			local lk = links[u]
-			if lk then
+			if lk and not learnV[u] then
 				for i = 1, #lk - 1, 2 do
 					straight(u, lk[i], lk[i + 1] * walkRate, du, tu)
 				end
@@ -937,10 +954,12 @@ local function planRoute(p)
 			if kind == TAXI then
 				local fl = flights[vref[u].id]
 				if fl then
+					-- 5 s more to learn a flight master not learnt yet (its "New flight path discovered").
+					local learn = learnV[u] and 5 or 0
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
 						if v then
-							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP
+							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP + learn
 							relax(v, du + s, tu + s, FLY, u)
 						end
 					end

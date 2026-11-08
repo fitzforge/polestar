@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Imp (Horde)"] = "",
-	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "",
+	["Imp (Horde)"] = "小鬼（部落）",
+	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "1-4级获得你的第一个恶魔：小鬼，兽人和巨魔还可获得一把新手刀剑或法杖。",
 
 	-- Step 1: Ruzan (Orcs and Trolls)
 	-- {npc:5765} Ruzan

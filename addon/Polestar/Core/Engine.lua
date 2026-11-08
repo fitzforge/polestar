@@ -42,6 +42,10 @@ ns.RegisterDefaults("behavior", {
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
+	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
+	whileHereRadius = 60, -- yards from its spawn area's edge at which it shows (40-120); it goes past 100/60 of that
+	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
+	whileHereSound = true, -- a soft chime when a line appears, at most every 30 s (UI/WhileHere.lua)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd
@@ -1766,7 +1770,9 @@ end
 -- 1). With the quest not in the log (looked at ahead), the compiled
 -- objectives (`objs`: the quest data's text and count), at 0, or every one
 -- in once the goal is done; nil with neither (the window keeps "Complete
--- <quest>").
+-- <quest>"). The compiled text is the data's English: a translated client
+-- reads each as the name of what it counts (Own.objectiveName), and keeps
+-- "Complete <quest>" in its own words when one has no name to give.
 function Own.objectiveLines(goal, done)
 	local C, out = Compat(), {}
 	for _, o in ipairs(C.GetQuestObjectives(goal.quest) or NONE) do
@@ -1774,13 +1780,36 @@ function Own.objectiveLines(goal, done)
 		if text ~= "" then out[#out + 1] = { text = text, cur = math.min(o.numFulfilled, o.numRequired), max = o.numRequired } end
 	end
 	if #out > 0 then return out end
+	local translated = ns.Names.Localised()
 	for _, o in ipairs(type(goal.objs) == "table" and goal.objs or NONE) do
 		if type(o.text) == "string" and o.text ~= "" then
+			local text = o.text
+			if translated then
+				text = Own.objectiveName(goal.quest, text)
+				if not text then return nil end
+			end
 			local max = tonumber(o.count) or 1
-			out[#out + 1] = { text = o.text, cur = done and max or 0, max = max }
+			out[#out + 1] = { text = text, cur = done and max or 0, max = max }
 		end
 	end
 	return #out > 0 and out or nil
+end
+
+-- The client's name for objective `text` (the quest data's English) of quest
+-- q: the Codex's objective of q with that text, named by what it counts, its
+-- NPC, item or object (Polestar.Names). Nil for an event ("Sit near the
+-- campfire": no name to give), a name the client lacks, or without the Codex.
+Own.OBJECTIVE_NAMES = { kill = "Npc", item = "Item", object = "Object" }
+function Own.objectiveName(q, text)
+	local X = ns.Codex
+	local rec = X and X.Quest and X.Quest(q)
+	for _, o in ipairs(rec and rec.objectives or NONE) do
+		if o.text == text then
+			local kind = Own.OBJECTIVE_NAMES[o.type]
+			return kind and o.id and ns.Names[kind](o.id) or nil
+		end
+	end
+	return nil
 end
 
 -- The name of the item a `complete` goal's quest hands over (`startItem`,
@@ -1897,6 +1926,22 @@ function Own.lostHeld(q, s)
 	return upTo ~= nil and s < upTo
 end
 
+-- Whether a later, non-optional quest goal of step s (after goal g) that
+-- applies to the character is done: the work a goal led to is behind the
+-- player. (On Own: the main chunk is at 200 locals.)
+function Own.laterQuestDone(s, g)
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		local lt = later.t
+		-- A quest goal (isQuestGoal, declared further down).
+		local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
+			or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
+		if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -1914,10 +1959,14 @@ goalDone = function(s, g, goal)
 	if t == "accept" then
 		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s) or Own.lostHeld(goal.quest, s)
 	elseif t == "turnin" then
-		-- `direct`: only its latched QUEST_TURNED_IN (checked above) or the
-		-- completed flag. The session's turn-ins would close every later goal
-		-- of a repeatable at the first hand-in; one hand-in closes one goal.
-		if goal.direct then return C.IsQuestCompleted(goal.quest) and true or false end
+		-- `direct`: only its latched QUEST_TURNED_IN (checked above), the
+		-- completed flag, or a later quest goal of its step done (the Tome of
+		-- Divinity handed back before the book's own quest: a hand-in from
+		-- before the goal was `direct` is never flagged, so a Paladin who had
+		-- done the chain was sent back to it). The session's turn-ins would
+		-- close every later goal of a repeatable at the first hand-in; one
+		-- hand-in closes one goal.
+		if goal.direct then return (C.IsQuestCompleted(goal.quest) or Own.laterQuestDone(s, g)) and true or false end
 		return questDone(goal.quest) and true or false
 	elseif t == "complete" then
 		if questDone(goal.quest) or C.IsQuestReadyForTurnIn(goal.quest) then return true end
@@ -1928,16 +1977,7 @@ goalDone = function(s, g, goal)
 		-- One with no quest (the Runes of Summoning before the voidwalker,
 		-- #1120): done once a later quest goal of the step is, so the work it
 		-- led to, done or handed in, never leaves it holding the step.
-		local goals = guide.steps[s].goals
-		for j = g + 1, #goals do
-			local later = goals[j]
-			local lt = later.t
-			-- A quest goal (isQuestGoal, declared further down).
-			local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
-				or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
-			if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
-		end
-		return false
+		return Own.laterQuestDone(s, g)
 	elseif t == "collect" then
 		if goal.quest then
 			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then return objectiveState(goal) end
@@ -2077,22 +2117,44 @@ local function blocks(goal)
 	return goal.t ~= "note" and not goal.optional
 end
 
+-- A `vendor` check-off beside other work of its step is a stop on the way,
+-- not work of its own: it holds the step only while no other goal that
+-- holds it applies to the character. A step of nothing but vendor
+-- check-offs still waits for the merchant window (or the player's tick or
+-- skip); one with hand-ins beside it is done with them, whether the player
+-- sold or not. The line stays listed, and leads the arrow in its turn,
+-- while the step is live. (On Own: the main chunk is at Lua's 200 locals.)
+function Own.sideVendor(s, goal)
+	if goal.t ~= "vendor" then return false end
+	for _, other in ipairs(guide.steps[s].goals) do
+		if other.t ~= "vendor" and blocks(other) and goalApplies(other) then return true end
+	end
+	return false
+end
+
+-- Whether goal (of step s) holds the step until it is done: not a note,
+-- not optional, not a vendor check-off beside other work (Own.sideVendor).
+function Own.holds(s, goal)
+	return blocks(goal) and not Own.sideVendor(s, goal)
+end
+
 -- Every goal of step s that holds the route is done (or cannot be done).
 function Own.goalsDone(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
-		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
+		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
 	end
 	return true
 end
 
 local function stepDone(s)
-	-- The route passes over an along step (Own.alongListed) and a hearth-only
-	-- one (Own.hearthOnly: the arrow's route hearths when it pays).
+	-- The route passes over an along step (Own.alongListed), a hearth-only
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays) and a
+	-- travel step the route flies past (Own.flightPassed).
 	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
-	return Own.goalsDone(s)
+	return Own.goalsDone(s) or Own.flightPassed(s)
 end
 
 -- `when done <label>` (format 5): the step so labelled applies and its goals
@@ -2471,7 +2533,8 @@ end
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop. A step the route
--- reaches may jump ahead (Own.jump).
+-- reaches may jump ahead (Own.jump), and a flight step it reaches may pass
+-- to the travel route (Own.flightJudged).
 local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
@@ -2479,8 +2542,11 @@ local function computeCurrent()
 	for s = 1, #steps do
 		-- The live step stays while the group waits on it (Own.partyHold).
 		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
-			if not Own.jump(s) then return s end
-			sk = skippedFor(guide.id)
+			if Own.jump(s) then
+				sk = skippedFor(guide.id)
+			elseif not Own.flightJudged(s) then
+				return s
+			end
 		end
 	end
 	return nil
@@ -2936,6 +3002,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		ticked = checked(s, g),
 		dismissed = Own.goalSkipped(s, g) or nil,
 		optional = goal.optional and true or false,
+		-- A vendor check-off beside other work: it does not hold the step
+		-- (Own.sideVendor).
+		side = Own.sideVendor(s, goal) or nil,
 		note = goal.note,
 		map = map, x = x, y = y, f = f, z = z,
 		quest = goal.quest, oi = goal.oi, npc = npc, npcName = npcName, item = goal.item,
@@ -3167,11 +3236,19 @@ end
 -- first blocking goal is a field goal (kill, collect, interact with a place)
 -- and the group has two or more such goals open, the nearest of them to the
 -- player takes its place (Own.nearestField: sticky, never switched in a
--- fight). Returns its index (or nil) and the open header's index (or nil).
+-- fight). A flight step the arrow leads to the flight's end (Own.flyAim)
+-- marks its flight, not the walk to the flight master it names. Returns its
+-- index (or nil) and the open header's index (or nil).
 function Own.currentGoal(s, groups, focus)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
 	local step = guide.steps[s]
+	local _, flown = Own.flyAimed(s)
+	if flown then
+		for _, g in ipairs(grp.goals) do
+			if g == flown then return g, nil end
+		end
+	end
 	local header, optional, first, fields
 	for _, g in ipairs(grp.goals) do
 		local goal = step.goals[g]
@@ -3249,7 +3326,10 @@ end
 -- start yet (Own.startGate), or another race's starting zone the player has
 -- not reached (Own.awayStart), on its live step. An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
--- a turn-in that is not ready, its quest's work in along steps (Own.alongAim).
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
+-- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
+-- while it shows. A flight step leads to the flight's end while the travel
+-- planner flies there (Own.flyAim), past the flight master it names.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3263,11 +3343,16 @@ local function findWaypoint()
 		local as, ag = Own.alongOf(aim)
 		local wp = as and waypointOf(ag, aim, nil, as)
 		if wp then return wp end
+		local here = Own.here
+		wp = here and here.goal == aim and waypointOf(here.g, aim, nil, here.s)
+		if wp then return wp end
 	end
 	if current == computed then
 		local wp = Own.partyAim(current)
 		if wp then return wp end
 	end
+	local fly = Own.flyAim(current)
+	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
@@ -3437,7 +3522,7 @@ function Own.partyAim(s)
 	local goals = guide.steps[s].goals
 	local list, names
 	for g, goal in ipairs(goals) do
-		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) then
+		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) then
 			local done = goalDone(s, g, goal)
 			if not done and not (goal.t == "turnin" and P.HoldsQuest(goal.quest)) then return nil end
 			local w = done and goal.quest and goal.oi and P.Waiting(goal)
@@ -3910,7 +3995,7 @@ function Own.endWorkDone(s)
 	local goals, did = guide.steps[s].goals, false
 	for g = 1, #goals do
 		local goal = goals[g]
-		if blocks(goal) and goalApplies(goal) then
+		if Own.holds(s, goal) and goalApplies(goal) then
 			if goalDone(s, g, goal) then
 				did = true
 			else
@@ -3967,7 +4052,11 @@ end
 local function checkArrival()
 	if #tabs == 0 then return end
 	local c, px, py = Compat().GetPlayerWorldPosition()
-	if not c then return end
+	if not c then
+		-- Nowhere to measure from (an instance): no "While you're here" line.
+		if Own.hereTick(nil) then requestUpdate() end
+		return
+	end
 	local hit = false
 	for i = 1, #tabs do
 		use(tabs[i])
@@ -3983,6 +4072,8 @@ local function checkArrival()
 		Own.currentGoal(current, groups, focus)
 		if Own.nearMoved then hit = true end
 	end
+	-- "While you're here": the nearest quick objective of a later step.
+	if Own.hereTick(c, px, py) then hit = true end
 	if hit then requestUpdate() end
 end
 
@@ -4015,6 +4106,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
+	if not need then need = Own.hereN > 0 or Own.here ~= nil end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -4867,8 +4959,10 @@ local function evaluateLoaded(active)
 	end
 	if changed then
 		current = newCurrent
-		-- The arrow's choice was for the old step; an along goal's lasts while it is listed.
-		if not (aim and Own.alongOf(aim)) then aim = nil end
+		-- The arrow's choice was for the old step; an along goal's lasts while it
+		-- is listed, a "While you're here" line's while it shows.
+		if not (aim and (Own.alongOf(aim) or (Own.here and Own.here.goal == aim))) then aim = nil end
+		if active then Own.hereDirty = true end
 		-- Step start: pick candidates and spawn spots afresh from where the
 		-- player stands. A spot picked earlier (the step shown as "Then:" or
 		-- looked at ahead, from elsewhere) would otherwise only move at the
@@ -4973,7 +5067,7 @@ function Own.startWaits(s)
 		if goal.t == "wait" and goalApplies(goal) and not Own.waitStart[goal] and ready then
 			Own.waitStart[goal] = GetTime()
 		end
-		if ready and blocks(goal) and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then ready = false end
+		if ready and Own.holds(s, goal) and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then ready = false end
 	end
 end
 
@@ -5040,6 +5134,11 @@ local function evaluate()
 		ns.Fire("GUIDE_OUTLEVELED", guide.id, suggested ~= guide.id and suggested or nil)
 	end
 	checkTrainDue()
+	-- "While you're here" candidates, after a step, quest-log, level or zone
+	-- change (Own.hereBuild); a clicked line that went takes the arrow back.
+	if Own.hereDirty or Own.hereGuide ~= guide then
+		if Own.hereBuild() then requestUpdate() end
+	end
 	updateTicker()
 	if #pendingCompleted > 0 then
 		local list = pendingCompleted
@@ -5585,6 +5684,207 @@ function Own.hearthOnly(step)
 	return any
 end
 
+---------------------------------------------------------------------------
+-- Flights the travel route takes better (#1191, #1212). A travel step holds,
+-- for the character, nothing open but gotos and a `fly` (a flight step: the
+-- walk to a flight master and the flight) or gotos alone (a walk): it is a
+-- way to the work after it, not work of its own. With the travel planner on
+-- and leading on Polestar's own arrow (nav.travel and nav.arrow on, neither
+-- TomTom's arrow nor a hand-off to another addon; Own.plannerFlies):
+--   * a flight step's arrow leads to the flight's end, a node the character
+--     knows, so the route flies there from whichever flight master reaches
+--     it soonest, in one flight, instead of walking or flying to the flight
+--     master the guide names first (Own.flyAim);
+--   * a travel step passes when the next open step after it, past walks on
+--     the same continent, is another flight step: the stop in between holds
+--     nothing left to do for this character (its work done, skipped, given
+--     up or for other characters), so the route flies on directly
+--     (Own.flightOn);
+--   * a flight step whose next open step is work passes, with the walks
+--     between, when the planner gets to that work at least FLY_MARGIN
+--     sooner without landing at the flight's end first: a nearer flight
+--     master the character knows (Thunder Bluff for the Earthen Ring, not
+--     Camp Taurajo), or a stop whose own work is behind the player. Judged
+--     once when the route reaches the step (Own.flightJudged), until the
+--     character learns a flight path.
+-- With the planner off the guide's steps hold as written.
+---------------------------------------------------------------------------
+
+Own.FLY_MARGIN, Own.FLY_SHARE = 60, 0.1 -- seconds, and share of the trip via the flight's end
+Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { passed, known } }
+
+-- The travel route leads, on Polestar's own arrow: the route's legs ("Walk to
+-- the flight master", "Fly to ...") show only there. TomTom's arrow and the
+-- hand-off to Shortest Path Forever get the target alone.
+function Own.plannerFlies()
+	local nav = ns.Nav
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel") and ns.Get("nav.arrow") ~= false) then return false end
+	if nav.UsingTomTomArrow and nav.UsingTomTomArrow() then return false end
+	return not (nav.HandedOff and nav.HandedOff())
+end
+
+-- "fly", "walk" or nil: step s's open goals for the character are travel
+-- only, with a flight among them ("fly") or gotos alone ("walk"); nil with
+-- other work open, or nothing open.
+function Own.transitKind(s)
+	local kind
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then
+			local t = goal.t
+			if t == "fly" then
+				kind = "fly"
+			elseif t == "goto" then
+				kind = kind or "walk"
+			else
+				return nil
+			end
+		end
+	end
+	return kind
+end
+
+-- The flight step s's open `fly` goal and its index.
+function Own.flyGoal(s)
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "fly" and goalApplies(goal) and not goalDone(s, g, goal) then return goal, g end
+	end
+	return nil
+end
+
+-- The taxi node a `fly` goal lands at (Nav/Travel.lua's data), while the
+-- character knows it; else nil.
+function Own.knownLanding(goal)
+	local nav = ns.Nav
+	local node = goal and nav.GetTaxiNode(goal.node)
+	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
+end
+
+-- The continent travel step s starts on (its first open goal) or, with
+-- `last`, ends on (its last: a flight's end, a walk's last goto).
+function Own.transitContinent(s, last)
+	local goals, c = guide.steps[s].goals, nil
+	for g, goal in ipairs(goals) do
+		if blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+			local here
+			if goal.t == "fly" then
+				local node = ns.Nav.GetTaxiNode(goal.node)
+				here = node and node.c
+			elseif goal.t == "goto" and goal.map and goal.x and goal.y then
+				here = Compat().MapToWorld(goal.map, goal.x, goal.y, goal.f)
+			end
+			if here then
+				if not last then return here end
+				c = here
+			end
+		end
+	end
+	return c
+end
+
+-- The next open step after s past the walks on its continent, and its
+-- transit kind (nil: work).
+function Own.travelOnto(s)
+	local steps = guide.steps
+	local c = Own.transitContinent(s, true)
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if stepApplies(step) and not isSkipped(n) and not step.along then
+			local kind = Own.transitKind(n)
+			if kind == "fly" or (kind == "walk" and Own.transitContinent(n, false) ~= c) then return n, kind end
+			if kind == "walk" then
+				c = Own.transitContinent(n, true)
+			elseif not stepDone(n) then
+				return n, nil
+			end
+		end
+	end
+	return nil
+end
+
+-- Travel step s passes: another flight follows with nothing open between.
+function Own.flightOn(s)
+	local n, kind = Own.travelOnto(s)
+	if kind ~= "fly" or Own.transitContinent(n, false) ~= Own.transitContinent(s, true) then return false end
+	return Own.knownLanding((Own.flyGoal(n))) ~= nil
+end
+
+-- How many flight paths the character knows (a verdict holds until it changes).
+function Own.knownCount()
+	local n = 0
+	for _ in pairs(ns.Nav.GetKnownTaxiNodes()) do n = n + 1 end
+	return n
+end
+
+-- Step s's verdict, while it holds (see above), or nil.
+function Own.flyVerdict(s)
+	local v = Own.flyVerdicts[guide]
+	v = v and v[s]
+	return v and v.known == Own.knownCount() and v or nil
+end
+
+-- Whether travel step s passes (stepDone).
+function Own.flightPassed(s)
+	if not (guide and Own.plannerFlies() and Own.transitKind(s)) then return false end
+	if Own.flightOn(s) then return true end
+	local v = Own.flyVerdict(s)
+	return v ~= nil and v.passed
+end
+
+-- The route reached flight step s (computeCurrent): judge it once against
+-- the planner (see above). True when it passes, with the walks after it.
+function Own.flightJudged(s)
+	-- Not before the quest log can be read (work would read done), nor on a taxi.
+	if not logReady or Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
+	local nav = ns.Nav
+	local landing = Own.knownLanding((Own.flyGoal(s)))
+	local n, kind = Own.travelOnto(s)
+	if not (landing and n and kind == nil and nav.EstimateTravel) then return false end
+	local to
+	for g, goal in ipairs(guide.steps[n].goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
+			local map, x, y, f = posOf(goal)
+			if map and x and y then
+				to = { map = map, x = x, y = y, f = f }
+				break
+			end
+		end
+	end
+	if not to then return false end
+	local direct = nav.EstimateTravel(nil, to)
+	local there = nav.EstimateTravel(nil, landing)
+	local on = nav.EstimateTravel(landing, to)
+	if not (direct and there and on) then return false end
+	local all = Own.flyVerdicts[guide] or {}
+	Own.flyVerdicts[guide] = all
+	local known = Own.knownCount()
+	local via = there + on
+	local passed = direct + math.max(Own.FLY_MARGIN, via * Own.FLY_SHARE) < via
+	for k = s, passed and n - 1 or s do all[k] = { passed = passed, known = known } end
+	return passed
+end
+
+-- Flight step s's flight the arrow leads to the end of (see above): its goal,
+-- index and landing node; nil to lead as written.
+function Own.flyAimed(s)
+	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
+	local goal, g = Own.flyGoal(s)
+	local node = Own.knownLanding(goal)
+	if not (node and node.map and node.x and node.y) then return nil end
+	return goal, g, node
+end
+
+-- The arrow's waypoint for flight step s (Own.flyAimed), or nil.
+function Own.flyAim(s)
+	local goal, g, node = Own.flyAimed(s)
+	if not goal then return nil end
+	local verb, subject, _, detail = describe(goal)
+	return {
+		map = node.map, x = node.x, y = node.y, f = node.f,
+		label = goalText(goal, verb, subject, detail),
+		stepIndex = s, goalIndex = g, kind = goal.t, r = DEFAULT_RADIUS,
+	}
+end
+
 -- A step that is not a step of its own for this character (#942, Fitz): an
 -- along step, whose goals read under "Along the way" of the steps the player
 -- travels to (Engine.GetAlong); one whose `only` leaves out their class,
@@ -5813,6 +6113,385 @@ function Engine.GetAlong()
 	end
 	return out
 end
+
+---------------------------------------------------------------------------
+-- While you're here: while the player works the live step, an open
+-- objective of a later step whose quest is already in the log, close by,
+-- becomes one line under the step (Engine.GetWhileHere): "While you're here:
+-- Kill Kobold Vermin, 2 more  (step 14)  45 yd". Grabbing it now saves coming
+-- back: the later step then reads done (or shorter) when the route gets
+-- there, as any objective done early does. It never takes the arrow unless
+-- the player clicks it (Engine.AimWhileHere).
+--
+-- Candidates (Own.hereBuild, on a step, quest-log, level, zone or setting
+-- change; at most HERE_MAX): open kill, collect, interact and use goals with
+-- a place in the steps after the live step, up to where the guide next
+-- leaves the zone (a fly, hearth or enter goal, or a goal on another map than
+-- the player's), each
+--   * for a quest in the log and not ready to hand in; never an accept;
+--   * for the character (stepApplies: its `when` and level gates;
+--     goalApplies), its step and goal not skipped, the quest not left out;
+--   * not listed already: no along step holds its quest's work (background
+--     goals are along steps), the quest is not pinned, and the live step has
+--     no open goal for the same objective (Own.nearestField has those);
+--   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
+--     else the goal's), measured to such places only;
+--   * any size: whatever is left (15 quilboars as much as 2), the player is there
+--     already. Slow drops spread over the zone are background goals, along
+--     steps, and so never a candidate.
+-- With behavior.whileHereTurnins, also a later step's turn-in of a quest
+-- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
+--
+-- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
+-- allocation-free): the nearest candidate within behavior.whileHereRadius
+-- yards of its nearest spawn area's edge (HERE_TURNIN of a hand-in's NPC),
+-- checked once against the walk there (Nav.EstimateTravel, budgeted: a walk
+-- over HERE_WALK times the straight line is a cliff or a cave floor). It goes
+-- past HERE_CLEAR times that radius, once done, after HERE_SECONDS without
+-- progress on it (a line being worked never expires), or on a
+-- dismiss (Engine.DismissWhileHere). One at a time; during a fight none
+-- appears and none goes by distance or time. A dismissed or expired line
+-- stays quiet for the rest of the zone stay (Own.hereQuiet). Never in an
+-- instance, on a taxi, boat or zeppelin, while a Hearthstone is cast, or
+-- while a timed quest or the live step's escort runs. Messages:
+-- WHILE_HERE_CHANGED when it appears, its count changes or it goes;
+-- WHILE_HERE_MOVED(yards) when its distance moves to the next HERE_STEP.
+---------------------------------------------------------------------------
+
+Own.HERE_MAX, Own.HERE_SCAN = 10, 80 -- candidates kept; steps looked ahead
+Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
+Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
+Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
+Own.HERE_SECONDS = 180 -- a line with no progress for this long goes
+Own.HERE_STEP = 5 -- yards the shown distance moves by
+Own.HERE_WALK, Own.HERE_SPEED = 1.6, 7 -- walk / straight line; run speed (yd/s)
+Own.HERE_VERBS = { kill = true, collect = true, interact = true, use = true }
+Own.HERE_LEAVE = { fly = true, hearth = true, enter = true }
+Own.HERE_HEARTH = { [8690] = true, [556] = true } -- Hearthstone, Astral Recall
+Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true
+Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed or expired, this zone stay
+Own.hereTo = {} -- the walk check's destination (reused)
+
+-- Whether step s leaves the zone at its goal `goal` (applying): a flight,
+-- a hearth, an instance, or a place on another map than `map`.
+function Own.hereLeaves(goal, map)
+	return Own.HERE_LEAVE[goal.t] or (map ~= nil and goal.map ~= nil and goal.map ~= map) or false
+end
+
+-- Whether any of a goal's places has mobs at most `top` levels (one with no
+-- level counts).
+function Own.hereLevelOk(goal, top)
+	local lvl = goal.lvl
+	if goal.spots then
+		for _, s in ipairs(goal.spots) do
+			local l = s.lvl or lvl
+			if not s.alt and not (l and l > top) then return true end
+		end
+		return false
+	end
+	return not (lvl and lvl > top)
+end
+
+-- Whether goal g of later step s is a candidate, as what ("work" or
+-- "turnin"), and how many are left (see above).
+function Own.hereFits(s, g, goal, live)
+	local q, t = goal.quest, goal.t
+	if not q or goal.candidates or not (goal.map and goal.x and goal.y) then return nil end
+	local C = Compat()
+	if not C.IsOnQuest(q) or not goalApplies(goal) or Own.goalSkipped(s, g) or unavailableFor(goal) then return nil end
+	local liveGoals = guide.steps[live].goals
+	if t == "turnin" then
+		if not Own.hereTurnins or not C.IsQuestReadyForTurnIn(q) or goalDone(s, g, goal) then return nil end
+		for _, other in ipairs(liveGoals) do
+			if other.t == "turnin" and other.quest == q then return nil end
+		end
+		return "turnin", 0
+	end
+	if not Own.HERE_VERBS[t] or C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] or Own.alongWork(q)[1] then return nil end
+	local done, cur, max = goalDone(s, g, goal)
+	if done then return nil end
+	for lg, other in ipairs(liveGoals) do
+		if other.quest == q and other.oi == goal.oi and Own.HERE_VERBS[other.t] and goalApplies(other) and not goalDone(live, lg, other) then return nil end
+	end
+	if t == "use" and goal.item and C.GetItemCount(goal.item) < 1 then return nil end
+	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
+	local left = (max or goal.count or 1) - (cur or 0)
+	if left < 1 then return nil end
+	return "work", left
+end
+
+-- Build the candidates (Own.hereList[1..hereN]) for the active tab's live
+-- step, and keep the line on its goal while that is still one. True when a
+-- line the player had clicked went (the arrow goes back to the guide).
+function Own.hereBuild()
+	Own.hereDirty = false
+	local aimed = false
+	if Own.hereGuide ~= guide then
+		aimed = Own.hereClear(false)
+		Own.hereGuide = guide
+	end
+	local list, n = {}, 0
+	Own.hereList, Own.hereEscort = list, false
+	local live = computed
+	if guide and live and logReady and ns.Get("behavior.whileHere") then
+		if not player then refreshPlayer() end
+		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
+		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 60
+		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
+		local steps = guide.steps
+		for g, goal in ipairs(steps[live].goals) do
+			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
+		end
+		local map = Compat().GetPlayerMapPosition()
+		local s, last = live + 1, math.min(#steps, live + Own.HERE_SCAN)
+		while s <= last and n < Own.HERE_MAX do
+			local step = steps[s]
+			-- Along steps (background goals among them) are listed already.
+			if not step.along and stepApplies(step) and not isSkipped(s) then
+				for g, goal in ipairs(step.goals) do
+					if goalApplies(goal) and Own.hereLeaves(goal, map) then
+						last = 0
+						break
+					end
+					local kind, left = Own.hereFits(s, g, goal, live)
+					if kind then
+						n = n + 1
+						list[n] = { s = s, g = g, goal = goal, kind = kind, left = left }
+						if n >= Own.HERE_MAX then break end
+					end
+				end
+			end
+			s = s + 1
+		end
+	end
+	Own.hereN = n
+	-- The line stays on its goal while that is a candidate (its count may
+	-- have changed); a goal done or no longer one ends it.
+	local cur = Own.here
+	if cur then
+		for i = 1, n do
+			local e = list[i]
+			if e.goal == cur.goal then
+				Own.here = e
+				if e.left ~= cur.left then
+					-- Worked on: its time starts again.
+					Own.hereSince = GetTime()
+					Own.hereView = nil
+					ns.Fire("WHILE_HERE_CHANGED")
+				end
+				return aimed
+			end
+		end
+		if Own.hereClear(false) then aimed = true end
+	end
+	return aimed
+end
+
+-- End the line (quiet: for the rest of the zone stay). True when the player
+-- had clicked it: the arrow goes back to the guide.
+function Own.hereClear(quiet)
+	local cur = Own.here
+	if not cur then return false end
+	if quiet then Own.hereQuiet[cur.goal] = true end
+	Own.here, Own.hereView = nil, nil
+	local aimed = aim == cur.goal
+	if aimed then aim = nil end
+	ns.Fire("WHILE_HERE_CHANGED")
+	return aimed
+end
+
+-- Never in an instance, on a taxi, while a Hearthstone is cast, or while a
+-- timed quest or the live step's escort runs. Allocation-free.
+function Own.hereBlocked()
+	if Own.hereEscort then return true end
+	if IsInInstance and IsInInstance() then return true end
+	if UnitOnTaxi and UnitOnTaxi("player") then return true end
+	if GetQuestTimers and GetQuestTimers() then return true end
+	if UnitCastingInfo then
+		local spell = select(9, UnitCastingInfo("player"))
+		if spell and Own.HERE_HEARTH[spell] then return true end
+	end
+	return false
+end
+
+-- Yards from the player to candidate e: a goal's nearest spawn area edge at
+-- the player's level (e.spot: that area), else its point; a hand-in's NPC.
+-- Nil on another continent. Allocation-free once the places are resolved.
+function Own.hereDistance(e, c, px, py)
+	local goal = e.goal
+	local spots = goal.spots
+	if e.kind == "work" and spots then
+		local best, top, lvl = nil, Own.hereTop, goal.lvl
+		for i = 1, #spots do
+			local s = spots[i]
+			local l = s.lvl or lvl
+			if not s.alt and not (l and top and l > top) then
+				local d = Spots.edge(goal, s, c, px, py)
+				if d and (not best or d < best) then best, e.spot = d, s end
+			end
+		end
+		return best
+	end
+	local gc, gx, gy = goalWorld(goal)
+	if gc ~= c then return nil end
+	return ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+end
+
+-- The radius candidate e shows within.
+function Own.hereReach(e)
+	return e.kind == "turnin" and Own.HERE_TURNIN or Own.hereRadius or 60
+end
+
+-- Once, as the line would appear: not on a boat, zeppelin or tram, and the
+-- walk there (Nav's budgeted estimate) not far longer than the straight
+-- line. No answer (no Nav, busy, no route) lets it show.
+function Own.hereMayShow(e, d)
+	local T = ns.Transit
+	if T and T.Riding and T.Riding() then return false end
+	local nav = ns.Nav
+	if not (nav and nav.EstimateTravel) then return true end
+	local goal, s, to = e.goal, e.spot, Own.hereTo
+	to.map, to.f = goal.map, goal.f
+	to.x, to.y = s and s.x or goal.x, s and s.y or goal.y
+	local ok, seconds = pcall(nav.EstimateTravel, nil, to, true, true)
+	if not (ok and type(seconds) == "number") then return true end
+	return seconds * Own.HERE_SPEED <= (d + (s and s.r or 0)) * Own.HERE_WALK + 20
+end
+
+-- The arrival poll (c nil: no position). Shows the nearest candidate in
+-- reach, keeps or ends the one shown; allocation-free. True when a line the
+-- player had clicked went (the arrow goes back to the guide).
+function Own.hereTick(c, px, py)
+	local cur = Own.here
+	if not cur and Own.hereN == 0 then return false end
+	if not c or Own.hereBlocked() then return Own.hereClear(false) end
+	if UnitAffectingCombat and UnitAffectingCombat("player") then return false end
+	local step = Own.HERE_STEP
+	if cur then
+		local d = Own.hereDistance(cur, c, px, py)
+		if not d or d > Own.hereReach(cur) * Own.HERE_CLEAR then return Own.hereClear(false) end
+		if GetTime() - Own.hereSince > Own.HERE_SECONDS then return Own.hereClear(true) end
+		local shown = math.floor(d / step + 0.5) * step
+		if shown ~= Own.hereYards then
+			Own.hereYards = shown
+			ns.Fire("WHILE_HERE_MOVED", shown)
+		end
+		return false
+	end
+	local quiet, list, best, bestD = Own.hereQuiet, Own.hereList, nil, nil
+	for i = 1, Own.hereN do
+		local e = list[i]
+		if not quiet[e.goal] then
+			local d = Own.hereDistance(e, c, px, py)
+			if d and d <= Own.hereReach(e) and (not bestD or d < bestD) then best, bestD = e, d end
+		end
+	end
+	if not best then return false end
+	if not Own.hereMayShow(best, bestD) then
+		Own.hereQuiet[best.goal] = true
+		return false
+	end
+	Own.here, Own.hereSince, Own.hereView = best, GetTime(), nil
+	Own.hereSerial = (Own.hereSerial or 0) + 1
+	Own.hereYards = math.floor(bestD / step + 0.5) * step
+	ns.Fire("WHILE_HERE_CHANGED")
+	return false
+end
+
+-- The line shown now, as a goal view (Engine.GetAlong's) of its later step
+-- with: `step` (its step), `here` ("work" | "turnin"), `left`, `appeared` (a
+-- number new for each line that appears: the minimap's ping), `yards` (to
+-- the next HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more",
+-- "Hand in X to Y"). Nil without one, or while the window looks at another
+-- step than the live one.
+function Engine.GetWhileHere()
+	local cur = Own.here
+	if not (cur and guide and current and current == computed) then return nil end
+	local v = Own.hereView
+	if not v then
+		local goal, left = cur.goal, cur.left
+		v = goalView(cur.s, cur.g, goal, "current", nil)
+		v.step, v.here, v.left, v.appeared = cur.s, cur.kind, left, Own.hereSerial
+		local text
+		if cur.kind == "turnin" then
+			local _, npc = npcOf(goal)
+			local title = questTitle(goal) or titleOfQuest(goal.quest)
+			text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
+		else
+			text = L["%s, %d more"]:format(v.text or "", left)
+		end
+		v.hereText = text
+		Own.hereView = v
+	end
+	v.yards = Own.hereYards
+	return v
+end
+
+-- Lead the arrow to the line shown (it holds while the line shows, and gives
+-- the arrow back to the guide when it goes); its time starts again. True if
+-- the arrow can lead there.
+function Engine.AimWhileHere()
+	local cur = Own.here
+	if not (cur and guide and current) or not waypointOf(cur.g, cur.goal, nil, cur.s) then return false end
+	aim, Own.hereSince = cur.goal, GetTime()
+	evaluate()
+	return true
+end
+
+-- The player's "not now": the line goes and stays quiet for this zone stay.
+function Engine.DismissWhileHere()
+	if not Own.here then return false end
+	if Own.hereClear(true) then evaluate() end
+	return true
+end
+
+-- The candidates now, for tests and /polestar debug: { { step, index, kind, left }, ... }.
+function Engine.GetWhileHereCandidates()
+	local out = {}
+	for i = 1, Own.hereN do
+		local e = Own.hereList[i]
+		out[i] = { step = e.s, index = e.g, kind = e.kind, left = e.left }
+	end
+	return out
+end
+
+-- One arrival poll's work for the line, from world position c, px, py (tests).
+function Engine.WhileHereTick(c, px, py)
+	if Own.hereTick(c, px, py) then requestUpdate() end
+end
+
+-- What changes the candidates: the quest log, the level, the player's pins,
+-- ticks and skips, a new zone (which also ends the zone stay: dismissed lines
+-- may come back), the settings.
+function Own.hereChanged() Own.hereDirty = true end
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP" }) do
+	ns.RegisterEvent(event, Own.hereChanged)
+end
+-- PLAYER_SKIPPED_QUEST comes after the skip's evaluation: one more.
+for _, msg in ipairs({ "PINS_CHANGED", "PLAYER_SKIPPED_STEP", "PLAYER_SKIPPED_QUEST" }) do
+	ns.On(msg, function()
+		Own.hereDirty = true
+		requestUpdate()
+	end)
+end
+ns.RegisterEvent("PLAYER_LEVEL_UP", function() requestUpdate() end)
+for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
+	ns.RegisterEvent(event, function()
+		Own.hereDirty = true
+		local zone = GetRealZoneText and GetRealZoneText() or nil
+		if zone ~= Own.hereZone then
+			Own.hereZone = zone
+			for goal in pairs(Own.hereQuiet) do Own.hereQuiet[goal] = nil end
+		end
+	end)
+end
+ns.On("SETTING_CHANGED", function(path)
+	if type(path) == "string" and path:sub(1, 18) == "behavior.whileHere" then
+		Own.hereDirty = true
+		if path == "behavior.whileHere" and not ns.Get(path) and Own.hereClear(false) then evaluate() end
+		requestUpdate()
+	end
+end)
 
 ---------------------------------------------------------------------------
 -- Pinned quests (#644): the player pins a quest of the log as along the way
@@ -6281,7 +6960,7 @@ function Engine.ToggleGoal(stepIndex, goalIndex)
 	else
 		m[key] = "tick"
 	end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end
@@ -6399,7 +7078,7 @@ function Engine.SkipGoal(stepIndex, goalIndex)
 		end
 	end
 	if not next(sk) then ns.CharState().skipped[guide.id] = nil end
-	placing = nil
+	placing, Own.hereDirty = nil, true
 	evaluate()
 	return true
 end

@@ -23,39 +23,31 @@ return {
 	-- {npc:2497} Nimboya
 	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: для Нагорья Арати, позже по маршруту",
 
-	-- Step 4: Bloody Bone Necklace on the way
-	-- {item:3915} Bloody Bone Necklace
-	["{item:3915} on the way"] = "",
-
-	-- Step 5: Islen Waterseer
+	-- Step 4: Islen Waterseer
 	-- {area:1637} Orgrimmar · {object:3202} Grom'gol · {area:392} Ratchet · {npc:5901} Islen Waterseer
 	["Take the {area:1637} zeppelin from the tower on the west side of {object:3202} and fly to {area:392}. {npc:5901} camps on the coast a short walk south of it."] = "",
 	-- {npc:5901} Islen Waterseer · {npc:3527} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:5901}: {npc:3527} and your {item:5177}"] = "{npc:5901}: {npc:3527} и ваш {item:5177}",
 
-	-- Step 6: Fly to Orgrimmar
+	-- Step 5: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 8: Nesingwary's camp
+	-- Step 7: Nesingwary's camp
 	["Nesingwary's camp"] = "Лагерь Эрнестуэя",
 	-- {object:3202} Grom'gol · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Идите по дороге на север из места {object:3202}; охотничий лагерь Эрнестуэя — на холме к северо-востоку от реки. С этого момента сохраняйте каждую страницу из книги «{quest:338}»: позже их попросит {npc:716}.",
 
-	-- Step 9: Young Panther on the way
-	-- {npc:683} Young Panther
-	["{npc:683} on the way"] = "",
-
-	-- Step 10: Nesingwary's Expedition: kill these as you meet them
+	-- Step 8: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
 	["{area:100}: kill these as you meet them"] = "",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.\nHead west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it.\nCareful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "",
 
-	-- Step 11: Booty Bay
+	-- Step 9: Booty Bay
 	-- {area:35} Booty Bay · {npc:2858} Gringer
 	["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "Идите по дороге на юг к месту {area:35} на южной оконечности долины и войдите через туннель в скалах. Не сходите с дороги: джунгли рядом намного выше вашего уровня. {npc:2858}, распорядитель полетов Орды, ждет на верхней палубе.",
 	-- {npc:2495} Drizzlik
@@ -68,136 +60,106 @@ return {
 	["{npc:773}, upstairs"] = "",
 	["Upstairs"] = "",
 
-	-- Step 12: Bloodscalp Ear on the way
-	-- {item:1519} Bloodscalp Ear
-	["{item:1519} on the way"] = "",
-
-	-- Step 13: Tumbled Crystal on the way
-	-- {item:4106} Tumbled Crystal
-	["{item:4106} on the way"] = "",
-
-	-- Step 14: Fly to Grom'gol
+	-- Step 10: Fly to Grom'gol
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 15: Grom'gol
-	-- {object:3202} Grom'gol
-	["Follow the road south to {object:3202}."] = "Идите по дороге на юг: {object:3202}.",
+	-- Step 11: Grom'gol
+	-- {npc:2497} Nimboya · {object:3202} Grom'gol
+	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "",
 
-	-- Step 17: The camp by the river
+	-- Step 13: The camp by the river
 	["The camp by the river"] = "Лагерь у реки",
 	-- {npc:773} Krazek
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
 	["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "Лагерь пропавших охотников ({npc:773}) — это лагерь Эрнестуэя: пройдите между палатками, и расследование завершится. Речные кроколиски лежат вдоль реки ниже лагеря.",
 
-	-- Step 19: Stranglethorn Vale: kill these as you meet them
+	-- Step 15: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers and Panthers (32-33) roam the hills east of the camp, along the lake shore."] = "Тигры Тернистой долины и пантеры (32-33) бродят по холмам к востоку от лагеря, вдоль берега озера.",
 
-	-- Step 20: Nesingwary's camp
+	-- Step 16: Nesingwary's camp
 	-- {object:3202} Grom'gol
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers come much later, by {object:3202}"] = "Тенебрюхие пантеры будут гораздо позже, у объекта {object:3202}",
 
-	-- Step 21: Shadowmaw Panther on the way
-	-- {npc:684} Shadowmaw Panther
-	["{npc:684} on the way"] = "",
-
-	-- Step 22: Elder tigers and Lashtail raptors
+	-- Step 17: Elder tigers and Lashtail raptors
 	["Elder tigers and Lashtail raptors"] = "Старые тигры и ящеры-кнутохвосты",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
 	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp; the Lashtail Raptors (35-36) hunt further south, towards {object:3202}.\nCareful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "",
 
-	-- Step 23: Nesingwary's camp
+	-- Step 18: Nesingwary's camp
 	["Back north to the camp."] = "Обратно на север к лагерю.",
 
-	-- Step 24: The Savage Coast: kill these as you meet them
+	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
-	-- Step 26: Hearth to Booty Bay
-	-- {area:35} Booty Bay
-	["Hearth to {area:35}"] = "Используйте Камень возвращения: {area:35}",
-
-	-- Step 27: Fly to Booty Bay
+	-- Step 21: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
 	["Head south down the coast to {object:3202} and fly to {area:35}."] = "",
 
-	-- Step 29: Lashtail Raptor on the way
-	-- {npc:686} Lashtail Raptor
-	["{npc:686} on the way"] = "",
-	-- {npc:686} Lashtail Raptor · {object:3202} Grom'gol
-	["{npc:686} along the way to {object:3202}"] = "",
-
-	-- Step 30: Stranglethorn Vale: kill these as you meet them
+	-- Step 23: Stranglethorn Vale: kill these as you meet them
 	-- {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "Ящеры-кнутохвосты (35-36) охотятся в джунглях чуть северо-восточнее места {object:3202}.",
 
-	-- Step 31: The Vile Reef
+	-- Step 24: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
 	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "К северо-западу от Лагеря Гром'гол под водой у побережья лежит {area:104}. {item:4094} лежит на морском дне у затонувших руин; следите за дыханием и мурлоками.",
 	["Underwater"] = "",
 
-	-- Step 32: Ruins of Zul'Kunda: kill these as you meet them
+	-- Step 25: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "",
 	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "",
 
-	-- Step 33: Grom'gol
+	-- Step 26: Grom'gol
 	-- {zone:1425} Hinterlands
 	["for later: the {zone:1425}, around level 48"] = "",
 
-	-- Step 34: Mosh'Ogg Brute on the way
-	-- {npc:1142} Mosh'Ogg Brute
-	["{npc:1142} on the way"] = "",
-
-	-- Step 35: Mosh'Ogg Witch Doctor on the way
-	-- {npc:1144} Mosh'Ogg Witch Doctor
-	["{npc:1144} on the way"] = "",
-
-	-- Step 36: Stranglethorn Vale: kill these as you meet them
+	-- Step 27: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}.\nCareful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "",
 
-	-- Step 37: Green Hills pages
+	-- Step 28: Green Hills pages
 	["Green Hills pages"] = "Страницы «Зеленых холмов»",
 	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "Страницы книги «{item:2755}» падают с шансом около 1% каждая с троллей из племен Кровавого Скальпа и Дробителей Черепов; сохраняйте каждую найденную страницу, а остальные поищите на аукционе. {npc:716} принимает главы позже в этом гайде.",
 
-	-- Step 38: Shadowmaw panthers
+	-- Step 29: Shadowmaw panthers
 	["Shadowmaw panthers"] = "Тенебрюхие пантеры",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Тенебрюхие пантеры (37-38) крадутся по джунглям к востоку от холмов Мош'Огг и на северо-восток к озеру; они нападают из невидимости. Собирайте по пути каждую страницу «Зеленых холмов».",
 	-- {npc:684} Shadowmaw Panther
 	["grind on {npc:684}"] = "",
 
-	-- Step 39: Venture Co. camp
+	-- Step 30: Venture Co. camp
 	["Venture Co. camp"] = "Лагерь Торговой компании",
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Head north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals."] = "",
 
-	-- Step 40: Mosh'Ogg camp
+	-- Step 31: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "",
 	-- {object:3202} Grom'gol
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "",
 
-	-- Step 41: Grom'gol
+	-- Step 32: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "Вернитесь: {object:3202}.",
 
-	-- Step 42: Level 36
+	-- Step 33: Level 36
 	["Level 36"] = "",
 	-- {area:321} Hammerfall
 	["Top up here to level 36 before the hand-ins at {area:321}: they take you to level 37."] = "",
@@ -212,7 +174,9 @@ return {
 	-- ["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}."] = "К востоку от огров тенебрюхие пантеры (37-38) крадутся незаметно, пока не нападут; там же бродят тигрицы Тернистой долины, иногда роняющие безупречный клык. Кроколиски-хрустогрызы лежат вдоль реки чуть западнее джунглей; сохраните их шкуры для NPC {npc:2495}.",
 	-- ["Follow the road north to the camp."] = "Идите по дороге на север к лагерю.",
 	-- ["Follow the road on south into {area:35}."] = "Идите по дороге дальше на юг: {area:35}.",
+	-- ["Follow the road south to {object:3202}."] = "Идите по дороге на юг: {object:3202}.",
 	-- ["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "Идите на запад мимо лагеря. Ящеры Тернистой долины (33-34) охотятся на полянах, а тролли из племени Кровавого Скальпа занимают руины на побережье: с любого из них может выпасть бивень. {item:4614} падает с них очень редко: если выпадет, прочтите ее.",
+	-- ["Hearth to {area:35}"] = "Используйте Камень возвращения: {area:35}",
 	-- ["Hearth to {object:3202}"] = "Используйте Камень возвращения: {object:3202}",
 	-- ["Jungle Stalkers"] = "Тропические ловцы",
 	-- ["Lashtail raptors"] = "Ящеры-кнутохвосты",

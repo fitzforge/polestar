@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Zandalar Tribe Reputation"] = "",
+	["Zandalar Tribe Reputation"] = "Репутация: племя Зандалар",
 	-- {area:19} Zul'Gurub
-	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "",
-	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "",
+	["Shoulder and head enchants, a class necklace upgraded at every standing, and {area:19}'s set pieces."] = "Чары для плеч и головы, классовое ожерелье, улучшаемое на каждом уровне репутации, и предметы комплектов из {area:19}.",
+	["Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted"] = "Классовое ожерелье при дружелюбии, улучшается при уважении, почтении и превознесении",
 	-- {npc:15042} Zanza the Restless
-	["{npc:15042}'s head and leg enchants, from Friendly"] = "",
+	["{npc:15042}'s head and leg enchants, from Friendly"] = "Чары для головы и ног у NPC {npc:15042}, с дружелюбия",
 
 	-- Step 1: Yojamba Isle
 	-- {area:3357} Yojamba Isle · {zone:1434} Stranglethorn Vale · {area:122} Zuuldaia Ruins · {faction:270} Zandalar Tribe · {npc:15070} Vinchaxa · {npc:14921} Rin'wosho the Trader · {npc:14902} Jin'rokh the Breaker · {npc:14903} Al'tabim the All-Seeing · {npc:14904} Maywiki of Zuldazar · {npc:14905} Falthir the Sightless · {area:19} Zul'Gurub
@@ -27,7 +27,7 @@ return {
 	["{item:19707}; any of the nine colours does"] = "",
 
 	-- Step 3: A Bijou for Zanza
-	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
+	-- {object:180367} Altar of Zanza · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
 	["Destroy one bijou at the {object:180367}, the stone altar on the west side of {area:3357} (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "",
 
 	-- Step 4: Friendly: your class necklace

@@ -5,7 +5,7 @@ faction Horde
 race Tauren
 levels 1-12
 zone Mulgore
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -434,14 +434,10 @@ step The Moonkin Stone
   use 15710 @71.7,65.0                -- Cenarion Lunardust
   complete 6002
 
-step Back to The Barrens
-  only Druid
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-
 # ---------------------------------------------------------------- The Crossroads
 
 step Into Mulgore
+  only !Druid
   zone Mulgore
   goto 42.1,20.2 "Into Mulgore"
 
@@ -455,19 +451,11 @@ step The Barrens
 
 step The Crossroads
   zone The Barrens
-  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Sergra Darkthorn stands by the inn, Tonga Runetotem at the south gate. The Barrens guide starts here.
-  turnin 860                          -- Sergra Darkthorn
+  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn, Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   turnin 886                          -- Tonga Runetotem
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  turnin 860                          -- Sergra Darkthorn
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
-  accept 870                          -- Tonga Runetotem
-  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-  accept 5041
-  accept 871                          -- Thork
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 869                          -- Gazrog
+
 # ---------------------------------------------------------------- The Crossroads
 
 step Jahan Hawkwing
@@ -493,3 +481,8 @@ step Jahan Hawkwing
   only Druid
   zone The Barrens
   turnin 6364                         -- Jahan Hawkwing
+
+step To Orgrimmar
+  zone Orgrimmar
+  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
+  goto 55.6,72.3 "Orgrimmar"

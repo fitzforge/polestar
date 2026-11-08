@@ -2209,7 +2209,7 @@
 				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
 			}
 		],
-		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. Forever's quest data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. The merged data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
 	},
 	"78133": {
 		"set": {
@@ -2371,6 +2371,18 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"78676": {
+		"set": {
+			"minLevel": 30
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
+			}
+		],
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. The merged data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
 	},
 	"79192": {
 		"set": {
@@ -3574,6 +3586,36 @@
 		},
 		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
 	},
+	"95883": {
+		"set": {
+			"pre": [
+				95884
+			],
+			"preAny": [
+				95884
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Tortured Soul 15 times to 7 characters, each time with The Offering Stone (95884) handed in, every one of them in the window of that hand-in; never before it"
+		},
+		"note": "The Offering Stone in Beren's Peril offers The Tortured Soul once the Note Scrap's quest, The Offering Stone (95884), is handed in to it. Our data had no prerequisite, so the guide asked for The Tortured Soul before the Note Scrap (#1175)."
+	},
+	"95885": {
+		"set": {
+			"pre": [
+				95883
+			],
+			"preAny": [
+				95883
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-07 (offer audit of the local archive): the Offering Stone offered The Offering of Blood 9 times to 6 characters, each time with The Tortured Soul (95883) handed in, 5 of them in the window of that hand-in; never before it"
+		},
+		"note": "The Offering of Blood follows The Tortured Soul at the Offering Stone in Beren's Peril; our data had no prerequisite (#1175)."
+	},
 	"95981": {
 		"set": {
 			"pre": [
@@ -4211,18 +4253,20 @@
 	},
 	"98221": {
 		"set": {
-			"pre": [
-				464
-			],
-			"preAny": [
-				464
-			]
+			"pre": [],
+			"preAny": []
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "issue #225"
-		},
-		"note": "From the Ashes (Wetlands, Captain Stoutfist) is the Forever step between War Banners 464 and Nek'rosh's Gambit 465: the player in issue #225 reported it in game as the next quest in the chain after War Banners. The merged data had no prerequisite, so only route-fixes pairs held it after 464, and the writer's hub tour, which reads the data, moved its accept before the War Banners hand-in (c13 07-thousand-needles:224)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): both characters who took From the Ashes accepted it from Captain Stoutfist right after War Banners (464), on the same visit, before handing War Banners in; one had not done Report to Captain Stoutfist (473) either"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #225"
+			}
+		],
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is offered together with War Banners (464), not after its hand-in: both recorded characters took the two at once. Issue #225 reported that Stoutfist offered From the Ashes instead of Nek'rosh's Gambit (465) once War Banners was handed in, which is 465's prerequisite on 98221 (kept in its own correction), not a prerequisite of 98221 on 464. With the two taken together, the attack plans are fetched in the Angerfang Encampment on the walk east from the dig, and both are handed in on one Menethil stop (06-wetlands), instead of a walk back east for the plans after War Banners."
 	},
 	"98252": {
 		"set": {
@@ -4305,7 +4349,15 @@
 	},
 	"98341": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98340,
+				98393
+			],
+			"preAny": [
+				98340,
+				98393
+			]
 		},
 		"source": [
 			{
@@ -4315,9 +4367,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98340 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98340, 98393]"
 			}
 		],
-		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. Dendrite Starblaze offers it once the opening The Great Cat Spirit is handed in: the Horde one from Turak Runetotem (98340) or the Alliance one from Mathrengyl Bearwalker (98393). The server's quest records (build 70124) name 98340 as its previous quest and a second, independent quest database lists both openers; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
 	"98404": {
 		"set": {
@@ -4337,7 +4397,13 @@
 	},
 	"98738": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98404
+			],
+			"preAny": [
+				98404
+			]
 		},
 		"source": [
 			{
@@ -4347,9 +4413,82 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98404 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98404]"
 			}
 		],
-		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. The Avatar of Saeyleenan offers it once the relics quest (98404) is handed in: the server's quest records (build 70124) name 98404 as its previous quest and a second, independent quest database agrees; the merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98342": {
+		"set": {
+			"pre": [
+				98405
+			],
+			"preAny": [
+				98405
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98405 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98405]"
+			}
+		],
+		"note": "The Great Cat Spirit (the Tauren Druids' Cat Form chain, the trial at the Great Cat Spirit in Moonglade) is offered by the Great Cat Spirit once The Great Cat Spirit from Dendrite Starblaze (98405) is handed in to it: the server's quest records (build 70124) name 98405 as its previous quest and a second, independent quest database agrees. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98739": {
+		"set": {
+			"pre": [
+				98342
+			],
+			"preAny": [
+				98342
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98342 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98342]"
+			}
+		],
+		"note": "Blessings of the Great Cat Spirit (the Tauren Druids' Cat Form chain) is offered by the Great Cat Spirit once its trial (98342) is handed in: the server's quest records (build 70124) name 98342 as its previous quest and a second, independent quest database agrees. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98362": {
+		"set": {
+			"pre": [
+				98739,
+				98738
+			],
+			"preAny": [
+				98739,
+				98738
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98739 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98739, 98738]"
+			}
+		],
+		"note": "To Thunder Bluff (the Horde Druids' Cat Form chain, back to Turak Runetotem) is offered by Dendrite Starblaze once the chain's blessing is handed in to him: Blessings of the Great Cat Spirit (98739, Tauren) or Blessings of the Great Windborne Cat Spirit (98738, Skyborne). The server's quest records (build 70124) name 98739 as its previous quest and a second, independent quest database lists both blessings; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
 	"98601": {
 		"set": {
@@ -5073,5 +5212,231 @@
 			}
 		],
 		"note": "Desperate Prayer (Priestess Alathea's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"98095": {
+		"set": {
+			"pre": [
+				98094
+			],
+			"preAny": [
+				98094
+			],
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western vial placed", "map": 1416, "f": "l", "x": 38.37, "y": 87.21 },
+				{ "type": "event", "id": null, "count": 1, "text": "Northern vial placed", "map": 1424, "f": "l", "x": 72.3, "y": 31.16 },
+				{ "type": "event", "id": null, "count": 1, "text": "Southern vial placed", "map": 1424, "f": "l", "x": 73.78, "y": 72.73 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
+		},
+		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
+	},
+	"98189": {
+		"set": {
+			"pre": [
+				286
+			],
+			"preAny": [
+				286
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): Karl Boran's window offers 98189 0.0-0.2 s after Return the Statuette (286) is handed in to him, at the same level; no recorded window offered it before 286 was handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1113"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1118"
+			}
+		],
+		"note": "Karl Boran's Return the Statuette (98189, for Captain Stoutfist) follows the old Return the Statuette (286): he offers it only once 286 is handed in to him. Without the prerequisite the guide sent players to him on their first Menethil stop, and on to Stoutfist for A Friend of the Family (98190), before either was possible."
+	},
+	"98190": {
+		"set": {
+			"pre": [
+				98189
+			],
+			"preAny": [
+				98189
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261107T102931Z-a390bd97e7ffa6cd-4fpgjqho68g2-wyxt85n88o): ten Captain Stoutfist windows before Return the Statuette (98189) was handed in to him (levels 24-27, three characters) offered War Banners and From the Ashes but never A Friend of the Family; both characters who handed 98189 in were offered 98190 in the window that followed and took it"
+			}
+		],
+		"note": "Captain Stoutfist's A Friend of the Family (98190, the statuette for Bolvar Fordragon) follows Return the Statuette (98189), handed in to him. The merged data had no prerequisite, so a route could send players to him for it before Karl Boran's statuette."
+	},
+	"98216": {
+		"set": {
+			"pre": [
+				299
+			],
+			"preAll": [
+				299
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1206: Prospector Whelgar did not offer Understanding Our Present to a level 27 Night Elf with Uncovering the Past (299) in the log at 0/4"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): refused to a level 25 Human without 299; the one window that offered it (level 28 Dwarf) is at Whelgar, where that character handed 299 in, with the log list still showing 299"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 299 for 98216"
+			}
+		],
+		"note": "Prospector Whelgar's Understanding Our Present (98216) follows Uncovering the Past (299), handed in to him. The merged data had no prerequisite, so the guide offered it together with 299."
+	},
+	"98283": {
+		"set": {
+			"pre": [
+				275
+			],
+			"preAll": [
+				275
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, character 73c640aba1a5bada): twelve Rethiel the Greenwarden windows before Fen Creeper (275) was handed in (levels 24-30, three characters) refused Carnage; the Night Elf was offered it in the first window after handing 275 in, and both characters who took it (levels 24 and 30) took it after 275's hand-in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 275 for 98283"
+			}
+		],
+		"note": "Rethiel the Greenwarden's Carnage (98283) ends his chain: he offers it only once Fen Creeper (275), after Tramping Paws (276) and Gnoll Hunt (277), is handed in. The merged data had no prerequisite, so the guide sent players to him for it on their first visit."
+	},
+	"98310": {
+		"set": {
+			"pre": [
+				98216
+			],
+			"preAll": [
+				98216
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused Gleaning Our Future and For Further Study to both characters, neither of whom had handed in Understanding Our Present (98216)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98216 for 98310"
+			}
+		],
+		"note": "Prospector Whelgar's Gleaning Our Future (98310) follows Understanding Our Present (98216), handed in to him. The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
+	"98313": {
+		"set": {
+			"pre": [
+				98310
+			],
+			"preAll": [
+				98310
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused For Further Study to both characters, who had handed in neither Understanding Our Present (98216) nor Gleaning Our Future (98310)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98310 for 98313"
+			}
+		],
+		"note": "Prospector Whelgar's For Further Study (98313, for Historian Karnik in Ironforge) ends his chain, after Gleaning Our Future (98310). The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
+	"526": {
+		"set": {
+			"pre": [
+				324
+			],
+			"preAny": [
+				324
+			],
+			"excl": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: PrevQuestID 324 for 526 (324 follows 321, 321 follows 270), ExclusiveGroup 0"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "Lightforge Ingots follows The Lost Ingots (324)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: no window of Glorin Steelbrow ever offered 526; the one level-29 character who opened his window (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds) was offered Lightforge Iron (321), the start of the chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1116"
+			}
+		],
+		"note": "Glorin Steelbrow offers Lightforge Ingots only after The Lost Ingots (324), the end of the Lightforge Iron chain (321, 324). Our data had no prerequisite and made it exclusive with 324 instead, so the 20-30 route took it in the Wetlands where nobody can be offered it."
+	},
+	"96261": {
+		"set": {
+			"pre": [
+				96259
+			],
+			"preAny": [
+				96259
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T155909Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261107T053108Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): Muln Earthfury's quest list leaves 96261 out while Defending the Dead (96259) is in the log, and offers it 0.1-0.2 s after 96259 is handed in to him, at the same level, with A Darker Truth (96294) still in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1083"
+			}
+		],
+		"note": "Muln Earthfury offers The Broodmother only once Defending the Dead (96259) is handed in to him; before that his list shows Defending the Dead alone. The guides took both together at the Earthen Ring camp."
+	},
+	"98240": {
+		"set": {
+			"pre": [
+				98072
+			],
+			"preAny": [
+				98072
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-07: James Halloran's quest list left 98240 out for 3 characters at levels 24-28 without Crocs of the Sky (98072) done (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, a390bd97e7ffa6cd at 26, 0508863063f76280 at 27-28); no window ever offered it"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98072]"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1134"
+			}
+		],
+		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
 	}
 }

@@ -16,10 +16,6 @@ step To Ratchet
   zone The Barrens
   goto 62.0,39.4 "Ratchet"
 
-step Booty Bay
-  zone Stranglethorn Vale
-  vendor nearest
-
 step Boat to Booty Bay
   zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
@@ -30,9 +26,9 @@ step Booty Bay
   tip The boat lands in Booty Bay's harbour. The quest givers stand on the boardwalks around the harbour and in the inn.
   accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
-  note The next guide flies you north to Tarren Mill and into the Arathi Highlands.
   accept 348                            -- Fin Fizracket
   accept 2872                           -- for Stoley in Tanaris; on the top floor
+  accept 606                            -- "Sea Wolf" MacKinley
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -163,22 +159,19 @@ step Booty Bay
   turnin 597                            -- First Mate Crazz
   accept 599
   accept 576                            -- Dizzy One-Eye
-  accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 599                            -- Fleet Master Seahorn
   accept 604
   accept 587                            -- Deeg, on the top floor
 
 # ---------------------------------------------------------------- The Bloodsail Buccaneers
-step Mistvale Valley: kill these as you meet them
+step The Wild Shore
   zone Stranglethorn Vale
   tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
-  tip Take the road south towards Booty Bay. The Elder Mistvale Gorillas (40-41) live in Mistvale Valley, east of the road; about one in twenty carries an aged sinew.
   collect 3920 quest 604.2
   collect 3921 quest 604.3
   collect 3910 quest 587.1
   collect 3897 quest 576.1
   kill 1563 quest 604.1
-  collect 3862 quest 571 @33.0,66.1 map 1434
 
 step Booty Bay
   turnin 587                            -- Deeg, on the top floor
@@ -186,9 +179,9 @@ step Booty Bay
   turnin 576                            -- Dizzy One-Eye
 
 step The Bloodsail ships
-  tip The three ships lie off the Wild Shore. The crews are 42-45, Stillwater 45, Keelhaul 46 and Fleet Master Firallon 48: at 41 this is a fight for a group, or for the end of the guide. If you go, swim out and pull the crew to the rail one at a time. A scroll, Cortello's Riddle, lies on the ships' decks: take it.
-  collect 4056 "Cortello's Riddle"
-  accept 624                            -- for a later stop in the Swamp of Sorrows
+  tip Optional, and tough at 41: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
+  collect 4056 "Cortello's Riddle" optional
+  accept 624 optional                   -- for a later stop in the Swamp of Sorrows
 
 # ---------------------------------------------------------------- North through the jungle
 
@@ -199,6 +192,7 @@ step Witch Doctor Unbagwa
 step Mistvale gorillas
   tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang.
   collect 2799 quest 349.1
+  collect 3862 quest 571 @33.0,66.1 map 1434
 
 step Witch Doctor Unbagwa
   tip Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then Mokk. Fight them one at a time.
@@ -213,7 +207,7 @@ step Venture Co. mine
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
   collect 3917 quest 600.1
 
-step Fly to Grom'gol
+step Grom'gol Base Camp
   turnin 571                          -- Far Seer Mok'thardin
   sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek
   accept 573                            -- Far Seer Mok'thardin
@@ -417,40 +411,6 @@ step Sawtooth crocolisks
   tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
   tip Careful: Tok'Kar's camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers.
   collect 6169 quest 698.1
-
-step Fly to Booty Bay
-  only Troll
-  zone Swamp of Sorrows
-  when level>=40
-  goto 46.0,54.7 "Stonard flight master"
-  fly "Booty Bay"
-
-step Boat to Ratchet
-  only Troll
-  zone Stranglethorn Vale
-  when level>=40
-  goto 26.4,73.6 "Boat to Ratchet"
-
-step Riding at 40
-  only Troll
-  zone Durotar
-  when level>=40
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village on the Durotar coast, with Zjolnir's raptors (20 gold each) beside him. Another race's trainer (Kildar in Orgrimmar) teaches you only once you are Exalted with his city.
-  train 7953 optional                   -- Xar'Ti, riding trainer
-  note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
-
-step Boat to Booty Bay
-  only Troll
-  zone The Barrens
-  when level>=40
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step Fly to Stonard
-  only Troll
-  zone Stranglethorn Vale
-  when level>=40
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Stonard"
 
 step Noboru the Cudgel
   zone Swamp of Sorrows

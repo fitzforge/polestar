@@ -15,10 +15,10 @@ step Into Winterspring
   zone Winterspring
   goto 28.0,34.6 "Into Winterspring"
 
-step Raging Owlbeast on the way
-  along until q4521
-  when onquest 4521
-  kill 7451 quest 4521.1
+step Salfa
+  tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
+  turnin 8465
+  accept 8464
 
 step Winterspring
   zone Winterspring
@@ -124,17 +124,7 @@ step Donova Snowden
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
 
-step Salfa
-  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
-  turnin 8465
-  accept 8464
-
-step Winterfall Den Watcher on the way
-  along until q4521-2
-  kill 7440 quest 8464.2
-
 step Frostfire Hot Springs: kill these as you meet them
-  label q4521-2
   zone Winterspring
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
   kill 7442 quest 5082.1
@@ -156,8 +146,7 @@ step Donova Snowden
 # ---------------------------------------------------------------- Frostfire Hot Springs
 
 step Raging Owlbeasts
-  label q4521
-  tip Ride west along the road past Lake Kel'Theril; Raging Owlbeasts roam the hills north of it.
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
   kill 7451 quest 4521.1
 
 step Winterfall Village
@@ -196,10 +185,13 @@ step Fly to Thunder Bluff
 
 step Bluff Runner Windstrider
   accept 1000
-  tip He stands on Hunter Rise. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route.
+  tip Bluff Runner Windstrider and Rumstag Proudstrider stand on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 7820 optional
+  turnin 7820 optional
   accept 7821 optional
+  turnin 7821 optional
   accept 7822 optional
+  turnin 7822 optional
 
 step Elder Rise
   turnin 3761                         -- Ghede
@@ -211,14 +203,13 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Bashana buys Morrowgrain grown from your Un'Goro Soil.
-  tip Careful: Gorishi Workers and Stingers cast Silithid Pox, and Hive Guards cast Tunneler Acid. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd.
+  tip Bashana buys Morrowgrain grown from your Un'Goro Soil. Morrowgrain Research wants ten, and the Evergreen Pouch gives one try every ten minutes: take it only if you already have the grain.
   turnin 3782
-  accept 3786
-  complete 3786
+  accept 3786 optional
+  complete 3786 optional
   turnin 3786
-  accept 3804
-  complete 3804
+  accept 3804 optional
+  complete 3804 optional
   turnin 3804
 
 step Fly to Orgrimmar

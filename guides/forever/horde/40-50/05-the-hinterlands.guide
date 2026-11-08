@@ -12,15 +12,9 @@ next forever/horde/40-50/06-azshara
 # Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
-step Fly to Hammerfall
+step Fly to Tarren Mill
   zone Searing Gorge
   goto 34.8,30.6 "Thorium Point flight master"
-  fly "Hammerfall"
-  zone Arathi Highlands
-
-step Fly to Tarren Mill
-  zone Arathi Highlands
-  goto 73.1,32.6 "Hammerfall flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
@@ -73,10 +67,6 @@ step Revantusk Village
 
 # ---------------------------------------------------------------- The north coast
 
-step Silvermane Stalker on the way
-  along until q7828
-  kill 2926 quest 7828.1
-
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
   tip The big turtles crawl along the beaches north of the village. Whiskey Slim's port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
@@ -103,13 +93,7 @@ step Cortello's Riddle
 
 # ---------------------------------------------------------------- The temples and the central hills
 
-step On the way
-  along until q7828
-  kill 4466 quest 7844.1
-  kill 4467 quest 7844.2
-
 step Shaol'watha: kill these as you meet them
-  label q7828
   zone The Hinterlands
   tip West of the island, the Vilebranch scalpers hold the temples of Agol'watha and Shaol'watha. Slagtree's tools lie at one of the temples.
   tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
@@ -219,7 +203,6 @@ step Aerie Peak
   complete 7843
 
 step Revantusk Village
-  tip The next guide starts here, at Revantusk Village.
   turnin 7843                           -- Otho Moji'ko
 
 step Fly to Stonard

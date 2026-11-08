@@ -7,9 +7,10 @@ next forever/horde/50-60/04-azshara
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
 #
-# Flow: Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice Thistle yetis ->
-# Chillwind chimaeras -> Everlook -> ride west (Raging Owlbeasts) -> Donova
-# Snowden -> Salfa -> Frostfire Winterfall camps -> Salfa -> Donova ->
+# Flow: (Speak to Salfa handed in at the tunnel's exit on the way in, in the
+# previous guide) -> Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice
+# Thistle yetis -> Chillwind chimaeras -> Everlook -> ride west (Raging
+# Owlbeasts) -> Donova Snowden -> Frostfire Winterfall camps -> Salfa -> Donova ->
 # Darkwhisper Gorge -> Winterfall Village -> Donova -> Salfa (beads) ->
 # hearth to Everlook -> grind to 55 -> Mau'ari -> fly to Camp Mojache
 # (Videre Elixir, Talo) -> Thunder Bluff (Morrowgrain, Hamuul, Nara, cloth
@@ -96,7 +97,7 @@ step Felnok Steelspring
 # ---------------------------------------------------------------- Frostfire Hot Springs
 
 step Raging Owlbeasts
-  tip Ride west along the road past Lake Kel'Theril; Raging Owlbeasts roam the hills north of it.
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
   kill 7451 quest 4521.1
 
 step Donova Snowden
@@ -108,11 +109,6 @@ step Donova Snowden
   accept 4842
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
-
-step Salfa
-  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
-  turnin 8465
-  accept 8464
 
 step Frostfire Winterfall camps
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
@@ -194,10 +190,13 @@ step Fly to Thunder Bluff
   fly "Thunder Bluff"
 
 step Rumstag Proudstrider
-  tip He stands on Hunter Rise. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route.
+  tip He stands on Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 7820 optional
+  turnin 7820 optional
   accept 7821 optional
+  turnin 7821 optional
   accept 7822 optional
+  turnin 7822 optional
 
 step Bluff Runner Windstrider
   accept 1000
@@ -212,7 +211,7 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Bashana buys Morrowgrain grown from your Un'Goro Soil.
+  tip Bashana buys Morrowgrain grown from your Un'Goro Soil. Morrowgrain Research wants ten, and the Evergreen Pouch gives one try every ten minutes: take it only if you already have the grain.
   turnin 3782
   accept 3786
   complete 3786

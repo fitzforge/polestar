@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "",
-	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "",
+	["Brood of Nozdormu Reputation"] = "Репутация: Род Ноздорму",
+	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "Кольцо бронзовых драконов улучшается на каждом уровне репутации; долгий путь от ненависти, в основном в рейдах.",
 	-- {item:21175} The Scepter of the Shifting Sands
-	["{item:21175} quest chain"] = "",
+	["{item:21175} quest chain"] = "Цепочка заданий {item:21175}",
 
 	-- Step 1: Baristolth in Cenarion Hold
 	-- {area:3425} Cenarion Hold
@@ -132,7 +132,7 @@ return {
 	-- Step 22: Dirge Quikcleave's Chops
 	-- {npc:8125} Dirge Quikcleave
 	["{npc:8125}'s Chops"] = "",
-	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom (no name in this language: may be words) · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
+	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar · Azerothian Diamonds = {item:12800} Azerothian Diamond · Blue Sapphires = {item:12361} Blue Sapphire
 	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "",
 	-- {item:12360} Arcanite Bar

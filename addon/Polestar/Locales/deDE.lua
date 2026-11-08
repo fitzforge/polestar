@@ -135,6 +135,9 @@ L["Only once %s is handed in"] = "Nur sobald %s abgegeben ist"
 L["Skipped for your character: its conditions do not hold"] = "Für deinen Charakter übersprungen: seine Bedingungen sind nicht erfüllt"
 L["Skipped for your character: none of its goals apply"] = "Für deinen Charakter übersprungen: keines seiner Ziele trifft zu"
 L["For %s: %s"] = "Für %s: %s"
+-- L["Hand in %s to %s"] = ""
+-- L["Hand in %s"] = ""
+-- L["%s, %d more"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -270,6 +273,7 @@ L["Hostile town: %s"] = "Feindliche Stadt: %s"
 L["Ride the elevator up"] = "Nimm den Aufzug nach oben"
 L["Ride the elevator down"] = "Nimm den Aufzug nach unten"
 L["Ride the elevator"] = "Nimm den Aufzug"
+-- L["%s Inn"] = ""
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"
@@ -506,6 +510,13 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["While you're here:"] = ""
+-- L["(step %d)"] = ""
+-- L["Not now (right-click)"] = ""
+-- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
+-- L["Right-click: not now, for the rest of this zone."] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -636,6 +647,16 @@ L["%d:%02d left"] = "Noch %d:%02d"
 L["%s and %s"] = "%s und %s"
 L["The object here"] = "Das Objekt hier"
 L["Use %s:"] = "Benutze %s:"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -1170,6 +1191,15 @@ L["Did you mean:"] = "Meintest du:"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = ""
+-- L["How close"] = ""
+-- L["How near its spawn area must be for the line to show. It goes again a little further out."] = ""
+-- L["Include nearby hand-ins"] = ""
+-- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
+-- L["While you're here sound"] = ""
+-- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2458,6 +2488,10 @@ L["Group quests"] = "Gruppenquests"
 L["Group quests in leveling guides"] = "Gruppenquests in Leveling-Guides"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Attune.lua
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Lässt dich Lothos Riftwaker im Blackrock zum Geschmolzenen Kern schicken; ohne ihn läufst du durch die Blackrocktiefen hinein."
@@ -2923,6 +2957,9 @@ L["Finished: %s - %s"] = "Erledigt: %s - %s"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
 -- L["No dungeon has opened up for this character."] = ""
 -- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
+
+-- UI/WhileHere.lua
+-- L["While you're here"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

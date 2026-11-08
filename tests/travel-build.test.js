@@ -216,6 +216,18 @@ test('generated TravelData.lua loads under Lua 5.1 and the addon planner routes 
 		]);
 		const walking = planRoute({ ...common, known: [] });
 		assert.deepEqual(walking.map((l) => l.kind), ['walk']);
+		// A flight master not learnt yet is walked to, learnt and flown from, to a known one (#1174:
+		// beside Ironforge's, knowing Menethil Harbor, the planner walked through Loch Modan) ...
+		const learning = planRoute({ ...common, known: ['Stormwind'] });
+		assert.deepEqual(learning.map((l) => [l.kind, l.label]), [
+			['walk', 'Walk to the flight master'],
+			['fly', 'Fly to Stormwind'],
+			['walk', 'Stormwind City 60, 60'],
+		]);
+		assert.equal(learning[1].from.short, 'Sentinel Hill');
+		// ... but never flown to: from Stormwind back to Westfall, Sentinel Hill unknown, it walks.
+		const back = planRoute({ ...common, from: common.to, to: common.from, known: ['Stormwind'] });
+		assert.deepEqual(back.map((l) => l.kind), ['walk']);
 		const horde = () => planRoute({ ...common, faction: 'Horde', known: ['Stormwind'] });
 		assert.throws(horde, /no Horde flight master matches "Stormwind"/);
 		// Full node names with a comma, comma lists, and unknown factions.

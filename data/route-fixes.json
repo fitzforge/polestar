@@ -600,17 +600,6 @@
 			{
 				"a": [
 					"turnin",
-					464
-				],
-				"b": [
-					"accept",
-					98221
-				],
-				"why": "Thousand Needles, Lou-Saydus #225"
-			},
-			{
-				"a": [
-					"turnin",
 					98221
 				],
 				"b": [
@@ -1024,18 +1013,7 @@
 					"turnin",
 					97926
 				],
-				"why": "Nittepitte #453: Making Do handed in in the Ashenvale guide (after Duskwood)"
-			},
-			{
-				"a": [
-					"turnin",
-					97926
-				],
-				"b": [
-					"accept",
-					1244
-				],
-				"why": "Nittepitte #453: ... before Thousand Needles"
+				"why": "Nittepitte #453: Making Do handed in after Duskwood, at the next Auberdine visit (06-wetlands' boat trip from Menethil to Ashenvale since the 2026-11-07 Alliance 20-30 re-order)"
 			},
 			{
 				"a": [
@@ -2562,6 +2540,1249 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
+			},
+			{
+				"a": [
+					"turnin",
+					286
+				],
+				"b": [
+					"accept",
+					98189
+				],
+				"faction": "Alliance",
+				"why": "#1113 and #1118: Karl Boran offers Return the Statuette (98189) only once the old Return the Statuette (286) is handed in to him (players' recordings: offered 0.0-0.2 s after that hand-in, never before). The guide took it on the first Menethil stop and handed it to Captain Stoutfist there, so neither it nor A Friend of the Family (98190) could be had."
+			},
+			{
+				"a": [
+					"turnin",
+					96259
+				],
+				"b": [
+					"accept",
+					96261
+				],
+				"faction": "Horde",
+				"why": "#1083: Muln Earthfury offers The Broodmother (96261) only once Defending the Dead (96259) is handed in (players' recordings: his list leaves it out while 96259 is in the log, offers it on the hand-in). The guide took both on the first camp visit."
+			},
+			{
+				"a": [
+					"turnin",
+					95350
+				],
+				"b": [
+					"accept",
+					98024
+				],
+				"faction": "Horde",
+				"why": "Offer audit (2026-11-07): Thrall offers Journey to the Crossroads (98024) to a Skyborne only once Welcome to Azeroth (95350) is handed in to him (players' recordings: refused to 5 Skyborne characters with 95350 in the log, offered on its hand-in, nothing else handed in between). 03-silverpine-forest had the accept in the Valley of Wisdom step before the Thrall hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					96139
+				],
+				"b": [
+					"accept",
+					173
+				],
+				"faction": "Alliance",
+				"why": "#1114: Calor offers Worgen in the Woods from level 23. The route reaches Darkshire's first visit at 22.1-23.1 and its second (Sirra Von'Indi's hand-in) at 23.15 or more on every branch, and the quest's worgen are hunted on the Duskwood return anyway, so it is taken on the second visit, behind its own level-23 gate (guide-fixes duskwood-worgen-in-the-woods-level-23) that holds back nothing else."
+			},
+			{
+				"a": [
+					"turnin",
+					3904
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Milly's Harvest is handed in at Milly in the vineyard right after the grapes and Garrick Padfoot's camp, and Garrick's head goes to Deputy Willem on the Abbey visit that hands in Skirmish at Echo Ridge, not on a walk back to the Abbey steps between Garrick and Milly (human/01-elwynn-forest steps 7-8 on 0.3.4: Garrick, the Abbey, back out to Milly, then the mine and the Abbey again)."
+			},
+			{
+				"a": [
+					"task",
+					21
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Willem stands at the Abbey steps beside the door to Marshal McBride; Garrick's head is handed in with Skirmish at Echo Ridge and the Grape Manifest on the one Abbey visit after the mine, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					182
+				],
+				"b": [
+					"accept",
+					3364
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh, Coldridge Valley): Scalding Mornbrew Delivery must reach Durnan in Anvilmar within five minutes; the Dwarf guide took it from Nori before the Frostmane Troll Whelps and Felix's parts, so the timer ran during the slope work (players' recordings of quest 3364 show abandons and re-accepts at Nori). It is taken from Nori on the return to Grelin with the whelps done, then straight north to Anvilmar, as the seed and the Gnome guide have it."
+			},
+			{
+				"a": [
+					"task",
+					313
+				],
+				"b": [
+					"turnin",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): Stocking Jetsteam (317) and The Grizzled Den (313) are both Steelgrill's Depot hand-ins at the two pilots standing side by side; the route walked to the depot for 317 alone after the boar and bear fields and came back after the den for 313 (dwarf/gnome 01-dun-morogh 'Steelgrill's Depot' after the fields on 0.3.4). The boars and bears are killed on the walk back from Rumbleshot's camp, both pilots take their quests on the one depot stop after the den and the Kharanos hand-ins, Razzle on the walk back west to Brewnall. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					5541
+				],
+				"b": [
+					"task",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): the Crag Boars and Young Black Bears for Stocking Jetsteam and Beer Basted Boar Ribs are killed on the walk back north-east from Rumbleshot's camp to Kharanos, after the Grizzled Den, so the pilots' quests are both ready on the one depot stop; killed first, beside the depot, the walk passed Pilot Bellowfiz with Stocking Jetsteam done and came back for it after the den."
+			},
+			{
+				"a": [
+					"turnin",
+					1138
+				],
+				"b": [
+					"turnin",
+					1001
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Darkshore): Fruit of the Sea's six Fine Crab Chunks come from the crawlers by Cliffspring Falls on the second loop; the route then walked past Gubber Blump on the pier with them on the Auberdine visit after Bashal'Aran (45 yd) and handed them in a whole loop later, after the Den Mother (03-darkshore 'Auberdine' after Bashal'Aran on 0.3.4, about 30 minutes). Handed in on the first Auberdine visit with them in the bag. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): from the Ursera den the walk goes back east to Aetheen and Valreaa at Thendal Grove, then south-west to Hanaa Nightwind and on south to Shen'dar; the route took Hanaa's camp first and walked back north to the grove before heading south past her again (skyborne/01-zephras-isle 'Hanaa Nightwind' before 'Aetheen of the Gales' on 0.3.4: Valreaa's ready hand-in passed, about 470 yd back). The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"task",
+					92470
+				],
+				"b": [
+					"task",
+					92473
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): Urs'anah's den lies west of Thendal Grove and the Scrawny Ursera prowl the woods between; the den is cleared first and the Scrawny Ursera on the walk back east, so the walk doesn't pass Valreaa Valewind with Aggressive Encroachment done on the way out to the den."
+			},
+			{
+				"a": [
+					"turnin",
+					472
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"accept",
+					631
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"task",
+					98310
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"turnin",
+					87491
+				],
+				"b": [
+					"accept",
+					87318
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+			},
+			{
+				"a": [
+					"turnin",
+					87318
+				],
+				"b": [
+					"accept",
+					647
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them."
+			},
+			{
+				"a": [
+					"turnin",
+					631
+				],
+				"b": [
+					"accept",
+					647
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): The Thandol Span is taken from Rhag Garmason on the Dun Modr stop; the races that cross the span to Foggy MacKreel pass Ebenezer Rustlocke's corpse under its Arathi end (45.7,93.1, MacKreel at 43.2,92.6) and hand it in there, instead of carrying it to the Arathi guide."
+			},
+			{
+				"a": [
+					"accept",
+					210
+				],
+				"b": [
+					"turnin",
+					200
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Stranglethorn 30-40, #1157): Corporal Kaleb stands in the Rebel Camp (37.7,3.3) on the first visit; Krazek's Cookery (210, level 37, from 32) was taken only on the second Rebel Camp visit and handed in on the last Booty Bay stop, though the first Booty Bay stop stands next to Krazek. Taken on the first visit, handed to Krazek on the first Booty Bay stop, where Favor for Krazek is taken."
+			},
+			{
+				"a": [
+					"turnin",
+					210
+				],
+				"b": [
+					"turnin",
+					198
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Stranglethorn 30-40, #1157): Krazek's Cookery is handed to Krazek on the first Booty Bay stop, where Krazek gives his other quests, instead of waiting for the last Booty Bay visit."
+			},
+			{
+				"a": [
+					"accept",
+					606
+				],
+				"b": [
+					"turnin",
+					595
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Stranglethorn 40-50, #1166): \"Sea Wolf\" MacKinley offers Scaring Shaky on the first Booty Bay stop, where Stoley's Debt is taken from him; the order passed him there (0 yd) and took it on the next Booty Bay stop, after the Bloodsail note"
+			},
+			{
+				"a": [
+					"task",
+					7730
+				],
+				"b": [
+					"task",
+					2980
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep (75.6,60.9), then the Gordunni at the Ruins of Isildien (60,63) and the yetis of Feral Scar Vale (53,57), with one return to Mojache for every hand-in. The order did the ruins with the Grimtotem loop and rode out to the hive and back to Mojache on a trip of its own"
+			},
+			{
+				"a": [
+					"task",
+					2980
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): Zukk'ash Infestation and Stinglasher are handed in on the Mojache stop after the ruins, with The Ogres of Feralas and Dark Ceremony, not on a return of their own"
+			},
+			{
+				"a": [
+					"task",
+					2822
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): The Mark of Quality's Thick Yeti Hides drop from the Feral Scar yetis (52-55,56-60), beside OOX-22/FE's cave on the same sweep; handed in on that Mojache stop, so Improved Quality comes along and its Rage Scar yetis fall on the next visit's ride back from the Northspring harpies"
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"task",
+					1426
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Swamp of Sorrows 45-47, #1166): the Pool of Tears (70.7,52.8) comes on the ride east from the Soggy Scroll, before the coast and Misty Reed Post; the order went to Misty Reed Post for the murlocs, rode north to the pool and came back to Misty Reed for Katar's hand-ins before riding west to Stonard"
+			},
+			{
+				"a": [
+					"task",
+					3063
+				],
+				"b": [
+					"task",
+					7734
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Improved Quality's Rage Scar yetis (53,32) live by the road back south-east from the Northspring harpies; done on that ride, and handed in on the one Mojache stop after it, instead of a ride out from the camp and back at the end of the guide"
+			},
+			{
+				"a": [
+					"task",
+					7734
+				],
+				"b": [
+					"turnin",
+					3063
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): one Camp Mojache stop after the north-west sweep: Natural Materials, Vengeance on the Northspring and Improved Quality together"
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point; the order carried it and came back to the dig site at the end of the guide (the optional Key to Freedom keeps its own step)"
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Winterspring 55-56, #1166): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride back west from Everlook"
+			},
+			{
+				"a": [
+					"turnin",
+					5158
+				],
+				"b": [
+					"accept",
+					91899
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
+			},
+			{
+				"a": [
+					"task",
+					6022
+				],
+				"b": [
+					"turnin",
+					6133
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Eastern Plaguelands 56-57, #1166): Corin's Crossing (52.3,58.2) lies on the ride south from Quel'Lithien Lodge; To Kill With Purpose is done there and handed to Nathanos with The Ranger Lord's Behest and Un-Life's Little Annoyances, instead of a ride from the Marris Stead to the crossing and back"
+			},
+			{
+				"a": [
+					"turnin",
+					6029
+				],
+				"b": [
+					"turnin",
+					5229
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 56, #1166): The Everlook Report goes to Argent Officer Garush at the Bulwark, which the ride from the Undercity into the Western Plaguelands passes; the order carried it to a Bulwark stop two guides later"
+			},
+			{
+				"a": [
+					"task",
+					4972
+				],
+				"b": [
+					"turnin",
+					5098
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 57-59, #1166): Chromie offers Counting Out Time when A Matter of Time is handed in; the lockboxes are in Andorhal's houses around her inn, so it is done then, instead of on a return to Chromie later in the guide"
+			},
+			{
+				"a": [
+					"turnin",
+					196
+				],
+				"b": [
+					"turnin",
+					622
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): Raptor Mastery (196) is handed to Hemet Nesingwary (35.7,10.8) on the ride from the north-west coast to the Rebel Camp, which passes his camp, and Tethis (197) is taken there, instead of a separate trip north from Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					1477
+				],
+				"b": [
+					"accept",
+					1398
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Vital Supplies (1477) is handed to Watchmaster Sorigal (75.8,46.2), 60 yards from the Darkshire flight master the guide lands at on the way into the Swamp of Sorrows, instead of being carried to the next guide's Darkshire stop."
+			},
+			{
+				"a": [
+					"task",
+					2870
+				],
+				"b": [
+					"turnin",
+					4127
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
+			},
+			{
+				"a": [
+					"task",
+					4291
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the Lar'korwi Mates' glands (4291) and the wrecked raft (3844, 3845) lie just west of Torwa at the foot of the ramp (mates 58-71,59-80, raft 63.1,69.1): done on arrival, before the ride north to Karna and Marshal's Refuge, as the seed has it. The written guide had them as a later 'Marshlands' stop that walked back south-east from the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					3844
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the wrecked raft (3844) is opened on arrival with the Lar'korwi glands, west of Torwa, before the ride north."
+			},
+			{
+				"a": [
+					"task",
+					5509
+				],
+				"b": [
+					"turnin",
+					5211
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): Defenders of Darrowshire (5211) is handed to Carlin Redpath on the guide's last Light's Hope stop with the Scourgestones, not on a ride back east to the chapel between Corin's Crossing and the west of the zone."
+			},
+			{
+				"a": [
+					"accept",
+					963
+				],
+				"b": [
+					"accept",
+					954
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore 15): the boat lands at the pier where Cerellean Whiteclaw waits; Auberdine's first visit takes For Love Eternal from him on the way in, then goes up to the north end, instead of crossing the village to Thundris first and coming back to the pier at the end (03-darkshore 'Auberdine' on 0.3.4)"
+			},
+			{
+				"a": [
+					"accept",
+					729
+				],
+				"b": [
+					"accept",
+					954
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore 15): Archaeologist Hollee stands at the north end of Auberdine beside Thundris Windweaver; the first visit took The Absent Minded Prospector from her last, a walk from the pier back up to the north end and down again to the beach (about 140 yd each way). Taken with Thundris, before the walk down the main street to the inn; the seed is re-cut for it"
+			},
+			{
+				"a": [
+					"turnin",
+					4762
+				],
+				"b": [
+					"turnin",
+					4813
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore 17): on the Auberdine visit after Bashal'Aran, Thundris (The Cliffspring River) and the moonwell for The Blackwood Corrupted's bowl come right after Terenthis, then Glynda, Gwennyth and Gubber on the pier, ending on the way to Mist's Edge; the order went Terenthis, Gwennyth, Glynda, up to Thundris, back to the moonwell and down to the pier (about 160 yd more). The seed is re-cut for it"
+			},
+			{
+				"a": [
+					"turnin",
+					4813
+				],
+				"b": [
+					"turnin",
+					4727
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore 17): Glynda by the moonwell before Gwennyth by the shore on the Auberdine visit after Bashal'Aran (see the 4762 -> 4813 pair); the seed is re-cut for it"
+			},
+			{
+				"a": [
+					"turnin",
+					4727
+				],
+				"b": [
+					"turnin",
+					1138
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore 17): Gubber Blump on the pier is the last stop of the Auberdine visit after Bashal'Aran, on the way out to Mist's Edge"
+			},
+			{
+				"a": [
+					"accept",
+					4731
+				],
+				"b": [
+					"accept",
+					4730
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore): the Beached Sea Creature at 32.7,80.8 lies on the walk from the remains past Remtravel's Excavation (4731-4733) to Murkdeep's camp, so it is taken there on the fourth loop and handed in with them; the second loop walked from the Blackwood camp down the coast to it and back north to Ameth'Aran's flame (about 1,000 yd for 575 XP). The seed is re-cut for it"
+			},
+			{
+				"a": [
+					"accept",
+					98013
+				],
+				"b": [
+					"accept",
+					4728
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Darkshore): the Beached Sea Creature on the shore west of the Grove (36.0,70.9) is taken on the walk north from the Grove to Auberdine after Return to Onu (about 150 yd off the road) and handed in with the other remains, instead of the second loop's walk down the coast and back (about 1,000 yd for 490 XP). Holy Diver still follows all nine. The seed is re-cut for it"
+			},
+			{
+				"a": [
+					"accept",
+					5676
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): High Priestess Laurena's level 20 priest quests (5676, 5645, 94819, 5673) are taken in the Cathedral on the Cathedral Square stop, on the way to the Mage Quarter, instead of a walk back to the Cathedral from the Trade District at the start of 04-redridge-mountains."
+			},
+			{
+				"a": [
+					"turnin",
+					219
+				],
+				"b": [
+					"turnin",
+					149
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Redridge's first pass (ending at Lakeshire with Missing In Action) comes before Duskwood's second loop (Blind Mary first), by the flight from Lakeshire to Darkshire."
+			},
+			{
+				"a": [
+					"turnin",
+					293
+				],
+				"b": [
+					"turnin",
+					1241
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Cleansing the Eye goes to Archbishop Benedictus in the Cathedral on 06-wetlands' Stormwind stop, which takes The Missing Diplomat from Thomas in the same building, instead of being carried to the end of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"turnin",
+					127
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Selling Fish (127) and Murloc Poachers (150) are finished at the murlocs round the Sunken Chest and handed to Dockmaster Baren on the docks on the walk west through Lakeshire from Foreman Oslow to Martie Jainrose; the route carried them past Baren to the end of the zone's loop (#1052's 'Back to Lakeshire'). The seed (re-seeded for this) has that order; this pair and the next keep it."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"accept",
+					4581
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): the 27-29 Wetlands visit ends at Menethil (From the Ashes) before the boat to Auberdine and Ashenvale's 27-32 quests, which fit at 28-30; they were in 30-40/03-ashenvale at 33-34, three levels over."
+			},
+			{
+				"a": [
+					"turnin",
+					98230
+				],
+				"b": [
+					"turnin",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Howin Kindfeather camps among the Mosshide Fenrunners the 27-29 Wetlands visit kills for Fire Taboo's flint, just west of Rethiel; Crimson Crate Delivery and This Land Was Their Land are handed to him there and Razormaw Needling taken, instead of a Menethil stop and a walk to Howin at the start of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"accept",
+					1716
+				],
+				"b": [
+					"accept",
+					94
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, the building where Collin Mauren takes A Scroll from Mauren on the Stormwind stop; Warlocks take Devourer of Souls there, before the road east through Elwynn."
+			},
+			{
+				"a": [
+					"turnin",
+					1031
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Ashenvale's 27-32 quests (ending at Illiyana with The Branch of Cenarius) come before the boat back to Menethil and the Ironforge and Stormwind stop (Pilot Longbeard, The Missing Diplomat), so Pilot Longbeard's level 28 is reached with quests and no top-up."
+			},
+			{
+				"a": [
+					"turnin",
+					148
+				],
+				"b": [
+					"turnin",
+					244
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): with Ashenvale and Stonetalon first, Duskwood and Redridge are played together at 23-27 as Duskwood's first loop, Redridge's first pass, Duskwood's second loop, Redridge's second pass, so Redridge is entered at about 24.5 and its gnolls fit without a top-up. Duskwood's first loop (ending at Darkshire with Supplies from Darkshire) comes before Redridge's first pass (Deputy Feldon's first hand-in)."
+			},
+			{
+				"a": [
+					"turnin",
+					150
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Murloc Poachers handed to Dockmaster Baren before Martie Jainrose (see turnin 127 before turnin 130)."
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					4581
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 re-order (2026-11-07): Making Do goes to Thundris Windweaver in Auberdine on the boat trip from Menethil to Ashenvale, the first Auberdine visit after Stormwind, instead of walking past him there and coming back at the end of 30-40/01-hillsbrad-foothills."
+			},
+			{
+				"a": [
+					"turnin",
+					174
+				],
+				"b": [
+					"task",
+					96139
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars (174) is ready the moment the Bronze Tube is bought from Herble Baubbletump, beside Viktori, on the first Darkshire visit, but the route handed it in only on the Duskwood return three guides of play later (07-thousand-needles), walking past Viktori with it on every Darkshire visit between. Handing it in there saves carrying it past Viktori three times. The seed (re-seeded for this) hands it in there; this pair keeps it before the walk west."
+			},
+			{
+				"a": [
+					"turnin",
+					97914
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Baros Alexston stands at the east side of the Cathedral Square, where 06-ashenvale's Stormwind stop is on the way from the tram to the Mage Quarter; Expanding Horizons and Making Do were taken in 04-redridge-mountains' first step, a walk back from the Trade District to the square after the Keep and the Mage Quarter."
+			},
+			{
+				"a": [
+					"task",
+					98221
+				],
+				"b": [
+					"accept",
+					277
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
+			},
+			{
+				"a": [
+					"task",
+					34
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Bellygrub's pen lies just west of Lakeshire beside Martie Jainrose's garden: he is killed on the way to her first visit and An Unwelcome Guest handed in with Visit the Herbalist, instead of a second walk west from the town after the Blackrock camps."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					994
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Volcor's escort (994) goes to Terenthis on 06-wetlands' Auberdine stop (the boat trip from Menethil to Ashenvale), so Darkshore ends at the Master's Glaive and walks north to the Grove for Kerlonian, instead of walking from Volcor north to Auberdine (about 1,900 yd), on to the Elder Darkshore Threshers for the top-up and all the way back south. Druids, who fly from Auberdine for Cat Form, hand it in there."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					472
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Fall of Dun Modr goes to Longbraid the Grim on 30-40/01-hillsbrad-foothills' Dun Modr stop, which the route makes anyway; 06-wetlands walked north to Dun Modr for that one hand-in and back."
+			},
+			{
+				"a": [
+					"turnin",
+					1031
+				],
+				"b": [
+					"turnin",
+					1046
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From Krolg the route goes west to Melyria, Illiyana and Delgren, then hands Raene's Cleansing (1046), the Gleaming Crescent Pendant and Fallen Sky Lake in on one Astranaar stop before the flight, instead of Raene alone, the west posts and back to Astranaar's flight master."
+			},
+			{
+				"a": [
+					"task",
+					1008
+				],
+				"b": [
+					"turnin",
+					1034
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): 06-ashenvale's Astranaar hand-ins (The Ruins of Stardust, An Aggressive Defense, Culling the Threat) wait for the Astranaar stop after the Zoram Strand, with The Zoram Strand, instead of a stop of their own between Dal Bloodclaw and Ilkrud."
+			},
+			{
+				"a": [
+					"task",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Lakeshire's hand-ins after the elites wait for Keeshan's escort from Render's Valley, which ends at Marshal Marris (see turnin 219 with turnin 20)."
+			},
+			{
+				"a": [
+					"task",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Coming east from Menethil, the raptor valley for Ormer's Revenge (taken on the last visit) lies just before Whelgar's dig: the raptors first, then one dig stop hands it in and takes Ormer's next quest and Whelgar's, instead of a dig stop for Whelgar alone, the valley and back."
+			},
+			{
+				"a": [
+					"turnin",
+					268
+				],
+				"b": [
+					"turnin",
+					1787
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Human Paladins hand the Defias Script to Gazin Tenorm and learn Redemption in the Cathedral of Light on the walk from Sven's camp through Goldshire (training) to Stormwind's gryphon master, where 06-wetlands starts, instead of walking from Sven's camp to Sentinel Hill, flying to Stormwind and walking back out to Goldshire to train (about 2 x 900 yd)."
+			},
+			{
+				"a": [
+					"accept",
+					1525
+				],
+				"b": [
+					"task",
+					835,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): Orc and Troll Shamans take Kranal Fiss's Call of Fire (1524) when they hand him 2983 and Telf Joolam's (1525) on the walk back over the river, so the Reagent Pouch drops from the Dustwind Cave cultists on the Drygulch Ravine loop; the order handed Kranal 2983 alone and walked back from the Crossroads to Kranal, Telf and northern Durotar in the Barrens guide (the seed's design)"
+			},
+			{
+				"a": [
+					"accept",
+					1483
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 19, #1175): the flight lands in Ratchet beside Sputtervalve (62.98,37.22); Mebok and Drohn stand on the way south to Captain Thalo'thas (62.29,39.03), and the grind for players who skip Bruuz lies on the way south to Northwatch Hold. The order sent the grind 900 yd south and back between Thalo'thas and Sputtervalve"
+			},
+			{
+				"a": [
+					"turnin",
+					819
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 19, #1175): Brewmaster Drohn (62.26,38.39) stands between Sputtervalve and Captain Thalo'thas in Ratchet, so Chen's Empty Keg goes in before Thalo'thas and the walk south"
+			},
+			{
+				"a": [
+					"task",
+					868,
+					0
+				],
+				"b": [
+					"accept",
+					843
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): the Silithid eggs (45.4,72.4) lie on the road from Camp Taurajo south to Gann Stonespire (45.9,77.0); the order did them on a walk back north from Gann after Blackthorn Ridge (the seed's order takes them on the way)"
+			},
+			{
+				"a": [
+					"accept",
+					98093
+				],
+				"b": [
+					"task",
+					893,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): Sulhasa (47.8,77.6) sits beside Gann, and Field to Clear's Stormhide and Hecklefang Stalkers (44,76.5) roam the plain between Gann and Blackthorn Ridge, so it is taken with Gann's first quest and worked on the way back from the ridge; the order took it after the ridge and walked out to the plain again"
+			},
+			{
+				"a": [
+					"turnin",
+					1150
+				],
+				"b": [
+					"accept",
+					1151
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Thousand Needles 29, #1175): Dorn Plainstalker offers Test of Strength only once Test of Endurance is handed in (players' recordings: the only offer came on that hand-in); the guide asked for it right after Test of Endurance's accept"
+			},
+			{
+				"a": [
+					"accept",
+					2
+				],
+				"b": [
+					"turnin",
+					6544
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+			},
+			{
+				"a": [
+					"task",
+					578
+				],
+				"b": [
+					"turnin",
+					605
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the haunted island of The Stone of the Tides (20.8,23.2) lies about 300 yd south-west of the Crystalvein Mine (24.2,17.7), where the first jungle loop gathers the Singing Crystal Shards; it is reached then, instead of on the northern loop after the second Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					578
+				],
+				"b": [
+					"task",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): The Stone of the Tides is handed to Baron Revilgaz on the Booty Bay return of the first jungle loop, so Water Elementals (601, its follow-up) is done at the same island on the northern loop; it was handed in on the last Booty Bay stop, then the player walked from Booty Bay back to the island for the elementals, on to Westfall and flew to Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"task",
+					601
+				],
+				"b": [
+					"turnin",
+					574
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Lesser Water Elementals (21.5,24.7) rise around the haunted island beside the second troll legend (24.8,22.9) the northern loop passes; done there, before the Rebel Camp, and handed in on the last Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					192
+				],
+				"b": [
+					"task",
+					577
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Snapjaw Crocolisks (37.9-40.2,23.6-32.6) lie on the river mid-jungle, between Nesingwary's camp and the Skullsplitter ruins the route walks to next; done on that walk and handed to Drizzlik on the last Booty Bay stop, instead of a round trip of about 2,000 yd each way from Booty Bay."
+			},
+			{
+				"a": [
+					"turnin",
+					631
+				],
+				"b": [
+					"turnin",
+					98245
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies 30 yd from Essene Villard (51.5,9.0), where every race hands in Hearts of the Lost on the walk north from Dun Modr; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
+			},
+			{
+				"a": [
+					"accept",
+					1246
+				],
+				"b": [
+					"accept",
+					1718
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Wu Shen (80.5,59.7) trains warriors in Old Town beside the Pig and Whistle, where Dashel Stonefist (74.3,59.2) waits; Warriors take The Islander on the Dashel stop, after Elling Trias in the Trade District, instead of walking from the flight master to Old Town, back to the Trade District for Elling and on to Old Town again."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Indurium's flakes are gathered at Agmond's End at about 38, and the walk from the Ancient Chest (39.3,18.8) south to Theldurin (51.4,76.9) passes Martek in the Valley of Fangs (42.2,52.7); handed in there (News for Fizzle taken), as the seed has it, instead of at the 40-50 Badlands guide's Valley of Fangs stop about nine hours later."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Rigglefuzz (42.4,52.9) stands beside Martek on the same walk; Barbecued Buzzard Wings, done at Agmond's End, is handed in there instead of nine hours later in the 40-50 Badlands guide."
+			},
+			{
+				"a": [
+					"turnin",
+					7732
+				],
+				"b": [
+					"accept",
+					3123
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Feralas 43-45): Zukk'ash Report is ready when the guide flies from Camp Mojache to Orgrimmar, and the Orgrimmar stop passes Zilzibin Drumlore in the Valley of Spirits (the flow audit: ender passed at 0 yd); the order carried it to the Azshara guide, about 650 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					7734
+				],
+				"b": [
+					"turnin",
+					3128
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Feralas 45-47): the guide rides into Camp Mojache from the Rage Scar yetis in the north-west, past Jangdor Swiftstrider's hut first; the order went to Witch Doctor Uzer'i, across to Talo Thornhoof and back to Jangdor before the flight master (the flow audit: 150 yd over walking order)"
+			},
+			{
+				"a": [
+					"task",
+					82,
+					0
+				],
+				"b": [
+					"accept",
+					1560
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Tanaris 47-48): Tooga's escort ends with Torta in Steamwheedle Port, but the order put the Noxious Lair's insect parts between the escort and its hand-in, so a player rode from the port back west to the lair (33,44) and east again (about 3,000 yd each way). The seed has the lair before the Dunemaul Compound; the escort's end had no point, so the route search placed it at Tooga's spawn (the place record 1560 fixes that)"
+			},
+			{
+				"a": [
+					"accept",
+					5094
+				],
+				"b": [
+					"turnin",
+					2782
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Un'Goro 51-53, the Undercity stop): the flight lands at the bat master, and Harbinger Balthazad stands beside him; the order walked past him to Oran Snakewrithe in the Magic Quarter and came back for A Call to Arms. The seed takes Balthazad first"
+			},
+			{
+				"a": [
+					"turnin",
+					5152
+				],
+				"b": [
+					"accept",
+					4984
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Felwood & Western Plaguelands 53-55): the guide enters the Western Plaguelands from Tarren Mill at Sorrow Hill, where Marlene Redpath lives, but the order rode north to Mulgris at the Writhing Haunt and back south to Marlene before Andorhal; Marlene, then Mulgris on the way north"
+			},
+			{
+				"a": [
+					"turnin",
+					425
+				],
+				"b": [
+					"turnin",
+					842
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07), the zone-order study: Silverpine Forest's quests (level 10-17) fit 12-15 and the Barrens' first half 15-21; the old chain (Barrens 12-16, Silverpine 16-19, Barrens 19-23) ground 55-65 minutes to 19 in Silverpine and sent the Barrens twice. Silverpine comes first from every start (Tirisfal walks in; Durotar, Mulgore and Zephras Isle by Orgrimmar and the zeppelin): Ivar the Foul, Silverpine's last quest, before Far Watch Post."
+			},
+			{
+				"a": [
+					"turnin",
+					425
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07), the zone-order study: Silverpine Forest's quests (level 10-17) fit 12-15 and the Barrens' first half 15-21; the old chain (Barrens 12-16, Silverpine 16-19, Barrens 19-23) ground 55-65 minutes to 19 in Silverpine and sent the Barrens twice. Silverpine comes first from every start (Tirisfal walks in; Durotar, Mulgore and Zephras Isle by Orgrimmar and the zeppelin): Ivar the Foul before the Crossroads' first accepts."
+			},
+			{
+				"a": [
+					"turnin",
+					6629
+				],
+				"b": [
+					"turnin",
+					6541
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Barrens and Stonetalon's road (Seereth, the Webwinder Path, Windshear Crag) at 15-21 are one stay, then Kadrak and the first Ashenvale visit at 21."
+			},
+			{
+				"a": [
+					"turnin",
+					6543
+				],
+				"b": [
+					"accept",
+					493
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15."
+			},
+			{
+				"a": [
+					"turnin",
+					6543
+				],
+				"b": [
+					"accept",
+					516
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up."
+			},
+			{
+				"a": [
+					"turnin",
+					6543
+				],
+				"b": [
+					"accept",
+					95981
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22."
+			},
+			{
+				"a": [
+					"turnin",
+					98095
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26)."
+			},
+			{
+				"a": [
+					"turnin",
+					98095
+				],
+				"b": [
+					"accept",
+					879
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before the southern Barrens' level 23-27 quests (Betrayal from Within, Weapons of Choice, Gann Stonespire)."
+			},
+			{
+				"a": [
+					"turnin",
+					98095
+				],
+				"b": [
+					"accept",
+					893
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Weapons of Choice (level 24)."
+			},
+			{
+				"a": [
+					"turnin",
+					4921
+				],
+				"b": [
+					"accept",
+					1823
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Orgrimmar training trip comes after Agama'gor and Mankrik's hand-ins, by flight from the Crossroads at about 20: the level-20 class quests (Speak with Ruga, Call of Water, The Shattered Salute, Devourer of Souls, Shadowguard) are offered there; at the Boulder Lode Mine the walk was at 19 and the level model ground an hour for them."
+			},
+			{
+				"a": [
+					"turnin",
+					528
+				],
+				"b": [
+					"accept",
+					509
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Elixir of Agony (from level 24) is taken from Lydon on the Tarren Mill stop before Durnholde, where its Mudsnout Blossoms grow; Hillsbrad is entered at 22-23."
+			},
+			{
+				"a": [
+					"turnin",
+					501
+				],
+				"b": [
+					"accept",
+					567
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Dangerous! (level 28) is taken on the Tarren Mill stop before the peasants, where Farmer Kalaba works, not on arrival at 22."
+			},
+			{
+				"a": [
+					"turnin",
+					873
+				],
+				"b": [
+					"turnin",
+					6562
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Barrens and Sun Rock at 24-26, then Ashenvale's second visit from 26."
+			},
+			{
+				"a": [
+					"task",
+					868,
+					0
+				],
+				"b": [
+					"task",
+					1824,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after Jorn's thunderhawks south of Camp Taurajo at 21 and take them straight to Ruga; the antennae vanish 15 minutes after they drop."
+			},
+			{
+				"a": [
+					"task",
+					5052,
+					0
+				],
+				"b": [
+					"turnin",
+					899
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): from Agama'gor the walk goes north to Mankrik at the Crossroads and flies to Orgrimmar from there; the Blood Shard goes to Mangletooth on the Camp Taurajo stop after Hezrul, with Jorn's quests, instead of a Taurajo stop for it alone."
 			}
 		],
 		"notes": [
@@ -3259,18 +4480,6 @@
 			{
 				"a": [
 					"task",
-					2822
-				],
-				"b": [
-					"task",
-					3128,
-					2
-				],
-				"why": "Rev15H2 c15 read (Horde Feralas II): Natural Materials' third objective is worked 390 yd from the Feral Scar yetis of The Mark of Quality; done with them, so the Feralas II loop is one ride west (c14 B4, still open in c15)"
-			},
-			{
-				"a": [
-					"task",
 					3520
 				],
 				"b": [
@@ -3611,6 +4820,529 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): the Totem's Vial of Spider Venom (101) drops from the Pygmy Venom Web Spiders Eight-Legged Menaces (245) asks for and from the Venom Web Spiders and Green Recluses beside them at the Hushed Bank (10-15% each in the game's loot data); recorded players filled it there (players' recordings of quest 101: the venom ticks on kills of npc 539 and 217). The route sent the player back west from the Yorgen Farmstead to the Black Widow Hatchlings for it (05-duskwood 'Brightwood Grove' on 0.3.4, about 1,100 yd of the walk back to Darkshire)."
+			},
+			{
+				"a": [
+					"task",
+					5561
+				],
+				"b": [
+					"task",
+					1459,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Desolace 30-40, #1157): the Scorpashi Venom for Reagents for Reclaimers Inc. drops from the Scorpashi Lashers (npc 4697) that hunt around the Kodo Graveyard (24 spawns, centred on 57.3,57.2), at 50% in the game's loot data, as from the Snappers and Venomlashers; the route made it a stop of its own at Kormek's Hut after Smeed's turn-in and then went back to the graveyard for the last Aged Kodo Hides. Venom, hides and kodos are now one graveyard stop."
+			},
+			{
+				"a": [
+					"task",
+					691,
+					3
+				],
+				"b": [
+					"task",
+					691,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): Worth Its Weight in Gold is done in one visit to Witherbark Village, where the Shadow Hunter Knife drops. The route took the tusks and pouches first from the few Witherbark west of Refuge Pointe (9 trolls and 3 Witch Doctors in the spawn data, about 3 of the 10 tusks and 1 of the 4 pouches at the game's drop rates) and came back to the village for the knife; the village holds 96 Witherbark."
+			},
+			{
+				"a": [
+					"task",
+					691,
+					3
+				],
+				"b": [
+					"task",
+					691,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors (33%): 21 stand in Witherbark Village, where the Shadow Hunter Knife drops, against 3 west of Refuge Pointe."
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					1
+				],
+				"b": [
+					"task",
+					3128,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Natural Materials' Encrusted Minerals (sprite darters, 68,47.5) and Splintered Logs (a Wandering Forest Walker at 54,47) are gathered on the ride west out of Camp Mojache, one after the other"
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					3
+				],
+				"b": [
+					"task",
+					3128,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): the Resilient Sinew and the Metallic Fragments both drop from the Frayfeather hippogryphs and stagwings (80% each in the loot data), so they are one stay. Supersedes Rev15H2's 'sinew with the Feral Scar yetis': The Mark of Quality's yetis are now done in the previous guide"
+			},
+			{
+				"a": [
+					"task",
+					3443,
+					0
+				],
+				"b": [
+					"task",
+					7728,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): the Smithing Tuyere drops from the Dark Iron Steamsmiths at the furnaces, the same mobs as Forging the Shaft's Thorium Plated Daggers, so both are one stay; the order came back to the furnaces for the tuyere after the Slag Pit and the lookouts"
+			},
+			{
+				"a": [
+					"task",
+					212
+				],
+				"b": [
+					"task",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks."
+			},
+			{
+				"a": [
+					"task",
+					2821
+				],
+				"b": [
+					"task",
+					1452,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers (10-12%, about a dozen bears there) stay with the eastern loop's bear country."
+			},
+			{
+				"a": [
+					"task",
+					4421,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Cursed Ooze jar (4512) is filled in Jadefire Glen, where the Cursed Oozes slide (39-42,66-73) among the Jadefire Felsworn of The Corruption of the Jadefire; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5155,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Tainted Ooze jar (4512) is filled at Jaedenar, where the Tainted Oozes slide (34-44,45-60) among the Forces of Jaedenar; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					0
+				],
+				"b": [
+					"task",
+					5245,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the four Kel'Theril relic fragments (5245) lie 2-4 map percent apart by the frozen lake (50.9-55.1, 41.5-43.4): all four on the first pass after Starfall Village, as the seed has it, not one then and three on a later pass."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					2
+				],
+				"b": [
+					"task",
+					5245,
+					3
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the third and fourth Kel'Theril relic fragments are picked up together on the first pass by the lake."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					3
+				],
+				"b": [
+					"task",
+					5245,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the second Kel'Theril relic fragment, the westernmost, is the last of the four on the first pass, on the way west to Donova Snowden."
+			},
+			{
+				"a": [
+					"task",
+					5154
+				],
+				"b": [
+					"task",
+					4971
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Western Plaguelands, #1167): A Matter of Time's Temporal Parasites (4971) are drawn out at Andorhal's grain silos (45.1,62.3) on the visit for the Annals of Darrowshire (5154), as the seed has it; Chromie takes both together. The written guide came back to Andorhal from Mulgris on a later loop."
+			},
+			{
+				"a": [
+					"turnin",
+					8278
+				],
+				"b": [
+					"accept",
+					8282
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Silithus, #1167): Noggle's Lost Satchel (8282) is taken from Noggle Ficklespragg, who stands beside Beetix, right after Noggle's Last Hope (8278) is handed in, as the seed has it, not on the next Cenarion Hold stop."
+			},
+			{
+				"a": [
+					"task",
+					95065,
+					0
+				],
+				"b": [
+					"task",
+					95065,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Westfall's Stormwind stop): Fishin' Time's Shiny Bauble and Nightcrawlers are both bought from Catherine Leland, so both are one stop; the Nightcrawlers were bought in a stop of their own before Woo Ping and the walk came back to her for the bauble (02-westfall on 0.3.4, two 'buy 6530' lines)"
+			},
+			{
+				"a": [
+					"accept",
+					3367
+				],
+				"b": [
+					"task",
+					3367
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Suntara Stones is an escort that starts when Dorius Stonetender gives it; it is taken at the Grimesilt Dig Site right before the escort to Dustfire Valley, as the seed has it. The order took it at the first outhouse stop and left for Thorium Point, which fails the escort."
+			},
+			{
+				"a": [
+					"task",
+					125
+				],
+				"b": [
+					"task",
+					150
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in the lake among the south shore's Murloc Flesheaters and Tidecallers, which carry Murloc Poachers' fins (150) and Selling Fish's sunfish: fought there, with the chest, not on a second walk to the same shore after the Brutes."
+			},
+			{
+				"a": [
+					"task",
+					150
+				],
+				"b": [
+					"task",
+					127
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
+			},
+			{
+				"a": [
+					"turnin",
+					464
+				],
+				"b": [
+					"turnin",
+					98221
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): War Banners and From the Ashes are taken from Captain Stoutfist together on the first Menethil stop of 06-wetlands (players' recordings: both characters who took From the Ashes took it with War Banners) and handed in together on the last one, with Nek'rosh's Gambit taken there, instead of War Banners in, a walk east to the Angerfang Encampment for the plans and back to Menethil."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Claws from the Deep (279) and Spoils of War (98197) are handed in on 06-ashenvale's last Menethil stop with the other Wetlands hand-ins. The route walked back from Bluegill Marsh to Karl Boran for 279 alone and out east again (about 900 yd more than heading east from the marsh), and walked from the north gate back to Valstag Ironjaw in the keep for 98197 alone. The one recorded player who handed 279 and 98197 in did so on one stop."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					98197
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Spoils of War handed to Valstag Ironjaw with the other hand-ins on 06-ashenvale's last Menethil stop (see turnin 484 with turnin 279)."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					990
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Sentinel Selarin's Trek to Ashenvale is offered once Volcor's escort is handed in to Terenthis beside her, on 06-wetlands' Auberdine stop; Raene takes it on the Astranaar stop that follows."
+			},
+			{
+				"a": [
+					"turnin",
+					1046
+				],
+				"b": [
+					"turnin",
+					1035
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): One Astranaar stop at the end of the Ashenvale trip: Raene, Maliynn and Pelturas (see turnin 1031 before turnin 1046)."
+			},
+			{
+				"a": [
+					"turnin",
+					294
+				],
+				"b": [
+					"accept",
+					295
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Ormer's Revenge (295, min level 22) is taken from Ormer when the first one is handed in at about 23.5, so the dig stop is not for one hand-in; its bigger raptors, in the valley beside the dig, are killed on 06-wetlands' visit at about 27."
+			},
+			{
+				"a": [
+					"turnin",
+					219
+				],
+				"b": [
+					"turnin",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): From Stonewatch Keep the route goes back west along the lake to Render's Valley and walks Corporal Keeshan down to Lakeshire, then hands in every Redridge quest on that one stop (Chef Breanna, the town hall, Marris and Oslow at the bridge, Guard Howe by the gryphons), instead of a Lakeshire stop, Render's Valley and a second stop for Keeshan and the Champions."
+			},
+			{
+				"a": [
+					"turnin",
+					973
+				],
+				"b": [
+					"accept",
+					1140
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): The Tower of Althalaxx (1140, min level 13) is offered by Delgren when The Tower of Althalaxx before it (973) is handed in (a recorded player took it then): taken on 06-ashenvale's Maestra's Post stop, so 06-wetlands' Ashenvale trip goes from Melyria straight east to Shael'dryn instead of north to Maestra's Post for the accept and back (about 640 yd), and visits Delgren once, to hand it in."
+			},
+			{
+				"a": [
+					"turnin",
+					2983
+				],
+				"b": [
+					"accept",
+					1524
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): Kranal Fiss offers the next Call of Fire (1524, min level 10) as 2983 is handed in; the order handed in 2983 alone at 10 and came back to him from the Crossroads"
+			},
+			{
+				"a": [
+					"task",
+					835,
+					0
+				],
+				"b": [
+					"task",
+					1525,
+					1
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): the Reagent Pouch drops from the Burning Blade Cultists at Dustwind Cave, the south end of Drygulch Ravine, where Rezlak's Savages and Storm Witches are killed"
+			},
+			{
+				"a": [
+					"accept",
+					843
+				],
+				"b": [
+					"accept",
+					98093
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): Sulhasa sits in the tree just east of Gann Stonespire; Field to Clear is taken on Gann's first visit"
+			},
+			{
+				"a": [
+					"turnin",
+					441
+				],
+				"b": [
+					"accept",
+					97891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Hillsbrad 26, #1175): Alessandro Luca (Undercity 58.6,54.7) stands on the way from Raleigh to the Apothecarium, where Doctor Martin Felben (46.6,74.1) stands beside Faranell: Prompt Potion Runner is taken and handed in on this Undercity visit, not on one thirty levels later"
+			},
+			{
+				"a": [
+					"task",
+					571,
+					0
+				],
+				"b": [
+					"task",
+					349,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): the Aged Gorilla Sinew drops from the Elder Mistvale Gorillas, the gorillas whose fangs Witch Doctor Unbagwa wants (349), so the sinew is gathered on the same kills; the order listed it with the Bloodsail work on the Wild Shore, south of Booty Bay, while the gorillas live in Mistvale Valley to the north"
+			},
+			{
+				"a": [
+					"task",
+					699,
+					0
+				],
+				"b": [
+					"task",
+					1430,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Swamp of Sorrows 45-47): the Sawtooth Snappers and the Monstrous Crawlers share the strand of the east coast down to Misty Reed Post, so Lack of Surplus and Fresh Meat are one stay; the guide listed the claws along the way from the Pool of Tears instead of on the coast step"
+			},
+			{
+				"a": [
+					"accept",
+					6442
+				],
+				"b": [
+					"accept",
+					6462
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Troll Charm is taken from Mitsuwa on the first Zoram'gar stop (21) and Thistlefur Hold is done from there, with Between a Rock and a Thistlefur and Freedom to Ruul; the old chain took it at 23 and carried it through Stonetalon and Hillsbrad to the 27 visit."
+			},
+			{
+				"a": [
+					"accept",
+					6442
+				],
+				"b": [
+					"accept",
+					216
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Between a Rock and a Thistlefur is taken from Karang Amakkar on the first Zoram'gar stop (21), Thistlefur Village on the walk to the hold."
+			},
+			{
+				"a": [
+					"turnin",
+					6462
+				],
+				"b": [
+					"accept",
+					6641
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Muglash's escort (Vorsha the Lasher, level 23) is taken on the Zoram'gar stop after Thistlefur at 21-22; the naga brazier is on the strand just north of the outpost, so the second visit at 26 no longer starts with it."
+			},
+			{
+				"a": [
+					"turnin",
+					97891
+				],
+				"b": [
+					"turnin",
+					1359
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Doctor Martin Felben and Apothecary Zinge stand beside Master Apothecary Faranell in the Apothecarium, on the Undercity stop at the end of the Silverpine stay."
+			},
+			{
+				"a": [
+					"turnin",
+					902
+				],
+				"b": [
+					"accept",
+					1483
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Ziz Fizziks is taken from Sputtervalve when Samophlange is handed to him; Ziz is on the Webwinder Path at the end of the same Barrens stay."
+			},
+			{
+				"a": [
+					"turnin",
+					848
+				],
+				"b": [
+					"accept",
+					6541
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Report to Kadrak is taken from Thork on the Crossroads stop at 17 that the walk makes anyway; Kadrak is the next guide's first stop."
+			},
+			{
+				"a": [
+					"turnin",
+					848
+				],
+				"b": [
+					"accept",
+					868
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Egg Hunt is taken from Korran on the Crossroads stop at 17; its eggs lie in the Field of Giants beside Jorn's thunderhawks, and Korran takes them on the last Crossroads stop of the same stay."
+			},
+			{
+				"a": [
+					"turnin",
+					913
+				],
+				"b": [
+					"task",
+					868,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle."
 			}
 		],
 		"after": [
@@ -3819,6 +5551,20 @@
 					0
 				],
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
+			},
+			{
+				"a": [
+					"task",
+					3881,
+					0
+				],
+				"b": [
+					"task",
+					4287,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's second loop goes clockwise, as the seed has it: from A-Me 01 on Ironstone Plateau south down the east side (the Crate of Foodstuffs, the Eastern Pylon), the Gorishi hive in the south, the south-west bones and equipment, the Western Pylon, then north to the refuge. The order crossed the crater from the north-east to the south-west and back east."
 			}
 		],
 		"stay": [
@@ -3932,42 +5678,35 @@
 					"turnin",
 					306
 				],
-				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					484
 				],
-				"why": "#617 Ioney: Menethil hand-in 484 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 484 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					470
 				],
-				"why": "#617 Ioney: Menethil hand-in 470 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 470 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"turnin",
 					98282
 				],
-				"why": "#617 Ioney: Menethil hand-in 98282 stays after the hearth, before the grind to 28"
+				"why": "#617 Ioney: Menethil hand-in 98282 stays after the hearth (they count before Pilot Longbeard's level 28, now in 06-wetlands)"
 			},
 			{
 				"s": [
 					"accept",
 					1179
 				],
-				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers stays after the grind to 28"
-			},
-			{
-				"s": [
-					"task",
-					903
-				],
-				"why": "r7b read (Orc): Prowler Claws on v1's road past the prowlers"
+				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers (level 28) stays at the Ironforge stop of 06-wetlands, after the Wetlands and Ashenvale quests that reach 28"
 			},
 			{
 				"s": [
@@ -4168,6 +5907,26 @@
 			{
 				"q": 712,
 				"why": "Rev15H2 c15 read: Study of the Elements: Rock needs bracers from the Greater Rock Elementals (42-44, one kill in five) at about 38; v1 marks it optional, c15 counted it"
+			},
+			{
+				"q": 3786,
+				"why": "Final route review (2026-11-07, Horde Winterspring 55-56): Morrowgrain Research wants ten Morrowgrain; the Evergreen Pouch takes a Tharlendis seed packet and two Un'Goro Soil a try, has a ten-minute cooldown and only sometimes gives Morrowgrain (Forever's quest notes), and the route gathers 25 soil, all spent on Un'Goro Soil and Bungle in the Jungle. The guide accepted, completed and handed it in on one Thunder Bluff step, which no player can do; optional as on the Alliance side (3785)"
+			},
+			{
+				"q": 3804,
+				"why": "Final route review (2026-11-07, Horde Winterspring 55-56): Morrowgrain to Thunder Bluff, the repeatable ten-Morrowgrain hand-in after Morrowgrain Research (3786); optional with it, as on the Alliance side (3803)"
+			},
+			{
+				"q": 624,
+				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): Cortello's Riddle starts from a scroll on the Bloodsail ships off the Wild Shore, crewed by pirates of 42-45, at the route's level 41; optional with a warning, and its later parts (625, 626) only for players who have it"
+			},
+			{
+				"q": 625,
+				"why": "Final route review (2026-11-07, Horde 40-50): Cortello's Riddle part 625, after the optional first part (624, from the Bloodsail ships): optional with it, its steps gated on having the part before"
+			},
+			{
+				"q": 626,
+				"why": "Final route review (2026-11-07, Horde 40-50): Cortello's Riddle part 626, after the optional first part (624, from the Bloodsail ships): optional with it, its steps gated on having the part before"
 			}
 		],
 		"group": [
@@ -4220,6 +5979,11 @@
 				"q": 5056,
 				"size": 2,
 				"why": "Shy-Rotam: the summoned Shy-Rotam (level 60, rank 1 in Forever's creature data) at the quest's level, which reads as soloable; a group quest (Winterspring 58-59)"
+			},
+			{
+				"q": 98310,
+				"size": 2,
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Gleaning Our Future's four hearts drop only from Golm, Ados, Neru and Modr, level-32 rank-1 creatures in Forever's data that the Goaz Stones call up, at the route's 30-31; no recorded character has done it. An elite at the quest's level is a group quest: a group of 2, like Defeat Nek'rosh, with the route's solo fallback (the top-up for skipped group quests)."
 			}
 		]
 	},
@@ -4317,9 +6081,424 @@
 				],
 				"reason": "#1046 (stand next to it): Coleman Farthing offers Speak with Sevren the moment Deaths in the Family is handed in to him in Brill's inn, and Magistrate Sevren takes it in the town hall 40 yd away on the same stop; 10 of the players in the recordings took it off the guide",
 				"issue": "#1046"
+			},
+			{
+				"issue": "#1052",
+				"q": 180,
+				"reason": "WANTED: Lieutenant Fangore on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 95999,
+				"reason": "WANTED: Incinerator Gar'im (Forever) on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): a 23 elite in the cave south of the Blackrock camps; finished at 21-23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 34,
+				"reason": "An Unwelcome Guest: Bellygrub (24) in his pen beside Martie Jainrose's garden, killed on the way to her first visit (Redridge is entered at about 24.5 since the 2026-11-07 Alliance 20-30 re-order), and handed in there. Redridge level gap (Discord report, PR #1052)."
+			},
+			{
+				"after": [
+					"turnin",
+					94
+				],
+				"issue": "#1052",
+				"q": 248,
+				"reason": "Looking Further: the statue's follow-up, handed in at the watch tower beside Stonewatch Keep on the way back west from Galardell. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 94,
+				"reason": "A Watchful Eye (Theocritus, on the Elwynn road the route walks): handed in at the Old Lion Statue in Galardell Valley after the Blackrock camps. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"issue": "#1052",
+				"q": 169,
+				"reason": "Wanted: Gath'Ilzogg on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): Gath'Ilzogg is a 26 elite; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"after": [
+					"task",
+					20
+				],
+				"issue": "#1052",
+				"q": 98387,
+				"reason": "Blackrock Blockade (Forever, Marshal Marris, 1,650 XP): its weapons and supplies lie in the Blackrock camps east of Stonewatch Keep, the same camps as Blackrock Menace's Battleworn Axes; a Human Priest finished it in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"after": [
+					"task",
+					98387
+				],
+				"issue": "#1052",
+				"q": 91,
+				"reason": "Solomon's Law in Galardell Valley after the Blackrock camps (Redridge is entered at about 24.5 since the 2026-11-07 Alliance 20-30 re-order): the gnolls (median 24) are then within two levels (#977's rule). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"q": 445,
+				"reason": "Flow coverage, 2026-11-07: Delivery to Silverpine Forest (level 10, from 9) is offered by Apothecary Johaan, whom the 01-tirisfal-glades visit already passes; recorded players take it (12 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out. Handed in at the Sepulcher on the Silverpine visit.",
+				"issue": "-"
+			},
+			{
+				"q": 422,
+				"reason": "Flow coverage, 2026-11-07: Arugal's Folly (level 11, from 9) is offered by Dalar Dawnweaver, whom the 03-silverpine-forest visit already passes; recorded players take it (7 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out. Grey at Silverpine's 16-19 but it opens Arugal's Folly 423/424 (level 14-15).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					421
+				]
+			},
+			{
+				"q": 4021,
+				"reason": "Flow coverage, 2026-11-07: Counterattack! (level 20, from 11) is offered by Regthar Deathgate, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					852
+				]
+			},
+			{
+				"q": 99152,
+				"reason": "Quest volume, 2026-11-07: As Above, So Below (level 10) from Hilda the Breaker beside Leonid: every class takes it once A Righteous Cause is handed in, and the Shadowvale cellar it sends you to is the route's next stop; 16 people took and handed it in. It was optional.",
+				"issue": "-"
+			},
+			{
+				"q": 99153,
+				"reason": "Quest volume, 2026-11-07: The One That Got Away (level 10) from Ephram Barbaro beside Leonid, done in the same Shadowvale cellar; 15 people took and handed it in. It was optional.",
+				"issue": "-"
+			},
+			{
+				"q": 494,
+				"reason": "Quest volume, 2026-11-07: Time To Strike (level 20) from Deathstalker Lesh at Southpoint Tower, on the road into Hillsbrad, to Darthalia in Tarren Mill, the first stop there; 9 people took it. It was optional.",
+				"issue": "-"
+			},
+			{
+				"q": 6281,
+				"after": [
+					"turnin",
+					6181
+				],
+				"reason": "Quest volume, 2026-11-07: Continue to Stormwind (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thor gives it with the flight to Stormwind when A Swift Message is handed in on the first Sentinel Hill stop (Humans). Recordings: offered to 14 characters, 12 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6261,
+				"after": [
+					"turnin",
+					6281
+				],
+				"reason": "Quest volume, 2026-11-07: Dungar Longdrink (level 10, from 10, 210 XP) is taken on a visit the route already makes: Osric Strang in Old Town, on that Stormwind errand (Humans). Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6285,
+				"after": [
+					"turnin",
+					6261
+				],
+				"reason": "Quest volume, 2026-11-07: Return to Lewis (level 10, from 10, 1050 XP) is taken on a visit the route already makes: Dungar Longdrink, the Stormwind gryphon master, on the same errand; Quartermaster Lewis is where the flight back lands (Humans). Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97894,
+				"reason": "Quest volume, 2026-11-07: Business in Auberdine (level 17, from 13, 0 XP) is taken on a visit the route already makes: Borgus Steelhand in the Dwarven District, on the Stormwind visit before the boat; his brother Gorbold stands in Auberdine on the first stop. Recordings: offered to 6 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1097,
+				"reason": "Quest volume, 2026-11-07: Elmore's Task (level 15, from 9, 105 XP) is taken on a visit the route already makes: Smith Argus in Goldshire, on the last Goldshire stop; Grimand Elmore takes it on the Stormwind visit at the end of Westfall. Recordings: offered to 25 characters, 19 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 399,
+				"reason": "Quest volume, 2026-11-07: Humble Beginnings (level 15, from 10, 1050 XP) is taken on a visit the route already makes: Baros Alexston in Cathedral Square, on the walk from Stormwind Keep to the gate; the compass is at the Alexston Farmstead on Westfall's west loop, the hand-in on the Stormwind visit before the boat. Recordings: offered to 23 characters, 14 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97220,
+				"reason": "Quest volume, 2026-11-07: Philmor's Favor (level 15, from 9, 550 XP) is taken on a visit the route already makes: Manifest Clerk Philmor stands on the harbour where the boat docks; Elaine Trias' cheese shop is beside the flight master the walk goes to next. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97222,
+				"after": [
+					"turnin",
+					97220
+				],
+				"reason": "Quest volume, 2026-11-07: Gatehouse Goods (level 15, from 9, 800 XP) is taken on a visit the route already makes: Elaine Trias gives it on the same stop; the door is up the stairs of her shop. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 490,
+				"reason": "Quest volume, 2026-11-07: Bounty: Gnarlpine Furbolg (level 8, from 5, 700 XP) is taken on a visit the route already makes: Sentinel Shayla Nightbreeze stands on the road to the Darnassus gate, which the west loop walks; every Gnarlpine furbolg of the barrow and Gnarlpine Hold drops the fangs, and she is passed again on the way to the city. Recordings: offered to 12 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 923,
+				"after": [
+					"turnin",
+					922
+				],
+				"reason": "Quest volume, 2026-11-07: Tumors (level 9, from 4, 980 XP) is taken on a visit the route already makes: Rellian Greenspyre gives it when Denalan's letter (922) is handed in on the early Darnassus visit of the west loop; the timberlings drop the tumors on the walk into the Oracle Glade. Recordings: offered to 16 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2519,
+				"reason": "Quest volume, 2026-11-07: The Temple of the Moon (level 10, from 5, 85 XP) is taken on a visit the route already makes: Sister Aquinne in Darnassus, on the early city visit of the west loop (The Sisterhood of Elune is handed to her there). Recordings: offered to 15 characters, 13 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2518,
+				"after": [
+					"turnin",
+					2519
+				],
+				"reason": "Quest volume, 2026-11-07: Tears of the Moon (level 12, from 5, 1150 XP) is taken on a visit the route already makes: Priestess A'moora, beside Aquinne's errand on the early Darnassus visit; Lady Sathrah lurks just north of the Oracle Glade loop. Recordings: offered to 12 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2520,
+				"after": [
+					"turnin",
+					2518
+				],
+				"reason": "Quest volume, 2026-11-07: Sathrah's Sacrifice (level 12, from 5, 910 XP) is taken on a visit the route already makes: Priestess A'moora on the last Darnassus visit; the fountain is inside her temple. Recordings: offered to 6 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 98067,
+				"reason": "Quest volume, 2026-11-07: Eyes of the Sentinels (level 11, from 1, 660 XP) is taken on a visit the route already makes: Sentinel Dalia Sunblade in the Temple of the Moon on the early Darnassus visit; the four owl spots are on the city walks. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 938,
+				"reason": "Quest volume, 2026-11-07: Mist (level 12, from 7, 910 XP) is taken on a visit the route already makes: Mist lies by the Oracle Glade's west wall among the harpies the loop kills; Sentinel Arynia takes her at the moonwell. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 414,
+				"after": [
+					"turnin",
+					413
+				],
+				"reason": "Quest volume, 2026-11-07: Stout to Kadrell (level 10, from 8, 630 XP) is taken on a visit the route already makes: Mountaineer Barleybrew gives it when Shimmer Stout is handed in at the South Gate Outpost; Kadrell stands in Thelsamar, where the Loch Modan loop goes. Recordings: offered to 13 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 224,
+				"reason": "Quest volume, 2026-11-07: In Defense of the King's Lands (level 12, from 10, 910 XP) is taken on a visit the route already makes: Mountaineer Cobbleflint at the dwarven post just past the Loch Modan tunnel; the troggs camp north of it. Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 267,
+				"reason": "Quest volume, 2026-11-07: The Trogg Threat (level 12, from 10, 910 XP) is taken on a visit the route already makes: Captain Rugelfuss beside Cobbleflint at the tunnel post; the same troggs drop the teeth. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 416,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Rat Catching (level 11, from 10, 880 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; the Tunnel Rat kobolds dig in the west hills on the way to the Algaz Station. Recordings: offered to 14 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 418,
+				"reason": "Quest volume, 2026-11-07: Thelsamar Blood Sausages (level 11, from 7, 880 XP) is taken on a visit the route already makes: Vidra Hearthstove in Thelsamar; the boars, bears and lurkers roam the west hills of the same loop. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1339,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Mountaineer Stormpike's Task (level 15, from 9, 540 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; Mountaineer Stormpike stands at the Algaz Station at the north end of the loop. Recordings: offered to 15 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 307,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Filthy Paws (level 15, from 9, 1350 XP) is taken on a visit the route already makes: Mountaineer Stormpike at the Algaz Station; the crates are in the Silver Stream Mine beside it. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1338,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Stormpike's Order (level 14, from 9, 980 XP) is taken on a visit the route already makes: Mountaineer Stormpike; Furen Longbeard stands in Stormwind's Dwarven District, just outside the tram the route takes. Recordings: offered to 9 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6387,
+				"reason": "Quest volume, 2026-11-07: Honor Students (level 10, from 10, 210 XP) is taken on a visit the route already makes: Brock Stoneseeker in Thelsamar; Thorgrum Borrelson, the gryphon master, is on the same stop. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6391,
+				"after": [
+					"turnin",
+					6387
+				],
+				"reason": "Quest volume, 2026-11-07: Ride to Ironforge (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thorgrum Borrelson in Thelsamar; Golnir Bouldertoe is in Ironforge, where the loop flies to. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6388,
+				"after": [
+					"turnin",
+					6391
+				],
+				"reason": "Quest volume, 2026-11-07: Gryth Thurden (level 10, from 10, 210 XP) is taken on a visit the route already makes: Golnir Bouldertoe in Ironforge; Gryth Thurden is the gryphon master the flight lands at. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6661,
+				"reason": "Quest volume, 2026-11-07: Deeprun Rat Roundup (level 12, from 10, 910 XP) is taken on a visit the route already makes: Monty on the Ironforge platform of the Deeprun Tram, which the route rides to Stormwind. Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6662,
+				"after": [
+					"turnin",
+					6661
+				],
+				"reason": "Quest volume, 2026-11-07: Me Brother, Nipsy (level 12, from 10, 90 XP) is taken on a visit the route already makes: Monty; his brother Nipsy waits on the Stormwind platform of the same ride. Recordings: offered to 3 characters, 3 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 163,
+				"reason": "Quest volume, 2026-11-07: Raven Hill (level 20, from 17, 390 XP) is taken on a visit the route already makes: Elaine Carevin in Darkshire, on the first Darkshire stop; Jitters hides at Raven Hill, which Duskwood's first loop passes. Recordings: offered to 7 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 5,
+				"after": [
+					"turnin",
+					163
+				],
+				"reason": "Quest volume, 2026-11-07: Jitters' Growling Gut (level 20, from 17, 390 XP) is taken on a visit the route already makes: Jitters at Raven Hill; Chef Grual is in Darkshire's tavern, where the loop comes back. Recordings: offered to 5 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 469,
+				"reason": "Quest volume, 2026-11-07: Daily Delivery (level 21, from 18, 830 XP) is taken on a visit the route already makes: Einar Stonegrip stands by the road just north of Howin Kindfeather, whom the Wetlands loop visits; James Halloran is on the Menethil stop that follows. Recordings: offered to 1 characters, 0 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 632,
+				"after": [
+					"turnin",
+					631
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Ebenezer Rustlocke's corpse, where The Thandol Span (631) is handed in; Rhag Garmason stands in Dun Modr on the road back south.",
+				"issue": "-"
+			},
+			{
+				"q": 633,
+				"after": [
+					"turnin",
+					632
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Rhag Garmason in Dun Modr; the cache is at the Arathi end of the span, beside Foggy MacKreel, whom the route visits.",
+				"issue": "-"
+			},
+			{
+				"q": 634,
+				"after": [
+					"turnin",
+					633
+				],
+				"reason": "Quest volume, 2026-11-07: Plea to the Alliance (level 31, from 28, 1250 XP) is taken on a visit the route already makes: Rhag Garmason on the walk back south through Dun Modr; Captain Nials takes it at Refuge Pointe in the Arathi guide.",
+				"issue": "-"
+			},
+			{
+				"q": 1319,
+				"after": [
+					"turnin",
+					1253
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 275 XP) is taken on a visit the route already makes: Captain Garran Vimes gives it when The Black Shield (1253) is handed in on the Theramore stop; Caz Twosprocket is in the same town.",
+				"issue": "-"
+			},
+			{
+				"q": 1320,
+				"after": [
+					"turnin",
+					1319
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 1350 XP) is taken on a visit the route already makes: Caz Twosprocket in Theramore; it goes back to Vimes on the same stop.",
+				"issue": "-"
+			},
+			{
+				"q": 2662,
+				"after": [
+					"turnin",
+					2661
+				],
+				"reason": "Quest volume, 2026-11-07: Noggenfogger Elixir (level 49, from 44, 0 XP) is taken on a visit the route already makes: Marin Noggenfogger gives it when Delivery for Marin is handed in on the Gadgetzan stop; it is handed in to him after a short wait.",
+				"issue": "-"
+			},
+			{
+				"q": 6548,
+				"reason": "Flow coverage, 2026-11-07: Avenge My Village (level 18, from 12) from Makaba Flathoof on the road into Stonetalon at 20-21 in 02-the-barrens (Horde 12-30 re-chain (2026-11-07)), where Seereth's camp, the Grimtotem camp, Grundig's bend and the Webwinder spiders lie on the walk to Ziz Fizziks and Windshear Crag; their mobs are level 17-20 there, not 24 as on the old chain's Stonetalon visit. Solo in Forever's quest data.",
+				"issue": "-"
+			},
+			{
+				"q": 6629,
+				"reason": "Flow coverage, 2026-11-07: Kill Grundig Darkcloud (level 18, from 12) from Makaba Flathoof on the road into Stonetalon at 20-21 in 02-the-barrens (Horde 12-30 re-chain (2026-11-07)), where Seereth's camp, the Grimtotem camp, Grundig's bend and the Webwinder spiders lie on the walk to Ziz Fizziks and Windshear Crag; their mobs are level 17-20 there, not 24 as on the old chain's Stonetalon visit. Solo in Forever's quest data.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6548
+				]
+			},
+			{
+				"q": 1062,
+				"reason": "Flow coverage, 2026-11-07: Goblin Invaders (level 19, from 13) from Seereth Stonebreak on the road into Stonetalon at 20-21 in 02-the-barrens (Horde 12-30 re-chain (2026-11-07)), where Seereth's camp, the Grimtotem camp, Grundig's bend and the Webwinder spiders lie on the walk to Ziz Fizziks and Windshear Crag; their mobs are level 17-20 there, not 24 as on the old chain's Stonetalon visit. Solo in Forever's quest data.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1061
+				]
+			},
+			{
+				"q": 6461,
+				"reason": "Flow coverage, 2026-11-07: Blood Feeders (level 19, from 13) from Xen'Zilla at Malaka'jin on the road into Stonetalon at 20-21 in 02-the-barrens (Horde 12-30 re-chain (2026-11-07)), where Seereth's camp, the Grimtotem camp, Grundig's bend and the Webwinder spiders lie on the walk to Ziz Fizziks and Windshear Crag; their mobs are level 17-20 there, not 24 as on the old chain's Stonetalon visit. Solo in Forever's quest data.",
+				"issue": "-"
+			},
+			{
+				"q": 1359,
+				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel at the Sepulcher, and Apothecary Zinge stands in the Undercity's Apothecarium, which the Silverpine stay passes at its end (Horde 12-30 re-chain (2026-11-07)); recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					3221
+				]
+			},
+			{
+				"q": 1358,
+				"reason": "Flow coverage, 2026-11-07: Sample for Helbrim (level 15, from 10) is offered by Apothecary Zinge when Zinge's Delivery is handed in; Helbrim stands at the Crossroads, the Barrens stay's first stop; recorded players take it (6 accepts, 5 hand-ins). Solo in Forever's quest data.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1359
+				]
 			}
 		],
 		"skip": [
+			{
+				"q": 98240,
+				"faction": "Alliance",
+				"reason": "#1134: James Halloran offers Crimson Crate Delivery only once Crocs of the Sky (98072, after Apprentice's Duties 471 and Young Crocolisk Skins 484) is handed in. Players' recordings: refused to 3 characters at 24-28 who had not done 98072, and never offered to anyone. The route hands in 98072 at Menethil on its way to the Southshore boat, after its only visit to Howin Kindfeather (Wetlands, 49,42), who takes the crate, so taking it would cost a walk back east for 1,200 XP. Left out; it was taken on the first Menethil stop, where nobody can be offered it",
+				"issue": 1134
+			},
 			{
 				"q": 5635,
 				"reason": "#844: Desperate Prayer is a Dwarf priest quest in Forever (race mask Dwarf, letters name High Priest Rohan in Ironforge); Priestess Josetta never offered it to Human priests in players' recordings (levels 5-10) or to the reporter at 12. Humans take Divine Grace (94774) from her instead",
@@ -4453,36 +6632,6 @@
 				"issue": ""
 			},
 			{
-				"q": 180,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): WANTED: Lieutenant Fangore. Fangore is 26 and Galardell Valley's Shadowhide gnolls a median 24 where the route takes it at 21.5 (c19r Human order[418]; the model grinds 1.55 levels inside that task, which no guide writes); the route never comes back to Galardell at a level that fits. 2,650 XP, about 0.1 level at 23: no later task stops fitting without it. The writer's level fit leaves it out on its own; this lets the route search plan the levels without it",
-				"issue": 977
-			},
-			{
-				"q": 91,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): Solomon's Law's Shadowhide Pendants drop in Galardell Valley, whose gnolls are a median 24 (22-26) at the route's 21.3 (c19r Human order[415]); no later visit fits. 1,850 XP",
-				"issue": 977
-			},
-			{
-				"q": 34,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): An Unwelcome Guest's Bellygrub is 24 at the route's 20.3 (c19r Human order[402]); the route is never back by his pen and Martie Jainrose at a level that fits. 1,950 XP",
-				"issue": 977
-			},
-			{
-				"q": 94,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): A Watchful Eye is handed in at the Old Lion Statue, which stands among Galardell Valley's Shadowhide gnolls (median 25 within 100 yd) at the route's 21.4 (c19r Human order[416]). The writer's level fit judges quest work, not hand-ins, so this record holds it out. 1,250 XP",
-				"issue": 977
-			},
-			{
-				"q": 248,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): Looking Further is taken at the Old Lion Statue in Galardell Valley (gnolls a median 25 at 21.4) after A Watchful Eye (94), which this file skips. 1,300 XP",
-				"issue": 977
-			},
-			{
 				"q": 1175,
 				"reason": "Level fit (#977): A Bump in the Road's Saltstone Gazers are 34-35 and its ground a median 34 at the route's 30.2-30.4 (c19r Human order and Orc order, Mirage Raceway); no later visit. 2,650 XP. The writer's level fit leaves it out on its own",
 				"issue": 977
@@ -4514,6 +6663,85 @@
 				"faction": "Horde",
 				"reason": "Level fit (#977): Invader's Scourgestones (optional) drop from Eastern Plaguelands Scourge of 57 (ground a median 58) at the route's 52.4 (c19r Orc order, 50-60/01-un-goro-crater); no later visit fits while it pays full XP. The writer's level fit leaves it out on its own",
 				"issue": 977
+			},
+			{
+				"q": 343,
+				"faction": "Alliance",
+				"reason": "Flow (2026-11-07, Alliance 20-30): Speaking of Fortitude (195 XP) sent the player from the Cathedral Square into Stormwind Keep's Royal Library and back out for one hand-in on the Stormwind stop at the end of 06-ashenvale; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 19,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Tharil'zun only after Blackrock Menace (20) is handed in, with Blackrock Blockade (98387) taken (the data's preAll: 20 and 98387; players' recordings: refused in all eleven windows from six characters at 18-22 before 20 was handed in, and in two more after it while 98387 was not yet taken; offered at 23 with 20 handed in and 98387 in the log). The route hands 20 in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 115,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Shadow Magic only once Blackrock Menace (20) and Blackrock Blockade (98387) are handed in (the data's preAll; players' recordings: refused in every recorded window before then). The route hands them in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 1106,
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Fizzle Brassbolts offers Martek the Exiled only once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: 1104 and 1105 share an all-of exclusive group; the one recorded player who took it had handed in both). Hardened Shells is left out for the level (#977), so 1106 cannot be offered on either side's route; left out with its sequels.",
+				"issue": "-"
+			},
+			{
+				"q": 1108,
+				"reason": "Follows Martek the Exiled (1106), left out (see its skip).",
+				"issue": "-"
+			},
+			{
+				"q": 1137,
+				"reason": "Follows Indurium (1108), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1190,
+				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 79536,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
+				"issue": "-"
+			},
+			{
+				"q": 25,
+				"faction": "Horde",
+				"reason": "Horde 12-30 re-chain (2026-11-07): Stonetalon Standstill (level 25, from 23): Mastok in Splintertree offers it from 23, after the first Ashenvale visit (21), and the second visit passes Mystral Lake before Splintertree; it would ride from one visit to the other or need a walk back to the lake. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 6384,
+				"faction": "Horde",
+				"reason": "Horde 12-30 re-chain (2026-11-07): Ride to Orgrimmar (level 10): with Silverpine Forest first, Orcs and Trolls reach the Crossroads at 15 and Orgrimmar again only at 20, where Gryshka would take it grey; they have Orgrimmar's flight path from the Silverpine guide. Doras's errand (6385, 6386) goes with it.",
+				"issue": "-"
+			},
+			{
+				"q": 3301,
+				"faction": "Horde",
+				"reason": "Horde 12-30 re-chain (2026-11-07): Mura Runetotem (level 15), a delivery from Tonga at the Crossroads to the Sepulcher: the route goes from the Crossroads to the Sepulcher only at 22, on the ride to Hillsbrad, where it is grey.",
+				"issue": "-"
+			},
+			{
+				"q": 1094,
+				"faction": "Horde",
+				"reason": "Horde 12-30 re-chain (2026-11-07): Further Instructions (level 21, 830 XP), from Ziz Fizziks on the Webwinder Path at the end of the Barrens stay to Sputtervalve in Ratchet: the route is next in Ratchet at 25, where it would be a hand-in on a stop of its own after riding through Ashenvale, Silverpine and Hillsbrad.",
+				"issue": "-"
+			},
+			{
+				"q": 443,
+				"faction": "Horde",
+				"reason": "Horde 12-30 re-chain (2026-11-07): Rot Hide Ichor (level 17): Silverpine is done at 12-15 now, and the Rot Hide gnolls of Fenris Isle are 15-17 (Fenris Keep 18-22), three to five levels above the player; the walk goes south along the lake shore to Ambermill instead. Resting in Pieces and The Hidden Niche (460, 461, optional, on the island) go with it.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -5705,19 +7933,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					97926
-				],
-				"b": [
-					"accept",
-					5321
-				],
-				"faction": "Alliance",
-				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort.",
-				"source": "#920"
-			},
-			{
-				"a": [
 					"task",
 					527
 				],
@@ -5728,6 +7943,19 @@
 				"faction": "Horde",
 				"why": "#1123 (Rohkin): Mountain Lion Blood (501, 10 from the Starving Mountain Lions, few and contested) was its own stop on the way down to Hillsbrad Fields; the lions stand between the fields and Tarren Mill, so the blood is collected after the farmers of Battle of Hillsbrad (527), on the walk back to Tarren Mill where both are handed in. 06-hillsbrad-foothills 'Mountain Lion Blood' after 'Hillsbrad Fields'",
 				"source": "#1123"
+			},
+			{
+				"a": [
+					"task",
+					529
+				],
+				"b": [
+					"turnin",
+					98095
+				],
+				"faction": "Horde",
+				"why": "#1150 (Konky88), #1051 (soockee): Valuable Vantages (98095) was handed back to Deathstalker Masoj right after it was taken: the data had no objectives. Its three vials go on peaks across the zone (the southern one by Masoj, the western one in Alterac north of Hillsbrad town, the northern one south-east of Tarren Mill), so it is handed in on a return to Masoj after the Hillsbrad town work (529) and the Tarren Mill stop, not at the accept",
+				"source": "#1150"
 			},
 			{
 				"a": [
@@ -6294,54 +8522,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					516
-				],
-				"b": [
-					"task",
-					438
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Silverpine (#1095): Shadow Priest Allister offers Beren's Peril from level 16; it is taken with Ambermill Investigations on the Sepulcher stop after the north loop (17 recorded accepts at 16-22, most at 17), so the stop after Fenris Isle is not needed for it"
-			},
-			{
-				"a": [
-					"task",
-					516
-				],
-				"b": [
-					"turnin",
-					443
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Silverpine (#1095): the Rot Hide Ichor waits for the Sepulcher stop after the south loop. The old order walked from Fenris Isle back to the Sepulcher (1,585 yd) for Wild Eyes and the ichor, then out again to Ambermill; now Fenris Isle runs south along the lake shore to Ambermill and Beren's Peril"
-			},
-			{
-				"a": [
-					"task",
-					516
-				],
-				"b": [
-					"turnin",
-					91920
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Silverpine (#1095): Wild Eyes goes to Renferrel with the ichor on the Sepulcher stop after the south loop (Return to Quinn (Again) is only needed on the road north at the end)"
-			},
-			{
-				"a": [
-					"accept",
-					493
-				],
-				"b": [
-					"turnin",
-					91921
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Silverpine (#1095): Journey to Hillsbrad (min level 19) is taken on the Sepulcher stop that hands in the southern loop, after the lake-shore grind on the way south; the old order went from that stop 1,100 yd east to grind on the lake shore and 1,100 yd back to the Sepulcher for this accept alone"
-			},
-			{
-				"a": [
 					"task",
 					101
 				],
@@ -6477,30 +8657,6 @@
 			{
 				"a": [
 					"task",
-					25
-				],
-				"b": [
-					"task",
-					6621
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Horde Ashenvale (#1098): Stonetalon Standstill (carried from the Stonetalon visit) is done at Mystral Lake while the walk hunts Tideress there, before the Foulweald. The old order crossed the lake with the quest in the log and came back to it after Shadumbra (1,475 yd from Splintertree, 23 min later). The seed now has the lake step after Tideress"
-			},
-			{
-				"a": [
-					"turnin",
-					25
-				],
-				"b": [
-					"task",
-					2
-				],
-				"faction": "Horde",
-				"why": "Flow audit, Horde Ashenvale (#1098): Stonetalon Standstill is handed to Mastok on the first Splintertree stop, with The Befouled Element, now that it is done on the way east"
-			},
-			{
-				"a": [
-					"task",
 					1534
 				],
 				"b": [
@@ -6557,6 +8713,453 @@
 				],
 				"faction": "Horde",
 				"why": "Fitz's report (#1135): the Raptor Heads are a background goal (data/guide-fixes.json 1135-raptor-heads), worked on the way from the Crossroads accept, so Gazrog takes them on the Crossroads stop after Samophlange and Echeyakee, whose ground holds the most Sunscale Screechers, not right after a step of their own. Players' recordings: the raptors are sparse and contested where the route goes (a median 77 s between raptor kills while on the quest, 447 s at p90; a median 76 minutes from the accept to the twelfth head)"
+			},
+			{
+				"a": [
+					"task",
+					888
+				],
+				"b": [
+					"turnin",
+					845
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest"
+			},
+			{
+				"a": [
+					"accept",
+					855
+				],
+				"b": [
+					"task",
+					903
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: Savannah Prowlers roam the plains between Regthar Deathgate and the Dry Hills (the game's spawn data: 40.4,20.2 and 40.9,26.3), the west loop the route walks anyway; the claws are taken there. This replaces the r7b read that kept them on the road east past the Razormane camp, a walk the order no longer makes"
+			},
+			{
+				"a": [
+					"task",
+					880
+				],
+				"b": [
+					"task",
+					875
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the last loop goes round once: south-west to Lushwater Oasis, north-west to the Witchwing Slayers in the Dry Hills, north-east to Wenikee and the Sludge Fen, then south past Echeyakee's lair back to the Crossroads, where everything is handed in. Echeyakee now opens on the big Crossroads visit (Prowlers of the Barrens' hand-in), so the loop runs this way round to end at his lair on the way home"
+			},
+			{
+				"a": [
+					"task",
+					865
+				],
+				"b": [
+					"turnin",
+					3921
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): the Sunscale Scytheclaws for Raptor Horns prowl the plains east of the Dry Hills (44.1,14.4), on the last Dry Hills loop to Echeyakee; Wenikee comes later, on the walk from Walton to the second Sludge Fen visit."
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"task",
+					1498
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Orc and Troll Durotar: Warriors hand Conscript of the Horde to Kargal Battlescar, 3 yd from Uzzek, on their first Far Watch stop, instead of walking past him to the thunder lizards and back"
+			},
+			{
+				"a": [
+					"accept",
+					870
+				],
+				"b": [
+					"turnin",
+					860
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Mulgore: arriving at the Crossroads from Mulgore, Tonga Runetotem at the south gate is first: The Barrens Oases is handed in and The Forgotten Pools taken from her at once (the order handed in to Sergra, came back to Tonga, then crossed the town twice more), then Sergra, the tower platform, Helbrim, Gazrog and the inn, in walking order"
+			},
+			{
+				"a": [
+					"accept",
+					1819
+				],
+				"b": [
+					"turnin",
+					362
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Tirisfal Glades: Warriors take Ulag the Cleaver from Deathguard Dillinger when they hand him The Mills Overrun on the Brill visit, before going into the inn; the order walked past him and came back for it"
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Zephras Isle: Valreaa's and Aetheen's hand-ins in Thendal Village come after the den and before Hanaa Nightwind, whose camp is on the road south to Shen'dar; the order went to Hanaa first and walked back north to the village"
+			},
+			{
+				"a": [
+					"turnin",
+					3763
+				],
+				"b": [
+					"accept",
+					1395
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Supplies for Nethergarde's Crate of Power Stones lasts an hour (item 6091, duration 3600 s; the quest text says to deliver it before the powerstones expire). The Hinterlands guide took it at Darkshire right after Stormwind, then went to Loch Modan, the Badlands and Darnassus before Nethergarde Keep. It is now taken at Darkshire on the way from Stormwind to the Blasted Lands, after the Darnassus stop, and handed in at the keep first."
+			},
+			{
+				"a": [
+					"accept",
+					17
+				],
+				"b": [
+					"turnin",
+					739
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ghak Healtouch stands in Thelsamar where the flight from Morgan's Vigil lands, so Uldaman Reagent Run is taken there before the ride east to Prospector Ironband, as the seed has it; the order rode to Ironband, back to Thelsamar for Ghak, and east again after Uldaman."
+			},
+			{
+				"a": [
+					"turnin",
+					704
+				],
+				"b": [
+					"turnin",
+					17
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Agmond's Fate goes to Ironband on the way back from the Uldaman dig and Uldaman Reagent Run to Ghak in Thelsamar beside the flight master, one pass across Loch Modan each way, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3448
+				],
+				"b": [
+					"accept",
+					3702
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ironforge in walking order: from the Hall of Explorers along the north ring to Tymor in the Mystic Ward, then Archesonus in the High Seat, then Xiggs in the Military Ward; the order crossed the city to the High Seat and back to the Mystic Ward."
+			},
+			{
+				"a": [
+					"task",
+					4287
+				],
+				"b": [
+					"task",
+					3883
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Eastern Pylon before the Gorishi hive's wall sample in the south."
+			},
+			{
+				"a": [
+					"task",
+					3883
+				],
+				"b": [
+					"task",
+					3882
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Gorishi hive before the Dinosaur Bones in the south-west."
+			},
+			{
+				"a": [
+					"task",
+					3882
+				],
+				"b": [
+					"task",
+					4288
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the south-west bones before the Western Pylon, then north to the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride from Donova (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3941
+				],
+				"b": [
+					"accept",
+					8277
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): J.D. Collie stands in Marshal's Refuge 40 yd from Linken, so A Gnome's Assistance is handed in and Linken's Memory taken on the first refuge stop, as the seed has it; the order carried it through Silithus and Un'Goro's west."
+			},
+			{
+				"a": [
+					"turnin",
+					7795
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop and one Ironforge stop on the way to the Plaguelands, as the seed has it: Clavicus' donations (Runecloth needs the Wool one) in Stormwind, then the tram to Ironforge; the order went Ironforge, Stormwind, Ironforge, Stormwind."
+			},
+			{
+				"a": [
+					"turnin",
+					7791
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop: the Wool donation with Clavicus' others, before the tram to Ironforge."
+			},
+			{
+				"a": [
+					"task",
+					101
+				],
+				"b": [
+					"turnin",
+					56
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). It is handed in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"turnin",
+					94
+				],
+				"faction": "Alliance",
+				"source": "PR #1052",
+				"why": "Redridge level gap (PR #1052): the Old Lion Statue stands among Galardell's gnolls: after the Blackrock camps"
+			},
+			{
+				"a": [
+					"turnin",
+					295
+				],
+				"b": [
+					"accept",
+					299
+				],
+				"faction": "Alliance",
+				"why": "Ashenvale split (2026-11-07): Prospector Whelgar's Uncovering the Past (299, level 27) waits for the 27-29 Wetlands visit (06-wetlands), with Ormer's Revenge's second part (295), instead of the 06-ashenvale stop at Whelgar's dig at about 23 (a scratch round took it there, worked 3.6 levels under)."
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"task",
+					91
+				],
+				"faction": "Alliance",
+				"source": "PR #1052",
+				"why": "Redridge level gap (PR #1052): Galardell Valley comes after the Blackrock camps "
+			},
+			{
+				"a": [
+					"turnin",
+					246
+				],
+				"b": [
+					"task",
+					125
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in Lake Everstill east of the bridge, beside the road from Deputy Feldon to Lakeshire; the route swam for it right after Lakeshire's accepts at the west end of town, then walked back west past the town to Three Corners. Fetched on the walk from Feldon to Foreman Oslow, after the gnoll hills, it is on the way."
+			},
+			{
+				"a": [
+					"turnin",
+					125
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): back from the gnoll hills, Lakeshire is crossed east to west once: Deputy Feldon (gryphons), the Sunken Chest, Foreman Oslow at the north end of the bridge, then Martie Jainrose at the west end, whose garden lies next to the Redridge Canyons' Brutes for Oslow's Iron Pikes and Rivets. The route went Martie -> Oslow -> back south over the bridge to Feldon -> north to the canyons."
+			},
+			{
+				"a": [
+					"accept",
+					97914
+				],
+				"b": [
+					"accept",
+					5321
+				],
+				"faction": "Alliance",
+				"source": "#920",
+				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort. Since the 2026-11-07 Ashenvale split, Ashenvale follows Darkshore at once and Making Do is handed in later (the end of 30-40/01-hillsbrad-foothills): the anchor is Expanding Horizons (97914), taken from Thundris at 03-darkshore's last Auberdine stop, right before the walk south to the Grove."
+			},
+			{
+				"a": [
+					"turnin",
+					252
+				],
+				"b": [
+					"turnin",
+					181
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood return): coming back from Sven's camp, the walk passed Darkshire's town hall to Viktori's house at the east end for Look to the Stars (181), then turned back west for the town hall's hand-ins (07-thousand-needles steps 15-16 on 0.3.4). Viktori after the town hall, on the way to the flight master at the north-east end."
+			},
+			{
+				"a": [
+					"turnin",
+					204
+				],
+				"b": [
+					"accept",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Brother Nimetz offers Kurzen's Mystery only once Bad Medicine (204) and The Second Rebellion (203) are handed in (the data's preAll; the Classic reference has 204). The route took it on arrival at the Rebel Camp; now with Sergeant Yohwa's hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
+					637
+				],
+				"b": [
+					"accept",
+					683
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Sara Balloo offers Sara Balloo's Plea only once Sully Balloo's Letter (637) is handed in to her (the data's pre, TDB PrevQuestID 637). The route asked for it before that hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					275
+				],
+				"b": [
+					"accept",
+					98283
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Rethiel the Greenwarden offers Carnage only once Fen Creeper (275) is handed in (corrections: 98283)."
+			},
+			{
+				"a": [
+					"turnin",
+					299
+				],
+				"b": [
+					"accept",
+					98216
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1206): Prospector Whelgar offers Understanding Our Present only once Uncovering the Past (299) is handed in (corrections: 98216)."
+			},
+			{
+				"a": [
+					"turnin",
+					98216
+				],
+				"b": [
+					"accept",
+					98310
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184, #1206): Prospector Whelgar offers Gleaning Our Future only once Understanding Our Present (98216) is handed in (corrections: 98310)."
+			},
+			{
+				"a": [
+					"turnin",
+					98310
+				],
+				"b": [
+					"accept",
+					98313
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184): Prospector Whelgar offers For Further Study only once Gleaning Our Future (98310) is handed in (corrections: 98313)."
+			},
+			{
+				"a": [
+					"task",
+					881
+				],
+				"b": [
+					"turnin",
+					902
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Samophlange is handed to Sputtervalve on the Ratchet stop at 18 (Northwatch Hold), not on a trip of its own from the Sludge Fen console at 16, which walked 2,000 yd to Ratchet and 800 yd back to the Razormane camp."
+			},
+			{
+				"a": [
+					"turnin",
+					95508
+				],
+				"b": [
+					"turnin",
+					3921
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Wenikee (49.1,11.2) stands on the walk from Walton to the Sludge Fen shredder: Wenikee Boltbucket and Nugget Slugs (the slugs at the Fen's drill site) go with that visit, not with a loop of their own north of the Dry Hills."
+			},
+			{
+				"a": [
+					"task",
+					896
+				],
+				"b": [
+					"turnin",
+					3922
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 re-chain (2026-11-07): Wenikee takes the Nugget Slugs on the walk back from the Boulder Lode Mine to the Crossroads; Rilli Greasygob (3923) goes on to the Orgrimmar trip at 20."
 			}
 		]
 	}

@@ -25,7 +25,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 use polestar_recording::api::{AdminContributor, ExportLine, MeResponse, Rejected, Stats, StatsDay, Tombstone, UploadResponse};
-use rusqlite::types::ValueRef;
+use rusqlite::types::{Value, ValueRef};
 use rusqlite::{params, Connection, OptionalExtension};
 
 const SCHEMA: &str = "
@@ -708,6 +708,61 @@ impl Db {
 		Ok(page)
 	}
 
+	/// The suspect chunks held: (id, received, text, reasons).
+	pub fn suspect_chunks(&self) -> rusqlite::Result<Vec<(i64, i64, String, String)>> {
+		let mut stmt = self.conn.prepare("SELECT id, received, text, COALESCE(reasons, '') FROM chunks WHERE suspect = 1 ORDER BY id")?;
+		let rows = stmt.query_map([], |r| Ok((r.get(0)?, r.get(1)?, stored_text(r.get_ref(2)?)?, r.get(3)?)))?;
+		rows.collect()
+	}
+
+	/// A held suspect chunk that passes the plausibility checks now ([`crate::recording::recheck`]):
+	/// stored as if it had passed when it arrived (its quests, its UTC day, the contributor's
+	/// plausible count and upload days), under a new id, so the next export after the maintainer's
+	/// cursor carries it. `received` and the text stay as they were. False when the chunk is no
+	/// longer held as suspect.
+	pub fn clear_suspect(&mut self, id: i64, quests: &BTreeSet<u32>, now: i64) -> rusqlite::Result<bool> {
+		let tx = self.conn.transaction()?;
+		type Row = (String, String, i64, i64, Option<i64>, Option<String>, String, Value, i64, Option<i64>);
+		let row: Option<Row> = tx
+			.query_row("SELECT contributor, install, seq, received, build, locale, uploader, text, flagged, epoch FROM chunks WHERE id = ?1 AND suspect = 1", [id], |r| {
+				Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?))
+			})
+			.optional()?;
+		let Some((contributor, install, seq, received, build, locale, uploader, text, flagged, epoch)) = row else { return Ok(false) };
+		tx.execute("DELETE FROM chunks WHERE id = ?1", [id])?;
+		tx.execute(
+			"INSERT INTO chunks (contributor, install, seq, received, build, locale, uploader, text, flagged, epoch, suspect, reasons)
+			 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, 0, NULL)",
+			params![contributor, install, seq, received, build, locale, uploader, text, flagged, epoch],
+		)?;
+		tx.execute("UPDATE totals SET plausible = plausible + 1 WHERE contributor = ?1", [&contributor])?;
+		let mut room = MAX_QUESTS - tx.query_row("SELECT quests FROM totals WHERE contributor = ?1", [&contributor], |r| r.get::<_, i64>(0)).optional()?.unwrap_or(0);
+		let (mut added, mut new) = (0i64, 0i64);
+		for q in quests {
+			if room <= 0 {
+				break;
+			}
+			if tx.execute("INSERT OR IGNORE INTO quests (contributor, quest) VALUES (?1, ?2)", params![contributor, q])? > 0 {
+				room -= 1;
+				added += 1;
+				new += tx.execute("INSERT OR IGNORE INTO quest_counts (quest, n) VALUES (?1, 0)", [q])? as i64;
+				tx.execute("UPDATE quest_counts SET n = n + 1 WHERE quest = ?1", [q])?;
+			}
+		}
+		// Per-day rows older than the stats window may have been deleted: such a day is not counted
+		// again.
+		let day = received.div_euclid(DAY);
+		let mut new_day = 0i64;
+		if day >= now.div_euclid(DAY) - STATS_DAYS {
+			new_day = tx.execute("INSERT OR IGNORE INTO days (contributor, day, chunks) VALUES (?1, ?2, 0)", params![contributor, day])? as i64;
+			tx.execute("UPDATE days SET chunks = chunks + 1 WHERE contributor = ?1 AND day = ?2", params![contributor, day])?;
+		}
+		tx.execute("UPDATE totals SET quests = quests + ?2, upload_days = upload_days + ?3 WHERE contributor = ?1", params![contributor, added, new_day])?;
+		bump(&tx, "quests", new)?;
+		tx.commit()?;
+		Ok(true)
+	}
+
 	/// Records that the maintainer has stored every export line up to `upto` (clamped to the
 	/// highest chunk id there is); returns the acknowledged id.
 	pub fn ack(&mut self, upto: i64) -> rusqlite::Result<i64> {
@@ -976,6 +1031,32 @@ mod tests {
 		db.housekeeping(NOW + 40 * DAY).unwrap();
 		assert_eq!(count(&db, "SELECT COUNT(*) FROM days"), 0);
 		assert_eq!(db.export(0, 10, false).unwrap()[0].upload_days, 2);
+	}
+
+	#[test]
+	fn a_cleared_suspect_chunk_counts_and_comes_after_the_export_cursor() {
+		let mut db = db_with(&["a"]);
+		send(&mut db, "a", "i", NOW, vec![chunk(1, [], false)]);
+		send(&mut db, "a", "i", NOW + DAY, vec![chunk(2, [364], true), chunk(3, [], false)]);
+		// The maintainer has pulled and acknowledged everything exported so far.
+		let cursor = db.export(0, 10, false).unwrap().last().unwrap().id;
+		assert_eq!(db.ack(cursor).unwrap(), cursor);
+		let held = db.suspect_chunks().unwrap();
+		assert_eq!((held.len(), held[0].1), (1, NOW + DAY));
+		assert!(db.clear_suspect(held[0].0, &BTreeSet::from([364]), NOW + 2 * DAY).unwrap());
+		assert!(!db.clear_suspect(held[0].0, &BTreeSet::new(), NOW + 2 * DAY).unwrap(), "only once");
+		assert!(db.suspect_chunks().unwrap().is_empty());
+		let after = db.export(cursor, 10, false).unwrap();
+		assert_eq!((after.len(), after[0].seq, after[0].received, after[0].suspect), (1, 2, NOW + DAY, false));
+		assert_eq!(count(&db, "SELECT plausible FROM totals WHERE contributor = 'a'"), 3);
+		assert_eq!(count(&db, "SELECT quests FROM totals WHERE contributor = 'a'"), 1);
+		assert_eq!(count(&db, "SELECT n FROM quest_counts WHERE quest = 364"), 1);
+		assert_eq!(count(&db, "SELECT chunks FROM days WHERE contributor = 'a' AND day = (SELECT MAX(day) FROM days)"), 2);
+		// Day 2 already had chunk 3: no new upload day.
+		assert_eq!(after[0].upload_days, 2);
+		// Not pruned with what was acknowledged before it.
+		assert_eq!(db.prune_batch(NOW + 30 * DAY).unwrap(), 2);
+		assert_eq!(db.chunks_held().unwrap(), 1);
 	}
 
 	#[test]

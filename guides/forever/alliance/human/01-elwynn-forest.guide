@@ -10,6 +10,7 @@ next forever/alliance/02-westfall
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Elmore's Task (1097), from Smith Argus in Goldshire (02-westfall hands it in).
 # Left out: Cloth and Leather Armor (59).
 
 # ---------------------------------------------------------------- Northshire Valley
@@ -95,9 +96,6 @@ step The vineyards and Garrick Padfoot
   collect 11119 quest 3904                    -- Milly's Harvest
   collect 182 quest 6                         -- Garrick's Head: Garrick Padfoot
 
-step Northshire Abbey
-  turnin 6                                    -- Deputy Willem
-
 step Milly Osworth
   turnin 3904
   accept 3905
@@ -121,6 +119,7 @@ step Inside Echo Ridge Mine
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
+  turnin 6                                    -- Deputy Willem, at the Abbey steps
   turnin 21                                   -- Marshal McBride, inside
   accept 54
   accept 96627
@@ -441,6 +440,7 @@ step Goldshire
   turnin 76
   accept 239
   accept 114                                  -- William Pestle
+  accept 1097                                 -- Smith Argus, at the smithy: Grimand Elmore in Stormwind takes it (02-westfall)
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson

@@ -42,16 +42,10 @@ pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context
 	let build = session.and_then(|s| s.int("build")).and_then(|b| u32::try_from(b).ok());
 	let locale = session.map(|s| s.get("locale")).filter(|l| !l.is_empty()).map(str::to_owned);
 	let mut kinds: BTreeMap<String, u64> = BTreeMap::new();
-	let mut quests = BTreeSet::new();
 	for record in &decoded.records {
 		*kinds.entry(record.kind.as_str().to_owned()).or_default() += 1;
-		// The kinds whose `q` is a single quest id; ids no quest has are not counted.
-		if matches!(record.kind, Kind::Detail | Kind::Text | Kind::Accept | Kind::Objectives | Kind::Progress | Kind::Complete | Kind::Turnin | Kind::Abandon | Kind::Escort) {
-			if let Some(q) = record.int("q").filter(|q| (1..plausible::MAX_ID as i64).contains(q)).and_then(|q| u32::try_from(q).ok()) {
-				quests.insert(q);
-			}
-		}
 	}
+	let quests = quests_of(&decoded);
 	let suspect = check_chunk(&decoded, ctx).iter().map(ToString::to_string).collect();
 	if ctx.highest.is_none_or(|(seq, _)| decoded.seq > seq) {
 		ctx.highest = Some((decoded.seq, decoded.epoch));
@@ -61,6 +55,36 @@ pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context
 	// Compressed here, outside the database lock.
 	let ztext = crate::db::compress(&text);
 	Prepared::Ok(Box::new(NewChunk { seq: upload.seq, epoch: decoded.epoch, ztext, text_len: text.len(), build, locale, flagged, suspect, kinds, quests }))
+}
+
+/// The quests a chunk's records name: the kinds whose `q` is a single quest id; ids no quest has
+/// are not counted.
+fn quests_of(decoded: &polestar_recording::record::Chunk) -> BTreeSet<u32> {
+	let mut quests = BTreeSet::new();
+	for record in &decoded.records {
+		if matches!(record.kind, Kind::Detail | Kind::Text | Kind::Accept | Kind::Objectives | Kind::Progress | Kind::Complete | Kind::Turnin | Kind::Abandon | Kind::Escort) {
+			if let Some(q) = record.int("q").filter(|q| (1..plausible::MAX_ID as i64).contains(q)).and_then(|q| u32::try_from(q).ok()) {
+				quests.insert(q);
+			}
+		}
+	}
+	quests
+}
+
+/// The plausibility rules a held suspect chunk is judged by again ([`recheck`]): the ones that need
+/// nothing but the chunk itself. The others (`seq`, and `epoch` against the install's other chunks)
+/// depend on what the server held when it arrived, so a chunk they flagged stays suspect.
+pub const RECHECKED_RULES: [&str; 2] = ["speed", "kill-rate"];
+
+/// A held suspect chunk judged by the current rules, as if it arrived at `received`: its quests when
+/// it passes now, None when it stays suspect. Only a chunk whose every reason (`reasons`, one per
+/// line, `rule: detail`) is one of [`RECHECKED_RULES`] can pass.
+pub fn recheck(text: &str, received: i64, reasons: &str) -> Option<BTreeSet<u32>> {
+	if !reasons.lines().all(|l| RECHECKED_RULES.contains(&l.split(':').next().unwrap_or("").trim())) {
+		return None;
+	}
+	let decoded = decode_chunk(text).ok()?;
+	check_chunk(&decoded, &plausible::Context { now: received, highest: None }).is_empty().then(|| quests_of(&decoded))
 }
 
 /// The chunk text without its records of unknown kinds (the `chunk` header stays first).
@@ -123,5 +147,19 @@ mod tests {
 	fn quest_ids_no_quest_has_are_not_counted() {
 		let Prepared::Ok(c) = prep(format!("{HEAD}complete\t0\t364\ncomplete\t1\t{}\ncomplete\t2\t0\n", plausible::MAX_ID)) else { panic!("stored") };
 		assert_eq!(c.quests, BTreeSet::from([364]));
+	}
+
+	#[test]
+	fn a_held_chunk_passes_again_only_when_its_reasons_are_rechecked_rules_and_it_passes_them() {
+		// One portal jump (Teldrassil, 1438): withheld by the old speed rule, plausible now.
+		let portal = format!("{HEAD}accept\t0\t364\tc\t1568\t\t\t\t12\t250\t\t\t\npos\t10\t1438\t5604\t8992\t0\t71\npos\t30\t1438\t2360\t5554\t16\t25\n");
+		assert_eq!(recheck(&portal, 1_793_000_100, "speed: 2022 yd in 2.0 s on map 1438"), Some(BTreeSet::from([364])));
+		// A reason only the upload's context can judge keeps it suspect.
+		assert_eq!(recheck(&portal, 1_793_000_100, "speed: 2022 yd in 2.0 s on map 1438\nepoch: seq 2 starts at 1 but seq 3 at 2"), None);
+		// Still implausible under the current rules: a jump there and straight back.
+		let hack = format!("{portal}pos\t50\t1438\t5604\t8992\t0\t71\n");
+		assert_eq!(recheck(&hack, 1_793_000_100, "speed: x"), None);
+		// The age rule is judged at the chunk's arrival, not today.
+		assert_eq!(recheck(&portal, 1_793_000_100 + 40 * 86_400, "speed: x"), None);
 	}
 }

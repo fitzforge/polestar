@@ -208,6 +208,23 @@ local BUILTIN = {
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
 	} },
+	-- Core/Engine.lua, "While you're here" (Own.hereBuild): a quick objective of a later step close by.
+	{ page = GUIDE, tab = L["Window"], section = L["While you're here"], controls = {
+		{ kind = "toggle", key = "behavior.whileHere", label = L["While you're here"],
+			help = L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."],
+			search = "nearby objective, grab it now, on the way, later step, opportunistic, detour" },
+		{ kind = "slider", key = "behavior.whileHereRadius", label = L["How close"], min = 40, max = 120, step = 5,
+			format = function(v) return ns.FormatDistance(v) end,
+			help = L["How near its spawn area must be for the line to show. It goes again a little further out."],
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
+			help = L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."],
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereSound", label = L["While you're here sound"],
+			help = L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."],
+			search = "chime, sound, audio, ding, alert",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },

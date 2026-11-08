@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Dreadsteed"] = "术士恐惧战马",
-	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "",
+	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "60级的史诗坐骑，随处可召唤：无需购买史诗战马，也无需花1,000g学习中级骑术。",
 
 	-- Step 1: Mor'zul Bloodbringer (Stormwind)
 	-- {npc:5520} Spackle Thornberry · {object:2164} Slaughtered Lamb · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes

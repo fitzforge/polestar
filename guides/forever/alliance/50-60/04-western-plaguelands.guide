@@ -116,6 +116,8 @@ step Dalson's Tears cauldron
 step Andorhal
   tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
   collect 12900 quest 5154.1          -- Annals of Darrowshire
+  use 12627 @45.1,62.3 "Temporal Displacer"
+  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
 
 step Chillwind Camp
   turnin 5220                         -- High Priestess MacDonnell
@@ -137,10 +139,6 @@ step Diseased Grizzlies
 step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4986                         -- For the druids of Darnassus: keep it
-
-step Andorhal
-  use 12627 @45.1,62.3 "Temporal Displacer"
-  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
 
 step Chillwind Camp
   turnin 5223                         -- High Priestess MacDonnell
@@ -177,18 +175,14 @@ step Kirsta Deepshadow
   tip Ride north up the road to the Northridge lumber mill; Kirsta hides at the camp's edge.
   accept 6004
 
-step Scarlet Knight on the way
-  along until q6004
-  kill 1833 quest 6004.4 -- Scarlet Knight along the way to Kirsta Deepshadow
-
 step The Scarlet Crusade
   tip The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward Hearthglen.
   kill 1826 quest 6004.3              -- Scarlet Mage
   kill 1831 quest 6004.2              -- Scarlet Hunter
   kill 10605 quest 6004.1             -- Scarlet Medic
+  kill 1833 quest 6004.4              -- Scarlet Knight
 
 step Kirsta Deepshadow
-  label q6004
   turnin 6004
   accept 6023
 
@@ -217,10 +211,6 @@ step Tirion Fordring
   accept 5542
   accept 5543
   accept 5544
-
-step Slab of Carrion Worm Meat on the way
-  along until q5544
-  collect 13853 quest 5544.1
 
 # ---------------------------------------------------------------- Gahrron's Withering
 
@@ -258,7 +248,6 @@ step Aurora Skycaller
   turnin 5245
 
 step Villains of Darrowshire
-  label q5544
   tip Horgus' skull lies at Blackwood Lake and Marduk's sword in the Infectis Scar, each where ghosts fight; grown Plaguehounds hunt the plains between.
   collect 12956 quest 5181.1          -- Skull of Horgus; underwater
   kill 8597 quest 5542.2              -- Plaguehound
@@ -511,9 +500,11 @@ step Fly to Marshal's Refuge
 
 step Linken
   zone Un'Goro Crater
-  tip Fly from Gadgetzan to Marshal's Refuge. Linken's hut stands at the Lakkari Tar Pits, west of the refuge; J.D.
+  tip Fly from Gadgetzan to Marshal's Refuge. Linken's hut stands at the Lakkari Tar Pits, west of the refuge; J.D. Collie is up the hill behind it.
   turnin 3914
   accept 3941
+  turnin 3941                         -- J.D. Collie, below ground
+  accept 3942                         -- For Felwood: keep it
   tip Spraggle's friend Ringo has gone missing.
   accept 4492
   accept 4501                         -- The wooden sign beside Spraggle Frock
@@ -612,19 +603,8 @@ step Krakle
   turnin 974
   accept 980                          -- Ends with Donova Snowden in Winterspring: keep it
 
-step Super Sticky Tar on the way
-  along until q4504
-  when onquest 4504
-  collect 11834 quest 4504.1
-
 step Northern Pylon
   kill 9166 quest 4501                -- Pterrordax
-
-step J.D. Collie
-  zone Un'Goro Crater
-  tip Collie is up the hill behind it.
-  turnin 3941                         -- J.D. Collie, below ground
-  accept 3942                         -- For Felwood: keep it
 
 step Marshal's Refuge
   turnin 4501                         -- Spraggle Frock
@@ -646,7 +626,6 @@ step Torwa Pathfinder
   accept 4289                         -- The pelts come after loop 2, on the gorilla plateau
 
 step Lakkari Tar Pits: kill these as you meet them
-  label q4504
   zone Un'Goro Crater
   tip The gorillas live on Ironstone Plateau, east of Marshal's Refuge. Keep their pelts for Torwa Pathfinder. Stay out of the deepest cave: U'cha is level 55.
   tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.

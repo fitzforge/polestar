@@ -191,19 +191,25 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 				{ 3, 0, 0, -900, 9000, 95, 95, 3, "South Post, Testshire" },
 			},
 			flights = { 1, 2, 900, 2, 1, 900, 2, 3, 900, 3, 2, 900 } }, true)
+		local function stopsOf()
+			local stops = {}
+			for _, n in ipairs(leg("fly").stops) do stops[#stops + 1] = n.id end
+			return stops
+		end
 		known(1, 3)
 		nav.place(0, 850)
 		target(0, -890, "South")
 		r.unknownMiddle = route()
+		r.unknownStops = stopsOf()
 		Polestar.CharState().flags.taxi[2] = true      -- learned in place, as the client does
 		target(0, -890, "South")
 		r.known = route()
-		local legs = N.GetRoute()
-		local stops = {}
-		for _, n in ipairs(leg("fly").stops) do stops[#stops + 1] = n.id end
-		r.stops = stops
+		r.stops = stopsOf()
 		emit(r)"#);
-	assert_eq!(out["unknownMiddle"], json!(["walk|South"]), "Middle Post unknown: no flight through it");
+	// Middle Post unknown: never flown to or through (North -> Middle -> South); walked to,
+	// learnt there and flown from (#1174).
+	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
+	assert_eq!(out["unknownStops"], json!([2, 3]), "Middle Post unknown: no flight through it");
 	assert_eq!(out["known"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
 	assert_eq!(out["stops"], json!([1, 2, 3]));
 }

@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Voidwalker (Horde)"] = "",
-	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "",
+	["Voidwalker (Horde)"] = "Демон Бездны (Орда)",
+	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "Ваш демон-танк на 10-м уровне: Демон Бездны. Добудьте украденную книгу и победите в бою у круга призыва.",
 
 	-- Step 1: Gan'rul's Summons (Orcs and Trolls)
 	-- {quest:1506} Gan'rul's Summons

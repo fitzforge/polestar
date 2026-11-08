@@ -64,6 +64,8 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-flights.rs"]
+mod engine_flights;
 #[path = "engine-focus.rs"]
 mod engine_focus;
 #[path = "engine-group-default.rs"]
@@ -114,6 +116,8 @@ mod engine_talk;
 mod engine_training;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
+#[path = "engine-vendor.rs"]
+mod engine_vendor;
 #[path = "engine-wait.rs"]
 mod engine_wait;
 #[path = "engine-waypoint-keys.rs"]
@@ -132,6 +136,8 @@ mod engine_when_knows;
 mod engine_when_skill;
 #[path = "engine-when-upgrade.rs"]
 mod engine_when_upgrade;
+#[path = "engine-while-here.rs"]
+mod engine_while_here;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
@@ -177,6 +183,8 @@ mod maps_services;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
+#[path = "names-shown.rs"]
+mod names_shown;
 mod nav;
 #[path = "nav-crossings.rs"]
 mod nav_crossings;
@@ -294,6 +302,8 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
+#[path = "ui-while-here.rs"]
+mod ui_while_here;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
 #[path = "where.rs"]

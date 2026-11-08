@@ -286,6 +286,20 @@ fn buildjournal_pages_with_quests_from_dungeonjournal_area_and_objectives_chains
 	assert_eq!(json!([bh["quests"], bh["bosses"], bh["entrance"]]), json!([[], [], null]));
 }
 
+// Fitz (2026-11-07): Ruins of Lordaeron never showed under "For your level" past 15. Forever's own instances have
+// bosses with no level, so the range came out as one level (15-15). With no boss level above the minimum, the top
+// of the range is its quests' highest level; a range the bosses give stays.
+#[test]
+fn buildjournal_an_instance_whose_bosses_give_no_level_above_its_minimum_takes_its_quests_highest_level() {
+	let mut c = codex();
+	c["instances"]["wailing-caverns"]["levels"] = json!([10, 17, 17]);
+	let one = journal_json(&inputs(), &c);
+	assert_eq!(json!([one["dungeons"]["wailing-caverns"]["minLevel"], one["dungeons"]["wailing-caverns"]["maxLevel"]]), json!([17, 22]), "its quests reach 22");
+	let j = journal_json(&inputs(), &codex());
+	assert_eq!(json!([j["dungeons"]["wailing-caverns"]["minLevel"], j["dungeons"]["wailing-caverns"]["maxLevel"]]), json!([17, 24]), "the bosses' range stays");
+	assert_eq!(json!([j["dungeons"]["blackmaw-hold"]["minLevel"], j["dungeons"]["blackmaw-hold"]["maxLevel"]]), json!([55, 60]), "no quests: as it was");
+}
+
 fn copper_quest(id: i64, title: &str) -> Value {
 	json!({
 		"id": id, "title": title, "level": 60, "minLevel": 1, "faction": null, "races": null, "classes": null,
@@ -516,4 +530,29 @@ local old = D.ObjectiveText({ id = 1, objective = "Kill 5 Kobolds" })
 local none = D.ObjectiveText({ id = 2 }) == nil
 emit({ old, none })"#);
 	assert_eq!(out, json!(["Kill 5 Kobolds", true]));
+}
+
+// Fitz (2026-11-07): Alliance can do Ruins of Lordaeron, but its entrance is outside the Undercity, through Horde
+// land; Horde reach The Hall of Thanes only through Ironforge. Both show for both factions, and the other faction is
+// told: Dungeons.EnemyEntrance gives the line for a side whose land it is not, nil for the owners. The arrow gets it
+// too (Nav.SetTarget's warning).
+#[test]
+fn runtime_an_entrance_in_the_other_faction_s_land_warns_that_faction_only_and_the_arrow_carries_it() {
+	let out = run(r#"
+local nav = {}
+Polestar.Nav = { SetTarget = function(map, x, y, label, f, stop, z, warning) nav[#nav + 1] = { label, stop, warning or false } return true end }
+local e = {
+	rolA = D.EnemyEntrance("ruins-of-lordaeron", "A") or false, rolH = D.EnemyEntrance("ruins-of-lordaeron", "H") or false,
+	hotH = D.EnemyEntrance("the-hall-of-thanes", "H") or false, hotA = D.EnemyEntrance("the-hall-of-thanes", "A") or false,
+	wc = D.EnemyEntrance("wailing-caverns", "A") or false,
+}
+D.GuideToPoint({ map = 1420, x = 63.2, y = 67.5 }, "Ruins of Lordaeron", "dungeon", e.rolA)
+D.GuideTo("wailing-caverns")
+emit({ e = e, nav = nav })"#);
+	assert_eq!(out["e"]["rolA"], "Entrance in Horde territory (outside the Undercity)");
+	assert_eq!(out["e"]["rolH"], false, "the Horde's own");
+	assert_eq!(out["e"]["hotH"], "Entrance in Alliance territory (in Ironforge)");
+	assert_eq!(out["e"]["hotA"], false);
+	assert_eq!(out["e"]["wc"], false, "an entrance in no faction's land");
+	assert_eq!(out["nav"], json!([["Ruins of Lordaeron", "dungeon", "Entrance in Horde territory (outside the Undercity)"], ["Wailing Caverns", "dungeon", false]]));
 }

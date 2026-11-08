@@ -32,6 +32,14 @@ step Undercity
   accept 2995                           -- Oran Snakewrithe, the Royal Quarter
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
+step Riding at 40
+  only Undead
+  zone Tirisfal Glades
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
+  train 4773 optional                   -- Velma Warnam, riding trainer
+  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
+
 step Zeppelin to Grom'gol
   zone Tirisfal Glades
   goto 61.8,59.2 "Zeppelin to Grom'gol"
@@ -46,24 +54,22 @@ step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, later in this guide
 
-step A Soggy Scroll
-  tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
-  accept 625                            -- for the Musty Scroll in Dustwallow Marsh, later in this guide
+# ---------------------------------------------------------------- Pool of Tears and the coast
 
-step Sawtooth Snapper Claw on the way
-  along until q699
-  collect 6168 quest 699.1 -- Sawtooth Snapper Claw along the way to Misty Reed Post
+step Pool of Tears
+  tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
+  collect 6175 quest 1424.1
 
 step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
   tip The snappers line the strand south of the post.
   tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south.
+  collect 6168 quest 699.1
   collect 6184 quest 1430.1           -- Underwater
 
 step Misty Reed Post
-  label q699
-  tip The next guide starts here and takes you to Tanaris.
   turnin 699                            -- Tok'Kar
   tip The small Horde post on the southern shore.
   accept 1422                           -- Tok'Kar
@@ -75,16 +81,6 @@ step Murlocs of the Misty Reed
   kill 747 quest 1426.1
   kill 751 quest 1426.3               -- Below ground
   kill 750 quest 1426.2
-
-# ---------------------------------------------------------------- Pool of Tears and the coast
-
-step Swamp of Sorrows
-  zone Swamp of Sorrows
-  goto 83.8,80.4 "Swamp of Sorrows"
-
-step Pool of Tears
-  tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
-  collect 6175 quest 1424.1
 
 step Misty Reed Post
   turnin 1426                           -- Katar
@@ -118,17 +114,15 @@ step Dustwallow Marsh
   zone Dustwallow Marsh
   goto 31.1,66.1 "Dustwallow Marsh"
 
-step The Wyrmbog
+step The Musty Scroll
   when onquest 625
-  tip Ride south-west to the Musty Scroll, then east through the Wyrmbog. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
+  tip Ride south-west to the Musty Scroll.
   turnin 625                            -- the Musty Scroll
-
-step The Wyrmbog
-  tip Ride south-west to the Musty Scroll, then east through the Wyrmbog. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
-  accept 626                          -- Inside Bloodfen Burrow
+  accept 626 optional                 -- Inside Bloodfen Burrow
 
 step The Dragonmurk: kill these as you meet them
   zone Dustwallow Marsh
+  tip East through the Wyrmbog: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.
   kill 4331 quest 1168.2
   kill 4328 quest 1168.3
   kill 4329 quest 1168.1              -- Firemane Scout walks around The Dragonmurk: look inside the circle on the map
@@ -203,21 +197,13 @@ step Fly to Camp Mojache
 
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.
-  goto 60.6,47.4 "Forest walkers"
-  collect 9590 quest 3128.1 @73.9,38.8 map 1444
+  collect 9589 quest 3128.2 @68.0,47.5 map 1444
+  collect 9590 quest 3128.1 @54.0,47.2 map 1444
 
 step Frayfeather hippogryphs
   tip South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments.
-  collect 9592 quest 3128.4
-
-step Encrusted Minerals
-  collect 9589 quest 3128.2
-
-step High Wilderness: kill these as you meet them
-  zone Feralas
-  tip South-west, the yetis den in Feral Scar Vale; every yeti there can drop a thick hide.
-  collect 8973 quest 2822.1
   collect 9591 quest 3128.3
+  collect 9592 quest 3128.4
 
 # ---------------------------------------------------------------- The Forgotten Coast
 
@@ -247,21 +233,17 @@ step Northspring harpies
   kill 5364 quest 3063.3
   kill 5366 quest 3063.4
 
-step Camp Mojache
-  turnin 2822                           -- Jangdor Swiftstrider, inside
-  accept 7734
-  turnin 3128                           -- Witch Doctor Uzer'i
-  turnin 3063                           -- Talo Thornhoof
+step Rage Scar yetis
+  tip On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
+  collect 18947 quest 7734.1
+  collect 18972 optional                -- Perfect Yeti Hide, a rare drop
+  accept 7738 optional
 
 # ---------------------------------------------------------------- Camp Mojache
 
 step Camp Mojache
-  zone Feralas
+  turnin 7734                           -- Jangdor Swiftstrider, inside
+  turnin 7738 optional
+  turnin 3128                           -- Witch Doctor Uzer'i
+  turnin 3063                           -- Talo Thornhoof
   accept 4120                         -- Talo Thornhoof: the bears are in Felwood
-  note Keep Sunken Temple for Marvon in Tanaris.
-
-step Rage Scar yetis
-  tip North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
-  collect 18947 quest 7734.1
-  collect 18972 optional                -- Perfect Yeti Hide, a rare drop
-  accept 7738 optional

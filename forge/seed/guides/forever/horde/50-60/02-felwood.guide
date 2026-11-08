@@ -99,13 +99,8 @@ step Dalson's Tears farmhouse
   collect 12739 quest 5060 @48.1,49.7 -- Farmer Dalson
   turnin 5060
 
-step Mulgris Deepriver
-  tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
-  accept 4984
-
 step Sorrow Hill
-  tip Ride south past the Writhing Haunt to Sorrow Hill; Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way.
-  kill 1817 quest 4984 optional
+  tip Argent Officer Pureheart stands at the south end of the Sorrow Hill graveyard, where the road from Tarren Mill comes in; Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
   turnin 5152                         -- Marlene Redpath
   accept 5142
   accept 5153
@@ -115,6 +110,10 @@ step Sorrow Hill
   turnin 5402 optional
   turnin 5403 optional
   note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
+
+step Mulgris Deepriver
+  tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
+  accept 4984
 
 step Chromie
   tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
@@ -354,8 +353,12 @@ step Felpaw Village
   level 54 -- grind on Deadwood Avengers at Felpaw Village, Felwood
   turnin 8470 optional                -- Kernda, at the tunnel mouth
 
+# Re-seeded for flow in 0.3.5: Speak to Salfa is handed in where the tunnel
+# comes out, instead of on a later ride back west from Everlook.
 step Through Timbermaw Hold
   zone Winterspring
-  tip Walk into the Timbermaw Hold tunnel beside Nafien and never attack the Timbermaw furbolgs inside. The tunnel opens into Winterspring; follow the road east to Everlook, the goblin town where the next guide starts.
+  tip Walk into the Timbermaw Hold tunnel beside Nafien and never attack the Timbermaw furbolgs inside. Salfa stands at the tunnel's Winterspring exit; then follow the road east to Everlook, the goblin town where the next guide starts.
+  turnin 8465                           -- Salfa
+  accept 8464
   getfp "Everlook"
   sethome "Everlook"

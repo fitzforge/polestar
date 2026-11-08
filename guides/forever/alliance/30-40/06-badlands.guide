@@ -49,14 +49,12 @@ step Hammertoe's Digsite
 # ---------------------------------------------------------------- The middle
 
 step Valley of Fangs
-  tip Martek and Rigglefuzz camp together in the Valley of Fangs, in the middle of the Badlands.
-  turnin 1106                         -- Martek the Exiled
-  accept 1108
+  tip Rigglefuzz camps in the Valley of Fangs, in the middle of the Badlands.
   accept 703                          -- Rigglefuzz
   accept 705                          -- The clams lie on Stranglethorn's north-west coast, in the next guide: keep it
 
 step Agmond's End
-  tip The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.
+  tip The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp. Theldurin sits by the ruined camp further south.
   turnin 738                          -- Battered Dwarven Skeleton
 
 step Agmond's End: kill these as you meet them
@@ -69,7 +67,6 @@ step Agmond's End: kill these as you meet them
   collect 7847 quest 2500             -- Buzzard Gizzard
   accept 739                          -- Battered Dwarven Skeleton
   note The skeleton's next task, Murdaloc, waits until the later Badlands guide at 43.
-  collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
   accept 709                          -- Theldurin the Lost
 
@@ -94,6 +91,10 @@ step Lucien Tosselwrench
 step The Ancient Chest
   tip Head north-east to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
   collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
+
+step Valley of Fangs
+  tip Head south down the road: Rigglefuzz camps in the Valley of Fangs, on the way to Agmond's End.
+  turnin 703                          -- Rigglefuzz
 
 step Theldurin the Lost
   tip Head south to Agmond's End.

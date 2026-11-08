@@ -267,7 +267,9 @@ function goalLines(astStep, step) {
 function whenHolds(w, when) {
 	for (const p of when || []) {
 		let ok = true;
-		const qs = p.q || [];
+		// `complete`, `turnedin`, `available` and `group` name one quest (dsl/when.js QUEST_ONE),
+		// `onquest` a list: either reads as a list here.
+		const qs = [].concat(p.q ?? []);
 		switch (p.k) {
 			case 'onquest': ok = qs.some((q) => w.held(q)); break;
 			case 'turnedin': ok = qs.every((q) => w.done.has(q)); break;
@@ -648,6 +650,15 @@ function collect(w, x, gi, find, p) {
 	const it = data.items[item];
 	const name = itemName(data, item);
 	const optional = !!x.optional;
+	// An item a held container holds (A Small Pack's compass, map and key, items.json
+	// `containers`): the player opens it, and it gives everything in it.
+	const pack = !w.has(item, n) && ((it && it.containers) || []).find((c) => w.has(c));
+	if (pack) {
+		w.take(pack, 1);
+		for (const [id, inner] of Object.entries(data.items)) {
+			if ((inner.containers || []).includes(pack) && !w.has(Number(id))) w.give(Number(id), 1);
+		}
+	}
 	if (!w.has(item, n)) {
 		// Where the player collects: the goal's place, else where the guide left them.
 		const at = p && p.w ? p : w.pos && w.pos.w ? w.pos : null;
@@ -730,4 +741,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };

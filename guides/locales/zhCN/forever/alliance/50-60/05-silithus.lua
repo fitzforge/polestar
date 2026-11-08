@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Ratchet
-	-- {area:3425} Cenarion Hold · {area:392} Ratchet
-	["Ride back to {area:3425} and fly to {area:392}."] = "",
+	-- {area:541} Marshal's Refuge · {area:392} Ratchet
+	["Fly from {area:541} to {area:392}."] = "从{area:541}飞往{area:392}。",
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}, inside"] = "",
 
@@ -22,11 +22,7 @@ return {
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 4: Ironforge
-	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["Take the {area:2257} to {zone:1455}."] = "",
-
-	-- Step 5: Stormwind
+	-- Step 4: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
 	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "",
 	-- {npc:3520} Ol' Emma
@@ -34,32 +30,32 @@ return {
 	-- {npc:10778} Janice Felstone
 	["For {npc:10778}: keep it"] = "",
 
-	-- Step 6: Stormwind Keep
+	-- Step 5: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, in SI:7"] = "",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
 	["{quest:6184} at {area:3197}: keep it"] = "",
 
-	-- Step 7: Tram to Ironforge
+	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 8: Ironforge
+	-- Step 7: Ironforge
 	["Its jars are filled on the next Un'Goro visit"] = "",
 	-- {npc:14724} Bubulo Acerbus
 	["{npc:14724}, by the tram"] = "",
 
-	-- Step 9: Fly to Light's Hope Chapel
+	-- Step 8: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 11: Light's Hope Chapel
+	-- Step 10: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
 	["Ride on north to {area:3197} and fly to {area:2268}."] = "",
 
-	-- Step 12: Scourge Champions
+	-- Step 11: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
@@ -69,14 +65,14 @@ return {
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["{item:13155}, from the Scourge Champions"] = "",
 
-	-- Step 13: Light's Hope Chapel
+	-- Step 12: Light's Hope Chapel
 	["Chromie in Andorhal: keep it"] = "",
 
-	-- Step 14: Infiltrator Hameya
+	-- Step 13: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
 	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 15: The Undercroft
+	-- Step 14: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
 	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger

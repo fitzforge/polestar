@@ -315,8 +315,10 @@ fn moving_more_than_50_yd_re_plans_once_the_plan_is_30_s_old_at_most_once_a_seco
 	assert_eq!(out["after"], 1);
 }
 
+// Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174);
+// the game's "New flight path discovered" saves it, and only that message does.
 #[test]
-fn learning_a_flight_path_re_plans_with_it() {
+fn learning_a_flight_path_saves_it_and_the_flight_out_stays() {
 	let out = run(r#"
 		ERR_NEWTAXIPATH = "New flight path discovered!"
 		known(2)
@@ -324,11 +326,11 @@ fn learning_a_flight_path_re_plans_with_it() {
 		target(0, -780)
 		local before = route()
 		stub.fire("UI_INFO_MESSAGE", 0, "Something else")
-		local other = route()
+		local other = { route = route(), saved = Polestar.CharState().flags.taxi[1] == true }
 		stub.fire("UI_INFO_MESSAGE", 0, ERR_NEWTAXIPATH)
 		emit({ before = before, other = other, after = route(), saved = Polestar.CharState().flags.taxi[1] == true })"#);
-	assert_eq!(out["before"], json!(["walk|Target"]));
-	assert_eq!(out["other"], json!(["walk|Target"]));
+	assert_eq!(out["before"], json!(["fly|Fly to East Hold", "walk|Target"]));
+	assert_eq!(out["other"], json!({ "route": ["fly|Fly to East Hold", "walk|Target"], "saved": false }));
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Target"]));
 	assert_eq!(out["saved"], true);
 }

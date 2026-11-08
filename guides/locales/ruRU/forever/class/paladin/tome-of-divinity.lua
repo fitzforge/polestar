@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["{spell:7328} (Alliance)"] = "",
+	["{spell:7328} (Alliance)"] = "{spell:7328} (Альянс)",
 	-- {spell:7328} Redemption
-	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "",
+	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "{spell:7328} на 12-м уровне, воскрешение паладина: простая цепочка заданий в вашей столице и её родной зоне.",
 
 	-- Step 1: The summons (Human)
 	["The summons (Human)"] = "",

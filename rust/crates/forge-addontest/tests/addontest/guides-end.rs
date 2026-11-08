@@ -7,7 +7,8 @@
 //! end; done ahead first, they must not end the guide (`own`). With the live step left early, only the last
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
-//! window for train, vendor and talk); then GUIDE_END must fire with steps left undone and the guide stay.
+//! window for train, vendor and talk; a vendor beside other work is left alone, Own.sideVendor); then
+//! GUIDE_END must fire with steps left undone and the guide stay.
 //! `train class` (any trainer of the class) cannot end a guide out of turn: those guides are listed, not failed.
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
@@ -70,16 +71,18 @@ do
 	local req, v = {}, E.GetStepView(r.last)
 	for gi, goal in ipairs(g.steps[r.last].goals) do
 		local st = v.goals[gi] and v.goals[gi].status
-		if goal.t ~= "note" and not goal.optional and st ~= "na" then req[#req + 1] = st end
+		if goal.t ~= "note" and not goal.optional and not (v.goals[gi] and v.goals[gi].side) and st ~= "na" then req[#req + 1] = st end
 	end
 	r.required = table.concat(req, ",")
 end
+-- A vendor check-off beside other work (the view's `side`) is left alone, as
+-- by a player with nothing to sell: it must never hold the step (Own.sideVendor).
 local function satisfy(s, again)
 	local view = E.GetStepView(s)
 	for gi, goal in ipairs(g.steps[s].goals) do
 		local gv = view.goals[gi]
 		local t = goal.t
-		if gv and gv.status ~= "na" and t ~= "note" and not goal.optional then
+		if gv and gv.status ~= "na" and t ~= "note" and not goal.optional and not gv.side then
 			if not again then r.kinds[#r.kinds + 1] = t .. (t == "train" and goal.class and " class" or "") end
 			if t == "accept" then if not w.log[goal.quest] and not w.completed[goal.quest] then w.accept(goal.quest, {}) end
 			elseif t == "turnin" then w.turnIn(goal.quest)

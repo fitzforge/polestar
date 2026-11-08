@@ -36,32 +36,32 @@ return {
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "",
 
-	-- Step 10: Fly to Lakeshire
+	-- Step 8: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "",
-	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
-	-- Step 11: Morgan's Vigil flight master
+	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "",
 
-	-- Step 12: Fly to Thelsamar
+	-- Step 10: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 
-	-- Step 14: Ironband's Excavation Site
-	["Ride east along the south shore of the loch to Ironband's camp."] = "Езжайте на восток вдоль южного берега озера к лагерю: Раскопки Сталекрута.",
-
-	-- Step 15: Thelsamar
+	-- Step 11: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 16: Into Badlands
+	-- Step 12: Ironband's Excavation Site
+	["Ride east along the south shore of the loch to Ironband's camp."] = "Езжайте на восток вдоль южного берега озера к лагерю: Раскопки Сталекрута.",
+
+	-- Step 13: Into Badlands
 	-- {area:3} Badlands
 	["Into {area:3}"] = "",
 
-	-- Step 18: The Uldaman dig
+	-- Step 15: The Uldaman dig
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "Раскопки: {area:1517}",
 	-- {area:3} Badlands · {area:1517} Uldaman
@@ -71,61 +71,67 @@ return {
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
-	-- Step 19: Into Loch Modan
-	-- {area:38} Loch Modan
-	["Into {area:38}"] = "",
-
-	-- Step 22: Ironband's Excavation Site
+	-- Step 16: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Езжайте обратно на север к Раскопкам Сталекрута.",
 
-	-- Step 23: Fly to Menethil Harbor
+	-- Step 17: Thelsamar
+	-- {area:144} Thelsamar
+	["Ride back west along the loch to {area:144}."] = "",
+
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 26: Rut'theran Village
+	-- Step 21: Rut'theran Village
+	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} стоит наверху, над NPC {npc:7916}: поднимитесь внутри, стрелка не различает этажи.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
 	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "Следующее поручение {npc:7907} ведет в {zone:1446}: пропустите.",
 	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
 	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}: сохраните задание, перья будут в конце гайда по зоне {zone:1428}",
 	["the book on her table"] = "книга на ее столе",
 
-	-- Step 28: Temple of the Moon
+	-- Step 23: Temple of the Moon
 	["Temple of the Moon"] = "Храм Луны",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Пройдите через портал в {zone:1457}. Храм Луны — на юге города.",
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}, рядом с ней",
 
-	-- Step 31: Cenarion Enclave
+	-- Step 26: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, на вершине дерева",
 
-	-- Step 33: Cenarion Enclave
+	-- Step 28: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "почва — из зоны {zone:1449}, позже",
 
-	-- Step 34: Portal to Teldrassil
+	-- Step 29: Portal to Teldrassil
 	-- {area:141} Teldrassil
 	["Portal to {area:141}"] = "",
 
-	-- Step 35: Fly to Auberdine
+	-- Step 30: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 36: Boat to Stormwind Harbor
+	-- Step 31: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 39: The bloodmages
+	-- Step 32: Fly to Darkshire
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "Летите в {area:42}",
+
+	-- Step 35: The bloodmages
 	["The bloodmages"] = "Маги крови",
 	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
 
-	-- Step 40: Nethergarde Keep
+	-- Step 36: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "Сначала езжайте дальше на восток по дороге к крепости: {item:6091} пропадет через час после места {area:42}, а звери магов крови займут больше времени.",
 	-- {quest:2990} Thadius Grimshade
@@ -135,27 +141,27 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
-	-- Step 41: Blasted Lands: kill these as you meet them
+	-- Step 37: Blasted Lands: kill these as you meet them
 	-- {area:4} Blasted Lands
 	["{area:4}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 42: The bloodmages
+	-- Step 38: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "Вторая ступень заданий магов крови платит за те же части предметом-усилением без опыта: пропустите.",
 
-	-- Step 43: Fly to Booty Bay
+	-- Step 39: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 44: Monogrammed Sash
+	-- Step 40: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 48: Facing Negolash
+	-- Step 44: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 

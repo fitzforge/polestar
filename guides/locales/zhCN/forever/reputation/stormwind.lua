@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Stormwind Reputation"] = "暴风城声望",
 	-- {zone:1422} Western Plaguelands
-	["Cloth, the {zone:1422}' cauldron quests and the Elwynn hubs: the quests pay most while you level."] = "",
+	["Cloth, the {zone:1422}' cauldron quests and the Elwynn hubs: the quests pay most while you level."] = "布料、{zone:1422}的大锅任务和艾尔文森林的任务点：升级期间任务给的声望最多。",
 	-- {faction:72} Stormwind
-	["Exalted with {faction:72}: in Classic, other races may buy the horses"] = "",
+	["Exalted with {faction:72}: in Classic, other races may buy the horses"] = "{faction:72}达到崇拜：在经典版中，其他种族可购买马匹",
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
-	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "",
+	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "{area:3197}和{zone:1428}的52-58级任务提供约1150点{faction:72}声望",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "艾尔文森林和{area:717}的低等级任务提供约4500点{faction:72}声望（在经典版中，60级时只有五分之一）",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham
@@ -171,7 +171,7 @@ return {
 
 	-- Step 29: Northshire: last hand-in
 	["Northshire: last hand-in"] = "",
-	-- {object:563442} Kobold Tracks (no name in this language: may be words)
+	-- {object:563442} Kobold Tracks
 	["{object:563442}, east of the abbey"] = "",
 
 	-- Step 30: Northshire: the books end in Goldshire

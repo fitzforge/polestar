@@ -5,7 +5,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::tmp::TempDir;
-use forge_addontest::{emitted, is_match, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
 use forge_data::codex::client::{Corpse, InstanceMap};
 use forge_data::codex::journal::{build_journal, emit_journal, Codex, JournalInputs};
 use forge_guide::js::{parse_json, V};
@@ -902,21 +902,24 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 }
 
 // The ring wears the dungeon's own picture (Dungeons/Art.lua: Wailing Caverns' loading screen, file 131882, by its
-// Map id 43), filling it inside the accent's rim; a dungeon the table doesn't know gets the dungeon glyph, small and
-// whole on the disc. Never the flat tinted circle the glyph made when it filled the ring.
+// Map id 43), filling it inside the accent's rim, lifted (the picture added over itself at its lift, 0.35) as it is a
+// dark one; a dungeon the table doesn't know gets the dungeon glyph, small and whole on the disc, with no lift.
+// Never the flat tinted circle the glyph made when it filled the ring.
 #[test]
 fn the_dungeon_heads_up_wears_the_dungeons_own_picture_and_the_dungeon_glyph_without_one() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		local function ring()
 			local f = CT.frame
-			local i = f.Icon
+			local i, l = f.Icon, f.Lift
 			return {{ texture = i:GetTexture(), coords = i.texCoord, size = i:GetWidth(), mask = f.Mask:GetWidth(), tint = {{ i:GetVertexColor() }},
-				solid = i.color ~= nil, ring = f.Ring:GetWidth() }}
+				solid = i.color ~= nil, ring = f.Ring:GetWidth(),
+				lift = l:IsShown() and {{ texture = l:GetTexture(), coords = l.texCoord, size = l:GetWidth(), alpha = l:GetAlpha(), blend = l.blend,
+					masked = l.mask == f.Mask }} or false }}
 		end
 		levelUp(20)
 		local art = Polestar.Dungeons.Art("wailing-caverns")
-		emit({{ dungeon = CT.current.dungeon, ring = ring(), art = {{ art.l, art.r, art.t, art.b }}, none = Polestar.Dungeons.Art("blackmaw-hold") or false }})
+		emit({{ dungeon = CT.current.dungeon, ring = ring(), art = {{ art.l, art.r, art.t, art.b }}, lift = art.lift, none = Polestar.Dungeons.Art("blackmaw-hold") or false }})
 		CT.Hide()
 		DT.Show({{ key = "blackmaw-hold", name = "Blackmaw Hold", minLevel = 55, maxLevel = 60, take = 1, level = 55 }})
 		local r, g, b = Polestar.Theme.Color("dungeon")
@@ -930,12 +933,19 @@ fn the_dungeon_heads_up_wears_the_dungeons_own_picture_and_the_dungeon_glyph_wit
 	assert_eq!(json!([&art["ring"]["size"], &art["ring"]["mask"], &art["ring"]["ring"]]), json!([36, 36, 40]), "the picture fills the ring inside a 2px rim");
 	assert_eq!(art["ring"]["tint"], json!([1, 1, 1, 1]), "in its own colours");
 	assert_eq!(art["ring"]["solid"], false);
+	assert_eq!(art["lift"], 0.35);
+	assert_eq!(
+		art["ring"]["lift"],
+		json!({ "texture": 131882, "coords": art["art"], "size": 36, "alpha": 0.35, "blend": "ADD", "masked": true }),
+		"the same picture added over it, in the same round crop"
+	);
 	assert_eq!(glyph["dungeon"], "blackmaw-hold");
 	assert_eq!(glyph["ring"]["texture"], glyph["glyph"]);
 	assert_eq!(glyph["ring"]["coords"], json!([0, 1, 0, 1]), "no crop left over from the picture");
 	assert_eq!(json!([&glyph["ring"]["size"], &glyph["ring"]["mask"]]), json!([20, 32]), "small on the disc, its corners inside the round crop");
 	assert_eq!(glyph["ring"]["tint"], glyph["violet"]);
 	assert_eq!(glyph["ring"]["solid"], false);
+	assert_eq!(glyph["ring"]["lift"], false, "no lift left over from the picture");
 }
 
 #[test]
@@ -1189,4 +1199,25 @@ fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_
 	));
 	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
 	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+}
+
+// Fitz (2026-11-07): The Hall of Thanes is in Ironforge; Horde can do it, but only through Ironforge. The level 20
+// Tauren's heads-up for it says so in the warning colour and leads with the dungeon's page, the pick-up guide
+// second; Wailing Caverns' card is as before.
+#[test]
+fn a_dungeon_whose_entrance_is_in_the_other_factions_land_says_so_on_the_heads_up_and_leads_with_its_page() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local m = DT.Model({{ key = "the-hall-of-thanes", name = "The Hall of Thanes", level = 15, take = 1, minLevel = 13, maxLevel = 20, zoneName = "Ironforge" }})
+		local w = DT.Model({{ key = "wailing-caverns", name = "Wailing Caverns", level = 20, take = 2, minLevel = 17, maxLevel = 24, zoneName = "The Barrens" }})
+		emit({{ line = m.giver, act = m.act.label, more = m.more.label, wline = w.giver, wact = w.act.label }})"#
+	));
+	let out = &out[0];
+	let line = text(&out["line"]);
+	assert!(line.starts_with("1 quest to pick up  ·  Levels 13–20  ·  Ironforge\n|c"), "the facts, then a coloured line: {line}");
+	assert!(line.ends_with("Entrance in Alliance territory (in Ironforge)|r"), "{line}");
+	assert_eq!(out["act"], "Open in Dungeons");
+	assert_eq!(out["more"], "Pick up the quests");
+	assert_eq!(out["wline"], "2 quests to pick up  ·  Levels 17–24  ·  The Barrens");
+	assert_eq!(out["wact"], "Pick up the quests");
 }

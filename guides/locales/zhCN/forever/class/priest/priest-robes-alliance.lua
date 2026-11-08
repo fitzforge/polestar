@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Alliance)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Alliance)"] = "5级牧师长袍（联盟）",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "5级即可免费获得一件优秀长袍：治疗并强化你第一个城镇附近的一名受伤卫兵。",
 
 	-- Step 1: In Favor of the Light
 	-- {npc:375} Priestess Anetta · {area:24} Northshire Abbey · {npc:377} Priestess Josetta · {area:87} Goldshire · {spell:613} Lesser Heal

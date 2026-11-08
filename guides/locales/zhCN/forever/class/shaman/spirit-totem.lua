@@ -10,7 +10,7 @@ return {
 	-- {quest:8412} Spirit Totem · {quest:8413} Da Voodoo
 	["{quest:8412} and {quest:8413}"] = "{quest:8412}与{quest:8413}",
 	-- {area:1417} Sunken Temple
-	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "",
+	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "50级时获取经验和金币，最终前往{area:1417}；Forever 可能取消了经典版的物品选择。",
 	["Experience and gold"] = "经验和金币",
 
 	-- Step 1: Sagorne Creststrider

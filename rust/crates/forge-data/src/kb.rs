@@ -13,9 +13,11 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use crate::jsv::{arr, hypot, math_round, nums, to_int32};
 use crate::players::{round_quest_xp, Eg, EgQuest, QuestXp, Vo};
 
+/// Lower wins. Our corrections outrank players' recordings: a recording never overrides a corrected
+/// value (recordings.rs puts them back; this keeps the knowledge base's choice the same).
 const TIERS: [(&str, f64); 25] = [
-	("recorder", 0.0),
 	("correction", 0.0),
+	("recorder", 0.5),
 	("tdb", 1.0),
 	("client", 1.0),
 	("eg.observed", 1.4),
@@ -3548,6 +3550,15 @@ mod tests {
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
 		alt.facts.get(key)?.iter().find(|f| f.field == field && f.source == source).map(|f| f.value.to_js_string())
+	}
+
+	#[test]
+	fn corrections_outrank_recordings_which_outrank_every_other_source() {
+		for f in ["level", "min_level", "start", "races", "spawns"] {
+			assert!(tier_of("correction", f) < tier_of("recorder", f), "{f}");
+			assert!(tier_of("recorder", f) < tier_of("tdb", f), "{f}");
+			assert!(decides_verify(f, tier_of("recorder", f)), "{f}");
+		}
 	}
 
 	#[test]

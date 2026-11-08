@@ -9,6 +9,11 @@ next forever/alliance/03-darkshore
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Humble Beginnings (399): taken in Stormwind on the way in, the compass at the
+# Alexston Farmstead on the west loop, handed in on the Stormwind visit before the boat. Humans
+# take Thor's flight to Stormwind on the first Sentinel Hill visit for Continue to Stormwind (6281),
+# Dungar Longdrink (6261) and Return to Lewis (6285), and hand Elmore's Task (1097) to Grimand
+# Elmore before the boat. Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
@@ -44,14 +49,37 @@ step Goretusk Snouts
 
 # ---------------------------------------------------------------- Sentinel Hill
 
-step Sentinel Hill
-  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
-  turnin 109 only Human
+step Sentinel Hill's tower and Thor
+  only Human
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower, Quartermaster Lewis inside it, Thor the gryphon master on the south side of the hill. Thor gives you Lewis' note for Osric Strang with a free flight to Stormwind: take it now. Osric's shop, Limited Immunity, is in Old Town; Baros Alexston stands in Cathedral Square on the way back to Dungar Longdrink, the gryphon master.
+  turnin 109                                  -- Gryan Stoutmantle
   accept 12
   accept 102                                  -- Captain Danuvin
-  accept 6181 only Human                      -- Quartermaster Lewis, inside
+  accept 6181                                 -- Quartermaster Lewis, inside
   getfp "Sentinel Hill"
-  turnin 6181 only Human                      -- Thor; skip the free flight it offers
+  turnin 6181                                 -- Thor
+  accept 6281                                 -- Thor: the free flight he offers goes to Stormwind
+  fly "Stormwind"
+
+step Osric Strang
+  only Human
+  zone Stormwind City
+  turnin 6281                                 -- Osric Strang, Limited Immunity in Old Town
+  turnin 61                                   -- Morgan Pestle, Trade District, on the way
+  accept 6261
+  accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
+  turnin 6261                                 -- Dungar Longdrink, the gryphon master
+  accept 6285
+  getfp "Stormwind"
+  fly "Sentinel Hill"
+
+step Sentinel Hill
+  zone Westfall
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
+  accept 12
+  accept 102                                  -- Captain Danuvin
+  turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
+  getfp "Sentinel Hill"
   accept 153                                  -- Scout Galiaan
   accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
   accept 92744 only Dwarf,Gnome,NightElf,Skyborne
@@ -131,10 +159,11 @@ step The Gold Coast Quarry
 
 step Moonbrook: kill these as you meet them
   zone Westfall
-  tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook.
+  tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook. Alexston's Chest stands in the farmhouse at the Alexston Farmstead, among them: Baros' compass is inside.
   tip Careful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there.
   kill 589 quest 13
   kill 590 quest 13
+  collect 2998 quest 399.1 @36.24,54.52       -- A Simple Compass, from Alexston's Chest
 
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
@@ -166,7 +195,7 @@ step Stormwind City
 step Defensive Stance
   only Human,Warrior
   zone Stormwind City
-  tip Walk to Stormwind. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug.
+  tip From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
   accept 1638 npc 5480 only Human -- Ilsa Corbin
   turnin 1638 only Human -- Harry Burlguard
   accept 1639 only Human
@@ -197,8 +226,7 @@ step The Tome of Divinity
   only Human,Paladin
   zone Stormwind City
   tip Duthorian Rall and Gazin Tenorm are in the Cathedral of Light; Stephanie Turner stands in the Trade District and asks for ten Linen Cloth (humanoids drop it; the Auction House sells it).
-  accept 1641 only Human -- Duthorian Rall
-  turnin 1641 only Human
+  turnin 1641 direct only Human -- Duthorian Rall
   accept 1642 only Human -- Right-click the Tome of Divinity he gives you
   turnin 1642 only Human -- Duthorian Rall
   accept 1643 only Human
@@ -248,15 +276,15 @@ step Stormwind
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
   turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
+  turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
+  accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
+  turnin 399                                  -- Baros Alexston, Cathedral Square
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
 
 step Stormwind
   zone Stormwind City
   when onquest 61
   turnin 61 only Human                        -- Morgan Pestle, Trade District
-
-step Stormwind City
-  buy 6530 x3 npc 5494                        -- Nightcrawlers
 
 step Woo Ping
   only Warrior

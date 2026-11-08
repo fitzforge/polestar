@@ -112,8 +112,8 @@ step Lakkari Tar Pits
 
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
-step The Gorishi hive
-  tip The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. Pterrordax nest on the cliffs above the hive; their scales are for Shizzle.
+step Pterrordax
+  tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
   collect 11831 quest 4503.2
   level 51.11                          -- grind on Pterrordax
 
@@ -267,13 +267,12 @@ step Gadgetzan
   zone Tanaris
   turnin 4504                         -- Tran'rek
   turnin 4496                         -- Alchemist Pestlezugg, inside
-  note Pestlezugg's next quest needs the Gorishi Hive Queen, an elite boss. Skip it.
   accept 4507
 
 step Orgrimmar
   only Hunter,Shaman
   zone Orgrimmar
-  tip Fly to Orgrimmar and train before the Grom'gol zeppelin: the Undercity stop later in this guide has no Hunter or Shaman trainer.
+  tip Fly to Orgrimmar and train before the boat to Powderfuse Port: the Undercity stop later in this guide has no Hunter or Shaman trainer.
   fly "Orgrimmar"
   train class
 
@@ -294,9 +293,9 @@ step Badlands
 
 # ---------------------------------------------------------------- Kargath
 
-step Fly to Kargath
+step Kargath
   zone Badlands
-  tip Fly to Orgrimmar, take the zeppelin to Grom'gol and fly from there to Kargath, built into the cliffs on the Badlands' west edge.
+  tip Kargath is built into the cliffs on the Badlands' west edge.
   accept 3821                         -- Thal'trak Proudtusk
   accept 4061                         -- Hierophant Theodora Mulvadania
 
@@ -362,6 +361,10 @@ step Fly to Undercity
   zone Undercity
 # ---------------------------------------------------------------- Undercity
 
+step Harbinger Balthazad
+  zone Undercity
+  accept 5094                         -- Harbinger Balthazad, the Trade Quarter, beside the bat master
+
 step Oran Snakewrithe
   tip Oran stands in the Magic Quarter.
   turnin 2782
@@ -373,7 +376,6 @@ step Oran Snakewrithe
 
 step Undercity
   zone Undercity
-  accept 5094                         -- Harbinger Balthazad, the Trade Quarter, beside the bat master
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   turnin 3542                         -- Andron Gant, the Rogues' Quarter

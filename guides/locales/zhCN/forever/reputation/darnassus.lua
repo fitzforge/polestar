@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Darnassus Reputation"] = "达纳苏斯声望",
 	-- {item:11040} Morrowgrain · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["Cloth, {item:11040} and the {zone:1438} and {zone:1439} hubs: the quests pay most while you level."] = "",
+	["Cloth, {item:11040} and the {zone:1438} and {zone:1439} hubs: the quests pay most while you level."] = "布料、{item:11040}以及{zone:1438}和{zone:1439}的任务据点：升级期间做任务给的声望最多。",
 	-- {faction:69} Darnassus
-	["Exalted with {faction:69}: in Classic, other races may buy the nightsabers"] = "",
+	["Exalted with {faction:69}: in Classic, other races may buy the nightsabers"] = "{faction:69}崇拜：在经典版中，其他种族可购买夜刃豹",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
-	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "",
+	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}：每10个{item:11040}给50点声望，可无限重复",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "{zone:1438}和{zone:1439}的低等级任务约给3,700点{faction:69}声望（经典版中60级时只有五分之一）",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -100,8 +100,8 @@ return {
 	-- Step 17: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "",
-	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:736} Ban'ethil Hollow
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "",
+	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080}在{area:259}东南岸照料他的花园；{npc:2107}在{area:186}东边{area:260}一座房子的楼上：从屋内上楼，箭头无法区分楼层。",
 
 	-- Step 18: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar

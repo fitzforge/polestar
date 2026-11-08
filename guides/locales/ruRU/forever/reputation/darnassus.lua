@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Darnassus Reputation"] = "Репутация: Дарнасс",
 	-- {item:11040} Morrowgrain · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["Cloth, {item:11040} and the {zone:1438} and {zone:1439} hubs: the quests pay most while you level."] = "",
+	["Cloth, {item:11040} and the {zone:1438} and {zone:1439} hubs: the quests pay most while you level."] = "Ткань, {item:11040} и центры заданий (зоны: {zone:1438} и {zone:1439}): во время прокачки больше всего дают задания.",
 	-- {faction:69} Darnassus
-	["Exalted with {faction:69}: in Classic, other races may buy the nightsabers"] = "",
+	["Exalted with {faction:69}: in Classic, other races may buy the nightsabers"] = "Превознесение ({faction:69}): в Classic другие расы могут покупать ночных саблезубов",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
-	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "",
+	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}: 50 репутации за каждые 10 шт. ({item:11040}), сколько угодно раз",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "Около 3700 репутации ({faction:69}) за задания низкого уровня (зоны: {zone:1438} и {zone:1439}) (в Classic на 60 уровне – пятая часть)",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -100,8 +100,8 @@ return {
 	-- Step 17: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "",
-	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:736} Ban'ethil Hollow
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "",
+	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080} ухаживает за своим садом на юго-восточном берегу (место: {area:259}); {npc:2107} стоит на верхнем этаже дома (место: {area:260}, к востоку от {area:186}): поднимитесь внутри дома, Стрелка не различает этажи.",
 
 	-- Step 18: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar

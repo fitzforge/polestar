@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Wintersaber Trainers Reputation"] = "",
+	["Wintersaber Trainers Reputation"] = "冬刃豹训练师声望",
 	-- {spell:17229} Winterspring Frostsaber · {zone:1452} Winterspring
-	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "",
+	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "{spell:17229}：在{zone:1452}交还840次任务，顺带获得木喉要塞声望。",
 	-- {area:1769} Timbermaw Hold · {item:21383} Winterfall Spirit Beads · {quest:5201} Winterfall Intrusion
-	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "",
+	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "顺带获得{area:1769}声望：每次{quest:5201}获得50点声望和约4个{item:21383}",
 
 	-- Step 1: Rivern Frostwind
 	-- {npc:10618} Rivern Frostwind · {area:2241} Frostsaber Rock · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers · {quest:4970} Frostsaber Provisions

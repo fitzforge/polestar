@@ -27,6 +27,7 @@ Nav.layers = Layers
 
 local TARGET, ROUTE, GOALS, SPOTS = "nav.target", "nav.route", "nav.goals", "nav.spots"
 local AREAS, GOAL_AREAS = "nav.areas", "nav.goalAreas"
+local HERE, HERE_AREAS = "nav.here", "nav.hereAreas"
 
 local function color(name)
 	local r, g, b = Nav.RGB(name)
@@ -134,10 +135,11 @@ local function updateRoute(world)
 	Pins.SetLayer(ROUTE, pins, { world = true, minimap = false, scale = 0.9 })
 end
 
-local function updateGoals(world)
+-- view: the current step's Engine.GetStepView (index), fetched once per
+-- Layers.Update for this and the areas.
+local function updateGoals(world, index, view)
 	local Engine = ns.Engine
-	local index = world and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not world then view = nil end
 	if not (view and view.goals) then
 		Pins.ClearLayer(GOALS)
 		return
@@ -145,7 +147,8 @@ local function updateGoals(world)
 	local target = Nav.GetTarget()
 	local pins = {}
 	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
-	-- steps and pinned quests, #644).
+	-- steps and pinned quests, #644). The While you're here line has its own
+	-- layer (updateHere).
 	local list = view.goals
 	if Engine.GetAlong then
 		list = {}
@@ -236,10 +239,9 @@ local function sameSig(sig)
 	return true
 end
 
-local function updateAreas(world, minimap)
+local function updateAreas(world, minimap, index, view)
 	local Engine = ns.Engine
-	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
-	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	if not (world or minimap) then view = nil end
 	local guide = view and view.goals and Engine.GetGuide and Engine.GetGuide()
 	local step = guide and guide.steps and guide.steps[index]
 	local ar, ag, ab = Nav.RGB("arrow")
@@ -257,7 +259,9 @@ local function updateAreas(world, minimap)
 				sig[#sig + 1], sig[#sig + 2] = regions, v.index == tg
 			end
 		end
-		-- The Along the way list's goals (along steps, pinned quests: #644).
+		-- The Along the way list's goals (along steps, pinned quests: #644), and
+		-- the While you're here line's once the arrow leads there (before, its
+		-- own layer draws it: updateHere).
 		if Engine.GetAlong and Engine.AlongGoal then
 			for _, s in ipairs(Engine.GetAlong()) do
 				for _, v in ipairs(s.goals) do
@@ -269,6 +273,14 @@ local function updateAreas(world, minimap)
 						sig[#sig + 1], sig[#sig + 2] = regions, mine
 					end
 				end
+			end
+			local nearby = Engine.GetWhileHere and Engine.GetWhileHere()
+			local goal = nearby and Engine.AlongGoal(nearby.step, nearby.index)
+			local regions = goal and goal.map and goal.spots and regionsOf(goal)
+			local mine = regions and target and target.stepIndex == nearby.step and target.goalIndex == nearby.index
+			if mine then
+				shown[#shown + 1], shown[#shown + 2] = regions, mine
+				sig[#sig + 1], sig[#sig + 2] = regions, mine
 			end
 		end
 	end
@@ -294,6 +306,53 @@ local function updateAreas(world, minimap)
 		Pins.SetLayer(GOAL_AREAS, others, { world = true, minimap = false })
 	else
 		Pins.ClearLayer(GOAL_AREAS)
+	end
+end
+
+-- The While you're here line (Engine.GetWhileHere) on both surfaces until
+-- the arrow leads there: its mark in the accent with a soft glow, clamped to
+-- the minimap's rim with the edge pointer when it is off it (an edge layer),
+-- and its spawn areas in the accent on the minimap too, so the minimap shows
+-- what the line and its chime point at. The mark pings once as the line
+-- appears (Pins `ping`: the line's `appeared`). Set again only when the line,
+-- its colour or the surfaces changed.
+local hereSig = {}
+local function updateHere(world, minimap)
+	local Engine = ns.Engine
+	local v = Engine and Engine.GetWhileHere and Engine.GetWhileHere()
+	local target = Nav.GetTarget()
+	if v and target and target.stepIndex == v.step and target.goalIndex == v.index then v = nil end
+	local r, g, b = Nav.RGB("accent")
+	local s = hereSig
+	if v and s.appeared == v.appeared and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap then return end
+	s.appeared, s.r, s.g, s.b, s.world, s.minimap = v and v.appeared, r, g, b, world, minimap
+	if not (v and v.map and v.x and v.y and (world or minimap)) then
+		Pins.ClearLayer(HERE)
+		Pins.ClearLayer(HERE_AREAS)
+		return
+	end
+	local text = v.hereText
+	Pins.SetLayer(HERE, { {
+		map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
+		ping = v.appeared, label = text,
+		tooltip = function(tip)
+			tip:SetText(L["While you're here:"] .. " " .. (text or ""))
+			tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
+		end,
+		onClick = function(button)
+			if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere() end
+		end,
+	} }, { world = world, minimap = minimap, edge = true })
+	local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
+	local regions = goal and goal.map and goal.spots and regionsOf(goal)
+	if regions then
+		local list = {}
+		for _, rg in ipairs(regions) do
+			list[#list + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
+		end
+		Pins.SetLayer(HERE_AREAS, list, { world = world, minimap = minimap, minimapAreas = true })
+	else
+		Pins.ClearLayer(HERE_AREAS)
 	end
 end
 
@@ -340,11 +399,17 @@ end
 
 function Layers.Update()
 	local world, minimap = surfaces()
+	-- The step's view, built once for the goals and the areas (a view is
+	-- built afresh on every Engine.GetStepView).
+	local Engine = ns.Engine
+	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
+	local view = index and Engine.GetStepView and Engine.GetStepView(index)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world)
+	updateGoals(world, index, view)
 	updateSpots(world)
-	updateAreas(world, minimap)
+	updateAreas(world, minimap, index, view)
+	updateHere(world, minimap)
 	updateTrail(world, minimap)
 end
 
@@ -361,6 +426,7 @@ Layers.OnTheme = Layers.Update
 
 ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
+ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()

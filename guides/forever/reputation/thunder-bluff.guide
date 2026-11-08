@@ -118,8 +118,7 @@ step Gloomrise (optional hub)
   label gloomrise
   zone Mulgore
   tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes (60 at a fifth), plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
-  accept 96259                        -- Muln Earthfury: Defending the Dead, +100
-  accept 96261                        -- The Broodmother
+  accept 96259                        -- Muln Earthfury: Defending the Dead, +100 (The Broodmother comes once it is handed in)
   accept 96241                        -- Mazu'kon: Talkin' bout Toxins, Mon (Darkspear +100)
   accept 96260                        -- Yorn Grimtotem: Stronger than Steel, +100
 
@@ -130,15 +129,23 @@ step Gloomrise
   kill 264083 x5 quest 96259.2        -- Gloomrise Soldier
   collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
   collect 273001 x5 quest 96241.1     -- Gloomrise Toxin Sample
-  kill 264082 quest 96261.1           -- Broodmother Valraxx
+
+step The Skywatcher camp: hand in
+  when done gloomrise
+  tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
+  turnin 96259
+  accept 96261                        -- Muln Earthfury: The Broodmother
+  turnin 96241
+  turnin 96260
+
+step Broodmother Valraxx
+  when done gloomrise
+  kill 264082 quest 96261.1           -- Broodmother Valraxx, at the heart of Gloomrise
   accept 96294 item 273658            -- Bloody Parchment: A Darker Truth, +100 (Orgrimmar +100)
 
 step The Skywatcher camp: hand in
   when done gloomrise
-  turnin 96259
   turnin 96261
-  turnin 96241
-  turnin 96260
   turnin 96294                        -- Muln Earthfury
 
 step Camp Narache (optional hub)

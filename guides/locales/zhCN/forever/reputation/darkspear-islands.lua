@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Darkspear Islands Reputation"] = "",
-	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "",
-	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "",
+	["Darkspear Islands Reputation"] = "暗矛群岛声望",
+	["Forever's new battleground: its gear comes for every bracket from 30, and Exalted gives a Legacy Point."] = "Forever的新战场：从30级起每个等级段都有其装备，崇拜可获得1点传承点数。",
+	["Master of Darkspear Islands: a Legacy Point at Exalted"] = "暗矛群岛大师：崇拜时获得1点传承点数",
 
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof

@@ -48,20 +48,9 @@ step Brohann Caskbelly
   zone Stormwind City
   turnin 1469
 
-step Duskwood
-  zone Duskwood
-  goto 75.8,46.2 "Duskwood"
-
-# ---------------------------------------------------------------- Darkshire
-
-step Darkshire
-  zone Duskwood
-  turnin 1477                         -- Watchmaster Sorigal
-  accept 1395
-
 step Fly to Lakeshire
-  zone Duskwood
-  goto 77.6,44.4 "Darkshire flight master"
+  zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Lakeshire"
   zone Redridge Mountains
 
@@ -76,21 +65,17 @@ step Fly to Thelsamar
   fly "Thelsamar"
   zone Loch Modan
 
-step Loch Modan
-  zone Loch Modan
-  goto 65.9,65.6 "Loch Modan"
-
-step Ironband's Excavation Site
-  tip Ride east along the south shore of the loch to Ironband's camp.
-  turnin 739                          -- Prospector Ironband
-  accept 704
-
 # ---------------------------------------------------------------- Loch Modan
 
 step Thelsamar
   zone Loch Modan
   sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove
   accept 17                           -- Ghak Healtouch, below ground
+
+step Ironband's Excavation Site
+  tip Ride east along the south shore of the loch to Ironband's camp.
+  turnin 739                          -- Prospector Ironband
+  accept 704
 
 step Into Badlands
   zone Badlands
@@ -106,22 +91,15 @@ step The Uldaman dig
   collect 8047 quest 17               -- Magenta Fungus Cap; below ground
   collect 4610 quest 704              -- Carved Stone Urn; below ground
 
-step Into Loch Modan
-  zone Loch Modan
-  goto 47.2,80.8 "Into Loch Modan"
-
-step Loch Modan
-  zone Loch Modan
-  goto 37.1,49.4 "Loch Modan"
-
-step Thelsamar
-  zone Loch Modan
-  turnin 17                           -- Ghak Healtouch, below ground
-
 step Ironband's Excavation Site
   zone Loch Modan
   tip Ride back north to Ironband's camp.
   turnin 704                          -- Prospector Ironband
+
+step Thelsamar
+  zone Loch Modan
+  tip Ride back west along the loch to Thelsamar.
+  turnin 17                           -- Ghak Healtouch, below ground
 
 step Fly to Menethil Harbor
   zone Loch Modan
@@ -192,9 +170,17 @@ step Boat to Stormwind Harbor
   zone Darkshore
   goto 30.7,41.0 "Boat to Stormwind Harbor"
 
-step Stormwind City
+step Fly to Darkshire
   zone Stormwind City
-  goto 66.3,62.7 "Stormwind City"
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Darkshire"
+  zone Duskwood
+
+# ---------------------------------------------------------------- Darkshire
+
+step Darkshire
+  zone Duskwood
+  accept 1395                         -- Watchmaster Sorigal
 
 step Blasted Lands
   zone Blasted Lands
@@ -248,6 +234,7 @@ step The bloodmages
   note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
 
 step Fly to Booty Bay
+  when group 8552
   zone Blasted Lands
   goto 65.5,24.4 "Nethergarde Keep flight master"
   fly "Booty Bay"

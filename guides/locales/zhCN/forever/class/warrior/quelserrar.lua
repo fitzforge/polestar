@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- {area:2577} Dire Maul · {npc:10184} Onyxia
-	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "",
-	["Shen'dralar reputation"] = "",
+	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "60级坦克剑：先在{area:2577}获得一本书，再用{npc:10184}的龙息淬炼剑刃（Forever的物品中尚未加入此剑）。",
+	["Shen'dralar reputation"] = "辛德拉声望",
 
 	-- Step 1: Nostro's Compendium of Dragon Slaying
 	-- {area:2577} Dire Maul · {npc:11496} Immol'thar · {npc:11501} King Gordok · {zone:1444} Feralas

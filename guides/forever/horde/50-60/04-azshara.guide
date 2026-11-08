@@ -27,15 +27,6 @@ step Fly to Ratchet
 
 # ---------------------------------------------------------------- The Barrens
 
-step Dokimi's crates
-  tip Dokimi stands in the Crossroads. Open each crate she hands you and bring back what is inside.
-  accept 91899
-  complete 91899
-  turnin 91899
-  accept 91904
-  complete 91904
-  turnin 91904
-
 step Liv Rizzlefix
   tip Liv's workshop is at the north end of Ratchet's docks; Marvon's Chest stands inside it.
   turnin 4147                         -- Inside
@@ -46,6 +37,15 @@ step Islen Waterseer
   turnin 5158
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
+
+step Dokimi's crates
+  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Orgrimmar from the Crossroads.
+  accept 91899
+  complete 91899
+  turnin 91899
+  accept 91904
+  complete 91904
+  turnin 91904
 
 step Vehena
   zone Orgrimmar
@@ -135,10 +135,9 @@ step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
-step Prompt Potion Runner
+step Chemist Cuely
   zone Undercity
-  accept 97891                        -- Alessandro Luca
-  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
+  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
   turnin 3568                         -- Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him

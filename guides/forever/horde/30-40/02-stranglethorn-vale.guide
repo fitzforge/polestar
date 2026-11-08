@@ -172,7 +172,7 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Grom'gol
-  tip Follow the road south to Grom'gol.
+  tip Nimboya waits in Grom'gol, near the zeppelin tower.
   turnin 581                          -- Nimboya
   accept 582
 

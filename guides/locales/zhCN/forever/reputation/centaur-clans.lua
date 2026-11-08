@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Gelkis and Magram Centaur Reputation"] = "",
+	["Gelkis and Magram Centaur Reputation"] = "吉尔吉斯和玛格拉姆半人马声望",
 	-- {zone:1443} Desolace
-	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "",
+	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "{zone:1443}的敌对部族，在Forever中经过重制：选择其一，换取其友谊，并用图腾交换配方。",
 	-- plural, as words: Carved Centaur Totems = {item:254432} Carved Centaur Totem
-	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "",
+	["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "部族军需官处有12种雕刻半人马图腾（{item:254432}）配方，无需声望",
 	-- {npc:5601} Khan Jehn
-	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "",
+	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "{npc:5601}的任务：一个部族头衔，以及三把35级稀有武器任选其一",
 
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "",

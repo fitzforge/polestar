@@ -174,7 +174,7 @@ pub(crate) struct G {
 	pub(crate) map: f64,
 	pub(crate) spots: Vec<Spot>,
 	/// The objective's own spawn points inside its spots (the spot centres when the data has none).
-	spawns: Vec<Wpt>,
+	pub(crate) spawns: Vec<Wpt>,
 	pub(crate) item: Option<u32>,
 	location: Option<String>,
 	/// The compiler's map percent and frame for the goal.
@@ -184,6 +184,8 @@ pub(crate) struct G {
 	pub(crate) object: Option<u32>,
 	/// The walk of the NPC the goal is at (forge_guide::walks): centre wx, wy and radius, world yards.
 	pub(crate) walk: Option<(f64, f64, f64)>,
+	/// A `goto` the compiler gave an area (a cave's or subzone's way in): kept wherever it stands.
+	pub(crate) area: bool,
 }
 
 pub(crate) struct Chain {
@@ -378,6 +380,7 @@ fn play_chain(tree: &BTreeMap<String, String>, data: &Data, t: &Travel) -> Chain
 					npc: id(&x.get("npc")),
 					object: id(&x.get("object")),
 					walk: forge_guide::walks::npc_walk(data, x).map(|w| (w.1, w.2, w.3)),
+					area: x.get("area").truthy(),
 				});
 			}
 		}
@@ -1823,6 +1826,8 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 	if opts.tips {
 		crate::tips::place_notes(&ch, &texts, &mut edits, inp, &mut rep);
 	}
+	// ---- R11: a v1 goto that leads nowhere near the work after it ----
+	crate::tips::stray_gotos(&ch, &texts, &mut edits, &mut rep);
 	if opts.warnings {
 		crate::tips::warnings(&ch, &texts, &mut edits, inp, &mut rep);
 	}

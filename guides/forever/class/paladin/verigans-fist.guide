@@ -49,15 +49,13 @@ step The Tome of Valor (Ironforge)
   zone Ironforge
   tip At 20 Tiza Battleforge, upstairs in the Hall of Mysteries in the Mystic Ward, gives you the Tome of Valor. Right-click it: it sends you to Duthorian Rall in Stormwind's Cathedral of Light. Take the Deeprun Tram from Ironforge to Stormwind.
   level 20
-  accept 1794                         -- Tiza Battleforge
-  turnin 1794
+  turnin 1794 direct                  -- Tiza Battleforge
 
 step The Tome of Valor
   zone Stormwind City
   tip Duthorian Rall stands in the Cathedral of Light. Humans get the Tome of Valor from him. Right-click the book to start its quest and hand it straight back to him.
   level 20
-  accept 1793 only Human              -- Duthorian Rall
-  turnin 1793 only Human
+  turnin 1793 direct only Human       -- Duthorian Rall
   accept 1649 item 6776               -- Right-click the Tome of Valor
   turnin 1649                         -- Duthorian Rall
   accept 1650

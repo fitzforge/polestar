@@ -159,15 +159,6 @@ step Morgan's Vigil
   turnin 3823                         -- Oralius
   accept 3824
 
-step Blackrock Medallion on the way
-  along until q3701
-  collect 11467 quest 4283.1
-
-step Thaurissan Relic on the way
-  along until q3701
-  when onquest 3701
-  interact 153556 quest 3701.1
-
 step Level 51.39
   when level<51.39
   tip Top up here to level 51.39 before the hand-ins at Flame Crest: they take you to level 52.
@@ -188,7 +179,6 @@ step Level 52
   level 52                          -- grind on Firegut Ogre Mage
 
 step Ruins of Thaurissan: kill these as you meet them
-  label q3701
   zone Burning Steppes
   tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
   tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
@@ -268,6 +258,7 @@ step To Stoutlager Inn
   goto 35.5,48.4 "Stoutlager Inn"
 
 step Loch Modan
+  when group 3181
   zone Loch Modan
   goto 18.2,84.0 "Loch Modan"
 

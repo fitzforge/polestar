@@ -86,11 +86,10 @@ return {
 	-- {npc:1817} Diseased Wolf
 	["grind on {npc:1817}"] = "",
 
-	-- Step 17: Diseased Grizzly on the way
-	-- {npc:1816} Diseased Grizzly
-	["{npc:1816} on the way"] = "",
-	-- {npc:1816} Diseased Grizzly · {npc:10739} Mulgris Deepriver
-	["{npc:1816} along the way to {npc:10739}"] = "",
+	-- Step 17: Diseased Grizzlies
+	["Diseased Grizzlies"] = "Больные гризли",
+	-- {area:202} Writhing Haunt
+	["The bears roam the hills north and east of the {area:202}."] = "Медведи бродят по холмам к северу и востоку от места {area:202}.",
 
 	-- Step 18: Mulgris Deepriver
 	-- {npc:5770} Nara Wildmane · {zone:1456} Thunder Bluff
@@ -121,17 +120,17 @@ return {
 	-- {area:1763} Jaedenar
 	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54."] = "",
 
-	-- Step 25: Zeppelin to Orgrimmar
+	-- Step 25: Paladin trainer
+	["Paladin trainer"] = "",
+	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
+	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152} – здесь: {area:85}; в городе {zone:1454} нет учителя паладинов",
+
+	-- Step 26: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "",
 
-	-- Step 27: Class trainer
+	-- Step 28: Class trainer
 	["Class trainer"] = "",
-
-	-- Step 28: Paladin trainer
-	["Paladin trainer"] = "",
-	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
 	-- Step 29: Druid trainer
 	["Druid trainer"] = "",

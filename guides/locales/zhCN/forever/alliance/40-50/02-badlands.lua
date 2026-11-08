@@ -6,50 +6,43 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Fly to Thelsamar
-	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
-
-	-- Step 4: Valley of Fangs
-	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
+	-- Step 2: Valley of Fangs
+	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["Blue Pearls from Stranglethorn"] = "来自荆棘谷的{item:4611}",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一个任务不给经验：跳过。",
 
-	-- Step 5: Boss Tho'grun
-	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
+	-- Step 3: Boss Tho'grun
+	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
 
-	-- Step 6: Garek
+	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
 	["Ride back east to {area:1898}."] = "向东骑回{area:1898}。",
 	-- {npc:2888} Garek
 	["{npc:2888}'s next task is an elite hunt: skip it."] = "{npc:2888}的下一个任务是精英狩猎：跳过。",
 
-	-- Step 7: Lethlor Ravine
+	-- Step 5: Lethlor Ravine
 	-- {npc:2888} Garek · {item:4612} Black Drake's Heart
 	-- plural, as words: Scalding Whelps = {npc:2725} Scalding Whelp · Scorched Guardians = {npc:2726} Scorched Guardian
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "{npc:2725}在{npc:2888}东边的峡谷里筑巢；别惹{npc:2726}（精英）。{item:4612}很少掉落：刷怪时掉了就拿上。",
 
-	-- Step 9: Fly to Southshore
+	-- Step 7: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 10: Southshore
-	-- {area:144} Thelsamar · {area:271} Southshore · {npc:3980} Raleigh the Devout
-	["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "向北骑到{area:144}，飞往{area:271}。{npc:3980}在旅店旁布道。",
+	-- Step 8: Southshore
+	-- {npc:3980} Raleigh the Devout
+	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980}, upstairs"] = "",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "虔诚的莱雷恩的下一个差事在{area:796}：跳过。",
 
-	-- Step 12: Aerie Peak
+	-- Step 10: Aerie Peak
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "",
 	-- {quest:1450} Gryphon Master Talonaxe
@@ -59,16 +52,16 @@ return {
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
 
-	-- Step 13: Rhapsody Shindigger
+	-- Step 11: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634}在{area:348}东边的路上扎营。",
 
-	-- Step 14: Witherbark villages
+	-- Step 12: Witherbark villages
 	["Witherbark villages"] = "枯木村庄",
 	-- {npc:5634} Rhapsody Shindigger
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "前两个笼子一起在{npc:5634}南边的枯木村庄里；第三个在东边的下一个村庄里。每个枯木巨魔都可能掉落项链。",
 
-	-- Step 15: Aerie Peak
+	-- Step 13: Aerie Peak
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}会继续收购项链：交上多余的",
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -76,13 +69,13 @@ return {
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "",
 
-	-- Step 16: Fly to Menethil Harbor
+	-- Step 14: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
-	-- Step 18: Theramore
+	-- Step 16: Theramore
 	["Theramore"] = "塞拉摩岛",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船停靠的码头上。",
@@ -91,22 +84,25 @@ return {
 	-- {npc:4968} Lady Jaina Proudmoore
 	["{npc:4968}, on the top floor"] = "",
 
-	-- Step 19: Cortello's Riddle
+	-- Step 17: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 20: Theramore flight master
+	-- Step 18: Theramore flight master
 	["Theramore flight master"] = "",
 
-	-- Step 22: Warlock: Summon Felsteed
+	-- Step 20: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "术士：{quest:3631}",
-	-- {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飞往{area:392}；{npc:6251}在银行旁的房子里授课。之后飞回塞拉摩岛。",
+	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "从塞拉摩岛向北骑进{zone:1413}到{area:392}，如果你有它的飞行路线就直接飞过去。{npc:6251}在银行旁的房子里授课。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Blue Pearls from Stranglethorn"] = "来自荆棘谷的{item:4611}",
+	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飞往{area:392}；{npc:6251}在银行旁的房子里授课。之后飞回塞拉摩岛。",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飞往{area:608}，向南骑过{zone:1443}进入{zone:1444}，沿道路到{area:1108}的码头；船会渡海前往{area:1116}，下一份指南从那里开始。",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
+	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "向北骑到{area:144}，飞往{area:271}。{npc:3980}在旅店旁布道。",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路向东北骑出{area:271}，进入{zone:1425}；{area:348}就在边界后面。弗斯塔德·蛮锤在顶层，{quest:1450}照看狮鹫棚，{npc:7884}站在旅店旁。",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路向东北骑出{area:271}，进入{zone:1425}；{area:348}就在边界后面。{npc:5635}在顶层，{quest:1450}照看狮鹫棚，{npc:7884}站在旅店旁。",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "向南骑出{zone:1432}，穿过山口进入{zone:1418}；{npc:2860}在挖掘场扎营。",

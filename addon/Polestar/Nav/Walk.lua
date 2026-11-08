@@ -1005,7 +1005,12 @@ end
 --     per replan; alone, a batch of one, when the measure has every other
 --     place: remeasureStart), and until it lands it is that measure less the
 --     yards moved, never less than the straight distance (x1.0: a walk is
---     never priced dearer for having come closer).
+--     never priced dearer for having come closer). Within MEASURE_NEAR of the
+--     target, where nothing is measured again, the straight estimate instead:
+--     a winding walk measured from far away, less the yards moved, still
+--     counted thousands of yards beside the target, and the route went to a
+--     place with a short measured walk in and back (#1053, Thunder Bluff's
+--     Elder Rise: to the north lift's top and back, round and round).
 --   Fixed per target and kept for the last MEASURE_KEEP targets, so plans
 --     never flip-flop on them: a target is measured again only when its plan
 --     has a place the measure lacks (a flight master learned, a new bind, the
@@ -1026,7 +1031,8 @@ end
 --     still draws the walk. A batch costs about a second of router work and
 --     a guide sets a near waypoint at every turn-in, so measuring those
 --     stuttered the frame rate for little: a hearth or a flight seldom beats
---     a walk that short. A target measured from farther keeps its measure.
+--     a walk that short. A target measured from farther keeps its measure,
+--     the player's own walk in it only within START_NEAR of where it was taken.
 ---------------------------------------------------------------------------
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
@@ -1083,7 +1089,8 @@ end
 -- no walk from there (unreachable, or off its maps), or nil for the straight
 -- estimate. The player's walk measured more than START_NEAR yards away is
 -- that walk's yards less the yards moved, never below the straight distance,
--- its cost scaled alike (and no answer when none was found).
+-- its cost scaled alike (and no answer when none was found); within
+-- MEASURE_NEAR of the target, where it is not measured again, no answer.
 local function measuredCost(e, c, wx, wy, start)
 	if c ~= e.c then return nil end
 	local costs, yards = e.costs, e.yards
@@ -1105,6 +1112,7 @@ local function measuredCost(e, c, wx, wy, start)
 	if moved <= START_NEAR then return m, y end
 	dx, dy = e.x - wx, e.y - wy
 	local least = sqrt(dx * dx + dy * dy)
+	if least < MEASURE_NEAR then return nil end
 	local rate = y > 0 and m / y or 1
 	y = y - moved
 	if y < least then y = least end

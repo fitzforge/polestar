@@ -71,10 +71,6 @@ step Hive in the Tower
   tip Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the Encrusted Silithid Object.
   collect 17346 quest 1126.1
 
-step Stonelash Flayer Stinger on the way
-  along until q8278
-  collect 20375 quest 8278.1
-
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
 
@@ -87,7 +83,6 @@ step Hermit Ortell
   collect 20377 quest 8278.3                  -- Rock Stalker Fang from Rock Stalker, 130 yd south-west
 
 step Dredge Crushers and Pincers
-  label q8278
   tip Head north along the western dunes; Dredge Crushers and Stonelash Pincers range from here back toward the hold.
   kill 11741 quest 8281.1             -- Dredge Crusher walks around Southwind Village: look inside the circle on the map
   collect 20375 quest 8278.1
@@ -175,7 +170,7 @@ step Un'Goro Crater
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave; J.D.
+  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave.
   turnin 3914                         -- Linken
   accept 3941
   accept 4501                         -- The wooden sign beside Spraggle
@@ -199,6 +194,7 @@ step Krakle
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
 
 step Pawn Captures Queen
+  tip Use the Gorishi Queen Lure where the arrow points, inside the Gorishi hive of the Slithering Scar, to call the Gorishi Hive Queen (level 56).
   use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1 @43.9,81.4 map 1449
 
@@ -221,7 +217,7 @@ step Un'Goro Crater: kill these as you meet them
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Collie is inside it.
+  tip J.D. Collie is inside the cave.
   turnin 3941                         -- J.D. Collie, below ground
   accept 3942
   note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
@@ -326,6 +322,14 @@ step Andorhal watchtowers and silos
 
 step Chromie
   turnin 4971                         -- Upstairs
+  accept 4972
+
+step Counting Out Time
+  tip The lockboxes sit in Andorhal's ruined houses around Chromie's inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
+  collect 12638 quest 4972.1 @40.3,68.2 map 1422
+
+step Chromie
+  turnin 4972                         -- Upstairs
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -336,7 +340,6 @@ step The Bulwark
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
   note Dithers offers Skeletal Fragments (Scholomance). Skip it.
-  turnin 6029                         -- Argent Officer Garush
   turnin 5098                         -- High Executor Derrington
   accept 105
   accept 838
@@ -435,20 +438,12 @@ step Level 59.14
 step Chromie
   zone Western Plaguelands
   tip Ride south-west to Chromie in Andorhal.
-  accept 4972
   turnin 5941
   note Chromie's Battle of Darrowshire ends against elites. Skip it.
 
-step Counting Out Time
-  tip Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
-  collect 12638 quest 4972.1 @40.3,68.2 map 1422
-
-step Chromie
-  turnin 4972                         -- Upstairs
-
 step The Bulwark
   zone Tirisfal Glades
-  tip West to the Bulwark. The next guide starts in the Undercity, a short ride west.
+  tip West to the Bulwark.
   turnin 6390                         -- Mickey Levine
   turnin 5232
   accept 5233

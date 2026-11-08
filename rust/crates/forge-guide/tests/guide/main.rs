@@ -35,6 +35,7 @@ mod dsl_when_skill;
 mod dsl_when_upgrade;
 mod guidecheck;
 mod hand_spots;
+mod lint_flights;
 mod lint_format;
 mod lint_goto;
 mod lint_timed;

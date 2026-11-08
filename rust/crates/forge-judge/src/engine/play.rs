@@ -28,6 +28,8 @@ pub(crate) struct ViewGoal {
 	pub status: Status,
 	pub max: Option<f64>,
 	pub manual: bool,
+	/// A vendor check-off beside other work (Own.sideVendor): it does not hold the step.
+	pub side: bool,
 	pub npc: Option<u32>,
 	pub npc_name: Option<String>,
 	pub pos: Option<(u32, f64, f64)>,
@@ -251,7 +253,8 @@ impl<'a> Sim<'a> {
 			let max = if d.cur.is_some() { d.max } else { None };
 			let (npc, npc_name) = self.npc_of(s, g);
 			let pos = self.pos_of(s, g).map(|p| (p.0, p.1, p.2));
-			out.push(ViewGoal { status, max, manual: is_manual(self.gd().goal(s, g)), npc, npc_name, pos });
+			let side = self.side_vendor(s, g);
+			out.push(ViewGoal { status, max, manual: is_manual(self.gd().goal(s, g)), side, npc, npc_name, pos });
 		}
 		out
 	}
@@ -481,10 +484,12 @@ impl<'a> Sim<'a> {
 				break;
 			}
 			let view = self.view_hooked(i);
+			// A vendor check-off beside other work (the view's `side`) is left alone, as by a player with
+			// nothing to sell: it must never hold the step.
 			let open = (1..=view.len()).find(|&g| {
 				let v = &view[g - 1];
 				let goal = self.gd().goal(i, g);
-				v.status != Status::Done && v.status != Status::Na && !goal.optional && goal.t != T::Note
+				v.status != Status::Done && v.status != Status::Na && !goal.optional && !v.side && goal.t != T::Note
 			});
 			match open {
 				None => {

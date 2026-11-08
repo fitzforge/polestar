@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a blouse for Alliance mages in their late 20s."] = "",
+	["A robe or a blouse for Alliance mages in their late 20s."] = "为二十多级的联盟法师准备的长袍或短衫。",
 
 	-- Step 1: Bink (Ironforge)
 	-- {npc:5144} Bink · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind

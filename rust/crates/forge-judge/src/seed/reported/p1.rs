@@ -633,7 +633,7 @@ fn talk_to(ctx: &Ctx, c: &mut Check) {
 	let talks = [
 		("forever/horde/03-silverpine-forest.guide", 93739, 1.0, "Nazgrel"),
 		("forever/horde/03-silverpine-forest.guide", 93739, 2.0, "Vol'jin"),
-		(STONETALON, 93739, 4.0, "Lady Sylvanas Windrunner"),
+		("forever/horde/03-silverpine-forest.guide", 93739, 4.0, "Lady Sylvanas Windrunner"),
 		(ASHENVALE_HORDE, 93739, 3.0, "Cairne Bloodhoof"),
 	];
 	for (guide, quest, oi, name) in talks {

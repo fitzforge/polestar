@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "Конь Скверны чернокнижника",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "Собственный транспорт на 40-м уровне: призывается где угодно, без обучения верховой езде за 100 з.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet

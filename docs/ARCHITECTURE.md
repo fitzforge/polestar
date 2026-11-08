@@ -903,7 +903,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `enter` | `location` | `area`, `map`, `x`, `y` | zone or subzone equals the client's name of `area` (without one, `location`), as `hearth` without the hearthstone: the in-step latch keeps it once its live step had it (`latchable`, so passing it keeps it too); the coordinates only make its waypoint |
 | `train` | — | `npc`, `npcName`, `text` | a spell learned (LEARNED_SPELL_IN_SKILL_LINE) while the trainer's window is open during this step: that NPC (`npc`), one of the candidates for the character's class (`candidates` with `classes`), or, for `train class`, a class trainer of the character's class; the window opening alone is no check-off (Fitz); else manual |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName` | item count ≥ `count` (default 1) |
-| `vendor` | — | `npc`, `npcName`, `text` | that merchant's window (`npc`, or one of the `candidates`; a plain `vendor`, any merchant) opened during this step; a window still open when the step comes up does not count (no carry-over for any NPC window); else manual |
+| `vendor` | — | `npc`, `npcName`, `text` | that merchant's window (`npc`, or one of the `candidates`; a plain `vendor`, any merchant) opened during this step; a window still open when the step comes up does not count (no carry-over for any NPC window); else manual. Beside other goals that hold the step and apply to the character it is a stop on the way, never holding the step (`Own.sideVendor`, `Own.holds`; its view's `side = true`): the step is done when those are, sold or not. A step of only vendor goals waits for the window, a tick or a skip |
 | `level` | `level` | `frac` | player level > `level`, or = `level` with XP / XPMax ≥ `frac` (no `frac`: level ≥ `level`); its view's `xpLeft` is the XP still to earn (`Own.xpLeft`: the client's XP to level for the level the character is at, the 1.12 table past it), shown "1,240 XP to go" |
 | `wait` | `seconds` | `text` | that many seconds after its countdown began: once every goal before it in the step that holds the route is done (`Own.startWaits`, `Own.waitStart`, for the session); its view's progress is `{ cur = seconds left, max = seconds, kind = "wait" }`, drawn as a draining line "0:23 left" (`UI.GoalBar`); `Own.watchWait` evaluates each second while one counts; latched on the live step |
 | `note` | `text` | — | never blocks (informational) |
@@ -1270,6 +1270,53 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
   hand-in) and the writer.
+- **While you're here.** While the player works the live step, an open
+  objective of a later step whose quest is already in the log, close by,
+  becomes one line under the step (`Engine.GetWhileHere`: the goal view of
+  its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
+  and `hereText`, "Kill Kobold Vermin, 2 more"). `Own.hereBuild` builds the
+  candidates (at most `HERE_MAX`, kept in `Own.hereList`) in `evaluate` only
+  when something changed them (`Own.hereDirty`: a step change of the active
+  tab, another guide, the quest log, the level, a new zone, the
+  `behavior.whileHere*` settings): the open kill, collect, interact and use
+  goals with a place in the steps after the live step, up to the first
+  applying goal that leaves the zone (`fly`, `hearth`, `enter`, or a place on
+  another map than the player's), each for a quest in the log and not ready,
+  for the character (`stepApplies`, `goalApplies`), not skipped, not along
+  (an along step, background goals included, or a pinned quest: Along the
+  way lists them), not an objective the live step works itself, with mobs
+  at most `HERE_ABOVE` levels over the player, whatever is left (no size
+  cap: the player is there already; slow, spread drops are background goals,
+  which are along steps). With `behavior.whileHereTurnins`, a later `turnin`
+  of a ready quest counts too (its NPC within `HERE_TURNIN` yards). The arrival
+  poll measures them (`Own.hereTick`, allocation-free: cached world points,
+  no tables, a message only when the shown distance moves by `HERE_STEP`):
+  the nearest within `behavior.whileHereRadius` yards of its nearest spawn
+  area at the player's level becomes the line, after one budgeted walk check
+  (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
+  `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
+  radius, once done, after `HERE_SECONDS` with no progress on it (each
+  change of its count starts the time again), or on `Engine.DismissWhileHere`.
+  Nothing appears, and nothing goes by distance or time, during a fight. A
+  dismissed or expired line stays quiet for the zone stay (`Own.hereQuiet`,
+  emptied when `GetRealZoneText` changes). Never in an instance, on a taxi,
+  while a Hearthstone or Astral Recall is cast, with a quest timer running,
+  or while the live step escorts (`Own.hereBlocked`). The line never takes
+  the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
+  leads there while it shows, a step change keeps it), and when the line
+  goes `aim` is cleared and the arrow returns to the guide. Messages:
+  `WHILE_HERE_CHANGED` (came, count changed, went) and
+  `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
+  "Then:" (`fillHere`), the toast says it with the window hidden or compact
+  (UI/WhileHere.lua), and a new line plays a soft chime, "star twinkle"
+  (`behavior.whileHereSound`, `Media/Sounds/while-here.ogg`, our own
+  synthesized file, `tools/sounds/while-here-chime.py`, on the SFX channel, at most every 30 s). Nav/Layers
+  draws its mark and spawn areas in the accent on both surfaces (layers
+  `nav.here`, an edge layer, and `nav.hereAreas`) until the arrow leads
+  there; the mark carries the line's `appeared` as its Pins `ping`, so it
+  pings once on the minimap as the line appears. The quest item button falls back to its item
+  (QoL/Buttons `ChooseQuestItem`). Done early, the later step is done or
+  shorter when the route gets there, as any objective done ahead.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -1505,6 +1552,34 @@ number uses them; the bug report adds the guide's own index ("Step 7 of 33
 (guide step 9)"). A step that depends on what the player does (`when`) is
 theirs: it keeps its number and says why it does not apply now
 (`Own.stepWhy`).
+
+#### Flight steps and the travel route
+
+A travel step holds, for the character, nothing open but gotos and a `fly`
+(a flight step: the walk to a flight master and the flight) or gotos alone
+(a walk): it is a way to the work after it (#1191, #1212; `Own.transitKind`).
+With the travel planner leading on Polestar's own arrow (`nav.travel` and
+`nav.arrow` on, not TomTom's arrow, not handed off; `Own.plannerFlies`) and the flight's end
+a node the character knows (`Nav.GetTaxiNode`, `Nav.GetKnownTaxiNodes`):
+
+- a flight step's arrow leads to the flight's end (`Own.flyAim`) and the
+  window marks the flight, so the route flies there in one flight from the
+  flight master that reaches it soonest, not via the one the step names;
+- a travel step passes (`stepDone`, `Own.flightOn`) when the next open step
+  after it, past walks on the same continent, is another flight step: the
+  stop between holds nothing left for the character (its work done, skipped,
+  unavailable or for other characters), so the route flies on directly;
+- a flight step whose next open step is work is judged once when the route
+  reaches it (`Own.flightJudged`, never on a taxi): it passes, with the walks
+  between, when `Nav.EstimateTravel` reaches that work at least
+  `Own.FLY_MARGIN` (60 s) or `Own.FLY_SHARE` (10%) sooner than landing at
+  the flight's end first (a nearer flight path the character knows, or a stop
+  whose own work is behind them). The verdict holds until the character
+  learns a flight path (`Own.flyVerdicts`).
+
+With the planner off the steps hold as written. `forge guide lint` reports a
+flight to a stop with nothing to do followed by another flight
+(`check_flight_hops`, a house rule).
 
 #### Focus: one person at a time
 
@@ -1757,6 +1832,7 @@ Step view (render-ready; the UI never re-derives status):
       progress = { cur = 3, max = 10 } | nil,
       manual = true | false,               -- UI shows a checkbox when true (a `task` always: done only by the tick)
       optional = false, note = nil,
+      side = nil,                          -- true: a vendor check-off beside other work, which does not hold the step
       map = 1429, x = 47.6, y = 35.1, f = nil,   -- when the goal has coordinates
       quest = 7, npc = 6, item = nil,
       -- A collect's compiled source (GUIDE_FORMAT "What the compiler fills
@@ -1772,7 +1848,7 @@ Step view (render-ready; the UI never re-derives status):
 
 Current step = first step, in order, that is applicable (`only` matches
 and, with `when`, its predicates hold), not skipped, and not done. A step is done when every applicable,
-non-optional goal is done; a step of only notes/optional goals is done at
+non-optional goal is done, a `vendor` beside other such goals aside (`Own.holds`); a step of only notes/optional goals is done at
 once, and so is an `along` step. Step views for indices before the current step report `done`,
 `skipped` or `na`; after it, `upcoming` or `na`. A view carries the step's
 `along` and `label`.
@@ -2489,7 +2565,8 @@ Polestar.Pins.SetLayerVisible(layer, visible)
 --         hull = { wx1, wy1, ... } (a convex region in world yards on the pin's continent `c`),
 --         areaOnly (only the area or hull draws, no pin), text (a few characters on the pin, outlined),
 --         map marks only: ring2 = { r, g, b } (dashed ring further out), badge = n | "?" (accent capsule,
---         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px) }
+--         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px),
+--         ping = n (a number new for each event: plays once on the minimap, Pins.StartPing) }
 ```
 
 Map marks (`icon = "map:<name>"`) are the map's own glyph family: white masks
@@ -2506,6 +2583,15 @@ clamped to the minimap's rim keeps medallion and glyph, its medallion at the
 rim, the edge pointer on its side toward the target. A city group of services
 (`Maps/ServiceClusters.lua`) is one 30 px medallion with up to three glyphs at
 0.4 of it and a badge with its count.
+
+A pin with `ping` plays once on the minimap frame that shows it, the first
+time that number is drawn (`Pins.PING.last`): three rings in its colour
+expand to 3.4 times the mark, 0.22 s apart, each over 0.7 s with a strong
+ease-out, fading as they grow (`Pins.PING_SECONDS`, 1.14 s), behind the
+mark; clamped to the rim, they ring the edge pointer there. One `ns.Anim`
+"value" tween drives them, so nothing runs once it ends; a released frame
+stops its ping. Under `ui.reduceMotion` one ring 1.8 times the mark flashes
+and fades over 0.5 s instead (no movement).
 
 A pin's size (`size`, `minimapSize`, times the layer's `scale`) is its own;
 the surfaces draw it smaller as the view widens, so a mark matches the game's
@@ -2733,7 +2819,12 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
-class teleports, learned path nodes and crossing waypoints. It orders by
+class teleports, learned path nodes and crossing waypoints. A flight master
+of the player's faction not learnt yet, on the start's or the target's
+continent, is a vertex too: walked to, learnt there (5 s) and flown from to
+known ones, never flown to and never walked on from (no walk measure from it;
+otherwise Rut'theran's would beat the Darnassus portal, #989) (#1174:
+Ironforge's, beside a player who knows Menethil Harbor). It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
@@ -2836,8 +2927,13 @@ The candidates run from the furthest in, ever closer together, so a look
 costs one line in open ground and about ten at most, and it is made again
 only after the player moves 2 yd. Where nothing ahead is in sight (beside a
 cliff, a river crossed by a bridge, a building's walls) the aim is the
-corridor's above: tight. While the aim is in sight (`state.sighted`) the
-player has not strayed: no new search. The route line's walk then starts
+corridor's above: tight. The aim never runs back along the path: a point
+found in sight stays the aim until the player passes it, a further one is
+found, or they have moved 12 yd (`SIGHT_HOLD`) without seeing it again (on
+the real maps the grid closes a step at a lamp post or a fence post between
+two looks), and within 15 yd of the path (the road's join) the corridor's aim
+wins whenever it lies further along. While a point ahead is in sight
+(`state.sighted`) the player has not strayed: no new search. The route line's walk then starts
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
 straight across to the nearest one. The yards it reports are
 the yards left along the path (straight to the end of the segment the player
@@ -3041,7 +3137,10 @@ at the height and with the opts the measure found its walks with, the other
 places' walks kept, as a batch prices each place's walk on its own) when
 every other place is in the measure, else in a whole batch; meanwhile it is that measure less the
 yards moved (its cost scaled alike), never less than the straight distance (x1.0), so a walk never
-gets dearer for coming closer. A walk on from a crossing's far end or a
+gets dearer for coming closer. Within 400 yd of the target, where it is not measured again, the
+player's walk keeps the straight estimate (#1053: a winding walk measured from the Barrens, less
+the yards moved, still counted thousands of yards beside Hamuul Runetotem on Thunder Bluff's Elder
+Rise, and the route went to the north lift's top and back). A walk on from a crossing's far end or a
 chain's mouth is no hand-made walk: the arrow and the route lines follow the
 engine's path on it like any other. Measures
 are fixed per target (the last 4 targets are kept), so plans never
@@ -3789,11 +3888,17 @@ Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
 under the higher-ranked glyph: kill > interact > collect > vendor). Spread
 objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
-Objective spots (#1085): at each marker rebuild, each objective's spread pins
-are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
-250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
-198,000; past it the objective keeps its markers), and two objectives on the
-same spots share one region. `qol.objectiveSpots` picks the look:
+Objective spots (#1085): each objective's spread pins are grouped by
+`Polestar.Regions.Of` (as the guide's spawn regions; up to 250,000 pair
+checks, which Salve via Mining's 3,136 ore spots need, about 198,000; past it
+the objective keeps its markers), and two objectives on the same spots share
+one region. A marker rebuild only marks the regions stale: they are gathered
+when the objective layer is next published on a map with areas to draw, so
+with the objective markers off they cost nothing. A grouping is kept per
+objective with the pin keys it was made from, so a quest log change groups
+only the objectives that came; a region's area and centre pin are kept by its
+spots' keys and reused. A step change or a setting only restyles.
+`qol.objectiveSpots` picks the look:
 `groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
 `hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
 default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
@@ -4924,6 +5029,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   step's goals read under "Along the way" of the steps after it, its heading
   "Along the way, until step N" when every row ends at the same labelled
   step (`GetAlong` entries' `untilStep`).
+  The "While you're here" line (`fillHere`, `Engine.GetWhileHere`) sits
+  between the step's goals and "Then:": a soft accent wash with a 2 px accent
+  edge, the verb's glyph in the accent, "While you're here:" in the accent,
+  what to do, "(step N)" in textDim, the distance in textMuted and a close
+  button. A new line slides 8 px in from the left as it fades in
+  (`Anim.BASE`, ease-out); a line that goes slides back and fades faster
+  (`Anim.FAST`) before the window closes the gap; under `ui.reduceMotion` it
+  only fades. Left-click: `Engine.AimWhileHere`; right-click or the close
+  button: `Engine.DismissWhileHere`. Never in the compact window: the toast
+  (UI/WhileHere.lua, `UI.WhileHereToast`) says a new line once while the
+  window is hidden or compact, slides down into place as it fades in, and
+  leaves after 8 s (held under the cursor) or with the line.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click
@@ -5045,7 +5162,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`Dungeons.Art(key)`, `Dungeons/Art.lua`: the instance's loading screen
   from the client's Map and LoadingScreens tables, by Map id, a square crop
   as texture coordinates; the model's `art`, filling the ring inside a 2px
-  rim of the accent), or for a dungeon without one the dungeon glyph small
+  rim of the accent; a dark one's `lift` adds the picture over itself at
+  that alpha, `ADD` blend, so it reads at 36 px), or for a dungeon without one the dungeon glyph small
   on the ring's disc (an `icon` tinted `iconColor` is a glyph), "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
@@ -6671,7 +6789,10 @@ The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
 whose `build` is older than `data/recordings/config.json`'s `minBuild`, and
 every session whose player doesn't count. A player (voter) is the server's
 cohort, resolved per contributor from its latest session, else the
-contributor. `local` and `sent-*` always count, `anon-*` never does. A server
+contributor. `local` and `sent-*` always count, `anon-*` never does, and
+neither do the contributors `config.json`'s `exclude` lists (the maintainer's
+audit of manipulated or suspect uploads; they also never make their cohort
+count). A server
 contributor counts once established: first seen at least `minContributorDays`
 (3) days before its newest session arrived, `minContributorChunks` (20) chunks
 on `minContributorUploadDays` (3) distinct upload days as the server counted
@@ -6692,7 +6813,12 @@ whose locale is not enUS only fill a missing name. Recorded map bounds are
 used only from `local` recordings and only for maps `map-frames.json` lacks
 (`travel/paths.rs` `live_frames_of`); walks are placed by those frames, never
 by a recording's own. Schema 1 sessions (no contributor, no locale) count as
-`local` and enUS.
+`local` and enUS. Our corrections stay the last word: the overlay puts every
+corrected value back when it is done (`corrections::reassert`), whatever the
+recordings' evidence, and the build warns with each value the recordings
+disagreed with; the knowledge base ranks `correction` (0) above `recorder`
+(0.5). `forge record resession` normalises every archive in `raw/` again, for
+record kinds an older forge skipped.
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

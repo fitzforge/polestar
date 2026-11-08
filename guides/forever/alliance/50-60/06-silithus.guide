@@ -138,6 +138,7 @@ step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
+  accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
@@ -164,9 +165,7 @@ step Cenarion Hold
 
 step Cenarion Hold
   zone Silithus
-  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   sethome "Cenarion Hold"
-  accept 8282                         -- Noggle Ficklespragg
 
 step Southwind Village
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
@@ -371,15 +370,9 @@ step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
 
-step Fly to Ironforge
+step Fly to Stormwind
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Ironforge"
-  zone Ironforge
-
-step Fly to Stormwind
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
   fly "Stormwind"
   zone Stormwind City
 
@@ -393,12 +386,19 @@ step Stormwind
   collect 4338 x60 quest 7794.1 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
   turnin 7793 optional                -- Clavicus Knavingham, in the Trade District
   turnin 7794 optional
+  collect 2592 x60 quest 7791.1 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
+  turnin 7791 optional
+  accept 7795 optional
+  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
+  turnin 7795 optional
+
+step Tram to Ironforge
+  zone Stormwind City
+  goto 64.5,7.5 "Tram to Ironforge"
 
 step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
-  tip Careful: Jadefire Shadowstalkers are level 51-52 and move stealthed. They use Slowing Poison and are found about 550 yd south of Bloodvenom Post.
-  tip Careful: Jadefire Shadowstalkers sneak around and use Slowing Poison.
   turnin 4513                         -- Laris Geardawdle
   collect 2592 x60 quest 7807.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 quest 7808.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
@@ -420,27 +420,11 @@ step Ironforge
   turnin 7805 optional
   train class only Shaman             -- Stormwind has no shaman trainer
 
-step Fly to Stormwind
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Stormwind"
-
-step Stormwind City
-  when onquest 7791
-  zone Stormwind City
-  turnin 7791 optional                -- Sixty Wool Cloth, if you carry them
-
-step Stormwind
-  zone Stormwind City
-  accept 7795 optional
-  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
-  turnin 7795 optional
-
 # ---------------------------------------------------------------- To the Plaguelands
 
 step Fly to Southshore
-  zone Stormwind City
-  goto 66.3,62.7 "Stormwind flight master"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
   fly "Southshore"
 
 step Alterac Mountains

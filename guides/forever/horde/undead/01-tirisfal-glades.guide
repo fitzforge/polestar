@@ -5,7 +5,7 @@ faction Horde
 race Undead
 levels 1-13
 zone Tirisfal Glades
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -195,6 +195,11 @@ step Brill
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
 
+step Carolai Anise
+  when level>=7
+  tip From level 7 Carolai Anise, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next Brill visit.
+  accept 95314                        -- Carolai Anise, beside Johaan; inside
+
 step Discipline
   goto 60.6,52.0 "Brill"              -- Use the Executor's Motivator on five idle Deathguards around town
   complete 99134
@@ -211,6 +216,13 @@ step Gallows' End Tavern
   turnin 96658
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
+
+step Coleman Farthing and Gretchen Dedmar
+  when level>=7
+  tip Still in the inn: from level 7 Coleman Farthing on the ground floor and Gretchen Dedmar upstairs offer their quests; below 7 they wait for the next Brill visit.
+  accept 362                          -- Coleman Farthing, in the inn
+  accept 354
+  accept 375                          -- Gretchen Dedmar, upstairs
 
 step Deathguard Linnea's camp
   tip Follow the road south-east from Brill past the zeppelin towers. Linnea, Kristof and Shelene Rhobart camp by the road.
@@ -307,11 +319,23 @@ step Brill
   turnin 375                          -- Gretchen Dedmar, upstairs
   train class
 
+step Deathguard Terrence
+  when level>=10
+  tip From level 10 Deathguard Terrence offers The Argent Emissary: Hadric waits at Linnea's camp, the next stop. Below 10 it waits for the Brill visit after Agamand Mills.
+  accept 96895                        -- Deathguard Terrence
+
 step Deathguard Linnea's camp
   tip Follow the road south-east from Brill past the zeppelin towers.
   turnin 359                          -- Deathguard Linnea
   accept 360
   turnin 97558                        -- Shelene Rhobart
+
+step Hadric Harlson
+  when onquest 96895
+  tip Hadric stands at the camp beside Linnea.
+  turnin 96895                        -- Hadric Harlson
+  accept 96897
+  accept 96898
 
 step Magistrate Sevren
   tip Back up the road to Brill, on the way north-west to Agamand Mills.
@@ -334,6 +358,7 @@ step Agamand Mills
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 426                          -- Deathguard Dillinger
+  accept 1819 only Warrior            -- Deathguard Dillinger
   turnin 362                          -- Coleman Farthing, in the inn
   turnin 354
   accept 355
@@ -341,14 +366,13 @@ step Brill
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
   train class
   turnin 355                          -- Magistrate Sevren, in the town hall
-  accept 96895                        -- Deathguard Terrence
+  accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
 
 # ---------------------------------------------------------------- Class errands
 
-step Deathguard Dillinger
+step Ulag the Cleaver
   only Warrior
-  tip Deathguard Dillinger stands in Brill. Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
-  accept 1819                         -- Deathguard Dillinger
+  tip Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
   kill 6390 quest 1819.1
   turnin 1819                         -- Deathguard Dillinger: Defensive Stance
 
@@ -393,14 +417,14 @@ step Brill
 # ---------------------------------------------------------------- East loop
 
 step Hadric Harlson
-  tip Hadric stands at Deathguard Linnea's camp.
+  tip Hadric stands at Deathguard Linnea's camp, on the road to the cult's farm.
   turnin 96895
   accept 96897
   accept 96898
 
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
-  tip The Cult of the Damned holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  tip Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
   collect 275851 quest 96898.1 @68.2,64.6
   kill 275437 quest 96897.2 @68.2,64.6
   kill 267006 quest 96897.1 @68.2,64.6
@@ -428,6 +452,7 @@ step Brill
   tip Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 369                          -- Apothecary Johaan, inside
   accept 492
+  accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
@@ -440,9 +465,9 @@ step Leonid Barthalomew the Revered
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
-  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10); take them if they are offered. They send you into the cellar under Shadowvale, the next stop.
-  accept 99152 optional               -- Hilda the Breaker
-  accept 99153 optional               -- Ephram Barbaro
+  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10). They send you into the cellar under Shadowvale, the next stop.
+  accept 99152                        -- Hilda the Breaker
+  accept 99153                        -- Ephram Barbaro
 
 # Bandarion Keep for Paladins with Leonid's visit:
 # Breton Samuels, Hilda and Ephram stand within 60 yd of Leonid, and the
@@ -479,10 +504,9 @@ step Shadowvale
   collect 286259 quest 99152.1        -- the Shadowvale Lurchers and Mystics drop the bones; below ground
 
 step Hilda and Ephram
-  when onquest 99152,99153
   tip Back up to the forest's edge south of the keep's gate: Hilda and Ephram take the bones and the crystal.
-  turnin 99153 optional               -- Ephram Barbaro
-  turnin 99152 optional               -- Hilda the Breaker
+  turnin 99153                        -- Ephram Barbaro
+  turnin 99152                        -- Hilda the Breaker
 
 step Paladin: Bandarion Keep
   only Paladin
@@ -495,9 +519,9 @@ step Paladin: Bandarion Keep
   turnin 91294                        -- Danitha Morr, inside the keep
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
-# a class step waits for the next step the route names, and after the Brill
-# step that is the Crossroads, over the sea (c14 sent Warlocks, Priests and
-# Mages from the Crossroads back by zeppelin and out again; RevUndead c14 read).
+# a class step waits for the next step the route names, so the trainers and
+# the class turn-ins come here, before the walk south into Silverpine Forest
+# (RevUndead c14 read).
 step The Undercity
   only Warlock,Priest,Mage
   zone Undercity
@@ -519,25 +543,4 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
-
-step Zeppelin to Orgrimmar
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step The Barrens
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-# ---------------------------------------------------------------- The Crossroads
-
-step The Crossroads
-  zone The Barrens
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
-  getfp "Crossroads"
-  accept 844                          -- Sergra Darkthorn
-  accept 869                          -- Gazrog
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 5041
-  accept 871                          -- Thork
-  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-
+  note The next guide walks south from Brill into Silverpine Forest.

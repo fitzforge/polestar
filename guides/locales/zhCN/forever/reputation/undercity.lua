@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "幽暗城声望",
 	-- {item:14047} Runecloth
-	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "",
+	["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "通过瘟疫之地的55-60级任务和{item:14047}刷到崇拜，提瑞斯法林地的旧任务可选做。",
 	-- {faction:68} Undercity
-	["Exalted with the {faction:68}"] = "",
+	["Exalted with the {faction:68}"] = "{faction:68}崇拜",
 
 	-- Step 1: Undercity: how it works
 	-- {faction:68} Undercity
@@ -28,7 +28,7 @@ return {
 	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation, about 710 at 60 if the level 53 quests pay less. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "",
-	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
+	-- {object:176088} Scarlet Crusade Forward Camp
 	["the {object:176088}"] = "",
 
 	-- Step 4: Bulwark: the cauldrons

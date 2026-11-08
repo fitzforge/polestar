@@ -1803,11 +1803,23 @@ local function acquireMinimap()
 	return f
 end
 
+-- A pin's ping (Pins.StartPing): ends with the frame's pin. (Fields on Pins:
+-- the main chunk is at Lua's 200 locals.)
+function Pins.StopPing(f)
+	if not f.pinging then return end
+	local A = ns.Anim
+	if A then
+		A.Stop(f, "value")
+		A.Stop(f.pings[1], "alpha")
+	end
+end
+
 local function releaseAt(i)
 	local f = mmActive[i]
 	local n = #mmActive
 	mmActive[i] = mmActive[n]
 	mmActive[n] = nil
+	Pins.StopPing(f)
 	if f.pin then assigned[f.pin] = nil end
 	f.pin, f.layer = nil, nil
 	f:Hide()
@@ -1817,6 +1829,76 @@ end
 
 local function releaseAllMinimap()
 	for i = #mmActive, 1, -1 do releaseAt(i) end
+end
+
+---------------------------------------------------------------------------
+-- Ping: a pin with `ping` (a number, new for each event it announces: the
+-- While you're here line passes when it appeared) plays once, on the minimap
+-- frame that shows it: Pins.PING.rings rings in the pin's colour expand from it
+-- `stagger` s apart, each over `ring` s (strong ease-out, fading as it
+-- grows), Pins.PING_SECONDS in all; clamped to the rim, they ring the edge
+-- pointer there. Under ui.reduceMotion one ring flashes in place and fades
+-- (no movement). One ns.Anim tween drives them; nothing runs once it ends,
+-- and a ping already played never plays again.
+---------------------------------------------------------------------------
+
+Pins.PING = { rings = 3, stagger = 0.22, ring = 0.7, grow = 2.4, alpha = 0.9, last = nil } -- last: the ping played last
+Pins.PING_SECONDS = (Pins.PING.rings - 1) * Pins.PING.stagger + Pins.PING.ring
+
+function Pins.PING.step(f, v)
+	local P = Pins.PING
+	local PING_RINGS, PING_STAGGER, PING_RING, PING_GROW, PING_ALPHA = P.rings, P.stagger, P.ring, P.grow, P.alpha
+	local base, ease = f.pingSize, ns.Anim.EASE.out
+	for i = 1, PING_RINGS do
+		local t = f.pings[i]
+		local u = (v - (i - 1) * PING_STAGGER) / PING_RING
+		if u <= 0 or u >= 1 then
+			t:Hide()
+		else
+			local s = base * (1 + PING_GROW * ease(u))
+			t:SetSize(s, s)
+			t:SetAlpha(PING_ALPHA * (1 - u))
+			t:Show()
+		end
+	end
+end
+
+function Pins.PING.done(f)
+	for i = 1, Pins.PING.rings do f.pings[i]:Hide() end
+	f.pinging = false
+end
+
+function Pins.PING.flashDone(t) Pins.PING.done(t.psFrame) end
+
+-- Start pin p's ping on minimap frame f (its mark `size` px across).
+function Pins.StartPing(f, p, size)
+	local P = Pins.PING
+	P.last = p.ping
+	local A = ns.Anim
+	if not A then return end
+	if not f.pings then
+		f.pings = {}
+		for i = 1, P.rings do
+			local t = f:CreateTexture(nil, "BACKGROUND", nil, -7)
+			t:SetTexture(MAP_MEDIA .. "ring")
+			t:SetPoint("CENTER")
+			t:Hide()
+			t.psFrame = f
+			f.pings[i] = t
+		end
+		f.psOnValue = P.step
+	end
+	local r, g, b = pinColor(p)
+	for i = 1, P.rings do f.pings[i]:SetVertexColor(r, g, b, 1) end
+	f.pingSize, f.pinging = size, true
+	if A.Reduced() then
+		local t = f.pings[1]
+		t:SetSize(size * 1.8, size * 1.8)
+		t:Show()
+		A.To(t, "alpha", P.alpha, 0, 0.5, "out", P.flashDone)
+	else
+		A.To(f, "value", 0, Pins.PING_SECONDS, Pins.PING_SECONDS, "linear", P.done)
+	end
 end
 
 -- Pin indexes of `layer` that may be in reach, in pin order (scratch list):
@@ -2148,6 +2230,7 @@ local function drawMinimap()
 								f.edge:SetPoint("CENTER", f, "CENTER", cos(ang) * f.edgeReach, sin(ang) * f.edgeReach)
 							end
 						end
+						if p.ping and p.ping ~= Pins.PING.last then Pins.StartPing(f, p, size) end
 					end
 				end
 			end

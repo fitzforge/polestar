@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "",
+	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "一次性石头，10分钟内大幅增强你对亡灵的战斗力；在Forever服务器中，旧的物品选择可能已经取消。",
 
 	-- Step 1: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge

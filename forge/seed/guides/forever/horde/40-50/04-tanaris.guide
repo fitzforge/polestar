@@ -181,7 +181,7 @@ step Fly to Kargath
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south-west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2
@@ -248,7 +248,7 @@ step The Key to Freedom
   turnin 4451 optional object 173265
 
 step Thorium Point
-  tip Ride back north to Thorium Point. Stay here: the next guide starts with the flight to Stonard.
+  tip Ride back north to Thorium Point.
   turnin 7723                           -- Hansel Heavyhands
   turnin 7724
   turnin 7727

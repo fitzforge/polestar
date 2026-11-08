@@ -4,20 +4,23 @@ title Darkshore
 faction Alliance
 levels 15-20
 zone Darkshore
-next forever/alliance/04-redridge-mountains
+next forever/alliance/06-ashenvale
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Business in Auberdine (97894), from Borgus Steelhand on the Stormwind visit before
+# the boat (02-westfall), handed to his brother Gorbold on the first Auberdine stop.
 
 step Boat to Auberdine
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live
 
 # Visit 3 of the simulator's consensus Alliance route (Human export,
-# 16.4 to 20.5): four loops from Auberdine, then the boat to Stormwind and
-# Redridge. Kerlonian, Therylune and Balthule's letter (5321, 945, 967) and
-# Trek to Ashenvale (990) are turned in on the route's later Ashenvale visit.
+# 16.4 to 20.5): four loops from Auberdine, then south into Ashenvale
+# (06-ashenvale, since 2026-11-07; Redridge comes after the Wetlands).
+# Kerlonian, Therylune and Balthule's letter (5321, 945, 967) and Trek to
+# Ashenvale (990) are turned in there.
 #
 # Flow: Auberdine (flight path, hearth) -> the beach -> Auberdine -> the bear
 # hills -> Auberdine -> the Blackwood camp, Ameth'Aran, the red crystal,
@@ -38,15 +41,17 @@ step Boat to Auberdine
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
 # - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
 #   Thundris Windweaver's letter goes to Baros Alexston at the Stormwind stop
-#   (04-redridge-mountains), his reply (Making Do, 97926, a Shipwright's
-#   Satchel) back to Thundris on the return to Auberdine (06-ashenvale).
+#   (06-ashenvale, its Stormwind stop), his reply (Making Do, 97926, a Shipwright's
+#   Satchel) back to Thundris on the next visit to Auberdine
+#   (06-wetlands).
 # - Left out, accepted but never turned in on the route: One Shot. One Kill.
-#   (5713): it ends at Maestra's Post, which the route reaches at 25, when
-#   the level 15 quest pays a tenth of its XP. The Powers Below (968) starts
+#   (5713): it ends at Maestra's Post (06-ashenvale, now at about 20); left
+#   out for now: Sentinel Aynasha stands on Kerlonian's escort road, and how
+#   her defence fits beside the escort has not been checked. The Powers Below (968) starts
 #   from a 5% book drop of the Twilight Disciples and Thugs: optional, handed
 #   in at the Ironforge stop (06-ashenvale).
 # - The Lakeshire flight path and hearth the export lists at the end of this
-#   visit are taken on arrival in Redridge (next guide).
+#   visit are taken on arrival in Redridge (04-redridge-mountains).
 # - Auberdine, on the return from Bashal'Aran: one round of the town, from
 #   Terenthis by the road in to Thundris last; Thundris (4763), Terenthis
 #   (986) and Gwennyth (87760) give their next quests on the same visit as
@@ -60,9 +65,12 @@ step Boat to Auberdine
 # - Beached Sea Creature (4723) is taken on the first loop, on the walk from
 #   Asterion down to Buzzbox 411 that passes it, and handed in at the first
 #   hearth (#213), instead of a detour from Cliffspring Falls on the second.
-#   The three remains past Remtravel's Excavation (4731-4733) stay on the
+#   The four remains past Remtravel's Excavation (4730-4733) stay on the
 #   fourth loop: Greymist Oracles and Tidehunters (18-20) guard them, which
-#   the second loop reaches at about 18.
+#   the second loop reaches at about 18. 4730 lies on the walk from them to
+#   Murkdeep's camp, and the one west of the Grove (4728) on the walk north
+#   from the Grove to Auberdine: the second loop no longer walks down the
+#   coast and back for them (flow review, 2026-11-07).
 # - The Blackwood Corrupted (4763, #302): the Empty Cleansing Bowl is filled
 #   at the Auberdine Moonwell right after Thundris gives the quest, and the
 #   three Blackwood samples, the bowl and the Talisman are a step of their
@@ -80,10 +88,10 @@ step Boat to Auberdine
 # - Night Elf Druids: A Lesson to Learn and Trial of the Lake (26, 29) after
 #   the first hearth, the Darkshore half pendant on the north loop; Trial of
 #   the Sea Lion (272) is finished with the Westfall half from the Stormwind
-#   stop (04-redridge-mountains) on arrival in Auberdine (06-ashenvale).
+#   stop (04-redridge-mountains) at the start of 06-wetlands.
 # - Night Elf and Skyborne Druids: Cat Form (98393 to 98397, Mathrengyl
 #   Bearwalker, the Great Cat Spirit or the Avatar of Saeyleenan in
-#   Moonglade) at the end, about level 21, before the boat.
+#   Moonglade) at the end, about level 20, before Ashenvale.
 # - Night Elf Druids: Cure Poison (6121-6125: Lessons Anew from Mathrengyl on
 #   the A Lesson to Learn trip, the Cliffspring sampler on the north loop,
 #   Alanndarian's herbs after the third loop and the deer on the last legs,
@@ -98,12 +106,15 @@ step Boat to Auberdine
 
 step Auberdine
   zone Darkshore
-  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  tip The boat docks west of the village: Cerellean Whiteclaw waits where the pier meets the shore. Go up to Archaeologist Hollee and Thundris Windweaver at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  accept 963                                  -- Cerellean Whiteclaw, on the pier
+  accept 729                                  -- Archaeologist Hollee
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
   vendor nearest
   accept 958 only Dwarf,Gnome,Human,Skyborne
-  accept 982                                  -- Gorbold Steelhand
+  turnin 97894                                -- Gorbold Steelhand
+  accept 982
   accept 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
   accept 965                                  -- Sentinel Elissa Starbreeze
   accept 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
@@ -111,13 +122,11 @@ step Auberdine
   accept 947                                  -- Barithras Moonshade
   accept 98025 only Dwarf,Gnome,Human,Skyborne -- The WANTED poster outside the inn
   accept 4740                                 -- The WANTED poster
-  getfp "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
+  getfp "Auberdine"
   accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
-  accept 1138                                 -- Gubber Blump
-  accept 963                                  -- Cerellean Whiteclaw, on the pier
+  accept 1138                                 -- Gubber Blump, on the pier
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
-  accept 729                                  -- Archaeologist Hollee
 
 # ---------------------------------------------------------------- The beach
 
@@ -253,11 +262,6 @@ step Blackwood furbolgs
   kill 2167 quest 985 only Dwarf,Gnome,Human,Skyborne
   kill 2324 quest 985 only Dwarf,Gnome,Human,Skyborne
 
-step The southern beaches
-  tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
-  accept 4728 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Creature
-  accept 4730                                 -- Beached Sea Creature
-
 step The Ancient Flame
   tip The flame burns in the south of Ameth'Aran.
   interact 16393 quest 957.1 only Dwarf,Gnome,Human,Skyborne -- Ancient Flame
@@ -282,17 +286,16 @@ step Bashal'Aran
 step Auberdine
   turnin 985 only Dwarf,Gnome,Human,Skyborne -- Terenthis
   accept 986
-  turnin 4728 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
-  turnin 4730
-  turnin 4727
-  turnin 4725
-  turnin 4813 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
-  turnin 6122 only NightElf,Druid             -- Alanndarian Nightsong
-  accept 6123 only NightElf,Druid
   turnin 4762                                 -- Thundris Windweaver
   accept 4763
+  turnin 6122 only NightElf,Druid             -- Alanndarian Nightsong
+  accept 6123 only NightElf,Druid
   use 12346 @37.8,44.0 map 1439
   collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
+  turnin 4813 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
+  turnin 4727                                 -- Gwennyth Bly'Leggonde
+  turnin 4725
+  turnin 1138                                 -- Gubber Blump, on the pier
   vendor nearest
 
 step Mist's Edge
@@ -314,7 +317,6 @@ step Darkshore: kill these as you meet them
   zone Darkshore
   tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower.
   collect 5413 quest 1002                     -- Moonstalker Fangs
-  collect 12237 quest 1138                    -- Fine Crab Chunks
 
 step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
@@ -343,7 +345,6 @@ step Auberdine
   turnin 4763                                 -- Thundris Windweaver
   turnin 947                                  -- Barithras Moonshade
   accept 948
-  turnin 1138                                 -- Gubber Blump
   vendor nearest
 
 step Onu
@@ -396,10 +397,11 @@ step Level 18.47
   level 18.47                          -- grind on Twilight Thug
 
 step Murkdeep's beach
-  tip Murkdeep camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of Remtravel's Excavation.
+  tip Murkdeep camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of Remtravel's Excavation: take them on the way north to his camp.
   accept 4733                                 -- Beached Sea Creature
   accept 4732                                 -- Beached Sea Turtle
   accept 4731                                 -- Beached Sea Turtle
+  accept 4730                                 -- Beached Sea Creature
   kill 10323 quest 4740                       -- Murkdeep
 
 step The Grove of the Ancients
@@ -410,12 +412,19 @@ step The Grove of the Ancients
   zone Darkshore
   accept 98013                                -- Arbal
 
+step The shore west of the Grove
+  only Dwarf,Gnome,Human,Skyborne
+  tip On the way north to Auberdine, the last Beached Sea Creature lies on the shore west of the Grove.
+  accept 4728                                 -- Beached Sea Creature
+
 step Auberdine
   zone Darkshore
   tip Follow the road north.
   turnin 4731                                 -- Gwennyth Bly'Leggonde
   turnin 4733
   turnin 4732
+  turnin 4730
+  turnin 4728 only Dwarf,Gnome,Human,Skyborne
   accept 87760                                -- Holy Diver: Gwennyth offers it once all nine beached remains are handed in
   turnin 4740                                 -- Sentinel Glynda Nal'Shea
   accept 98461 optional                   -- Archaeologist Hollee
@@ -471,22 +480,22 @@ step Back south
   turnin 98013                                -- Arbal
 
 step Volcor
-  tip Volcor hides in the hills east of the Master's Glaive. Help him back to the road; he fights on his way out.
+  tip Volcor hides in the hills east of the Master's Glaive. Help him back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
   turnin 993                                  -- Volcor, inside Blackwood Den
   accept 994
   complete 994
   kill 12298 quest 6124.1 only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
-  level 19.66                          -- grind on Moonstalker Sire
-
-step Auberdine
-  turnin 994                                  -- Terenthis
-  accept 990                                  -- Sentinel Selarin: for Raene Wolfrunner in Astranaar, on the later Ashenvale leg
 
 step Level 20
   when level<20
-  tip Top up here to level 20 before the hand-ins at Stormwind City: they take you to level 21.
-  goto 47.7,18.6 map 1439 "Elder Darkshore Thresher"
-  level 20                          -- grind on Elder Darkshore Thresher
+  tip Top up here to level 20 before Ashenvale: Bathran's Hair and Orendil's Cure at Maestra's Post need it.
+  goto 38.3,86.1 map 1439 "Twilight Thug"
+  level 20                          -- grind on Twilight Thug
+
+step Auberdine
+  only Druid
+  turnin 994                                  -- Terenthis
+  accept 990                                  -- Sentinel Selarin: for Raene Wolfrunner in Astranaar, in the next guide
 
 step Auberdine flight master
   only Druid
@@ -577,7 +586,7 @@ step Darnassus
 step To Darnassus
   only Druid
   zone Darnassus
-  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the boat to Stormwind.
+  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale.
   turnin 98397 only NightElf,Skyborne -- Mathrengyl Bearwalker: Cat Form
   turnin 6125 only NightElf                   -- Mathrengyl Bearwalker: Cure Poison
   fly "Auberdine"
