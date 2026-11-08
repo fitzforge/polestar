@@ -3069,6 +3069,27 @@ test(`${LOCH_MODAN}: Avtom's report (#280): Iron Pike and Iron Rivet lead to the
 	}
 });
 
+// nikilok (#1339): "not clickable" two yards from the arrow. The Discarded Fishing Toolbox that
+// offers Silver of the Waves lies at one of four places on the loch bed; the data knew one, so a
+// player whose toolbox was at another stood at an empty spot with nowhere else to look. The
+// correction places all four (players' recordings), and the goal's spawn areas cover each.
+
+test(`${LOCH_MODAN}: nikilok's report (#1339): Silver of the Waves' toolbox is looked for at all four places players took it`, { skip }, (t) => {
+	const taken = [[48.06, 39.7], [45.69, 43.36], [48.74, 54.42], [50.63, 53.29]];
+	const fix = ((loadCorrections().objects || {})[665289] || {}).addSpawns;
+	assert.ok(fix && fix[1432], 'forever-db places the toolbox on the loch bed');
+	for (const [x, y] of taken) assert.ok(fix[1432].pts.some(([px, py]) => Math.hypot(px - x, py - y) <= 0.3), `the correction has the place ${x},${y}`);
+	const list = goals(LOCH_MODAN);
+	const { goal } = list[at(list, 'accept 86614 (Silver of the Waves)', is('accept', 86614))];
+	assert.equal(goal.object, 665289, 'the toolbox offers the quest itself');
+	const known = data.spawns('object', 665289).filter((s) => s.map === 1432).flatMap((s) => [...s.pts, ...(s.more || [])]);
+	if (known.length < taken.length) return t.skip(`data/forever predates the toolbox correction (${known.length} place): rebuild it`);
+	for (const [x, y] of taken) {
+		const pt = { map: 1432, x, y };
+		assert.ok([goal, ...(goal.spots || [])].some((o) => yards({ map: 1432, x: o.x, y: o.y }, pt) <= (o.r || 15) + 1), `${x},${y} lies in one of the goal's spots: ${JSON.stringify(goal.spots)}`);
+	}
+});
+
 // --- Elemental Bracers (Tazul | Robin, #391): the step asked only for the
 // Divined Scroll, which the Divining Scroll makes from five Intact Elemental
 // Bracers. With no goal for the bracers, the target button had no elementals
