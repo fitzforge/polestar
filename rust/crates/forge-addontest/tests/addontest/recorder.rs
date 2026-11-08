@@ -165,6 +165,24 @@ fn a_quest_with_kills_xp_loot_and_a_turn_in_is_exactly_this_chunk_text() {
 }
 
 #[test]
+fn a_frfr_kill_objective_loses_its_grammar_escape_and_a_paid_turn_in_keeps_its_negative_money() {
+	// Forever's frFR client writes kill objectives as "%1$s : %2$d/%3$d |4personnage tué:personnages
+	// tués;" (a no-break space before the colon). Recorder 0.3.5 put the escape into the name, and the
+	// server turned away every chunk holding one. Grime-Encrusted Ring costs 3 silver to hand in.
+	let out = run(r#"
+		stub.acceptQuest(52, { title = "Protéger la frontière", objectives = {
+			{ text = "Rôdeur\194\160: %d/%d |4personnage tué:personnages tués;", type = "monster", numRequired = 8 },
+			{ text = "Patte de rôdeur\194\160: %d/%d", type = "item", numRequired = 1 },
+		} })
+		stub.acceptQuest(2945, { title = "Grime-Encrusted Ring", objectives = {} })
+		stub.turnIn(2945, nil, nil, 2700, -300)
+		logout()
+		emit({ recs = recs("objectives turnin"), bad = malformed() })"#);
+	assert_eq!(out["recs"], json!(["objectives|52|monster:8:Rôdeur;item:1:Patte de rôdeur", "turnin|2945|||1429|5000|5000|1|2700|-300|"]));
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
 fn at_login_the_chunks_the_uploader_acknowledged_for_this_install_are_deleted() {
 	const SAVED: &str = r#"
 local function c(seq) return ("chunk\t0\t%d\t1790990000\tk3j9x0q2m7\nmark\t5\t\t\t\tchunk %d"):format(seq, seq) end
