@@ -602,7 +602,11 @@ local function usability(info)
 		end
 	elseif info.class == 2 and sub then
 		if sub == 20 then return false, "weapon", minLevel end -- fishing poles
-		if sub ~= 14 and not prof.weapons[sub] then return false, "weapon", minLevel end
+		-- Miscellaneous (14): every one a player gets is a profession tool or a novelty (Skinning Knife,
+		-- Mining Pick, Blacksmith Hammer, Arclight Spanner, Frying Pan), never a weapon to fight with (#1304).
+		-- No reason, so its tooltip gets no gear line.
+		if sub == 14 then return false, nil, minLevel end
+		if not prof.weapons[sub] then return false, "weapon", minLevel end
 		if WEAPON_SKILL[sub] and not knowsWeaponSkill(WEAPON_SKILL[sub]) then return false, "skill", minLevel end
 		if info.inv == 22 and not canDualWield() then return false, "dualwield", minLevel end
 	end
