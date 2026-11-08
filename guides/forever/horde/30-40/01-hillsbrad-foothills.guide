@@ -324,6 +324,7 @@ step Humbert's Sword with a group
   accept 547                          -- Deathguard Humbert
 
 step Dun Garok
+  when onquest 541,547
   zone Hillsbrad Foothills
   tip Clear Dun Garok from the gate in; the dwarves run for help at 30% health.
   kill 2344 quest 541.1 @71.2,79.0 map 1424

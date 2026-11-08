@@ -133,6 +133,7 @@ step Hammerfall
   accept 678                          -- Drum Fel
   turnin 671                          -- Tor'gan
   accept 701
+  accept 92519                        -- Doctor Gregory Victor, at the south gate
 
 step Stromgarde quests for a group
   when group 639
@@ -145,7 +146,6 @@ step Foul Magics with a group
   zone Arathi Highlands
   tip Tor'gan's next Foul Magics is Marez Cowl, a level 40 elite warlock in Stromgarde's Syndicate quarter.
   accept 673                          -- Tor'gan
-  accept 92519                        -- Doctor Gregory Victor, at the south gate
 
 # ---------------------------------------------------------------- East of Hammerfall
 
@@ -223,6 +223,7 @@ step The Stone of Inner Binding
   note The stone's next task needs Fozruk, a level 42 elite who roams west of Hammerfall: leave it.
 
 step Stromgarde
+  when onquest 639,673,679,680
   zone Arathi Highlands
   tip West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; Marez Cowl is among them), the Boulderfist the west half by the Tower of Arathor (Or'Kalar waits in one of the roofless houses beside it).
   collect 4440 quest 639 @27.3,63.8 map 1417
@@ -276,6 +277,7 @@ step Faldir's Cove
   note The next guide crosses the Thandol Span into the Wetlands and heads for the Badlands.
 
 step Back to Hammerfall
+  when onquest 639,673,679,680
   zone Arathi Highlands
   tip Only if you ran Stromgarde with a group: back to Hammerfall for its hand-ins, then on to the Thandol Span.
   turnin 639                          -- Zengu
