@@ -121,6 +121,13 @@ end
 
 function Mark.Refresh()
 	local text, share
+	-- No bar on screen (hidden, or a UI addon draws its own): nothing to mark, so no step scan.
+	-- (IsVisible: a UI that hides the bar by reparenting leaves it IsShown.)
+	local shown = xpBar()
+	if not (shown and shown.IsVisible and shown:IsVisible()) then
+		if frame then frame:Hide() end
+		return
+	end
 	if QoL.On("xpTargetMark") then
 		local level = playerLevel()
 		local cap = readable(GetMaxPlayerLevel and GetMaxPlayerLevel())

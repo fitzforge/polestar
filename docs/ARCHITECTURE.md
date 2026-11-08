@@ -4529,7 +4529,9 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   fades, hides and resizes with the bar and its gamepad width. It takes no
   mouse: the bar's tooltip stays. No scripts, methods or hooks on the bar;
   no bar shown (another addon replaced or hid it, the maximum level): no
-  mark, and no error.
+  mark, and no error. A bar that is shown but not visible (a whole-UI addon
+  parents the game's bars to a hidden frame) counts as none: the refresh
+  stops before `Engine.LevelTarget`, so an XP gain scans nothing for it.
 - **Updates**, coalesced to the next frame (after the game's bar and the
   engine took the same event): `PLAYER_XP_UPDATE` and
   `PLAYER_ENTERING_WORLD` while the option is on (`QoL.WhileOn`),
@@ -4543,7 +4545,11 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   `levels` top, where the next guide starts, at its last step shown), and
   what the steps up to there give (`Levels.ForGuide(id, p, live, step)`:
   their turn-ins' XP from the Codex, their kills and loot at the mobs'
-  levels, from where the character is). It also looks for the first open
+  levels, from where the character is). A span's entries are kept, by the
+  guide's table, the span and who the character is (level, class, race,
+  faction), until a turn-in, a level, or a guide, pack or Codex change
+  (`Levels.Invalidate`): the line is asked on every `PLAYER_XP_UPDATE`, and a
+  kill's XP only reruns `Levels.Run` over them. It also looks for the first open
   quest before the target (not a turn-in or a talk) that will be 3 or more
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
