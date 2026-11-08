@@ -13,6 +13,7 @@ next forever/alliance/30-40/03-ashenvale
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
 # Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
 # with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop.
+# Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 
 step To Deepwater Tavern
   zone Wetlands
@@ -68,9 +69,13 @@ step The Green Belt
 # ---------------------------------------------------------------- Dun Modr
 
 step Dun Modr
-  tip North along the road to Dun Modr. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp; the Captive Fire Elemental is held on the west side: lead it out to Roggo.
+  tip North along the road to Dun Modr. Longbraid the Grim and Rhag Garmason stand together in the dwarves' camp on the east side of the road; the Dark Iron ruins west of it are full of elites.
   turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
+
+step Captive Fire Elemental
+  when group 87491
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
 
@@ -82,6 +87,7 @@ step Modr
 step The Villards
   zone Wetlands
   tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to Rhag.
+  tip Two elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
   turnin 631                          -- Ebenezer Rustlocke's Corpse, inside

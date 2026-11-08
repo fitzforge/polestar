@@ -1765,6 +1765,20 @@ test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans ente
 	}
 });
 
+// --- Dun Modr (Fyurie, #1313): Spark of Freedom's Captive Fire Elemental is held at the far west of the Dark Iron
+// ruins, among elites (27-30, Balgaras the Foul 34), and the escort walks back out through them; 0.3.5 sent solo
+// players in without asking. It is a group quest now; the camp quests on the road stay for everyone.
+test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a group quest; the Dun Modr camp quests are not (#1313)`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const mine = list.filter(({ goal }) => goal.quest === 87491);
+	assert.equal(mine.length, 2, 'the accept and the hand-in');
+	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(87491) && !p.neg), `${goal.t} 87491 is under when group 87491`);
+	for (const [t, q] of [['turnin', 472], ['accept', 631]]) {
+		const { step } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(!(step.when || []).some((p) => p.k === 'group'), `${t} ${q} is for everyone`);
+	}
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 

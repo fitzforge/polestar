@@ -3671,6 +3671,46 @@
 					"ref": "Dearest Natalia's objectives in Forever's quest data: 'Frankal Questioned' and 'Rutgar Questioned', credited by the dwarves' conversations"
 				}
 			]
+		},
+		{
+			"id": "1313-dun-modr-captive-fire-elemental",
+			"at": {
+				"quest": 87491,
+				"goal": "accept"
+			},
+			"tip": "These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.",
+			"note": "Spark of Freedom (Dun Modr): the escort starts among the Dark Iron elites and walks out through them; the step is asked as a group quest (route-fixes deliberate.group, #1313).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 87491: 2 people (0 established), one in a group of 4 at level 26, one solo at 28; the escort completes at about 48.0,16.7 and is handed in to Roggo Harlbarrow (1072)"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_template Classification 1 (elite) for 1051 Dark Iron Dwarf, 1052 Saboteur, 1053 Tunneler, 1054 Demolitionist, 6523 Rifleman and 1364 Balgaras the Foul; their spawns cover Wetlands 45.6-49.0,14.7-18.9"
+				}
+			],
+			"issue": 1313
+		},
+		{
+			"id": "1313-thandol-span-saboteurs",
+			"at": {
+				"quest": 631,
+				"goal": "turnin"
+			},
+			"tip": "Two elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out.",
+			"note": "The Thandol Span (631): Ebenezer Rustlocke's corpse inside the span has two elite Dark Iron Saboteurs beside it (#1313's review).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_template Classification 1 (elite) for 1052 Dark Iron Saboteur; spawns at Arathi Highlands 45.2,93.1 and 45.2,93.4 beside the corpse at 45.7,93.1"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: a solo character killed the two Saboteurs at the corpse before the hand-in of 631"
+				}
+			],
+			"issue": 1313
 		}
 	]
 }
