@@ -304,7 +304,7 @@ return {
 	-- Step 66: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
-	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward
+	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} y {npc:258785} están en {object:32386}, en {object:32362}.",
 
 	-- Step 67: Tram to Stormwind City

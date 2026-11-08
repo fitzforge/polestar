@@ -205,6 +205,7 @@ return {
 	-- ["Twitching Antennae from the silithid"] = "Antenas Agitadas dos silitídeos",
 	-- ["Venture Co. tower"] = "Torre da Empreendimentos S.A.",
 	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest."] = "A oeste de {npc:3341}, os Crinavalha ocupam {area:1701}. {npc:3436} fica no lado leste, {npc:3434} ao sul, {npc:3435} na ponta oeste. Lok (25) e os Belicosos (24-25) estão alguns níveis acima de você; {npc:5859}, um elite raro, às vezes anda pela serra: deixe-o em paz. Desbravadores e Espreitadores deixam cair o Punhal, Videntes a Varinha, Belicosos o Escudo de Guerra. Lagartos {npc:3238} e Espreitadores Presavaia vagam pela planície entre Gann e a serra. {quest:885}, uma serpente alada vermelha rara, sobrevoa a serra: a pena dela inicia uma missão.",
+	-- ["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Já que está na escavação: {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo do fosso.",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}."] = "Manivela pilota o retalhador para fora do acampamento: fique com ele e mate o que o atacar. {npc:3442} o recebe em {area:392}.",
 	-- ["grind on Thunderhawk Hatchlings south-west of the {area:380}"] = "mate Filhotes de Falcotrom a sudoeste de {area:380}",
 	-- ["{area:385}, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now."] = "{area:385}, mais ao sul pela costa. Os Fuzileiros e as Preservadoras de Theramore (15-16) deixam cair as medalhas; {npc:3393} (20) e os dois canhoneiros (19) ficam na fortaleza e nas muralhas, e é por eles que o forte ficou para agora.",
@@ -240,9 +241,8 @@ return {
 	-- ["{npc:5909}, a few steps away"] = "{npc:5909}, a poucos passos",
 	-- ["{npc:6018} stands in the {object:172961}, on the city's west side."] = "{npc:6018} fica em {object:172961}, no lado oeste da cidade.",
 	-- ["{npc:6018}: {npc:4606} in the {zone:1458}, two guides on"] = "{npc:6018}: {npc:4606} em {zone:1458}, daqui a dois guias",
+	-- ["{object:3646}; below ground"] = "{object:3646}; no subterrâneo",
 	-- ["{object:3972} poster"] = "cartaz {object:3972}",
 	-- ["{quest:2458}: {npc:7233}, by the {area:382}"] = "{quest:2458}: {npc:7233}, junto a {area:382}",
 	-- ["{quest:882}, a big Sunscale raptor, hunts the plains north of the road from {area:392} to the {area:380}."] = "{quest:882}, um grande raptor Helióscamo, caça nas planícies ao norte da estrada de {area:392} para {area:380}.",
-	-- ["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Já que está na escavação: {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo do fosso.",
-	-- ["{object:3646}; below ground"] = "{object:3646}; no subterrâneo",
 }

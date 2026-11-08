@@ -475,6 +475,6 @@ return {
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, a instrutora de sacerdote, dentro da árvore",
 	-- ["{npc:4200}'s fish stall is by the docks. Then take the boat to {zone:1453}."] = "A banca de peixe de {npc:4200} fica perto do cais. Depois pegue o barco para {zone:1453}.",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, na toca",
-	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} e o poço lunar do Vilarejo Brisastral",
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584} fica um pouco mais a noroeste. {quest:3522} dura cinco minutos: encha o frasco e vá direto até ele.",
+	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} e o poço lunar do Vilarejo Brisastral",
 }
