@@ -419,13 +419,6 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
 
-step Level 42.06
-  when !group 193
-  when level<42.06
-  tip If you skipped Panther Mastery, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
-  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.06                          -- grind on Cold Eye Basilisk
-
 step Raptor Mastery
   when group 197
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Tethis is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
@@ -443,13 +436,6 @@ step Hemet Nesingwary
   when group 208
   accept 208
 
-step Level 42.1
-  when !group 197
-  when level<42.1
-  tip If you skipped Raptor Mastery, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
-  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
-  level 42.1                           -- grind on Cold Eye Basilisk
-
 step Big Game Hunter
   when group 208
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. King Bangalash is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
@@ -461,9 +447,8 @@ step Hemet Nesingwary
   turnin 208
 
 step Level 42.16
-  when !group 208
   when level<42.16
-  tip If you skipped Big Game Hunter, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip Short of level 42.16? That is the experience of the Nesingwary hunts you skipped (Panther Mastery, Raptor Mastery, Big Game Hunter): grind it on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
   level 42.16                          -- grind on Cold Eye Basilisk
 
