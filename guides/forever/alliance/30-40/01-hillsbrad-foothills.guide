@@ -157,7 +157,7 @@ step Southshore
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 565                          -- Bartolo Ginsetti
+  accept 565 optional                 -- Bartolo Ginsetti: only if you have or can buy a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth (Tailoring); no vendor sells them
   accept 505                          -- Magistrate Henry Maleb, inside
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
@@ -204,10 +204,11 @@ step Southshore
   turnin 98059                        -- Captain McManus
 
 step Yeti cave
+  when onquest 565
   zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
-  collect 3720 quest 565.4            -- Yeti Fur
-  note Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.
+  collect 3720 quest 565.4 optional   -- Yeti Fur
+  note Bartolo also wants a Hillman's Cloak (Leatherworking), a Bolt of Woolen Cloth (Tailoring) and Fine Thread (any trade supplier): the cloak is turned in when you are back in Southshore later.
 
 step Alterac Mountains
   zone Alterac Mountains

@@ -6637,3 +6637,22 @@ test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first 
 	const [t30] = stepTips(guide, /^\s+level 30\b/);
 	assert.match(t30, /Scarlet Monastery/);
 });
+
+// Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
+// Cloak and a Bolt of Woolen Cloth, which no vendor sells and no step gets. It is optional, with its yeti
+// cave only for players who took it, and a route-fixes record keeps it so.
+test('Alliance 30-40: Bartolo\'s Yeti Fur Cloak is optional and says what it needs', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const item of [3719, 2997]) assert.deepEqual(data.items[item].vendors || [], [], `${item} is not sold`);
+	const first = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const acc = first[at(first, 'accept 565', is('accept', 565))];
+	assert.ok(acc.goal.optional, 'the accept is optional');
+	assert.match(acc.goal.note || '', /Hillman's Cloak/);
+	const fur = first[at(first, 'collect 3720', (g) => g.t === 'collect' && g.quest === 565)];
+	assert.ok(fur.goal.optional || /565/.test(JSON.stringify(fur.step.when || fur.step.conditions || '')), 'the yeti fur is only for those on it');
+	const last = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	assert.ok(last[at(last, 'turnin 565', is('turnin', 565))].goal.optional, 'the hand-in is optional');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional.find((o) => o.q === 565);
+	assert.ok(rec, 'optional is a record');
+});
+

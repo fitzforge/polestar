@@ -349,7 +349,7 @@ step Southshore
   turnin 523 optional
   turnin 500                          -- Marshal Redpath
   turnin 661                          -- Phin Odelic
-  turnin 565                          -- Bartolo Ginsetti
+  turnin 565 optional                 -- Bartolo Ginsetti, if you took his cloak quest
   turnin 540 optional -- Loremaster Dibbs
   accept 542 optional -- For Milton Sheaf in Stormwind: keep it
   turnin 551 optional
