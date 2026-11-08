@@ -20,6 +20,8 @@ next forever/alliance/04-redridge-mountains
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
 # 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
 # Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
+# Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 
 # ---------------------------------------------------------------- Darkshore
 
@@ -101,12 +103,13 @@ step Astranaar
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
-  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, by the Windshear Mine.
-  goto 71.9,60.0 "Stonetalon Mountains"
+  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag, north of the Windshear Mine.
+  goto 76.5,45.5 "Windshear Crag"
 
 step Piznik
-  tip Piznik mines in the Windshear Mine at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines.
-  tip Careful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended.
+  when group 1090
+  tip Piznik's defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.
+  tip Piznik mines at the bottom of the Windshear Mine at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails.
   accept 1090                         -- Below ground
   complete 1090
   turnin 1090
@@ -120,11 +123,16 @@ step Windshear Crag
   turnin 1085                             -- Gaxim Rustfizzle
   accept 1071
 
+step Ziz Fizziks: Gerenzo's Orders
+  zone Stonetalon Mountains
+  when group 1090
+  tip His hut stands just north of Kaela and Gaxim.
+  turnin 1092                             -- Ziz Fizziks, inside
+
 step Ziz Fizziks
   zone Stonetalon Mountains
   tip His hut stands just north of Kaela and Gaxim.
-  turnin 1092                             -- Ziz Fizziks, inside
-  accept 1093
+  accept 1093                             -- Ziz Fizziks, inside
 
 step Windshear Crag: kill these as you meet them
   zone Stonetalon Mountains

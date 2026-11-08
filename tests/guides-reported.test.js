@@ -7182,9 +7182,11 @@ test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip 
 	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
 	assert.ok(lines.indexOf('Talondeep Path tunnel') >= 0 && lines.indexOf('Talondeep Path tunnel') < lines.indexOf('accept 1090'), 'the tunnel tip comes before Piznik');
 	assert.ok(!stepTips(guide, /turnin 1070/).some((t) => /Talondeep/.test(t)), 'not on the Kaela and Gaxim step');
+	// #1370: the hand-in of Gerenzo's Orders (1092) is a group-quest step of its own, right before the Super Reaper
+	// step: still one stop at Ziz Fizziks.
 	const ziz = at(list, 'turnin 1092', is('turnin', 1092));
 	const reaper = at(list, 'accept 1093', is('accept', 1093));
-	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
+	assert.ok(list[reaper].s - list[ziz].s <= 1 && list[reaper].s >= list[ziz].s, 'one stop at Ziz Fizziks');
 });
 
 // Final route review, Alliance 1-30 (2026-11-08): The Weathered Grave (225) and Morgan Ladimore (227) are talk-only
@@ -7689,4 +7691,28 @@ test(`${WETLANDS}: Raene's Cleansing asks for four Bloodtooth Guards and Ran Blo
 	at(list, 'kill 3932 quest 1045.1 (Bloodtooth Guard)', (g) => g.t === 'kill' && g.quest === 1045 && g.npc === 3932);
 	at(list, "collect 5388 quest 1045.2 (Ran Bloodtooth's Skull)", (g) => g.t === 'collect' && g.quest === 1045 && g.item === 5388);
 	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.quest === 1045 && goal.npc === 3696), 'no kill goal for Ran Bloodtooth x4');
+});
+
+// --- Windshear Mine (Emil, #1370): Gerenzo's Orders is Piznik's five-minute defence at the bottom of the mine,
+// with kobold waves (19-23) and a fail when he dies. Players lost it alone at 23 and 25; both routes reach it at
+// 20-23. It is asked as a group quest in both guides, with what the defence is, Ziz's hand-in of the follow-up
+// with it; Super Reaper 6000 (1093) and the crag's quests stay for everyone, and the Alliance arrow into
+// Stonetalon no longer leads into the mine.
+test("Emil's report (#1370): Gerenzo's Orders is asked as a group quest; Windshear Crag's other quests are not", { skip }, () => {
+	for (const guide of [ASHENVALE, BARRENS]) {
+		const list = goals(guide);
+		const gerenzo = list.filter(({ goal }) => goal.quest === 1090 || goal.quest === 1092);
+		assert.deepEqual(gerenzo.map(({ goal }) => `${goal.t} ${goal.quest}`).sort(), ['accept 1090', 'accept 1092', 'complete 1090', 'turnin 1090', 'turnin 1092'], `${guide}: Gerenzo's Orders' goals`);
+		for (const { step, goal } of gerenzo) {
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(1090) && !p.neg), `${guide}: ${goal.t} ${goal.quest} is under when group 1090`);
+			if (goal.quest === 1090) assert.equal(step.title, 'Piznik', `${guide}: ${goal.t} 1090 on Piznik's step`);
+		}
+		assert.match(stepTips(guide, /^step Piznik$/).join(' '), /grouping up is encouraged[\s\S]*If he dies, the quest fails/, `${guide}: the step says what the defence is`);
+		const reaper = list.filter(({ goal }) => goal.quest === 1093);
+		assert.ok(reaper.length >= 2, `${guide}: Super Reaper 6000 is still taken`);
+		for (const { step, goal } of reaper) assert.ok(!(step.when || []).some((p) => p.k === 'group'), `${guide}: ${goal.t} 1093 is for everyone`);
+	}
+	const ally = goals(ASHENVALE);
+	const into = ally[at(ally, 'goto Windshear Crag', ({ t, text }) => t === 'goto' && /Windshear Crag/.test(text || ''))].goal;
+	assert.ok(Math.hypot(into.x - 71.9, into.y - 60.0) > 10, `the Stonetalon arrow (${into.x},${into.y}) is not Piznik's spot in the mine`);
 });

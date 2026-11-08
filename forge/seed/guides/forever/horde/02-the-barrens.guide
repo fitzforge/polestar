@@ -52,7 +52,9 @@ next forever/horde/05-stonetalon-mountains
 # Background goals: the Raptor Heads and Plainstrider Beaks are collected on the way (#1135), each
 # with a finish step before its hand-in.
 #
-# Group quests: WANTED: Bruuz (92706, `when group 92706`, #639). Owatanka (884), Lakota'mani (883)
+# Group quests: WANTED: Bruuz (92706, `when group 92706`, #639) and Gerenzo's Orders (1090, `when group 1090`,
+# #1370: Piznik's five-minute defence in the Windshear Mine, quest level 22, lost solo at 23 and 25 in players'
+# recordings). Owatanka (884), Lakota'mani (883)
 # and the Rogue's Mission: Possible But Not Probable (2478, Gallywix is elite) are optional.
 #
 # Dropped: Chen's Empty Keg part 2 and 3 (821, 822): part 2's tusks, kidneys and horn are drops
@@ -1148,18 +1150,25 @@ step Ziz Fizziks
   accept 1093
 
 step Windshear Crag
-  tip East of Ziz, the Venture Company is clear-cutting Windshear Crag; one of the Operators carries the blueprints. Piznik mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.
-  tip Careful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended.
+  tip East of Ziz, the Venture Company is clear-cutting Windshear Crag; one of the Operators carries the blueprints.
   collect 5734 quest 1093
   kill 3989 quest 1062.1              -- Venture Co. Loggers, all over the clear-cut
+
+step Piznik
+  when group 1090
+  tip Piznik's defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.
+  tip Piznik mines at the bottom of the Windshear Mine on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails.
   accept 1090                         -- Piznik, below ground
   complete 1090
   turnin 1090
   accept 1092
 
-step Ziz Fizziks
+step Ziz Fizziks: Gerenzo's Orders
+  when group 1090
   turnin 1092                         -- Ziz Fizziks, inside
-  turnin 1093
+
+step Ziz Fizziks
+  turnin 1093                         -- Ziz Fizziks, inside
 
 step Malaka'jin
   tip Back down the Webwinder Path: Xen'Zilla stands just outside Malaka'jin, before the village.
