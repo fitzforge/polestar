@@ -322,11 +322,37 @@ function Levels.QuestLevel(qid, g)
 	return C and C.GetQuestLevel and C.GetQuestLevel(qid) or nil
 end
 
+-- Whether quest q asks for work in guide g: a goal of its own objectives in
+-- the guide (kill, collect, use, interact, complete, or one naming its
+-- objective), or objectives in the Codex (work done in another guide). A
+-- delivery (Calling in the Reserves: taken at Sun Rock, handed in at the
+-- Great Lift) has none: its level asks nothing of the character.
+local worked = setmetatable({}, { __mode = "k" })
+local WORK = { kill = true, collect = true, use = true, interact = true, complete = true }
+local function asksWork(g, q)
+	local map = worked[g]
+	if not map then
+		map = {}
+		for _, step in ipairs(g.steps) do
+			for _, goal in ipairs(type(step.goals) == "table" and step.goals or {}) do
+				local t = goal.t
+				if goal.quest and t ~= "accept" and t ~= "turnin" and t ~= "note" and (WORK[t] or goal.oi ~= nil) then map[goal.quest] = true end
+			end
+		end
+		worked[g] = map
+	end
+	if map[q] then return true end
+	local Cx = ns.Codex
+	local rec = Cx and Cx.IsLoaded and Cx.IsLoaded() and Cx.Quest and Cx.Quest(q)
+	return type(rec) == "table" and type(rec.objectives) == "table" and #rec.objectives > 0
+end
+
 -- The highest open quest on step s of guide g for this character: a goal of
 -- a quest neither done nor ready to hand in, other than its turn-in or a
--- talk (never hard); with `work`, not its accept either (taking a quest is
--- not doing it: the pace line points at the step that does). The active
--- guide asks the Engine what applies (`when`, quests the route leaves out);
+-- talk (never hard), of a quest that asks for work (asksWork: never a
+-- delivery); with `work`, not its accept either (taking a quest is not
+-- doing it: the pace line points at the step that does). The active guide
+-- asks the Engine what applies (`when`, quests the route leaves out);
 -- another, the steps' and goals' `only`. -> quest, level, title (the
 -- client's, Polestar.Names, else the guide's) | nil
 local function stepQuest(g, s, p, work)
@@ -339,7 +365,7 @@ local function stepQuest(g, s, p, work)
 	local best, lvl, title
 	for gi, goal in ipairs(step.goals) do
 		local q, t = goal.quest, goal.t
-		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept")
+		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept") and asksWork(g, q)
 			and not (C and C.IsQuestCompleted and C.IsQuestCompleted(q))
 			and not (C and C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q))
 		if open then
