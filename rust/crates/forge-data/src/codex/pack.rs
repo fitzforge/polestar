@@ -377,6 +377,8 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 			Some("item") => 'i',
 			Some("object") => 'o',
 			Some("event") => 'e',
+			// A talk-to objective (Hidden Enemies: Neeru Fireblade). `t` alone is the tame flag below.
+			Some("talk") => 's',
 			_ => return Err(format!("codex pack: quest {}: unknown objective type \"{}\"", kstr(&rec.get("id")), ty.to_js_string())),
 		};
 		parts.push(format!("{t}{},{},{}", num(&o.get("id"))?, num(&o.get("count"))?, esc(&o.get("text"))));

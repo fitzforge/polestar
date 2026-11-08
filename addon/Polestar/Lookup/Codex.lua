@@ -13,6 +13,7 @@
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
+--       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
@@ -162,7 +163,8 @@ local SOURCE = {
 local BOOL_FIELD = { limited = true, choice = true }
 local STRING_FIELD = { instance = true }
 
-local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event" }
+-- s: a talk-to objective (an NPC to speak to); `t` alone is the tame flag.
+local OBJECTIVE = { k = "kill", i = "item", o = "object", e = "event", s = "talk" }
 
 ---------------------------------------------------------------------------
 -- Decoding helpers

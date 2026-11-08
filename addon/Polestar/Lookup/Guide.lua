@@ -453,6 +453,17 @@ local function questStep(q, from, isTarget, opts)
 			if source then mark(s, name) end
 			goals[#goals + 1] = spawnSpots(at({ t = "collect", item = o.id, itemName = name,
 				quest = q.id, oi = oi, count = count, title = q.title }, s), spawns)
+		elseif o.type == "talk" and o.id then
+			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
+			-- quest's objective line, so it holds the step until done.
+			local npc = C.Npc(o.id)
+			local who = (npc and npc.name) or o.text or npcName(o.id)
+			local s = npc and Lookup.Nearest(npc.spawns, here)
+			if not s and inside then
+				s = inside("npc", o.id)
+				mark(s, who)
+			end
+			goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = who, quest = q.id, oi = oi, title = q.title }, s)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
