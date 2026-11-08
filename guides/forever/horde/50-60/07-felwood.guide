@@ -203,13 +203,6 @@ step Meilosh
   turnin 6031 optional                -- Below ground
   turnin 8470 optional                -- Kernda, at the tunnel mouth; walks around here: look inside the circle on the map
 
-step Level 59.9
-  zone Winterspring
-  when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  goto 27.9,34.5 map 1452 "Winterfall Totemic"
-  level 59.9 grind 7441               -- grind on Winterfall Totemic
-
 step Winterspring
   zone Winterspring
   goto 59.8,74.3 "Winterspring"
@@ -220,6 +213,13 @@ step Darkwhisper Gorge
   tip Ride east, then south down Frostwhisper Gorge. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of Darkwhisper Gorge, at the south end.
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
+
+step Level 59.9
+  zone Winterspring
+  when level<59.9
+  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  goto 60.1,71.2 map 1452 "Rabid Shardtooth"
+  level 59.9 grind 7446               -- grind on Rabid Shardtooth
 
 step Donova Snowden
   tip Ride back west to Frostfire Hot Springs.

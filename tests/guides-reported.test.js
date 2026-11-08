@@ -6420,6 +6420,33 @@ for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: A
 	}
 });
 
+// --- Horde 40-60 (0.3.7): the written grind sits on mobs a quest in the log still needs, so the kills count twice
+// (a player's report from Stranglethorn: "grind on Lashtail Raptor" with Raptor Hunting open). The top-ups that stood
+// on mobs no open quest wanted are folded into the quest step whose kills they were next to, where those mobs give at
+// least as much experience; the last one before 60 moves to mobs of the player's level.
+test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () => {
+	const cases = [
+		['forever/horde/50-60/02-felwood.guide', 53, (g) => g.t === 'kill' && g.quest === 4985, 'Diseased Grizzlies (The Wildlife Suffers Too)', /^\s+level 53\.02\b/],
+		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\.21\b/],
+		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 8461, 'Felpaw Village (Deadwood of the North)', /^\s+level 54\.54\b/],
+		['forever/horde/50-60/01-un-goro-crater.guide', 52, (g) => g.t === 'collect' && g.quest === 4300, 'the Marshlands ravasaurs (Bone-Bladed Weapons)', /^\s+level 52\b/],
+	];
+	for (const [guide, lv, work, what, line] of cases) {
+		assert.ok(goals(guide).some(({ step, goal }) => goal.t === 'level' && goal.level === lv && step.goals.some(work)), `${guide}: the level ${lv} grind is in the step for ${what}`);
+		// the grind policy: a written grind offers the dungeons at its level, in the quest step too
+		assert.match(stepTips(guide, line).join(' '), /Or, with a group, run the [A-Z][^.]* dungeon( \([A-Za-z ]+\))? instead\./, `${guide}: ${what} offers a dungeon`);
+	}
+	const fel = goals('forever/horde/50-60/02-felwood.guide');
+	for (const lv of [[53, 0.2], [54, 0.1], [54, 0.45]]) {
+		assert.ok(!fel.some(({ step, goal }) => goal.t === 'level' && goal.level === lv[0] && Math.abs((goal.frac || 0) - lv[1]) < 1e-6 && !step.goals.some((g) => g.quest)), `no stand-alone ${lv[0] + lv[1]} top-up on mobs no quest wants`);
+	}
+	// the last top-up before 60 on the Rabid Shardtooths (59) by Darkwhisper Gorge, not on level 54 furbolgs
+	const end = goals('forever/horde/50-60/07-felwood.guide');
+	const top = end.find(({ goal }) => goal.t === 'level' && goal.level === 59);
+	assert.ok(top && top.step.goals.some((g) => g.t === 'goto' && Math.abs(g.x - 60.1) < 1 && Math.abs(g.y - 71.2) < 1), 'the 59.9 top-up is at Frostwhisper Gorge');
+	assert.ok(top.s > end[at(end, 'Darkwhisper Gorge', (g) => g.t === 'complete' && g.quest === 4842)].s, 'after the strange source, before the ride back to Donova');
+});
+
 test('Horde quest volume: every added quest has its include record in the route fixes', () => {
 	const ov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
@@ -7793,7 +7820,8 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 			if (Math.floor(+m[1]) >= 58) assert.match(tips, /Scholomance/, `${file}:${i + 1}: a 58-60 dungeon`);
 		});
 	}
-	assert.ok(n >= 19, `the grind steps are found (${n})`);
+	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips)
+	assert.ok(n >= 13, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {

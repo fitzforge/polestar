@@ -95,26 +95,15 @@ step Mulgris Deepriver
   turnin 4984                         -- Inside
   accept 4985
 
-step Level 53.02
-  when level<53.02
-  tip Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 45.7,46.0 map 1422 "Diseased Wolf"
-  level 53.02 grind 1817               -- grind on Diseased Wolf
-
 step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt.
+  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   kill 1816 quest 4985
+  level 53.02 grind 1816               -- grind on Diseased Grizzly
 
 step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4987
   note Keep the branch: Nara Wildmane is in Thunder Bluff.
-
-step Level 53.2
-  when level<53.2
-  tip Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 54.9,62.4 map 1422 "Diseased Grizzly"
-  level 53.2 grind 1816               -- grind on Diseased Grizzly
 
 step Scarlet Crusade
   tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
@@ -230,12 +219,6 @@ step Emerald Sanctuary
   accept 8466 optional                -- Only with 5 Deadwood Headdress Feathers
   turnin 8466 optional
 
-step Level 54.1
-  when level<54.1
-  tip Top up here to level 54.1 before the hand-ins at Felwood: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 54.1 grind 7155               -- grind on Deadwood Pathfinder
-
 # ---------------------------------------------------------------- North through Felwood
 
 step The Jaedenar moonwell
@@ -266,7 +249,7 @@ step Shatter Scar Vale
   kill 9879 quest 5156.2
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
   level 54.21 grind 8957               -- grind on Angerclaw Grizzly
@@ -286,31 +269,18 @@ step Nafien
 
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
+  tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
+  level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Nafien
   turnin 8461
   accept 8465
   accept 8467 optional                -- Only with 5 Deadwood Headdress Feathers
-
-step Level 54.45
-  when level<54.45
-  tip Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
-  level 54.45 grind 7156               -- grind on Deadwood Den Watcher
-
-step Nafien
-  when onquest 8467
   turnin 8467 optional
   note Keep Speak to Salfa for Winterspring.
-
-step Level 54.54
-  when level<54.54
-  tip Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
-  level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Felpaw Village
   collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
