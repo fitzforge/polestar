@@ -6531,3 +6531,17 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
 });
+
+// --- Final route review before 0.3.5, Horde 40-60 (2026-11-08) ---
+
+// Stranglethorn Vale 39-43 starts at Kargath since the 30-40 rework: it flew to Booty Bay, on to Grom'gol for
+// Kin'weelay, the Jungle Stalkers and Mok'thardin, and back to Booty Bay. Now Kargath flies to Grom'gol first and on to
+// Booty Bay: one flight less. The zone-entry arrow that pointed 1,000 yd past the Bloodsail cove is gone too.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol before Booty Bay on the flight from Kargath', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const cove = at(list, 'turnin 595', is('turnin', 595));
+	assert.equal(list.slice(0, cove).filter(({ goal }) => goal.t === 'fly').length, 2, "Kargath to Grom'gol, Grom'gol to Booty Bay");
+	const bay = at(list, 'turnin 577', is('turnin', 577));
+	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
+	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
+});

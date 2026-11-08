@@ -12,11 +12,28 @@ next forever/horde/40-50/02-feralas
 # Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
 # Left out: The Bloodsail Buccaneers (608).
 
-step Fly to Booty Bay
+step Fly to Grom'gol
   zone Badlands
   goto 4.1,44.9 "Kargath flight master"
-  fly "Booty Bay"
+  fly "Grom'gol"
   zone Stranglethorn Vale
+
+step Grom'gol Base Camp
+  turnin 1240                           -- Kin'weelay
+  accept 598                            -- Kin'weelay
+
+step Jungle Stalkers
+  tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
+  collect 3863 quest 572
+
+step Far Seer Mok'thardin
+  turnin 572
+  accept 571
+
+step Fly to Booty Bay
+  zone Stranglethorn Vale
+  goto 32.5,29.3 "Grom'gol flight master"
+  fly "Booty Bay"
 
 step Booty Bay
   zone Stranglethorn Vale
@@ -41,7 +58,8 @@ step Booty Bay
 # (Swamp of Sorrows 36-40 quests, at 40.0-40.4, before Desolace). Checked by
 # lint, not play-tested on Forever yet. Era + known Forever quests only.
 #
-# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Booty Bay -> the
+# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Grom'gol
+# (Kin'weelay, the jungle stalkers, Mok'thardin) -> fly to Booty Bay -> the
 # Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
 # Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
 # -> Grom'gol (bind) -> Nesingwary -> Zul'Kunda -> hearth to Grom'gol ->
@@ -118,32 +136,6 @@ step Booty Bay
 #   arrives from Neeka instead.
 
 # ---------------------------------------------------------------- The way in
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Grom'gol Base Camp
-  turnin 1240                           -- Kin'weelay
-  accept 598                            -- Kin'weelay
-
-step Jungle Stalkers
-  tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
-  collect 3863 quest 572
-
-step Far Seer Mok'thardin
-  turnin 572
-  accept 571
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 32.9,66.2 "Stranglethorn Vale"
 
 step Bloodsail Correspondence
   tip Leave town by the tunnel; the note lies in the pirates' cove just north of Booty Bay.

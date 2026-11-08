@@ -4216,6 +4216,18 @@
 				],
 				"faction": "Horde",
 				"why": "Follow-up rule (#310, tests/guides-patterns.test.js \"a follow-up is taken right after its prerequisite is handed in to the same giver\"): Apothecary Renferrel offers Return to Quinn (Again) as Wild Eyes is handed in, so it is taken then, before the walk to Dalar Dawnweaver (66 yd) for Dalar's Analysis, not on a walk back to Renferrel after it"
+			},
+			{
+				"a": [
+					"accept",
+					571
+				],
+				"b": [
+					"turnin",
+					577
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Stranglethorn Vale 39-43): the visit starts at Kargath since the 30-40 rework (#1204), so it flies to Grom'gol first (Kin'weelay, the Jungle Stalkers' feathers, Mok'thardin) and from there to Booty Bay. Taken after Booty Bay's arrival stop, it flew Kargath to Booty Bay, Booty Bay to Grom'gol and back again: one flight more, a leftover of the Ratchet boat that used to land in Booty Bay."
 			}
 		],
 		"notes": [
