@@ -414,7 +414,8 @@ fn a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_af
 		})
 	};
 	let by_item = json!({ "npc": [], "object": [], "item": [90620] });
-	c["quests"]["90600"] = quest(90600, "The Glowing Shard", by_item.clone(), &[], json!([{ "type": "talk", "id": 9030, "count": 1, "text": "Speak with someone in Ratchet about the Glowing Shard" }]));
+	c["quests"]["90600"] =
+		quest(90600, "The Glowing Shard", by_item.clone(), &[], json!([{ "type": "talk", "id": 9030, "count": 1, "text": "Speak with someone in Ratchet about the Glowing Shard" }]));
 	c["quests"]["90601"] = quest(90601, "A Kill Left", by_item, &[], json!([{ "type": "kill", "id": 90621, "count": 1, "text": "Test Mob" }]));
 	c["quests"]["90602"] = quest(90602, "In Nightmares", json!({ "npc": [9031], "object": [], "item": [] }), &[90600], json!([]));
 	i["forever"]["quests"]["90600"] = json!({ "area": 209 });
@@ -441,11 +442,7 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
 	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
 	assert_eq!(open["unfinished"], json!([90601]), "a kill left outside is still unfinished");
-	assert_eq!(
-		open["steps"],
-		json!(["Sputtervalve talk:90600", "Falla Sagewind turnin:90600 accept:90602"]),
-		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up"
-	);
+	assert_eq!(open["steps"], json!(["Sputtervalve talk:90600", "Falla Sagewind turnin:90600 accept:90602"]), "Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up");
 	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
 
 	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
