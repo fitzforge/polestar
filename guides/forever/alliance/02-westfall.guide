@@ -14,6 +14,121 @@ next forever/alliance/03-darkshore
 # take Thor's flight to Stormwind on the first Sentinel Hill visit for Continue to Stormwind (6281),
 # Dungar Longdrink (6261) and Return to Lewis (6285), and hand Elmore's Task (1097) to Grimand
 # Elmore before the boat. Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
+# Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
+# Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
+# arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
+# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
+# the Jasperlode Mine in one loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
+# Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
+# Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
+# part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
+
+# ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
+
+step Goldshire
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip On the road from Stormwind to Westfall, Goldshire is the first stop: Remy "Two Times" stands outside the inn, Marshal Dughan beside him. Remy's A Fishy Peril goes straight to Dughan, who then gives Further Concerns; his Report to Gryan Stoutmantle goes with you to Westfall.
+  accept 40                                   -- Remy "Two Times"
+  turnin 40                                   -- Marshal Dughan
+  accept 35
+  accept 109                                  -- Marshal Dughan: for Gryan Stoutmantle at Sentinel Hill
+
+step The Tower of Azora
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip East along the road past Crystal Lake: Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
+  accept 91725                                -- Blixie Fitzwink
+  accept 91723                                -- Hamish Bergwort
+
+step The bridge
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Guard Thomas guards the bridge on the road east; Ormin Pelford stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back.
+  turnin 35                                   -- Guard Thomas
+  accept 37
+  accept 52
+  accept 91733                                -- Ormin Pelford
+
+step The Eastvale Logging Camp
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  accept 83                                   -- Sara Timberlain, inside
+  accept 5545                                 -- Supervisor Raelen
+  accept 91732                                -- Hagar Lowe
+  collect 13872 quest 5545                    -- Bundle of Wood
+  turnin 5545                                 -- Supervisor Raelen
+
+step A half-eaten body
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip It lies by the river north-west of the logging camp.
+  turnin 37
+  accept 45
+
+step Stone Cairn Lake
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
+  collect 1019 quest 83                       -- Red Linen Bandanas
+  turnin 45                                   -- Rolf's corpse
+  accept 71
+
+step The gnoll camps
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the Stolen Enchanting Supplies lie in their camps.
+  collect 247805 quest 91725                  -- Stolen Enchanting Supplies
+
+step The Jasperlode Mine's entrance
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  goto 61.6,54.1 "Jasperlode Mine"
+
+step Jasperlode Mine: kill these as you meet them
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  collect 247816 quest 91732                  -- Mining Tools
+  kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
+
+step The Tower of Azora
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Follow the hills south to the tower.
+  turnin 91723                                -- Hamish Bergwort
+  turnin 91725                                -- Blixie Fitzwink
+
+step Downstream
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip East along the road, then into the river south of the bridge: the Waterlogged Saw, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks.
+  collect 247813 quest 91733                  -- Waterlogged Saw
+  kill 118 quest 52                           -- Prowler
+  kill 822 quest 52                           -- Young Forest Bear
+  collect 247818 quest 91733                  -- Waterlogged Toolbox
+  collect 247817 quest 91733                  -- Waterlogged Axe
+
+step The bridge
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  turnin 91733                                -- Ormin Pelford
+  turnin 71                                   -- Guard Thomas
+  accept 39
+  turnin 52
+
+step The Eastvale Logging Camp
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  turnin 83                                   -- Sara Timberlain, inside
+  turnin 91732                                -- Hagar Lowe
+
+step Goldshire
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
+  turnin 39                                   -- Marshal Dughan
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
@@ -51,12 +166,13 @@ step Goretusk Snouts
 
 step Sentinel Hill's tower and Thor
   only Human
-  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower, Quartermaster Lewis inside it, Thor the gryphon master on the south side of the hill. Thor gives you Lewis' note for Osric Strang with a free flight to Stormwind: take it now. Osric's shop, Limited Immunity, is in Old Town; Baros Alexston stands in Cathedral Square on the way back to Dungar Longdrink, the gryphon master.
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower, Quartermaster Lewis inside it, Thor the gryphon master on the south side of the hill with Scout Galiaan beside him. Thor gives you Lewis' note for Osric Strang with a free flight to Stormwind: take it now. In Stormwind, Morgan Pestle's shop is in the Trade District by the gryphons, Osric's shop, Limited Immunity, in Old Town; Baros Alexston stands in Cathedral Square on the way back to Dungar Longdrink, the gryphon master.
   turnin 109                                  -- Gryan Stoutmantle
   accept 12
   accept 102                                  -- Captain Danuvin
   accept 6181                                 -- Quartermaster Lewis, inside
   getfp "Sentinel Hill"
+  accept 153                                  -- Scout Galiaan, beside Thor
   turnin 6181                                 -- Thor
   accept 6281                                 -- Thor: the free flight he offers goes to Stormwind
   fly "Stormwind"
@@ -64,8 +180,8 @@ step Sentinel Hill's tower and Thor
 step Osric Strang
   only Human
   zone Stormwind City
+  turnin 61                                   -- Morgan Pestle, Trade District, by the gryphons
   turnin 6281                                 -- Osric Strang, Limited Immunity in Old Town
-  turnin 61                                   -- Morgan Pestle, Trade District, on the way
   accept 6261
   accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
   turnin 6261                                 -- Dungar Longdrink, the gryphon master
@@ -76,6 +192,7 @@ step Osric Strang
 step Sentinel Hill
   zone Westfall
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
+  turnin 109 only Dwarf,Gnome                 -- Gryan Stoutmantle: from Deputy Rainer at Westbrook
   accept 12
   accept 102                                  -- Captain Danuvin
   turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
@@ -141,7 +258,7 @@ step Sentinel Hill
   turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
   turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
   accept 92745 only Dwarf,Gnome,NightElf,Skyborne
-  vendor nearest
+  vendor nearest optional
 
 # ---------------------------------------------------------------- The mines
 
@@ -183,7 +300,7 @@ step Back to Sentinel Hill
   turnin 14                                   -- Gryan Stoutmantle
   turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
   accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
-  vendor nearest
+  vendor nearest optional
 
 # ---------------------------------------------------------------- Stormwind and the boat
 

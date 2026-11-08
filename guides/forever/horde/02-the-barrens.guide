@@ -26,8 +26,9 @@ next forever/horde/05-stonetalon-mountains
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
 # the Stagnant and Lushwater oases -> the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
-# (Samophlange handed in): Northwatch Hold and Gilthares' escort -> the Raptor Grounds and the
-# nests -> the Crossroads -> the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
+# (Samophlange handed in): the Raptor Grounds' nests and the silver -> Gazlowe's Stolen Booty on
+# the beach -> Northwatch Hold and Gilthares' escort back to Ratchet -> fly to the Crossroads ->
+# the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
 # and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog -> Camp Taurajo (flight path) -> the Bristleback camps ->
 # Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Ishamuhale -> the
 # Crossroads, Regthar,
@@ -189,18 +190,18 @@ step Thun'grim Firegaze
 step The Crossroads
   label crossroads
   zone The Barrens
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn; Devrak, the wind rider master, Thork and Darsok on the tower platform.
-  getfp "Crossroads"
-  turnin 1358 only Tauren,Undead,Skyborne -- Apothecary Helbrim: Sample for Helbrim, from Zinge
-  turnin 98024 only Skyborne          -- Thork, at the top of the tower
+  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn: Sergra by the inn, Helbrim and Gazrog by the north gate, then up the tower to Devrak, the wind rider master, Thork and Darsok, and Tonga at the south gate on the way out.
   accept 844                          -- Sergra Darkthorn
-  accept 869                          -- Gazrog
+  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
+  turnin 1358 only Tauren,Undead,Skyborne -- Apothecary Helbrim: Sample for Helbrim, from Zinge
   accept 1492
   accept 848                          -- Apothecary Helbrim
+  accept 869                          -- Gazrog
+  getfp "Crossroads"
+  turnin 98024 only Skyborne          -- Thork, at the top of the tower
   accept 5041
   accept 871                          -- Thork
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
 
 step Raptor Heads as you go
@@ -360,16 +361,7 @@ step Ratchet
   turnin 890                          -- Wharfmaster Dizzywig
   accept 892
   turnin 892                          -- Gazlowe
-  accept 888
-
-step Stolen Booty
-  tip Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.
-  tip Sunscale raptors here count toward the heads.
-  collect 5076 quest 888.1 @62.6,49.6
-  collect 5077 quest 888.2 @63.6,49.3
-
-step Ratchet
-  turnin 888                          -- Gazlowe, upstairs
+  accept 888                          -- Gazlowe: the crates lie at the south end of the beach camp, on the walk to Northwatch Hold at 18
 
 step Fly to Crossroads
   zone The Barrens
@@ -456,17 +448,16 @@ step Kranal Fiss
 
 step The Crossroads
   zone The Barrens
+  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate on the way out.
+  turnin 903                          -- Sergra Darkthorn
+  accept 881
+  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 848                          -- Apothecary Helbrim
   turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
-  turnin 903                          -- Sergra Darkthorn
   accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
-  accept 868                          -- Korran: the eggs are in the Field of Giants, south of Camp Taurajo, later
-  accept 6541                         -- Thork, on the tower. Keep it: Kadrak at the Mor'shan Rampart, next guide
   accept 899                          -- Mankrik
-  accept 881
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 870                          -- Tonga Runetotem
   accept 877
 
@@ -515,14 +506,16 @@ step Finish the Raptor Heads
 
 step The Crossroads
   label q869
-  tip In from the north gate: Gazrog, Darsok and Thork on the tower platform, Sergra by the inn, then Tonga and Mura at the south gate. Darsok's and Sergra's new quests and Gazrog's silver come on the way back from Ratchet and later.
+  tip In from the north gate: Korran and Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
+  accept 868                          -- Korran, from level 17: the eggs are in the Field of Giants, south of Camp Taurajo, later
   turnin 869                          -- Gazrog
-  turnin 875                          -- Darsok Swiftdagger
-  turnin 881                          -- Sergra Darkthorn
-  accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
-  accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
+  turnin 881                          -- Sergra Darkthorn
+  accept 905                          -- Sergra Darkthorn: the raptor nests south of the Crossroads
   turnin 880                          -- Tonga Runetotem
+  turnin 875                          -- Darsok Swiftdagger
+  accept 876                          -- Darsok Swiftdagger, on the tower: Serena Bloodfeather leads the harpies in the Dry Hills
+  accept 6541                         -- Thork, on the tower, from level 17. Keep it: Kadrak at the Mor'shan Rampart, next guide
 
 # ---------------------------------------------------------------- Druids: Thunder Bluff and Moonglade
 
@@ -602,10 +595,28 @@ step Ratchet
   when group 92706
   turnin 92706 optional
 
-# ---------------------------------------------------------------- South to Northwatch Hold
+# ---------------------------------------------------------------- South-west: the Raptor Grounds, then Northwatch Hold
+step Raptor nests
+  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them.
+  interact 6907 quest 905.1
+  interact 6908 quest 905.2
+  interact 6906 quest 905.3
+
+step Raptor Grounds: kill these as you meet them
+  zone The Barrens
+  tip Sunscale Scytheclaws hunt the plains around the Raptor Grounds; they drop the horns. Mebok takes them when the escort brings you back to Ratchet.
+  tip South-east toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
+  collect 5055 quest 865.1
+  collect 5061 quest 3281.1
+
+step Stolen Booty
+  tip East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, a short walk north of Northwatch Hold.
+  collect 5076 quest 888.1 @62.6,49.6
+  collect 5077 quest 888.2 @63.6,49.3
+
 step Northwatch Hold: kill these as you meet them
   zone The Barrens
-  tip Northwatch Hold, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
+  tip Northwatch Hold, on the coast just south of the pirate camp. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
   tip Careful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier.
   collect 5078 quest 891.4
   kill 3393 quest 891.1               -- On the top floor
@@ -624,19 +635,17 @@ step Ratchet
   turnin 898                          -- Captain Thalo'thas Brightsun
   turnin 891
 
-# ---------------------------------------------------------------- East: the silver, Ratchet, Ishamuhale
-step Raptor Grounds: kill these as you meet them
-  zone The Barrens
-  tip Sunscale Scytheclaws hunt the plains south of the Crossroads, around the Raptor Grounds; they drop the horns. Hand them in on your next pass through Ratchet.
-  tip East across the plains toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
-  collect 5055 quest 865.1
-  collect 5061 quest 3281.1
+step Ratchet
+  when complete 865
+  turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
 
-step Raptor nests
-  tip The three nests sit together in the Raptor Grounds south-west of the oasis; Sunscale Scytheclaws guard them.
-  interact 6907 quest 905.1
-  interact 6908 quest 905.2
-  interact 6906 quest 905.3
+step Ratchet
+  turnin 888                          -- Gazlowe, upstairs
+
+step Fly to Crossroads
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Crossroads"
 
 step The Crossroads
   turnin 905                          -- Sergra Darkthorn

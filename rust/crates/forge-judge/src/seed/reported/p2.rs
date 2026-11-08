@@ -20,6 +20,8 @@ const HILLSBRAD_ALLIANCE: &str = "forever/alliance/30-40/01-hillsbrad-foothills.
 const ASHENVALE_30: &str = "forever/alliance/30-40/03-ashenvale.guide";
 const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
+const DARKSHORE_RETURN: &str = "forever/alliance/03-darkshore-return.guide";
+const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
@@ -187,39 +189,41 @@ fn miguel(ctx: &Ctx, c: &mut Check) {
 }
 
 fn follow_ups(ctx: &Ctx, c: &mut Check) {
-	let cases: &[(&str, i64, &[i64], bool)] = &[
-		(MULGORE, 99081, &[99079], false),
-		(MULGORE, 99101, &[99081], false),
-		(MULGORE, 99080, &[99101], false),
-		(MULGORE, 99082, &[99080], false),
-		(MULGORE, 98435, &[760], false),
-		(TIRISFAL, 96899, &[96897, 96898], false),
-		(TIRISFAL, 99156, &[356], true),
-		(REDRIDGE, 98386, &[89], false),
-		(WESTFALL, 92745, &[92742, 92744], false),
-		(WESTFALL, 92747, &[92745, 92744], false),
-		(HILLSBRAD_HORDE, 98094, &[528], false),
-		(SILVERPINE, 91920, &[430], false),
-		(SILVERPINE, 91921, &[91920], true),
-		(HILLSBRAD_ALLIANCE, 98209, &[98208], true),
-		(HILLSBRAD_ALLIANCE, 88758, &[88757], true),
-		(HILLSBRAD_ALLIANCE, 98297, &[98291], true),
-		(ASHENVALE_30, 98418, &[98417], true),
-		(ARATHI, 92459, &[92458], true),
-		(DARKSHORE, 87760, &[4722, 4723, 4725, 4727, 4728, 4730, 4731, 4732, 4733], false),
-		(SILVERPINE, 425, &[91921], false),
-		(SILVERPINE, 98298, &[99], true),
-		(WESTFALL, 92911, &[92910], true),
-		(WETLANDS, 465, &[98221], false),
+	// A case may span guides of the chain, in order (the Alliance 12-20 re-order, 2026-11-07).
+	let cases: &[(&[&str], i64, &[i64], bool)] = &[
+		(&[MULGORE], 99081, &[99079], false),
+		(&[MULGORE], 99101, &[99081], false),
+		(&[MULGORE], 99080, &[99101], false),
+		(&[MULGORE], 99082, &[99080], false),
+		(&[MULGORE], 98435, &[760], false),
+		(&[TIRISFAL], 96899, &[96897, 96898], false),
+		(&[TIRISFAL], 99156, &[356], true),
+		(&[LOCH_MODAN, REDRIDGE], 98386, &[89], false),
+		(&[WESTFALL], 92745, &[92742, 92744], false),
+		(&[WESTFALL], 92747, &[92745, 92744], false),
+		(&[HILLSBRAD_HORDE], 98094, &[528], false),
+		(&[SILVERPINE], 91920, &[430], false),
+		(&[SILVERPINE], 91921, &[91920], true),
+		(&[HILLSBRAD_ALLIANCE], 98209, &[98208], true),
+		(&[HILLSBRAD_ALLIANCE], 88758, &[88757], true),
+		(&[HILLSBRAD_ALLIANCE], 98297, &[98291], true),
+		(&[ASHENVALE_30], 98418, &[98417], true),
+		(&[ARATHI], 92459, &[92458], true),
+		(&[DARKSHORE, DARKSHORE_RETURN], 87760, &[4722, 4723, 4725, 4727, 4728, 4730, 4731, 4732, 4733], false),
+		(&[SILVERPINE], 425, &[91921], false),
+		(&[SILVERPINE], 98298, &[99], true),
+		(&[WESTFALL], 92911, &[92910], true),
+		(&[WETLANDS], 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
-		(STONETALON, 95981, &[482], false),
+		(&[STONETALON], 95981, &[482], false),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
-		(SILVERPINE, 97275, &[97242], false),
+		(&[SILVERPINE], 97275, &[97242], false),
 		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
-		(STONETALON, 98252, &[98251], false),
+		(&[STONETALON], 98252, &[98251], false),
 	];
-	for &(guide, quest, after, optional) in cases {
-		let list = ctx.goals(guide);
+	for &(guides, quest, after, optional) in cases {
+		let guide = guides.join(" + ");
+		let list: Vec<Row> = guides.iter().flat_map(|g| ctx.goals(g)).collect();
 		let take = find(&list, is("accept", quest));
 		if take.is_none() && optional {
 			continue;
@@ -276,7 +280,7 @@ fn alba(ctx: &Ctx, c: &mut Check) {
 }
 
 fn xoove_beached(ctx: &Ctx, c: &mut Check) {
-	let list = ctx.goals(DARKSHORE);
+	let list: Vec<Row> = [DARKSHORE, DARKSHORE_RETURN].iter().flat_map(|g| ctx.goals(g)).collect();
 	let take = at!(c, list, "accept 4723 (Beached Sea Creature)", is("accept", 4723));
 	c.eq(list[take].step.get("title").as_str(), Some("Bashal'Aran"), "it is taken in the Bashal'Aran step");
 	let a = at!(c, list, "accept 957 (Asterion)", is("accept", 957));

@@ -786,12 +786,13 @@ step Surena Caledon
 step The Binding
   only Warlock
   zone Stormwind City
-  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls. Westfall is next, west of Goldshire.
+  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls. Goldshire and east Elwynn are next, then Westfall.
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
   complete 1689                               -- Subdue the voidwalker
   turnin 1689                                 -- Summon Voidwalker
 
-step Westfall
-  zone Westfall
-  goto 59.9,19.4 "Westfall"
+step Goldshire
+  zone Elwynn Forest
+  tip Leave Stormwind by the main gate and follow the road south to Goldshire: east Elwynn comes before Westfall.
+  goto 42.1,65.9 "Goldshire"

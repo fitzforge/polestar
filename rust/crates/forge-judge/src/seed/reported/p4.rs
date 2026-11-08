@@ -385,7 +385,9 @@ fn westfall_road_in(ctx: &Ctx, c: &mut Check) {
 	let Some(home) = at(c, &list, "sethome", |g| str_is(g, "t", "sethome")) else { return };
 	c.ok(hill.step.strict_eq(&list[home].step), "Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop");
 	for q in [109, 36, 151, 64, 9, 22, 92909] {
-		let Some(i) = at(c, &list, &format!("accept {q}"), is("accept", q)) else { return };
+		// On Westfall's map: Dwarves and Gnomes take Report to Gryan Stoutmantle from Deputy Rainer at the end of east Elwynn.
+		let (take, map) = (is("accept", q), hill.goal.get("map").num());
+		let Some(i) = at(c, &list, &format!("accept {q}"), |g| take(g) && g.get("map").num() == map) else { return };
 		c.ok(i < report, &format!("{q} is taken before Sentinel Hill"));
 		c.ok(list[i].goal.get("y").num() < hill.goal.get("y").num() - 10.0, &format!("{q} is taken north of the hill, on the road in"));
 	}
