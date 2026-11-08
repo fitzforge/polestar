@@ -618,22 +618,26 @@ return {
 	["{quest:1483}, inside"] = "{quest:1483}, lá dentro",
 
 	-- Step 159: Windshear Crag
-	-- {area:461} Windshear Crag · {npc:4276} Piznik
-	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "A leste do Zé, a Empreendimentos S.A. está desmatando {area:461}; um dos Operadores está com as plantas. {npc:4276} trabalha na minazinha do lado leste: fique com ele enquanto minera, porque os capangas da Empreendimentos S.A. vêm atrás dele.\nCuidado: os kobolds chegam em ondas. A primeira é de corpo a corpo, a segunda mistura lançadores de feitiço. Os monstros comuns da mina renascem rápido e podem entrar na briga durante as ondas. Melhor ir em grupo.",
+	-- {area:461} Windshear Crag
+	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "Madeireiros da Empreendimentos S.A., por toda a área desmatada",
+
+	-- Step 160: Piznik
+	-- {npc:4276} Piznik · {area:2160} Windshear Mine
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "{npc:4276}, no subterrâneo",
 
-	-- Step 160: Ziz Fizziks
+	-- Step 161: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "{npc:4201}, lá dentro",
 
-	-- Step 161: Malaka'jin
+	-- Step 163: Malaka'jin
 	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin
 	["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "De volta por {area:1076}: {npc:12816} fica logo fora de {area:2539}, antes da vila.",
 
-	-- Step 163: Seereth Stonebreak
+	-- Step 165: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "A leste pela estrada até o acampamento de {npc:4049} e {npc:11857}, na volta de Torres de Pedra.",
 	-- {area:17} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
@@ -641,6 +645,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "Volte pela praia, depois do acampamento pirata: o caixote de botas e o caixote frágil com a lente ficam na ponta sul.",
+	-- ["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "A leste do Zé, a Empreendimentos S.A. está desmatando {area:461}; um dos Operadores está com as plantas. {npc:4276} trabalha na minazinha do lado leste: fique com ele enquanto minera, porque os capangas da Empreendimentos S.A. vêm atrás dele.\nCuidado: os kobolds chegam em ondas. A primeira é de corpo a corpo, a segunda mistura lançadores de feitiço. Os monstros comuns da mina renascem rápido e podem entrar na briga durante as ondas. Melhor ir em grupo.",
 	-- ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "Para leste até {area:1703}; {npc:9316} fica no acampamento logo ao sul.",
 	-- ["East to {area:392}, on the coast."] = "Para leste até {area:392}, no litoral.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "Guarde-o: {quest:3923} fica do lado de fora de {zone:1454}; um guia posterior o entrega",
