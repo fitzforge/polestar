@@ -163,7 +163,7 @@ fn accept_objectives_and_turn_in_advance_the_steps_and_fire_messages_in_order() 
 		json!(goals),
 		json!([
 			["active", "Go to Kobold camp", "Go to", "Kobold camp", "place", "Elwynn Forest", false],
-			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for Kobold Camp Cleanup", false],
+			["active", "Kill Kobold Vermin", "Kill", "Kobold Vermin", "npc", "for “Kobold Camp Cleanup”", false],
 		])
 	);
 	assert_eq!(view3["goals"][1]["progress"], json!({ "cur": 3, "max": 10, "kind": "count" }));
@@ -1327,7 +1327,7 @@ fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_
 	assert_eq!(out["trail"], json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"]));
 	assert_eq!(out["at"], 2);
 	assert_eq!(out["text"], "Talk to Valennia");
-	assert_eq!(out["detail"], "for Desperate Times");
+	assert_eq!(out["detail"], "for “Desperate Times”");
 
 	// The quest ready for turn-in: every talk goal is done, the lines the client never listed too.
 	let ready = run1(Run {

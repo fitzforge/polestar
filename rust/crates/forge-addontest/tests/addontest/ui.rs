@@ -200,7 +200,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
 	assert_eq!(first["dimmed"], json!([false, false]));
 	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
-	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in Wolves Across the Border", "Then: Brother Neals  ·  Talk to Brother Neals"]);
+	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in “Wolves Across the Border”", "Then: Brother Neals  ·  Talk to Brother Neals"]);
 	assert!(is_match(text(&first["lines"][0]["text"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r"), "the person in the NPC colour");
 	assert_eq!(first["after"], false, "the lines name the persons to come: no second \"Then:\", no \"Person 1 of 3\"");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
@@ -522,7 +522,7 @@ fn right_click_on_a_quest_line_tick_it_done_or_skip_this_quest_the_banner_undo_o
 		out["skipped"],
 		json!({
 			"call": ["SkipQuest", 15, true],
-			"banner": "Skipped Investigate Echo Ridge  ·  and the quests that follow from it",
+			"banner": "Skipped “Investigate Echo Ridge”  ·  and the quests that follow from it",
 			"undo": "Undo",
 		})
 	);
@@ -1472,9 +1472,9 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
 	// A quest that will be 3+ levels over you comes first: which, where, at what level you get there, the fix.
-	assert_eq!(out["hard"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
-	assert_eq!(out["hardNoRate"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; reach 23 first").as_str());
-	assert_eq!(out["hardNow"], warn("Behind: Missing In Action (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["hard"], warn("Behind: “Missing In Action” (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["hardNoRate"], warn("Behind: “Missing In Action” (25) at step 20, you'll be 20.0; reach 23 first").as_str());
+	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
@@ -1928,7 +1928,7 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 	.remove(0);
 	assert_eq!(
 		out["rows"],
-		json!([{ "text": "Accept The Runed Scroll  optional", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
+		json!([{ "text": "Accept “The Runed Scroll”  optional", "sub": "Runed Scroll: kill Aean Swiftriver (rare elite)  \u{b7}  Keep it: Kadrak", "icon": "icon-accept", "index": 2 }]),
 		"one row: the quest, worded as the accept and tagged optional, acting as the collect (index 2)"
 	);
 	assert_eq!(out["header"], "Field of Giants");
@@ -1957,7 +1957,7 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(skip["shown"], json!([true, "Group quest: Arachnophobia\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
+	assert_eq!(skip["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
 	assert_eq!(skip["kept"], true, "dismissing does not answer");
 	assert_eq!(skip["call"], json!(["AnswerGroup", 6284, "skip"]));
 	assert_eq!(skip["after"], false);

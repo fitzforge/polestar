@@ -114,13 +114,13 @@ fn a_step_with_nothing_for_the_character_says_why_in_one_line() {
 	let ask = run_guide(WHY_GUIDE, None, None, WHY).remove(0);
 	assert_eq!(
 		ask,
-		json!([false, false, "Only if you do Kobold Camp Cleanup with a group", false, "Only from level 5"]),
+		json!([false, false, "Only if you do “Kobold Camp Cleanup” with a group", false, "Only from level 5"]),
 		"not answered yet: the hand-in's step has nothing (the optional accept is not taken) and names the question"
 	);
 	let skip = run_guide(WHY_GUIDE, Some("skip"), None, WHY).remove(0);
-	assert_eq!(skip[2], "Only if you do Kobold Camp Cleanup with a group", "skipped: its condition fails");
+	assert_eq!(skip[2], "Only if you do “Kobold Camp Cleanup” with a group", "skipped: its condition fails");
 	assert_eq!(skip[3], false);
 	let done = run_guide(WHY_GUIDE, Some("do"), None, WHY).remove(0);
-	assert_eq!(done[3], "Only if you skip the group quest Kobold Camp Cleanup");
+	assert_eq!(done[3], "Only if you skip the group quest “Kobold Camp Cleanup”");
 	assert_eq!(done[2], "Skipped for your character: none of its goals apply", "with a group but the accept not taken");
 }

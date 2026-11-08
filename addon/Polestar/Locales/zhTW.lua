@@ -12,6 +12,7 @@ L["%.1f km"] = "%.1f 公里"
 L["%d m"] = "%d 公尺"
 L["%.1fk yd"] = "%.1fk 碼"
 L["%d yd"] = "%d 碼"
+L["quote marks: \226\128\156%s\226\128\157"] = "「%s」"
 L["Commands"] = "指令"
 L["Unknown command '%s'."] = "未知的指令「%s」。"
 

@@ -199,7 +199,7 @@ local function card()
 	local row
 	for _, r in ipairs(GF.rows) do
 		local s = r:IsShown() and r.Text:GetText()
-		if s and s:find("Accept |c", 1, true) then row = r.Text break end
+		if s and s:find("Accept \226\128\156|c", 1, true) then row = r.Text break end
 	end
 	return { shown = on, head = on and f.Head:GetText() or nil, title = on and f.Title:GetText() or nil, learn = on and f.Learn:GetText() or nil,
 		badge = on and f.Badge:IsShown() and f.Badge.Text:GetText() or nil, trip = on and f.Trip:GetText() or nil,
@@ -241,7 +241,7 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(druid["learn"], "Learn |cfffe8f2fCat Form|r");
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
-	assert_eq!(warrior["row"], "Accept |cffffd673The Great Cat Spirit|r");
+	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
 }
 
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
@@ -293,7 +293,7 @@ fn a_druid_only_step_of_an_open_quest_shows_no_card_a_data_limited_druid_quest_d
 		emit(card())"#,
 	);
 	assert_eq!(out[0]["shown"], false, "{}", out[0]);
-	assert_eq!(out[0]["row"], "Accept |cffffd673A Bundle of Hides|r");
+	assert_eq!(out[0]["row"], "Accept “|cffffd673A Bundle of Hides|r”");
 	assert_eq!(out[1]["shown"], true, "{}", out[1]);
 	assert_eq!(out[1]["title"], "The Great Cat Spirit");
 }
@@ -332,7 +332,7 @@ fn no_card_for_a_chain_whose_reward_the_character_already_knows() {
 	assert_eq!(out[0]["shown"], true, "{}", out[0]);
 	assert_eq!(out[0]["learn"], "Learn |cfffe8f2fBear Form|r");
 	assert_eq!(out[1]["shown"], false, "{}", out[1]);
-	assert_eq!(out[1]["row"], "Accept |cffffd673Child of Nature|r");
+	assert_eq!(out[1]["row"], "Accept “|cffffd673Child of Nature|r”");
 }
 
 // The same report: ticking the card's box "didn't do anything". The Engine keeps an accept open
@@ -585,7 +585,7 @@ fn open_in_a_new_tab_lands_each_chain_on_its_own_section_of_the_class_guide() {
 		-- The card on the landing step folds the accept in: no row of its own repeats the quest.
 		local CC = Polestar.UI.ClassCard
 		emit({ card = CC.frame:IsShown(), accept = CC.frame.Accept:IsShown() and CC.frame.Accept.Text:GetText() or false,
-			row = uistub.findText(GF.parts.card, "Accept |c") ~= nil })
+			row = uistub.findText(GF.parts.card, "Accept \226\128\156|c") ~= nil })
 		for _, quest in ipairs({ 1485, 1507 }) do
 			E.SelectTab(1)
 			CT.Show(quest)

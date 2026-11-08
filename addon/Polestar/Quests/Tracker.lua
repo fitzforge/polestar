@@ -466,7 +466,7 @@ local function addTooltipLines(tt, pin)
 	for i = 1, #refs do
 		local ref = refs[i]
 		if pin.kind == "turnin" then
-			tt:AddLine(ns.L["Turn in"] .. ": " .. (ref.title or ""), qc.r, qc.g, qc.b)
+			tt:AddLine(ns.L["Turn in"] .. ": " .. (ns.Quoted(ref.title) or ""), qc.r, qc.g, qc.b)
 		elseif pin.kind == "available" then
 			local r = Q.QuestRecord(ref)
 			local lvl = r and r[F.LEVEL]

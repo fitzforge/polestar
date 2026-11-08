@@ -573,8 +573,8 @@ fn a_quest_ready_to_hand_in_whose_npc_stands_within_30_yards_is_the_line_when_th
 		out,
 		vec![
 			json!("none"),
-			json!("8:1 Hand in A Fishy Peril to Marshal Dughan 20"),
-			json!("8:1 Hand in A Fishy Peril to Marshal Dughan 45"),
+			json!("8:1 Hand in “A Fishy Peril” to Marshal Dughan 20"),
+			json!("8:1 Hand in “A Fishy Peril” to Marshal Dughan 45"),
 			json!("none"),
 			json!("2:1:work:2 3:1:work:2 10:1:work:1"),
 			json!("none")

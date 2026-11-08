@@ -189,7 +189,7 @@ local function goalTooltip(row)
 	if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
 	-- What the quest opens up: what skipping it gives up (UI.UnlockLines).
 	if goal.quest and not (goal.t == "turnin" and goal.status == "done") then UI.UnlockLines(goal.quest, lines) end
-	if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(goal.skippedWith) end
+	if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(ns.Quoted(goal.skippedWith)) end
 	local p = goal.progress
 	if type(p) == "table" and p.kind == "skill" and p.max then
 		lines[#lines + 1] = { left = L["Skill"], right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max) }
@@ -1556,7 +1556,7 @@ function GF.LayoutBanner(width)
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		local lines = {}
 		for i, k in ipairs(n.skips) do
-			lines[i] = string.format(L["Skipped %s"], k.title or "") .. (k.text and ("  \194\183  " .. k.text) or "")
+			lines[i] = string.format(L["Skipped %s"], ns.Quoted(k.title) or "") .. (k.text and ("  \194\183  " .. k.text) or "")
 		end
 		banner.Text:SetText(table.concat(lines, "\n"))
 		banner.Jump:Hide()
@@ -1575,12 +1575,12 @@ function GF.LayoutBanner(width)
 		return h
 	elseif kind == "questSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
-		banner.Text:SetText(string.format(L["Skipped %s"], n.title or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
+		banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
 		placeLink(banner.Jump, L["Undo"], 0, -4)
 		banner.Close:Show()
 	elseif kind == "lost" then
 		banner.Icon:SetTexture(Theme.Media("icon-accept"))
-		banner.Text:SetText(string.format(L["%s is no longer in your quest log."], n.title or L["the quest"]) .. "\n" .. L["The guide stays here until you choose."])
+		banner.Text:SetText(string.format(L["%s is no longer in your quest log."], ns.Quoted(n.title) or L["the quest"]) .. "\n" .. L["The guide stays here until you choose."])
 		local w = placeLink(banner.Jump, L["Go back for it"], 0, -4)
 		placeLink(banner.Later, L["Skip it and what follows"], w + 10, -4)
 		banner.Close:Hide()
@@ -1588,14 +1588,14 @@ function GF.LayoutBanner(width)
 		banner.Icon:SetTexture(Theme.Media("icon-accept"))
 		local text = string.format(L["Quest log full: this step takes %d, and there is room for %d."], n.take, n.free)
 		local names = {}
-		for i, d in ipairs(n.drop) do names[i] = d.title or ("#" .. d.quest) end
+		for i, d in ipairs(n.drop) do names[i] = ns.Quoted(d.title) or ("#" .. d.quest) end
 		if #names > 0 then text = text .. "\n" .. string.format(L["Room to make: %s"], table.concat(names, ", ")) end
 		banner.Text:SetText(text)
 		placeLink(banner.Jump, L["Make room"], 0, -4)
 		banner.Close:Show()
 	elseif kind == "group" then
 		banner.Icon:SetTexture(Theme.Media("icon-kill"))
-		banner.Text:SetText(string.format(L["Group quest: %s"], n.title or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
+		banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
 		-- Skip is the default answer: the accent link, the banner's main action.
 		local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
 		placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
@@ -2417,7 +2417,7 @@ local function setEmpty(kind)
 			lines[#lines + 1] = string.format(L["Come back at level %d: the guide picks up by itself then."], gate.level)
 		else
 			empty.Title:SetText(L["Not available yet"])
-			lines[#lines + 1] = string.format(L["Finish %s first: the guide picks up by itself then."], gate.preTitle or "")
+			lines[#lines + 1] = string.format(L["Finish %s first: the guide picks up by itself then."], ns.Quoted(gate.preTitle) or "")
 		end
 		empty.Text:SetText(table.concat(lines, "\n"))
 		W.SetButtonText(empty.Primary, L["Choose a guide"])
@@ -3930,7 +3930,7 @@ function GF.PinItems(v)
 		local q = gv.quest
 		if q and not seen[q] and C.IsOnQuest(q) and (E.IsPinned(q) or not C.IsQuestReadyForTurnIn(q)) then
 			seen[q] = true
-			local title = C.GetQuestTitle(q) or (L["Quest"] .. " " .. q)
+			local title = ns.Quoted(C.GetQuestTitle(q) or (L["Quest"] .. " " .. q))
 			local pinned = E.IsPinned(q)
 			out[#out + 1] = { text = string.format(pinned and L["Unpin %s"] or L["Pin %s as along the way"], title), icon = "pin",
 				checked = pinned, onClick = function() E.PinQuest(q, not pinned) end }
@@ -4667,7 +4667,7 @@ function GF.PaceText(stats)
 	local stepNo = UI.StepNo(pace.step)
 	local h, text = pace.hard, nil
 	if h then
-		local name, at, you, time = h.title or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
+		local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
 		if h.step == pace.live then
 			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
 				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
@@ -4777,7 +4777,7 @@ ns.On("STEP_SKIPPED", function(_, to, skips)
 	notices.skipped = n
 	if not F:IsShown() then
 		for _, k in ipairs(skips) do
-			ns.Print(string.format(L["Skipped %s"], k.title or "") .. (k.text and (": " .. k.text) or ""))
+			ns.Print(string.format(L["Skipped %s"], ns.Quoted(k.title) or "") .. (k.text and (": " .. k.text) or ""))
 		end
 	end
 	ns.After(SKIPPED_SECONDS, function()

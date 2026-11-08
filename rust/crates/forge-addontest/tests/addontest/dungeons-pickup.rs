@@ -271,7 +271,7 @@ emit({ take = take, carried = carried, title = def.title, steps = describe(def),
 	assert_eq!(out["carried"], json!([1013]));
 	assert_eq!(out["title"], "Shadowfang Keep: pick up the quests");
 	assert_eq!(out["steps"], json!(from_undercity()));
-	assert_eq!(out["note"], "In your log already: The Book of Ur");
+	assert_eq!(out["note"], "In your log already: “The Book of Ur”");
 	assert_eq!(out["entrance"], json!([1421, 44.8, 67.8, "Enter Shadowfang Keep"]));
 	assert_eq!(out["after"], "After the run: open this dungeon's page (/polestar dungeons Shadowfang Keep) and choose Hand in the quests.");
 }
@@ -1068,7 +1068,7 @@ emit({ hand = ids(plan.hand, function(h) return h.quest.id end), ender = { plan.
 	assert_eq!(out["follow"], json!([1016]), "Return to Dalar, given by the NPC Arugal Must Die is turned in to");
 	assert_eq!(out["title"], "Shadowfang Keep: hand in the quests");
 	assert_eq!(out["steps"], json!([{ "title": "Dalar Dawnweaver", "goals": "turnin:1014 accept:1016 note" }]));
-	assert_eq!(out["note"], "Not finished yet: The Book of Ur");
+	assert_eq!(out["note"], "Not finished yet: “The Book of Ur”");
 	assert_eq!(out["turnin"], json!(["Dalar Dawnweaver", 1421, 44.2]));
 }
 
@@ -1119,7 +1119,7 @@ emit(D.HandinText(D.HandinPlan("{KEY}")))"#),
 		Opts::default(),
 	)
 	.remove(0);
-	assert_eq!(out, json!({ "id": false, "why": "nothing", "guide": false, "same": true, "text": "Not finished yet: The Book of Ur." }));
+	assert_eq!(out, json!({ "id": false, "why": "nothing", "guide": false, "same": true, "text": "Not finished yet: “The Book of Ur”." }));
 }
 
 #[test]

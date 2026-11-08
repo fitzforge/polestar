@@ -347,7 +347,7 @@ end
 -- quest opens nothing known.
 local UNLOCKS_SHOWN = 4
 local function unlockLabel(e)
-	local label = e.title
+	local label = ns.Quoted(e.title)
 	if e.part then label = format(L["%s (part %d of %d)"], label, e.part, e.of) end
 	if e.giver then label = format(L["%s, from %s"], label, e.giver) end
 	return label
@@ -365,7 +365,7 @@ function UI.UnlockLines(quest, lines)
 	end
 	local last = u.last
 	if last then
-		lines[#lines + 1] = { left = L["Chain ends with"], right = format(L["%s (part %d)"], last.title, last.part) }
+		lines[#lines + 1] = { left = L["Chain ends with"], right = format(L["%s (part %d)"], ns.Quoted(last.title), last.part) }
 		local rewards = last.rewards and UI.GoalRewards({ rewards = last.rewards })
 		if rewards then lines[#lines + 1] = { left = L["Final reward"], right = rewards } end
 	end
@@ -385,7 +385,7 @@ function UI.SkipLosesText(list)
 	local names = {}
 	for i = 1, math.min(#titles, UNLOCKS_SHOWN) do
 		local t = titles[i]
-		names[i] = count[t] > 1 and format(L["%s (%d parts)"], t, count[t]) or t
+		names[i] = count[t] > 1 and format(L["%s (%d parts)"], ns.Quoted(t), count[t]) or ns.Quoted(t)
 	end
 	local text = table.concat(names, ", ")
 	if #titles > UNLOCKS_SHOWN then text = format(L["%s and %d more"], text, #titles - UNLOCKS_SHOWN) end

@@ -52,6 +52,10 @@ L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
   headers stay as you wrote them.
 - A key `"context: text"` (`"boss: Chest"`) is one meaning of a word: translate
   the text after the colon, in that meaning.
+- `"quote marks: “%s”"` is how a quest's name sits in a sentence ("Turn
+  in “Your Place in the World”"): write your language's quote marks around
+  the `%s` („%s“, « %s » with no-break spaces, «%s», 「%s」). Use marks the
+  game font draws; the shipped files show which.
 - The block at the end, `-- No longer in the code (its English changed or it
   went away): reuse or delete.`, keeps your translations of texts the code no
   longer has, commented out. When the English of a text changed, its new key
