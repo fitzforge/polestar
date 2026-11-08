@@ -1,6 +1,6 @@
 'use strict';
-// Layer hop (QoL/Layer.lua): the layer id from creature GUIDs, presence and
-// hop requests over addon messages, hosting, and the game's world refresh.
+// Layer hop (QoL/Layer.lua): the layer id from creature GUIDs, hop requests as a
+// channel line on click plus addon whispers, hosting, and the game's world refresh.
 // Everything is inert while qol.layerHop is off.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
