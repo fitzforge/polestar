@@ -3397,22 +3397,24 @@ fn a7_outdoors_the_turn_onto_the_road_near_the_path_start_is_cut_the_arrow_aims_
 // at most 100 yd off the path aims at the furthest point ahead on it they can walk to in a straight line
 // (fake.sight stands in for Path.Sight, the walking grid's line check), and asks for no new path meanwhile. RUN walks
 // the player down -y at x from y0 to y1 a yard at a time, 0.3 s apart (the floor is read every 0.25 s): the largest
-// turn toward the path (x 0; degrees from straight ahead), each aim { x, y, aim x, aim y }, and the searches asked.
+// turn toward the path (x 0; degrees from straight ahead), each aim { x, y, aim x, aim y }, the yards shown at each
+// sample, and the searches asked.
 const RUN: &str = r#"
 fake.surfaces = function() return { 0 } end
 local function run(x, y0, y1)
-	local worst, asked, aims = -180, #fake.calls, {}
+	local worst, asked, aims, yards = -180, #fake.calls, {}, {}
 	for y = y0, y1, -1 do
 		nav.place(x, y)
 		stub.advance(0.3)
-		local _, _, _, dn, dw = N.Sample()
+		local _, dist, _, dn, dw = N.Sample()
 		if dn then
 			local deg = math.deg(math.atan2(x > 0 and -dn or dn, -dw))
 			if deg > worst then worst = deg end
 			aims[#aims + 1] = { x, y, x + dn, y + dw }
+			yards[#yards + 1] = dist
 		end
 	end
-	return { worst = worst, asked = #fake.calls - asked, aims = aims }
+	return { worst = worst, asked = #fake.calls - asked, aims = aims, yards = yards }
 end
 -- A straight path down -y from (0, 0) to (0, -400), a point every 40 yd; the target at its end.
 local function straight(px, py)
@@ -3639,5 +3641,71 @@ fn a14_following_the_arrow_back_toward_the_path_with_a_wobble_the_arrow_never_fl
 			out["swings"]
 		);
 		assert!(out["yards"].as_array().unwrap().len() > 100, "wobble {j} yd: the walk ran ({:?} samples)", out["yards"]);
+	}
+}
+
+// The most the yards shown ever stood above the lowest shown before them: the yards counting up while the player
+// closes on the target.
+fn counted_up(out: &Value) -> f64 {
+	let mut least = f64::INFINITY;
+	let mut up: f64 = 0.0;
+	for y in out["yards"].as_array().unwrap().iter().map(num) {
+		least = least.min(y);
+		up = up.max(y - least);
+	}
+	up
+}
+
+// Discord after 0.3.5: "it also counts up yds instead of counting down sometimes when approaching a destination".
+// Running beside the path with a point ahead in sight, the arrow aims at that point and nothing is searched again
+// (#1107), but the yards went straight to the end of the segment the player projects onto, which can lie behind
+// them (the road's join), then along the path: on #1107's own walk (a8's second) they rose 17 yd over 40 yd run
+// toward the target. They now go the way the arrow points: straight to the point in sight, then along the path.
+#[test]
+fn a15_beside_the_road_with_a_point_ahead_in_sight_the_yards_count_down_as_the_player_runs_toward_the_target() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(40, -100)
+		target(0, -400)
+		N.Sample()
+		fake.resolve(40,-100, 0,-100, 0,-150, 0,-200, 0,-250, 0,-300, 0,-350, 0,-400)
+		emit(run(40, -100, -160))"#,
+	]
+	.concat());
+	let up = counted_up(&out);
+	assert!(up <= 1.0, "the yards counted up {up:.1} yd while the player ran 60 yd toward the target");
+	assert_eq!(out["asked"], 0, "no new path while the road ahead is in sight (#1107)");
+}
+
+// Straight at the target past a path that bulges 80 yd to the side (east 80 yd, 100 yd down, back): the arrow aims
+// across at a point in sight on the bulge, and the yards shown never rise as the player closes on the target (0.3.5:
+// 14 yd up while the path swung away), the switch back to the path's own aim included.
+#[test]
+fn a15_running_straight_at_the_target_past_a_bulge_in_the_path_the_yards_never_count_up() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function() return true end
+		nav.place(0, -20)
+		target(0, -300)
+		N.Sample()
+		fake.resolve(0,0, 0,-20, 80,-60, 80,-160, 0,-200, 0,-300)
+		emit(run(0, -20, -190))"#,
+	]
+	.concat());
+	let up = counted_up(&out);
+	assert!(up <= 1.0, "the yards counted up {up:.1} yd while the player ran straight at the target");
+}
+
+// a14's walk (following the arrow over the hump with a wobble): the yards never count up, through every switch
+// between the point in sight and the corridor's aim.
+#[test]
+fn a15_following_the_arrow_over_a_bend_with_a_wobble_the_yards_never_count_up() {
+	for j in ["0", "0.5", "1"] {
+		let out = run(&format!("{WOBBLE}\n\t\temit(wobble({j}))"));
+		let up = counted_up(&out);
+		assert!(up <= 1.0, "wobble {j} yd: the yards counted up {up:.1} yd");
 	}
 }

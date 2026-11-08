@@ -2987,7 +2987,10 @@ every crossing). While a point ahead is in sight
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
 straight across to the nearest one. The yards it reports are
 the yards left along the path (straight to the end of the segment the player
-is on, then along it), never to the aim point; `Travel.Aim` returns those
+is on, then along it); with the arrow on a point in sight beside the path,
+straight to that point, then along the path from it (0.3.6: beside the path
+the segment's end could lie behind the player, and the yards counted up while
+they closed on the target). `Travel.Aim` returns those
 yards as a fifth value, and `Walk.Progress(c, x, y)` gives the yards along
 the path to the player's place on it and the yards between them. The arrow
 eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`, swinging at most

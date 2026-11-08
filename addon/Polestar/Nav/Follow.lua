@@ -83,6 +83,9 @@
 --       S.left    yards along the path from the projection to its end
 --       S.off     yards from the player to the projection (off the path)
 --       S.sighted the aim is a point in sight beside the path (open ground)
+--       S.aimAlong that point's yards along the path from its start (nil for
+--                 any other aim): the caller's yards left go the way the
+--                 arrow points, to it and then along the path
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -115,7 +118,7 @@ local SIGHT_NEAR = BODY - 5 -- yards beside the path: a point held in sight stay
 Follow.RADIUS, Follow.AHEAD, Follow.PAD, Follow.REACH, Follow.OPEN = RADIUS, AHEAD, PAD, REACH, OPEN
 
 function Follow.Reset(S)
-	S.idx, S.along, S.left, S.off, S.sighted = 2, 0, nil, nil, false
+	S.idx, S.along, S.left, S.off, S.sighted, S.aimAlong = 2, 0, nil, nil, false, nil
 	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
 end
 
@@ -201,7 +204,7 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 end
 
 function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
-	S.sighted = false
+	S.sighted, S.aimAlong = false, nil
 	if n == 0 then return nil end
 	if n == 1 then
 		local dx, dy = xs[1] - px, ys[1] - py
@@ -361,7 +364,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight)
 	end
 	-- The point in sight beside the path; within BODY of it, only when it lies
 	-- further along than the corridor's aim.
-	if sat and (bestD > BODY or not qx or sat > S.along + qAlong) then return pointAlong(xs, ys, left, a, n, sat) end
+	if sat and (bestD > BODY or not qx or sat > S.along + qAlong) then
+		S.aimAlong = sat
+		return pointAlong(xs, ys, left, a, n, sat)
+	end
 	if qx then
 		-- The body: walking beside the path within BODY yards, the arrow points
 		-- along it from where the player is (the aim carried sideways by the

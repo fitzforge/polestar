@@ -124,7 +124,8 @@
 --     100 yd from it, the furthest point ahead up to 150 yd along it the
 --     player can walk to straight, Path.Sight checking the line); and the
 --     yards left along the path from the
---     player's place on it plus their way to it; nil = straight at the goal.
+--     player's place on it plus their way to it (through the point in sight
+--     when the arrow aims at one); nil = straight at the goal.
 --     Allocation-free once the path is in. Strays more than STRAY yards off
 --     the path ask for a new one, unless the aim is such a point in sight.
 --   Walk.Progress(c, x, y) -> along, off | nil: at the last Aim for that goal,
@@ -936,10 +937,20 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		lastLeft = nil
 		return nil
 	end
-	-- Yards left: straight to the end of the segment the player is on, then along the path.
-	local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
-	local dx, dy = ix - px, iy - py
-	lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
+	-- Yards left: straight to the end of the segment the player is on, then along the path; with the arrow on a
+	-- point in sight beside the path (Nav/Follow.lua's S.aimAlong), straight to that point, then along the path from
+	-- it. (The segment's end may lie behind a player running beside the path, and 0.3.5's yards then counted up
+	-- while they closed on the target.)
+	local aimAlong = fstate.aimAlong
+	local dx, dy
+	if aimAlong then
+		dx, dy = ax - px, ay - py
+		lastLeft = sqrt(dx * dx + dy * dy) + (left[1] - aimAlong)
+	else
+		local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
+		dx, dy = ix - px, iy - py
+		lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
+	end
 	-- Re-ask only when the player has strayed from the path: walking beside it,
 	-- or coming at it from the side, is the follower's to handle, and so is
 	-- running up to Follow.OPEN yards beside it with a point ahead on it in
