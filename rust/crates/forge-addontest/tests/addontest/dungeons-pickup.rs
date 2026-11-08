@@ -655,6 +655,71 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 	assert_eq!(honored["take"], json!([90403]), "Honored: Nara Wildmane is an errand again");
 }
 
+#[test]
+fn a_prerequisite_whose_objective_is_to_speak_to_an_npc_sends_the_player_to_that_npc_before_its_turn_in_1236_hidden_enemies_and_neeru_fireblade() {
+	// #1236, #1240: Hidden Enemies (5727) asks the player to speak to Neeru Fireblade in the Cleft of Shadow
+	// and is handed in to Thrall; it is the prerequisite of the Ragefire Chasm quest. The Codex used to drop
+	// talk objectives, so the guide's step for it was accept and hand in at Thrall, Neeru never visited. Here B
+	// is that quest, off the page: given and turned in by Giver One, its one objective to speak to Giver Two
+	// elsewhere; D is the dungeon quest after it.
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: i32, y: i32| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": y, "f": "e" }],
+		})
+	};
+	c["npcs"]["90510"] = npc(90510, "Giver One", 40, 40);
+	c["npcs"]["90511"] = npc(90511, "Giver Two", 60, 60);
+	let quest = |id: i32, title: &str, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90510], "object": [], "item": [] }, "end": { "npc": [90510], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90501"] = quest(90501, "Speak to Giver Two", &[], json!([{ "type": "talk", "id": 90511, "count": 1, "text": "Giver Two" }]));
+	c["quests"]["90503"] = quest(90503, "The Dungeon Quest", &[90501], json!([{ "type": "item", "id": 90521, "count": 1, "text": "Gem of Test" }]));
+	i["forever"]["quests"]["90503"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local q = Polestar.Codex.Quest(90501)
+local plan = D.PickupPlan("{KEY}")
+local take, pre = {}, {}
+for _, t in ipairs(plan.take) do
+	if t.quest.id >= 90500 then take[#take + 1] = t.quest.id end
+	if t.quest.id == 90503 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+local steps, talk = {}, nil
+for _, s in ipairs(D.PickupGuide("{KEY}").steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90500 then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+		if g.t == "talk" and g.quest == 90501 then talk = { npc = g.npc, name = g.npcName, oi = g.oi, map = g.map, x = g.x, y = g.y } end
+	end
+	if #verbs > 0 then steps[#steps + 1] = table.concat(verbs, " ") end
+end
+emit({ objective = q.objectives[1], take = take, pre = pre, steps = steps, talk = talk })"#);
+	let out = run(&own, &script, Opts { done: vec![1098], ..Default::default() }).remove(0);
+	assert_eq!(out["objective"]["type"], json!("talk"), "the Codex keeps the talk objective");
+	assert_eq!(out["objective"]["id"], json!(90511));
+	assert_eq!(out["take"], json!([90503]));
+	assert_eq!(out["pre"], json!([90501]), "the dungeon quest's open prerequisite");
+	assert_eq!(out["steps"], json!(["accept:90501 talk:90501 turnin:90501", "accept:90503"]), "accept, speak to Giver Two, hand in, then the dungeon quest");
+	assert_eq!(out["talk"]["npc"], json!(90511));
+	assert_eq!(out["talk"]["name"], json!("Giver Two"));
+	assert_eq!(out["talk"]["oi"], json!(1), "counted by the quest's first objective line");
+	assert_eq!((out["talk"]["map"].clone(), out["talk"]["x"].clone(), out["talk"]["y"].clone()), (json!(1421), json!(60), json!(60)), "the arrow points at Giver Two");
+
+	// #1256: B already in the log, Giver Two not yet spoken to. The guide still sends the player there and
+	// back before the dungeon quest, instead of to its giver for a quest it cannot offer yet.
+	let logged = run(&own, &script, Opts { done: vec![1098], log: vec![1013, 90501], ..Default::default() }).remove(0);
+	assert_eq!(logged["take"], json!([90503]));
+	assert_eq!(logged["steps"], json!(["accept:90501 talk:90501 turnin:90501", "accept:90503"]), "B's step comes first: its accept is already done, the talk and the hand-in are left");
+}
+
 // #1226 (rockzors, Gnome Warlock 27, Excavation Site: Wetlands): Horrors in the Highland's chain starts with
 // Tramping Paws at Rethiel the Greenwarden, and the page lists The Greenwarden, First Mate Fitzsimmons's
 // breadcrumb from Menethil Harbor to Rethiel, before it. The Codex names no prerequisite for Tramping Paws (the

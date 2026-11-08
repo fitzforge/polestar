@@ -1985,7 +1985,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			let escort = forge_guide::escort::is_escort(&q);
 			let tame = tames_with_rod(&q);
 			let objectives: Vec<V> =
-				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event"))).map(|o| objective_of(o, escort, tame)).collect();
+				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|o| objective_of(o, escort, tame)).collect();
 			o.set("objectives", V::from(objectives));
 			let pre = forge_guide::prereqs::blocking_prereqs(&q, &quest_of);
 			o.set("pre", pre.get("all"));
