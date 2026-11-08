@@ -605,6 +605,26 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 	assert_eq!(escort, vec![json!("none")]);
 }
 
+// T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
+// running timer (Compat.QuestTimerRunning) offers no detour; one whose time ran out (failed), or none timed, changes
+// nothing.
+#[test]
+fn a_timer_the_quest_log_reports_without_the_old_timer_list_offers_no_detour_either() {
+	let out = run(r#"
+		GetQuestTimers = nil
+		at(47.6, 37.6); emit(here())
+		C_QuestLog.GetTimeAllowed = function() return 900, 600 end
+		stub.advance(0.6); emit(here())
+		C_QuestLog.IsFailed = function() return true end
+		stub.advance(0.6); emit(here())
+		C_QuestLog.IsFailed = nil
+		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.advance(0.6); emit(here())
+	"#);
+	let v = "2:1 Kill Kobold Vermin, 2 more 50";
+	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!(v)]);
+}
+
 #[test]
 fn the_options_turn_it_off_and_set_how_close() {
 	let out = run(r#"

@@ -6656,13 +6656,18 @@ function Own.hereClear()
 end
 
 -- Never in an instance, on a taxi, while a Hearthstone is cast, or while a
--- timed quest or the live step's escort runs: why (for the bug report), or
--- false. Allocation-free.
+-- timed quest (Compat.QuestTimerRunning: the old timer list or the quest
+-- log's time allowed, which Forever's client has; the old list alone when
+-- Compat gives no answer) or the live step's escort runs: why (for the bug
+-- report), or false. Allocation-free.
 function Own.hereBlocked()
 	if Own.hereEscort then return "escort" end
 	if IsInInstance and IsInInstance() then return "instance" end
 	if UnitOnTaxi and UnitOnTaxi("player") then return "flight" end
-	if GetQuestTimers and GetQuestTimers() then return "timed quest" end
+	local C = Compat()
+	local timed = C.QuestTimerRunning and C.QuestTimerRunning()
+	if timed == nil then timed = GetQuestTimers and GetQuestTimers() end
+	if timed then return "timed quest" end
 	if UnitCastingInfo then
 		local spell = select(9, UnitCastingInfo("player"))
 		if spell and Own.HERE_HEARTH[spell] then return "hearthing" end
