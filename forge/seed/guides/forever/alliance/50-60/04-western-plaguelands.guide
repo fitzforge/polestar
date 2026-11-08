@@ -622,15 +622,13 @@ step The crater
   collect 11837 quest 4496.1          -- Gorishi Scent Gland
 
 step Torwa Pathfinder
+  zone Un'Goro Crater
+  tip Torwa camps at the foot of the ramp into the crater.
   turnin 4291
+  accept 4292
+  accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
 
 # ---------------------------------------------------------------- East side
-
-step Torwa Pathfinder
-  zone Un'Goro Crater
-  tip Ride down the ramp into the crater: Torwa camps at its foot.
-  accept 4292
-  accept 4289                         -- The pelts come after loop 2, on the gorilla plateau
 
 step Lakkari Tar Pits: kill these as you meet them
   zone Un'Goro Crater
