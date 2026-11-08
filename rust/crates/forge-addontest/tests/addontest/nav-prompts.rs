@@ -311,6 +311,44 @@ fn alerts_issues_c5_30_s_before_a_timed_boat_at_the_dock_20_s_before_the_next_st
 	assert_eq!(out[11], false);
 }
 
+// Polestar's own notices (the window hiding in an instance) take the same banner: the emblem in the ring, a
+// fixed line that wraps and grows the banner by its extra lines, no countdown; a click or HideNotice takes it
+// down, a transport's countdown after it is one line again.
+#[test]
+fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_banner_after_it_is_one_line() {
+	let out = run_nav(
+		r#"
+		local A = N.alerts
+		local line = "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave."
+		A.ShowNotice("Polestar is hidden here", line, 12)
+		local b = PolestarAlert
+		local notice = { shown = b:IsShown(), title = b.Title:GetText(), line = b.When:GetText(), wraps = b.When:GetWordWrap(),
+			multi = b.When:GetNumLines() >= 2, grown = b:GetHeight() == 56 + (b.When:GetNumLines() - 1) * b.When:GetLineHeight(),
+			glyph = b.Glyph:GetTexture():match("logo$") ~= nil }
+		stub.advance(5)
+		local still = b:IsShown() and b.When:GetText() == line
+		stub.advance(8)
+		local gone = not b:IsShown()
+		A.ShowNotice("Polestar is hidden here", line, 12)
+		A.HideNotice()
+		local hidden = not b:IsShown()
+		A.ShowBanner("Boat to Farland Pier", "Arrives in %s", 30)
+		A.HideNotice()
+		emit({ notice = notice, still = still, gone = gone, hidden = hidden, transit = { shown = b:IsShown(), height = b:GetHeight(),
+			wraps = b.When:GetWordWrap(), when = b.When:GetText(), boat = b.Glyph:GetTexture():match("icon%-boat$") ~= nil } })
+	"#,
+	);
+	assert_eq!(
+		out[0]["notice"],
+		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
+			"wraps": true, "multi": true, "grown": true, "glyph": true })
+	);
+	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
+	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");
+	assert_eq!(out[0]["hidden"], true);
+	assert_eq!(out[0]["transit"], json!({ "shown": true, "height": 56, "wraps": false, "when": "Arrives in 0:30", "boat": true }), "HideNotice leaves a countdown up");
+}
+
 // ---------------------------------------------------------------------------
 // Flight map (QoL harness)
 // ---------------------------------------------------------------------------

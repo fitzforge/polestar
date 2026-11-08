@@ -232,9 +232,19 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Dungeons and battlegrounds"], controls = {
 		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
-			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."],
+			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
+	} },
+	-- Ways to show and hide the window without typing: UI/Launcher.lua's floating button, and the minimap
+	-- button (Maps/MinimapButton.lua; also on Map and Quality of Life), next to the rules above.
+	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
+		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
+			help = L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
+			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
+		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
+			help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."],
+			search = "minimap icon, minimap button, hide button, launcher" },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },

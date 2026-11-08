@@ -1296,7 +1296,6 @@ L["The step stops waiting for the party and moves on as usual."] = "단계가 �
 L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시하거나 숨깁니다."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
--- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 -- L["Level %d quest: you're %s"] = ""
 -- L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = ""
 -- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = ""
@@ -1315,6 +1314,14 @@ L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["Click the minimap button or press %s to show it."] = ""
+-- L["Click the minimap button to show it."] = ""
+-- L["Press %s to show it."] = ""
+-- L["Turn on the minimap button or bind a key to show it."] = ""
+-- L["Press %s or type /polestar to show it."] = ""
+-- L["Type /polestar to show it."] = ""
+-- L["Polestar is hidden here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2066,7 +2073,6 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
--- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 -- L["How close"] = ""
 -- L["Include nearby hand-ins"] = ""
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
@@ -2077,6 +2083,10 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2989,6 +2999,10 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar가 채팅으로 파티에 퀘스트 진행 상황을 알렸습니다 (바꾸려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
 L["%s is ready to turn in"] = "%s 제출 가능"
 L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
+
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

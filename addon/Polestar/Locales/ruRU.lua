@@ -1296,7 +1296,6 @@ L["The step stops waiting for the party and moves on as usual."] = "Шаг пе�
 L["Click to show or hide the party panel."] = "Щёлкните, чтобы показать или скрыть панель группы."
 L["Then out here"] = "Затем здесь"
 L["Out here"] = "Здесь"
-L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
 L["Level %d quest: you're %s"] = "Задание %d-го уровня: у вас %s"
 L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = "Отставание: %s (%d) на шаге %d, у вас %s; сначала прокачайтесь ~%s"
 L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Отставание: %s (%d) на шаге %d, у вас %s; сначала достигните %d"
@@ -1315,6 +1314,14 @@ L["While you're here:"] = "Пока вы здесь:"
 L["Not now (right-click)"] = "Не сейчас (правый клик)"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "Шаг %d делает это позже; сделаете сейчас, и этот шаг будет короче или пропустится, когда вы до него дойдёте."
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["Click the minimap button or press %s to show it."] = ""
+-- L["Click the minimap button to show it."] = ""
+-- L["Press %s to show it."] = ""
+-- L["Turn on the minimap button or bind a key to show it."] = ""
+-- L["Press %s or type /polestar to show it."] = ""
+-- L["Type /polestar to show it."] = ""
+-- L["Polestar is hidden here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2066,7 +2073,6 @@ L["Minimap icon size"] = "Размер значков на мини-карте"
 L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = "Метки Polestar на мини-карте; на карте мира свои метки. Метка над вашей стрелкой становится прозрачной, чтобы стрелку было видно. Правый щелчок — сброс."
 L["Dungeons and battlegrounds"] = "Подземелья и поля боя"
 L["In dungeons and battlegrounds"] = "В подземельях и на полях боя"
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."
 L["Wait for Spoken"] = "Ждать Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "Пауза 200 мс перед каждым автоматическим принятием, сдачей задания и выбором награды, чтобы Spoken успел заметить окно и прочитать его."
 L["How close"] = "Насколько близко"
@@ -2077,6 +2083,10 @@ L["Also a quest ready to hand in whose NPC stands right here, when the guide han
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2990,6 +3000,10 @@ L["Polestar told your party about your quest progress in chat (Options > Questin
 L["%s is ready to turn in"] = "%s можно сдать"
 L["looted %s, which starts %s"] = "добыча %s начинает задание %s"
 
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
@@ -3047,3 +3061,5 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["While you're here sound"] = "Звук «Пока вы здесь»"
 -- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
 -- L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."

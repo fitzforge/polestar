@@ -3482,10 +3482,18 @@ local function hiddenInside()
 	return inInstance and not openInside and ns.Get("ui.instance") == "hide"
 end
 
+-- What the window's own rules hide now: a fight (ui.combat "hide") and an
+-- instance it waits out (ui.instance "hide"). The floating launcher
+-- (UI/Launcher.lua) follows them; GUIDE_VISIBILITY says they may have changed.
+function GF.RulesHide()
+	return (inCombat and ns.Get("ui.combat") == "hide") or hiddenInside()
+end
+
 function GF.ApplyVisibility()
 	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
+	ns.Fire("GUIDE_VISIBILITY")
 	if not F then return end
-	local show = ns.Get("ui.shown") and not (inCombat and ns.Get("ui.combat") == "hide") and not hiddenInside()
+	local show = ns.Get("ui.shown") and not GF.RulesHide()
 	F:SetShown(show and true or false)
 end
 
@@ -4983,14 +4991,47 @@ local function instanceNow()
 	return (ok and inside and INSTANCE_KINDS[kind]) and true or false
 end
 
--- The first time on this account the window hides itself on the way in,
--- one chat line says how to bring it back and where the setting is.
-local function sayHiddenOnce()
-	local db = ns.DB()
-	if db.instanceHideTold then return end
-	db.instanceHideTold = true
-	ns.Print(L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."])
+-- How to bring the window back inside: the minimap button (when on), the
+-- toggle's key binding (when bound, named as the client names it: "Ctrl-P"),
+-- else /polestar (never with the gamepad interface, which has no slash
+-- commands).
+function GF.HowToShow()
+	local button = ns.Get("maps.minimapButton")
+	local key = GetBindingKey and GetBindingKey("POLESTAR_TOGGLE")
+	if key == "" then key = nil end
+	local named = key and GetBindingText and GetBindingText(key)
+	if type(named) == "string" and named ~= "" then key = named end
+	if button and key then return L["Click the minimap button or press %s to show it."]:format(key) end
+	if button then return L["Click the minimap button to show it."] end
+	if ns.GamepadUI() then
+		if key then return L["Press %s to show it."]:format(key) end
+		return L["Turn on the minimap button or bind a key to show it."]
+	end
+	if key then return L["Press %s or type /polestar to show it."]:format(key) end
+	return L["Type /polestar to show it."]
 end
+
+-- The first time on this account the window hides itself on the way in, a
+-- notice at the top of the screen (Nav/Alerts.lua) says how to bring it
+-- back for 12 seconds, and one chat line says where the setting is.
+-- Accounts told before by the chat line alone (instanceHideTold) see the
+-- notice once too. (This chunk is at Lua 5.1's 200 locals: no new ones.)
+local function hintHiddenOnce()
+	local db = ns.DB()
+	if db.instanceHint then return end
+	db.instanceHint = true
+	db.instanceHideTold = nil
+	local howTo = GF.HowToShow()
+	local alerts = ns.Nav and ns.Nav.alerts
+	if alerts and alerts.ShowNotice then alerts.ShowNotice(L["Polestar is hidden here"], howTo, 12) end
+	ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."]:format(howTo))
+end
+
+-- The notice goes as soon as the window is back.
+ns.On("GUIDE_SHOWN", function(shown)
+	local alerts = ns.Nav and ns.Nav.alerts
+	if shown and alerts and alerts.HideNotice then alerts.HideNotice() end
+end)
 
 -- Every way in or out passes a loading screen, a /reload included. Going in
 -- or out ends a visit, so the next one starts hidden again.
@@ -5003,7 +5044,7 @@ local function checkInstance()
 	end
 	inInstance = now
 	GF.ApplyVisibility()
-	if entered and hiddenInside() and ns.Get("ui.shown") then sayHiddenOnce() end
+	if entered and hiddenInside() and ns.Get("ui.shown") then hintHiddenOnce() end
 end
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)

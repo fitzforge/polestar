@@ -190,6 +190,7 @@ never in saved variables.
 | `ZoneArt.lua` | `UI.ZoneArt` | A zone's world map painting, drawn from the player's own client |
 | `ZoneArtOverlays.lua` | (registers data) | Generated: every world map overlay of every zone map |
 | `GuideFrame.lua` | `UI.GuideFrame` | The guide window |
+| `Launcher.lua` | `UI.Launcher` | The optional floating Polestar button: show or hide the window, menu, drag |
 | `GearPick.lua` | `UI.GearPick` | The reward pick under a turn-in goal |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
 | `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |

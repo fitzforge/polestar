@@ -5654,6 +5654,42 @@ returns its height); never in compact mode. Off with `nav.journeySteps`
 setting exists. Non-secure frames only. Tests: `rust/crates/forge-addontest/tests/addontest/ui-journey.rs`;
 render: `docs/preview/journey.svg`.
 
+### Showing and hiding the window: rules, the floating button, the instance hint
+
+`GuideFrame.ApplyVisibility` shows the window when `ui.shown` is on and its
+own rules don't hide it now (`GuideFrame.RulesHide`): a fight with
+`ui.combat` "hide", or a dungeon, raid, battleground or arena with
+`ui.instance` "hide" (the default) until the player opens the window there
+(`GuideFrame.ToggleInside`: the minimap button, the key binding, `/polestar`).
+Each call fires `GUIDE_VISIBILITY`.
+
+- The floating button (`UI/Launcher.lua`, `ui.launcher`, off by default;
+  Options, Guide, Window, Show and hide, beside the minimap button's own
+  toggle): a 32px `PolestarLauncher` on `UIParent` in the minimap button's
+  look. Click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu`, a drag
+  (`StartMoving`; with `ui.lockHud` only a Shift-drag, `ns.DragLocked`) saves
+  its centre in `ui.launcherPos` (from the screen's bottom-left; unset: beside
+  the window's default corner, `TOPRIGHT` -440, -256). It refreshes on
+  `GUIDE_VISIBILITY` and its settings and hides while `RulesHide()` holds, so
+  it goes in a fight or an instance as the window does and stays when the
+  player hid the window. No frame exists until the setting is first on.
+- The instance hint: the first time on the account (`PolestarDB.instanceHint`)
+  the window hides itself on the way into an instance, `Nav.alerts.ShowNotice`
+  puts "Polestar is hidden here" at the top of the screen for 12 s with
+  `GuideFrame.HowToShow()`: the minimap button when it is on, the toggle's
+  key (`GetBindingKey("POLESTAR_TOGGLE")`, named by `GetBindingText`) when bound,
+  else `/polestar` (never with the gamepad interface). One chat line repeats
+  it with where the setting is. `GUIDE_SHOWN` true takes the notice down.
+  Accounts told by the older chat-only line (`instanceHideTold`, cleared now)
+  see the notice once.
+- `Nav/Alerts.lua`'s banner (`PolestarAlert`) carries both the transport
+  countdown (`ShowBanner`) and these notices (`ShowNotice`, `HideNotice`): a
+  notice wears the emblem in an accent ring, its line wraps to three lines
+  and the banner grows by the extra lines; no linger after its time.
+
+Tests: `ui.rs` (`in_dungeons_and_battlegrounds_*`, `floating_button_*`),
+`nav-prompts.rs` (`alerts_a_notice_*`); render: `docs/preview/instance-hint.svg`.
+
 ### Gamepad (`UI/Gamepad.lua`, `UI/GamepadGuide.lua`)
 
 Ported from Ding! by Yendi (@moust4ki), GPL-3.0, and rebuilt on the Theme.

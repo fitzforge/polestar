@@ -463,7 +463,14 @@ its source is in [apps/client](apps/client).
   dungeons and battlegrounds; on by default): the guide window, its action
   buttons and alerts stay out of the way inside dungeons, raids,
   battlegrounds and arenas and come back when you leave. `/polestar`, the key
-  binding or the minimap button still opens it while you are inside.
+  binding or the minimap button still opens it while you are inside. The
+  first time it hides, a note at the top of the screen says how to bring it
+  back.
+- **Floating button** (Options, Guide, Window, Show and hide; off by default):
+  a small Polestar button you put anywhere on the screen. Click it to show or
+  hide the guide window, right-click it for a short menu, drag it to move it.
+  It hides with the window in combat and in dungeons when those are set to
+  hide. The minimap button's switch is there too.
 
 ### Navigation
 
