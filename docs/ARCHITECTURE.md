@@ -1272,9 +1272,12 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   hand-in) and the writer.
 - **While you're here.** While the player works the live step, an open
   objective of a later step whose quest is already in the log, close by,
-  becomes one line under the step (`Engine.GetWhileHere`: the goal view of
-  its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
-  and `hereText`, "Kill Kobold Vermin, 2 more"). `Own.hereBuild` builds the
+  becomes a line under the step, up to `HERE_SHOW` (3) at once
+  (`Engine.GetWhileHereList`, in rank order, `Engine.GetWhileHere` its
+  first: each the goal view of its later step with `step`, `here` = "work" |
+  "turnin", `left`, `yards` and `hereText`, "Kill Kobold Vermin, 2 more";
+  `Engine.AimWhileHere(i)` and `Engine.DismissWhileHere(i)` take the line's
+  place in the list, 1 by default). `Own.hereBuild` builds the
   candidates (`Own.hereAll`, route order) in `evaluate` only when something
   changed them (`Own.hereDirty`: a step change of the active tab, another
   guide, the quest log, the level, a new zone, the `behavior.whileHere*`
@@ -1306,26 +1309,29 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   loaded, every creature that drops its item, `Own.hereNpcsOf`; it counts as
   `HERE_SEEN` yards and skips the walk check), the one whose target spawns in
   the fewest places on the map (`places`, its spots with the alternatives;
-  a point counts 1), then the nearest, becomes the line, so a pool or camp
+  a point counts 1), then the nearest, ranks first; while fewer than
+  `HERE_SHOW` lines show, the best in reach join in that order (with all
+  shown, the poll measures only them; each keeps its own time, distance and
+  dismiss), so a pool or camp
   wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
   radius (at most `HERE_CLEAR_MAX`, 400 yd; the radius is 150 by default, 60
-  to 250), once done, after `HERE_SECONDS` with no progress on it (each
-  change of its count starts the time again), or on `Engine.DismissWhileHere`.
+  to 250), once done, after `HERE_SECONDS` out of reach while still inside
+  that clear distance (in reach, a spawn area near or one of its mobs in
+  sight, it never expires: Fitz went AFK among the Zhevra Runners and the
+  line went), or on `Engine.DismissWhileHere`.
   Nothing appears, and nothing goes by distance or time, during a fight. A
   dismissed line stays quiet for the zone stay (`Own.hereQuiet`, emptied
-  when `GetRealZoneText` changes). An expired one comes again, `HERE_AGAIN`
-  s on at the earliest, once one of its mobs is seen anew (a sighting after
-  it expired, `Own.hereSeenGen`) or the player is near another of its spawn
-  spots (`Own.hereAgain`). Never in an instance, on a taxi,
+  when `GetRealZoneText` changes). An expired one comes again once in reach,
+  `HERE_AGAIN` s on at the earliest (`Own.hereAgain`). Never in an instance, on a taxi,
   while a Hearthstone or Astral Recall is cast, with a quest timer running,
   or while the live step escorts (`Own.hereBlocked`). The line never takes
   the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
   leads there while it shows, a step change keeps it), and when the line
   goes `aim` is cleared and the arrow returns to the guide. Messages:
-  `WHILE_HERE_CHANGED` (came, count changed, went) and
-  `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
+  `WHILE_HERE_CHANGED` (a line came, its count changed, it went) and
+  `WHILE_HERE_MOVED(yards, i)`. The window draws it between the step's goals and
   "Then:" (`fillHere`), the toast says it with the window hidden or compact
   (UI/WhileHere.lua), and a new line plays a soft chime, "star twinkle"
   (`behavior.whileHereSound`, `Media/Sounds/while-here.ogg`, our own

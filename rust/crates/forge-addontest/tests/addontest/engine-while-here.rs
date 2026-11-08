@@ -66,6 +66,12 @@ function wp()
 	local x = E.GetWaypoint()
 	return x and (x.stepIndex .. ":" .. x.goalIndex) or "none"
 end
+-- Every line shown, in order: "step:index:yards ...".
+function lines()
+	local out = {}
+	for _, v in ipairs(E.GetWhileHereList()) do out[#out + 1] = v.step .. ":" .. v.index .. ":" .. (v.yards or "-") end
+	return table.concat(out, " ")
+end
 "#;
 
 // The guide with `from` replaced by `to` (the escort test: "ESCORT").
@@ -325,6 +331,9 @@ end
 emit({{ live = E.GetLiveStep(), arrow = x.stepIndex, arrowYards = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5) or false,
 	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false,
 	zhevra = cands():find("18:1:work", 1, true) ~= nil, report = report() }})
+-- At the oasis' north edge both show at once: the spores first (found in fewer places), then the hooves.
+w.moveTo(1413, 55.0, 40.5); stub.advance(0.6); stub.advance(0.6)
+emit(lines())
 -- Fitz on 0.3.5 at 60 yd: among four Zhevra Runners just north of the oasis, no line. Their camp there is an
 -- alternative spot (54.5,38, 59 yd across) 33 yd off; the nearest of the guide's picked spots is 94 yd off.
 Polestar.Set("behavior.whileHereRadius", 60); flush()
@@ -348,26 +357,30 @@ emit({{ here(), report() }})
 	assert_eq!(out[0]["yards"], 0, "inside the mushrooms' spawn area at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 0 yd · radius 150 yd · "), "{shown}");
-	assert_eq!(out[1], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "Fitz among the runners north of the oasis");
-	assert_eq!(out[2], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
-	assert_eq!(out[3][0], json!("none"), "ready to hand in: no line");
-	let none = out[3][1].as_str().unwrap();
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 0 yd"), "{shown}");
+	assert!(shown.contains(" · radius 150 yd · "), "{shown}");
+	let both = out[1].as_str().unwrap();
+	assert!(both.starts_with("39:3:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("18:1:")), "spores then hooves at the oasis edge: {both}");
+	assert_eq!(out[2], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "Fitz among the runners north of the oasis");
+	assert_eq!(out[3], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
+	assert_eq!(out[4][0], json!("none"), "ready to hand in: no line");
+	let none = out[4][1].as_str().unwrap();
 	assert!(none.starts_with("While here: none · radius 60 yd · ") && none.contains("nearest quest 845, step ") && none.ends_with("out of radius"), "{none}");
 }
 
 // Fitz: chasing one step's mobs through another step's objective, "I just do it, I'm here already". A big count
-// shows, and a line being worked never expires; three minutes with no progress end it.
+// shows, and a line in reach never expires, worked or not ("it shouldn't expire unless I move away from those
+// areas").
 #[test]
-fn a_big_objective_shows_and_stays_while_worked_past_three_minutes() {
+fn a_big_objective_shows_and_stays_while_the_player_stays_in_reach() {
 	let out = run(r#"
 		w.progress(7, 1, 0); flush()
 		at(47.6, 37.6); emit(here())
 		stub.advance(120); w.progress(7, 1, 4); flush()
 		stub.advance(120); emit(here())              -- four minutes in, worked two minutes ago
-		stub.advance(181); emit(here())              -- three minutes with nothing: gone
+		stub.advance(300); emit(here())              -- five more minutes with nothing, still in reach
 	"#);
-	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 10 more 50"), json!("2:1 Kill Kobold Vermin, 6 more 50"), json!("none")]);
+	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 10 more 50"), json!("2:1 Kill Kobold Vermin, 6 more 50"), json!("2:1 Kill Kobold Vermin, 6 more 50")]);
 }
 
 #[test]
@@ -402,17 +415,15 @@ fn nothing_appears_or_goes_by_distance_during_a_fight() {
 }
 
 #[test]
-fn a_dismissed_or_expired_line_stays_quiet_for_the_zone_stay() {
+fn a_dismissed_line_stays_quiet_for_the_zone_stay() {
 	let out = run(r#"
 		at(47.6, 37.6); emit(here())
 		emit(E.DismissWhileHere()); emit(here())
 		at(47.6, 45.1); at(47.6, 37.6); emit(here())                 -- away and back: still quiet
 		w.setZone("Westfall"); flush(); w.setZone("Elwynn Forest"); flush()
 		at(47.6, 37.6); emit(here())                                   -- a new zone stay
-		stub.advance(181); emit(here())                                -- three minutes unused: it goes
-		at(47.6, 45.1); at(47.6, 37.6); emit(here())                 -- and stays quiet
 	"#);
-	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 2 more 50"), json!(true), json!("none"), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 50"), json!("none"), json!("none")]);
+	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 2 more 50"), json!(true), json!("none"), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 50")]);
 }
 
 #[test]
@@ -559,21 +570,78 @@ fn a_mob_in_sight_counts_whatever_the_spawn_data_says() {
 	assert_eq!(out, vec![json!("none"), json!("10:1 Kill Spider, 1 more 30"), json!("none"), json!("10:1 Kill Spider, 1 more 30")]);
 }
 
-// Fitz: only the × keeps a line away for the zone. An expired one (three minutes without progress) comes again, a
-// minute on at the earliest, when one of its mobs is seen anew; a dismissed one does not.
+// Several lines at once, at most three (HERE_SHOW), in rank order (all here spawn in one place: the nearest first).
+// Dismissing one keeps the others; the next in reach takes the free place at the next poll.
+const ROW: &str = r#"
+local steps = { { title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } } }
+for i = 1, 5 do
+	local q = 300 + i
+	stub.world.onQuest(q, { 1 }, "Row " .. i)
+	steps[#steps + 1] = { title = "Row " .. i, goals = { { t = "kill", target = "Row " .. i, npc = 600 + i, count = 1, quest = q, oi = 1, map = 1429,
+		x = 47.6, y = 37.6 - i * 0.5 } } }
+end
+Polestar.RegisterGuide({ id = "test/row", pack = "test", title = "Row", minLevel = 1, maxLevel = 10, steps = steps })
+"#;
+
 #[test]
-fn an_expired_line_comes_again_on_a_new_sighting_a_dismissed_one_does_not() {
+fn up_to_three_lines_show_at_once_and_dismissing_one_keeps_the_others() {
+	let out = run_guide(
+		ROW,
+		"test/row",
+		r#"
+		at(47.6, 37.6); emit({ lines(), here() })        -- rows 10, 20, 30 yd; 40 and 50 wait
+		emit(E.DismissWhileHere(1)); emit(lines())
+		stub.advance(0.6); emit(lines())                 -- the fourth takes the free place
+		emit(E.DismissWhileHere(2)); stub.advance(0.6); emit(lines())
+		emit(E.AimWhileHere(2)); flush(); emit(wp())
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(["2:1:10 3:1:20 4:1:30", "2:1 Kill Row 1, 1 more 10"]),
+			json!(true),
+			json!("3:1:20 4:1:30"),
+			json!("3:1:20 4:1:30 5:1:40"),
+			json!(true),
+			json!("3:1:20 5:1:40 6:1:50"),
+			json!(true),
+			json!("5:1")
+		]
+	);
+}
+
+// Fitz went AFK among the Zhevra Runners, one in sight, and the line went. In reach (a mob in sight counts) it never
+// expires; walked away past its clear distance it goes, and back among them it comes again. Only the × keeps it
+// away for the zone.
+#[test]
+fn afk_among_its_mobs_the_line_stays_walked_away_it_goes_and_comes_back() {
 	let out = run(r#"
 		local function plate(n) w.units["nameplate" .. n] = "Creature-0-1-0-1-42-0000" .. n; stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate" .. n); stub.advance(0.6) end
+		local function gone(n) w.units["nameplate" .. n] = nil; stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate" .. n); stub.advance(0.6) end
 		at(30.0, 60.0); plate(3); emit(here())
-		stub.advance(181); emit(here())                 -- expired
-		stub.advance(61); emit(here())                  -- the same spider still in sight: nothing new
-		plate(4); emit(here())                          -- another one: it comes again
+		stub.advance(300); emit(here())                 -- five minutes AFK, the spider in sight
+		gone(3); at(30.0, 80.0); emit(here())           -- 400 yd off, none in sight: gone
+		at(30.0, 60.0); plate(3); emit(here())          -- back among them
 		E.DismissWhileHere(); stub.advance(0.6)
 		plate(5); stub.advance(61); emit(here())        -- dismissed: quiet for the zone
 	"#);
 	let v = "10:1 Kill Spider, 1 more 30";
-	assert_eq!(out, vec![json!(v), json!("none"), json!("none"), json!(v), json!("none")]);
+	assert_eq!(out, vec![json!(v), json!(v), json!("none"), json!(v), json!("none")]);
+}
+
+// Out of reach yet inside its clear distance (90 yd at 60) for three minutes, a line goes; back in reach it comes
+// again, a minute on at the earliest.
+#[test]
+fn out_of_reach_for_three_minutes_a_line_expires_and_comes_again_in_reach() {
+	let out = run(r#"
+		at(47.6, 37.6); emit(here())
+		at(47.6, 39.6); stub.advance(120); emit(here())   -- 90 yd, two minutes: it holds
+		stub.advance(61); emit(here())                     -- three: gone
+		at(47.6, 37.6); emit(here())                       -- back in reach at once: not yet
+		stub.advance(61); emit(here())                     -- a minute on: back
+	"#);
+	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 2 more 50"), json!("2:1 Kill Kobold Vermin, 2 more 90"), json!("none"), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 50"),]);
 }
 
 // The poll measures the candidates every half second: it must leave nothing for the collector, with a line shown
