@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "Uma luta em {area:2057} no nível 60 por reputação da Horda; {item:20134} pode ter sumido no Forever.",
 	["200 Horde reputation"] = "200 de reputação com a Horda",
 
 	-- Step 1: Sagorne Creststrider
@@ -19,7 +19,7 @@ return {
 	["Two diamonds"] = "Dois diamantes",
 	-- {item:12800} Azerothian Diamond · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {item:18335} Pristine Black Diamond
 	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
-	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "",
+	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Os dois diamantes são raros: a Casa de Leilões é o jeito rápido. Mineiros acham {item:12800} em cerca de um veio de Tório a cada cem (os Veios de Tório Escasso ao norte de {area:2418}, em {zone:1428}, voltam a cada cinco minutos). {item:18335} cai de elites de nível alto em cerca de um a cada cem, melhor do elite raro Revanchion (cerca de um a cada nove).",
 
 	-- Step 3: Sagorne Creststrider
 	-- {quest:7668} The Darkreaver Menace
@@ -34,7 +34,7 @@ return {
 
 	-- Step 5: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {item:20134} Skyfury Helm
-	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "",
+	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "{npc:13417}: 200 de reputação da Horda; {item:20134} pode ter sumido",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {area:2057} fight at 60 for Horde reputation; Forever removed the {item:20134}."] = "Uma luta em {area:2057} no nível 60 por reputação com a Horda; o Forever removeu o {item:20134}.",
