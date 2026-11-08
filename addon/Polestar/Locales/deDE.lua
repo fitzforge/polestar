@@ -1224,6 +1224,8 @@ L["Polestar's marks on the minimap; the world map keeps its own. A mark over you
 -- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
 -- L["Hand-ins: how far out of your way"] = ""
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
+-- L["Route line on the minimap"] = ""
+-- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2659,6 +2661,15 @@ L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."]
 L["Subtle"] = "Dezent"
 L["Dazzling"] = "Strahlend"
 L["Route line style"] = "Stil der Routenlinie"
+-- L["Dot colour"] = ""
+-- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
+-- L["Cyan"] = ""
+-- L["Magenta"] = ""
+-- L["White"] = ""
+-- L["Minimap opacity"] = ""
+-- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["Minimap size"] = ""
+-- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guide: %d"

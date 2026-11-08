@@ -799,9 +799,24 @@ Polestar.Engine.SetGuide("preview/areas")
 stub.advance(0.3)
 Polestar.Engine.AimGoal(1, 3)
 stub.advance(0.3)`;
-function questScene(roots, script, place) {
+function questScene(roots, script, place, files = QUEST_FILES) {
 	// `before` is read when the panel runs, so the database is only built for these scenes.
-	return { roots, stubs: QUEST_STUBS, files: QUEST_FILES, get before() { return questWorld(place); }, script };
+	return { roots, stubs: QUEST_STUBS, files, get before() { return questWorld(place); }, script };
+}
+// The route line on the minimap (Maps/RouteLines.lua) beside a herbalist's
+// tracking: the game draws its blips into the minimap's own picture, under
+// every frame on it, so here they are textures of the minimap itself.
+const ROUTE_FILES = [...QUEST_FILES, 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteSparkle.lua', 'Maps/RouteLines.lua'];
+const MINIMAP_ROUTE = `for _, p in ipairs({ { 15, -12 }, { 27, -23 }, { 40, -33 }, { -26, 18 }, { 8, 40 }, { -40, -22 } }) do
+	local blip = Minimap:CreateTexture(nil, "BACKGROUND", nil, 1)
+	blip:SetTexture("Interface\\\\AddOns\\\\Polestar\\\\Media\\\\Nav\\\\pin-fill"); blip:SetVertexColor(1, 0.82, 0, 1)
+	blip:SetSize(9, 9); blip:SetPoint("CENTER", Minimap, "CENTER", p[1], p[2])
+end
+Polestar.Set("nav.travel", false)
+Polestar.Nav.SetTarget(1429, 50.2, 44.4, "Peacebloom")
+stub.advance(0.5)`;
+function minimapRouteScene(script) {
+	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
 // Group content (the compiled `group`, the goal view's `party`): a class
 // guide whose route needs a group, its Felwood step (elites; the author's
@@ -1635,6 +1650,15 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		panels: [
 			questScene(['WorldMapFrame'], AREAS, TELDRASSIL),
 			questScene(['Minimap'], AREAS, TELDRASSIL),
+		],
+	},
+	{
+		file: 'minimap-route.svg',
+		title: "The route line on the minimap over a herbalist's tracking (yellow dots, drawn into the minimap's own picture as the game draws them, so under every line or pin): the route colours by default; Dot colour Cyan at 80% opacity and 80% size; \"Route line on the minimap\" off, the guide pin kept",
+		panels: [
+			minimapRouteScene(MINIMAP_ROUTE),
+			minimapRouteScene(`${MINIMAP_ROUTE}\nPolestar.Set("nav.dotColor", "cyan"); Polestar.Set("nav.minimapRouteAlpha", 0.8); Polestar.Set("nav.minimapRouteSize", 0.8)\nstub.advance(0.3)`),
+			minimapRouteScene(`${MINIMAP_ROUTE}\nPolestar.Set("nav.minimapRoute", false)\nstub.advance(0.3)`),
 		],
 	},
 	{

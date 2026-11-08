@@ -2908,7 +2908,21 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   flight `success`, boat `npc`, zeppelin `place`, tram and lift `object`;
   outlines `scrim` at 50%.
 - `nav.routeLines` (default on) with `nav.worldPins` / `nav.minimapPins` per
-  surface.
+  surface; `nav.minimapRoute` (default on, Options > Map > Guide & quests,
+  "Route line on the minimap") takes the line, and the trail that stands in
+  for it, off the minimap and keeps the guide pin (`surfaces()` here,
+  `updateTrail` in `Nav/Layers.lua`).
+- `nav.dotColor` (default `"route"`, the colours above) paints every leg of
+  the dots style one of `RouteLines.DOT_COLORS` (cyan, magenta, white: apart
+  from the minimap's yellow herb and ore blips and gold quest marks) on both
+  maps. `nav.minimapRouteAlpha` (20-100%) fades the minimap's line, either
+  style; `nav.minimapRouteSize` (50-150%) scales it, dots, spacing and the gap
+  at the pin together (the strokes are laid out at the frame's scale divided
+  by it). Both in the line style window, the world map keeping its own. The
+  minimap frame sits at the minimap's level + 3, under Polestar's trail and
+  pins: the client draws its tracking blips and quest marks into the
+  minimap's own picture, under every frame on it, so no frame level puts the
+  line beneath them.
 - Line style (`Maps/RouteSparkle.lua`, `UI/LineStyle.lua`): `nav.lineStyle`
   `"dots"` (the default, the above) or `"sparkle"`, set in the window the
   gear beside "Route lines" opens (Options, Guide, Arrow & routes; the gear

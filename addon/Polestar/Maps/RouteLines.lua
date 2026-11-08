@@ -27,8 +27,16 @@
 -- the zoom or the route changed since the last draw. No draw allocates.
 --
 -- nav.routeLines turns the lines on; nav.worldPins and nav.minimapPins pick
--- the surfaces, as for Nav's pins. Polestar.Pins' trail dots (Nav/Layers.lua)
+-- the surfaces, as for Nav's pins, and nav.minimapRoute takes the line (not
+-- the pin) off the minimap. Polestar.Pins' trail dots (Nav/Layers.lua)
 -- stand in while the lines are off.
+--
+-- nav.dotColor tints every leg of the dots style one colour (RouteLines.
+-- DOT_COLORS) in place of the route colours; nav.minimapRouteAlpha and
+-- nav.minimapRouteSize fade and scale the minimap's line, either style. The
+-- minimap's frame sits just above the minimap itself: the game draws its
+-- tracking blips and quest marks into the minimap's own picture, under every
+-- frame laid over it, so no frame level puts the line under them.
 --
 -- nav.lineStyle "sparkle" draws the same paths as twinkling sparkles instead
 -- (Maps/RouteSparkle.lua: where each one sits and how it twinkles), on the
@@ -51,8 +59,14 @@ local type, ipairs, pairs, abs, cos, sin, pcall = type, ipairs, pairs, math.abs,
 local RouteLines = {}
 ns.RouteLines = RouteLines
 
-ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots" })
+ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots", dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1 })
 if Sparkle then ns.RegisterDefaults("nav", Sparkle.DEFAULTS) end
+
+-- One colour for the whole line, instead of each leg's ("route"): bright and
+-- cool, apart from the minimap's yellow herb and ore dots and gold quest marks.
+RouteLines.DOT_COLORS = { cyan = { 0.2, 0.9, 1 }, magenta = { 1, 0.3, 0.85 }, white = { 1, 1, 1 } }
+-- The minimap line's opacity and size (nav.minimapRouteAlpha, nav.minimapRouteSize).
+RouteLines.MINIMAP_LIMITS = { minimapRouteAlpha = { 0.2, 1 }, minimapRouteSize = { 0.5, 1.5 } }
 
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
 local DOT_TEXTURE = MEDIA .. "pin-fill"
@@ -77,6 +91,11 @@ local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "pl
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
 local under = { 0.02, 0.03, 0.06 }
+-- The dots' colours: the route colours, or one of DOT_COLORS for every kind.
+local single = {}
+local palette = colors
+-- The minimap line's opacity and size, in range.
+local mmAlpha, mmSize = 1, 1
 
 ---------------------------------------------------------------------------
 -- The route as draw paths
@@ -108,7 +127,8 @@ end
 
 local function surfaces()
 	if not ns.Get("nav.routeLines") then return false, false end
-	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
+	return ns.Get("nav.worldPins") and true or false,
+		(ns.Get("nav.minimapPins") and ns.Get("nav.minimapRoute") ~= false) and true or false
 end
 
 -- The taxi node at a flight's point (its legs' points are the nodes' own positions).
@@ -186,7 +206,21 @@ local function sparkleProgress()
 	if along and off <= LIVE_REACH then runFrom[1] = along end
 end
 
+local function limited(key)
+	local range, v = RouteLines.MINIMAP_LIMITS[key], tonumber(ns.Get("nav." .. key))
+	if not v then return 1 end
+	return v < range[1] and range[1] or v > range[2] and range[2] or v
+end
+
 local function restyle()
+	mmAlpha, mmSize = limited("minimapRouteAlpha"), limited("minimapRouteSize")
+	local tint = RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
+	if tint then
+		for kind in pairs(TOKEN) do single[kind] = tint end
+		palette = single
+	else
+		palette = colors
+	end
 	sparkling = Sparkle ~= nil and ns.Get("nav.lineStyle") == "sparkle"
 	if not sparkling then return end
 	local now = sparkleClock()
@@ -255,8 +289,9 @@ local function texture(owner, index, dot)
 	outline:SetTexCoord(0, 1, 0, 1)
 end
 
+-- owner.opacity (the minimap's nav.minimapRouteAlpha) fades every stroke.
 local function paint(owner, strokes)
-	local lines, outlines = owner.lines, owner.outlines
+	local lines, outlines, opacity = owner.lines, owner.outlines, owner.opacity or 1
 	for index = 1, strokes.n do
 		local line, outline = lines[index], outlines[index]
 		if not line then
@@ -266,7 +301,7 @@ local function paint(owner, strokes)
 		end
 		texture(owner, index, strokes.dot[index])
 		local x1, y1, x2, y2 = strokes.x1[index], strokes.y1[index], strokes.x2[index], strokes.y2[index]
-		local ux, uy, alpha = strokes.ux[index], strokes.uy[index], strokes.alpha[index]
+		local ux, uy, alpha = strokes.ux[index], strokes.uy[index], strokes.alpha[index] * opacity
 		outline:SetAlpha(alpha * UNDER_ALPHA)
 		outline:SetThickness(strokes.under[index])
 		outline:SetStartPoint("TOPLEFT", owner, x1 - ux, y1 - uy)
@@ -575,7 +610,7 @@ local function drawWorld(pin)
 	local zoom = view.scale
 	local v = mapView
 	v.c, v.left, v.top, v.kx, v.ky = b.c, b.left, b.top, b.kx, b.ky
-	v.width, v.height, v.scale, v.small = width, height, pin:GetEffectiveScale(), isSmall(mapID)
+	v.width, v.height, v.scale, v.small, v.colors = width, height, pin:GetEffectiveScale(), isSmall(mapID), palette
 	-- Polestar's pins keep their size on screen while the canvas zooms under them.
 	local vm, n = v.marks, 0
 	for i = 1, markCount * 4, 4 do
@@ -677,9 +712,9 @@ local minimapDraw = { used = 0 }
 local function minimapSparkle(wx, wy, k, nx, ny, fade)
 	local d, st = minimapDraw, sparkleStyle
 	local alpha, scale, rotation, side = Sparkle.Twinkle(k, d.now, st, fade)
-	alpha = alpha * d.strength
+	alpha = alpha * d.strength * mmAlpha
 	if alpha <= 0.01 then return end
-	local s = st.size * scale
+	local s = st.size * scale * mmSize
 	local shift = side * st.jitter * s / d.perYard
 	local x, y = Strokes.Project(wx + nx * shift, wy + ny * shift, d.px, d.py, d.radius, d.cosine, d.sine)
 	if Sparkle.OnFace(x, y, d.square, d.inset) then
@@ -701,11 +736,11 @@ local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, he
 		local perYard = half / radius
 		local spacing = st.spacing / perYard
 		d.now, d.perYard, d.px, d.py, d.radius, d.square, d.width, d.height = now, perYard, px, py, radius, square, width, height
-		d.inset = 1 - st.size / 2 / half
+		d.inset = 1 - st.size * mmSize / 2 / half
 		d.cosine, d.sine = cos(facing or 0), sin(facing or 0)
 		-- Only the stretches near the player: the face, turned any way, lies
 		-- within radius * sqrt(2), and a sparkle on it up to its jitter off the run.
-		local reach = radius * 1.415 + st.jitter * 1.2 * st.size / perYard + 1
+		local reach = radius * 1.415 + st.jitter * 1.2 * st.size * mmSize / perYard + 1
 		local x1, x2, y1, y2 = px - reach, px + reach, py - reach, py + reach
 		local budget = SPARKLE_SCAN
 		for i = 1, #runs do
@@ -762,7 +797,10 @@ local function drawMinimap(force)
 	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
-	v.width, v.height, v.scale = width, height, scale
+	-- nav.minimapRouteSize: the dots, their spacing and the gaps around the pin
+	-- grow together, as at a larger UI scale; nav.minimapRouteAlpha fades them.
+	v.width, v.height, v.scale, v.colors = width, height, scale / mmSize, palette
+	mm.opacity = mmAlpha
 	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
 	Strokes.Minimap(minimapStrokes, paths, v)
@@ -838,6 +876,11 @@ function RouteLines.GetWorldFrame()
 	return worldPin
 end
 
+-- The minimap's frame the same way: hidden while the minimap has no line.
+function RouteLines.GetMinimapFrame()
+	return mm
+end
+
 -- Strokes drawn on a surface ("world" | "minimap"): the buffer the painter
 -- last copied (tests and diagnostics).
 function RouteLines.GetStrokes(surface)
@@ -865,13 +908,20 @@ ns.On("NAV_ROUTE_GEOMETRY", function()
 end)
 
 local WATCH = {
-	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav"] = true, [""] = true,
-	["nav.lineStyle"] = true, ["nav.sparkleLater"] = true,
+	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav.minimapRoute"] = true,
+	["nav"] = true, [""] = true, ["nav.lineStyle"] = true, ["nav.sparkleLater"] = true,
 }
+-- Settings that change only how the line looks: redrawn as for a theme change.
+local LOOK = { ["nav.dotColor"] = true, ["nav.minimapRouteAlpha"] = true, ["nav.minimapRouteSize"] = true }
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if WATCH[path] then
 		RouteLines.Refresh()
+	elseif LOOK[path] then
+		restyle()
+		revision = revision + 1
+		refreshWorld()
+		refreshMinimap()
 	elseif sparkling and type(path) == "string" and Sparkle.DEFAULTS[path:match("^nav%.(.+)$") or ""] ~= nil then
 		-- The look alone: the sparkles move, so the next draw shows it.
 		restyle()

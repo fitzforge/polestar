@@ -2101,6 +2101,8 @@ L["Did you mean:"] = "Quizá buscabas:"
 -- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
 -- L["Hand-ins: how far out of your way"] = ""
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
+-- L["Route line on the minimap"] = ""
+-- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"
@@ -2696,6 +2698,15 @@ L["Guides someone shared with you, as an import string or a community addon."] =
 -- L["Subtle"] = ""
 -- L["Dazzling"] = ""
 -- L["Route line style"] = ""
+-- L["Dot colour"] = ""
+-- L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. Right-click to reset."] = ""
+-- L["Cyan"] = ""
+-- L["Magenta"] = ""
+-- L["White"] = ""
+-- L["Minimap opacity"] = ""
+-- L["How strongly the route line shows on the minimap, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
+-- L["Minimap size"] = ""
+-- L["The route line's dots or sparkles on the minimap, and the gaps between them; the world map keeps its own. Right-click to reset."] = ""
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guía: %d"
