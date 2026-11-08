@@ -6426,8 +6426,7 @@
 		"include": [
 			{
 				"q": 1106,
-				"faction": "Alliance",
-				"reason": "Quest volume (2026-11-08): since #1220 the Alliance hands in Salt Flat Venom (1104) and Hardened Shells (1105) at the Mirage Raceway at 33-34, so Fizzle Brassbolts offers Martek the Exiled there; Martek stands in the Valley of Fangs, which 30-40/06's Badlands loop passes twice at 38-39.",
+				"reason": "Quest volume (2026-11-08): both sides take it since #1204 and #1220. The Alliance hands in Salt Flat Venom (1104) and Hardened Shells (1105) at the Mirage Raceway at 33-34, so Fizzle Brassbolts offers Martek the Exiled there; Martek stands in the Valley of Fangs, which 30-40/06's Badlands loop passes twice at 38-39.",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -6436,22 +6435,11 @@
 			},
 			{
 				"q": 1108,
-				"faction": "Alliance",
 				"reason": "Quest volume (2026-11-08): Indurium, from Martek on 30-40/06's first Valley of Fangs stop; the flakes drop from the Stonevault troggs at Agmond's End the loop already sweeps, and Martek takes them on the second stop, with Rigglefuzz.",
 				"issue": "-",
 				"after": [
 					"turnin",
 					1106
-				]
-			},
-			{
-				"q": 1137,
-				"faction": "Alliance",
-				"reason": "Quest volume (2026-11-08): News for Fizzle, from Martek with Indurium's hand-in, carried to Fizzle Brassbolts on 40-50/04's Mirage Raceway stop (Zamek's quests), which the route makes anyway.",
-				"issue": "-",
-				"after": [
-					"turnin",
-					1108
 				]
 			},
 			{
@@ -7481,7 +7469,7 @@
 			{
 				"q": 1137,
 				"faction": "Horde",
-				"reason": "News for Fizzle: the Horde route takes Martek the Exiled (1106) and Indurium (1108) in 30-40/02 and 30-40/06 (#1204) but has no later Mirage Raceway stop to bring the news back to Fizzle; left out there. The Alliance hands it in on 40-50/04's Raceway stop (see its include).",
+				"reason": "News for Fizzle: the Horde route takes Martek the Exiled (1106) and Indurium (1108) in 30-40/02 and 30-40/06 (#1204) but has no later Mirage Raceway stop to bring the news back to Fizzle; left out there. The Alliance hands it in on 40-50/04's Raceway stop (see its turnin 1108 -> accept 1137 pair).",
 				"issue": "-"
 			},
 			{
@@ -7638,6 +7626,18 @@
 			}
 		],
 		"pairs": [
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					1137
+				],
+				"faction": "Alliance",
+				"why": "Quest volume (2026-11-08): News for Fizzle (1137) is taken from Martek with Indurium's hand-in on 30-40/06's second Valley of Fangs stop and handed to Fizzle Brassbolts on 40-50/04's Mirage Raceway stop, which the Alliance route makes anyway. The Horde route has no later Raceway stop and leaves it out (see its skip), so it has no include."
+			},
 			{
 				"a": [
 					"turnin",
