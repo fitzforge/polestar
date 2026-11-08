@@ -251,7 +251,7 @@ step Moonglade
 step Trial of the Lake
   only NightElf,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Trial of the Lake runs on a timer: no teleport or Hearthstone until Tajarri has it. Then fly back to Auberdine from Nighthaven.
   turnin 26 only NightElf -- Dendrite Starblaze
   turnin 6121 only NightElf
   accept 6122 only NightElf -- The Principal Source: fill the sampler at Cliffspring Falls

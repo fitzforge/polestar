@@ -1017,8 +1017,8 @@
 				"quest": 27,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri. Trial of the Lake runs on a timer: no teleport or Hearthstone until Tajarri has it.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. #1327: Trial of the Lake (28) runs on a 30-minute quest timer (quests.json limit 1800) and a player's teleport during it reset the trial, while the tip opened with \"Cast Teleport: Moonglade\" for the whole step: the step before it already says to cast it (goto 56.3,32.5), so the tip drops it and says no teleport or Hearthstone until the hand-in.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -1027,6 +1027,10 @@
 				{
 					"kind": "client",
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1327"
 				}
 			],
 			"pr": 960
@@ -1311,8 +1315,8 @@
 				"quest": 26,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Trial of the Lake runs on a timer: no teleport or Hearthstone until Tajarri has it. Then fly back to Auberdine from Nighthaven.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. #1327: Trial of the Lake (29) runs on a 30-minute quest timer (quests.json limit 1800) and a player's teleport during it reset the trial, while the tip opened with \"Cast Teleport: Moonglade\" for the whole step: the step before it already says to cast it (goto 56.3,32.5), so the tip drops it and says no teleport or Hearthstone until the hand-in.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -1321,6 +1325,10 @@
 				{
 					"kind": "client",
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1327"
 				}
 			],
 			"pr": 960

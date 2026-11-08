@@ -39,6 +39,9 @@ zone Moonglade
 # fissure. Moonglade's two flight masters give the clues (optional).
 # Sources: quests.json, objects.json and items.json (Questie 12.1.0,
 # Forever); the lockbox tips are the ones the leveling guides above use.
+# A player's teleport during Trial of the Lake reset it (#1327): the trial's
+# tip says no teleport or Hearthstone until Tajarri has it, and the arrow plans
+# none while a quest timer runs (Nav/Travel.lua).
 
 # ---------------------------------------------------------------- Night Elves and Alliance Skyborne
 
@@ -52,7 +55,7 @@ step A Lesson to Learn
 step Trial of the Lake
   only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade: Dendrite Starblaze stands upstairs in the building beside you. Trial of the Lake runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the Bubbly Fissure in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the Shrine Bauble is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the Shrine of Remulos on the north-west shore, use it inside the shrine grounds and speak to Tajarri by the tree.
+  tip Cast Teleport: Moonglade to get here: Dendrite Starblaze stands upstairs in the building beside where you land. Trial of the Lake runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until Tajarri has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the Bubbly Fissure in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the Shrine Bauble is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the Shrine of Remulos on the north-west shore, use it inside the shrine grounds and speak to Tajarri by the tree.
   turnin 26                             -- Dendrite Starblaze
   accept 29
   collect 15877 x1                      -- Shrine Bauble, from a Bauble Container in the lake
@@ -102,7 +105,7 @@ step A Lesson to Learn
 step Trial of the Lake
   only Tauren,Skyborne,Horde
   zone Moonglade
-  tip Cast Teleport: Moonglade: Dendrite Starblaze stands upstairs in the building beside you. Trial of the Lake runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the Bubbly Fissure in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the Shrine Bauble is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the Shrine of Remulos on the north-west shore, use it inside the shrine grounds and speak to Tajarri by the tree.
+  tip Cast Teleport: Moonglade to get here: Dendrite Starblaze stands upstairs in the building beside where you land. Trial of the Lake runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until Tajarri has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the Bubbly Fissure in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the Shrine Bauble is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the Shrine of Remulos on the north-west shore, use it inside the shrine grounds and speak to Tajarri by the tree.
   turnin 27                             -- Dendrite Starblaze
   accept 28
   collect 15877 x1                      -- Shrine Bauble, from a Bauble Container in the lake

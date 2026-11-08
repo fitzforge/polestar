@@ -228,9 +228,9 @@ return {
 	["Cast {spell:18960}"] = "",
 
 	-- Step 60: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast {spell:18960}; {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "施放{spell:18960}；{npc:11802}在{area:2361}他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。神殿灵珠躺在{area:656}的湖底，几分钟内就会消失：拿到一个后直接游到西北岸的{area:2362}，在那里使用它并与{npc:11799}交谈。",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "{npc:11802}在{area:2361}他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。神殿灵珠躺在{area:656}的湖底，几分钟内就会消失：拿到一个后直接游到西北岸的{area:2362}，在那里使用它并与{npc:11799}交谈。{quest:28}有时间限制：在{npc:11799}收下之前，不要传送或使用炉石。",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}：{area:384}，见下一个指南",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container

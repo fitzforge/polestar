@@ -7443,3 +7443,51 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	assert.ok(all['forever/horde/40-50/04-tanaris'].min <= 46, 'Tanaris starts at 46: every start enters it at 45.96');
 	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: Orc and Troll Rogues, Mages and Priests enter them at 13.99');
 });
+
+// FlyHifiGuy's report (#1327): on Trial of the Lake (28/29, a 30-minute quest timer) a teleport reset the trial, and the
+// trial's step opened with "Cast Teleport: Moonglade" for the whole step. The arrow plans no Hearthstone or class
+// teleport while a quest timer runs (Nav/Travel.lua; forge-addontest travel-transit.rs). The guides: every trial step
+// says no teleport or Hearthstone until Tajarri has it (the leveling guides' tips are guide-fixes records, so a build
+// writes them again, and no longer say to cast the teleport: the step before does), and no guide puts a `hearth` goal
+// between a timed quest's accept and its hand-in.
+test("FlyHifiGuy's report (#1327): no teleport or Hearthstone while Trial of the Lake runs, no hearth goal inside a timed quest", { skip: skip || needs('mechanics.json') }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [file, q, record] of [
+		['forever/alliance/03-darkshore.guide', 29, 'upstairs-dendrite-starblaze-turnin-26'],
+		['forever/horde/02-the-barrens.guide', 28, 'upstairs-dendrite-starblaze-turnin-27'],
+		['forever/class/druid/aquatic-form.guide', 29, null],
+		['forever/class/druid/aquatic-form.guide', 28, null],
+	]) {
+		const tips = stepTips(file, new RegExp(`^\\s+accept ${q}\\b`));
+		assert.match(tips.join(' '), /no teleport or Hearthstone until Tajarri has it/, `${file}: quest ${q}'s step`);
+		if (!record) continue;
+		const rec = fixes.find((f) => f.id === record);
+		assert.deepEqual(tips, [rec.tip], `${file}: the step's tip is the record's`);
+		assert.doesNotMatch(rec.tip, /Cast Teleport/, `${file}: the step before casts it`);
+	}
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
+	const quests = read('quests.json');
+	const timed = new Set((Array.isArray(quests) ? quests : Object.values(quests)).filter((q) => q.limit > 0).map((q) => q.id));
+	for (const [id, m] of Object.entries(read('mechanics.json').quests || {})) {
+		if ((m.params || []).some((p) => p.kind === 'timed' && p.what === 'quest timer' && p.seconds > 0)) timed.add(Number(id));
+	}
+	assert.ok(timed.has(28) && timed.has(29), 'Trial of the Lake is timed in the data');
+	let windows = 0;
+	for (const file of allGuides()) {
+		const open = new Map(); // timed quest -> line of its accept
+		fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8').split('\n').forEach((line, i) => {
+			const m = line.match(/^\s+(accept|turnin|complete|hearth)\b\s*(\d+)?/);
+			if (!m) return;
+			const q = Number(m[2]);
+			if (m[1] === 'accept' && timed.has(q)) {
+				open.set(q, i + 1);
+				windows++;
+			} else if ((m[1] === 'turnin' || m[1] === 'complete') && open.has(q)) {
+				open.delete(q);
+			} else if (m[1] === 'hearth') {
+				assert.equal(open.size, 0, `${file}:${i + 1}: a hearth while timed quest ${[...open.keys()].join(', ')} runs (accepted at line ${[...open.values()].join(', ')})`);
+			}
+		});
+	}
+	assert.ok(windows >= 30, `the timed accepts are found (${windows})`);
+});
