@@ -395,10 +395,7 @@ fn clear_unshippable_names(v: &mut String, ty: F) {
 			if !v.split(';').any(|item| item.split(':').nth(p).is_some_and(clear)) {
 				return;
 			}
-			let items: Vec<String> = v
-				.split(';')
-				.map(|item| item.split(':').enumerate().map(|(i, part)| if i == p && clear(part) { "" } else { part }).collect::<Vec<_>>().join(":"))
-				.collect();
+			let items: Vec<String> = v.split(';').map(|item| item.split(':').enumerate().map(|(i, part)| if i == p && clear(part) { "" } else { part }).collect::<Vec<_>>().join(":")).collect();
 			*v = items.join(";");
 		}
 		_ => {}
