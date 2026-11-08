@@ -128,7 +128,8 @@ kinds! {
 	Objectives "objectives" ["q": F::U, "list": F::L(&[Part::W, Part::OU, Part::Name(MAX_TITLE)])],
 	Progress "progress" ["q": F::U, "index": F::U, "cur": F::U, "max": F::U, "P": F::P],
 	Complete "complete" ["q": F::U],
-	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OU, "chosenItem": F::OU],
+	// `money` is negative for a quest that costs money to hand in (the game's signed reward-or-cost).
+	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OI, "chosenItem": F::OU],
 	Abandon "abandon" ["q": F::U],
 	Fail "fail" ["q": F::U, "P": F::P],
 	Gossip "gossip" ["npcKind": NK, "npcId": F::OU, "P": F::P, "optionId": F::OU, "optionText": F::Text],
@@ -593,6 +594,19 @@ mod tests {
 		let c = chunk("death\t5\t1420\t100\t200").unwrap();
 		assert_eq!(c.records[0].fields, vec!["1420", "100", "200", "", ""]);
 		assert!(chunk("progress\t5\t364\t1\t3").is_err());
+	}
+
+	#[test]
+	fn a_turnin_that_costs_money_records_a_negative_money() {
+		// QUEST_TURNED_IN's moneyReward is negative for a quest the player pays to hand in: Grime-
+		// Encrusted Ring (2945) costs 3 silver at the Sparklematic 5200 (object 142487) inside
+		// Gnomeregan, so no position. A 0.3.5 player's chunks holding such a turn-in were rejected
+		// whole for "field money: bad value '-300'".
+		let c = chunk("turnin\t412\t2945\to\t142487\t\t\t\t31\t2700\t-300\t\n").unwrap();
+		let r = &c.records[0];
+		assert_eq!((r.int("q"), r.get("npcKind"), r.int("npcId"), r.int("xp"), r.int("money"), r.pos()), (Some(2945), "o", Some(142487), Some(2700), Some(-300), None));
+		assert!(chunk("turnin\t0\t2945\to\t142487\t\t\t\t31\t2700\t-\t").is_err(), "a sign alone is no number");
+		assert!(chunk("turnin\t0\t2945\to\t142487\t\t\t\t31\t-5\t0\t").is_err(), "XP is never negative");
 	}
 
 	#[test]

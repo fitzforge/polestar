@@ -159,7 +159,7 @@ Quests
 | `objectives` | q, list | at accept: `type:required:text` per objective (type `monster`, `item`, `object`, `event`, `reputation`, `log`) |
 | `progress` | q, index, cur, max, P | an objective count changes |
 | `complete` | q | all objectives done |
-| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid) |
+| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid; `money` is negative for a quest that costs money to hand in, e.g. -300 for 3 silver) |
 | `abandon` | q | quest abandoned |
 | `fail` | q, P | a quest in the log turns failed (its timer ran out, the escort died), as the client flags it (`C_QuestLog.IsFailed`); once per failure, never for a quest already failed at login |
 | `gossip` | npcKind, npcId, P, optionId, optionText | a gossip option is chosen |
