@@ -206,7 +206,7 @@ step Meilosh
 step Level 59.9
   zone Winterspring
   when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60.
+  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 27.9,34.5 map 1452 "Winterfall Totemic"
   level 59.9                          -- grind on Winterfall Totemic
 

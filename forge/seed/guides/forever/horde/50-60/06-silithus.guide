@@ -121,7 +121,7 @@ step Twilight Outpost
 
 step Level 58
   when level<58
-  tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost.
+  tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
   goto 33.8,47.8 map 1451 "Twilight Avenger"
   level 58                            -- grind on Twilight Avenger
 
@@ -437,7 +437,7 @@ step Alas, Andorhal
 step Level 59.14
   when !group 6135
   when level<59.14
-  tip If you skipped Duskwing, Oh How I Hate Thee..., grind here to level 59.14 to stay on the route's plan.
+  tip If you skipped Duskwing, Oh How I Hate Thee..., grind here to level 59.14 to stay on the route's plan. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 48.0,64.8 map 1422 "Temporal Parasite"
   level 59.14                          -- grind on Temporal Parasite
 

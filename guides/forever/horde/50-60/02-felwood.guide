@@ -69,7 +69,7 @@ step Kirsta Deepshadow
 step Level 52.63
   zone Western Plaguelands
   when level<52.63
-  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business.
+  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 53.1,37.3 map 1422 "Scarlet Mage"
   level 52.63                          -- grind on Scarlet Mage
 
@@ -97,7 +97,7 @@ step Mulgris Deepriver
 
 step Level 53.02
   when level<53.02
-  tip Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54.
+  tip Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   goto 45.7,46.0 map 1422 "Diseased Wolf"
   level 53.02                          -- grind on Diseased Wolf
 
@@ -112,7 +112,7 @@ step Mulgris Deepriver
 
 step Level 53.2
   when level<53.2
-  tip Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54.
+  tip Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   goto 54.9,62.4 map 1422 "Diseased Grizzly"
   level 53.2                          -- grind on Diseased Grizzly
 
@@ -145,7 +145,7 @@ step The Bulwark
 step Level 53.34
   zone Western Plaguelands
   when level<53.34
-  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54.
+  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   goto 40.5,51.8 map 1422 "Scarlet Medic"
   level 53.34                          -- grind on Scarlet Medic
 
@@ -196,7 +196,7 @@ step Emerald Sanctuary
   accept 8460                         -- Grazle, at the south edge of the camp
 
 step Deadwood Village
-  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers.
+  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   kill 7153 quest 8460.1
   kill 7154 quest 8460.3
   level 53.92                          -- grind on Deadwood Warrior
@@ -232,7 +232,7 @@ step Emerald Sanctuary
 
 step Level 54.1
   when level<54.1
-  tip Top up here to level 54.1 before the hand-ins at Felwood: they take you to level 55.
+  tip Top up here to level 54.1 before the hand-ins at Felwood: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 54.1                          -- grind on Deadwood Pathfinder
 
@@ -297,7 +297,7 @@ step Nafien
 
 step Level 54.45
   when level<54.45
-  tip Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55.
+  tip Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
   level 54.45                          -- grind on Deadwood Den Watcher
 
@@ -308,7 +308,7 @@ step Nafien
 
 step Level 54.54
   when level<54.54
-  tip Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55.
+  tip Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
   level 54.54                          -- grind on Deadwood Den Watcher
 
@@ -335,7 +335,7 @@ step Emerald Sanctuary
 
 step Level 54.7
   when level<54.7
-  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55.
+  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 54.7                          -- grind on Deadwood Pathfinder
 
@@ -365,6 +365,6 @@ step Winna Hazzard
 
 step Level 54.87
   when level<54.87
-  tip Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55.
+  tip Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
   level 54.87                          -- grind on Jaedenar Hound

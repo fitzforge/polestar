@@ -174,7 +174,7 @@ step Challenge Overlord Mok'Morokk
 step Level 45.41
   when !group 1173
   when level<45.41
-  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan.
+  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
   goto 37.5,68.3 map 1445 "Firemane Scout"
   level 45.41                          -- grind on Firemane Scout
 

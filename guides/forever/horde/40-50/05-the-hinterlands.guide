@@ -182,7 +182,7 @@ step Revantusk Village
 
 step Level 49.02
   when level<49.02
-  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan.
+  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the Maraudon dungeon instead.
   goto 77.8,68.9 map 1425 "Saltwater Snapjaw"
   level 49.02                          -- grind on Saltwater Snapjaw
 

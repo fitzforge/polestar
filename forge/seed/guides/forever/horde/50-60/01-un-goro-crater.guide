@@ -225,7 +225,7 @@ step Gorillas
 
 step Level 52
   when level<52
-  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55.
+  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
   level 52                          -- grind on Bloodpetal Lasher
 
