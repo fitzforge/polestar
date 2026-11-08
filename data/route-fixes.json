@@ -1690,13 +1690,26 @@
 			{
 				"a": [
 					"turnin",
+					6482
+				],
+				"b": [
+					"accept",
+					6503
+				],
+				"faction": "Horde",
+				"why": "PaceCheck (Discord report, 2026-11-08): Ashenvale Outrunners (level 24, Outrunners 23-24) was the first Ashenvale step at 21, where the level model has every start but Skyborne at 21.2-21.7, so the guide window's pace line read \"Behind: Ashenvale Outrunners (24) at step 4 ... reach 22 first\" for players on the route's own pace. It is taken on the way back, at the lumber camp just south of Splintertree after Freedom to Ruul's hand-in, at 22-23"
+			},
+			{
+				"a": [
+					"turnin",
 					6503
 				],
 				"b": [
-					"turnin",
-					6382
+					"accept",
+					493
 				],
-				"why": "LeftReady c17 read (shared Horde, Ashenvale): the Ashenvale Outrunners are killed beside Kuray'bin (05-stonetalon-mountains.guide:111), but the hand-in came 4.7 levels later as a step of its own (07-ashenvale.guide:232, left-ready on all 5 starts). Hand it in on the spot"
+				"faction": "Horde",
+				"why": "LeftReady c17 read (shared Horde, Ashenvale): the Ashenvale Outrunners are killed beside Kuray'bin, but the hand-in once came 4.7 levels later as a step of its own (07-ashenvale.guide:232, left-ready on all 5 starts). Hand it in on the spot, before the flight to Orgrimmar and the Sepulcher (Journey to Hillsbrad Foothills)"
 			},
 			{
 				"a": [

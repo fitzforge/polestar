@@ -16,28 +16,24 @@ return {
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {area:331} Ashenvale
 	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {area:331}."] = "",
 
-	-- Step 4: Ashenvale Outrunners
-	-- {npc:12867} Kuray'bin
-	["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} está en el aserradero. Las Avanzadas elfas de la noche acechan en el bosque al sureste; usan sigilo, así que estate atento.",
-
-	-- Step 5: Splintertree Post
-	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors."] = "",
+	-- Step 4: Splintertree Post
+	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the way back, at 22."] = "",
 	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 26."] = "",
 
-	-- Step 6: Va'xug Firefure
+	-- Step 5: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
 	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
 
-	-- Step 7: A Void Path
+	-- Step 6: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
 	["Steer {npc:267214}'s {npc:271181} out of the ravine to the main road within four minutes; if the channel breaks, ask {npc:267214} again."] = "Guía el {npc:271181} de {npc:267214} fuera del barranco hasta el camino principal en menos de cuatro minutos; si se rompe la canalización, vuelve a pedírselo a {npc:267214}.",
 	-- {npc:271181} Eye of Kilrogg
 	["{npc:271181}, on the road"] = "{npc:271181}, en el camino",
 
-	-- Step 8: Zoram'gar Outpost
+	-- Step 7: Zoram'gar Outpost
 	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
 	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
 	-- {npc:12721} Mitsuwa
@@ -45,22 +41,22 @@ return {
 	-- {npc:12717} Muglash
 	["{npc:12717}: take it last, his escort starts at once"] = "",
 
-	-- Step 9: Vorsha the Lasher
+	-- Step 8: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12719} Marukai
 	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
 	["Naga brazier"] = "Brasero naga",
 
-	-- Step 10: Naga heads
+	-- Step 9: Naga heads
 	["Naga heads"] = "Cabezas de naga",
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "Todos los nagas Colafuria de la playa al norte del puesto sueltan cabezas.",
 
-	-- Step 11: Zoram'gar Outpost
+	-- Step 10: Zoram'gar Outpost
 	["Back to the outpost before heading east to Thistlefur."] = "",
 
-	-- Step 12: Thistlefur Village
+	-- Step 11: Thistlefur Village
 	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
 
-	-- Step 13: Thistlefur Hold
+	-- Step 12: Thistlefur Hold
 	["Thistlefur Hold"] = "Bastión Piel de Cardo",
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
@@ -69,21 +65,25 @@ return {
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "",
 
-	-- Step 14: Zoram'gar Outpost
+	-- Step 13: Zoram'gar Outpost
 	-- {npc:12757} Karang Amakkar · {area:331} Ashenvale
 	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {area:331} visit at 26, when the walk east passes the Foulweald."] = "",
 
-	-- Step 15: Splintertree Post
+	-- Step 14: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
 	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "",
 	-- {npc:12837} Yama Snowhoof
 	["{npc:12837}, inside the inn"] = "",
 
+	-- Step 15: Ashenvale Outrunners
+	-- {npc:12867} Kuray'bin
+	["Out of the inn and south down the road to the lumber camp: {npc:12867} stands there. The night elf Outrunners (23-24) stalk the woods south-east of it; they stealth, so watch for them."] = "",
+
 	-- Step 16: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	-- {area:1637} Orgrimmar
-	["Back out of the inn to the flight master and fly to {area:1637}."] = "",
+	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
+	["Back north up the road to the {area:431} flight master and fly to {area:1637}."] = "",
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "",
 
@@ -184,6 +184,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} está en {area:428}, el campamento Grito de Guerra justo al noreste del Puesto del Hachazo, junto al tablón de caza.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "Las presas de caza de {npc:12696} (Ursangous, Shadumbra, Garfafilada) son para la próxima visita a {zone:1440}, a nivel 27.",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} en Zoram'gar, a nivel 27",
+	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} está en el aserradero. Las Avanzadas elfas de la noche acechan en el bosque al sureste; usan sigilo, así que estate atento.",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "La siguiente misión de {npc:4198}, Ordanus, está en el lado de la Alianza de {zone:1440}. Omítela.",
 	-- ["{npc:4198}, outside the gate"] = "{npc:4198}, fuera de la puerta",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606} está en {object:36070}.",

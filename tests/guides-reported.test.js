@@ -5376,6 +5376,26 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
 });
 
+// Discord report (2026-11-08): "Ashenvale & Silverpine is labeled 21-22 but the steps tell me I'm behind for not being
+// level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step, at 21, where the level
+// model has every start but Skyborne at 21.2-21.7: the pace line's "Behind: Ashenvale Outrunners (24) ... reach 22 first"
+// for players on the route's own pace. It waits for the way back, after Ruul's hand-in at Splintertree (22-23), and is
+// still handed in on the spot, before the flight to Orgrimmar.
+test(`${STONETALON}: Discord report: Ashenvale Outrunners on the way back from Thistlefur, not at 21 on the way in`, { skip }, () => {
+	const list = goals(STONETALON);
+	const senani = at(list, 'turnin 6382', is('turnin', 6382));
+	const ruul = at(list, 'turnin 6482', is('turnin', 6482));
+	const take = at(list, 'accept 6503', is('accept', 6503));
+	const kill = list.findIndex(({ goal }) => goal.t === 'kill' && goal.quest === 6503);
+	const hand = at(list, 'turnin 6503', is('turnin', 6503));
+	const fly = list.findIndex(({ goal }, i) => i > hand && goal.t === 'fly');
+	assert.ok(senani < ruul && ruul < take && take < kill && kill < hand, 'Senani, Thistlefur and Ruul first, then the Outrunners');
+	assert.ok(fly > hand && list[fly].goal.location === 'Orgrimmar', 'handed in before the flight to Orgrimmar');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6482 && p.b[0] === 'accept' && p.b[1] === 6503), 'a route-fixes pair keeps the order');
+	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 6503 && p.b[0] === 'turnin' && p.b[1] === 6382), 'no pair puts it before Senani');
+});
+
 // Thin-data audit (#1317): The Offering of Blood's quest log has three lines, Willingly offer blood, Release Tortured
 // Soul, then the elite Tortured Soul's kill (players' recordings, 12 people: the kill ticks line 3). The data had only
 // the kill, as line 1, so the guide's goal waited on the wrong line; the Tortured Soul the stone hands over is used
