@@ -18,8 +18,8 @@ next forever/horde/05-stonetalon-mountains
 # one: the Crossroads, Ratchet and the Southsea beach, the oases, the Dry Hills and the Sludge
 # Fen, Northwatch Hold, Vrang and Walton, Verog, Camp Taurajo and the Bristlebacks, the Orgrimmar
 # trip at 20, Jorn's hunt, Hezrul and Counterattack!, then Seereth's road into Stonetalon. The
-# Barrens' level 22-27 quests (Gann Stonespire, Blackthorn Ridge, Betrayal from Within, Egg Hunt,
-# Weapons of Choice) come back with Stonetalon's upper half at 24-26 in
+# Barrens' level 22-27 quests (Gann Stonespire, Blackthorn Ridge, Betrayal from Within, Weapons of
+# Choice) come back with Stonetalon's upper half at 24-26 in
 # forever/horde/04-the-barrens, after Ashenvale and Hillsbrad.
 #
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
@@ -506,8 +506,7 @@ step Finish the Raptor Heads
 
 step The Crossroads
   label q869
-  tip In from the north gate: Korran and Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
-  accept 868                          -- Korran, from level 17: the eggs are in the Field of Giants, south of Camp Taurajo, later
+  tip In from the north gate: Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
   turnin 869                          -- Gazrog
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
   turnin 881                          -- Sergra Darkthorn
@@ -785,10 +784,11 @@ step Agama'gor
 
 step The Crossroads
   zone The Barrens
-  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
+  accept 868                          -- Korran: the eggs are in the Field of Giants, south of Camp Taurajo, after the Orgrimmar trip
 
 # ---------------------------------------------------------------- Orgrimmar at 20
 
