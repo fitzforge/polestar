@@ -1412,6 +1412,8 @@ L["If you finish this guide"] = "Если вы пройдете этот гай�
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "Ваш уровень: %d. Для этого гайда рекомендуется уровень %d; начиная с него:"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Гайды не показаны: собственные гайды Polestar отключены. Включите их в разделе «Настройки», «Гайды сообщества» (/polestar packs)."
 L["Other starting zones"] = "Другие стартовые зоны"
+L["Expand"] = "Развернуть"
+L["Collapse"] = "Свернуть"
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"

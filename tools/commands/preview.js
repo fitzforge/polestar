@@ -414,6 +414,13 @@ function pickerScene(script) {
 }
 // Three guides open as tabs, the leveling one active.
 const TABS = 'uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }, 1)';
+// The Dwarf's and the Gnome's Dun Morogh as two guides of one title and range,
+// and Zephras Isle for the Horde too, as shipped (#1358).
+const SPLIT_STARTS = `local U = uistub.guides
+local function copy(id, newId, k, v) local g = {} for key, val in pairs(U[id]) do g[key] = val end g.id, g[k] = newId, v U[newId] = g table.insert(uistub.order, newId) end
+U["forever/alliance/dwarf-gnome/01-dun-morogh"].races = { "Dwarf" }
+copy("forever/alliance/dwarf-gnome/01-dun-morogh", "forever/alliance/gnome/01-dun-morogh", "races", { "Gnome" })
+copy("forever/alliance/skyborne/01-zephras-isle", "forever/horde/skyborne/01-zephras-isle", "faction", "Horde")`;
 // Step pictures (GUIDE_FORMAT.md, `image`) on two sample steps, the field
 // step's beside its tip and one without a tip. A community addon ships its
 // own screenshots; the preview draws Polestar's own textures in their place.
@@ -1444,6 +1451,22 @@ end`,
 				roots: PICKER,
 				script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/alliance/02-westfall")`),
+			},
+		],
+	},
+	{
+		file: 'picker-folders.svg',
+		title: "Guide menu: Browse folders fold away (Alliance 1\u201330, its count kept); same-titled starts say whose they are: Dun Morogh (Dwarf), (Gnome)",
+		panels: [
+			{
+				roots: PICKER,
+				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+Polestar.UI.Picker.SetCollapsed("Leveling/Alliance/1", true); Polestar.UI.Picker.Select("forever/alliance/gnome/01-dun-morogh")`),
+			},
+			{
+				roots: PICKER,
+				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+Polestar.UI.Picker.Select("forever/horde/skyborne/01-zephras-isle")`),
 			},
 		],
 	},

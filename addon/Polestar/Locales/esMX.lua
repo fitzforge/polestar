@@ -1847,6 +1847,8 @@ L["Miscellaneous"] = "Miscelánea"
 -- L["You are level %d. Level %d is recommended for this guide; from there:"] = ""
 -- L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = ""
 -- L["Other starting zones"] = ""
+L["Expand"] = "Desplegar"
+L["Collapse"] = "Plegar"
 
 -- UI/Report.lua
 L["Polestar %s"] = "Polestar %s"

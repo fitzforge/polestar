@@ -1412,6 +1412,8 @@ L["If you finish this guide"] = "如果你完成此指南"
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "你目前等級 %d。此指南建議等級為 %d；從該等級起："
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "未顯示任何指南：Polestar 自己的指南已關閉。請在選項的社群指南（/polestar packs）中開啟。"
 -- L["Other starting zones"] = ""
+L["Expand"] = "展開"
+L["Collapse"] = "摺疊"
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"

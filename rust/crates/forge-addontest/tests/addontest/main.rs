@@ -292,6 +292,8 @@ mod ui_options;
 mod ui_packs;
 #[path = "ui-picker.rs"]
 mod ui_picker;
+#[path = "ui-picker-folders.rs"]
+mod ui_picker_folders;
 #[path = "ui-picker-levels.rs"]
 mod ui_picker_levels;
 #[path = "ui-picker-packs.rs"]
