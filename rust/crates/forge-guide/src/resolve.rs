@@ -2227,6 +2227,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 						.filter(|e: &V| !e.get("classes").is_empty())
 						.collect();
 					smart(&sm, r, &goal, &entries, "class trainer");
+					// The step's zone: the Engine ranks its trainers first wherever the player stands (#1357).
+					if !ctx.zone_id.is_nullish() && goal.get("candidates").truthy() {
+						goal.set("zone", ctx.zone_id.clone());
+					}
 				}
 				if g.get("nearest").truthy() && v == "sethome" {
 					smart(&sm, r, &goal, &npcs("innkeeper"), "innkeeper");

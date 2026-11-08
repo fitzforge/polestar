@@ -164,6 +164,15 @@ fn train_class_missing_coverage_warns_per_faction_and_class_no_candidate_at_all_
 }
 
 #[test]
+fn train_class_carries_its_step_s_zone_for_the_engine_to_rank_that_town_first_1357() {
+	// #1357: the Engine ranks the trainers on the step's zone map first, wherever the player stands.
+	let (r, g) = goals(&text(head(None, &["class Warrior"]), &["step Elwynn", "  train class", "", "step Durotar", "  zone Durotar", "  train class", "", "step Mining", "  train Mining"]), None);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!([&g[0]["zone"], &g[1]["zone"]], [&json!(1429), &json!(1411)]);
+	assert!(g[2].get("zone").is_none(), "a profession train keeps the nearest: {}", g[2]);
+}
+
+#[test]
 fn train_class_reads_trainers_json_when_present() {
 	let data = data_with("trainers", |raw| {
 		raw.insert("trainers.json".into(), json!({ "3153": { "id": 3153, "name": "Frang", "classes": ["MAGE"], "sources": ["guide"] } }));
@@ -336,7 +345,7 @@ fn smart_goals_emit_the_lua_the_engine_reads() {
 	let lua = emit(&r.guides);
 	assert_match(
 		&lua,
-		r#"\{ t = "train", class = true, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#,
+		r#"\{ t = "train", class = true, zone = 1429, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#,
 	);
 	assert_match(&lua, r#"\{ t = "accept", quest = 9500, title = "Either Way", npc = 823, npcName = "Deputy Willem", minLevel = 1, qlvl = 3, pre = \{ 9201, 783 \},"#);
 }

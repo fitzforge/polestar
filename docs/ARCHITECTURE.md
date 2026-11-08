@@ -1081,7 +1081,10 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   Nav provides it, else world distance on the same continent with a large penalty
   across continents. A candidate in a zone whose level range (`Maps.GetZoneLevels`)
   starts more than 10 levels above the character comes after every other
-  choice, other continents included. It re-picks on step start, zone change and landing, never per
+  choice, other continents included. A `train class` goal carries its step's zone
+  (`zone`, a uiMapID): when that map has a candidate for the character, every
+  candidate off it comes after all of the map's, unless it stands within 100 yards of the
+  player, so the step's town wins wherever the step comes up (#1357). It re-picks on step start, zone change and landing, never per
   frame. The goal view then carries the chosen `npc`, `npcName`, `map`, `x`, `y`,
   `f`, plus `alternatives = n`; `Polestar.Engine.CycleCandidate(stepIndex, goalIndex)`
   moves to the next-best one. Profession `train` goals are done when the
