@@ -3546,38 +3546,38 @@
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					493
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15."
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					516
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up."
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					95981
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22."
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
@@ -4253,10 +4253,6 @@
 			{
 				"q": 1003,
 				"why": "XooVe #216: Buzzbox chain"
-			},
-			{
-				"q": 6543,
-				"why": "Stonetalon tests (Kadrak's goals, Hotline #278, Warsong update goals): The Warsong Reports stays, taken at Kadrak"
 			},
 			{
 				"q": 6563,
@@ -7565,6 +7561,12 @@
 				"q": 5249,
 				"faction": "Alliance",
 				"reason": "Alliance 40-60 order (2026-11-08, #1228): To Winterspring! (from 53) was taken at the end of Felwood at about 52.7, so the route ground to 53 for a 580 XP walk; Wynd Nightchaser gives The Ruins of Kel'Theril without it.",
+				"issue": "-"
+			},
+			{
+				"q": 6543,
+				"faction": "Horde",
+				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
 				"issue": "-"
 			}
 		],

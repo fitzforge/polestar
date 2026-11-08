@@ -244,6 +244,8 @@ test(`${TIRISFAL}: yiliev0's report (#674): Gordo's report is searched for along
 
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
+	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
+	if (!list.some(({ goal }) => goal.quest === 6543)) return;
 	for (const [item, npc, name] of [[16764, 12862, 'Warsong Scout'], [16763, 12863, 'Warsong Runner'], [16765, 12864, 'Warsong Outrider']]) {
 		const { goal } = list[at(list, `collect ${item} (${name})`, (g) => g.t === 'collect' && g.item === item)];
 		assert.deepEqual(goal.fromNpcs, [{ npc, npcName: name }], `${name} is the goal's hand-over NPC`);
@@ -2598,10 +2600,11 @@ const STONETALON_HORDE = 'forever/horde/05-stonetalon-mountains.guide';
 
 test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's`, { skip }, () => {
 	const list = goals(STONETALON_HORDE);
-	const kadrak = [is('turnin', 6541), is('accept', 6543), is('turnin', 6543)].map((p, i) => list[at(list, `Kadrak goal ${i + 1}`, p)].goal);
-	for (const g of kadrak) assert.equal(g.map, 1413, `${g.t} ${g.quest} is on The Barrens (1413), not ${g.map}`);
-	const scout = list[at(list, 'the Warsong Scout Update', (g) => g.t === 'collect' && g.item === 16764)].goal;
-	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
+	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
+	const kadrak = list[at(list, 'turnin 6541', is('turnin', 6541))].goal;
+	assert.equal(kadrak.map, 1413, `${kadrak.t} ${kadrak.quest} is on The Barrens (1413), not ${kadrak.map}`);
+	const outrunners = list[at(list, 'the Ashenvale Outrunners', (g) => g.t === 'kill' && g.npc === 12856)].goal;
+	assert.equal(outrunners.map, 1440, 'the Outrunners are still in Ashenvale');
 });
 
 // Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
@@ -2996,6 +2999,8 @@ test("#289: a quest item picked up from objects is collected at one of the objec
 test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout', { skip }, () => {
 	const guide = 'forever/horde/05-stonetalon-mountains.guide';
 	const list = goals(guide);
+	// Left out since the final route review (route-fixes skip 6543); holds whenever a build takes it again.
+	if (!list.some(({ goal }) => is('accept', 6543)(goal))) return;
 	const reports = at(list, 'the Warsong Reports', (g) => g.t === 'collect' && g.item === 16746 && !g.quest);
 	assert.equal(list[reports].goal.count || 1, 1, 'any report in the bags shows the bundle was opened');
 	assert.equal(list[reports].step, list[at(list, 'accept 6543', is('accept', 6543))].step, 'opened on the Kadrak step');
