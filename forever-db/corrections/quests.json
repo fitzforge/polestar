@@ -3738,6 +3738,12 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96627
+			],
+			"preAny": [
+				96627
 			]
 		},
 		"source": [
@@ -3752,9 +3758,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (20261104T231149Z-7c557f2702b0b70b-dkguk8rpp6a8-jgsaalrgm7, 20261104T231242Z-c5f8cae2cfaaa29a-ed9qx2wn8ian-17xk7hel2s, 20261104T231324Z-48ad08dd58b6409a-7edg0cgrs6gg-abe9o8ext8): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 22 people (9 established) were refused it at their level before The Adventurer was handed in; 23 (9 established) were offered and took it after; none took it without"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96627"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
 	"96101": {
 		"set": {
@@ -3771,13 +3785,29 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96638
+			],
+			"preAny": [
+				96638
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 12 people (4 established) were refused it before The Adventurer was handed in; 12 (4 established) were offered and took it after; 1 person (not established) took it without a recorded hand-in, which may predate the recording"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96638"
+			}
+		],
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96638) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
 	"96243": {
 		"set": {
@@ -4012,13 +4042,29 @@
 					"count": 1,
 					"text": "Gain the Boosted Rest buff"
 				}
+			],
+			"pre": [
+				96628
+			],
+			"preAny": [
+				96628
 			]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
-		},
-		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 17 people (5 established) were refused it before The Adventurer was handed in; 18 (6 established) were offered and took it after; none took it without"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 96628"
+			}
+		],
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96628) is handed in at the same camp, so it now needs it; our data had no prerequisite."
 	},
 	"96655": {
 		"set": {
@@ -5752,5 +5798,26 @@
 			}
 		],
 		"note": "The Third Fleet wants item 2594, which the game calls Flagon of Dwarven Honeymead; our objective text kept the old name, Flagon of Mead, and the Wetlands guide's buy note named it so (#1322's sweep)."
+	},
+	"98405": {
+		"set": {
+			"pre": [
+				98340
+			],
+			"preAny": [
+				98340
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 3 people (3 established) were refused it before The Great Cat Spirit (98340) was handed in; all 3 were offered and took it after"
+			},
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB (advocaite/TrinityCore forever b6ae12c2) quest_template_addon PrevQuestID 98340"
+			}
+		],
+		"note": "The Great Cat Spirit (98405, Tauren druids) is offered at the Great Cat Spirit in Moonglade only after Turak Runetotem's The Great Cat Spirit (98340) is handed in there. Our data had no prerequisite."
 	}
 }

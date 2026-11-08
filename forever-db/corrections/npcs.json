@@ -27,6 +27,241 @@
 		},
 		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
 	},
+	"2543": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							14.16,
+							59.73
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							21.25,
+							0.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 22600002 (sniffed, build 70425), map 0 (385.1, 386.8)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 5 people (2 established) met him within 60 yd of that spot, Alterac Mountains 14-15,59-61; nobody met him at the old point"
+			}
+		],
+		"note": "Archmage Ansirem Runeweaver (npc 2543), who takes Magical Analysis (602) and gives Ansirem's Key (603), stands at the Kirin Tor camp by Dalaran, Alterac Mountains 14.16,59.73 (map 1416). Our merged data had the old Dalaran point 18.84,78.49, about 370 yd south-east, where nobody met him; the Arathi Highlands guide's hand-in of 602 used it."
+	},
+	"2956": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						35.12,
+						38.75
+					],
+					[
+						36.13,
+						79.85
+					],
+					[
+						36.28,
+						45.88
+					],
+					[
+						36.28,
+						68.62
+					],
+					[
+						36.48,
+						53.48
+					],
+					[
+						36.96,
+						60.49
+					],
+					[
+						37.32,
+						64.58
+					],
+					[
+						37.81,
+						74.27
+					],
+					[
+						41.33,
+						70.74
+					],
+					[
+						41.72,
+						66.11
+					],
+					[
+						42.87,
+						59.08
+					],
+					[
+						44.45,
+						47.23
+					],
+					[
+						45.43,
+						72.59
+					],
+					[
+						45.82,
+						39.47
+					],
+					[
+						47.78,
+						51.42
+					],
+					[
+						48.91,
+						69.06
+					],
+					[
+						50.84,
+						63.78
+					],
+					[
+						53.49,
+						51.64
+					],
+					[
+						54.22,
+						61.31
+					],
+					[
+						54.92,
+						43.99
+					],
+					[
+						55.49,
+						68.79
+					],
+					[
+						55.78,
+						73.5
+					],
+					[
+						58.48,
+						62.96
+					],
+					[
+						59.25,
+						58.88
+					],
+					[
+						39.73,
+						57.37
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20025173, map 1 (-2086.6, 34.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 4 people (1 established) met them within 60 yd of that spot, Mulgore 39-41,57-59"
+			}
+		],
+		"note": "Adult Plainstrider (npc 2956) also roams Mulgore 39.7,57.4, between two of our points; adds it."
+	},
+	"2988": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						54.76,
+						64.27
+					],
+					[
+						50.32,
+						62.88
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20026577, map 1 (-2312.9, -617.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 6 people (3 established) opened his quest window within 60 yd of that spot and 4 (2 established) handed in there; the others met him by the well at 54.8,64.3"
+			}
+		],
+		"note": "Morin Cloudstalker (npc 2988) walks between the well south-east of Bloodhoof Village and the road west of it (Mulgore 50.3,62.9); our data had only the well. Keeps the well point and adds the western end of his walk."
+	},
+	"4025": {
+		"addSpawns": {
+			"1442": {
+				"f": "e",
+				"pts": [
+					[
+						29.64,
+						62.62
+					],
+					[
+						29.98,
+						61.88
+					],
+					[
+						30.79,
+						65.29
+					],
+					[
+						30.8,
+						61.32
+					],
+					[
+						31.11,
+						58.55
+					],
+					[
+						32.07,
+						60.43
+					],
+					[
+						35.42,
+						64.27
+					],
+					[
+						35.28,
+						63.23
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guids 25128072, 25128432 and their neighbours, map 1 (around 824-858, 1516-1523)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 8 people (4 established) met them within 60 yd of those spots and 7 (5 established) killed them there, Stonetalon 34-36,63-65"
+			}
+		],
+		"note": "Bloodfury Ambusher (npc 4025) also camps at Stonetalon Mountains 35.3-35.4,63.2-64.3, east of the points our data had (29.6-32.1,58.6-65.3). Keeps those points and adds the eastern camp."
+	},
 	"10181": {
 		"set": {
 			"spawns": {
