@@ -44,7 +44,8 @@ ns.RegisterDefaults("behavior", {
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
 	whileHereRadius = 180, -- yards from its spawn area's edge at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
-	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
+	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
+	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
 })
 
@@ -6153,7 +6154,15 @@ end
 -- them: all when that many fit, else the HERE_MAX nearest the player, picked
 -- again each HERE_REPICK yards they move (Own.herePick).
 -- With behavior.whileHereTurnins, also a later step's turn-in of a quest
--- ready to hand in, its NPC within HERE_TURNIN yards: "hand in X to Y".
+-- ready to hand in: "hand in X to Y". A hand-in costs a short walk to one
+-- NPC and a click, so it is measured by its detour, not its distance: the
+-- seconds of extra walking to visit the NPC and go on to where the arrow
+-- leads (Own.hereDetour), at most behavior.whileHereTurninSeconds (twice
+-- that, HERE_XP, when waiting for the guide's hand-in costs XP:
+-- Own.hereXpLoss), or any detour for an NPC within HERE_TOWN yards while the
+-- player rests in a town; never past HERE_FAR yards, never on another floor
+-- or a long way round (Own.hereMayShow), and never one the route reaches
+-- anyway in its next HERE_SOON steps (Own.hereSoon).
 --
 -- The line (Own.hereTick, on the arrival poll every ARRIVAL_POLL seconds,
 -- allocation-free), measured from the player wherever the live step leads:
@@ -6161,8 +6170,8 @@ end
 -- any place their target spawns, the point the arrow leads to (the guide's spots and the alternatives
 -- alike: Fitz stood among Zhevra Runners in an alternative spot's camp), or
 -- with one of their mobs in sight (a nameplate, the target, the mouseover:
--- HERE_SEEN yards, whatever the spawn data says; HERE_TURNIN of a hand-in's
--- NPC), the one whose target spawns in the fewest places on the map
+-- HERE_SEEN yards, whatever the spawn data says; a hand-in by its detour,
+-- above), the one whose target spawns in the fewest places on the map
 -- (`places`: a pool's mushrooms before zhevra found all over the zone, which
 -- can wait for another spot), then the nearest, ranks first; while fewer
 -- than HERE_SHOW show, the best in reach join in that order, each checked once against the
@@ -6189,7 +6198,19 @@ Own.HERE_SHOW = 3 -- lines shown at once
 Own.HERE_ORDER = 30 -- yards a shown line must be nearer to move up past another
 Own.HERE_REPICK = 25 -- yards moved before the nearest are picked again
 Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
-Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
+-- A hand-in (Own.hereDetour): in reach while its detour is at most the
+-- player's seconds (behavior.whileHereTurninSeconds), or its NPC is within
+-- HERE_TOWN yards while the player rests in a town (an inn's or a city's
+-- rest area: the same town); never past HERE_FAR yards, however little the
+-- detour (an NPC straight ahead on the way is "here" no longer).
+Own.HERE_TOWN = 100
+Own.HERE_FAR = 250
+Own.HERE_SOON = 2 -- the route's next steps: a hand-in there, or anything at its NPC, waits for them
+Own.HERE_XP = 2 -- a hand-in's seconds times this when the guide's hand-in comes at a level that cuts its XP
+Own.HERE_SLACK = 10 -- seconds: a shown hand-in goes once its detour is past HERE_CLEAR times its seconds and this
+Own.HERE_RECHECK = 15 -- seconds before a hand-in the walk check turned away is checked again (or HERE_REPICK yards moved)
+Own.HERE_FLOOR = 8 -- yards of height between the player and an NPC that make another floor (Nav's FLOOR_GAP)
+Own.HERE_WINDING = 1.25 -- a walk over a straight line (Nav's WALK_DETOUR: straight lines are not walkable)
 Own.HERE_CLEAR = 100 / 60 -- it goes past this times the radius it came at
 Own.HERE_SEEN = 30 -- yards a mob of it seen around the player counts as (nameplate range)
 Own.HERE_MOUSE = 5 -- seconds a mouseover counts as seen
@@ -6381,6 +6402,70 @@ function Own.hereLevelOk(goal, top)
 	return not (lvl and lvl > top)
 end
 
+-- Whether the route reaches turn-in goal `goal` of step s anyway in its next
+-- HERE_SOON steps after the live one (for the character, not skipped): s is
+-- one of them, or one has an open goal at the same NPC or object. Then the
+-- guide sends the player there in a moment; a line would say it twice.
+function Own.hereSoon(s, goal, live)
+	local steps, k = guide.steps, 0
+	local npc, obj = goal.npc, goal.object
+	for i = live + 1, #steps do
+		local step = steps[i]
+		if stepApplies(step) and not isSkipped(i) then
+			if i == s then return true end
+			for j, other in ipairs(step.goals) do
+				if ((npc and other.npc == npc) or (obj and other.object == obj)) and goalApplies(other) and not goalDone(i, j, other) then return true end
+			end
+			k = k + 1
+			if k >= Own.HERE_SOON then return false end
+		end
+	end
+	return false
+end
+
+-- The level the character will be at, at least, when the route gets to
+-- step s from the live step: the guide's own `level` goals on the way (it
+-- holds the player there until they have it) and, with the Codex, what the
+-- steps on the way give (Levels.ForGuide). Kept per guide, live step and
+-- level (Own.herePlan).
+Own.herePlan = { at = {} }
+function Own.herePlanned(s, live, level)
+	local m = Own.herePlan
+	if m.guide ~= guide or m.live ~= live or m.level ~= level then
+		m.guide, m.live, m.level, m.at = guide, live, level, {}
+	end
+	local n = m.at[s]
+	if n then return n end
+	n = level
+	local steps = guide.steps
+	for i = live, s - 1 do
+		if stepApplies(steps[i]) and not isSkipped(i) then
+			for _, goal in ipairs(steps[i].goals) do
+				local l = goal.t == "level" and tonumber(goal.level)
+				if l and l > n and goalApplies(goal) then n = l end
+			end
+		end
+	end
+	local Lv = ns.Levels
+	local run = Lv and Lv.ForGuide and Lv.ForGuide(guide.id, nil, live, s)
+	local to = type(run) == "table" and run.to
+	if to and type(to.level) == "number" and to.level > n then n = to.level end
+	m.at[s] = n
+	return n
+end
+
+-- Whether waiting for the guide's hand-in at step s costs the quest's XP:
+-- the character will be more levels over the quest there than now, past
+-- the five that keep its full reward (Levels.Share).
+function Own.hereXpLoss(s, goal, live)
+	local Lv = ns.Levels
+	if not (Lv and Lv.Share and Lv.QuestLevel) then return false end
+	local q = Lv.QuestLevel(goal.quest, guide)
+	if not q then return false end
+	local level = player.level or 1
+	return Lv.Share(Own.herePlanned(s, live, level), q) < Lv.Share(level, q)
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log, is a candidate, as what ("work" or "turnin"), and how many are
 -- left (see above). `shown`: Own.hereShown's.
@@ -6394,6 +6479,7 @@ function Own.hereFits(s, g, goal, live, shown)
 		for _, other in ipairs(liveGoals) do
 			if other.t == "turnin" and other.quest == q then return nil end
 		end
+		if Own.hereSoon(s, goal, live) then return nil end
 		return "turnin", 0
 	end
 	if C.IsQuestReadyForTurnIn(q) or ns.CharState().pinnedQuests[q] then return nil end
@@ -6430,6 +6516,7 @@ function Own.hereBuild()
 		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
 		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 180
 		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
+		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
 		local steps = guide.steps
 		for g, goal in ipairs(steps[live].goals) do
 			if goal.escort and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereEscort = true end
@@ -6453,8 +6540,12 @@ function Own.hereBuild()
 							-- prefers the fewest). spot, d, pick: Own.hereDistance's and
 							-- Own.herePick's, set here so the poll adds no keys.
 							local spots = kind == "work" and goal.spots
+							-- budget, xp: a hand-in's seconds of detour and whether waiting
+							-- costs XP; detour, town: Own.hereDistance's.
+							local xp = kind == "turnin" and Own.hereXpLoss(s, goal, live)
 							list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
 								npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0,
+								budget = Own.hereSeconds * (xp and Own.HERE_XP or 1), xp = xp or false, detour = 0, town = false,
 								-- A shown line's: on, since (its time), yards (shown), serial (`appeared`), view.
 								on = false, since = 0, yards = 0, serial = 0, view = false }
 						end
@@ -6555,7 +6646,8 @@ end
 -- Yards from the player to candidate e: a goal's nearest spawn spot (its
 -- centre, at the player's level; e.spot: that spot; every place the target
 -- spawns, the alternatives too; once the player aimed the arrow at it, the
--- spot the arrow leads to), else its point; a hand-in's NPC. The row, the
+-- spot the arrow leads to), else its point; a hand-in's NPC (with its
+-- detour and whether it is in the player's town: e.detour, e.town). The row, the
 -- reach and the arrow so measure to the same point (Fitz: the row said 180 yd
 -- to a zone-wide area's edge, the arrow 393 to its spot). A mob of the goal's
 -- seen around the player (Own.hereSaw: a nameplate, the target, the
@@ -6599,21 +6691,146 @@ function Own.hereDistance(e, c, px, py)
 	end
 	local gc, gx, gy = goalWorld(goal)
 	if gc ~= c then return nil end
-	return ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+	local d = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+	e.detour = Own.hereDetour(c, px, py, gx, gy, d)
+	e.town = d <= Own.HERE_TOWN and Own.hereResting()
+	return d
 end
 
--- The radius candidate e shows within.
-function Own.hereReach(e)
-	return e.kind == "turnin" and Own.HERE_TURNIN or Own.hereRadius or 180
+-- Where the player is headed: the world point of the waypoint (the live
+-- step's, or a line the player clicked), or nil. Allocation-free: resolved
+-- once per waypoint.
+function Own.hereHeading()
+	local wp = waypoint
+	if wp ~= Own.hereWp then
+		Own.hereWp, Own.hereWpC = wp, nil
+		if wp and wp.map and wp.x and wp.y then Own.hereWpC, Own.hereWpX, Own.hereWpY = Compat().MapToWorld(wp.map, wp.x, wp.y, wp.f) end
+	end
+	return Own.hereWpC, Own.hereWpX, Own.hereWpY
+end
+
+-- Seconds of extra walking to visit a hand-in's NPC at gx, gy (d yards from
+-- the player) and go on to where the player is headed, against going there
+-- straight: the straight lines HERE_WINDING longer, at run speed
+-- (HERE_SPEED), as the walking router counts a walk it has no path for, so
+-- the two agree on open ground. Headed nowhere, or to another continent:
+-- there and back. Allocation-free.
+function Own.hereDetour(c, px, py, gx, gy, d)
+	local tc, tx, ty = Own.hereHeading()
+	local extra
+	if tc == c then
+		extra = d + ((gx - tx) ^ 2 + (gy - ty) ^ 2) ^ 0.5 - ((px - tx) ^ 2 + (py - ty) ^ 2) ^ 0.5
+	else
+		extra = 2 * d
+	end
+	return extra > 0 and extra * Own.HERE_WINDING / Own.HERE_SPEED or 0
+end
+
+-- Whether the player rests in a town (an inn's or a city's rest area).
+function Own.hereResting()
+	return IsResting ~= nil and Compat().Readable(IsResting()) == true
+end
+
+-- Whether candidate e, d yards off (Own.hereDistance's), is in reach: an
+-- objective within behavior.whileHereRadius yards; a hand-in in the
+-- player's town or at most its seconds out of the way (0: in town only),
+-- never past HERE_FAR.
+function Own.hereIn(e, d)
+	if e.kind == "turnin" then return d <= Own.HERE_FAR and (e.town or (e.budget > 0 and e.detour <= e.budget)) end
+	return d <= (Own.hereRadius or 180)
+end
+
+-- Whether a shown line, d yards off, goes: an objective past HERE_CLEAR
+-- times the radius; a hand-in past HERE_CLEAR times HERE_FAR, or out of town
+-- with its detour past HERE_CLEAR times its seconds and HERE_SLACK more;
+-- never further than HERE_CLEAR_MAX.
+function Own.herePast(e, d)
+	local clear, top = Own.HERE_CLEAR, Own.HERE_CLEAR_MAX
+	if e.kind == "turnin" then
+		return d > math.min(Own.HERE_FAR * clear, top) or (not e.town and e.detour > e.budget * clear + Own.HERE_SLACK)
+	end
+	return d > math.min((Own.hereRadius or 180) * clear, top)
+end
+
+-- Hand-ins the walk check turned away (Own.hereMayShow), per goal: { at, c,
+-- x, y, wp, why } (when, where the player stood, the waypoint then, and why:
+-- "floor", "walk" or "detour"). Checked again HERE_RECHECK s on, once the
+-- player has moved HERE_REPICK yards, or for another waypoint.
+Own.hereWalked = setmetatable({}, { __mode = "k" })
+
+function Own.hereTurnAway(e, why)
+	local w = Own.hereWalked[e.goal]
+	if not w then
+		w = {}
+		Own.hereWalked[e.goal] = w
+	end
+	local c, x, y = Compat().GetPlayerWorldPosition()
+	w.at, w.c, w.x, w.y, w.wp, w.why = GetTime(), c, x or 0, y or 0, waypoint, why
+	return false
+end
+
+-- Whether hand-in e waits after being turned away (Own.hereWalked).
+-- Allocation-free.
+function Own.hereWalkWait(e, c, px, py)
+	local w = Own.hereWalked[e.goal]
+	if not w or w.c ~= c or w.wp ~= waypoint or GetTime() - w.at >= Own.HERE_RECHECK then return false end
+	return (px - w.x) ^ 2 + (py - w.y) ^ 2 <= Own.HERE_REPICK * Own.HERE_REPICK
+end
+
+Own.hereBack = {} -- the hand-in check's waypoint (reused)
+
+-- A hand-in, once as it would appear (Own.hereMayShow): never on another
+-- floor (the NPC's height `z` against the player's floor, Nav's walking
+-- engine: Undercity's levels, Thunder Bluff's rises); in the player's town,
+-- a walk there not far longer than the straight line (a canal, a lift
+-- without heights); else the detour the walking router gives (there, on to
+-- the waypoint, less the waypoint straight from here) at most its seconds:
+-- an NPC across a river is minutes out of the way, a few yards off. No
+-- answer from the router lets the straight lines' word stand.
+function Own.hereTurninOk(e, d)
+	local goal, nav = e.goal, ns.Nav
+	local W = nav and nav.walk
+	if goal.z and W and W.Floor then
+		local c, px, py = Compat().GetPlayerWorldPosition()
+		local ok, z = pcall(W.Floor, c, px, py)
+		if ok and type(z) == "number" and math.abs(z - goal.z) > Own.HERE_FLOOR then return Own.hereTurnAway(e, "floor") end
+	end
+	if not (nav and nav.EstimateTravel) then return true end
+	local to = Own.hereTo
+	to.map, to.f, to.x, to.y = goal.map, goal.f, goal.x, goal.y
+	local ok, there = pcall(nav.EstimateTravel, nil, to, true, true)
+	if not (ok and type(there) == "number") then return true end
+	if e.town then
+		if there * Own.HERE_SPEED > d * Own.HERE_WALK + 20 then return Own.hereTurnAway(e, "walk") end
+		return true
+	end
+	local extra = 2 * there
+	local c = Compat().GetPlayerWorldPosition()
+	local wp = waypoint
+	if wp and Own.hereHeading() == c then
+		local back = Own.hereBack
+		back.map, back.f, back.x, back.y = wp.map, wp.f, wp.x, wp.y
+		local ok1, on = pcall(nav.EstimateTravel, to, back, true, true)
+		local ok2, direct = pcall(nav.EstimateTravel, nil, back, true, true)
+		if not (ok1 and ok2 and type(on) == "number" and type(direct) == "number") then return true end
+		extra = there + on - direct
+	end
+	if extra <= e.budget then return true end
+	return Own.hereTurnAway(e, "detour")
 end
 
 -- Once, as the line would appear: not on a boat, zeppelin or tram, and the
 -- walk there (Nav's budgeted estimate) not far longer than the straight
--- line. No answer (no Nav, busy, no route) lets it show, and so does a mob
--- of it seen right here (e.seen).
+-- line (a hand-in: Own.hereTurninOk). No answer (no Nav, busy, no route)
+-- lets it show, and so does a mob of it seen right here (e.seen).
 function Own.hereMayShow(e, d)
 	local T = ns.Transit
 	if T and T.Riding and T.Riding() then return false end
+	if e.kind == "turnin" then
+		if not Own.hereTurninOk(e, d) then return false end
+		Own.hereWalked[e.goal] = nil
+		return true
+	end
 	if e.seen then return true end
 	local nav = ns.Nav
 	if not (nav and nav.EstimateTravel) then return true end
@@ -6692,9 +6909,9 @@ function Own.hereTick(c, px, py)
 	while i <= Own.hereOnN do
 		local cur = on[i]
 		local d = Own.hereDistance(cur, c, px, py)
-		if not d or d > math.min(Own.hereReach(cur) * Own.HERE_CLEAR, Own.HERE_CLEAR_MAX) then
+		if not d or Own.herePast(cur, d) then
 			if Own.hereRemove(i, false) then aimed = true end
-		elseif d > Own.hereReach(cur) and now - cur.since > Own.HERE_SECONDS then
+		elseif not Own.hereIn(cur, d) and now - cur.since > Own.HERE_SECONDS then
 			-- Out of reach (no spawn area in reach, none of its mobs in sight)
 			-- for HERE_SECONDS without going past the clear distance: it goes.
 			Own.hereExpiredAt[cur.goal] = now
@@ -6702,7 +6919,7 @@ function Own.hereTick(c, px, py)
 		else
 			-- In reach the line holds, however long (Fitz: "it shouldn't
 			-- expire unless I move away from those areas").
-			if d <= Own.hereReach(cur) then cur.since = now end
+			if Own.hereIn(cur, d) then cur.since = now end
 			cur.d = d
 			local shown = math.floor(d / step + 0.5) * step
 			if shown ~= cur.yards then
@@ -6744,7 +6961,7 @@ function Own.hereTick(c, px, py)
 		local e = list[j]
 		if not e.on then
 			local d = not quiet[e.goal] and Own.hereDistance(e, c, px, py)
-			if d and d <= Own.hereReach(e) and Own.hereAgain(e) and not Own.hereMuted(e) then
+			if d and Own.hereIn(e, d) and Own.hereAgain(e) and not Own.hereMuted(e) and not (e.kind == "turnin" and Own.hereWalkWait(e, c, px, py)) then
 				e.d, open = d, open + 1
 			else
 				e.d = false
@@ -6776,6 +6993,9 @@ function Own.hereTick(c, px, py)
 			Own.hereExpiredAt[best.goal], Own.hereMutes[best.goal] = nil, nil
 			Own.here = on[1]
 			ns.Fire("WHILE_HERE_CHANGED")
+		elseif best.kind == "turnin" then
+			-- Turned away from here (Own.hereWalked): checked again later.
+			best.d = false
 		else
 			Own.hereQuiet[best.goal], Own.herePickC = true, nil
 			best.d = false
@@ -6867,15 +7087,20 @@ function Engine.GetWhileHereCandidates()
 end
 
 -- What the bug report says of the lines (UI/Report.lua): { on, radius,
+-- turnins (a hand-in's seconds out of the way, false with hand-ins off),
 -- candidates, shown = { { text, quest, step, index, yards }, ... } } with
 -- lines, else `nearest` (the nearest candidate: { quest, step, index, yards,
--- seen }, nil without one measurable) and `why` none shows: "off", "another
+-- seen, detour (a hand-in's seconds out of the way) }, nil without one
+-- measurable) and `why` none shows: "off", "another
 -- step in view", "no candidates", "no position", Own.hereBlocked's reason,
 -- "in combat", "quiet (dismissed, this zone)", "expired (...)", "out of
--- radius", or "in reach, next poll".
+-- radius", "out of the way (...)", "turned away (...)", or "in reach, next
+-- poll".
 function Engine.WhileHereState()
+	local on = ns.Get("behavior.whileHereTurnins")
 	local st = { on = ns.Get("behavior.whileHere") and true or false, candidates = Own.hereAllN,
-		radius = Own.hereRadius or tonumber(ns.Get("behavior.whileHereRadius")) or 180 }
+		radius = Own.hereRadius or tonumber(ns.Get("behavior.whileHereRadius")) or 180,
+		turnins = on and (Own.hereSeconds or tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20) or false }
 	local cur = Own.here
 	if Own.hereVisible() then
 		st.shown = {}
@@ -6896,7 +7121,10 @@ function Engine.WhileHereState()
 			if d and (not bestD or d < bestD) then best, bestD = e, d end
 		end
 	end
-	if best then st.nearest = { quest = best.goal.quest, step = best.s, index = best.g, yards = math.floor(bestD + 0.5), seen = best.seen or false } end
+	if best then
+		st.nearest = { quest = best.goal.quest, step = best.s, index = best.g, yards = math.floor(bestD + 0.5), seen = best.seen or false,
+			detour = best.kind == "turnin" and math.floor(best.detour + 0.5) or nil }
+	end
 	if not st.on then
 		st.why = "off"
 	elseif cur then
@@ -6917,8 +7145,15 @@ function Engine.WhileHereState()
 			st.why = "muted (dismissed; comes back 2 min on, in reach, once 100 yd from where it was dismissed)"
 		elseif best and Own.hereExpiredAt[best.goal] and not Own.hereAgain(best) then
 			st.why = "expired (out of reach 3 min; comes again in reach a minute on)"
-		elseif best and bestD > Own.hereReach(best) then
-			st.why = "out of radius"
+		elseif best and best.kind == "turnin" and Own.hereWalkWait(best, c, px, py) then
+			local w = Own.hereWalked[best.goal]
+			st.why = ("turned away (%s; checked again in %d s or %d yd)"):format(w.why == "floor" and "another floor"
+				or w.why == "walk" and "a long way round" or "the walk is too far out of the way", Own.HERE_RECHECK, Own.HERE_REPICK)
+		elseif best and best.kind == "turnin" and bestD > Own.HERE_FAR then
+			st.why = ("too far for a hand-in (over %d yd)"):format(Own.HERE_FAR)
+		elseif best and not Own.hereIn(best, bestD) then
+			st.why = best.kind == "turnin" and ("out of the way (%d s, over %d s%s)"):format(math.floor(best.detour + 0.5), math.floor(best.budget + 0.5),
+				best.xp and ", doubled for XP" or "") or "out of radius"
 		elseif best then
 			st.why = "in reach, next poll"
 		else
@@ -6964,6 +7199,10 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if type(path) == "string" and path:sub(1, 18) == "behavior.whileHere" then
 		Own.hereDirty = true
+		-- A hand-in turned away for its detour is weighed again at the new seconds.
+		if path == "behavior.whileHereTurninSeconds" then
+			for goal in pairs(Own.hereWalked) do Own.hereWalked[goal] = nil end
+		end
 		if path == "behavior.whileHere" and not ns.Get(path) and Own.hereClear(false) then evaluate() end
 		requestUpdate()
 	end
