@@ -57,6 +57,7 @@ end
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local RING = "Interface\\AddOns\\Polestar_Mob_Markers\\ring%d.tga" -- 16, 32 and 64 px
 local LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST"
+local LOOT = "Interface\\AddOns\\Polestar\\Media\\UI\\icon-collect" -- an object's mark in place of the skull: the guide's pickup bag
 
 local function palette(k) return PALETTES[opt(k)] or PALETTES[DEFAULTS[k]] end
 -- The first quest (with stepOnly, often the only one) keeps the skull's own colours; the rest take
@@ -85,9 +86,10 @@ end
 assert(borderFor(fillFor(1), 1) ~= borderFor(fillFor(1), 2) and fillFor(1) ~= fillFor(2), "Polestar: Mob Markers - palette")
 
 ---------------------------------------------------------------------------
--- Marks: uiMapID -> { { x, y, fill, border, quest, mob, questID, objective, drop, key }, ... }
+-- Marks: uiMapID -> { { x, y, fill, border, quest, mob, questID, objective, drop, key, icon }, ... }
 -- objective: the index of its objective in the database quest (questGroups g.oi); drop: the item it drops, if any;
--- key: "questID:objective", the legend's and the hidden list's key for it.
+-- key: "questID:objective", the legend's and the hidden list's key for it; icon: the pickup bag for an
+-- object, nil (the skull) for a mob.
 ---------------------------------------------------------------------------
 
 local floor, max = math.floor, math.max
@@ -123,8 +125,9 @@ local function pruneHidden(only)
 end
 
 -- A quest's objectives that need mobs, one group each: a kill objective is its mob; an item
--- objective is every mob that drops it, together. { { label, drop = item name or nil, npcs = { id, ... } }, ... }
--- A mob in two objectives stays in the first, so it gets one marker. Objectives the quest log shows
+-- objective is every mob and object that gives it, together; an object objective is its object.
+-- { { label, drop = item name or nil, npcs = { { kind, id }, ... } }, ... }
+-- A source in two objectives stays in the first, so it gets one marker. Objectives the quest log shows
 -- finished are left out.
 local PC = Polestar.Compat
 -- Whether the quest log shows the quest's oi-th database objective, named name, finished. Matched on
@@ -147,10 +150,13 @@ local function questGroups(qid)
 	local q = DB.Quest(qid)
 	local objs = PC.GetQuestObjectives(qid) or {} -- empty off the log (preview): nothing is left out
 	local groups, seen = {}, {}
-	local function group(oi, label, drop, ids)
+	local function group(oi, label, drop, npcs, objects)
 		local g = { oi = oi, label = label, drop = drop, npcs = {} }
-		for _, id in ipairs(ids) do
-			if id and not seen[id] then seen[id] = true; g.npcs[#g.npcs + 1] = id end
+		for kind, ids in pairs({ npc = npcs or {}, object = objects or {} }) do
+			for _, id in ipairs(ids) do
+				local sk = kind .. id
+				if not seen[sk] then seen[sk] = true; g.npcs[#g.npcs + 1] = { kind, id } end
+			end
 		end
 		if #g.npcs > 0 then groups[#groups + 1] = g end
 	end
@@ -158,24 +164,28 @@ local function questGroups(qid)
 		if o.kind == "kill" or o.kind == "npc" then
 			local name = DB.Name("npc", o.target) or ("NPC " .. o.target)
 			if not objectiveDone(objs, oi, name) then group(oi, name, nil, { o.target }) end
+		elseif o.kind == "object" then
+			local name = DB.Name("object", o.target) or ("Object " .. o.target)
+			if not objectiveDone(objs, oi, name) then group(oi, name, nil, nil, { o.target }) end
 		elseif o.kind == "item" then
 			local it = DB.Get("item", o.target)
 			local name = it and it.name or ("Item " .. o.target)
-			if not objectiveDone(objs, oi, name) then group(oi, name, name, it and it.npcDrops or {}) end
+			if not objectiveDone(objs, oi, name) then group(oi, name, name, it and it.npcDrops, it and it.objectDrops) end
 		end
 	end
 	return groups, q and q.name
 end
 
--- A mob's spawns, decoded once a session (the database decodes on every call): its name, its
--- spawns by map in percent, and in world yards.
-local npcCache = {}
-local function npcSpawns(id)
-	local c = npcCache[id]
+-- A mob's or object's spawns, decoded once a session (the database decodes on every call): its name,
+-- its spawns by map in percent, and in world yards.
+local spawnCache = {}
+local function spawnsOf(kind, id)
+	local ck = kind .. id
+	local c = spawnCache[ck]
 	if not c then
-		local npc = DB.Get("npc", id)
-		c = { name = npc and npc.name or ("NPC " .. id), ui = npc and npc.spawns or {}, world = DB.Spawns("npc", id) }
-		npcCache[id] = c
+		local rec = DB.Get(kind, id)
+		c = { name = rec and rec.name or (kind .. " " .. id), ui = rec and rec.spawns or {}, world = DB.Spawns(kind, id) }
+		spawnCache[ck] = c
 	end
 	return c
 end
@@ -284,17 +294,18 @@ local function build(force)
 				local border = #groups == 1 and fill or borderFor(fill, gi)
 				local key = qid .. ":" .. g.oi -- the database objective: stays put as others finish, so hidden keys do too
 				entry.mobs[gi] = { id = g.oi, name = g.label, border = border }
-				for _, npcId in ipairs(g.npcs) do
-					local c = npcSpawns(npcId)
+				for _, src in ipairs(g.npcs) do
+					local c = spawnsOf(src[1], src[2])
+					local icon = src[1] == "object" and LOOT or nil
 					for mapID, pts in pairs(c.ui) do
 						local l = marks[mapID] or {}
 						marks[mapID] = l
 						for p = 1, #pts - 1, 2 do
-							l[#l + 1] = { pts[p], pts[p + 1], fill, border, entry.title, c.name, qid, g.oi, g.drop, key }
+							l[#l + 1] = { pts[p], pts[p + 1], fill, border, entry.title, c.name, qid, g.oi, g.drop, key, icon }
 						end
 					end
 					for _, p in ipairs(c.world) do
-						local m = { p.x, p.y, fill, border, entry.title, c.name, qid, g.oi, g.drop, key }
+						local m = { p.x, p.y, fill, border, entry.title, c.name, qid, g.oi, g.drop, key, icon }
 						local l = world[p.map] or {}
 						world[p.map] = l
 						l[#l + 1] = m
@@ -335,6 +346,7 @@ local MEDAL = POLESTAR .. "medallion-polestar"
 -- of a mark that is 1/1.4 of its medallion); the mob ring's hole (HOLE of its size) is the medallion's
 -- edge, so none of it shows through a see-through medallion, and the ring is 1.3 times its width.
 local MEDAL_SCALE, SKULL_SCALE, RING_SCALE = 1.6, 27 / 24 / 1.4, 1 / HOLE
+local BAG_SCALE = 0.85 -- the pickup bag, a little smaller than the skull on its medallion
 
 -- The look every marker shares, read once per change: styleVer goes up whenever an option that
 -- changes it does, and a marker repaints only when its mark, size, highlight or styleVer changed.
@@ -384,7 +396,7 @@ local function newDot(parent)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:AddLine(m[5], 1, 0.84, 0.45)
 		GameTooltip:AddLine(m[6], 0.97, 0.97, 0.99)
-		if m[9] then GameTooltip:AddLine("Drops " .. m[9], 0.77, 0.79, 0.87) end
+		if m[9] then GameTooltip:AddLine((m[11] and "Gives " or "Drops ") .. m[9], 0.77, 0.79, 0.87) end
 		GameTooltip:Show()
 	end)
 	f:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -407,7 +419,9 @@ local function paint(f, m, size, lit)
 	f:SetSize(d, d)
 	f.medal:SetSize(d, d)
 	f.medal:SetVertexColor(1, 1, 1, fa)
-	f.skull:SetSize(d * SKULL_SCALE, d * SKULL_SCALE)
+	f.skull:SetTexture(m[11] or SKULL)
+	local g = d * SKULL_SCALE * (m[11] and BAG_SCALE or 1)
+	f.skull:SetSize(g, g)
 	f.skull:SetVertexColor(m[3][1], m[3][2], m[3][3], st.ba)
 	local several = m[4] ~= m[3] -- one mob: its border is the quest's own colour table
 	f.ring:SetShown(several)

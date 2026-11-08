@@ -17,18 +17,20 @@ LibForeverData = {
 		[200] = { name = "Spiders", objectives = { { kind = "kill", target = 3 } } },
 		[300] = { name = "Done already", objectives = { { kind = "kill", target = 3 } } },
 		[400] = { name = "A letter", objectives = {} },
+		[500] = { name = "Dry Branches", objectives = { { kind = "item", target = 60 } } },
 	},
 	npcs = {
 		[1] = { name = "Wolf", spawns = { [1429] = { 10, 10, 20, 20 } } },
 		[2] = { name = "Bear", spawns = { [1429] = { 30, 30, 40, 40, 50, 50 } } },
 		[3] = { name = "Spider", spawns = { [1430] = { 60, 60 } } },
 	},
-	items = { [50] = { name = "Bear Pelt", npcDrops = { 2 } } },
+	objects = { [7] = { name = "Dry Branch", spawns = { [1429] = { 70, 70, 80, 80 } } } },
+	items = { [50] = { name = "Bear Pelt", npcDrops = { 2 } }, [60] = { name = "Dry Branch", objectDrops = { 7 } } },
 }
 local DB = LibForeverData
 function DB.Quest(id) return DB.quests[id] end
 function DB.Name(_, id) local n = DB.npcs[id]; return n and n.name end
-function DB.Get(kind, id) return (kind == "npc" and DB.npcs or DB.items)[id] end
+function DB.Get(kind, id) return ({ npc = DB.npcs, object = DB.objects, item = DB.items })[kind][id] end
 -- The Spider in world yards on continent 1 (north, west): 10 yards from the player at (100, 100), 230 (past the
 -- minimap's rim at zoom 0, 233 yards) and far off.
 function DB.Spawns(_, id)
@@ -186,4 +188,22 @@ fn the_old_settings_move_into_polestars_once_and_turned_in_quests_leave_the_hidd
 	assert_eq!(out[0], json!([14, true, true]));
 	assert_eq!(out[1], json!([true, true]), "100 stays hidden; 999, turned in, is pruned");
 	assert_eq!(out[2], json!([6, 2, 5, 0]), "quest 100 is hidden: its spawns count, none is drawn");
+}
+
+#[test]
+fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
+	let out = run(
+		"",
+		r#"
+		stub.mm.log = { 500 }
+		emit(stub.mm.status())
+		local icons = {}
+		for _, f in ipairs({ WorldMapFrame:GetCanvas():GetChildren() }) do
+			if f.skull and f:IsShown() then icons[#icons + 1] = f.skull:GetTexture() end
+		end
+		emit(icons)"#,
+	);
+	assert_eq!(out[0], json!([2, 1, 2, 2]), "both Dry Branch spawns on 1429");
+	let loot = r"Interface\AddOns\Polestar\Media\UI\icon-collect";
+	assert_eq!(out[1], json!([loot, loot]), "not the skull");
 }

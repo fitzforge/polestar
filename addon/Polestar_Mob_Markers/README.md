@@ -5,6 +5,7 @@ A companion to Polestar: marks every spawn point of the mobs your active quests 
 - **One colour per quest**: the skull's colour tells you which quest a mob is for.
 - **One ring per mob**: when a quest needs several kinds of mob, a coloured ring around the marker tells them apart.
 - **Legend** on the world map lists each quest and how many spawns it has; hover a row to highlight its markers, and expand it to see its mobs.
+- **Objects too**: things you pick up or use for a quest (Dry Branches, crates, plants) get the guide's pickup bag instead of the skull, in the same quest colour.
 - Hover a marker for the mob, its quest and what it drops.
 
 ## Requirements
