@@ -13,8 +13,8 @@ return {
 	["{area:35} flight master"] = "",
 
 	-- Step 3: Watcher Biggs
-	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him."] = "",
+	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412}：在阿拉希高地、{zone:1443}和荊棘谷各抓一隻小動物",
 

@@ -1802,6 +1802,27 @@ test(`${HILLSBRAD_ALLIANCE}: Hillsbrad's Hoard is optional, with a tip to skip i
 	assert.ok([step.note, step.tip].flat().filter(Boolean).join(' ').includes('McManus may not be here'), 'the step says to skip it if he is not there');
 });
 
+// --- Never seen taken (#1314's pattern; RefusalSweep's never-taken sweep, 2026-11-08): Hearts of the Lost turned
+// out not to be in the game. Two more Forever quests nobody has been recorded taking or being offered, whose giver
+// nobody has ever seen, from another addon's data and the web only, are optional, with a tip to skip them when the
+// giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
+for (const [q, title, giver, files] of [
+	[93176, 'My Little Friends', 'Amaryllis Webb', ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']],
+	[97265, 'Hate the Hatefury', "Aka'rai", ['forever/horde/30-40/02-thousand-needles.guide']],
+]) {
+	test(`${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)`, { skip }, () => {
+		let n = 0;
+		for (const file of files) {
+			for (const { goal } of goals(file).filter(({ goal }) => goal.quest === q)) {
+				n++;
+				assert.ok(goal.optional, `${file}: ${goal.t} ${q} is optional`);
+				if (goal.t === 'accept') assert.match(stepTips(file, new RegExp(`^\\s+accept ${q}\\b`)).join(' '), new RegExp(`${giver} may not be here on Forever: if ${giver} doesn't offer ${title}, skip it\\.`), `${file}: the accept's step says to skip it`);
+			}
+		}
+		assert.ok(n >= 2, `the accept and the hand-in are found (${n})`);
+	});
+}
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 

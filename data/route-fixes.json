@@ -6632,6 +6632,14 @@
 			{
 				"q": 98059,
 				"why": "Never-seen check (2026-11-08, 0.3.6): Captain McManus (251493), giver and ender of Hillsbrad's Hoard, has never been seen in players' recordings and nobody has ever taken the quest; it stays on the Southshore stop as optional, with a tip to skip it if he doesn't offer it"
+			},
+			{
+				"q": 93176,
+				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Amaryllis Webb (217412, Swamp of Sorrows), giver and ender of My Little Friends, has never been seen in players' recordings and nobody has taken or been offered the quest; it stays at Watcher Biggs' step as optional (its STV hand-in too), with a tip to skip it if she doesn't offer it"
+			},
+			{
+				"q": 97265,
+				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Aka'rai (268705, Desolace), giver and ender of Hate the Hatefury, has never been seen in players' recordings, though 2 Horde people passed her spot at 33-34, and nobody has taken or been offered the quest; it stays at Shadowprey as optional (its Sargeron kills and hand-in too), with a tip to skip it if she doesn't offer it"
 			}
 		],
 		"group": [

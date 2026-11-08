@@ -13,8 +13,8 @@ return {
 	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
 	-- Step 3: Watcher Biggs
-	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him."] = "{npc:5476} garde le carrefour à l'ouest du marais. {npc:217412} se tient un peu au nord de lui.",
+	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412} : trois bestioles à capturer en Arathi, en {zone:1443} et à Strangleronce",
 
@@ -274,6 +274,7 @@ return {
 	-- ["{item:4435} on the way"] = "{item:4435} en chemin",
 	-- ["{item:4522} on the way"] = "{item:4522} en chemin",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, dans la Cité de Dalaran",
+	-- ["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him."] = "{npc:5476} garde le carrefour à l'ouest du marais. {npc:217412} se tient un peu au nord de lui.",
 	-- ["{object:2652}, inside"] = "{object:2652}, à l'intérieur",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} n'a pas de maître chaman : prenez {area:2257} depuis {object:28027} jusqu'à {zone:1455} et entraînez-vous auprès de {npc:258098}. {npc:1573}, dans {object:32372}, propose aussi un vol pour {area:271}.",
 }

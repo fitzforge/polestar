@@ -601,7 +601,7 @@ step Level 42.46
 
 step Cortello's Riddle
   accept 625
-  turnin 93176                        -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
+  turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 

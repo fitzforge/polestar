@@ -15,6 +15,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # (1104), Hemet Nesingwary (5762).
 # Left out: Bodyguard for Hire (5821), Claim Rackmore's Treasure! (6161), Gelkis Alliance (1368),
 # Bone Collector (5501).
+# Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
 
 # The Shimmering Flats at 33-34, then Desolace's 33-36 quests at 34-35. Desolace's 38-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals, the centaur totems) come on a short second
@@ -275,7 +276,8 @@ step Level 33
 step Shadowprey Village
   zone Desolace
   tip Head west to the troll village on the coast, keeping clear of the Gelkis Village on the way. Aka'rai stands on the path just north of the village.
-  accept 97265                        -- Aka'rai: the Hatefury satyrs of Sargeron, later in this guide
+  tip Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.
+  accept 97265 optional               -- Aka'rai: the Hatefury satyrs of Sargeron, later in this guide
   getfp "Shadowprey Village"
   accept 6143                         -- Drulzegar Skraghook
   accept 6142                         -- Mai'Lahii
@@ -334,11 +336,11 @@ step Sargeron
   kill 4672 quest 1434.2
   kill 4673 quest 1434.3
   kill 4675 quest 1434.4
-  kill 4674 quest 97265.3 @75.7,15.8 map 1443 -- Hatefury Shadowstalker
-  kill 4675 quest 97265.2
-  kill 4671 quest 97265.1 @76.5,20.5 map 1443 -- Hatefury Trickster, on the way south
-  kill 4672 quest 97265.4
-  kill 4670 quest 97265.5
+  kill 4674 quest 97265.3 optional @75.7,15.8 map 1443 -- Hatefury Shadowstalker
+  kill 4675 quest 97265.2 optional
+  kill 4671 quest 97265.1 optional @76.5,20.5 map 1443 -- Hatefury Trickster, on the way south
+  kill 4672 quest 97265.4 optional
+  kill 4670 quest 97265.5 optional
 
 step Khan Dez'hepah
   zone Desolace
@@ -362,7 +364,7 @@ step Ghost Walker Post
 step Shadowprey Village
   zone Desolace
   tip West to Shadowprey: your hearthstone is bound there.
-  turnin 97265 npc 268705             -- Aka'rai, on the path just north of the village
+  turnin 97265 npc 268705 optional    -- Aka'rai, on the path just north of the village
   turnin 5381                         -- Taiga Wisemane
   turnin 6142                         -- Mai'Lahii
   turnin 6143                         -- Drulzegar Skraghook

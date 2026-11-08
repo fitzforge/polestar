@@ -3727,6 +3727,40 @@
 				}
 			],
 			"faction": "Alliance"
+		},
+		{
+			"id": "1314-arathi-my-little-friends-optional",
+			"at": {
+				"quest": 93176,
+				"goal": "accept"
+			},
+			"faction": "Alliance",
+			"tip": "Amaryllis Webb may not be here on Forever: if Amaryllis Webb doesn't offer My Little Friends, skip it.",
+			"note": "My Little Friends (93176, Amaryllis Webb 217412, Swamp of Sorrows 25.1,54.2) is taken optional, its hand-in in 40-50/01-stranglethorn-vale too, so nothing waits on it: nobody has been recorded taking it or being offered it, and nobody has seen Amaryllis Webb. Its only sources are another addon's Forever data and the web (#1314's pattern: Hearts of the Lost). The seed guides carry the optional goals.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: 0 people accepted, progressed, handed in or were offered 93176; Amaryllis Webb (217412) never seen by anyone, and no Alliance player at level 25 or above has been recorded within about 50 yd of her spawn"
+				}
+			],
+			"issue": 1314
+		},
+		{
+			"id": "1314-desolace-hate-the-hatefury-optional",
+			"at": {
+				"quest": 97265,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"tip": "Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.",
+			"note": "Hate the Hatefury (97265, Aka'rai 268705, Desolace 25.4,67.2) is taken optional, with its kills at Sargeron and its hand-in at Shadowprey, so nothing waits on it: nobody has been recorded taking it or being offered it, and Aka'rai was never seen, though players passed her spot (#1314's pattern: Hearts of the Lost). The seed guide carries the optional goals.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: 0 people accepted, progressed, handed in or were offered 97265; Aka'rai (268705) never seen by anyone, though 2 Horde people (1 established) passed within about 50 yd of her spawn at levels 33-34, in 2 sessions"
+				}
+			],
+			"issue": 1314
 		}
 	]
 }

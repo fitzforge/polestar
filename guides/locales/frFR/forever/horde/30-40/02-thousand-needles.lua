@@ -160,8 +160,8 @@ return {
 	["grind on {npc:4697}"] = "",
 
 	-- Step 31: Shadowprey Village
-	-- {area:606} Gelkis Village · {npc:268705} Aka'rai
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "",
+	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary

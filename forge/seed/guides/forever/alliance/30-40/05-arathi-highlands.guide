@@ -10,6 +10,7 @@ next forever/alliance/30-40/06-badlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe.
+# My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -26,8 +27,9 @@ step Swamp of Sorrows
 step Watcher Biggs
   zone Swamp of Sorrows
   tip Watcher Biggs guards the road junction in the west of the swamp. Amaryllis Webb stands a short way north of him.
+  tip Amaryllis Webb may not be here on Forever: if Amaryllis Webb doesn't offer My Little Friends, skip it.
   accept 1396                         -- Watcher Biggs
-  accept 93176                        -- Amaryllis Webb: three critters to catch in Arathi, Desolace and Stranglethorn
+  accept 93176 optional               -- Amaryllis Webb: three critters to catch in Arathi, Desolace and Stranglethorn
 
 step The western swamp
   tip Young crocolisks, Sorrow Spinners and Swamp Jaguars all roam the swamp around the road.
