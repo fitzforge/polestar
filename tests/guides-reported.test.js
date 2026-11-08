@@ -6043,8 +6043,10 @@ test('Desolace (Horde 30): a Shaman flies from Freewind Post straight to Sun Roc
 	assert.equal(flights[at + 1], 'Sun Rock Retreat', flights.join(', '));
 });
 
-test('The Barrens (Horde 12-16): Druids fly from Ratchet straight to Thunder Bluff for training, not back to the Crossroads first (#1191)', { skip }, () => {
-	for (const [cls, to] of [['DRUID', 'Thunder Bluff'], ['SHAMAN', 'Crossroads']]) {
+// Since the Horde 12-30 re-chain the Barrens are one stay at 15-21: Brewmaster Drohn's keg is handed in on the
+// Ratchet stop before Northwatch Hold, and the next flight is the level 20 training trip from the Crossroads.
+test('The Barrens (Horde 15-21): no flight back to the Crossroads after Brewmaster Drohn; Druids train in Thunder Bluff, the others in Orgrimmar (#1191)', { skip }, () => {
+	for (const [cls, to] of [['DRUID', 'Thunder Bluff'], ['SHAMAN', 'Orgrimmar']]) {
 		const list = goals('forever/horde/02-the-barrens.guide').filter(forClass(cls));
 		const drohn = at(list, 'turnin 819', is('turnin', 819));
 		const next = list.slice(drohn + 1).find(({ goal }) => goal.t === 'fly');
