@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Cuatro piezas de armadura a nivel 30 (camisote, yelmo, guanteletes y musleras) y un escudo por el camino.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Vuelve con {npc:5878}, junto al camino al este de {area:380}. {quest:1848} es la primera pieza; después te envía con tres artesanos para el resto.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Vuela a {area:378}. Al sur del campamento, los Montículos de silítidos salpican {area:390}: los silítidos de allí llevan las Antenas retorcidas.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Cuatro piezas de armadura a nivel 30 (camisote, yelmo, guanteletes y musleras) y un escudo por el camino.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Los mineros funden Lingotes de hierro a partir de {item:2772} ({skill:186} 125); los demás los compran en la casa de subastas de {zone:1454}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug es un jabaespín élite dentro de {area:1717}, la mazmorra del extremo sur de {zone:1413}; suelta el {item:6841}. {area:1717} es una mazmorra: se recomienda ir en grupo.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Lingotes de hierro humeantes de los kóbolds Cortaviento",

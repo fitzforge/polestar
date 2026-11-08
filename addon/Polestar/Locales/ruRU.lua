@@ -1426,6 +1426,7 @@ L["If you finish this guide"] = "Если вы пройдете этот гай�
 L["You are level %d. Level %d is recommended for this guide; from there:"] = "Ваш уровень: %d. Для этого гайда рекомендуется уровень %d; начиная с него:"
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Гайды не показаны: собственные гайды Polestar отключены. Включите их в разделе «Настройки», «Гайды сообщества» (/polestar packs)."
 L["Other starting zones"] = "Другие стартовые зоны"
+-- L["Heads-up"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -3024,6 +3025,12 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+-- QoL/ClassQuests.lua
+-- L["Long chain: %d quests across %d zones on %d continents"] = ""
+-- L["Long chain: %d quests across %d zones"] = ""
+-- L["an escort"] = ""
+-- L["elite mobs at %s: bring a group"] = ""
+-- L["mobs up to level %d"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Vier Rüstungsteile mit 30 (Halsberge, Helm, Stulpen, Beinschützer) und ein Schild unterwegs.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Zurück zu {npc:5878} Firegaze an der Straße östlich vom {area:380}. {quest:1848} ist das erste Teil; danach schickt er dich für den Rest zu drei Handwerkern.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Flieg nach {area:378}. Südlich des Lagers liegen die Silithid-Buckel verstreut auf dem {area:390}: Die Silithiden dort tragen die Zuckenden Fühler.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Vier Rüstungsteile mit 30 (Halsberge, Helm, Stulpen, Beinschützer) und ein Schild unterwegs.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Bergleute verhütten Eisenbarren aus {item:2772} ({skill:186} 125); alle anderen kaufen sie im Auktionshaus in {zone:1454}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug ist ein Elite-Stacheleber in {area:1717}, dem Dungeon am Südende des {zone:1413}; er lässt {item:6841} fallen. {area:1717} ist ein Dungeon: Eine Gruppe wird empfohlen.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Rauchige Eisenblöcke von den Kobolden der Scherwindmine",

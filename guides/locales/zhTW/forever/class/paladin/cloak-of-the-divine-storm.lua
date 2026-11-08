@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "源自舊{spell:407778}故事線的30級稀有披風；目前只有聯盟聖騎士能完成。",
+	-- {area:444} Tower of Althalaxx
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",
@@ -58,6 +58,7 @@ return {
 	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "源自舊{spell:407778}故事線的30級稀有披風；目前只有聯盟聖騎士能完成。",
 	-- ["Back to {area:413}."] = "返回{area:413}。",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "黑石召喚師、黑石勇士和黑石追蹤者在赤脊山西北部紮營；他們會掉落{item:209778}。",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "爬上{zone:1439}北部的{area:444}頂端。拾取那裡的Strange Orb：它會給你奧薩拉克斯寶珠，由此開始任務。",

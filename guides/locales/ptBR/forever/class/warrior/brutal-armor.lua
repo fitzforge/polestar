@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatro peças de armadura no nível 30 (camisão, elmo, manoplas, perneiras) e um escudo no caminho.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "De volta a {npc:5878}, junto à estrada a leste da {area:380}. {quest:1848} é a primeira peça; depois ele manda você a três artesãos para o resto.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Voe até o {area:378}. Ao sul do acampamento, os Montes de Terra Silitídeos salpicam o {area:390}: os silitídeos de lá levam as Antenas Agitadas.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatro peças de armadura no nível 30 (camisão, elmo, manoplas, perneiras) e um escudo no caminho.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Mineradores fundem Barras de Ferro a partir de {item:2772} ({skill:186} 125); os demais as compram na casa de leilões de {zone:1454}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Rugug é um javaligno de elite dentro de {area:1717}, a masmorra no extremo sul de {zone:1413}; ele deixa cair o {item:6841}. {area:1717} é uma masmorra: é recomendado formar grupo.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Lingotes Fumegantes de Ferro dos kobolds de Rochedo Cortavento",

@@ -1717,7 +1717,10 @@ function GF.LayoutBanner(width)
 	elseif kind == "classQuest" then
 		banner.Icon:SetTexture(Theme.Media("icon-train"))
 		local title = string.format(L["Class quest ready: %s"], n.title or "")
-		banner.Text:SetText(n.why and (title .. "\n" .. n.why) or title)
+		local lines = { title }
+		if n.heads then lines[#lines + 1] = n.heads end
+		if n.why then lines[#lines + 1] = n.why end
+		banner.Text:SetText(table.concat(lines, "\n"))
 		local w = placeLink(banner.Jump, L["Open in a tab"], 0, -4)
 		placeLink(banner.Later, L["Later"], w + 10, -4)
 		banner.Close:Show()

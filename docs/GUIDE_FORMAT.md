@@ -833,8 +833,8 @@ compiler writes `group` on the goal, first match wins:
    "Raid: Molten Core");
 3. elite work, the same test as the Leveling-guide elite rule (Validation): a
    `kill` of an npc of rank 1–3 hostile to a side the goal applies to, or a
-   `collect` whose every located dropper is one: `{ kind = "elite", rank }`
-   ("Elite: group advised", "Rare elite: group advised", "Boss: group
+   `collect` whose every located dropper is one: `{ kind = "elite", rank, lvl }`
+   (`lvl`: the elites' highest level, when known; "Elite: group advised", "Rare elite: group advised", "Boss: group
    advised").
 
 The instances come from the Forever client's `Map.csv`, `AreaTable.csv` and

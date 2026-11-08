@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Четыре части доспехов на 30-м уровне (хауберк, шлем, рукавицы, поножи), а по пути еще и щит.",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -107,6 +107,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Вернитесь к {npc:5878} у дороги к востоку от места {area:380}. {quest:1848} — первая часть; затем он отправляет вас к трем мастерам за остальным.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Летите сюда: {area:378}. К югу от лагеря по местности {area:390} разбросаны холмы силитидов: силитиды там носят дергающиеся усики.",
+	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Четыре части доспехов на 30-м уровне (хауберк, шлем, рукавицы, поножи), а по пути еще и щит.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Шахтеры выплавляют железные слитки из руды ({item:2772}, {skill:186} 125); остальные покупают их на аукционе ({zone:1454}).",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Ругуг — элитный свинобраз в подземелье {area:1717} на южной окраине зоны {zone:1413}; он оставляет {item:6841}. {area:1717} — подземелье: лучше собрать группу.",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Закопченые железные слитки с кобольдов из племени Ветрорезов",
