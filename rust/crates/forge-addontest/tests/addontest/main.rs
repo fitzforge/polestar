@@ -56,6 +56,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-aim-accept-first.rs"]
+mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
 mod engine_along;
 #[path = "engine-alt-start.rs"]
