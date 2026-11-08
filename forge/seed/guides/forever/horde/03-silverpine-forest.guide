@@ -323,8 +323,8 @@ step The Sepulcher
   tip Back north-west up the road to the Sepulcher.
   turnin 479                          -- Shadow Priest Allister
   turnin 91920                        -- Apothecary Renferrel
-  turnin 422                          -- Dalar Dawnweaver, just north of Allister
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
+  turnin 422                          -- Dalar Dawnweaver, just north of Allister
 
 step The Ivar Patch
   tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.
