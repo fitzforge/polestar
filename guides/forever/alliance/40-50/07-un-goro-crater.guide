@@ -27,24 +27,23 @@ step Fly to Gadgetzan
   fly "Gadgetzan"
   zone Tanaris
 
+# ---------------------------------------------------------------- Gadgetzan
+
+step Gadgetzan
+  zone Tanaris
+  tip The flight from Theramore lands in Gadgetzan.
+  turnin 2941
+
+step Gadgetzan
+  when group 2944
+  accept 2944
+
 step Sprinkle
   turnin 2641
   accept 2661
   turnin 2661
   accept 2662                         -- Marin Noggenfogger
   turnin 2662                         -- Marin, once he has brewed the elixir: a few seconds
-
-# ---------------------------------------------------------------- Gadgetzan
-
-step Gadgetzan
-  zone Tanaris
-  tip The flight from Theramore lands in Gadgetzan.
-  accept 4504                         -- Tran'rek
-  turnin 2941
-
-step Gadgetzan
-  when group 2944
-  accept 2944
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -122,7 +121,6 @@ step Northern Pylon
   interact 164955 quest 4285.1
   collect 11831 quest 4503            -- Webbed Pterrordax Scale
   collect 11830 quest 4503
-  collect 11834 quest 4504.1                  -- Super Sticky Tar from Tar Lurker and Tar Lord, 60 yd south
 
 step A-Me 01
   tip Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
@@ -198,13 +196,6 @@ step Mystic Ward
   accept 3449                         -- Four rune rubbings in Azshara: keep it
   accept 3450
   accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
-
-step Royal Historian Archesonus
-  tip Archesonus stands beside King Magni in the High Seat.
-  accept 3702
-  complete 3702
-  turnin 3702
-  accept 3701                         -- The relics are in the Burning Steppes: keep it
 
 step Bind and train
   only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock

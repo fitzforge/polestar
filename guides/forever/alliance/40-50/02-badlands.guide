@@ -65,7 +65,6 @@ step Aerie Peak
   accept 2988
   accept 2880                         -- Fraggar Thundermantle, inside
   sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once; below ground
-  accept 2877                         -- Fraggar Thundermantle
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -86,7 +85,6 @@ step Aerie Peak
   accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
   turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top; inside
   note Talonaxe's next task waits for a later Hinterlands guide.
-  accept 2989                         -- Gryphon Master Talonaxe
 
 step Fly to Menethil Harbor
   zone The Hinterlands
@@ -107,6 +105,7 @@ step Theramore
   turnin 1287                         -- Captain Garran Vimes, on the top floor
   accept 1288
   turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
+  turnin 1258                         -- Morgan Stern, inside
 
 step Cortello's Riddle
   when onquest 625

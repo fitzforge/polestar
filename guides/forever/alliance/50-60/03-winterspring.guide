@@ -33,18 +33,14 @@ step Everlook
   accept 6030
   turnin 4808                         -- Felnok Steelspring
   accept 4809
-  accept 6604                         -- Harlo Wigglesworth
   accept 6603                         -- Meggi Peppinrocker walks around Everlook: look inside the circle on the map
   accept 3783                         -- Umi Rumplesnicker
   collect 12383 quest 978.1                   -- Moontouched Feather, 110 yd north
 
 step Wynd Nightchaser
-  turnin 5249
   accept 5244                         -- Wynd Nightchaser
-  turnin 6604                         -- Jaron Stoneshaper
   turnin 5244                         -- Jaron Stoneshaper
   accept 5245
-  accept 4861
 
 # ---------------------------------------------------------------- West along the road
 
@@ -119,26 +115,6 @@ step Everlook
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
   kill 10978 quest 5163.1             -- Legacki: Sprinkle and Quixxil come later
 
-# ---------------------------------------------------------------- The south
-
-step Jaron's camp
-  tip Ride south-east down the valley to Jaron's damaged crate in the snow at Mazthoril, with his wrecked wagon just east of it.
-  turnin 4861                         -- Damaged Crate
-  accept 4863
-  turnin 4863                         -- Jaron's Wagon
-  accept 4864
-
-step Jaron's supplies
-  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
-  collect 12524 quest 4864.2          -- Blue-feathered Amulet
-  collect 12525 quest 4864.1          -- Jaron's Supplies
-
-# ---------------------------------------------------------------- Back west
-
-step Starfall Village
-  tip Ride north-west back to the village.
-  turnin 4864                         -- Jaron Stoneshaper
-
 step Winterspring
   zone Winterspring
   goto 62.3,36.6 "Winterspring"
@@ -170,7 +146,12 @@ step Chillwind Camp
   tip From Southshore, ride north up the road through Alterac to Chillwind Camp.
   turnin 6028                         -- Argent Officer Pureheart
   accept 5903                         -- Nathaniel Dumah: the termites come later, in Terrordale
-  getfp "Chillwind Camp"
+  accept 5097                         -- Commander Ashlam Valorfist: the watchtowers are in Andorhal, keep it
+  accept 5219                         -- High Priestess MacDonnell: the cauldron is at Dalson's Tears, keep it
+
+step Mulgris Deepriver
+  tip Mulgris stands by the farm at the Writhing Haunt, on the road east to the Eastern Plaguelands.
+  accept 4984                         -- Inside
 
 # ---------------------------------------------------------------- Chillwind Camp
 
@@ -217,10 +198,6 @@ step Light's Hope Chapel
   accept 6021 optional                -- Caretaker Alen: Zaeldarr is a level 54 elite
 
 # ---------------------------------------------------------------- Eastern Plaguelands
-
-step Light's Hope Chapel
-  zone Eastern Plaguelands
-  accept 5281                         -- Caretaker Alen, by the graves south of the chapel
 
 step Corin's Crossing
   tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.

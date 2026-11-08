@@ -198,6 +198,11 @@ step Fly to Aerie Peak
   fly "Aerie Peak"
   zone The Hinterlands
 
+step Aerie Peak
+  zone The Hinterlands
+  accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
+  accept 2877                         -- Fraggar Thundermantle, inside
+
 step The Hinterlands
   zone The Hinterlands
   goto 26.9,48.6 "The Hinterlands"

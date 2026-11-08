@@ -9,7 +9,7 @@ next forever/alliance/40-50/02-badlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769).
+# Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
 # Left out: The Bloodsail Buccaneers (608).
@@ -42,6 +42,7 @@ step Archmage Tervosh
 
 step Theramore
   turnin 1204                         -- Morgan Stern, inside
+  accept 1258                         -- Morgan Stern: the crawlers are on the Swamp of Sorrows shore, keep it
 
 # ---------------------------------------------------------------- The north
 
@@ -291,7 +292,6 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627                          -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   accept 617                          -- Privateer Bloads
   turnin 669                          -- Fleet Master Seahorn, top floor
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
@@ -427,6 +427,7 @@ step Booty Bay
   note MacKinley's next task sends you after elite ogres: skip it.
   turnin 600                          -- Crank Fizzlebub
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
 
 step Level 42.23
   when !group 193
@@ -617,6 +618,7 @@ step The sunken temple
 step Misty Reed Strand
   tip The driftwood washes up along the eastern shore.
   collect 6146 quest 1398             -- Sundried Driftwood
+  collect 5938 quest 1258             -- Pristine Crawler Leg, from the Silt Crawlers on the same shore
 
 step Watcher Biggs
   turnin 1398
