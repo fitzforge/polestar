@@ -81,7 +81,7 @@ return {
 
 	-- Step 16: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1637} Orgrimmar
 	["Back out of the inn to the flight master and fly to {area:1637}."] = "",
 	-- {area:431} Splintertree Post

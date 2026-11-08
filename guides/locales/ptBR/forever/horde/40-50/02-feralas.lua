@@ -180,7 +180,7 @@ return {
 
 	-- Step 45: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 

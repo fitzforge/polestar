@@ -35,7 +35,7 @@ return {
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	["Crossroads flight master"] = "",
 
 	-- Step 9: Thrall

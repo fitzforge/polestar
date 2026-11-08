@@ -80,7 +80,7 @@ return {
 
 	-- Step 17: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "",
+	["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
 	-- {area:228} Sepulcher
 	["{area:228} flight master"] = "Maître de vol du {area:228}",
 

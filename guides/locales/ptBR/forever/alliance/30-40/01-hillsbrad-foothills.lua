@@ -60,7 +60,7 @@ return {
 	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "",
 
 	-- Step 14: The Villards
-	["The Villards"] = "",
+	["The Villards"] = "Os Villard",
 	-- {npc:5683} Corma Villard · {area:205} Dun Modr · {area:880} Thandol Span · {npc:271322} Essene Villard · {npc:1075} Rhag Garmason · {quest:87318} Hearts of the Lost
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
 	["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to {npc:1075}.\n{npc:5683} may not offer {quest:87318} yet: if she doesn't, skip it.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "",
@@ -253,7 +253,6 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Os Goaz Warders ficam logo a oeste do acampamento de Whelgar: use a {item:279996} que ele lhe deu ao lado de um deles.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "O acampamento da Camarilha fica na divisa com as Montanhas de Alterac, no norte de {area:287}, a oeste de {area:272} (Horda); os documentos estão no acampamento.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Os murlocs Rancapina lotam {area:295}, a sudoeste de {area:271}.",
-	-- ["The Villards"] = "Os Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A etapa seguinte, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho de volta para o sul.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Para o oeste, até as fazendas de {area:287}: coloque {item:279386} na mesa de contabilidade da prefeitura, onde ficam {npc:2335} e os conselheiros.",

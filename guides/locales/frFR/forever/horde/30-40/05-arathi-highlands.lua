@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "",
+	["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "Maître de vol de {zone:1458}",
 

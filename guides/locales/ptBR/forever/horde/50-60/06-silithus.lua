@@ -199,7 +199,7 @@ return {
 
 	-- Step 46: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
