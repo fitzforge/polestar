@@ -557,6 +557,148 @@ fn step_key_interact_stage_talks_to_the_targeted_step_npc_loots_its_mob_and_acce
 	);
 }
 
+// #1316: the step key also targets the mobs of the While you're here rows (Engine.GetWhileHereList, nearest
+// first; their raw goals by Engine.AlongGoal): after the step's own names, one from each row in turn, no name
+// twice, as many as fit the macro; an item, the Hearthstone or an NPC keeps the key; changed only out of combat;
+// off with behavior.whileHereStepKey. rows(list) puts the rows up (each a goal view, its raw goal as `raw`) and
+// fires WHILE_HERE_CHANGED; names() reads the names the step key's macro tries, in order.
+const HERE_ROWS: &str = r#"
+Polestar.Set("behavior.whileHereStepKey", true)
+local shown = {}
+q.Engine.GetWhileHereList = function()
+	local out = {}
+	for i, r in ipairs(shown) do out[i] = r end
+	return out
+end
+q.Engine.AlongGoal = function(s, g)
+	for _, r in ipairs(shown) do
+		if r.step == s and r.index == g then return r.raw end
+	end
+end
+local function rows(list)
+	shown = list
+	for i, r in ipairs(shown) do
+		r.step, r.index, r.status, r.raw = r.step or 20 + i, r.index or 1, r.status or "active", r.raw or {}
+	end
+	Polestar.Fire("WHILE_HERE_CHANGED")
+	stub.runTimers()
+end
+local function names()
+	local out = {}
+	for line in (PolestarStepButton:GetAttribute("macrotext") or ""):gmatch("[^\n]+") do
+		local name = line:match("^/targetexact %[noexists%] (.+)$") or line:match("^/targetexact (.+)$")
+		if name then out[#out + 1] = name end
+	end
+	return table.concat(out, ", ")
+end
+"#;
+
+#[test]
+fn step_key_the_step_s_own_names_first_then_one_mob_from_each_while_you_re_here_row_nearest_first_no_name_twice_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })
+		emit(names())
+		rows({
+			{ t = "kill", subject = "Boar" },
+			{ t = "collect", npc = 7, npcName = "Kobold Miner", raw = { fromNpcs = { { npcName = "Kobold Tunneler" } } } },
+			{ t = "kill", subject = "Murloc" },
+			{ t = "interact", subject = "Cart" },
+			{ t = "kill", subject = "Gnoll", status = "done" },
+		})
+		emit(names())
+		q.click(PolestarStepButton, true)
+		q.click(PolestarStepButton, false)
+		emit(names())
+	"#
+	));
+	assert_eq!(out[0], "Wolf, Boar");
+	// Five names, the fifth (Kobold Tunneler, a row's second) past 255 bytes.
+	assert_eq!(out[1], "Wolf, Boar, Kobold Miner, Murloc", "the step's own first; Boar not twice; each row's first name before any row's second; no interact or done row");
+	assert_eq!(out[2], "Boar, Kobold Miner, Murloc, Kobold Tunneler", "a press moves to the next name; the one that fits now comes in, Wolf goes off the end");
+}
+
+#[test]
+fn step_key_with_nothing_else_to_do_it_targets_the_while_you_re_here_mobs_an_item_or_an_npc_keeps_the_key_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		local s = PolestarStepButton
+		local function now() return { s:GetAttribute("type") or "nil", s:GetAttribute("item") or names() } end
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		emit(now())
+		rows({ { t = "kill", subject = "Murloc" }, { t = "kill", subject = "Kobold Vermin" } })
+		emit(now())
+		q.step({ { t = "use", item = 900, quest = 9, oi = 1 } })
+		emit(now())
+		q.step({ { t = "talk", npc = 197, npcName = "Marshal McBride" } })
+		emit(now())
+	"#
+	));
+	assert_eq!(out[0], json!(["nil", ""]));
+	assert_eq!(out[1], json!(["macro", "Murloc, Kobold Vermin"]), "no action of its own: the rows' mobs");
+	assert_eq!(out[2], json!(["item", "item:900"]), "a use goal keeps its item");
+	assert_eq!(out[3], json!(["macro", "Marshal McBride"]), "an NPC goal keeps its NPC");
+}
+
+#[test]
+fn step_key_while_you_re_here_names_past_the_macro_limit_are_left_out_never_the_step_s_own_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		-- 31 bytes a name: the macro holds three (240 bytes), not four (316).
+		local long = string.rep("W", 30)
+		q.step({ { t = "kill", target = long .. "1" }, { t = "kill", target = long .. "2" } })
+		rows({ { t = "kill", subject = long .. "3" }, { t = "kill", subject = long .. "4" } })
+		emit({ #PolestarStepButton:GetAttribute("macrotext"), (names():gsub("W", "")) })
+	"#
+	));
+	assert_eq!(out[0], json!([240, "1, 2, 3"]));
+}
+
+#[test]
+fn step_key_while_you_re_here_rows_that_change_in_a_fight_leave_the_macro_alone_until_it_ends_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		q.step({ { t = "kill", target = "Wolf" } })
+		rows({ { t = "kill", subject = "Murloc" } })
+		emit(names())
+		q.combat(true)
+		rows({ { t = "kill", subject = "Kobold Vermin" } })
+		emit({ names(), Polestar.QoL.HasQueued("step") })
+		q.combat(false)
+		emit({ names(), Polestar.QoL.HasQueued("step") })
+	"#
+	));
+	assert_eq!(out[0], "Wolf, Murloc");
+	assert_eq!(out[1], json!(["Wolf, Murloc", true]), "in combat the macro stays, the change waits");
+	assert_eq!(out[2], json!(["Wolf, Kobold Vermin", false]), "applied once combat ends");
+}
+
+#[test]
+fn step_key_with_behavior_whileherestepkey_off_it_targets_only_the_step_s_own_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		q.step({ { t = "kill", target = "Wolf" } })
+		rows({ { t = "kill", subject = "Murloc" } })
+		Polestar.Set("behavior.whileHereStepKey", false)
+		stub.runTimers()
+		emit(names())
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		emit(PolestarStepButton:GetAttribute("type") or "nil")
+		Polestar.Set("behavior.whileHereStepKey", true)
+		stub.runTimers()
+		emit(names())
+	"#
+	));
+	assert_eq!(out, vec![json!("Wolf"), json!("nil"), json!("Murloc")]);
+}
+
 // #1182: in Forever's combat restrictions the target's name can be a secret value, and comparing one throws
 // ("attempt to compare a secret string value"). The interact stage reads a secret name as unknown and never
 // compares it: the NPC id still matches the step's NPC, and a target known only by a secret name is not matched.

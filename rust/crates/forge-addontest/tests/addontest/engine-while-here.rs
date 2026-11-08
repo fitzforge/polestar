@@ -810,3 +810,39 @@ fn the_position_poll_allocates_nothing_per_tick() {
 	assert!(shown < 0.5, "2000 polls with the line shown allocated {shown:.2} KiB");
 	assert!(idle < 0.5, "2000 polls measuring every candidate allocated {idle:.2} KiB");
 }
+
+// #1316, end to end: the whole addon (QoL with the real Engine). The step key targets the live step's wolves; once
+// the vermin's line shows it targets them after the wolves; with the option off only the wolves again. The option
+// is on by default.
+#[test]
+fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/here" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&GUIDE.replace("ESCORT", ""),
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			r#"
+			local function key() return PolestarStepButton:GetAttribute("macrotext") or "nil" end
+			emit({ Polestar.GetDefault("behavior.whileHereStepKey"), lines(), key() })
+			at(47.6, 37.6); flush()
+			emit({ lines(), key() })
+			Polestar.Set("behavior.whileHereStepKey", false); flush()
+			emit(key())
+			"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	let wolves = "/cleartarget [nocombat]\n/targetexact Young Wolf\n/cleartarget [dead]";
+	assert_eq!(out[0], json!([true, "", wolves]));
+	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]")]));
+	assert_eq!(out[2], wolves);
+}
