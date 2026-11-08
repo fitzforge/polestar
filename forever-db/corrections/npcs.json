@@ -1,4 +1,20 @@
 {
+	"1411": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 120 (Booty Bay, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 1411 seen neutral, never attacked (rec.py npc 1411, 2 people)"
+			}
+		],
+		"note": "Ian Strom, the rogue trainer in Booty Bay, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
+	},
 	"1738": {
 		"addSpawns": {
 			"1420": {
@@ -262,6 +278,22 @@
 		],
 		"note": "Bloodfury Ambusher (npc 4025) also camps at Stonetalon Mountains 35.3-35.4,63.2-64.3, east of the points our data had (29.6-32.1,58.6-65.3). Keeps those points and adds the eastern camp."
 	},
+	"6707": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 471 (Ravenholdt, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 6707 seen neutral, his trainer window opened for an Alliance rogue (rec.py npc 6707)"
+			}
+		],
+		"note": "Fahrad, the grand master rogue trainer at Ravenholdt Manor, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
+	},
 	"10181": {
 		"set": {
 			"spawns": {
@@ -305,6 +337,22 @@
 			}
 		],
 		"note": "The Great Cat Spirit (npc 11957), giver and ender of the druids' Cat Form quests (98394, 98396, 98731 for Night Elves; 98405, 98342, 98739 for Tauren), stands on the hill by the bridge in southern Moonglade at 54.5,75.0 (map 1450). The merged data had 58.39,73.52, about 90 yards east, where players found nobody. Replaces the map's points."
+	},
+	"12042": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 994 (Cenarion Circle, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "trainer window opened for Alliance druids (Night Elf, Skyborne: 7 sessions) and Horde druids (Tauren, Skyborne: 6 sessions); seen neutral by 14 people"
+			}
+		],
+		"note": "Loganaar, the druid trainer in Nighthaven (Moonglade), trains both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua, and the Horde 50-60 guides' Moonglade training step (Felwood, Eastern Plaguelands) sent Druids to Hana Lighthoof in Mulgore (#1357 sweep)."
 	},
 	"13155": {
 		"set": {
