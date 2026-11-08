@@ -147,6 +147,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
 	("Polestar/QoL/Buttons.lua", 3, "the step key's interact stage binds its keys over, never with the gamepad interface"),
+	("Polestar_Mob_Markers/MobMarkers.lua", 3, "/mobmarkers and /pmm, not with the gamepad interface"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),
 	("Polestar_Recorder/Panel.lua", 1, "the Recorder window's Escape entry, not with the gamepad interface"),
 ];
