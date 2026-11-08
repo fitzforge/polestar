@@ -114,7 +114,11 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "",
 
-	-- Step 20: Dolanaar: the relics and Ferocitas
+	-- Step 20: Dolanaar: the Ban'ethil Barrow Den's entrance
+	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
+	["{area:186}: the {area:262}'s entrance"] = "",
+
+	-- Step 21: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar
 	["{area:186}: the relics and Ferocitas"] = "",
 	-- {area:262} Ban'ethil Barrow Den · {area:186} Dolanaar
@@ -123,15 +127,15 @@ return {
 	-- {item:8050} Tallonkai's Jewel · {quest:2459} Ferocitas the Dream Eater
 	["{item:8050}, from {quest:2459}"] = "",
 
-	-- Step 21: Dolanaar: Ursal the Mauler
+	-- Step 22: Dolanaar: Ursal the Mauler
 	-- {quest:486} Ursal the Mauler · {area:478} Pools of Arlithrien · {zone:1438} Teldrassil
 	["{quest:486}, a big bear, roams the {area:478} in south-west {zone:1438}."] = "",
 
-	-- Step 22: Auberdine
+	-- Step 23: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
 	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "",
 
-	-- Step 23: Auberdine: the coast and the woods
+	-- Step 24: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
 	["{area:442}: the coast and the woods"] = "",
 	-- {area:445} Cliffspring Falls
@@ -140,21 +144,21 @@ return {
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "",
 
-	-- Step 24: Auberdine: first hand-in
+	-- Step 25: Auberdine: first hand-in
 	-- {area:442} Auberdine
 	["{area:442}: first hand-in"] = "",
 
-	-- Step 25: Auberdine: the furbolgs, the bears and the grells
+	-- Step 26: Auberdine: the furbolgs, the bears and the grells
 	-- {area:442} Auberdine
 	["{area:442}: the furbolgs, the bears and the grells"] = "",
 	-- {quest:955} Bashal'Aran
 	["The Blackwood furbolgs camp south of town; the grells of {quest:955}, east of town, drop the earrings; the sea turtle remains lie on the beach west of town."] = "",
 
-	-- Step 26: Auberdine: second hand-in
+	-- Step 27: Auberdine: second hand-in
 	-- {area:442} Auberdine
 	["{area:442}: second hand-in"] = "",
 
-	-- Step 27: Auberdine: the seal, the Den Mother and the pelts
+	-- Step 28: Auberdine: the seal, the Den Mother and the pelts
 	-- {area:442} Auberdine · {npc:6788} Den Mother
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
@@ -162,19 +166,19 @@ return {
 	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "",
 
-	-- Step 28: Additional Runecloth to Honored
+	-- Step 29: Additional Runecloth to Honored
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801} до уровня «Уважение»",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
 	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
 
-	-- Step 29: Additional Runecloth to Revered
+	-- Step 30: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Revered"] = "{quest:7801} до уровня «Почтение»",
 	-- {item:14047} Runecloth
 	["Honored: in Classic Darnassus's vendors take 10% off for you, Lelanai's nightsabers (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
 
-	-- Step 30: Additional Runecloth to Exalted
+	-- Step 31: Additional Runecloth to Exalted
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Exalted"] = "{quest:7801} до уровня «Превознесение»",
 	-- {item:14047} Runecloth · {area:1658} Cenarion Enclave · {faction:69} Darnassus

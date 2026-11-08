@@ -222,6 +222,12 @@ step Dolanaar: first hand-in
   turnin 87288
   turnin 487
 
+# Players' recordings: the Ban'ethil Barrow Den's mouth near 44.3,57.9, on its north-east side
+# (18 people walked in there); the walking maps have no way into the barrow (#1336).
+step Dolanaar: the Ban'ethil Barrow Den's entrance
+  when done dn-dolanaar
+  goto 44.3,57.9 live "Ban'ethil Barrow Den"
+
 step Dolanaar: the relics and Ferocitas
   when done dn-dolanaar
   tip The four relics of Wakening lie in the Ban'ethil Barrow Den, south-west of Dolanaar; Ferocitas and the Gnarlpine Mystics camp east of the village.

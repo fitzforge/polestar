@@ -4129,6 +4129,32 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1336-insane-druids-barrow-den",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1012,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The three druids are inside The Dor'Danil Barrow Den, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. Taneel Darkwood is in the eastern halls, Uthil Mooncall deepest down at the north-east end and Mavoris Cloudsbreak at the western end.",
+			"note": "Insane Druids (1012): Taneel Darkwood (3940, 77.18,73.99, z 83.1), Uthil Mooncall (3941, 77.96,72.74, z 37.7) and Mavoris Cloudsbreak (3942, 75.05,74.2, z 61.2) are inside The Dor'Danil Barrow Den, apart, not together at the Forsaken camp as the tip said. Its mouth is at 75.95,75.45; the walking maps have no way into the barrow, so the guide's goto at the mouth (forge/seed) leads in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1336: Bennistrov at 76.02,75.40 (the barrow's mouth) asked for the arrow to lead to the cavern entrance"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: 2 people walked in at 75.7,75.6 -> 76.15,75.5; one killed the three druids indoors at 77.15,73.95, 78.11,72.87 and 74.74,74.19"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3940, 3941, 3942 spawns on map 1440; spawnz.json heights 83.1, 37.7, 61.2"
+				}
+			],
+			"issue": 1336
 		}
 	]
 }

@@ -244,10 +244,14 @@ return {
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 
-	-- Step 48: Insane druids
+	-- Step 48: The Dor'Danil Barrow Den's entrance
+	-- {area:432} The Dor'Danil Barrow Den
+	["{area:432}'s entrance"] = "",
+
+	-- Step 49: Insane druids
 	["Insane druids"] = "发狂的德鲁伊",
-	-- {area:2358} Forest Song
-	["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
+	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
 	["{npc:3940}, inside {area:432}"] = "",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
@@ -255,45 +259,45 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "",
 
-	-- Step 49: Satyrnaar
+	-- Step 50: Satyrnaar
 	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
 
-	-- Step 51: Night Run
+	-- Step 52: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "第二个{object:19901}在{area:428}的山谷里，就在向西的路上。",
 
-	-- Step 53: Hidden Shrine
+	-- Step 54: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "隐蔽的神龛在月亮井东南方不远处的山丘上；沿蜿蜒的小路上去。",
 
-	-- Step 56: Krolg
+	-- Step 57: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。",
 
-	-- Step 57: Ran Bloodtooth
+	-- Step 58: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
 
-	-- Step 59: Melyria and Illiyana
+	-- Step 60: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "",
 
-	-- Step 60: Delgren the Purifier
+	-- Step 61: Delgren the Purifier
 	-- {area:413} Maestra's Post
 	["North to {area:413}."] = "",
 
-	-- Step 61: Astranaar
+	-- Step 62: Astranaar
 	-- {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
 	["South-east along the road to {area:415}: {npc:3691} in the inn, {npc:3961} and {npc:3894} inside, the flight master at the west end."] = "",
 
-	-- Step 62: Fly to Auberdine
+	-- Step 63: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
-	-- Step 64: Fly to Ironforge
+	-- Step 65: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {npc:1571} Shellei Brondir
@@ -301,40 +305,40 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 66: Ironforge priests
+	-- Step 67: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "{zone:1455}的牧师",
 	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 
-	-- Step 67: Tram to Stormwind City
+	-- Step 68: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Tram to {zone:1453}"] = "",
 
-	-- Step 68: Cathedral of Light
+	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
 	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "从{object:171524}乘{area:2257}前往{zone:1453}的{object:28027}，然后步行到{object:2098}。",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}，在光明大教堂",
 
-	-- Step 69: Stormwind Keep
+	-- Step 70: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["Only if you looted {quest:337} in {zone:1431}"] = "仅当你在{zone:1431}拾取了{quest:337}",
 
-	-- Step 70: Lord Grayson Shadowbreaker
+	-- Step 71: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker
 	["Back to the Cathedral of Light: {npc:928} stands inside."] = "回到光明大教堂：{npc:928}站在里面。",
 	-- {npc:2228} Lieutenant Farren Orinelle · {area:271} Southshore
 	["For {npc:2228} in {area:271}: keep it"] = "交给{area:271}的{npc:2228}：先留着",
 
-	-- Step 71: Jorgen and Elling Trias
+	-- Step 72: Jorgen and Elling Trias
 	-- {npc:4959} Jorgen · {npc:482} Elling Trias
 	["{npc:4959} and {npc:482}"] = "{npc:4959}和{npc:482}",
 	-- {npc:482} Elling Trias · {object:2096} Trade District
 	["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}，在{object:2096}的奶酪店",
 
-	-- Step 72: Trade District
+	-- Step 73: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "下一步：飞往{area:42}。",
 

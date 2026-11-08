@@ -235,6 +235,12 @@ step Darnassus
   use 279378 quest 98067.2 @41.04,43.55       -- Lunar Pendant: the bank, on the way out
   use 279378 quest 98067.4 @89.14,34.76       -- the city gate
 
+# Players' recordings: the barrow's mouth near 44.3,57.9, on its north-east side (18 people walked
+# in there); the walking maps have no way into the barrow, so the arrow would cross the hill (#1336).
+step Ban'ethil Barrow Den's entrance
+  zone Teldrassil
+  goto 44.3,57.9 live "Ban'ethil Barrow Den"
+
 step Ban'ethil Barrow Den
   zone Teldrassil
   tip The barrow is south of the road. Sentinel Lynessa Duskblossom is held inside, Oben Rageclaw sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.
