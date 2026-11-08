@@ -244,6 +244,8 @@ test(`${TIRISFAL}: yiliev0's report (#674): Gordo's report is searched for along
 
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
+	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
+	if (!list.some(({ goal }) => goal.quest === 6543)) return;
 	for (const [item, npc, name] of [[16764, 12862, 'Warsong Scout'], [16763, 12863, 'Warsong Runner'], [16765, 12864, 'Warsong Outrider']]) {
 		const { goal } = list[at(list, `collect ${item} (${name})`, (g) => g.t === 'collect' && g.item === item)];
 		assert.deepEqual(goal.fromNpcs, [{ npc, npcName: name }], `${name} is the goal's hand-over NPC`);
@@ -324,8 +326,10 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
-	// Horde 12-30 re-chain: Durotar ends in Orgrimmar, and Far Watch Post (Kargal) opens the Barrens guide after Silverpine.
-	assert.ok(!list.some(({ goal }) => is('turnin', 840)(goal)), 'Kargal at Far Watch Post is the Barrens guide\'s');
+	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Since the final route review (0.3.5) Conscript of the Horde is
+	// handed to Kargal at Far Watch Post before Orgrimmar (no carry through Silverpine), after Orgnil.
+	const mage = list.filter(forClass('MAGE'));
+	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
 	const orgnil = list[threat].goal.npc;
 	assert.deepEqual(list.slice(threat + 1).filter(({ goal }) => goal.npc === orgnil && !goal.optional && !is('turnin', 99051)(goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
@@ -337,7 +341,7 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
 		// Far Watch Post (Kargal, Uzzek) comes first on the walk from Orgrimmar; the Crossroads stop takes Meats to Orgrimmar.
 		const first = list[at(list, `${race}: accept 6365`, is('accept', 6365))].step;
-		assert.ok(list.findIndex(({ goal }) => is('turnin', 840)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post before the Crossroads`);
+		assert.ok(list.findIndex(({ goal }) => is('accept', 842)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post (Crossroads Conscription) before the Crossroads`);
 		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
@@ -1399,7 +1403,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 // (Horde 12-30 re-chain) the walk runs south along the lake shore from the Yoricks' house to Ambermill, one
 // Sepulcher stop hands in everything, and the level 19-21 quests (Journey to Hillsbrad, Beren's Peril,
 // Watching the Roads) ride with the Sepulcher stop of the ride to Hillsbrad at 22. Fenris Isle's Rot Hide
-// gnolls (15-17, the keep 18-22) are left out at 12-15.
+// gnolls (15-17, the keep 18-22) are left out at 12-15. The Decrepit Ferry's boat on that shore is handed in on
+// the walk (final route review, 0.3.5): a hand-in to an object there is no Sepulcher stop.
 test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 quests on the ride to Hillsbrad, no Fenris Isle at 12-15`, { skip }, () => {
 	const list = goals(SILVERPINE);
 	const stop = list[at(list, 'accept 91921 (Return to Quinn (Again))', is('accept', 91921))].s;
@@ -1408,7 +1413,7 @@ test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 qu
 	}
 	const eyes = at(list, 'the murloc eyes (91920)', (g) => g.quest === 91920 && g.t === 'collect');
 	const pendants = at(list, 'the Dalaran Pendants (479)', (g) => g.quest === 479 && g.t === 'collect');
-	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
+	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional && goal.npc != null).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
 	assert.deepEqual(list.filter(({ goal }) => [443, 460, 461, 493, 516, 95981].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Fenris Isle, and the level 19-21 quests wait for the ride to Hillsbrad');
 	const ride = goals(STONETALON);
 	const sep = ride[at(ride, 'accept 493', is('accept', 493))].s;
@@ -2597,10 +2602,11 @@ const STONETALON_HORDE = 'forever/horde/05-stonetalon-mountains.guide';
 
 test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's`, { skip }, () => {
 	const list = goals(STONETALON_HORDE);
-	const kadrak = [is('turnin', 6541), is('accept', 6543), is('turnin', 6543)].map((p, i) => list[at(list, `Kadrak goal ${i + 1}`, p)].goal);
-	for (const g of kadrak) assert.equal(g.map, 1413, `${g.t} ${g.quest} is on The Barrens (1413), not ${g.map}`);
-	const scout = list[at(list, 'the Warsong Scout Update', (g) => g.t === 'collect' && g.item === 16764)].goal;
-	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
+	// (The Warsong Reports, 6543, is left out since the final route review; Kadrak keeps Report to Kadrak.)
+	const kadrak = list[at(list, 'turnin 6541', is('turnin', 6541))].goal;
+	assert.equal(kadrak.map, 1413, `${kadrak.t} ${kadrak.quest} is on The Barrens (1413), not ${kadrak.map}`);
+	const outrunners = list[at(list, 'the Ashenvale Outrunners', (g) => g.t === 'kill' && g.npc === 12856)].goal;
+	assert.equal(outrunners.map, 1440, 'the Outrunners are still in Ashenvale');
 });
 
 // Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
@@ -2995,6 +3001,8 @@ test("#289: a quest item picked up from objects is collected at one of the objec
 test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout', { skip }, () => {
 	const guide = 'forever/horde/05-stonetalon-mountains.guide';
 	const list = goals(guide);
+	// Left out since the final route review (route-fixes skip 6543); holds whenever a build takes it again.
+	if (!list.some(({ goal }) => is('accept', 6543)(goal))) return;
 	const reports = at(list, 'the Warsong Reports', (g) => g.t === 'collect' && g.item === 16746 && !g.quest);
 	assert.equal(list[reports].goal.count || 1, 1, 'any report in the bags shows the bundle was opened');
 	assert.equal(list[reports].step, list[at(list, 'accept 6543', is('accept', 6543))].step, 'opened on the Kadrak step');
@@ -4671,10 +4679,15 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 // Flow review, Durotar: Warriors walked past Kargal Battlescar, 3 yd from Uzzek, to the thunder lizards
 // and back for Conscript of the Horde. Troll Durotar: Lar Prowltusk on the first Sen'jin stop (as the
 // Orc guide), Razor Hill once after Tiragarde Keep, the eggs and tiger fur where the coast walk meets them.
-for (const race of ['Orc', 'Troll']) test(`forever/horde/02-the-barrens.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop`, { skip }, () => {
-	const list = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+// Since the final route review (0.3.5) that Far Watch stop ends the Durotar guide: Kargal and Uzzek together, the
+// lizards on Thunder Ridge on the road north to Orgrimmar, Path of Defense to Uzzek when the Barrens guide passes.
+for (const race of ['Orc', 'Troll']) test(`forever/horde/${race.toLowerCase()}/01-durotar.guide: flow review: ${race} Warriors hand Conscript of the Horde to Kargal with Uzzek`, { skip }, () => {
+	const list = goals(`forever/horde/${race.toLowerCase()}/01-durotar.guide`).filter(forClass('WARRIOR'));
 	assert.equal(list[at(list, 'turnin 840', is('turnin', 840))].s, list[at(list, 'turnin 1505', is('turnin', 1505))].s, 'with Uzzek, before the lizards');
 	assert.equal(list.filter(({ goal }) => is('turnin', 840)(goal)).length, 1, 'handed in once');
+	assert.ok(at(list, 'turnin 1505', is('turnin', 1505)) < at(list, 'collect 6486', (g) => g.t === 'collect' && g.item === 6486), 'the lizards after Uzzek');
+	const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+	assert.ok(at(barrens, 'turnin 1498', is('turnin', 1498)) < at(barrens, 'accept 6365', is('accept', 6365)), 'Path of Defense to Uzzek on the way to the Crossroads');
 });
 
 test(`${TROLL_DUROTAR}: flow review: Lar Prowltusk on the first Sen'jin stop, Razor Hill once after the keep, eggs and fur on the coast walk`, { skip }, () => {
@@ -4962,13 +4975,14 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
-	// Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop (#1159); the last Far Watch step is for
-	// everyone else, or its hand-in is one a Warrior no longer holds.
-	// (Far Watch Post opens the Barrens guide since the Horde 12-30 re-chain.)
-	for (const race of ['Orc', 'Troll']) {
-		const warrior = barrens.filter(forRaceOf(race)).filter(forClass('WARRIOR')).filter(({ goal }) => is('turnin', 840)(goal));
-		assert.equal(warrior.length, 1, `${race}: a Warrior hands in 840 once`);
+	// Conscript of the Horde is handed in once, at the end of the Durotar guides (final route review, 0.3.5): Shamans
+	// at Far Watch on the way to Kranal, everyone else before Orgrimmar; the Barrens guide carries none.
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		for (const cls of ['WARRIOR', 'SHAMAN', 'MAGE']) {
+			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
+		}
 	}
+	assert.ok(!barrens.some(({ goal }) => is('turnin', 840)(goal)), 'no Conscript of the Horde carried into the Barrens');
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
@@ -4981,7 +4995,8 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	const thalo = at(early, 'accept 891', is('accept', 891));
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
 	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
-	assert.ok(eggs > at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs after Jorn\'s thunderhawks, before Korran');
+	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	assert.ok(eggs > wings && eggs < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs right after Jorn\'s thunderhawks, before his hand-in and Korran');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
@@ -5004,6 +5019,48 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 	const sunrock = goals('forever/horde/04-the-barrens.guide');
 	const jinzil = sunrock[at(sunrock, 'accept 1058', is('accept', 1058))].step;
 	assert.ok(!/back to the Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
+});
+
+// Final route review before 0.3.5, Horde 1-30: three walks back to a town between two pieces of work on one road
+// (Jorn in Camp Taurajo between his thunderhawks and the Field of Giants' eggs south of them; Tarren Mill between the
+// bears on the slope down to Hillsbrad Fields and the fields; the Sepulcher and the Decrepit Ferry, a boat the later
+// shore walk to Ambermill passes), and texts that sent players the wrong way or to the wrong guide.
+test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after Hillsbrad Fields, the Decrepit Ferry on the shore walk; tips that match the route', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const [a, b] of [[['task', 868], ['turnin', 913]], [['task', 527], ['turnin', 496]], [['task', 91920], ['turnin', 438]], [['turnin', 438], ['task', 479]]]) {
+		assert.ok(fixes.overrides.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === `${a}` && `${p.b}` === `${b}`), `pair ${a} before ${b} is a record the build keeps`);
+	}
+	const barrens = goals(BARRENS);
+	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
+	assert.ok(wings < eggs && eggs < jorn, 'the thunderhawks, the eggs, then Jorn on the way back north');
+	assert.ok(!barrens.slice(wings + 1, eggs).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the hawks and the eggs');
+	const warrior = barrens.filter(forClass('WARRIOR'));
+	assert.equal(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s, warrior[at(warrior, 'turnin 913', is('turnin', 913))].s, 'Ruga and Jorn on one Camp Taurajo stop');
+	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
+	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
+	const egg = at(barrens, 'accept 868', is('accept', 868));
+	assert.equal(barrens[egg].s, barrens[at(barrens, 'turnin 4921', is('turnin', 4921))].s, 'Egg Hunt with Mankrik\'s Lost in Battle');
+	assert.ok(!barrens.slice(egg + 1, eggs).some(({ goal }) => goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
+	assert.match(barrens[at(barrens, 'accept 855', is('accept', 855))].step.note, /^West to Regthar/, 'Regthar is west of the Crossroads');
+	assert.doesNotMatch(barrens[at(barrens, 'accept 1512', is('accept', 1512))].goal.note, /end of this guide/, 'The Binding is on the next guide\'s Orgrimmar stop');
+	const hills = goals(HILLSBRAD_HORDE);
+	const bears = at(hills, 'collect 3476', (g) => g.t === 'collect' && g.item === 3476);
+	const farmers = at(hills, 'kill 2266 quest 527.1', (g) => g.t === 'kill' && g.quest === 527);
+	assert.ok(bears < farmers && farmers < at(hills, 'turnin 496', is('turnin', 496)), 'the bears, the fields, then Lydon');
+	assert.deepEqual(hills.slice(bears + 1, farmers).filter(({ goal }) => ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Tarren Mill stop between the bears and the fields');
+	const pine = goals(SILVERPINE);
+	const ferry = at(pine, 'turnin 438', is('turnin', 438));
+	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry && ferry < at(pine, 'collect 3354', (g) => g.t === 'collect' && g.item === 3354), 'the boat between the murlocs and Ambermill');
+	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 479', is('turnin', 479))].s, 'Rot Hide Clues on the Sepulcher stop after Ambermill');
+	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
+	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
+	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');
+	assert.match(grind.note, /Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead\.$/, 'the top-up names the dungeons that fit, in the writer\'s sentence');
+	// The Warsong Reports: its walks east of Night Run and back to Kadrak cost more than its XP (measured): left out.
+	assert.ok(fixes.overrides.skip.some((r) => r.q === 6543 && r.faction === 'Horde'), 'the skip is a record');
+	assert.ok(!goals(STONETALON_HORDE).some(({ goal }) => goal.quest === 6543), 'no Warsong Reports in Ashenvale at 21');
 });
 
 // Final route review, Horde 1-30: a second Tarren Mill bind step (from the arrival at the end of the previous guide)

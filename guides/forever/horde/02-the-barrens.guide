@@ -18,8 +18,8 @@ next forever/horde/05-stonetalon-mountains
 # one: the Crossroads, Ratchet and the Southsea beach, the oases, the Dry Hills and the Sludge
 # Fen, Northwatch Hold, Vrang and Walton, Verog, Camp Taurajo and the Bristlebacks, the Orgrimmar
 # trip at 20, Jorn's hunt, Hezrul and Counterattack!, then Seereth's road into Stonetalon. The
-# Barrens' level 22-27 quests (Gann Stonespire, Blackthorn Ridge, Betrayal from Within, Egg Hunt,
-# Weapons of Choice) come back with Stonetalon's upper half at 24-26 in
+# Barrens' level 22-27 quests (Gann Stonespire, Blackthorn Ridge, Betrayal from Within, Weapons of
+# Choice) come back with Stonetalon's upper half at 24-26 in
 # forever/horde/04-the-barrens, after Ashenvale and Hillsbrad.
 #
 # Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
@@ -37,8 +37,9 @@ next forever/horde/05-stonetalon-mountains
 # Windshear Crag -> back down to Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
 #
-# Orcs and Trolls: Far Watch Post first (Conscript of the Horde from Takrin in Razor Hill, Uzzek's
-# Warrior quests), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
+# Orcs and Trolls: Far Watch Post first (Crossroads Conscription from Kargal: they handed him
+# Conscript of the Horde at the end of their Durotar guide, so it is not carried through Silverpine;
+# Warriors hand Path of Defense to Uzzek), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
 # is left out, as Gryshka would take it at 20, five levels late, and they have the city's flight
 # path from the Silverpine guide). Warriors finish
 # Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans finish Call of Fire
@@ -76,8 +77,8 @@ next forever/horde/05-stonetalon-mountains
 
 # ---------------------------------------------------------------- Far Watch Post
 
-# Orcs and Trolls bring Conscript of the Horde (840) from Takrin in Razor Hill and Warriors Veteran
-# Uzzek (1505): Far Watch Post is on the road from Orgrimmar to the Crossroads.
+# Orcs and Trolls take Crossroads Conscription (842) from Kargal, and Warriors hand Uzzek the Singed
+# Scales from Thunder Ridge (1498): Far Watch Post is on the road from Orgrimmar to the Crossroads.
 step The Barrens
   only Orc,Troll
   zone The Barrens
@@ -87,32 +88,9 @@ step Far Watch Post
   only Orc,Troll
   zone The Barrens
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar and Uzzek stand together.
-  turnin 840                          -- Kargal Battlescar
-  accept 842
-  turnin 1505 only Warrior            -- Uzzek
-  accept 1498 only Warrior
-
-step Durotar
-  only Orc,Troll,Warrior
-  zone Durotar
-  goto 39.7,29.2 "Durotar"
-
-step Thunder lizards across the river
-  only Orc,Troll,Warrior
-  zone Durotar
-  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge across the bridge; any of them can drop a Singed Scale.
-  collect 6486 quest 1498.1
-
-step The Barrens
-  only Orc,Troll,Warrior
-  zone The Barrens
-  goto 61.4,21.1 "The Barrens"
-
-step Uzzek
-  only Orc,Troll,Warrior
-  zone The Barrens
-  turnin 1498
-  accept 1502
+  accept 842                          -- Kargal Battlescar
+  turnin 1498 only Warrior            -- Uzzek
+  accept 1502 only Warrior
 
 # ---------------------------------------------------------------- The Crossroads
 step The Crossroads
@@ -374,7 +352,7 @@ step The Crossroads
   accept 903
 
 step Regthar Deathgate
-  tip South to Regthar's watch post on the Kolkar border.
+  tip West to Regthar's watch post on the Kolkar border.
   accept 855
   accept 850
 
@@ -506,8 +484,7 @@ step Finish the Raptor Heads
 
 step The Crossroads
   label q869
-  tip In from the north gate: Korran and Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
-  accept 868                          -- Korran, from level 17: the eggs are in the Field of Giants, south of Camp Taurajo, later
+  tip In from the north gate: Gazrog first, Sergra by the inn, Tonga at the south gate, then up to Darsok and Thork on the tower platform, where the flight master stands.
   turnin 869                          -- Gazrog
   accept 3281                         -- Gazrog: the Stolen Silver, in a raptor nest north-west of Northwatch Hold
   turnin 881                          -- Sergra Darkthorn
@@ -785,10 +762,11 @@ step Agama'gor
 
 step The Crossroads
   zone The Barrens
-  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
+  tip North up the Gold Road to the Crossroads: Mankrik stands by the inn, Korran west of the north gate. Keep the Blood Shard: Mangletooth takes it on the next stop in Camp Taurajo.
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
+  accept 868                          -- Korran: the eggs are in the Field of Giants, south of Camp Taurajo, after the Orgrimmar trip
 
 # ---------------------------------------------------------------- Orgrimmar at 20
 
@@ -954,7 +932,7 @@ step Grunt Dogran
   only Warlock
   tip Dogran is chained up in the quilboar camp west of the road.
   turnin 1515
-  accept 1512                         -- Keep it: Gan'rul in Orgrimmar, at the end of this guide
+  accept 1512                         -- Keep it: Gan'rul in Orgrimmar, on the next guide's Orgrimmar stop
 
 step Enraged Thunder Lizards
   tip Thunderheads graze on the plains just south of Camp Taurajo. Owatanka, a blue thunder lizard, roams among them: his Tailspike starts a quest.
@@ -970,9 +948,6 @@ step Jorn Skyseer
 step Cry of the Thunderhawk
   tip Thunderhawk Cloudscrapers circle over the same plains south of the camp.
   collect 5164 quest 913.1
-
-step Jorn Skyseer
-  turnin 913
 
 step Field of Giants
   tip South of Camp Taurajo, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
@@ -996,11 +971,12 @@ step Twitching Antennae
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
   tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
 
-step Ruga Ragetotem
-  only Warrior
+step Camp Taurajo
   zone The Barrens
-  turnin 1824                         -- Ruga Ragetotem, inside
-  accept 1825
+  tip Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings. Warriors: Ruga Ragetotem first, before the antennae fade.
+  turnin 1824 only Warrior            -- Ruga Ragetotem, inside
+  accept 1825 only Warrior
+  turnin 913                          -- Jorn Skyseer
 
 # ---------------------------------------------------------------- Back north: the Crossroads and Counterattack!
 

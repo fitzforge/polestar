@@ -19,9 +19,9 @@ next forever/horde/02-the-barrens
 #
 # Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # the Sepulcher (flight path, bind) -> the Dalaran crate and back -> north loop: the Dead Field,
-# Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> the Decrepit Ferry and back ->
-# north again: Valgan's Field, Quinn, the murloc eyes on the shore -> south along the
-# lake shore to Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
+# Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
+# Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
+# Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
 # the Undercity (flight path; Raleigh, Zinge) -> zeppelin to Orgrimmar: the city's own
 # quests, training. The guide ends in the Valley of Wisdom.
 #
@@ -285,17 +285,6 @@ step The Sepulcher
   turnin 482                          -- Shadow Priest Allister
   accept 479                          -- Ambermill comes later, down the lake shore
 
-# ---------------------------------------------------------------- The Decrepit Ferry
-
-step The Decrepit Ferry
-  tip The Corpse Laden Boat lies at the ferry landing on the lake shore east of the Sepulcher.
-  turnin 438
-  accept 439
-
-step The Sepulcher
-  turnin 439                          -- High Executor Hadrec, below ground
-  accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at the end
-
 # ---------------------------------------------------------------- North again, then the lake shore
 
 step Valgan's Field farmhouse
@@ -313,10 +302,15 @@ step Vile Fin murlocs
 
 # ---------------------------------------------------------------- South to Ambermill
 
-# The lake shore -> Ambermill -> back up the road to the Sepulcher: Wild Eyes waits for that
-# Sepulcher stop with Ambermill's pendants.
+# The lake shore -> the Decrepit Ferry -> Ambermill -> back up the road to the Sepulcher: Wild Eyes
+# and Rot Hide Clues wait for that Sepulcher stop with Ambermill's pendants.
+step The Decrepit Ferry
+  tip Follow the lake shore south from the murlocs: the Corpse Laden Boat lies at the ferry landing, on the way to Ambermill.
+  turnin 438
+  accept 439
+
 step Ambermill
-  tip Follow the shore south past the Decrepit Ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where Archmage Ataeric stands.
+  tip Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where Archmage Ataeric stands.
   collect 3354 quest 479.1            -- Dalaran Pendant
 
 step The Sepulcher
@@ -325,6 +319,8 @@ step The Sepulcher
   turnin 91920                        -- Apothecary Renferrel
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   turnin 422                          -- Dalar Dawnweaver, just north of Allister
+  turnin 439                          -- High Executor Hadrec, below ground
+  accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at the end
 
 step The Ivar Patch
   tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.

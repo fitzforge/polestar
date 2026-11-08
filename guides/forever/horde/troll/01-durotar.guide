@@ -296,6 +296,12 @@ step Razor Hill
   accept 5654 only Troll,Priest       -- Tai'jin, for Ur'kyo in Orgrimmar: keep it
   accept 2983 only Shaman -- Swart
 
+step Far Watch Post
+  only Shaman
+  zone The Barrens
+  tip West over the Southfury River bridge: Kargal Battlescar stands at Far Watch Post above it, on your way to Kranal Fiss.
+  turnin 840                          -- Kargal Battlescar
+
 step The Barrens
   only Shaman
   zone The Barrens
@@ -530,6 +536,20 @@ step Armored Scorpid
   turnin 6082                         -- Thotar: Tame Beast
   accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
 
+step Far Watch Post
+  when onquest 840
+  zone The Barrens
+  tip West from Razor Hill over the Southfury River bridge: Kargal Battlescar and Uzzek stand together at Far Watch Post above it. From there the road north through Durotar leads to Orgrimmar.
+  turnin 840                          -- Kargal Battlescar
+  turnin 1505 only Warrior            -- Uzzek
+  accept 1498 only Warrior
+
+step Thunder lizards on the way north
+  only Warrior
+  zone Durotar
+  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes it when the next guide passes Far Watch Post.
+  collect 6486 quest 1498.1
+
 step Orgrimmar
   only Hunter
   zone Orgrimmar
@@ -538,7 +558,7 @@ step Orgrimmar
 step Ormak Grimshot
   only Hunter
   zone Orgrimmar
-  tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
+  tip Follow the road north from Far Watch Post to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
 
 step Hanashi
@@ -551,5 +571,5 @@ step Hanashi
 
 step To Orgrimmar
   zone Orgrimmar
-  tip Follow the road north from Razor Hill to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. Far Watch Post and the Barrens come after Silverpine.
+  tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
   goto 55.6,72.3 "Orgrimmar"

@@ -15,12 +15,12 @@ next forever/horde/06-hillsbrad-foothills
 # Stonetalon's road quests are in forever/horde/02-the-barrens (the Webwinder Path at 20-21),
 # Sun Rock Retreat and the peak in forever/horde/04-the-barrens (at 24-25). The guide keeps its id.
 #
-# Flow: north across the Barrens to Kadrak at the Mor'shan Rampart (Warsong Reports) ->
-# Splintertree Post (flight path) -> Night Run (Ashenvale Hunt) -> the Warsong Scout and Outrider
+# Flow: north across the Barrens to Kadrak at the Mor'shan Rampart (Report to Kadrak) ->
+# Splintertree Post (flight path) -> Night Run (Ashenvale Hunt)
 # -> west across Ashenvale, Va'xug Firefure's ravine on the way -> Zoram'gar Outpost (flight path,
-# Warsong Runner, naga heads) -> Thistlefur Village and Hold -> Zoram'gar, Vorsha the Lasher ->
+# naga heads) -> Thistlefur Village and Hold -> Zoram'gar, Vorsha the Lasher ->
 # fly to Splintertree
-# (Ruul's hand-in), back to Kadrak -> fly to Orgrimmar
+# (Ruul's hand-in) -> fly to Orgrimmar
 # (training) -> zeppelin to Tirisfal Glades -> the Sepulcher (Allister's two
 # road quests, Journey to Hillsbrad) -> the roads around Ambermill and Beren's Peril (the
 # Offering Stone) -> Southpoint Tower for forever/horde/06-hillsbrad-foothills.
@@ -42,6 +42,10 @@ next forever/horde/06-hillsbrad-foothills
 # the road to Tarren Mill. The Offering of Blood is optional: Forever's quest data lists it as
 # elite. Beren's Peril (516) and Watching the Roads (95981), Allister's level 20-21 quests, on the
 # same ride; Allister takes them on the walk from Tarren Mill to the Undercity in the next guide.
+#
+# Left out: The Warsong Reports (6543): its Outrider east of Night Run and the hand-in back at
+# Kadrak after Thistlefur cost about 3.3 km of walking for 1,800 XP (final route review, measured:
+# 0.3 hours sooner to 60 on every Horde branch without it).
 #
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
 #
@@ -65,10 +69,8 @@ step Kadrak
   # The Mor'shan Rampart is in the Barrens (Forever's quest data; AreaTable 1703):
   # on Ashenvale's map the route sent you through the zone crossing past him (#246).
   zone The Barrens
-  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale. Open the Bundle of Reports he gives you.
+  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
   turnin 6541                         -- Kadrak
-  accept 6543
-  collect 16746                       -- Warsong Report, from the Bundle of Reports
 
 step Ashenvale
   zone Ashenvale
@@ -78,13 +80,6 @@ step Ashenvale Outrunners
   zone Ashenvale
   tip Kuray'bin stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them.
   accept 6503
-
-step Warsong Scout
-  zone Ashenvale
-  tip Keep north on the road. The Warsong Scout waits at the Warsong lumber camp, south of Splintertree.
-  collect 16764 quest 6543.1 @71.05,68.36 -- Warsong Scout
-
-step Ashenvale Outrunners
   kill 12856 quest 6503 @72.5,69.5 map 1440
   turnin 6503
 
@@ -96,10 +91,6 @@ step Splintertree Post
   turnin 6383
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 26.
   vendor nearest
-
-step Warsong Outrider
-  tip The Warsong Outrider patrols the road east of Night Run toward the Satyrnaar.
-  collect 16765 quest 6543.3 @81.83,53.51 -- Warsong Outrider
 
 step Va'xug Firefure
   tip On the way west, Va'xug Firefure is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it.
@@ -121,7 +112,6 @@ step Zoram'gar Outpost
   accept 6442                         -- Marukai
   accept 6462                         -- Mitsuwa: the troll charms are in Thistlefur Hold, east of the outpost
   accept 216                          -- Karang Amakkar
-  collect 16763 quest 6543.2 @12.22,34.22 -- Warsong Runner
   accept 6641                         -- Muglash: take it last, his escort starts at once
 
 step Vorsha the Lasher
@@ -163,18 +153,9 @@ step Splintertree Post
   fly "Splintertree Post"
   turnin 6482                         -- Yama Snowhoof, inside the inn
 
-step The Barrens
-  zone The Barrens
-  goto 48.1,5.4 "The Barrens"
-
-step Back to Kadrak
-  zone The Barrens
-  tip Head south down the road to the Mor'shan Rampart.
-  turnin 6543                         -- Kadrak
-
 step Fly to Orgrimmar
   zone Ashenvale
-  tip Walk back north up the road to Splintertree Post and fly to Orgrimmar.
+  tip Back out of the inn to the flight master and fly to Orgrimmar.
   goto 73.26,61.67 "Splintertree Post flight master"
   fly "Orgrimmar"
   zone Orgrimmar

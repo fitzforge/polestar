@@ -3546,38 +3546,38 @@
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					493
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15."
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					516
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up."
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6543
+					6482
 				],
 				"b": [
 					"accept",
 					95981
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22."
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
 			},
 			{
 				"a": [
@@ -4265,10 +4265,6 @@
 			{
 				"q": 1003,
 				"why": "XooVe #216: Buzzbox chain"
-			},
-			{
-				"q": 6543,
-				"why": "Stonetalon tests (Kadrak's goals, Hotline #278, Warsong update goals): The Warsong Reports stays, taken at Kadrak"
 			},
 			{
 				"q": 6563,
@@ -5743,7 +5739,7 @@
 			},
 			{
 				"a": [
-					"turnin",
+					"task",
 					913
 				],
 				"b": [
@@ -5752,7 +5748,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle."
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
 			},
 			{
 				"a": [
@@ -5769,14 +5765,14 @@
 			{
 				"a": [
 					"turnin",
-					869
+					4921
 				],
 				"b": [
 					"accept",
 					868
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Egg Hunt (Korran) and Report to Kadrak (Thork) are offered from level 17 (Forever's quest data). The Crossroads stop after the Razormane camp comes at about 16 (the level model ground 57 minutes there for the Egg Hunt accept); the stop after Echeyakee, about 25 minutes later, is at 17. Both are carried to their work anyway (the Field of Giants at 21, Kadrak at the end of the stay)."
+				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data); its eggs are worked in the Field of Giants south of Camp Taurajo at about 20-21. #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it that long: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Final route review (2026-11-08): it is taken on the last Crossroads stop before the eggs (Mankrik's Lost in Battle hand-in, Korran a few yards away), before the Orgrimmar trip at 20"
 			}
 		],
 		"after": [
@@ -7582,6 +7578,12 @@
 				"faction": "Alliance",
 				"reason": "Alliance 40-60 order (2026-11-08, #1228): To Winterspring! (from 53) was taken at the end of Felwood at about 52.7, so the route ground to 53 for a 580 XP walk; Wynd Nightchaser gives The Ruins of Kel'Theril without it.",
 				"issue": "-"
+			},
+			{
+				"q": 6543,
+				"faction": "Horde",
+				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -8956,13 +8958,14 @@
 			{
 				"a": [
 					"turnin",
-					6081
+					840
 				],
 				"b": [
 					"turnin",
-					840
+					6081
 				],
-				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Durotar ends in Orgrimmar since the Horde 12-30 re-chain, and Conscript of the Horde is handed to Kargal at Far Watch Post before the road north to the city; Hunters hand Training the Beast to Ormak there after it. Replaces #1077's pair (Ormak before Far Watch), written when Far Watch came after Orgrimmar."
 			},
 			{
 				"a": [
@@ -10336,6 +10339,78 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 40-60 accept levels (2026-11-08): Secret Communication (minimum level 57) is taken and handed in to Bor Wildmane on the Cenarion Hold stop after the Twilight camps: the Encrypted Twilight Texts drop with or without the quest. Taken on arrival at 56.6, the level model ground 252 minutes to 57 before the accept."
+			},
+			{
+				"a": [
+					"task",
+					91920
+				],
+				"b": [
+					"turnin",
+					438
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Corpse Laden Boat (58.4,34.9) is on the lake shore that the walk from the Vile Fin murlocs (Wild Eyes) south to Ambermill follows. The route went from the Sepulcher to the ferry and back for The Decrepit Ferry and Rot Hide Clues, then walked past the boat again on that shore; the boat is now on the shore walk and Hadrec takes Rot Hide Clues on the Sepulcher stop after Ambermill, saving about 1,300 yd and a Sepulcher stop"
+			},
+			{
+				"a": [
+					"turnin",
+					438
+				],
+				"b": [
+					"task",
+					479
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Silverpine 13): the Decrepit Ferry on the shore walk from the murlocs, before Ambermill (see the pair task 91920 before turnin 438)"
+			},
+			{
+				"a": [
+					"task",
+					527
+				],
+				"b": [
+					"turnin",
+					496
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Hillsbrad 22): the bears and creepers for Elixir of Suffering roam the hills west of Tarren Mill on the way down to Hillsbrad Fields, where the lions for Mountain Lion Blood stand too (#1123). The route walked back up to Tarren Mill for Lydon's hand-in and Umpi's delivery between the hills and the fields, then down the same slope again; both go on the Tarren Mill stop after the fields, with Battle of Hillsbrad and Mountain Lion Blood, saving about 1,000 yd"
+			},
+			{
+				"a": [
+					"task",
+					868
+				],
+				"b": [
+					"turnin",
+					913
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Barrens 21): Jorn Skyseer stands in Camp Taurajo; his thunderhawks circle just south of it and the Field of Giants' Silithid eggs lie just south of them. The route walked back into the camp to hand in Cry of the Thunderhawk between the hawks and the eggs, then south again and back north past him; the wings are handed in on the walk back north after the eggs (and the Warriors' antennae, Ruga beside him), saving about 600 yd"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Orc and Troll Durotar): Conscript of the Horde (taken at Razor Hill at 10) was carried through the whole Silverpine stay to Far Watch Post at 14, against the rule that only class quests cross zones. It is handed to Kargal at the end of the Durotar guide (Shamans on the way to Kranal Fiss), and Warriors hand Veteran Uzzek in beside him and take the Thunder Ridge lizards on the road north to Orgrimmar. Measured with the calibrated level model: +0.02 h to 60 on average (Durotar +3.7 min, the Barrens -0.6), the cheapest of the three ways out (leaving it out: +0.06 h)"
+			},
+			{
+				"a": [
+					"task",
+					1498
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08): Warriors take Path of Defense from Uzzek beside Kargal at the end of the Durotar guide and gather the Singed Scales on Thunder Ridge on the road north to Orgrimmar (see the pair turnin 840 before accept 97246)."
 			}
 		]
 	}

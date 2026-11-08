@@ -162,7 +162,7 @@ step Gordo
 step Deathguard Dillinger
   tip Deathguard Dillinger and Deathguard Bartholomew stand at the west end of Brill, where the road from Solliden comes in.
   accept 404                          -- Deathguard Dillinger
-  accept 86784                        -- Deathguard Bartholomew stands by Dillinger a few minutes, then walks up to the graveyard north of town and back
+  accept 86784                        -- Deathguard Bartholomew, beside Dillinger
 
 step Junior Apothecary Holland
   tip Holland walks around the north side of Brill, a few steps from Dillinger.
