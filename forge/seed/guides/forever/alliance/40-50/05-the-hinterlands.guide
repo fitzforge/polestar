@@ -238,11 +238,25 @@ step The bloodmages
   note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
 
 step Fly to Booty Bay
-  when group 8552
   zone Blasted Lands
   goto 65.5,24.4 "Nethergarde Keep flight master"
   fly "Booty Bay"
   zone Stranglethorn Vale
+
+step Booty Bay
+  zone Stranglethorn Vale
+  turnin 2874                         -- "Sea Wolf" MacKinley
+  accept 608                          -- Fleet Master Seahorn, top floor
+
+step The Bloodsail captains
+  zone Stranglethorn Vale
+  tip The three Bloodsail ships lie at anchor off the coast just south of Booty Bay: Captain Stillwater (45) and Captain Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time.
+  kill 2550 quest 608.1 @32.9,88.2 map 1434 -- Captain Stillwater
+  kill 2548 quest 608.2 @29.3,88.3 map 1434 -- Captain Keelhaul
+  kill 2546 quest 608.3 @30.6,90.6 map 1434 -- Fleet Master Firallon
+
+step Booty Bay
+  turnin 608                          -- Fleet Master Seahorn, top floor
 
 step Monogrammed Sash
   when group 8552
