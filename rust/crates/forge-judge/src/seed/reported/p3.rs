@@ -14,7 +14,7 @@ const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const STONETALON_HORDE: &str = "forever/horde/05-stonetalon-mountains.guide";
 const ASHENVALE_ALLIANCE: &str = "forever/alliance/06-ashenvale.guide";
-const BARRENS_04: &str = "forever/horde/04-the-barrens.guide";
+const BARRENS_04: &str = "forever/horde/02-the-barrens.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |n: &str, f: fn(&Ctx, &mut Check)| -> SeedTest { (n.to_string(), f) };
@@ -171,7 +171,7 @@ fn strays(ctx: &Ctx, c: &mut Check) {
 		(DUN_MOROGH, "Frostmane Headhunter (Frostmane Hold)", |g| t_is(g, "kill") && num_is(g, "npc", 1123.0) && num_is(g, "quest", 287.0), [20.0, 27.0, 49.0, 56.0]),
 		("forever/alliance/03-darkshore.guide", "Grizzled Scalp", |g| t_is(g, "collect") && num_is(g, "item", 5414.0), [37.0, 46.0, 69.0, 83.0]),
 		("forever/alliance/50-60/02-felwood.guide", "Jadefire Hellcaller (Jadefire Run)", |g| t_is(g, "kill") && num_is(g, "npc", 7111.0), [38.0, 44.0, 13.0, 23.0]),
-		("forever/horde/05-stonetalon-mountains.guide", "Stonetalon Sap", |g| t_is(g, "collect") && num_is(g, "item", 5582.0), [32.0, 41.0, 9.0, 21.0]),
+		("forever/horde/04-the-barrens.guide", "Stonetalon Sap", |g| t_is(g, "collect") && num_is(g, "item", 5582.0), [32.0, 41.0, 9.0, 21.0]),
 		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Lasher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6509.0), [55.0, 77.0, 20.0, 50.0]),
 		("forever/horde/50-60/01-un-goro-crater.guide", "Bloodpetal Thresher (east side)", |g| t_is(g, "kill") && num_is(g, "npc", 6511.0), [55.0, 77.0, 20.0, 50.0]),
 		("forever/horde/40-50/03-feralas.guide", "Marsh Flesheater (huts on the western shore)", |g| t_is(g, "kill") && num_is(g, "npc", 751.0), [60.0, 75.0, 75.0, 100.0]),

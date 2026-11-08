@@ -5,7 +5,7 @@ faction Horde
 race Orc
 levels 1-12
 zone Durotar
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -555,41 +555,7 @@ step Hanashi
   tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
   train 2704                          -- Hanashi
 
-step The Barrens
-  only Warrior
-  zone The Barrens
-  goto 61.4,21.1 "The Barrens"
-
-# ---------------------------------------------------------------- To the Crossroads
-
-step Uzzek
-  only Warrior
-  zone The Barrens
-  tip Follow the road west from Razor Hill over the Southfury River bridge; Uzzek stands at Far Watch Post, just above it on the Barrens side.
-  turnin 1505                         -- Uzzek
-  accept 1498
-  turnin 840                          -- Kargal Battlescar, beside Uzzek
-  accept 842
-
-step Thunder lizards across the river
-  only Warrior
-  zone Durotar
-  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge across the bridge; any of them can drop a Singed Scale.
-  collect 6486 quest 1498.1
-
-step Uzzek
-  only Warrior
-  zone The Barrens
-  turnin 1498
-  accept 1502
-
-step The Barrens
-  zone The Barrens
-  goto 62.3,19.4 "The Barrens"
-
-step Far Watch Post
-  only !Warrior
-  zone The Barrens
-  tip Follow the road west from Razor Hill over the Southfury River bridge; Far Watch Post sits just above it on the Barrens side.
-  turnin 840                          -- Kargal Battlescar
-  accept 842
+step To Orgrimmar
+  zone Orgrimmar
+  tip Follow the road north from Razor Hill to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. Far Watch Post and the Barrens come after Silverpine.
+  goto 55.6,72.3 "Orgrimmar"
