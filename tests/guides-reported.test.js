@@ -6464,3 +6464,20 @@ test('Alliance quest volume follow-up: the added quests ride on walks the route 
 	const wet = goals('forever/alliance/06-wetlands.guide');
 	assert.ok(first(wet, is('turnin', 469)) > first(wet, is('accept', 465)), 'Wetlands: Halloran after Stoutfist');
 });
+
+// --- Triage round 5 (2026-11-08) ---
+
+// Bonesavv77's report (#1241, Orc Warrior 24): Sun Rock Retreat took Braelyn Firehand and the flight path
+// before Tammra Windfield, a walk back east across the town. Arriving from the south (Tsunaman, Maggran),
+// Tammra comes first, then Braelyn outside the gate and the flight master beside her on the way out
+// (route-fixes after: accept 6301 before accept 1087, Horde).
+test("Bonesavv77's report (#1241): Sun Rock Retreat takes Tammra Windfield before Braelyn Firehand and the flight path", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.after.some((p) => p.a[0] === 'accept' && p.a[1] === 6301 && p.b[0] === 'accept' && p.b[1] === 1087), 'the order is a record the build keeps');
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const tammra = at(list, 'accept 6301', is('accept', 6301));
+	const braelyn = at(list, 'accept 1087', is('accept', 1087));
+	const fp = at(list, 'getfp Sun Rock Retreat', (g) => g.t === 'getfp' && /Sun Rock/.test(g.location || ''));
+	assert.ok(tammra < braelyn && braelyn < fp, 'Tammra, then Braelyn, then the flight master');
+	assert.equal(list[tammra].step, list[fp].step, 'one Sun Rock stop');
+});
