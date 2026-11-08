@@ -99,8 +99,14 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Vuelve al oeste por el camino y luego al norte hasta las colinas de los Dominios de los Cicatriz de Rabia. Cualquier yeti de aquí puede soltar un pellejo; alguno puede soltar un {quest:7735}, que {npc:7852} McGrubben también paga.",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -144,6 +150,7 @@ return {
 	-- ["Hearth to Feathermoon."] = "Usa la piedra de hogar para ir a Plumaluna.",
 	-- ["Rage Scar yetis"] = "Yetis Estigmodio",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "Vuelve al noroeste hasta el muelle de {area:1108} y toma el barco a la isla.",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Vuelve al oeste por el camino y luego al norte hasta las colinas de los Dominios de los Cicatriz de Rabia. Cualquier yeti de aquí puede soltar un pellejo; alguno puede soltar un {quest:7735}, que {npc:7852} McGrubben también paga.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Cabalga hacia el oeste hasta el gigante de montaña amistoso al pie de las colinas. Los Caminantes de la tierra y los Gigantes del risco que lo rodean son élite: mantén la distancia.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Toca la campana cada vez que {npc:7774} se pare a deambular y llévala hacia el sur hasta {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Hacer {area:978} en grupo en vez de farmear te lleva allí más rápido. La ciudad trol está en el norte de {zone:1446}, la siguiente zona de la ruta; después vuelve con {npc:14637} en {area:1108}.",

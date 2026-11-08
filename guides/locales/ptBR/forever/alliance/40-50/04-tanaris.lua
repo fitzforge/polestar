@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "A próxima entrega de {npc:7881} volta para {area:35}: pule.",
+	-- {area:35} Booty Bay · {area:47} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: os Ladrões desarmam você. Os Ladinos ficam escondidos, furtivos. Os Assassinos usam Executar quando sua vida está em 20% ou menos.",
@@ -170,5 +170,6 @@ return {
 	-- ["Wastewander bandits"] = "Bandidos Errantes",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Enquanto {npc:4709} distrai o Rebu, os projetos dele ficam desprotegidos no acampamento gnomo do outro lado da pista.",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "O próximo ingrediente de {npc:7583} cresce em {zone:1425}, e a rota nunca o traz de volta: pule.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "A próxima entrega de {npc:7881} volta para {area:35}: pule.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, na taverna do porto",
 }
