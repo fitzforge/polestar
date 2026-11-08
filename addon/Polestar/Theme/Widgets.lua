@@ -2108,13 +2108,10 @@ local function buildModal()
 	box:SetWidth(MODAL_W)
 	box:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
 	box:EnableMouse(true)
-	W.Painter(box, function(f)
-		local d = rawget(f, "Ground") or W.Fill(f, "bg", "BACKGROUND")
-		f.Ground = d
-		local r, g, b = Theme.Color("bg")
-		d:SetVertexColor(r, g, b, 1)
-		Theme.Border(f, Theme.Wash("border"))
-	end)
+	-- A window on the window skin (the Player's Frame Rule), opaque over the
+	-- scrim; the game's looks give it the guide window's light frame (#1390).
+	box.psLight, box.psBgAlpha = true, 1
+	Theme.Skin(box, "window")
 	s.Box = box
 	box.Icon = W.Tex(box, "ARTWORK")
 	box.Icon:SetSize(16, 16)
