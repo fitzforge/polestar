@@ -7,12 +7,16 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: The Deadmines: Defias Pirates
+	-- {area:1581} The Deadmines
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["The Deadmines: Defias Pirates"] = "",
+	["{area:1581}: Defias Pirates"] = "{area:1581}: 데피아즈단 해적",
+	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["The Deadmines is a group of five at level 17-26, under Moonbrook: go in at the Moonbrook mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
-	["The Deadmines, in the Moonbrook mine"] = "",
-	["The Deadmines portal, at the bottom of the mine"] = "",
+	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
+	-- {area:1581} The Deadmines · {area:20} Moonbrook
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, {area:20} 광산 안",
+	-- {area:1581} The Deadmines
+	["{area:1581} portal, at the bottom of the mine"] = "",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
 	["Defias Pirates, on the ship"] = "",
 
@@ -20,5 +24,4 @@ return {
 	-- ["Defias Pirates"] = "데피아즈단 해적",
 	-- ["{area:1581} is a group of five under {area:20}; the instance portal is inside the {area:20} mine. The Defias Pirates on and around the ship drop the macaw about 3.5% of the time in our data."] = "{area:1581}은(는) {area:20} 아래의 5인 던전입니다. 던전 입구는 {area:20} 광산 안에 있습니다. 배 위와 주변의 데피아즈단 해적이 우리 자료상 약 3.5% 확률로 마코앵무새를 떨어뜨립니다.",
 	-- ["{area:1581} portal, inside the {area:20} mine"] = "{area:1581} 입구, {area:20} 광산 안",
-	-- ["{area:1581}: Defias Pirates"] = "{area:1581}: 데피아즈단 해적",
 }

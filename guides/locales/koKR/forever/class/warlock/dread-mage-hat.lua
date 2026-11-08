@@ -14,13 +14,13 @@ return {
 	["At 25 {npc:1435}, in the cellar of the {object:2164} in the {object:2101} (beside the warlock trainers), wants two ingredients for a brew. Do it when your leveling takes you to {zone:1431} and the {zone:1437}."] = "",
 
 	-- Step 2: Tear of Tilloa
-	-- {zone:1431} Duskwood · {object:321} Tear of Tilloa · {npc:315} Stalvan Mistmantle
+	-- {area:1098} Manor Mistmantle · {zone:1431} Duskwood · {area:42} Darkshire · {object:321} Tear of Tilloa · {npc:315} Stalvan Mistmantle
 	-- plural, as words: Fetid Corpses = {npc:1270} Fetid Corpse
-	["Manor Mistmantle stands in the north-east of {zone:1431}, north of Darkshire. The {object:321} is a small white flower low in the grass of the fenced garden beside Stalvan's house: hard to see, so sweep the garden with your mouse. Fetid Corpses (level 29) wander the grounds and come quickly: at 25, send your voidwalker at the nearest one, grab the flower and leave. {npc:315} (32) is inside the house; leave him alone."] = "",
+	["{area:1098} stands in the north-east of {zone:1431}, north of {area:42}. The {object:321} is a small white flower low in the grass of the fenced garden beside Stalvan's house: hard to see, so sweep the garden with your mouse. Fetid Corpses (level 29) wander the grounds and come quickly: at 25, send your voidwalker at the nearest one, grab the flower and leave. {npc:315} (32) is inside the house; leave him alone."] = "",
 
 	-- Step 3: Musquash Root
-	-- {object:1668} Dun Algaz · {object:147516} Dark Iron
-	["The root grows at the water's edge in the pool below the small falls east of {object:1668}, beside the {object:147516} cave below the Stonewrought Dam: a tall, spiky wooden root, not at the foot of the dam itself."] = "",
+	-- {area:836} Dun Algaz · {object:147516} Dark Iron · {area:146} Stonewrought Dam
+	["The root grows at the water's edge in the pool below the small falls east of {area:836}, beside the {object:147516} cave below the {area:146}: a tall, spiky wooden root, not at the foot of the dam itself."] = "",
 
 	-- Step 4: A Noble Brew
 	-- {item:2788} Black Claw Stout · {npc:1439} Lord Baurles K. Wishock · {object:2117} Stormwind Keep

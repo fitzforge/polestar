@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Darkshire
-	["Fly to Darkshire"] = "",
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["{object:1162} flight master"] = "",
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "飛往{area:42}",
+	-- {area:150} Menethil Harbor
+	["{area:150} flight master"] = "",
 
 	-- Step 3: Nesingwary's Expedition
-	["Nesingwary's Expedition"] = "",
-	-- {zone:1431} Duskwood
-	["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the Rebel Camp turn-off."] = "",
+	-- {zone:1431} Duskwood · {area:99} Rebel Camp
+	["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "從{zone:1431}沿道路向南進入荊棘谷；獵人的帳篷就在過了{area:99}岔路後的道路西邊。",
 	-- {npc:715} Hemet Nesingwary · {zone:1441} Thousand Needles
 	["{npc:715}, from {zone:1441}"] = "{npc:715}，來自{zone:1441}",
 
@@ -28,7 +28,8 @@ return {
 	["The adult tigers prowl the hills just south and west of the camp."] = "成年猛虎在營地南邊和西邊不遠的丘陵徘徊。",
 
 	-- Step 9: Ajeck Rouack
-	["The elder tigers come later, on the way back from the Rebel Camp"] = "",
+	-- {area:99} Rebel Camp
+	["The elder tigers come later, on the way back from the {area:99}"] = "老年荊棘谷猛虎之後再打，在從{area:99}回來的路上",
 
 	-- Step 10: Panthers, raptors and elder tigers
 	["Panthers, raptors and elder tigers"] = "黑豹、迅猛龍與老年猛虎",
@@ -38,7 +39,6 @@ return {
 	["Gluggle, a rare murloc on the coast west of camp, drops the {item:4614}: take it if you meet him"] = "戈魯格爾是營地西邊海岸上的稀有魚人，會掉落{item:4614}：遇到就拿",
 
 	-- Step 11: Rebel Camp
-	["Rebel Camp"] = "",
 	-- {npc:738} Private Thorsen
 	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡邏，營地在西邊的丘陵中。",
 	-- {npc:469} Lieutenant Doren
@@ -47,19 +47,22 @@ return {
 	["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "",
 
 	-- Step 12: Kurzen's Compound: kill these as you meet them
-	["Kurzen's Compound: kill these as you meet them"] = "",
-	["The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "",
+	-- {area:101} Kurzen's Compound
+	["{area:101}: kill these as you meet them"] = "",
+	-- {area:99} Rebel Camp
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "庫爾森叛軍佔據{area:99}東邊的營地；在外圍活動，那裡有庫爾森叢林戰士和庫爾森藥草師，並拾取帳篷旁的補給箱。",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}，來自{object:263}箱子",
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
-	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "",
+	-- {area:33} Stranglethorn Vale
+	["{area:33}: kill these as you meet them"] = "",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 15: Level 34
 	["Level 34"] = "",
-	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."] = "",
+	-- {area:796} Scarlet Monastery
+	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "",
 
@@ -70,15 +73,15 @@ return {
 	-- Step 17: Sin'Dall and the Lashtail raptors
 	-- {npc:729} Sin'Dall
 	["{npc:729} and the Lashtail raptors"] = "{npc:729}與鞭尾迅猛龍",
-	-- {npc:729} Sin'Dall · {object:3204} Booty Bay (no name in this language: may be words)
+	-- {npc:729} Sin'Dall · {area:35} Booty Bay
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {object:3204}."] = "",
+	["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "巨虎{npc:729}的巢穴在營地西南方的山頂；鞭尾迅猛龍在它南邊、前往{area:35}的路上奔跑。",
 
 	-- Step 18: Down to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Down to {object:3204}"] = "",
-	-- {object:3202} Grom'gol · {object:3204} Booty Bay (no name in this language: may be words)
-	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {object:3204} on the southern cape."] = "",
+	-- {area:35} Booty Bay
+	["Down to {area:35}"] = "前往{area:35}",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay
+	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "",
 	-- {npc:2498} Crank Fizzlebub
@@ -98,25 +101,28 @@ return {
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在酒館樓上",
 
 	-- Step 19: Fly to Sentinel Hill
-	-- {object:81} Sentinel Hill (no name in this language: may be words)
-	["Fly to {object:81}"] = "",
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} flight master"] = "",
+	-- {area:108} Sentinel Hill
+	["Fly to {area:108}"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
 
 	-- Step 21: The Savage Coast: kill these as you meet them
-	["The Savage Coast: kill these as you meet them"] = "",
-	-- {object:81} Sentinel Hill (no name in this language: may be words) · {zone:1436} Westfall
+	-- {area:301} The Savage Coast
+	["{area:301}: kill these as you meet them"] = "",
+	-- {area:108} Sentinel Hill · {zone:1436} Westfall · {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["From {object:81} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
+	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
 	["The haunted island"] = "鬧鬼的島",
 
 	-- Step 22: River crocolisks
 	["River crocolisks"] = "淡水鱷",
+	-- {area:99} Rebel Camp
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
-	["River Crocolisks swim the river by the Rebel Camp."] = "",
+	["River Crocolisks swim the river by the {area:99}."] = "淡水鱷在{area:99}旁的河中游動。",
 
 	-- Step 23: Private Thorsen
-	["Thorsen patrols the road north of camp, toward the Rebel Camp."] = "",
+	-- {area:99} Rebel Camp
+	["Thorsen patrols the road north of camp, toward the {area:99}."] = "列兵索爾森在營地北邊、朝{area:99}方向的道路上巡邏。",
 
 	-- Step 24: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
@@ -145,45 +151,39 @@ return {
 	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
 
 	-- Step 30: Fly to Astranaar
-	["Fly to Astranaar"] = "",
-	["Auberdine flight master"] = "",
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
 
 	-- Step 31: Heartswood
-	-- {quest:1738} Heartswood · {object:19863} Maestra's Post (no name in this language: may be words) · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From Astranaar head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {object:19863}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {object:19863} (26.6,22.0). Then take the road west to Stonetalon."] = "",
-	-- {item:190309} Wooden Figurine · {object:19863} Maestra's Post (no name in this language: may be words)
-	["{item:190309}, north of {object:19863}"] = "",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
+	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "血頂食人妖",
-	-- ["Down to {area:35}"] = "前往{area:35}",
 	-- ["Fly from {area:150} to {area:1537} and train."] = "從{area:150}飛往{area:1537}並訓練。",
 	-- ["Fly to {area:42}: {npc:1573} in {area:1537}'s {object:32372}, or {npc:352} in {zone:1453}'s {object:2096}."] = "飛往{area:42}：{area:1537}{object:32372}的{npc:1573}，或{zone:1453}{object:2096}的{npc:352}。",
-	-- ["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。",
 	-- ["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "沿西海岸向北；鬧鬼的島在奈辛瓦里營地西邊的外海。只要到達那裡即可。",
 	-- ["For Archmage Ansirem in {zone:1416}"] = "給{zone:1416}的大法師安斯雷姆·魯因維沃爾",
-	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "從{zone:1431}沿道路向南進入荊棘谷；獵人的帳篷就在過了{area:99}岔路後的道路西邊。",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "庫爾森精神醫師站在營地更深處；庫爾森特種兵潛行埋伏在營地周圍和洞穴中。掉落的荊棘谷的青山書頁都撿起來。",
 	-- ["Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth."] = "書呆子赫羅德的檔案在營地西側的一間小屋裡；他的保險箱在更東邊的洞口旁。",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "繞行北部和中部的食人妖廢墟：每處都有一塊記載食人妖傳說的石板。深喉獵豹潛行在周圍的叢林中；{area:37}的風險投資公司營地身上帶著打磨過的水晶。",
-	-- ["River Crocolisks swim the river by the {area:99}."] = "淡水鱷在{area:99}旁的河中游動。",
 	-- ["Skullsplitter trolls"] = "劈顱食人妖",
 	-- ["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- ["Snapjaw Crocolisks bask on the shore and islands along the coast north of {area:35}."] = "鉗嘴鱷魚在{area:35}北邊海岸和島嶼上曬太陽。",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}站在路上，營地在西邊的丘陵中。",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "血頂食人妖佔據奈辛瓦里營地西邊海岸上的廢墟。",
-	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "庫爾森叛軍佔據{area:99}東邊的營地；在外圍活動，那裡有庫爾森叢林戰士和庫爾森藥草師，並拾取帳篷旁的補給箱。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",
-	-- ["The elder tigers come later, on the way back from the {area:99}"] = "老年荊棘谷猛虎之後再打，在從{area:99}回來的路上",
 	-- ["The jungle ruins"] = "叢林廢墟",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "礦石由{zone:1417}的枯鬚狗頭人掉落",
-	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "列兵索爾森在營地北邊、朝{area:99}方向的道路上巡邏。",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "往北走回去；{area:310}在叢林中部的道路西邊。那裡的晶背蜥蜴會掉落碎片。",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}沒有德魯伊訓練師：從{object:171524}搭乘{area:2257}前往{zone:1453}，向{npc:5504}學習。",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}，在銀行旁",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}，在{object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}，在碼頭旁的頂樓",
-	-- ["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "巨虎{npc:729}的巢穴在營地西南方的山頂；鞭尾迅猛龍在它南邊、前往{area:35}的路上奔跑。",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：給{area:35}的{npc:773}",
 	-- ["{npc:773}, in the tavern"] = "{npc:773}，在酒館裡",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}：四個食人妖傳說",

@@ -49,8 +49,8 @@ return {
 	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "с гуманоидов 15-30 уровня падает {item:2592} (или купите на аукционе).",
 
 	-- Step 10: Wool Bandage (80-115)
-	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac
-	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells."] = "",
+	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
+	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277} — желтый с 80 (желтый с 80, зеленый с 115, серый с 150): около 49 изготовлений до 115. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 80 за 2с 50м; стрелка указывает на ближайшего. {item:6452} ({item:1475}, с пауков) тоже изучается на 80: он нужен разбойникам для {spell:9810}, и он хорошо продается.",
 
 	-- Step 11: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -106,8 +106,8 @@ return {
 	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6624}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1455} — отправит вас к доктору в Терамор. Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника.",
 
 	-- Step 23: Trauma
-	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in Hammerfall. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth
+	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6622}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1454} — отправит вас к доктору ({area:321}). Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника.",
 
 	-- Step 24: Triage
 	-- {quest:6624} Triage
@@ -120,8 +120,6 @@ return {
 	-- {quest:6622} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
 	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: доктор выдаст вам бинты для сортировки раненых; используйте их, а не свои. Внутри на полу лежат пятнадцать раненых солдат: перевязывайте сначала тяжелораненых при смерти, затем тяжелораненых, затем раненых, пока никто не умер (полосы здоровья — Ctrl+V). Сдайте задание сразу, как спасете пятнадцать: остальные продолжают умирать, и слишком много смертей проваливают задание даже после пометки «выполнено». При провале откажитесь от задания и возьмите его снова.",
-	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, Hammerfall"] = "",
 
 	-- Step 27: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -129,8 +127,8 @@ return {
 	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544} — желтый с 225 (желтый с 210, зеленый с 240, серый с 270): около 24 изготовлений до 240. Бинтам не нужен огонь: делайте их где угодно. {item:8544} зеленеет на 240: переходите на плотные бинты из магической ткани — до 260 они требуют меньше ткани, чем зеленые бинты из магической ткани.",
 
 	-- Step 28: Heavy Mageweave Bandage
-	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841} (навык 240) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
 
 	-- Step 29: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -141,8 +139,8 @@ return {
 	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "{item:8545} — желтый с 240 (желтый с 240, зеленый с 270, серый с 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно.",
 
 	-- Step 31: Runecloth Bandage
-	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629} (навык 260) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
 
 	-- Step 32: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
@@ -156,7 +154,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Любой учитель профессии «{skill:129}» вашей фракции обучает уровню «Ученик» ({skill:129}; 5-й уровень персонажа); стрелка выбирает ближайшего.",
-	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6622}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1454} — отправит вас к доктору ({area:321}). Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника.",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6622}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1454} отправляет вас к доктору: {area:321}.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6624}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1455} отправляет вас к доктору в Терамор.",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "Уровень «Умелец» ({skill:129}) поднимает предел до 225; нужен навык 125 и 20-й уровень персонажа: это книга, {item:16084}; стрелка выбирает ближайшего продавца вашей фракции. Купите и прочтите ее. Тот же торговец продает учебники по плотным шелковым бинтам и {item:8544}: купите оба сейчас, прочтете их на 180 и 210.",
@@ -170,9 +167,6 @@ return {
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} — желтый с 225 (желтый с 210, серый с 270): примерно 88 изготовлений до 260. Для бинтов не нужен огонь: делайте их где угодно. {item:8544} остается желтым до 270; одного рецепта до 260 хватает, чтобы не ездить к доктору дважды.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
-	-- ["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841} (навык 240) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
-	-- ["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629} (навык 260) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
-	-- ["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277} — желтый с 80 (желтый с 80, зеленый с 115, серый с 150): около 49 изготовлений до 115. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 80 за 2с 50м; стрелка указывает на ближайшего. {item:6452} ({item:1475}, с пауков) тоже изучается на 80: он нужен разбойникам для {spell:9810}, и он хорошо продается.",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277} — желтый с 80 (желтый с 80, серый с 150): примерно 49 изготовлений до 115. Для бинтов не нужен огонь: делайте их где угодно. Ему обучает любой учитель профессии «{skill:129}» вашей фракции; стрелка выбирает ближайшего.",
 	-- ["{spell:3278} is yellow from 115 (yellow at 115, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 115 (желтый с 115, серый с 185): примерно 11 изготовлений до 125. Для бинтов не нужен огонь: делайте их где угодно.",
 	-- ["{spell:3278} is yellow from 125 (yellow at 115, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 125 (желтый с 115, серый с 185): примерно 38 изготовлений до 150. Для бинтов не нужен огонь: делайте их где угодно.",

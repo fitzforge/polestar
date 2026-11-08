@@ -27,17 +27,17 @@ return {
 	["At 60 {npc:5753}, the demon trainer in the {object:36082}, sends you to {quest:7562} in the {zone:1428}."] = "",
 
 	-- Step 5: Mor'zul Bloodbringer
-	-- {quest:7562} Mor'zul Bloodbringer · {npc:14437} Gorzeeki Wildeyes · {zone:1428} Burning Steppes · {npc:14522} Ur'dan
-	["{quest:7562} and his goblin {npc:14437} camp on the hill across the road from the Altar of Storms, in the far north-west of the {zone:1428}, west of Blackrock Mountain. The chain is long: about 420 gold in {npc:14437}'s and {npc:14522}'s goods, a pile of crafted materials, the Scholomance and Dire Maul. Start buying or gathering the materials of the next steps now."] = "",
+	-- {quest:7562} Mor'zul Bloodbringer · {npc:14437} Gorzeeki Wildeyes · {area:255} Altar of Storms · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14522} Ur'dan · {area:2057} Scholomance · {area:2577} Dire Maul
+	["{quest:7562} and his goblin {npc:14437} camp on the hill across the road from the {area:255}, in the far north-west of the {zone:1428}, west of {area:254}. The chain is long: about 420 gold in {npc:14437}'s and {npc:14522}'s goods, a pile of crafted materials, the {area:2057} and {area:2577}. Start buying or gathering the materials of the next steps now."] = "",
 
 	-- Step 6: Raging Beast's Blood
-	-- {zone:1452} Winterspring
-	["Every owlbeast of {zone:1452} (level 53-58, none elite) drops the blood about one time in three: about ninety kills for thirty. Owl Wing Thicket, in the north-east, and the Hidden Grove's surroundings are packed with them, and they respawn in five and a half minutes."] = "",
+	-- {zone:1452} Winterspring · {area:2250} Owl Wing Thicket · {area:2242} Hidden Grove
+	["Every owlbeast of {zone:1452} (level 53-58, none elite) drops the blood about one time in three: about ninety kills for thirty. {area:2250}, in the north-east, and the {area:2242}'s surroundings are packed with them, and they respawn in five and a half minutes."] = "",
 
 	-- Step 7: Wildeyes
-	-- {npc:14436} Mor'zul Bloodbringer · {item:18591} Case of Blood · {npc:14437} Gorzeeki Wildeyes · {quest:7623} Lord Banehollow · {npc:14523} Ulathek
+	-- {npc:14436} Mor'zul Bloodbringer · {item:18591} Case of Blood · {npc:14437} Gorzeeki Wildeyes · {quest:7623} Lord Banehollow · {area:1763} Jaedenar · {npc:14523} Ulathek
 	-- plural, as words: Shadowy Potions = {item:18802} Shadowy Potion
-	["Back to {npc:14436}: he gives you the {item:18591} for {npc:14437} beside him. Then {npc:14436} asks for the bell, the wheel and the candle, and {npc:14437} sends you to {quest:7623} in Jaedenar: buy three Shadowy Potions from him for that trip (6 gold each: one to walk in, one after {npc:14523}, and a spare in case one runs out) and bring 150 gold for the stardust."] = "",
+	["Back to {npc:14436}: he gives you the {item:18591} for {npc:14437} beside him. Then {npc:14436} asks for the bell, the wheel and the candle, and {npc:14437} sends you to {quest:7623} in {area:1763}: buy three Shadowy Potions from him for that trip (6 gold each: one to walk in, one after {npc:14523}, and a spare in case one runs out) and bring 150 gold for the stardust."] = "",
 	-- {item:18591} Case of Blood
 	["he gives you the {item:18591}"] = "te da la {item:18591}",
 	-- {item:18802} Shadowy Potion · {npc:14437} Gorzeeki Wildeyes
@@ -45,9 +45,9 @@ return {
 
 	-- Step 8: The ritual pieces
 	["The ritual pieces"] = "Las piezas del ritual",
-	-- {npc:14437} Gorzeeki Wildeyes · {skill:171} Alchemy · {item:8925} Crystal Vial · {skill:333} Enchanting · {item:11370} Dark Iron Ore · {skill:186} Mining · {zone:1428} Burning Steppes · {skill:393} Skinning · {npc:7043} Flamescale Wyrmkin
+	-- {npc:14437} Gorzeeki Wildeyes · {skill:171} Alchemy · {item:8925} Crystal Vial · {skill:333} Enchanting · {item:11370} Dark Iron Ore · {skill:186} Mining · {zone:1428} Burning Steppes · {area:1584} Blackrock Depths · {skill:393} Skinning · {npc:7043} Flamescale Wyrmkin
 	-- plural, as words: Ghost Mushrooms = {item:8845} Ghost Mushroom · Large Brilliant Shards = {item:14344} Large Brilliant Shard · Dark Iron Deposits = {object:165658} Dark Iron Deposit · Black Dragonscales = {item:15416} Black Dragonscale
-	["{npc:14437} wants 10 Elixirs of Shadow Power ({skill:171}: 3 Ghost Mushrooms and a {item:8925} each), 6 Large Brilliant Shards ({skill:333}: disenchant level 51+ blue items), 25 {item:11370} ({skill:186} 230: the Dark Iron Deposits of the {zone:1428} and Blackrock Depths) and 35 Black Dragonscales ({skill:393}: the black dragonkin of the {zone:1428}, a few percent a kill, best from the {npc:7043}). Make or gather what your professions allow and buy the rest at the Auction House; it can take a while to find 35 scales."] = "",
+	["{npc:14437} wants 10 Elixirs of Shadow Power ({skill:171}: 3 Ghost Mushrooms and a {item:8925} each), 6 Large Brilliant Shards ({skill:333}: disenchant level 51+ blue items), 25 {item:11370} ({skill:186} 230: the Dark Iron Deposits of the {zone:1428} and {area:1584}) and 35 Black Dragonscales ({skill:393}: the black dragonkin of the {zone:1428}, a few percent a kill, best from the {npc:7043}). Make or gather what your professions allow and buy the rest at the Auction House; it can take a while to find 35 scales."] = "",
 	-- {item:9264} Elixir of Shadow Power
 	["{item:9264}: the Auction House"] = "",
 	-- {item:14344} Large Brilliant Shard
@@ -61,13 +61,12 @@ return {
 	["{item:12360}: the Auction House"] = "",
 
 	-- Step 10: Lord Banehollow
-	-- {zone:1448} Felwood · {item:18802} Shadowy Potion · {quest:7623} Lord Banehollow
-	["Jaedenar lies just south of Bloodvenom Post in western {zone:1448}, west of the road; of its two caves, Shadow Hold is the northern one, further up the hill. Drink a {item:18802} at its mouth: for 20 minutes the Shadow Council there treat you as one of their own (Taint of Shadow). The oozes in the red pool and the succubus Rakaiah beyond them still attack: hug the wall past them. Go down past the second, red pool, up the ramp and across two bridges to {quest:7623}, a great winged dreadlord at the back. He talks to you only while the potion lasts."] = "",
-	["Shadow Hold"] = "",
+	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {zone:1448} Felwood · {area:1770} Shadow Hold · {item:18802} Shadowy Potion · {spell:23179} Taint of Shadow · {quest:7623} Lord Banehollow
+	["{area:1763} lies just south of {area:1997} in western {zone:1448}, west of the road; of its two caves, {area:1770} is the northern one, further up the hill. Drink a {item:18802} at its mouth: for 20 minutes the Shadow Council there treat you as one of their own ({spell:23179}). The oozes in the red pool and the succubus Rakaiah beyond them still attack: hug the wall past them. Go down past the second, red pool, up the ramp and across two bridges to {quest:7623}, a great winged dreadlord at the back. He talks to you only while the potion lasts."] = "",
 
 	-- Step 11: Ulathek the Traitor
-	-- {npc:14523} Ulathek · {npc:9516} Lord Banehollow
-	["{npc:14523} waits in a small side room up a bridge you passed on the way down. Speak to him and he and four guards attack (all level 57, none elite): let your voidwalker hold the guards and burn {npc:14523}, sacrificing it if you must. Or click off your Taint of Shadow aura to start the fight, kill {npc:14523}, then drink another potion: the guards stop at once. Take his heart back to {npc:9516} with a potion active."] = "",
+	-- {npc:14523} Ulathek · {spell:23179} Taint of Shadow · {npc:9516} Lord Banehollow
+	["{npc:14523} waits in a small side room up a bridge you passed on the way down. Speak to him and he and four guards attack (all level 57, none elite): let your voidwalker hold the guards and burn {npc:14523}, sacrificing it if you must. Or click off your {spell:23179} aura to start the fight, kill {npc:14523}, then drink another potion: the guards stop at once. Take his heart back to {npc:9516} with a potion active."] = "",
 
 	-- Step 12: Xorothian Stardust
 	-- {npc:14522} Ur'dan · {quest:7623} Lord Banehollow · {item:18687} Xorothian Stardust · {item:18802} Shadowy Potion
@@ -76,15 +75,16 @@ return {
 	["{item:18687}, from {npc:14522}"] = "{item:18687}, de {npc:14522}",
 
 	-- Step 13: Imp Delivery
-	-- {npc:14437} Gorzeeki Wildeyes · {quest:7630} Arcanite · {item:18688} Imp in a Jar
-	["Back to {npc:14437} with the stardust; with the {quest:7630} also done he gives you the {item:18688} for the Scholomance. Put a group of five together now: a party, not a raid group."] = "",
+	-- {npc:14437} Gorzeeki Wildeyes · {quest:7630} Arcanite · {item:18688} Imp in a Jar · {area:2057} Scholomance
+	["Back to {npc:14437} with the stardust; with the {quest:7630} also done he gives you the {item:18688} for the {area:2057}. Put a group of five together now: a party, not a raid group."] = "",
 	-- {quest:7625} Xorothian Stardust · {npc:14522} Ur'dan
 	["{quest:7625}, from {npc:14522}"] = "",
 
 	-- Step 14: The Scholomance
-	["The Scholomance"] = "",
-	-- {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {npc:10508} Ras Frostwhisper · {item:18688} Imp in a Jar · {npc:14500} J'eevee
-	["The Scholomance (level 58-60, a group of five) lies under Caer Darrow, the island town in the south-east of the {zone:1422}: someone needs the {item:13704} or a rogue to open the door. Fight down to {npc:10508}'s room and use the {item:18688} at the alchemy lab tables to the right: {npc:14500} makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party."] = "",
+	-- {area:2057} Scholomance
+	["The {area:2057}"] = "{area:2057}",
+	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {npc:10508} Ras Frostwhisper · {item:18688} Imp in a Jar · {npc:14500} J'eevee
+	["The {area:2057} (level 58-60, a group of five) lies under {area:2298}, the island town in the south-east of the {zone:1422}: someone needs the {item:13704} or a rogue to open the door. Fight down to {npc:10508}'s room and use the {item:18688} at the alchemy lab tables to the right: {npc:14500} makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party."] = "",
 	-- {item:18688} Imp in a Jar
 	["Use the {item:18688} at the alchemy lab inside"] = "",
 
@@ -101,8 +101,8 @@ return {
 
 	-- Step 16: Into Dire Maul West
 	["Into Dire Maul West"] = "",
-	-- {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11496} Immol'thar
-	["Dire Maul stands in the ruins of central {zone:1444}: from the gate at the foot of the ruins, walk up through the outer courtyards to the west wing's door at the north end. That door and an inner door need the {item:18249} (it drops from Pusillin in Dire Maul East) or a rogue with 300 Lockpicking. Bring a party of five. Lower {npc:11496}'s shield by killing the guardians of the five pylons (two stand in his own room), then kill {npc:11496}: his dais is the summoning circle. Rest and rebuff before you start."] = "",
+	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11496} Immol'thar
+	["{area:2577} stands in the ruins of central {zone:1444}: from the gate at the foot of the ruins, walk up through the outer courtyards to the west wing's door at the north end. That door and an inner door need the {item:18249} (it drops from Pusillin in Dire Maul East) or a rogue with 300 Lockpicking. Bring a party of five. Lower {npc:11496}'s shield by killing the guardians of the five pylons (two stand in his own room), then kill {npc:11496}: his dais is the summoning circle. Rest and rebuff before you start."] = "",
 	-- {npc:11496} Immol'thar
 	["{npc:11496}, inside the west wing"] = "",
 
@@ -128,7 +128,6 @@ return {
 	-- ["Hand the three pieces to {npc:14437}. He then wants 3 Arcanite Bars: alchemists transmute them, everyone else buys them at the Auction House."] = "Entrega las tres piezas a {npc:14437}. Después quiere 3 Lingotes de arcanita: los alquimistas los transmutan y los demás los compran en la casa de subastas.",
 	-- ["The owlbeasts of {zone:1452} drop the blood, about one in three: the Ragged and Raging Owlbeasts west of and around {area:2255}, the Crazed, Moontouched and {spell:417141} ones in the east. While you hunt, start on the materials of the next step: the Auction House has them all."] = "Las lechubestias de {zone:1452} sueltan la sangre, más o menos una de cada tres: las Lechubestias andrajosas y enfurecidas al oeste y alrededor de {area:2255}; las enloquecidas, lunadón y {spell:417141}, en el este. Mientras cazas, empieza con los materiales del paso siguiente: la casa de subastas los tiene todos.",
 	-- ["The ritual in {area:2577}"] = "El ritual en {area:2577}",
-	-- ["The {area:2057}"] = "{area:2057}",
 	-- ["The {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}: you need its key or a rogue to open the door, and Rattlegore's {item:13873} to go deeper. Use the {item:18688} at the alchemy lab in {npc:10508}'s room; {npc:14500} makes the parchment. Bring a group."] = "{area:2057} está bajo {area:2298}, el pueblo de la isla del sureste de {zone:1422}: necesitas su llave o un pícaro para abrir la puerta, y la {item:13873} de Traquesangre para avanzar más. Usa el {item:18688} en el laboratorio de alquimia de la sala de {npc:10508}; {npc:14500} hace el pergamino. Lleva un grupo.",
 	-- ["Use the {item:18688} at the alchemy lab"] = "Usa el {item:18688} en el laboratorio de alquimia",
 	-- ["Your epic mount at 60: summoned anywhere, with no gold spent on an epic horse."] = "Tu montura épica a nivel 60: invocable en cualquier lugar, sin gastar oro en un caballo épico.",

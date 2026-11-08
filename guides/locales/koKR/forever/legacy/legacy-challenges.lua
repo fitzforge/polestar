@@ -90,10 +90,10 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "모험: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
-	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley
-	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s Blackrock Mountain)"] = "",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
+	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
+	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "검은바위 첨탑 상층에서 '군주 발타라크여, 내 탓이오.' 이후의 {npc:16073} (데이터에 생성 위치 없음: 화살표는 {npc:16033}이(가) 있는 {area:254}(으)로 안내합니다)",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{quest:8996}을(를) 제출하면 {npc:16033}이(가) 줍니다",
 
@@ -111,64 +111,63 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "던전: 레벨 15-25",
-	-- {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
-	-- {npc:11519} Bazzalan
-	["Ragefire Chasm: {npc:11519} (or Hall of Thanes)"] = "",
-	-- {npc:261319} Durgen Dirgehammer
-	["Hall of Thanes: {npc:261319} (or Ragefire Chasm)"] = "",
-	-- {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["Ruins of Lordaeron (Forever's, {zone:1420}): {npc:256035}"] = "",
-	-- {npc:3678} Disciple of Naralex
-	["Wailing Caverns (appears after the {npc:3678}'s event)"] = "",
-	["The Deadmines"] = "",
-	-- {zone:1437} Wetlands · {npc:260326} Relic Guardian
-	["Excavation Site: {zone:1437} (Forever's): {npc:260326}"] = "",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
+	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}({npc:3678} 이벤트 후에 나타남)",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "던전: 레벨 26-45",
-	-- {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and Krol'dok Stronghold (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
-	["Blackfathom Deeps"] = "",
-	["Gnomeregan"] = "",
 	["the final boss of the Drowned City"] = "",
-	["Scarlet Monastery: Graveyard"] = "",
-	["Scarlet Monastery: Library"] = "",
-	["Scarlet Monastery: Armory"] = "",
-	["Scarlet Monastery: Cathedral"] = "",
-	["Razorfen Kraul"] = "",
-	["the final boss of Krol'dok Stronghold"] = "",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Graveyard"] = "{area:796}: 묘지",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Library"] = "{area:796}: 도서관",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Armory"] = "{area:796}: 무기고",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Cathedral"] = "{area:796}: 대성당",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "던전: 레벨 46-60",
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, Blackmaw Hold and the Shaper's Terrace are new in Forever and not in our data: tick them off yourself."] = "",
-	["Razorfen Downs"] = "",
-	["Uldaman"] = "",
-	["Zul'Farrak"] = "",
-	["Maraudon"] = "",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
 	["the final boss of Alcaz Prison"] = "",
-	["Sunken Temple"] = "",
-	["Blackrock Depths"] = "",
-	["the final boss of Blackmaw Hold"] = "",
-	["Lower Blackrock Spire"] = "",
-	["Upper Blackrock Spire"] = "",
-	["Scholomance"] = "",
-	["Stratholme, Live side"] = "",
-	["Stratholme, Undead side"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
+	-- {area:1583} Blackrock Spire
+	["Lower {area:1583}"] = "{area:1583} 하층",
+	-- {area:1583} Blackrock Spire
+	["Upper {area:1583}"] = "{area:1583} 상층",
+	-- {area:2279} Stratholme
+	["{area:2279}, Live side"] = "{area:2279}, 산 자 구역",
+	-- {area:2279} Stratholme
+	["{area:2279}, Undead side"] = "{area:2279}, 언데드 구역",
 	["Dire Maul East"] = "혈투의 전장 동쪽",
 	["Dire Maul North"] = "혈투의 전장 북쪽",
 	["Dire Maul West"] = "혈투의 전장 서쪽",
-	["the final boss of the Shaper's Terrace"] = "",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "공격대: {npc:10184}",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {npc:10184}'s Lair is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in Kargath ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh
-	["{npc:10184}'s Lair, {zone:1445}"] = "",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "공격대: Hyjal Summit",
@@ -178,8 +177,8 @@ return {
 
 	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "공격대: Barrow Deeps",
-	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or Blackmaw Hold and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "고분 심연의 우두머리 8명 전원",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -194,28 +193,18 @@ return {
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever는 던전 {area:16919}와(과) {area:153}을(를) 추가합니다. 그 우두머리와 레벨대는 아직 우리 데이터에 없습니다.",
 	-- ["Forever's new dungeons"] = "Forever의 새 던전",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "{npc:10184}을(를) 처치하면 1점입니다. 클래식에서 그녀의 둥지에 들어가려면 입장 퀘스트가 필요합니다: 얼라이언스는 {item:16309}, 호드는 {item:16663}.",
-	-- ["Lower {area:1583}"] = "{area:1583} 하층",
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "레벨 15-25 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다. 우두머리를 처치할 때마다 체크하십시오. 분류는 일반적인 클래식 레벨대를 따르므로, 정확한 목록은 게임 내 유산 창에서 확인하십시오.",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "레벨 26-45 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다.",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "레벨 46-60 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛의 왼쪽 조각과 오른쪽 조각, 마지막 준비, 군주 발타라크여, 내 탓이오.를 거쳐 {quest:8996}(으)로 {npc:16042} 퀘스트 라인이 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛 왼쪽 조각과 오른쪽 조각, 마지막 준비, {quest:8995}은(는) {quest:8996}(으)로 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, {item:22048}의 왼쪽 조각과 오른쪽 조각, 마지막 준비, 군주 발타라크여, 내 탓이오.를 거쳐 {quest:8996}(으)로 {npc:16042} 퀘스트 라인이 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
-	-- ["Upper {area:1583}"] = "{area:1583} 상층",
 	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "블리자드가 퀘스트 라인의 끝으로 어느 퀘스트({quest:8996} 또는 직업별 은혜의 보답)를 계산하는지는 유산 데이터가 기록될 때까지 확실하지 않습니다.",
 	-- ["the final boss of {area:153}"] = "{area:153} 최종 우두머리",
 	-- ["the final boss of {area:16919}"] = "{area:16919} 최종 우두머리",
 	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517}(레벨 41-51, 46-60 구간에 계산될 수 있음)",
 	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}와(과) {area:153}은(는) Forever에 새로 추가되었습니다. 우두머리, 레벨, 유산 구간이 우리 데이터에 없으니 직접 체크하십시오.",
-	-- ["{area:2279}, Live side"] = "{area:2279}, 산 자 구역",
-	-- ["{area:2279}, Undead side"] = "{area:2279}, 언데드 구역",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: 보통 마지막으로 처치하는 대상. {area:717}에는 정해진 마지막 우두머리가 없습니다",
-	-- ["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}({npc:3678} 이벤트 후에 나타남)",
-	-- ["{area:796}: Armory"] = "{area:796}: 무기고",
-	-- ["{area:796}: Cathedral"] = "{area:796}: 대성당",
-	-- ["{area:796}: Graveyard"] = "{area:796}: 묘지",
-	-- ["{area:796}: Library"] = "{area:796}: 도서관",
 	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "그다음 {npc:16012}이(가) 던전 세트의 마지막 강화인 직업별 마지막 보은을 줍니다.",
 	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "그다음 {npc:16013}이(가) 던전 세트의 마지막 강화인 직업별 은혜의 보답을 줍니다.",
-	-- ["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "검은바위 첨탑 상층에서 '군주 발타라크여, 내 탓이오.' 이후의 {npc:16073} (데이터에 생성 위치 없음: 화살표는 {npc:16033}이(가) 있는 {area:254}(으)로 안내합니다)",
 }

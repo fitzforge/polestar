@@ -16,27 +16,15 @@ return {
 	-- Step 2: Fishing: Elwynn Forest (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking
 	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
-	["Crystal Lake"] = "",
-
-	-- Step 3: Fishing: Dun Morogh (1-50)
-	["Iceflow Lake"] = "",
-
-	-- Step 4: Fishing: Teldrassil (1-50)
-	["Rut'theran Village"] = "",
 
 	-- Step 5: Fishing: Zephras Isle (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking
 	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients."] = "",
-	["Valanaar shore"] = "",
+	-- {area:16638} Valanaar
+	["{area:16638} shore"] = "",
 
 	-- Step 6: Fishing: Durotar (1-50)
 	["Sen'jin coast"] = "",
-
-	-- Step 7: Fishing: Mulgore (1-50)
-	["Stonebull Lake"] = "",
-
-	-- Step 8: Fishing: Tirisfal Glades (1-50)
-	["Brightwater Lake"] = "",
 
 	-- Step 10: Journeyman Fishing
 	-- {skill:356} Fishing
@@ -50,9 +38,6 @@ return {
 	-- {zone:1436} Westfall
 	["{zone:1436} coast"] = "Costa de {zone:1436}",
 
-	-- Step 12: Fishing: Loch Modan (50-125)
-	["The Loch"] = "",
-
 	-- Step 13: Fishing: Darkshore (50-125)
 	-- {zone:1439} Darkshore
 	["{zone:1439} coast"] = "Costa de {zone:1439}",
@@ -61,20 +46,17 @@ return {
 	-- {zone:1413} The Barrens
 	["{zone:1413} oasis"] = "Oasis de {zone:1413}",
 
-	-- Step 15: Fishing: Silverpine Forest (50-125)
-	["Lordamere Lake"] = "",
-
 	-- Step 16: Expert Fishing
 	-- {skill:356} Fishing
 	["Expert {skill:356}"] = "{skill:356} de experto",
-	-- {skill:356} Fishing · {npc:2626} Old Man Heming · {item:16083} Expert Fishing - The Bass and You · {object:3204} Booty Bay (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1413} The Barrens · {item:6532} Bright Baubles
-	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {npc:2626} sells {item:16083} (1g) on the lowest dock of {object:3204}, at the south tip of {zone:1434}, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from Ratchet in {zone:1413}, not the road through Stranglethorn. He also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for the rest of the way."] = "",
+	-- {skill:356} Fishing · {npc:2626} Old Man Heming · {item:16083} Expert Fishing - The Bass and You · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles
+	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {npc:2626} sells {item:16083} (1g) on the lowest dock of {area:35}, at the south tip of {zone:1434}, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from {area:392} in {zone:1413}, not the road through Stranglethorn. He also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for the rest of the way."] = "",
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
 	["Buy and read {item:16083} (Expert {skill:356})"] = "Compra y lee {item:16083} ({skill:356} de experto)",
 
 	-- Step 17: Fishing: Wetlands (125-225)
-	-- {item:279965} Fishing Rack
-	["Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the {item:279965} (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
+	-- {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
+	["Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the {item:279965} (from skill 140), is a blueprint that drops from Gelihast in {area:2797}. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
 	-- {zone:1437} Wetlands
 	["{zone:1437} coast"] = "Costa de {zone:1437}",
 
@@ -82,11 +64,9 @@ return {
 	-- {zone:1440} Ashenvale
 	["{zone:1440} waters"] = "Aguas de {zone:1440}",
 
-	-- Step 19: Fishing: Stonetalon Mountains (125-225)
-	["Mirkfallon Lake"] = "",
-
 	-- Step 20: Fishing: Hillsbrad Foothills (125-225)
-	["Hillsbrad coast"] = "",
+	-- {area:287} Hillsbrad
+	["{area:287} coast"] = "Costa de {area:287}",
 
 	-- Step 21: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
@@ -101,20 +81,20 @@ return {
 	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "",
 
 	-- Step 24: Sar'theris Striker
-	-- {zone:1443} Desolace · {object:176946} Shadowprey Village (no name in this language: may be words) · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} (Sar'theris Strand in the north-west, or the shore west of {object:176946}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
 	-- Step 26: Feralas Ahi
-	-- {zone:1444} Feralas · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the Verdantis River in {zone:1444} (south-east of Dire Maul) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
+	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
 
 	-- Step 27: Savage Coast Blue Sailfin
-	-- {zone:1434} Stranglethorn Vale · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s Savage Coast (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
 	-- Step 29: Misty Reed Mahi Mahi
-	-- {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the Misty Reed Strand (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
 	-- Step 30: Nat Pagle
 	-- {skill:356} Fishing
@@ -123,8 +103,8 @@ return {
 	-- Step 31: Fishing: Stranglethorn Vale (225-300)
 	-- {item:6533} Aquadynamic Fish Attractor · {item:6532} Bright Baubles
 	["Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The {item:6533} (+100 from skill 100, 2s 50c) and {item:6532} are for harder water and rare fish, not for skill."] = "",
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} coast"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} coast"] = "Costa de {area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:356} trainer of your faction teaches Apprentice {skill:356} (character level 5); the arrow picks the nearest. Buy a {item:6256} from a trade goods or fishing vendor and equip it."] = "Cualquier instructor de {skill:356} de tu facción enseña {skill:356} de aprendiz (nivel de personaje 5); la flecha elige el más cercano. Compra una {item:6256} a un proveedor de mercancías o de pesca y equípala.",
@@ -139,8 +119,6 @@ return {
 	-- ["Fish the pools here until skill 225. If fish keep getting away, fish easier water until your skill catches up."] = "Pesca en los bancos de aquí hasta 225 de habilidad. Si los peces se te escapan a menudo, pesca en aguas más fáciles hasta que tu habilidad mejore.",
 	-- ["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:356} trainer of your faction."] = "{skill:356} de oficial sube el límite a 150; requiere 50 de habilidad y nivel de personaje 10. La flecha elige el instructor de {skill:356} de tu facción más cercano.",
 	-- ["Vile Fin shore"] = "Orilla de los Anca Vil",
-	-- ["{area:287} coast"] = "Costa de {area:287}",
-	-- ["{area:35} coast"] = "Costa de {area:35}",
 	-- ["{area:442} shore"] = "Orilla de {area:442}",
 	-- ["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore."] = "{npc:12919} pesca desde la orilla de un islote frente a la costa este, al sur de Isla de Theramore.",
 	-- ["{zone:1411} coast"] = "Costa de {zone:1411}",

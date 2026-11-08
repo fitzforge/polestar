@@ -7,17 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {spell:10140} Conjure Water
-	["The level 60 {spell:10140}, from a Dire Maul library: drink for you and your group."] = "",
+	-- {spell:10140} Conjure Water · {area:2577} Dire Maul
+	["The level 60 {spell:10140}, from a {area:2577} library: drink for you and your group."] = "60級的{spell:10140}，來自{area:2577}的圖書館：為你和小隊提供飲料。",
 	["Shen'dralar reputation"] = "辛德拉聲望",
 
 	-- Step 1: Lorekeeper Lydros
-	-- {object:176945} Camp Mojache (no name in this language: may be words) · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {object:176945} (Horde) and ride to Dire Maul in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "海多斯博恩",
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. Riptide hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	-- {area:1758} Riptide
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}：海多斯博恩",
 
@@ -29,5 +30,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "飛往羽月要塞（聯盟）或{area:1099}（部落），然後騎往{zone:1444}中部的{area:2577}。{npc:14368}在圖書館等著，經由西區抵達（持有{item:18249}也可走北區）。",
 	-- ["Hydrospawn, a water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool."] = "水元素海多斯博恩住在Warpwood Quarter（厄運之槌東區）：追趕小鬼普希林直到他轉身應戰，清掉薩特房間，然後沿螺旋坡道下到水池。",
-	-- ["The level 60 {spell:10140}, from a {area:2577} library: drink for you and your group."] = "60級的{spell:10140}，來自{area:2577}的圖書館：為你和小隊提供飲料。",
 }

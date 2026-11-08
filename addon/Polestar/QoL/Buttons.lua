@@ -910,7 +910,9 @@ function Buttons.InteractStage(view, raw)
 		return (GetNumQuestChoices and GetNumQuestChoices() or 0) <= 1 and "complete" or nil
 	end
 	if not (UnitExists and UnitExists("target")) or (UnitIsPlayer and UnitIsPlayer("target")) then return nil end
-	local name = UnitName and UnitName("target")
+	-- A secret name (Forever's combat restrictions) reads as unknown: comparing
+	-- one throws (#1182); the NPC id still matches.
+	local name = ns.Compat.Readable(UnitName and UnitName("target"))
 	if UnitIsDead and UnitIsDead("target") then
 		local list = Buttons.TargetNames(view, raw)
 		for i = 1, #list do

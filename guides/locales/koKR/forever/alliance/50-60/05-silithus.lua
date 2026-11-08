@@ -7,24 +7,24 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Ratchet
-	["Ratchet"] = "",
-	["Fly from Marshal's Refuge to Ratchet."] = "",
+	-- {area:541} Marshal's Refuge · {area:392} Ratchet
+	["Fly from {area:541} to {area:392}."] = "",
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}, inside"] = "",
 
 	-- Step 2: Boat to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Boat to {object:3204}"] = "",
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "",
 
 	-- Step 3: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} flight master"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
 
 	-- Step 4: Stormwind
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {zone:1453} Stormwind
-	["Take the boat from Ratchet to {object:3204} and fly to {zone:1453}."] = "",
+	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
+	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "{area:392}에서 배를 타고 {area:35}(으)로 간 뒤 {zone:1453}로 날아가세요.",
 	-- {npc:3520} Ol' Emma
 	["{npc:3520}, who walks the canals"] = "{npc:3520}, 운하를 걸어다님",
 	-- {npc:10778} Janice Felstone
@@ -33,8 +33,8 @@ return {
 	-- Step 5: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, in SI:7"] = "{npc:332}, SI:7 안",
-	-- {quest:6184} Flint Shadowmore
-	["{quest:6184} at Chillwind Camp: keep it"] = "",
+	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
+	["{quest:6184} at {area:3197}: keep it"] = "{area:3197}의 {quest:6184}: 보관하세요",
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
@@ -46,21 +46,21 @@ return {
 	["{npc:14724}, by the tram"] = "{npc:14724}, 지하철 옆",
 
 	-- Step 8: Fly to Light's Hope Chapel
-	["Fly to Light's Hope Chapel"] = "",
+	-- {area:2268} Light's Hope Chapel
+	["Fly to {area:2268}"] = "{area:2268}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 9: Light's Hope Chapel
-	["Light's Hope Chapel"] = "",
-	-- {npc:11038} Caretaker Alen
-	["{npc:11038}, by the graves south of the chapel: Egan is in Terrordale, keep it"] = "",
+	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "",
 
 	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "스컬지 용사",
-	-- {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
+	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "",
+	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "{npc:8529}(59)은(는) {area:2268} 북쪽 {area:2270}을(를) 돌아다닙니다. 처치할 때마다 {npc:11063}의 {item:13156}을(를) 갖다 대세요. 공명하는 해골이 그가 원하는 것입니다. 하나씩 끌어오세요.",
 	-- {item:13155} Resonating Skull
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["{item:13155}, from the Scourge Champions"] = "{item:13155}, {npc:8529}에게서",
@@ -69,12 +69,12 @@ return {
 	["Chromie in Andorhal: keep it"] = "안돌할의 크로미: 보관하세요",
 
 	-- Step 12: Infiltrator Hameya
-	["Ride north to the Plaguewood's north-eastern edge.\nCareful: The trolls along the path to Zul'Mashar are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
+	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
+	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
 	-- Step 13: The Undercroft
-	["The Undercroft"] = "",
-	-- {npc:11886} Mercutio Filthgorger
-	["Ride south-west to the Undercroft. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
+	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
 	["{item:14613}, from {npc:11886}"] = "{item:14613}, {npc:11886}에게서",
 
@@ -100,9 +100,7 @@ return {
 	-- ["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised."] = "남서쪽으로 {area:2261}까지 가세요. 흙더미는 안쪽에 있습니다. {npc:11886}은(는) 정예이니 파티를 권합니다.",
 	-- ["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "남서쪽으로 {area:1938}의 {npc:7771} 야영지로 가세요.",
 	-- ["Scourge Champions"] = "{npc:8529}",
-	-- ["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "{npc:8529}(59)은(는) {area:2268} 북쪽 {area:2270}을(를) 돌아다닙니다. 처치할 때마다 {npc:11063}의 {item:13156}을(를) 갖다 대세요. 공명하는 해골이 그가 원하는 것입니다. 하나씩 끌어오세요.",
 	-- ["Sixty {item:2592}, if you carry them"] = "{item:2592} 60장, 가지고 있다면",
-	-- ["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "{area:392}에서 배를 타고 {area:35}(으)로 간 뒤 {zone:1453}로 날아가세요.",
 	-- ["Take the {area:2257} to {zone:1455}."] = "{area:2257}을(를) 타고 {zone:1455}(으)로 가세요.",
 	-- ["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}."] = "{npc:6517}은(는) {area:538}에서 뒹굴고, 한가운데 {area:537}의 불의 정령이 재를, 남쪽 {area:540}의 고리쉬 말벌이 분비샘을 가지고 있습니다. 분화구의 모든 생물이 {item:11018}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["The crater"] = "분화구",
@@ -119,5 +117,4 @@ return {
 	-- ["{npc:3520}, who walks the canals"] = "{npc:3520}, 운하를 걸어다님",
 	-- ["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에서 기다리며, 묘비는 그 근처에 서 있습니다.",
 	-- ["{quest:3444} is in {area:392}"] = "{quest:3444}은(는) {area:392}에 있습니다",
-	-- ["{quest:6184} at {area:3197}: keep it"] = "{area:3197}의 {quest:6184}: 보관하세요",
 }

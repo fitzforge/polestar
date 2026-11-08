@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Flieg nach {object:3202}",
-	["Kargath flight master"] = "",
-
-	-- Step 2: Grom'gol Base Camp
-	["Grom'gol Base Camp"] = "",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "",
 
 	-- Step 3: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -22,14 +20,14 @@ return {
 	["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "Die Dschungelpirscher (40-41) jagen an der Küste südlich von {object:3202}. Sie liegen weit über dir: Zieh sie einzeln und ruh dich zwischen den Kämpfen aus.",
 
 	-- Step 5: Fly to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Fly to {object:3204}"] = "",
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "Flieg nach {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["{object:3202} flight master"] = "",
 
 	-- Step 6: Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Gringer, the flight master, waits on {object:3204}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "",
+	-- {area:35} Booty Bay
+	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "",
 	-- {npc:737} Kebok
@@ -38,29 +36,31 @@ return {
 	["Inside"] = "",
 
 	-- Step 7: Bloodsail Correspondence
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Leave town by the tunnel; the note lies in the pirates' cove just north of {object:3204}."] = "",
+	-- {area:35} Booty Bay
+	["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "Verlass den Ort durch den Tunnel; die Notiz liegt in der Piratenbucht gleich nördlich von {area:35}.",
 
 	-- Step 8: Booty Bay
 	-- {npc:2488} Deeg
 	["{npc:2488}, on the top floor"] = "",
 
 	-- Step 9: The Wild Shore
-	["The Wild Shore"] = "",
-	-- {npc:2493} Dizzy One-Eye
-	["South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "",
+	-- {area:43} Wild Shore
+	["The {area:43}"] = "{area:43}",
+	-- {area:43} Wild Shore · {npc:2493} Dizzy One-Eye
+	["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Südlich von Booty Bay lagern die Schwadroneure der Blutsegelbukaniere an der {area:43}; die Karten und Befehle liegen in ihren Zelten. Jeder Blutsegelbukanier kann Schnupftabak und {npc:2493}s Auge tragen, also töte weiter, bis du beides hast.",
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Die Schiffe der Blutsegelbukaniere",
-	-- {quest:624} Cortello's Riddle · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "",
-	-- {zone:1435} Swamp of Sorrows
-	["for a later stop in the {zone:1435}"] = "für einen späteren Halt in den {zone:1435}",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "",
+	-- {area:8} Swamp of Sorrows
+	["for a later stop in the {area:8}"] = "für einen späteren Halt in den {area:8}",
 
 	-- Step 12: Witch Doctor Unbagwa
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Take the road north out of {object:3204}; Unbagwa sits on a hill in Mistvale Valley, east of the road."] = "",
-	["Inside Spirit Den"] = "",
+	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
+	["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "Nimm die Straße nach Norden aus {area:35}; Unbagwa sitzt auf einem Hügel in {area:1737}, östlich der Straße.",
+	-- {area:1742} Spirit Den
+	["Inside {area:1742}"] = "",
 
 	-- Step 13: Mistvale gorillas
 	["Mistvale gorillas"] = "Nebeltalgorillas",
@@ -81,8 +81,8 @@ return {
 
 	-- Step 20: Zul'Kunda
 	["Zul'Kunda"] = "Ruinen von Zul'Kunda",
-	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah
-	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead."] = "",
+	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman
+	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "",
 
@@ -98,13 +98,14 @@ return {
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "Die Pirscher-Raptoren jagen im Dschungel südlich von {object:3202}, hinaus Richtung Westküste.",
 
 	-- Step 23: The Cape of Stranglethorn: kill these as you meet them
-	["The Cape of Stranglethorn: kill these as you meet them"] = "",
+	-- {area:1577} The Cape of Stranglethorn
+	["{area:1577}: kill these as you meet them"] = "",
 	-- {object:759} Holy Spring
 	["Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them."] = "Folge der Küste nach Süden. Die Forscher der Naga waten am Ufer entlang und tragen die Schilfbündel; {object:759} sprudelt in den Hügeln gleich östlich davon.",
 
 	-- Step 24: Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Head south to {object:3204}. Shaky Phillipe waits on the docks."] = "",
+	-- {area:35} Booty Bay
+	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 	-- {zone:1446} Tanaris
@@ -116,8 +117,8 @@ return {
 
 	-- Step 26: Pirate ghosts
 	["Pirate ghosts"] = "Piratengeister",
-	-- {object:3204} Booty Bay (no name in this language: may be words) · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
-	["The three ghostly pirates haunt the jungle north of {object:3204}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "",
+	-- {area:35} Booty Bay · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
+	["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Die drei geisterhaften Piraten spuken im Dschungel nördlich von {area:35}, nahe Zanzils Lagern: {npc:2535} und {npc:2536} stehen zusammen, {npc:2537} weiter östlich.",
 
 	-- Step 27: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruinen von Zul'Mamwe",
@@ -129,7 +130,8 @@ return {
 	["Below ground"] = "",
 
 	-- Step 28: Balia'mah Ruins: kill these as you meet them
-	["Balia'mah Ruins: kill these as you meet them"] = "",
+	-- {area:127} Balia'mah Ruins
+	["{area:127}: kill these as you meet them"] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
@@ -142,15 +144,14 @@ return {
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
-	-- {npc:773} Krazek · {quest:2864} Tran'rek
-	["{npc:773}, upstairs: for {quest:2864} in Gadgetzan"] = "",
+	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
+	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
 
 	-- Step 32: Fly to Grom'gol
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["{object:3204} flight master"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
 
 	-- Step 34: Nesingwary's Expedition
-	["Nesingwary's Expedition"] = "",
 	["Head north up the road to the hunters' camp."] = "",
 
 	-- Step 36: Raptor Mastery
@@ -163,8 +164,8 @@ return {
 
 	-- Step 41: Level 42.68
 	["Level 42.68"] = "",
-	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery
-	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead."] = "",
+	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
+	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "",
 
@@ -174,18 +175,18 @@ return {
 
 	-- Step 44: Level 42.74
 	["Level 42.74"] = "",
-	-- {quest:208} Big Game Hunter
-	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead."] = "",
+	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
+	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
 	-- Step 48: Into the Swamp of Sorrows
-	-- {zone:1435} Swamp of Sorrows
-	["Into the {zone:1435}"] = "In die {zone:1435}",
-	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor
-	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the Harborage, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	-- {area:8} Swamp of Sorrows
+	["Into the {area:8}"] = "In die {area:8}",
+	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
 	-- Step 49: Stonard
-	["Stonard"] = "",
-	["Head east to Stonard, in the reeds south of the road. Bind here."] = "",
+	-- {area:75} Stonard
+	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 	-- {npc:1442} Helgrum the Swift
@@ -197,28 +198,29 @@ return {
 
 	-- Step 50: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",
-	-- {npc:5391} Galen Goodward
-	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards Stonard; about one in four drops a flank."] = "",
+	-- {npc:5391} Galen Goodward · {area:75} Stonard
+	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Die Krokilisken suhlen sich in den Tümpeln um {npc:5391}s Lager und südlich Richtung {area:75}; etwa jeder vierte lässt eine Flanke fallen.",
 
 	-- Step 51: Noboru the Cudgel
-	["Noboru wanders the clearing south-west of the Fallow Sanctuary; his cudgel starts a quest."] = "",
+	-- {area:76} Fallow Sanctuary
+	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru wandert über die Lichtung südwestlich vom {area:76}; sein Knüppel startet eine Quest.",
 
 	-- Step 52: Draenethyst crystals
 	["Draenethyst crystals"] = "Draenethystkristalle",
-	-- {npc:5391} Galen Goodward
-	["Ride north-east to the Fallow Sanctuary. The crystals stand along the way up to {npc:5391}'s cage."] = "",
+	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
+	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Reite nach Nordosten zum {area:76}. Die Kristalle stehen am Weg hinauf zum Käfig von {npc:5391}.",
 
 	-- Step 53: Galen's Escape
-	-- {npc:5391} Galen Goodward
-	["{npc:5391} is held in the Fallow Sanctuary in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "",
+	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
+	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} wird im {area:76} im Nordosten des Sumpfs gefangen gehalten. Befrei ihn und folge ihm hinaus; wehr die Sumpfkreaturen ab, die ihn verfolgen.",
 
 	-- Step 54: Galen's Strongbox
-	["His strongbox waits at his old camp north of Stonard, on the way back west."] = "",
+	-- {area:75} Stonard
+	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "",
 
-	-- Step 55: The Harborage
-	["The Harborage"] = "",
-	-- {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar
-	["Ride west along the road to the draenei camp at the Harborage, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at Misty Reed Post on the next swamp visit: keep the flanks."] = "",
+	-- Step 55: Harborage
+	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
+	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {area:35}"] = "Schiff nach {area:35}",
@@ -228,41 +230,30 @@ return {
 	-- ["Hearth to {area:35}"] = "Ruhestein nach {area:35}",
 	-- ["Hearth to {object:3202}"] = "Ruhestein nach {object:3202}",
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "Seine Geldkassette wartet in seinem alten Lager nördlich von {area:75}.",
-	-- ["Into the {zone:1435}"] = "In die {zone:1435}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Reite weiter nach Norden in den {zone:1431}, dann auf der Straße nach Osten durch den {zone:1430} in den Sumpf. {npc:1776} wartet bei {area:657}, dem Draeneilager nahe dem Weg vom {zone:1430} herein.",
-	-- ["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "Verlass den Ort durch den Tunnel; die Notiz liegt in der Piratenbucht gleich nördlich von {area:35}.",
 	-- ["Naga shore and the {object:759}"] = "Nagaufer und {object:759}",
-	-- ["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru wandert über die Lichtung südwestlich vom {area:76}; sein Knüppel startet eine Quest.",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "Reite zurück nach Osten an {area:75} vorbei und folge der Straße nach Südosten zum kleinen Hordeposten am Ufer.",
 	-- ["Ride east to {area:75}, in the reeds south of the road."] = "Reite nach Osten nach {area:75}, im Schilf südlich der Straße.",
 	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Reite nach Norden zu den Ruinen der Skullsplitter östlich der Mine der Venture Co.; zieh die Kopfjäger und Berserker einzeln. {npc:1059} bewacht die südwestlichen Ruinen, und ein Haufen Trophäenschädel steht auf der Nordseite der Ruinen. Jeder Skullsplitter kann einen Hauer oder eine Halskette fallen lassen: Die Halsketten dauern am längsten, also töte im Kriegerlager nördlich der Ruinen weiter, bis du alle hast.",
 	-- ["Ride north up the road to the hunters' camp."] = "Reite die Straße nach Norden hinauf zum Lager der Jäger.",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "Reite die Straße nach Norden hinauf; die Jäger lagern auf dem Hügel über dem Fluss.",
-	-- ["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Reite nach Nordosten zum {area:76}. Die Kristalle stehen am Weg hinauf zum Käfig von {npc:5391}.",
 	-- ["Ride north-west to {object:3202}."] = "Reite nach Nordwesten nach {object:3202}.",
 	-- ["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Reite nach Süden nach {area:35}. Der zittrige Phillipe wartet an den Docks.",
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Reite auf der Straße nach Westen zum Draeneilager bei {area:657}, nahe dem Weg vom {zone:1430} herein.",
 	-- ["Ride west to {object:3202}."] = "Reite nach Westen nach {object:3202}.",
 	-- ["Sawtooth snappers"] = "Sägezahnschnapper",
-	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Südlich von Booty Bay lagern die Schwadroneure der Blutsegelbukaniere an der {area:43}; die Karten und Befehle liegen in ihren Zelten. Jeder Blutsegelbukanier kann Schnupftabak und {npc:2493}s Auge tragen, also töte weiter, bis du beides hast.",
-	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "Nimm die Straße nach Norden aus {area:35}; Unbagwa sitzt auf einem Hügel in {area:1737}, östlich der Straße.",
 	-- ["The boat lands in {area:35}'s harbour. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Das Schiff legt im Hafen von {area:35} an. Die Questgeber stehen auf den Stegen rund um den Hafen und im Gasthaus.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "Das Schiff nach {area:35} legt am Ende des Piers von {area:392} an.",
-	-- ["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Die Krokilisken suhlen sich in den Tümpeln um {npc:5391}s Lager und südlich Richtung {area:75}; etwa jeder vierte lässt eine Flanke fallen.",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "Die letzten Schädel sind in den Ruinen ein kurzes Stück westlich, auf dem Rückweg nach {object:3202}.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "Der nächste Guide beginnt hier und bringt dich nach {zone:1446}.",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "Die nächsten Trophäenschädel stehen in den kleinen Ruinen gleich nördlich des Kriegerlagers.",
 	-- ["The snappers line the strand south of the post."] = "Die Schnapper säumen den Strand südlich des Postens.",
-	-- ["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Die drei geisterhaften Piraten spuken im Dschungel nördlich von {area:35}, nahe Zanzils Lagern: {npc:2535} und {npc:2536} stehen zusammen, {npc:2537} weiter östlich.",
 	-- ["The three ships lie off the {area:43}. The crews are 42-45, Stillwater 45, Keelhaul 46 and {npc:2546} 48: at 41 this is a fight for a group, or for the end of the guide. If you go, swim out and pull the crew to the rail one at a time. A scroll, {quest:624}, lies on the ships' decks: take it."] = "Die drei Schiffe liegen vor der {area:43}. Die Besatzungen sind 42-45, Stillwasser 45, Kielhol 46 und {npc:2546} 48: Mit 41 ist das ein Kampf für eine Gruppe oder für das Ende des Guides. Wenn du hingehst, schwimm hinaus und zieh die Besatzung einzeln an die Reling. Eine Schriftrolle, {quest:624}, liegt auf den Decks der Schiffe: Nimm sie mit.",
-	-- ["The {area:43}"] = "{area:43}",
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "Westlich der Expedition stehen die Häuptlinge der Bloodscalp, {npc:1061} und {npc:1062}, zusammen in den Ruinen von Zul'Kunda. Räum zuerst ihre Wachen weg und zieh dann die beiden.",
 	-- ["for Stoley in {zone:1446}"] = "für Stoley in {zone:1446}",
-	-- ["for a later stop in the {zone:1435}"] = "für einen späteren Halt in den {zone:1435}",
 	-- ["for later: the {zone:1425}, around level 48"] = "für später: das {zone:1425}, etwa ab Stufe 48",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, neben {npc:2497}",
 	-- ["{area:392} pier"] = "Pier von {area:392}",
-	-- ["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} wird im {area:76} im Nordosten des Sumpfs gefangen gehalten. Befrei ihn und folge ihm hinaus; wehr die Sumpfkreaturen ab, die ihn verfolgen.",
 	-- ["{npc:773}: for {quest:2864} in {area:976}"] = "{npc:773}: für {quest:2864} in {area:976}",
 }

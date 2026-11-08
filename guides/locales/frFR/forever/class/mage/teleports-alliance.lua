@@ -17,12 +17,12 @@ return {
 	["{item:17031}, 10s each"] = "{item:17031}, 10 pa pièce",
 
 	-- Step 2: Teleport: Ironforge
-	-- {zone:1453} Stormwind · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:2489} Milstaff Stormeye · {object:32362} Mystic Ward · {spell:3562} Teleport: Ironforge
-	["Take the Deeprun Tram from {zone:1453}'s {object:28027} to {zone:1455}. {npc:2489}, the portal trainer, stands with the mage trainers in the {object:32362} at the back of the city: {spell:3562}, 20 silver."] = "",
+	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:2489} Milstaff Stormeye · {object:32362} Mystic Ward · {spell:3562} Teleport: Ironforge
+	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}. {npc:2489}, the portal trainer, stands with the mage trainers in the {object:32362} at the back of the city: {spell:3562}, 20 silver."] = "Prenez le {area:2257} depuis le {object:28027} de {zone:1453} jusqu'à {zone:1455}. {npc:2489}, le maître des portails, se tient avec les maîtres des mages dans {object:32362}, au fond de la ville : {spell:3562}, 20 pa.",
 
 	-- Step 3: Teleport: Darnassus
-	-- {zone:1439} Darkshore · {zone:1457} Darnassus · {npc:4165} Elissa Dumas · {spell:3565} Teleport: Darnassus
-	["At 30. Take the boat from Stormwind Harbor to Auberdine in {zone:1439}, then the boat to Rut'theran Village and the pink portal up into {zone:1457}. {npc:4165}, the portal trainer, teaches {spell:3565} for 80 silver."] = "",
+	-- {area:17203} Stormwind Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:4165} Elissa Dumas · {spell:3565} Teleport: Darnassus
+	["At 30. Take the boat from {area:17203} to {area:442} in {zone:1439}, then the boat to {area:702} and the pink portal up into {zone:1457}. {npc:4165}, the portal trainer, teaches {spell:3565} for 80 silver."] = "Au niveau 30. Prenez le bateau du {area:17203} à {area:442}, en {zone:1439}, puis le bateau pour le {area:702} et le portail rose qui monte à {zone:1457}. {npc:4165}, la maîtresse des portails, enseigne {spell:3565} pour 80 pa.",
 
 	-- Step 4: Portals to Stormwind and Ironforge
 	-- {zone:1453} Stormwind · {zone:1455} Ironforge
@@ -35,8 +35,4 @@ return {
 	-- Step 5: Portal: Darnassus
 	-- {npc:4165} Elissa Dumas · {zone:1457} Darnassus · {spell:11419} Portal: Darnassus · {spell:3565} Teleport: Darnassus
 	["At 50 {npc:4165} in {zone:1457} teaches the last one, {spell:11419}, for 3 gold 20 silver. Use your {spell:3565} to get there."] = "Au niveau 50, {npc:4165} à {zone:1457} enseigne le dernier, {spell:11419}, pour 3 po 20 pa. Utilisez votre {spell:3565} pour vous y rendre.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30. Take the boat from {area:17203} to {area:442} in {zone:1439}, then the boat to {area:702} and the pink portal up into {zone:1457}. {npc:4165}, the portal trainer, teaches {spell:3565} for 80 silver."] = "Au niveau 30. Prenez le bateau du {area:17203} à {area:442}, en {zone:1439}, puis le bateau pour le {area:702} et le portail rose qui monte à {zone:1457}. {npc:4165}, la maîtresse des portails, enseigne {spell:3565} pour 80 pa.",
-	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}. {npc:2489}, the portal trainer, stands with the mage trainers in the {object:32362} at the back of the city: {spell:3562}, 20 silver."] = "Prenez le {area:2257} depuis le {object:28027} de {zone:1453} jusqu'à {zone:1455}. {npc:2489}, le maître des portails, se tient avec les maîtres des mages dans {object:32362}, au fond de la ville : {spell:3562}, 20 pa.",
 }

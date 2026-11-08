@@ -13,44 +13,45 @@ return {
 	-- Step 1: The Ancient Petrified Leaf
 	-- {item:18703} Ancient Petrified Leaf
 	["The {item:18703}"] = "La {item:18703}",
-	-- {npc:12018} Majordomo Executus · {object:179703} Cache of the Firelord · {item:18703} Ancient Petrified Leaf
-	["Molten Core is a 40-player raid inside Blackrock Mountain. When {npc:12018} yields, the {object:179703} appears; it holds the {item:18703} about half the time, one per kill, so it may take several weeks of raids. Right-click the leaf to start the quest."] = "",
+	-- {area:2717} Molten Core · {area:254} Blackrock Mountain · {npc:12018} Majordomo Executus · {object:179703} Cache of the Firelord · {item:18703} Ancient Petrified Leaf
+	["{area:2717} is a 40-player raid inside {area:254}. When {npc:12018} yields, the {object:179703} appears; it holds the {item:18703} about half the time, one per kill, so it may take several weeks of raids. Right-click the leaf to start the quest."] = "",
 	-- {item:18703} Ancient Petrified Leaf
 	["from the {item:18703}"] = "de la {item:18703}",
 
 	-- Step 2: Vartrus the Ancient
-	-- {npc:14526} Hastat the Ancient · {zone:1448} Felwood · {object:177106} Talonbranch Glade (no name in this language: may be words) · {quest:7636} Stave of the Ancients
-	["Vartrus, Stoma and {npc:14526} are petrified trees on a small island in a ring-shaped lake in Irontree Woods, north {zone:1448}. Their spirits only appear when someone carrying the leaf climbs the island's little hill to its east edge. Alliance: fly to {object:177106}; Horde: fly to Bloodvenom Post. Vartrus gives {quest:7636}, Stoma A Proper String, Hastat the quiver; each can be handed in on its own."] = "",
+	-- {npc:14526} Hastat the Ancient · {area:1767} Irontree Woods · {zone:1448} Felwood · {area:1998} Talonbranch Glade · {area:1997} Bloodvenom Post · {quest:7636} Stave of the Ancients
+	["Vartrus, Stoma and {npc:14526} are petrified trees on a small island in a ring-shaped lake in {area:1767}, north {zone:1448}. Their spirits only appear when someone carrying the leaf climbs the island's little hill to its east edge. Alliance: fly to {area:1998}; Horde: fly to {area:1997}. Vartrus gives {quest:7636}, Stoma A Proper String, Hastat the quiver; each can be handed in on its own."] = "",
 	-- {npc:14526} Hastat the Ancient
 	["{npc:14526}: the quiver, last in this guide"] = "{npc:14526}: el carcaj, lo último de esta guía",
 
 	-- Step 3: Before the demons
 	["Before the demons"] = "",
-	-- {item:9224} Elixir of Demonslaying · {skill:171} Alchemy
+	-- {skill:171} Alchemy · {spell:19878} Track Demons
 	-- plural, as words: Major Mana Potions = {item:13444} Major Mana Potion
-	["The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring an {item:9224} ({skill:171} or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. Track Demons, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head."] = "",
-	["Learn Track Demons and get demon-slaying potions"] = "",
+	["The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring an Elixir of Demonslaying ({skill:171} or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. {spell:19878}, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head."] = "",
+	-- {spell:19878} Track Demons
+	["Learn {spell:19878} and get demon-slaying potions"] = "",
 
 	-- Step 4: Simone the Seductress
-	-- {npc:14527} Simone the Inconspicuous · {npc:14533} Simone the Seductress
-	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use Track Demons. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her Chain Lightning hits hard, so drain her mana with Viper Sting (a 15-second cooldown on Forever) and keep her busy; her Temptress' Kiss cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "",
+	-- {npc:14527} Simone the Inconspicuous · {spell:19878} Track Demons · {npc:14533} Simone the Seductress · {spell:421} Chain Lightning · {spell:3034} Viper Sting · {spell:23205} Temptress' Kiss
+	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use {spell:19878}. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her {spell:421} hits hard, so drain her mana with {spell:3034} (a 15-second cooldown on Forever) and keep her busy; her {spell:23205} cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "",
 
 	-- Step 5: Klinfran the Crazed
-	-- {npc:14529} Franklin the Friendly · {zone:1428} Burning Steppes · {npc:14534} Klinfran the Crazed
-	["{npc:14529}, a human, wanders the western {zone:1428} south of Blackrock Mountain. Talk to him and he becomes {npc:14534}, the easiest of the four. Keep Scorpid Sting on him the whole fight: while it lasts he barely hurts you. When he goes into Demonic Frenzy, remove it with Tranquilizing Shot and never stand in melee while it is up; between frenzies you can fight him in melee with Wing Clip and Raptor Strike. He cannot leave the {zone:1428}, so kite him around the trees if needed."] = "",
+	-- {npc:14529} Franklin the Friendly · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14534} Klinfran the Crazed · {spell:3043} Scorpid Sting · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot · {spell:2974} Wing Clip · {spell:2973} Raptor Strike
+	["{npc:14529}, a human, wanders the western {zone:1428} south of {area:254}. Talk to him and he becomes {npc:14534}, the easiest of the four. Keep {spell:3043} on him the whole fight: while it lasts he barely hurts you. When he goes into {spell:23257}, remove it with {spell:19801} and never stand in melee while it is up; between frenzies you can fight him in melee with {spell:2974} and {spell:2973}. He cannot leave the {zone:1428}, so kite him around the trees if needed."] = "",
 
 	-- Step 6: Solenor the Slayer
-	-- {npc:14536} Nelson the Nice · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {object:164639} Frost Trap (no name in this language: may be words) · {npc:14761} Creeping Doom
-	["{npc:14536}, a gnome, walks around the gates of Ahn'Qiraj in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with Soul Flame as he turns: drop a {object:164639}, Feign Death, and he resets without the enrage. Wing Clip roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and Multi-Shot before they wear you down."] = "",
+	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {object:164639} Frost Trap (no name in this language: may be words) · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
+	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {object:164639}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "",
 
 	-- Step 7: Artorius the Doombringer
-	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {npc:14535} Artorius the Doombringer
-	["{npc:14531}, a tauren, walks a loop in the rocks of northern {zone:1452}, north of Everlook. Talk to him and he becomes {npc:14535}. Within 30 yards of him Demonic Doom hits hard: keep your distance and kite him the whole fight, Aspect of the Cheetah on, south down the road. Serpent Sting on him adds Stinging Trauma, extra Nature damage, so keep it ticking while you run; his Demonic Frenzy can be removed with Tranquilizing Shot, but distance matters more. It is a long fight: bring mana potions and plan your kiting path."] = "",
+	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {area:2255} Everlook · {npc:14535} Artorius the Doombringer · {spell:23298} Demonic Doom · {spell:5118} Aspect of the Cheetah · {spell:1978} Serpent Sting · {spell:23299} Stinging Trauma · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot
+	["{npc:14531}, a tauren, walks a loop in the rocks of northern {zone:1452}, north of {area:2255}. Talk to him and he becomes {npc:14535}. Within 30 yards of him {spell:23298} hits hard: keep your distance and kite him the whole fight, {spell:5118} on, south down the road. {spell:1978} on him adds {spell:23299}, extra Nature damage, so keep it ticking while you run; his {spell:23257} can be removed with {spell:19801}, but distance matters more. It is a long fight: bring mana potions and plan your kiting path."] = "",
 
 	-- Step 8: Onyxia
 	["Onyxia"] = "Onyxia",
-	-- {zone:1445} Dustwallow Marsh · {item:18705} Mature Black Dragon Sinew
-	["Onyxia is the 40-player raid boss of Onyxia's Lair, a cave in the Wyrmbog of southern {zone:1445}; she returns once a week. She drops one {item:18705} in about two kills of five, lootable without the quest, so only one hunter per kill gets it: settle who first."] = "",
+	-- {area:2159} Onyxia's Lair · {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {item:18705} Mature Black Dragon Sinew
+	["Onyxia is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. She drops one {item:18705} in about two kills of five, lootable without the quest, so only one hunter per kill gets it: settle who first."] = "",
 	-- {item:18705} Mature Black Dragon Sinew
 	["{item:18705}, from Onyxia"] = "{item:18705}, de Onyxia",
 
@@ -66,8 +67,8 @@ return {
 	["{npc:14524}: Lok'delar in Classic"] = "{npc:14524}: Lok'delar en Classic",
 
 	-- Step 11: Azuregos
-	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos · {zone:1447} Azshara · {zone:1452} Winterspring
-	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, stands in southern {zone:1447}, returns only every two to four days and drops it nearly every kill. The elite Cobalt dragonkin in and around Mazthoril, the cave south of Everlook in {zone:1452}, drop it about once in 200 kills; Manaclaw there a little more often. Skip the rest of this guide if you do not want the quiver."] = "",
+	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos · {zone:1447} Azshara · {area:2245} Mazthoril · {area:2255} Everlook · {zone:1452} Winterspring
+	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, stands in southern {zone:1447}, returns only every two to four days and drops it nearly every kill. The elite Cobalt dragonkin in and around {area:2245}, the cave south of {area:2255} in {zone:1452}, drop it about once in 200 kills; Manaclaw there a little more often. Skip the rest of this guide if you do not want the quiver."] = "",
 	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos
 	["{item:18704}, from {npc:6109}"] = "{item:18704}, de {npc:6109}",
 

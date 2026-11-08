@@ -12,18 +12,16 @@ return {
 	-- Step 1: Journeyman Riding
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Profissional)",
-	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {object:95} Eastvale Logging Camp (no name in this language: may be words) · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {object:95} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "",
+	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, instrutor de montaria",
 
 	-- Step 2: Horse Riding for other races
-	-- {skill:762} Riding
-	["Horse {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes Horse Riding, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
-	-- {npc:4732} Randal Hunter
-	["{npc:4732}, Horse Riding"] = "",
+	-- {spell:824} Horse Riding
+	["{spell:824} for other races"] = "",
+	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Escolha uma cor",

@@ -1710,8 +1710,59 @@ test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
 	const lit = at(list, 'turnin 465', is('turnin', 465));
-	assert.ok(at(needles, 'turnin 98230 (Howin, on the Wetlands visit)', is('turnin', 98230)) >= 0, 'Howin is visited first, on the 27-29 Wetlands visit');
 	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
+});
+
+// --- Wetlands (Bennistrov, #1299): 0.3.5 took This Land Was Their Land (98230) on the first Menethil visit,
+// where Captain Stoutfist doesn't offer it. Players' recordings: refused to 9 people who could take it, none of
+// whom had handed in Defeat Nek'rosh (474); offered to the one character right after 474's hand-in.
+test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat Nek'rosh is handed in, on its group branch (#1299)`, { skip }, () => {
+	assert.ok(!goals(WETLANDS).some(({ goal }) => goal.quest === 98230), `${WETLANDS} does not take it on the first Menethil visit`);
+	let seen = 0;
+	for (const guide of allGuides()) {
+		const list = goals(guide);
+		for (const { step, goal } of list.filter(({ goal }) => goal.quest === 98230)) {
+			seen++;
+			assert.ok((step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(474) && !p.neg), `${guide}: ${goal.t} 98230 is under when group 474`);
+		}
+		const take = list.findIndex(({ goal }) => is('accept', 98230)(goal));
+		if (take < 0) continue;
+		assert.ok(at(list, 'turnin 474', is('turnin', 474)) < take, `${guide}: Defeat Nek'rosh is handed in before 98230 is taken`);
+		assert.ok(take < at(list, 'turnin 98230', is('turnin', 98230)), `${guide}: handed in to Howin after it is taken`);
+	}
+	assert.equal(seen, 2, 'one accept and one hand-in');
+});
+
+// --- Alliance 12-21 level ranges (Discord, 2026-11-08: a Human "usually gets cut off in Westfall around 15 and a
+// half"): #1274 set Westfall 13-17, Darkshore 17-19 and Loch Modan 19-21 from the Dwarf, Gnome, Night Elf and
+// Skyborne levels, but Humans come from Elwynn and enter about 2 lower. The level model (ReleaseAudit, 0.3.5, mean
+// over each start's classes) has Humans entering Westfall at 11.35, Darkshore at 15.27 and Loch Modan at 17.77,
+// and the other starts leaving them at up to 17.54, 19.38 and 21.61. The per-start levels come from the level sim
+// with locally calibrated parameters, so a test can't recompute them; these tests check the guides' own labels instead.
+const headers = () => Object.fromEntries(allGuides().flatMap((file) => {
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	const id = /^guide (\S+)/m.exec(text);
+	const lv = /^levels (\d+)-(\d+)/m.exec(text);
+	const next = /^next (\S+)/m.exec(text);
+	return id && lv ? [[id[1], { file, min: +lv[1], max: +lv[2], next: next && next[1] }]] : [];
+}));
+
+test('every leveling guide starts at most one level above the end of each guide that leads into it', () => {
+	const all = headers();
+	const holes = [];
+	for (const [id, g] of Object.entries(all)) {
+		const n = g.next && all[g.next];
+		if (n && n.min > g.max + 1) holes.push(`${id} ends at ${g.max}, ${g.next} starts at ${n.min}`);
+	}
+	assert.deepEqual(holes, []);
+});
+
+test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans enter them, within one level', () => {
+	const all = headers();
+	for (const [id, human, top] of [['forever/alliance/02-westfall', 11.35, 17.54], ['forever/alliance/03-darkshore', 15.27, 19.38], ['forever/alliance/03-loch-modan', 17.77, 21.61]]) {
+		assert.ok(all[id].min <= human + 1 && all[id].min >= Math.floor(human), `${id} starts at ${all[id].min}; Humans enter at ${human}`);
+		assert.ok(all[id].max >= Math.floor(top), `${id} ends at ${all[id].max}; the last start leaves at ${top}`);
+	}
 });
 
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
@@ -4915,7 +4966,7 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
-	assert.ok(!hills.some(({ goal }) => goal.quest === 98230 || goal.quest === 293), "Howin's quests and Cleansing the Eye are handed in on the 27-29 Wetlands trip");
+	assert.ok(!hills.some(({ goal }) => goal.quest === 293), 'Cleansing the Eye is handed in on the 27-29 Wetlands trip');
 });
 
 // Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back

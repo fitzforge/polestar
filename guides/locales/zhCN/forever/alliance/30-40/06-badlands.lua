@@ -7,16 +7,16 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Badlands
-	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	-- {area:3} Badlands
+	["Into {area:3}"] = "",
 
 	-- Step 3: Hammertoe's Digsite
-	["Hammertoe's Digsite"] = "",
-	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "",
+	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
-	["Hammertoe's Digsite: kill these as you meet them"] = "",
+	-- {area:346} Hammertoe's Digsite
+	["{area:346}: kill these as you meet them"] = "",
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "暗炉矮人在挖掘场北边不远处扎营；弄皱的地图在他们的帐篷之间。暗炉隧道工和暗炉巫师带着勘察员雷杜尔的镐。{npc:2727}在周围的山坡上游荡。",
 
@@ -25,36 +25,36 @@ return {
 	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "",
 
 	-- Step 6: Hammertoe's Digsite
-	["Ryedol's next errand goes into Uldaman: skip it."] = "",
+	-- {area:1517} Uldaman
+	["Ryedol's next errand goes into {area:1517}: skip it."] = "勘察员雷杜尔的下一个差事要进入{area:1517}：跳过。",
 
 	-- Step 7: Valley of Fangs
-	["Valley of Fangs"] = "",
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {zone:1418} Badlands
-	["{npc:4618} and {npc:2817} camp together in the Valley of Fangs, in the middle of the {zone:1418}."] = "",
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "蚌壳在荆棘谷西北海岸，在下一份指南里：先留着",
 
 	-- Step 8: Agmond's End
-	["Agmond's End"] = "",
 	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
 
 	-- Step 9: Agmond's End: kill these as you meet them
-	["Agmond's End: kill these as you meet them"] = "",
-	-- {quest:739} Murdaloc
+	-- {area:345} Agmond's End
+	["{area:345}: kill these as you meet them"] = "",
+	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath."] = "",
-	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
+	-- {quest:739} Murdaloc · {area:3} Badlands
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "",
 
 	-- Step 10: Lotwil Veriatus
-	-- {npc:2921} Lotwil Veriatus
-	["Head west into the Dustbowl; {npc:2921} works by his machines in the middle of it."] = "",
+	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
+	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "",
 
 	-- Step 11: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "小型岩石元素",
-	-- {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
+	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the Dustbowl west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "",
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "小型岩石元素在{npc:2921}西边的{area:1878}游荡；所有岩石元素都可能掉落{npc:1470}要的岩石元素碎片。",
 
 	-- Step 13: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
@@ -63,19 +63,20 @@ return {
 	-- Step 14: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
-	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "",
+	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
+	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "",
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "",
 
 	-- Step 15: Valley of Fangs
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the Valley of Fangs, on the way to Agmond's End."] = "",
-	-- {npc:4454} Fizzle Brassbolts · {zone:1446} Tanaris
-	["For {npc:4454} at the Mirage Raceway: the {zone:1446} guide passes him at 45, keep it"] = "",
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
+	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
+	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
 
 	-- Step 16: Theldurin the Lost
-	["Head south to Agmond's End."] = "",
+	-- {area:345} Agmond's End
+	["Head south to {area:345}."] = "",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:2786}：先留着",
 
@@ -98,41 +99,42 @@ return {
 	["only if you carry {item:2868} (a blacksmith's craft)"] = "仅当你带着{item:2868}（铁匠制品）",
 
 	-- Step 20: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
 
 	-- Step 21: Thelsamar
-	["Thelsamar"] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "",
 
 	-- Step 22: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 24: Theramore flight master
 	["Theramore flight master"] = "",
-	-- {object:21057} Foothold Citadel (no name in this language: may be words)
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {object:21057}."] = "",
+	-- {area:514} Foothold Citadel
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
 
 	-- Step 25: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
 	["{npc:5638}: the wreck is on the north-west coast, at the end of the loop"] = "",
 
 	-- Step 26: Bibbly F'utzbuckle
-	["Follow the road south to Kormek's Hut."] = "",
+	-- {area:2407} Kormek's Hut
+	["Follow the road south to {area:2407}."] = "沿道路向南到{area:2407}。",
 
 	-- Step 27: Kodo Graveyard
-	["Kodo Graveyard"] = "",
-	-- {npc:6019} Hornizz Brimbuzzle · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
-	["{npc:6019} stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "",
+	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。一只{npc:217590}在墓地里爬行：用Entomology Starter Kit抓住一只，然后勾选完成。",
 	-- {npc:217590} Flesh Picker
 	["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓住它，用于My Little Friends",
 
 	-- Step 28: Maraudine centaurs
 	["Maraudine centaurs"] = "玛洛迪半人马",
-	["The Maraudine centaurs hold the Valley of Spears west of the graveyard; every kind drops the totems."] = "",
+	-- {area:607} Valley of Spears
+	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "玛洛迪半人马占据着墓地西边的{area:607}；每种都会掉落图腾。",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -141,20 +143,20 @@ return {
 	["escort {npc:12277} back toward the graveyard"] = "护送{npc:12277}回到墓地",
 
 	-- Step 30: Mannoroc Coven
-	["Mannoroc Coven"] = "",
-	-- {zone:1443} Desolace
+	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the Mannoroc Coven in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
+	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
 
 	-- Step 31: The Valley of Bones
-	["The Valley of Bones"] = "",
+	-- {area:2657} Valley of Bones
+	["The {area:2657}"] = "{area:2657}",
 	-- {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
 	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "{npc:11561}在玛格拉姆村南边、集会所东边的骨原上游荡；在最东南端使用{item:15848}引出{npc:11560}。",
 
 	-- Step 34: Azore Aldamort
-	-- {zone:1443} Desolace · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of Ethel Rethor. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟。{npc:11863}的塔就在那里的山丘上，在去残骸的路上。",
 
 	-- Step 35: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -164,29 +166,24 @@ return {
 	["Underwater"] = "",
 
 	-- Step 37: Nijel's Point
-	-- {object:176948} Nijel's Point (no name in this language: may be words)
-	["Follow the road north to {object:176948}."] = "",
+	-- {area:608} Nijel's Point
+	["Follow the road north to {area:608}."] = "沿道路向北到{area:608}。",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:5637}：先留着",
-	-- {npc:3980} Raleigh the Devout
-	["for {npc:3980} in Southshore: keep it"] = "",
+	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
+	["for {npc:3980} in {area:271}: keep it"] = "交给{area:271}的{npc:3980}：先留着",
 
 	-- Step 38: Sar'theris Strand: kill these as you meet them
-	["Sar'theris Strand: kill these as you meet them"] = "",
+	-- {area:598} Sar'theris Strand
+	["{area:598}: kill these as you meet them"] = "",
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
 	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一个半人马首领，在{npc:11863}的塔北边的西北海岸扎营。",
-
-	-- Step 41: Kormek's Hut
-	["Kormek's Hut"] = "",
 
 	-- Step 43: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
 	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Follow the road north to {area:608}."] = "沿道路向北到{area:608}。",
-	-- ["Follow the road south to {area:2407}."] = "沿道路向南到{area:2407}。",
-	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟。{npc:11863}的塔就在那里的山丘上，在去残骸的路上。",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
 	-- ["Greater Rock Elementals"] = "{npc:2736}",
 	-- ["Lesser Rock Elementals"] = "{npc:2735}",
@@ -196,31 +193,23 @@ return {
 	-- ["Ride north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "向东北骑到{zone:1418}北部的矮人废墟；箱子在暗炉矮人之间。附近的{npc:2745}是精英：离他远点。",
 	-- ["Ride south to {area:345}."] = "向南骑到{area:345}。",
 	-- ["Ride west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "向西骑进{area:1878}；{npc:2921}在中间的机器旁工作。",
-	-- ["Ryedol's next errand goes into {area:1517}: skip it."] = "勘察员雷杜尔的下一个差事要进入{area:1517}：跳过。",
 	-- ["Shadowforge camp"] = "暗炉营地",
 	-- ["Take the boat to Theramore from the far pier."] = "从最远的码头乘船前往塞拉摩岛。",
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。",
-	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "{npc:2736}（42级）在{area:342}下方的西南角巡逻；一次拉一个。{area:342}的{npc:2716}和火烟虐待者也会掉落废料。",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "{npc:2735}在{npc:2921}西边的{area:1878}游荡。",
-	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "小型岩石元素在{npc:2921}西边的{area:1878}游荡；所有岩石元素都可能掉落{npc:1470}要的岩石元素碎片。",
-	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "玛洛迪半人马占据着墓地西边的{area:607}；每种都会掉落图腾。",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "破损的骷髅就在食人魔东边、石窟穴居人营地边缘；周围的石窟断骨者和石窟萨满祭司掉落碎片。迷失者塞尔杜林坐在更南边的废弃营地旁。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit."] = "恶魔聚集在{zone:1443}南部的{area:602}：地狱犬（{npc:4678}、法师猎手和{npc:4685}）、{npc:4679}和地狱修女，以及坑周围的{npc:4680}。",
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飞行管理员站在{area:514}大门旁；{npc:5083}和{npc:4964}在城堡里。",
 	-- ["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "骷髅的下一个任务“莫达洛克”留到之后43级的{zone:1418}指南。",
-	-- ["The {area:2657}"] = "{area:2657}",
 	-- ["Theramore"] = "塞拉摩岛",
 	-- ["for the Dustwallow loop in the next guide"] = "留给下一份指南的尘泥沼泽环线",
-	-- ["for {npc:3980} in {area:271}: keep it"] = "交给{area:271}的{npc:3980}：先留着",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "交给{area:439}的{npc:4454}：{zone:1446}指南会在45级经过那里，先留着",
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "{npc:11626}的车队停在{area:606}东边的路上。接下任务，跟着科多兽经过{area:602}，击杀袭击它们的恶魔；之后到{area:596}东边的营地与{npc:11596}交谈。",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔在残骸东边的山丘上。",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277}被关在墓地西边的半人马营地里。救出她，在出去的路上保护她；她会在墓地旁停下。",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店里",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
-	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618}和{npc:2817}一起在{zone:1418}中部的{area:1877}扎营。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一个任务{item:6245}是远处海岸的掉落物：跳过。",
-	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。一只{npc:217590}在墓地里爬行：用Entomology Starter Kit抓住一只，然后勾选完成。",
 }

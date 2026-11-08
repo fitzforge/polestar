@@ -382,6 +382,16 @@ local function startOf(q, from)
 	return Dg.Giver(q, from) or s
 end
 
+-- Where a page quest is turned in for this character: the page's own place,
+-- or the Codex ender of the character's side when the page's is the other
+-- side's (Dungeons.Ender).
+local function endOf(q, from)
+	local f = q.finish
+	local Dg = D()
+	if not f or f.inside or not Dg.Ender then return f end
+	return Dg.Ender(q, from) or f
+end
+
 local function guideTo(self)
 	local p = self.psPoint
 	local Dg = D()
@@ -495,7 +505,7 @@ local function chainEnter(self)
 	local obj = D().ObjectiveText(q)
 	if obj then lines[#lines + 1] = obj end
 	lines[#lines + 1] = { left = L["Starts"], right = pointText(startOf(q, ns.PlayerPoint())) }
-	if q.finish then lines[#lines + 1] = { left = L["Ends"], right = pointText(q.finish) } end
+	if q.finish then lines[#lines + 1] = { left = L["Ends"], right = pointText(endOf(q, ns.PlayerPoint())) } end
 	local rw = q.rewards or {}
 	local extras = rewardExtras(rw)
 	if #extras > 0 then lines[#lines + 1] = { left = L["Rewards"], right = concat(extras, DOT) } end
@@ -1521,7 +1531,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	link:SetPoint("LEFT", b.StartPin, "LEFT", 0, 0)
 	link:SetWidth(26 + min(half - 24, floor(b.Start:GetStringWidth() + 1)))
 	link:Show()
-	local fin = q.finish
+	local fin = endOf(q, ns.PlayerPoint())
 	b.EndLabel:ClearAllPoints()
 	b.EndLabel:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X + half + 16, -(y + 4))
 	b.EndPin:ClearAllPoints()

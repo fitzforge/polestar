@@ -7,13 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {npc:10184} Onyxia
-	["A tank sword at 60: a Dire Maul book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "",
+	-- {area:2577} Dire Maul · {npc:10184} Onyxia
+	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "60级坦克剑：先在{area:2577}获得一本书，再用{npc:10184}的龙息淬炼剑刃（Forever的物品中尚未加入此剑）。",
 	["Shen'dralar reputation"] = "辛德拉声望",
 
 	-- Step 1: Nostro's Compendium of Dragon Slaying
-	-- {npc:11496} Immol'thar · {npc:11501} King Gordok · {zone:1444} Feralas
-	["The book is a rare random drop from the bosses of all three Dire Maul wings (Alzzin, Hydrospawn and the rest of the East, Tendris, Illyanna, Kalendris, {npc:11496} and the West, {npc:11501} and the North's guards) and very rarely from the tribute chest; it can be traded, so the auction house may have one. Dire Maul is a five-player dungeon in the ruins of central {zone:1444}: needs a group of five. Right-click the book to start the quest; it stays in your bags."] = "",
+	-- {area:2577} Dire Maul · {npc:11496} Immol'thar · {npc:11501} King Gordok · {zone:1444} Feralas
+	["The book is a rare random drop from the bosses of all three {area:2577} wings (Alzzin, Hydrospawn and the rest of the East, Tendris, Illyanna, Kalendris, {npc:11496} and the West, {npc:11501} and the North's guards) and very rarely from the tribute chest; it can be traded, so the auction house may have one. {area:2577} is a five-player dungeon in the ruins of central {zone:1444}: needs a group of five. Right-click the book to start the quest; it stays in your bags."] = "",
 	-- {item:18401} Nostro's Compendium of Dragon Slaying
 	["from {item:18401}"] = "",
 
@@ -28,8 +28,8 @@ return {
 	-- Step 3: Onyxia's breath
 	-- {npc:10184} Onyxia
 	["{npc:10184}'s breath"] = "",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh · {item:18489} Unfired Ancient Blade · {object:179562} Ancient Heated Blade · {item:18488} Heated Ancient Blade
-	["{npc:10184} is the 40-player raid boss of {npc:10184}'s Lair, a cave in the Wyrmbog of southern {zone:1445}; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the {item:18489} to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the {object:179562} to take the {item:18488}: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade."] = "",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {item:18489} Unfired Ancient Blade · {object:179562} Ancient Heated Blade · {item:18488} Heated Ancient Blade
+	["{npc:10184} is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the {item:18489} to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the {object:179562} to take the {item:18488}: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade."] = "",
 	-- {item:18489} Unfired Ancient Blade
 	["{item:18489}: plant it in her breath"] = "",
 	["click the heated blade on the ground"] = "",
@@ -45,7 +45,4 @@ return {
 	-- Step 5: The Forging of Quel'Serrar
 	-- {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key
 	["Back to {npc:14368} in the Athenaeum of Dire Maul West: through the West door with the {item:18249} again, and a group to reach the library."] = "",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "60级坦克剑：先在{area:2577}获得一本书，再用{npc:10184}的龙息淬炼剑刃（Forever的物品中尚未加入此剑）。",
 }

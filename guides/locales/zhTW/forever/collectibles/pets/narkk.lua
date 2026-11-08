@@ -11,8 +11,8 @@ return {
 	["{npc:2663}'s Parrots"] = "{npc:2663}的鸚鵡",
 
 	-- Step 1: Narkk
-	-- {npc:2663} Narkk · {object:3204} Booty Bay (no name in this language: may be words) · {npc:2664} Kelsey Yance
-	["{npc:2663}, the pirate supplier in {object:3204}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {object:3204} is neutral: the boat from Ratchet and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	-- {npc:2663} Narkk · {area:35} Booty Bay · {npc:2664} Kelsey Yance · {area:392} Ratchet
+	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
 	-- {item:8495} Parrot Cage (Senegal)
 	["{item:8495}, 40s"] = "{item:8495}，40銀",
 	-- {item:8496} Parrot Cage (Cockatiel)

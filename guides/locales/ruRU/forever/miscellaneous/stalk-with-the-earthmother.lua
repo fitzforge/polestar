@@ -16,9 +16,8 @@ return {
 	["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} скрывается в незаметности на главной горе {zone:1456}, к югу от пруда: идите туда, куда указывает стрелка, пока не появится его силуэт. Он выдаст вам {item:206159}. Задание доступно с 4-го уровня, но в руднике находятся рабочие Торговой компании (уровень 8-9), надсмотрщики (9-10) и {npc:3051} (12): идите на 9-10-м уровне.",
 
 	-- Step 2: The Venture Co. Mine
-	["The Venture Co. Mine"] = "",
-	-- {zone:1412} Mulgore · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the Venture Co. Mine. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Спуститесь на подъемнике и идите на юго-восток через {zone:1412} к {area:360}. Наденьте маскировку, затем обыщите тележки с {object:403041} внутри рудника и на склоне за его дальней стороной; по возможности держитесь верхних ярусов, нижние туннели переполнены. Пять зарядов.",
 	["Venture Co. Mine"] = "",
 	-- {object:403041} Blasting Supplies (no name in this language: may be words)
 	-- plural, as words: Seaforium Mining Charges = {item:206157} Seaforium Mining Charge
@@ -31,9 +30,9 @@ return {
 	-- Step 4: Windfury Cones
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones"] = "",
-	-- {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
+	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
+	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "",
 	["grind the eight cones"] = "",
 
 	-- Step 5: Boarton Shadetotem
@@ -51,7 +50,4 @@ return {
 	["Stand beside {npc:205729} and use the {item:206344} on the smallfish: it only counts next to him. Then take your weapon: the {item:277988} or the {item:278002}."] = "",
 	-- {npc:205729} Boarton Shadetotem
 	["in front of {npc:205729}"] = "",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Спуститесь на подъемнике и идите на юго-восток через {zone:1412} к {area:360}. Наденьте маскировку, затем обыщите тележки с {object:403041} внутри рудника и на склоне за его дальней стороной; по возможности держитесь верхних ярусов, нижние туннели переполнены. Пять зарядов.",
 }

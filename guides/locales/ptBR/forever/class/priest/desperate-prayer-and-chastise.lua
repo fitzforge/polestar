@@ -13,14 +13,14 @@ return {
 	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "",
 
 	-- Step 1: Desperate Prayer: Maxan Anvol
-	-- {npc:1226} Maxan Anvol · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["At 10, {npc:1226}, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you a {quest:5634} letter for {npc:11406}. Kharanos is on the road up to {zone:1455}."] = "",
+	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
+	["At 10, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you a {quest:5634} letter for {npc:11406}. {area:131} is on the road up to {zone:1455}."] = "",
 	-- {npc:1226} Maxan Anvol · {quest:5634} Desperate Prayer
 	["{npc:1226}: take his {quest:5634} letter"] = "",
 
 	-- Step 2: Desperate Prayer: Priestess Josetta
-	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in Goldshire, hands you a {quest:5634} letter for {npc:11406} in {zone:1455} (the Deeprun Tram from {zone:1453}'s {object:28027})."] = "",
+	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {area:87} Goldshire · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
+	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a {quest:5634} letter for {npc:11406} in {zone:1455} (the {area:2257} from {zone:1453}'s {object:28027})."] = "",
 	-- {npc:377} Priestess Josetta · {quest:5634} Desperate Prayer
 	["{npc:377}: take her {quest:5634} letter"] = "",
 
@@ -31,8 +31,8 @@ return {
 	["{npc:11397}: take her {quest:5634} letter"] = "",
 
 	-- Step 4: Desperate Prayer: Laurna Morninglight
-	-- {zone:1438} Teldrassil · {npc:3600} Laurna Morninglight · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["At 10 in {zone:1438}, {npc:3600}, in the building at the north edge of Dolanaar, hands you a {quest:5634} letter for {npc:11406} in {zone:1455}."] = "",
+	-- {zone:1438} Teldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
+	["At 10 in {zone:1438}, {npc:3600}, in the building at the north edge of {area:186}, hands you a {quest:5634} letter for {npc:11406} in {zone:1455}."] = "",
 	-- {npc:3600} Laurna Morninglight · {quest:5634} Desperate Prayer
 	["{npc:3600}: take her {quest:5634} letter"] = "",
 
@@ -49,14 +49,14 @@ return {
 	-- Step 7: Desperate Prayer: Maxan Anvol's letter
 	-- {quest:5637} Desperate Prayer · {npc:1226} Maxan Anvol
 	["{quest:5637}: {npc:1226}'s letter"] = "",
-	-- {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5637} Desperate Prayer · {zone:1453} Stormwind
-	["Follow the road up from Kharanos into {zone:1455} and west to the {object:32362}: {npc:11406} in the {object:32386} takes the letter and teaches {quest:5637}. The letter tells you to head to {zone:1453}, but the one who wants you is Rohan in {zone:1455}."] = "",
+	-- {area:131} Kharanos · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5637} Desperate Prayer · {zone:1453} Stormwind
+	["Follow the road up from {area:131} into {zone:1455} and west to the {object:32362}: {npc:11406} in the {object:32386} takes the letter and teaches {quest:5637}. The letter tells you to head to {zone:1453}, but the one who wants you is Rohan in {zone:1455}."] = "",
 
 	-- Step 8: Desperate Prayer: Josetta's letter
 	-- {quest:5635} Desperate Prayer
 	["{quest:5635}: Josetta's letter"] = "",
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: the Deeprun Tram from {zone:1453}'s {object:28027}."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
+	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "",
 
 	-- Step 9: Desperate Prayer: Nara's letter
 	-- {quest:5638} Desperate Prayer
@@ -65,14 +65,14 @@ return {
 	-- Step 10: Desperate Prayer: Laurna Morninglight's letter
 	-- {quest:5636} Desperate Prayer · {npc:3600} Laurna Morninglight
 	["{quest:5636}: {npc:3600}'s letter"] = "",
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1438} Teldrassil · {object:1162} Menethil Harbor (no name in this language: may be words) · {zone:1437} Wetlands · {zone:1432} Loch Modan
-	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1438}, the boat from Rut'theran Village to Auberdine, the boat to {object:1162} and the road north through the {zone:1437} and {zone:1432} (or the boat to Stormwind Harbor and the Deeprun Tram)."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1438} Teldrassil · {area:702} Rut'theran Village · {area:442} Auberdine · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1432} Loch Modan · {area:17203} Stormwind Harbor · {area:2257} Deeprun Tram
+	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1438}, the boat from {area:702} to {area:442}, the boat to {area:150} and the road north through the {zone:1437} and {zone:1432} (or the boat to {area:17203} and the {area:2257})."] = "",
 
 	-- Step 11: Desperate Prayer: Alathea's letter
 	-- {quest:5640} Desperate Prayer
 	["{quest:5640}: Alathea's letter"] = "",
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1453} Stormwind · {zone:1457} Darnassus · {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: its text says {zone:1453}, but Rohan is in {zone:1455}. From {zone:1457}, the portal down to Rut'theran Village, the boat to Auberdine, then {object:1162} and the road north (or Stormwind Harbor and the Deeprun Tram)."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1453} Stormwind · {zone:1457} Darnassus · {area:702} Rut'theran Village · {area:442} Auberdine · {area:150} Menethil Harbor · {area:17203} Stormwind Harbor · {area:2257} Deeprun Tram
+	["Hand the letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: its text says {zone:1453}, but Rohan is in {zone:1455}. From {zone:1457}, the portal down to {area:702}, the boat to {area:442}, then {area:150} and the road north (or {area:17203} and the {area:2257})."] = "",
 
 	-- Step 12: Desperate Prayer: an old letter
 	-- {quest:5634} Desperate Prayer
@@ -81,8 +81,8 @@ return {
 	["This letter also goes to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
 
 	-- Step 13: Chastise: High Priestess Laurena
-	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:5641} Chastise · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {object:28027} Dwarven District
-	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:5641} letter for {npc:11406} in {zone:1455} (the Deeprun Tram from the {object:28027})."] = "",
+	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:5641} Chastise · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
+	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:5641} letter for {npc:11406} in {zone:1455} (the {area:2257} from the {object:28027})."] = "",
 	-- {npc:376} High Priestess Laurena · {quest:5641} Chastise
 	["{npc:376}: take her {quest:5641} letter"] = "",
 
@@ -93,8 +93,8 @@ return {
 	["{npc:11401}: take her {quest:5641} letter"] = "",
 
 	-- Step 15: Chastise: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} Chastise
-	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:5641} Chastise · {spell:6346} Fear Ward
+	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "",
 
 	-- Step 16: Chastise: Laurena's letter
 	-- {quest:5645} Chastise
@@ -105,8 +105,8 @@ return {
 	-- Step 17: Chastise: Alathea's letter
 	-- {quest:5647} Chastise
 	["{quest:5647}: Alathea's letter"] = "",
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1457} Darnassus · {object:1162} Menethil Harbor (no name in this language: may be words) · {zone:1437} Wetlands · {zone:1432} Loch Modan
-	["Hand Alathea's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1457}, the boats via Rut'theran Village and Auberdine to {object:1162}, then the road north through the {zone:1437} and {zone:1432} (or the boat to Stormwind Harbor and the Deeprun Tram)."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1457} Darnassus · {area:702} Rut'theran Village · {area:442} Auberdine · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1432} Loch Modan · {area:17203} Stormwind Harbor · {area:2257} Deeprun Tram
+	["Hand Alathea's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: from {zone:1457}, the boats via {area:702} and {area:442} to {area:150}, then the road north through the {zone:1437} and {zone:1432} (or the boat to {area:17203} and the {area:2257})."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "No nível 10, vá até {npc:11406} no {object:32386}, na {object:32362} de {zone:1455}. O texto da missão no Forever cita Rohan, mas pelos dados quem a recebe é {npc:376}, na Catedral da Luz de {zone:1453}: tente Rohan primeiro, depois Laurena (o {area:2257} liga as cidades).",

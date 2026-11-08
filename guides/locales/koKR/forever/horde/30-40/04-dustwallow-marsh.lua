@@ -13,8 +13,8 @@ return {
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, \"늪지눈알\" 자를에게 줄 것",
-	-- {npc:3354} Sorek · {object:172958} Valley of Honor
-	["{npc:3354}, {object:172958}: for Fray Island, later in this guide (offered from level 30)"] = "",
+	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {area:720} Fray Island
+	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
 
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
@@ -28,12 +28,13 @@ return {
 	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "",
 
 	-- Step 6: Fly to Camp Taurajo
-	["Fly to Camp Taurajo"] = "",
+	-- {area:378} Camp Taurajo
+	["Fly to {area:378}"] = "{area:378}(으)로 날아가기",
 	["Crossroads flight master"] = "",
 
 	-- Step 8: Shady Rest Inn
-	-- {object:21077} Shady Rest Inn (no name in this language: may be words)
-	["Head east from Camp Taurajo along the road into the marsh. The burned-out {object:21077} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
 
 	-- Step 10: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "갈림길에서 북쪽 길로 가서 오우거 마을인 담쟁이 마을로 가세요.",
@@ -41,33 +42,37 @@ return {
 	["{npc:4503}, at the south edge of the village where the road comes in"] = "길이 들어오는 마을 남쪽 끝의 {npc:4503}",
 
 	-- Step 11: Questioning Reethe
-	-- {npc:4983} Ogron
-	["{npc:4983} waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "",
+	-- {npc:4983} Ogron · {area:2302} Quagmire
+	["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983}은(는) 마을 동쪽 {area:2302}에서 기다립니다. 그를 따라 리테에게 가서, 벌어지는 싸움에서 그를 살려 두세요.",
 
 	-- Step 12: Stinky Ignatz
 	["Stinky Ignatz"] = "말썽꾼 이그나츠",
-	["Head north to Witch Hill. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	-- {area:502} Witch Hill
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
 
 	-- Step 13: Mirefin murlocs
 	["Mirefin murlocs"] = "진흙아가미멀록",
-	["The Mirefin murlocs crowd the coast east and north-east of Witch Hill; every kind drops heads."] = "",
+	-- {area:502} Witch Hill
+	["The Mirefin murlocs crowd the coast east and north-east of {area:502}; every kind drops heads."] = "진흙아가미멀록은 {area:502} 동쪽과 북동쪽 해안에 몰려 있습니다. 모든 종류가 머리를 떨어뜨립니다.",
 
 	-- Step 14: Swamp Eye Jarl
 	["Swamp Eye Jarl"] = "늪지눈알 자를",
-	["Jarl lives in the Swamplight Manor south-east of Witch Hill."] = "",
+	-- {area:497} Swamplight Manor · {area:502} Witch Hill
+	["Jarl lives in the {area:497} south-east of {area:502}."] = "자를은 {area:502} 남동쪽의 {area:497}에 삽니다.",
 	-- {object:20985} Loose Dirt
 	["{object:20985}, beside the manor"] = "저택 옆의 {object:20985}",
 	-- {quest:1218} Soothing Spices · {zone:1454} Orgrimmar
 	["{quest:1218}, if you did not buy them in {zone:1454}"] = "",
 
 	-- Step 15: Brackenwall Village: kill these as you meet them
-	-- {object:21082} Brackenwall Village (no name in this language: may be words)
-	["{object:21082}: kill these as you meet them"] = "",
+	-- {area:496} Brackenwall Village
+	["{area:496}: kill these as you meet them"] = "",
 	-- plural, as words: Darkfang Venomspitters = {npc:4414} Darkfang Venomspitter · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkfang Lurkers = {npc:4411} Darkfang Lurker · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "",
 
 	-- Step 17: Swamp Eye Jarl
-	["Head east back to the Swamplight Manor."] = "",
+	-- {area:497} Swamplight Manor
+	["Head east back to the {area:497}."] = "",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{npc:4791}이(가) 보고서를 읽은 뒤의 {object:20985}",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
@@ -78,8 +83,8 @@ return {
 
 	-- Step 19: Level 37.5
 	["Level 37.5"] = "",
-	-- {zone:1443} Desolace
-	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past Witch Hill, until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead."] = "",
+	-- {zone:1443} Desolace · {area:502} Witch Hill · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
+	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
 	-- {npc:4362} Mirefin Coastrunner
 	["grind on {npc:4362}"] = "",
 
@@ -90,88 +95,88 @@ return {
 	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
 
 	-- Step 21: Fly to Ratchet
-	["Fly to Ratchet"] = "",
-	-- {object:21082} Brackenwall Village (no name in this language: may be words)
-	["{object:21082} flight master"] = "",
+	-- {area:392} Ratchet
+	["Fly to {area:392}"] = "",
+	-- {area:496} Brackenwall Village
+	["{area:496} flight master"] = "",
 
 	-- Step 22: Ratchet
-	["Ratchet"] = "",
 	-- {npc:3391} Gazlowe · {npc:3446} Mebok Mizzyrix
 	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "",
-	-- {npc:3391} Gazlowe · {object:3204} Booty Bay (no name in this language: may be words)
-	["{npc:3391}'s next errand takes you to {object:3204}, off this part of the route: leave it."] = "",
+	-- {npc:3391} Gazlowe · {area:35} Booty Bay
+	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "",
 
 	-- Step 23: The Affray
-	-- {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	["Head south along the coast from Ratchet to Fray Island. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "",
-	-- {npc:6236} Klannoc Macleod
-	["{npc:6236}: Berserker Stance"] = "",
+	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
+	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "",
 
 	-- Step 24: Fly to Shadowprey Village
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["Fly to {object:176946}"] = "",
-	["Ratchet flight master"] = "",
+	-- {area:2408} Shadowprey Village
+	["Fly to {area:2408}"] = "",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "",
 
 	-- Step 25: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane
 	["{npc:11624} stands in the village."] = "",
 
 	-- Step 26: Portals of the Legion
+	-- {area:602} Mannoroc Coven
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to Mannoroc Coven. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
-	["Mannoroc Coven"] = "",
+	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "",
 
 	-- Step 28: Valley of Spears
-	["Valley of Spears"] = "",
-	-- {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
 
 	-- Step 30: Hornizz Brimbuzzle
-	-- {npc:6019} Hornizz Brimbuzzle
-	["{npc:6019} waits at the goblin camp on the west side of the Kodo Graveyard."] = "",
+	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
+	["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019}은(는) {area:596} 서쪽의 고블린 야영지에서 기다립니다.",
 
 	-- Step 31: The Valley of Bones
-	["The Valley of Bones"] = "",
-	-- {item:15848} Crate of Ghost Magnets
+	-- {area:2657} Valley of Bones
+	["The {area:2657}"] = "{area:2657}",
+	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
 
 	-- Step 32: Hornizz Brimbuzzle
-	["North to the goblin camp on the west side of the Kodo Graveyard."] = "",
+	-- {area:596} Kodo Graveyard
+	["North to the goblin camp on the west side of the {area:596}."] = "",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "",
 	["West to Shadowprey."] = "",
 
 	-- Step 35: Thunder Bluff
-	-- {object:176946} Shadowprey Village (no name in this language: may be words) · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words) · {zone:1454} Orgrimmar
-	["Fly from {object:176946} to {zone:1456} and train with {npc:3033} on {object:50507}; fly on to {zone:1454} from there."] = "",
+	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 36: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["{object:176946} flight master"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
 	-- Step 37: Back to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Back to {zone:1454}"] = "",
+	-- {area:1637} Orgrimmar
+	["Back to {area:1637}"] = "",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
 	-- Step 38: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["{npc:4485} stands in the {object:172958}."] = "",
-	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars
-	["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran Gnomeregan"] = "",
+	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
+	["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "",
 
 	-- Step 39: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
@@ -183,11 +188,9 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "검은송곳니 거미",
-	-- ["Fly to {area:378}"] = "{area:378}(으)로 날아가기",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "다음 가이드에서 {object:3202}의 {npc:2519}에게",
 	-- ["Hearth to Shadowprey"] = "귀환석으로 그늘수렵 마을에 가기",
 	-- ["Hearth to {area:392}"] = "귀환석으로 {area:392}에 가기",
-	-- ["Jarl lives in the {area:497} south-east of {area:502}."] = "자를은 {area:502} 남동쪽의 {area:497}에 삽니다.",
 	-- ["Kodo bones and ghosts"] = "코도 뼈와 유령",
 	-- ["Maraudine totems"] = "마라우돈일족 토템",
 	-- ["Pick up the kodo bones scattered across the graveyard, and use the {item:15848} among the bones: the ghosts it draws drop the ghost-o-plasm."] = "묘지 곳곳에 흩어진 코도 뼈를 줍고, 뼈 사이에서 {item:15848}을(를) 사용하세요. 끌려온 유령이 유령 원형질을 떨어뜨립니다.",
@@ -206,13 +209,10 @@ return {
 	-- ["Slitherblade coast"] = "뱀갈퀴일족 해안",
 	-- ["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "불타는 칼날단이(가) {area:2407} 북서쪽 요새를 차지하고 있습니다. 요새 안의 {npc:11876}에게 {item:14523}을(를) 사용해 {item:13542}을(를) 얻으세요.",
 	-- ["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "암흑안개 거미는 담쟁이 마을 북서쪽 동굴 입구에 몰려 있습니다. 모든 종류가 눈알을 떨어뜨립니다.",
-	-- ["The Mirefin murlocs crowd the coast east and north-east of {area:502}; every kind drops heads."] = "진흙아가미멀록은 {area:502} 동쪽과 북동쪽 해안에 몰려 있습니다. 모든 종류가 머리를 떨어뜨립니다.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "뱀갈퀴일족 나가는 {area:2405} 북쪽부터 {area:598}까지 해안을 차지하고 있습니다. {npc:12369}이(가) 북쪽 맨 끝에서 {quest:6027}을(를) 지키고 있습니다.",
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "대상단은 {area:596} 동쪽의 {npc:11596} 야영지에서 끝납니다.",
 	-- ["The next guide takes you back to {zone:1434}."] = "다음 가이드는 다시 {zone:1434}(으)로 안내합니다.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}의 대상단은 {area:602} 가장자리 길에 멈춰 있습니다. 동쪽으로 소굴을 지날 때까지 호위하세요. 악마가 두 번 습격합니다.",
-	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983}은(는) 마을 동쪽 {area:2302}에서 기다립니다. 그를 따라 리테에게 가서, 벌어지는 싸움에서 그를 살려 두세요.",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}와(과) {npc:5412}은(는) {npc:11596} 야영지 바로 서쪽의 주둔지에 서 있습니다.",
-	-- ["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019}은(는) {area:596} 서쪽의 고블린 야영지에서 기다립니다.",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 }

@@ -12,18 +12,16 @@ return {
 	-- Step 1: Journeyman Riding
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
-	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {object:2968} Bloodhoof Village (no name in this language: may be words) · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {object:2968}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "",
+	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, 탈것 상급자",
 
 	-- Step 2: Kodo Riding for other races
-	-- {skill:762} Riding
-	["Kodo {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes Kodo Riding, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
-	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, Kodo Riding"] = "",
+	-- {spell:18995} Kodo Riding
+	["{spell:18995} for other races"] = "",
+	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

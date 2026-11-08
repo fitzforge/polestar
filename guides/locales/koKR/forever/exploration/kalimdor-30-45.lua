@@ -14,116 +14,65 @@ return {
 	-- {zone:1413} Barrens · {zone:1443} Desolace · {zone:1445} Dustwallow Marsh
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "{zone:1413} 서쪽의 {zone:1443}에서 이어지며 {zone:1445}에서 끝납니다. 이곳에서 발견할 지역은 15곳, 30-39레벨입니다.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
-	-- {object:19554} Stonetalon Peak (no name in this language: may be words) · {object:176948} Nijel's Point (no name in this language: may be words) · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
-	["Fly to {object:19554} (or to {object:176948} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {object:176948} in the north is the Alliance town."] = "",
-	-- {object:19559} Sun Rock Retreat (no name in this language: may be words) · {zone:1443} Desolace · {object:176946} Shadowprey Village (no name in this language: may be words)
-	["Fly to {object:19559} and take the road south-west into {zone:1443}; {object:176946} on the west coast is the Horde town."] = "",
-	-- {object:176948} Nijel's Point (no name in this language: may be words) · {npc:6706} Baritanas Skyriver
-	["Flight path here: {object:176948} ({npc:6706})."] = "",
-	-- {object:176946} Shadowprey Village (no name in this language: may be words)
-	["Flight path here: {object:176946} (Thalon)."] = "",
-	["Tethris Aran"] = "",
+	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
+	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
+	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "{area:460}(으)로 비행한 뒤 남서쪽 길로 {zone:1443}에 가십시오. 서해안의 {area:2408}은(는) 호드 마을입니다.",
+	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
+	["Flight path here: {area:608} ({npc:6706})."] = "이곳의 비행 경로: {area:608} ({npc:6706}).",
+	-- {area:2408} Shadowprey Village
+	["Flight path here: {area:2408} (Thalon)."] = "이곳의 비행 경로: {area:2408} (탈론).",
 	["Alliance town: Horde characters only need to touch its edge (guards)"] = "얼라이언스 마을: 호드 캐릭터는 가장자리만 밟으면 됩니다(경비병)",
-	["Sargeron"] = "",
-	["Thunder Axe Fortress"] = "",
-	["Kormek's Hut"] = "",
-	["Kolkar Village"] = "",
-	["Shadowbreak Ravine"] = "",
-	["Magram Village"] = "",
 
 	-- Step 2: Desolace (2/2)
-	["Mannoroc Coven"] = "",
-	["Gelkis Village"] = "",
 	["Horde town: Alliance characters only need to touch its edge (guards)"] = "호드 마을: 얼라이언스 캐릭터는 가장자리만 밟으면 됩니다(경비병)",
-	["Valley of Spears"] = "",
-	["Kodo Graveyard"] = "",
-	["Ethel Rethor"] = "",
-	["Ranazjar Isle"] = "",
 
 	-- Step 3: Shen'dralas
 	["7 areas to discover here."] = "이곳에서 발견할 지역은 7곳입니다.",
-	-- {zone:2652} Shen'dralas · {zone:1443} Desolace · {zone:1412} Mulgore
-	["{zone:2652}, the ruins between {zone:1443} and {zone:1412}, is entered from southern {zone:1443} through the Valley of Bones."] = "",
-	["Valley of Bones"] = "",
-	["Bristleback Retreat"] = "",
-	["Forlorn Gardens"] = "",
-	["Magram Front"] = "",
-	["Evenshade's Overlook"] = "",
-	["Outcast Hideaway"] = "",
+	-- {zone:2652} Shen'dralas · {zone:1443} Desolace · {zone:1412} Mulgore · {area:2657} Valley of Bones
+	["{zone:2652}, the ruins between {zone:1443} and {zone:1412}, is entered from southern {zone:1443} through the {area:2657}."] = "{zone:1443}와(과) {zone:1412} 사이의 폐허인 {zone:2652}은(는) {zone:1443} 남부에서 {area:2657}을(를) 지나 들어갑니다.",
 
 	-- Step 4: Feralas (1/2)
 	["16 areas to discover here, levels 41-60."] = "이곳에서 발견할 지역은 16곳, 41-60레벨입니다.",
 	-- {zone:1443} Desolace · {zone:1444} Feralas
 	["Go back into southern {zone:1443}; the road continues south into {zone:1444}."] = "{zone:1443} 남부로 돌아가십시오. 길은 남쪽 {zone:1444}(으)로 이어집니다.",
-	-- {object:152576} Feathermoon Stronghold (no name in this language: may be words)
-	["{object:152576} on Sardor Isle is the Alliance town (boat from the Forgotten Coast)."] = "",
-	-- {object:176945} Camp Mojache (no name in this language: may be words)
-	["{object:176945} in the east is the Horde town."] = "",
-	-- {npc:8019} Fyldren Moonfeather
-	["Flight paths here: Thalanaar (Thyssiana), Feathermoon ({npc:8019})."] = "",
-	-- {object:176945} Camp Mojache (no name in this language: may be words)
-	["Flight path here: {object:176945} (Shyn)."] = "",
-	["Ruins of Ravenwind"] = "",
-	["Sardor Isle"] = "",
-	["Isle of Dread"] = "",
-	["The Forgotten Coast"] = "",
-	["Feral Scar Vale"] = "",
-	["Frayfeather Highlands"] = "",
-
-	-- Step 5: Feralas (2/2)
-	["Ruins of Isildien"] = "",
-	["The Writhing Deep"] = "",
-	["Dire Maul"] = "",
-	["Grimtotem Compound"] = "",
-	["Gordunni Outpost"] = "",
+	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast
+	["{area:1116} on {area:1120} is the Alliance town (boat from the {area:1108})."] = "{area:1120}의 {area:1116}은(는) 얼라이언스 마을입니다({area:1108}에서 배).",
+	-- {area:1099} Camp Mojache
+	["{area:1099} in the east is the Horde town."] = "동쪽의 {area:1099}은(는) 호드 마을입니다.",
+	-- {area:489} Thalanaar · {npc:8019} Fyldren Moonfeather
+	["Flight paths here: {area:489} (Thyssiana), Feathermoon ({npc:8019})."] = "이곳의 비행 경로: {area:489} (티시아나), 페더문 요새 ({npc:8019}).",
+	-- {area:1099} Camp Mojache
+	["Flight path here: {area:1099} (Shyn)."] = "이곳의 비행 경로: {area:1099} (쉬인).",
 
 	-- Step 6: Feralas: level 60+ areas
 	-- {zone:1444} Feralas
 	["{zone:1444}: level 60+ areas"] = "",
-	["Oneiros and Dream Bough are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
+	-- {area:1113} Oneiros · {area:1111} Dream Bough
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
 	["level 60 area, well above this guide's range"] = "60레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
-	["Oneiros"] = "",
-	["Dream Bough"] = "",
 
 	-- Step 7: Dustwallow Marsh
 	["7 areas to discover here, levels 36-61."] = "이곳에서 발견할 지역은 7곳, 36-61레벨입니다.",
-	-- {object:1162} Menethil Harbor (no name in this language: may be words) · {object:21056} Theramore Isle (no name in this language: may be words)
-	["Fly to Theramore (or take the boat from {object:1162}); {object:21056} is the Alliance town."] = "",
-	-- {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {object:21082} Brackenwall Village (no name in this language: may be words)
-	["{zone:1445} is east of the southern {zone:1413}; {object:21082} in the north-west is the Horde town."] = "",
+	-- {area:150} Menethil Harbor · {area:513} Theramore Isle
+	["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "테라모어 섬으로 비행하십시오(또는 {area:150}에서 배를 타십시오). {area:513}은(는) 얼라이언스 마을입니다.",
+	-- {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {area:496} Brackenwall Village
+	["{zone:1445} is east of the southern {zone:1413}; {area:496} in the north-west is the Horde town."] = "{zone:1445}은(는) {zone:1413} 남부의 동쪽에 있습니다. 북서쪽의 {area:496}은(는) 호드 마을입니다.",
 	["Flight path here: Theramore (Baldruc)."] = "이곳의 비행 경로: 테라모어 섬 (발드럭).",
-	-- {object:21082} Brackenwall Village (no name in this language: may be words)
-	["Flight path here: {object:21082} (Shardi)."] = "",
+	-- {area:496} Brackenwall Village
+	["Flight path here: {area:496} (Shardi)."] = "이곳의 비행 경로: {area:496} (샤르디).",
 	["any one of these names counts"] = "이 이름 중 하나만 떠도 됩니다",
-	["The Den of Flame / Stonemaul Ruins / Bloodfen Burrow / The Dragonmurk"] = "",
-	["The Quagmire / Beezil's Wreck / Tidefury Cove"] = "",
 	["Horde town: Alliance characters only need to touch its edge (guards); any one of these names counts"] = "호드 마을: 얼라이언스 캐릭터는 가장자리만 밟으면 됩니다(경비병). 이 이름 중 하나만 떠도 됩니다",
-	-- {object:21082} Brackenwall Village (no name in this language: may be words)
-	["{object:21082} / Darkmist Cavern / Bluefen"] = "",
-	-- {object:21054} North Point Tower (no name in this language: may be words)
-	["Witch Hill / Dreadmurk Shore / {object:21054} / Dustwallow Bay"] = "",
 	["Alliance town: Horde characters only need to touch its edge (guards); any one of these names counts"] = "얼라이언스 마을: 호드 캐릭터는 가장자리만 밟으면 됩니다(경비병). 이 이름 중 하나만 떠도 됩니다",
-	["Wyrmbog / Tidefury Cove"] = "",
 
 	-- Step 8: Dustwallow Marsh: level 61+ area
 	-- {zone:1445} Dustwallow Marsh
 	["{zone:1445}: level 61+ area"] = "",
-	["Alcaz Island is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	-- {area:2079} Alcaz Island
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
 	["level 61 area, well above this guide's range"] = "61레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
-	["Alcaz Island"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Flight path here: {area:1099} (Shyn)."] = "이곳의 비행 경로: {area:1099} (쉬인).",
-	-- ["Flight path here: {area:2408} (Thalon)."] = "이곳의 비행 경로: {area:2408} (탈론).",
-	-- ["Flight path here: {area:496} (Shardi)."] = "이곳의 비행 경로: {area:496} (샤르디).",
-	-- ["Flight path here: {area:608} ({npc:6706})."] = "이곳의 비행 경로: {area:608} ({npc:6706}).",
-	-- ["Flight paths here: {area:489} (Thyssiana), Feathermoon ({npc:8019})."] = "이곳의 비행 경로: {area:489} (티시아나), 페더문 요새 ({npc:8019}).",
-	-- ["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "테라모어 섬으로 비행하십시오(또는 {area:150}에서 배를 타십시오). {area:513}은(는) 얼라이언스 마을입니다.",
-	-- ["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "{area:460}(으)로 비행한 뒤 남서쪽 길로 {zone:1443}에 가십시오. 서해안의 {area:2408}은(는) 호드 마을입니다.",
 	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "남서쪽 길로 {zone:1442}을(를) 빠져나가 {zone:1443}(으)로 가십시오. 북쪽의 {area:608}은(는) 얼라이언스 마을입니다.",
 	-- ["The {area:1108}"] = "{area:1108}",
-	-- ["{area:1099} in the east is the Horde town."] = "동쪽의 {area:1099}은(는) 호드 마을입니다.",
-	-- ["{area:1116} on {area:1120} is the Alliance town (boat from the {area:1108})."] = "{area:1120}의 {area:1116}은(는) 얼라이언스 마을입니다({area:1108}에서 배).",
-	-- ["{zone:1445} is east of the southern {zone:1413}; {area:496} in the north-west is the Horde town."] = "{zone:1445}은(는) {zone:1413} 남부의 동쪽에 있습니다. 북서쪽의 {area:496}은(는) 호드 마을입니다.",
-	-- ["{zone:2652}, the ruins between {zone:1443} and {zone:1412}, is entered from southern {zone:1443} through the {area:2657}."] = "{zone:1443}와(과) {zone:1412} 사이의 폐허인 {zone:2652}은(는) {zone:1443} 남부에서 {area:2657}을(를) 지나 들어갑니다.",
 }

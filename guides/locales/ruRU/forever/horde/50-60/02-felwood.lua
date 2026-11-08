@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Tarren Mill
-	-- {object:1772} Tarren Mill (no name in this language: may be words)
-	["Fly to {object:1772}"] = "",
-	["Light's Hope Chapel flight master"] = "",
+	-- {area:272} Tarren Mill
+	["Fly to {area:272}"] = "Летите сюда: {area:272}",
+	-- {area:2268} Light's Hope Chapel
+	["{area:2268} flight master"] = "",
 
 	-- Step 3: Sorrow Hill
-	["Sorrow Hill"] = "",
-	-- {npc:10840} Argent Officer Pureheart · {object:1772} Tarren Mill (no name in this language: may be words)
-	["{npc:10840} stands at the south end of the Sorrow Hill graveyard, where the road from {object:1772} comes in."] = "",
+	-- {npc:10840} Argent Officer Pureheart · {area:197} Sorrow Hill · {area:272} Tarren Mill
+	["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "",
 	-- {npc:10840} Argent Officer Pureheart
 	["{npc:10840}, at the graveyard's south end"] = "{npc:10840}, в южной части кладбища",
 
@@ -23,10 +23,12 @@ return {
 	["{npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it."] = "",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "",
-	["Keep Little Pamela: Pamela is in Darrowshire, visited again later."] = "",
+	-- {area:2262} Darrowshire
+	["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "",
 
 	-- Step 5: Mulgris Deepriver
-	["He camps by the Writhing Haunt, south-east of Dalson's Tears."] = "",
+	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
+	["He camps by the {area:202}, south-east of {area:200}."] = "Он стоит лагерем у места {area:202}, к юго-востоку от места {area:200}.",
 	["Inside"] = "Внутри",
 
 	-- Step 6: Chromie
@@ -39,33 +41,35 @@ return {
 	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
 
 	-- Step 8: Chromie
-	-- {quest:5210} Brother Carlin
-	["{quest:5210} goes to Light's Hope Chapel: keep it for later."] = "",
+	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel
+	["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} сдается здесь: {area:2268} – сохраните на потом.",
 
 	-- Step 9: Tirion Fordring
-	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
-	["Ride north along the eastern hills; {npc:1855} lives in a small house by the Thondroril River, at the border with the {zone:1423}."] = "",
+	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River · {zone:1423} Eastern Plaguelands
+	["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Езжайте на север вдоль восточных холмов; {npc:1855} живет в маленьком доме у места {area:2619}, на границе с краем {zone:1423}.",
 	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
 	["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "Охоты от {npc:1855} – здесь: {zone:1423}: сохраните их на потом.",
 
 	-- Step 10: Kirsta Deepshadow
-	-- {npc:11610} Kirsta Deepshadow
-	["Ride west to the Northridge Lumber Camp; {npc:11610} hides on the hill north-east of it."] = "",
+	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow
+	["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Езжайте на запад сюда: {area:192}; {npc:11610} прячется на холме к северо-востоку.",
 
 	-- Step 11: Level 52.63
 	["Level 52.63"] = "",
-	-- {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business
+	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
-	["Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead."] = "",
+	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:1826} Scarlet Mage
 	["grind on {npc:1826}"] = "",
 
 	-- Step 12: Diseased Wolves
 	["Diseased Wolves"] = "Больные волки",
-	["The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east."] = "",
+	-- {area:200} Dalson's Tears · {area:202} Writhing Haunt
+	["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east."] = "Волки бродят по полям между Андоралом, местом {area:200} и местом {area:202}. Добейте их по пути обратно на восток.",
 
 	-- Step 13: Dalson's Tears farmhouse
-	["Dalson's Tears farmhouse"] = "",
+	-- {area:200} Dalson's Tears
+	["{area:200} farmhouse"] = "Дом фермы: {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Дневник лежит в доме, шкаф стоит внутри, а уборная – за домом. Ключ от уборной у монстра {npc:10816}; {npc:10836} выходит, когда вы открываете уборную, – у него ключ от шкафа.",
 	-- {object:175924} Locked Cabinet
@@ -75,13 +79,15 @@ return {
 
 	-- Step 15: Level 53.02
 	["Level 53.02"] = "",
-	["Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead."] = "",
+	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
+	["Top up here to level 53.02 before the hand-ins at {area:202}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:1817} Diseased Wolf
 	["grind on {npc:1817}"] = "",
 
 	-- Step 16: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Больные гризли",
-	["The bears roam the hills north and east of the Writhing Haunt."] = "",
+	-- {area:202} Writhing Haunt
+	["The bears roam the hills north and east of the {area:202}."] = "Медведи бродят по холмам к северу и востоку от места {area:202}.",
 
 	-- Step 17: Mulgris Deepriver
 	-- {npc:5770} Nara Wildmane · {zone:1456} Thunder Bluff
@@ -89,30 +95,33 @@ return {
 
 	-- Step 18: Level 53.2
 	["Level 53.2"] = "",
-	["Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead."] = "",
+	-- {area:152} The Bulwark · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
+	["Top up here to level 53.2 before the hand-ins at {area:152}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:1816} Diseased Grizzly
 	["grind on {npc:1816}"] = "",
 
 	-- Step 19: Scarlet Crusade
 	["Scarlet Crusade"] = "Алый орден",
-	["Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it."] = "",
+	-- {area:192} Northridge Lumber Camp
+	["Knights and magi work the {area:192}; the medics and hunters camp south of it."] = "Рыцари и волхвы работают здесь: {area:192}; медики и охотники стоят лагерем к югу.",
 	-- {npc:10605} Scarlet Medic
 	["grind on {npc:10605}"] = "",
 
 	-- Step 21: The Bulwark
-	["The Bulwark"] = "",
-	["Ride south-west past Felstone Farm and follow the road west back to the Bulwark."] = "",
+	-- {area:152} The Bulwark
+	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Езжайте на юго-запад мимо фермы Фелстоунов и по дороге на запад обратно сюда: {area:152}.",
 	-- {npc:11615} Mickey Levine
 	["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "Сторожевые башни Деррингтона, котел Вандис и бочка {npc:11615} – в следующий визит: сохраните эти задания.",
 
 	-- Step 22: Level 53.34
 	["Level 53.34"] = "",
-	["Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead."] = "",
+	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
+	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 
 	-- Step 24: Paladin trainer
 	["Paladin trainer"] = "",
-	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
+	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152} – здесь: {area:85}; в городе {zone:1454} нет учителя паладинов",
 
 	-- Step 25: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -127,19 +136,19 @@ return {
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
 	-- Step 29: Fly to Splintertree Post
-	["Fly to Splintertree Post"] = "",
+	-- {area:431} Splintertree Post
+	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
 	-- Step 31: Emerald Sanctuary
-	["Emerald Sanctuary"] = "",
 	["The druids' camp is just past the border."] = "Лагерь друидов – сразу за границей.",
 	-- {npc:11554} Grazle
 	["{npc:11554}, at the south edge of the camp"] = "{npc:11554}, на южном краю лагеря",
 
 	-- Step 32: Deadwood Village
-	["Deadwood Village"] = "",
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead."] = "",
+	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
@@ -148,12 +157,14 @@ return {
 	["{npc:9529}, just west of the camp"] = "{npc:9529}, чуть к западу от лагеря",
 
 	-- Step 34: Southern Jaedenar
-	["Southern Jaedenar"] = "",
-	["Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "",
+	-- {area:1763} Jaedenar
+	["Southern {area:1763}"] = "Юг: {area:1763}",
+	-- {area:1763} Jaedenar
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Езжайте по дороге на северо-запад. Юг места {area:1763}, вокруг оскверненного лунного колодца, занимают культисты, адепты, стражники Совета Теней и их гончие.",
 
 	-- Step 35: A Strange Red Key
-	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin
-	["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in Shadow Hold, the cave at the north end of Jaedenar, and escort her out."] = "",
+	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
+	["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Только если выпал предмет {item:13140}: используйте его, чтобы начать задание, затем освободите персонажа {npc:11018} из клетки ({area:1770} – пещера в северной части места {area:1763}) и выведите ее.",
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, below ground"] = "",
 
@@ -163,31 +174,31 @@ return {
 
 	-- Step 37: Level 54.1
 	["Level 54.1"] = "",
-	-- {zone:1448} Felwood
-	["Top up here to level 54.1 before the hand-ins at {zone:1448}: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:361} Felwood · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
+	["Top up here to level 54.1 before the hand-ins at {area:361}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
 	-- Step 38: The Jaedenar moonwell
-	["The Jaedenar moonwell"] = "",
-	-- {npc:10922} Greta Mosshoof
-	["Back north to Jaedenar. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "",
+	-- {area:1763} Jaedenar
+	["The {area:1763} moonwell"] = "Лунный колодец: {area:1763}",
+	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
+	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "Назад на север сюда: {area:1763}. Наполните флягу {npc:10922} у оскверненного лунного колодца в центре южного лагеря.",
 
 	-- Step 39: Rakaiah
-	-- {npc:11018} Arko'narin · {npc:9518} Rakaiah · {npc:11020} Remains of Trey Lightforge
-	["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of Jaedenar, beside the {npc:11020}."] = "",
+	-- {npc:11018} Arko'narin · {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
+	["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Только если вы спасли персонажа {npc:11018}: суккуб {npc:9518} ждет в центре места {area:1763}, рядом: {npc:11020}.",
 	["Below ground"] = "",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
 	-- Step 40: Bloodvenom Post
-	["Bloodvenom Post"] = "",
-	["The Horde camp just north of Jaedenar."] = "",
+	-- {area:1763} Jaedenar
+	["The Horde camp just north of {area:1763}."] = "Лагерь Орды чуть к северу от места {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: совухи – здесь: {zone:1452}",
 
 	-- Step 41: Shatter Scar Vale
-	["Shatter Scar Vale"] = "",
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "К востоку от Заставы Отравленной Крови – долина с кратерами, где бродят энтропические звери и ужасы. Убейте по два каждого, затем подойдите к каждому из трех кратеров с водой Скверны.",
 	["Southern crater"] = "Южный кратер",
@@ -195,10 +206,9 @@ return {
 	["Northern crater"] = "Северный кратер",
 
 	-- Step 42: Irontree Woods
-	["Irontree Woods"] = "",
-	-- {item:11503} Blood Amber
+	-- {area:1767} Irontree Woods · {item:11503} Blood Amber
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "",
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Езжайте по дороге на северо-восток сюда: {area:1767}. У криводревов ({npc:7100}) и криводревов-живорезов в восточной части леса – {item:11503}; в том же лесу бродят гризли злобных когтей и разорители ({npc:8961}) для Тало.",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "",
 
@@ -207,22 +217,22 @@ return {
 	["grind on {npc:7101}"] = "",
 
 	-- Step 44: Felpaw Village
-	["Felpaw Village"] = "",
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Деревня фурболгов Мертвого Леса чуть к западу от туннеля. {npc:9462} (56) стоит среди них. {npc:11557}, дружелюбный фурболг, сидит в северной части деревни.",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "",
 
 	-- Step 45: Nafien
-	-- {npc:15395} Nafien
-	["The road ends at {npc:15395}, outside the Timbermaw Hold tunnel in the far north-east."] = "",
+	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
+	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "Дорога заканчивается у персонажа {npc:15395}, у входа в туннель ({area:1769}) на дальнем северо-востоке.",
 
 	-- Step 46: Felpaw Village
 	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
 
 	-- Step 48: Level 54.45
 	["Level 54.45"] = "",
-	["Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
+	["Top up here to level 54.45 before the hand-ins at {area:1769}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "",
 
@@ -232,18 +242,20 @@ return {
 
 	-- Step 50: Level 54.54
 	["Level 54.54"] = "",
-	["Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
+	["Top up here to level 54.54 before the hand-ins at {area:2479}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 
 	-- Step 51: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem
 	["{quest:8470}, a rare drop"] = "{quest:8470}, редкая добыча",
 
 	-- Step 52: Emerald Sanctuary
-	-- {zone:1448} Felwood
-	["Ride the road south through {zone:1448} to the Sanctuary."] = "Езжайте по дороге на юг через край {zone:1448} к святилищу.",
+	-- {area:361} Felwood
+	["Ride the road south through {area:361} to the Sanctuary."] = "Езжайте по дороге на юг через край {area:361} к святилищу.",
 
 	-- Step 53: Overlord Ror
-	["Ror stands at the far south end of Deadwood Village."] = "",
+	-- {area:1761} Deadwood Village
+	["Ror stands at the far south end of {area:1761}."] = "Рор стоит в дальней южной части места {area:1761}.",
 
 	-- Step 54: Emerald Sanctuary
 	-- {npc:9529} Maybess Riverbreeze
@@ -253,12 +265,13 @@ return {
 
 	-- Step 55: Level 54.7
 	["Level 54.7"] = "",
-	["Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
+	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 
 	-- Step 56: The Jadefire moonwell
 	["The Jadefire moonwell"] = "Лунный колодец Нефритового Пламени",
-	-- {npc:9996} Winna Hazzard
-	["Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
+	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
+	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Возвращайтесь на юг мимо места {area:1763} к оскверненному лунному колодцу сатиров Нефритового Пламени и наполните там фляжку {npc:9996}.",
 
 	-- Step 57: Bloodvenom Post
 	["Ride north up the road again."] = "Снова езжайте на север по дороге.",
@@ -272,57 +285,36 @@ return {
 
 	-- Step 61: Level 54.87
 	["Level 54.87"] = "",
-	["Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
+	["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:7125} Jaedenar Hound
 	["grind on {npc:7125}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "Снова здесь: {area:1762} – фурболги Мертвого Леса (53-54) рядом с туннелем, и каждое убийство повышает репутацию у Древобрюхов.",
-	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "Назад на север сюда: {area:1763}. Наполните флягу {npc:10922} у оскверненного лунного колодца в центре южного лагеря.",
 	-- ["Diseased Grizzlies"] = "Болезненные гризли",
 	-- ["Fly to the {area:1497}"] = "Летите сюда: {area:1497}",
-	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Езжайте по дороге на северо-восток сюда: {area:1767}. У криводревов ({npc:7100}) и криводревов-живорезов в восточной части леса – {item:11503}; в том же лесу бродят гризли злобных когтей и разорители ({npc:8961}) для Тало.",
-	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Езжайте по дороге на северо-запад. Юг места {area:1763}, вокруг оскверненного лунного колодца, занимают культисты, адепты, стражники Совета Теней и их гончие.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "От распорядителя полетов ({area:2268}) летите сюда: {area:1497}.",
-	-- ["He camps by the {area:202}, south-east of {area:200}."] = "Он стоит лагерем у места {area:202}, к юго-востоку от места {area:200}.",
 	-- ["Keep the parcel: {npc:10781} is in the {area:1497}."] = "Сохраните посылку: {npc:10781} – здесь: {area:1497}.",
 	-- ["Keep {quest:5142}: Pamela is in {area:2262}, visited again later."] = "Сохраните задание {quest:5142}: Памела – здесь: {area:2262}, вы вернетесь туда позже.",
-	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it."] = "Рыцари и волхвы работают здесь: {area:192}; медики и охотники стоят лагерем к югу.",
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Покиньте город {area:1497} и езжайте на восток по дороге через край {zone:1420}, мимо места {area:152}. Ферма Фелстоунов – первая ферма у дороги; {npc:10778} ждет в доме.",
-	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Только если выпал предмет {item:13140}: используйте его, чтобы начать задание, затем освободите персонажа {npc:11018} из клетки ({area:1770} – пещера в северной части места {area:1763}) и выведите ее.",
-	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Только если вы спасли персонажа {npc:11018}: суккуб {npc:9518} ждет в центре места {area:1763}, рядом: {npc:11020}.",
 	-- ["Radley and Durgen"] = "Рэдли и Дурген",
-	-- ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Возвращайтесь на юг мимо места {area:1763} к оскверненному лунному колодцу сатиров Нефритового Пламени и наполните там фляжку {npc:9996}.",
 	-- ["Ride back south-east to the Sanctuary."] = "Возвращайтесь на юго-восток в Изумрудное святилище.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Вернитесь сюда: {area:1497}, садитесь на дирижабль ({zone:1454}) и летите сюда: {area:431}. Езжайте по дороге на запад от Заставы Расщепленного Дерева и на развилке сверните на север в край {zone:1448}.",
-	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Езжайте на север вдоль восточных холмов; {npc:1855} живет в маленьком доме у места {area:2619}, на границе с краем {zone:1423}.",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Езжайте на юг мимо места {area:202} сюда: {area:197}; дом {npc:10927} стоит у дороги, а памятник ({npc:10936}) – на кладбище за ним. По пути убивайте больных волков в полях.",
-	-- ["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Езжайте на юго-запад мимо фермы Фелстоунов и по дороге на запад обратно сюда: {area:152}.",
-	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "Езжайте по дороге на юг через край {zone:1448} к святилищу.",
-	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Езжайте на запад сюда: {area:192}; {npc:11610} прячется на холме к северо-востоку.",
-	-- ["Ror stands at the far south end of {area:1761}."] = "Рор стоит в дальней южной части места {area:1761}.",
 	-- ["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
-	-- ["Southern {area:1763}"] = "Юг: {area:1763}",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "Деревня фурболгов племени Мертвого Леса – чуть к югу от святилища. Каждое убийство фурболга Мертвого Леса повышает репутацию ({area:1769}); сохраняйте перья из головных уборов.",
-	-- ["The Horde camp just north of {area:1763}."] = "Лагерь Орды чуть к северу от места {area:1763}.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
-	-- ["The bears roam the hills north and east of the {area:202}."] = "Медведи бродят по холмам к северу и востоку от места {area:202}.",
-	-- ["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "Дорога заканчивается у персонажа {npc:15395}, у входа в туннель ({area:1769}) на дальнем северо-востоке.",
-	-- ["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east."] = "Волки бродят по полям между Андоралом, местом {area:200} и местом {area:202}. Добейте их по пути обратно на восток.",
 	-- ["The {area:152}"] = "{area:152}",
-	-- ["The {area:1763} moonwell"] = "Лунный колодец: {area:1763}",
 	-- ["Through {area:1769}"] = "Через {area:1769}",
 	-- ["To {zone:1448}"] = "В край {zone:1448}",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "Войдите в туннель ({area:1769}) рядом с персонажем {npc:15395} и не нападайте на фурболгов Древобрюхов внутри. Туннель выходит в край {zone:1452}; езжайте по дороге на восток сюда: {area:2255} – гоблинский город, где начинается следующее руководство.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "бейте мстителей из племени Мертвого Леса: {area:1762}, {zone:1448}",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "бейте рыцарей из Алого ордена: {area:192}, {zone:1422}",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "Воины Алого ордена ({area:190}) – 58-60 уровня. Доберитесь до отмеченной на карте высокой точки, осмотрите город и уходите.",
-	-- ["{area:200} farmhouse"] = "Дом фермы: {area:200}",
 	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw"] = "{npc:11557}: сохраните для него 30 шт. ({quest:6031}); он торгует только при нейтральном отношении Древобрюхов",
 	-- ["{npc:11558}, at the tunnel mouth"] = "{npc:11558}, у входа в туннель",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "Последнее задание {npc:11610} требует 53-го уровня. Рыцари и волхвы из Алого ордена (54-55) на лесопилке чуть к юго-западу от нее – ближайшее место.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} стоит к востоку от лесопилки; {npc:11611} охраняет дорогу к северо-востоку от {npc:11610}, в сторону места {area:190}.",
-	-- ["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152} – здесь: {area:85}; в городе {zone:1454} нет учителя паладинов",
 	-- ["{object:175894}, beside the house"] = "{object:175894}, у дома",
-	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} сдается здесь: {area:2268} – сохраните на потом.",
 }

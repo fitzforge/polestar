@@ -11,8 +11,8 @@ return {
 	["Your first mount at 40, summoned at will: a paladin buys no horse."] = "Ваш первый транспорт на 40-м уровне, призываемый когда угодно: паладину не нужно покупать коня.",
 
 	-- Step 1: The Tome of Nobility (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {npc:5149} Brandur Ironhammer
-	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the Deeprun Tram to {zone:1453}."] = "",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {npc:5149} Brandur Ironhammer · {area:2257} Deeprun Tram
+	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the {area:2257} to {zone:1453}."] = "",
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse

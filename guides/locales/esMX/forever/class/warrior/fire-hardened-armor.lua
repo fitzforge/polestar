@@ -23,13 +23,14 @@ return {
 	["At 20, {npc:7315}, the warrior trainer of {zone:1457}, sends you to {quest:1698} in Redridge."] = "A nivel 20, {npc:7315}, el instructor de guerreros de {zone:1457}, te envía con {quest:1698} en las Montañas Crestagrana.",
 
 	-- Step 4: Yorus Barleybrew
-	-- {quest:1698} Yorus Barleybrew
-	["{quest:1698} sits in the inn at Lakeshire. His test is timed: before you take it, clear the Redridge gnolls on the path to the Rethban Caverns in the hills north-west of Lakeshire, including the two on the rock by the cave mouth (climb it from its right side)."] = "",
+	-- {quest:1698} Yorus Barleybrew · {area:69} Lakeshire · {area:98} Rethban Caverns
+	["{quest:1698} sits in the inn at {area:69}. His test is timed: before you take it, clear the Redridge gnolls on the path to the {area:98} in the hills north-west of {area:69}, including the two on the rock by the cave mouth (climb it from its right side)."] = "",
 
 	-- Step 5: The Rethban Gauntlet
-	-- {npc:6166} Yorus Barleybrew
-	["You have one hour, and {npc:6166}'s Barleybrew Scalder leaves you drunk for 8-10 minutes. Run north-west into the Rethban Caverns, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into Lakeshire). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "",
-	["Enter the Rethban Caverns and come back"] = "",
+	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
+	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "",
+	-- {area:98} Rethban Caverns
+	["Enter the {area:98} and come back"] = "Entra en {area:98} y vuelve",
 
 	-- Step 6: The Shieldsmith
 	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor · {quest:1701} Fire Hardened Mail · {item:6842} Furen's Instructions
@@ -38,25 +39,26 @@ return {
 	-- Step 7: Scorched Spider Fangs
 	-- plural, as words: Scorched Spider Fangs = {item:6838} Scorched Spider Fang
 	["Scorched Spider Fangs"] = "Colmillos de araña agostados",
-	-- {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words)
+	-- {zone:1437} Wetlands · {area:836} Dun Algaz
 	-- plural, as words: Leech Stalkers = {npc:1111} Leech Stalker · Cave Stalkers = {npc:4040} Cave Stalker
-	["You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the {zone:1437}, north of {object:1668}; every one drops a fang. They poison; back in 5 minutes."] = "",
+	["You need 50 fangs. The Leech Stalkers and Cave Stalkers (level 21-22) crawl in the middle of the {zone:1437}, north of {area:836}; every one drops a fang. They poison; back in 5 minutes."] = "",
 
 	-- Step 8: Charred and Galvanized Horns
 	-- plural, as words: Galvanized Horns = {item:6840} Galvanized Horn
 	["Charred and Galvanized Horns"] = "Cuernos carbonizados y galvanizados",
-	-- {object:19559} Sun Rock Retreat (no name in this language: may be words) · {object:19556} Charred Vale (no name in this language: may be words) · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {object:19554} Stonetalon Peak (no name in this language: may be words)
+	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {object:19559} in the {object:19556}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit Corrosive Poison, the Young cast Lightning Bolt. Alliance: fly to {object:19554} and head south."] = "",
+	["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
 	["{item:6840}, from the {npc:6167}"] = "",
 
 	-- Step 9: Roogug in Razorfen Kraul
-	["Roogug in Razorfen Kraul"] = "",
-	-- {zone:1413} Barrens
-	["Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, and his guards come with him. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops."] = "",
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "Roogug en {area:1717}",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, and his guards come with him. Inside take the left path at the first fork, cross the root bridge, go past the big empty cauldron: he is in a dead end on the right, with about ten elites on the way. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "",
 	-- {item:6841} Vial of Phlogiston
 	["{item:6841}, from Roogug"] = "{item:6841}, de Roogug",
 
@@ -69,29 +71,29 @@ return {
 	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
 
 	-- Step 12: Burning Blood
-	-- {zone:1431} Duskwood · {quest:1705} Burning Blood · {npc:6170} Gutspill · {item:6845} Burning Rock
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of Darkshire drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the Roland's Doom mine south-east of Darkshire, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause Infected Wound."] = "",
+	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {spell:3427} Infected Wound
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "",
 
 	-- Step 14: Mathiel
-	-- {quest:1703} Mathiel · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
-	["{quest:1703} works on the south side of the Warrior's Terrace in {zone:1457}. He wants 20 {quest:1710}."] = "",
+	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
+	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
 
 	-- Step 15: Sunscorched Shells
-	-- {zone:1441} Thousand Needles
+	-- {area:482} Highperch · {zone:1441} Thousand Needles
 	-- plural, as words: Highperch Wyverns = {npc:4107} Highperch Wyvern
-	["The shells lie on the ground under the wyvern nests at Highperch in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "",
+	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "",
 
 	-- Step 17: Klockmort Spannerspan
-	-- {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
-	["Ride the Deeprun Tram from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
+	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
+	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
 
 	-- Step 18: Iron Coral
-	-- {quest:1708} Iron Coral · {object:1162} Menethil Harbor (no name in this language: may be words) · {item:5996} Elixir of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {object:1162}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an {item:5996} removes the risk."] = "",
+	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an Elixir of Water Breathing removes the risk."] = "",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "",
 
@@ -99,9 +101,7 @@ return {
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Una cota a nivel 28; un almófar, unas calzas o unos guanteletes según tu raza, y un escudo por el camino.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "A nivel 20, {npc:5479}, en {object:2100}, junto a la taberna El Cerdo Borracho, te envía con {quest:1698} en las Montañas Crestagrana.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Regresa con {npc:5413} en {object:28027}. Te envía con un herrero de tu raza.",
-	-- ["Enter the {area:98} and come back"] = "Entra en {area:98} y vuelve",
 	-- ["Ride the {area:2257} from {zone:1453} to {zone:1455}."] = "Toma el {area:2257} de {zone:1453} a {zone:1455}.",
-	-- ["Roogug in {area:1717}"] = "Roogug en {area:1717}",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug es un jabaespín élite dentro de {area:1717}, el calabozo del extremo sur de {zone:1413}; suelta el {item:6841}. {area:1717} es un calabozo: se recomienda ir en grupo.",
 	-- ["The Fledgling and Young Chimaeras roam the south-west of Stonetalon, with the {npc:6167} among them: the young ones drop the {item:6839}, the Matriarch the {item:6840}."] = "Las Quimeras volantonas y las Quimeras jóvenes recorren el suroeste de la Sierra Espolón, con la {npc:6167} entre ellas: las jóvenes sueltan el {item:6839}; la Matriarca, el {item:6840}.",
 	-- ["The Leech Stalkers and Cave Stalkers crawl around 46,61 in the middle of the {zone:1437}; they drop the {item:6838}."] = "Los Acechadores sanguijuela y los Acechadores de cuevas se arrastran por 46,61, en el centro de {zone:1437}; sueltan el {item:6838}.",

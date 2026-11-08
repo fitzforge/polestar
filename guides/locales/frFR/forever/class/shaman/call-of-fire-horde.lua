@@ -13,16 +13,16 @@ return {
 	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "Votre {item:5176} pour chaque totem de feu, {spell:3599} avec, et le {item:263412} propre à Forever.",
 
 	-- Step 1: Swart
-	-- {npc:3173} Swart · {object:3224} Razor Hill (no name in this language: may be words) · {npc:5907} Kranal Fiss · {zone:1413} Barrens · {npc:5892} Searn Firewarder · {zone:1454} Orgrimmar
-	["At 10 {npc:3173}, the shaman trainer on the east side of {object:3224}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5892}'s letter from {zone:1454}? It goes to {npc:5907} too: skip {npc:3173}."] = "",
+	-- {npc:3173} Swart · {area:362} Razor Hill · {npc:5907} Kranal Fiss · {zone:1413} Barrens · {npc:5892} Searn Firewarder · {zone:1454} Orgrimmar
+	["At 10 {npc:3173}, the shaman trainer on the east side of {area:362}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5892}'s letter from {zone:1454}? It goes to {npc:5907} too: skip {npc:3173}."] = "Au niveau 10, {npc:3173}, maître des chamans du côté est de {area:362}, vous envoie voir {npc:5907} dans les {zone:1413}. Vous avez déjà la lettre de {npc:5892}, venue d'{zone:1454} ? Elle mène aussi à {npc:5907} : passez {npc:3173}.",
 
 	-- Step 2: Narm Skychaser
-	-- {npc:3066} Narm Skychaser · {object:2968} Bloodhoof Village (no name in this language: may be words) · {npc:5907} Kranal Fiss · {zone:1413} Barrens · {npc:5906} Xanis Flameweaver · {zone:1456} Thunder Bluff
-	["At 10 {npc:3066}, the shaman trainer in {object:2968}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5906}'s letter from {zone:1456}? It goes to {npc:5907} too: skip Narm."] = "",
+	-- {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village · {npc:5907} Kranal Fiss · {zone:1413} Barrens · {npc:5906} Xanis Flameweaver · {zone:1456} Thunder Bluff
+	["At 10 {npc:3066}, the shaman trainer in {area:222}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5906}'s letter from {zone:1456}? It goes to {npc:5907} too: skip Narm."] = "Au niveau 10, {npc:3066}, maître des chamans au {area:222}, vous envoie voir {npc:5907} dans les {zone:1413}. Vous avez déjà la lettre de {npc:5906}, venue des {zone:1456} ? Elle mène aussi à {npc:5907} : passez Narm.",
 
 	-- Step 3: Kranal Fiss
-	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {zone:1440} Ashenvale
-	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past Grol'dom Farm he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past Far Watch Post). If you reach {zone:1440} you went too far."] = "",
+	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
+	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
 
 	-- Step 4
 	-- {npc:5907} Kranal Fiss · {npc:3173} Swart
@@ -50,12 +50,13 @@ return {
 
 	-- Step 10: Fire Tar
 	-- {item:5026} Fire Tar
+	-- plural, as words: Fireballs = {spell:133} Fireball
 	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "",
 
 	-- Step 11: Reagent Pouch
-	-- {object:3224} Razor Hill (no name in this language: may be words) · {zone:1454} Orgrimmar
+	-- {spell:348} Immolate · {area:371} Dustwind Cave · {area:362} Razor Hill · {area:817} Skull Rock · {zone:1454} Orgrimmar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["The Burning Blade Cultists (level 10-11, they call imps and cast Immolate) live deep in Dustwind Cave north of {object:3224}: climb the ramp just north-east of town and stay on the high ground above the ravines. The orcs at the cave mouth are not cultists; the cultists are further in, off to the left. Three kills in four drop a pouch. Skull Rock by {zone:1454} is the wrong cave."] = "",
+	["The Burning Blade Cultists (level 10-11, they call imps and cast {spell:348}) live deep in {area:371} north of {area:362}: climb the ramp just north-east of town and stay on the high ground above the ravines. The orcs at the cave mouth are not cultists; the cultists are further in, off to the left. Three kills in four drop a pouch. {area:817} by {zone:1454} is the wrong cave."] = "Les Sectateurs de la Lame ardente (niveau 10-11, ils appellent des diablotins et lancent {spell:348}) vivent au fond de la {area:371}, au nord de {area:362} : montez la rampe juste au nord-est du village et restez en hauteur au-dessus des ravins. Les orcs à l'entrée de la grotte ne sont pas des sectateurs ; les sectateurs sont plus loin, sur la gauche. Trois fois sur quatre, ils lâchent une bourse. Le {area:817}, près d'{zone:1454}, n'est pas la bonne grotte.",
 
 	-- Step 12: Telf Joolam
 	-- {npc:5900} Telf Joolam · {quest:1464} Fire Sapta
@@ -72,8 +73,8 @@ return {
 	-- Step 14: The Minor Manifestation of Fire
 	-- {npc:5893} Minor Manifestation of Fire
 	["The {npc:5893}"] = "La {npc:5893}",
-	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {item:6655} Glowing Ember
-	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with Rockbiter Weapon and Earth Shock and leave the others alone. Its {item:6655} drops every time."] = "",
+	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words) · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
+	["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Buvez le {item:6636} à côté du sanctuaire chaman, la grande pierre grise juste sous le sommet, puis montez sur le plateau. Parmi les élémentaires de feu qui s'y trouvent, seul celui du milieu peut être attaqué : il est de niveau 12, insensible au feu et devient plus fort à mesure que le combat dure ; ouvrez donc aussitôt avec {spell:8017} et {spell:8042} et laissez les autres tranquilles. Sa {item:6655} tombe à chaque fois.",
 	-- {item:6636} Fire Sapta · {object:63674} Shaman Shrine (no name in this language: may be words)
 	["{item:6636}, beside the {object:63674}"] = "{item:6636}, à côté du sanctuaire chaman",
 
@@ -90,35 +91,35 @@ return {
 	["{npc:5907}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:5907} : {spell:3599}, votre {item:5176} et le {item:263412}",
 
 	-- Step 17: Sessaria Skystride
-	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {item:6653} Torch of the Dormant Flame · {npc:254082} Aarnor Galestrike · {quest:97243} Call of Fire · {zone:1456} Thunder Bluff · {npc:268605} Kuramaa
-	["At 10 {npc:252382}, the shaman trainer beside {npc:251968} in Valanaar, hands you the {item:6653} ({npc:254082} offers the same quest). Already left the isle? A {quest:97243} sends you back to them: take the skycutter from the cliffs south of Skywatcher Plateau, north of {zone:1456}. Learn Flame Shock from her now: {npc:268605}, later in the chain, only takes fire damage."] = "",
+	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {item:6653} Torch of the Dormant Flame · {npc:254082} Aarnor Galestrike · {quest:97243} Call of Fire · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {spell:8050} Flame Shock · {npc:268605} Kuramaa
+	["At 10 {npc:252382}, the shaman trainer beside {npc:251968} in {area:16638}, hands you the {item:6653} ({npc:254082} offers the same quest). Already left the isle? A {quest:97243} sends you back to them: take the skycutter from the cliffs south of {area:17045}, north of {zone:1456}. Learn {spell:8050} from her now: {npc:268605}, later in the chain, only takes fire damage."] = "Au niveau 10, {npc:252382}, maîtresse des chamans à côté de {npc:251968} à {area:16638}, vous remet la {item:6653} ({npc:254082} propose la même quête). Vous avez déjà quitté l'île ? Une quête {quest:97243} vous renvoie vers eux : prenez le brise-ciel depuis les falaises au sud du {area:17045}, au nord des {zone:1456}. Apprenez {spell:8050} auprès d'elle maintenant : {npc:268605}, plus loin dans la chaîne, ne subit que les dégâts de feu.",
 
 	-- Step 18: Olariaan Swiftburn
-	-- {npc:268592} Olariaan Swiftburn
-	["The Shrine of Flames hides on the island's outer rim south-west of Valanaar, just south-east of Windfield Orchard: {npc:268592} keeps it."] = "",
+	-- {area:16638} Valanaar · {area:16663} Windfield Orchard · {npc:268592} Olariaan Swiftburn
+	["The Shrine of Flames hides on the island's outer rim south-west of {area:16638}, just south-east of {area:16663}: {npc:268592} keeps it."] = "Le sanctuaire des Flammes se cache sur le bord extérieur de l'île, au sud-ouest de {area:16638}, juste au sud-est du {area:16663} : {npc:268592} le garde.",
 
 	-- Step 19: Skypriest Faladiel
-	-- {npc:268602} Skypriest Faladiel
-	["{npc:268602} (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past Valanaar, just south of the Shrine of Akir, on the hill west of the falls north of the East Pylon Watchtower. Kill him and take his heart."] = "",
+	-- {npc:268602} Skypriest Faladiel · {area:16638} Valanaar · {area:16629} Shrine of Akir · {area:17675} East Pylon Watchtower
+	["{npc:268602} (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past {area:16638}, just south of the {area:16629}, on the hill west of the falls north of the {area:17675}. Kill him and take his heart."] = "{npc:268602} (niveau 10, un Façonneur-de-vent renégat qui n'apparaît qu'en un seul exemplaire) tient la ferme au nord-est après {area:16638}, juste au sud du {area:16629}, sur la colline à l'ouest des chutes au nord de la {area:17675}. Tuez-le et prenez son cœur.",
 
 	-- Step 20: Olariaan Swiftburn
 	-- {npc:268592} Olariaan Swiftburn
 	["Back to {npc:268592} at the Shrine of Flames."] = "Retournez voir {npc:268592} au sanctuaire des Flammes.",
 
 	-- Step 21: Kuramaa
-	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {npc:268605} Kuramaa
+	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of Valanaar, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep Flame Shock on it. Take its wooden mask."] = "",
+	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "La souche de Kuramaa est la souche tordue au sommet de la colline près du pylône d'ancrage des Hautes-terres de Shen'dar, à l'ouest de {area:16638}, dans les collines au sud des lacs des Clampants chantevent. Frappez dessus pour appeler {npc:268605} (niveau 10). L'esprit ignore presque toute la magie : seul le feu le blesse, maintenez donc {spell:8050} sur lui. Prenez son masque de bois.",
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words)
 	["{object:660848}: knock on the bark"] = "La souche de Kuramaa : frappez sur l'écorce",
 
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "La {object:148418}",
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride
-	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in Valanaar, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "",
-	-- {npc:268679} Brazier of Eternal Flame
-	["the ritual, then the {npc:268679} in Valanaar"] = "",
+	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
+	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "Retournez voir {npc:268592}. Acceptez la dernière quête, puis attendez près du {npc:268762} pendant qu'il accomplit le rituel ; quand les esprits du feu allument la {object:148418}, tendez-y la torche. Vous avez alors six minutes : portez la flamme tout droit jusqu'au {npc:268679}, à côté de {npc:252382} à {area:16638}, sans détour ni combat. Temps écoulé ? Abandonnez la quête et reprenez-la auprès de {npc:268592}.",
+	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar
+	["the ritual, then the {npc:268679} in {area:16638}"] = "le rituel, puis le {npc:268679} à {area:16638}",
 
 	-- Step 23: Sessaria Skystride
 	-- {item:5176} Fire Totem
@@ -127,16 +128,6 @@ return {
 	["{npc:252382}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:252382} : {spell:3599}, votre {item:5176} et le {item:263412}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:252382}, the shaman trainer beside {npc:251968} in {area:16638}, hands you the {item:6653} ({npc:254082} offers the same quest). Already left the isle? A {quest:97243} sends you back to them: take the skycutter from the cliffs south of {area:17045}, north of {zone:1456}. Learn {spell:8050} from her now: {npc:268605}, later in the chain, only takes fire damage."] = "Au niveau 10, {npc:252382}, maîtresse des chamans à côté de {npc:251968} à {area:16638}, vous remet la {item:6653} ({npc:254082} propose la même quête). Vous avez déjà quitté l'île ? Une quête {quest:97243} vous renvoie vers eux : prenez le brise-ciel depuis les falaises au sud du {area:17045}, au nord des {zone:1456}. Apprenez {spell:8050} auprès d'elle maintenant : {npc:268605}, plus loin dans la chaîne, ne subit que les dégâts de feu.",
-	-- ["At 10 {npc:3066}, the shaman trainer in {area:222}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5906}'s letter from {zone:1456}? It goes to {npc:5907} too: skip Narm."] = "Au niveau 10, {npc:3066}, maître des chamans au {area:222}, vous envoie voir {npc:5907} dans les {zone:1413}. Vous avez déjà la lettre de {npc:5906}, venue des {zone:1456} ? Elle mène aussi à {npc:5907} : passez Narm.",
-	-- ["At 10 {npc:3173}, the shaman trainer on the east side of {area:362}, sends you to {npc:5907} in the {zone:1413}. Already carry {npc:5892}'s letter from {zone:1454}? It goes to {npc:5907} too: skip {npc:3173}."] = "Au niveau 10, {npc:3173}, maître des chamans du côté est de {area:362}, vous envoie voir {npc:5907} dans les {zone:1413}. Vous avez déjà la lettre de {npc:5892}, venue d'{zone:1454} ? Elle mène aussi à {npc:5907} : passez {npc:3173}.",
-	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "Retournez voir {npc:268592}. Acceptez la dernière quête, puis attendez près du {npc:268762} pendant qu'il accomplit le rituel ; quand les esprits du feu allument la {object:148418}, tendez-y la torche. Vous avez alors six minutes : portez la flamme tout droit jusqu'au {npc:268679}, à côté de {npc:252382} à {area:16638}, sans détour ni combat. Temps écoulé ? Abandonnez la quête et reprenez-la auprès de {npc:268592}.",
-	-- ["Drink the {item:6636} beside the {object:63674}, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with {spell:8017} and {spell:8042} and leave the others alone. Its {item:6655} drops every time."] = "Buvez le {item:6636} à côté du sanctuaire chaman, la grande pierre grise juste sous le sommet, puis montez sur le plateau. Parmi les élémentaires de feu qui s'y trouvent, seul celui du milieu peut être attaqué : il est de niveau 12, insensible au feu et devient plus fort à mesure que le combat dure ; ouvrez donc aussitôt avec {spell:8017} et {spell:8042} et laissez les autres tranquilles. Sa {item:6655} tombe à chaque fois.",
-	-- ["The Burning Blade Cultists (level 10-11, they call imps and cast {spell:348}) live deep in {area:371} north of {area:362}: climb the ramp just north-east of town and stay on the high ground above the ravines. The orcs at the cave mouth are not cultists; the cultists are further in, off to the left. Three kills in four drop a pouch. {area:817} by {zone:1454} is the wrong cave."] = "Les Sectateurs de la Lame ardente (niveau 10-11, ils appellent des diablotins et lancent {spell:348}) vivent au fond de la {area:371}, au nord de {area:362} : montez la rampe juste au nord-est du village et restez en hauteur au-dessus des ravins. Les orcs à l'entrée de la grotte ne sont pas des sectateurs ; les sectateurs sont plus loin, sur la gauche. Trois fois sur quatre, ils lâchent une bourse. Le {area:817}, près d'{zone:1454}, n'est pas la bonne grotte.",
 	-- ["The Razormane casters north-east of the {area:380} drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "Les lanceurs de sorts Tranchecrin au nord-est de la {area:380} lâchent le {item:5026} trois fois sur quatre : Chercheurs d'eau et Tisse-épines (niveau 10-11), Géomanciens (niveau 12-13, ils lancent des Boules de feu et fuient chercher de l'aide quand ils sont blessés) et Mystiques (niveau 13-14, ils se soignent quand leur vie est basse). Attirez-les un par un.",
-	-- ["The Shrine of Flames hides on the island's outer rim south-west of {area:16638}, just south-east of {area:16663}: {npc:268592} keeps it."] = "Le sanctuaire des Flammes se cache sur le bord extérieur de l'île, au sud-ouest de {area:16638}, juste au sud-est du {area:16663} : {npc:268592} le garde.",
-	-- ["the ritual, then the {npc:268679} in {area:16638}"] = "le rituel, puis le {npc:268679} à {area:16638}",
-	-- ["{npc:268602} (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past {area:16638}, just south of the {area:16629}, on the hill west of the falls north of the {area:17675}. Kill him and take his heart."] = "{npc:268602} (niveau 10, un Façonneur-de-vent renégat qui n'apparaît qu'en un seul exemplaire) tient la ferme au nord-est après {area:16638}, juste au sud du {area:16629}, sur la colline à l'ouest des chutes au nord de la {area:17675}. Tuez-le et prenez son cœur.",
 	-- ["{npc:5907} is not in the {area:380}: take the road north from the {area:380} and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "{npc:5907} n'est pas à la {area:380} : prenez la route au nord de la {area:380} et bifurquez à l'est vers {zone:1411} ; après la {area:1704}, il fait les cent pas près d'une haute tour à l'est de la route (depuis {zone:1411} : passez le pont de la Furie-du-Sud, puis le {area:379}). Si vous arrivez en {zone:1440}, vous êtes allé trop loin.",
-	-- ["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "La souche de Kuramaa est la souche tordue au sommet de la colline près du pylône d'ancrage des Hautes-terres de Shen'dar, à l'ouest de {area:16638}, dans les collines au sud des lacs des Clampants chantevent. Frappez dessus pour appeler {npc:268605} (niveau 10). L'esprit ignore presque toute la magie : seul le feu le blesse, maintenez donc {spell:8050} sur lui. Prenez son masque de bois.",
 }

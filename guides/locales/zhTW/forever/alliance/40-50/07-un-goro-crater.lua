@@ -7,26 +7,27 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 3: Fly to Gadgetzan
-	["Fly to Gadgetzan"] = "",
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "飛往{area:976}",
 	["Theramore flight master"] = "",
 
 	-- Step 4: Gadgetzan
-	["Gadgetzan"] = "",
-	["The flight from Theramore lands in Gadgetzan."] = "",
+	-- {area:976} Gadgetzan
+	["The flight from Theramore lands in {area:976}."] = "",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of Gadgetzan to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{area:490}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -46,7 +47,6 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}就站在避難營外。",
 
 	-- Step 13: Marshal's Refuge
-	["Marshal's Refuge"] = "",
 	-- {object:157936} Un'Goro Dirt Pile
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
@@ -55,13 +55,11 @@ return {
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
-	["Fire Plume Ridge and the eastern jungle"] = "",
-	-- {item:11113} Crate of Foodstuffs
+	-- {area:537} Fire Plume Ridge
+	["{area:537} and the eastern jungle"] = "{area:537}與東部叢林",
+	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "",
-
-	-- Step 15: Lakkari Tar Pits
-	["Lakkari Tar Pits"] = "",
+	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南騎往環形山中央的{area:537}，然後向東進入東部叢林。水晶簇遍布整個環形山，許多在{area:537}周圍：每種顏色多拿幾個。血瓣花鞭笞者和血瓣花猛擊者會掉落花瓣；探險隊的{item:11113}在東部叢林中一處廢棄的營地裡。",
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
@@ -77,12 +75,14 @@ return {
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
 
 	-- Step 18: A-Me 01
-	["Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	-- {area:1943} Ironstone Plateau
+	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北騎往{area:1943}，機器人站在猩猩群中。不要進入那裡的深洞。",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	["Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead."] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	["Pterrordax"] = "翼手龍",
 	["grind on Pterrordax"] = "",
 
@@ -97,9 +97,9 @@ return {
 
 	-- Step 22: The Gorishi hive
 	["The Gorishi hive"] = "格里什蟲巢",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "",
 
@@ -122,13 +122,14 @@ return {
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 
 	-- Step 26: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
 
 	-- Step 27: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 28: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -148,12 +149,15 @@ return {
 	["Xiggs waits in the {object:32359}."] = "希格斯在{object:32359}等候。",
 
 	-- Step 34: Fly to Astranaar
-	["Fly to Astranaar"] = "",
-	["Auberdine flight master"] = "",
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
 
 	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	["Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
@@ -172,13 +176,10 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}。",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "沿著環形山東側向北騎往{area:541}，也就是北面懸崖洞穴中的營地。遠離精英魔暴龍和劍龍。從現在起，拾取沿途經過的每一個能量水晶和{object:157936}。",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿東側向北騎往猩猩高地。55級的猩猩{npc:9622}在最深的洞穴裡：先清掉洞口的猩猩。",
-	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北騎往{area:1943}，機器人站在猩猩群中。不要進入那裡的深洞。",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "沿東面懸崖向南騎往坡道底部的{npc:9619}。",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿東側向南騎。幼雙帆龍在東部叢林覓食，{npc:9165}在東面懸崖附近飛行；兩者都會掉落{npc:9998}要的鱗片。",
-	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南騎往環形山中央的{area:537}，然後向東進入東部叢林。水晶簇遍布整個環形山，許多在{area:537}周圍：每種顏色多拿幾個。血瓣花鞭笞者和血瓣花猛擊者會掉落花瓣；探險隊的{item:11113}在東部叢林中一處廢棄的營地裡。",
 	-- ["Ride west back to the refuge."] = "向西騎回避難營。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "從{npc:9619}向西騎：異種蟲巢穴佔據環形山南部。在孵化室（掛著幼蟲的洞室）使用未使用的採集瓶。格里什異種蠍和格里什工蠍會掉落{quest:3764}；若還需要擊殺數，{npc:9166}在南面懸崖築巢。",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{zone:1449}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西經過{area:541}，再沿西側向南前往{area:543}：哥布林{npc:10302}坐在水邊。",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "組隊打{area:1417}代替練等能更快達到目標。單人練等請跳過此步驟。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "組隊打{area:978}代替練等能更快達到目標。這座食人妖城市位於{zone:1446}西北部，就在{area:976}北邊。",
@@ -193,7 +194,6 @@ return {
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周圍擊殺廢土強盜或砂槌巨魔練等",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}擊殺{npc:5458}練等",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}擊殺{npc:6514}練等",
-	-- ["{area:537} and the eastern jungle"] = "{area:537}與東部叢林",
 	-- ["{area:978} (optional)"] = "{area:978}（可選）",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用爐石把你送到這裡，所以這一步通常會立即完成",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深處",

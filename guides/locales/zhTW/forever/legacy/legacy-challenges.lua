@@ -90,10 +90,10 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "冒險：{npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
-	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley
-	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s Blackrock Mountain)"] = "",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
+	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
+	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上層完成「認錯，瓦薩拉克」之後（資料中沒有重生點：箭頭指向{npc:16033}所在的{area:254}）",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{quest:8996}繳交後，{npc:16033}會提供此任務",
 
@@ -111,64 +111,63 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地城：等級15-25",
-	-- {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
-	-- {npc:11519} Bazzalan
-	["Ragefire Chasm: {npc:11519} (or Hall of Thanes)"] = "",
-	-- {npc:261319} Durgen Dirgehammer
-	["Hall of Thanes: {npc:261319} (or Ragefire Chasm)"] = "",
-	-- {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["Ruins of Lordaeron (Forever's, {zone:1420}): {npc:256035}"] = "",
-	-- {npc:3678} Disciple of Naralex
-	["Wailing Caverns (appears after the {npc:3678}'s event)"] = "",
-	["The Deadmines"] = "",
-	-- {zone:1437} Wetlands · {npc:260326} Relic Guardian
-	["Excavation Site: {zone:1437} (Forever's): {npc:260326}"] = "",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
+	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之後出現）",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地城：等級26-45",
-	-- {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and Krol'dok Stronghold (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
-	["Blackfathom Deeps"] = "",
-	["Gnomeregan"] = "",
 	["the final boss of the Drowned City"] = "",
-	["Scarlet Monastery: Graveyard"] = "",
-	["Scarlet Monastery: Library"] = "",
-	["Scarlet Monastery: Armory"] = "",
-	["Scarlet Monastery: Cathedral"] = "",
-	["Razorfen Kraul"] = "",
-	["the final boss of Krol'dok Stronghold"] = "",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Graveyard"] = "{area:796}：墓地",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Library"] = "{area:796}：圖書館",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Armory"] = "{area:796}：軍械庫",
+	-- {area:796} Scarlet Monastery
+	["{area:796}: Cathedral"] = "{area:796}：大教堂",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "地城：等級46-60",
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, Blackmaw Hold and the Shaper's Terrace are new in Forever and not in our data: tick them off yourself."] = "",
-	["Razorfen Downs"] = "",
-	["Uldaman"] = "",
-	["Zul'Farrak"] = "",
-	["Maraudon"] = "",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
 	["the final boss of Alcaz Prison"] = "",
-	["Sunken Temple"] = "",
-	["Blackrock Depths"] = "",
-	["the final boss of Blackmaw Hold"] = "",
-	["Lower Blackrock Spire"] = "",
-	["Upper Blackrock Spire"] = "",
-	["Scholomance"] = "",
-	["Stratholme, Live side"] = "",
-	["Stratholme, Undead side"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
+	-- {area:1583} Blackrock Spire
+	["Lower {area:1583}"] = "{area:1583}下層",
+	-- {area:1583} Blackrock Spire
+	["Upper {area:1583}"] = "{area:1583}上層",
+	-- {area:2279} Stratholme
+	["{area:2279}, Live side"] = "{area:2279}，活人區",
+	-- {area:2279} Stratholme
+	["{area:2279}, Undead side"] = "{area:2279}，亡靈區",
 	["Dire Maul East"] = "厄運之槌東區",
 	["Dire Maul North"] = "厄運之槌北區",
 	["Dire Maul West"] = "厄運之槌西區",
-	["the final boss of the Shaper's Terrace"] = "",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "團隊：{npc:10184}",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {npc:10184}'s Lair is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in Kargath ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
-	-- {npc:10184} Onyxia · {zone:1445} Dustwallow Marsh
-	["{npc:10184}'s Lair, {zone:1445}"] = "",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "團隊：Hyjal Summit",
@@ -178,8 +177,8 @@ return {
 
 	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "團隊：Barrow Deeps",
-	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or Blackmaw Hold and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "古墓深淵的全部8個首領",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -194,28 +193,18 @@ return {
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever新增了地城{area:16919}和{area:153}；它們的首領和等級分組尚未收錄在我們的資料中。",
 	-- ["Forever's new dungeons"] = "Forever的新地城",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "擊殺{npc:10184}值1點。在經典版中，進入她的巢穴需要完成前置任務：聯盟需要{item:16309}，部落需要{item:16663}。",
-	-- ["Lower {area:1583}"] = "{area:1583}下層",
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "每個等級15-25地城的最終首領合計值1點。擊殺每個首領後將其勾選；分組依照經典版的一般等級範圍，確切清單請查看遊戲內的傳承面板。",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "每個等級26-45地城的最終首領合計值1點。",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "每個等級46-60地城的最終首領合計值1點。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」（瓦薩拉克的護符）、「最後的準備」和「認錯，瓦薩拉克」，以及{npc:16042}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」、「最後的準備」和{quest:8995}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」（{item:22048}）、「最後的準備」和「Mea Culpa」，以及{npc:16042}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
-	-- ["Upper {area:1583}"] = "{area:1583}上層",
 	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "暴雪將哪個任務算作任務線的結尾（{quest:8996}或你職業的「最後的獎賞」），要等到記錄傳承資料後才能確認。",
 	-- ["the final boss of {area:153}"] = "{area:153}的最終首領",
 	-- ["the final boss of {area:16919}"] = "{area:16919}的最終首領",
 	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517}（等級41-51；可能算在46-60的分組）",
 	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}和{area:153}是Forever新增的。它們的首領、等級和傳承分組不在我們的資料中，所以請自行勾選。",
-	-- ["{area:2279}, Live side"] = "{area:2279}，活人區",
-	-- ["{area:2279}, Undead side"] = "{area:2279}，亡靈區",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}：通常最後擊殺的目標；{area:717}沒有固定的最終首領",
-	-- ["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之後出現）",
-	-- ["{area:796}: Armory"] = "{area:796}：軍械庫",
-	-- ["{area:796}: Cathedral"] = "{area:796}：大教堂",
-	-- ["{area:796}: Graveyard"] = "{area:796}：墓地",
-	-- ["{area:796}: Library"] = "{area:796}：圖書館",
 	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
 	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
-	-- ["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上層完成「認錯，瓦薩拉克」之後（資料中沒有重生點：箭頭指向{npc:16033}所在的{area:254}）",
 }

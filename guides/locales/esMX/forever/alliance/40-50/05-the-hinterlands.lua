@@ -7,28 +7,27 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: The Altar of Zul
-	-- {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
+	-- {area:355} Altar of Zul · {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["Ride south-east to the Altar of Zul, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "",
+	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "",
 
 	-- Step 2: Skulk Rock
-	["Skulk Rock"] = "",
-	-- {zone:1425} The Hinterlands
+	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
 	-- plural, as words: Green Sludges = {npc:2655} Green Sludge · Jade Oozes = {npc:2656} Jade Ooze
-	["Ride north to Skulk Rock in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
+	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
 
 	-- Step 3: Aerie Peak
-	["Aerie Peak"] = "",
 	["Inside"] = "",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "",
-	-- {quest:2990} Thadius Grimshade
-	["for {quest:2990} at Nethergarde Keep, later"] = "",
+	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
+	["for {quest:2990} at {area:1438}, later"] = "para {quest:2990} en {area:1438}, más adelante",
 
 	-- Step 4: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Aerie Peak flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "",
+	-- {area:348} Aerie Peak
+	["{area:348} flight master"] = "",
 
 	-- Step 5: Class trainer
 	["Class trainer"] = "",
@@ -38,55 +37,58 @@ return {
 	["Tram to {zone:1453}"] = "",
 
 	-- Step 8: Fly to Lakeshire
-	["Fly to Lakeshire"] = "",
+	-- {area:69} Lakeshire
+	["Fly to {area:69}"] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
 	-- Step 9: Morgan's Vigil flight master
-	["Morgan's Vigil flight master"] = "",
+	-- {area:2418} Morgan's Vigil
+	["{area:2418} flight master"] = "",
 
 	-- Step 10: Fly to Thelsamar
-	["Fly to Thelsamar"] = "",
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "",
 
 	-- Step 11: Thelsamar
-	["Thelsamar"] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
 	-- Step 12: Ironband's Excavation Site
-	["Ironband's Excavation Site"] = "",
 	["Ride east along the south shore of the loch to Ironband's camp."] = "Cabalga al este por la orilla sur del lago hasta la Excavación de Vetaferro.",
 
 	-- Step 13: Into Badlands
-	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	-- {area:3} Badlands
+	["Into {area:3}"] = "",
 
 	-- Step 15: The Uldaman dig
-	["The Uldaman dig"] = "",
-	-- {zone:1418} Badlands
-	["Ride south through the pass into the {zone:1418}' northern edge: the Stonevault troggs dig outside Uldaman there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	-- {area:1517} Uldaman
+	["The {area:1517} dig"] = "La excavación de {area:1517}",
+	-- {area:3} Badlands · {area:1517} Uldaman
+	["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "Cabalga al sur por el paso hasta el borde norte de {area:3}: allí los troggs Grutacanto excavan fuera de {area:1517}. Las urnas talladas y los racimos de champiñones magenta están en sus cuevas y túneles, fuera del calabozo.",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "",
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
 	-- Step 16: Back to Loch Modan
-	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	-- {area:38} Loch Modan
+	["Back to {area:38}"] = "",
 
 	-- Step 17: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Cabalga de vuelta al norte hasta la Excavación de Vetaferro.",
 
 	-- Step 18: Thelsamar
-	["Ride back west along the loch to Thelsamar."] = "",
+	-- {area:144} Thelsamar
+	["Ride back west along the loch to {area:144}."] = "",
 
 	-- Step 19: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 22: Rut'theran Village
-	["Rut'theran Village"] = "",
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -102,11 +104,7 @@ return {
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}, a su lado",
 
-	-- Step 26: Craftsmen's Terrace
-	["Craftsmen's Terrace"] = "",
-
 	-- Step 27: Cenarion Enclave
-	["Cenarion Enclave"] = "",
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, en lo alto del árbol",
 
@@ -115,52 +113,53 @@ return {
 	["the soil comes from {zone:1449}, later"] = "la tierra viene de {zone:1449}, más adelante",
 
 	-- Step 30: Portal to Teldrassil
-	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	-- {area:141} Teldrassil
+	["Portal to {area:141}"] = "",
 
 	-- Step 31: Fly to Auberdine
-	["Fly to Auberdine"] = "",
-	["Rut'theran Village flight master"] = "",
+	-- {area:442} Auberdine
+	["Fly to {area:442}"] = "",
+	-- {area:702} Rut'theran Village
+	["{area:702} flight master"] = "",
 
 	-- Step 32: Boat to Stormwind Harbor
-	["Boat to Stormwind Harbor"] = "",
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
 
 	-- Step 33: Fly to Darkshire
-	["Fly to Darkshire"] = "",
-
-	-- Step 34: Darkshire
-	["Darkshire"] = "",
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "Vuela a {area:42}",
 
 	-- Step 36: The bloodmages
 	["The bloodmages"] = "Los magos de sangre",
-	-- {zone:1419} Blasted Lands
-	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of Nethergarde Keep."] = "",
+	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
+	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
 
 	-- Step 37: Nethergarde Keep
-	["Nethergarde Keep"] = "",
-	-- {item:6091} Crate of Power Stones
-	["Ride on east along the road to the keep first: the {item:6091} expires an hour after Darkshire, and the bloodmages' beasts take longer than that."] = "",
+	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
+	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "Primero sigue al este por el camino hasta el castillo: la {item:6091} caduca una hora después de {area:42}, y las bestias de los magos de sangre llevan más tiempo.",
 	-- {quest:2990} Thadius Grimshade
 	["{quest:2990}, at the top of the keep"] = "{quest:2990}, en lo alto del castillo",
-	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion
-	["{npc:8022}' next task, {item:9471}, is a Zul'Farrak quest: skip it."] = "",
+	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
+	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "La siguiente tarea de {npc:8022}, {item:9471}, es una misión de {area:978}: omítela.",
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
 	-- Step 38: Blasted Lands: kill these as you meet them
-	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
-	-- {npc:5982} Black Slayer · {npc:8301} Clack the Reaver
+	-- {area:4} Blasted Lands
+	["{area:4}: kill these as you meet them"] = "",
+	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use Venom Sting; {npc:8301} adds Knockdown."] = "",
+	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
 	-- Step 39: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "El segundo nivel de los magos de sangre paga las mismas partes con un objeto de beneficio y sin experiencia: omítelo.",
 
 	-- Step 40: Fly to Booty Bay
-	-- {object:3204} Booty Bay (no name in this language: may be words)
-	["Fly to {object:3204}"] = "",
-	["Nethergarde Keep flight master"] = "",
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "Vuela a {area:35}",
+	-- {area:1438} Nethergarde Keep
+	["{area:1438} flight master"] = "",
 
 	-- Step 41: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
@@ -182,14 +181,9 @@ return {
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "Cabalga de vuelta al este hasta {area:1438} y vuela a {area:144}.",
 	-- ["Ride east through {zone:1430} into the {zone:1435} and south down the road into the {zone:1419}. The bloodmages' camp is the first stop beside the road."] = "Cabalga al este por {zone:1430} hasta {zone:1435} y baja al sur por el camino hasta {zone:1419}. El campamento de los magos de sangre es la primera parada junto al camino.",
 	-- ["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it."] = "Cabalga al norte hasta {area:351}, en el centro de {zone:1425}. Los Lodos verdes ({npc:2655}) y los Mocos de jade ({npc:2656}) se arrastran por todo el lugar.",
-	-- ["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "Primero sigue al este por el camino hasta el castillo: la {item:6091} caduca una hora después de {area:42}, y las bestias de los magos de sangre llevan más tiempo.",
-	-- ["Ride south through the pass into the {zone:1418}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "Cabalga al sur por el paso hasta el borde norte de {zone:1418}: allí los troggs Grutacanto excavan fuera de {area:1517}. Las urnas talladas y los racimos de champiñones magenta están en sus cuevas y túneles, fuera del calabozo.",
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga la Vigilante y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "Cabalga al oeste: las hienas risitas famélicas rondan las colinas secas justo al sur del campamento de los magos de sangre; los aguijoneros Scorpok (nivel 50) corretean por el centro del norte. Los buitres {npc:5982} vuelan en círculos por toda la zona. Atráelos de uno en uno.",
 	-- ["Scorpoks and snickerfangs"] = "Scorpoks e hienas risitas",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "Los instructores de druida están en el Enclave Cenarion; {zone:1455} no tiene",
-	-- ["The {area:1517} dig"] = "La excavación de {area:1517}",
-	-- ["for {quest:2990} at {area:1438}, later"] = "para {quest:2990} en {area:1438}, más adelante",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: la guía anterior te vincula aquí, así que esto suele marcarse de inmediato",
-	-- ["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "La siguiente tarea de {npc:8022}, {item:9471}, es una misión de {area:978}: omítela.",
 }

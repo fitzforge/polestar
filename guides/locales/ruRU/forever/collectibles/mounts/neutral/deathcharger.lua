@@ -16,13 +16,8 @@ return {
 	["{item:13335} needs level 60 and Journeyman {skill:762} to ride (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides."] = "Для езды ({item:13335}) нужны 60-й уровень и навык {skill:762} уровня подмастерья (клиент Forever). Обучитесь у учителя верховой езды своей расы; см. гайды по транспорту 60-го уровня.",
 
 	-- Step 2: Stratholme: Baron Rivendare
-	-- {npc:10440} Baron Rivendare
-	["Stratholme: {npc:10440}"] = "",
-	-- {object:175461} Service Entrance · {object:175440} Elders' Square · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare
-	["Stratholme is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "",
+	-- {area:2279} Stratholme · {object:175461} Service Entrance · {object:175440} Elders' Square · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare
+	["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} – подземелье для группы из пяти, 58-60-й уровень. {object:175461} ({object:175440}) на северо-западе зоны {zone:1423} ведет на сторону нежити; {npc:10440} ждет на бойне в ее конце. По нашим данным, шанс выпадения поводьев – 0,02% (pfQuest, Era): примерно одно на пять тысяч убийств. Ничто не указывает, что в Forever это изменилось.",
 	-- {object:175461} Service Entrance
 	["Stratholme {object:175461}"] = "Стратхольм: {object:175461}",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} – подземелье для группы из пяти, 58-60-й уровень. {object:175461} ({object:175440}) на северо-западе зоны {zone:1423} ведет на сторону нежити; {npc:10440} ждет на бойне в ее конце. По нашим данным, шанс выпадения поводьев – 0,02% (pfQuest, Era): примерно одно на пять тысяч убийств. Ничто не указывает, что в Forever это изменилось.",
 }

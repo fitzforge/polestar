@@ -7,18 +7,18 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "Vers {area:2101}",
 
 	-- Step 2: Into Searing Gorge
-	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	-- {area:51} Searing Gorge
+	["Into {area:51}"] = "Vers la {area:51}",
 
 	-- Step 4: The Grimesilt outhouse
 	["The Grimesilt outhouse"] = "Les toilettes de Crasseboue",
-	-- {zone:1418} Badlands · {zone:1427} Searing Gorge · {item:4306} Silk Cloth
+	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From Thelsamar ride south into the {zone:1418}, then west past the Horde town of Kargath (give it room) and up the trail into {zone:1427}: the Grimesilt Dig Site is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -26,19 +26,20 @@ return {
 
 	-- Step 6: Level 48.27
 	["Level 48.27"] = "Niveau 48.27",
-	-- {item:3985} Monogrammed Sash
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead."] = "",
+	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "tuez en boucle : {npc:5839}",
 
 	-- Step 7: Thorium Point
-	["Thorium Point"] = "",
-	["Ride north-west across the Cauldron to Thorium Point, the scaffolded camp on the north-west rim."] = "",
+	-- {area:1446} Thorium Point
+	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Le panneau {object:179827}",
 
 	-- Step 9: Zamael Lunthistle
-	["The night elf stands alone west of Thorium Point. Hear his story."] = "",
+	-- {area:1446} Thorium Point
+	["The night elf stands alone west of {area:1446}. Hear his story."] = "L'elfe de la nuit Zamael Lunthistle se tient seul à l'ouest du {area:1446}. Écoutez son histoire.",
 
 	-- Step 12: Greater Lava Spiders
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
@@ -47,20 +48,23 @@ return {
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "",
 
 	-- Step 13: Kalaran Windblade
-	["Kalaran stands on the rim of the Cauldron, south of Thorium Point. Listen to his story."] = "",
+	["Kalaran Windblade"] = "",
+	-- {area:1446} Thorium Point
+	["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok Lamevent se tient sur le rebord du Chaudron, au sud du {area:1446}. Écoutez son histoire.",
 
 	-- Step 16: Firewatch Ridge: kill these as you meet them
-	["Firewatch Ridge: kill these as you meet them"] = "",
+	-- {area:1442} Firewatch Ridge
+	["{area:1442}: kill these as you meet them"] = "{area:1442} : tuez-les au passage",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 
 	-- Step 19: Searing Gorge: kill these as you meet them
-	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
-	-- {npc:14621} Overseer Maltorius
+	-- {area:51} Searing Gorge
+	["{area:51}: kill these as you meet them"] = "{area:51} : tuez-les au passage",
+	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["The Slag Pit opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "",
+	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} s'ouvre au nord du Chaudron. Les Plans secrets : Flux embrasé se trouvent sur sa corniche supérieure ; les Incendosaures nagent dans les bassins de lave plus loin, attirez-les vers le bord. Restez loin de {npc:14621} et de ses gardes élites au fond.",
 	-- {item:18922} Secret Plans: Fiery Flux
 	["{item:18922}; below ground"] = "{item:18922} ; sous terre",
 
@@ -70,8 +74,8 @@ return {
 
 	-- Step 22: Level 48.66
 	["Level 48.66"] = "Niveau 48.66",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead."] = "",
+	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "tuez en boucle : {npc:9318}",
 
@@ -85,8 +89,8 @@ return {
 
 	-- Step 29: Level 48.98
 	["Level 48.98"] = "Niveau 48.98",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead."] = "",
+	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "tuez en boucle : {npc:5844}",
 
@@ -96,22 +100,21 @@ return {
 	["Below ground"] = "Sous terre",
 
 	-- Step 32: Dorius Stonetender
-	-- {object:175704} Singed Letter
-	["Back at the Grimesilt Dig Site: Dorius stands by the road. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
-	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
-	["For {npc:8256} in {zone:1455}, later"] = "Pour {npc:8256} à {zone:1455}, plus tard",
+	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
+	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
+	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
+	["For {npc:8256} in {area:1537}, later"] = "Pour {npc:8256} à {area:1537}, plus tard",
 
 	-- Step 34: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Thorium Point flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
+	-- {area:1446} Thorium Point
+	["{area:1446} flight master"] = "Maître de vol de {area:1446}",
 
 	-- Step 35: Class trainer
 	["Class trainer"] = "Maître de classe",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
-	-- ["For {npc:8256} in {area:1537}, later"] = "Pour {npc:8256} à {area:1537}, plus tard",
 	-- ["For {npc:8256} in {zone:1455}, later"] = "Pour {npc:8256} à {zone:1455}, plus tard",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}. {area:1446} is the scaffolded camp on the north-west rim."] = "Depuis {area:144}, chevauchez vers le sud jusqu'aux {zone:1418}, puis vers l'ouest après {area:340}, la ville de la Horde (gardez vos distances), et montez le sentier jusqu'à la {area:51}. {area:1446} est le camp à échafaudages sur le rebord nord-ouest.",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Depuis {area:144}, chevauchez vers le sud jusqu'aux {zone:1418}, puis vers l'ouest au-delà de la ville horde de {area:340} (gardez vos distances) et montez la piste jusqu'à la {zone:1427}. Le {area:1446} est le camp échafaudé sur le rebord nord-ouest.",
@@ -122,21 +125,13 @@ return {
 	-- ["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "Si vous avez passé {item:3985} ou Face à Negolash, tuez des monstres ici jusqu'au niveau 48.27 pour suivre le plan de l'itinéraire.",
 	-- ["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Si vous avez passé {quest:3452}, tuez des monstres ici jusqu'au niveau 48.98 pour suivre le plan de l'itinéraire.",
 	-- ["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "Si vous avez passé {quest:7701}, tuez des monstres ici jusqu'au niveau 48.66 pour suivre le plan de l'itinéraire.",
-	-- ["Into {area:51}"] = "Vers la {area:51}",
-	-- ["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok Lamevent se tient sur le rebord du Chaudron, au sud du {area:1446}. Écoutez son histoire.",
 	-- ["On the way"] = "En chemin",
 	-- ["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "Traversez le Chaudron vers l'est jusqu'à {area:247}, au sud-est. Le prisonnier dans les latrines en bois veut 15 {item:4306} et huit Géologues Sombrefer ({npc:5839}) tués sur le site de fouilles alentour. Les latrines s'ouvrent aussi avec la clé, si vous en avez trouvé une.",
 	-- ["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.\nThe dwarf stands by the road at the dig site. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "Chevauchez vers l'est à travers le Chaudron jusqu'au {area:247}, au sud-est. Le prisonnier des toilettes en bois veut 15 {item:4306} et huit Géologues Sombrefer tués sur le site de fouilles alentour. Les toilettes s'ouvrent aussi avec la clé, si vous en avez trouvé une.\nLe nain se tient près de la route, au site de fouilles. Une fois terminé, lisez {object:175704} qu'il laisse sur la route dans la {area:1959}.",
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it."] = "Les Sous-chefs Sombrefer et les Esclavagistes Sombrefer mènent les esclaves dans tout le Chaudron, et chacun d'eux peut porter une {item:10551}. Les Forge-vapeur Sombrefer travaillent aux fourneaux du centre (la {item:18959}), les Guetteurs Sombrefer se tiennent sur les crêtes sud (la Longue-vue de guetteur). Tout {object:147516} peut laisser tomber la {item:11818} : gardez-la.",
 	-- ["The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "Le nain Dorius Stonetender se tient près de la route sur le site de fouilles. Suivez-le vers le nord le long de la route et repoussez les embuscades {object:147516}. Une fois terminé, lisez la {object:175704} qu'il laisse sur la route dans la {area:1959}.",
-	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "L'elfe de la nuit Zamael Lunthistle se tient seul à l'ouest du {area:1446}. Écoutez son histoire.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Les araignées errent sur les plateaux et autour des bassins de lave au sud-ouest de la gorge.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge.\nHeavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Les araignées parcourent les plateaux et les mares de lave au sud-ouest de la gorge.\nDes Golems de guerre lourds patrouillent au fond du Chaudron, sous Kalaran ; des Élémentaires de magma dérivent parmi eux. Golems et élémentaires lâchent l'huile, les élémentaires les cœurs.\nLes Sous-chefs et les Esclavagistes mènent les esclaves dans tout le Chaudron, et n'importe lequel peut porter une {item:10551}. Les Forge-vapeur travaillent aux fourneaux du centre (la {item:18959}), les Guetteurs se tiennent sur les crêtes du sud (la longue-vue). N'importe quel {object:147516} peut lâcher la {item:11818} : gardez-la.\nAttention : les Esclavagistes Sombrefer (niveau 45-46) appellent à l'aide les alliés dans un rayon de 15 m quand vous les attirez, lancent Filet jusqu'à 15 m et utilisent Pourfendre au corps à corps.",
-	-- ["To {area:2101}"] = "Vers {area:2101}",
-	-- ["{area:1442}: kill these as you meet them"] = "{area:1442} : tuez-les au passage",
-	-- ["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} s'ouvre au nord du Chaudron. Les Plans secrets : Flux embrasé se trouvent sur sa corniche supérieure ; les Incendosaures nagent dans les bassins de lave plus loin, attirez-les vers le bord. Restez loin de {npc:14621} et de ses gardes élites au fond.",
-	-- ["{area:1446} flight master"] = "Maître de vol de {area:1446}",
-	-- ["{area:51}: kill these as you meet them"] = "{area:51} : tuez-les au passage",
 	-- ["{item:10551} on the way"] = "{item:10551} en chemin",
 	-- ["{npc:5844} along the way to {area:1446}"] = "{npc:5844} sur le chemin de {area:1446}",
 	-- ["{npc:5846} along the way to {area:1446}"] = "{npc:5846} sur le chemin de {area:1446}",

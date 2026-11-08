@@ -10,28 +10,29 @@ return {
 	["Mauren, from Stonetalon"] = "",
 
 	-- Step 2: Fly to Darkshire
-	["Fly to Darkshire"] = "",
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "Voar para {area:42}",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
 	["Into {zone:1434}"] = "",
 
 	-- Step 4: Rebel Camp
-	["Rebel Camp"] = "",
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
-	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {object:3204} Booty Bay (no name in this language: may be words)
-	["{npc:770}: for {npc:773} in {object:3204}"] = "",
+	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
+	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, em {area:35}",
 
 	-- Step 5: Bookie Herod
-	["Herod's records lie in a hut on the west side of Kurzen's Compound, east of the Rebel Camp."] = "",
+	-- {area:101} Kurzen's Compound · {area:99} Rebel Camp
+	["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, upstairs"] = "",
 
 	-- Step 6: Kurzen's Compound
-	["Kurzen's Compound"] = "",
+	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb."] = "",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "",
 	-- {object:288} Bookie Herod's Strongbox
@@ -42,13 +43,13 @@ return {
 	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
 
 	-- Step 8: Nesingwary's Expedition
-	["Nesingwary's Expedition"] = "",
 	["South along the road: the hunters' tents stand just west of it."] = "",
 
 	-- Step 9: The jungle ruins
 	["The jungle ruins"] = "As ruínas da selva",
+	-- {area:37} Lake Nazferiti
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals."] = "",
+	["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "",
 
@@ -68,9 +69,9 @@ return {
 
 	-- Step 16: Level 36
 	["Level 36"] = "",
-	-- {quest:205} Troll Witchery
+	-- {quest:205} Troll Witchery · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead."] = "",
+	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "",
 

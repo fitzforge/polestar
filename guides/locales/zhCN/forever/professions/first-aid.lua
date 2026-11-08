@@ -49,8 +49,8 @@ return {
 	["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "15-30级的人型生物会掉落{item:2592}（或在拍卖行购买）。",
 
 	-- Step 10: Wool Bandage (80-115)
-	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac
-	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells."] = "",
+	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
+	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277}从80开始为黄色（80变黄，115变绿，150变灰）：约制作49次到115。绷带不需要火：随处都能制作。你所在阵营的任何{skill:129}训练师在技能80时教授，花费2银50铜；箭头会指向最近的一位。{item:6452}（{item:1475}，蜘蛛掉落）也在80时教授：盗贼的{spell:9810}需要它，也能卖钱。",
 
 	-- Step 11: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -106,8 +106,8 @@ return {
 	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "专家级{skill:129}来自{quest:6624}任务。需要技能225和等级35；{zone:1455}的{skill:129}训练师会派你去塞拉摩找医生。现在就带上225-300所需的魔纹布（约74）和{item:14047}（约65）：绷带不需要火，所以你可以在教授专家级绷带的医生旁边练到300。",
 
 	-- Step 23: Trauma
-	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in Hammerfall. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth
+	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "专家级{skill:129}来自{quest:6622}任务。需要技能225和等级35；{zone:1454}的{skill:129}训练师会派你去{area:321}找医生。现在就带上225-300所需的魔纹布（约74）和{item:14047}（约65）：绷带不需要火，所以你可以在教授专家级绷带的医生旁边练到300。",
 
 	-- Step 24: Triage
 	-- {quest:6624} Triage
@@ -120,8 +120,6 @@ return {
 	-- {quest:6622} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
 	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}：医生会给你急救绷带；用这些，不要用你自己的。里面地上躺着十五名伤兵：在他们死亡前，先包扎危重伤员，再包扎重伤员，最后是伤员（按Ctrl+V显示生命条）。救满十五人后立即交还任务：其他人会继续死亡，死亡过多即使显示已完成也会失败。如果失败，放弃任务并重新接受。",
-	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, Hammerfall"] = "",
 
 	-- Step 27: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -129,8 +127,8 @@ return {
 	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544}从225开始为黄色（210变黄，240变绿，270变灰）：约制作24次到240。绷带不需要火：随处都能制作。{item:8544}在240变绿：届时改做厚魔纹绷带，到260比做绿色的魔纹绷带更省布。",
 
 	-- Step 28: Heavy Mageweave Bandage
-	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841}（技能240）是专家级配方：只有{quest:6622}的医生会教（塞拉摩的{npc:12939}，{area:321}的{npc:12920}）。",
 
 	-- Step 29: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -141,8 +139,8 @@ return {
 	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "{item:8545}从240开始为黄色（240变黄，270变绿，300变灰）：约制作25次到260。绷带不需要火：随处都能制作。",
 
 	-- Step 31: Runecloth Bandage
-	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor
-	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in Hammerfall)."] = "",
+	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629}（技能260）是专家级配方：只有{quest:6622}的医生会教（塞拉摩的{npc:12939}，{area:321}的{npc:12920}）。",
 
 	-- Step 32: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
@@ -156,7 +154,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "你阵营的任何{skill:129}训练师都能教授初级{skill:129}（角色等级5级）；箭头会选择最近的一位。",
-	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "专家级{skill:129}来自{quest:6622}任务。需要技能225和等级35；{zone:1454}的{skill:129}训练师会派你去{area:321}找医生。现在就带上225-300所需的魔纹布（约74）和{item:14047}（约65）：绷带不需要火，所以你可以在教授专家级绷带的医生旁边练到300。",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "专家级{skill:129}来自任务{quest:6622}。需要技能225和40级；{zone:1454}的{skill:129}训练师会让你去{area:321}找医生。",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "专家级{skill:129}来自任务{quest:6624}。需要技能225和40级；{zone:1455}的{skill:129}训练师会让你去塞拉摩找医生。",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "高级{skill:129}将上限提高到225；需要技能125和角色等级20级：它是一本书，{item:16084}；箭头会选择你阵营最近的出售者。购买并阅读。同一个商人还出售厚丝质绷带和{item:8544}的手册：现在就把两本都买下，分别在180和210时阅读。",
@@ -170,9 +167,6 @@ return {
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544}从225开始为黄色（210变黄，270变灰）：做到260大约需要88次。绷带不需要火：随处都能制作。{item:8544}到270前都是黄色；用一个配方做到260可以省掉两趟去医生那里。",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}：用医生给你的绷带治疗医生帐篷里的伤兵，先治最危急的，别让任何人死去。",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}：用医生给你的绷带治疗医生帐篷里的伤兵，先治最危急的，别让任何人死去。",
-	-- ["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841}（技能240）是专家级配方：只有{quest:6622}的医生会教（塞拉摩的{npc:12939}，{area:321}的{npc:12920}）。",
-	-- ["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629}（技能260）是专家级配方：只有{quest:6622}的医生会教（塞拉摩的{npc:12939}，{area:321}的{npc:12920}）。",
-	-- ["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277}从80开始为黄色（80变黄，115变绿，150变灰）：约制作49次到115。绷带不需要火：随处都能制作。你所在阵营的任何{skill:129}训练师在技能80时教授，花费2银50铜；箭头会指向最近的一位。{item:6452}（{item:1475}，蜘蛛掉落）也在80时教授：盗贼的{spell:9810}需要它，也能卖钱。",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277}从80开始为黄色（80变黄，150变灰）：做到115大约需要49次。绷带不需要火：随处都能制作。你阵营的任何{skill:129}训练师都能教授；箭头会选择最近的一位。",
 	-- ["{spell:3278} is yellow from 115 (yellow at 115, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere."] = "{spell:3278}从115开始为黄色（115变黄，185变灰）：做到125大约需要11次。绷带不需要火：随处都能制作。",
 	-- ["{spell:3278} is yellow from 125 (yellow at 115, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278}从125开始为黄色（115变黄，185变灰）：做到150大约需要38次。绷带不需要火：随处都能制作。",

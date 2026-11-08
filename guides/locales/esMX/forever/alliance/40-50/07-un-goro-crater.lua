@@ -7,26 +7,27 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 3: Fly to Gadgetzan
-	["Fly to Gadgetzan"] = "",
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "Vuela a {area:976}",
 	["Theramore flight master"] = "",
 
 	-- Step 4: Gadgetzan
-	["Gadgetzan"] = "",
-	["The flight from Theramore lands in Gadgetzan."] = "",
+	-- {area:976} Gadgetzan
+	["The flight from Theramore lands in {area:976}."] = "",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of Gadgetzan to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Cabalga al oeste desde {area:976} hasta la larga rampa que baja a {area:490}. {npc:9619} acampa al pie de la rampa, en la esquina sureste del cráter.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -46,7 +47,6 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618} está justo afuera del refugio.",
 
 	-- Step 13: Marshal's Refuge
-	["Marshal's Refuge"] = "",
 	-- {object:157936} Un'Goro Dirt Pile
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
@@ -55,13 +55,11 @@ return {
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
-	["Fire Plume Ridge and the eastern jungle"] = "",
-	-- {item:11113} Crate of Foodstuffs
+	-- {area:537} Fire Plume Ridge
+	["{area:537} and the eastern jungle"] = "{area:537} y la jungla del este",
+	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "",
-
-	-- Step 15: Lakkari Tar Pits
-	["Lakkari Tar Pits"] = "",
+	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Cabalga al sur hasta {area:537}, en medio del cráter, y luego al este hacia la jungla del este. Hay grupos de cristales por todo el cráter, muchos alrededor de {area:537}: toma algunos de más de cada color. Los Azotadores Sangrepétalo ({npc:6509}) y los Trilladores Sangrepétalo sueltan los pétalos; {item:11113} de la expedición está en un campamento abandonado en la jungla del este.",
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
@@ -77,12 +75,14 @@ return {
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
 
 	-- Step 18: A-Me 01
-	["Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	-- {area:1943} Ironstone Plateau
+	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Cabalga al norte hasta {area:1943}, donde el robot está entre los gorilas. No entres en la cueva profunda de allí.",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	["Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead."] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	["Pterrordax"] = "Pterrordáctilo",
 	["grind on Pterrordax"] = "",
 
@@ -97,9 +97,9 @@ return {
 
 	-- Step 22: The Gorishi hive
 	["The Gorishi hive"] = "La colmena Gorishi",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "",
 
@@ -122,13 +122,14 @@ return {
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, en la entrada del refugio",
 
 	-- Step 26: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
 
 	-- Step 27: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 28: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -148,12 +149,15 @@ return {
 	["Xiggs waits in the {object:32359}."] = "Xiggs espera en {object:32359}.",
 
 	-- Step 34: Fly to Astranaar
-	["Fly to Astranaar"] = "",
-	["Auberdine flight master"] = "",
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
 
 	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	["Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
@@ -172,13 +176,10 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cabalga al este hasta {area:537}, súbela y usa {npc:10541} en las grietas de lava cerca de la cima.",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Cabalga al norte por el lado este del cráter hasta {area:541}, el campamento en las cuevas del acantilado norte. Aléjate bien de los demosaurios y estegodones élite. Desde aquí, recoge todos los cristales de poder y cada {object:157936} que encuentres.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Cabalga al norte por el lado este hasta la meseta de los gorilas. {npc:9622}, un gorila de nivel 55, está en su cueva más profunda: limpia antes los gorilas de la boca de la cueva.",
-	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Cabalga al norte hasta {area:1943}, donde el robot está entre los gorilas. No entres en la cueva profunda de allí.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Cabalga al sur por los acantilados del este hasta {npc:9619}, al pie de la rampa.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Cabalga al sur por el lado este. Los diemetradones jóvenes pastan en la jungla del este y los {npc:9165} vuelan cerca de los acantilados del este; ambos sueltan las escamas para {npc:9998}.",
-	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Cabalga al sur hasta {area:537}, en medio del cráter, y luego al este hacia la jungla del este. Hay grupos de cristales por todo el cráter, muchos alrededor de {area:537}: toma algunos de más de cada color. Los Azotadores Sangrepétalo ({npc:6509}) y los Trilladores Sangrepétalo sueltan los pétalos; {item:11113} de la expedición está en un campamento abandonado en la jungla del este.",
 	-- ["Ride west back to the refuge."] = "Cabalga al oeste de vuelta al refugio.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Cabalga al oeste desde {npc:9619}: la colmena silítida ocupa el sur del cráter. Usa el vial de raspadura en un criadero, una cámara con larvas colgantes. Las avispas y trabajadores Gorishi sueltan {quest:3764}; los {npc:9166} anidan en los acantilados del sur si aún te faltan muertes.",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Cabalga al oeste desde {area:976} hasta la larga rampa que baja a {zone:1449}. {npc:9619} acampa al pie de la rampa, en la esquina sureste del cráter.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Cabalga al oeste pasando {area:541} y al sur por el lado oeste hasta {area:543}: {npc:10302}, el goblin, está sentado junto al agua.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:1417} en vez de farmear te lleva allí más rápido en grupo. Omite este paso para farmear solo.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "Hacer {area:978} en vez de farmear te lleva allí más rápido en grupo. La ciudad trol está en el noroeste de {zone:1446}, justo al norte de {area:976}.",
@@ -193,7 +194,6 @@ return {
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "farmea Vagayermos u ogros Machacaduna alrededor de {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "farmea {npc:5458} en {area:982}, {zone:1446}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "farmea {npc:6514} en {area:1943}, {zone:1449}",
-	-- ["{area:537} and the eastern jungle"] = "{area:537} y la jungla del este",
 	-- ["{area:978} (optional)"] = "{area:978} (opcional)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: la guía anterior te trae aquí con la piedra de hogar, así que esto suele marcarse de inmediato",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, al fondo de la cueva",

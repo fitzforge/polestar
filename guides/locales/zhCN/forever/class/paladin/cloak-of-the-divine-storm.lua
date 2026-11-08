@@ -7,18 +7,20 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A rare cloak at 30 from the old Divine Storm story; for now only Alliance paladins can finish it."] = "",
+	-- {spell:407778} Divine Storm
+	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "来自旧版{spell:407778}故事的30级稀有披风；目前只有联盟圣骑士能完成。",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",
-	-- {zone:1439} Darkshore · {object:409311} Spear of Mannoroth (no name in this language: may be words)
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the Tower of Althalaxx in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts Shadow Bolt from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
-	["Strange Orb atop the Tower of Althalaxx: right-click the Althalaxx Orb it gives"] = "",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	-- {area:444} Tower of Althalaxx
+	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "{area:444}顶端的Strange Orb：右键点击它给的奥萨拉克斯宝珠",
 
 	-- Step 2: Delgren the Purifier
-	-- {npc:3663} Delgren the Purifier · {object:19863} Maestra's Post (no name in this language: may be words) · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["{npc:3663} stands at {object:19863} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "",
+	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
+	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "",
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
@@ -29,9 +31,9 @@ return {
 	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "",
 
 	-- Step 5: Summoner's Salt
-	-- {item:209778} Summoner's Salt · {npc:334} Gath'Ilzogg
+	-- {item:209778} Summoner's Salt · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Summoners = {npc:4463} Blackrock Summoner · Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of Lakeshire drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "",
+	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "",
 
 	-- Step 6: Back to Ursula Deline
 	-- {npc:5495} Ursula Deline
@@ -39,29 +41,27 @@ return {
 
 	-- Step 7: Motes of Mannoroth
 	["Motes of Mannoroth"] = "玛诺洛斯微粒",
-	-- {zone:1440} Ashenvale
+	-- {area:435} Demon Fall Canyon · {zone:1440} Ashenvale · {area:431} Splintertree Post · {spell:686} Shadow Bolt · {spell:348} Immolate
 	-- plural, as words: Mannoroc Lashers = {npc:11697} Mannoroc Lasher · Searing Infernals = {npc:6073} Searing Infernal · Legion Hounds = {npc:6071} Legion Hound
-	["Demon Fall Canyon is in south-east {zone:1440}, east of Splintertree Post (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast Shadow Bolt and Immolate, Infernals keep a fire shield up. They respawn in five minutes."] = "",
+	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "",
 
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "{object:409311}",
-	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of Demon Fall Canyon. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
+	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {object:409315} Shattered Orb (no name in this language: may be words)
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
 	["from the {object:409315}"] = "来自{object:409315}",
 
 	-- Step 9: Return to Delgren
-	-- {npc:3663} Delgren the Purifier · {object:19863} Maestra's Post (no name in this language: may be words) · {zone:1440} Ashenvale
-	["Back to {npc:3663} at {object:19863} in western {zone:1440}, across the whole zone."] = "",
+	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
+	["Back to {npc:3663} at {area:413} in western {zone:1440}, across the whole zone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "来自旧版{spell:407778}故事的30级稀有披风；目前只有联盟圣骑士能完成。",
 	-- ["Back to {area:413}."] = "回到{area:413}。",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "黑石召唤师、黑石勇士和黑石追踪者驻扎在赤脊山西北部；它们掉落{item:209778}。",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "爬到{zone:1439}北部{area:444}的顶端。拾取上面的Strange Orb：它会给你奥萨拉克斯宝珠，由此开始任务。",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "凯瑟琳让你去找{object:2101}的术士；{npc:5495}代表他们。",
-	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "{area:444}顶端的Strange Orb：右键点击它给的奥萨拉克斯宝珠",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311}矗立在{area:435}东端。在它上面击碎宝珠；{object:409315}会出现在旁边。",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311}矗立在{area:435}东端。对上面的宝珠施放{spell:11170}；{object:409315}会出现在旁边。",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435}位于{zone:1440}东南部。里面的玛诺洛克鞭笞者、灼热的地狱火、恶魔守卫和恶魔指挥官掉落玛诺洛斯微粒。",

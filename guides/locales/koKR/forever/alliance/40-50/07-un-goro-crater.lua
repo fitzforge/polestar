@@ -7,26 +7,27 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Fly to Menethil Harbor
-	-- {object:1162} Menethil Harbor (no name in this language: may be words)
-	["Fly to {object:1162}"] = "",
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 3: Fly to Gadgetzan
-	["Fly to Gadgetzan"] = "",
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	["Theramore flight master"] = "",
 
 	-- Step 4: Gadgetzan
-	["Gadgetzan"] = "",
-	["The flight from Theramore lands in Gadgetzan."] = "",
+	-- {area:976} Gadgetzan
+	["The flight from Theramore lands in {area:976}."] = "",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of Gadgetzan to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {area:490}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -46,7 +47,6 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}은(는) 야영지 바로 바깥에 서 있습니다.",
 
 	-- Step 13: Marshal's Refuge
-	["Marshal's Refuge"] = "",
 	-- {object:157936} Un'Goro Dirt Pile
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
@@ -55,13 +55,11 @@ return {
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
-	["Fire Plume Ridge and the eastern jungle"] = "",
-	-- {item:11113} Crate of Foodstuffs
+	-- {area:537} Fire Plume Ridge
+	["{area:537} and the eastern jungle"] = "{area:537}와(과) 동쪽 밀림",
+	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "",
-
-	-- Step 15: Lakkari Tar Pits
-	["Lakkari Tar Pits"] = "",
+	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "남쪽으로 분화구 한가운데의 {area:537}까지 간 뒤 동쪽 밀림으로 가세요. 수정 무더기는 분화구 곳곳에, 특히 {area:537} 주변에 많습니다. 색깔마다 몇 개씩 더 챙기세요. {npc:6509}와(과) 덩이줄기 붉은꽃잎덩굴손이 꽃잎을 떨어뜨립니다. 탐험대의 {item:11113}은(는) 동쪽 밀림의 버려진 야영지에 있습니다.",
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
@@ -77,12 +75,14 @@ return {
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
 
 	-- Step 18: A-Me 01
-	["Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	-- {area:1943} Ironstone Plateau
+	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "북쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
-	["Top up here to level 49.51 before the hand-ins at Marshal's Refuge: they take you to level 50. Or, with a group, run the Maraudon dungeon instead."] = "",
+	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	["Pterrordax"] = "테러닥스",
 	["grind on Pterrordax"] = "",
 
@@ -97,9 +97,9 @@ return {
 
 	-- Step 22: The Gorishi hive
 	["The Gorishi hive"] = "고리쉬 벌집",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "",
 
@@ -122,13 +122,14 @@ return {
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 
 	-- Step 26: To Stoutlager Inn
-	["To Stoutlager Inn"] = "",
-	["Stoutlager Inn"] = "",
+	-- {area:2101} Stoutlager Inn
+	["To {area:2101}"] = "",
 
 	-- Step 27: Fly to Ironforge
-	-- {zone:1455} Ironforge
-	["Fly to {zone:1455}"] = "",
-	["Thelsamar flight master"] = "",
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "",
 
 	-- Step 28: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -148,12 +149,15 @@ return {
 	["Xiggs waits in the {object:32359}."] = "시그스는 {object:32359}에서 기다립니다.",
 
 	-- Step 34: Fly to Astranaar
-	["Fly to Astranaar"] = "",
-	["Auberdine flight master"] = "",
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
 
 	-- Step 35: Level 50.4
 	["Level 50.4"] = "",
-	["Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead."] = "",
+	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
@@ -172,13 +176,10 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "분화구 동쪽을 따라 북쪽으로 북쪽 절벽 동굴 속 야영지인 {area:541}까지 가세요. 정예 데빌사우루스와 스테고돈은 멀리 피하세요. 여기서부터 지나가는 마력의 수정과 {object:157936}을(를) 모두 챙기세요.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
-	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "북쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "동쪽 절벽을 따라 남쪽으로, 비탈 아래의 {npc:9619}에게 가세요.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "동쪽을 따라 남쪽으로 내려가세요. {npc:9162}은(는) 동쪽 밀림에서 풀을 뜯고, {npc:9165}은(는) 동쪽 절벽 근처를 납니다. 둘 다 {npc:9998}에게 줄 비늘을 떨어뜨립니다.",
-	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "남쪽으로 분화구 한가운데의 {area:537}까지 간 뒤 동쪽 밀림으로 가세요. 수정 무더기는 분화구 곳곳에, 특히 {area:537} 주변에 많습니다. 색깔마다 몇 개씩 더 챙기세요. {npc:6509}와(과) 덩이줄기 붉은꽃잎덩굴손이 꽃잎을 떨어뜨립니다. 탐험대의 {item:11113}은(는) 동쪽 밀림의 버려진 야영지에 있습니다.",
 	-- ["Ride west back to the refuge."] = "서쪽으로 야영지에 돌아가세요.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "{npc:9619}에게서 서쪽으로 가세요. 실리시드 벌집이 분화구 남쪽을 채우고 있습니다. 유충이 매달린 방인 부화실에 긁개 유리병을 사용하세요. 병정 고리쉬와 일꾼 고리쉬가 {quest:3764}을(를) 떨어뜨립니다. 처치 수가 아직 필요하면 남쪽 절벽에 {npc:9166}이(가) 둥지를 틀고 있습니다.",
-	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {zone:1449}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "서쪽으로 {area:541}을(를) 지나 서쪽을 따라 남쪽의 {area:543}까지 가세요. 고블린 {npc:10302}이(가) 물가에 앉아 있습니다.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "파티라면 사냥 대신 {area:1417}을(를) 도는 편이 더 빠릅니다. 혼자 사냥하려면 이 단계를 건너뛰세요.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "파티라면 사냥 대신 {area:978}을(를) 도는 편이 더 빠릅니다. 트롤 도시는 {zone:1446} 북서부, {area:976} 바로 북쪽에 있습니다.",
@@ -193,7 +194,6 @@ return {
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "{area:976} 주변의 황무지유랑단이나 모래망치 오우거를 사냥하세요",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "{zone:1446} {area:982}에서 {npc:5458} 사냥",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "{zone:1449} {area:1943}에서 {npc:6514} 사냥",
-	-- ["{area:537} and the eastern jungle"] = "{area:537}와(과) 동쪽 밀림",
 	-- ["{area:978} (optional)"] = "{area:978}(선택)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, 동굴 안쪽",

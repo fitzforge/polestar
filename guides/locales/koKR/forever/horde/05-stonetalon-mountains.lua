@@ -7,30 +7,29 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Taskmaster Fizzule
-	-- {item:8051} Flare Gun
-	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the Sludge Fen. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
+	-- {area:382} Sludge Fen · {item:8051} Flare Gun
+	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
 	-- {quest:2478} Mission: Possible But Not Probable
 	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "",
 
 	-- Step 2: Kadrak
-	-- {zone:1413} Barrens · {npc:8582} Kadrak · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the Mor'shan Rampart where the road enters {zone:1440}."] = "",
+	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {area:331} Ashenvale
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {area:331}."] = "",
 
 	-- Step 4: Ashenvale Outrunners
 	-- {npc:12867} Kuray'bin
 	["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}은(는) 벌목기지에 서 있습니다. 나이트 엘프 정찰병은 그 남동쪽 숲에 숨어 있습니다. 은신하므로 주의하세요.",
 
 	-- Step 5: Splintertree Post
-	["Splintertree Post"] = "",
-	-- {npc:12696} Senani Thunderheart
-	["Splintertree Post is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at Night Run come first, then the vendors."] = "",
-	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
-	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
+	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors."] = "",
+	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
+	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 26."] = "",
 
 	-- Step 6: Va'xug Firefure
-	-- {npc:267214} Va'xug Firefure
+	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
 
 	-- Step 7: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -39,9 +38,8 @@ return {
 	["{npc:271181}, on the road"] = "길 위의 {npc:271181}",
 
 	-- Step 8: Zoram'gar Outpost
-	["Zoram'gar Outpost"] = "",
-	-- {zone:1440} Ashenvale · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
-	["Head west along the main road across {zone:1440}, past Astranaar (Alliance: keep to the road), to the coast. Zoram'gar Outpost is on the Zoram Strand in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
+	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
+	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
 	-- {npc:12721} Mitsuwa
 	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "",
 	-- {npc:12717} Muglash
@@ -60,34 +58,34 @@ return {
 	["Back to the outpost before heading east to Thistlefur."] = "",
 
 	-- Step 12: Thistlefur Village
-	["Thistlefur Village"] = "",
 	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
 
 	-- Step 13: Thistlefur Hold
 	["Thistlefur Hold"] = "엉겅퀴일족 소굴",
-	-- {npc:12818} Ruul Snowhoof · {npc:3987} Dal Bloodclaw
+	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to Night Run.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
 	["Below ground"] = "",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "",
 
 	-- Step 14: Zoram'gar Outpost
-	-- {npc:12757} Karang Amakkar · {zone:1440} Ashenvale
-	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {zone:1440} visit at 26, when the walk east passes the Foulweald."] = "",
+	-- {npc:12757} Karang Amakkar · {area:331} Ashenvale
+	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {area:331} visit at 26, when the walk east passes the Foulweald."] = "",
 
 	-- Step 15: Splintertree Post
-	-- {npc:12837} Yama Snowhoof
-	["Fly to Splintertree Post: {npc:12837} waits in the inn for news of Ruul."] = "",
+	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
+	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "",
 	-- {npc:12837} Yama Snowhoof
 	["{npc:12837}, inside the inn"] = "",
 
 	-- Step 16: Fly to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454}"] = "",
-	-- {zone:1454} Orgrimmar
-	["Back out of the inn to the flight master and fly to {zone:1454}."] = "",
-	["Splintertree Post flight master"] = "",
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
+	-- {area:1637} Orgrimmar
+	["Back out of the inn to the flight master and fly to {area:1637}."] = "",
+	-- {area:431} Splintertree Post
+	["{area:431} flight master"] = "",
 
 	-- Step 17: Paladin trainer
 	["Paladin trainer"] = "",
@@ -106,27 +104,27 @@ return {
 	-- Step 21: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "",
-	-- {npc:2391} Serge Hinott · {object:1772} Tarren Mill (no name in this language: may be words)
-	["{npc:2391} in {object:1772} teaches Poisons: keep it"] = "",
+	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
+	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}의 {npc:2391}이(가) 독 조제를 가르칩니다: 보관하세요",
 
 	-- Step 23: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
 	-- Step 24: The Sepulcher
-	-- {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the Sepulcher. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
-	-- {npc:1937} Apothecary Renferrel · {object:1772} Tarren Mill (no name in this language: may be words)
-	["{npc:1937}: Lydon in {object:1772}, next guide"] = "",
-	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril
-	["{npc:2121}: {quest:516}, south-east of Ambermill"] = "",
+	-- {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
+	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
+	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
+	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
 
 	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "",
-	-- {quest:516} Beren's Peril
+	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
 
 	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
@@ -144,14 +142,12 @@ return {
 	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "{object:645153}에서 {npc:212753}을(를) 사용해 자발적인 제물로 바치고, 응답하는 {npc:212753}을(를) 처치하세요. {quest:95883}은(는) 정예 퀘스트입니다. 파티를 권장합니다.",
 
 	-- Step 29: Southpoint Tower
-	["Southpoint Tower"] = "",
-	-- {npc:2214} Deathstalker Lesh
-	["Back on the road south. Where it turns east into Hillsbrad, {npc:2214} waits at Southpoint Tower."] = "",
-	-- {npc:2214} Deathstalker Lesh · {object:1772} Tarren Mill (no name in this language: may be words)
-	["{npc:2214}: Darthalia in {object:1772}"] = "",
+	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
+	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "다시 길을 따라 남쪽으로 가세요. 길이 동쪽 {area:287}(으)로 꺾이는 곳의 {area:285}에서 {npc:2214}이(가) 기다립니다.",
+	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
+	["{npc:2214}: Darthalia in {area:272}"] = "{npc:2214}: {area:272}의 다르탈리아",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "다시 길을 따라 남쪽으로 가세요. 길이 동쪽 {area:287}(으)로 꺾이는 곳의 {area:285}에서 {npc:2214}이(가) 기다립니다.",
 	-- ["Back to {npc:8582}"] = "{npc:8582}에게 돌아가기",
 	-- ["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him."] = "지즈의 동쪽에서 투자개발회사가 {area:461}의 나무를 베어내고 있습니다. 운전수 중 하나가 설계도를 지니고 있습니다. {npc:4276}은(는) 동쪽의 작은 광산에서 채굴합니다. 그가 채굴하는 동안 곁에 있으세요. 투자개발회사 불량배가 그를 노리고 옵니다.",
 	-- ["Fly to {area:431} and ride south down the road to the {area:1703}."] = "{area:431}(으)로 날아간 뒤 길을 따라 남쪽의 {area:1703}(으)로 가세요.",
@@ -185,7 +181,6 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}은(는) 토막나무 주둔지 바로 북동쪽의 전쟁노래부족 야영지인 {area:428}에서 사냥 게시판 옆에 서 있습니다.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}의 사냥 대상(우르산고우스, 샤둠브라, 뾰족발톱)은 27레벨에 다음으로 {zone:1440}에 올 때 처리합니다.",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "27레벨에 조람가르의 {npc:12736}",
-	-- ["{npc:2214}: Darthalia in {area:272}"] = "{npc:2214}: {area:272}의 다르탈리아",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}의 다음 퀘스트인 오르다누스는 {zone:1440}의 얼라이언스 지역에 있습니다. 건너뛰세요.",
 	-- ["{npc:4198}, outside the gate"] = "정문 밖의 {npc:4198}",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606}은(는) {object:36070}에 서 있습니다.",
