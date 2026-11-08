@@ -6656,3 +6656,16 @@ test('Alliance 30-40: Bartolo\'s Yeti Fur Cloak is optional and says what it nee
 	assert.ok(rec, 'optional is a record');
 });
 
+// Final route review for 0.3.5 (Alliance 32-33): from the Mirage Raceway the guide walked back west to the
+// Great Lift, north through the Barrens and east through Dustwallow to Theramore (about 5,800 yd). It now
+// takes the road south to Gadgetzan (about 1,000 yd), learns the flight path and flies to Theramore.
+test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to Theramore, not back through the Barrens', { skip }, () => {
+	const list = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const race = at(list, 'turnin 1175', is('turnin', 1175));
+	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(g.location || ''));
+	const fly = at(list, 'fly Theramore', (g) => g.t === 'fly' && /Theramore/.test(g.location || ''));
+	const fiora = at(list, 'turnin 1135', is('turnin', 1135));
+	assert.ok(race < fp && fp < fly && fly < fiora, 'Raceway, Gadgetzan, the flight, then Theramore');
+	assert.ok(!list.slice(race, fiora).some(({ goal }) => goal.t === 'goto' && goal.map === 1445 && goal.x < 40), 'no walk past the Shady Rest Inn');
+});
+
