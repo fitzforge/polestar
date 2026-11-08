@@ -58,6 +58,7 @@ step The Bloodsail ships
 
 step Booty Bay
   turnin 608                          -- Fleet Master Seahorn
+  turnin 580                          -- Whiskey Slim, in the inn
 
 step Monogrammed Sash
   when group 8552

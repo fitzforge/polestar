@@ -250,6 +250,7 @@ step Booty Bay
   turnin 606                            -- "Shaky" Phillipe
   accept 607
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
