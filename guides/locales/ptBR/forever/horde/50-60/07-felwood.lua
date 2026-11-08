@@ -14,13 +14,13 @@ return {
 	-- {zone:1458} Undercity · {zone:1454} Orgrimmar
 	["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "De {zone:1458}, pegue o zepelim na torre do lado de fora da cidade para {zone:1454}.",
 	-- {item:14047} Runecloth
-	["sixty {item:14047}, if you carry them"] = "",
+	["sixty {item:14047}, if you carry them"] = "sessenta {item:14047}, se estiver carregando",
 
 	-- Step 5: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Voe para {area:431}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
 	-- Step 7: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
@@ -28,14 +28,14 @@ return {
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {area:361} Felwood · {area:2479} Emerald Sanctuary
 	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Voe para {area:431} e siga para o noroeste pela estrada que sai de {zone:1440} para {area:361}. {area:2479} é o acampamento dos druidas logo depois da fronteira.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, lá dentro",
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {area:361} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "Coração de prata, de {npc:9116}, pede {item:11173} do norte de {area:361} e uma volta até aqui. Pule.",
 
 	-- Step 8: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "",
-	["Below ground"] = "",
+	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Cavalgue para noroeste até {area:1763}. Os quatro braseiros ficam entre as construções do Concílio das Sombras; use a água purificada em cada um.\nCuidado: monstros do Concílio das Sombras de nível 53-55 lotam a caverna e costumam vir em grupos grandes e ligados, muitos com atordoamento. Melhor ir num grupo de 2 ou 3 jogadores.",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 9: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Volte para o sul até o Santuário, perto daqui.",
@@ -48,7 +48,7 @@ return {
 
 	-- Step 11: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} e {npc:9517} esperam no fundo de {area:1770}, a caverna no norte de {area:1763}. Limpe o túnel pelo caminho.\nCuidado: os três chefes lutam juntos. Mate os monstros por perto antes para não puxar inimigo a mais.",
 
 	-- Step 12: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Volte mais uma vez para o sul até o Santuário.",
@@ -61,10 +61,10 @@ return {
 	-- {area:493} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Atravesse o túnel dos Presamatos até {area:493}. {npc:11939} lê numa casa em {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
+	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} anda por {area:2361}: procure dentro do círculo no mapa",
 
 	-- Step 17: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 18: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
@@ -77,7 +77,7 @@ return {
 
 	-- Step 22: Winterfall Runners
 	-- {quest:5087} Winterfall Runners · {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
-	["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
+	["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Só se estiver com {quest:5087}: os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em grupinhos; espere na beira da estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 
 	-- Step 24: Beads for Salfa
 	-- {npc:11556} Salfa
@@ -88,14 +88,14 @@ return {
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Só com 30 de {quest:6031}, e só se estiver Neutro com os Presamatos: siga a estrada para o norte até {area:1769}; {npc:11557} negocia logo depois da entrada.",
 	-- {npc:11558} Kernda
-	["{npc:11558}, at the tunnel mouth; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}, at the tunnel mouth; walks around here: look inside the circle on the map"] = "{npc:11558}, na boca do túnel; anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 27: Level 59.9
-	["Level 59.9"] = "",
+	["Level 59.9"] = "Nível 59.9",
 	-- {area:618} Winterspring · {area:2057} Scholomance · {area:2279} Stratholme
 	["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7441} Winterfall Totemic
-	["grind on {npc:7441}"] = "",
+	["grind on {npc:7441}"] = "mate {npc:7441} até subir",
 
 	-- Step 29: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge

@@ -13,14 +13,14 @@ return {
 	-- Step 4: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
-	["Upstairs"] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "A fazenda de {npc:10778} é a primeira a leste de {area:152}. Os Carniçais Grasnantes da fazenda carregam a outra metade do pingente dela; {npc:11075} guarda o caldeirão no campo.\nCuidado: um ou dois mortos-vivos costumam lutar ao lado dele, e mais mestres da caldeira podem atacar depois que você usar o caldeirão.",
+	["Upstairs"] = "No andar de cima",
 
 	-- Step 5: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "Voe para a {area:2268}",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Mestre de voo de {area:272}",
 
 	-- Step 6: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
@@ -28,9 +28,9 @@ return {
 
 	-- Step 7: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: vá matando estes pelo caminho",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "Os Cães Pestilentos e seus filhotes miúdos andam pelas margens do lago a sudoeste da capela; Quirópragos e Vermes Carniceiros dividem o terreno.\nA espada estilhaçada está no chão, a noroeste do lago.",
 
 	-- Step 8: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -44,11 +44,11 @@ return {
 	-- Step 10: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale
 	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "O fantasma {npc:11140} fica junto a uma cabana na {area:2627}, no canto noroeste.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 11: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: vá matando estes pelo caminho",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
 	["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "Cães Pestilentos Frenéticos e Quirópragos Monstruosos dividem os campos em volta do {area:2272} e da {area:2271}, ao sul de {area:2273}.",
@@ -56,12 +56,12 @@ return {
 	-- Step 12: Eastern Plaguelands: kill these as you meet them
 	-- {area:2275} Northpass Tower · {area:2622} Pestilent Scar
 	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Blighted Horrors = {npc:8521} Blighted Horror
-	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "",
-	["Underwater"] = "",
+	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "Os Patrulheiros, Trilheiros e Mateiros alto-élficos guardam o pavilhão perto de {area:2275}; o Registro está lá dentro. Os Patrulheiros chegam ao nível 60: puxe um de cada vez. Quirópragos Nóxios voam sobre os campos no caminho.\nO crânio fica em {area:2622}, entre Horrores Empesteados e Monstruosidades da Peste.",
+	["Underwater"] = "Debaixo d'água",
 
 	-- Step 13: Pathstrider
 	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
-	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "",
+	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} anda por {area:2276}: procure dentro do círculo no mapa",
 
 	-- Step 14: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility
@@ -74,13 +74,13 @@ return {
 
 	-- Step 17: Duskwing, Oh How I Hate Thee...
 	-- {npc:11897} Duskwing
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:11897} é elite de nível 60: a maioria das classes encara sozinha no nível 62, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- Step 19: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Voe para {area:1497}",
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
+	["{area:2268} flight master"] = "Mestre de voo de {area:2268}",
 
 	-- Step 20: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -88,9 +88,9 @@ return {
 
 	-- Step 22: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
-	["Fly to {area:1997}"] = "",
+	["Fly to {area:1997}"] = "Voe para {area:1997}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
 	-- Step 23: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -104,7 +104,7 @@ return {
 
 	-- Step 25: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 27: Deadwood Cauldron
 	-- {item:12820} Winterfall Firewater · {area:618} Winterspring · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
@@ -114,14 +114,14 @@ return {
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "Só se {quest:8471} caiu para você: {npc:11558} espera na entrada de {area:1769} pelo lado de {zone:1448}, e só fala com você com reputação Neutra com os Presamatos.",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 30: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {area:493}. {npc:11801} está em {area:2361}.",
 
 	-- Step 31: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 32: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -144,7 +144,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Mestre de voo de {area:2255}",
 
 	-- Step 38: Gaeriyan
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
@@ -170,7 +170,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Voe para {area:1099}",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
 	-- Step 44: Ruins of Isildien
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic

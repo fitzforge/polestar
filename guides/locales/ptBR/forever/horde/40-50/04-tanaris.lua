@@ -10,7 +10,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
 	-- Step 4: Sandsorrow Watch
 	-- {item:8584} Untapped Dowsing Widget
@@ -26,21 +26,21 @@ return {
 
 	-- Step 8: Broken Pillar: kill these as you meet them
 	-- {area:1938} Broken Pillar
-	["{area:1938}: kill these as you meet them"] = "",
+	["{area:1938}: kill these as you meet them"] = "{area:1938}: vá matando estes pelo caminho",
 	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "Ao sul do {area:982}, os ogros Dunamalho ocupam o complexo, com {npc:12046} no extremo leste. Desenterre ornamentos de {quest:3161} entre as lutas.",
-	["Below ground"] = "",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 9: Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "A oeste, os insetos Centiparte enxameiam em volta das colmeias; qualquer um deixa cair os pedaços.\nCuidado: os Enxameadores Centiparte soltam {npc:4196} dentro e fora de combate, o que traz bichinhos que interrompem você.",
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: vá matando estes pelo caminho",
 	-- {area:440} Tanaris
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {area:440} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "",
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {area:440} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "A oeste do complexo, as criaturas-cacto lotam o vale; só os Coletores de Orvalho têm a glândula de orvalho. A maioria dos monstros de {area:440} pode deixar cair, raramente, o sinalizador de socorro do OOX-17/TN: guarde se aparecer um.\nCuidado: os outros Moitagulhas da área são nível 49-50 e andam muito, então é fácil puxar monstro a mais.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, item raro",
 
@@ -52,22 +52,22 @@ return {
 
 	-- Step 13: Slake That Thirst
 	-- {spell:686} Shadow Bolt
-	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Cuidado: os Magos das Sombras (nível 42-43) invocam um Emissário do Caos fora de combate e atacam com Imolar e {spell:686}. Os Ladrões podem desarmar você, os Ladinos andam furtivos e os Assassinos usam Executar quando você está com 20% de vida ou menos.",
 
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "a {item:8526} cresce em {zone:1425}, por volta do nível 48",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 
 	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "O equipamento de Anilhacido",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Mais ao sul, o aparelho do Topógrafo Júnior Anilhacido está na boca de uma colmeia Centiparte.\nCuidado: um inseto guarda o aparelho. Muitos insetos patrulham os túneis, alguns de nível 50, então as lutas costumam trazer bicho a mais.",
 
 	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
-	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
+	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "Só com o sinalizador de socorro: o OOX-17/TN fica a sudeste da colmeia do Anilhacido. Escolte-o para o norte até {area:977}; a recompensa fica com Olhatorto, em {area:35}.\nCuidado: a escolta tem duas emboscadas. Três escorpídeos de nível 47 atacam perto do começo. Perto do fim, junto à praia, três humanos Errantes atacam: um mago e dois assassinos, por volta do nível 44.",
 
 	-- Step 19: Gadgetzan
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
@@ -75,11 +75,11 @@ return {
 
 	-- Step 20: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco para {area:16727}",
 
 	-- Step 21: Into Searing Gorge
 	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "",
+	["Into {area:51}"] = "Rumo a {area:51}",
 
 	-- Step 23: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
@@ -110,10 +110,10 @@ return {
 
 	-- Step 30: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "",
+	["{area:51}: kill these as you meet them"] = "{area:51}: vá matando estes pelo caminho",
 	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Golens de Guerra Pesados patrulham o Caldeirão abaixo de Kalaran e deixam cair o óleo; os Elementais de Magma e Fulgurantes que flutuam entre eles deixam cair os corações. Os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas; um Feitor pode deixar cair a {item:11818}: guarde.\nAs Aranhas de Lava Abrasadoras andam pelos platôs e poças de lava no sudoeste da garganta.\n{area:1443} se abre no norte do Caldeirão. Incendossauros nadam nas poças de lava de lá: puxe-os até a borda. Os planos secretos estão na plataforma de cima do fosso.\nCuidado: os Feitores Ferro Negro (nível 45-46) chamam ajuda de aliados num raio de 15 m quando são puxados, jogam Rede de até 15 m e usam Dilacerar no corpo a corpo.",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, item raro",
 
