@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/05-arathi-highlands
 title Arathi Highlands, Alterac Mountains & Swamp of Sorrows
 faction Alliance
-levels 37-39
+levels 36-38
 zone Arathi Highlands
 next forever/alliance/30-40/06-badlands
 
@@ -82,7 +82,6 @@ step Stormwind
   zone Stormwind City
   accept 212                          -- Angus Stern, Stormwind Harbor road
   accept 1260
-  turnin 1078
 
 step The Binding
   only Warlock
@@ -100,9 +99,6 @@ step Stormwind
   zone Stormwind City
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   accept 6141                         -- Brother Crowley, Cathedral of Light
-
-step Grimand Elmore
-  turnin 322
 
 step Count Remington Ridgewell
   when group 543
@@ -166,47 +162,8 @@ step Northfold Manor
   kill 2589 quest 681.2               -- Syndicate Mercenary
   kill 217589                         -- Hay Weevil: catch it, for My Little Friends
 
-# ---------------------------------------------------------------- Faldir's Cove
-
-step Faldir's Cove
-  tip West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it.
-  accept 663                          -- Lolo the Lookout
-  turnin 663                          -- Shakes O'Breen
-  accept 662                          -- First Mate Nilzlix
-  accept 664                          -- Captain Steelgut
-  accept 665                          -- Professor Phizzlethorpe
-
-step Phizzlethorpe
-  tip Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.
-  tip Careful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with.
-  goto 33.9,80.6
-  complete 665
-
-step Doctor Draxlegauge
-  turnin 665
-  accept 666
-
-step The Drowned Reef: kill these as you meet them
-  zone Arathi Highlands
-  tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
-  kill 2595 quest 664.1               -- Daggerspine Raider, underwater
-  collect 4492 quest 666              -- Elven Gem; underwater
-  kill 2596 quest 664.2               -- Daggerspine Sorceress, underwater
-  collect 4489 quest 662.2            -- Maiden's Folly Log; underwater
-  collect 4487 quest 662.1            -- Maiden's Folly Charts; underwater
-  collect 4490 quest 662.4            -- Spirit of Silverpine Log; underwater
-  collect 4488 quest 662.3            -- Spirit of Silverpine Charts; underwater
-
-step Faldir's Cove
-  turnin 662                          -- First Mate Nilzlix
-  turnin 664                          -- Captain Steelgut
-  turnin 666                          -- Doctor Draxlegauge
-  accept 668
-  turnin 668                          -- Shakes O'Breen
-  accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
-
 step Witherbark Village
-  tip East to the Witherbark trolls in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk.
+  tip South-east from Northfold to the Witherbark trolls in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk.
   collect 4503 quest 691.1            -- Witherbark Tusk
   collect 4522 quest 691.2            -- Witherbark Medicine Pouch
   collect 5040 quest 691.3            -- Shadow Hunter Knife; below ground
@@ -268,6 +225,45 @@ step Quae
 step Circle of West Binding
   collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
   turnin 651                          -- Stone of Inner Binding
+
+# ---------------------------------------------------------------- Faldir's Cove
+
+step Faldir's Cove
+  tip South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it.
+  accept 663                          -- Lolo the Lookout
+  turnin 663                          -- Shakes O'Breen
+  accept 662                          -- First Mate Nilzlix
+  accept 664                          -- Captain Steelgut
+  accept 665                          -- Professor Phizzlethorpe
+
+step Phizzlethorpe
+  tip Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.
+  tip Careful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with.
+  goto 33.9,80.6
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+
+step The Drowned Reef: kill these as you meet them
+  zone Arathi Highlands
+  tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
+  kill 2595 quest 664.1               -- Daggerspine Raider, underwater
+  collect 4492 quest 666              -- Elven Gem; underwater
+  kill 2596 quest 664.2               -- Daggerspine Sorceress, underwater
+  collect 4489 quest 662.2            -- Maiden's Folly Log; underwater
+  collect 4487 quest 662.1            -- Maiden's Folly Charts; underwater
+  collect 4490 quest 662.4            -- Spirit of Silverpine Log; underwater
+  collect 4488 quest 662.3            -- Spirit of Silverpine Charts; underwater
+
+step Faldir's Cove
+  turnin 662                          -- First Mate Nilzlix
+  turnin 664                          -- Captain Steelgut
+  turnin 666                          -- Doctor Draxlegauge
+  accept 668
+  turnin 668                          -- Shakes O'Breen
+  accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
 
 step Refuge Pointe
   turnin 681                          -- Captain Nials
@@ -373,6 +369,7 @@ step Ironforge
 
 step Ironforge
   zone Ironforge
+  accept 707                          -- Prospector Stormpike, Hall of Explorers: for Prospector Ironband in Loch Modan, next
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Loch Modan

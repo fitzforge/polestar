@@ -2,26 +2,22 @@
 guide forever/alliance/30-40/04-stranglethorn-vale
 title Stranglethorn Vale
 faction Alliance
-levels 34-37
+levels 33-35
 zone Stranglethorn Vale
-next forever/alliance/30-40/05-arathi-highlands
+next forever/alliance/30-40/02-desolace
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Panther Mastery (193), Raptor Mastery (196).
+# Since 2026-11-07 Stranglethorn is done in two visits around Desolace: this first loop at 33-35, the second
+# (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 
-step Fly to Stormwind
+step Fly to Darkshire
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Stormwind"
-  zone Stormwind City
-
-step Druid training
-  only Druid
-  zone Stormwind City
-  tip Sheldras Moontree, the druid trainer, stands in Stormwind: train with him before the road south.
-  train class
+  fly "Darkshire"
+  zone Duskwood
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
@@ -76,15 +72,9 @@ step Rebel Camp
   tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
   accept 215                          -- Private Thorsen
   turnin 215                          -- Lieutenant Doren, in the hut
-  accept 200
+  accept 200                          -- Lieutenant Doren: Bookie Herod's records, on the northern loop (04b)
   accept 203                          -- Sergeant Yohwa
   accept 204
-  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
-
-step Bookie Herod
-  tip Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth.
-  turnin 200                          -- Bookie Herod's Records, upstairs
-  accept 328
 
 step Kurzen's Compound: kill these as you meet them
   zone Stranglethorn Vale
@@ -93,20 +83,9 @@ step Kurzen's Compound: kill these as you meet them
   kill 937 quest 203                  -- Kurzen Jungle Fighter
   collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
 
-step Bookie Herod
-  turnin 328                          -- Bookie Herod's Strongbox, below ground
-  accept 329
-
 step Rebel Camp
-  turnin 329                          -- Lieutenant Doren
-  accept 330
-  turnin 330                          -- Corporal Sethman
-  accept 331
-  turnin 331                          -- Lieutenant Doren
   turnin 203                          -- Sergeant Yohwa
   turnin 204
-  accept 574                          -- Sergeant Yohwa
-  accept 207                          -- Brother Nimetz
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
@@ -115,10 +94,15 @@ step Stranglethorn Vale: kill these as you meet them
   kill 1085 quest 187                 -- Elder Stranglethorn Tiger
   kill 685 quest 194                  -- Stranglethorn Raptor
 
+step Level 34
+  when level<34
+  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until you reach it.
+  goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
+  level 34                             -- grind on Elder Stranglethorn Tiger
+
 step Nesingwary's Expedition
   turnin 191                          -- Sir S. J. Erlgadin
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
-  accept 192                          -- Sir S. J. Erlgadin
   accept 339 optional
   accept 340 optional
   accept 341 optional
@@ -144,10 +128,8 @@ step Down to Booty Bay
   accept 198                          -- Krazek, in the tavern; upstairs
   accept 201
   accept 616                          -- Krazek
-  turnin 210                          -- Krazek
-  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
-  accept 213                          -- Kebok, upstairs
   accept 189                          -- Kebok, in the tavern
+  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578
@@ -188,91 +170,53 @@ step Nesingwary's Expedition
 
 step Booty Bay
   turnin 575                          -- Drizzlik, inside
-  accept 577                          -- The Snapjaw Crocolisks bask on the river in the middle of the jungle, on the next loop
+  accept 577                          -- Drizzlik: the Snapjaw Crocolisks, on the northern loop
   turnin 605                          -- Crank Fizzlebub, inside
   turnin 201                          -- Krazek, upstairs
   turnin 189                          -- Kebok, upstairs
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
-  accept 601                          -- The water elementals rise around the haunted island, on the next loop
+  accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop
 
-step Fly to Darkshire
+# ---------------------------------------------------------------- Stormwind
+
+step Fly to Stormwind
   zone Stranglethorn Vale
   goto 27.5,77.7 "Booty Bay flight master"
-  fly "Darkshire"
-  zone Duskwood
+  fly "Stormwind"
+  zone Stormwind City
 
-step Into Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 40.8,4.2 "Into Stranglethorn Vale"
+step Grimand Elmore
+  turnin 322
 
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 46.2,7.8 "Stranglethorn Vale"
+step Druid training
+  only Druid
+  zone Stormwind City
+  tip Sheldras Moontree, the druid trainer, stands in Stormwind, north-west of the Mage Quarter.
+  train class
 
-step Kurzen's Compound
-  tip Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.
-  tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb.
-  kill 938 quest 574.1 @46.3,7.8 map 1434 -- Kurzen Commando
-  kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
+step Boat to Auberdine
+  zone Stormwind City
+  goto 22.71,56.69 "Boat to Auberdine" live
 
-step The jungle ruins
-  tip Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals.
-  collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
-  collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer; underwater
+# ---------------------------------------------------------------- To Desolace
 
-# ---------------------------------------------------------------- North again
+step Fly to Astranaar
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Astranaar"
+  zone Ashenvale
 
-step Water Elementals
-  tip Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it.
-  collect 3923 quest 601              -- Water Elemental Bracers
+step Heartswood
+  only Warlock
+  zone Ashenvale
+  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then take the road west to Stonetalon.
+  collect 6912 quest 1738.1               -- Heartswood
+  collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
 
-step Stranglethorn Vale: kill these as you meet them
-  zone Stranglethorn Vale
-  collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
-  collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
-  collect 4106 quest 213              -- Tumbled Crystal
-  kill 684 quest 192                  -- Shadowmaw Panther
-  complete 339 optional               -- Chapter I
-  complete 340 optional               -- Chapter II
-  complete 341 optional               -- Chapter III
-  complete 342 optional               -- Chapter IV
-  level 36                          -- grind on Venture Co. Geologist
+step Stonetalon Mountains
+  zone Stonetalon Mountains
+  goto 33.7,72.8 "Stonetalon Mountains"
 
-step Rebel Camp
-  turnin 574                          -- Lieutenant Doren
-  turnin 207                          -- Brother Nimetz
-  accept 205
+step Retrieval for Mauren
+  collect 5675 quest 1078.1 @33.3,72.7 map 1442
 
-step Nesingwary's Expedition
-  turnin 339                          -- Barnil Stonepot
-  turnin 340
-  turnin 341
-  turnin 342
-  turnin 338
-  turnin 192                          -- Sir S. J. Erlgadin
-  accept 196
-
-step Nesingwary's Expedition
-  when group 193
-  accept 193
-
-step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins.
-  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
-
-step Skullsplitter trolls
-  tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
-  collect 2466 quest 205              -- Skullsplitter Fetish
-
-# ---------------------------------------------------------------- Booty Bay
-
-step Booty Bay
-  zone Stranglethorn Vale
-  tip The Salty Sailor Tavern is the tall building over the harbour; most of the quest givers are on its floors or the docks below.
-  turnin 577                          -- Drizzlik, inside
-  turnin 601                          -- Baron Revilgaz, upstairs in the tavern
-  accept 602                          -- For Archmage Ansirem in Alterac Mountains
-  accept 209                          -- Kebok, upstairs
-  turnin 213                          -- Kebok
-  accept 600                          -- Crank Fizzlebub, inside
-  accept 606                          -- "Sea Wolf" MacKinley, on the top floor

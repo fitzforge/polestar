@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/06-badlands
 title Badlands & Desolace
 faction Alliance
-levels 39-40
+levels 38-39
 zone Badlands
 next forever/alliance/40-50/01-stranglethorn-vale
 
@@ -10,6 +10,8 @@ next forever/alliance/40-50/01-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Claim Rackmore's Treasure! (6161), The Karnitol Shipwreck (1456).
+# Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
+# boat lands in Theramore only for the flight to Nijel's Point.
 
 step Into Badlands
   zone Badlands
@@ -135,13 +137,10 @@ step Boat to Theramore
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
 
-step Theramore
+step Theramore flight master
   zone Dustwallow Marsh
-  tip The flight master stands by the gate of Foothold Citadel; Clerk Lendry and Commander Samaul are inside the citadel.
-  getfp "Theramore"
-  turnin 1302                         -- Clerk Lendry, on the top floor
-  turnin 1264                         -- Commander Samaul, on the top floor
-  accept 1265                         -- for the Dustwallow loop in the next guide
+  tip Off the boat, walk up the pier to Baldruc, the flight master by the gate of Foothold Citadel.
+  goto 67.5,51.3 "Theramore flight master"
 
 step Nijel's Point
   zone Desolace
@@ -150,6 +149,7 @@ step Nijel's Point
   turnin 6141                         -- Brother Anton
   accept 261
   accept 1466
+  accept 1454                         -- Kreldig Ungor: the wreck is on the north-west coast, at the end of the loop
   accept 93224                        -- Captain Pentigast
 
 # ---------------------------------------------------------------- Desolace: the south loop
