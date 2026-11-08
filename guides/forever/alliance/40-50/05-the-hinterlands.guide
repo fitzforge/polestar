@@ -91,6 +91,10 @@ step The Uldaman dig
   collect 8047 quest 17               -- Magenta Fungus Cap; below ground
   collect 4610 quest 704              -- Carved Stone Urn; below ground
 
+step Back to Loch Modan
+  zone Badlands
+  goto 49.4,8.0 "Loch Modan"
+
 step Ironband's Excavation Site
   zone Loch Modan
   tip Ride back north to Ironband's camp.

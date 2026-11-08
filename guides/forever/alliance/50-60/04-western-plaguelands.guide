@@ -14,7 +14,6 @@ next forever/alliance/50-60/05-silithus
 step Chillwind Camp
   zone Western Plaguelands
   fly "Chillwind Camp"
-  accept 5092                         -- Commander Ashlam Valorfist
   accept 5402                         -- Argent Officer Pureheart
   accept 5403
 
@@ -23,9 +22,7 @@ step Sorrow Hill: kill these as you meet them
   tip Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.
   tip Careful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.
   tip Careful: The Eye of Naxxramas (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts.
-  kill 1783 quest 5092.1              -- Skeletal Flayer
   collect 12840 quest 5402.1          -- Minion's Scourgestone
-  kill 1791 quest 5092.2              -- Slavering Ghoul
 
 step Marlene Redpath
   tip Marlene's farmhouse stands on the hill east of the camp; Joseph Redpath's monument is just north of it.
@@ -34,10 +31,6 @@ step Marlene Redpath
   collect 12894 quest 5153.1          -- Joseph's Wedding Ring, at the monument
 
 # ---------------------------------------------------------------- The Writhing Haunt and Dalson's Tears
-step Mulgris Deepriver
-  tip Mulgris stands by the farm at the Writhing Haunt, north-east of the fields.
-  accept 4984                         -- Inside
-
 step Dalson's Tears
   tip Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and Farmer Dalson waits in the outhouse with the cabinet key.
   accept 5058                         -- Mrs. Dalson's Diary, inside
@@ -62,11 +55,6 @@ step Chillwind Camp
   tip Ride back south to the camp.
   turnin 5402                         -- Argent Officer Pureheart
   turnin 5403
-  turnin 5092                         -- Commander Ashlam Valorfist
-  accept 5097
-  accept 5215
-  turnin 5215                         -- High Priestess MacDonnell
-  accept 5216
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
@@ -80,25 +68,11 @@ step Chromie
   accept 5154
   accept 4971
 
-step Felstone Field cauldron
-  tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.
-  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
-  turnin 5216                         -- Scourge Cauldron
-  accept 5217
-
-step Janice Felstone
-  tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Dalson's Tears; her parcel lies inside.
-  accept 5021                         -- Upstairs
-  turnin 5021                         -- Janice's Parcel, inside
-  accept 5022                         -- For Stormwind: keep it
-
 step The Andorhal watchtowers
   kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
   kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
 
 step Chillwind Camp
-  turnin 5217                         -- High Priestess MacDonnell
-  accept 5219
   turnin 5097                         -- Commander Ashlam Valorfist
   accept 211 optional                 -- Araj the Summoner is a level 61 elite
   accept 5533                         -- Commander Ashlam Valorfist
@@ -263,8 +237,6 @@ step Eastern Plaguelands: kill these as you meet them
 step Augustus the Touched
   tip Ride north to Terrordale. Augustus lives in the ruined hut, and his receipt book lies in the ruined inn nearby.
   accept 6164                         -- Inside
-  tip Egan stands by Augustus' hut in Terrordale.
-  turnin 5281                         -- Inside
 
 step Augustus the Touched
   collect 15884 quest 6164.1 @14.0,24.2 map 1423 live -- Upstairs
@@ -473,6 +445,7 @@ step Gadgetzan
   kill 7583 quest 5163.2 @51.1,26.9 map 1446 -- Sprinkle
   turnin 5538                         -- Krinkle Goodsteel
   accept 5801                         -- For Chillwind Camp: keep it
+  accept 4504                         -- Tran'rek, north side of town: the tar is in Un'Goro, keep it
 
 step Gaeriyan
   tip Gaeriyan waits at the graveyard just east of town; the gravestone stands nearby.

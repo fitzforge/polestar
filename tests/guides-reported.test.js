@@ -4122,7 +4122,8 @@ test('Flight path sweep (#964): Stranglethorn 40: every race and class takes the
 // the guide goes. Read from the guide files: a step is found by a line it holds.
 test('flight path sweep (#972): travel tips name only flights the player can take there', () => {
 	const cases = [
-		['alliance/40-50/07-un-goro-crater', 'accept 4504', /From Ratchet/],
+		// (Super Sticky 4504 is taken on the later Gadgetzan stop since the Alliance 40-60 order, #1228: the arrival step is found by Gaeriyan's hand-in.)
+		['alliance/40-50/07-un-goro-crater', 'turnin 2941', /From Ratchet/],
 		['alliance/50-60/02-felwood', 'turnin 5156', /Talonbranch/],
 		['alliance/50-60/03-winterspring', 'turnin 6028', /Timbermaw|Auberdine/],
 		['alliance/50-60/04-western-plaguelands', 'turnin 5158', /^Fly to Ratchet/],
@@ -5260,7 +5261,10 @@ test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon lo
 		stepOf('the Western Pylon', (g) => g.quest === 4288 && g.t !== 'accept' && g.t !== 'turnin'),
 	];
 	assert.deepEqual([...loop].sort((a, b) => a - b), loop, 'east side, south, south-west, west');
-	assert.ok(stepOf('turnin 3448', is('turnin', 3448)) < stepOf('accept 3702', is('accept', 3702)), 'Tymor before Archesonus');
+	// Archesonus' The Smoldering Ruins of Thaurissan is taken on the Ironforge stop before the Burning Steppes since the
+	// Alliance 40-60 order (#1228): Tymor's hand-in first there.
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(at(bs, 'turnin 3461', is('turnin', 3461)) < at(bs, 'accept 3702', is('accept', 3702)), 'Tymor before Archesonus');
 });
 
 // Final route review, Alliance 40-60: the trip to Mountaineer Pebblebitty only for The Horn of the Beast's group; no
@@ -6138,4 +6142,36 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 			}
 		});
 	}
+});
+
+// --- Alliance 40-60 order (2026-11-08): a first Western Plaguelands stop at ~51 between the Hinterlands and the Burning
+// Steppes, and every accept the level model ground for (a quest 5+ levels above, or under its minimum level) taken on a
+// later visit to the same giver, with the work and the hand-in where the route already goes.
+test('Alliance 40-60 order: the first Western Plaguelands stop before the Burning Steppes, high accepts on the later visit', { skip }, () => {
+	const A = (g) => `forever/alliance/${g}.guide`;
+	const bs = goals(A('50-60/01-burning-steppes'));
+	const pos = (list, t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.ok(pos(bs, 'turnin', 5217) < pos(bs, 'accept', 3823), 'the cauldron at Felstone Field before Morgan\'s Vigil');
+	assert.ok(at(bs, 'the Wildkin Feathers (3661)', (g) => g.t === 'collect' && g.quest === 3661) < pos(bs, 'accept', 5092), 'the Hinterlands feathers on the way to Southshore, then Chillwind Camp');
+	assert.ok(pos(bs, 'accept', 3702) < pos(bs, 'accept', 3823), 'Archesonus on the Ironforge stop before the Steppes');
+	assert.ok(!goals(A('40-50/07-un-goro-crater')).some(({ goal }) => goal.quest === 3702 || goal.quest === 3701 || goal.quest === 4504), 'no 54s taken at 49 in Un\'Goro\'s guide');
+	const wpl = goals(A('50-60/04-western-plaguelands'));
+	assert.ok(pos(wpl, 'turnin', 4493) <= pos(wpl, 'accept', 4504), 'Super Sticky from Tran\'rek on the 57 Gadgetzan stop');
+	assert.ok(!goals(A('50-60/03-winterspring')).some(({ goal }) => [6604, 4861, 4863, 4864, 5281, 5249].includes(goal.quest)), 'Jaron\'s chain, The Restless Souls and To Winterspring! are not in the 53-55 Winterspring guide');
+	const last = goals(A('50-60/06-silithus'));
+	assert.ok(pos(last, 'turnin', 6604) < pos(last, 'turnin', 4864), 'Jaron\'s chain on the 58-59 Winterspring visit');
+	assert.ok(pos(goals(A('50-60/05-silithus')), 'turnin', 5181) <= pos(goals(A('50-60/05-silithus')), 'accept', 5281), 'The Restless Souls from Caretaker Alen at 58');
+	assert.ok(pos(last, 'turnin', 5281) >= 0, 'and handed to Egan in Terrordale');
+	assert.ok(!goals(A('40-50/02-badlands')).some(({ goal }) => is('accept', 2877)(goal)), 'Skulk Rock Clean-up not at 42.6');
+	assert.ok(goals(A('40-50/04-tanaris')).some(({ goal }) => is('accept', 2877)(goal)), 'but on the Aerie Peak landing after Tanaris');
+});
+
+test('Alliance 40-60 order: the quests the route passes are taken (... and Bugs, the Western Plaguelands givers on the way east)', { skip }, () => {
+	const A = (g) => `forever/alliance/${g}.guide`;
+	const stv = goals(A('40-50/01-stranglethorn-vale'));
+	assert.ok(at(stv, 'turnin 1204', is('turnin', 1204)) <= at(stv, 'accept 1258', is('accept', 1258)), '... and Bugs with Mudrock Soup');
+	assert.ok(stv.some(({ goal }) => goal.t === 'collect' && goal.quest === 1258), 'the crawler legs on the Swamp of Sorrows shore');
+	assert.ok(goals(A('40-50/02-badlands')).some(({ goal }) => is('turnin', 1258)(goal)), 'back to Morgan Stern at Theramore');
+	const ws = goals(A('50-60/03-winterspring'));
+	for (const q of [5097, 5219, 4984]) assert.ok(ws.some(({ goal }) => is('accept', q)(goal)), `${q} taken where the Winterspring guide passes its giver on the way to the Eastern Plaguelands`);
 });
