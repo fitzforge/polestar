@@ -2,9 +2,9 @@
 guide forever/alliance/30-40/01-hillsbrad-foothills
 title Wetlands & Hillsbrad Foothills
 faction Alliance
-levels 31-32
+levels 30-32
 zone Wetlands
-next forever/alliance/30-40/02-desolace
+next forever/alliance/30-40/03-ashenvale
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -127,12 +127,12 @@ step Menethil Harbor
   when group 474
   turnin 474
 
-step Level 31.23
+step Level 30.8
   when !group 474
-  when level<31.23
-  tip If you skipped Defeat Nek'rosh, grind here to level 31.23 to stay on the route's plan.
+  when level<30.8
+  tip If you skipped Defeat Nek'rosh, grind here to level 30.8 to stay on the route's plan.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
-  level 31.23                          -- grind on Bluegill Raider
+  level 30.8                           -- grind on Bluegill Raider
 
 step Menethil Harbor
   turnin 98072                        -- James Halloran
@@ -253,7 +253,6 @@ step Deeprun Tram
   zone Ironforge
   tip Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
-  accept 707
   accept 525
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
@@ -320,22 +319,5 @@ step Mage Quarter
 
 step Druid training
   only Druid
-  tip Ironforge has no druid trainer: Sheldras Moontree stands on the way north-west from the Mage Quarter to the harbour.
+  tip Ironforge has no druid trainer: Sheldras Moontree stands in Stormwind, north-west of the Mage Quarter.
   train class
-
-step Boat to Auberdine
-  zone Stormwind City
-  goto 22.71,56.69 "Boat to Auberdine" live
-
-step Fly to Astranaar
-  zone Darkshore
-  goto 36.4,45.6 "Auberdine flight master"
-  fly "Astranaar"
-  zone Ashenvale
-
-step Stonetalon Mountains
-  zone Stonetalon Mountains
-  goto 33.7,72.8 "Stonetalon Mountains"
-
-step Retrieval for Mauren
-  collect 5675 quest 1078.1 @33.3,72.7 map 1442

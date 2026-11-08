@@ -2,14 +2,16 @@
 guide forever/alliance/30-40/02-desolace
 title Desolace
 faction Alliance
-levels 32-33
+levels 35-36
 zone Desolace
-next forever/alliance/30-40/03-ashenvale
+next forever/alliance/30-40/04b-stranglethorn-vale
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: Bodyguard for Hire (5821).
+# Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
+# the end of 30-40/06 (38-39), and The Karnitol Shipwreck (39) is taken there.
 
 # ---------------------------------------------------------------- Getting there
 
@@ -44,7 +46,6 @@ step Kreldig Ungor
 
 step Nijel's Point
   zone Desolace
-  accept 1454                         -- Kreldig Ungor
   turnin 1465
   accept 1438
 
@@ -98,16 +99,14 @@ step Nijel's Point
   turnin 1387                         -- Corporal Melkins
   turnin 1459                         -- Kreldig Ungor
 
-step Fly to Astranaar
-  only Warlock
+# ---------------------------------------------------------------- To Stormwind
+
+step Fly to Auberdine
   zone Desolace
   goto 64.7,10.4 "Nijel's Point flight master"
-  fly "Astranaar"
-  zone Ashenvale
+  fly "Auberdine"
+  zone Darkshore
 
-step Heartswood
-  only Warlock
-  zone Ashenvale
-  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then back to Astranaar's flight master.
-  collect 6912 quest 1738.1               -- Heartswood
-  collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
+step Boat to Stormwind Harbor
+  zone Darkshore
+  goto 30.7,41.0 "Boat to Stormwind Harbor"
