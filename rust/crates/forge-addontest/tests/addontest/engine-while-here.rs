@@ -231,36 +231,66 @@ fn with_more_candidates_than_the_poll_measures_the_nearest_are_measured() {
 	assert!(kib < 0.5, "2000 polls picking the nearest again allocated {kib:.2} KiB");
 }
 
-// Of two objectives in reach, the one whose target spawns in fewer places wins: spiders found in eight camps all over
-// the zone (the player stands in one) wait for another camp; the single murloc 30 yd off is the line. Away from the
-// murloc, a spider camp in reach shows. Before: the nearest edge, the spiders (0 yd), always.
+// The ranking picks which lines show: of four in reach for three places, spiders found in eight camps all over the
+// zone (the player stands in one, 0 yd) wait while the single murloc, kobold and gnoll places show, nearest first.
+// Dismissing one frees a place for the spiders, which read first (nearest). Away from the rest, a spider camp
+// in reach shows alone.
 const SPREAD: &str = r#"
 local camps = {}
 for _, p in ipairs({ { 47.6, 37.6 }, { 30, 70 }, { 20, 20 }, { 70, 20 }, { 10, 50 }, { 80, 80 }, { 25, 85 }, { 65, 75 } }) do
 	camps[#camps + 1] = { x = p[1], y = p[2], r = 20, n = 2 }
 end
+stub.world.onQuest(401, { 1 }, "Kobolds"); stub.world.onQuest(402, { 1 }, "Gnolls")
 Polestar.RegisterGuide({
 	id = "test/spread", pack = "test", title = "Spread", minLevel = 1, maxLevel = 10,
 	steps = {
 		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
 		{ title = "Spiders", goals = { { t = "kill", target = "Spider", npc = 42, count = 1, quest = 52, oi = 1, map = 1429, x = 47.6, y = 37.6, spots = camps } } },
 		{ title = "Murlocs", goals = { { t = "kill", target = "Murloc", npc = 40, count = 1, quest = 50, oi = 1, map = 1429, x = 47.6, y = 36.1 } } },
+		{ title = "Kobolds", goals = { { t = "kill", target = "Kobold", npc = 44, count = 1, quest = 401, oi = 1, map = 1429, x = 47.6, y = 35.6 } } },
+		{ title = "Gnolls", goals = { { t = "kill", target = "Gnoll", npc = 45, count = 1, quest = 402, oi = 1, map = 1429, x = 47.6, y = 35.1 } } },
 	},
 })
 "#;
 
 #[test]
-fn of_two_objectives_in_reach_the_one_found_in_fewer_places_is_the_line() {
+fn the_ranking_picks_which_lines_show_the_rows_read_nearest_first() {
 	let out = run_guide(
 		SPREAD,
 		"test/spread",
 		r#"
-		at(47.6, 37.6); emit(here())
-		E.DismissWhileHere()
-		at(30.0, 70.0); emit(here())                    -- another spider camp, the murloc far
+		at(47.6, 37.6); emit(lines())
+		E.DismissWhileHere(1); stub.advance(0.6); emit(lines())
+		at(30.0, 70.0); emit(lines())                   -- another spider camp, the rest far
 	"#,
 	);
-	assert_eq!(out, vec![json!("3:1 Kill Murloc, 1 more 30"), json!("2:1 Kill Spider, 1 more 0")]);
+	assert_eq!(out, vec![json!("3:1:30 4:1:40 5:1:50"), json!("2:1:0 4:1:40 5:1:50"), json!("2:1:0")]);
+}
+
+// Fitz: rows nearest first, but no jumping: two shown swap only once the lower is 30 yd nearer (HERE_ORDER).
+const PAIR: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/pair", pack = "test", title = "Pair", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		{ title = "Murlocs", goals = { { t = "kill", target = "Murloc", npc = 40, count = 1, quest = 50, oi = 1, map = 1429, x = 47.6, y = 36.6 } } },
+		{ title = "Spiders", goals = { { t = "kill", target = "Spider", npc = 42, count = 1, quest = 52, oi = 1, map = 1429, x = 47.6, y = 38.6 } } },
+	},
+})
+"#;
+
+#[test]
+fn shown_rows_keep_their_places_until_one_is_30_yards_nearer() {
+	let out = run_guide(
+		PAIR,
+		"test/pair",
+		r#"
+		at(47.6, 37.1); emit(lines())                   -- murloc 10, spider 30
+		at(47.6, 38.1); emit(lines())                   -- murloc 30, spider 10: 20 nearer, they stay
+		at(47.6, 38.6); emit(lines())                   -- murloc 40, spider 0: they swap
+	"#,
+	);
+	assert_eq!(out, vec![json!("2:1:10 3:1:30"), json!("2:1:30 3:1:10"), json!("3:1:0 2:1:40")]);
 }
 
 // Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (15), Fungal Spores

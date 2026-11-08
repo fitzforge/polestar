@@ -1273,7 +1273,7 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
 - **While you're here.** While the player works the live step, an open
   objective of a later step whose quest is already in the log, close by,
   becomes a line under the step, up to `HERE_SHOW` (3) at once
-  (`Engine.GetWhileHereList`, in rank order, `Engine.GetWhileHere` its
+  (`Engine.GetWhileHereList`, nearest first, `Engine.GetWhileHere` its
   first: each the goal view of its later step with `step`, `here` = "work" |
   "turnin", `left`, `yards` and `hereText`, "Kill Kobold Vermin, 2 more";
   `Engine.AimWhileHere(i)` and `Engine.DismissWhileHere(i)` take the line's
@@ -1312,7 +1312,9 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   a point counts 1), then the nearest, ranks first; while fewer than
   `HERE_SHOW` lines show, the best in reach join in that order (with all
   shown, the poll measures only them; each keeps its own time, distance and
-  dismiss), so a pool or camp
+  dismiss). The rows read nearest first: a new one takes its place by
+  distance, and a row moves up past the one above it only once `HERE_ORDER`
+  (30) yards nearer, so rows do not jump. The ranking picks which show, so a pool or camp
   wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that

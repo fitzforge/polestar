@@ -6177,6 +6177,7 @@ end
 
 Own.HERE_MAX = 10 -- candidates the poll measures (the nearest, when more fit)
 Own.HERE_SHOW = 3 -- lines shown at once
+Own.HERE_ORDER = 30 -- yards a shown line must be nearer to move up past another
 Own.HERE_REPICK = 25 -- yards moved before the nearest are picked again
 Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
 Own.HERE_TURNIN = 30 -- yards from a hand-in's NPC
@@ -6195,7 +6196,7 @@ Own.HERE_VERBS = { kill = true, collect = true, interact = true, use = true }
 Own.HERE_HEARTH = { [8690] = true, [556] = true } -- Hearthstone, Astral Recall
 Own.hereAll, Own.hereAllN = {}, 0 -- every candidate, in route order
 Own.hereList, Own.hereN, Own.hereDirty = {}, 0, true -- the ones the poll measures
-Own.hereOn, Own.hereOnN = {}, 0 -- the lines shown, in rank order (reused)
+Own.hereOn, Own.hereOnN = {}, 0 -- the lines shown, nearest first (stable: HERE_ORDER; reused)
 Own.herePicked = {} -- the nearest HERE_MAX, when more fit (reused)
 Own.hereQuiet = setmetatable({}, { __mode = "k" }) -- goal -> true: dismissed (or no walk there), this zone stay
 Own.hereTo = {} -- the walk check's destination (reused)
@@ -6610,9 +6611,12 @@ end
 
 -- The arrival poll (c nil: no position). Keeps or ends the lines shown
 -- (each by its own distance and time), then while fewer than HERE_SHOW show
--- adds the best of the candidates in reach, in rank order; allocation-free.
--- With HERE_SHOW lines up, only those are measured. True when a line the
--- player had clicked went (the arrow goes back to the guide).
+-- adds the best of the candidates in reach, in rank order (Own.hereBefore:
+-- which show). The lines read nearest first: a new one takes its place by
+-- distance, and two shown swap only once the lower is HERE_ORDER yards
+-- nearer, so rows do not jump. Allocation-free. With HERE_SHOW lines up,
+-- only those are measured. True when a line the player had clicked went
+-- (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
 	if Own.hereOnN == 0 and Own.hereAllN == 0 then return false end
 	if not c or Own.hereBlocked() then return Own.hereClear() end
@@ -6641,6 +6645,19 @@ function Own.hereTick(c, px, py)
 			end
 			i = i + 1
 		end
+	end
+	-- Nearest first, stable: a line moves up past the one above it only when
+	-- HERE_ORDER yards nearer.
+	local swapped = false
+	for j = 1, Own.hereOnN - 1 do
+		local a, b = on[j], on[j + 1]
+		if b.d + Own.HERE_ORDER < a.d then
+			on[j], on[j + 1], swapped = b, a, true
+		end
+	end
+	if swapped then
+		Own.here = on[1]
+		ns.Fire("WHILE_HERE_CHANGED")
 	end
 	if Own.hereOnN >= Own.HERE_SHOW or Own.hereAllN == 0 then return aimed end
 	-- More candidates than the poll measures: the nearest, again each
@@ -6671,10 +6688,10 @@ function Own.hereTick(c, px, py)
 		if not best then break end
 		open = open - 1
 		if Own.hereMayShow(best, best.d) then
-			-- In rank order among the lines shown.
+			-- Nearest first among the lines shown.
 			local n, at = Own.hereOnN, Own.hereOnN + 1
 			for j = 1, n do
-				if Own.hereBefore(best, best.d, on[j], on[j].d) then
+				if best.d < on[j].d then
 					at = j
 					break
 				end
@@ -6727,7 +6744,7 @@ function Own.hereVisible()
 	return Own.hereOnN > 0 and guide ~= nil and current ~= nil and current == computed
 end
 
--- The lines shown now, in rank order, as Own.hereViewOf's views ({} without
+-- The lines shown now, nearest first, as Own.hereViewOf's views ({} without
 -- one, or while the window looks at another step than the live one).
 function Engine.GetWhileHereList()
 	local out = {}
