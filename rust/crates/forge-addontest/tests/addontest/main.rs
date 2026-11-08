@@ -72,6 +72,8 @@ mod engine_enter;
 mod engine_flights;
 #[path = "engine-focus.rs"]
 mod engine_focus;
+#[path = "engine-grind.rs"]
+mod engine_grind;
 #[path = "engine-group-default.rs"]
 mod engine_group_default;
 #[path = "engine-guide-end.rs"]

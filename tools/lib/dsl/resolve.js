@@ -1560,6 +1560,13 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		case 'level':
 			goal.level = g.level;
 			if (g.frac) goal.frac = g.frac;
+			// `grind <npc>`: the mob's spawn areas place the goal (below), so the
+			// arrow leads to the nearest of them; without spawns, the step's goto.
+			if (g.grind !== undefined) {
+				goal.grind = g.grind;
+				setIf(goal, 'npcName', optionalName('npc', g.grind));
+				candidates = [{ kind: 'npc', id: g.grind }];
+			}
 			break;
 		case 'money':
 			goal.money = g.money;
@@ -1849,7 +1856,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		// the arrow led can move it on to the others (spawnSpots). Kill,
 		// collect and interact goals may be area objectives (`spread`, searched
 		// spot by spot); the others go to the nearest place.
-		const area = v === 'kill' || v === 'collect' || v === 'interact';
+		const area = v === 'kill' || v === 'collect' || v === 'interact' || goal.grind !== undefined;
 		if (!g.explicitCoords && picked.x !== undefined) {
 			const sp = spawnSpots(data, area ? picked.sources || [c] : [c], picked.map, picked.f, picked.x, picked.y, area ? picked.elites : undefined);
 			if (sp) {
@@ -1917,6 +1924,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !(ctx.loop && LOOP_VERBS.has(v))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
+	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);
 	return goal;
 }
 

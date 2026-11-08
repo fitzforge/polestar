@@ -1690,7 +1690,12 @@ the same person never splits that person's group.
   while `UnitAffectingCombat("player")`. No position or nothing measurable:
   written order. The goal list keeps written order either way, and a `loop`
   step's spots still form the circuit, its first pick the spot nearest the
-  player. The
+  player. A grind (`level N grind <npc>`, `Own.isGrind`: the compiler placed
+  it at the mob's spawn areas) is a field goal too, and a goto before it in
+  its group, with only notes, optional or done goals between, gives way to it
+  (`Own.grindAfter`): the arrow leads to the mob's nearest spawn area, the
+  goto only when the mob has no known spawns (the goal has no place); the goto
+  is done with the level, as any goto before a done goal. The
   arrow goes to the goal the player chose in the current step (`AimGoal`, a
   cycled spot or candidate) while it is open, else the current goal's own
   place (its coordinates, its spawn area, the source of its item), else the
