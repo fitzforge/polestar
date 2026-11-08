@@ -308,6 +308,8 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
+#[path = "ui-whatsnew.rs"]
+mod ui_whatsnew;
 #[path = "ui-while-here.rs"]
 mod ui_while_here;
 #[path = "ui-zoneart.rs"]

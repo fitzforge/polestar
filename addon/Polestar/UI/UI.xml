@@ -23,6 +23,7 @@
 	<Script file="RouteChoice.lua"/>
 	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>
+	<Script file="WhatsNew.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>

@@ -206,6 +206,7 @@ L["Make bag room: delete the cheapest junk (press twice)"] = "Liberar espaço na
 L["Next waypoint"] = "Próximo ponto de rota"
 L["Previous waypoint"] = "Ponto de rota anterior"
 L["List the quests in your log the route never hands in"] = "Listar as missões do seu registro que a rota nunca entrega"
+-- L["Show what's new in this version"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crepúsculo"
@@ -2079,6 +2080,7 @@ L["How near its spawn area must be for a suggestion to show. It goes again a lit
 L["Sound for a new suggestion"] = "Som para uma nova sugestão"
 L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = "Sugere objetivos de etapas posteriores quando você está perto deles, a partir do seu registro de missões e do que está ao redor. Eles aparecem abaixo da etapa num painel \"Já que está aqui\": clique em um para apontar a seta para lá; com o botão direito, dispensa por aqui (dispensado duas vezes, some pelo resto da zona)."
 L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = "Um toque suave para cada nova sugestão (uma vez só quando várias chegam juntas), no volume de efeitos sonoros do jogo."
+-- L["What's new"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -2991,6 +2993,20 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "O Polestar contou ao seu grupo no chat como vão suas missões (Opções > Missões > Missões > Grupo para mudar isso)."
 L["%s is ready to turn in"] = "%s está pronta para entregar"
 L["looted %s, which starts %s"] = "saqueou %s, que inicia %s"
+
+-- UI/WhatsNew.lua
+-- L["New leveling routes (0.3.5)"] = ""
+-- L["The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = ""
+-- L["Fixes from your reports"] = ""
+-- L["Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more."] = ""
+-- L["Quests far above your level now wait"] = ""
+-- L["The guide says %s and comes back when you get there."] = ""
+-- L["Found something off?"] = ""
+-- L["Type %s right where it happens."] = ""
+-- L["Got it"] = ""
+-- L["Open the guide list"] = ""
+-- L["What's new in Polestar %s"] = ""
+-- L["Full notes: %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

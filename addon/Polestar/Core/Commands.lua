@@ -159,6 +159,10 @@ ns.RegisterCommand("welcome", function()
 	ns.Fire("SHOW_WELCOME")
 end, L["Show the welcome again"])
 
+ns.RegisterCommand("whatsnew", function()
+	ns.Fire("SHOW_WHATSNEW")
+end, L["Show what's new in this version"])
+
 -- Where the player stands as guide lines (ns.WhereLines, Core/Compat.lua),
 -- printed with a hint for other goals (`@x,y live`), and shown in a box to
 -- copy (UI/Copy.lua).

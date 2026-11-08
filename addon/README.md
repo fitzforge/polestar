@@ -197,6 +197,7 @@ never in saved variables.
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |
 | `Welcome.lua` | `UI.Welcome` | The welcome a character sees the first time Polestar meets it |
+| `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
 | `Packs.lua` | `UI.Packs` | The Community guides page of the options window |

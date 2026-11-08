@@ -144,6 +144,8 @@ Messages:
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
 | `SHOW_WELCOME` | page or nil | About's "Show the welcome again", `/polestar welcome` → UI/Welcome.lua |
+| `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
+| `WELCOME_CLOSED` | — | UI/Welcome.lua, the welcome closed (not stepped aside) → UI/WhatsNew.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
@@ -185,6 +187,8 @@ switch). `imports` holds the guides pasted on the Import page, as decoded
 ("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
 seen: in `PolestarDB`, the account has had its welcome (later characters skip
 its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
+`whatsNewSeen` (`PolestarDB`, UI/WhatsNew.lua) is the version of the release notes last shown; a fresh
+install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set to the newest without them.
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
@@ -5596,6 +5600,20 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   welcome (`PolestarDB.welcomeSeen`); the page set is fixed when a showing
   starts. Any close marks the account (and the character). About's "Show the
   welcome again" and `/polestar welcome` open it with every page.
+- **What's new** (`UI/WhatsNew.lua`, frame `PolestarWhatsNew`, `SHOW_WHATSNEW`):
+  the welcome's look from its building blocks (`UI.Welcome.Kit`): 600 wide,
+  centred, a compact night hero with "What's new in Polestar <version>", the
+  newest entry of `NOTES` as note rows (glyph, heading, line under a
+  hairline), and a footer with "Full notes: polestar.guide" (text), "Open the
+  guide list" (the guide list's home view, with Suggested for you) and "Got
+  it". Once per account on the first login after an update
+  (`PolestarDB.whatsNewSeen` differs from the newest notes' version; missing
+  on an account from before the window), 3 s after login, marked as it
+  opens; never on a fresh install, in combat, during a cinematic, in an
+  instance or battleground, over the route choice, or while the welcome is
+  up or due (`UI.Welcome.Busy`, then `WELCOME_CLOSED`). A release with notes
+  adds an entry at the top of `NOTES`. About's "What's new" and `/polestar
+  whatsnew` open it again.
 - **Copy window** (`UI/Copy.lua`, frame `PolestarCopy`, `UI.ShowCopy(title,
   text)` or `SHOW_COPY`): a small window with the band, a title, a read-only
   `W.CopyBox` holding the text, selected and focused, and how to copy it; ✕

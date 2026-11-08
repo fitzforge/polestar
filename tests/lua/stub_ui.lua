@@ -762,11 +762,12 @@ function uistub.install(opts)
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
 		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
 	end
-	-- An account and a character that have seen the welcome, so it never
-	-- opens over windows under test; tests/ui-welcome.test.js restores the
-	-- saved values.
+	-- An account and a character that have seen the welcome and the newest
+	-- notes, so neither opens over windows under test; ui-welcome.rs and
+	-- ui-whatsnew.rs restore the saved values.
 	Polestar.DB().welcomeSeen = 1
 	Polestar.CharState().welcomeSeen = 1
+	Polestar.DB().whatsNewSeen = Polestar.UI.WhatsNew and Polestar.UI.WhatsNew.LATEST or nil
 end
 
 -- Show guide `id` at step `step` in the active tab (opening a first tab).

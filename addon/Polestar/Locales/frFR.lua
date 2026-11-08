@@ -207,6 +207,7 @@ L["Make bag room: delete the cheapest junk (press twice)"] = "Faire de la place 
 L["Next waypoint"] = "Point de passage suivant"
 L["Previous waypoint"] = "Point de passage précédent"
 L["List the quests in your log the route never hands in"] = "Lister les quêtes de votre journal que l'itinéraire ne rend jamais"
+-- L["Show what's new in this version"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crépuscule"
@@ -2080,6 +2081,7 @@ L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["What's new"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2992,6 +2994,20 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar a parlé de votre progression de quête à votre groupe dans le chat (à changer dans Options > Quêtes > Quêtes > Groupe)."
 L["%s is ready to turn in"] = "%s est prête à rendre"
 L["looted %s, which starts %s"] = "a ramassé %s, qui lance %s"
+
+-- UI/WhatsNew.lua
+-- L["New leveling routes (0.3.5)"] = ""
+-- L["The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = ""
+-- L["Fixes from your reports"] = ""
+-- L["Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more."] = ""
+-- L["Quests far above your level now wait"] = ""
+-- L["The guide says %s and comes back when you get there."] = ""
+-- L["Found something off?"] = ""
+-- L["Type %s right where it happens."] = ""
+-- L["Got it"] = ""
+-- L["Open the guide list"] = ""
+-- L["What's new in Polestar %s"] = ""
+-- L["Full notes: %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

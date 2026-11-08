@@ -206,6 +206,7 @@ L["Make bag room: delete the cheapest junk (press twice)"] = "腾出背包空间
 L["Next waypoint"] = "下一个路径点"
 L["Previous waypoint"] = "上一个路径点"
 L["List the quests in your log the route never hands in"] = "列出任务日志中路线永远不会交还的任务"
+-- L["Show what's new in this version"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黄昏"
@@ -2079,6 +2080,7 @@ L["Also a quest ready to hand in whose NPC stands right here, when the guide han
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["What's new"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2991,6 +2993,20 @@ L["party chat: , "] = "，"
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar 已在聊天中告诉你的小队你的任务进度（在 选项 > 做任务 > 任务 > 小队 中更改）。"
 L["%s is ready to turn in"] = "%s 可交还"
 L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
+
+-- UI/WhatsNew.lua
+-- L["New leveling routes (0.3.5)"] = ""
+-- L["The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = ""
+-- L["Fixes from your reports"] = ""
+-- L["Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more."] = ""
+-- L["Quests far above your level now wait"] = ""
+-- L["The guide says %s and comes back when you get there."] = ""
+-- L["Found something off?"] = ""
+-- L["Type %s right where it happens."] = ""
+-- L["Got it"] = ""
+-- L["Open the guide list"] = ""
+-- L["What's new in Polestar %s"] = ""
+-- L["Full notes: %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

@@ -1038,6 +1038,11 @@ const SCENES = [
 		],
 	},
 	{
+		file: 'whats-new.svg',
+		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About)',
+		panels: [{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' }],
+	},
+	{
 		file: 'guide-professions.svg',
 		title: 'Profession and reputation guides: chosen trainer with alternatives, skill bar, reputation bar',
 		panels: [

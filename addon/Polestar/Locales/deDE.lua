@@ -59,6 +59,7 @@ L["Make bag room: delete the cheapest junk (press twice)"] = "Platz in den Tasch
 L["Next waypoint"] = "Nächster Wegpunkt"
 L["Previous waypoint"] = "Vorheriger Wegpunkt"
 L["List the quests in your log the route never hands in"] = "Die Quests in deinem Questlog auflisten, die die Route nie abgibt"
+-- L["Show what's new in this version"] = ""
 
 -- Core/Engine.lua
 L["Quest"] = "Quest"
@@ -1202,6 +1203,7 @@ L["Polestar's marks on the minimap; the world map keeps its own. A mark over you
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["What's new"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2974,6 +2976,20 @@ L["party chat: , "] = ", "
 L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar hat deiner Gruppe im Chat von deinem Questfortschritt erzählt (ändern unter Optionen > Questen > Quests > Gruppe)."
 L["%s is ready to turn in"] = "%s kann abgegeben werden"
 L["looted %s, which starts %s"] = "hat %s erbeutet, damit beginnt %s"
+
+-- UI/WhatsNew.lua
+-- L["New leveling routes (0.3.5)"] = ""
+-- L["The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = ""
+-- L["Fixes from your reports"] = ""
+-- L["Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more."] = ""
+-- L["Quests far above your level now wait"] = ""
+-- L["The guide says %s and comes back when you get there."] = ""
+-- L["Found something off?"] = ""
+-- L["Type %s right where it happens."] = ""
+-- L["Got it"] = ""
+-- L["Open the guide list"] = ""
+-- L["What's new in Polestar %s"] = ""
+-- L["Full notes: %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

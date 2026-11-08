@@ -1211,6 +1211,29 @@ local function noteRow(p, glyph, color, heading)
 	return n
 end
 
+-- Lays note `n` out on page `p` from `y` down (its hairline at `y`), shown
+-- or not. -> the y under it
+local function layNote(p, n, y, shown)
+	for _, k in ipairs({ "Rule", "Glyph", "Head", "Text", "Link" }) do
+		if n[k] then n[k]:SetShown(shown) end
+	end
+	if not shown then return y end
+	n.Rule:ClearAllPoints()
+	n.Rule:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -y)
+	n.Rule:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -y)
+	local top = y + 10
+	place(n.Glyph, 0, top + 2)
+	place(n.Head, NOTE_X, top)
+	local linkW = n.Link and (n.Link:GetWidth() + 16) or 0
+	n.Text:SetWidth(CW - NOTE_X - linkW)
+	place(n.Text, NOTE_X, top + n.Head:GetStringHeight() + 3)
+	if n.Link then
+		n.Link:ClearAllPoints()
+		n.Link:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -(top - 2))
+	end
+	return top + n.Head:GetStringHeight() + 3 + n.Text:GetStringHeight() + 10
+end
+
 PAGES[#PAGES + 1] = {
 	key = "start",
 	build = function(P)
@@ -1332,34 +1355,14 @@ PAGES[#PAGES + 1] = {
 		p.Next:SetHeight(10 + p.Next.Text:GetStringHeight() + 10)
 		y = y + p.Next:GetHeight() + 14
 
-		local function lay(n, shown)
-			for _, k in ipairs({ "Rule", "Glyph", "Head", "Text", "Link" }) do
-				if n[k] then n[k]:SetShown(shown) end
-			end
-			if not shown then return end
-			n.Rule:ClearAllPoints()
-			n.Rule:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -y)
-			n.Rule:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -y)
-			local top = y + 10
-			place(n.Glyph, 0, top + 2)
-			place(n.Head, NOTE_X, top)
-			local linkW = n.Link and (n.Link:GetWidth() + 16) or 0
-			n.Text:SetWidth(CW - NOTE_X - linkW)
-			place(n.Text, NOTE_X, top + n.Head:GetStringHeight() + 3)
-			if n.Link then
-				n.Link:ClearAllPoints()
-				n.Link:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -(top - 2))
-			end
-			y = top + n.Head:GetStringHeight() + 3 + n.Text:GetStringHeight() + 10
-		end
 		local beta = ns.routesBeta and true or false
 		p.Beta.Text:SetText((L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."]):format(cmd(L["Skip"])))
-		lay(p.Beta, beta)
+		y = layNote(p, p.Beta, y, beta)
 		if beta then W.SetChip(p.Beta.Chip, string.upper(L["Beta"]), "warning") else p.Beta.Chip:Hide() end
 		p.Discord.Text:SetText(L["Feedback, bug reports and news."])
-		lay(p.Discord, true)
+		y = layNote(p, p.Discord, y, true)
 		p.Packs.Text:SetText(L["Guides by other players, installed like any addon. They show under Community guides in the guide list."])
-		lay(p.Packs, true)
+		y = layNote(p, p.Packs, y, true)
 		setChevronText(F.Start, g and L["Start guide"] or L["Choose a guide"])
 		return START_H, y - 10
 	end,
@@ -1494,7 +1497,8 @@ local function build()
 	end)
 	-- Any close marks it seen, for the character and the account; stepping
 	-- aside for the route choice does not, nor does a cinematic closing it
-	-- (it comes back after the cinematic, on the same page).
+	-- (it comes back after the cinematic, on the same page). A close tells
+	-- the windows waiting for it (UI/WhatsNew.lua).
 	F:SetScript("OnHide", function()
 		if stepping then return end
 		if inCinematic() then
@@ -1504,6 +1508,7 @@ local function build()
 		ns.CharState().welcomeSeen = SEEN
 		ns.DB().welcomeSeen = SEEN
 		pending = nil
+		ns.Fire("WELCOME_CLOSED")
 	end)
 	ns.CloseOnEscape("PolestarWelcome")
 	WEL.frame = F
@@ -1712,6 +1717,23 @@ end
 function WEL.IsShown()
 	return F ~= nil and F:IsShown()
 end
+
+-- Up, or due and waiting (for the login delay, a fight, a cinematic or the
+-- route choice): a window that must not open over it waits for
+-- WELCOME_CLOSED.
+function WEL.Busy()
+	return WEL.IsShown() or pending ~= nil
+end
+
+-- The welcome's building blocks, for the windows in its look
+-- (UI/WhatsNew.lua): the night, the emblem, the Dipper, wrapped text,
+-- placing, the note rows, and its measures.
+WEL.Kit = {
+	night = night, emblem = emblem, dipper = dipper, para = para, place = place,
+	noteRow = noteRow, layNote = layNote, colored = colored,
+	WIDTH = WIDTH, INNER = INNER, CW = CW, EDGE = EDGE, BOTTOM = BOTTOM,
+	FOOT_H = FOOT_H, FOOT_PAD = FOOT_PAD, SIDE_X = SIDE_X, SIDE_Y = SIDE_Y, CHERO_TEXT_W = CHERO_TEXT_W,
+}
 
 -- The page shown: its key, its place and the number of pages, its title.
 function WEL.Page()

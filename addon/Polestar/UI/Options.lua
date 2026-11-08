@@ -692,6 +692,8 @@ local function buildAbout(view)
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	local welcome = W.Button(view, L["Show the welcome again"], function() ns.Fire("SHOW_WELCOME") end)
 	view.Welcome = welcome
+	local whatsNew = W.Button(view, L["What's new"], function() ns.Fire("SHOW_WHATSNEW") end)
+	view.WhatsNew = whatsNew
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
@@ -749,11 +751,14 @@ local function buildAbout(view)
 			pair[2]:ClearAllPoints()
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
-			-- The welcome again, under the commands that it introduces.
+			-- The welcome and what's new again, under the commands that
+			-- they introduce.
 			if pair[1] == cmdH then
 				y = y + 4
 				welcome:ClearAllPoints()
 				welcome:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+				whatsNew:ClearAllPoints()
+				whatsNew:SetPoint("LEFT", welcome, "RIGHT", 8, 0)
 				y = y + welcome:GetHeight() + 12
 			end
 		end
