@@ -8193,6 +8193,11 @@
 				],
 				"reason": "Quest volume, Horde 40-60 (0.3.7): Dark Ceremony (level 46, 4050 XP), Rok Orhan's follow-up: the Gordunni Orb from the Mage-Lords in the Ruins of Isildien, a stop 40-50/02 makes for A Threat in Feralas; its follow-up The Gordunni Orb (3002) was already taken. The hand-in was optional although the accept and the orb were not.",
 				"issue": "-"
+			},
+			{
+				"q": 580,
+				"reason": "Quest volume, Horde 40-60 (0.3.7): Whiskey Slim's Lost Grog (level 50, from 40, 4700 XP). Whiskey Slim sits in the Booty Bay inn, where 40-50/01 binds; his twelve bottles of Pupellyverbos Port (object 2068, 24 spawns, all on the Hinterlands' east coast between Revantusk Village and the Overlook Cliffs, Forever's object data) lie on the beaches 40-50/05 works for Katoom's turtles; Whiskey Slim takes them on 40-50/06's Booty Bay stop at about 50. One accept, no extra trip.",
+				"issue": "-"
 			}
 		],
 		"skip": [

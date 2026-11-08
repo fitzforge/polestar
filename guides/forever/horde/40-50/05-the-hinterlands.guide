@@ -75,8 +75,9 @@ step Revantusk Village
 
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
-  tip The big turtles crawl along the beaches north of the village. Whiskey Slim's port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
+  tip The big turtles crawl along the beaches north of the village, and Whiskey Slim's bottles of port lie on the same beaches, from the village up to the Overlook Cliffs: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
   kill 2505 quest 7815.1
+  collect 3900 x12 quest 580.1          -- Pupellyverbos Port, on the beaches
   collect 8704 optional                 -- OOX-09/HL Distress Beacon, a rare drop
 
 step The Overlook Cliffs: kill these as you meet them
@@ -259,7 +260,9 @@ step The bloodmages
 # Deviations from the export:
 # - The Booty Bay stop (visit 49) is dropped: a flight and a zeppelin for
 #   one accept, Whiskey Slim's Lost Grog (580), and the optional OOX-17/TN
-#   turn-in (648, carried on to the next Booty Bay visit).
+#   turn-in (648, carried on to the next Booty Bay visit). Since 0.3.7 580
+#   is taken on 40-50/01's Booty Bay inn stop instead, its bottles picked up
+#   on the north coast here and handed in on 40-50/06's Booty Bay stop.
 # - The Swamp of Sorrows return (visit 51) is gone: Threat From the Sea and
 #   Continued Threat (1426-1428) are finished in forever/horde/40-50/03-feralas.
 # - The Blasted Lands come first, straight from Thorium Point by way of
@@ -291,7 +294,7 @@ step The bloodmages
 # here with their objectives done.
 #
 # Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
-# hands them in. Whiskey Slim's Lost Grog (580), see above. Return to
+# hands them in. Return to
 # Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
 # guide (a zeppelin and a flight for one quest), so it is not taken.
 
