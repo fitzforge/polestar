@@ -167,8 +167,8 @@ return {
 	["A report for {object:2117}; inside"] = "",
 
 	-- Step 36: Southshore
-	-- {npc:251493} Captain McManus
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "",
+	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{npc:251493} may not be here on Forever: if he doesn't offer {quest:98059}, skip it."] = "",
 
 	-- Step 37: Yeti cave
 	["Yeti cave"] = "Cueva de los yetis",

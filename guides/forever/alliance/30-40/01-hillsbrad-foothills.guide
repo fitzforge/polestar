@@ -213,8 +213,9 @@ step Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
-  accept 98059                        -- Captain McManus
-  turnin 98059                        -- Captain McManus
+  tip Captain McManus may not be here on Forever: if he doesn't offer Hillsbrad's Hoard, skip it.
+  accept 98059 optional               -- Captain McManus
+  turnin 98059 optional               -- Captain McManus
 
 step Yeti cave
   when onquest 565

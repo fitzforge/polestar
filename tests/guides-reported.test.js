@@ -1792,6 +1792,16 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 	assert.ok(!list.some(({ goal }) => goal.x != null && near(goal, 53.5, 54.5)), 'nothing points at Nek\'rosh');
 });
 
+// --- Southshore (never-seen check, 2026-11-08): Captain McManus, giver and ender of Hillsbrad's Hoard (98059), has never
+// been seen in players' recordings and nobody has taken the quest; the guide keeps it, optional, with a tip to skip it.
+test(`${HILLSBRAD_ALLIANCE}: Hillsbrad's Hoard is optional, with a tip to skip it if Captain McManus isn't there`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE).filter(({ goal }) => goal.quest === 98059);
+	assert.ok(list.length >= 2, 'the accept and the hand-in');
+	for (const { goal } of list) assert.ok(goal.optional, `${goal.t} 98059 is optional`);
+	const step = list[0].step;
+	assert.ok([step.note, step.tip].flat().filter(Boolean).join(' ').includes('McManus may not be here'), 'the step says to skip it if he is not there');
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 

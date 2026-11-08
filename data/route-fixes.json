@@ -6628,6 +6628,10 @@
 			{
 				"q": 626,
 				"why": "Final route review (2026-11-07, Horde 40-50): Cortello's Riddle part 626, after the optional first part (624, from the Bloodsail ships): optional with it, its steps gated on having the part before"
+			},
+			{
+				"q": 98059,
+				"why": "Never-seen check (2026-11-08, 0.3.6): Captain McManus (251493), giver and ender of Hillsbrad's Hoard, has never been seen in players' recordings and nobody has ever taken the quest; it stays on the Southshore stop as optional, with a tip to skip it if he doesn't offer it"
 			}
 		],
 		"group": [

@@ -167,8 +167,8 @@ return {
 	["A report for {object:2117}; inside"] = "",
 
 	-- Step 36: Southshore
-	-- {npc:251493} Captain McManus
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。",
+	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{npc:251493} may not be here on Forever: if he doesn't offer {quest:98059}, skip it."] = "",
 
 	-- Step 37: Yeti cave
 	["Yeti cave"] = "雪人洞穴",
@@ -269,6 +269,7 @@ return {
 	-- ["{npc:2104}: for {npc:270637}"] = "{npc:2104}：交给{npc:270637}",
 	-- ["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "{npc:211033}：交过图书馆书籍后才会提供此任务，详见《图书馆藏书》指南",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438}还要一件{item:3719}、一匹{item:2997}和{item:2321}：制作或购买；披风之后回到{area:271}时再交。",
+	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493}站在飞行管理员西北方，就在向北去雪人洞穴的路上。",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}：交给{area:442}的{npc:3649}（02-desolace）",
 	-- ["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708}在{object:2164}；{npc:211033}在运河附近；{npc:5081}在{object:2101}南边。",
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462}站在东南方的山丘上：在它旁边使用{item:279996}。",

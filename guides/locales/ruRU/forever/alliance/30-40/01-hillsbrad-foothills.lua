@@ -167,8 +167,8 @@ return {
 	["A report for {object:2117}; inside"] = "",
 
 	-- Step 36: Southshore
-	-- {npc:251493} Captain McManus
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493} стоит к северо-западу от распорядителя полетов, по пути на север к пещере йети.",
+	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{npc:251493} may not be here on Forever: if he doesn't offer {quest:98059}, skip it."] = "",
 
 	-- Step 37: Yeti cave
 	["Yeti cave"] = "Пещера йети",
@@ -268,6 +268,7 @@ return {
 	-- ["{npc:2104} stands in {area:2103}; {npc:2094} stands by the north gate."] = "{npc:2104} – здесь: {area:2103}; {npc:2094} стоит у северных ворот.",
 	-- ["{npc:2104}: for {npc:270637}"] = "{npc:2104}: для NPC {npc:270637}",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} также нужны {item:3719}, {item:2997} и {item:2321}: изготовьте или купите; плащ сдается позже, когда вернетесь сюда: {area:271}.",
+	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493} стоит к северо-западу от распорядителя полетов, по пути на север к пещере йети.",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}: для NPC {npc:3649} ({area:442}, 02-desolace)",
 	-- ["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708} – здесь: {object:2164}; {npc:211033} – у канала; {npc:5081} – к югу (ориентир: {object:2101}).",
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462} стоит на юго-восточных холмах: используйте рядом с ним {item:279996}.",

@@ -3711,6 +3711,22 @@
 				}
 			],
 			"issue": 1313
+		},
+		{
+			"id": "0306-hillsbrads-hoard-may-be-missing",
+			"at": {
+				"quest": 98059,
+				"goal": "accept"
+			},
+			"tip": "Captain McManus may not be here on Forever: if he doesn't offer Hillsbrad's Hoard, skip it.",
+			"note": "Hillsbrad's Hoard (Southshore, Captain McManus): never seen in game, so the guide takes it as optional and says to skip it if he isn't there (route-fixes deliberate.optional).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch (2026-11-08): Captain McManus (251493) seen never, 0 windows of his, 0 runs of 98059 (0 people)"
+				}
+			],
+			"faction": "Alliance"
 		}
 	]
 }
