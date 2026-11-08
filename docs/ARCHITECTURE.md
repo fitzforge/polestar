@@ -4011,8 +4011,10 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   first name alone moves to it) and the instance log, and the Recorder
   scrubs it.
 - Settings (Questing → Quests → Group): `party.share`, `party.show`,
-  `party.waitForGroup`, `party.lootNeeds`, `party.chat` (Quests/PartyChat.lua,
-  below) and `party.panel` on by default (the panel opens by itself once a
+  `party.waitForGroup`, `party.lootNeeds`, `party.chat` and `party.chatLoot`
+  (Quests/PartyChat.lua, below, with its `party.chatEcho`,
+  `party.chatHideOthers` and `party.chatOnlyNeeded`, off by default) and
+  `party.panel` on by default (the panel opens by itself once a
   member is heard; closing it stores `false`),
   `party.panelPos`. A player who turned one off has `false` stored (Set
   stores what differs from the default), so it stays off. Solo, only
@@ -4071,26 +4073,51 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
 - A member on a newer Polestar, or a newer version of a guide pack you have,
   is said once a session each in chat.
 
-### Party chat: a finished objective said in the party — Quests/PartyChat.lua
+### Party chat: quest progress said in the party — Quests/PartyChat.lua
 
-The one part of group play every party member sees, Polestar or not: a plain
-chat line. Nothing of Party.lua's addon messages reaches chat; this file
-shares nothing with them but the Group section.
+The one part of group play every party member sees, Polestar or not: plain
+chat lines. Nothing of Party.lua's addon messages reaches chat; this file
+asks Party.lua only whether every member runs Polestar.
 
-- Lines: `"[Polestar] " .. L["Finished: %s - %s"]` with the objective as
-  "Plagued Hide 5/5" (`Compat.ObjectiveLabel` of the log's text, then the
-  counts) and the quest's link, and `"[Polestar] " .. L["Ready to turn in: %s"]`.
-  The link is the client's `GetQuestLink(questID)` (what a shift-click on the
-  quest puts in chat, Mainline QuestMapFrame), else the title in brackets as
-  plain text; nothing goes out when neither can be read, nor for an
-  objective whose text is a secret value. Sent with `C_ChatInfo.SendChatMessage`
-  (the bare `SendChatMessage` is only Blizzard_DeprecatedChatInfo's fallback)
-  as `INSTANCE_CHAT` in an instance group (`IsInGroup(LE_PARTY_CATEGORY_INSTANCE)`),
-  else `PARTY`; never solo or in a raid.
-- Setting `party.chat`, on by default. With it on, `GROUP_ROSTER_UPDATE` and
-  `GROUP_LEFT` are registered; in a party also `QUEST_LOG_UPDATE` (one read
-  0.5 s after a burst) and `PLAYER_ENTERING_WORLD`. Leaving the party drops
-  what it knew and any line waiting.
+- Lines, each starting with the marker `L["{rt1} Polestar: "]` (frFR
+  `"{rt1} Polestar : "`, ruRU `"{звезда} Polestar: "`: Forever's ruRU
+  GlobalStrings list `RAID_TARGET_1` "Звезда" among the chat's star tags):
+  `{rt1}` is the chat token every client draws as the Star raid icon.
+  - `LC("party chat", "%s %s")` with the quest's link and its objectives
+    finished within 3 s, each as "Plagued Hide 5/5" (`Compat.ObjectiveLabel`
+    of the log's text, then the counts), joined by `LC("party chat", ", ")`:
+    `[Plagued Lands] Plagued Hide 5/5, Rabid Wolves 8/8`.
+  - `L["%s is ready to turn in"]` with the quest's link.
+  - `L["looted %s, which starts %s"]` with the item's link from the client's
+    `CHAT_MSG_LOOT` line for your loot (`LOOT_ITEM_SELF_MULTIPLE`,
+    `LOOT_ITEM_SELF` made into patterns) and the quest's link: the first
+    quest `QuestDB.StartedBy(itemID)` names (the start items of the quest
+    database, as the item tooltip's "Starts a quest" line) that is neither
+    done nor in the log, once a session per quest. Nothing while the quest
+    database is not loaded.
+  The quest link is the client's `GetQuestLink(questID)` (what a shift-click
+  on the quest puts in chat, Mainline QuestMapFrame; for the loot line asked
+  0.5 s after `Compat.RequestQuest`), else the title as plain text. Square
+  brackets go out only inside links (the server turns plain ones into
+  parentheses), so titles and objective texts lose theirs. Nothing goes out
+  when no title can be read, nor for an objective whose text is a secret
+  value. A line stays within 255 bytes: the objective list keeps the whole
+  objectives that fit and ends in ", …" (a single objective too long is cut
+  on a UTF-8 boundary, then "…"); a ready or loot line that would not fit is
+  dropped. Sent with `C_ChatInfo.SendChatMessage` (the bare
+  `SendChatMessage` is only Blizzard_DeprecatedChatInfo's fallback) as
+  `INSTANCE_CHAT` in an instance group
+  (`IsInGroup(LE_PARTY_CATEGORY_INSTANCE)`), else `PARTY`; never solo or in
+  a raid.
+- Settings `party.chat` (objectives and ready quests) and `party.chatLoot`
+  (the loot line), on by default. With either on, `GROUP_ROSTER_UPDATE` and
+  `GROUP_LEFT` are registered; in a party also, for `party.chat`,
+  `QUEST_LOG_UPDATE` (one read 0.5 s after a burst) and
+  `PLAYER_ENTERING_WORLD`, and for `party.chatLoot` `CHAT_MSG_LOOT`. Leaving
+  the party drops what it knew and any line waiting. `party.chatOnlyNeeded`
+  (off): while `Party.AllRunPolestar()` (every member online has spoken
+  Polestar; never with sharing and showing both off, which hear nobody) the
+  lines waiting are dropped instead of sent.
 - A read walks the log (`C_QuestLog.GetInfo`, `Compat.GetQuestObjectives`)
   and keeps per quest which objectives are `finished` (the client's verdict:
   Forever can report 1/1 on one not done yet) and whether
@@ -4098,8 +4125,10 @@ shares nothing with them but the Group section.
   (taken with the items already in the bags, or seen at login). Both are
   sticky while the quest stays in the log, so a count that drops and comes
   back says nothing; a quest gone from the log (`IsOnQuest` false) is
-  forgotten and starts over if taken again. The read in which the quest
-  becomes ready gives the ready line alone.
+  forgotten and starts over if taken again. Objectives newly finished wait
+  3 s from the first for more of the same quest, then go out as one line;
+  the read in which the quest becomes ready gives the ready line alone and
+  drops the objectives still waiting.
 - For 5 s after it starts listening (login, reload, joining a party, the
   setting turned on) and after every `PLAYER_ENTERING_WORLD`, reads only
   learn: the client fills counts in after login, and a loading screen can
@@ -4108,7 +4137,16 @@ shares nothing with them but the Group section.
   `C_ChatInfo.InChatMessagingLockdown()` (the client's chat restrictions in
   encounters) a line waits, looked at every 2 s, and one older than 120 s is
   dropped. The first line sent prints once per account
-  (`PolestarDB.partyChatTold`) where to turn it off.
+  (`PolestarDB.partyChatTold`) where to change it.
+- A message filter (`ChatFrameUtil.AddMessageEventFilter`, else
+  `ChatFrame_AddMessageEventFilter`) on `CHAT_MSG_PARTY`,
+  `CHAT_MSG_PARTY_LEADER`, `CHAT_MSG_INSTANCE_CHAT` and
+  `CHAT_MSG_INSTANCE_CHAT_LEADER` knows a Polestar line by any language's
+  marker (`PartyChat.MarkerToken`: `{rt1}` or `{звезда}`, then
+  " Polestar: " or " Polestar : ") and shows it with Polestar's logo
+  (`Media/UI/logo`, `|T…:0|t`) in place of the token. Your own lines are
+  dropped unless `party.chatEcho` is on; with `party.chatHideOthers` on,
+  other players' are dropped too. Every other line passes untouched.
 
 ## Gear — item stats, stat weights, upgrade tooltips, reward picks
 

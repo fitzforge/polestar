@@ -626,14 +626,21 @@ runs solo or in a raid.
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,
   rolled or said for you.
-- **Tell my party in chat** (on by default): the one part everyone in the
-  party sees, Polestar or not. When you finish one of a quest's objectives,
-  one party chat line with the quest's link ("[Polestar] Finished: Plagued
-  Hide 5/5 - [Plagued Lands]"), and when the quest is ready to turn in,
-  "[Polestar] Ready to turn in: [Plagued Lands]". Nothing for what was
-  already done when you log in, reload or join, and never the same line
-  twice. During a boss fight, while the game holds chat back, a line waits
-  up to two minutes. The first line says once where to turn it off.
+- **Tell my party** (on by default): the one part everyone in the party
+  sees, Polestar or not. Party chat lines that start with the Star raid
+  icon and the quest's link: "Polestar: [Plagued Lands] Plagued Hide 5/5,
+  Rabid Wolves 8/8" for objectives you finish (those within a few seconds
+  in one line), "Polestar: [Plagued Lands] is ready to turn in", and, when
+  you loot an item that starts a quest, "Polestar: looted [Mysterious
+  Letter], which starts [The Dark Iron War]". Nothing for what was already
+  done when you log in, reload or join, and never the same line twice.
+  During a boss fight, while the game holds chat back, a line waits up to
+  two minutes. The first line says once where to change it. Party members
+  with Polestar see Polestar's star on these lines; your own stay out of
+  your chat unless you turn "Show my own lines in my chat too" on. Also
+  under Options > Questing > Quests > Group: the loot line, hiding other
+  players' Polestar lines, and "Only when someone in the party doesn't have
+  Polestar".
 
 ### Gear advice
 

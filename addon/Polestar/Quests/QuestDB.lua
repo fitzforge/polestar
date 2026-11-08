@@ -561,6 +561,28 @@ function Q.FollowUps(id)
 	return followUps[id]
 end
 
+-- Quests item itemID starts (the quests' start item), ascending, or nil.
+-- Built on the first ask, and again once more quest chunks arrived (the item
+-- tooltip's "Starts a quest" line, Quests/PartyChat.lua's loot line).
+local startedBy, startedByOf
+function Q.StartedBy(itemID)
+	local ids = Q.QuestIds()
+	if startedByOf ~= ids then
+		startedBy, startedByOf = {}, ids
+		for _, q in ipairs(ids) do
+			for _, it in Each(data.quests[q][QUEST_START_ITEM]) do
+				local list = startedBy[it]
+				if not list then
+					list = {}
+					startedBy[it] = list
+				end
+				list[#list + 1] = q
+			end
+		end
+	end
+	return startedBy[itemID]
+end
+
 ---------------------------------------------------------------------------
 -- Client calls Compat does not offer (reported as contract gaps)
 ---------------------------------------------------------------------------

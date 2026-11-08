@@ -538,9 +538,17 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "Indicar quién aún necesita botín de misión"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "En una ventana de botín o una tirada, una línea bajo un objeto de misión que un miembro del grupo aún necesita y tú no. No se pasa ni se dice nada por ti."
 L["Party panel"] = "Panel del grupo"
-L["Tell my party in chat when I finish a quest objective"] = "Avisar a mi grupo en el chat cuando complete un objetivo de misión"
-L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Una línea en el chat de grupo con el enlace de la misión cuando completas un objetivo, y otra cuando la misión está lista para entregar. Todo el grupo la ve, tenga Polestar o no. Nunca en solitario ni en banda."
 -- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
+L["Tell my party about objectives and ready quests"] = "Avisar a mi grupo de objetivos y misiones listas para entregar"
+L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Una línea en el chat de grupo con el enlace de la misión cuando completas sus objetivos, y otra cuando la misión está lista para entregar. Todo el grupo la ve, con o sin Polestar. Nunca en solitario ni en banda."
+L["Tell my party when I loot an item that starts a quest"] = "Avisar a mi grupo cuando despoje un objeto que inicia una misión"
+L["A party chat line with the item's link and the quest it starts."] = "Una línea en el chat de grupo con el enlace del objeto y la misión que inicia."
+L["Show my own lines in my chat too"] = "Mostrar también mis propias líneas en mi chat"
+L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] = "Desactivado: tu grupo ve las líneas que Polestar dice por ti, y tu chat queda libre de ellas."
+L["Hide other players' Polestar lines"] = "Ocultar las líneas de Polestar de otros jugadores"
+L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "Las líneas de Polestar de los miembros del grupo desaparecen de tu chat. Visibles, llevan la estrella de Polestar."
+L["Only when someone in the party doesn't have Polestar"] = "Solo si alguien del grupo no tiene Polestar"
+L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "No se envía nada al chat mientras todo tu grupo use Polestar: ya ven tu progreso en su guía."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "gran mejora"
@@ -2959,11 +2967,6 @@ L["Show or hide the party panel"] = "Mostrar u ocultar el panel del grupo"
 -- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
 -- L["The party panel comes back after combat."] = ""
 
--- Quests/PartyChat.lua
-L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar ha avisado a tu grupo de que completaste un objetivo de misión (Opciones > Misiones > Misiones > Grupo para desactivarlo)."
-L["Ready to turn in: %s"] = "Lista para entregar: %s"
-L["Finished: %s - %s"] = "Completado: %s - %s"
-
 -- UI/DungeonToast.lua
 -- L["LEVEL %d · DUNGEON"] = ""
 -- L["%s is open to you"] = ""
@@ -2977,6 +2980,14 @@ L["Finished: %s - %s"] = "Completado: %s - %s"
 
 -- UI/WhileHere.lua
 -- L["While you're here"] = ""
+
+-- Quests/PartyChat.lua
+L["{rt1} Polestar: "] = "{rt1} Polestar: "
+L["party chat: %s %s"] = "%s %s"
+L["party chat: , "] = ", "
+L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar ha contado a tu grupo en el chat cómo van tus misiones (Opciones > Misiones > Misiones > Grupo para cambiarlo)."
+L["%s is ready to turn in"] = "%s está lista para entregar"
+L["looted %s, which starts %s"] = "ha conseguido %s, que inicia %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."

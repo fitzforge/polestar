@@ -538,9 +538,17 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "顯示誰還需要任務戰利品"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "在拾取視窗或擲骰時，在隊伍成員還需要而你不需要的任務物品下顯示一行。不會替你放棄或發言。"
 L["Party panel"] = "隊伍面板"
-L["Tell my party in chat when I finish a quest objective"] = "完成任務目標時在聊天中告訴隊伍"
-L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "完成一個目標時，在隊伍聊天中發一行附任務連結的訊息；任務可繳交時再發一行。隊伍裡每個人都看得到，無論是否使用 Polestar。單人或團隊中從不發送。"
 -- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
+L["Tell my party about objectives and ready quests"] = "告訴隊伍任務目標和可繳交的任務"
+L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "完成任務目標時在隊伍聊天中發一行附任務連結，任務可繳交時再發一行。隊伍所有人都看得到，無論是否使用 Polestar。單人或團隊中從不發送。"
+L["Tell my party when I loot an item that starts a quest"] = "拾取可開始任務的物品時告訴隊伍"
+L["A party chat line with the item's link and the quest it starts."] = "在隊伍聊天中發一行，附物品連結和它開始的任務。"
+L["Show my own lines in my chat too"] = "在我的聊天中也顯示我自己的行"
+L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] = "關閉：隊伍看得到 Polestar 替你發的行，你的聊天中不顯示它們。"
+L["Hide other players' Polestar lines"] = "隱藏其他玩家的 Polestar 行"
+L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] = "隊伍成員的 Polestar 行不再出現在你的聊天中。顯示時會帶有 Polestar 的星標。"
+L["Only when someone in the party doesn't have Polestar"] = "僅當隊伍中有人沒有 Polestar 時"
+L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] = "隊伍所有人都使用 Polestar 時不向聊天傳送任何內容：他們在自己的指南中就看得到你的進度。"
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -2959,11 +2967,6 @@ L["Show or hide the party panel"] = "顯示或隱藏隊伍面板"
 -- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
 -- L["The party panel comes back after combat."] = ""
 
--- Quests/PartyChat.lua
-L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar 已告訴你的隊伍你完成了一個任務目標（在 選項 > 解任務 > 任務 > 小隊 中關閉）。"
-L["Ready to turn in: %s"] = "可繳交：%s"
-L["Finished: %s - %s"] = "已完成：%s - %s"
-
 -- UI/DungeonToast.lua
 -- L["LEVEL %d · DUNGEON"] = ""
 -- L["%s is open to you"] = ""
@@ -2977,6 +2980,14 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 
 -- UI/WhileHere.lua
 -- L["While you're here"] = ""
+
+-- Quests/PartyChat.lua
+L["{rt1} Polestar: "] = "{rt1} Polestar: "
+L["party chat: %s %s"] = "%s %s"
+L["party chat: , "] = "，"
+L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."] = "Polestar 已在聊天中告訴你的隊伍你的任務進度（在 選項 > 解任務 > 任務 > 小隊 中更改）。"
+L["%s is ready to turn in"] = "%s 可繳交"
+L["looted %s, which starts %s"] = "拾取了 %s，可開始任務 %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
