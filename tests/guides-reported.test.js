@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
-const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
+const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
@@ -1791,7 +1791,7 @@ test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's ele
 	const list = goals(BADLANDS);
 	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const lotwil = at(list, 'accept 710 (Lotwil)', is('accept', 710));
-	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the flakes', (g) => g.t === 'collect' && g.quest === 1108], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
+	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
 		assert.ok(at(list, what, pred) < lotwil, `${what} before Lotwil`);
 	}
 	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
@@ -1854,7 +1854,10 @@ test('forever/horde/30-40/03-arathi-highlands.guide: flow re-order: Jarkal\'s sh
 	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'the Rock Elemental Shards collected with the Small Stone Shards');
 	const wings = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3404);
 	assert.equal(wings.length, 1, 'the wings listed once');
-	assert.equal(wings[0].s, list[at(list, 'collect 5797 (Stonevault flakes)', (g) => g.t === 'collect' && g.item === 5797)].s, 'the wings with the troggs, on the way to Agmond\'s End');
+	// Indurium's flakes (1108), which the wings were gathered with, are left out with Martek the Exiled (#1214).
+	const theldurin = at(list, 'accept 709 (Theldurin)', is('accept', 709));
+	const rigglefuzz = at(list, 'turnin 703 (Rigglefuzz)', is('turnin', 703));
+	assert.ok(theldurin < at(list, 'the wings', (g) => g.t === 'collect' && g.item === 3404) && wings[0].s < list[rigglefuzz].s, 'the wings between Agmond\'s End and Rigglefuzz');
 });
 
 // --- Flow re-order (2026-11-07, #1109): Horde Stranglethorn 30-40 had six
@@ -4775,17 +4778,17 @@ test('Redridge level gap (PR #1052): Duskwood\'s first loop comes before Redridg
 	for (const q of [91, 94, 248, 34, 98387]) assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
 });
 
-test('Redridge level gap (PR #1052): Redridge\'s elites and Fangore on its one loop, Duskwood\'s second loop after it', { skip }, () => {
+test('Redridge level gap (PR #1052): Redridge\'s Gath\'Ilzogg, Gar\'im and Fangore on its one loop, Duskwood\'s second loop after it', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	const camps = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const back = at(list, 'turnin 20 (Back to Lakeshire)', is('turnin', 20));
-	for (const q of [19, 115, 169, 95999, 180]) {
+	for (const q of [169, 95999, 180]) {
 		assert.ok(at(list, `accept ${q}`, is('accept', q)) < camps, `${q} is taken in Lakeshire before the camps`);
 		assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the stop back in Lakeshire`);
 	}
 	const dusk = goals('forever/alliance/05-duskwood.guide');
 	assert.ok(!dusk.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
-	assert.ok(!dusk.some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'no second Redridge pass');
+	assert.ok(!dusk.some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'no second Redridge pass (19 and 115 are left out)');
 });
 
 // --- Flow audit (2026-11-07, Redridge): after Lakeshire's accepts at the west end of town the guide swam
@@ -5321,13 +5324,14 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Gleanin
 	assert.ok(mine.length >= 5, 'the four hearts and the hand-in');
 	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 98310 && !p.neg), `${goal.t} 98310 is under when group 98310`);
 });
-// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered Indurium's flakes and the buzzard wings, then
-// walked past Martek and Rigglefuzz from the Ancient Chest to Theldurin; both waited for the 40-50 Badlands guide.
-test('forever/alliance/30-40/06-badlands.guide: final review: Martek and Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
+// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered the buzzard wings, then walked past Rigglefuzz
+// from the Ancient Chest to Theldurin; he waited for the 40-50 Badlands guide. (Martek's Indurium is left out with
+// Martek the Exiled, which Fizzle never offers on the route: Hardened Shells is skipped.)
+test('forever/alliance/30-40/06-badlands.guide: final review: Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
 	const list = goals('forever/alliance/30-40/06-badlands.guide');
 	const chest = at(list, 'collect 4631', (g) => g.t === 'collect' && g.item === 4631);
 	const theldurin = at(list, 'turnin 709', is('turnin', 709));
-	for (const q of [1108, 703]) {
+	for (const q of [703]) {
 		const i = at(list, `turnin ${q}`, is('turnin', q));
 		assert.ok(chest < i && i < theldurin, `turnin ${q} between the chest and Theldurin`);
 	}
@@ -5672,3 +5676,34 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+// Wetlands report (2026-11-07, Discord; #1184, #1206): on 0.3.4 "pretty much all the quests" the guide asked
+// for at Menethil and the dig were chain quests nobody could take yet. Every leveling path (each start,
+// each `next` option) is played as every race and class, and no accept may come before its blocking
+// prerequisites are handed in on that path (tools/lib/route/prereq-order.js; lint's check counts a hand-in
+// on any branch into the guide).
+test('every leveling path hands in each accept\'s prerequisites before the accept, for every start, race and class', { skip }, () => {
+	const { prereqOrder } = require('../tools/lib/route/prereq-order');
+	const { guides, data: all } = compileProject({ packDir: OFFICIAL_DIR, manifest: { id: 'guides', author: 'Polestar' }, dataDir: DATA });
+	const found = prereqOrder(guides, all).map(
+		(v) => `${path.relative(OFFICIAL_DIR, v.file).split(path.sep).join('/')}:${v.line} accept ${v.quest} (${v.title}) needs ${v.missing.join(v.any ? ' or ' : ' and ')} handed in first (${v.race} ${v.cls || ''}, path from ${v.path[0]}${v.groups === 'do' ? ', group quests on' : ''})`
+	);
+	assert.deepEqual(found, []);
+});
+
+test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after the hand-in that opens them', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const hb = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const idx = (list, t, q) => at(list, `${t} ${q}`, (g) => g.t === t && g.quest === q);
+	assert.ok(idx(wet, 'turnin', 299) < idx(wet, 'accept', 98216), 'Understanding Our Present after Uncovering the Past (#1206)');
+	for (const t of ['collect', 'turnin']) {
+		const g = wet.find(({ goal }) => goal.t === t && goal.quest === 98216);
+		assert.ok((g.step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(98216)), `the keystone's ${t} only with 98216 in the log`);
+	}
+	assert.ok(idx(wet, 'turnin', 98216) < idx(wet, 'accept', 98310), 'Gleaning Our Future after Understanding Our Present');
+	assert.ok(wet[idx(wet, 'accept', 98310)].step.when.some((p) => p.k === 'turnedin' && [].concat(p.q).includes(98216)), 'Gleaning Our Future only once 98216 is handed in (98216 is optional)');
+	assert.ok(idx(wet, 'turnin', 275) < idx(wet, 'accept', 98283), 'Carnage after Fen Creeper');
+	assert.ok(!wet.some(({ goal }) => goal.t === 'accept' && goal.quest === 98313), 'For Further Study is not taken on the first dig visit');
+	assert.ok(idx(hb, 'turnin', 98310) < idx(hb, 'accept', 98313), 'For Further Study after Gleaning Our Future');
+	assert.ok(idx(hb, 'turnin', 637) < idx(hb, 'accept', 683), "Sara Balloo's Plea after Sully Balloo's Letter");
+});

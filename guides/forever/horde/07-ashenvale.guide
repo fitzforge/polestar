@@ -11,6 +11,7 @@ next forever/horde/30-40/01-desolace
 # into this file.
 # Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), A Bump in the Road (1175), Load Lightening (1176).
+# Left out with it: Martek the Exiled (1106), which Fizzle offers only once both Salt Flat Venom (1104) and Hardened Shells are handed in, and its Badlands sequel Indurium (1108).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -429,7 +430,6 @@ step Mirage Raceway: kill these as you meet them
 step Mirage Raceway
   turnin 1110                         -- Kravel Koalbeard
   turnin 1104                         -- Fizzle Brassbolts
-  accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, around level 38
 
 step Freewind Post
   note The next guide flies on from here to Orgrimmar.
