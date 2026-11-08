@@ -19,7 +19,12 @@
 --       objectives, any standing they name held, given (not by an item) and
 --       turned in outside by an NPC or object this character may use: Hamuul
 --       Runetotem and Nara Wildmane before Leaders of the Fang), which are
---       then done on the way as its prerequisites; pre: the open
+--       then done on the way as its prerequisites; one with a prerequisite
+--       the guide cannot start out here waits until that one is in the log
+--       or done (neither taken nor `later`): one an item starts that is not
+--       in the bags nor given by a quest before it (The Unsent Letter, Edwin
+--       VanCleef's drop in the Deadmines, before Bazil Thredd), or one with no
+--       placed giver or turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
 --       prerequisites, in the order they are done
 --       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
 --       breadcrumbs of the page's chain each before the quest it leads to
@@ -174,6 +179,32 @@ local function errand(r, from, p)
 	if not (g and g.spawn and not g.hostile) then return false end
 	local e = Lk.QuestEnd(r["end"], g.spawn, p)
 	return (e and e.spawn and not e.hostile) and true or false
+end
+
+-- Whether the pick-up guide can start chain quest r out here, as its step
+-- (Lookup.QuestStep) would: a turn-in with a place, and a giver with one or
+-- the item that starts it, in the bags or given by a quest before it in the
+-- chain (`before`, records). One that is only a "First do the quest" note, or
+-- an accept from an item the character lacks (Edwin VanCleef's An Unsent
+-- Letter, inside the Deadmines), is not.
+local function startable(r, before, from, p)
+	local Lk = LK()
+	local st = r.start
+	local g = Lk.QuestEnd(st, from, p)
+	local e = Lk.QuestEnd(r["end"], g and g.spawn or from, p)
+	if not (e and e.spawn) then return false end
+	if g and g.spawn then return true end
+	local item = st and st.item and st.item[1]
+	if not item then return false end
+	if (tonumber(ns.Compat.GetItemCount(item, true)) or 0) > 0 then return true end
+	for _, b in ipairs(before) do
+		for _, list in ipairs({ b.rewards or {}, b.choices or {} }) do
+			for _, id in ipairs(list) do
+				if id == item then return true end
+			end
+		end
+	end
+	return false
 end
 
 -- A page quest's side when neither the Codex nor the quest database knows
@@ -331,6 +362,11 @@ function Dungeons.PickupPlan(key)
 						-- lowest level, puts it off as its own level would: Fury
 						-- in the Depths (22) waits on The Dark Iron War (25), #1076.
 						if (r.minLevel or 1) > reach then wait = true end
+						-- One the guide cannot start out here (an item the
+						-- character lacks, no placed giver or turn-in) leaves it
+						-- for after that one: Bazil Thredd waits on The Unsent
+						-- Letter, which drops in the Deadmines.
+						if not inLog(r.id) and not startable(r, pre, from, p) then ok = false end
 						pre[#pre + 1] = r
 					end
 				end

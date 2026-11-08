@@ -4871,7 +4871,12 @@ page -- unless the quests before it here are errands (no objectives, any
 standing they name held, given (not by an item) and turned in outside by an
 NPC or object this character may use: Hamuul Runetotem and Nara Wildmane
 before Leaders of the Fang), which are then done on the way as its prerequisites; a quest done on the way
-to another is neither a take of its own nor carried; each with its open
+to another is neither a take of its own nor carried; one with a prerequisite the
+guide cannot start out here (not in the log, and started by an item neither in
+the bags nor given by a quest before it in the chain, or with no placed giver or
+turn-in: The Unsent Letter, Edwin VanCleef's drop, before Bazil Thredd; Finkle
+Einhorn inside Blackrock Spire) is not taken before the run, nor counted as `later` (that
+is the level's); each with its open
 prerequisites (`Lookup.QuestChain`: all of `pre`, one
 of `preAny` this character can take, in the order they are done, the whole
 chain however long: each quest once, so a cycle in the data ends the walk), and

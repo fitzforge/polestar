@@ -1015,6 +1015,64 @@ emit({ take = take, pre = pre, later = plan.later, chain = chain })"#);
 	assert_eq!(required["later"], json!(1));
 }
 
+// The dungeon sweep (2026-11-08): the Stockade pick-up guide of an Alliance character who had not run the
+// Deadmines sent them to "accept" The Unsent Letter (373), which only Edwin VanCleef's drop starts, before Bazil
+// Thredd (389); Scholomance's and Stratholme's left bare "First do the quest Finkle Einhorn, At Your Service!"
+// notes (a giver inside Blackrock Spire) before quests nobody offers without it. A quest with a prerequisite
+// the guide cannot start out here (an item not in the bags, a giver or turn-in with no place) is not taken
+// before the run, nor counted as opening at a later level; with the item in the bags it is taken after it.
+#[test]
+fn a_quest_whose_prerequisite_starts_from_an_item_the_character_lacks_or_has_no_placed_giver_waits_the_unsent_letter_before_bazil_thredd() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, spawns: Value| {
+		json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": spawns })
+	};
+	c["npcs"]["90710"] = npc(90710, "Baros Alexston", json!([{ "map": 1421, "x": 40, "y": 40, "f": "e" }]));
+	c["npcs"]["90712"] = npc(90712, "Pip Quickwit", json!([]));
+	let quest = |id: i32, giver: Value, item: Value, pre_any: &[i32]| {
+		json!({
+			"id": id, "title": format!("Quest {id}"), "level": 22, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": giver, "object": [], "item": item }, "end": { "npc": [90710], "object": [] },
+			"objectives": [], "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["90713"] = quest(90713, json!([]), json!([90711]), &[]);
+	c["quests"]["90714"] = quest(90714, json!([90710]), json!([]), &[90713]);
+	c["quests"]["90715"] = quest(90715, json!([90712]), json!([]), &[]);
+	c["quests"]["90716"] = quest(90716, json!([90710]), json!([]), &[90715]);
+	i["forever"]["quests"]["90714"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90716"] = json!({ "area": 209 });
+	let pack = pack_of(&c, &i);
+	let script = |before: &str| {
+		k(&format!(
+			r#"{before}
+local plan = D.PickupPlan("{{KEY}}")
+local take, pre, accepts = {{}}, {{}}, {{}}
+for _, t in ipairs(plan.take) do
+	take[#take + 1] = t.quest.id
+	if t.quest.id == 90714 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+table.sort(take)
+for _, s in ipairs(D.PickupGuide("{{KEY}}").steps) do
+	for _, g in ipairs(s.goals) do if g.t == "accept" or g.t == "note" then accepts[#accepts + 1] = g.t .. ":" .. tostring(g.quest or g.text) end end
+end
+emit({{ take = take, pre = pre, later = plan.later, accepts = table.concat(accepts, " ") }})"#
+		))
+	};
+	let lacks = run(&pack, &script(""), Opts::default()).remove(0);
+	assert!(!takes(&lacks, 90714), "not taken without the letter: {}", lacks["take"]);
+	assert!(!takes(&lacks, 90716), "not taken while its prerequisite's giver has no place: {}", lacks["take"]);
+	let carries = run(&pack, &script("stub.world.addItem(90711, 1)"), Opts::default()).remove(0);
+	assert_eq!(lacks["later"], carries["later"], "neither counted as opening at a later level");
+	let steps = js(&lacks["accepts"]);
+	assert!(!steps.contains("accept:90713") && !steps.contains("First do the quest"), "no accept from an item the character lacks, no bare note: {steps}");
+	assert!(takes(&carries, 90714), "taken with the letter in the bags: {}", carries["take"]);
+	assert_eq!(carries["pre"], json!([90713]), "after the quest the letter starts");
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"
