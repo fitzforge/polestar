@@ -8395,3 +8395,87 @@ test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the
 	assert.ok(g[top].goal.level + (g[top].goal.frac || 0) < 60, 'the top-up leaves the Chillwind hand-ins their XP');
 	assert.ok(at(g, 'turnin 6389', is('turnin', 6389)) > top, 'A Plague Upon Thee is handed in after the top-up too');
 });
+
+// --- Alliance 40-60 quest volume, 0.3.7 (2026-11-09) ---
+const lvlOf = (goal) => goal.level + (goal.frac || 0);
+const required = ({ goal }) => !goal.optional;
+
+test('Alliance 58-60: the Jaedenar key chain is part of the route on the Shadow Hold visits, not optional at 53', { skip }, () => {
+	const g = goals('forever/alliance/50-60/06-silithus.guide');
+	const order = [
+		['collect', 13140], ['accept', 5202], ['turnin', 5202], ['accept', 5203], ['complete', 5203], ['turnin', 5203],
+		['accept', 5204], ['turnin', 5204], ['accept', 5385], ['turnin', 5385],
+	].map(([t, q]) => {
+		const i = g.findIndex(({ goal }) => goal.t === t && (goal.quest === q || (t === 'collect' && goal.item === q)));
+		assert.ok(i >= 0, `${t} ${q} is in 06`);
+		assert.ok(!g[i].goal.optional, `${t} ${q} is not optional`);
+		return i;
+	});
+	for (let k = 1; k < order.length; k++) assert.ok(order[k - 1] < order[k], `step ${k} of the chain comes in order`);
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	for (const q of [5202, 5203, 5204, 5385]) assert.ok(!fw.some(({ goal }) => goal.quest === q), `02-felwood leaves ${q} to the 58 visit`);
+});
+
+test('Alliance 53-60: the ritual totems and Meilosh\'s Runecloth come from the route\'s furbolg kills and are handed in at Timbermaw Hold', { skip }, () => {
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	assert.ok(fw.some(({ goal }) => goal.t === 'accept' && goal.quest === 8470 && !goal.optional), '02: Deadwood Ritual Totem taken');
+	assert.ok(!fw.some(({ goal }) => goal.t === 'accept' && goal.quest === 6031), '02: Runecloth is not offered before Friendly');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const top = ws.findIndex(({ goal }) => goal.t === 'level' && lvlOf(goal) >= 54.85);
+	const totem = at(ws, 'accept 8471', is('accept', 8471));
+	assert.ok(top >= 0 && top < totem && !ws[totem].goal.optional, '03: the Winterfall totem is taken after the top-up, counted');
+	const end = goals('forever/alliance/50-60/06-silithus.guide');
+	for (const [t, q] of [['turnin', 8470], ['turnin', 8471], ['accept', 6031], ['turnin', 6031]]) {
+		const i = at(end, `${t} ${q}`, is(t, q));
+		assert.ok(!end[i].goal.optional, `06: ${t} ${q} is counted`);
+	}
+});
+
+test('Alliance 47-48: everyone flies from Nethergarde to Booty Bay for MacKinley and the Bloodsail captains', { skip }, () => {
+	const tan = goals('forever/alliance/40-50/04-tanaris.guide');
+	assert.ok(at(tan, 'turnin 2873', is('turnin', 2873)) < at(tan, 'accept 2874', is('accept', 2874)), '04: Deliver to MacKinley taken from Stoley');
+	const g = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const pick = (t, q) => {
+		const i = at(g, `${t} ${q}`, is(t, q));
+		assert.ok(!(g[i].step.when || []).some((p) => p.k === 'group'), `${t} ${q} is for everyone`);
+		return i;
+	};
+	const fly = g.findIndex(({ goal }) => goal.t === 'fly');
+	assert.ok(fly >= 0 && !(g[fly].step.when || []).some((p) => p.k === 'group'), 'the flight to Booty Bay is for everyone');
+	const a = pick('turnin', 2874), b = pick('accept', 608);
+	const kills = [2550, 2548, 2546].map((npc) => at(g, `kill ${npc}`, (x) => x.t === 'kill' && x.npc === npc));
+	const c = pick('turnin', 608);
+	assert.ok(fly < a && a < c && b < Math.min(...kills) && Math.max(...kills) < c, 'Booty Bay, the captains, Booty Bay');
+});
+
+test('Alliance 42: the solo top-up for the skipped Nesingwary hunts grinds the Skullsplitter trolls whose tusks Kebok wants (reviewer: the grind block before Booty Bay)', { skip }, () => {
+	const g = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const bb = at(g, 'turnin 611', is('turnin', 611));
+	const tusks = at(g, 'collect tusks', (x) => x.t === 'collect' && x.quest === 209);
+	const hunts = Math.max(at(g, 'turnin 193', is('turnin', 193)), at(g, 'turnin 208', is('turnin', 208)));
+	const tops = g.slice(0, bb).map((e, i) => ({ ...e, i })).filter(({ goal, i }) => goal.t === 'level' && i > at(g, 'turnin 196', is('turnin', 196)));
+	assert.equal(tops.length, 2, 'the solo top-up and one fallback for players who did some of the hunts');
+	const [solo, rest] = tops;
+	assert.ok(solo.i < tusks, 'the solo top-up comes before the tusks are done');
+	for (const q of [193, 197, 208]) assert.ok((solo.step.when || []).some((p) => p.k === 'group' && p.neg && [p.q].flat().includes(q)), `solo only: !group ${q}`);
+	assert.ok(rest.i > hunts && !(rest.step.when || []).some((p) => p.k === 'group'), 'the fallback comes after the hunts, for anyone still short');
+});
+
+test('Alliance Un\'Goro, second visit: the Scent of Lar\'korwi, the Bait and The Apes of Un\'Goro are one Torwa stop', { skip }, () => {
+	const second = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const torwa = [is('turnin', 4291), is('accept', 4292), is('accept', 4289)].map((p, k) => second[at(second, `Torwa ${k}`, p)].s);
+	assert.equal(new Set(torwa).size, 1, 'one stop at Torwa');
+	const first = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept' && goal.quest === 4289), '07 does not take The Apes of Un\'Goro (level 55) at 49');
+});
+
+test('Alliance Winterspring and Feralas: the long top-ups are split onto the quest mobs', { skip }, () => {
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const k = at(ws, 'kill for 5082', (x) => x.t === 'kill' && x.quest === 5082);
+	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 54 && s === ws[k].s), '03: level 54 in the Frostfire step that kills for Donova');
+	const fe = goals('forever/alliance/40-50/03-feralas.guide');
+	const hide = at(fe, 'Rage Scar Yeti Hide', (x) => x.t === 'collect' && x.quest === 7733);
+	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
+	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
+	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
+});
