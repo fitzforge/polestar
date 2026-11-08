@@ -10,9 +10,9 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Voar para {area:42}",
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
+	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "De volta ao mestre de grifos de {area:69}: voe até {area:42} para o segundo circuito de {zone:1431}.",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "Mestre de voo de {area:69}",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -62,7 +62,7 @@ return {
 	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
-	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
+	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Siga para o sul pelo cemitério em direção a {area:94}. Malévolos Descarnados e Horrores Descarnados andam pela metade sul. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 
 	-- Step 14: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: Sven's Camp
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
-	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "",
+	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "Em seguida: treino, depois o voo de {zone:1453} até {area:150} para {zone:1437}.",
 
 	-- Step 17: Agent Kearnen
 	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
@@ -92,7 +92,7 @@ return {
 
 	-- Step 19: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
-	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
+	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "Ao norte, de {area:94} por Elwynn: {area:87} fica na estrada para {zone:1453}.",
 
 	-- Step 20: Class trainer
 	["Class trainer"] = "Instrutor de classe",

@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {area:618} do túnel de {area:1769}, por onde você sai.",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
@@ -65,7 +65,7 @@ return {
 	-- Step 11: Level 55.05
 	["Level 55.05"] = "Nível 55.05",
 	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.05 antes das entregas em {area:2255}: elas levam você ao nível 56. Mate os furbolgs Invernosos acampados perto de {area:2246} (Desbravadores, Totêmicos, Vigias do Covil): matá-los aumenta sua reputação com o Domínio dos Presamatos, que as missões daqui e a travessia de {area:1769} exigem. Ou, com um grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "mate {npc:7442} até subir",
 
@@ -102,17 +102,17 @@ return {
 
 	-- Step 21: Chillwind Camp
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "",
+	["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "De {area:271}, siga para o norte pela estrada por Alterac até {area:3197}.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: os cupins vêm depois, em {area:2627}",
 	-- {npc:10838} Commander Ashlam Valorfist
 	["{npc:10838}: the watchtowers are in Andorhal, keep it"] = "{npc:10838}: as torres de vigia ficam em Andorhal, guarde",
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
-	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
+	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "{npc:11053}: o caldeirão fica em {area:200}, guarde-o",
 
 	-- Step 22: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "",
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "{npc:10739} fica junto à fazenda em {area:202}, na estrada para leste até {area:139}.",
 	["Inside"] = "Lá dentro",
 
 	-- Step 23: Into Eastern Plaguelands

@@ -14,13 +14,13 @@ return {
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "Treino de arrombamento",
 	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow (no name in this language: may be words) · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "{object:129127}, no fim do serviço da torre, exige Arrombamento de cerca de 70-75. Aprenda {spell:1804} com Gest ou com {npc:3401} na {object:172960}, se não tiver, leve {item:5060} e abra as Caixas-fortes dos Bucaneiros no convés do meio do Tide Razor, o navio pirata encalhado ao sul de {area:392}: elas voltam rápido. Seu limite sobe 5 por nível.",
 	["Tide Razor"] = "Tide Razor",
 	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "Arrombamento de uns 75: arrombe as Caixas-fortes dos Bucaneiros no Tide Razor",
 
 	-- Step 2: The Shattered Salute
 	-- {npc:3401} Shenthul · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words)
-	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "",
+	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "{npc:3401} fica na {object:172960}, o cânion sob o {object:172982}. Pegue a missão e espere: ele diz três falas e faz continência para você. Depois da terceira fala, selecione-o e digite /saudar. Se não contar, abandone a missão e pegue de novo. O serviço da torre adiante gira em torno de Emboscada, que exige uma adaga: se você não tiver nenhuma, Kareth, o vendedor de lâminas na {object:172960}, vende uma Jambiya.",
 	-- {npc:3401} Shenthul
 	["/salute {npc:3401}"] = "/saudar {npc:3401}",
 	-- {quest:2458} Deep Cover · {item:8051} Flare Gun
@@ -28,7 +28,7 @@ return {
 
 	-- Step 3: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
-	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
+	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "Voe até a Encruzilhada e siga para o norte até a torre da Empreendimentos S.A. acima de {area:382}. Arruela fica sob uma árvore a leste da torre, do lado de fora, e é hostil até ser sinalizado. Selecione-o a cerca de 50 metros e dispare o {item:8051} duas vezes, depois ande até ficar na frente dele e use /saudar. Em qualquer outra ordem ele ataca. Perdeu o {item:8051}? Abandone e pegue de novo com {npc:3401}.",
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "{item:8051}, duas vezes, em Arruela",
 
@@ -51,7 +51,7 @@ return {
 	["Back to {npc:3401}"] = "De volta a {npc:3401}",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {item:6947} Instant Poison
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "",
+	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "Voe de volta a {zone:1454} ({area:392} ou a Encruzilhada; morrer na torre e voltar pelo curandeiro espiritual até a Encruzilhada é mais rápido). Fique com {item:8072} depois. Antes de sair de {area:263}, compre {item:2928} e Ampolas Vazias de Rekkol: quando Hinoto ensinar Venenos, cada lote de {item:6947} gasta um de cada.",
 
 	-- Step 7: Serge Hinott
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {item:6947} Instant Poison

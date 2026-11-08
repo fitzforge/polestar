@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Return to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, um dos instrutores de mago de {zone:1454}, em {object:173161}, manda você de volta a {npc:6546}; {npc:4568} em {zone:1458} e {npc:3048} em {zone:1456} dão a mesma missão.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins
@@ -55,7 +55,6 @@ return {
 	-- ["The Burning Blade Summoners work the {area:602} in southern {zone:1443}; any of them carries an {item:7291}."] = "Os Evocadores da Lâmina Ardente trabalham no {area:602}, no sul de {zone:1443}; qualquer um deles leva um {item:7291}.",
 	-- ["{area:1517} is a dungeon in the northern {zone:1418}, by the {object:178824}: a group of five. Defeat the {npc:7023} inside for its power source."] = "{area:1517} é uma masmorra no norte de {zone:1418}, junto à {object:178824}: um grupo de cinco. Derrote o {npc:7023} lá dentro para pegar a fonte de energia dele.",
 	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, na torre do {object:2101} de {zone:1453}, manda você de volta a {npc:6546}; Bink em {zone:1455} dá a mesma missão.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, um dos instrutores de mago de {zone:1454}, manda você de volta a {npc:6546}; {npc:4568} em {zone:1458} e {npc:3048} em {zone:1456} dão a mesma missão.",
 	-- ["{npc:6546} draws the demon out of the orb beside her cottage. The {npc:6549} is elite: grouping up is advised. You have three minutes before it slips back into the orb."] = "{npc:6546} tira o demônio do orbe ao lado da cabana dela. O {npc:6549} é elite: é recomendado formar grupo. Você tem três minutos antes que ele volte para o orbe.",
 	-- ["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}."] = "A cabana de {npc:6546} fica no fundo do pântano a oeste de Theramore, logo ao norte das {area:508}.",
 }

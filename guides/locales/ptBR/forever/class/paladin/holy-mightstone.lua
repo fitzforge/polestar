@@ -15,7 +15,7 @@ return {
 
 	-- Step 2: Brandur Ironhammer
 	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:928} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 50 {npc:5149}, the paladin trainer in the {object:32362}, sends you to {area:3197} in the {zone:1422}. {npc:928} in {zone:1453} gives the same quest."] = "",
+	["At 50 {npc:5149}, the paladin trainer in the {object:32362}, sends you to {area:3197} in the {zone:1422}. {npc:928} in {zone:1453} gives the same quest."] = "No nível 50, {npc:5149}, o instrutor de paladino na {object:32362}, manda você a {area:3197}, em {zone:1422}. {npc:928}, em {zone:1453}, dá a mesma missão.",
 
 	-- Step 3: Chillwind Camp
 	-- {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:10838} Commander Ashlam Valorfist · {npc:10840} Argent Officer Pureheart

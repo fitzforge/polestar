@@ -93,7 +93,7 @@ return {
 	-- Step 27: Level 59.9
 	["Level 59.9"] = "Nível 59.9",
 	-- {area:618} Winterspring · {area:2057} Scholomance · {area:2279} Stratholme
-	["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Complete aqui até o nível 59.9 antes das entregas em {area:618}: elas levam você ao nível 60. Ou, em grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- {npc:7441} Winterfall Totemic
 	["grind on {npc:7441}"] = "mate {npc:7441} até subir",
 

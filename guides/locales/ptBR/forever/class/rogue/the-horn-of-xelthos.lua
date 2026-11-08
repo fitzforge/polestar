@@ -18,9 +18,9 @@ return {
 	-- Step 2: Veenix
 	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "",
+	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "{npc:4086}, um goblin amigo das duas facções, fica entre o pessoal da Empreendimentos S.A. em {area:461}, no leste da Cordilheira das Torres de Pedra, a uma curta distância a nordeste de {area:460}. A Horda voa para {area:460}; a Aliança, para {area:467}. Ele quer uma {item:210187} antes de entregar explosivos: os Madeireiros da Empreendimentos S.A. (nível 18) que trabalham em volta dele a carregam nos bolsos. Fique furtivo atrás de um e use {spell:921} nele; matá-los não dá o item.",
 	-- {spell:921} Pick Pocket · {npc:3989} Venture Co. Logger · {item:210187} Venture Co. Work Order
-	["{spell:921} a {npc:3989} for a {item:210187}"] = "",
+	["{spell:921} a {npc:3989} for a {item:210187}"] = "Use {spell:921} em um {npc:3989} para pegar uma {item:210187}",
 
 	-- Step 3: Shadowfang Keep
 	-- {item:210186} Breaching Charge · {item:5140} Flash Powder · {item:210213} Sister's Half-Key · {item:210212} Brother's Half-Key

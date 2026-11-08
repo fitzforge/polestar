@@ -18,7 +18,7 @@ return {
 	["The Grimesilt outhouse"] = "A casinha de Pedrassuja",
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "De {area:144}, siga para o sul até {zone:1418}, depois a oeste, passando pela cidade da Horda de {area:340} (dê espaço a ela), e suba a trilha até {area:51}: {area:247} fica logo na entrada, no sudeste. O prisioneiro na casinha de madeira quer 15 {item:4306} e oito Geólogos Ferro Negro mortos do sítio de escavação em volta. A casinha também abre com a chave, se você encontrou uma.",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -27,13 +27,13 @@ return {
 	-- Step 6: Level 48.27
 	["Level 48.27"] = "Nível 48.27",
 	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Se você pulou {item:3985} ou Confrontando Negolash, mate monstros aqui até o nível 48.27 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:2100} ou a masmorra {area:978}.",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "mate {npc:5839} até subir",
 
 	-- Step 7: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "",
+	["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "Siga para noroeste pelo Caldeirão até {area:1446}, o acampamento de andaimes na borda noroeste.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "O quadro {object:179827}",
 
@@ -48,7 +48,7 @@ return {
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até Kalaran.",
 
 	-- Step 13: Kalaran Windblade
-	["Kalaran Windblade"] = "",
+	["Kalaran Windblade"] = "Kalaran Finalâmina",
 	-- {area:1446} Thorium Point
 	["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Kalaran fica na borda de O Caldeirão, ao sul de {area:1446}. Ouça a história dele.",
 
@@ -57,7 +57,7 @@ return {
 	["{area:1442}: kill these as you meet them"] = "{area:1442}: vá matando estes pelo caminho",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron (no name in this language: may be words) · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Golens de Guerra Pesados patrulham o chão do Caldeirão abaixo de Kalaran; Elementais de Magma andam entre eles. Golens e elementais soltam o óleo, os elementais, os corações.\nCapatazes e Feitores comandam os escravos por todo o Caldeirão, e qualquer um deles pode carregar {item:10551}. Os Vaporistas trabalham nas fornalhas do meio ({item:18959}), os Atalaias ficam nas cristas do sul (a Luneta). Qualquer {object:147516} pode soltar {item:11818}: guarde-o.\nCuidado: Feitores Ferro Negro (nível 45-46) chamam aliados a até 15 metros quando são puxados, lançam Rede a até 15 metros e usam Rasgar em combate corpo a corpo.",
 
 	-- Step 19: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
@@ -75,7 +75,7 @@ return {
 	-- Step 22: Level 48.66
 	["Level 48.66"] = "Nível 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Se você pulou {quest:7701}, mate monstros aqui até o nível 48.66 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:2100} ou a masmorra {area:978}.",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "mate {npc:9318} até subir",
 
@@ -90,7 +90,7 @@ return {
 	-- Step 29: Level 48.98
 	["Level 48.98"] = "Nível 48.98",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Se você pulou {quest:3452}, mate monstros aqui até o nível 48.98 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:2100} ou a masmorra {area:978}.",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "mate {npc:5844} até subir",
 
@@ -101,7 +101,7 @@ return {
 
 	-- Step 32: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
+	["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "De volta a {area:247}: Dório fica junto à estrada. Escolte-o para nordeste até {area:1959} e mantenha-o vivo; quando acabar, leia {object:175704}, que ele deixa na estrada.",
 	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
 	["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} em {area:1537}, depois",
 

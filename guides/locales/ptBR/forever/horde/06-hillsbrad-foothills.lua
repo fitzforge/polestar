@@ -88,7 +88,7 @@ return {
 	-- Step 13: The southern peak
 	["The southern peak"] = "O pico sul",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, logo ao sul dele: use uma ampola no alto.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "A ferraria",
@@ -99,13 +99,13 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "O pico oeste",
 	-- {area:287} Hillsbrad
-	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "",
+	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Da vila de {area:287}, siga para o norte pelo sopé de Alterac: a ampola do oeste vai no topo do morro logo depois da fronteira.",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Back to {area:272}"] = "De volta a {area:272}",
 	-- {area:272} Tarren Mill
-	["East along the foothills, then down into {area:272}."] = "",
+	["East along the foothills, then down into {area:272}."] = "Para leste pelo sopé, depois desça até {area:272}.",
 
 	-- Step 17: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -114,23 +114,23 @@ return {
 	-- Step 18: The northern peak
 	["The northern peak"] = "O pico norte",
 	-- {area:272} Tarren Mill
-	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "",
+	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "O pico norte fica a sudeste de {area:272}, no caminho para o Forte do Desterro.",
 
 	-- Step 19: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Back down to Masoj on the hillside above {area:290}."] = "",
+	["Back down to Masoj on the hillside above {area:290}."] = "De volta a Masoj, na encosta acima de {area:290}.",
 
 	-- Step 20: The Sepulcher
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
-	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
+	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Volte a pé até {area:272} e voe para {area:228}: {npc:2121} fica na entrada da cripta.",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Mestre de voo de {area:272}",
 
 	-- Step 21: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "Voe para a {area:1497}",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
-	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
+	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "Siga voando com {npc:2226}, o tratador de morcegos logo a leste da cripta, até a {area:1497}.",
 
 	-- Step 22: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter (no name in this language: may be words)
@@ -144,23 +144,23 @@ return {
 
 	-- Step 24: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:202} com {npc:11870} ({object:36070}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 25: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda Armas de Haste com {npc:11870} ({object:36070}, 1 ouro); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 26: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:202} com {npc:11870} ({object:36070}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
 	-- Step 27: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Armas de Haste com {npc:11870} ({object:36070}, 1 ouro); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 28: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
+	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Já que está aqui: aprenda Espadas com {npc:11870} ({object:36070}, 10 pratas); espada na mão principal faz o Ladino subir de nível sem tropeço.",
 
 	-- Step 29: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar

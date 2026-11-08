@@ -62,7 +62,7 @@ return {
 	-- Step 15: Level 34
 	["Level 34"] = "Nível 34",
 	-- {area:796} Scarlet Monastery
-	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As missões daqui em diante são de nível 37: se estiver abaixo do 34, continue nos tigres anciãos das colinas a sudoeste do acampamento de Nesingwary até o nível 34. Ou, com um grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "mate {npc:1085} até subir",
 
@@ -87,9 +87,9 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern (no name in this language: may be words)
-	["{npc:6807}, {object:56910}; upstairs"] = "",
+	["{npc:6807}, {object:56910}; upstairs"] = "{npc:6807}, {object:56910}; no andar de cima",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern (no name in this language: may be words)
-	["{npc:2832}, in the {object:56910}; upstairs"] = "",
+	["{npc:2832}, in the {object:56910}; upstairs"] = "{npc:2832}, na {object:56910}; no andar de cima",
 	-- {npc:773} Krazek
 	["{npc:773}, in the tavern; upstairs"] = "{npc:773}, na taberna; no andar de cima",
 	-- {npc:737} Kebok
@@ -111,7 +111,7 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: vá matando estes pelo caminho",
 	-- {area:108} Sentinel Hill · {zone:1436} Westfall · {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
+	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "De {area:108}, o caminho segue para o sul, saindo de {zone:1436}, até o noroeste da Selva do Espinhaço, até {area:310}, perto da costa; os Basiliscos da Serra dos Cristais em volta dela soltam os cristais.\nA ilha mal-assombrada fica logo ao largo da costa, a sudoeste da mina: basta chegar lá. Os trolls Sanguescalpo dominam as ruínas na costa, ao norte.",
 	["The haunted island"] = "A ilha assombrada",
 
 	-- Step 22: River crocolisks
@@ -158,7 +158,7 @@ return {
 
 	-- Step 31: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "De {area:415}, siga para noroeste, pelas colinas: {quest:1738} é uma árvore brilhante ao norte da estrada para {area:413}. Se você pegou {quest:65602}, {item:190309} está numa casa entre as árvores ao norte de {area:413} (26.6,22.0). Depois siga a estrada para oeste até a Cordilheira das Torres de Pedra.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, ao norte de {area:413}",
 
@@ -182,7 +182,6 @@ return {
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Volte para o norte; {area:310} fica a oeste da estrada, no meio da selva. Os Basiliscos da Serra dos Cristais de lá deixam cair os fragmentos.",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} não tem instrutor de druida: pegue o {area:2257} em {object:171524} até {zone:1453} e treine com {npc:5504}.",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, junto ao banco",
-	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, na {object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, no último andar, junto às docas",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, em {area:35}",
 	-- ["{npc:773}, in the tavern"] = "{npc:773}, na taberna",

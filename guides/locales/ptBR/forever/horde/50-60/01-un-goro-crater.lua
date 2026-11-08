@@ -115,7 +115,7 @@ return {
 	-- Step 23: Level 52
 	["Level 52"] = "Nível 52",
 	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52: {quest:4061} at {area:340} needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52: {quest:4061} at {area:340} needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52: {quest:4061} em {area:340} exige isso, e as missões das Terras Pestilentas no fim deste guia são de nível 55. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:6509} Bloodpetal Lasher
 	["grind on {npc:6509}"] = "mate {npc:6509} até subir",
 
@@ -150,7 +150,7 @@ return {
 
 	-- Step 31: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
-	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
+	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Voe para {area:1637} e treine antes do barco para {area:16727}: a parada em {zone:1458} mais adiante neste guia não tem instrutor de Caçador nem de Xamã.",
 
 	-- Step 32: Back to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -168,7 +168,7 @@ return {
 
 	-- Step 35: Kargath
 	-- {area:340} Kargath · {area:3} Badlands
-	["{area:340} is built into the cliffs on the {area:3}' west edge."] = "",
+	["{area:340} is built into the cliffs on the {area:3}' west edge."] = "{area:340} é construída nos penhascos, na borda oeste de {area:3}.",
 
 	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -244,7 +244,7 @@ return {
 
 	-- Step 51: Janice Felstone
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "De {area:152}, siga a estrada para leste até {zone:1422}. A Fazenda Pedravil é a primeira fazenda ao longo da estrada; {npc:10778} espera na casa.",
 	["Upstairs"] = "No andar de cima",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "{object:175894}, ao lado da casa; lá dentro",
@@ -311,7 +311,6 @@ return {
 	-- ["Bloodpetal Flayers"] = "Esfoladoras Pétala Sangrenta",
 	-- ["Darrowshire Spirits"] = "Espíritos da Vila das Flechas",
 	-- ["Escort {npc:9999}"] = "Escolte {npc:9999}",
-	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Voe para {area:1637} e treine antes do zepelim para {object:3202}: a parada em {zone:1458} mais adiante neste guia não tem instrutor de Caçador nem de Xamã.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Voe para {area:1637}, pegue o zepelim para {object:3202} e de lá voe para {area:340}, construída nos penhascos da borda oeste de {zone:1418}.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Voe para {area:1638} e treine com {npc:3033} em {area:1639}; depois voe para {area:1637} para pegar o zepelim para {object:3202}.",
 	-- ["Fly to {area:340}"] = "Voe para {area:340}",

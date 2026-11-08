@@ -52,7 +52,7 @@ return {
 
 	-- Step 7: A Way In
 	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker (no name in this language: may be words) · {quest:96783} A Way In
-	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "",
+	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "{area:324}, no oeste de Arathi, é uma fortaleza da Camarilha; para entrar, você precisa de um uniforme. {area:313}, no noroeste de Arathi, é ocupada por Bandoleiros, Tocaiantes e Mercenários da Camarilha (nível 30-32): ache {object:656157} ali e pegue o uniforme; isso encerra {quest:96783}.",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
 	["{quest:96784}: the {item:275706}"] = "{quest:96784}: {item:275706}",
 

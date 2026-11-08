@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Alliance Relations
 	-- {zone:1454} Orgrimmar · {npc:5639} Craven Drok · {npc:5640} Keldran · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "",
+	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "O zepelim pousa na torre fora do portão principal de {zone:1454}. {npc:5639} espera no Drag; {npc:5640} fica em {object:172961}, no lado oeste da cidade.",
 	-- {npc:5639} Craven Drok
 	["{npc:5639}: offered from level 30"] = "{npc:5639}: oferecida a partir do nível 30",
 	-- {npc:5641} Takata Steelblade · {zone:1443} Desolace
@@ -27,15 +27,15 @@ return {
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom (no name in this language: may be words)
 	["{npc:5892} stands in the {object:172957}."] = "{npc:5892} fica no {object:172957}.",
 	-- {npc:5892} Searn Firewarder · {npc:5905} Prate Cloudseer · {area:484} Freewind Post
-	["{npc:5892}: for {npc:5905} by {area:484}, later in this guide"] = "",
+	["{npc:5892}: for {npc:5905} by {area:484}, later in this guide"] = "{npc:5892}: para {npc:5905} perto de {area:484}, mais adiante neste guia",
 
 	-- Step 5: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor (no name in this language: may be words) · {quest:2841} Rig Wars · {area:133} Gnomeregan · {zone:1454} Orgrimmar
-	["{npc:3412}'s workshop is in the {object:172958}. {quest:2841} is {area:133}'s last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later {zone:1454} stop."] = "",
+	["{npc:3412}'s workshop is in the {object:172958}. {quest:2841} is {area:133}'s last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later {zone:1454} stop."] = "A oficina de {npc:3412} fica em {object:172958}. {quest:2841} é o último chefe de {area:133}: ótima XP se você for com um grupo. Faça quando o seu grupo estiver pronto; entregue em uma parada posterior em {zone:1454}.",
 
 	-- Step 6: Gnomeregan
 	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:9153} Rig Blueprints
-	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "",
+	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "Faça {area:133} em grupo quando for conveniente: {npc:7800}, no fim, deixa cair a Combinação do Cofre dele; abra o cofre dele atrás do pilar de bomba do norte para pegar o {item:9153}.",
 
 	-- Step 7: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
@@ -43,11 +43,11 @@ return {
 
 	-- Step 8: Thunder Bluff
 	-- {zone:1454} Orgrimmar · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {area:484} Freewind Post
-	["Fly from {zone:1454} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {area:484} from there."] = "",
+	["Fly from {zone:1454} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {area:484} from there."] = "Voe de {zone:1454} para {area:1638} e treine com {npc:3033} em {area:1639}; de lá, siga voando até {area:484}.",
 
 	-- Step 9: Islen Waterseer
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:5901} Islen Waterseer · {area:484} Freewind Post
-	["Fly from {zone:1454} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to {area:484} from {area:392}."] = "",
+	["Fly from {zone:1454} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to {area:484} from {area:392}."] = "Voe de {zone:1454} para {area:392}. {npc:5901} acampa na costa, a uma curta caminhada ao sul da cidade; de {area:392}, siga voando até {area:484}.",
 	-- {npc:5901} Islen Waterseer · {npc:3527} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:5901}: {npc:3527} and your {item:5177}"] = "{npc:5901}: {npc:3527} e seu {item:5177}",
 
@@ -75,7 +75,7 @@ return {
 
 	-- Step 15: Mirage Raceway
 	-- {area:2240} Mirage Raceway
-	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "",
+	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Os goblins e gnomos de {area:2240} são neutros e dão missões às duas facções.",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "A caixa de {npc:4452} para {quest:5762}, na Selva do Espinhaço, mais adiante na rota",
 
@@ -97,7 +97,7 @@ return {
 
 	-- Step 20: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
-	["{area:439}: kill these as you meet them"] = "",
+	["{area:439}: kill these as you meet them"] = "{area:439}: vá matando estes pelo caminho",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger
 	["East onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it; the Sparkleshell tortoises crowd round a half-buried ship in the north-east, and the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.\nCareful: Scavengers and Vultures use Execute when your health is low; the Snappers (34-35) hit hardest of the tortoises."] = "A leste, rumo às planícies. Os Basiliscos Sal-gema (30-31) tomam sol a noroeste delas; as tartarugas Quelobrilho se aglomeram em volta de um navio meio enterrado no nordeste, e os Catadores da Planície Salgada e os Abutres rodeiam as planícies do leste. Todo abutre solta um osso, e cerca de uma tartaruga em três solta uma casca.\nCuidado: Catadores e Abutres usam Executar quando a sua vida está baixa; as Tartaliscas (34-35) são as que batem mais forte entre as tartarugas.",
 	-- {object:19868} Rocket Car Rubble
@@ -110,7 +110,7 @@ return {
 	["Level 32.5"] = "Nível 32.5",
 	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
 	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer
-	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "As missões de {zone:1443} são de nível 33-38. Abaixo de 32.5? Continue matando as Tartaliscas Quelobrilho perto da escavação dos silitídeos e os Observadores Sal-gema ao sul dela até o nível 32.5. Ou, em grupo, faça a masmorra {area:796} (Cemitério ou Biblioteca).",
 	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
 	["Sparkleshell Snappers"] = "Tartaliscas Quelobrilho",
 	-- {npc:4143} Sparkleshell Snapper
@@ -121,11 +121,11 @@ return {
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "{npc:4454}: a carta dele vai para Martek, em {zone:1418}, no nível 39",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
-	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "",
+	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}: para Gazlowe em {area:392}, mais adiante na rota",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn
-	["West back to {area:484}. {npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
+	["West back to {area:484}. {npc:10537} stands in the middle of the post, on the way to the flight master."] = "De volta a oeste, até {area:484}. {npc:10537} fica no meio do posto, no caminho para o mestre de voo.",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}: para {npc:11259}, em {zone:1443}, em seguida",
 
@@ -141,7 +141,7 @@ return {
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:11259} Nataka Longhorn · {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:596} Kodo Graveyard
-	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "",
+	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "{npc:5395} fica no posto, {npc:11259} no alto da elevação; {npc:5641} e {npc:4498} esperam na elevação a oeste dela, acima de {area:596}.",
 	-- {npc:11259} Nataka Longhorn
 	["{npc:11259}, up on the rise"] = "{npc:11259}, no alto da elevação",
 
@@ -153,7 +153,7 @@ return {
 	["Level 33"] = "Nível 33",
 	-- {quest:5381} Hand of Iruxos · {npc:11596} Smeed Scrabblescrew · {area:796} Scarlet Monastery
 	-- plural, as words: Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of {npc:11596}'s camp are on your way west: kill them until level 33. Or, with a group, run the {area:796} dungeon (Library) instead."] = "",
+	["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of {npc:11596}'s camp are on your way west: kill them until level 33. Or, with a group, run the {area:796} dungeon (Library) instead."] = "{quest:5381}, de Pescassombra, e as nagas da costa pedem nível 33. Abaixo disso? Os Escorpachis Açoitadores nas encostas ao norte do acampamento de {npc:11596} ficam no seu caminho para oeste: mate-os até o nível 33. Ou, em grupo, faça a masmorra {area:796} (Biblioteca).",
 	-- plural, as words: Scorpashi Lashers = {npc:4697} Scorpashi Lasher
 	["Scorpashi Lashers"] = "Escorpachis Açoitadores",
 	-- {npc:4697} Scorpashi Lasher
@@ -161,9 +161,9 @@ return {
 
 	-- Step 31: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "Siga para oeste até a vila troll na costa, mantendo distância de {area:606} no caminho. {npc:268705} fica na trilha logo ao norte da vila.\n{npc:268705} pode não estar aqui no Forever: se {npc:268705} não oferecer {quest:97265}, pule.",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
-	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "",
+	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "{npc:268705}: os sátiros Furiódio de {area:603}, mais adiante neste guia",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}: para {quest:5762}, na Selva do Espinhaço, no próximo guia",
 
@@ -176,15 +176,15 @@ return {
 	-- Step 33: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "",
+	["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "Continue ao norte até {area:598}. Os Mirmidões, Nagas e Feiticeiras Sibilâmina ocupam a praia; puxe-os um de cada vez.",
 
 	-- Step 34: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
-	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "",
+	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863} espera na torre em ruínas de {area:2405}, para o interior, a leste.",
 
 	-- Step 35: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:14523} Demon Pick · {npc:11876} Demon Spirit · {item:13542} Demon Box · {item:20310} Flayed Demon Skin
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "",
+	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "Siga para leste até {area:599}. Derrube um sectário da Lâmina Ardente e use {item:6436} nele antes que morra, para obter {item:6435}. {npc:13019} fica no último andar da fortaleza com o Cetro; use {item:14523} em {npc:11876} para obter {item:13542}. Os sectários também deixam cair {item:20310} de vez em quando (1-5%); quando cair, leia.",
 	["On the top floor"] = "No último andar",
 
 	-- Step 36: Ethel Rethor
@@ -195,19 +195,19 @@ return {
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "O {quest:6027}",
 	-- {area:2405} Ethel Rethor · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "",
+	["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}. {npc:12369} guarda o {quest:6027} na ponta extrema do norte.",
 
 	-- Step 39: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
-	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
+	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "Siga para leste, passando por {area:599} e pelas colinas do norte, até as ruínas dos sátiros de {area:603}. Mate todos os tipos que encontrar para {npc:268705}; os Assombrantes andam sem serem vistos.\nCuidado: os Errantes Furiódio usam Esconder ao surgir, então ficam furtivos até você encontrá-los.",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}, no caminho para o sul",
 
 	-- Step 40: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
-	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
+	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "Ao sul, até {area:609}. {quest:1365} (35) anda entre as tendas do lado leste com um ou dois Senhores de Batalha (32-33): limpe em volta dele, depois puxe-o sozinho, com vida cheia.\nCuidado: os Senhores de Batalha Kolkar chamam aliados num raio de 30 metros quando caem a 20% de vida.",
 
 	-- Step 41: Ghost Walker Post
 	["South-west down the road to the post."] = "Desça a estrada para o sudoeste até o posto.",

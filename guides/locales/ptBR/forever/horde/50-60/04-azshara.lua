@@ -33,7 +33,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "As caixas de {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Siga a cavalo pela estrada ao norte até a Encruzilhada; {npc:256386} fica lá. Abra cada caixa que ela entregar e traga de volta o que estiver dentro. Siga voando para {area:1237} a partir da Encruzilhada.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
@@ -92,7 +92,7 @@ return {
 
 	-- Step 19: The Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter (no name in this language: may be words)
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Pegue o zepelim na torre do lado de fora de {zone:1454} até {zone:1420} e entre a cavalo em {zone:1458}. Lady Sylvana ocupa o {object:36126}.",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson

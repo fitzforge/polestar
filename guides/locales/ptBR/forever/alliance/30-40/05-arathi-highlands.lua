@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "",
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "{npc:5476} guarda o cruzamento de estradas no oeste do pântano. {npc:217412} fica um pouco ao norte dele.\n{npc:217412} pode não estar aqui no Forever: se {npc:217412} não oferecer {quest:93176}, pule.",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412}: três bichinhos para capturar em Arathi, {zone:1443} e no Espinhaço",
 
@@ -34,7 +34,7 @@ return {
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	-- plural, as words: Lost Ones = {npc:254797} Lost One
-	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "",
+	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "O baú da caravana destruída fica no extremo norte de {area:76}, ao lado da jaula de {npc:5391}.\nCuidado: o acampamento está cheio de Perdidos de nível 38 ou perto disso. Eles ficam em grupos ligados de 2-3, muitos são conjuradores, e renascem rápido.",
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
@@ -99,7 +99,7 @@ return {
 
 	-- Step 27: Witherbark Village
 	-- {area:314} Go'Shek Farm
-	["South-east from Northfold to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "",
+	["South-east from Northfold to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "Ao sudeste de Northfold até os trolls Cascasseca nas colinas ao sul de {area:314}; Mandingueiros ficam na aldeia, Caçadores Sombrios guardam o extremo do vale. Todo troll daqui pode soltar uma presa.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; no subterrâneo",
 
@@ -186,7 +186,7 @@ return {
 
 	-- Step 46: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
-	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "",
+	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "Ao sudoeste da caverna de {npc:2793} até {area:880}: {npc:2696} fica num trecho quebrado da ponte; pule até ele pelo extremo norte. {quest:647} precisa chegar a {npc:2705} em {area:271} em 15 minutos: volte direto a {area:320} e voe até {area:271}.",
 
 	-- Step 48: Fly to Southshore
 	-- {area:320} Refuge Pointe
@@ -194,7 +194,7 @@ return {
 
 	-- Step 49: Brewmeister Bilger
 	-- {area:271} Southshore
-	["Off the flight, straight to the {area:271} inn."] = "",
+	["Off the flight, straight to the {area:271} inn."] = "Ao descer do voo, direto para a estalagem de {area:271}.",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, no subterrâneo",
 
@@ -207,7 +207,7 @@ return {
 	["{area:281}: kill these as you meet them"] = "{area:281}: vá matando estes pelo caminho",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
+	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus dominam as ruínas.\nCuidado: Fomentadores da Guerra Massacrista chamam aliados próximos a até 15 metros quando ficam abaixo de metade da vida.\nOs Espancadores, Magos, Impositores e Fomentadores da Guerra Massacrista (36-39) são elite; os Ogros e Brutamontes Massacrista (34-35) não são e também carregam os tomos: puxe um de cada vez, ou forme grupo.",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: ogros Massacrista",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
@@ -227,7 +227,7 @@ return {
 	["Crushridge ogres"] = "Ogros Massacristas",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
+	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "Os ogros Massacrista dominam as colinas ao norte de {area:280}. Mais ao norte, um baú de madeira gasto guarda {item:3706}; {npc:2320}, de {quest:537}, fica bem ao lado dele.\nOs Espancadores, Magos, Impositores e Fomentadores da Guerra Massacrista (36-39) são elite; os Ogros e Brutamontes Massacrista (34-35) não são e também soltam os Nós dos Dedos Sujos: puxe um de cada vez, ou forme grupo.",
 	["Inside"] = "Lá dentro",
 
 	-- Step 57: Dalaran
@@ -246,7 +246,7 @@ return {
 
 	-- Step 62: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {area:38} Loch Modan
-	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "",
+	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "{npc:1356}, {object:32356}: para {npc:1344} em {area:38}, em seguida",
 
 	-- Step 64: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {area:38} Loch Modan · {area:144} Thelsamar

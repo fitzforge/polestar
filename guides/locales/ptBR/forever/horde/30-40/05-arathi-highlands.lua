@@ -28,14 +28,14 @@ return {
 
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
-	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
+	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "Siga ao norte, passando pelo acampamento de Vito, até {area:280}, a vila dominada pela Camarilha (35-37). {npc:2431} carrega {item:3704}; {quest:503} está numa jaula na casa do lado norte.\nCuidado: espiões furtivos da Camarilha rondam {area:280}, e os prédios têm muitos monstros da Camarilha, entre eles magos.",
 	["Inside"] = "Lá dentro",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "{quest:503}, no último andar",
 
 	-- Step 8: Tarren Mill
 	-- {npc:2229} Krusk · {area:272} Tarren Mill
-	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "",
+	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "{npc:2229} espera dentro da estalagem de {area:272}, descendo a estrada de volta ao sul.",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, lá dentro",
 
@@ -44,14 +44,14 @@ return {
 
 	-- Step 10: Lord Aliden Perenolde
 	-- {area:1339} Lordamere Lake · {quest:507} Lord Aliden Perenolde · {npc:2317} Elysa
-	["Head north-west through the mountains to the Perenolde manor on the northern shore of {area:1339}. {quest:507} (41) waits in a room upstairs: he shields himself, puts you to sleep and heals below half health. {npc:2317} stands beside him."] = "",
+	["Head north-west through the mountains to the Perenolde manor on the northern shore of {area:1339}. {quest:507} (41) waits in a room upstairs: he shields himself, puts you to sleep and heals below half health. {npc:2317} stands beside him."] = "Siga para noroeste pelas montanhas até a mansão Perenolde, na margem norte de {area:1339}. {quest:507} (41) espera num quarto no andar de cima: ele se protege com escudo, faz você dormir e se cura abaixo da metade da vida. {npc:2317} fica ao lado dele.",
 
 	-- Step 11: Old Dalaran Ruins: kill these as you meet them
 	-- {area:17707} Old Dalaran Ruins
 	["{area:17707}: kill these as you meet them"] = "{area:17707}: vá matando estes pelo caminho",
 	-- {area:279} Dalaran
 	-- plural, as words: Dalaran Summoners = {npc:2358} Dalaran Summoner · Elemental Slaves = {npc:2359} Elemental Slave
-	["South along the lake shore to the ruins around the {area:279} crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves."] = "",
+	["South along the lake shore to the ruins around the {area:279} crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves."] = "Ao sul pela margem do lago, até as ruínas em volta da cratera de {area:279}. Os Evocadores de Dalaran comandam Escravos Elementais; as braçadeiras caem dos escravos.",
 
 	-- Step 13: Tarren Mill
 	-- {area:272} Tarren Mill
@@ -65,13 +65,13 @@ return {
 	-- Step 15: Northfold Manor
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall
 	-- plural, as words: Bloodstone Amulets = {item:4495} Bloodstone Amulet
-	["Head east out of {area:272} through {area:1057}. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "",
+	["Head east out of {area:272} through {area:1057}. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "Saia de {area:272} para leste, passando por {area:1057}. A Camarilha ocupa a mansão murada e sua fazenda ao norte da estrada; seus Bandoleiros, Mercenários e Tocaiantes carregam os Amuletos de Pedra-sangrenta.\nCuidado: os Bandoleiros (nível 30-31) podem estar em Furtividade, então podem estar escondidos quando você chegar perto.",
 
 	-- Step 16: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
 	["The {object:138492}"] = "{object:138492}",
 	-- {area:321} Hammerfall
-	["Follow the road east. The violet shards glow just off the road a short way west of {area:321}."] = "",
+	["Follow the road east. The violet shards glow just off the road a short way west of {area:321}."] = "Siga a estrada para leste. Os cacos violeta brilham um pouco fora da estrada, a uma curta distância a oeste de {area:321}.",
 
 	-- Step 17: Hammerfall
 	-- {npc:12920} Doctor Gregory Victor
@@ -123,7 +123,7 @@ return {
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "De volta a {area:321}",
 	-- {area:321} Hammerfall
-	["Back north-east to {area:321}."] = "",
+	["Back north-east to {area:321}."] = "Volte para o nordeste até {area:321}.",
 
 	-- Step 27: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "Missões Punho de Pedra para um grupo",
@@ -139,19 +139,19 @@ return {
 
 	-- Step 29: Circle of West Binding
 	-- {area:1057} Thoradin's Wall
-	["The western circle is near {area:1057}, north-west of the outer one."] = "",
+	["The western circle is near {area:1057}, north-west of the outer one."] = "O círculo oeste fica perto de {area:1057}, a noroeste do círculo externo.",
 
 	-- Step 30: The Stone of Inner Binding
 	-- {object:2702} Stone of Inner Binding
 	["The {object:2702}"] = "{object:2702}",
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "O círculo interno fica ao sul do círculo oeste, a leste de Stromgarde.",
 	-- {area:321} Hammerfall
-	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "",
+	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "A próxima tarefa da pedra exige Fozruk, um elite de nível 42 que vaga a oeste de {area:321}: deixe de lado.",
 
 	-- Step 31: Stromgarde
 	["Stromgarde"] = "Stromgarde",
 	-- {npc:2783} Marez Cowl · {area:325} Tower of Arathor · {npc:2773} Or'Kalar
-	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "",
+	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "A oeste do círculo interno, as ruínas de Stromgarde: a Camarilha ocupa a metade leste (o Sigilo cai dos Conjuradores, Predadores e Magus deles; {npc:2783} está entre eles), os Punho de Pedra a metade oeste, junto a {area:325} ({npc:2773} espera numa das casas sem teto ao lado dela).",
 
 	-- Step 32: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout
@@ -169,11 +169,11 @@ return {
 
 	-- Step 36: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
-	["for {npc:2487} in {area:35}, around level 41"] = "",
+	["for {npc:2487} in {area:35}, around level 41"] = "para {npc:2487} em {area:35}, por volta do nível 41",
 	-- {area:880} Thandol Span · {zone:1437} Wetlands · {zone:1418} Badlands
-	["The next guide crosses the {area:880} into the {zone:1437} and heads for the {zone:1418}."] = "",
+	["The next guide crosses the {area:880} into the {zone:1437} and heads for the {zone:1418}."] = "O próximo guia atravessa {area:880} para {zone:1437} e segue rumo a {zone:1418}.",
 
 	-- Step 37: Back to Hammerfall
 	-- {area:321} Hammerfall · {area:880} Thandol Span
-	["Only if you ran Stromgarde with a group: back to {area:321} for its hand-ins, then on to the {area:880}."] = "",
+	["Only if you ran Stromgarde with a group: back to {area:321} for its hand-ins, then on to the {area:880}."] = "Só se você fez Stromgarde em grupo: volte a {area:321} para as entregas e siga para {area:880}.",
 }

@@ -64,7 +64,7 @@ return {
 
 	-- Step 9: Belgrom Rockmaul: Betrayed
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words) · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "",
+	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "{npc:4485} fica em {object:172958}, do lado de fora de {object:173084}. As duas primeiras missões de {quest:3504} são de nível 53 e pagam um pouco menos no 60 (no Classic, 30 e 45); as duas últimas pagam o valor cheio.",
 
 	-- Step 10: Valormok
 	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist
@@ -178,13 +178,13 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}: {npc:4949} e {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow (no name in this language: may be words)
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "",
+	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} está em {object:172960}. Diga a ele que pode falar abertamente e clique na história dele.",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216}: ouça-o até o fim",
 
 	-- Step 27: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
-	["{area:2437} opens off the {object:172960}. {npc:11518} and {npc:11519} wait at the far end."] = "",
+	["{area:2437} opens off the {object:172960}. {npc:11518} and {npc:11519} wait at the far end."] = "{area:2437} abre a partir de {object:172960}. {npc:11518} e {npc:11519} esperam no fundo.",
 	-- {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
 	["{npc:11518} and {npc:11519}"] = "{npc:11518} e {npc:11519}",
 
@@ -260,7 +260,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:3216} Neeru Fireblade · {npc:3230} Nazgrel
 	["{faction:76}: {npc:3216} and {npc:3230}"] = "{faction:76}: {npc:3216} e {npc:3230}",
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:3230} Nazgrel · {npc:4949} Thrall
-	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside {npc:4949}."] = "",
+	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside {npc:4949}."] = "{quest:829} fica em {object:172960}; {npc:3230} na Fortaleza Grommash, ao lado de {npc:4949}.",
 
 	-- Step 42: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
@@ -307,7 +307,7 @@ return {
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819} (polo opcional)",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip this. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like (10 at a fifth)."] = "",
+	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip this. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like (10 at a fifth)."] = "No Classic, as missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato do beta do Forever diz que pagaram o valor cheio. Sua primeira entrega mostra qual vale: se pagar um quinto, pule isto. {quest:819} fica no chão em um de vários pontos do centro e do norte de {zone:1413}, a maioria junto às estradas em volta da Encruzilhada; quando alguém a pega, ela aparece em outro. {npc:3292}, em {area:392}, paga 250 de reputação com {faction:76} pelo barril e pela primeira enchida, depois 50 por cada enchida seguinte, quantas vezes você quiser (10 com um quinto).",
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819}: procure nas estradas",
 
@@ -371,7 +371,7 @@ return {
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832} até Exaltado",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor (no name in this language: may be words)
-	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. Raid heads pay too: The Lord of Blackrock (Nefarian) 200 to every Horde city and Victory for the Horde (Onyxia) 400 to {faction:76}. At Exalted, {npc:3362} in the {object:172958} sells the wolves to every Horde race: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60 (Forever's prices); in Classic other races needed Exalted to buy them."] = "",
+	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. Raid heads pay too: The Lord of Blackrock (Nefarian) 200 to every Horde city and Victory for the Horde (Onyxia) 400 to {faction:76}. At Exalted, {npc:3362} in the {object:172958} sells the wolves to every Horde race: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60 (Forever's prices); in Classic other races needed Exalted to buy them."] = "De Reverenciado a Exaltado são 21.000: 420 entregas, 8.400 {item:14047}. Chefes de raide também pagam: O Senhor dos Rocha Negra (Nefarian) 200 para toda cidade da Horda e Vitória para a Horda (Onyxia) 400 para {faction:76}. Em Exaltado, {npc:3362} em {object:172958} vende os lobos para toda raça da Horda: 20 de ouro por um lobo de nível 40, 200 de ouro por um lobo veloz no nível 60 (preços do Forever); no Classic, outras raças precisavam de Exaltado para comprá-los.",
 	-- {npc:3362} Ogunaro Wolfrunner
 	["{npc:3362}: the wolves"] = "{npc:3362}: os lobos",
 

@@ -97,7 +97,7 @@ return {
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Bruxo: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "De Theramore, siga para o norte por {zone:1413} até {area:392}, ou voe, se você conhece a rota de voo de lá. {npc:6251} ensina na casa ao lado do banco.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Blue Pearls from Stranglethorn"] = "Pérolas Azuis da Selva do Espinhaço",

@@ -26,7 +26,7 @@ return {
 	-- plural, as words: Defias Drones = {npc:7050} Defias Drone
 	["Get the key first. The {npc:7051} (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and {spell:921} it from behind: it always has the key. It hits hard: if stealth breaks, {spell:2983} away. Watch for the pair of Defias Drones that also patrol."] = "Pegue a chave primeiro. O {npc:7051} (nível 23, não elite) começa na entrada da torre e dá uma volta por fora; é o de cabelo espetado, deixando um rastro de faíscas amarelas. Entre em furtividade e use {spell:921} nele pelas costas: ele sempre tem a chave. Ele bate forte: se a furtividade quebrar, use {spell:2983} para sair. Cuidado com o par de Parasitas Défias que também patrulha.",
 	-- {spell:921} Pick Pocket · {npc:7051} Malformed Defias Drone · {item:7923} Defias Tower Key
-	["{spell:921} the {npc:7051} for the {item:7923}"] = "",
+	["{spell:921} the {npc:7051} for the {item:7923}"] = "Use {spell:921} no {npc:7051} para pegar a {item:7923}",
 
 	-- Step 4: Klaven's journal
 	["Klaven's journal"] = "O diário de Filipe Pinel",
@@ -50,7 +50,7 @@ return {
 	-- Step 7: The cure's ingredients
 	["The cure's ingredients"] = "Os ingredientes da cura",
 	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread (no name in this language: may be words) · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
-	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: an engineering supplier, who keeps only a few (or an engineer or the Auction House). The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
+	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: an engineering supplier, who keeps only a few (or an engineer or the Auction House). The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "Todos os quatro estão em {zone:1453}. {item:3421}: Bernardo ou a floricultura de {npc:1303}, perto do canal do {object:2096}. Um {item:3372}: muitos vendedores de bens gerais e de alquimia ({npc:1257}, {npc:1325} e outros). Um {item:4371}: um fornecedor de engenharia, que mantém só alguns (ou um engenheiro ou a Casa de Leilões). O {item:8431} fica no chão ao lado da ponta esquerda do balcão em {object:2177}, a alfaiataria nos canais; só dá para pegá-lo com esta missão. Se você pular a cura, um {item:6452} ({skill:129}) ou o {spell:526} de um druida também remove {spell:9810}.",
 
 	-- Step 8: Back to Doc Mixilpixil
 	-- {npc:7207} Doc Mixilpixil

@@ -24,7 +24,7 @@ return {
 	-- {area:172} Fenris Isle
 	["The pyre on {area:172}"] = "A pira em {area:172}",
 	-- {area:172} Fenris Isle · {area:228} Sepulcher · {object:566037} Charred Remains (no name in this language: may be words)
-	["{area:172} lies in the lake north-east of the {area:228}. The gnolls' pyre, with the {object:566037}, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's."] = "",
+	["{area:172} lies in the lake north-east of the {area:228}. The gnolls' pyre, with the {object:566037}, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's."] = "{area:172} fica no lago a nordeste de {area:228}. A pira dos gnolls, com {object:566037}, fica na margem: clique nos restos para entregar e clique de novo para a próxima missão. O corpo é de um tauren, não do elfo.",
 	-- {object:566037} Charred Remains (no name in this language: may be words)
 	["from the {object:566037}"] = "dos {object:566037}",
 
@@ -103,7 +103,7 @@ return {
 
 	-- Step 16: Two-Handed Swords
 	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter (no name in this language: may be words) · {spell:202} Two-Handed Swords
-	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
+	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "A lâmina é uma espada de duas mãos, e você precisa da habilidade para acertar com ela um elite de nível 25. {npc:11870}, o mestre de armas no {object:36070} da {zone:1458}, ensina {spell:202} por uma pequena taxa; depois, golpeie com ela monstros fáceis até a habilidade chegar perto do limite (cinco pontos por nível).",
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas

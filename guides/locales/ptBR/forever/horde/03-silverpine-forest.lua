@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Orgrimmar
 	-- {npc:3310} Doras · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:268701} Thatog
-	["Walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}; {npc:268701} by the bank below it."] = "",
+	["Walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}; {npc:268701} by the bank below it."] = "Entre pelo portão principal. {npc:3310}, o mestre de mantícoras, fica na torre em {object:172982}; {npc:268701} junto ao banco, logo abaixo.",
 
 	-- Step 2: Borstan
 	-- {object:173016} Borstan's Firepit (no name in this language: may be words)
-	["{object:173016} is a few steps north."] = "",
+	["{object:173016} is a few steps north."] = "{object:173016} fica a poucos passos ao norte.",
 
 	-- Step 3: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {quest:829} Neeru Fireblade
@@ -32,20 +32,20 @@ return {
 
 	-- Step 7: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} ({object:172958}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 8: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 9: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
 	-- Step 12: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words)
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, em {object:172957}; os Pedregulhos Lisos estão em volta deles.",
 
 	-- Step 13: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
@@ -113,17 +113,17 @@ return {
 
 	-- Step 29: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
-	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
+	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "{npc:1938}: os livros dele ficam na casa da fazenda de {area:227}, na caminhada para o norte",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}: Zilda em {zone:1458}, no caminho para o zepelim, no fim",
 	-- {area:233} Ambermill
-	["{area:233} comes later, down the lake shore"] = "",
+	["{area:233} comes later, down the lake shore"] = "{area:233} vem depois, descendo pela margem do lago",
 
 	-- Step 30: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
-	["{area:227} farmhouse"] = "",
+	["{area:227} farmhouse"] = "Casa da fazenda de {area:227}",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
-	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "",
+	["On the road north, the farmhouse at {area:227}: go upstairs, the {object:1571} lie on the floor in the back room. Looting them brings a {npc:1770}."] = "Na estrada para o norte, a casa da fazenda em {area:227}: suba, os {object:1571} estão no chão do quarto dos fundos. Saquear os livros traz um {npc:1770}.",
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "{object:1571}; no andar de cima",
 
@@ -139,21 +139,21 @@ return {
 
 	-- Step 33: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
-	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
+	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "Siga a margem do lago para o sul, saindo dos murlocs: {object:1593} fica no embarcadouro da balsa, a caminho de {area:233}.",
 
 	-- Step 34: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
-	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
+	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "Continue ao sul pela margem, saindo da balsa, até {area:233}. Protetoras guardam a periferia e Magos a cidade; ambos deixam cair pingentes. Fique longe do meio, onde fica {npc:2120}.",
 
 	-- Step 35: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back north-west up the road to the {area:228}."] = "",
+	["Back north-west up the road to the {area:228}."] = "De volta ao noroeste pela estrada, até {area:228}.",
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: para o Quintino, na estrada ao norte, no final",
 	-- {npc:1938} Dalar Dawnweaver
 	["{npc:1938}, just north of Allister"] = "{npc:1938}, logo ao norte de Allister",
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
-	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
+	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} em {area:159}, a caminho do zepelim no fim",
 
 	-- Step 36: The Ivar Patch
 	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
@@ -166,7 +166,7 @@ return {
 
 	-- Step 40: The Undercity
 	-- {object:1661} The Undercity (no name in this language: may be words) · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
-	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
+	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661} fica sob {area:153}, ao lado das torres dos zepelins. {npc:2050} fica na estalagem, junto à descida; {npc:7683} na descida para o Apothecarium, onde {npc:11044} e {npc:5204} ficam ao lado de {npc:2055}.",
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, no Apothecarium",
 	-- {npc:5204} Apothecary Zinge
@@ -176,7 +176,7 @@ return {
 
 	-- Step 41: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words)
-	["{npc:10181} holds court in the {object:36126}."] = "",
+	["{npc:10181} holds court in the {object:36126}."] = "{npc:10181} despacha em {object:36126}.",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words) · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Fale com {npc:10181}, no {object:36126}: {quest:93739}",
 	-- {npc:10181} Lady Sylvanas Windrunner
@@ -188,7 +188,7 @@ return {
 
 	-- Step 44: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)
-	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
+	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "Entre pelo portão principal. {npc:268701} fica em {object:172982}.",
 
 	-- Step 48: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",
@@ -202,12 +202,12 @@ return {
 
 	-- Step 52: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} ({object:172958}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
 	-- Step 54: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words) · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, em {object:172957}; os Pedregulhos Lisos estão em volta deles. Treine enquanto estiver na cidade (Druidas e Paladinos não têm instrutor aqui). O próximo guia vai daqui até {area:379} e a Encruzilhada.",
 
 	-- Step 55: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak

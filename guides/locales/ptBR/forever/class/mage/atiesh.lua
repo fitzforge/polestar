@@ -28,7 +28,7 @@ return {
 	-- {item:22733} Staff Head of Atiesh · {npc:15990} Kel'Thuzad
 	["{item:22733}: {npc:15990}, Naxxramas"] = "{item:22733}: {npc:15990}, Naxxramas",
 	-- {item:22734} Base of Atiesh · {npc:15727} C'Thun · {area:16076} Temple of Ahn'Qiraj · {object:176146} Gate of Ahn'Qiraj (no name in this language: may be words)
-	["{item:22734}: {npc:15727}, {area:16076}, past the {object:176146}"] = "",
+	["{item:22734}: {npc:15727}, {area:16076}, past the {object:176146}"] = "{item:22734}: {npc:15727}, {area:16076}, além do {object:176146}",
 
 	-- Step 4: Back to Anachronos
 	-- {npc:15192} Anachronos
@@ -40,9 +40,9 @@ return {
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "{npc:16387}, Mão de Sargeras",
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
-	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "",
+	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Leve o cajado imundo até {area:2279}, a masmorra no extremo norte de {zone:1423}, pelo portão principal. Em {object:175433}, ache o trecho de {object:181206} com uma pequena chama branca, fique nele e use o cajado: {npc:16387}, Mão de Sargeras (chefe de nível 63), aparece. Leve um grupo forte: a {spell:17466} dele machuca todo mundo e não pode ser dissipada (resistência a Sombra ajuda), a maldição {spell:28342} dele precisa ser removida na hora, e o Desarmar de um guerreiro faz com que ele largue a espada, que um jogador corpo a corpo pode pegar e usar contra ele. Ele fica por até duas horas e meia, então dá para reagrupar.",
 	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
-	["the befouled staff, on the {object:181206} inside {area:2279}"] = "",
+	["the befouled staff, on the {object:181206} inside {area:2279}"] = "o cajado imundo, na {object:181206} dentro de {area:2279}",
 
 	-- Step 6: The Greatstaff
 	["The Greatstaff"] = "O Grão-cajado",

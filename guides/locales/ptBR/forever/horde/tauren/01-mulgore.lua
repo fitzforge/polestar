@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Camp Narache: kill these as you meet them
 	-- {area:221} Camp Narache
-	["{area:221}: kill these as you meet them"] = "",
+	["{area:221}: kill these as you meet them"] = "{area:221}: vá matando estes pelo caminho",
 	-- {npc:2980} Grull Hawkwind
 	["Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to {npc:2980}."] = "Os Pinotes andam pela mesa em volta do acampamento: pegue a carne e as penas deles na volta até {npc:2980}.",
 
@@ -109,7 +109,7 @@ return {
 
 	-- Step 20: Winterhoof Water Well
 	-- {npc:2988} Morin Cloudstalker · {quest:99079} Longwalker Malah · {area:821} Rolling Plains
-	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "",
+	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "O poço fica a sudeste da vila. {npc:2988} acampa ao lado dele, e {quest:99079} fica em {area:821}, um pouco a leste.",
 	-- {npc:2988} Morin Cloudstalker
 	["{npc:2988} walks around here: look inside the circle on the map"] = "{npc:2988} anda por aqui: procure dentro do círculo no mapa",
 
@@ -261,7 +261,7 @@ return {
 
 	-- Step 52: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} fica em {area:2197}, a caverna sob {area:1640}: desça por dentro, a seta não distingue os andares.",
 	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {area:1640} Spirit Rise
 	["{npc:5906}, a few steps from {npc:5543} on {area:1640}"] = "{npc:5906}, a poucos passos de {npc:5543} em {area:1640}",
 
@@ -275,11 +275,11 @@ return {
 
 	-- Step 56: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; {quest:5930} fica na mata a noroeste. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não distingue os andares.",
 
 	-- Step 57: Back to Thunder Bluff
 	-- {area:1639} Elder Rise
-	["Cross to {area:1639}."] = "",
+	["Cross to {area:1639}."] = "Atravesse até {area:1639}.",
 
 	-- Step 58: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -297,7 +297,7 @@ return {
 
 	-- Step 62: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "",
+	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "Saia de {zone:1412} pela passagem a sudeste e siga a estrada até a Encruzilhada. {npc:3448} fica no portão sul, {quest:860} junto à estalagem, {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {area:17}.",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, o mestre dos mantícoras",
 
@@ -315,7 +315,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["To {area:1637}"] = "Até {area:1637}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Da Encruzilhada, siga a estrada para nordeste até {area:379}, atravesse {area:815} para {zone:1411} e continue ao norte até o portão principal de {area:1637}. O próximo guia começa em {area:1637} e pega o zepelim para {zone:1420} e {zone:1421}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "De volta a Casco Sangrento",

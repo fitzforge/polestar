@@ -30,11 +30,11 @@ return {
 
 	-- Step 4: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire · {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {quest:1879} Speak with Bink · {area:131} Kharanos · {quest:1861} Mirror Lake · {npc:5144} Bink
-	["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {quest:1879}, the {area:131} trainer's errand; {quest:1861} and {npc:5144}'s Gizmonitor shut out each other, so you get one staff or orb."] = "",
+	["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {quest:1879}, the {area:131} trainer's errand; {quest:1861} and {npc:5144}'s Gizmonitor shut out each other, so you get one staff or orb."] = "No nível 10, {npc:328}, o instrutor de mago de {area:87}, no andar de cima da Estalagem Orgulho do Leão, manda você a {npc:5497} em {zone:1453}. Pegar esta fecha {quest:1879}, o recado do instrutor de {area:131}; {quest:1861} e o Treconitor Magostático de {npc:5144} se excluem, então você fica com um cajado ou um orbe.",
 
 	-- Step 5: Magis Sparkmantle (Kharanos)
 	-- {npc:1228} Magis Sparkmantle · {area:131} Kharanos · {area:2102} Thunderbrew Distillery · {npc:5144} Bink · {zone:1455} Ironforge · {quest:1860} Speak with Jennea · {area:87} Goldshire · {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake · {npc:328} Zaldimar Wefhellt
-	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "",
+	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "No nível 10, {npc:1228}, o instrutor de mago de {area:131}, em {area:2102}, manda você até {npc:5144}, em {zone:1455}. Pegar esta fecha {quest:1860}, o recado do instrutor de {area:87}; o Treconitor Magostático de {npc:5144} e {quest:1861}, de {npc:5497}, se excluem, então você só faz uma missão de cajado ou orbe. (Um Gnomo que pegou a missão de {npc:328} em {area:87} segue as etapas de {quest:1861}; um Humano que pegou esta, as etapas do Treconitor Magostático.)",
 
 	-- Step 6: Jennea Cannon
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5497} Jennea Cannon · {item:7207} Jennea's Flask · {quest:1861} Mirror Lake
@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: Bink
 	-- {npc:5144} Bink · {object:32362} Mystic Ward (no name in this language: may be words) · {zone:1455} Ironforge · {object:32386} Hall of Mysteries (no name in this language: may be words)
-	["{npc:5144} teaches mages in the {object:32362}, at the back of {zone:1455} past the {object:32386}."] = "",
+	["{npc:5144} teaches mages in the {object:32362}, at the back of {zone:1455} past the {object:32386}."] = "{npc:5144} treina magos na {object:32362}, nos fundos de {zone:1455}, depois do {object:32386}.",
 
 	-- Step 10: Bink's Toolbox
 	-- {area:133} Gnomeregan
@@ -78,6 +78,5 @@ return {
 	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "A missão de {npc:256507} também vale para magos Humanos e Gnomos, se um dia você visitar {area:16638}, em {zone:2521}, a terra dos Celonatos: {npc:252373}, o instrutor de mago da cidade, manda você até {npc:256507}, ali do lado, que quer um {item:262668} do chão perto das Formações de Pedra Eólica ao sul de {area:16636}, em troca da {item:263430}. Ela não fecha o cajado nem o orbe.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {npc:5497}'s {quest:1861}; you get one staff-or-orb quest. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "No nível 10, {npc:1228}, o instrutor de mago de {area:131}, em {area:2102}, manda você até {npc:5144}, em {zone:1455}. Pegar esta fecha {quest:1861}, de {npc:5497}; você só faz uma missão de cajado ou orbe. (Um Gnomo que pegou a missão de {npc:328} em {area:87} segue as etapas de {quest:1861}; um Humano que pegou esta, as etapas do Gizmonitor.)",
 	-- ["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {npc:5144}'s quest in {zone:1455}; you get one staff-or-orb quest."] = "No nível 10, {npc:328}, o instrutor de mago de {area:87}, no andar de cima da estalagem, manda você até {npc:5497}, em {zone:1453}. Pegar esta fecha a missão de {npc:5144} em {zone:1455}; você só faz uma missão de cajado ou orbe.",
 }

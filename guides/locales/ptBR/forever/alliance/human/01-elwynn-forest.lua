@@ -113,7 +113,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Siga a estrada para o sul, saindo do vale, até {area:87}. {npc:240} fica na frente da ferraria, no lado oeste da estrada, {npc:241} junto à estrada ao sul dela, e {npc:295} e {npc:253} na Estalagem Orgulho do Leão, do outro lado da estrada.",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, lá dentro",
 	-- {npc:253} William Pestle
@@ -230,7 +230,7 @@ return {
 
 	-- Step 45: Jason Mathers
 	-- {area:87} Goldshire · {npc:383} Jason Mathers
-	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "",
+	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Saia de {area:87} para leste, pela margem do lago. {npc:383} fica na margem a nordeste da cidade.",
 
 	-- Step 46: Crystal Lake: kill these as you meet them
 	-- {area:91} Tower of Azora
@@ -321,7 +321,7 @@ return {
 
 	-- Step 66: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Siga a estrada de volta para oeste até {area:87}; {npc:6306} fica na margem do lago, antes da cidade. {npc:377} (sacerdotes), {npc:328} (magos) e {npc:917} (ladinos) ficam no andar de cima da estalagem: suba as escadas por dentro, a seta não diferencia os andares.",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "{npc:6306}, lá dentro",
 	-- {npc:240} Marshal Dughan
@@ -406,7 +406,7 @@ return {
 
 	-- Step 80: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
-	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
+	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Siga a estrada para o sul até {area:120}, no caminho para {zone:1436}. {npc:963} fica na frente do quartel; {npc:955} fica lá dentro. Ele só tem {quest:91738} enquanto você carrega {item:247824}: fale com ele e vai direto para a entrega.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: para {npc:234} em {area:108}",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack

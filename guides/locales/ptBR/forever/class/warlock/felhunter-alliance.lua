@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Krom Stoutarm
 	-- {npc:6294} Krom Stoutarm · {object:32356} Hall of Explorers (no name in this language: may be words) · {quest:1758} Tome of the Cabal · {area:287} Hillsbrad · {zone:1441} Thousand Needles
-	["{npc:6294} is in the library of the {object:32356}. He wants two lost pieces of the {quest:1758}: one on the {area:287} coast, one in {zone:1441}."] = "",
+	["{npc:6294} is in the library of the {object:32356}. He wants two lost pieces of the {quest:1758}: one on the {area:287} coast, one in {zone:1441}."] = "{npc:6294} fica na biblioteca do {object:32356}. Ele quer duas peças perdidas do {quest:1758}: uma na costa de {area:287}, outra em {zone:1441}.",
 
 	-- Step 5: Moldy Tome
 	-- {area:271} Southshore

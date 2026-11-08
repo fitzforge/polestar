@@ -14,7 +14,7 @@ return {
 	["The Strange Orb"] = "O Orbe Estranho",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "Suba até o topo de {area:444}, no norte de {zone:1439}. Os Fanáticos da Linhagem das Trevas em volta são fáceis (nível 16-17), mas quatro Arautos do Caos da Linhagem das Trevas (nível 28-29) ficam na torre no caminho até o orbe: cada um chama um emissário do caos e lança {spell:686} à distância. No nível 22-25, leve um amigo ou dois, puxe um de cada vez e fique atrás de uma parede para que eles tenham que ir até você. Saqueie o Strange Orb no topo: ele dá o Orbe de Althalaxx; clique nele com o botão direito para começar a missão. Guarde o orbe nas bolsas até o {object:409311}: três missões depois precisam dele.",
 	-- {area:444} Tower of Althalaxx
 	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Orbe Estranho no topo da {area:444}: clique com o botão direito no Orbe de Althalaxx que ele dá",
 
@@ -49,7 +49,7 @@ return {
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "A {object:409311}",
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "O {object:409311} fica na ponta leste de {area:435}. Entregue as partículas na lança com o Orbe de Althalaxx nas bolsas: o orbe se despedaça, e o {object:409315} ao lado dela começa a última missão.",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
 	["from the {object:409315}"] = "do {object:409315}",
 

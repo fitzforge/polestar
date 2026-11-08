@@ -93,7 +93,7 @@ return {
 
 	-- Step 18: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708} cresce no fundo do mar logo ao sul de {area:150}, junto às cabanas de murlocs e a um barco naufragado: oito ali e dois a sudeste do porto, cada um volta em 3 minutos, então você vai esperar os reaparecimentos para chegar a 20. Os murlocs podem lançar rede em você debaixo d'água: cuide do fôlego, e uma {item:5996} elimina o risco.",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "{item:6848}, de {quest:1708}",
 

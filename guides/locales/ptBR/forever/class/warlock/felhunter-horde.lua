@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Seeking Strahad (Undercity)
 	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter (no name in this language: may be words) · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:2996} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "",
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "No nível 30, {npc:5675}, no {object:36082}, manda você a {npc:6251} em {area:392}. O zepelim de {zone:1420} voa para {zone:1411}. Pegue só um {quest:2996}: se {npc:6251} não oferecer nada, abandone a cópia no seu diário de missões.",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity
@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Jorah Annison
 	-- {npc:6293} Jorah Annison · {object:36082} Magic Quarter (no name in this language: may be words) · {zone:1458} Undercity · {quest:1801} Tome of the Cabal · {area:287} Hillsbrad · {zone:1441} Thousand Needles
-	["{npc:6293} is in the {object:36082} of the {zone:1458}. He wants two lost pieces of the {quest:1801}: one on the {area:287} coast, one in {zone:1441}."] = "",
+	["{npc:6293} is in the {object:36082} of the {zone:1458}. He wants two lost pieces of the {quest:1801}: one on the {area:287} coast, one in {zone:1441}."] = "{npc:6293} fica no {object:36082} da {zone:1458}. Ele quer duas peças perdidas do {quest:1801}: uma na costa de {area:287}, outra em {zone:1441}.",
 
 	-- Step 5: Moldy Tome
 	-- {area:271} Southshore

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:258043} Norric Lochthane · {zone:1432} Loch Modan
-	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "",
+	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "No nível 20, {npc:258098}, o instrutor de xamãs na {object:32362} de {zone:1455}, envia você a {npc:258043} em {zone:1432}.",
 
 	-- Step 2: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {area:144} Thelsamar
@@ -27,7 +27,7 @@ return {
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "O odre marrom",
 	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron (no name in this language: may be words)
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
+	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Encha o {item:265732} no pé das cachoeiras abaixo da caverna de {npc:258203}, onde a água doce encontra a salobra. Anões {object:147516} rondam perto das cachoeiras.",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "O odre vermelho",
@@ -71,8 +71,6 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} e seu {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:258043} in {zone:1432}."] = "No nível 20, {npc:258098}, o instrutor de xamãs em {zone:1455}, envia você a {npc:258043} em {zone:1432}.",
-	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish."] = "Encha o {item:265732} no pé das cachoeiras abaixo da caverna de {npc:258203}, onde a água doce encontra a salobra.",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather."] = "{area:71} jorram de {area:68} no extremo leste de Cristarrubra. Encha o {item:265747} no pé delas, onde se reúnem os Reptantes Murloc.",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919} fica nos arredores de {area:20}. Beba a {item:6637} lá e derrote a {npc:5894} para pegar as braçadeiras; depois coloque-as junto com as {item:7811} no {object:619896}. A {npc:5895} invocada dá a você o {item:7813}.",
 	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "A cabana-toca de {npc:258043} fica na margem noroeste do lago, ao sul de {area:146}.",

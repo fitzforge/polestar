@@ -17,7 +17,7 @@ return {
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Montaria no nível 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol (no name in this language: may be words)
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "Equitação exige nível 40 e custa 100 ouros; aprendê-la dá a você uma montaria. Cada raça aprende com o instrutor da própria raça: o seu é {npc:4773} em {area:159}, a uma curta cavalgada ao norte das torres dos zepelins, com os cavalos esqueléticos de {npc:4731} (20 ouros cada) ao lado dela. Volte a cavalo até as torres para o zepelim de {object:3202}.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instrutora de montaria",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -31,7 +31,7 @@ return {
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Voe para {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 
 	-- Step 7: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Siga a estrada para o oeste; o pergaminho fica à beira da água, no extremo oeste do pântano.",
@@ -83,7 +83,7 @@ return {
 
 	-- Step 18: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
-	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
+	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}, {npc:4502} e {npc:4501} (no subterrâneo) ficam na vila; as missões deles são para {area:511}, nesta ida.",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, no subterrâneo",
 
@@ -101,7 +101,7 @@ return {
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: vá matando estes pelo caminho",
 	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Para o leste por {area:511}: os Batedores e Caudas Cinza Flamigrenha vagam pela borda norte com os Dragonetes Calcinantes e Carbonizantes; os Escamortes guardam as cavernas dos dragões mais a sudeste. O rapé, o grogue e o cofre de Mok'Morokk ficam nos acampamentos dos dracônicos.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} anda por {area:510}: procure dentro do círculo no mapa",
 
@@ -121,7 +121,7 @@ return {
 	-- Step 26: Level 45.41
 	["Level 45.41"] = "Nível 45.41",
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Se você pulou {quest:1173}, mate monstros aqui até o nível 45.41 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "mate {npc:4329} até subir",
 
@@ -179,7 +179,6 @@ return {
 	-- ["North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "A noroeste pela estrada, os Yetis Cortifúria vivem em volta das cavernas nas colinas. Qualquer um deles também pode deixar cair {quest:7738}, que inicia uma missão própria.",
 	-- ["Northspring harpies"] = "Harpias da Nascente Norte",
 	-- ["Ride back east to the camp. Stay here: the next guide starts with the flight to {area:976}."] = "Volte para o leste até o acampamento. Fique aqui: o próximo guia começa com o voo para {area:976}.",
-	-- ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Siga para o sudoeste até {object:2555}, depois para o leste por {area:511}. Os Batedores e Caudas Cinza Flamigrenha vagam pela borda norte com os Dragonetes Calcinantes e Carbonizantes; os Escamortes guardam as cavernas dos dragões mais a sudeste. O rapé, o grogue e o cofre de Mok'Morokk ficam nos acampamentos dos dracônicos.",
 	-- ["South-west, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "A sudoeste, os yetis vivem em {area:1105}; todo yeti ali pode deixar cair um couro grosso.",
 	-- ["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Os Murlocs do Pântano vivem na praia ao sul do posto; os Jogatintas ficam pela margem a leste dele e os Comecarnes mais a oeste, em volta das cabanas na margem oeste.",
 	-- ["The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south."] = "Os Rastejantes Monstruosos andam pelas praias da costa leste, poucos e espalhados: mate cada um que vir no caminho para o sul.",

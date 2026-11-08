@@ -16,17 +16,17 @@ return {
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "Nave celeste de {area:279}",
+	["Skyboat from {area:279}"] = "Barco celeste de {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "{zone:2521} é a ilha inicial dos Celonatos, aberta a todos. Uma nave celeste parte do lado norte de {area:279} a cada cinco minutos, mais ou menos; outra voa do norte de {zone:1456}, e qualquer facção pode pegar qualquer uma.",
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "{zone:2521} é a ilha inicial dos Celonatos, aberta a todos. Um barco celeste parte do lado norte de {area:279} a cada cinco minutos, mais ou menos; outra voa do norte de {zone:1456}, e qualquer facção pode pegar qualquer uma.",
 	-- {zone:2521} Zephras Isle
-	["Skyboat to {zone:2521}"] = "Nave celeste para {zone:2521}",
+	["Skyboat to {zone:2521}"] = "Barco celeste para {zone:2521}",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
-	["Skyboat from {zone:1456}"] = "Nave celeste de {zone:1456}",
+	["Skyboat from {zone:1456}"] = "Barco celeste de {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "{zone:2521} é a ilha inicial dos Celonatos, aberta a todos. Uma nave celeste parte dos penhascos ao sul de {area:17045}, ao norte de {zone:1456}, a cada cinco minutos, mais ou menos; outra voa de {area:279}, e qualquer facção pode pegar qualquer uma.",
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "{zone:2521} é a ilha inicial dos Celonatos, aberta a todos. Um barco celeste parte dos penhascos ao sul de {area:17045}, ao norte de {zone:1456}, a cada cinco minutos, mais ou menos; outra voa de {area:279}, e qualquer facção pode pegar qualquer uma.",
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
@@ -80,7 +80,7 @@ return {
 	-- {area:16638} Valanaar
 	["Back to {area:16638}"] = "De volta a {area:16638}",
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
-	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "{npc:252359} espera em {area:16638}. Entregue no caminho para uma nave celeste ou para {area:16626}.",
+	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "{npc:252359} espera em {area:16638}. Entregue no caminho para um barco celeste ou para {area:16626}.",
 
 	-- Step 13: Friendly to Honored
 	["Friendly to Honored"] = "Amigável a Honrado",

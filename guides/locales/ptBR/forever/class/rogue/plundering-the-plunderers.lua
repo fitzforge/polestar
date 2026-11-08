@@ -22,7 +22,7 @@ return {
 	-- {npc:3401} Shenthul · {quest:2379} Zando'zan
 	["{npc:3401} and {quest:2379}"] = "{npc:3401} e {quest:2379}",
 	-- {zone:1458} Undercity · {zone:1411} Durotar · {npc:3401} Shenthul · {quest:2379} Zando'zan · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {spell:1804} Pick Lock
-	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "",
+	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "Mortos-vivos pegam o zepelim das torres fora da {zone:1458} até {zone:1411}. {npc:3401} e {quest:2379} ficam na {object:172960}, o cânion sob o {object:172982}. Aprenda {spell:1804} com {npc:3401} (ou qualquer instrutor de ladino) agora, se não tiver: este serviço é um teste de arrombamento.",
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
@@ -30,7 +30,7 @@ return {
 
 	-- Step 5: Southsea Treasure
 	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea (no name in this language: may be words) · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
-	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "",
+	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "Siga a costa para o sul de {area:392} até o primeiro navio pirata encalhado, o Tide Razor, e suba a bordo pela proa. No convés do meio, as Caixas-fortes dos Bucaneiros voltam rápido: abra-as até o seu Arrombamento chegar a cerca de 30 (algumas têm armadilha de Nova de Gelo ou transformam você em rato; arrombar ainda funciona como rato). Continue abrindo enquanto elas ainda dão habilidade: o serviço dos venenos no nível 20 termina numa caixa trancada que exige cerca de 75, e estas caixas são o treino mais próximo. Depois desça até o porão e arrombe a fechadura de {object:123462}: está vazio, mas abri-lo chama um {npc:7168} gigante de nível 50 para a sala ao lado. Fique furtivo, ponha o {item:7970} na sua barra de ação, selecione {npc:7168} e use-o: o papagaio encolhe para o nível 18. Mate-o para pegar o {item:7968}.",
 	-- {item:7968} Southsea Treasure · {npc:7168} Polly · {item:7970} E.C.A.C.
 	["{item:7968}: {npc:7168}, after the {item:7970}"] = "{item:7968}: {npc:7168}, depois de {item:7970}",
 
@@ -46,7 +46,7 @@ return {
 
 	-- Step 8: Mennet Carkad
 	-- {item:5060} Thieves' Tools · {npc:6566} Estelle Gendry · {object:36073} Rogues' Quarter (no name in this language: may be words)
-	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "",
+	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "Se você não tiver mais {item:5060}, peça a {npc:6566}, a fornecedora no {object:36073}.",
 
 	-- Step 9: Ambermill
 	-- {area:233} Ambermill · {object:103815} Ambermill Strongbox · {item:5060} Thieves' Tools

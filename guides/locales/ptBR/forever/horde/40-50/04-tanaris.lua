@@ -86,7 +86,7 @@ return {
 	["The {area:247}"] = "O {area:247}",
 	-- {area:16727} Powderfuse Port · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {area:51} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "",
+	["From {area:16727}, ride into the {area:51} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "De {area:16727}, cavalgue para dentro de {area:51} pela passagem leste, depois para oeste até o sítio de escavação. {object:173265} fica na ponta sul dele; os Geólogos Ferro Negro escavam logo ao norte. Leve 15 {item:4306} (vende na casa de leilões).",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "a {object:173265}",
 
@@ -98,13 +98,13 @@ return {
 
 	-- Step 26: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "Feitores e golens de {area:246}",
 	-- {area:1446} Thorium Point
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "Cavalgue para o sul, saindo de {area:1446}, para dentro de O Caldeirão: os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas, e os Golens de Guerra Pesados patrulham o piso abaixo de Kalaran.",
 
 	-- Step 27: Kalaran Windblade
-	["Kalaran Windblade"] = "",
+	["Kalaran Windblade"] = "Kalaran Finalâmina",
 	-- {area:1446} Thorium Point
 	["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Kalaran fica sozinho ao sul de {area:1446}, na borda d'O Caldeirão. Ouça a história dele.",
 
@@ -119,7 +119,7 @@ return {
 
 	-- Step 31: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}."] = "",
+	["Ride back north to {area:1446}."] = "Cavalgue de volta ao norte até {area:1446}.",
 
 	-- Step 33: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "As fornalhas dos Vaporistas",

@@ -73,14 +73,14 @@ return {
 
 	-- Step 16: Back to Loch Modan
 	-- {area:38} Loch Modan
-	["Back to {area:38}"] = "",
+	["Back to {area:38}"] = "De volta a {area:38}",
 
 	-- Step 17: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Cavalgue de volta para o norte até o acampamento de Bandaferro.",
 
 	-- Step 18: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride back west along the loch to {area:144}."] = "",
+	["Ride back west along the loch to {area:144}."] = "Volte para oeste pelo lago até {area:144}.",
 
 	-- Step 19: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

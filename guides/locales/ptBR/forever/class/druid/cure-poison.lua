@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Use {spell:18960} e fale com {npc:11802}, depois pegue o voo de {npc:11800} no meio de {area:2361} (ela leva druidas para {area:702}, sem precisar de rota de voo) e o portal para cima até {zone:1457}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 10: Power over Poison
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
@@ -59,18 +59,18 @@ return {
 
 	-- Step 11: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3033} stands in the druids' hut on {area:1639}; {npc:262560}, the Skyborne druid trainer where the airship from Zephras Isle lands in northern {zone:1412}, gives the same quest. No {skill:182}? {npc:3490} at the Crossroads sells {item:2449} later, or buy five on the Auction House now."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}; {npc:262560}, the Skyborne druid trainer where the airship from Zephras Isle lands in northern {zone:1412}, gives the same quest. No {skill:182}? {npc:3490} at the Crossroads sells {item:2449} later, or buy five on the Auction House now."] = "{npc:3033} fica na cabana dos druidas em {area:1639}; {npc:262560}, a instrutora de druida dos Celonatos, onde o barco celeste vindo da Ilha de Zefras pousa no norte de {zone:1412}, dá a mesma missão. Sem {skill:182}? {npc:3490}, na Encruzilhada, vende {item:2449} mais tarde, ou compre cinco na Casa de Leilões agora.",
 	-- {npc:3033} Turak Runetotem · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore
 	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "{npc:3033}, ou {npc:262560} no norte de {zone:1412}",
 
 	-- Step 12: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "Use {spell:18960}: {npc:11802} fica no andar de cima do prédio ao seu lado. Ele entrega a {item:15842}. {npc:11798} leva druidas para {area:1638}; de lá, voe até a Encruzilhada.",
 
 	-- Step 13: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {item:15842} Empty Dreadmist Peak Sampler
 	-- plural, as words: Burning Blade Toxicologists = {npc:12319} Burning Blade Toxicologist
-	["From the Crossroads head north to {area:384} and climb to the bubbling {object:19464} on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the {item:15842}: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run."] = "",
+	["From the Crossroads head north to {area:384} and climb to the bubbling {object:19464} on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the {item:15842}: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run."] = "Da Encruzilhada, vá para o norte até {area:384} e suba até {object:19464}, que borbulha no topo. Sectários da Lâmina Ardente acampam em volta: puxe um ou dois por vez. Fique na água e use a {item:15842}: três Toxicologistas da Lâmina Ardente (nível 13-14, maldições e feitiços de bruxo) aparecem e atacam. Você não precisa matá-los: quando a amostra estiver cheia, corra.",
 	-- {item:15842} Empty Dreadmist Peak Sampler
 	["{item:15842}, standing in the pool"] = "{item:15842}, de pé dentro do poço",
 
@@ -85,7 +85,7 @@ return {
 	-- plural, as words: Kodo Horns = {item:15852} Kodo Horn
 	["{item:2449} and Kodo Horns"] = "{item:2449} e Chifres de Kodo",
 	-- {npc:3234} Lost Barrens Kodo · {area:382} Sludge Fen · {area:388} Stagnant Oasis · {item:2449} Earthroot · {zone:1413} Barrens
-	["Every {npc:3234} (level 14-15) drops a horn, but they are few and wander: search the far north near the {area:382} and the oases, above all the {area:388} south-east of the Crossroads. They charge from range and stomp. Herbalists find {item:2449} all over the northern {zone:1413}."] = "",
+	["Every {npc:3234} (level 14-15) drops a horn, but they are few and wander: search the far north near the {area:382} and the oases, above all the {area:388} south-east of the Crossroads. They charge from range and stomp. Herbalists find {item:2449} all over the northern {zone:1413}."] = "Todo {npc:3234} (nível 14-15) solta um chifre, mas são poucos e vagam: procure no extremo norte perto de {area:382} e nos oásis, sobretudo no {area:388}, a sudeste da Encruzilhada. Eles investem à distância e pisoteiam. Herboristas acham {item:2449} por todo o norte de {zone:1413}.",
 
 	-- Step 16: Tonga Runetotem
 	-- {item:15826} Curative Animal Salve
@@ -96,14 +96,14 @@ return {
 	["Sickly Gazelles"] = "Gazelas Doentes",
 	-- {item:15826} Curative Animal Salve · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
+	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "Use o {item:15826} em Gazelas Doentes vivas (nível 3): elas pastam dos dois lados da estrada ao norte da Encruzilhada até a divisa com {zone:1440}, a noroeste da Encruzilhada e a oeste de {area:392}. Truque de druida: prenda uma gazela com {spell:339}, aplique o bálsamo antes de a raiz dar dano, e a morte pela raiz conta uma segunda vez, então cinco gazelas bastam. Gastou uma dose? Abandone a missão e pegue de novo com {npc:3448} para ganhar bálsamo novo.",
 	-- {item:15826} Curative Animal Salve
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on Sickly Gazelles"] = "Use o {item:15826} nas Gazelas Doentes",
 
 	-- Step 18: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Use {spell:18960} e fale com {npc:11802}, depois pegue o voo de {npc:11798} até {area:1638}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 19: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison

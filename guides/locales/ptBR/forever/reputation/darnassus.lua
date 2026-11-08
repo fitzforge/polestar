@@ -101,7 +101,7 @@ return {
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "{area:186}: {npc:2080} e o lago",
 	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080} cuida do jardim dele na margem sudeste de {area:259}; {npc:2107} fica no andar de cima de uma casa em {area:260}, a leste de {area:186}: suba por dentro, a seta não distingue os andares.",
 
 	-- Step 18: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar
@@ -116,7 +116,7 @@ return {
 
 	-- Step 20: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
-	["{area:186}: the {area:262}'s entrance"] = "",
+	["{area:186}: the {area:262}'s entrance"] = "{area:186}: entrada de {area:262}",
 
 	-- Step 21: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar

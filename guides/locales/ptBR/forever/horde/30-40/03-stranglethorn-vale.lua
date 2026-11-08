@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Voe de {area:2408} para {area:1638} e treine com {npc:3033} em {area:1639}; de lá, siga voando até {zone:1454}.",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Keldran
 	-- {npc:5640} Keldran · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["{npc:5640} stands in the {object:172961} on the west side of the city."] = "",
+	["{npc:5640} stands in the {object:172961} on the west side of the city."] = "{npc:5640} fica em {object:172961}, no lado oeste da cidade.",
 
 	-- Step 5: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
@@ -73,7 +73,7 @@ return {
 
 	-- Step 12: Grom'gol
 	-- {npc:2497} Nimboya · {object:3202} Grom'gol (no name in this language: may be words)
-	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "",
+	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} espera em {object:3202}, perto da torre do zepelim.",
 
 	-- Step 14: The camp by the river
 	["The camp by the river"] = "O acampamento à beira do rio",
@@ -86,7 +86,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "Tigres-do-espinhaço (32) vagam pelas colinas em volta do acampamento e ao sul dele, Panteras (32) pelas clareiras a oeste e sudoeste. Os Geólogos da Empreendimentos S.A., que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento.",
 
 	-- Step 17: Nesingwary's camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -97,7 +97,7 @@ return {
 	["Elder tigers and Lashtail raptors"] = "Tigres anciãos e Raptores Batecauda",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
-	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp; the Lashtail Raptors (35-36) hunt further south, towards {object:3202}.\nCareful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "",
+	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp; the Lashtail Raptors (35-36) hunt further south, towards {object:3202}.\nCareful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Os Tigres-do-espinhaço Anciões (34-35) vagam pelas colinas a sudoeste do acampamento; os Raptores Batecauda (35-36) caçam mais ao sul, rumo a {object:3202}.\nCuidado: acampamentos de trolls ficam perto da área dos tigres, e os trolls podem entrar na briga se você puxar sem cuidado.",
 
 	-- Step 19: Nesingwary's camp
 	["Back north to the camp."] = "De volta ao norte, até o acampamento.",
@@ -113,7 +113,7 @@ return {
 	["Level 35"] = "Nível 35",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Raptores Batecauda",
 	-- {npc:686} Lashtail Raptor
@@ -123,7 +123,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay
-	["Head south down the coast to {object:3202} and fly to {area:35}."] = "",
+	["Head south down the coast to {object:3202} and fly to {area:35}."] = "Siga a costa para o sul até {object:3202} e voe para {area:35}.",
 
 	-- Step 24: Fly to Grom'gol
 	-- {npc:2465} Far Seer Mok'thardin
@@ -165,7 +165,7 @@ return {
 	["Venture Co. camp"] = "Acampamento da Empreendimentos S.A.",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "",
+	["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "Siga para o norte até {area:37}, a sudeste do acampamento do Rosarães: os Geólogos da Empreendimentos S.A. (34-36) trabalham nos acampamentos junto ao lago e carregam os Cristais Rolados.",
 
 	-- Step 33: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "Acampamento Mosh'Ogg",
@@ -176,7 +176,7 @@ return {
 	["Level 36"] = "Nível 36",
 	-- {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões do Pântano Vadeoso são de nível 35-38. Abaixo de 36? Continue matando os Brutamontes e Mandingueiros Mosh'Ogg aqui até o nível 36; puxe um de cada vez. Ou, em grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "mate {npc:1142} até subir",
 

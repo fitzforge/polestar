@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Tome of Valor (Ironforge)
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "",
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "No nível 20, {npc:6179}, no andar de cima do {object:32386}, na {object:32362}, entrega o {item:6776}. Clique nele com o botão direito: ele manda você a {npc:6171}, na Catedral da Luz de {zone:1453}. Pegue o {area:2257} de {zone:1455} até {zone:1453}.",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor

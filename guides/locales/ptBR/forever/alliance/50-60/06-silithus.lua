@@ -24,7 +24,7 @@ return {
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
 	-- {area:3137} Talrendis Point · {area:361} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
-	["From {area:3137} ride into {area:361}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "",
+	["From {area:3137} ride into {area:361}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "De {area:3137}, siga para {area:361}: {area:2479} é o acampamento dos druidas na estrada, logo depois da divisa com {zone:1440}.",
 	["Inside"] = "Lá dentro",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Espere um pouco por {npc:9116}",
@@ -89,7 +89,7 @@ return {
 	-- Step 14: Gadgetzan
 	-- {area:976} Gadgetzan · {quest:5801} Fire Plume Forged
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "",
+	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Voe para {area:976}. Compre duas Barras de Tório na Casa de Leilões daqui para {quest:5801}.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 
@@ -201,13 +201,13 @@ return {
 
 	-- Step 40: Starfall Village
 	-- {area:2253} Starfall Village
-	["Ride north-west up the road to {area:2253}."] = "",
+	["Ride north-west up the road to {area:2253}."] = "Siga para noroeste pela estrada até {area:2253}.",
 
 	-- Step 42: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "Acampamento de {npc:10301}",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
-	["Ride back east past {area:2255} and south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
+	["Ride back east past {area:2255} and south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Volte para leste, passando por {area:2255}, e desça o vale para sudeste até o caixote danificado de {npc:10301} na neve, em {area:2245}, com a carroça destruída dele logo a leste.",
 
 	-- Step 43: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
@@ -217,7 +217,7 @@ return {
 
 	-- Step 44: Ranshalla
 	-- {npc:10300} Ranshalla · {area:2250} Owl Wing Thicket · {area:2255} Everlook · {object:177404} Altar of Elune (no name in this language: may be words)
-	["{npc:10300} waits at {area:2250}, south of {area:2255}.\nProtect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "",
+	["{npc:10300} waits at {area:2250}, south of {area:2255}.\nProtect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "{npc:10300} espera em {area:2250}, ao sul de {area:2255}.\nProteja {npc:10300} enquanto ela acende as tochas no caminho até {object:177404}.",
 
 	-- Step 45: Darkwhisper Gorge
 	-- {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge
@@ -225,7 +225,7 @@ return {
 
 	-- Step 46: Starfall Village
 	-- {area:2255} Everlook · {area:2253} Starfall Village
-	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "",
+	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "Siga para o norte pelo vale, passando por {area:2255}, até {area:2253}.",
 
 	-- Step 48: Dire Maul (optional)
 	-- {area:2577} Dire Maul
@@ -233,7 +233,7 @@ return {
 	-- {area:2577} Dire Maul · {zone:1444} Feralas
 	["Running {area:2577} in {zone:1444} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Fazer {area:2577} em {zone:1444} em vez de farmar leva você lá mais rápido em grupo. Pule esta etapa para farmar sozinho.",
 	-- {area:2577} Dire Maul · {area:2627} Terrordale
-	["{area:2577} fits levels 55 to 60; alone, the {area:2627} grind at the end of this guide gets you to 60."] = "",
+	["{area:2577} fits levels 55 to 60; alone, the {area:2627} grind at the end of this guide gets you to 60."] = "{area:2577} serve para os níveis 55 a 60; sozinho, matar monstros em {area:2627} no fim deste guia leva você ao nível 60.",
 
 	-- Step 49: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -263,7 +263,7 @@ return {
 
 	-- Step 63: Nighthaven
 	-- {area:2361} Nighthaven
-	["Learn the flight path in {area:2361}."] = "",
+	["Learn the flight path in {area:2361}."] = "Aprenda a rota de voo em {area:2361}.",
 
 	-- Step 64: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
@@ -271,7 +271,7 @@ return {
 
 	-- Step 65: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
-	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "",
+	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "O voo pousa em {area:702}. {npc:7916} fica a uma curta caminhada a noroeste do mestre de voo.",
 
 	-- Step 67: Darnassus
 	-- {zone:1457} Darnassus
@@ -323,7 +323,7 @@ return {
 
 	-- Step 74: Ironforge
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
-	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "Pegue o {area:2257} até {zone:1455}. {npc:14724} e {npc:14723} aceitam sessenta de Lã, sessenta de Seda e sessenta de Magitrama cada, depois sessenta {item:14047}: entregue o que você carrega (ou compre na Casa de Leilões) e pule o resto.",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} não tem instrutor de xamã",
 
@@ -365,7 +365,7 @@ return {
 
 	-- Step 87: Egan
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {npc:11140} Egan
-	["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "",
+	["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "Atravesse o rio a leste da cabana de {npc:1855} até {area:2627}: {npc:11140} fica junto à cabana em ruínas de Augustus.",
 
 	-- Step 89: Scholomance (optional)
 	-- {area:2057} Scholomance
@@ -379,7 +379,7 @@ return {
 	["Grind to 60"] = "Upe até o 60",
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram os bosques de lá. Ou, com um grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {area:139}"] = "farme {npc:14564} em {area:2627}, {area:139}",
 
@@ -396,7 +396,6 @@ return {
 	-- ["Grind to 58"] = "Upe até o 58",
 	-- ["Grind to 59"] = "Upe até o 59",
 	-- ["Hearth to {area:1519} and train your level 60 spells. This is the end of the leveling route: look at the reputation and dungeon guides next."] = "Regresse para {area:1519} e treine seus feitiços de nível 60. Este é o fim da rota de evolução: veja depois os guias de reputação e de masmorras.",
-	-- ["Hearth to {area:392} and fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Regresse para {area:392} e voe para {area:976}. Compre duas Barras de Tório na Casa de Leilões daqui para {quest:5801}.",
 	-- ["Into {zone:1451}"] = "Rumo a {zone:1451}",
 	-- ["Level 60"] = "Nível 60",
 	-- ["Ride back north to {area:2255} and west along the road to the night elf village."] = "Volte para o norte até {area:2255} e siga para o oeste pela estrada até a aldeia dos elfos noturnos.",

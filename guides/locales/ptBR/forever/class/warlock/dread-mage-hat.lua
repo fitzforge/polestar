@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Musquash Root
 	-- {area:836} Dun Algaz · {object:147516} Dark Iron (no name in this language: may be words) · {area:146} Stonewrought Dam
-	["The root grows at the water's edge in the pool below the small falls east of {area:836}, beside the {object:147516} cave below the {area:146}: a tall, spiky wooden root, not at the foot of the dam itself."] = "",
+	["The root grows at the water's edge in the pool below the small falls east of {area:836}, beside the {object:147516} cave below the {area:146}: a tall, spiky wooden root, not at the foot of the dam itself."] = "A raiz cresce na beira da água, na poça abaixo da pequena queda a leste de {area:836}, ao lado da caverna {object:147516} abaixo de {area:146}: uma raiz de madeira alta e espinhosa, não ao pé da própria represa.",
 
 	-- Step 4: A Noble Brew
 	-- {item:2788} Black Claw Stout · {npc:1439} Lord Baurles K. Wishock · {object:2117} Stormwind Keep

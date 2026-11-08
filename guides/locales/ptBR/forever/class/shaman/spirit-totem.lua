@@ -15,7 +15,7 @@ return {
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:6176} Bath'rah the Windwatcher
-	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "",
+	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "No nível 50, {npc:13417}, o instrutor de xamã no {object:172957}, pede os quatro elementos para {npc:6176}.",
 
 	-- Step 2: Beram Skychaser
 	-- {npc:3032} Beram Skychaser · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:6176} Bath'rah the Windwatcher · {quest:8410} Elemental Mastery · {quest:8412} Spirit Totem · {quest:8411} Mastering the Elements

@@ -93,7 +93,7 @@ return {
 
 	-- Step 27: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "",
+	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "Siga para o norte, de {area:271}, pela estrada por Alterac até {area:3197}.",
 
 	-- Step 28: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
@@ -148,7 +148,7 @@ return {
 	-- Step 38: Level 52
 	["Level 52"] = "Nível 52",
 	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52 nos ogros de {area:249}, no caminho para {area:251}: as entregas de lá levam você ao nível 53. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:7034} Firegut Ogre Mage
 	["grind on {npc:7034}"] = "mate {npc:7034} até subir",
 
@@ -160,7 +160,7 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: vá matando estes pelo caminho",
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron (no name in this language: may be words) · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling
-	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "",
+	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "As relíquias são as pedras esculpidas espalhadas por {area:250}, em volta de {area:251}: clique nelas até recuperar a informação.\nLeia a tábua no acampamento de {object:147516} entre as ruínas, a sudoeste de {area:251}, para copiar a transcrição.\nUse {item:12284} em um {npc:7047} nas encostas a leste de {area:251}, logo antes de ele morrer, e depois saqueie a essência que ele deixa.",
 
 	-- Step 41: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
@@ -176,7 +176,7 @@ return {
 	-- Step 45: Level 52.08
 	["Level 52.08"] = "Nível 52.08",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Se você pulou {quest:4022}, mate monstros aqui até o nível 52.08 para seguir o plano da rota. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "mate {npc:9690} até subir",
 

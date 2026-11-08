@@ -62,7 +62,7 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "O {object:405149} é a tábua de pedra encostada na parede de {object:172961}, no caminho para os instrutores de mago. Use-a para pegar o livro.",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "A biblioteca: primeiros livros",
@@ -175,7 +175,7 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Level 60 books: {area:254}"] = "Livros de nível 60: {area:254}",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133} fica dentro de {area:254}, na passagem da mina rumo a {area:1584}, depois do fornecedor de missão de {area:2717}. O marcador de rota aponta para a montanha.",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon
@@ -189,7 +189,4 @@ return {
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter (no name in this language: may be words)
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, ao lado de {npc:211022}, no Bairro Mágico, pega os livros de nível 60: a missão de cada livro é oferecida enquanto o livro está nas suas bolsas. Pegue e entregue um de cada vez (o Polestar ainda não consegue acompanhar essas missões para a Horda).",
 
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "O Mural de Ta'zo é a tábua de pedra encostada na parede do Vale dos Espíritos, no caminho para os instrutores de mago. Use-o para pegar o livro.",
-	-- ["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "{item:228133} fica dentro de {area:254}, na passagem da mina rumo a {area:1584}, depois do fornecedor de missão de {area:2717}; a missão dele é só para magos. O marcador de rota aponta para a montanha.",
 }

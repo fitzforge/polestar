@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Cenarion Aid: High Priest Rohan
 	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:8254} Cenarion Aid · {item:7972} Ichor of Undeath
-	["At 50 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) offers {quest:8254}. Before you leave a city, buy an {item:7972} at the Auction House (a few silver): the third quest asks for one and it drops rarely."] = "",
+	["At 50 in {zone:1455}, {npc:11406} in the {object:32386} ({object:32362}) offers {quest:8254}. Before you leave a city, buy an {item:7972} at the Auction House (a few silver): the third quest asks for one and it drops rarely."] = "No nível 50, em {zone:1455}, {npc:11406}, no {object:32386} ({object:32362}), oferece {quest:8254}. Antes de sair de uma cidade, compre um {item:7972} na Casa de Leilões (umas poucas pratas): a terceira missão pede um e ele cai raramente.",
 
 	-- Step 2: Cenarion Aid: Brother Joshua
 	-- {npc:5489} Brother Joshua · {zone:1453} Stormwind · {quest:8254} Cenarion Aid · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {item:7972} Ichor of Undeath · {object:2096} Trade District
@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Cenarion Aid: Ur'kyo
 	-- {npc:6018} Ur'kyo · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits (no name in this language: may be words) · {quest:8254} Cenarion Aid · {item:7972} Ichor of Undeath
-	["At 50, {npc:6018} in {zone:1454}'s {object:172961} offers {quest:8254}. Before you leave, buy an {item:7972} at the Auction House (a few silver): the third quest asks for one and it drops rarely."] = "",
+	["At 50, {npc:6018} in {zone:1454}'s {object:172961} offers {quest:8254}. Before you leave, buy an {item:7972} at the Auction House (a few silver): the third quest asks for one and it drops rarely."] = "No nível 50, {npc:6018}, no {object:172961} de {zone:1454}, oferece {quest:8254}. Antes de sair, compre um {item:7972} na Casa de Leilões (umas poucas pratas): a terceira missão pede um e ele cai raramente.",
 
 	-- Step 4: Ogtinc
 	-- {npc:8405} Ogtinc · {area:1221} Ruins of Eldarath · {area:3137} Talrendis Point · {area:1237} Valormok

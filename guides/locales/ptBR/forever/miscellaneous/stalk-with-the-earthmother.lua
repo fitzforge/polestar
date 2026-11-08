@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff
-	["A one-hand blade or mace at 11 from {npc:205729}'s three tests in and around {zone:1456}, for a Tauren of any class."] = "",
+	["A one-hand blade or mace at 11 from {npc:205729}'s three tests in and around {zone:1456}, for a Tauren of any class."] = "Uma lâmina ou maça de uma mão no nível 11, vinda dos três testes de {npc:205729} em {zone:1456} e arredores, para um Tauren de qualquer classe.",
 
 	-- Step 1: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206159} Venture Co Disguise · {npc:3051} Supervisor Fizsprocket

@@ -16,7 +16,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["To {object:3202}"] = "Para {object:3202}",
 	-- {area:75} Stonard · {area:117} Grom'gol Base Camp
-	["The flight from {area:75} lands at {area:117}."] = "",
+	["The flight from {area:75} lands at {area:117}."] = "O voo de {area:75} pousa em {area:117}.",
 
 	-- Step 4: Grom'gol Base Camp
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay
@@ -26,7 +26,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -44,7 +44,7 @@ return {
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basiliscos Ferroqueixo",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
-	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
+	["Follow the road north out of {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "Siga a estrada para o norte, saindo de {area:35}; os basiliscos tomam sol nas rochas a leste dela, no meio da selva, no caminho de volta a {object:3202}. Os estilhaços deles caem com frequência.",
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 13: Back to Grom'gol
@@ -76,7 +76,7 @@ return {
 	-- Step 23: Level 50
 	["Level 50"] = "Nível 50",
 	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 50: {quest:4493}, de {npc:7010} em {zone:1454}, no fim de {area:16}, exige isso. Ou, em grupo, faça a masmorra {area:2100} ou a masmorra {area:1417}.",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "mate {npc:6125} até subir",
 

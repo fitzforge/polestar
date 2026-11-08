@@ -36,7 +36,7 @@ return {
 	-- {quest:1679} Muren Stormpike · {zone:1455} Ironforge
 	["{quest:1679} in {zone:1455}"] = "{quest:1679} em {zone:1455}",
 	-- {quest:1679} Muren Stormpike · {object:32390} Hall of Arms (no name in this language: may be words) · {object:32359} Military Ward (no name in this language: may be words)
-	["{quest:1679} stands in the {object:32390} in the {object:32359}."] = "",
+	["{quest:1679} stands in the {object:32390} in the {object:32359}."] = "{quest:1679} fica no {object:32390}, na {object:32359}.",
 
 	-- Step 6: Vejrek
 	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance · {spell:6343} Thunder Clap
@@ -44,7 +44,7 @@ return {
 
 	-- Step 7: Tormus Deepforge
 	-- {npc:6114} Muren Stormpike · {spell:71} Defensive Stance · {quest:1680} Tormus Deepforge · {object:32372} Great Forge (no name in this language: may be words) · {zone:1455} Ironforge
-	["Back to {npc:6114} for {spell:71}, then to {quest:1680} at the {object:32372} in the middle of {zone:1455}."] = "",
+	["Back to {npc:6114} for {spell:71}, then to {quest:1680} at the {object:32372} in the middle of {zone:1455}."] = "De volta a {npc:6114} para {spell:71}, depois a {quest:1680} na {object:32372}, no meio de {zone:1455}.",
 
 	-- Step 8: Ironband's Compound
 	-- {quest:1681} Ironband's Compound · {zone:1426} Dun Morogh · {area:212} Helm's Bed Lake · {object:85562} Ironband's Strongbox · {npc:6124} Captain Beld

@@ -23,7 +23,7 @@ return {
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
 	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "O {npc:6846} (nível 10, um goblin) trabalha na casa da doca de {area:797}, no rio, na ponta sul de Elwynn, ao sul de {area:87}. Entre em furtividade e use {spell:921} nele pelas costas: o cronograma nunca cai do corpo dele. Não comece com {spell:2070} nem com uma luta: ele chama três levas de guarda-costas. Fique longe das lareiras da casa; elas queimam você para fora da furtividade. Ele volta de 2 a 5 minutos depois de morrer.",
 	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
-	["{spell:921} the {npc:6846} for the {item:7675}"] = "",
+	["{spell:921} the {npc:6846} for the {item:7675}"] = "Use {spell:921} no {npc:6846} para pegar o {item:7675}",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "De volta ao Mestre Mathias Shaw",

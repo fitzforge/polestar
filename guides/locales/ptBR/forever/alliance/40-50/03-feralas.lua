@@ -79,7 +79,7 @@ return {
 	["Grimtotem camp"] = "Acampamento Temível Totem",
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "De {area:489}, siga para oeste pela estrada até o acampamento Temível Totem ao norte dela. {npc:7956} espera do lado de fora; liberte os Dardejantes do cercado no meio e mantenha {npc:7956} e pelo menos seis deles vivos.",
 
 	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Temível Totem",
@@ -109,7 +109,7 @@ return {
 	-- Step 28: Grind to 45
 	["Grind to 45"] = "Farme até o 45",
 	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Siga para leste até {area:1105}. As missões de {npc:14637} na costa precisam de nível 45. Ou, com um grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "farme {npc:5292} em {area:1105}, {area:357}",
 
@@ -128,7 +128,7 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "As recargas de {npc:14637} são de nível 55: pule-as.",
 	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "O guia de {zone:1446} começa com a viagem para leste, passando por {area:489}.",
 
 	-- Step 32: Thalanaar
 	-- {zone:1441} Thousand Needles

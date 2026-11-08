@@ -20,11 +20,11 @@ return {
 
 	-- Step 3: In Search of Menara Voidrender (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "No nível 31, {npc:3326}, na {object:172960}, manda você para {npc:6266}, em {area:392}. Compre {item:5770} e {item:3577} antes (próximos passos) para poupar uma viagem.",
 
 	-- Step 4: In Search of Menara Voidrender (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter (no name in this language: may be words) · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}; the zeppelin from {zone:1420} flies to {zone:1411}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}; the zeppelin from {zone:1420} flies to {zone:1411}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "No nível 31, {npc:4563}, no {object:36082}, manda você para {npc:6266}, em {area:392}; o zepelim de {zone:1420} voa para {zone:1411}. Compre {item:5770} e {item:3577} antes (próximos passos) para poupar uma viagem.",
 
 	-- Step 5: Robes of Arcana and a Gold Bar
 	-- {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Xizk Goodstitch
 	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities (no name in this language: may be words) · {item:3577} Gold Bar
-	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "",
+	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "O barco de {area:392} navega até {area:35}. {npc:2670} cuida de {object:59851} num nível superior da cidade. Entregue a ele o {item:3577}; ele fiará a linha depois.",
 
 	-- Step 8: Back to Menara Voidrender
 	-- {npc:6266} Menara Voidrender

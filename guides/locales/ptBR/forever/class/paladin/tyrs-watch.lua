@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} dá um {item:282423} depois de {quest:364}: leia-o e leve-o a {npc:244808}, junto à igreja. Ele pede que você cure cinco {npc:259377} caídos em volta de {area:154}. {spell:635} machuca um pouco um paladino Renegado a cada uso: cuidado com a sua vida.",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "Cure 5 {npc:259377} com {spell:635}",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 5: Bandarion Keep
 	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {npc:267009} Hadric Harlson · {area:159} Brill
-	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
+	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "{area:16602} fica nos penhascos a noroeste de {area:156} (a estrada para o oeste começa perto de 29,46). {npc:246349} espera no portão. {npc:246389}, o instrutor da fortaleza, e {npc:259190}, o mestre de estábulos, ficam na beira da floresta logo ao sul dele. Eles só têm trabalho para você a partir do nível 10 e depois de {quest:96896}, com Leonid na fortaleza, o fim da cadeia de {npc:267009} que começa a sudeste de {area:159}; pegue as missões deles quando os vir.",
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
@@ -122,7 +122,7 @@ return {
 	-- Step 20: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:239036} Scarlet Crusader
-	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "",
+	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "{area:812} fica no extremo leste das clareiras, uma longa caminhada. Falgan jaz morto entre a Cruzada Escarlate ali: selecione o corpo dele e use o {item:6866}, depois fale com ele na hora, pois ele não fica vivo por muito tempo. Se ele já estiver de pé (outro jogador), é só falar com ele; se morreu de novo, ressuscite-o de novo.",
 
 	-- Step 21: The Scarlet attack plans
 	["The Scarlet attack plans"] = "Os planos de ataque Escarlates",
