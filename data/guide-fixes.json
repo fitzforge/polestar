@@ -4217,6 +4217,22 @@
 				}
 			],
 			"issue": 1370
+		},
+		{
+			"id": "a4060-winterspring-54-on-frostfire",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "turnin"
+			},
+			"level": 54,
+			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
+				}
+			]
 		}
 	]
 }

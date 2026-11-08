@@ -7811,6 +7811,11 @@
 				],
 				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Deliver to MacKinley is taken from Stoley with Stoley's Shipment (04, Steamwheedle Port) and handed in on the Booty Bay stop at the end of 05, which the route now makes for everyone.",
 				"issue": "-"
+			},
+			{
+				"q": 7735,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Pristine Yeti Hide: half of Feralas' level-45 top-up is ground on the Rage Scar yetis (3% hide), so the hide is certain and handed to Pratt McGrubben on the next Feathermoon stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [

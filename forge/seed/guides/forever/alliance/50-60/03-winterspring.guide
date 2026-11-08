@@ -67,7 +67,8 @@ step Donova Snowden
 
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-up below): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
+  tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
+  tip The rest of Winterspring's work is level 55-58: stay on this camp until level 54, so your first kills also count for Donova and Salfa. Or, with a group, run the Blackrock Depths dungeon instead.
   collect 12771                       -- Empty Firewater Flask
   accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
@@ -75,6 +76,7 @@ step Frostfire Hot Springs: kill these as you meet them
   kill 7441 quest 5082.3              -- Winterfall Totemic
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
   collect 14047 x30 optional          -- Runecloth: keep thirty for Meilosh in Timbermaw Hold
+  level 54                             -- grind on Winterfall Pathfinder
 
 step Donova Snowden
   turnin 5082
