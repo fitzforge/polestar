@@ -391,6 +391,19 @@ A word with more than one meaning gets a key per meaning:
 `text` while there is none: a dungeon boss that is a chest is
 `LC("boss", "Chest")`.
 
+A quest named in running text is set in the client's quote marks:
+`Polestar.Quoted(name)` fills `LC("quote marks", "“%s”")` (deDE „…“,
+frFR « … » with no-break spaces, esES and ruRU «…», koKR ‘…’, zhTW 「…」,
+the others “…”), and leaves a name that holds double quotes, guillemets or
+corner brackets of its own as it is. The Engine quotes the quest of an
+accept, turn-in, complete or abandon goal in its `text` (so in the arrow's
+label and the waypoint handed to TomTom) but not in its `subject`, the
+"for <quest>" detail, the notices (`Requires <quest> first`, the `when`
+lines, While here's "Hand in"), and the UI its banners, tooltips' prose and
+warnings. A quest name standing alone (a card or row title, the quest
+tooltip's Quest line) and NPC and item names stay bare; a quest link keeps
+its brackets (#1368).
+
 A game term the client names itself is shown in the client's words and has no
 key: reputation standings (`Polestar.StandingName(n)`,
 `FACTION_STANDING_LABELn` in the character's gender through `GetText`), item

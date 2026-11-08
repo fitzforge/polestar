@@ -606,8 +606,8 @@ fn an_npc_60_yards_off_in_town_shows_out_of_town_its_detour_decides() {
 		vec![
 			json!(["1:1", "4:1:turnin:0"]),
 			json!(["none", "out of the way (21 s, over 20 s)", 21]),
-			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60"),
-			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60")
+			json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 60"),
+			json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 60")
 		]
 	);
 }

@@ -2883,11 +2883,11 @@ end
 local function unavailableText(u)
 	if u.reason == "skipped" then return L["You skipped this quest"] end
 	local a = u.accept
-	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(titleOfQuest(u.by, a.preTitles)) end
+	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
 	if u.reason == "level" then return L["Requires level %d"]:format(tonumber(a.minLevel) or 0) end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
-		if pre then return L["Requires %s first"]:format(titleOfQuest(pre, a.preTitles)) end
+		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
 	end
 	local N = ns.Names
 	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
@@ -2923,8 +2923,8 @@ function Own.acceptNotice(s, g, goal, status)
 	if goal.t ~= "accept" or not goal.quest or (status ~= "active" and status ~= "pending") then return nil end
 	if checked(s, g) then
 		local title = questTitle(goal) or titleOfQuest(goal.quest)
-		if Own.namesakeInLog(goal.quest, title) then return L["This %s isn't in your quest log yet: the one you have is another quest of that name"]:format(title) end
-		return L["%s isn't in your quest log"]:format(title)
+		if Own.namesakeInLog(goal.quest, title) then return L["This %s isn't in your quest log yet: the one you have is another quest of that name"]:format(ns.Quoted(title)) end
+		return L["%s isn't in your quest log"]:format(ns.Quoted(title))
 	end
 	if Own.notListed[goal.quest] then
 		local N = ns.Names
@@ -2993,10 +2993,10 @@ local function describe(goal, s)
 		return L["Destroy"], N.Item(goal.item) or goal.itemName, "item", nil
 	elseif t == "kill" then
 		-- `tame`: kill credit for taming the beast (a Lookup guide's Taming the Beast).
-		return goal.tame and L["Tame"] or L["Kill"], N.Npc(goal.npc) or goal.target, "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return goal.tame and L["Tame"] or L["Kill"], N.Npc(goal.npc) or goal.target, "npc", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
 	elseif t == "collect" then
 		local item = N.Item(goal.item) or goal.itemName
-		if goal.quest then return L["Collect"], item, "item", fmt(L["for %s"], questTitle(goal)) end
+		if goal.quest then return L["Collect"], item, "item", fmt(L["for %s"], ns.Quoted(questTitle(goal))) end
 		local _, npcName = npcOf(goal)
 		return L["Collect"], item, "item", fmt(L["from %s"], npcName)
 	elseif t == "goto" then
@@ -3007,11 +3007,11 @@ local function describe(goal, s)
 		local lx, ly = liveXY(goal)
 		return L["Go to"], ("%.1f, %.1f"):format(lx or goal.x, ly or goal.y), "place", mapName
 	elseif t == "talk" then
-		return L["Talk to"], N.Npc(goal.npc) or goal.npcName, "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Talk to"], N.Npc(goal.npc) or goal.npcName, "npc", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
 	elseif t == "interact" then
-		return L["Click"], N.Object(goal.object) or goal.objName, "object", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Click"], N.Object(goal.object) or goal.objName, "object", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
 	elseif t == "use" then
-		return L["Use"], N.Item(goal.item) or goal.itemName, "item", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Use"], N.Item(goal.item) or goal.itemName, "item", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
 	elseif t == "sethome" then
 		local _, npcName = npcOf(goal)
 		if goal.location then return L["Set your home to"], place or goal.location, "place", fmt(L["at %s"], npcName) end
@@ -3095,8 +3095,9 @@ local TEXT_IS_PLACE = { ["goto"] = true, explore = true }
 -- collect's compiled source (`from`, `fromAlso`, named in the client's
 -- language by `fromId`, `fromAlsoId`; `fromKind`, `fromRank`, `fromFaction`;
 -- an NPC of a faction that is not the character's own is one to kill),
--- `inText` when the text names it.
-local function goalText(goal, verb, subject, detail)
+-- `inText` when the text names it. A quest (`kind` "quest") reads in the
+-- client's quote marks: "Turn in “Your Place in the World”" (ns.Quoted).
+local function goalText(goal, verb, subject, detail, kind)
 	local fromKind = goal.fromKind or "npc"
 	local nameOf = fromKind == "object" and ns.Names.Object or ns.Names.Npc
 	local src = goal.from and {
@@ -3107,6 +3108,7 @@ local function goalText(goal, verb, subject, detail)
 			or (goal.fromFaction == "H" and player and player.faction == "Horde")),
 	} or nil
 	if goal.text and not TEXT_IS_PLACE[goal.t] then return goal.text, src end
+	if kind == "quest" then subject = ns.Quoted(subject) end
 	if verb == "" then return subject, src end
 	if goal.t == "skill" then return verb .. " " .. tostring(subject) .. " " .. detail, src end
 	local counted = goal.count and goal.count > 1 and not tracksProgress(goal)
@@ -3149,7 +3151,7 @@ local function goalView(s, g, goal, stepStatus, group)
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
-	local text, src = goalText(goal, verb, subject, detail)
+	local text, src = goalText(goal, verb, subject, detail, kind)
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
 	local opens = need or nil
@@ -3189,11 +3191,11 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- An open accept the game does not confirm: ticked but not in the
 		-- quest log, or not listed by its giver (Own.acceptNotice); a goal
 		-- of a quest that left the log (Own.lostGoal), greyed while asked.
-		noticeText = Own.acceptNotice(s, g, goal, status) or (lost and L["%s isn't in your quest log"]:format(questTitle(goal))) or nil,
+		noticeText = Own.acceptNotice(s, g, goal, status) or (lost and L["%s isn't in your quest log"]:format(ns.Quoted(questTitle(goal)))) or nil,
 		lost = lost or nil,
 		skippedGrey = need == false or nil,
 		keptGrey = opens and opens.quest or nil,
-		keptGreyText = opens and L["Grey, kept: opens %s"]:format(questTitle(opens)) or nil,
+		keptGreyText = opens and L["Grey, kept: opens %s"]:format(ns.Quoted(questTitle(opens))) or nil,
 		-- A hearth goal still to do while the Hearthstone waits, or while
 		-- travelling there is about as fast (#576, Own.hearthText).
 		hearthText = (status == "active" or status == "pending") and Own.hearthText(goal) or nil,
@@ -3379,11 +3381,11 @@ local function waypointOf(g, goal, at, s, held)
 	end
 	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal)
 		or (not held and goalDone(s, g, goal)) then return nil end
-	local verb, subject, _, detail = describe(goal, s)
+	local verb, subject, kind, detail = describe(goal, s)
 	local many = area and #goal.spots > 1
 	return {
 		map = map, x = x, y = y, f = f, z = z,
-		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail)),
+		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and goal.spread or nil,
@@ -6235,16 +6237,16 @@ end
 function Own.whenText(p)
 	local k, neg = p and p.k, p and p.neg
 	if k == "group" then
-		return (neg and L["Only if you skip the group quest %s"] or L["Only if you do %s with a group"]):format(titleOfQuest(p.q))
+		return (neg and L["Only if you skip the group quest %s"] or L["Only if you do %s with a group"]):format(ns.Quoted(titleOfQuest(p.q)))
 	elseif k == "level" and not neg then
 		local n = tostring(p.n + (p.frac or 0))
 		local fmt = (p.op == "<" and L["Only below level %s"]) or (p.op == "<=" and L["Only up to level %s"])
 			or (p.op == ">" and L["Only above level %s"]) or L["Only from level %s"]
 		return fmt:format(n)
 	elseif k == "onquest" and type(p.q) == "table" and #p.q == 1 then
-		return (neg and L["Only without %s in your quest log"] or L["Only with %s in your quest log"]):format(titleOfQuest(p.q[1]))
+		return (neg and L["Only without %s in your quest log"] or L["Only with %s in your quest log"]):format(ns.Quoted(titleOfQuest(p.q[1])))
 	elseif k == "turnedin" then
-		return (neg and L["Only before %s is handed in"] or L["Only once %s is handed in"]):format(titleOfQuest(p.q))
+		return (neg and L["Only before %s is handed in"] or L["Only once %s is handed in"]):format(ns.Quoted(titleOfQuest(p.q)))
 	end
 	return L["Skipped for your character: its conditions do not hold"]
 end
@@ -7293,7 +7295,7 @@ function Own.hereViewOf(e)
 		local text
 		if e.kind == "turnin" then
 			local _, npc = npcOf(goal)
-			local title = questTitle(goal) or titleOfQuest(goal.quest)
+			local title = ns.Quoted(questTitle(goal) or titleOfQuest(goal.quest))
 			text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
 		else
 			text = L["%s, %d more"]:format(v.text or "", left)

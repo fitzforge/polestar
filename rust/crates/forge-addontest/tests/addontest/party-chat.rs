@@ -326,7 +326,7 @@ w.progress(33, 1, 1); stub.advance(5)
 emit(chat())"#,
 	);
 	let all = lines(&out[0]);
-	assert_eq!(all, vec![format!("INSTANCE_CHAT {MARK}Plagued Lands Cursed Hide 1/1")]);
+	assert_eq!(all, vec![format!("INSTANCE_CHAT {MARK}“Plagued Lands” Cursed Hide 1/1")]);
 	no_plain_brackets(&all);
 }
 
@@ -411,14 +411,14 @@ p.loot(1234, "Linen Cloth"); stub.advance(2)
 emit(chat())"#;
 	let out = live(script);
 	let all = lines(&out[0]);
-	assert_eq!(all, vec![format!("PARTY {MARK}looted {}, which starts The Dark Iron War", item_link(9001, "Mysterious Letter"))]);
+	assert_eq!(all, vec![format!("PARTY {MARK}looted {}, which starts “The Dark Iron War”", item_link(9001, "Mysterious Letter"))]);
 	no_plain_brackets(&all);
 	let off = with_settings(script, "chatLoot = false");
 	assert_eq!(lines(&off[0]), NONE, "party.chatLoot off");
 	let solo = live(&script.replace("p.join(\"Ana\")", ""));
 	assert_eq!(lines(&solo[0]), NONE, "solo");
 	let fr = in_locale(script, "frFR");
-	assert_eq!(lines(&fr[0]), vec![format!("PARTY {{rt1}} Polestar : a ramassé {}, qui lance The Dark Iron War", item_link(9001, "Mysterious Letter"))]);
+	assert_eq!(lines(&fr[0]), vec![format!("PARTY {{rt1}} Polestar : a ramassé {}, qui lance «\u{a0}The Dark Iron War\u{a0}»", item_link(9001, "Mysterious Letter"))]);
 }
 
 #[test]

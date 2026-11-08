@@ -230,7 +230,7 @@ fn a_hand_ticked_accept_whose_quest_is_not_in_the_log_stays_open_says_so_and_kee
 	"#);
 	assert_eq!(out["tick"], true);
 	assert_eq!(out["accept"], "active", "a tick never stands for the quest log");
-	assert_eq!(out["notice"], "Gordo's Task isn't in your quest log");
+	assert_eq!(out["notice"], "“Gordo's Task” isn't in your quest log");
 	assert_eq!(out["step"], 1, "the guide stays at the giver");
 	assert_eq!(out["arrow"], 1, "the accept is the arrow's target again");
 	assert_eq!(out["turnin"], "pending", "its hand-in is not hidden as not applying");

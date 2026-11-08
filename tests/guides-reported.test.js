@@ -929,10 +929,10 @@ test('forever/alliance/03-darkshore.guide: XooVe\'s report (#216): a grey quest 
 	// At 20 Buzzbox 323 (1002, level 14) is the nearest quest still worth
 	// doing that 827 and 411 lead to; at 22 only Buzzbox 525 (1003, 16) is.
 	const at20 = greyInDarkshore(20).kept;
-	assert.deepEqual(at20['983'], [1002, 'Grey, kept: opens Buzzbox 323']);
-	assert.deepEqual(at20['1001'], [1002, 'Grey, kept: opens Buzzbox 323']);
+	assert.deepEqual(at20['983'], [1002, 'Grey, kept: opens “Buzzbox 323”']);
+	assert.deepEqual(at20['1001'], [1002, 'Grey, kept: opens “Buzzbox 323”']);
 	const at22 = greyInDarkshore(22).kept;
-	assert.deepEqual(at22['983'], [1003, 'Grey, kept: opens Buzzbox 525']);
+	assert.deepEqual(at22['983'], [1003, 'Grey, kept: opens “Buzzbox 525”']);
 	// At 23 the whole chain is grey and left out: nothing kept says so.
 	const at23 = greyInDarkshore(23);
 	assert.equal(at23.kept['983'], undefined);

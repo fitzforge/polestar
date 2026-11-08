@@ -12,6 +12,7 @@ L["%.1f km"] = "%.1fkm"
 L["%d m"] = "%dm"
 L["%.1fk yd"] = "%.1fk야드"
 L["%d yd"] = "%d야드"
+L["quote marks: \226\128\156%s\226\128\157"] = "‘%s’"
 L["Commands"] = "명령어"
 L["Unknown command '%s'."] = "알 수 없는 명령어 '%s'."
 
