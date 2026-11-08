@@ -6624,3 +6624,16 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 	const stormpike = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 514));
 	assert.equal(stormpike.title, 'Hall of Explorers');
 });
+
+// Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
+// (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
+// by Tarren Mill had no dungeon to run instead of the yetis.
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the Graveyard', { skip }, () => {
+	data = data || loadData(DATA);
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
+	const [t31] = stepTips(guide, /^\s+level 31\b/);
+	assert.doesNotMatch(t31, /start at 31/);
+	const [t30] = stepTips(guide, /^\s+level 30\b/);
+	assert.match(t30, /Scarlet Monastery/);
+});
