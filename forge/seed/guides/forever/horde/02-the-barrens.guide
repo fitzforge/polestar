@@ -112,6 +112,7 @@ step The Crossroads
   turnin 842                          -- Sergra Darkthorn
   accept 844
   accept 869                          -- Gazrog
+  turnin 1358                         -- Apothecary Helbrim: Sample for Helbrim, from Zinge
   accept 1492                         -- Apothecary Helbrim
   accept 848
   turnin 6365                         -- Devrak, on the tower
@@ -175,6 +176,7 @@ step The Crossroads
   zone The Barrens
   tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn; Devrak, the wind rider master, Thork and Darsok on the tower platform.
   getfp "Crossroads"
+  turnin 1358 only Tauren,Undead,Skyborne -- Apothecary Helbrim: Sample for Helbrim, from Zinge
   turnin 98024 only Skyborne          -- Thork, at the top of the tower
   accept 844                          -- Sergra Darkthorn
   accept 869                          -- Gazrog
@@ -185,12 +187,6 @@ step The Crossroads
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
-
-step Apothecary Helbrim
-  zone The Barrens
-  when onquest 1358
-  tip Apothecary Helbrim stands by the north gate.
-  turnin 1358                         -- Apothecary Helbrim: Sample for Helbrim, from Zinge in the Undercity
 
 step Raptor Heads as you go
   along until q869
@@ -831,6 +827,14 @@ step Thunder Bluff
   tip Fly from the Crossroads to Thunder Bluff and train your level 20 ranks: Turak Runetotem is on Elder Rise.
   fly "Thunder Bluff"
   train class
+
+step Fly to Ratchet
+  only Druid
+  zone Thunder Bluff
+  tip Fly from Thunder Bluff on to Ratchet.
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Ratchet"
+  zone The Barrens
 
 step Fly to Ratchet
   only !Druid

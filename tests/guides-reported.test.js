@@ -4976,12 +4976,12 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren Mill bind, the Undercity tip fits the trip', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	assert.equal(list.filter(({ goal }) => goal.t === 'sethome' && goal.location === 'Tarren Mill').length, 1, 'one bind at Tarren Mill');
-	const sylvanas = list[at(list, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
-	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
 	// Alessandro Luca and Doctor Martin Felben (beside Faranell) are both on the Undercity visit: the guide walked past
 	// Luca and left Prompt Potion Runner for a visit thirty levels later.
-	// Since the Horde 12-30 re-chain this Undercity visit is at the end of the Silverpine stay (03).
+	// Since the Horde 12-30 re-chain this Undercity visit, Sylvanas with it, is at the end of the Silverpine stay (03).
 	const uc = goals('forever/horde/03-silverpine-forest.guide');
+	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
+	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
 	assert.ok(at(uc, 'accept 97891', is('accept', 97891)) < at(uc, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
 	assert.equal(uc[at(uc, 'turnin 97891', is('turnin', 97891))].s, uc[at(uc, 'turnin 441', is('turnin', 441))].s, 'on the one Undercity stop, with Raleigh');
 });
