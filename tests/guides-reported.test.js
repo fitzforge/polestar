@@ -6357,7 +6357,7 @@ const HORDE_VOLUME = {
 	'forever/horde/40-50/04-tanaris.guide': [654, 864], // Tanaris Field Sampling; Return to Apothecary Zinge
 	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
 	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
-	'forever/horde/50-60/01-un-goro-crater.guide': [4324], // Yuka Screwspigot
+	'forever/horde/50-60/01-un-goro-crater.guide': [4324, 5241], // Yuka Screwspigot; Uncle Carlin (0.3.7: a message for Light's Hope Chapel)
 	'forever/horde/50-60/03-winterspring.guide': [5083, 5084], // Winterfall Firewater, Falling to Corruption (0.3.7: the flask drops from one Winterfall in ten)
 	'forever/horde/50-60/05-eastern-plaguelands.guide': [7492, 5085, 5086], // Camp Mojache; Mystery Goo; Toxic Horrors
 	'forever/horde/50-60/07-felwood.guide': [5087], // Winterfall Runners

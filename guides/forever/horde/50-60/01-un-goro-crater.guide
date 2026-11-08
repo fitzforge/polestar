@@ -10,7 +10,7 @@ next forever/horde/50-60/02-felwood
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Pawn Captures Queen (4507), Yuka Screwspigot (4324).
-# Left out: Uncle Carlin (5241).
+# Added here (0.3.7): Uncle Carlin (5241), a message to Carlin on the closing Light's Hope Chapel stop.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 
 step Un'Goro Crater
@@ -460,6 +460,7 @@ step Pamela's Doll
 step Pamela Redpath
   turnin 5149
   accept 5152
+  accept 5241                         -- a message for Carlin at Light's Hope Chapel, where this guide ends
   note Keep Auntie Marlene: Marlene lives at Sorrow Hill in the Western Plaguelands.
 
 step Zaeldarr the Outcast
@@ -473,5 +474,6 @@ step Pestilent Scar
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
   turnin 5211
+  turnin 5241                         -- Carlin Redpath
   turnin 5510 optional
   note The next guide starts here, at the chapel's flight master.
