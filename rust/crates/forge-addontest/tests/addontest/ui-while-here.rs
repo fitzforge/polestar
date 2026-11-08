@@ -37,7 +37,7 @@ local H = GF.parts.here
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 local function top(f) local _, _, _, _, y = f:GetPoint(1); return y end
 local function line()
-	return { shown = H:IsShown(), text = plain(H.Text:GetText()), dist = H.Dist:GetText(),
+	return { shown = H:IsShown(), text = plain(H.Text:GetText()), label = H.Label:GetText(), sub = H.Sub:GetText(), dist = H.Dist:GetText(),
 		top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
 end
 local function toast()
@@ -85,7 +85,9 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 	assert_eq!(out[0]["shown"], false, "nothing close by");
 	let shown = &out[1];
 	assert_eq!(shown["line"]["shown"], true);
-	assert_eq!(shown["line"]["text"], "While you're here: Kill Kobold Vermin, 2 more  (step 2)");
+	assert_eq!(shown["line"]["label"], "While you're here", "the panel's own label");
+	assert_eq!(shown["line"]["text"], "Kill Kobold Vermin  8/10", "the row reads as the step's goal rows");
+	assert_eq!(shown["line"]["sub"], "Step 2");
 	assert_eq!(shown["line"]["dist"], "50 yd");
 	assert!(shown["line"]["after"].is_number(), "\"Then:\" shows: {shown}");
 	assert!(shown["line"]["top"].as_f64().unwrap() > shown["line"]["after"].as_f64().unwrap(), "the line sits above \"Then:\": {shown}");
@@ -98,6 +100,39 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 	assert_eq!(gone["shown"], false);
 	assert_eq!(gone["engine"], true);
 	assert_eq!(gone["target"], json!([1, 1]), "the arrow is back on the step's wolves");
+}
+
+// Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
+// tinted panel (the alternate panel ground under an accent wash) with a "While you're here" label, then the
+// suggestion as a goal row, its glyph, distance and close button on the first line; in a narrow window the text
+// wraps onto another line and the panel grows, never cutting it.
+#[test]
+fn the_suggestion_is_a_goal_row_in_its_own_tinted_panel_and_wraps_in_a_narrow_window_never_cut() {
+	let out = run(
+		"",
+		r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		local T = Polestar.Theme
+		local function rgb(t) local r, g, b = t:GetVertexColor(); return { r, g, b } end
+		local function cy(r) local _, _, _, _, y = r:GetPoint(1); return y end
+		local function at(width)
+			local h = GF.LayoutHere(width)
+			return { h = h, lines = H.Text:GetNumLines(), cut = H.Text:IsTruncated(), text = plain(H.Text:GetText()) }
+		end
+		local pr, pg, pb = T.Color("panelAlt")
+		-- The stub measures the colour codes as characters too: 600 holds the line on one.
+		emit({ panel = rgb(H.Panel), panelAlt = { pr, pg, pb }, firstLine = { cy(H.Icon), cy(H.Close) }, wide = at(600), narrow = at(200) })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["panel"], o["panelAlt"], "the panel is the theme's alternate panel ground");
+	assert_eq!(o["firstLine"][0], o["firstLine"][1], "the glyph and the close button share the first line");
+	assert_eq!(o["wide"]["lines"], 1, "{o}");
+	assert!(o["narrow"]["lines"].as_i64().unwrap() >= 2, "a narrow window wraps the text: {o}");
+	for w in ["wide", "narrow"] {
+		assert_eq!(o[w]["cut"], false, "{w}: never cut: {o}");
+		assert_eq!(o[w]["text"], "Kill Kobold Vermin  8/10");
+	}
+	assert!(o["narrow"]["h"].as_f64().unwrap() > o["wide"]["h"].as_f64().unwrap(), "the panel grows with the text: {o}");
 }
 
 #[test]
