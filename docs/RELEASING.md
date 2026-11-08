@@ -100,7 +100,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged PRs (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs (needs gh)
    forge guide lint
    forge guide compile
    ```

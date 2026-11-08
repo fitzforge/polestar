@@ -90,6 +90,9 @@ line break of a release's notes, and each file starts with a `[[REPLACE ...]]` l
 ## The credits
 
 `forge release credits` rewrites `addon/Polestar/Core/Credits.lua` from `data/credits.json` (the
-supporters, highest total first; amounts are never stored) and the merged pull requests on GitHub,
-fetched with the GitHub CLI (`gh`, logged in): contributors by merged pull requests, most first, bots
-and the logins in `exclude` left out, `names` mapping a login to the name shown.
+supporters, highest total first; amounts are never stored) and the pull requests on GitHub, fetched
+with the GitHub CLI (`gh`, logged in): contributors by merged or folded pull requests, most first, bots
+and the logins in `exclude` left out, `names` mapping a login to the name shown. A closed pull request
+counts as folded when one of its commits is on the checkout's HEAD with its authorship kept: the same
+author email, and a subject that starts with the pull request commit's headline (a contributor's work
+cherry-picked into a maintainer's branch, as the 0.3.6 hotfix did).

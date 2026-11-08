@@ -14,7 +14,7 @@ Building and releasing the addon (docs/RELEASING.md):
   notes <x.y.z>      the version's release notes from CHANGELOG.md: dist/notes-<v>.md (GitHub),
                      dist/notes-curseforge-<v>.md and dist/notes-discord-<v>.txt
   credits            rewrite addon/Polestar/Core/Credits.lua (the Guiding Stars page) from data/credits.json
-                     and the repository's merged pull requests (needs the GitHub CLI, gh, logged in)
+                     and the repository's merged or folded pull requests (needs the GitHub CLI, gh, logged in)
 
 forge release <command> --help shows the command's options. The changelog fragments: forge changelog.";
 
@@ -131,11 +131,17 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 fn credits(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root"], &[], 0).map_err(super::usage)?;
 	let root = checkout(opt(args, "--root"))?;
-	use forge_release::credits::{fetch_merged, rank_contributors, read_source, render, OUT, REPO, SOURCE};
+	use forge_release::credits::{fetch_closed, fetch_merged, folded, rank_contributors, read_source, ref_commits, render, OUT, REPO, SOURCE};
 	let src = read_source(&root.join(SOURCE))?;
-	let contributors = rank_contributors(&fetch_merged(REPO)?, &src);
+	// Merged pull requests, plus closed ones whose commits were folded into this checkout's HEAD with
+	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch).
+	let mut prs = fetch_merged(REPO)?;
+	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, "HEAD")?);
+	let n_folded = folded_in.len();
+	prs.extend(folded_in);
+	let contributors = rank_contributors(&prs, &src);
 	let out = root.join(OUT);
 	std::fs::write(&out, render(&src.supporters, &contributors)).map_err(|e| format!("{}: {e}", out.display()))?;
-	println!("credits: {} supporters, {} contributors -> {}", src.supporters.len(), contributors.len(), out.display());
+	println!("credits: {} supporters, {} contributors ({n_folded} folded pull requests counted) -> {}", src.supporters.len(), contributors.len(), out.display());
 	Ok(())
 }
