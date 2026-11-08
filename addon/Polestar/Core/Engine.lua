@@ -41,6 +41,7 @@ ns.RegisterDefaults("behavior", {
 	trainReminder = "2", -- "2" | "1" | "off": remind to visit the class trainer every 2 levels, every level, never
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
+	lostQuests = "ask", -- "ask" | "back" | "skip": a quest the route had passed that leaves the log (abandoned, failed): the window asks, or the guide goes back for it or skips it at once (Own.holdLost)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
 	whileHereRadius = 180, -- yards from its spawn area's edge at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
@@ -1933,6 +1934,20 @@ function Own.lostHeld(q, s)
 	return upTo ~= nil and s < upTo
 end
 
+-- A goal of a quest held that way, other than its accept (#1365): its kills,
+-- collects and turn-in cannot be done without the quest, so while the window
+-- asks they read as skipped (greyed, never the current goal, the arrow's or
+-- a map pin's) without being skipped: the step still waits on them, and the
+-- arrow leads back to the giver (Own.lostAim). Taking the quest again, or an
+-- answer, ends the hold and brings them back.
+function Own.lostGoal(goal)
+	local q = goal.quest
+	if not q or goal.t == "accept" then return false end
+	local all = ns.CharState().lostQuests
+	local mine = all and guide and all[guide.id]
+	return mine ~= nil and mine[q] ~= nil
+end
+
 -- Whether a later, non-optional quest goal of step s (after goal g) that
 -- applies to the character is done: the work a goal led to is behind the
 -- player. (On Own: the main chunk is at 200 locals.)
@@ -2629,7 +2644,7 @@ local function goalStatus(s, g, goal, stepIsCurrent)
 	if not goalApplies(goal) then return "na" end
 	local done, cur, max, label, kind = goalDone(s, g, goal)
 	if done then return "done", cur, max, label, kind end
-	if unavailableFor(goal) or Own.goalSkipped(s, g) then return "skipped", cur, max, label, kind end
+	if unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
 	return stepIsCurrent and "active" or "pending", cur, max, label, kind
 end
 
@@ -2660,9 +2675,9 @@ local function whoOf(goal)
 	return "here"
 end
 
--- Applicable, not skipped, not done, and blocking.
+-- Applicable, not skipped, not done, not held as lost (Own.lostGoal), and blocking.
 local function stillBlocks(s, g, goal)
-	return blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal)
+	return blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.lostGoal(goal) and not goalDone(s, g, goal)
 end
 
 -- groups = { { kind, id, name, goals = { goalIndex, ... }, map, x, y, f,
@@ -2986,6 +3001,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = n > 0 and n - 1 or 0
 	end
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
+	-- A goal of a quest that left the log, held for the player's answer.
+	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail)
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
@@ -3024,8 +3041,10 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- down the chain): that quest's title (Own.skippedWithTitle).
 		skippedWith = unavail and unavail.reason == "pre" and Own.skippedWithTitle(unavail) or nil,
 		-- An open accept the game does not confirm: ticked but not in the
-		-- quest log, or not listed by its giver (Own.acceptNotice).
-		noticeText = Own.acceptNotice(s, g, goal, status),
+		-- quest log, or not listed by its giver (Own.acceptNotice); a goal
+		-- of a quest that left the log (Own.lostGoal), greyed while asked.
+		noticeText = Own.acceptNotice(s, g, goal, status) or (lost and L["%s isn't in your quest log"]:format(questTitle(goal))) or nil,
+		lost = lost or nil,
 		skippedGrey = need == false or nil,
 		keptGrey = opens and opens.quest or nil,
 		keptGreyText = opens and L["Grey, kept: opens %s"]:format(questTitle(opens)) or nil,
@@ -3212,7 +3231,7 @@ local function waypointOf(g, goal, at, s, held)
 			if go and inn then map, x, y, f, walk = inn.map, inn.x, inn.y, inn.f, true end
 		end
 	end
-	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
+	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal)
 		or (not held and goalDone(s, g, goal)) then return nil end
 	local verb, subject, _, detail = describe(goal)
 	local many = area and #goal.spots > 1
@@ -3259,7 +3278,7 @@ function Own.currentGoal(s, groups, focus)
 	local header, optional, first, fields
 	for _, g in ipairs(grp.goals) do
 		local goal = step.goals[g]
-		if goal.t ~= "note" and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g)
+		if goal.t ~= "note" and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not Own.lostGoal(goal)
 			and not goalDone(s, g, goal) then
 			if Own.isHeader(step, goal, grp) then
 				header = header or g
@@ -3322,6 +3341,23 @@ function Own.alongAim(q)
 	return best
 end
 
+-- While the window asks about a quest that left the log (Engine.LostQuestion),
+-- the arrow leads back to its giver, where Go back for it takes the route
+-- (#1365): its first accept the character can take before the step the hold
+-- keeps, pointed at although the hold reads it done. Nil when none has a place.
+function Own.lostAim()
+	local q = Engine.LostQuestion()
+	if not q then return nil end
+	local upTo = ns.CharState().lostQuests[guide.id][q]
+	for _, a in ipairs(layoutOf(guide).accepts[q] or NONE) do
+		if a.s < upTo and stepApplies(a.step) and not isSkipped(a.s) then
+			local wp = waypointOf(tonumber(a.key:match(":(%d+)$")), a.goal, nil, a.s, true)
+			if wp then return wp end
+		end
+	end
+	return nil
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open; else the current goal's own place;
 -- else the header's; else the focus group's first open located goal
@@ -3335,8 +3371,10 @@ end
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
 -- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
--- while it shows. A flight step leads to the flight's end while the travel
--- planner flies there (Own.flyAim), past the flight master it names.
+-- while it shows. On the live step, a quest that left the log and waits for
+-- the player's answer leads back to its giver (Own.lostAim), whose accept the
+-- window's notice names. A flight step leads to the flight's end while the
+-- travel planner flies there (Own.flyAim), past the flight master it names.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3355,7 +3393,7 @@ local function findWaypoint()
 		if wp then return wp end
 	end
 	if current == computed then
-		local wp = Own.partyAim(current)
+		local wp = Own.lostAim() or Own.partyAim(current)
 		if wp then return wp end
 	end
 	local fly = Own.flyAim(current)
@@ -4716,9 +4754,15 @@ end
 -- The live step went back from `to` to `from`: hold it at `to` for every
 -- accept in between whose quest left the log (not done, not skipped), and
 -- ask (Engine.LostQuestion). A held quest back in the log, done or skipped
--- is forgotten first. True if a quest is newly held.
+-- is forgotten first. With behavior.lostQuests "back" or "skip" (#1365) the
+-- answer is given at once instead, as Engine.AnswerLost gives it: "back"
+-- holds nothing, so the route goes back to the giver; "skip" skips the
+-- quest and what follows. Either is said in chat (Own.lostSaid, flushed by
+-- evaluate). True if a quest is newly held or skipped.
+Own.lostSaid = {} -- { { quest, title, answer }, ... }
 function Own.holdLost(from, to)
 	local st, C = ns.CharState(), Compat()
+	local answer = ns.Get("behavior.lostQuests")
 	local mine = st.lostQuests and st.lostQuests[guide.id]
 	local held = false
 	for s = from, to - 1 do
@@ -4728,13 +4772,23 @@ function Own.holdLost(from, to)
 				local q = goal.quest
 				if goal.t == "accept" and q and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal)
 					and Own.removed[q] and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q) then
-					if not mine then
-						st.lostQuests = st.lostQuests or {}
-						mine = st.lostQuests[guide.id] or {}
-						st.lostQuests[guide.id] = mine
+					if answer == "back" or answer == "skip" then
+						Own.removed[q] = nil
+						Own.lostSaid[#Own.lostSaid + 1] = { q, questTitle(goal), answer }
+						if answer == "skip" then
+							if type(st.skippedQuests) ~= "table" then st.skippedQuests = {} end
+							st.skippedQuests[q] = true
+							held = true
+						end
+					else
+						if not mine then
+							st.lostQuests = st.lostQuests or {}
+							mine = st.lostQuests[guide.id] or {}
+							st.lostQuests[guide.id] = mine
+						end
+						mine[q] = math.max(mine[q] or 0, to)
+						held = true
 					end
-					mine[q] = math.max(mine[q] or 0, to)
-					held = true
 				end
 			end
 		end
@@ -5167,6 +5221,20 @@ local function evaluate()
 		local list = Own.pendingEnds
 		Own.pendingEnds = {}
 		for i = 1, #list do ns.Fire("GUIDE_END", list[i].guideId, list[i]) end
+	end
+	-- A quest that left the log, answered by the setting (Own.holdLost): said
+	-- in chat; a skip also offers its undo (PLAYER_SKIPPED_QUEST).
+	if #Own.lostSaid > 0 then
+		local list = Own.lostSaid
+		Own.lostSaid = {}
+		for _, e in ipairs(list) do
+			if e[3] == "skip" then
+				ns.Print(L["%s is no longer in your quest log: the guide skips it and what follows."]:format(e[2]))
+				ns.Fire("PLAYER_SKIPPED_QUEST", e[1], e[2])
+			else
+				ns.Print(L["%s is no longer in your quest log: the guide goes back for it."]:format(e[2]))
+			end
+		end
 	end
 end
 
@@ -7707,6 +7775,19 @@ ns.On("PARTY_PROGRESS", onUpdateEvent)
 -- deathskips turned on or off (`die` goals, Own.deathskips).
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.groupQuests" or path == "behavior.deathskips" then requestUpdate() end
+end)
+
+-- A quest that left the log while the window asks (Engine.LostQuestion) is
+-- answered once the player picks Always go back for it or Always skip it.
+ns.On("SETTING_CHANGED", function(path, answer)
+	if path ~= "behavior.lostQuests" or (answer ~= "back" and answer ~= "skip") then return end
+	local q = Engine.LostQuestion()
+	while q do
+		Engine.AnswerLost(q, answer)
+		local nq = Engine.LostQuestion()
+		if nq == q then break end
+		q = nq
+	end
 end)
 
 -- An item or spell going on cooldown: `when cooldown` (Own.onCooldown), once a

@@ -140,6 +140,8 @@ L["For %s: %s"] = "Para %s: %s"
 -- L["Hand in %s to %s"] = ""
 -- L["Hand in %s"] = ""
 -- L["%s, %d more"] = ""
+-- L["%s is no longer in your quest log: the guide skips it and what follows."] = ""
+-- L["%s is no longer in your quest log: the guide goes back for it."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."
@@ -2077,6 +2079,10 @@ L["Did you mean:"] = "Você quis dizer:"
 -- L["Sound for a new suggestion"] = ""
 -- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
+-- L["When you abandon a guide quest"] = ""
+-- L["Ask me: the guide stays on its step, the arrow leads back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
+-- L["Always go back for it"] = ""
+-- L["Always skip it"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"

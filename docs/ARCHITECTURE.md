@@ -1458,10 +1458,23 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   is taken again: `Own.removed`) whose open accept would pull the live step
   back is held (`Own.holdLost`, saved per character and guide as
   `lostQuests[guideId][questID] = the live step`): its accepts before that
-  step read done, so the step stays. The guide window's banner asks, and is
+  step read done, so the step stays. While it is held, the quest's other
+  goals (kills, collects, its turn-in: `Own.lostGoal`) read as skipped in the
+  step views without being skipped: greyed, saying the quest is not in the
+  log, never the current goal, the focus, a map pin or the arrow's; the step
+  still waits on them. On the live step the arrow leads back to the giver
+  instead (`Own.lostAim`: its first accept that applies before the held
+  step), where Go back for it would take the route (#1365). The guide
+  window's banner asks, and is
   answered rather than dismissed: Go back for it (`AnswerLost(q, "back")`,
   the route returns to the giver) or Skip it and what follows (`"skip"`,
-  `SkipQuest`, with its usual undo). Taking the quest again, finishing it
+  `SkipQuest`, with its usual undo). Setting `behavior.lostQuests` ("ask",
+  the default; "back"; "skip": Options, Guide, Automation, "When you abandon
+  a guide quest") gives that answer at once instead of holding: "back"
+  holds nothing, "skip" marks the quest skipped, and either is said in chat
+  (`Own.lostSaid`; a skip also fires `PLAYER_SKIPPED_QUEST` for its undo).
+  Choosing an always answer answers a question already up. Taking the
+  quest again, finishing it
   or skipping it otherwise forgets the hold (`Own.pruneLost`). A step the
   player brings back (Unskip, Goto) asks nothing unless its quest left the
   log.
