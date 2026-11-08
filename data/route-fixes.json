@@ -7692,6 +7692,15 @@
 				],
 				"reason": "Alliance 40-60 order (2026-11-08, #1228): ... and Bugs (40) is taken from Morgan Stern with Mudrock Soup and Bugs; the Silt Crawlers drop the legs (80%) on the Swamp of Sorrows shore where the route picks up the driftwood, and it goes back to Morgan Stern on the next Theramore stop.",
 				"issue": "-"
+			},
+			{
+				"q": 25,
+				"after": [
+					"accept",
+					6441
+				],
+				"reason": "#1346: Tideress drops the Befouled Water Globe (16408, which starts The Befouled Element 1918 and opens Je'neu of the Earthen Ring 824) only for a player with Stonetalon Standstill in the log or handed in. Players' recordings: the 7 people who took 1918 all had 25 (6 in the log, 1 handed in); 2 people without it killed Tideress and got no globe, one of them skipping the step, and the reporter saw the same in game. 07-ashenvale takes 25 from Mastok on the first Splintertree stop and works it at Mystral Lake with Tideress on the way back from Shadumbra, as the 0.3.4 route did with the lake.",
+				"issue": "#1346"
 			}
 		],
 		"skip": [
@@ -7896,12 +7905,6 @@
 				"q": 79536,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
-				"issue": "-"
-			},
-			{
-				"q": 25,
-				"faction": "Horde",
-				"reason": "Horde 12-30 re-chain (2026-11-07): Stonetalon Standstill (level 25, from 23): Mastok in Splintertree offers it from 23, after the first Ashenvale visit (21), and the second visit passes Mystral Lake before Splintertree; it would ride from one visit to the other or need a walk back to the lake. Left out.",
 				"issue": "-"
 			},
 			{
@@ -10881,6 +10884,19 @@
 				],
 				"faction": "Horde",
 				"why": "#1333 (2026-11-08): The Tear of the Moons is done in Bael Modan on the way from Camp Taurajo to the Great Lift, before the descent to Freewind Post (Message to Freewind Post's hand-in), as the pair above places it."
+			},
+			{
+				"a": [
+					"accept",
+					25
+				],
+				"b": [
+					"accept",
+					1918
+				],
+				"faction": "Horde",
+				"why": "#1346: the Befouled Water Globe that starts The Befouled Element (1918) drops from Tideress only for a player with Stonetalon Standstill (25) in the log or handed in (players' recordings: 7 people with it got the globe, 2 without it did not), so Tideress comes after Mastok's accept of 25.",
+				"source": "#1346"
 			}
 		]
 	}

@@ -13,9 +13,9 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
-# Left out: Stonetalon Standstill (25): Mastok in Splintertree offers it from level 23, and its
-# elementals and gazebo are at Mystral Lake, which this guide passes before Splintertree; the first
-# Ashenvale visit (forever/horde/05-stonetalon-mountains) is at 21.
+# Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
+# Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
+# Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
 # Troll Charm (6462), Between a Rock and a Thistlefur (216) and Freedom to Ruul (6482) are done on the
 # first Ashenvale visit at 21 (forever/horde/05-stonetalon-mountains), with Vorsha the Lasher (6641); King of the Foulweald (6621)
 # opens with 216's hand-in and is taken here from Karang.
@@ -82,12 +82,6 @@ step Alonso
   accept 78134 optional
   turnin 78134
 
-step Tideress
-  zone Ashenvale
-  tip Tideress, a corrupted water elemental, drifts in Mystral Lake. Her Befouled Water Globe starts a quest for Splintertree.
-  collect 16408
-  accept 1918 item 16408
-
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
   use 16972 quest 6621.1 @56.4,63.5 map 1440
@@ -114,11 +108,7 @@ step Splintertree Post
   turnin 23                           -- Senani Thunderheart
 
 step Splintertree Post
-  when onquest 1918
-  turnin 1918                         -- Mastok Wrilehiss
-
-step Splintertree Post
-  accept 824                          -- Mastok Wrilehiss
+  accept 25                           -- Mastok Wrilehiss
   sethome "Splintertree Post"         -- Innkeeper Kaylisk, beside her
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
@@ -133,12 +123,32 @@ step Shadumbra
   collect 16304
   accept 24 item 16304
 
+step Tideress
+  zone Ashenvale
+  tip Back south-west to Mystral Lake. Tideress, a corrupted water elemental, drifts around the lake's island and under the water. She drops the Befouled Water Globe only once you have Stonetalon Standstill from Mastok; it starts a quest for Splintertree.
+  collect 16408
+  accept 1918 item 16408
+
+step Mystral Lake
+  tip Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost.
+  kill 3917 quest 25.1                -- Underwater
+  goto 48.9,69.6 "Gazebo"
+  complete 25
+
 step Splintertree Post
   turnin 2 optional -- Senani Thunderheart
   turnin 24 optional
   accept 247
   turnin 247
   turnin 6441                         -- Pixel
+
+step Splintertree Post
+  turnin 25                           -- Mastok Wrilehiss
+
+step Splintertree Post
+  when onquest 1918
+  turnin 1918                         -- Mastok Wrilehiss
+  accept 824
 
 step Zoram'gar Outpost
   fly "Zoram'gar Outpost"
