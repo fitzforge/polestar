@@ -439,12 +439,24 @@ end
 
 -- The zone a point walks in on a continent with crossing data: its own map
 -- when that is a zone the data knows, nil for a zone without crossing data
--- (walked as before), else the smallest known zone frame holding the point.
+-- (walked as before), else the walking maps' zone at the point (Nav.danger.ZoneAt:
+-- the client's area there, 33 yd chunk by chunk) when the data knows it, else
+-- the smallest known zone frame holding the point. The frames are rectangles that
+-- overlap widely: the Blackfathom Deeps entrance lies in Ashenvale's and in
+-- Felwood's, Felwood's the smaller, and a player in its cave was walked to the
+-- Felwood crossing or sent to hearth (#1359).
 local function zoneOf(map, c, wx, wy)
 	if map then
 		local z = zoneInfo[map]
 		if z and z.c == c then return map end
 		if wildZone[map] then return nil end
+	end
+	local D = Nav.danger
+	local at = D and D.ZoneAt and D.ZoneAt(c, wx, wy)
+	if at then
+		local z = zoneInfo[at]
+		if z and z.c == c then return at end
+		if wildZone[at] then return nil end
 	end
 	local best, area
 	for m, z in pairs(zoneInfo) do
@@ -1476,12 +1488,20 @@ function Travel.TakeWarning()
 	return text
 end
 
--- The player's uiMap (the zone crossings are looked up in), or nil.
+-- The player's uiMap (the zone crossings are looked up in), or nil. Where the
+-- client puts the player on the continent's map, on no zone's (the cave before
+-- Blackfathom Deeps, #1359), the zone under that spot of the continent map
+-- (Journey.ZonePoint, as the world map places it), else the continent's.
 local function playerMap()
 	local C = ns.Compat
 	if not (C and C.GetPlayerMapPosition) then return nil end
-	local ok, map = pcall(C.GetPlayerMapPosition)
-	return ok and map or nil
+	local ok, map, x, y = pcall(C.GetPlayerMapPosition)
+	if not (ok and map) then return nil end
+	if zoneInfo[map] or wildZone[map] then return map end
+	local J = Nav.journey
+	local zok, zone = false, nil
+	if J and J.ZonePoint and x and y then zok, zone = pcall(J.ZonePoint, map, x, y) end
+	return zok and zone or map
 end
 
 local function onTaxi()

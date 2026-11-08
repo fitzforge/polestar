@@ -3364,9 +3364,17 @@ walk stays inside one zone; between zones it goes only through
 
 A point's zone is its uiMap when the crossing data knows that zone; a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
-walks as before; any other map (a continent map, an instance) is placed in
-the smallest known zone frame holding the point (Forever's frame where
-Forever redrew the map, Stormwind City with its harbour, else Era's). Walk
+walks as before. The player on a continent's map (the client puts them on no
+zone's in some caves and instance entrances: the cave before Blackfathom
+Deeps, #1359) is placed by the zone under that spot of the continent map
+(`Journey.ZonePoint`, as the world map places it). Any other map (a
+continent map, an instance) takes the walking maps' zone at the point
+(`Nav.danger.ZoneAt`: the zone field of Polestar_Nav's maps, the client's
+area chunk by chunk) when the data knows it, else the smallest known zone
+frame holding the point (Forever's frame where Forever redrew the map,
+Stormwind City with its harbour, else Era's). The frames are rectangles that
+overlap widely, so they are the last resort: the Blackfathom Deeps entrance
+lies in Ashenvale's and in Felwood's, and Felwood's is the smaller. Walk
 legs end at every crossing
 or chain waypoint and carry its caption and radius; the arrow shows the
 current leg's caption and points at its waypoint ("Enter Orgrimmar" at the

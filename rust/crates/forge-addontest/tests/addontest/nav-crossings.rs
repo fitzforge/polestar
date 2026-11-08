@@ -548,4 +548,57 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 	assert_eq!(out["zone"], out["far"], "a subzone change between the ends keeps heading for the Ashenvale end");
 }
 
+// #1359: in the cave before Blackfathom Deeps the client puts the player on Kalimdor's map (1414), on no zone's.
+// Zone frames are rectangles: that spot lies in Ashenvale's and in Felwood's, Felwood's the smaller, so the planner
+// placed the player in Felwood, 46 yd from a Sapphire of Aku'Mai in Ashenvale, and sent them to Felwood's crossing or
+// to hearth to Camp Taurajo. The client's zone under that spot of the continent map, else the walking maps' zone at
+// it, places the player in Ashenvale: one walk. The real travel data (Nav/TravelData.lua) and the report's spot.
+#[test]
+fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_not_the_smallest_frame_1359() {
+	let out = run_raw(
+		r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.faction = "Horde"
+			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
+			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
+			function nav.Compat.GetPlayerMapPosition()
+				local p, b = nav.player, nav.maps[1414]
+				return 1414, (p.wy - b.left) / (b.right - b.left) * 100, (p.wx - b.top) / (b.bottom - b.top) * 100
+			end
+			nav.items[6948], nav.bind = 1, "Camp Taurajo"
+			local flags = Polestar.CharState().flags
+			flags.taxi = { [22] = true, [23] = true, [25] = true, [58] = true, [77] = true }
+			local function route()
+				local legs, ci = N.GetRoute()
+				local out = {}
+				for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+				return out
+			end
+			local r = {}
+			local _, wx, wy = nav.Compat.MapToWorld(1414, 43.99, 35.39)
+			nav.place(wx, wy, 1)                              -- the report's /polestar where: map 1414 @43.99,35.39
+			N.SetTarget(1440, 13.30, 12.80, "Sapphire")       -- the step's goal, 46 yd on
+			r.frames = route()
+			-- The walking maps' zone there (Polestar_Nav's zone field: Ashenvale's chunk).
+			local zoneAt = N.danger.ZoneAt
+			N.danger.ZoneAt = function(c) return c == 1 and 1440 or nil end
+			stub.fire("ZONE_CHANGED")
+			r.grid = route()
+			N.danger.ZoneAt = zoneAt
+			stub.fire("ZONE_CHANGED")
+			r.again = route()
+			-- The client's zone under that spot of Kalimdor's map.
+			function C_Map.GetMapInfo(id) return { mapID = id, mapType = id == 1414 and 2 or 3 } end
+			function C_Map.GetMapInfoAtPosition(id) if id == 1414 then return { mapID = 1440, mapType = 3 } end end
+			stub.fire("ZONE_CHANGED")
+			r.client = route()
+			emit(r)"#,
+	);
+	let first = out["frames"][0].as_str().unwrap_or_default();
+	assert!(first.starts_with("hearth|Hearth to Camp Taurajo"), "placed by the frames alone, as the report: Felwood ({first})");
+	assert_eq!(out["grid"], json!(["walk|Sapphire"]), "the walking maps' zone: Ashenvale, one walk");
+	assert_eq!(out["again"], out["frames"], "the same plan without it");
+	assert_eq!(out["client"], json!(["walk|Sapphire"]), "the client's zone under the spot: Ashenvale, one walk");
+}
+
 // KEPT IN JS:
