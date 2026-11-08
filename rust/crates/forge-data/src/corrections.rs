@@ -765,7 +765,11 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		ck.keys(&at, &e, &["set", "remove", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
-		if ck.exists("quests", &id) == Some(false) && !ck.created.contains(&("quests", id.clone())) {
+		// A `remove: true` record's quest is absent from any build that applied it: the build takes it
+		// out. Whether the sources still hold it (a stale record) is the build's call: its fixes ledger
+		// marks such a record `redundant` ("no such quest in the merged data").
+		let removes = matches!(e.get("remove"), V::Bool(true));
+		if !removes && ck.exists("quests", &id) == Some(false) && !ck.created.contains(&("quests", id.clone())) {
 			ck.err(&at, why(&quest_lacks(&e)).replace("no such record", &format!("no quest {id} in the data")));
 		}
 		// `remove: true` takes the quest out of the data; it stands alone, without `set`.
@@ -1634,6 +1638,19 @@ mod tests {
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": true, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "remove": 1, {src} }}, "11": {{ "remove": true, "set": {{ "xp": 1 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_removed_quest_the_build_dropped_passes_a_missing_quest_still_errors() {
+		// 2358 (#948) is gone from every build that applied its own `remove`: that is the record working.
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 948" }, "note": "gone""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "remove": true, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		// A correction that sets fields on a quest the data lacks is still an error.
+		let f = findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "set": {{ "xp": 1 }}, {src} }} }} }}"#)), None, None);
+		assert!(f.iter().any(|x| x.contains("no quest 2358 in the data, and the correction lacks title, start, end")), "{f:#?}");
+		// So is a link to the removed quest from another correction.
+		let f = findings(Some(&format!(r#"{{ "quests": {{ "2358": {{ "remove": true, {src} }}, "10": {{ "set": {{ "pre": [2358] }}, {src} }} }} }}"#)), None, None);
+		assert!(f.iter().any(|x| x.contains("no quest 2358 in the data")), "{f:#?}");
 	}
 
 	#[test]

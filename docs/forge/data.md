@@ -403,7 +403,9 @@ built data (`--data`, default `data/forever`), and reports, with the JSON path o
 - the shape: unknown sections or fields, wrong types, map points outside 0 to 100, a missing `note`,
   `source` (or a `source.kind` outside the list) or `reason`; the note-fix records in `notes.json`;
 - ids: every quest, NPC, object and item an entry names must be in the built data, or be created by
-  a correction in the same file;
+  a correction in the same file. A `remove: true` record is the exception: its quest is absent from
+  any build that applied it. A remove whose quest the sources no longer have shows as `redundant` in
+  the build's fixes ledger;
 - conflicts: a key written twice in one object (JSON keeps only the last), a quest both included and
   skipped, a step reverted for a skipped quest, a public mechanic that a correction overrides.
 
