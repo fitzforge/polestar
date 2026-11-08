@@ -3635,11 +3635,7 @@ fn a14_following_the_arrow_back_toward_the_path_with_a_wobble_the_arrow_never_fl
 	for j in ["0", "0.5", "1"] {
 		let out = run(&format!("{WOBBLE}\n\t\temit(wobble({j}))"));
 		let worst = num(&out["worst"]);
-		assert!(
-			worst <= 30.0,
-			"wobble {j} yd: the arrow swings {worst:.1}° between two samples ({} times over 30°)",
-			out["swings"]
-		);
+		assert!(worst <= 30.0, "wobble {j} yd: the arrow swings {worst:.1}° between two samples ({} times over 30°)", out["swings"]);
 		assert!(out["yards"].as_array().unwrap().len() > 100, "wobble {j} yd: the walk ran ({:?} samples)", out["yards"]);
 	}
 }
