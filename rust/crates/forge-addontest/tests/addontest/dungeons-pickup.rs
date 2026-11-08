@@ -694,6 +694,104 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 }
 
 #[test]
+fn a_quest_an_item_starts_that_drops_outside_is_collected_on_the_way_and_opens_the_quest_after_it_1380_the_damp_note() {
+	// #1380: Blackfathom Deeps' Allegiance to the Old Gods (6564) starts from the Damp Note, which the
+	// Blackfathom Tide Priestesses drop one time in three in the tunnels before the portal, outside the instance.
+	// It is handed to Je'neu Sancrea, who then gives the second Allegiance to the Old Gods (6565), Lorgus Jett
+	// inside. The pick-up guide left both out: no giver for the first, and the second followed a quest of the
+	// page that was no errand. Here A (90501) starts from item 90520, which the Tide Priestess (90511, spawns
+	// outside) drops at 33%, asks nothing and is turned in to Giver J (90510); B (90502) is J's, after A.
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, faction: Value, x: i32, y: i32| {
+		json!({
+			"id": id, "name": name, "level": 21, "levelMax": null, "faction": faction, "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": y, "f": "e" }],
+		})
+	};
+	c["npcs"]["90510"] = npc(90510, "Giver J", json!("H"), 40, 40);
+	c["npcs"]["90511"] = npc(90511, "Tide Priestess", Value::Null, 46, 46);
+	let note = |chance: f64| json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 90511, "chance": chance }] });
+	c["items"]["90520"] = note(33.0);
+	let quest = |id: i32, title: &str, start: Value, pre: &[i32], min_level: i32, objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": min_level, "faction": "H", "races": null, "classes": null,
+			"start": start, "end": { "npc": [90510], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	let from_note = json!({ "npc": [], "object": [], "item": [90520] });
+	let from_j = json!({ "npc": [90510], "object": [], "item": [] });
+	c["quests"]["90501"] = quest(90501, "Allegiance A", from_note.clone(), &[], 18, json!([]));
+	c["quests"]["90502"] = quest(90502, "Allegiance B", from_j.clone(), &[90501], 18, json!([{ "type": "kill", "id": 90521, "count": 1, "text": "Lorgus" }]));
+	i["forever"]["quests"]["90501"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90502"] = json!({ "area": 209 });
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take, pre = {}, {}
+for _, t in ipairs(plan.take) do
+	if t.quest.id >= 90500 then take[#take + 1] = t.quest.id end
+	if t.quest.id == 90502 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+local def = D.PickupGuide("{KEY}")
+local steps = {}
+for _, s in ipairs(def and def.steps or {}) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if (g.quest and g.quest >= 90500) or g.item == 90520 then
+			verbs[#verbs + 1] = g.t .. ":" .. (g.quest or g.item) .. (g.npcName and ("@" .. g.npcName) or "")
+		end
+	end
+	if #verbs > 0 then steps[#steps + 1] = table.concat(verbs, " ") end
+end
+local pt, label, first = D.GiverTarget("{KEY}", 90502)
+local own, ownLabel = D.GiverTarget("{KEY}", 90501)
+emit({ take = take, pre = pre, steps = steps, target = pt and { pt.map, pt.x, pt.y, label, first } or false,
+	own = own and { own.map, own.x, own.y, ownLabel } or false })"#);
+	let opts = || Opts { done: vec![1098], ..Default::default() };
+
+	let own = pack_of(&c, &i);
+	let out = run(&own, &script, opts()).remove(0);
+	assert_eq!(out["take"], json!([90502]), "A is done on the way to B, not a take of its own");
+	assert_eq!(out["pre"], json!([90501]));
+	assert_eq!(
+		out["steps"],
+		json!(["collect:90520@Tide Priestess accept:90501 turnin:90501@Giver J", "accept:90502@Giver J"]),
+		"the note from the mob outside, taken and handed in, then B from the same giver, before the entrance"
+	);
+	assert_eq!(out["target"], json!([1421, 46, 46, "Tide Priestess", "Allegiance A"]), "B's pin: the mob that drops the note A starts from");
+	assert_eq!(out["own"], json!([1421, 46, 46, "Tide Priestess"]), "A's pin: the same mob");
+	drop(own);
+
+	// B not open before level 40: A is a take of its own, collected and taken at the mob.
+	let mut later = c.clone();
+	later["quests"]["90502"] = quest(90502, "Allegiance B", from_j.clone(), &[90501], 40, json!([{ "type": "kill", "id": 90521, "count": 1, "text": "Lorgus" }]));
+	let later = pack_of(&later, &i);
+	let alone = run(&later, &script, opts()).remove(0);
+	assert_eq!(alone["take"], json!([90501]));
+	assert_eq!(alone["steps"], json!(["collect:90520@Tide Priestess accept:90501"]));
+	drop(later);
+
+	// A note that drops one time in ten is no errand before the run: both are left for after it, as before.
+	let mut rare = c.clone();
+	rare["items"]["90520"] = note(10.0);
+	let rare = pack_of(&rare, &i);
+	let none = run(&rare, &script, opts()).remove(0);
+	assert_eq!(none["take"], json!({}), "{none}");
+	drop(rare);
+
+	// A's own prerequisite still open (as Trouble in the Deeps from Stonetalon before the Damp Note): no trip
+	// is added for it, and both wait.
+	let mut gated = c.clone();
+	gated["quests"]["90500"] = quest(90500, "A Breadcrumb", from_j.clone(), &[], 18, json!([]));
+	gated["quests"]["90501"]["preAny"] = json!([90500]);
+	let gated = pack_of(&gated, &i);
+	let wait = run(&gated, &script, opts()).remove(0);
+	assert_eq!(wait["take"], json!({}), "{wait}");
+}
+
+#[test]
 fn a_prerequisite_whose_objective_is_to_speak_to_an_npc_sends_the_player_to_that_npc_before_its_turn_in_1236_hidden_enemies_and_neeru_fireblade() {
 	// #1236, #1240: Hidden Enemies (5727) asks the player to speak to Neeru Fireblade in the Cleft of Shadow
 	// and is handed in to Thrall; it is the prerequisite of the Ragefire Chasm quest. The Codex used to drop

@@ -1322,20 +1322,43 @@ local function tilesHeight(n)
 	return floor((n + per - 1) / per) * (TILE_H + 6) - 6
 end
 
+-- What drops the item that starts page quest q (Dungeons.StartDrops), inside
+-- the dungeon or outside it (the Damp Note's Blackfathom Tide Priestesses,
+-- in the tunnels before the portal, #1380), the likeliest first.
+-- -> list | nil, insideOnly (every one of them inside)
+local function dropsOf(q, key)
+	local Dg = D()
+	if not (key and Dg.StartDrops and (q.startItem or (q.start and q.start.kind == "item"))) then return nil, false end
+	local d = Dg.StartDrops(key, q)
+	if not d or #d.inside + #d.outside == 0 then return nil, false end
+	local list = {}
+	for _, s in ipairs(d.inside) do list[#list + 1] = s end
+	for _, s in ipairs(d.outside) do list[#list + 1] = s end
+	table.sort(list, function(a, b) return (a.chance or 0) > (b.chance or 0) end)
+	return list, #d.outside == 0
+end
+
 -- Where a quest starts, and the line that says so: the giver or object, or
--- the item that starts it with the boss it drops from. -> point, text
+-- the item that starts it with what drops it: the boss, else the two
+-- likeliest mobs or objects (dropsOf). -> point, text
 local function startLine(q, key)
 	local s = startOf(q, ns.PlayerPoint())
 	if q.startItem and not (s and s.kind == "item") then s = { kind = "item", id = q.startItem.id, name = q.startItem.name, map = s and s.map, x = s and s.x, y = s and s.y, f = s and s.f, inside = s and s.inside } end
 	local text = pointText(s)
 	if s and s.kind == "item" and key then
-		-- An item that starts it: the boss it drops from, when one does.
+		local from
 		for _, boss in ipairs(D().Bosses(key)) do
 			for _, t in ipairs(boss.quests or {}) do
-				if t.id == q.id and t.how == "starts" then
-					text = "|c" .. Theme.Hex("item") .. ((type(s.id) == "number" and ns.Names.Item(s.id)) or s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], boss.name) .. "|r"
-				end
+				if t.id == q.id and t.how == "starts" then from = boss.name end
 			end
+		end
+		if not from then
+			local list = dropsOf(q, key)
+			local a, b = list and list[1] and list[1].name, list and list[2] and list[2].name
+			from = a and b and format(L["%s, %s"], a, b) or a
+		end
+		if from then
+			text = "|c" .. Theme.Hex("item") .. ((type(s.id) == "number" and ns.Names.Item(s.id)) or s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], from) .. "|r"
 		end
 	end
 	return s, text
@@ -1478,7 +1501,9 @@ local function paintQuest(b, q, p, top, plevel, key)
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
 	if q.classes and #q.classes > 0 then meta[#meta + 1] = format(L["%s only"], UI.ClassList(q.classes)) end
-	if q.inside then meta[#meta + 1] = L["Picked up inside the dungeon"] end
+	-- An item that starts it: where it drops decides (dropsOf), else the page.
+	local drops, insideOnly = dropsOf(q, key)
+	if (drops and insideOnly) or (not drops and q.inside) then meta[#meta + 1] = L["Picked up inside the dungeon"] end
 	if q.shareable == true then meta[#meta + 1] = L["Shareable"] elseif q.shareable == false then meta[#meta + 1] = L["Not shareable"] end
 	b.Meta:SetText(concat(meta, DOT))
 	b.Meta:SetWidth(MW - PAD * 2)
@@ -1504,7 +1529,8 @@ local function paintQuest(b, q, p, top, plevel, key)
 	local Dg = D()
 	local target, tlabel, first, turnIn
 	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
-	if not first then target, tlabel = s, s and s.name end
+	-- Its own giver, or where the item that starts it drops outside (#1380).
+	if not target then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)
