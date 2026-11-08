@@ -971,9 +971,6 @@ step Cry of the Thunderhawk
   tip Thunderhawk Cloudscrapers circle over the same plains south of the camp.
   collect 5164 quest 913.1
 
-step Jorn Skyseer
-  turnin 913
-
 step Field of Giants
   tip South of Camp Taurajo, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
   tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
@@ -996,11 +993,12 @@ step Twitching Antennae
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
   tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
 
-step Ruga Ragetotem
-  only Warrior
+step Camp Taurajo
   zone The Barrens
-  turnin 1824                         -- Ruga Ragetotem, inside
-  accept 1825
+  tip Back north into Camp Taurajo on the way to the Crossroads: Jorn takes the thunderhawk wings. Warriors: Ruga Ragetotem first, before the antennae fade.
+  turnin 1824 only Warrior            -- Ruga Ragetotem, inside
+  accept 1825 only Warrior
+  turnin 913                          -- Jorn Skyseer
 
 # ---------------------------------------------------------------- Back north: the Crossroads and Counterattack!
 

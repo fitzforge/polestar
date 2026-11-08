@@ -4982,7 +4982,8 @@ test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route revi
 	const thalo = at(early, 'accept 891', is('accept', 891));
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
 	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
-	assert.ok(eggs > at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs after Jorn\'s thunderhawks, before Korran');
+	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
+	assert.ok(eggs > wings && eggs < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs right after Jorn\'s thunderhawks, before his hand-in and Korran');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
