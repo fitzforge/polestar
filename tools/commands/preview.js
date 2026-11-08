@@ -1410,6 +1410,15 @@ end`,
 			{ roots: ['PolestarReport'], script: `Polestar.Set("ui.skin", "${k}"); ${TABS}; Polestar.UI.ShowReport()` },
 		]),
 	},
+	{
+		file: 'skins-hud.svg',
+		title: 'Skins: the flight timer and the confirm dialog on the window skin, in Polestar, Halo and Hearth (#1390)',
+		backdrop: 'terrain',
+		panels: ['polestar', 'halo', 'hearth'].flatMap((k) => [
+			{ files: MODULE_FILES, roots: ['PolestarFlightTimer'], script: `Polestar.Set("ui.skin", "${k}"); local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()` },
+			{ roots: ['PolestarModal'], script: `Polestar.Set("ui.skin", "${k}"); Polestar.Widgets.Modal({ title = "Reset guide progress?", text = "Every step of this guide goes back to not done.", action = "Reset", danger = true, icon = "reset" })` },
+		]),
+	},
 	// The game's looks draw the client's own art: rendered only with
 	// POLESTAR_CLIENT_ART (local: true), so it never lands in docs/preview.
 	...['forever', 'blizzard', 'classic'].map((k) => ({

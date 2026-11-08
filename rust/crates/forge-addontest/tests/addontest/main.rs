@@ -275,6 +275,8 @@ mod release;
 mod riding;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "skins-sweep.rs"]
+mod skins_sweep;
 mod syntax;
 mod talents;
 mod theme;

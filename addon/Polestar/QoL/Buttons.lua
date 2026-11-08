@@ -280,8 +280,12 @@ local function newButton(name, onEnter)
 	local hl = b:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetTexture(media("white"))
 	hl:SetAllPoints(icon)
-	local T = Theme()
-	if T and T.Wash then hl:SetVertexColor(T.Wash("hover")) else hl:SetVertexColor(1, 1, 1, 0.07) end
+	local function paintHover()
+		local T = Theme()
+		if T and T.Wash then hl:SetVertexColor(T.Wash("hover")) else hl:SetVertexColor(1, 1, 1, 0.07) end
+	end
+	paintHover()
+	b.Hl = hl
 
 	local cd = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
 	cd:SetAllPoints(icon)
@@ -314,6 +318,7 @@ local function newButton(name, onEnter)
 	if T and T.OnChanged then
 		T.OnChanged(function()
 			color(bg, "panel")
+			paintHover()
 			color(count, "text")
 			color(hotkey, "textDim")
 			color(label, "textDim")
