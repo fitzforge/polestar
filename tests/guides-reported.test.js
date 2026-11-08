@@ -6600,3 +6600,17 @@ test('Alliance Badlands: Lotwil\'s bracers, Lucien\'s crafted bracers and Murdal
 	assert.doesNotMatch(text, /Lotwil's next test needs crafted gear/);
 	assert.doesNotMatch(text, /The skeleton's next task, Murdaloc/);
 });
+
+// Final route review for 0.3.5 (Alliance Stranglethorn 33-35): after Booty Bay the route flies to Sentinel
+// Hill and walks south out of Westfall to the Crystal Spine Basilisks in Stranglethorn's north-west, but
+// the step's tip still said to walk back north to a mine in the middle of the jungle.
+test('Alliance Stranglethorn: the basilisk step after the Sentinel Hill flight says the way leads south from Westfall', { skip }, () => {
+	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fly = at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || ''));
+	const shards = at(list, 'collect 3918 quest 605', (g) => g.t === 'collect' && g.quest === 605);
+	assert.ok(fly < shards, 'the flight to Sentinel Hill comes before the basilisks');
+	const [tip] = stepTips(guide, /collect 3918 quest 605\b/);
+	assert.doesNotMatch(tip, /back north|middle of the jungle/);
+	assert.match(tip, /Sentinel Hill/);
+});
