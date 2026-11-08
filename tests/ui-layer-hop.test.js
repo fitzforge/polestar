@@ -18,11 +18,10 @@ function run(script, { on = true, before = '' } = {}) {
 		script: `uistub.install()\nstub.login()
 		local LH, Ly, lay = Polestar.UI.LayerHop, Polestar.QoL.Layer, stub.layer
 		local function set(k, v) Polestar.Set(k, v); stub.runTimers() end
-		local function hear(sender, msg) stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "GUILD", sender) end
-		local function sentQ() local n = 0; for _, s in ipairs(lay.sent) do if s[2]:sub(2, 2) == "Q" then n = n + 1 end end; return n end
+		local function hear(sender, msg) stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "WHISPER", sender) end
+		local function sentQ() local n = 0; for _, c in ipairs(lay.chat) do if c[1]:match("^PLH1 Q ") then n = n + 1 end end; return n end
 		-- stub_ui.lua swaps in a Compat that answers nil to anything it does not define; the host claim needs the real answer.
 		Polestar.Compat.SenderIsMe = function(s) return s == "Testchar" or s == "Testchar-TestRealm" end
-		lay.guild = true
 		lay.guids.target = "${G(2)}"
 		${before}
 		${on ? 'set("qol.layerHop", true)' : ''}
@@ -57,7 +56,7 @@ test('layer hop window: TOGGLE_LAYER_HOP opens and closes it, Esc closes it, and
 		emit({ global = PolestarLayerHop == F, opened = opened, esc = esc, closed = closed, again = again,
 			hidden = not F:IsShown(), q = sentQ(), title = F.Title:GetText() })
 	`);
-	assert.deepEqual(out, { global: true, opened: true, esc: true, closed: true, again: true, hidden: true, q: 2, title: 'Layer hop' });
+	assert.deepEqual(out, { global: true, opened: true, esc: true, closed: true, again: true, hidden: true, q: 1, title: 'Layer hop' });
 });
 
 test('layer hop window: position and size are saved on drag and size stop, and restored inside the bounds and the screen', () => {

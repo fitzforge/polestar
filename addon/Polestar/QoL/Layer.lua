@@ -16,23 +16,33 @@
 -- SHARD_TRANSFER_CANCELLED when it is called off. UnitInPartyShard tells
 -- whether a party member is on the player's shard.
 --
--- Players find each other with addon messages, prefix PolestarLayer, in the
--- guild and on the hidden custom channel PolestarLayer, never in party, raid
--- or instance chat. Protocol version 1, fields ":"-separated:
---   1H<map>:<layer>:<host 0|1>   presence
---   1Q<map>                      ask for presence
---   1R<map>:<layer>:<want>       a hop request (want: a layer id or *)
---   1I<name>                     a host's claim: it is inviting <name>
+-- Live Forever realms (build 70862): addon messages are refused on every channel,
+-- plain channel text goes out only inside a click or keypress; addon whispers and invites from code go through.
+-- So a request goes out two ways. Plain lines on the hidden custom channel
+-- PolestarLayer, sent only by Layer.Request and Layer.Ask, synchronously
+-- inside the click or typed command that called them:
+--   PLH1 R <map>:<from>:<want>   a hop request (from: a layer id or empty; want: an id or *)
+--   PLH1 Q <map>                 asks the players on this map for their layer
+-- And addon whispers, prefix PolestarLayer, protocol version 1, fields ":"-separated:
+--   1R<map>:<from>:<want>        the request, to the hosts heard on the map and the zone's /who names
+--   1H<map>:<layer>:<host 0|1>   the answer to a Q, to the asker
+--   1I<name>                     a host's claim, to <name> right before its invite
+-- A chat filter hides the lines and the channel is taken out of the chat
+-- windows. Names are used as the client gives them ("First Surname"), never split.
 --
--- While the opt-in is off nothing is registered, joined or sent: every game
--- event goes through QoL.WhileOn, the channel is joined on enable and left on
--- disable. Every change fires LAYER_CHANGED (the window, UI/LayerHop.lua).
+-- While the opt-in is off nothing is registered, joined, filtered or sent:
+-- every game event goes through QoL.WhileOn (the /who answer through a frame
+-- of the module's own, registered only while its /who is out), the channel is
+-- joined on enable and left on disable. Every change fires LAYER_CHANGED (the
+-- window, UI/LayerHop.lua).
 -- Client: SHARD_TRANSFER_IMMINENT, SHARD_TRANSFER, SHARD_TRANSFER_CANCELLED,
 -- GetEvictionTimeRemaining, C_PlayerInteractionManager.ShardTransferConfirm,
 -- UnitInPartyShard, JoinChannelByName, LeaveChannelByName, GetChannelName,
--- C_ChatInfo.SendAddonMessage, RegisterAddonMessagePrefix and
--- InChatMessagingLockdown, C_PartyInfo.InviteUnit and LeaveParty,
--- C_NamePlate.GetNamePlates (Forever's API documentation); the
+-- SendChatMessage, ChatFrame_AddMessageEventFilter (ChatFrameUtil when it has
+-- it), C_ChatInfo.SendAddonMessage, RegisterAddonMessagePrefix and
+-- InChatMessagingLockdown, C_FriendList.SendWho, SetWhoToUi, GetNumWhoResults
+-- and GetWhoInfo, GetRealZoneText, EnumerateFrames, C_PartyInfo.InviteUnit and
+-- LeaveParty, C_NamePlate.GetNamePlates (Forever's API documentation); the
 -- SHARD_TRANSFER_IMMEDIATE dialog (GameDialogDefs.lua).
 
 local ADDON, ns = ...
@@ -49,6 +59,7 @@ QoL.Layer = Layer
 local PREFIX = "PolestarLayer"  -- addon-message prefix (16 characters at most)
 local CHANNEL = "PolestarLayer" -- the hidden custom channel
 local VERSION = "1"
+local LINE = "PLH"              -- a channel line starts LINE .. VERSION .. " "
 local LAYER_FIELD = 5           -- the GUID field read as the layer id
 Layer.PREFIX, Layer.CHANNEL, Layer.LAYER_FIELD = PREFIX, CHANNEL, LAYER_FIELD
 
@@ -56,34 +67,37 @@ local MAX_BYTES = 120      -- longer messages are dropped
 local FLOOD = 2            -- s: the window a sender's messages are counted in
 local BURST = 4            -- messages per sender per FLOOD window; more are dropped
 local PEER_AGE = 600       -- s: a peer not heard from this long is dropped
-local PRESENCE_EVERY = 30  -- s: presence on a change at most this often
-local ASK_EVERY = 60       -- s: Q at most this often
-local CLAIM_HOLD = 30      -- s: hosts stand down for a name another host claimed
+local ASK_EVERY = 60       -- s: Q at most this often; one answer per asker in this while
 local INVITE_AGAIN = 300   -- s: a host invites one name once in this while
 local PENDING = 120        -- s: a request waits this long for an invite
+local WHO_EVERY = 10       -- s: one /who at most this often
+local WHO_WAIT = 5         -- s: a /who not answered by then is given up
+local WHO_MAX = 30         -- names taken from a /who answer
+local WHISPER_BURST = 5    -- request whispers per second
 local DONE_HOLD = 10       -- s: "done" shows this long
 local CONFIRM_WAIT = 3     -- s: no SHARD_TRANSFER after a confirm: Blizzard's dialog
 local AUTO_FOR = 60        -- s: auto refresh retries this long
 local AFTER_JOIN = 2       -- s: the same-shard check after joining
 local LEAVE_AFTER = 2      -- s: leaving the hop group after the refresh
 local JOIN_DELAY = 10      -- s after login: the game's own channels join first
-local JOIN_SETTLE = 3      -- s: the channel's index once a join went through
+local JOIN_SETTLE = 3      -- s: the chat windows drop the channel again once the join went through
 local LOG_SIZE = 10        -- messages /polestar layer debug shows
 
-local enabled, joined, prefixed = false, false, false
+local enabled, joined, prefixed, filtered = false, false, false, false
 local gen = 0              -- bumped on disable: timers from before return
 local current              -- { map, id, at }
 local known = {}           -- map -> id -> { seenAt, peers = { name = at }, hosts = { name = at } }
 local transfer, evictAt = "none", nil -- none | offered | refreshing | done
-local asked                -- { want, at, map }: a hop this module asked for
+local asked                -- a hop this module asked for: { want, at, map, line, msg, channel, reach, queue, seen, stopped }
 local hopGroup, joinedFrom = false, nil
 local groupGen = 0         -- bumped on every group join and departure: timers armed in another group return
-local claims, hostClaims, invited, hosting = {}, {}, {}, {}
+local hostClaims, invited, hosting, answered = {}, {}, {}, {}
 local lastFrom, fromCount = {}, 0
-local lastPresence, lastPresenceKey, lastAsk = nil, nil, nil
-local answering = false
+local lastAsk = nil
 local heard = {}
-local autoTimer, presenceTimer, doneTimer
+local autoTimer, doneTimer
+local whoFrame, whoOut, whoAt = nil, nil, nil -- the /who: our frame, the query out, when the last went
+local muted = {}           -- frames whose WHO_LIST_UPDATE waits until our /who is answered
 
 local function now() return GetTime() end
 local function changed() ns.Fire("LAYER_CHANGED") end
@@ -213,7 +227,7 @@ function Layer.Current()
 end
 
 ---------------------------------------------------------------------------
--- Addon messages
+-- The channel and the whispers
 ---------------------------------------------------------------------------
 
 local function lockdown()
@@ -226,6 +240,45 @@ local function channelIndex()
 	return type(index) == "number" and index > 0 and index or nil
 end
 
+-- The channel out of every chat window (its lines are filtered as well).
+local function hideChannel()
+	for i = 1, 10 do
+		local f = _G["ChatFrame" .. i]
+		if type(f) == "table" and type(f.RemoveChannel) == "function" then pcall(f.RemoveChannel, f, CHANNEL) end
+	end
+end
+
+local function join()
+	if not enabled then return end
+	joined = true
+	if JoinChannelByName then pcall(JoinChannelByName, CHANNEL) end
+	hideChannel()
+	local g = gen
+	ns.After(JOIN_SETTLE, function()
+		if g == gen then hideChannel() end
+	end)
+end
+
+-- The chat windows' filter: true (hidden) for a PLH line on our channel
+-- (arg 9, the channel's base name).
+local function lineFilter(_, _, text, _, _, _, _, _, _, _, base)
+	text, base = readable(text), readable(base)
+	return type(base) == "string" and base:lower() == CHANNEL:lower() and type(text) == "string"
+		and text:sub(1, #LINE) == LINE
+end
+
+local function setFilter(on)
+	if on == filtered then return end
+	filtered = on
+	local U = ChatFrameUtil
+	local add, drop = ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
+	if type(U) == "table" and U.AddMessageEventFilter and U.RemoveMessageEventFilter then
+		add, drop = U.AddMessageEventFilter, U.RemoveMessageEventFilter
+	end
+	local fn = on and add or drop
+	if fn then pcall(fn, "CHAT_MSG_CHANNEL", lineFilter) end
+end
+
 -- A pcall'd SendAddonMessage that the client took (Quests/Party.lua's rule).
 local function went(ok, r)
 	if not ok or r == false then return false end
@@ -233,60 +286,40 @@ local function went(ok, r)
 	return type(r) ~= "number" or r == (results and results.Success or 0)
 end
 
--- To the guild and the custom channel; never during a chat lockdown.
-local function send(msg)
+-- An addon whisper: whether the client took it, and its result code. Never
+-- during a chat lockdown.
+local function whisper(name, msg)
 	local fn = C_ChatInfo and C_ChatInfo.SendAddonMessage
-	if not enabled or not fn or lockdown() then return false end
-	local sent = false
-	if IsInGuild and IsInGuild() then sent = went(pcall(fn, PREFIX, msg, "GUILD")) or sent end
+	if not enabled or not fn or type(name) ~= "string" or name == "" or lockdown() then return false end
+	local ok, r = pcall(fn, PREFIX, msg, "WHISPER", name)
+	if ok then r = readable(r) else r = nil end
+	return went(ok, r), r
+end
+
+-- A plain line on the channel: whether the client took the call. The live
+-- realms drop channel text an addon sends outside a hardware event, so this
+-- runs only inside Layer.Request and Layer.Ask, synchronously: never from a
+-- timer (ns.After) or an event handler.
+local function sendLine(text)
 	local index = channelIndex()
-	if index then sent = went(pcall(fn, PREFIX, msg, "CHANNEL", index)) or sent end
-	return sent
+	if not enabled or not index or not SendChatMessage or lockdown() then return false end
+	return (pcall(SendChatMessage, text, "CHANNEL", nil, index))
 end
 
--- 1H: forced on enable and in answer to Q; otherwise only when the map,
--- layer or host flag changed, at most every PRESENCE_EVERY seconds.
-local function presence(force)
-	if not enabled or not current then return end
-	local t = now()
-	local key = format("%d:%s:%d", current.map, current.id, QoL.On("layerHost") and 1 or 0)
-	if not force then
-		if key == lastPresenceKey then return end
-		if lastPresence and t - lastPresence < PRESENCE_EVERY then
-			if not presenceTimer then
-				presenceTimer = ns.NewTimer(PRESENCE_EVERY - (t - lastPresence), function()
-					presenceTimer = nil
-					presence(false)
-				end)
-			end
-			return
-		end
-	end
-	if send(VERSION .. "H" .. key) then
-		lastPresence, lastPresenceKey = t, key
-		presenceTimer = cancel(presenceTimer)
-	end
-end
-
--- Presence now and, when the channel join has not gone through yet, again
--- once it has.
-local function announce()
-	presence(true)
-	if channelIndex() then return end
-	local g = gen
-	ns.After(JOIN_SETTLE, function()
-		if g == gen and channelIndex() then presence(true) end
-	end)
-end
-
--- 1Q: the window's Refresh list.
+-- PLH1 Q: the window's Refresh list; the answers come back as 1H whispers.
+-- Only from a click or the typed command: the line goes out synchronously,
+-- inside that hardware event (sendLine).
 function Layer.Ask()
 	if not enabled then return false, L["Layer hop is off."] end
 	local t = now()
 	if lastAsk and t - lastAsk < ASK_EVERY then return false, L["Asked a moment ago."] end
 	local map = current and current.map or playerMap()
 	if not map then return false, L["Your map is unknown."] end
-	if not send(format("%sQ%d", VERSION, map)) then return false, L["The message could not be sent."] end
+	if not channelIndex() then join() end
+	if not sendLine(format("%s%s Q %d", LINE, VERSION, map)) then
+		if not channelIndex() then return false, L["Joining the layer channel; try again in a moment."] end
+		return false, L["The message could not be sent."]
+	end
 	lastAsk = t
 	return true
 end
@@ -306,7 +339,6 @@ local function sample(unit, quiet)
 	current = { map = map, id = id, at = t }
 	if quiet or (was and was.map == map and was.id == id) then return end
 	changed()
-	presence(false)
 end
 
 local function resample()
@@ -463,23 +495,185 @@ end
 -- Requesting
 ---------------------------------------------------------------------------
 
+local function throttled(r)
+	local results = Enum and Enum.SendAddonMessageResult
+	return r ~= nil and r == (results and results.AddonMessageThrottle or 3)
+end
+
+-- One burst of the request's whispers, WHISPER_BURST at most, the next a
+-- second later: a name the client throttled ends the burst and goes first in
+-- the next; any other refusal drops it. Ends with the request (a cancel, the
+-- expiry, a map change, the disable) or a group join.
+local function pump(a)
+	a.timer = nil
+	if not enabled or a.stopped or requestLive() ~= a then return end
+	a.pumpAt = now()
+	local n, reach = 0, a.reach
+	while a.queue[1] and n < WHISPER_BURST do
+		local ok, r = whisper(a.queue[1], a.msg)
+		if throttled(r) then break end
+		remove(a.queue, 1)
+		n = n + 1
+		if ok then a.reach = a.reach + 1 end
+	end
+	if a.reach ~= reach then changed() end
+	if not a.queue[1] then return end
+	a.timer = true
+	local g = gen
+	ns.After(1, function()
+		if g == gen then pump(a) end
+	end)
+end
+
+-- The next burst now, or a second after the last one.
+local function burst(a)
+	if a.timer or not a.queue[1] then return end
+	local wait = a.pumpAt and a.pumpAt + 1 - now() or 0
+	if wait <= 0 then return pump(a) end
+	a.timer = true
+	local g = gen
+	ns.After(wait, function()
+		if g == gen then pump(a) end
+	end)
+end
+
+-- Our /who is answered or given up: the frames that listen for its answer
+-- get it again, ours no longer does.
+local function release()
+	whoOut = nil
+	if whoFrame then whoFrame:UnregisterEvent("WHO_LIST_UPDATE") end
+	for f in pairs(muted) do
+		pcall(f.RegisterEvent, f, "WHO_LIST_UPDATE")
+		muted[f] = nil
+	end
+end
+
+local function mute(f)
+	if f ~= whoFrame and f:IsEventRegistered("WHO_LIST_UPDATE") then
+		f:UnregisterEvent("WHO_LIST_UPDATE")
+		muted[f] = true
+	end
+end
+
+-- The game's who lists open on any answer: every other frame listening for
+-- it waits until ours has it.
+local function hush()
+	if not EnumerateFrames then return end
+	local f = EnumerateFrames()
+	while f do
+		pcall(mute, f)
+		f = EnumerateFrames(f)
+	end
+end
+
+-- The /who answer: the zone's players, not the player, not a name already
+-- whispered, WHO_MAX at most, join the request's whispers.
+local function onWho()
+	local w = whoOut
+	if not w then return end
+	release()
+	local a = w.a
+	if not enabled or a.stopped or requestLive() ~= a then return end
+	local F = C_FriendList
+	local ok, n = pcall(F.GetNumWhoResults)
+	n = ok and readable(n)
+	local added = 0
+	for i = 1, type(n) == "number" and n or 0 do
+		if added >= WHO_MAX then break end
+		local okI, info = pcall(F.GetWhoInfo, i)
+		info = okI and readable(info)
+		local name = type(info) == "table" and readable(info.fullName) or nil
+		if type(name) == "string" and name ~= "" and not a.seen[name] and not ns.Compat.SenderIsMe(name) then
+			a.seen[name] = true
+			a.queue[#a.queue + 1] = name
+			added = added + 1
+		end
+	end
+	burst(a)
+end
+
+-- One /who of the zone for request `a`, at most every WHO_EVERY seconds;
+-- skipped when the client lacks the calls or the zone is unreadable. Given up
+-- after WHO_WAIT seconds.
+local function askWho(a)
+	local F = C_FriendList
+	if type(F) ~= "table" or not (F.SendWho and F.SetWhoToUi and F.GetNumWhoResults and F.GetWhoInfo) then return end
+	local t = now()
+	if whoOut or (whoAt and t - whoAt < WHO_EVERY) then return end
+	local zone = GetRealZoneText and readable(GetRealZoneText())
+	if type(zone) ~= "string" or zone == "" then return end
+	if not whoFrame then
+		whoFrame = CreateFrame("Frame")
+		whoFrame:SetScript("OnEvent", ns.Safe(onWho))
+	end
+	hush()
+	whoFrame:RegisterEvent("WHO_LIST_UPDATE")
+	pcall(F.SetWhoToUi, true)
+	local w = { a = a }
+	whoOut = w
+	local origin = Enum and Enum.SocialWhoOrigin and Enum.SocialWhoOrigin.Social or 1
+	if not pcall(F.SendWho, 'z-"' .. zone .. '"', origin) then return release() end
+	whoAt = t
+	ns.After(WHO_WAIT, function()
+		if whoOut == w then release() end
+	end)
+end
+
+-- The hosts heard on `map` within PEER_AGE, in name order.
+local function knownHosts(map)
+	local out, t = {}, now()
+	for _, e in pairs(known[map] or {}) do
+		for name, at in pairs(e.hosts) do
+			if t - at <= PEER_AGE then out[#out + 1] = name end
+		end
+	end
+	sort(out)
+	return out
+end
+
+-- The request's channel line, joining first while the channel's index is
+-- unknown: true, or false and why.
+local function lineOf(a)
+	if not channelIndex() then join() end
+	a.channel = sendLine(a.line)
+	if a.channel then return true end
+	if not channelIndex() then return false, L["Joining the layer channel; try again in a moment."] end
+	return false, L["The message could not be sent."]
+end
+
 -- Asks the Polestar players on this map for a group invite onto layer
--- `want` (an id, or "*" for any other): true, or false and why not.
+-- `want` (an id, or "*" for any other): true, or false and why not. A line
+-- on the channel, then whispers to the hosts heard on the map and to the
+-- zone's players one /who lists. Only from a click or the typed command: the
+-- line goes out synchronously, inside that hardware event (sendLine); never
+-- call this from a timer or an event handler. A request whose line could not
+-- go out still whispers; the next click sends its line.
 function Layer.Request(want)
 	want = want == nil and "*" or tostring(want)
 	if want ~= "*" and not want:match("^%d+$") then return false, L["Unknown layer."] end
 	if not enabled then return false, L["Layer hop is off."] end
 	if IsInGroup and IsInGroup() then return false, L["You are already in a group."] end
 	if lockdown() then return false, L["Chat is locked down; try again shortly."] end
-	if asked and now() - asked.at < PENDING then return false, L["A hop request is already waiting."] end
+	local a = asked
+	if a and now() - a.at < PENDING then
+		if a.channel then return false, L["A hop request is already waiting."] end
+		local ok, why = lineOf(a)
+		changed()
+		return ok, why
+	end
 	local map = current and current.map or playerMap()
 	if not map then return false, L["Your map is unknown."] end
-	local from = current and current.id or ""
-	if not send(format("%sR%d:%s:%s", VERSION, map, from, want)) then
-		return false, L["The message could not be sent."]
-	end
-	local a = { want = want, at = now(), map = map }
+	local body = format("%d:%s:%s", map, current and current.id or "", want)
+	a = { want = want, at = now(), map = map, line = format("%s%s R %s", LINE, VERSION, body),
+		msg = VERSION .. "R" .. body, channel = false, reach = 0, queue = {}, seen = {} }
 	asked, joinedFrom = a, nil
+	local ok, why = lineOf(a)
+	for _, name in ipairs(knownHosts(map)) do
+		a.seen[name] = true
+		a.queue[#a.queue + 1] = name
+	end
+	burst(a)
+	askWho(a)
 	local g = gen
 	ns.After(PENDING, function()
 		if g ~= gen or asked ~= a or inHopGroup() then return end
@@ -487,7 +681,7 @@ function Layer.Request(want)
 		changed()
 	end)
 	changed()
-	return true
+	return ok, why
 end
 
 function Layer.CancelRequest()
@@ -532,6 +726,7 @@ end
 -- Only a group joined through an invite this module accepted is the hop group.
 local function onGroupJoined()
 	groupGen = groupGen + 1
+	if asked then asked.stopped = true end -- the request's whispers end with any group
 	if not joinedFrom or not asked then return end
 	joinedFrom, hopGroup = nil, true
 	changed()
@@ -575,11 +770,12 @@ local function mayHost(name, map, from, want)
 	end
 	local t = now()
 	if invited[name] and t - invited[name] < INVITE_AGAIN then return false end
-	if claims[name] and t - claims[name] < CLAIM_HOLD then return false end
 	return true
 end
 
--- A random wait first, so one host claims the name and the others stand down.
+-- A random wait first; then the claim, whispered to the asker, and the invite
+-- (it goes even when the whisper was refused). Hosts no longer hear each
+-- other's claims: the asker takes the first invite, a second one fails.
 local function onRequest(name, map, from, want)
 	if hosting[name] or not mayHost(name, map, from, want) then return end
 	hosting[name] = true
@@ -587,8 +783,8 @@ local function onRequest(name, map, from, want)
 	ns.After(0.5 + random() * 2, function()
 		hosting[name] = nil
 		if g ~= gen or not mayHost(name, map, from, want) then return end
-		if not send(VERSION .. "I" .. name) then return end
 		invited[name] = now()
+		whisper(name, VERSION .. "I" .. name)
 		if C_PartyInfo and C_PartyInfo.InviteUnit then C_PartyInfo.InviteUnit(name) end
 	end)
 end
@@ -602,10 +798,10 @@ local function remember(name, message)
 	if #heard > LOG_SIZE then remove(heard, 1) end
 end
 
--- send() puts each message on GUILD and on the channel: a copy of the last
--- text a sender's counted message carried within FLOOD seconds is the same
--- message, dropped and not counted. Past that, at most BURST messages per
--- sender per FLOOD seconds (a requester's H, Q then R, a host's H then I):
+-- A repeat of the last text a sender's counted message carried within FLOOD
+-- seconds is dropped and not counted. Past that, at most BURST messages per
+-- sender per FLOOD seconds, channel lines and whispers together (a
+-- requester's Q then R, a host's H then I):
 -- lastFrom[name] = { at = the window's start, n, text, textAt }.
 local function flooding(name, t, message)
 	local last = lastFrom[name]
@@ -628,14 +824,62 @@ local function flooding(name, t, message)
 	return false
 end
 
-local function onAddonMessage(_, prefix, message, _, sender)
-	if not enabled or readable(prefix) ~= PREFIX then return end
-	message, sender = readable(message), readable(sender)
-	if type(message) ~= "string" or #message > MAX_BYTES or not fromThisRealm(sender) then return end
+-- The sender's name when a message may be read: someone else on this realm,
+-- not oversize, not flooding. Kept for /polestar layer debug.
+local function accept(sender, message)
+	if type(message) ~= "string" or #message > MAX_BYTES or not fromThisRealm(sender) then return nil end
 	local name = short(sender)
-	local t = now()
-	if not name or flooding(name, t, message) then return end
+	if not name or flooding(name, now(), message) then return nil end
 	remember(name, message)
+	return name
+end
+
+local function request(name, body)
+	local map, from, want = body:match("^(%d+):(%d*):([%d%*]+)$")
+	if not map or (want ~= "*" and not want:match("^%d+$")) then return end
+	onRequest(name, tonumber(map), from, want)
+end
+
+-- A Q: the 1H answer whispered to the asker after a random wait, once per
+-- asker in ASK_EVERY seconds.
+local function answer(name, body)
+	local map = tonumber(body:match("^(%d+)$") or "")
+	if not map or not current or current.map ~= map then return end
+	local t = now()
+	if answered[name] and t - answered[name] < ASK_EVERY then return end
+	for who, at in pairs(answered) do
+		if t - at >= ASK_EVERY then answered[who] = nil end
+	end
+	answered[name] = t
+	local g = gen
+	ns.After(0.5 + random() * 2, function()
+		if g ~= gen or not current or current.map ~= map then return end
+		whisper(name, format("%sH%d:%s:%d", VERSION, map, current.id, QoL.On("layerHost") and 1 or 0))
+	end)
+end
+
+-- A line on the channel (arg 9 its base name): R and Q.
+local function onChannel(_, text, sender, _, _, _, _, _, _, base)
+	if not enabled then return end
+	base, text = readable(base), readable(text)
+	if type(base) ~= "string" or base:lower() ~= CHANNEL:lower() then return end
+	local name = accept(readable(sender), text)
+	if not name then return end
+	local version, kind, body = text:match("^" .. LINE .. "(%d+) (%u) (.*)$")
+	if version ~= VERSION then return end
+	if kind == "R" then
+		request(name, body)
+	elseif kind == "Q" then
+		answer(name, body)
+	end
+end
+
+-- An addon whisper: H, R and I. Any other chat type is not ours.
+local function onAddonMessage(_, prefix, message, chatType, sender)
+	if not enabled or readable(prefix) ~= PREFIX or readable(chatType) ~= "WHISPER" then return end
+	message = readable(message)
+	local name = accept(readable(sender), message)
+	if not name then return end
 	local version, kind, body = message:match("^(%d+)(%u)(.*)$")
 	if version ~= VERSION then return end
 	if kind == "H" then
@@ -643,25 +887,11 @@ local function onAddonMessage(_, prefix, message, _, sender)
 		if not map then return end
 		notePeer(tonumber(map), id, name, host == "1")
 		changed()
-	elseif kind == "Q" then
-		local map = tonumber(body:match("^(%d+)$") or "")
-		if not map or not current or current.map ~= map or answering then return end
-		answering = true
-		local g = gen
-		ns.After(0.5 + random() * 2.5, function()
-			if g ~= gen then return end
-			answering = false
-			presence(true)
-		end)
 	elseif kind == "R" then
-		local map, from, want = body:match("^(%d+):(%d*):([%d%*]+)$")
-		if not map or (want ~= "*" and not want:match("^%d+$")) then return end
-		onRequest(name, tonumber(map), from, want)
+		request(name, body)
 	elseif kind == "I" then
 		local target = body:match("^([^:]+)$")
-		if not target then return end
-		claims[short(target) or target] = t
-		if ns.Compat.SenderIsMe(target) then hostClaims[name] = t end
+		if target and ns.Compat.SenderIsMe(target) then hostClaims[name] = now() end
 	end
 end
 
@@ -676,7 +906,7 @@ function Layer.Status()
 	return {
 		on = enabled, map = map, id = id, label = id and Layer.Label(map, id) or nil,
 		transfer = transfer, secondsLeft = secondsLeft(),
-		asked = asked and { want = asked.want, at = asked.at } or nil,
+		asked = asked and { want = asked.want, at = asked.at, reach = asked.reach, channel = asked.channel } or nil,
 		hopGroup = inHopGroup(), host = QoL.On("layerHost"),
 		peers = map and Layer.Known(map) or {},
 	}
@@ -712,12 +942,6 @@ end
 -- On and off
 ---------------------------------------------------------------------------
 
-local function join()
-	if joined or not enabled then return end
-	joined = true
-	if JoinChannelByName then pcall(JoinChannelByName, CHANNEL) end
-end
-
 local function onEnteringWorld()
 	forget()
 	if joined then return end
@@ -725,7 +949,6 @@ local function onEnteringWorld()
 	ns.After(JOIN_DELAY, function()
 		if g ~= gen or joined then return end
 		join()
-		announce()
 	end)
 end
 
@@ -735,12 +958,12 @@ local function enable()
 	if not prefixed and C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then
 		prefixed = pcall(C_ChatInfo.RegisterAddonMessagePrefix, PREFIX) and true or false
 	end
+	setFilter(true)
 	-- A refresh may already be scheduled; shown, never auto-confirmed.
 	local s = evictionLeft()
 	if s then transfer, evictAt = "offered", now() + s end
 	if ns.IsLoggedIn() then join() end
 	resample()
-	announce()
 	changed()
 end
 
@@ -750,13 +973,15 @@ local function disable()
 	gen = gen + 1
 	if joined and LeaveChannelByName then pcall(LeaveChannelByName, CHANNEL) end
 	joined = false
+	setFilter(false)
+	release()
 	stopAuto()
-	presenceTimer, doneTimer = cancel(presenceTimer), cancel(doneTimer)
+	doneTimer = cancel(doneTimer)
 	current, asked, joinedFrom, hopGroup = nil, nil, nil, false
-	transfer, evictAt, answering = "none", nil, false
-	known, claims, hostClaims, invited, hosting, heard = {}, {}, {}, {}, {}, {}
+	transfer, evictAt = "none", nil
+	known, hostClaims, invited, hosting, answered, heard = {}, {}, {}, {}, {}, {}
 	lastFrom, fromCount = {}, 0
-	lastPresence, lastPresenceKey, lastAsk = nil, nil, nil
+	lastAsk = nil
 	changed()
 end
 
@@ -774,6 +999,7 @@ QoL.WhileOn(ON, "SHARD_TRANSFER_IMMINENT", onImminent)
 QoL.WhileOn(ON, "SHARD_TRANSFER", onTransfer)
 QoL.WhileOn(ON, "SHARD_TRANSFER_CANCELLED", onCancelled)
 QoL.WhileOn(ON, "CHAT_MSG_ADDON", onAddonMessage)
+QoL.WhileOn(ON, "CHAT_MSG_CHANNEL", onChannel)
 QoL.WhileOn(ON, "PARTY_INVITE_REQUEST", onPartyInvite)
 QoL.WhileOn(ON, "GROUP_JOINED", onGroupJoined)
 QoL.WhileOn(ON, "GROUP_LEFT", onGroupLeft)
@@ -789,7 +1015,6 @@ ns.On("SETTING_CHANGED", function(path)
 	local all = path == "" or path == "qol"
 	if all or path == "qol.layerHop" then sync() end
 	if not enabled then return end
-	if all or path == "qol.layerHost" then presence(false) end
 	if (all or path == "qol.layerAutoRefresh") and not QoL.On("layerAutoRefresh") then stopAuto() end
 end)
 

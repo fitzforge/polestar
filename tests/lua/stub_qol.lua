@@ -846,18 +846,26 @@ end
 --   channels = { [name] = index }, -- joined custom channels (JoinChannelByName gives 5)
 --   lockdown = false,              -- C_ChatInfo.InChatMessagingLockdown
 --   group = 0, leader = false,     -- GetNumGroupMembers, IsInGroup, UnitIsGroupLeader("player")
---   guild = false,                 -- IsInGuild
 --   inShard = { [unit] = true },   -- UnitInPartyShard
 --   guids = { [unit] = guid },     -- UnitGUID (target, mouseover, nameplateN)
 --   plates = { unit },             -- C_NamePlate.GetNamePlates, each plate with its namePlateUnitToken
 --   map = 1429,                    -- C_Map.GetBestMapForUnit("player")
 --   secret = { [value] = true },   -- issecretvalue
+--   chat = { { text, kind, lang, target } }, -- SendChatMessage (also "chat:<text>" in order)
+--   sendResult = { [target] = code },        -- SendAddonMessage's result for a target (0 otherwise)
+--   joinPending = false,           -- JoinChannelByName leaves the channel's index unknown
+--   who = { filter, origin }, whoToUi = bool, -- C_FriendList.SendWho, SetWhoToUi (SendWho also in q.calls)
+--   whoResults = { "Name Surname" }, -- GetNumWhoResults / GetWhoInfo(i).fullName
+--   filters = { [event] = fn },    -- ChatFrame_AddMessageEventFilter (Remove clears it)
+--   zone = "Durotar",              -- GetRealZoneText
+-- stub.channelLine(sender, text, base) fires CHAT_MSG_CHANNEL; stub.whoAnswer() fires WHO_LIST_UPDATE.
+-- order entries of a SendAddonMessage are "msg@chatType>target".
 -- }
 -- Channel joins and leaves, ShardTransferConfirm, InviteUnit, LeaveParty
--- (which empties the group) and StaticPopup_Show land in q.calls.
+-- (which empties the group), StaticPopup_Show and ChatFrame1:RemoveChannel land in q.calls.
 local layer = { eviction = nil, confirmFires = true, confirmErrors = false, sent = {}, order = {}, prefixes = {},
-	channels = {}, lockdown = false, group = 0, leader = false, guild = false, inShard = {}, guids = {},
-	plates = {}, map = 1429, secret = {} }
+	channels = {}, lockdown = false, group = 0, leader = false, inShard = {}, guids = {},
+	plates = {}, map = 1429, secret = {}, chat = {}, sendResult = {}, joinPending = false, whoResults = {}, filters = {} }
 stub.layer = layer
 
 function GetEvictionTimeRemaining() return layer.eviction end
@@ -873,13 +881,37 @@ function C_ChatInfo.RegisterAddonMessagePrefix(prefix)
 end
 function C_ChatInfo.SendAddonMessage(prefix, msg, chatType, target)
 	table.insert(layer.sent, { prefix, msg, chatType, target })
-	table.insert(layer.order, msg .. "@" .. chatType)
-	return 0
+	table.insert(layer.order, msg .. "@" .. chatType .. ">" .. tostring(target))
+	return layer.sendResult[target] or 0
 end
+function SendChatMessage(text, kind, lang, target)
+	table.insert(layer.chat, { text, kind, lang, target })
+	table.insert(layer.order, "chat:" .. text)
+end
+function ChatFrame_AddMessageEventFilter(event, fn)
+	call("ChatFrame_AddMessageEventFilter", event)
+	layer.filters[event] = fn
+end
+function ChatFrame_RemoveMessageEventFilter(event, fn)
+	call("ChatFrame_RemoveMessageEventFilter", event)
+	if layer.filters[event] == fn then layer.filters[event] = nil end
+end
+function ChatFrame1.RemoveChannel(_, name) call("RemoveChannel", name) end
+function C_FriendList.SetWhoToUi(on) layer.whoToUi = on end
+function C_FriendList.SendWho(filter, origin)
+	call("SendWho", filter)
+	layer.who = { filter, origin }
+end
+function C_FriendList.GetNumWhoResults() return #layer.whoResults, #layer.whoResults end
+function C_FriendList.GetWhoInfo(i) local n = layer.whoResults[i]; if n then return { fullName = n } end end
+function GetRealZoneText() return layer.zone or "Durotar" end
+function EnumerateFrames() return nil end
+function stub.channelLine(sender, text, base) stub.fire("CHAT_MSG_CHANNEL", text, sender, "", "", "", "", 0, 1, base or "PolestarLayer") end
+function stub.whoAnswer() stub.fire("WHO_LIST_UPDATE") end
 function C_ChatInfo.InChatMessagingLockdown() return layer.lockdown end
 function JoinChannelByName(name)
 	call("JoinChannelByName", name)
-	layer.channels[name] = layer.channels[name] or 5
+	if not layer.joinPending then layer.channels[name] = layer.channels[name] or 5 end
 end
 function LeaveChannelByName(name)
 	call("LeaveChannelByName", name)
@@ -902,7 +934,6 @@ end
 function GetNumGroupMembers() return layer.group end
 function IsInGroup() return layer.group > 0 end
 function UnitIsGroupLeader(unit) return unit == "player" and layer.leader end
-function IsInGuild() return layer.guild end
 function UnitInPartyShard(unit) return layer.inShard[unit] == true end
 local unitGUID = UnitGUID
 function UnitGUID(unit)

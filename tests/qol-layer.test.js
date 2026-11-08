@@ -14,10 +14,16 @@ function run(script, { on = true } = {}) {
 		script: `local Ly, lay, q, QoL = Polestar.QoL.Layer, stub.layer, stub.qol, Polestar.QoL
 		local function set(k, v) Polestar.Set("qol." .. k, v); stub.runTimers() end
 		local function wait(s) stub.advance(s) end
-		local function hear(sender, msg) stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "GUILD", sender) end
+		local function hear(sender, msg) stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "WHISPER", sender) end
+		local function line(sender, text, base) stub.channelLine(sender, text, base) end
+		local function chat()
+			local out = {}
+			for _, c in ipairs(lay.chat) do out[#out + 1] = c[1] .. "@" .. c[2] .. ":" .. tostring(c[4]) end
+			return out
+		end
 		local function sent(kind)
 			local out = {}
-			for _, s in ipairs(lay.sent) do if not kind or s[2]:sub(2, 2) == kind then out[#out + 1] = s[2] .. "@" .. s[3] end end
+			for _, s in ipairs(lay.sent) do if not kind or s[2]:sub(2, 2) == kind then out[#out + 1] = s[2] .. "@" .. s[3] .. ">" .. tostring(s[4]) end end
 			return out
 		end
 		local function order()
@@ -35,54 +41,217 @@ function run(script, { on = true } = {}) {
 			for _, r in ipairs(Ly.Known(map)) do out[#out + 1] = { r.id, r.n, r.peers, r.hosts, r.mine } end
 			return out
 		end
-		lay.guild = true
 		lay.guids.target = "${G(2)}"
 		${on ? 'set("layerHop", true)' : ''}
 		${script}` }).emitted;
 }
 
-test('layer hop: off by default; while off nothing is watched, joined, registered or sent, and the command refuses', () => {
+test('layer hop: off by default, nothing joined, registered, filtered or sent; on joins, registers, filters, hides the channel and sends nothing; off leaves and unfilters', () => {
 	const out = run(`
 		local function d(k) return Polestar.GetDefault("qol." .. k) end
 		emit({ d("layerHop"), d("layerHost"), d("layerAutoRefresh"), d("layerRefreshDelay"), d("layerLeaveAfter") })
-		-- events only the layer hop watches (others, like PLAYER_TARGET_CHANGED, other QoL features share;
-		-- the fires below show the layer hop ignores them)
 		local watched = 0
 		for _, e in ipairs({ "UPDATE_MOUSEOVER_UNIT", "NAME_PLATE_UNIT_ADDED", "SHARD_TRANSFER_IMMINENT", "SHARD_TRANSFER",
-			"SHARD_TRANSFER_CANCELLED", "CHAT_MSG_ADDON", "PARTY_INVITE_REQUEST", "GROUP_JOINED", "GROUP_LEFT" }) do
+			"SHARD_TRANSFER_CANCELLED", "CHAT_MSG_ADDON", "CHAT_MSG_CHANNEL", "PARTY_INVITE_REQUEST", "GROUP_JOINED", "GROUP_LEFT" }) do
 			if QoL.Watching(e) then watched = watched + 1 end
 		end
 		local toggles = 0
 		Polestar.On("TOGGLE_LAYER_HOP", function() toggles = toggles + 1 end)
 		stub.fire("PLAYER_TARGET_CHANGED")
 		hear("Peerone", "1H1429:2:0")
+		line("Reqone", "PLH1 Q 1429")
 		lay.eviction = 60
 		stub.fire("SHARD_TRANSFER_IMMINENT")
 		local ok, why = Ly.Request("*")
+		local okA, whyA = Ly.Ask()
 		Polestar.RunCommand("layer")
-		emit({ watched, #lay.sent, #lay.prefixes, #calls("JoinChannelByName"), Ly.Current() == nil, #Ly.Known(1429),
-			ok, why, Ly.Status().on, Ly.Status().transfer, toggles, stub.messages[#stub.messages] })
+		emit({ stub.messages[#stub.messages] })
+		wait(4)
+		emit({ watched, #lay.sent, #lay.chat, #lay.prefixes, #calls("JoinChannelByName"), lay.filters.CHAT_MSG_CHANNEL == nil,
+			#calls("SendWho"), Ly.Current() == nil, #Ly.Known(1429), ok, why, okA, whyA, Ly.Status().on, Ly.Status().transfer, toggles })
+		lay.eviction = nil
+		set("layerHop", true)
+		emit({ calls("JoinChannelByName"), lay.prefixes, type(lay.filters.CHAT_MSG_CHANNEL), calls("RemoveChannel"), #lay.sent, #lay.chat,
+			QoL.Watching("CHAT_MSG_ADDON"), QoL.Watching("CHAT_MSG_CHANNEL"), Ly.Status().on })
+		set("layerHop", false)
+		line("Reqone", "PLH1 Q 1429")
+		wait(4)
+		emit({ calls("LeaveChannelByName"), lay.filters.CHAT_MSG_CHANNEL == nil, #lay.sent, #lay.chat, QoL.Watching("CHAT_MSG_CHANNEL"), Ly.Status().on })
 	`, { on: false });
 	assert.deepEqual(out[0], [false, false, false, 5, false]);
-	assert.deepEqual(out[1].slice(0, 11), [0, 0, 0, 0, true, 0, false, 'Layer hop is off.', false, 'none', 0]);
-	assert.match(out[1][11], /Layer hop is off: turn it on/);
+	assert.match(out[1][0], /Layer hop is off: turn it on/);
+	assert.deepEqual(out[2], [0, 0, 0, 0, 0, true, 0, true, 0, false, 'Layer hop is off.', false, 'Layer hop is off.', false, 'none', 0]);
+	assert.deepEqual(out[3], [['PolestarLayer'], ['PolestarLayer'], 'function', ['PolestarLayer'], 0, 0, true, true, true]);
+	assert.deepEqual(out[4], [['PolestarLayer'], true, 0, 0, false, false]);
 });
 
-test('layer hop: turning on joins the channel, registers the prefix and sends presence; turning off leaves and stops', () => {
+test('layer hop: a request sends one channel line inside the call, whispers the known hosts, then the zone /who names five a second', () => {
 	const out = run(`
-		emit({ calls("JoinChannelByName"), lay.prefixes, sent(), QoL.Watching("CHAT_MSG_ADDON"), QoL.Watching("SHARD_TRANSFER_IMMINENT"), Ly.Status().on })
-		set("layerHop", false)
-		local before = #lay.sent
-		lay.guids.target = "${G(10)}"
-		stub.fire("PLAYER_TARGET_CHANGED")
-		hear("Peerone", "1Q1429")
-		wait(4)
-		emit({ calls("LeaveChannelByName"), #lay.sent - before, QoL.Watching("CHAT_MSG_ADDON"), Ly.Status().on, Ly.Current() == nil })
+		hear("Hostone", "1H1429:10:1")
+		hear("Peerone", "1H1429:10:0")
+		lay.whoResults = { "Testchar", "Hostone", "Who One", "Who Two", "Who Three", "Who Four", "Who Five", "Who Six",
+			"Who Seven", "Who Eight", "Who Nine", "Who Ten", "Who Two", "Who Secret" }
+		lay.secret["Who Secret"] = true
+		lay.sendResult["Who Three"] = 3
+		local ok = Ly.Request("*")
+		emit({ ok, chat(), sent(), lay.who, lay.whoToUi, Ly.Status().asked.reach, Ly.Status().asked.channel })
+		wait(1.1)
+		stub.whoAnswer()
+		local first = sent()
+		lay.sendResult["Who Three"] = nil
+		wait(1.05)
+		local second = #sent()
+		wait(1.05)
+		emit({ first, second, #sent(), Ly.Status().asked.reach, #lay.chat })
+		Ly.CancelRequest()
+		local again = Ly.Request("*")
+		emit({ again, #calls("SendWho"), #lay.chat })
 	`);
-	assert.deepEqual(out[0], [['PolestarLayer'], ['PolestarLayer'], ['1H1429:2:0@GUILD', '1H1429:2:0@CHANNEL'], true, true, true]);
-	assert.deepEqual(out[1], [['PolestarLayer'], 0, false, false, true]);
+	const R = (n) => `1R1429:2:*@WHISPER>${n}`;
+	assert.deepEqual(out[0], [true, ['PLH1 R 1429:2:*@CHANNEL:5'], [R('Hostone')], ['z-"Durotar"', 1], true, 1, true]);
+	assert.deepEqual(out[1], [[R('Hostone'), R('Who One'), R('Who Two'), R('Who Three')], 9, 12, 11, 1],
+		'the throttled name ends the burst and goes first next second; itself, a known host, a repeat and a secret name are skipped');
+	assert.deepEqual(out[2], [true, 1, 2], 'a /who within 10 s of the last is not sent');
+	const group = run(`
+		lay.whoResults = { "Who One", "Who Two", "Who Three", "Who Four", "Who Five", "Who Six", "Who Seven" }
+		Ly.Request("*")
+		stub.whoAnswer()
+		local first = #lay.sent
+		lay.group = 2
+		stub.fire("GROUP_JOINED")
+		wait(3)
+		emit({ first, #lay.sent, Ly.Status().asked.reach })
+	`);
+	assert.deepEqual(group[0], [5, 5, 5], 'a group join stops the burst');
 });
 
+test('layer hop: with the channel index unknown a request joins, says so, still asks the zone, and the next click sends its line', () => {
+	const out = run(`
+		lay.channels, lay.joinPending = {}, true
+		local ok, why = Ly.Request("*")
+		local s = Ly.Status().asked
+		emit({ ok, why, #calls("JoinChannelByName"), #lay.chat, #calls("SendWho"), s ~= nil and s.channel })
+		lay.joinPending = false
+		lay.channels.PolestarLayer = 5
+		local ok2 = Ly.Request("*")
+		emit({ ok2, chat(), Ly.Status().asked.channel, #calls("SendWho"), select(2, Ly.Request("*")) })
+	`);
+	assert.deepEqual(out[0], [false, 'Joining the layer channel; try again in a moment.', 2, 0, 1, false]);
+	assert.deepEqual(out[1], [true, ['PLH1 R 1429:2:*@CHANNEL:5'], true, 1, 'A hop request is already waiting.']);
+});
+
+test('layer hop: a request is refused in a group, in a chat lockdown and while one waits', () => {
+	const out = run(`
+		lay.group = 2
+		local _, w1 = Ly.Request("*")
+		lay.group, lay.lockdown = 0, true
+		local _, w2 = Ly.Request("*")
+		lay.lockdown = false
+		Ly.Request("*")
+		local _, w3 = Ly.Request("*")
+		emit({ w1, w2, w3, #lay.chat })
+	`);
+	assert.deepEqual(out[0], ['You are already in a group.', 'Chat is locked down; try again shortly.', 'A hop request is already waiting.', 1]);
+});
+
+test('layer hop: a host answers a channel or whispered request with a claim whisper and an invite; drops the rest; whispers its layer once per asker', () => {
+	const out = run(`
+		set("layerHost", true)
+		line("Reqone", "PLH1 R 1429:10:*")
+		hear("Reqone", "1R1429:10:*")
+		wait(2.6)
+		emit(order())
+		lay.order = {}
+		hear("Reqtwo", "1R1429:10:*")
+		wait(2.6)
+		emit(order())
+		lay.order = {}
+		line("Testchar", "PLH1 R 1429:10:*")
+		line("Farone-OtherRealm", "PLH1 R 1429:10:*")
+		line("Reqfour", "PLH1 R 1429:10:" .. string.rep("1", 120))
+		for i = 1, 4 do line("Reqfive", "PLH1 Q 143" .. i) end
+		line("Reqfive", "PLH1 R 1429:10:*")
+		line("Reqsix", "PLH2 R 1429:10:*")
+		line("Reqseven", "PLH1 X 1429:10:*")
+		line("Reqeight", "PLH1 R 1429:10:*", "General")
+		line("Reqnine", "PLH1 R 1429:2:*")
+		q.social.combat.player = true
+		line("Reqten", "PLH1 R 1429:10:*")
+		wait(2.6)
+		q.social.combat.player = nil
+		lay.group, lay.leader = 2, false
+		line("Reqeleven", "PLH1 R 1429:10:*")
+		wait(2.6)
+		lay.group = 0
+		emit(order())
+		lay.sent = {}
+		line("Asker", "PLH1 Q 1429")
+		line("Askertwo", "PLH1 Q 1430")
+		wait(3)
+		line("Asker", "PLH1 Q 1429")
+		wait(3)
+		local once = sent("H")
+		stub.now = stub.now + 61
+		line("Asker", "PLH1 Q 1429")
+		wait(3)
+		emit({ once, #sent("H") })
+	`);
+	assert.deepEqual(out[0], ['1IReqone@WHISPER>Reqone', 'invite:Reqone'], 'the line and the whisper of one request: one claim, one invite');
+	assert.deepEqual(out[1], ['1IReqtwo@WHISPER>Reqtwo', 'invite:Reqtwo']);
+	assert.deepEqual(out[2], {}, 'echo, other realm, oversize, flood, bad version, unknown kind, other channel, same layer, combat, not leader');
+	assert.deepEqual(out[3], [['1H1429:2:1@WHISPER>Asker'], 2]);
+});
+
+test('layer hop: an asker accepts the invite of a host whose claim whisper names it; H whispers list peers; GUILD and CHANNEL addon messages are ignored', () => {
+	const out = run(`
+		Ly.Request("*")
+		q.showPopup("PARTY_INVITE")
+		stub.fire("PARTY_INVITE_REQUEST", "Stranger")
+		stub.runTimers()
+		local strangers = #calls("AcceptGroup")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		stub.runTimers()
+		emit({ strangers, #calls("AcceptGroup") })
+		hear("Peerone", "1H1429:10:0")
+		hear("Hosttwo", "1H1429:10:1")
+		hear("Peertwo", "1H1429:7:0")
+		stub.fire("CHAT_MSG_ADDON", "PolestarLayer", "1H1429:8:0", "GUILD", "Guildy")
+		stub.fire("CHAT_MSG_ADDON", "PolestarLayer", "1H1429:9:0", "CHANNEL", "Chanly")
+		stub.fire("CHAT_MSG_ADDON", "PolestarLayer", "1ITestchar", "GUILD", "Hostthree")
+		emit({ rows(1429), Ly.Expects("Hostthree") })
+	`);
+	assert.deepEqual(out[0], [0, 1]);
+	assert.deepEqual(out[1], [[['2', 1, 0, 0, true], ['7', 2, 1, 0, false], ['10', 3, 2, 1, false]], false]);
+});
+
+test('layer hop: the chat filter hides PLH lines on the layer channel only', () => {
+	const out = run(`
+		local f = lay.filters.CHAT_MSG_CHANNEL
+		local function try(text, base) return f(nil, "CHAT_MSG_CHANNEL", text, "Someone", "", "", "", "", 0, 1, base) end
+		emit({ try("PLH1 R 1429::*", "PolestarLayer"), try("hello", "PolestarLayer"), try("PLH1 Q 1429", "General") })
+	`);
+	assert.deepEqual(out[0], [true, false, false]);
+});
+
+test('layer hop: names with a space are whispered to, invited and matched in a claim whole', () => {
+	const out = run(`
+		set("layerHost", true)
+		line("Leffe Loo", "PLH1 R 1429:10:*")
+		wait(2.6)
+		local hosted = order()
+		lay.whoResults = { "Anna Bell" }
+		Ly.Request("*")
+		stub.whoAnswer()
+		local asked = sent("R")
+		hear("Hosta Loo", "1ITestchar")
+		local host = Ly.Expects("Hosta Loo")
+		UnitName = function(u) if u == "player" then return "Testchar Loo" end end
+		hear("Hostb Loo", "1ITestchar Loo")
+		emit({ hosted, asked, host, Ly.Expects("Hostb Loo") })
+	`);
+	assert.deepEqual(out[0], [['1ILeffe Loo@WHISPER>Leffe Loo', 'invite:Leffe Loo'], ['1R1429:2:*@WHISPER>Anna Bell'], true, true]);
+});
 test('layer hop: the id is field 5 of a creature or vehicle GUID; players are ignored; labels follow numeric order; a map change forgets', () => {
 	const out = run(`
 		emit({ Ly.LAYER_FIELD, Ly.IdFromGUID("${G(10)}"), Ly.IdFromGUID("Vehicle-0-4372-0-7-99-00AB"),
@@ -103,116 +272,6 @@ test('layer hop: the id is field 5 of a creature or vehicle GUID; players are ig
 	assert.deepEqual(out[1], ['2', 0]);
 	assert.deepEqual(out[2], [1429, '10', [['2', 1, 0, 0, false], ['10', 2, 0, 0, true]], 'Layer 2', 'Layer 1', 1]);
 	assert.deepEqual(out[3], [true, 2]);
-});
-
-test('layer hop: presence lists peers and hosts; echo, other realm, bad version, oversize, secret and flood dropped; Q answered once; stale peers dropped', () => {
-	const out = run(`
-		hear("Peerone", "1H1429:10:0")
-		hear("Hostone", "1H1429:10:1")
-		hear("Peertwo", "1H1429:2:0")
-		hear("Testchar", "1H1429:30:0")
-		hear("Farone-OtherRealm", "1H1429:31:0")
-		hear("Peerthree", "2H1429:32:0")
-		hear("Peerfour", "1H1429:" .. string.rep("3", 120) .. ":0")
-		lay.secret["1H1429:34:0"] = true
-		hear("Peerfive", "1H1429:34:0")
-		for i = 1, 4 do hear("Peersix", "1H1429:35:" .. (i % 2)) end
-		hear("Peersix", "1H1429:36:0")
-		emit(rows(1429))
-		lay.sent = {}
-		hear("Asker", "1Q1429")
-		hear("Askertwo", "1Q1429")
-		hear("Askerthree", "1Q1430")
-		local early = #lay.sent
-		wait(3.1)
-		emit({ early, sent() })
-		hear("Peersix", "1H1429:36:0")
-		stub.now = stub.now + 500
-		hear("Peerone", "1H1429:10:0")
-		stub.now = stub.now + 200
-		emit(rows(1429))
-	`);
-	assert.deepEqual(out[0], [['2', 1, 1, 0, true], ['10', 2, 2, 1, false], ['35', 3, 1, 0, false]]);
-	assert.deepEqual(out[1], [0, ['1H1429:2:0@GUILD', '1H1429:2:0@CHANNEL']]);
-	assert.deepEqual(out[2], [['2', 1, 0, 0, true], ['10', 2, 1, 0, false], ['35', 3, 0, 0, false], ['36', 4, 0, 0, false]]);
-});
-
-test('layer hop: a host claims then invites a request from another layer, and stands down when it may not', () => {
-	const out = run(`
-		set("layerHost", true)
-		hear("Reqone", "1R1429:10:*")
-		wait(2.6)
-		emit(order())
-		lay.order = {}
-		hear("Reqtwo", "1R1429:2:*")
-		hear("Reqthree", "1R1429:10:7")
-		hear("Reqfour", "1R1430:10:*")
-		q.social.combat.player = true
-		hear("Reqfive", "1R1429:10:*")
-		wait(2.6)
-		q.social.combat.player = nil
-		lay.group = 5
-		hear("Reqsix", "1R1429:10:*")
-		lay.group, lay.leader = 2, false
-		hear("Reqseven", "1R1429:10:*")
-		wait(2.6)
-		lay.group = 0
-		hear("Reqone", "1R1429:10:*")
-		hear("Reqeight", "1R1429:10:*")
-		hear("Hosttwo", "1IReqeight")
-		hear("Reqnine", "1R1429::2")
-		wait(2.6)
-		emit({ order(), calls("InviteUnit") })
-	`);
-	assert.deepEqual(out[0], ['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']);
-	assert.deepEqual(out[1], [['1IReqnine@GUILD', '1IReqnine@CHANNEL', 'invite:Reqnine'], ['Reqone', 'Reqnine']]);
-});
-
-test('layer hop: a request is sent or refused; only the claimed host or a known peer is accepted; the same shard is reported', () => {
-	const out = run(`
-		local ok1 = Ly.Request("*")
-		local ok2, why2 = Ly.Request("*")
-		emit({ ok1, sent("R"), ok2, why2, Ly.Status().asked.want })
-		Ly.CancelRequest()
-		lay.lockdown = true
-		local ok3, why3 = Ly.Request("*")
-		lay.lockdown, lay.group = false, 2
-		local ok4, why4 = Ly.Request("*")
-		lay.group = 0
-		emit({ ok3, why3, ok4, why4 })
-		Ly.Request("10")
-		q.showPopup("PARTY_INVITE")
-		stub.fire("PARTY_INVITE_REQUEST", "Stranger")
-		stub.runTimers()
-		local strangers = #calls("AcceptGroup")
-		hear("Hostone", "1ITestchar")
-		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
-		stub.runTimers()
-		local hidden = {}
-		for _, c in ipairs(q.calls) do if c[1] == "StaticPopup_Hide" then hidden[#hidden + 1] = c[2] .. ":" .. tostring(c[3]) end end
-		emit({ strangers, #calls("AcceptGroup"), hidden })
-		lay.group, lay.inShard.player, lay.inShard.party1 = 2, true, true
-		set("layerLeaveAfter", true)
-		stub.fire("GROUP_JOINED")
-		local mid = Ly.Status().hopGroup
-		wait(2.1)
-		emit({ mid, stub.messages[#stub.messages], #calls("LeaveParty"), Ly.Status().asked == nil, Ly.Status().hopGroup })
-	`);
-	assert.deepEqual(out[0], [true, ['1R1429:2:*@GUILD', '1R1429:2:*@CHANNEL'], false, 'A hop request is already waiting.', '*']);
-	assert.deepEqual(out[1], [false, 'Chat is locked down; try again shortly.', false, 'You are already in a group.']);
-	assert.deepEqual(out[2], [0, 1, ['PARTY_INVITE:1']]);
-	assert.equal(out[3][0], true);
-	assert.match(out[3][1], /Same layer as the host; nothing to refresh\./);
-	assert.deepEqual(out[3].slice(2), [1, true, false]);
-	const peer = run(`
-		hear("Peerone", "1H1429:10:1")
-		stub.fire("PARTY_INVITE_REQUEST", "Peerone")
-		local before = #calls("AcceptGroup")
-		Ly.Request("*")
-		stub.fire("PARTY_INVITE_REQUEST", "Peerone")
-		emit({ before, #calls("AcceptGroup") })
-	`);
-	assert.deepEqual(peer[0], [0, 1], 'a peer heard on the map is the fallback, and only while a request waits');
 });
 
 test('layer hop: with Decline other party invitations on, the claimed host\'s invite is accepted, not declined; a stranger\'s still is', () => {
@@ -357,36 +416,6 @@ test('layer hop: the same layer needs both the player and the host on the party\
 		emit({ Ly.Status().asked ~= nil, #stub.messages - lines, #calls("LeaveParty"), Ly.Status().hopGroup })
 	`);
 	assert.deepEqual(out[0], [true, 0, 0, true]);
-});
-
-test('layer hop: a sender\'s Q then R within 2 s are both handled: the host answers and claims', () => {
-	const out = run(`
-		set("layerHost", true)
-		lay.sent = {}
-		hear("Reqone", "1Q1429")
-		hear("Reqone", "1R1429:10:*")
-		wait(3.1)
-		emit({ #sent("H"), order() })
-	`);
-	assert.deepEqual(out[0], [2, ['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']]);
-});
-
-test('layer hop: a sender\'s H, Q and R each heard on GUILD and on the channel within 2 s are three messages: the Q is answered once, the host claims and invites', () => {
-	const out = run(`
-		set("layerHost", true)
-		lay.sent = {}
-		local function both(sender, msg)
-			hear(sender, msg)
-			stub.fire("CHAT_MSG_ADDON", "PolestarLayer", msg, "CHANNEL", sender)
-		end
-		both("Reqone", "1H1429:10:0")
-		both("Reqone", "1Q1429")
-		both("Reqone", "1R1429:10:*")
-		wait(3.1)
-		emit({ rows(1429), #sent("H"), order() })
-	`);
-	assert.deepEqual(out[0], [[['2', 1, 0, 0, true], ['10', 2, 1, 0, false]], 2,
-		['1IReqone@GUILD', '1IReqone@CHANNEL', 'invite:Reqone']]);
 });
 
 test('layer hop: an offer before or after the join of the hop group is auto-confirmed once; a group joined by hand in either order never is', () => {
