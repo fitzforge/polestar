@@ -37,6 +37,8 @@ Polestar.Nav = {
 	UsingTomTomArrow = function() return TOMTOM == true end,
 }
 Polestar.Set("nav.travel", true)
+-- The quest log reads (the client fires this after login).
+stub.fire("QUEST_LOG_UPDATE")
 "#;
 
 fn run(guides: &str, script: &str) -> Value {
