@@ -5579,7 +5579,8 @@ const HORDE_VOLUME = {
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
 };
 
-function hordeChainFrom(guide) {
+// The guide and every guide its `next` leads to, in order.
+function chainFrom(guide) {
 	const out = [];
 	for (let g = guide; g && !out.includes(g); ) {
 		out.push(g);
@@ -5616,21 +5617,9 @@ const ALLIANCE_VOLUME_HANDIN = {
 	'forever/alliance/30-40/05-arathi-highlands.guide': [634], // Plea to the Alliance
 };
 
-// The guide and every guide its `next` leads to, in order.
-function allianceChainFrom(guide) {
-	const out = [];
-	for (let g = guide; g && !out.includes(g); ) {
-		out.push(g);
-		const next = compiled(g).next;
-		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
-		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
-	}
-	return out;
-}
-
 for (const [guide, quests] of Object.entries(HORDE_VOLUME)) test(`${guide}: Horde quest volume: quests on the walk are taken there and handed in, not optional`, { skip }, () => {
 	const here = goals(guide);
-	const later = hordeChainFrom(guide).flatMap((g) => goals(g));
+	const later = chainFrom(guide).flatMap((g) => goals(g));
 	for (const q of quests) {
 		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
 		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
@@ -5639,7 +5628,7 @@ for (const [guide, quests] of Object.entries(HORDE_VOLUME)) test(`${guide}: Hord
 
 for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: Alliance quest volume: the quests on its visits are taken there and handed in`, { skip }, () => {
 	const here = goals(guide);
-	const later = allianceChainFrom(guide).flatMap((g) => goals(g));
+	const later = chainFrom(guide).flatMap((g) => goals(g));
 	for (const q of quests) {
 		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
 		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
@@ -5676,6 +5665,243 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+// --- Player reports, route-wide (0.3.0 to 0.3.4). Each case states a reported route problem as a property
+// of every leveling route of a side, as one character plays it: a start's guides along `next`, with the
+// goals that character's race and class get. They are keyed by quests, NPCs and places, never by a guide
+// file or a step number, so a route rework that moves zones or renames guides is checked the same way.
+// A case that fails on next and passes on the rework that fixes it carries a `todo` naming the issue and
+// that pull request; the rework removes it when it lands, and a release ships with none left.
+
+const { greyLevel } = require('../tools/lib/game/xp');
+
+const STARTS = {
+	Horde: [[ORC_DUROTAR, 'Orc'], [TROLL_DUROTAR, 'Troll'], [MULGORE, 'Tauren'], [TIRISFAL, 'Scourge'], [ZEPHRAS_HORDE, 'Skyborne']],
+	Alliance: [[DWARF_DUN_MOROGH, 'Dwarf'], [DUN_MOROGHS[1], 'Gnome'], [ELWYNN, 'Human'], [TELDRASSIL, 'NightElf'], [ZEPHRAS_ALLIANCE, 'Skyborne']],
+};
+const routeMemo = new Map();
+// Every character's route on a side, as { who, cls, list }: `list` the goals in order as { step, goal, s, guide }.
+function routes(side) {
+	if (!routeMemo.has(side)) {
+		routeMemo.set(side, STARTS[side].flatMap(([start, race]) => {
+			const all = chainFrom(start).flatMap((guide) => goals(guide).map((e) => ({ ...e, guide })));
+			const mine = all.filter(forRaceOf(race));
+			return data.raceClasses(race, side).map((cls) => ({ who: `${race} ${cls}`, cls, list: mine.filter(forClass(cls)) }));
+		}));
+	}
+	return routeMemo.get(side);
+}
+const where = ({ guide, s }) => `${guide.replace(/^forever\//, '').replace(/\.guide$/, '')} step ${s}`;
+
+// Follow-ups a giver offers only once the quest before them is handed in: the route asked for both on one
+// visit and the giver had nothing. A route may leave the follow-up out; it may never take it early.
+const FOLLOW_UPS = [
+	{ side: 'Horde', quest: 96656, after: [382], says: 'The Adventurer is never accepted before The Red Messenger is handed in (#792)' },
+	{ side: 'Horde', quest: 99142, after: [5482], says: 'Tomb Weed is never accepted before Doom Weed is handed in (#800)' },
+	{ side: 'Horde', quest: 98601, after: [364], says: 'A Difficult Path is never accepted before The Mindless Ones is handed in (#830)' },
+	{ side: 'Horde', quest: 97225, after: [805], says: "Forgotten Loa Idols is never accepted before Report to Sen'jin Village is handed in (#796)" },
+	{ side: 'Horde', quest: 97282, after: [97281], says: 'Stormy Potential is never accepted before A Simmering Storm is handed in (#807)' },
+	{ side: 'Horde', quest: 95981, after: [482], says: "Watching the Roads is never accepted before Dalaran's Intentions is handed in (#872)" },
+	{ side: 'Horde', quest: 97275, after: [97242], says: "Whuut's the Rush is never accepted before Yelmak's Medley is handed in (#891)" },
+	{ side: 'Horde', quest: 98252, after: [98251], says: 'A Void Path is never accepted before Never Coming Back is handed in (#984, #1002)' },
+	{ side: 'Horde', quest: 96261, after: [96259], says: 'The Broodmother is never accepted before Defending the Dead is handed in (#1083)' },
+	{ side: 'Alliance', quest: 98189, after: [286], says: 'Karl Boran\'s second Return the Statuette is never accepted before the first is handed in (#1113)' },
+	{ side: 'Alliance', quest: 98190, after: [286, 98189], says: 'A Friend of the Family is never accepted before both Return the Statuette quests are handed in (#1118)' },
+	{ side: 'Alliance', quest: 526, after: [324], says: 'Lightforge Ingots is never accepted before The Lost Ingots is handed in (#1116)' },
+	{ side: 'Alliance', quest: 98240, after: [98072], says: 'Crimson Crate Delivery is never accepted before Crocs of the Sky is handed in (#1134)' },
+	{ side: 'Alliance', quest: 98310, after: [98216], says: 'Gleaning Our Future is never accepted before Understanding Our Present is handed in (#1184, #1206)' },
+	{ side: 'Alliance', quest: 98313, after: [98310], says: 'For Further Study is never accepted before Gleaning Our Future is handed in (#1184)' },
+];
+for (const { side, quest, after, says, todo } of FOLLOW_UPS) test(`Every ${side} route: ${says}`, { skip, todo }, () => {
+	for (const { who, list } of routes(side)) {
+		list.forEach((e, i) => {
+			if (!is('accept', quest)(e.goal)) return;
+			for (const pre of after) assert.ok(list.slice(0, i).some(({ goal }) => is('turnin', pre)(goal)), `${who}: ${where(e)} accepts ${quest} before ${pre} is handed in`);
+		});
+	}
+});
+
+// poro (#1065): Escorting Erland, a level 11 quest, came in the 16-19 Silverpine guide after a level 16.51
+// target. Players run about a level above the route's targets (their recordings), so the level reached is
+// rounded up: at 17 the quest is grey. It is taken while it still gives experience.
+test('Every Horde route (#1065): Escorting Erland is taken before the route reaches the level at which it is grey', { skip, todo: '#1065: fails on next; fixed by #1210' }, () => {
+	const qlvl = data.quest(435).level;
+	for (const { who, list } of routes('Horde')) {
+		list.forEach((e, i) => {
+			if (!is('accept', 435)(e.goal)) return;
+			const targets = list.slice(0, i).filter(({ goal }) => goal.t === 'level').map(({ goal }) => goal.level + (goal.frac || 0));
+			const reached = Math.max(compiled(e.guide).minLevel || 0, ...targets);
+			assert.ok(greyLevel(Math.ceil(reached)) < qlvl, `${who}: ${where(e)} takes Escorting Erland (level ${qlvl}) at level ${reached}, where it is grey`);
+		});
+	}
+});
+
+// Calor (#1114): Calor offers Worgen in the Woods from level 23; the guide asked a level 22 character for it.
+test('Every Alliance route (#1114): Worgen in the Woods is accepted only behind a level 23 gate', { skip }, () => {
+	const gate = ({ goal, step }) => (goal.t === 'level' && goal.level >= 23) || (step.when || []).some((p) => p.k === 'level' && !p.neg && ['>=', '>'].includes(p.op) && p.n >= 23);
+	for (const { who, list } of routes('Alliance')) {
+		list.forEach((e, i) => {
+			if (is('accept', 173)(e.goal)) assert.ok(gate(e) || list.slice(0, i).some(gate), `${who}: ${where(e)} takes Worgen in the Woods with no level 23 gate before it`);
+		});
+	}
+});
+
+// DexeeXI (#907): Gilthares Firebough walks straight back to Ratchet, so Northwatch Hold's kills come before
+// his escort is accepted, and nothing else is worked between the accept and its end.
+test("Every Horde route (DexeeXI, #907): Northwatch Hold is cleared before Gilthares's escort, which runs straight to Ratchet", { skip }, () => {
+	for (const { who, list } of routes('Horde')) {
+		list.forEach((e, i) => {
+			if (!is('accept', 898)(e.goal)) return;
+			const late = list.slice(i).find(({ goal }) => goal.quest === 891 && ['kill', 'collect'].includes(goal.t));
+			assert.ok(!late, `${who}: ${late && where(late)} works Northwatch Hold (891) after the escort is taken at ${where(e)}`);
+			const end = list.findIndex(({ goal }, j) => j > i && goal.quest === 898 && ['complete', 'turnin'].includes(goal.t));
+			assert.ok(end > i, `${who}: the escort taken at ${where(e)} has an end`);
+			for (const x of list.slice(i + 1, end)) assert.ok(!x.goal.quest || x.goal.quest === 898, `${who}: ${where(x)} works ${x.goal.t} ${x.goal.quest} during the escort`);
+		});
+	}
+});
+
+// Rohkin (#957), aVikingTrex (#1040): Mankrik's tusks were collected in the Bristleback camps before Tribes
+// at War, then the same camps cleared again for it. Every Bristleback it asks for drops the tusks.
+test('Every Horde route (Rohkin, #957): the Bristleback tusks are collected on the Tribes at War kills, never before it', { skip }, () => {
+	for (const { who, list } of routes('Horde')) {
+		const accept = list.findIndex(({ goal }) => is('accept', 878)(goal));
+		if (accept < 0) continue;
+		list.forEach((e, i) => {
+			if (e.goal.quest !== 899 || e.goal.t !== 'collect') return;
+			assert.ok(i > accept, `${who}: ${where(e)} collects the tusks before Tribes at War is taken at ${where(list[accept])}`);
+			assert.ok(list.some((x) => x.guide === e.guide && x.s === e.s && x.goal.quest === 878 && x.goal.t === 'kill'), `${who}: ${where(e)} collects the tusks on a step without the Tribes at War kills`);
+		});
+	}
+});
+
+// soockee (#1051), Konky88 (#1150): Valuable Vantages was handed back in the step that took it, before its
+// three vials were placed.
+test('Every Horde route (#1051, #1150): Valuable Vantages is handed in only after each of its vials is placed', { skip }, () => {
+	const objectives = data.questObjectives(98095).map((o) => o.index);
+	assert.equal(objectives.length, 3, 'the three vial objectives are in the data');
+	for (const { who, list } of routes('Horde')) {
+		list.forEach((e, i) => {
+			if (!is('turnin', 98095)(e.goal)) return;
+			const accept = list.slice(0, i).findLastIndex(({ goal }) => is('accept', 98095)(goal));
+			assert.ok(accept >= 0, `${who}: ${where(e)} hands in Valuable Vantages that was never taken`);
+			assert.ok(!(list[accept].guide === e.guide && list[accept].s === e.s), `${who}: ${where(e)} hands it in on the step that takes it`);
+			for (const oi of objectives) assert.ok(list.slice(accept + 1, i).some(({ goal }) => goal.quest === 98095 && goal.oi === oi), `${who}: ${where(e)} hands it in with vial ${oi} never placed`);
+		});
+	}
+});
+
+// Zerkness (#383), Ioney (#396), soockee (#1117): Alonso's Dragonslayer quests are for Warriors only; a
+// Paladin and a Shaman were sent to Mystral Lake for nothing.
+test('Every route (#1117): only Warriors are sent to Alonso for the Dragonslayer quests', { skip }, () => {
+	const ALONSO = 210995;
+	for (const side of ['Horde', 'Alliance']) {
+		for (const { who, cls, list } of routes(side)) {
+			if (cls === 'WARRIOR') continue;
+			const sent = list.find(({ goal }) => [78132, 78133, 78134].includes(goal.quest) || goal.npc === ALONSO);
+			assert.ok(!sent, `${who}: ${sent && where(sent)} sends a ${cls} to Alonso`);
+		}
+	}
+});
+
+// Konky88 (#1212): from Zoram'gar the guide flew a Troll Shaman to Camp Taurajo and walked on into Mulgore,
+// for the Earthen Ring and Thunder Bluff. A character who knows Thunder Bluff's flight path flies there.
+test('Every Horde route (#1212): no flight to Camp Taurajo on the way to Mulgore or Thunder Bluff when Thunder Bluff\'s flight path is known', { skip, todo: '#1212: fails on next; fixed by #1210' }, () => {
+	const hops = [];
+	for (const { who, list } of routes('Horde')) {
+		const known = new Set();
+		list.forEach((e, i) => {
+			const { goal } = e;
+			if (goal.t === 'fly' && goal.location === 'Camp Taurajo' && known.has('Thunder Bluff')) {
+				const next = list.slice(i + 1).find((x) => x.goal.map != null && x.goal.t !== 'fly');
+				if (next && [1412, 1456].includes(next.goal.map)) hops.push(`${who}: ${where(e)} flies to Camp Taurajo and then walks to ${where(next)} (map ${next.goal.map}), though Thunder Bluff's flight path is known`);
+			}
+			// Only a learnt path counts: a druid's flight from Nighthaven to Thunder Bluff teaches none.
+			if (goal.t === 'getfp') known.add(goal.location);
+		});
+	}
+	assert.deepEqual(hops, []);
+});
+
+// Bennistrov (#1191): the guide brought a Night Elf Druid back to Astranaar from the west only to fly to
+// Auberdine. A flight out of Astranaar is taken on a visit that does something there.
+test('Every Alliance route (#1191): Astranaar is never walked to only for a flight out of it', { skip }, () => {
+	const { point } = makeProjector(data.mapFrames);
+	const spawn = data.spawns('npc', 4267).find((sp) => sp.map === 1440);
+	const fm = point(1440, spawn.pts[0][0], spawn.pts[0][1], spawn.f === 'e' ? 'e' : 'l');
+	const yd = ({ goal }) => {
+		if (goal.map == null || goal.x == null) return Infinity;
+		const p = point(goal.map, goal.x, goal.y, goal.f === 'e' ? 'e' : 'l');
+		return p.c === fm.c ? dist(p, fm) : Infinity;
+	};
+	for (const { who, list } of routes('Alliance')) {
+		list.forEach((e, i) => {
+			if (e.goal.t !== 'fly') return;
+			const before = list.slice(0, i).reverse();
+			const from = before.find((x) => x.goal.map != null && x.goal.x != null);
+			if (!from || yd(from) > 60) return;
+			const work = before.find(({ goal }) => goal.quest != null);
+			assert.ok(work && yd(work) <= 250, `${who}: ${where(e)} flies out of Astranaar after walking there from ${work ? where(work) : 'nowhere'} (${work ? Math.round(yd(work)) : '?'} yd away) with nothing done in it`);
+		});
+	}
+});
+
+// Bill (#1004): at Ratchet the guide sent you up to the inn to bind, then back down to Mebok Mizzyrix, who
+// stands by the WANTED poster you had just read. The bind never splits two stops that stand side by side.
+test('Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it', { skip }, () => {
+	const { point } = makeProjector(data.mapFrames);
+	const pos = ({ goal }) => (goal.map != null && goal.x != null ? point(goal.map, goal.x, goal.y, goal.f === 'e' ? 'e' : 'l') : null);
+	const yd = (a, b) => (a && b && a.c === b.c ? dist(a, b) : Infinity);
+	for (const { who, list } of routes('Horde')) {
+		list.forEach((e, i) => {
+			if (e.goal.t !== 'sethome' || e.goal.location !== 'Ratchet') return;
+			const prev = list.slice(0, i).reverse().find(pos);
+			const next = list.slice(i + 1).find(pos);
+			const bind = pos(e);
+			if (!prev || !next || !bind) return;
+			const back = yd(pos(prev), pos(next)) <= 40 && yd(pos(prev), bind) > 40;
+			assert.ok(!back, `${who}: ${where(e)} binds at Ratchet's inn between ${prev.goal.t} ${prev.goal.quest || ''} and ${next.goal.t} ${next.goal.quest || ''}, which stand side by side`);
+		});
+	}
+});
+
+// Rohkin (#947), Darian (#992): after Regthar a Warlock walked into Stonetalon Mountains and straight back to
+// the Barrens with nothing to do there. The same sweep found Tauren Druids walked from the Moonkin Stone to the
+// Crossroads, back into Mulgore and out to the Crossroads again.
+test('Every Horde route (Rohkin, #947): nobody is sent into another zone and straight back with nothing done there', { skip }, () => {
+	const back = new Set();
+	for (const { who, list } of routes('Horde')) {
+		const steps = [];
+		for (const e of list) {
+			const last = steps.at(-1);
+			if (last && last.guide === e.guide && last.s === e.s) last.goals.push(e.goal);
+			else steps.push({ guide: e.guide, s: e.s, goals: [e.goal] });
+		}
+		const travel = (step) => step.goals.every((g) => g.t === 'goto' || g.t === 'fly');
+		const mapOf = (step) => (step.goals.findLast((g) => g.map != null) || {}).map;
+		for (let i = 1; i < steps.length; i++) {
+			const from = mapOf(steps[i - 1]);
+			if (from == null || mapOf(steps[i]) == null || !travel(steps[i]) || mapOf(steps[i]) === from) continue;
+			for (let j = i + 1; j < steps.length && travel(steps[j]); j++) {
+				if (mapOf(steps[j]) === from) back.add(`${who}: ${where(steps[i])} to ${where(steps[j])}: into map ${mapOf(steps[i])} and back to map ${from} with nothing done there`);
+			}
+		}
+	}
+	assert.deepEqual([...back], []);
+});
+
+// Fyurie (#977): Redridge "suddenly jumped from level 20/21 mobs to Fangore and a bunch of 24-25 mobs".
+// WANTED: Lieutenant Fangore (Fangore 26) and Solomon's Law (Shadowhide gnolls, a median 24) were worked at
+// about 21. Work more than two levels above the player waits until the route reaches it.
+test('Every Alliance route (Fyurie, #977): Fangore and the Shadowhide gnolls of Solomon\'s Law are worked only from level 22', { skip }, () => {
+	const gate = ({ goal, step }) => (goal.t === 'level' && goal.level >= 22) || (step.when || []).some((p) => p.k === 'level' && !p.neg && ['>=', '>'].includes(p.op) && p.n >= 22);
+	for (const { who, list } of routes('Alliance')) {
+		list.forEach((e, i) => {
+			if (![180, 91].includes(e.goal.quest) || !['kill', 'collect'].includes(e.goal.t)) return;
+			assert.ok(compiled(e.guide).minLevel >= 22 || gate(e) || list.slice(0, i).some(gate), `${who}: ${where(e)} works ${e.goal.t} ${e.goal.quest} with nothing holding it to level 22`);
+		});
+	}
+});
 
 // Wetlands report (2026-11-07, Discord; #1184, #1206): on 0.3.4 "pretty much all the quests" the guide asked
 // for at Menethil and the dig were chain quests nobody could take yet. Every leveling path (each start,
