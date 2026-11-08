@@ -4552,8 +4552,11 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   to level 14 (~12m)" (a `level` goal ahead makes up the gap); in the warning
   colour, "Behind: Missing In Action (25) at step 20, you'll be 21.0; grind
   ~1h 10m first" (a hard quest; "you're" on the live step, "reach 23 first"
-  without an XP rate), or "Behind by 2.4 levels for level 24 by step 21:
-  grind ~1h 10m before then" ("and no grind step ahead" without a rate).
+  without an XP rate; with the character on pace for the target, the hard
+  quest is the route's, not their lag: "On pace, but Ashenvale Outrunners
+  (24) at step 4 is hard: you'll be 21.3; reach 22 first"), or "Behind by 2.4
+  levels for level 24 by step 21: grind ~1h 10m before then" ("and no grind
+  step ahead" without a rate).
   Under a level the gap reads in the XP bar's bars (20 a level, rounded up),
   from one level in levels; grinding time is the XP short over the QoL
   tracker's XP an hour. Nothing without the Codex (Lookup), at 60, or with

@@ -1454,6 +1454,14 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 		out.hardNoRate = line(hard, nil)
 		hard.live = 20
 		out.hardNow = line(hard, stats)
+		-- On pace for the guide's top (a Discord report, Ashenvale & Silverpine 21-22 at 21): the route's own hard
+		-- quest, not the character's lag.
+		local route = { target = 22, step = 29, reach = 22.5, bars = 0, short = 0, xp = 0, kind = "end", live = 3,
+			hard = { quest = 6503, title = "Ashenvale Outrunners", level = 24, step = 4, reach = 21.34, need = 22, xp = 2000 } }
+		out.hardOnPace = line(route, stats)
+		out.hardOnPaceNoRate = line(route, nil)
+		route.live = 4
+		out.hardOnPaceNow = line(route, nil)
 		pace = grind
 		Polestar.Fire("QOL_XP_UPDATED", stats)
 		out.row = GF.xp:IsShown() and GF.xp.Text:GetText()
@@ -1475,6 +1483,10 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	assert_eq!(out["hard"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; grind ~1h 00m first").as_str());
 	assert_eq!(out["hardNoRate"], warn("Behind: Missing In Action (25) at step 20, you'll be 20.0; reach 23 first").as_str());
 	assert_eq!(out["hardNow"], warn("Behind: Missing In Action (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	// The same quest with the character on pace for the target: "On pace, but", never "Behind".
+	assert_eq!(out["hardOnPace"], warn("On pace, but Ashenvale Outrunners (24) at step 4 is hard: you'll be 21.3; grind ~0h 35m first").as_str());
+	assert_eq!(out["hardOnPaceNoRate"], warn("On pace, but Ashenvale Outrunners (24) at step 4 is hard: you'll be 21.3; reach 22 first").as_str());
+	assert_eq!(out["hardOnPaceNow"], warn("On pace, but Ashenvale Outrunners (24) at step 4 is hard: you're 21.3; reach 22 first").as_str());
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }

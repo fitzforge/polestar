@@ -4652,7 +4652,10 @@ ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 -- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
 -- 20, you'll be 21.0; grind ~1h 10m first" (or "reach 23 first"), else
 -- "Behind by 2.4 levels for level 24 by step 21: grind ~1h 10m before then"
--- (or "and no grind step ahead"). nil without a target ahead or the Codex.
+-- (or "and no grind step ahead"). Such a quest with the character on pace for
+-- the target is the route's, not the character's lag: "On pace, but Ashenvale
+-- Outrunners (24) at step 4 is hard: you'll be 21.3; reach 22 first", never
+-- "Behind". nil without a target ahead or the Codex.
 function GF.PaceText(stats)
 	local Lv = ns.Levels
 	local pace = Lv and Lv.Pace and Lv.Pace()
@@ -4668,7 +4671,15 @@ function GF.PaceText(stats)
 	local h, text = pace.hard, nil
 	if h then
 		local name, at, you, time = h.title or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
-		if h.step == pace.live then
+		if pace.bars == 0 then
+			if h.step == pace.live then
+				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
+					or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
+			else
+				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"], name, h.level, at, you, time)
+					or string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"], name, h.level, at, you, h.need)
+			end
+		elseif h.step == pace.live then
 			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
 				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
 		else
