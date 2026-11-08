@@ -2692,23 +2692,11 @@
 					472
 				],
 				"b": [
-					"accept",
-					87318
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
-			},
-			{
-				"a": [
-					"accept",
+					"turnin",
 					631
 				],
-				"b": [
-					"accept",
-					87318
-				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1314: Hearts of the Lost dropped)."
 			},
 			{
 				"a": [
@@ -2716,11 +2704,11 @@
 					98310
 				],
 				"b": [
-					"accept",
-					87318
+					"turnin",
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1314: Hearts of the Lost dropped)."
 			},
 			{
 				"a": [
@@ -2728,23 +2716,23 @@
 					87491
 				],
 				"b": [
-					"accept",
-					87318
+					"turnin",
+					631
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. The Villards stand on the road north of the camp, so they come next."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Dun Modr in one stop. Longbraid the Grim, Rhag Garmason and Roggo Harlbarrow stand together in the dwarves' camp (49.8,18.2) with Modr in the ruins beside it; the route took only the Captive Fire Elemental there on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr on the way south, and walked past Comar Villard twice. Ebenezer Rustlocke's corpse lies on the road north of the camp, so it comes next (#1314: Hearts of the Lost dropped)."
 			},
 			{
 				"a": [
 					"turnin",
-					87318
+					631
 				],
 				"b": [
 					"accept",
 					647
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Ebenezer Rustlocke's corpse lies on the road from Dun Modr to the Thandol Span, so The Thandol Span (631) is handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back. (#1314: Hearts of the Lost, taken here before, is dropped.)"
 			},
 			{
 				"a": [
@@ -4502,6 +4490,10 @@
 			{
 				"q": 98299,
 				"why": "Rupert's and Wyatt R's reports (#229, #161): Dalar Dawnweaver does not offer Stop the Spread; no guide sends you there"
+			},
+			{
+				"q": 87318,
+				"why": "#1314: Corma Villard (5683) offers no Hearts of the Lost: a level-32 Alliance player stood beside her with no quest offered; players' recordings have nobody ever offered or taking 87318, 88757 or 88758, and 13 people who passed Essene Villard's spot (51.5,9.0) never saw her. Ebenezer Rustlocke stays on the way to the span."
 			}
 		],
 		"keep": [

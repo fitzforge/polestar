@@ -4696,8 +4696,8 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	const dunModr = stepOf('accept', 87491);
 	for (const [t, q] of [['turnin', 472], ['accept', 631], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr, `${t} ${q} on the Dun Modr stop`);
 	assert.ok(list.some(({ goal, s }) => s === dunModr + 1 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
-	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < stepOf('accept', 647), 'the Villards between Dun Modr and the span');
-	assert.equal(stepOf('turnin', 631), stepOf('turnin', 87318), 'Ebenezer handed in beside Essene, before the crossing (final review: every race)');
+	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < stepOf('accept', 647), 'Ebenezer between Dun Modr and the span');
+	assert.ok(!list.some(({ goal }) => goal.quest === 87318), "#1314: no Hearts of the Lost (Corma Villard doesn't offer it)");
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
 });
 

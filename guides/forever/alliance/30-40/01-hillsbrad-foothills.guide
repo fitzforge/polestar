@@ -84,12 +84,10 @@ step Modr
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
 
-step The Villards
+step Ebenezer Rustlocke
   zone Wetlands
-  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to Rhag.
+  tip North along the road from Dun Modr towards the Thandol Span: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to Rhag.
   tip Two elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out.
-  accept 87318                        -- Comar Villard
-  turnin 87318                        -- Essene Villard
   turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
   accept 632                          -- the same corpse
 
