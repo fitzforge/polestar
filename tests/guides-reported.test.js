@@ -6614,3 +6614,13 @@ test('Alliance Stranglethorn: the basilisk step after the Sentinel Hill flight s
 	assert.doesNotMatch(tip, /back north|middle of the jungle/);
 	assert.match(tip, /Sentinel Hill/);
 });
+
+// Final route review for 0.3.5 (Alliance 30-32): the route flies into Ironforge and hands in at the Hall of
+// Explorers and to Magni on the High Seat, but both steps were titled "Deeprun Tram", which this visit
+// never takes (it flies on to Stormwind).
+test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tram', { skip }, () => {
+	const steps = compiled('forever/alliance/30-40/01-hillsbrad-foothills.guide').steps;
+	assert.deepEqual(steps.filter((s) => /Deeprun Tram/.test(s.title || '')).map((s) => s.title), []);
+	const stormpike = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 514));
+	assert.equal(stormpike.title, 'Hall of Explorers');
+});

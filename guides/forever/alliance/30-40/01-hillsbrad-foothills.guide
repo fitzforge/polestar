@@ -249,7 +249,7 @@ step Fly to Ironforge
 
 # ---------------------------------------------------------------- Ironforge
 
-step Deeprun Tram
+step Hall of Explorers
   zone Ironforge
   tip Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
@@ -270,7 +270,7 @@ step King Magni Bronzebeard
   when onquest 683
   turnin 683 only Skyborne
 
-step Deeprun Tram
+step King Magni Bronzebeard
   when onquest 98300
   zone Ironforge
   turnin 98300                        -- King Magni Bronzebeard, the High Seat
