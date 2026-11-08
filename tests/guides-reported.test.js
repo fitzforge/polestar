@@ -3989,14 +3989,17 @@ test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken fr
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to
 // its objective: the bears, the Faulk brothers (their `use` of the Symbol of
-// Life since #956). Wandering Shay (2845, Rockbiter's camp) is out of the route
-// since #979: Shay wanders among the level 49 harpies, at about 44 (#977).
+// Life since #956). Wandering Shay (2845, Rockbiter's camp) is out of the 44 Feralas
+// guide since #979: Shay wanders among the level 49 harpies, at about 44 (#977). Since
+// 2026-11-08 both quests are done on the late Feralas stop (50-60/04, about 56).
 test('Alliance: a quest objective that opens its step leads the arrow to the objective (#303 leftovers)', { skip }, () => {
 	data = data || loadData(DATA);
 	const feralas = 'forever/alliance/40-50/03-feralas.guide';
-	assert.ok(!goals(feralas).some(({ goal }) => goal.quest === 2845 || goal.quest === 2844), 'Wandering Shay and The Giant Guardian are out of Feralas');
-	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, feralas), 'utf8'), /^# Left out: .*The Giant Guardian \(2844\), Wandering Shay \(2845\)/m, 'the header names them');
-	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.skip.some((s) => s.q === 2845 && /harpies/.test(s.reason)), 'the route fixes skip Wandering Shay, saying why');
+	assert.ok(!goals(feralas).some(({ goal }) => goal.quest === 2845 || goal.quest === 2844), 'Wandering Shay and The Giant Guardian are out of the 44 Feralas guide');
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, feralas), 'utf8'), /^# Left out: .*The Giant Guardian \(2844\) and Wandering Shay \(2845\) come on the later Feralas stop/m, 'the header says where they went');
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include.some((s) => s.q === 2845 && /harpies|Giant Guardian/.test(s.reason)), 'the route fixes take Wandering Shay on the later stop, saying why');
+	const late = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(late.some(({ goal }) => goal.t === 'turnin' && goal.quest === 2845), 'Wandering Shay is handed in on the late Feralas stop');
 	const work = (quest) => (g) => g.quest === quest && ['complete', 'use'].includes(g.t);
 	for (const [file, quest, target] of [
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
@@ -7322,8 +7325,8 @@ test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and no
 	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
 	const dm = list.find(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text));
 	assert.ok(dm, 'the Dire Maul note is in the guide');
-	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level >= 60);
-	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 is in Terrordale');
+	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.9);
+	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 (less the last Chillwind hand-ins) is in Terrordale');
 	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
 	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
 });
@@ -7743,4 +7746,30 @@ test('#1357: a training step carries its town, and the town has a trainer of eac
 			}
 		}
 	}
+});
+
+// --- Alliance 50-60 quest volume (2026-11-08): quests on stops the route already makes, counted as part of
+// the route (not optional) where every solo player gets them; the group-only follow-ups stay behind `when group`.
+const ALLIANCE_5060_VOLUME = {
+	'forever/alliance/50-60/01-burning-steppes.guide': [8250, 8251, 8252], // Magecraft; Magic Dust; The Siren's Coral (Mages)
+	'forever/alliance/50-60/02-felwood.guide': [939], // Flute of Xavaric
+	'forever/alliance/50-60/03-winterspring.guide': [5083], // Winterfall Firewater
+	'forever/alliance/50-60/04-western-plaguelands.guide': [2844, 2845], // The Giant Guardian; Wandering Shay
+	'forever/alliance/50-60/06-silithus.guide': [4441, 5084, 5085, 5086, 6185], // Felbound Ancients; Falling to Corruption; Mystery Goo; Toxic Horrors; The Eastern Plagues
+};
+for (const [guide, quests] of Object.entries(ALLIANCE_5060_VOLUME)) test(`${guide}: Alliance 50-60 quest volume: its quests are handed in as part of the route`, { skip }, () => {
+	const here = goals(guide);
+	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}, not optional`);
+});
+
+test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the last top-up stops short of 60 for the Chillwind hand-ins', { skip }, () => {
+	const g = goals('forever/alliance/50-60/06-silithus.guide');
+	const take = at(g, 'accept 6185', is('accept', 6185));
+	assert.ok(at(g, 'turnin 6184', is('turnin', 6184)) < take, 'Flint Shadowmore is handed in first');
+	const work = at(g, 'complete 6185', (x) => x.t === 'complete' && x.quest === 6185);
+	const top = g.findIndex(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.9);
+	const hand = at(g, 'turnin 6185', is('turnin', 6185));
+	assert.ok(take < work && work < hand && top < hand, 'accept, the Marris Stead, the top-up, then the hand-in');
+	assert.ok(g[top].goal.level + (g[top].goal.frac || 0) < 60, 'the top-up leaves the Chillwind hand-ins their XP');
+	assert.ok(at(g, 'turnin 6389', is('turnin', 6389)) > top, 'A Plague Upon Thee is handed in after the top-up too');
 });
