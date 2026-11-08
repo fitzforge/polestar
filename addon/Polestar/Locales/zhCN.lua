@@ -1303,7 +1303,6 @@ L["The step stops waiting for the party and moves on as usual."] = "步骤不再
 L["Click to show or hide the party panel."] = "点击显示或隐藏小队面板。"
 L["Then out here"] = "然后在外面"
 L["Out here"] = "在外面"
-L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "指南窗口在地下城和战场中会隐藏。输入 /polestar 可在此显示，或在“选项 > 指南 > 窗口”中更改。"
 L["Level %d quest: you're %s"] = "%d级任务：你是%s"
 L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = "落后：%s（%d）在步骤 %d，你是%s；请先刷怪约%s"
 L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "落后：%s（%d）在步骤 %d，你是%s；请先升到 %d 级"
@@ -2084,7 +2083,6 @@ L["Minimap icon size"] = "微缩地图图标大小"
 L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = "Polestar 在微缩地图上的标记；地图上的标记不受影响。位于你的箭头上方的标记会变淡，以便看清箭头。右键点击可重置。"
 L["Dungeons and battlegrounds"] = "地下城和战场"
 L["In dungeons and battlegrounds"] = "在地下城和战场中"
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "窗口及其按钮和提醒在地下城、团队副本、战场和竞技场中的表现。在这些地方，/polestar 或按键绑定可打开窗口，直到你离开。"
 L["Wait for Spoken"] = "等待 Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "每次自动接受任务、交还任务和选择奖励前等待 200 毫秒，让 Spoken 有时间注意到窗口并朗读。"
 L["How close"] = "距离范围"
@@ -2105,6 +2103,10 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3046,6 +3048,9 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

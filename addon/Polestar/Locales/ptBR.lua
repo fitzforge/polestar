@@ -2105,6 +2105,10 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -3046,6 +3050,9 @@ L["looted %s, which starts %s"] = "saqueou %s, que inicia %s"
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

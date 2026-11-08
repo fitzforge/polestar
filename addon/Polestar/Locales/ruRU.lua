@@ -1303,7 +1303,6 @@ L["The step stops waiting for the party and moves on as usual."] = "Шаг пе�
 L["Click to show or hide the party panel."] = "Щёлкните, чтобы показать или скрыть панель группы."
 L["Then out here"] = "Затем здесь"
 L["Out here"] = "Здесь"
-L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
 L["Level %d quest: you're %s"] = "Задание %d-го уровня: у вас %s"
 L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"] = "Отставание: %s (%d) на шаге %d, у вас %s; сначала прокачайтесь ~%s"
 L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Отставание: %s (%d) на шаге %d, у вас %s; сначала достигните %d"
@@ -2084,7 +2083,6 @@ L["Minimap icon size"] = "Размер значков на мини-карте"
 L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = "Метки Polestar на мини-карте; на карте мира свои метки. Метка над вашей стрелкой становится прозрачной, чтобы стрелку было видно. Правый щелчок — сброс."
 L["Dungeons and battlegrounds"] = "Подземелья и поля боя"
 L["In dungeons and battlegrounds"] = "В подземельях и на полях боя"
-L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."
 L["Wait for Spoken"] = "Ждать Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "Пауза 200 мс перед каждым автоматическим принятием, сдачей задания и выбором награды, чтобы Spoken успел заметить окно и прочитать его."
 L["How close"] = "Насколько близко"
@@ -2104,6 +2102,10 @@ L["Include nearby hand-ins"] = "Включая сдачу заданий ряд�
 -- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 -- L["Route line on the minimap"] = ""
 -- L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. The minimap button, the key binding or /polestar opens it there until you leave."] = ""
+-- L["Show and hide"] = ""
+-- L["Floating button"] = ""
+-- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3045,6 +3047,9 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+-- UI/Launcher.lua
+-- L["Shift-drag: move it"] = ""
+-- L["Drag: move it"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
@@ -3104,3 +3109,5 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
 -- L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. Введите /polestar, чтобы показать его здесь, или измените это в меню Настройки > Гайд > Окно."
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."

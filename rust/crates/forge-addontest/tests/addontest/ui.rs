@@ -1605,6 +1605,12 @@ local function told()
 	for _, m in ipairs(stub.messages) do if m:find("hides in dungeons and battlegrounds", 1, true) then n = n + 1 end end
 	return n
 end
+-- The notices the window's hint put up (Nav/Alerts.lua's ShowNotice), and how often one was taken down.
+local notices, noticeHides = {}, 0
+Polestar.Nav.alerts = {
+	ShowNotice = function(title, line, seconds) notices[#notices + 1] = { title, line, seconds } end,
+	HideNotice = function() noticeHides = noticeHides + 1 end,
+}
 "#;
 
 // Tangens (Discord): healing in Wailing Caverns, the window was in the way the whole run. A profile that never
@@ -1682,11 +1688,12 @@ fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_an
 	assert_eq!(out, json!({ "outside": true, "inside": false, "opened": true, "left": true, "fired": [false, true] }));
 }
 
-// The first time on the account the window hides itself on the way in, one chat line says how to bring it
-// back; never again, and never when it did not hide (Keep visible, or the window off anyway).
+// The first time on the account the window hides itself on the way in, a notice at the top of the screen says
+// how to bring it back and one chat line says where the setting is; never again, and never when it did not
+// hide (Keep visible, or the window off anyway). Showing the window takes the notice down.
 #[test]
-fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_show_it() {
-	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window.";
+fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to_show_it() {
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide > Window.";
 	let out = run(&[
 		ENTER,
 		r#"
@@ -1703,20 +1710,72 @@ fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_says_once_how_to_
 		Polestar.Fire("SHOW_FRAME")
 		enter("party")
 		local first, text = told(), last()
+		local before = noticeHides
+		Polestar.Fire("TOGGLE_FRAME")
+		local takenDown = noticeHides > before
 		enter(nil)
 		enter("pvp")
 		enter("raid")
-		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), saved = PolestarDB.instanceHideTold })"#,
+		emit({ keptVisible = keptVisible, windowOff = windowOff, first = first, text = text, after = told(), notices = notices,
+			takenDown = takenDown, saved = PolestarDB.instanceHint })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "saved": true }));
+	assert_eq!(out["notices"][0], json!(["Polestar is hidden here", "Type /polestar to show it.", 12]));
+	assert_eq!(out["notices"].as_array().unwrap().len(), 1, "one notice: {}", out["notices"]);
+	assert_eq!(out["takenDown"], true, "opening the window there takes the notice down");
+	assert_eq!(out, json!({ "keptVisible": 0, "windowOff": 0, "first": 1, "text": line, "after": 1, "notices": out["notices"], "takenDown": true, "saved": true }));
 }
 
 #[test]
-fn in_dungeons_and_battlegrounds_the_line_is_not_said_again_on_an_account_already_told() {
-	let out = run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told() })"#].concat(), r#"PolestarDB = { schema = 1, instanceHideTold = true }"#, "").remove(0);
-	assert_eq!(out, json!({ "hidden": true, "told": 0 }));
+fn in_dungeons_and_battlegrounds_the_hint_is_not_shown_again_on_an_account_already_hinted() {
+	let out =
+		run_with(&[ENTER, r#"enter("party"); emit({ hidden = not F:IsShown(), told = told(), notices = #notices })"#].concat(), r#"PolestarDB = { schema = 1, instanceHint = true }"#, "").remove(0);
+	assert_eq!(out, json!({ "hidden": true, "told": 0, "notices": 0 }));
+}
+
+// Accounts told by the old chat line alone (instanceHideTold) see the on-screen notice once; the old flag goes.
+#[test]
+fn in_dungeons_and_battlegrounds_an_account_told_by_the_old_chat_line_sees_the_notice_once() {
+	let out = run_with(
+		&[ENTER, r#"enter("party"); enter(nil); enter("party"); emit({ told = told(), notices = #notices, hint = PolestarDB.instanceHint, old = PolestarDB.instanceHideTold })"#].concat(),
+		r#"PolestarDB = { schema = 1, instanceHideTold = true }"#,
+		"",
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "told": 1, "notices": 1, "hint": true }));
+}
+
+// The how-to names what this player has: the minimap button when it is on, the toggle's key when bound, else
+// /polestar; with the gamepad interface (no slash commands) never /polestar.
+#[test]
+fn in_dungeons_and_battlegrounds_the_hint_names_the_minimap_button_the_key_binding_or_polestar() {
+	let out = run(r#"
+		local key
+		function GetBindingKey(action) if action == "POLESTAR_TOGGLE" then return key end end
+		local function how(button, k, pad)
+			Polestar.Set("maps.minimapButton", button)
+			key = k
+			local gamepad = Polestar.GamepadUI
+			if pad then Polestar.GamepadUI = function() return true end end
+			local s = GF.HowToShow()
+			Polestar.GamepadUI = gamepad
+			return s
+		end
+		emit({ how(true, "CTRL-P"), how(true, nil), how(false, "CTRL-P"), how(false, nil), how(false, "PAD1", true), how(false, nil, true), how(true, nil, true) })"#)
+	.remove(0);
+	assert_eq!(
+		out,
+		json!([
+			"Click the minimap button or press CTRL-P to show it.",
+			"Click the minimap button to show it.",
+			"Press CTRL-P or type /polestar to show it.",
+			"Type /polestar to show it.",
+			"Press PAD1 to show it.",
+			"Turn on the minimap button or bind a key to show it.",
+			"Click the minimap button to show it.",
+		])
+	);
 }
 
 #[test]
@@ -2329,4 +2388,101 @@ fn pointing_at_the_goals_scroll_bar_and_away_wakes_it_without_an_error_1030() {
 	"#);
 	assert_eq!(out[0]["enter"], true, "OnEnter: {}", out[0]["err"]);
 	assert_eq!(out[0]["leave"], true, "OnLeave: {}", out[0]["err"]);
+}
+
+// ---------------------------------------------------------------------------
+// The floating button (UI/Launcher.lua)
+// ---------------------------------------------------------------------------
+
+// Off by default (no frame); on, beside the window's default corner: click shows or hides the window,
+// right-click opens Polestar's menu, a drag moves it anywhere and saves where (ui.launcherPos); with
+// Lock arrow and buttons only a Shift-drag does.
+#[test]
+fn floating_button_off_by_default_on_it_toggles_the_window_opens_the_menu_and_a_drag_moves_it() {
+	let out = run(r#"
+		local before = PolestarLauncher ~= nil
+		local fired, menu = {}, nil
+		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		Polestar.Maps = { ShowMenu = function(anchor) menu = anchor end }
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local function at() local p, rel, rp, x, y = b:GetPoint(1); return { p, rel == UIParent, rp, x, y } end
+		local start, shown = at(), b:IsShown()
+		b:Click("LeftButton")
+		b:Click("RightButton")
+		b.x, b.y = 100, 200
+		b:GetScript("OnDragStart")(b)
+		local moving = b.moving
+		b:GetScript("OnDragStop")(b)
+		local saved, moved = Polestar.Get("ui.launcherPos"), at()
+		Polestar.Set("ui.lockHud", true)
+		b:GetScript("OnDragStart")(b)
+		local locked = b.moving
+		stub.keys.shift = true
+		b:GetScript("OnDragStart")(b)
+		local shiftDrag = b.moving
+		b:GetScript("OnDragStop")(b)
+		stub.keys.shift = false
+		Polestar.Set("ui.launcher", false)
+		emit({ before = before, start = start, shown = shown, fired = fired, menu = menu == b, moving = moving, saved = saved, moved = moved,
+			locked = locked, shiftDrag = shiftDrag, off = not b:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["before"], false, "no frame while off");
+	assert_eq!(out["start"], json!(["CENTER", true, "TOPRIGHT", -440, -256]), "beside the window's default corner");
+	assert_eq!(out["shown"], true);
+	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["menu"], true, "right-click opens Polestar's menu at the button");
+	assert_eq!(out["moving"], true);
+	// The 32 x 32 button's centre, from the screen's bottom-left corner.
+	assert_eq!(out["saved"], json!([116, 216]));
+	assert_eq!(out["moved"], json!(["CENTER", true, "BOTTOMLEFT", 116, 216]));
+	assert_eq!(out["locked"], false, "Lock arrow and buttons: a plain drag does nothing");
+	assert_eq!(out["shiftDrag"], true, "a Shift-drag still moves it");
+	assert_eq!(out["off"], true);
+}
+
+// It follows the window's own rules: hidden in a fight when the window hides in combat, hidden in a dungeon or
+// battleground the window waits out and back once the player opens the window there or leaves; it stays when
+// the window is only faded or kept, and when the player hid the window (it is the way back).
+#[test]
+fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_when_the_window_is_hidden_by_hand() {
+	let out = run(&[
+		ENTER,
+		r#"
+		Polestar.Set("ui.launcher", true)
+		local b = PolestarLauncher
+		local r = {}
+		Polestar.Fire("HIDE_FRAME")
+		r.windowHidden = b:IsShown()
+		Polestar.Fire("SHOW_FRAME")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightShow = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		Polestar.Set("ui.combat", "fade")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightFade = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		Polestar.Set("ui.combat", "hide")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		r.fightHide = b:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		r.afterFight = b:IsShown()
+		enter("party")
+		r.dungeon = b:IsShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		r.openedThere = b:IsShown()
+		enter(nil)
+		r.left = b:IsShown()
+		Polestar.Set("ui.instance", "show")
+		enter("pvp")
+		r.keepVisible = b:IsShown()
+		emit(r)"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out,
+		json!({ "windowHidden": true, "fightShow": true, "fightFade": true, "fightHide": false, "afterFight": true,
+			"dungeon": false, "openedThere": true, "left": true, "keepVisible": true })
+	);
 }
