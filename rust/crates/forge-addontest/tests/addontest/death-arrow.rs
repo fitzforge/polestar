@@ -46,15 +46,19 @@ fn run(script: &str) -> Vec<Value> {
 {TEST_SOURCE}
 {GUIDE}
 E, Nav = Polestar.Engine, Polestar.Nav
-shown = {{}}
-Polestar.On("WAYPOINT_CHANGED", function() local t = Nav.GetTarget(); shown[#shown + 1] = t and t.label or false end)
+-- Every new target the arrow took (the Engine announces its own waypoints too, under the corpse: not counted).
+shown, last = {{}}, nil
+Polestar.On("WAYPOINT_CHANGED", function()
+	local t = Nav.GetTarget()
+	if t ~= last then last = t; shown[#shown + 1] = t and t.label or false end
+end)
 function flush() stub.advance(1.1) end
--- The arrow's target now, and every target it showed since the last look.
+-- The arrow's target now, and every target it took since the last look (false: none).
 function look()
 	local t = Nav.GetTarget()
 	local seen = shown
 	shown = {{}}
-	return {{ step = E.GetStepIndex(), target = t and t.label or false, shown = seen }}
+	return {{ step = E.GetStepIndex(), target = t and t.label or false, shown = #seen > 0 and seen or false }}
 end
 stub.login(); stub.fire("QUEST_LOG_UPDATE"); flush()
 {script}"#
@@ -89,10 +93,10 @@ fn a_ghost_s_arrow_stays_on_the_corpse_through_step_changes_goals_and_picked_poi
 		emit(look())
 	"#);
 	assert_eq!(out[0], json!({ "step": 1, "target": "Your corpse", "shown": ["Your corpse"] }), "released: the arrow on the corpse");
-	assert_eq!(out[1], json!({ "step": 2, "target": "Your corpse", "shown": [] }), "a step change leaves it there");
-	assert_eq!(out[2], json!({ "step": 1, "target": "Your corpse", "shown": [] }), "so do the guide's goals");
-	assert_eq!(out[3], json!({ "step": 1, "target": "Your corpse", "shown": [] }), "and points picked as a ghost");
-	assert_eq!(out[4], json!({ "step": 1, "target": "Your corpse", "shown": [] }), "and the death helper's tick");
+	assert_eq!(out[1], json!({ "step": 2, "target": "Your corpse", "shown": false }), "a step change leaves it there");
+	assert_eq!(out[2], json!({ "step": 1, "target": "Your corpse", "shown": false }), "so do the guide's goals");
+	assert_eq!(out[3], json!({ "step": 1, "target": "Your corpse", "shown": false }), "and points picked as a ghost");
+	assert_eq!(out[4], json!({ "step": 1, "target": "Your corpse", "shown": false }), "and the death helper's tick");
 	assert_eq!(out[5]["target"], "Somewhere", "alive: the point picked on this step, {}", out[5]);
 }
 
