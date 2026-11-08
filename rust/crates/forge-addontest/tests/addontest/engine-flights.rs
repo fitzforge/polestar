@@ -47,9 +47,7 @@ fn run(guides: &str, script: &str) -> Value {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{guides}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"
-		),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{guides}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -259,12 +257,13 @@ fn a_flight_step_reached_on_a_taxi_is_not_judged_and_the_planner_off_keeps_every
 	assert_eq!(off, json!([1, 1440, "goto", 0]));
 }
 
-// The report's trip on the real addon (Nav's travel planner and TravelData, the client's map frames): 0.3.4's
-// Ashenvale after Webwinder Path in Stonetalon, a walk to Astranaar's flight master and the flight to Auberdine. A
-// Night Elf who knows Stonetalon Peak, Astranaar and Auberdine was routed by air to Astranaar first and flew on
-// from there; now the walk passes and the route takes the one flight Stonetalon Peak -> Auberdine.
+// The report's trip on the real addon (TravelData's taxi nodes through Nav.GetTaxiNode, the known ones through
+// Nav.GetKnownTaxiNodes, the client's map frames): 0.3.4's Ashenvale after Webwinder Path in Stonetalon, a walk to
+// Astranaar's flight master and the flight to Auberdine. A Night Elf who knows Stonetalon Peak, Astranaar and
+// Auberdine was routed by air to Astranaar first and flew on from there; now the walk passes and the arrow's target is
+// Auberdine's flight master, which Stonetalon Peak reaches in one flight (Travel's multi-hop flights: travel.rs).
 #[test]
-fn on_the_real_planner_the_reported_stonetalon_trip_flies_straight_to_auberdine_1191() {
+fn on_the_real_addon_the_reported_stonetalon_trip_leads_to_auberdine_not_astranaar_1191() {
 	let data_dir = root().join("data/forever");
 	if !data_dir.join("map-frames.json").exists() {
 		eprintln!("skipped: no reference data at data/forever");
@@ -298,17 +297,11 @@ Polestar.CharState().flags.taxi = {{ [26] = true, [27] = true, [28] = true, [33]
 stub.world.complete({{ 1093 }})
 E.SetGuide("test/ashenvale")
 stub.advance(1)
-local legs, ci = Polestar.Nav.GetRoute()
 local wp = E.GetWaypoint()
-local out = {{ step = E.GetStepIndex(), legs = {{}}, wp = wp and (wp.map .. ":" .. wp.kind) or false, target = Polestar.Nav.GetTarget() and true or false, travel = Polestar.Get("nav.travel") or false, nodes = #Polestar.Nav.GetTravelData().taxi }}
-for i = ci or 1, legs and #legs or 0 do
-	local l = legs[i]
-	out.legs[#out.legs + 1] = l.kind .. "|" .. tostring(l.from and (l.from.short or l.from.name)) .. ">" .. tostring(l.to and (l.to.short or l.to.name))
-end
+local node = Polestar.Nav.GetTaxiNode(26)
+local out = {{ step = E.GetStepIndex(), kind = wp and wp.kind or false, map = wp and wp.map or false, atNode = wp ~= nil and wp.x == node.x and wp.y == node.y and Polestar.Nav.GetTarget() ~= nil }}
 emit(out)"#
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
-	assert_eq!(out["step"], 3, "the walk to Astranaar's flight master passes: {out}");
-	let flights: Vec<&str> = out["legs"].as_array().map(Vec::as_slice).unwrap_or_default().iter().filter_map(|l| l.as_str()).filter(|l| l.starts_with("fly|")).collect();
-	assert_eq!(flights, vec!["fly|Stonetalon Peak>Auberdine"], "one flight, from Stonetalon Peak: {out}");
+	assert_eq!(out, json!({ "step": 3, "kind": "fly", "map": 1439, "atNode": true }), "the walk passes; the arrow leads to Auberdine's flight master");
 }
