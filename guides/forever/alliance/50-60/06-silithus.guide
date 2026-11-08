@@ -30,7 +30,7 @@ step The Emerald Sanctuary
   tip From Talrendis Point ride into Felwood: the Emerald Sanctuary is the druids' camp on the road just past the Ashenvale border.
   turnin 5159                         -- Greta Mosshoof
   accept 5165
-  turnin 4441 optional
+  turnin 4441
   accept 4442                         -- Inside
   turnin 4442                         -- Wait a moment for Eridan
   turnin 3942                         -- Eridan Bluewind
@@ -62,8 +62,8 @@ step Arei
 
 step Felpaw Village
   tip Ride north to the Deadwood furbolgs' village by the Timbermaw Hold cave mouth.
-  turnin 5084 optional                -- Deadwood Cauldron, if you found the Firewater flask in Winterspring
-  accept 5085 optional                -- Mystery Goo: Donova Snowden in Winterspring, keep it
+  turnin 5084                         -- Deadwood Cauldron
+  accept 5085                         -- Mystery Goo: Donova Snowden in Winterspring, keep it
 
 step A Final Blow
   tip Back into Shadow Hold: Moora and Salia guard Shadow Lord Fel'dan in its deepest chamber.
@@ -249,6 +249,8 @@ step Starfall Village
 step Donova Snowden
   turnin 980
   accept 4842
+  turnin 5085
+  accept 5086
 
 # ---------------------------------------------------------------- The south
 
@@ -291,11 +293,6 @@ step Dire Maul (optional)
   tip Running Dire Maul in Feralas instead of grinding gets you there faster in a group. Skip this step to grind solo.
   note Dire Maul fits levels 55 to 60; alone, the Terrordale grind at the end of this guide gets you to 60.
 
-step Donova Snowden
-  tip Keep west on the road to Donova's camp beside the hot springs.
-  turnin 5085 optional
-  accept 5086
-
 step Felwood
   zone Felwood
   goto 50.0,26.9 "Felwood"
@@ -313,7 +310,7 @@ step Winterspring
   goto 31.3,45.2 "Winterspring"
 
 step Donova Snowden
-  turnin 5086 optional
+  turnin 5086
   accept 5087
 
 step Salfa
