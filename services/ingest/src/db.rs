@@ -24,7 +24,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use polestar_recording::api::{AdminContributor, ExportLine, MeResponse, Rejected, Stats, StatsDay, Tombstone, UploadResponse};
+use polestar_recording::api::{AdminContributor, ExportLine, MeResponse, Rejected, Stats, StatsDay, StatsReject, Tombstone, UploadResponse};
 use rusqlite::types::{Value, ValueRef};
 use rusqlite::{params, Connection, OptionalExtension};
 
@@ -120,6 +120,12 @@ CREATE TABLE IF NOT EXISTS quest_counts (
 	quest INTEGER PRIMARY KEY,
 	n INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS rejects (
+	day INTEGER NOT NULL,
+	class TEXT NOT NULL,
+	n INTEGER NOT NULL,
+	PRIMARY KEY (day, class)
+) WITHOUT ROWID;
 DROP TABLE IF EXISTS install_maps;
 ";
 
@@ -157,6 +163,10 @@ pub const PRUNE_BATCH: usize = 2000;
 pub const SEQ_MEMORY: i64 = 1000;
 /// Days of per-day counts kept, for `/v1/stats` `last30`.
 const STATS_DAYS: i64 = 30;
+/// Reason classes counted per UTC day; rejects of further classes count under [`OTHER_CLASS`], so
+/// an uploader making up reasons cannot grow the table.
+pub const MAX_REJECT_CLASSES: i64 = 100;
+const OTHER_CLASS: &str = "other";
 
 const DAY: i64 = 86_400;
 
@@ -197,11 +207,12 @@ pub struct NewChunk {
 	pub quests: BTreeSet<u32>,
 }
 
-/// One chunk of an upload after decoding: stored, or rejected with a reason.
+/// One chunk of an upload after decoding: stored, or rejected with a reason (sent back) and its
+/// class (counted; [`crate::recording::reason_class`]).
 #[derive(Debug, Clone)]
 pub enum Prepared {
 	Ok(Box<NewChunk>),
-	Rejected(Rejected),
+	Rejected(Rejected, String),
 }
 
 /// What an upload did.
@@ -281,6 +292,20 @@ const PER_CONTRIBUTOR: [&str; 6] = ["chunks", "totals", "kinds", "days", "instal
 fn bump(tx: &Connection, key: &str, delta: i64) -> rusqlite::Result<()> {
 	if delta != 0 {
 		tx.execute("INSERT INTO settings (key, value) VALUES (?1, ?2) ON CONFLICT (key) DO UPDATE SET value = value + ?2", params![key, delta])?;
+	}
+	Ok(())
+}
+
+/// Counts rejected chunks per UTC day and reason class (no contributor, no value), and logs each
+/// class, so a validator rule that turns real game values away shows within minutes. Past
+/// [`MAX_REJECT_CLASSES`] classes in a day, a new class counts as [`OTHER_CLASS`].
+fn count_rejects(tx: &Connection, today: i64, classes: &[String]) -> rusqlite::Result<()> {
+	for class in classes {
+		let known: bool = tx.query_row("SELECT COUNT(*) > 0 FROM rejects WHERE day = ?1 AND class = ?2", params![today, class], |r| r.get(0))?;
+		let full = !known && tx.query_row("SELECT COUNT(*) FROM rejects WHERE day = ?1", [today], |r| r.get::<_, i64>(0))? >= MAX_REJECT_CLASSES;
+		let class = if full { OTHER_CLASS } else { class.as_str() };
+		tx.execute("INSERT INTO rejects (day, class, n) VALUES (?1, ?2, 1) ON CONFLICT (day, class) DO UPDATE SET n = n + 1", params![today, class])?;
+		tracing::info!("rejected chunk: {class}");
 	}
 	Ok(())
 }
@@ -514,11 +539,8 @@ impl Db {
 			return Ok(UploadOutcome::OverDailyCap);
 		}
 		if let Some(cohort) = cohort {
-			let others: i64 = tx.query_row(
-				"SELECT COALESCE(SUM(bytes_today), 0) FROM contributors WHERE cohort = ?1 AND day = ?2 AND hash != ?3",
-				params![cohort, today, contributor],
-				|r| r.get(0),
-			)?;
+			let others: i64 =
+				tx.query_row("SELECT COALESCE(SUM(bytes_today), 0) FROM contributors WHERE cohort = ?1 AND day = ?2 AND hash != ?3", params![cohort, today, contributor], |r| r.get(0))?;
 			if (others.max(0) as u64).saturating_add(used).saturating_add(body_len) > cohort_cap {
 				return Ok(UploadOutcome::OverCohortCap);
 			}
@@ -529,17 +551,26 @@ impl Db {
 		let known_install: bool = tx.query_row("SELECT COUNT(*) > 0 FROM installs WHERE contributor = ?1 AND install = ?2", [contributor, install], |r| r.get(0))?;
 		let installs: i64 = tx.query_row("SELECT COUNT(*) FROM installs WHERE contributor = ?1", [contributor], |r| r.get(0))?;
 		if !known_install && installs >= MAX_INSTALLS {
+			let mut classes = Vec::new();
 			for p in prepared {
 				response.rejected.push(match p {
-					Prepared::Rejected(r) => r,
-					Prepared::Ok(chunk) => Rejected { seq: chunk.seq, reason: format!("more than {MAX_INSTALLS} installs sent with this token") },
+					Prepared::Rejected(r, class) => {
+						classes.push(class);
+						r
+					}
+					Prepared::Ok(chunk) => {
+						classes.push("more than N installs sent with this token".into());
+						Rejected { seq: chunk.seq, reason: format!("more than {MAX_INSTALLS} installs sent with this token") }
+					}
 				});
 			}
+			count_rejects(&tx, today, &classes)?;
 			tx.commit()?;
 			return Ok(UploadOutcome::Done(response));
 		}
 		let mut quest_room = MAX_QUESTS - tx.query_row("SELECT quests FROM totals WHERE contributor = ?1", [contributor], |r| r.get::<_, i64>(0)).optional()?.unwrap_or(0);
 		let (mut quests_added, mut quests_new, mut new_days) = (0i64, 0i64, 0i64);
+		let mut reject_classes = Vec::new();
 		{
 			let mut seen = tx.prepare("INSERT OR IGNORE INTO seqs (contributor, install, seq) VALUES (?1, ?2, ?3)")?;
 			let mut insert_chunk = tx.prepare(
@@ -562,8 +593,9 @@ impl Db {
 			)?;
 			for p in prepared {
 				let chunk = match p {
-					Prepared::Rejected(r) => {
+					Prepared::Rejected(r, class) => {
 						response.rejected.push(r);
+						reject_classes.push(class);
 						continue;
 					}
 					Prepared::Ok(chunk) => chunk,
@@ -615,6 +647,7 @@ impl Db {
 		}
 		tx.execute("UPDATE totals SET quests = quests + ?2, upload_days = upload_days + ?3 WHERE contributor = ?1", params![contributor, quests_added, new_days])?;
 		bump(&tx, "quests", quests_new)?;
+		count_rejects(&tx, today, &reject_classes)?;
 		tx.commit()?;
 		Ok(UploadOutcome::Done(response))
 	}
@@ -660,7 +693,9 @@ impl Db {
 		let last30 = stmt
 			.query_map([since], |r| Ok(StatsDay { day: civil_date(r.get(0)?), chunks: r.get::<_, i64>(1)? as u64, contributors: r.get::<_, i64>(2)? as u64 }))?
 			.collect::<rusqlite::Result<Vec<_>>>()?;
-		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests.max(0) as u64, last30 })
+		let mut stmt = self.conn.prepare("SELECT day, class, n FROM rejects WHERE day >= ?1 ORDER BY day, n DESC, class")?;
+		let rejects = stmt.query_map([since], |r| Ok(StatsReject { day: civil_date(r.get(0)?), reason: r.get(1)?, chunks: r.get::<_, i64>(2)? as u64 }))?.collect::<rusqlite::Result<Vec<_>>>()?;
+		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests.max(0) as u64, last30, rejects })
 	}
 
 	/// Chunks with `id > after`, oldest first, at most `limit` and (after the first) at most
@@ -792,6 +827,7 @@ impl Db {
 		tx.execute("DELETE FROM day_salt WHERE day < ?1", [today])?;
 		tx.execute("DELETE FROM registrations WHERE day < ?1", [today])?;
 		tx.execute("DELETE FROM days WHERE day < ?1", [today - STATS_DAYS])?;
+		tx.execute("DELETE FROM rejects WHERE day < ?1", [today - STATS_DAYS])?;
 		tx.execute(
 			"DELETE FROM seqs WHERE seq < (SELECT i.seq FROM installs i WHERE i.contributor = seqs.contributor AND i.install = seqs.install) - ?1
 				AND NOT EXISTS (SELECT 1 FROM chunks c WHERE c.contributor = seqs.contributor AND c.install = seqs.install AND c.seq = seqs.seq)",
@@ -911,6 +947,24 @@ mod tests {
 		assert_eq!(civil_date(0), "1970-01-01");
 		assert_eq!(civil_date(11_016), "2000-02-29");
 		assert_eq!(civil_date(20_753), "2026-10-27");
+	}
+
+	#[test]
+	fn reject_classes_are_capped_per_day_and_pruned_with_the_days() {
+		let mut db = Db::open_in_memory().unwrap();
+		let now = 20_000 * DAY + 100;
+		let classes: Vec<String> = (0..MAX_REJECT_CLASSES + 5).map(|i| format!("rule {}", (b'a' + (i % 26) as u8) as char).repeat(1 + i as usize / 26)).collect();
+		let tx = db.conn.transaction().unwrap();
+		count_rejects(&tx, 20_000, &classes).unwrap();
+		count_rejects(&tx, 20_000, &classes[..1]).unwrap();
+		tx.commit().unwrap();
+		let rejects = db.stats(now).unwrap().rejects;
+		assert_eq!(rejects.len() as i64, MAX_REJECT_CLASSES + 1, "the cap plus `other`");
+		let count = |reason: &str| rejects.iter().find(|r| r.reason == reason).map(|r| r.chunks);
+		assert_eq!((count("rule a"), count("rule b"), count(OTHER_CLASS)), (Some(2), Some(1), Some(5)));
+		assert_eq!(rejects[0].reason, OTHER_CLASS, "the most rejected class first");
+		db.housekeeping(now + (STATS_DAYS + 1) * DAY).unwrap();
+		assert!(db.stats(now + (STATS_DAYS + 1) * DAY).unwrap().rejects.is_empty());
 	}
 
 	#[test]

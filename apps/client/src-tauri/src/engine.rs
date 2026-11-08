@@ -1406,6 +1406,22 @@ mod tests {
 	}
 
 	#[test]
+	fn the_preview_reads_paid_turn_ins_and_frfr_kill_objectives() {
+		// Both were "would be turned away" in the 0.3.5 client's preview (and by the server then):
+		// a quest that costs 3 silver to hand in, and the frFR objective Recorder 0.3.5 writes with
+		// the client's |4 grammar escape (its name is emptied, the chunk kept).
+		let text = [
+			"chunk\t0\t7\t1794170000\tk3j9x0q2m7",
+			"objectives\t5\t52\tmonster:8:R\u{f4}deur\u{a0}  0/8 |4personnage tu\u{e9} personnages tu\u{e9}s ;item:1:Patte de r\u{f4}deur\u{a0}",
+			"turnin\t412\t2945\to\t142487\t\t\t\t31\t2700\t-300\t",
+		]
+		.join("\n");
+		let chunk = api::UploadChunk { seq: 7, text };
+		let reading = read_chunks(std::iter::once(&chunk), "would be turned away");
+		assert_eq!((reading.problems, reading.total_records), (Vec::<String>::new(), 2));
+	}
+
+	#[test]
 	fn ack_covers_only_what_was_sent() {
 		let sent: Vec<api::UploadChunk> = [3, 4, 5].iter().map(|&seq| api::UploadChunk { seq, text: String::new() }).collect();
 		assert_eq!(confirmed_ack(&sent, &[3, 4], &[5]), Some(5));
