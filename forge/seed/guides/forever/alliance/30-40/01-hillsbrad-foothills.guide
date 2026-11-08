@@ -9,11 +9,12 @@ next forever/alliance/30-40/03-ashenvale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
+# Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
 # Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
 # with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
+# MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
 step To Deepwater Tavern
   zone Wetlands
@@ -102,12 +103,8 @@ step Rhag Garmason
 
 step The Cache of Explosives
   zone Arathi Highlands
-  tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end. Foggy MacKreel stands a short walk west of it.
+  tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end.
   interact 2704 quest 633.1           -- Cache of Explosives
-
-step Foggy MacKreel
-  zone Arathi Highlands
-  accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
@@ -161,7 +158,7 @@ step Boat to Southshore
 
 step Southshore
   zone Hillsbrad Foothills
-  tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Brewmeister Bilger below it and Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
+  tip Off the boat, walk up the pier into town: Phin Odelic and Lieutenant Farren stand by the inn, Chef Jessen upstairs, Darren Malvew east of it; the flight master is at the north end, Micha Yance and Bartolo Ginsetti between her and the inn, Maleb in the town hall at the west side.
   tip Barkeep Kelly may not offer Talk of the Town on Forever: if she doesn't, skip it.
   # An Alarming Request requires level 30 (Forever's quest data, quest 92432, checked 2026-10-14).
   accept 659                          -- Phin Odelic: his trail leads to Arathi
@@ -169,7 +166,6 @@ step Southshore
   accept 536                          -- Lieutenant Farren Orinelle
   sethome "Southshore" npc 2352       -- Innkeeper Anderson
   accept 98463 optional               -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
-  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
   accept 555                          -- Chef Jessen, upstairs
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris

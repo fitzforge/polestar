@@ -4838,14 +4838,34 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	// Spark of Freedom is the group's step right after the camp (#1313), the Heart of Modr after that.
 	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 1, `${t} ${q} right after the camp`);
 	assert.ok(list.some(({ goal, s }) => s === dunModr + 2 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
-	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < stepOf('accept', 647), 'Ebenezer between Dun Modr and the span');
-	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < stepOf('accept', 647), 'the Villards between Dun Modr and the span');
+	// #1319: the crossing is the Cache of Explosives (MacKreel's Moonshine moved to the Arathi guide).
+	const span = list[at(list, 'interact 2704 quest 633.1', (g) => g.t === 'interact' && g.quest === 633)].s;
+	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < span, 'Ebenezer between Dun Modr and the span');
+	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < span, 'the Villards between Dun Modr and the span');
 	assert.equal(stepOf('turnin', 631), stepOf('turnin', 87318), 'Ebenezer handed in beside Essene, before the crossing (final review: every race)');
 	// #1314: Corma Villard did not offer Hearts of the Lost to a player at 32; it stays, optional, with a tip to skip it.
 	const hearts = list.filter(({ goal }) => goal.quest === 87318);
 	assert.ok(hearts.length >= 2 && hearts.every(({ goal }) => goal.optional), '87318 is optional (#1314)');
 	assert.ok([hearts[0].step.note, hearts[0].step.tip].flat().filter(Boolean).join(' ').includes('may not offer Hearts of the Lost'), 'the step says to skip it if she does not offer it');
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
+});
+
+// --- #1319 (Fyurie): MacKreel's Moonshine (647) has a 15-minute limit. The Wetlands guide took it at the Thandol Span and
+// handed it in at Southshore after Menethil and the boat, too late. The Arathi guide takes it after Kor'gresh's cave, on the
+// way back to Skuerto at Refuge Pointe, and hands it in straight off the flight to Southshore, with a tip naming the limit.
+test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Kor'gresh and handed in straight off the Southshore flight`, { skip }, () => {
+	assert.equal(goals(HILLSBRAD_ALLIANCE).filter(({ goal }) => goal.quest === 647).length, 0, 'not in the Wetlands guide');
+	const list = goals(ARATHI);
+	const accept = at(list, 'accept 647', is('accept', 647));
+	const turnin = at(list, 'turnin 647', is('turnin', 647));
+	assert.ok(accept > at(list, "Kor'gresh's wand (693)", (g) => g.quest === 693 && g.t === 'collect'), "after Kor'gresh's cave");
+	assert.ok(accept < at(list, 'turnin 693', is('turnin', 693)), 'before Skuerto at Refuge Pointe');
+	const fly = list.findIndex(({ goal }, i) => i > accept && goal.t === 'fly');
+	assert.ok(fly > accept && list[fly].goal.location === 'Southshore', 'the next flight is to Southshore');
+	assert.equal(list[turnin].s, list[fly].s + 1, 'handed in in the step right after the flight');
+	assert.ok(list.slice(accept + 1, turnin).every(({ goal }) => goal.t !== 'kill' && goal.t !== 'collect'), 'nothing to kill or collect in between');
+	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('within 15 minutes'), 'the step names the time limit');
+	for (const i of [accept, turnin]) assert.deepEqual([...(list[i].goal.only?.races ?? [])].sort(), ['Dwarf', 'Gnome', 'NightElf', 'Skyborne'], `${list[i].goal.t} 647 keeps its races`);
 });
 
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut

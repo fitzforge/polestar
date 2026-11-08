@@ -9,7 +9,8 @@ next forever/alliance/30-40/06-badlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe.
+# Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
+# moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
@@ -277,6 +278,11 @@ step Kor'gresh Coldrage
   tip Kor'gresh, an ogre mage, holds the cave at the southern end of the Witherbark valley.
   collect 4525 quest 693              -- Trelane's Wand of Invocation; below ground
 
+step Foggy MacKreel
+  zone Arathi Highlands
+  tip South-west from Kor'gresh's cave to the Thandol Span: Foggy MacKreel stands on a broken section of the bridge; jump down to him from its north end. MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes: go straight back to Refuge Pointe and fly to Southshore.
+  accept 647 only Dwarf,Gnome,NightElf,Skyborne
+
 step Skuerto
   turnin 693
 
@@ -285,6 +291,11 @@ step Fly to Southshore
   goto 45.8,46.1 "Refuge Pointe flight master"
   fly "Southshore"
   zone Hillsbrad Foothills
+
+step Brewmeister Bilger
+  zone Hillsbrad Foothills
+  tip Off the flight, straight to the Southshore inn.
+  turnin 647 only Dwarf,Gnome,NightElf,Skyborne -- Brewmeister Bilger, below ground
 
 step Alterac Mountains
   zone Alterac Mountains

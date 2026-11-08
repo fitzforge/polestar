@@ -4061,6 +4061,31 @@
 					"ref": "quest minimum levels in Forever's quest data"
 				}
 			]
+		},
+		{
+			"id": "1319-mackreels-moonshine-time-limit",
+			"at": {
+				"quest": 647,
+				"goal": "accept"
+			},
+			"tip": "South-west from Kor'gresh's cave to the Thandol Span: Foggy MacKreel stands on a broken section of the bridge; jump down to him from its north end. MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes: go straight back to Refuge Pointe and fly to Southshore.",
+			"note": "MacKreel's Moonshine has a 15-minute limit; the Wetlands guide took it at the span and handed it in after Menethil and the boat, too late. 05-arathi-highlands takes it after Kor'gresh and hands it in straight off the Refuge Pointe flight (route-fixes pairs, #1319); the tip names the limit and the way.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1319: a level-32 Night Elf took MacKreel's Moonshine on the Wetlands guide and it ran out before Southshore"
+				},
+				{
+					"kind": "tdb",
+					"ref": "Forever server data, quest 647: 15-minute limit (quests.json limit 900; mechanics 647 timed 900 s, server)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 1 person took it at the span and handed it in 9.5 minutes later by way of Refuge Pointe and the Refuge Pointe-Southshore flight"
+				}
+			],
+			"issue": 1319,
+			"faction": "Alliance"
 		}
 	]
 }

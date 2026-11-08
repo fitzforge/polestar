@@ -2728,11 +2728,11 @@
 					87318
 				],
 				"b": [
-					"accept",
-					647
+					"task",
+					633
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them."
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): Comar and Essene Villard stand on the road from Dun Modr to the Thandol Span (49.9,12.6 and 51.5,9.0), so Hearts of the Lost is taken and handed in on the way north, before the span; the route went over the span to Foggy MacKreel first and came back to them. (#1319: the crossing is anchored on the Cache of Explosives, task 633, since MacKreel's Moonshine moved to 05-arathi-highlands.)"
 			},
 			{
 				"a": [
@@ -2740,11 +2740,59 @@
 					631
 				],
 				"b": [
+					"task",
+					633
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): The Thandol Span is taken from Rhag Garmason on the Dun Modr stop; the races that cross the span to Foggy MacKreel pass Ebenezer Rustlocke's corpse under its Arathi end (45.7,93.1, MacKreel at 43.2,92.6) and hand it in there, instead of carrying it to the Arathi guide. (#1319: anchored on the Cache of Explosives, task 633, since MacKreel's Moonshine moved to 05-arathi-highlands.)"
+			},
+			{
+				"a": [
+					"task",
+					693
+				],
+				"b": [
 					"accept",
 					647
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): The Thandol Span is taken from Rhag Garmason on the Dun Modr stop; the races that cross the span to Foggy MacKreel pass Ebenezer Rustlocke's corpse under its Arathi end (45.7,93.1, MacKreel at 43.2,92.6) and hand it in there, instead of carrying it to the Arathi guide."
+				"why": "#1319: MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes (quests.json limit 900; mechanics 647 timed, 900 s, server). 01-hillsbrad-foothills took it from Foggy MacKreel at the Thandol Span and handed it in after the walk back to Menethil and the boat (about 15-19 minutes, more on the Nek'rosh group branch): it ran out. It is taken in 05-arathi-highlands after Kor'gresh's cave (Kor'gresh 54.8,81.9, Foggy 43.2,92.6, about 490 yd), then Skuerto at Refuge Pointe and the flight to Southshore, about 5 minutes."
+			},
+			{
+				"a": [
+					"accept",
+					647
+				],
+				"b": [
+					"turnin",
+					693
+				],
+				"faction": "Alliance",
+				"why": "#1319: MacKreel's Moonshine is taken on the way from Kor'gresh's cave back to Skuerto at Refuge Pointe, the last stop before the flight to Southshore, so its 15-minute limit covers only that walk and the flight."
+			},
+			{
+				"a": [
+					"turnin",
+					693
+				],
+				"b": [
+					"turnin",
+					647
+				],
+				"faction": "Alliance",
+				"why": "#1319: MacKreel's Moonshine is handed to Brewmeister Bilger right after the flight from Refuge Pointe to Southshore, which follows Skuerto's hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					647
+				],
+				"b": [
+					"task",
+					564
+				],
+				"faction": "Alliance",
+				"why": "#1319: MacKreel's Moonshine (15-minute limit) is handed in at the Southshore inn straight off the flight from Refuge Pointe, before the walk north into the Alterac Mountains for Darren Malvew's lions."
 			},
 			{
 				"a": [
