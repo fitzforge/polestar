@@ -8111,13 +8111,16 @@ const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 21] = [
 /// dungeon instead."; two wings of one dungeon in one bracket). None below every band.
 fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
 	let n = lvl.floor() as u32;
-	let mut fit: Vec<(u32, usize)> =
-		GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
+	let mut fit: Vec<(u32, usize)> = GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
 	fit.sort();
 	let picks: Vec<(&str, &str)> = fit.iter().take(2).map(|&(_, i)| (GRIND_DUNGEONS[i].0, GRIND_DUNGEONS[i].1)).collect();
 	let one = |name: &str, wings: &[&str]| {
 		let w: Vec<&str> = wings.iter().copied().filter(|w| !w.is_empty()).collect();
-		if w.is_empty() { format!("the {name} dungeon") } else { format!("the {name} dungeon ({})", w.join(" or ")) }
+		if w.is_empty() {
+			format!("the {name} dungeon")
+		} else {
+			format!("the {name} dungeon ({})", w.join(" or "))
+		}
 	};
 	let what = match picks.as_slice() {
 		[] => return None,
