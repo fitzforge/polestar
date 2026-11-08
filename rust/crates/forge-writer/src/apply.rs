@@ -7960,12 +7960,16 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		let min = r.min_level.filter(|&m| m > o.lvl.unwrap_or(0.0) && m <= lvl)?;
 		Some((r.title.clone()?, min, area_of(x.pt)))
 	});
-	lines.push(match (gate, &hub) {
+	let mut tip = match (gate, &hub) {
 		(Some((title, min, Some(h))), _) => format!("  tip Top up here to level {n}: {title}, at {h}, needs level {}.", level_str(min)),
 		(Some((title, min, None)), _) => format!("  tip Top up here to level {n}: {title} needs level {}.", level_str(min)),
 		(None, Some(h)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
 		(None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
-	});
+	};
+	if let Some(d) = grind_dungeon_tip(cx.fac, lvl) {
+		tip = format!("{tip} {d}");
+	}
+	lines.push(tip);
 	lines.extend(grind_lines(cx, &target, pt, spot.as_ref(), &n));
 	Some(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) })
 }
@@ -8075,6 +8079,55 @@ fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, spot: Option<
 	lines
 }
 
+/// Dungeons a grind step may name instead of its grind (Fitz's grind policy, 2026-11-08; never a raid):
+/// name, wing, lowest and highest level of the band it suits, and the faction letter it is for (' ' for
+/// both: the entrance is on that side's ground, Ragefire Chasm in Orgrimmar, the Stockade in Stormwind).
+const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 21] = [
+	("Ragefire Chasm", "", 13, 18, 'H'),
+	("Wailing Caverns", "", 17, 24, ' '),
+	("Deadmines", "", 17, 24, 'A'),
+	("Shadowfang Keep", "", 22, 30, ' '),
+	("Blackfathom Deeps", "", 24, 32, ' '),
+	("Stockade", "", 24, 30, 'A'),
+	("Razorfen Kraul", "", 25, 30, ' '),
+	("Gnomeregan", "", 28, 32, 'A'),
+	("Scarlet Monastery", "Graveyard", 28, 32, ' '),
+	("Scarlet Monastery", "Library", 32, 36, ' '),
+	("Scarlet Monastery", "Armory", 34, 38, ' '),
+	("Scarlet Monastery", "Cathedral", 36, 40, ' '),
+	("Razorfen Downs", "", 35, 40, ' '),
+	("Uldaman", "", 40, 45, ' '),
+	("Zul'Farrak", "", 44, 48, ' '),
+	("Maraudon", "", 46, 52, ' '),
+	("Sunken Temple", "", 50, 54, ' '),
+	("Blackrock Depths", "", 52, 58, ' '),
+	("Blackrock Spire", "Lower", 55, 60, ' '),
+	("Scholomance", "", 58, 60, ' '),
+	("Stratholme", "", 58, 60, ' '),
+];
+
+/// The sentence a grind step to level `lvl` ends its tip with: the (at most two) dungeons of the faction
+/// whose band holds the level, nearest band middle first ("Or, with a group, run the Razorfen Kraul
+/// dungeon instead."; two wings of one dungeon in one bracket). None below every band.
+fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
+	let n = lvl.floor() as u32;
+	let mut fit: Vec<(u32, usize)> =
+		GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
+	fit.sort();
+	let picks: Vec<(&str, &str)> = fit.iter().take(2).map(|&(_, i)| (GRIND_DUNGEONS[i].0, GRIND_DUNGEONS[i].1)).collect();
+	let one = |name: &str, wings: &[&str]| {
+		let w: Vec<&str> = wings.iter().copied().filter(|w| !w.is_empty()).collect();
+		if w.is_empty() { format!("the {name} dungeon") } else { format!("the {name} dungeon ({})", w.join(" or ")) }
+	};
+	let what = match picks.as_slice() {
+		[] => return None,
+		[(a, w)] => one(a, &[w]),
+		[(a, w1), (b, w2)] if a == b => one(a, &[w1, w2]),
+		[(a, w1), (b, w2), ..] => format!("{} or {}", one(a, &[w1]), one(b, &[w2])),
+	};
+	Some(format!("Or, with a group, run {what} instead."))
+}
+
 /// A route's solo fallback after its event `p` (the order's index): the grind a player who skipped the
 /// group family `root` (`title`) makes instead, to the level the family's XP would have taken them to,
 /// at the camp a top-up there would use (level_ins), and its point. A player who did the family is
@@ -8086,7 +8139,8 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 	// (A title's quotes, Wanted: "Hogger", are no quote of the tip's: the pack reads a quoted part and
 	// refuses the comma after it, C14Plan.)
 	let plain = re!(r"\s+").replace_all(&title.replace('"', ""), " ").into_owned();
-	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.")];
+	let dungeon = grind_dungeon_tip(cx.fac, target).map(|d| format!(" {d}")).unwrap_or_default();
+	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.{dungeon}")];
 	lines.extend(grind_lines(cx, &camp, pt, spot.as_ref(), &n));
 	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
 }
@@ -10225,6 +10279,17 @@ mod tests {
 		// (One fallback alone keeps its `when !group`.)
 		let one = [v(&["guide g", ""]), fb("2", "Two", "12.4"), v(&["step Hub", "  accept 1", ""])].concat();
 		assert_eq!(merge_solo_fallbacks(one.clone()), one);
+	}
+
+	#[test]
+	fn grind_dungeon_tip_names_up_to_two_dungeons_of_the_band_for_the_faction() {
+		assert_eq!(grind_dungeon_tip('H', 12.9), None);
+		assert_eq!(grind_dungeon_tip('H', 13.0).as_deref(), Some("Or, with a group, run the Ragefire Chasm dungeon instead."));
+		assert_eq!(grind_dungeon_tip('A', 13.0), None);
+		assert_eq!(grind_dungeon_tip('A', 21.4).as_deref(), Some("Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."));
+		assert_eq!(grind_dungeon_tip('H', 29.49).as_deref(), Some("Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead."));
+		assert_eq!(grind_dungeon_tip('H', 34.0).as_deref(), Some("Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."));
+		assert_eq!(grind_dungeon_tip('A', 59.5).as_deref(), Some("Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead."));
 	}
 
 	#[test]

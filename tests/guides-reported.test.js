@@ -5057,7 +5057,10 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
 	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
 	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');
-	assert.match(grind.note, /Razorfen Kraul/, 'the top-up names the dungeon that fits');
+	assert.match(grind.note, /Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead\.$/, 'the top-up names the dungeons that fit, in the writer\'s sentence');
+	// The Warsong Reports: its walks east of Night Run and back to Kadrak cost more than its XP (measured): left out.
+	assert.ok(fixes.overrides.skip.some((r) => r.q === 6543 && r.faction === 'Horde'), 'the skip is a record');
+	assert.ok(!goals(STONETALON_HORDE).some(({ goal }) => goal.quest === 6543), 'no Warsong Reports in Ashenvale at 21');
 });
 
 // Final route review, Horde 1-30: a second Tarren Mill bind step (from the arrival at the end of the previous guide)

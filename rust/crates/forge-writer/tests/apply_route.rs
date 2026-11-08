@@ -1934,6 +1934,44 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	);
 }
 
+// Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
+// plainly that a dungeon of the player's level will do instead, by faction and level band.
+#[test]
+fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
+	let c = |faction: Option<&str>, target: f64| Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 10-30", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  kill 20 quest 1.1", "", "step Hub again", "  turnin 1", ""])],
+		route: {
+			let mut r = json!({ "diff": {}, "order": [
+				{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+				{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
+				{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
+				{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
+			] });
+			if let Some(fc) = faction {
+				r["faction"] = json!(fc);
+			}
+			r
+		},
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
+		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] } }),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		..Case::default()
+	};
+	let tip = |faction: Option<&str>, target: f64| {
+		let r = run(&c(faction, target), Some(&area("Razor Hill", "Durotar", 1411)));
+		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
+	};
+	let horde = tip(Some("Horde"), 21.4);
+	assert!(horde.ends_with("they take you to level 22. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
+	let alliance = tip(Some("Alliance"), 21.4);
+	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
+	let high = tip(Some("Horde"), 28.9);
+	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
+	// Below every dungeon's band: no sentence.
+	let low = tip(Some("Horde"), 12.4);
+	assert!(low.ends_with("they take you to level 13."), "{low}");
+}
+
 #[test]
 fn a_skipped_group_familys_xp_is_ground_back_after_its_step_for_skippers_only() {
 	// Two (2) is a group family the route takes; for a player who skips it, a grind of its own after
