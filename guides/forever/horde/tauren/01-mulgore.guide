@@ -434,14 +434,10 @@ step The Moonkin Stone
   use 15710 @71.7,65.0                -- Cenarion Lunardust
   complete 6002
 
-step Back to The Barrens
-  only Druid
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-
 # ---------------------------------------------------------------- The Crossroads
 
 step Into Mulgore
+  only !Druid
   zone Mulgore
   goto 42.1,20.2 "Into Mulgore"
 

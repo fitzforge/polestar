@@ -5705,8 +5705,8 @@ const FOLLOW_UPS = [
 	{ side: 'Alliance', quest: 98190, after: [286, 98189], says: 'A Friend of the Family is never accepted before both Return the Statuette quests are handed in (#1118)' },
 	{ side: 'Alliance', quest: 526, after: [324], says: 'Lightforge Ingots is never accepted before The Lost Ingots is handed in (#1116)' },
 	{ side: 'Alliance', quest: 98240, after: [98072], says: 'Crimson Crate Delivery is never accepted before Crocs of the Sky is handed in (#1134)' },
-	{ side: 'Alliance', quest: 98310, after: [98216], says: 'Gleaning Our Future is never accepted before Understanding Our Present is handed in (#1184, #1206)', todo: '#1206: fails on next; fixed by #1214' },
-	{ side: 'Alliance', quest: 98313, after: [98310], says: 'For Further Study is never accepted before Gleaning Our Future is handed in (#1184)', todo: '#1184: fails on next; fixed by #1214' },
+	{ side: 'Alliance', quest: 98310, after: [98216], says: 'Gleaning Our Future is never accepted before Understanding Our Present is handed in (#1184, #1206)' },
+	{ side: 'Alliance', quest: 98313, after: [98310], says: 'For Further Study is never accepted before Gleaning Our Future is handed in (#1184)' },
 ];
 for (const { side, quest, after, says, todo } of FOLLOW_UPS) test(`Every ${side} route: ${says}`, { skip, todo }, () => {
 	for (const { who, list } of routes(side)) {
@@ -5725,9 +5725,8 @@ test('Every Horde route (#1065): Escorting Erland is taken before the route reac
 	for (const { who, list } of routes('Horde')) {
 		list.forEach((e, i) => {
 			if (!is('accept', 435)(e.goal)) return;
-			const levels = compiled(e.guide).levels;
 			const targets = list.slice(0, i).filter(({ goal }) => goal.t === 'level').map(({ goal }) => goal.level + (goal.frac || 0));
-			const reached = Math.max(levels ? levels.min : 0, ...targets);
+			const reached = Math.max(compiled(e.guide).minLevel || 0, ...targets);
 			assert.ok(greyLevel(Math.ceil(reached)) < qlvl, `${who}: ${where(e)} takes Escorting Erland (level ${qlvl}) at level ${reached}, where it is grey`);
 		});
 	}
@@ -5803,18 +5802,21 @@ test('Every route (#1117): only Warriors are sent to Alonso for the Dragonslayer
 
 // Konky88 (#1212): from Zoram'gar the guide flew a Troll Shaman to Camp Taurajo and walked on into Mulgore,
 // for the Earthen Ring and Thunder Bluff. A character who knows Thunder Bluff's flight path flies there.
-test('Every Horde route (#1212): no flight to Camp Taurajo on the way to Mulgore or Thunder Bluff when Thunder Bluff\'s flight path is known', { skip, todo: '#1212: fails on next; fixed by #1215' }, () => {
+test('Every Horde route (#1212): no flight to Camp Taurajo on the way to Mulgore or Thunder Bluff when Thunder Bluff\'s flight path is known', { skip, todo: '#1212: fails on next; fixed by #1210' }, () => {
+	const hops = [];
 	for (const { who, list } of routes('Horde')) {
 		const known = new Set();
 		list.forEach((e, i) => {
 			const { goal } = e;
 			if (goal.t === 'fly' && goal.location === 'Camp Taurajo' && known.has('Thunder Bluff')) {
 				const next = list.slice(i + 1).find((x) => x.goal.map != null && x.goal.t !== 'fly');
-				assert.ok(!next || ![1412, 1456].includes(next.goal.map), `${who}: ${where(e)} flies to Camp Taurajo and then walks to ${next && where(next)} (map ${next && next.goal.map}), though Thunder Bluff's flight path is known`);
+				if (next && [1412, 1456].includes(next.goal.map)) hops.push(`${who}: ${where(e)} flies to Camp Taurajo and then walks to ${where(next)} (map ${next.goal.map}), though Thunder Bluff's flight path is known`);
 			}
-			if (goal.t === 'getfp' || goal.t === 'fly') known.add(goal.location);
+			// Only a learnt path counts: a druid's flight from Nighthaven to Thunder Bluff teaches none.
+			if (goal.t === 'getfp') known.add(goal.location);
 		});
 	}
+	assert.deepEqual(hops, []);
 });
 
 // Bennistrov (#1191): the guide brought a Night Elf Druid back to Astranaar from the west only to fly to
@@ -5855,6 +5857,44 @@ test('Every Horde route (Bill, #1004): the Ratchet bind never sends you back to 
 			if (!prev || !next || !bind) return;
 			const back = yd(pos(prev), pos(next)) <= 40 && yd(pos(prev), bind) > 40;
 			assert.ok(!back, `${who}: ${where(e)} binds at Ratchet's inn between ${prev.goal.t} ${prev.goal.quest || ''} and ${next.goal.t} ${next.goal.quest || ''}, which stand side by side`);
+		});
+	}
+});
+
+// Rohkin (#947), Darian (#992): after Regthar a Warlock walked into Stonetalon Mountains and straight back to
+// the Barrens with nothing to do there. The same sweep found Tauren Druids walked from the Moonkin Stone to the
+// Crossroads, back into Mulgore and out to the Crossroads again.
+test('Every Horde route (Rohkin, #947): nobody is sent into another zone and straight back with nothing done there', { skip }, () => {
+	const back = new Set();
+	for (const { who, list } of routes('Horde')) {
+		const steps = [];
+		for (const e of list) {
+			const last = steps.at(-1);
+			if (last && last.guide === e.guide && last.s === e.s) last.goals.push(e.goal);
+			else steps.push({ guide: e.guide, s: e.s, goals: [e.goal] });
+		}
+		const travel = (step) => step.goals.every((g) => g.t === 'goto' || g.t === 'fly');
+		const mapOf = (step) => (step.goals.findLast((g) => g.map != null) || {}).map;
+		for (let i = 1; i < steps.length; i++) {
+			const from = mapOf(steps[i - 1]);
+			if (from == null || mapOf(steps[i]) == null || !travel(steps[i]) || mapOf(steps[i]) === from) continue;
+			for (let j = i + 1; j < steps.length && travel(steps[j]); j++) {
+				if (mapOf(steps[j]) === from) back.add(`${who}: ${where(steps[i])} to ${where(steps[j])}: into map ${mapOf(steps[i])} and back to map ${from} with nothing done there`);
+			}
+		}
+	}
+	assert.deepEqual([...back], []);
+});
+
+// Fyurie (#977): Redridge "suddenly jumped from level 20/21 mobs to Fangore and a bunch of 24-25 mobs".
+// WANTED: Lieutenant Fangore (Fangore 26) and Solomon's Law (Shadowhide gnolls, a median 24) were worked at
+// about 21. Work more than two levels above the player waits until the route reaches it.
+test('Every Alliance route (Fyurie, #977): Fangore and the Shadowhide gnolls of Solomon\'s Law are worked only from level 22', { skip }, () => {
+	const gate = ({ goal, step }) => (goal.t === 'level' && goal.level >= 22) || (step.when || []).some((p) => p.k === 'level' && !p.neg && ['>=', '>'].includes(p.op) && p.n >= 22);
+	for (const { who, list } of routes('Alliance')) {
+		list.forEach((e, i) => {
+			if (![180, 91].includes(e.goal.quest) || !['kill', 'collect'].includes(e.goal.t)) return;
+			assert.ok(compiled(e.guide).minLevel >= 22 || gate(e) || list.slice(0, i).some(gate), `${who}: ${where(e)} works ${e.goal.t} ${e.goal.quest} with nothing holding it to level 22`);
 		});
 	}
 });
