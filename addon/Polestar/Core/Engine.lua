@@ -7726,10 +7726,16 @@ for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_N
 end
 
 -- Binding during the step completes `sethome nearest`, and a located
--- `sethome` when the innkeeper bound at is its inn's, in every tab.
+-- `sethome` when the innkeeper bound at is its inn's, in every tab. The
+-- innkeeper is the open NPC, else the last NPC window closed within 2
+-- minutes: the bind confirmation closes the innkeeper's window before the
+-- game says the Hearthstone is bound, so the "npc" unit is gone by then
+-- (every bind the Recorder saw, #1298), and the bind location's name alone
+-- may not read as the goal's place.
 ns.RegisterEvent("HEARTHSTONE_BOUND", function()
 	if player then
-		local npc = Compat().GetNpcID("npc")
+		local npc = Compat().GetNpcID("npc") or openNpc
+		if not npc and Own.closedNpc and GetTime() - Own.closedAt < 120 then npc = Own.closedNpc end
 		for i = 1, #tabs do
 			use(tabs[i])
 			latch("sethome", npc)

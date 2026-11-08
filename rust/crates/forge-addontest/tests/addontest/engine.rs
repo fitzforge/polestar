@@ -1267,6 +1267,35 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	);
 }
 
+// #1298: the bind confirmation closes the innkeeper's window before HEARTHSTONE_BOUND, so the "npc" unit is gone
+// then (every bind the Recorder saw). The innkeeper is the last NPC window closed within 2 minutes; a bind
+// location that does not read as the goal's place ("Lakeshire Inn") still completes the goal bound at its inn.
+#[test]
+fn t_1298_a_bind_after_the_innkeeper_s_window_closed_completes_the_sethome_at_that_innkeeper_only() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/bind", pack = "test", title = "Bind", minLevel = 1, maxLevel = 30, steps = {
+				{ goals = { { t = "sethome", location = "Lakeshire", npc = 6727, npcName = "Innkeeper Brianna" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/bind"); flush()
+			local r = {}
+			w.gossip(54); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.otherNpc = E.GetStepIndex()
+			w.gossip(6727); w.close(); stub.advance(130); w.bind("Lakeshire Inn"); flush()
+			r.longAgo = E.GetStepIndex()
+			w.gossip(6727); w.close(); w.bind("Lakeshire Inn"); flush()
+			r.innkeeper = E.GetStepIndex()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "otherNpc": 1, "longAgo": 1, "innkeeper": 2 }));
+}
+
 // #859: Desperate Times (92640) asks to speak with Valennia, then the Windshapers (Ayessa), then the High
 // Order (Elaadrin), and the client lists each line only once the one before it is done. A quest `talk` goal
 // reads its quest-log line; talking checks it off only on a line the client does not list yet, with every
