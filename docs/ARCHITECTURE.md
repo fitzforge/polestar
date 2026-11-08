@@ -2977,7 +2977,12 @@ found in sight stays the aim until the player passes it, a further one is
 found, or they have moved 12 yd (`SIGHT_HOLD`) without seeing it again (on
 the real maps the grid closes a step at a lamp post or a fence post between
 two looks), and within 15 yd of the path (the road's join) the corridor's aim
-wins whenever it lies further along. While a point ahead is in sight
+wins whenever it lies further along. A point held ahead keeps the arrow on it
+until the player comes within 10 yd of the path (`SIGHT_NEAR`), not 15, and
+nearer still it stays the aim, not looked for again, while it lies further
+along than the corridor's (0.3.6: a player following it back toward the path
+wobbled across 15 yd, and the arrow flipped 37-57° between the two aims at
+every crossing). While a point ahead is in sight
 (`state.sighted`) the player has not strayed: no new search. The route line's walk then starts
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
 straight across to the nearest one. The yards it reports are

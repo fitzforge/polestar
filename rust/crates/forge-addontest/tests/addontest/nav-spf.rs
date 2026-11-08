@@ -3588,3 +3588,56 @@ fn a13_beside_the_path_a_line_closed_for_a_few_yards_holds_the_point_last_seen_t
 	assert!(worst <= 45.0, "the arrow turns {worst:.1}° back to the path");
 	assert_eq!(out["asked"], 0, "no new path meanwhile");
 }
+
+// A player following the arrow beside a path with a bend (0.3.6; Discord after 0.3.5: "facing the wrong direction 90%
+// of the time and just rotates randomly"): east 50 yd, up and over an 80 yd hump, down and east to the target at
+// (300, 0), every line in sight. Following the point in sight brings them back toward the path's climb; 0.3.5 looked
+// for it only while they were more than 15 yd off (BODY), so a player wobbling across 15 yd flipped the arrow 37-57°
+// between it and the corridor's aim, again and again. WOBBLE walks them a yard at a time toward the aim, 0.3 s apart,
+// pushed j yd to a side drawn from a fixed seed (Park-Miller): the largest change of aim between two samples
+// (degrees), how many were over 30°, the yards shown at each sample, and the searches asked.
+const WOBBLE: &str = r#"
+fake.surfaces = function() return { 0 } end
+fake.sight = function() return true end
+local function wobble(j)
+	nav.place(0, 0)
+	target(300, 0)
+	N.Sample()
+	fake.resolve(0,0, 50,0, 100,80, 200,80, 250,0, 300,0)
+	local asked, seed, x, y, last, worst, swings, yards = #fake.calls, 7, 0, 0, nil, 0, 0, {}
+	for _ = 1, 400 do
+		nav.place(x, y)
+		stub.advance(0.3)
+		local state, dist, _, dn, dw = N.Sample()
+		if state ~= "travel" or not dn or dist < 15 then break end
+		yards[#yards + 1] = dist
+		local a = math.deg(math.atan2(dw, dn))
+		if last then
+			local swing = math.abs((a - last + 540) % 360 - 180)
+			if swing > worst then worst = swing end
+			if swing > 30 then swings = swings + 1 end
+		end
+		last = a
+		local d = math.sqrt(dn * dn + dw * dw)
+		local ux, uy = dn / d, dw / d
+		seed = (seed * 16807) % 2147483647
+		local side = j * (2 * seed / 2147483647 - 1)
+		x, y = x + ux - side * uy, y + uy + side * ux
+	end
+	return { worst = worst, swings = swings, yards = yards, asked = #fake.calls - asked }
+end
+"#;
+
+#[test]
+fn a14_following_the_arrow_back_toward_the_path_with_a_wobble_the_arrow_never_flips_between_the_point_in_sight_and_the_corridor() {
+	for j in ["0", "0.5", "1"] {
+		let out = run(&format!("{WOBBLE}\n\t\temit(wobble({j}))"));
+		let worst = num(&out["worst"]);
+		assert!(
+			worst <= 30.0,
+			"wobble {j} yd: the arrow swings {worst:.1}° between two samples ({} times over 30°)",
+			out["swings"]
+		);
+		assert!(out["yards"].as_array().unwrap().len() > 100, "wobble {j} yd: the walk ran ({:?} samples)", out["yards"]);
+	}
+}
