@@ -1,7 +1,7 @@
 //! "While you're here" (addon/Polestar/Core/Engine.lua, Own.hereBuild / Own.hereTick, Engine.GetWhileHere): while
 //! the player works the live step, an open objective of any later step of the guide on the player's map whose
 //! quest is already in the log, close by, becomes one line under the step, whatever is left (the player is there
-//! already); with the option on, so does a quest ready to hand in whose NPC stands right there. Real Core manifest,
+//! already); with the option on, so does a quest ready to hand in whose NPC is little out of the way. Real Core manifest,
 //! stub world.
 //!
 //! Elwynn here is 3000 yd across (30 yd per map percent on x) and 2000 yd high (20 yd per percent on y).
@@ -558,28 +558,168 @@ fn the_later_step_is_done_or_shorter_after_an_early_grab() {
 	assert_eq!(out, vec![json!([3, 2, 3])]);
 }
 
+// Hand-ins (Fitz: "the While-you're-here range for hand-ins shouldn't be the same as for objectives"). A hand-in costs
+// a short walk to one NPC and a click, so it is weighed by its detour: the seconds of extra walking to visit the NPC
+// and go on to where the arrow leads (straight lines 1.25 times longer at 7 yd/s, as the walking router counts open
+// ground), at most behavior.whileHereTurninSeconds (20 by default), or any detour in the town the player rests in.
+//
+// The guide: 1 (live) the wolves at WOLVES,35.1 (where the arrow leads), the steps `between`, then Marshal Dughan's
+// turn-in of 40 (ready) at 42,35.1 with `dughan` added to the goal.
+fn turnins(wolves: f64, between: &[&str], dughan: &str) -> String {
+	let mut steps = vec![format!(r#"{{ title = "Wolves", goals = {{ {{ t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = {wolves}, y = 35.1 }} }} }}"#)];
+	steps.extend(between.iter().map(|s| s.to_string()));
+	steps.push(format!(
+		r#"{{ title = "Dughan", goals = {{ {{ t = "turnin", quest = 40, title = "A Fishy Peril", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1{dughan} }} }} }}"#
+	));
+	format!(
+		r#"Polestar.RegisterGuide({{ id = "test/turnins", pack = "test", title = "Turnins", minLevel = 1, maxLevel = 10, steps = {{
+{}
+}} }})"#,
+		steps.join(",\n")
+	)
+}
+
+// A step with nothing to do around here (88 is not in the log), and one at Marshal Dughan (an accept of 106).
+const ELSEWHERE: &str = r#"{ title = "Bandits", goals = { { t = "kill", target = "Defias Bandit", npc = 116, count = 2, quest = 88, oi = 1, map = 1429, x = 30.0, y = 80.0 } } }"#;
+const AT_DUGHAN: &str = r#"{ title = "Errand", goals = { { t = "accept", quest = 106, title = "Young Lovers", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1 } } }"#;
+
+fn run_turnins(guide: &str, script: &str) -> Vec<Value> {
+	run_guide_with(guide, "test/turnins", "", script)
+}
+
+// 60 yd west of Dughan with the arrow leading west to the wolves (20,35.1): he is behind, 120 yd there and back,
+// 21 s out of the way. Out of town that is over the 20 s; in town (the inn's rest area) he shows. The old rule showed
+// a hand-in only within 30 yd of its NPC.
 #[test]
-fn a_quest_ready_to_hand_in_whose_npc_stands_within_30_yards_is_the_line_when_the_guide_hands_it_in_later() {
-	let out = run(r#"
-		at(42.0, 37.1); emit(here())    -- 40 yd from Dughan: not yet
-		at(42.0, 36.1); emit(here())    -- 20 yd
-		at(42.0, 37.4); emit(here())    -- 46 yd: it holds
-		at(42.0, 38.1); emit(here())    -- 60 yd: gone
-		Polestar.Set("behavior.whileHereTurnins", false); flush()
-		emit(cands())
-		at(42.0, 36.1); emit(here())
-	"#);
+fn an_npc_60_yards_off_in_town_shows_out_of_town_its_detour_decides() {
+	let out = run_turnins(
+		&turnins(20.0, &[ELSEWHERE, ELSEWHERE], ""),
+		r#"
+		emit({ wp(), cands() })
+		at(40.0, 35.1); emit({ here(), E.WhileHereState().why, E.WhileHereState().nearest.detour })
+		w.resting = true; at(40.0, 35.1); emit(here())
+		w.resting = false; at(44.0, 35.1); emit(here())    -- 60 yd east of him: on the way west, nothing out of it
+	"#,
+	);
 	assert_eq!(
 		out,
 		vec![
-			json!("none"),
-			json!("8:1 Hand in A Fishy Peril to Marshal Dughan 20"),
-			json!("8:1 Hand in A Fishy Peril to Marshal Dughan 45"),
-			json!("none"),
-			json!("2:1:work:2 3:1:work:2 10:1:work:1"),
-			json!("none")
+			json!(["1:1", "4:1:turnin:0"]),
+			json!(["none", "out of the way (21 s, over 20 s)", 21]),
+			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60"),
+			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60")
 		]
 	);
+}
+
+// "Hand-ins: how far out of your way": 0 to 60 s, 20 by default. At 25 the 21 s detour shows; at 0 only one in town
+// does (it goes once its detour is past 10 s); hand-ins off, none is a candidate.
+#[test]
+fn the_setting_sets_how_far_out_of_the_way_a_hand_in_may_be() {
+	let out = run_turnins(
+		&turnins(20.0, &[ELSEWHERE, ELSEWHERE], ""),
+		r#"
+		emit(Polestar.Get("behavior.whileHereTurninSeconds"))
+		at(40.0, 35.1); emit(here())
+		Polestar.Set("behavior.whileHereTurninSeconds", 25); flush()
+		at(40.0, 35.1); emit(here())
+		Polestar.Set("behavior.whileHereTurninSeconds", 0); flush()
+		at(40.0, 35.1); emit(here())                     -- 21 s: past 0 and 10 more, it goes
+		at(41.7, 35.1); emit(here())                     -- 9 yd behind him, 3 s: not at 0
+		w.resting = true; at(41.7, 35.1); emit(here())   -- in town: it shows at 0 too
+		Polestar.Set("behavior.whileHereTurnins", false); flush()
+		emit({ cands(), here() })
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(20),
+			json!("none"),
+			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60"),
+			json!("none"),
+			json!("none"),
+			json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10"),
+			json!(["", "none"])
+		]
+	);
+}
+
+// A river at x = 43 (the router's stand-in: crossing it is a 2-minute walk round). The arrow leads east to the wolves
+// (60,35.1). 45 yd east of Dughan, across the river from him: 16 s out of the way in straight lines, but there, back
+// over the river and on is 256 s more than going straight on: no line, and the walk is not asked again until the
+// player has moved. Over the bridge, 15 yd from him, the way east crosses the river anyway: 5 s, it shows.
+const RIVER: &str = r#"
+Polestar.Nav = { EstimateTravel = function(from, to)
+	local ax, ay
+	if from then ax, ay = from.x, from.y else local _; _, ax, ay = Polestar.Compat.GetPlayerMapPosition() end
+	ASKED = (ASKED or 0) + 1
+	local s = (((to.x - ax) * 30) ^ 2 + ((to.y - ay) * 20) ^ 2) ^ 0.5 * 1.25 / 7
+	if (ax < 43) ~= (to.x < 43) then s = s + 120 end
+	return s
+end }
+"#;
+
+#[test]
+fn an_npc_across_a_river_with_a_two_minute_walk_does_not_show() {
+	let out = run_turnins(
+		&turnins(60.0, &[ELSEWHERE, ELSEWHERE], ""),
+		&format!(
+			"{RIVER}{}",
+			r#"
+		at(43.5, 35.1); emit({ here(), E.WhileHereState().why })
+		local asked = ASKED
+		stub.advance(5); emit(ASKED == asked)              -- standing there: not asked again
+		at(42.5, 35.1); emit(here())
+	"#
+		),
+	);
+	assert_eq!(out, vec![json!(["none", "turned away (the walk is too far out of the way; checked again in 15 s or 25 yd)"]), json!(true), json!("4:1 Hand in A Fishy Peril to Marshal Dughan 15")]);
+}
+
+// Never on another floor: the NPC's height (`z`, 40) against the player's floor (Nav's walking engine) more than 8 yd
+// apart is Undercity's level below or a Thunder Bluff rise up a lift.
+#[test]
+fn never_a_hand_in_on_another_floor() {
+	let out = run_turnins(
+		&turnins(20.0, &[ELSEWHERE, ELSEWHERE], ", z = 40"),
+		r#"
+		FLOOR = 0
+		Polestar.Nav = { walk = { Floor = function() return FLOOR end } }
+		at(42.0, 35.6); emit({ here(), E.WhileHereState().why })
+		FLOOR = 38; stub.advance(15); at(42.0, 35.6); emit(here())
+	"#,
+	);
+	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in A Fishy Peril to Marshal Dughan 10")]);
+}
+
+// Never a hand-in the route reaches anyway in its next two steps: the guide's own hand-in right after the live step,
+// or a step at the same NPC (an accept at Dughan) on the way there; a step at him three steps on does not count.
+#[test]
+fn a_hand_in_the_route_reaches_in_its_next_two_steps_is_left_to_it() {
+	let script = r#"at(42.0, 35.6); emit({ cands(), here() })"#;
+	let next = run_turnins(&turnins(20.0, &[], ""), script);
+	let errand = run_turnins(&turnins(20.0, &[ELSEWHERE, AT_DUGHAN, ELSEWHERE], ""), script);
+	let later = run_turnins(&turnins(20.0, &[ELSEWHERE, ELSEWHERE, AT_DUGHAN], ""), script);
+	assert_eq!(next, vec![json!(["", "none"])], "his hand-in is the next step");
+	assert_eq!(errand, vec![json!(["", "none"])], "the step after next is at Dughan");
+	assert_eq!(later, vec![json!(["5:1:turnin:0", "5:1 Hand in A Fishy Peril to Marshal Dughan 10"])], "three steps on");
+}
+
+// The XP rule: a quest's full reward lasts until the player is 5 levels over it. When the guide's hand-in comes at a
+// level past that (a `level 8` goal on the way, the quest level 1, the player 5: 60% then), waiting costs XP, and
+// the hand-in may be twice the seconds out of the way: the 21 s detour shows at 20. Quest level 3 keeps its full
+// reward at 8: no line.
+#[test]
+fn a_hand_in_whose_xp_waiting_would_cut_may_be_twice_as_far_out_of_the_way() {
+	let level8 = r#"{ title = "Level 8", goals = { { t = "level", level = 8 } } }"#;
+	let script = r#"at(40.0, 35.1); emit(here())"#;
+	let cut = run_turnins(&turnins(20.0, &[ELSEWHERE, level8], ", qlvl = 1"), script);
+	let full = run_turnins(&turnins(20.0, &[ELSEWHERE, level8], ", qlvl = 3"), script);
+	let none = run_turnins(&turnins(20.0, &[ELSEWHERE, ELSEWHERE], ", qlvl = 1"), script);
+	assert_eq!(cut, vec![json!("4:1 Hand in A Fishy Peril to Marshal Dughan 60")]);
+	assert_eq!(full, vec![json!("none")]);
+	assert_eq!(none, vec![json!("none")]);
 }
 
 // #1408 (Emil): a hand-in the panel shows is handed in at its NPC's window as the live step's are, by the same rules:

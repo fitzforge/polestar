@@ -2097,6 +2097,9 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["Always go back for it"] = ""
 -- L["Always skip it"] = ""
 -- L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
+L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 只稍微偏离你的路线，而指南稍后才交。"
+L["Hand-ins: how far out of your way"] = "交任务：可绕路多远"
+L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "交一个任务最多可多走几秒：走到 NPC 再回到你的路线上。你所在城镇里的交任务总会显示；设为 0 时只显示这些。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

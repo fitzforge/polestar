@@ -432,9 +432,9 @@ its source is in [apps/client](apps/client).
   chest), a "While you're here" panel under the step lists it, up to three
   at once; done now, that step is done or shorter when you get there. Click
   one for the arrow, right-click it to leave it around there (twice: for the
-  rest of the zone). A quest ready
-  to hand in to someone standing right there shows the same way (Options,
-  Guide, Window, "Dynamic Questing").
+  rest of the zone). A quest ready to hand in shows the same way when its
+  NPC is in the town you're in or a few seconds out of your way (20 by
+  default; Options, Guide, Window, "Dynamic Questing").
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them

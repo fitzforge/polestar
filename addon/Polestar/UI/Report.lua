@@ -258,8 +258,9 @@ end
 
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
 -- (each: what, quest, step, distance; "; " between them) or "none", the
--- radius and how many candidates there are, and without a line the nearest
--- candidate and why it does not show. The words stay English like Routes;
+-- radius, a hand-in's seconds out of the way and how many candidates there
+-- are, and without a line the nearest candidate (a hand-in: its detour) and
+-- why it does not show. The words stay English like Routes;
 -- after Routes, so Arrow, Where and Routes keep their places for the bug bot.
 local function whileHereLine()
 	local E = ns.Engine
@@ -278,11 +279,13 @@ local function whileHereLine()
 		parts[1] = "none"
 	end
 	parts[#parts + 1] = ("radius %d yd"):format(st.radius)
+	parts[#parts + 1] = st.turnins and ("hand-ins %d s"):format(st.turnins) or "hand-ins off"
 	parts[#parts + 1] = ("%d candidates"):format(st.candidates)
 	if not st.shown then
 		local n = st.nearest
 		local why = st.why or "?"
-		parts[#parts + 1] = n and ("nearest quest %s, %s, %d yd%s: %s"):format(tostring(n.quest), step(n.step), n.yards, n.seen and ", its mob in sight" or "", why) or why
+		parts[#parts + 1] = n and ("nearest quest %s, %s, %d yd%s%s: %s"):format(tostring(n.quest), step(n.step), n.yards,
+			n.detour and (", %d s out of the way"):format(n.detour) or "", n.seen and ", its mob in sight" or "", why) or why
 	end
 	-- Longer than the other lines (LINE_MAX): what shows and why all count.
 	return cut((L["While here: %s"]):format(table.concat(parts, SEP)), 400)

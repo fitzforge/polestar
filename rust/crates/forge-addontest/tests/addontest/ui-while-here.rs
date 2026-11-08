@@ -492,6 +492,31 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yar
 	assert_eq!(out[0]["soundEnabled"], false);
 }
 
+// "Hand-ins: how far out of your way", its own slider beside How close: 0 to 60 s in steps of 5, 20 by default,
+// greyed out with hand-ins off.
+#[test]
+fn the_hand_ins_slider_sets_their_seconds_out_of_the_way_apart_from_how_close() {
+	let out = run_with(
+		"",
+		"",
+		r#"
+		local UI, O = Polestar.UI, Polestar.UI.Options
+		UI.ShowOptions("guide")
+		local c = O.Controls("guide", "Window")
+		local turnins, seconds = c["behavior.whileHereTurnins"], c["behavior.whileHereTurninSeconds"]
+		local before = { seconds ~= nil, Polestar.Get("behavior.whileHereTurninSeconds"), seconds.Value:GetText(), seconds:IsEnabled() }
+		stub.RunScript(seconds.Slider, "OnValueChanged", 58, true)
+		local most = Polestar.Get("behavior.whileHereTurninSeconds")
+		turnins:Click()
+		emit({ before = before, most = most, radius = Polestar.Get("behavior.whileHereRadius"), off = seconds:IsEnabled() })
+	"#,
+	);
+	assert_eq!(out[0]["before"], json!([true, 20, "20 s", true]));
+	assert_eq!(out[0]["most"], 60, "the slider steps by 5 seconds, up to 60");
+	assert_eq!(out[0]["radius"], 180, "How close stays its own");
+	assert_eq!(out[0]["off"], false, "greyed out with hand-ins off");
+}
+
 // Fitz: the spores came back after a dismiss and nothing chimed: only the first row's change was heard. A line that
 // comes back chimes and pings like a new one, whichever row it takes (30 s after the last chime at the earliest).
 // Here at 120 yd the vermin (the first row) stay while the candles go past their clear distance and come back.

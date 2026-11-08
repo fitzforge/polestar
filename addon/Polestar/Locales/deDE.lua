@@ -1220,6 +1220,9 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["Always go back for it"] = ""
 -- L["Always skip it"] = ""
 -- L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
+-- L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = ""
+-- L["Hand-ins: how far out of your way"] = ""
+-- L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

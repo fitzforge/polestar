@@ -2086,7 +2086,6 @@ L["Wait for Spoken"] = "Ждать Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "Пауза 200 мс перед каждым автоматическим принятием, сдачей задания и выбором награды, чтобы Spoken успел заметить окно и прочитать его."
 L["How close"] = "Насколько близко"
 L["Include nearby hand-ins"] = "Включая сдачу заданий рядом"
-L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
 -- L["Dynamic Questing"] = ""
 -- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = ""
 -- L["Sound for a new suggestion"] = ""
@@ -2097,6 +2096,9 @@ L["Also a quest ready to hand in whose NPC stands right here, when the guide han
 -- L["Always go back for it"] = ""
 -- L["Always skip it"] = ""
 -- L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
+L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи лишь немного в стороне от пути, а гид сдаёт его позже."
+L["Hand-ins: how far out of your way"] = "Сдача: насколько в стороне"
+L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."] = "Сколько секунд лишней ходьбы может стоить сдача: до NPC и обратно на путь. Сдача в городе, где вы сейчас, показывается всегда; 0 оставляет только такие."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3081,3 +3083,4 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["While you're here sound"] = "Звук «Пока вы здесь»"
 -- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
 -- L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
+-- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
