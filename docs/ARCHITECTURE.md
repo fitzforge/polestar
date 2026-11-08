@@ -211,6 +211,12 @@ live one (Prev/Next/Goto). (Older saves also hold `offers`, the quests a
 giver did not offer; login drops it: no such mark is kept, #741.) All of
 them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement").
+A saved tab of a leveling guide that kept fewer than half of those steps
+(`Own.reworked`: an update reused the id for another part of the route, as
+0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
+after it comes back, to the pack's leveling guide with the most quests of
+the log to work on (`Guides.FollowLog`; never one open already), and chat
+says so.
 
 ### Commands
 

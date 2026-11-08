@@ -1564,6 +1564,45 @@ function Guides.Successor(id)
 	return fitting[1] or best
 end
 
+-- Where the player's place went when an update reworked guide `id` (0.3.5
+-- kept forever/horde/05-stonetalon-mountains for Ashenvale & Silverpine
+-- Forest and moved Sun Rock Retreat to The Barrens & Stonetalon Mountains,
+-- #1328): the leveling guide of `id`'s pack for the player that has the
+-- most quests of the log to work on (a goal other than taking it), when
+-- that is another guide than `id`. nil: `id` has as many as any (or none
+-- has any); a tie between others goes to the earlier in the pack.
+function Guides.FollowLog(id)
+	local g = id and guides[id]
+	local r = g and packs[g.pack]
+	if not (r and packVisible(r)) then return nil end
+	local log = {}
+	for _, q in ipairs(ns.Compat.GetLogQuests()) do log[q] = true end
+	if next(log) == nil then return nil end
+	local player = ns.Compat.GetPlayerInfo()
+	local function score(guide)
+		local seen, n = {}, 0
+		for _, step in ipairs(guide.steps or {}) do
+			for _, goal in ipairs(step.goals or {}) do
+				local q = goal.quest
+				if q and log[q] and not seen[q] and goal.t ~= "accept" then
+					seen[q] = true
+					n = n + 1
+				end
+			end
+		end
+		return n
+	end
+	local own, best, bestN = score(g), nil, 0
+	for _, other in ipairs(r.guides) do
+		local o = other ~= id and Guides.Get(other)
+		if o and (o.category == nil or o.category == "Leveling") and guideMatches(o, player) then
+			local n = score(o)
+			if n > bestN then best, bestN = other, n end
+		end
+	end
+	return bestN > own and best or nil
+end
+
 -- The leveling guide a new character of the player's race and class starts
 -- with: the suggestion at level 1, from the suggestion source (ours where it
 -- has none). The catch-up opens it when no guide is open and goes through

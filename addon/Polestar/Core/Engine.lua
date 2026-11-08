@@ -3816,6 +3816,20 @@ local function checkShape(g)
 	if stored ~= h or type(s.stepKeys[g.id]) ~= "table" then s.stepKeys[g.id] = Own.stepKeys(g) end
 end
 
+-- An update replaced most of guide g's steps: it keeps fewer than half of
+-- those the character's save knew (0.3.5 reused leveling guide ids for
+-- other parts of the route, #1328). Read before checkShape stores the new
+-- shape.
+function Own.reworked(g)
+	local s = ns.CharState()
+	local stored = type(s.shapes) == "table" and s.shapes[g.id]
+	local old = type(s.stepKeys) == "table" and s.stepKeys[g.id]
+	if not stored or stored == shapeOf(g) or type(old) ~= "table" or #old == 0 then return false end
+	local kept = 0
+	for _ in pairs(Own.matchSteps(old, Own.stepKeys(g))) do kept = kept + 1 end
+	return kept * 2 < #old
+end
+
 -- Tabs of guides that are not there (pack missing or switched off), oldest
 -- first: { id, at } with `at` the tab's place when it was last open. They
 -- stay saved, with their pins, and reopen there when the guide is back.
@@ -8220,15 +8234,54 @@ function Engine.WantsQuest(verb, questID, span)
 	return found
 end
 
+-- Saved tabs of leveling guides an update reworked (Own.reworked), by guide
+-- id: the quest log decides where they go (Own.followReworked).
+Own.reworkedTabs = {}
+
 -- A saved tab coming back: at the step the player was looking at (a pack
 -- update carries it to the step's new place first).
 local function restoredTab(g)
+	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = true end
 	checkShape(g)
 	local pins = ns.CharState().pins
 	local p = type(pins) == "table" and pins[g.id]
 	return { guide = g, passedUpTo = 0, autoChain = true, sawIncomplete = false, placing = GetTime() + PLACE_SECONDS,
 		pin = type(p) == "table" and tonumber(p.step) or nil, pinDone = type(p) == "table" and p.done or nil }
 end
+
+-- Once the quest log is in (the client fills it after PLAYER_LOGIN), a tab
+-- whose guide an update reworked moves to the leveling guide that has the
+-- quests of the log now (Guides.FollowLog), unless that one is open already:
+-- a 0.3.4 character at Sun Rock Retreat in Stonetalon Mountains &
+-- Ashenvale found the same tab holding Ashenvale & Silverpine Forest, and
+-- its Sun Rock quests in The Barrens & Stonetalon Mountains (#1328). The
+-- chat says where it went.
+function Own.followReworked()
+	local moved = {}
+	for id in pairs(Own.reworkedTabs) do
+		local i = tabIndexOf(id)
+		local to = i and Guides.FollowLog(id)
+		local g = to and not tabIndexOf(to) and Guides.Get(to)
+		if g then
+			moved[#moved + 1] = { from = tabs[i].guide, to = g, active = i == activeIndex }
+			tabs[i] = restoredTab(g)
+		end
+	end
+	Own.reworkedTabs = {}
+	if #moved == 0 then return end
+	tabsDirty = true
+	useActive()
+	persist()
+	for _, m in ipairs(moved) do
+		ns.Print(L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."]:format(m.from.title, m.to.title))
+		if m.active then ns.Fire("GUIDE_CHANGED", m.to.id) end
+	end
+	evaluate()
+end
+
+ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+	if next(Own.reworkedTabs) ~= nil and ns.IsLoggedIn() then Own.followReworked() end
+end)
 
 local function byPlace(list)
 	for i, a in ipairs(list) do a.order = i end

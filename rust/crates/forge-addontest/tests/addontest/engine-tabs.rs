@@ -293,3 +293,73 @@ fn a_class_chain_finished_in_its_own_tab_passes_the_leveling_route_s_class_step(
 	// leveling tab's accept and turn-in of the same quest count done: it is on 4.
 	assert_eq!(out, json!({ "before": 2, "warrior": "done", "leveling": 4, "guide": "test/lvl-class" }));
 }
+
+// #1328: 0.3.5 kept forever/horde/05-stonetalon-mountains for Ashenvale & Silverpine Forest and moved Sun Rock
+// Retreat's quests to The Barrens & Stonetalon Mountains. A 0.3.4 character in the middle of Sun Rock found its
+// tab holding the other zone. A saved tab whose guide an update reworked (fewer than half its steps kept) moves,
+// once the quest log is in, to the leveling guide that has the most quests of the log to work on, and the chat
+// says so. The same steps, its own guide holding the log's quests, or the other guide open already: it stays.
+const REWORKED: &str = r#"
+local function hand(id) return { goals = { { t = "turnin", quest = id, title = "Quest " .. id, map = 1429, x = 50, y = 50 } } } end
+Polestar.RegisterGuide({ id = "test/zone05", pack = "test", title = "Ashenvale & Silverpine Forest", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "accept", quest = 216, title = "Quest 216", map = 1429, x = 40, y = 40 } } }, hand(216), hand(6462),
+} })
+Polestar.RegisterGuide({ id = "test/zone04", pack = "test", title = "The Barrens & Stonetalon Mountains", minLevel = 1, maxLevel = 60, steps = {
+	hand(1087), hand(6282), hand(6393),
+} })
+"#;
+
+fn run_reworked(log: &[u32], saved: &str) -> Value {
+	let quests: String = log.iter().map(|q| format!("stub.world.onQuest({q}, {{ 1 }})\n")).collect();
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{quests}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved.to_string())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GUIDES,
+			REWORKED,
+			HELPERS,
+			"stub.login(); flush()",
+			r#"local at = ids()
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local said = {}
+			for _, m in ipairs(stub.messages) do if m:find("changed in this update", 1, true) then said[#said + 1] = m:gsub("^.-|r: ", "") end end
+			emit({ login = at.tabs, tabs = ids().tabs, active = ids().active, saved = PolestarCharDB.tabs, said = table.concat(said, "\n"), keys = PolestarCharDB.stepKeys["test/zone05"] })"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+fn saved_tabs(tabs: &str, keys: &str) -> String {
+	format!(r#"PolestarCharDB = {{ schema = 1, tabs = {{ {tabs} }}, activeTab = 1, shapes = {{ ["test/zone05"] = "4-1" }}, stepKeys = {{ ["test/zone05"] = {keys} }} }}"#)
+}
+
+#[test]
+fn a_tab_whose_guide_an_update_reworked_follows_the_quests_in_the_log_to_their_guide() {
+	let log = [1087, 6282, 216];
+	let moved = run_reworked(&log, &saved_tabs(r#""test/zone05""#, "{ 1, 2, 3, 4 }"));
+	assert_eq!(moved["login"], json!(["test/zone05"]), "at login the log is not in yet: the tab waits");
+	assert_eq!(json!([moved["tabs"], moved["active"], moved["saved"]]), json!([["test/zone04"], 1, ["test/zone04"]]));
+	assert_eq!(
+		moved["said"],
+		"Ashenvale & Silverpine Forest changed in this update and holds other quests now. Its tab moved to The Barrens & Stonetalon Mountains, which has the quests in your log."
+	);
+
+	// The same steps under a new shape (an edit, not a rework): the tab stays.
+	let keys = moved["keys"].as_array().unwrap().iter().map(|k| k.to_string()).collect::<Vec<_>>().join(", ");
+	let edited = run_reworked(&log, &saved_tabs(r#""test/zone05""#, &format!("{{ {keys} }}")));
+	assert_eq!(json!([edited["tabs"], edited["said"]]), json!([["test/zone05"], ""]), "an edit keeps the tab");
+
+	// Reworked, but its own guide has as many of the log's quests: it stays.
+	let own = run_reworked(&[216, 6462, 1087], &saved_tabs(r#""test/zone05""#, "{ 1, 2, 3, 4 }"));
+	assert_eq!(json!([own["tabs"], own["said"]]), json!([["test/zone05"], ""]), "its own quests keep the tab");
+
+	// Reworked, and the guide with the log's quests is open in another tab already: no duplicate.
+	let open = run_reworked(&log, &saved_tabs(r#""test/zone05", "test/zone04""#, "{ 1, 2, 3, 4 }"));
+	assert_eq!(json!([open["tabs"], open["said"]]), json!([["test/zone05", "test/zone04"], ""]), "never a second tab of a guide");
+}
