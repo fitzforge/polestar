@@ -155,7 +155,6 @@ step Gadgetzan
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
   turnin 82                           -- Alchemist Pestlezugg, inside
-  note Sprinkle's next ingredient grows in the Hinterlands, and the route never brings it back: skip it.
   accept 10                           -- Senior Surveyor Fizzledowser
   turnin 2606                         -- Sprinkle
   accept 2641

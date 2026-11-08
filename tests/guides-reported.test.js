@@ -6531,3 +6531,15 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
 });
+
+// Final route review before 0.3.5, Alliance 40-60: the Gadgetzan stop told the player to skip Sprinkle's next
+// ingredient ("the route never brings it back") right before accepting it; the route takes it, collects it in
+// the Hinterlands and hands it in on the Un'Goro guide's Gadgetzan stop.
+test('forever/alliance/40-50/04-tanaris.guide: final review: no note to skip Sprinkle\'s Secret Ingredient, which the route takes', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const take = at(list, 'accept 2641', is('accept', 2641));
+	const stop = list.filter(({ s }) => s === list[take].s);
+	assert.ok(!stop.some(({ goal }) => goal.t === 'note' && /Sprinkle/.test(goal.text) && /skip/i.test(goal.text)), 'no skip note on the stop that takes it');
+	assert.ok(list.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'its ingredient is collected');
+	assert.ok(goals('forever/alliance/40-50/07-un-goro-crater.guide').some(({ goal }) => goal.t === 'turnin' && goal.quest === 2641), 'and handed in at Gadgetzan in the Un\'Goro guide');
+});
