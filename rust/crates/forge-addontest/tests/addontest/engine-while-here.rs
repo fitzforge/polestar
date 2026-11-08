@@ -153,10 +153,7 @@ fn a_later_objective_after_the_guide_leaves_the_zone_and_comes_back_counts_one_o
 		emit(cands())
 	"#,
 	);
-	assert_eq!(
-		out,
-		vec![json!("2:1:work:2 6:1:work:2"), json!(["6:1 Kill Kobold Vermin, 2 more 50", "1:1", 4]), json!(["2:1:work:2", "none"]), json!("4:1:work:1")]
-	);
+	assert_eq!(out, vec![json!("2:1:work:2 6:1:work:2"), json!(["6:1 Kill Kobold Vermin, 2 more 50", "1:1", 4]), json!(["2:1:work:2", "none"]), json!("4:1:work:1")]);
 }
 
 // Background goals (slow drops spread over the zone) are along steps. Listed (behind the live step), Along the way
