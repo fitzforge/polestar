@@ -4288,6 +4288,198 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review 0.3.5 (Horde 30-40): Call of Air (1531) is offered from level 30 (Forever's quest data, minLevel 30). The 30-40/01 Orgrimmar stop comes at about 29.4, where Searn Firewarder has nothing to give a Shaman; 30-40/02's Orgrimmar stop, where Craven Drok gives Alliance Relations (also from 30), comes at about 31.7, before the flight to Freewind Post and Prate Cloudseer."
+			},
+			{
+				"a": [
+					"accept",
+					571
+				],
+				"b": [
+					"turnin",
+					577
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Stranglethorn Vale 39-43): the visit starts at Kargath since the 30-40 rework (#1204), so it flies to Grom'gol first (Kin'weelay, the Jungle Stalkers' feathers, Mok'thardin) and from there to Booty Bay. Taken after Booty Bay's arrival stop, it flew Kargath to Booty Bay, Booty Bay to Grom'gol and back again: one flight more, a leftover of the Ratchet boat that used to land in Booty Bay."
+			},
+			{
+				"a": [
+					"turnin",
+					7833
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Winterspring 55-56 / Azshara 56): the Orgrimmar cloth donations are handed in on the stop that takes them, at the end of the Winterspring guide, as the Thunder Bluff ones already were: each is sixty cloth carried in the bags (optional, see deliberate.optional). Handed in on the Azshara guide's second Orgrimmar stop, they cost a landing in Orgrimmar between the Crossroads and Valormok and a walk from the Valley of Spirits to the Valley of Honor for nothing else. The Runecloth donations (7836, 7824) are taken there too and still handed in by 50-60/07-felwood (deliberate.stay)."
+			},
+			{
+				"a": [
+					"turnin",
+					7834
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7835
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7836
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7826
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7827
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7831
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7824
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					8365
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Feralas & Tanaris 43-45): the four Steamwheedle Port quests are finished at Lost Rigger Cove, just south of the port, on the first Tanaris visit, so they are handed in on the ride back to Gadgetzan (with Yeh'kinya's Screecher Spirits taken there). They waited for the 45-47 guide, whose flight from Brackenwall Village went to Gadgetzan, rode to Steamwheedle Port and back and flew on to Camp Mojache for them alone."
+			},
+			{
+				"a": [
+					"turnin",
+					2873
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					2875
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					8366
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"accept",
+					3520
+				],
+				"b": [
+					"turnin",
+					1691
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde 43-45): see turnin 8365 before turnin 1691."
+			},
+			{
+				"a": [
+					"turnin",
+					1393
+				],
+				"b": [
+					"turnin",
+					1389
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows 39-43 and 45-47): the first swamp stay is one pass, the Harborage on the way in, Stonard, the crocolisks, Noboru, the Fallow Sanctuary, Galen's strongbox north of Stonard, then the Harborage for Magtoor's hand-ins, and the ride back to Stonard's flight master. It went Fallow Sanctuary -> Harborage (far west) -> strongbox (back east) -> Misty Reed Post (far south-east) for Lack of Surplus alone -> Stonard. Tok'Kar takes the flanks on the second stay, which rides to Misty Reed Post anyway after the Pool of Tears (Lack of Surplus is level 40, full experience at 45)."
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"turnin",
+					698
+				],
+				"faction": "Horde",
+				"why": "Final route review follow-up before 0.3.5 (Horde Swamp of Sorrows): see turnin 1393 before turnin 1389."
 			}
 		],
 		"notes": [
@@ -6515,6 +6707,21 @@
 				"q": 679,
 				"size": 3,
 				"why": "Horde 30-40 re-order (2026-11-07): Call to Arms part 3: Boulderfist Shaman and Lords in Stromgarde are elites (38-40), on the same group trip"
+			},
+			{
+				"q": 7849,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): Forever's quest data marks Separation Anxiety (7849), Kidnapped Elder Torntusk! (7845) and Dark Vessels (7850) as group quests (type 1), and every Vilebranch troll in Jintha'Alor is elite (rank 1, 46-50) in Forever's creature data: the skull pile, the bone pile, the Vessels of Tainted Blood and Elder Torntusk at the top all lie among them. The guide sent a solo player at about 48 through them. A group of 3, taken with the solo fallback (one 'when group 7849' choice for the three, the top-up after Revantusk covers the skipped experience)."
+			},
+			{
+				"q": 7845,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): Elder Torntusk is held at the top of Jintha'Alor among its elite trolls."
+			},
+			{
+				"q": 7850,
+				"size": 3,
+				"why": "Final route review before 0.3.5 (Horde Hinterlands 48-50): see Separation Anxiety (7849): the Vessels of Tainted Blood sit on Jintha'Alor's terraces among its elite trolls."
 			}
 		]
 	},
@@ -8028,66 +8235,6 @@
 				],
 				"why": "Darkshore: Fruit of the Sea (Gubber Blump, Auberdine) is taken before Buzzbox 827's crawler legs, so its crab chunks come from the same Encrusted Tide Crawlers on the first shore loop, not a second one at 17.4",
 				"source": "critic"
-			},
-			{
-				"a": [
-					"turnin",
-					1420
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1424
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1428
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					1430
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
-			},
-			{
-				"a": [
-					"turnin",
-					624
-				],
-				"b": [
-					"accept",
-					3520
-				],
-				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
-				"source": "RevH2"
 			},
 			{
 				"a": [
@@ -10483,6 +10630,66 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-08): Warriors take Path of Defense from Uzzek beside Kargal at the end of the Durotar guide and gather the Singed Scales on Thunder Ridge on the road north to Orgrimmar (see the pair turnin 840 before accept 97246)."
+			},
+			{
+				"a": [
+					"turnin",
+					1420
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1424
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1428
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1430
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					624
+				],
+				"b": [
+					"task",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat. Final route review follow-up before 0.3.5: anchored on the screecher work in Feralas (task 3520), not on Yeh'kinya's accept, which is now taken with the Lost Rigger Cove hand-ins at Steamwheedle Port on the first Tanaris visit (the swamp's turn-ins still come before the Feralas screechers)",
+				"source": "RevH2"
 			}
 		]
 	}

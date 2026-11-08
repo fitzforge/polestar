@@ -46,15 +46,12 @@ step Violet Tragan
 # ---------------------------------------------------------------- Revantusk Village
 
 step Revantusk Village
-  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
   accept 7839                           -- Smith Slagtree
-  accept 7845
   sethome "Revantusk Village" npc 14731 -- Lard
   accept 7840
-  accept 7850                           -- Primal Torntusk
   getfp "Revantusk Village"
   accept 7815                           -- Katoom the Angler
-  accept 7849
   accept 7830
   accept 7829
   accept 7828                           -- Huntsman Markhor
@@ -64,6 +61,14 @@ step Revantusk Village
 step Revantusk Village
   when group 7816
   accept 7816
+
+step Revantusk Village
+  when group 7849
+  tip Separation Anxiety, Kidnapped Elder Torntusk! and Dark Vessels are group quests: they send you into Jintha'Alor, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  accept 7849                           -- Huntsman Markhor
+  accept 7845                           -- Primal Torntusk
+  accept 7850
 
 # ---------------------------------------------------------------- The north coast
 
@@ -118,7 +123,7 @@ step Wildkin Muisek
 # ---------------------------------------------------------------- The west
 step The Altar of Zul: kill these as you meet them
   zone The Hinterlands
-  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
+  tip South-west of the lake, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
   tip South-west, the Silvermane Howlers roam the hills east of the Witherbark villages.
   kill 4466 quest 7844.1
   kill 4467 quest 7844.2
@@ -144,7 +149,8 @@ step Highvale
   kill 2693 quest 7841.4
 
 step Jintha'Alor
-  tip Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of Jintha'Alor. The Vessels of Tainted Blood sit on the lower terraces, and Elder Torntusk is held at the top. Keep to the paths: the trolls inside are elite.
+  when group 7849
+  tip Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of Jintha'Alor. The Vessels of Tainted Blood sit on the lower terraces, and Elder Torntusk is held at the top. The trolls inside are elite: stay with your group and keep to the paths.
   collect 19069 quest 7849.1 @58.6,64.8
   turnin 7845                           -- Elder Torntusk, at the top of Jintha'Alor
   note His next request, going on to the Altar of Zul, is for a group.
@@ -152,12 +158,9 @@ step Jintha'Alor
   collect 19071 quest 7850.1
 
 step Revantusk Village
-  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   turnin 7839                           -- Smith Slagtree
   turnin 7840                           -- Lard, inside
-  turnin 7850                           -- Primal Torntusk
   turnin 7815                           -- Katoom the Angler
-  turnin 7849
   turnin 7830
   turnin 7829
   turnin 7828                           -- Huntsman Markhor
@@ -168,13 +171,18 @@ step Revantusk Village
   accept 7843
 
 step Revantusk Village
+  when group 7849
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  turnin 7850                           -- Primal Torntusk
+  turnin 7849                           -- Huntsman Markhor
+
+step Revantusk Village
   when group 7816
   turnin 7816
 
 step Level 49.02
-  when !group 7816
   when level<49.02
-  tip If you skipped Gammerita, Mon!, grind here to level 49.02 to stay on the route's plan.
+  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the Maraudon dungeon instead.
   goto 77.8,68.9 map 1425 "Saltwater Snapjaw"
   level 49.02                          -- grind on Saltwater Snapjaw
 

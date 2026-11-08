@@ -6995,3 +6995,170 @@ test('alliance 40-60: final review: every written grind step offers a dungeon fo
 		}
 	}
 });
+
+// --- Final route review before 0.3.5, Horde 40-60 (2026-11-08) ---
+
+// Stranglethorn Vale 39-43 starts at Kargath since the 30-40 rework: it flew to Booty Bay, on to Grom'gol for
+// Kin'weelay, the Jungle Stalkers and Mok'thardin, and back to Booty Bay. Now Kargath flies to Grom'gol first and on to
+// Booty Bay: one flight less. The zone-entry arrow that pointed 1,000 yd past the Bloodsail cove is gone too.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol before Booty Bay on the flight from Kargath', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const cove = at(list, 'turnin 595', is('turnin', 595));
+	assert.equal(list.slice(0, cove).filter(({ goal }) => goal.t === 'fly').length, 2, "Kargath to Grom'gol, Grom'gol to Booty Bay");
+	const bay = at(list, 'turnin 577', is('turnin', 577));
+	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
+	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
+});
+
+// The Swamp of Sorrows part of Stranglethorn's guide told you to "keep going north into Duskwood" after the Duskwood
+// stop, and its second Stonard step opened with "You start in Stonard", a leftover of a split guide. One Stonard stop
+// for Dar's two quests, the bind and the flight path.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the swamp tips match the way in, one Stonard stop', { skip }, () => {
+	const file = 'forever/horde/40-50/01-stranglethorn-vale.guide';
+	assert.doesNotMatch(stepTips(file, /accept 1389/).join(' '), /north into Duskwood/);
+	assert.doesNotMatch(stepTips(file, /accept 1430/).join(' '), /You start in/);
+	const list = goals(file);
+	const stonard = list[at(list, 'accept 698', is('accept', 698))].s;
+	for (const q of [1430, 1424]) assert.equal(list[at(list, `accept ${q}`, is('accept', q))].s, stonard, `${q} on the one Stonard stop`);
+});
+
+// Tips that pointed the wrong way: the Ironjaw Basilisks lie north of Booty Bay on the road back to Grom'gol ("follow
+// the road south"); the Altar of Zul is south-west of Valorwind Lake ("on the way back east"); Rogue Vale opens just
+// north of Zorbin's dock ("ride west into the middle of Feralas"); Felstone Farm is reached from the Bulwark, where the
+// step before ends ("leave the Undercity"). Marvon's step had the same direction twice.
+test('Horde 40-60 final review: tips point the way the route goes', { skip }, () => {
+	const H = (n) => `forever/horde/${n}.guide`;
+	const basilisks = stepTips(H('40-50/06-azshara'), /collect 3911 quest 589/).join(' ');
+	assert.match(basilisks, /north out of Booty Bay/);
+	assert.doesNotMatch(basilisks, /road south/);
+	assert.equal(stepTips(H('40-50/06-azshara'), /turnin 3380/).length, 1, "one tip at Marvon's camp");
+	assert.doesNotMatch(stepTips(H('40-50/05-the-hinterlands'), /kill 2925 quest 7828/).join(' '), /back east/);
+	assert.doesNotMatch(stepTips(H('40-50/03-feralas'), /kill 8612 quest 3520/).join(' '), /Ride west/);
+	assert.doesNotMatch(stepTips(H('50-60/01-un-goro-crater'), /accept 5021/).join(' '), /Leave the Undercity/);
+});
+
+// Felwood & Western Plaguelands: the top-up to 52.63 ground on Northridge's Scarlet Mages, then walked on to Kirsta
+// Deepshadow on the hill above for Unfinished Business, which wants those Scarlets. Kirsta first: the grind counts.
+test('forever/horde/50-60/02-felwood.guide: final review: Kirsta before the Northridge top-up', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const top = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
+	assert.ok(top >= 0, 'the top-up is in the guide');
+	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < top, 'Unfinished Business before the Scarlet grind');
+});
+
+// Winterspring ended in Orgrimmar taking the Wool, Silk and Mageweave donations, and the Azshara guide landed in
+// Orgrimmar again between the Crossroads and Valormok just to hand them in, from the Valley of Spirits to the Valley of
+// Honor. They are handed in on the stop that takes them, as the Thunder Bluff ones are; the Runecloth ones are taken
+// there and still handed in at the end of the route.
+test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in where they are taken', { skip }, () => {
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	for (const q of [7833, 7834, 7835, 7826, 7827, 7831]) {
+		assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} on the stop that takes it`);
+	}
+	for (const q of [7836, 7824]) at(ws, `accept ${q}`, is('accept', q));
+	const az = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!az.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no donation stop in the Azshara guide');
+	const between = az.slice(at(az, 'turnin 91904', is('turnin', 91904)) + 1, at(az, 'turnin 3562', is('turnin', 3562)));
+	assert.deepEqual(between.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location), ['Valormok'], 'one flight, the Crossroads to Valormok');
+	assert.ok(!between.some(({ goal }) => goal.map === 1454), 'no Orgrimmar stop between the crates and Valormok');
+});
+
+// Silithus: Dearest Natalia comes from Commander Mar'alith (the top-up named Bor Wildmane), its two dwarves are
+// questioned, not killed (the step had only two kill goals and no tip), and two notes said to skip what the guide had
+// just taken: Dearest Natalia itself and Dithers' Skeletal Fragments.
+test('forever/horde/50-60/06-silithus.guide: final review: Dearest Natalia from Mar\'alith, questioned not killed, no stale skip notes', { skip }, () => {
+	const file = 'forever/horde/50-60/06-silithus.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 8304 && f.tip && f.faction === 'Horde');
+	assert.ok(rec, 'the tip is a record');
+	assert.deepEqual(stepTips(file, /kill 15171 quest 8304/), [rec.tip]);
+	assert.match(rec.tip, /Question them/);
+	const top = stepTips(file, /^\s+level 58\b/).join(' ');
+	assert.match(top, /Mar'alith/);
+	assert.doesNotMatch(top, /Bor Wildmane/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	assert.doesNotMatch(text, /Dearest Natalia needs level 58 and leads/);
+	assert.doesNotMatch(text, /Skeletal Fragments \(Scholomance\)\. Skip it/);
+	const list = goals(file);
+	at(list, 'turnin 964', is('turnin', 964));
+});
+
+// Felwood, Moonglade & Winterspring: two Donova Snowden steps in a row, the way there on the second.
+test('forever/horde/50-60/07-felwood.guide: final review: one Donova stop with the way there', { skip }, () => {
+	const file = 'forever/horde/50-60/07-felwood.guide';
+	const list = goals(file);
+	const donova = list[at(list, 'turnin 980', is('turnin', 980))].s;
+	assert.equal(list[at(list, 'accept 5087', is('accept', 5087))].s, donova, 'Toxic Horrors on the same stop');
+	assert.match(stepTips(file, /turnin 980/).join(' '), /Timbermaw tunnel/);
+});
+
+// The Hinterlands: Separation Anxiety, Kidnapped Elder Torntusk! and Dark Vessels are group quests in Forever's data,
+// and every Vilebranch troll in Jintha'Alor is elite; the guide sent a solo player at about 48 up through them. They
+// are taken, done and handed in only with a group, and the top-up after Revantusk covers them when skipped.
+test('forever/horde/40-50/05-the-hinterlands.guide: final review: Jintha\'Alor only with a group', { skip }, () => {
+	const list = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	for (const q of [7849, 7845, 7850]) {
+		const steps = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(steps.length >= 2, `${q} is in the guide`);
+		for (const { step, goal } of steps) assert.ok((step.when || []).some((w) => w.k === 'group' && w.q === 7849), `${goal.t} ${q} is on a 'when group 7849' step`);
+	}
+	const top = list.find(({ goal }) => goal.t === 'level' && goal.level === 49);
+	assert.ok(top && !(top.step.when || []).some((w) => w.k === 'group'), 'the top-up is for everyone below its level');
+	const groups = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	for (const q of [7849, 7845, 7850]) assert.ok(groups.some((g) => g.q === q && g.size >= 2 && g.size <= 4), `${q} is a group quest record`);
+});
+
+// --- Final route review follow-ups, Horde 40-60 (2026-11-08) ---
+
+// Feralas & Tanaris: the four Steamwheedle Port quests are finished at Lost Rigger Cove on the first Tanaris visit but
+// waited for the 45-47 guide, whose flight from Brackenwall went to Gadgetzan, rode to the port and back, and flew on
+// to Camp Mojache for them alone. They are handed in on the way back to Gadgetzan, Yeh'kinya's Screecher Spirits taken
+// there; the 45-47 guide flies Brackenwall to Camp Mojache.
+test('Horde 43-47 follow-up: the Steamwheedle Port hand-ins on the first Tanaris visit, no Tanaris detour from Brackenwall', { skip }, () => {
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const cove = at(fer, 'collect 9246 quest 2875', (g) => g.t === 'collect' && g.item === 9246);
+	const gadgetzan = at(fer, 'turnin 1691', is('turnin', 1691));
+	for (const [t, q] of [['turnin', 8365], ['turnin', 2873], ['turnin', 2875], ['turnin', 8366], ['accept', 3520]]) {
+		const i = at(fer, `${t} ${q}`, is(t, q));
+		assert.ok(i > cove && i < gadgetzan, `${t} ${q} between Lost Rigger Cove and Gadgetzan`);
+	}
+	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	assert.ok(!sw.some(({ goal }) => goal.map === 1446), 'no Tanaris stop in the 45-47 guide');
+	const fly = sw.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.ok(fly.includes('Camp Mojache') && !fly.includes('Gadgetzan'), 'Brackenwall flies to Camp Mojache');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
+	assert.ok(!pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 3520), 'the swamp-stay pairs anchor on the screecher work, not the accept');
+});
+
+// Swamp of Sorrows, first stay: the Fallow Sanctuary, the Harborage in the far west, back east to Galen's strongbox,
+// then the far south-east coast for Lack of Surplus alone. Now one pass: the strongbox on the way back west, the
+// Harborage last; Tok'Kar takes the flanks on the second stay, which rides to Misty Reed Post anyway.
+test('Horde Swamp of Sorrows follow-up: the first stay is one pass, Tok\'Kar on the second', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	assert.ok(at(stv, 'turnin 1393', is('turnin', 1393)) < at(stv, 'turnin 1389', is('turnin', 1389)), 'the strongbox before the Harborage');
+	assert.ok(!stv.some(({ goal }) => is('turnin', 698)(goal) || is('accept', 699)(goal)), 'no Misty Reed Post in the first stay');
+	assert.equal(stv[stv.length - 1].goal.quest, 1389, 'the guide ends at the Harborage');
+	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	const pool = at(sw, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175);
+	const tok = at(sw, 'turnin 698', is('turnin', 698));
+	assert.ok(pool < tok && tok < at(sw, 'collect 6168 quest 699', (g) => g.t === 'collect' && g.item === 6168), 'the pool, Tok\'Kar, then the snappers');
+});
+
+// Main's grind policy (2026-11-08): every written grind step ("Level N" top-ups and solo fallbacks) ends its tip with
+// the dungeons whose band holds N ("Or, with a group, run the <Name> dungeon instead."), the sentence the forge writer writes from the next build. Horde 40-60 by hand.
+test('Horde 40-60: every grind step offers the dungeons at its level', { skip }, () => {
+	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/40-50')).map((f) => `forever/horde/40-50/${f}`)
+		.concat(fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`));
+	let n = 0;
+	for (const file of files) {
+		const lines = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8').split('\n');
+		lines.forEach((l, i) => {
+			const m = l.match(/^step Level ([\d.]+)$/);
+			if (!m) return;
+			n++;
+			const tips = stepTips(file, new RegExp(`^step Level ${m[1].replace('.', '\\.')}$`)).join(' ');
+			assert.match(tips, /Or, with a group, run the [A-Z][^.]* dungeon( \([A-Za-z ]+\))? instead\.$/, `${file}:${i + 1}`);
+			if (Math.floor(+m[1]) >= 58) assert.match(tips, /Scholomance/, `${file}:${i + 1}: a 58-60 dungeon`);
+		});
+	}
+	assert.ok(n >= 19, `the grind steps are found (${n})`);
+});

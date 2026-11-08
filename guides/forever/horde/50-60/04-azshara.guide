@@ -39,7 +39,7 @@ step Islen Waterseer
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
 
 step Dokimi's crates
-  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Orgrimmar from the Crossroads.
+  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Valormok from the Crossroads.
   accept 91899
   complete 91899
   turnin 91899
@@ -47,27 +47,9 @@ step Dokimi's crates
   complete 91904
   turnin 91904
 
-step Vehena
-  zone Orgrimmar
-  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7833 optional
-  turnin 7834 optional
-  turnin 7835 optional
-  accept 7836 optional
-
-step Rashona Straglash
-  tip In the Valley of Honor.
-  turnin 7826 optional
-  turnin 7827 optional
-  turnin 7831 optional
-  accept 7824 optional
-  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
-
-# ---------------------------------------------------------------- Orgrimmar
-
 step Fly to Valormok
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
   fly "Valormok"
   zone Azshara
 

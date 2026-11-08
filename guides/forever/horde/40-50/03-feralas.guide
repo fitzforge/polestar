@@ -62,16 +62,20 @@ step Pool of Tears
   tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
   collect 6175 quest 1424.1
 
+step Misty Reed Post
+  tip Follow the road south-east to the small Horde post on the shore. Tok'Kar takes the crocolisk flanks from the last swamp visit.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
 step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
   tip The snappers line the strand south of the post.
-  tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south.
+  tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.
   collect 6168 quest 699.1
   collect 6184 quest 1430.1           -- Underwater
 
 step Misty Reed Post
   turnin 699                            -- Tok'Kar
-  tip The small Horde post on the southern shore.
   accept 1422                           -- Tok'Kar
   turnin 1422                           -- Katar
   accept 1426
@@ -170,35 +174,13 @@ step Challenge Overlord Mok'Morokk
 step Level 45.41
   when !group 1173
   when level<45.41
-  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan.
+  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
   goto 37.5,68.3 map 1445 "Firemane Scout"
   level 45.41                          -- grind on Firemane Scout
 
-step Fly to Gadgetzan
+step Fly to Camp Mojache
   zone Dustwallow Marsh
   goto 35.6,31.8 "Brackenwall Village flight master"
-  fly "Gadgetzan"
-  zone Tanaris
-
-step Tanaris
-  zone Tanaris
-  goto 66.6,22.3 "Tanaris"
-
-step Steamwheedle Port
-  turnin 8365                           -- Haughty Modiste
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas
-  turnin 2873                           -- Stoley, inside
-  accept 2874                           -- for Booty Bay, around level 50
-  turnin 2875                           -- Security Chief Bilgewhizzle, inside
-  turnin 8366
-
-step Tanaris
-  zone Tanaris
-  goto 51.6,25.5 "Tanaris"
-
-step Fly to Camp Mojache
-  zone Tanaris
-  goto 51.6,25.5 "Gadgetzan flight master"
   fly "Camp Mojache"
   zone Feralas
 
@@ -222,7 +204,7 @@ step Zorbin Fandazzle
 # ---------------------------------------------------------------- West: screechers and OOX-22/FE
 
 step Rogue Vale screechers
-  tip Ride west into the middle of Feralas. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
+  tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
   use 10699 "Yeh'kinya's Bramble" @45.0,38.0
   kill 8612 quest 3520.1
 

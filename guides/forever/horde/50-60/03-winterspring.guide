@@ -45,7 +45,9 @@ step Winterspring
 # - The Desolace stop (visit 77) is dropped: its only "objectives" are the
 #   Thunder Bluff cloth donations (7820-7822), which are just cloth carried in
 #   your bags. The same goes for the Mageweave donations the export
-#   "completes" in Azshara (7831, 7835).
+#   "completes" in Azshara (7831, 7835): every Thunder Bluff and Orgrimmar
+#   donation is handed in on the stop that takes it (final review, 0.3.5),
+#   so the Azshara guide has no second Orgrimmar stop for them.
 # - Binds immediately replaced are dropped (Camp Mojache, Thunder Bluff);
 #   the Orgrimmar bind is kept for the hearth at the end.
 # - Dropped: In Defense of Frostwolf (7241, a battleground quest); Return to
@@ -98,7 +100,7 @@ step Umi Rumplesnicker
 
 step Level 55.04
   when level<55.04
-  tip Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56.
+  tip Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
   goto 67.0,44.2 map 1452 "Ice Thistle Patriarch"
   level 55.04                          -- grind on Ice Thistle Patriarch
 
@@ -219,14 +221,23 @@ step Fly to Orgrimmar
 
 step Vehena
   zone Orgrimmar
-  tip In the Valley of Spirits.
+  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 7833 optional
+  turnin 7833 optional
   accept 7834 optional
+  turnin 7834 optional
   accept 7835 optional
+  turnin 7835 optional
+  accept 7836 optional
 
 step Rashona Straglash
   tip In the Valley of Honor.
   accept 7826 optional
+  turnin 7826 optional
   accept 7827 optional
+  turnin 7827 optional
   accept 7831 optional
+  turnin 7831 optional
+  accept 7824 optional
+  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
 

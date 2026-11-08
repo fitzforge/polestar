@@ -1269,8 +1269,8 @@
 				"quest": 7850,
 				"goal": "accept"
 			},
-			"tip": "Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.",
-			"note": "Primal Torntusk (npc 14736) stands on top of Revantusk's inn: spawn height 27.8; the inn's floor is under him at 11.7, where Lard stands 6 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.",
+			"note": "Primal Torntusk (npc 14736) stands on top of Revantusk's inn: spawn height 27.8; the inn's floor is under him at 11.7, where Lard stands 6 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Final route review before 0.3.5: Dark Vessels is a group quest now (route-fixes deliberate.group), taken on its own Revantusk step with Primal Torntusk's other Jintha'Alor quest, so the tip is that step's Primal Torntusk sentence; the way into the village stays with the main Revantusk step.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -3497,7 +3497,7 @@
 				"goal": "accept"
 			},
 			"level": 58,
-			"note": "Dearest Natalia needs level 58; Bor Wildmane offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
+			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
 			"source": [
 				{
 					"kind": "client",
@@ -3652,6 +3652,23 @@
 				{
 					"kind": "client",
 					"ref": "quest 205 level 40; npcs 667, 696, 780 (Skullsplitter Warrior, Axe Thrower, Mystic, 39-40) and 669, 670, 782, 784 (41-42)"
+				}
+			]
+		},
+		{
+			"id": "horde-4060-dearest-natalia-question-them",
+			"faction": "Horde",
+			"at": {
+				"quest": 8304,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.",
+			"note": "Dearest Natalia's two objectives are 'Frankal Questioned' and 'Rutgar Questioned': the credit comes from going through each dwarf's conversation at Bronzebeard's Encampment, not from a kill. The step had no tip, only two kill goals; the Alliance guide's step already says to question them.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Dearest Natalia's objectives in Forever's quest data: 'Frankal Questioned' and 'Rutgar Questioned', credited by the dwarves' conversations"
 				}
 			]
 		}
