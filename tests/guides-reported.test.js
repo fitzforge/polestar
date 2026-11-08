@@ -5457,6 +5457,14 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	for (const q of [1302, 1264, 1284, 1253, 1319, 1320, 1110, 1104, 1105, 1176, 1175, 1135]) assert.ok(dust.some(({ goal }) => is('turnin', q)(goal)), `30-40/03 hands in ${q}`);
 	assert.equal(dust.filter(({ goal }) => goal.t === 'goto' && /Boat to/.test(goal.text || goal.location || '')).length, 2, 'one crossing: the boat there and the boat back');
 	assert.ok(!goals(THOUSAND_NEEDLES).some(({ goal }) => [1110, 1104, 1179, 5762, 1106].includes(goal.quest)), '07 no longer crosses to the Mirage Raceway');
+	// Martek the Exiled (1106) needs both 1104 and 1105 handed in (preAll): taken after them at the Raceway, worked in
+	// the Badlands at the end of 30-40, and News for Fizzle (1137) handed in on 40-50/04's Raceway stop.
+	assert.ok(at(dust, 'turnin 1105', is('turnin', 1105)) < at(dust, 'accept 1106', is('accept', 1106)) && at(dust, 'turnin 1104', is('turnin', 1104)) < at(dust, 'accept 1106', is('accept', 1106)), 'Martek the Exiled after Salt Flat Venom and Hardened Shells');
+	const bad = goals(BADLANDS);
+	const badStep = (t, q) => bad[at(bad, `${t} ${q}`, is(t, q))].s;
+	assert.equal(badStep('turnin', 1106), badStep('accept', 703), 'Martek on the first Valley of Fangs stop, with Rigglefuzz');
+	assert.equal(badStep('turnin', 1108), badStep('turnin', 703), 'Indurium handed in on the second, with Rigglefuzz');
+	assert.ok(goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => is('turnin', 1137)(goal)), 'News for Fizzle handed in at the Raceway in 40-50/04');
 	const late = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	for (const q of [1284, 1253, 1319, 1320]) assert.ok(!late.some(({ goal }) => goal.quest === q), `40-50/01 no longer carries ${q}`);
 	assert.ok(late.some(({ goal }) => is('accept', 1265)(goal)), '40-50/01 takes The Missing Diplomat on at Theramore');
