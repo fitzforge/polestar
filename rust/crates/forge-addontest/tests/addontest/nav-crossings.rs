@@ -601,4 +601,71 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 	assert_eq!(out["client"], json!(["walk|Sapphire"]), "the client's zone under the spot: Ashenvale, one walk");
 }
 
+// #1359's sweep: other cave and dungeon spots a continent-map reading put in a neighbouring zone frame, each 40 yd
+// from a guide goal (north of it), with the Hearthstone ready at the faction's capital and every flight known. By the
+// frames alone the plans hearth, take the portal or fly; placed by the walking maps' zone or by the client's zone
+// under the spot, each is one walk.
+#[test]
+fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sweep() {
+	let out = run_raw(
+		r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
+			local CASES = {
+				-- the Den Mother's cave, Darkshore (frames: Felwood)
+				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 } },
+				-- Dire Maul's entrance, Feralas (frames: Mulgore)
+				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 } },
+				-- the Venture Co. mine by the centaurs, Mulgore (frames: Dustwallow Marsh)
+				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 } },
+				-- Zul'Farrak's entrance, Tanaris (frames: Un'Goro Crater)
+				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 } },
+			}
+			function nav.Compat.GetPlayerMapPosition()
+				local p, b = nav.player, nav.maps[1414]
+				return 1414, (p.wy - b.left) / (b.right - b.left) * 100, (p.wx - b.top) / (b.bottom - b.top) * 100
+			end
+			local function route()
+				local legs, ci = N.GetRoute()
+				local out = {}
+				for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+				return table.concat(out, " > ")
+			end
+			local zoneAt, here = N.danger.ZoneAt, nil
+			function C_Map.GetMapInfo(id) return { mapID = id, mapType = id == 1414 and 2 or 3 } end
+			function C_Map.GetMapInfoAtPosition(id) if id == 1414 and here then return { mapID = here, mapType = 3 } end end
+			local r = {}
+			for i, k in ipairs(CASES) do
+				local faction, bind, map, x, y, f = k[1], k[2], k[3], k[4], k[5], k[6]
+				nav.faction, nav.items[6948], nav.bind = faction, 1, bind
+				local bit = faction == "Alliance" and 1 or 2
+				local taxi = {}
+				for _, n in ipairs(N.GetTravelData().taxi) do
+					if not n.class and (n.faction == 3 or n.faction == bit) then taxi[n.id] = true end
+				end
+				Polestar.CharState().flags.taxi = taxi
+				nav.maps[map] = { c = 1, top = f.top, bottom = f.bottom, left = f.left, right = f.right }
+				local _, wx, wy = nav.Compat.MapToWorld(map, x, y)
+				nav.place(wx + 40, wy, 1)
+				here = nil
+				N.SetTarget(map, x, y, "Goal " .. i)
+				local got = { frames = route() }
+				N.danger.ZoneAt = function(c) return c == 1 and map or nil end
+				stub.fire("ZONE_CHANGED")
+				got.grid = route()
+				N.danger.ZoneAt, here = zoneAt, map
+				stub.fire("ZONE_CHANGED")
+				got.client = route()
+				r[i] = got
+			end
+			emit(r)"#,
+	);
+	for (i, got) in out.as_array().unwrap().iter().enumerate() {
+		let walk = format!("walk|Goal {}", i + 1);
+		assert_ne!(got["frames"], walk.as_str(), "case {}: by the frames alone, not one walk", i + 1);
+		assert_eq!(got["grid"], walk.as_str(), "case {}: the walking maps' zone", i + 1);
+		assert_eq!(got["client"], walk.as_str(), "case {}: the client's zone under the spot", i + 1);
+	}
+}
+
 // KEPT IN JS:
