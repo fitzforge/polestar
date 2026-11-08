@@ -4628,7 +4628,7 @@ test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Reg
 	const zhevra = work(845);
 	assert.ok(stepOf('accept', 845) < zhevra && zhevra < stepOf('accept', 887), 'the zhevra between the camp loop and Ratchet');
 	assert.ok(!list.filter(everyone).some(({ s, goal }) => s > zhevra && s < stepOf('accept', 887) && goal.t === 'turnin' && goal.npc === 3338), 'no visit to Sergra on the way');
-	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 888) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
+	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 892) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
 	assert.ok(work(903) > stepOf('accept', 855), 'the prowlers on the west loop');
 	const eche = work(881);
 	assert.ok(work(880) < work(875) && work(875) < eche, 'Lushwater, the Dry Hills, then Echeyakee');
@@ -6044,13 +6044,18 @@ test('Desolace (Horde 30): a Shaman flies from Freewind Post straight to Sun Roc
 });
 
 // Since the Horde 12-30 re-chain the Barrens are one stay at 15-21: Brewmaster Drohn's keg is handed in on the
-// Ratchet stop before Northwatch Hold, and the next flight is the level 20 training trip from the Crossroads.
-test('The Barrens (Horde 15-21): no flight back to the Crossroads after Brewmaster Drohn; Druids train in Thunder Bluff, the others in Orgrimmar (#1191)', { skip }, () => {
+// Ratchet stop before Northwatch Hold. Since the flow follow-up (2026-11-08) Gilthares's escort ends that loop in
+// Ratchet and the route flies to the Crossroads for Sergra's nests and Gazrog's silver; the flight after that is
+// the level 20 training trip. #1191's point stands: no flight lands where nothing is done before the next one.
+test('The Barrens (Horde 15-21): after Brewmaster Drohn the flight to the Crossroads has work there before the training trip; Druids train in Thunder Bluff, the others in Orgrimmar (#1191)', { skip }, () => {
+	const WORK = new Set(['accept', 'turnin', 'kill', 'collect', 'interact', 'use', 'complete', 'talk']);
 	for (const [cls, to] of [['DRUID', 'Thunder Bluff'], ['SHAMAN', 'Orgrimmar']]) {
 		const list = goals('forever/horde/02-the-barrens.guide').filter(forClass(cls));
 		const drohn = at(list, 'turnin 819', is('turnin', 819));
-		const next = list.slice(drohn + 1).find(({ goal }) => goal.t === 'fly');
-		assert.equal(next && next.goal.location, to, `${cls}: the flight after Brewmaster Drohn`);
+		const flights = list.map((e, i) => [e, i]).filter(([{ goal }], i) => i > drohn && goal.t === 'fly');
+		assert.deepEqual(flights.slice(0, 2).map(([{ goal }]) => goal.location), ['Crossroads', to], `${cls}: the flights after Brewmaster Drohn`);
+		const between = list.slice(flights[0][1] + 1, flights[1][1]);
+		assert.ok(between.some(({ goal }) => goal.quest != null && WORK.has(goal.t)), `${cls}: nothing done at the Crossroads before the training flight`);
 	}
 });
 // --- end of flights with nothing to do in between
