@@ -6604,3 +6604,27 @@ test('forever/alliance/50-60/03-winterspring.guide: final review: no level-54 ad
 		assert.doesNotMatch(text, /level 54\b/, `"${step.title}" asks for a level the player already has`);
 	}
 });
+
+// Final route review before 0.3.5, Alliance 40-60: texts in the last guide from an older order. The Felwood stop
+// said to ride out of Astranaar (the route flies to Talrendis Point), Everlook said to ride back to Talrendis Point
+// right after the flight from there, Ranshalla's hand-in said her escort comes later (it is the next goal), and the
+// Dire Maul note pointed at a Rabid Shardtooth grind the guide doesn't have (its grind is in Terrordale).
+test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and notes match the route', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
+	const sanctuary = list[at(list, 'turnin 5159', is('turnin', 5159))];
+	const flight = list.slice(0, list.indexOf(sanctuary)).reverse().find(({ goal }) => goal.t === 'fly');
+	assert.match(flight.goal.location || flight.step.title, /Talrendis/, 'the route flies to Talrendis Point');
+	assert.doesNotMatch(texts(sanctuary), /Astranaar/, 'and the Felwood stop says so');
+	const everlook = list[at(list, 'turnin 5163', is('turnin', 5163))];
+	assert.doesNotMatch(texts(everlook), /fly to Everlook/, 'no flight to Everlook after landing there');
+	const ranshalla = list[at(list, 'turnin 979', is('turnin', 979))];
+	assert.equal(ranshalla.s, list[at(list, 'complete 4901', is('complete', 4901))].s, 'her escort is on the same step');
+	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
+	const dm = list.find(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text));
+	assert.ok(dm, 'the Dire Maul note is in the guide');
+	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level >= 60);
+	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 is in Terrordale');
+	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
+	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
+});
