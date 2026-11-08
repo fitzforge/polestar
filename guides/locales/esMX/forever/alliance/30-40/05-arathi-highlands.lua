@@ -196,8 +196,8 @@ return {
 	-- {area:281} Ruins of Alterac
 	["{area:281}: kill these as you meet them"] = "",
 	-- {area:280} Strahnbrad
-	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger
-	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health."] = "",
+	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
+	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: ogros Aplastacresta",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
@@ -216,7 +216,8 @@ return {
 	-- Step 53: Crushridge ogres
 	["Crushridge ogres"] = "Ogros Aplastacresta",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
-	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Los ogros Aplastacresta ocupan las colinas al norte de {area:280}. Más al norte, un cofre de madera gastado guarda el {item:3706}; {npc:2320}, de {quest:537}, está justo a su lado.",
+	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
+	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
 	["Inside"] = "",
 
 	-- Step 55: Dalaran
@@ -234,7 +235,7 @@ return {
 	["For {npc:1440} in {zone:1453}: keep it"] = "Para {npc:1440} en {zone:1453}: guárdalo",
 
 	-- Step 60: Ironforge
-	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {area:38} Loch Modan
+	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {area:38} Loch Modan
 	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "",
 
 	-- Step 62: Thelsamar
@@ -256,6 +257,7 @@ return {
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Cabalga de vuelta al noreste pasando {area:320}; {npc:2712} y {npc:2713} acampan en las colinas al norte de {area:314}.",
 	-- ["Shaman training"] = "Entrenamiento de chamán",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "Quédate con {npc:2713} mientras se infiltra en {area:314} y regresa; los orcos de la Horda te atacan en el camino.",
+	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Los ogros Aplastacresta ocupan las colinas al norte de {area:280}. Más al norte, un cofre de madera gastado guarda el {item:3706}; {npc:2320}, de {quest:537}, está justo a su lado.",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Los kóbolds Mostacho Seco cavan en el cañón al este de {area:321} (Horda); rodea el pueblo por el norte. Sueltan tanto las motas como el mineral de Krazek.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "La Hermandad ocupa la granja al noroeste de {area:320}. Un {npc:217589} se arrastra por la granja: atrapa uno con el kit de entomología de {npc:217412} y luego márcalo.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Los trols Secacorteza viven en las colinas al sur de {area:314}; los Médicos brujos están en la aldea, y los Cazadores de las Sombras vigilan el fondo del valle.",

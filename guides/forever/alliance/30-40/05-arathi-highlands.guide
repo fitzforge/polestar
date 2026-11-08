@@ -301,6 +301,7 @@ step Ruins of Alterac: kill these as you meet them
   zone Alterac Mountains
   tip The tomes lie in the ruined keep west of Strahnbrad; Argus Shadow Mages hold the ruins.
   tip Careful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.
+  tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up.
   collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
   collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase; inside
 
@@ -319,6 +320,7 @@ step Strahnbrad: kill these as you meet them
 
 step Crushridge ogres
   tip The Crushridge ogres hold the hills north of Strahnbrad. Farther north, a worn wooden chest holds the Ensorcelled Parchment; Nagaz of the Dark Council stands right by it.
+  tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up.
   collect 2843 quest 500              -- Dirty Knucklebones
   collect 3706 "Ensorcelled Parchment" -- Inside
   accept 551

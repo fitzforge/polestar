@@ -3836,6 +3836,50 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1317-alterac-crushridge-elites-tomes",
+			"faction": "Alliance",
+			"at": {
+				"quest": 540,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up.",
+			"note": "Preserving Knowledge (540): the Recovered Tome drops from every Crushridge ogre, and four of their kinds are elite at 36-39 while the guide starts at 36; the step only warned about the Warmongers' call for help.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_template Classification 1 (elite) for 2254 Crushridge Mauler (36-37), 2255 Mage (37-38), 2256 Enforcer (38-39) and 2287 Warmonger (39-40), 0 for 2252 Ogre (34-35) and 2253 Brute (35-36); creature_loot_template: all six drop the Recovered Tome 3658"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: the Mauler and the Mage seen as elite, the Ogre and the Brute as normal"
+				}
+			],
+			"pr": 1317
+		},
+		{
+			"id": "1317-alterac-crushridge-elites-knucklebones",
+			"faction": "Alliance",
+			"at": {
+				"quest": 500,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up.",
+			"note": "Crushridge Bounty (500): the Dirty Knucklebones drop from every Crushridge ogre, and four of their kinds are elite at 36-39 while the guide starts at 36; the step said nothing about the elites.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_template Classification 1 (elite) for 2254, 2255, 2256 and 2287, 0 for 2252 and 2253; creature_loot_template: all six drop the Dirty Knucklebones 2843"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: the Mauler and the Mage seen as elite, the Ogre and the Brute as normal"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

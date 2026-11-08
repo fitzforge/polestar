@@ -3635,6 +3635,19 @@ test(`${ARATHI}: The Lost Caravan's tip and arrow both lead to the Caravan Chest
 	assert.ok(yards(reagents.goal, { map: chest.map, x, y }) < 60, `the arrow leads to the chest (${reagents.goal.x},${reagents.goal.y} vs ${x},${y})`);
 });
 
+// Thin-data audit (#1317): the Recovered Tome (540) and the Dirty Knucklebones (500) drop from every Crushridge ogre, and
+// the Maulers, Mages, Enforcers and Warmongers are elite at 36-39 (the world DB's classification, players' recordings)
+// while the guide starts at 36; the steps said nothing about it.
+test(`${ARATHI}: thin-data audit: the Crushridge steps say which ogres are elite (#1317)`, { skip }, () => {
+	const list = goals(ARATHI);
+	for (const [what, pred] of [['collect 3658 (540.1)', (g) => g.t === 'collect' && g.quest === 540 && g.oi === 1], ['collect 2843 (500)', (g) => g.t === 'collect' && g.quest === 500]]) {
+		const { step } = list[at(list, what, pred)];
+		const tips = [].concat(step.note || []).join(' ');
+		assert.match(tips, /Maulers, Mages, Enforcers and Warmongers \(36-39\) are elite/, `${what}: the elites are named`);
+		assert.match(tips, /Ogres and Brutes \(34-35\) are not/, `${what}: and the ogres that are not`);
+	}
+});
+
 // --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
 // to the Oracle Glade, Ursal and Lake Al'Ameth, then walked back east to the
 // same camp for Ferocitas' necklace and the jewel, and back to Dolanaar for
