@@ -733,6 +733,7 @@ L["a new icon each press"] = "每按一次換一個圖示"
 L["Marks it with %s."] = "以 %s 標記它。"
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "若尚無圖示則以 %s 標記：你不是隊長。"
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "不會標記：在團隊中只有隊長與助理能設定圖示。"
+-- L["Target and wave"] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等級 %d"
@@ -2168,6 +2169,10 @@ L["known spawn %s"] = "已知重生點 %s"
 L["Set waypoint"] = "設定路徑點"
 L["Show rare"] = "顯示稀有"
 L["Show treasure"] = "顯示寶藏"
+-- L["Other faction: wave from a safe distance"] = ""
+-- L["Say hi with the rare button"] = ""
+-- L["Go say hi"] = ""
+-- L["The Polestar founder is nearby!"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 分鐘"
@@ -2207,6 +2212,8 @@ L["Hide rares below your level"] = "隱藏低於你等級的稀有"
 L["Rares too low to give experience leave the map."] = "等級太低、不給經驗的稀有會從地圖移除。"
 L["Forget rares met on this realm"] = "忘記在此伺服器遇到的稀有"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "清除「已見」清單、提醒冷卻與最近見到之標記的光暈。"
+-- L["Say when Polestar's founder is nearby"] = ""
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "已見"

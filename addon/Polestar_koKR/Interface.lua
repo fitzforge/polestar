@@ -733,6 +733,7 @@ L["a new icon each press"] = "누를 때마다 새 아이콘"
 L["Marks it with %s."] = "%s(으)로 표시합니다."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "아이콘이 아직 없으면 %s(으)로 표시합니다: 파티장이 아니기 때문입니다."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "표시하지 않습니다: 공격대에서는 공격대장과 부공격대장만 아이콘을 지정할 수 있습니다."
+-- L["Target and wave"] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "레벨 %d"
@@ -2168,6 +2169,10 @@ L["known spawn %s"] = "알려진 등장 지점 %s"
 L["Set waypoint"] = "경유지 설정"
 L["Show rare"] = "희귀 보기"
 L["Show treasure"] = "보물 보기"
+-- L["Other faction: wave from a safe distance"] = ""
+-- L["Say hi with the rare button"] = ""
+-- L["Go say hi"] = ""
+-- L["The Polestar founder is nearby!"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1분"
@@ -2207,6 +2212,8 @@ L["Hide rares below your level"] = "내 레벨보다 낮은 희귀 숨기기"
 L["Rares too low to give experience leave the map."] = "경험치를 주지 않는 저레벨 희귀는 지도에서 뺍니다."
 L["Forget rares met on this realm"] = "이 서버에서 만난 희귀 기록 삭제"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "목격 목록, 알림 대기시간, 최근 목격 핀의 빛을 지웁니다."
+-- L["Say when Polestar's founder is nearby"] = ""
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "목격"

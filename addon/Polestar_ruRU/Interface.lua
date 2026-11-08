@@ -733,6 +733,7 @@ L["a new icon each press"] = "новая метка при каждом нажа
 L["Marks it with %s."] = "Помечает меткой %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Помечает меткой %s, если метки еще нет: вы не лидер группы."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "Ничего не помечает: в рейде метки ставят только лидер и помощники."
+-- L["Target and wave"] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Уровень %d"
@@ -2168,6 +2169,10 @@ L["known spawn %s"] = "известное место появления %s"
 L["Set waypoint"] = "Путевая точка"
 L["Show rare"] = "Показать редкого"
 L["Show treasure"] = "Показать сокровище"
+-- L["Other faction: wave from a safe distance"] = ""
+-- L["Say hi with the rare button"] = ""
+-- L["Go say hi"] = ""
+-- L["The Polestar founder is nearby!"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 минута"
@@ -2207,6 +2212,8 @@ L["Hide rares below your level"] = "Скрыть редких ниже ваше�
 L["Rares too low to give experience leave the map."] = "Редкие, за которых не дают опыт, исчезают с карты."
 L["Forget rares met on this realm"] = "Забыть редких этого мира"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Очищает список «Встречены», перезарядку оповещений и подсветку недавних меток."
+-- L["Say when Polestar's founder is nearby"] = ""
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "Встречены"

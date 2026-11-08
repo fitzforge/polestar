@@ -13,10 +13,15 @@
 -- rares.toastSeconds. Drag to move (saved in rares.toastPoint). One alert at
 -- a time: a newer one replaces it.
 --
+-- The founder's alert (alert.kind "founder", Rares.FounderSighting) has the
+-- same card: a gold star, "The Polestar founder is nearby!", his name and the
+-- zone, and in the row a nudge to wave (the rare button does it; the card's
+-- own buttons are not secure and stay hidden).
+--
 --   Rares.Toast.Show(alert)   alert as Rares.AlertOf builds it
 --   Rares.Toast.Hide()
 --   Rares.Toast.Facts(alert)  "Level 11 Rare  ·  Elwynn Forest"
---   Rares.Toast.Distance(alert) "85 yd" | "In sight" | "Known spawn 120 yd" | nil
+--   Rares.Toast.Distance(alert) "85 yd" | "In sight" | "Known spawn 120 yd" | the founder's nudge | nil
 --   Rares.Toast.frame         the frame, once shown
 
 local ADDON, ns = ...
@@ -71,6 +76,9 @@ end
 
 -- What it is: "Level 11 Rare  ·  Elwynn Forest".
 function T.Facts(a)
+	if a.kind == "founder" then
+		return a.zone and (a.name .. DOT .. a.zone) or a.name
+	end
 	local parts = {}
 	local lv = Rares.LevelText(a.level, a.levelMax)
 	local kind = Rares.KindText(a.kind, a.elite)
@@ -86,6 +94,10 @@ local function capital(s)
 end
 
 function T.Distance(a)
+	if a.kind == "founder" then
+		if a.enemy then return L["Other faction: wave from a safe distance"] end
+		return a.button and L["Say hi with the rare button"] or L["Go say hi"]
+	end
 	if a.yards then return Rares.YardsText(a.yards) end
 	if a.inSight then return capital(L["in sight"]) end
 	if a.spawnYards then return capital(format(L["known spawn %s"], Rares.YardsText(a.spawnYards))) end
@@ -206,10 +218,11 @@ function T.Show(a)
 	if type(a) ~= "table" then return end
 	if not f then build() end
 	current = a
-	f.Glyph:SetTexture(Theme.Media(a.kind == "treasure" and "icon-treasure" or "qol-target"))
+	local founder = a.kind == "founder"
+	f.Glyph:SetTexture(Theme.Media(founder and "star" or a.kind == "treasure" and "icon-treasure" or "qol-target"))
 	W.Color(f.Glyph, Rares.ColorName(a.kind))
 	W.Color(f.Ring, Rares.ColorName(a.kind))
-	f.Name:SetText(a.name or "")
+	f.Name:SetText(founder and L["The Polestar founder is nearby!"] or a.name or "")
 	f.Facts:SetText(T.Facts(a))
 	local dist = T.Distance(a)
 	f.Distance:SetText(dist or "")

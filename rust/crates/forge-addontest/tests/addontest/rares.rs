@@ -787,3 +787,195 @@ stub.advance(0.1)
 emit({ during = during, idle = idle, sync = sync, built = decoded > 0, layer = Polestar.Pins.GetLayer("rares.rare") ~= nil })"#);
 	assert_eq!(out[0], json!({ "during": 0, "idle": 0, "sync": 0, "built": true, "layer": true }));
 }
+
+// ------------------------------------------------------------ the founder
+
+#[test]
+fn decide_founder_every_reason_it_stays_quiet_and_the_half_hour() {
+	let out = run(r#"
+local function d(over, extra)
+	local cfg = { enabled = true, founder = true }
+	for k, v in pairs(over or {}) do cfg[k] = v end
+	local c = { get = function(k) return cfg[k] end, now = 5000, inCombat = false, inInstance = false, self = false, present = false }
+	for k, v in pairs(extra or {}) do c[k] = v end
+	local a, r = R.DecideFounder(c)
+	return { a, r }
+end
+emit({
+	alert = d(),
+	off = d({ founder = false }),
+	raresOff = d({ enabled = false }),
+	self = d(nil, { self = true }),
+	instance = d(nil, { inInstance = true }),
+	combat = d(nil, { inCombat = true }),
+	stillHere = d(nil, { alerted = 5000 - 40 * 60, present = true }),
+	cooldown = d(nil, { alerted = 5000 - 29 * 60 }),
+	again = d(nil, { alerted = 5000 - 31 * 60 }),
+	name = R.FOUNDER,
+	is = { R.IsFounder("Fitz Polestar"), R.IsFounder("Fitz Polestar-CAMWOW EU5 Realm 8 PvP"), R.IsFounder("Fitz Poletsar"),
+		R.IsFounder("Fitz"), R.IsFounder("fitz polestar"), R.IsFounder("Fitz Polestar Jr"), R.IsFounder(nil) },
+})"#);
+	let out = &out[0];
+	assert_eq!(out["alert"], json!(["alert"]));
+	assert_eq!(out["off"], json!(["skip", "off"]));
+	assert_eq!(out["raresOff"], json!(["skip", "off"]));
+	assert_eq!(out["self"], json!(["skip", "self"]));
+	assert_eq!(out["instance"], json!(["skip", "instance"]));
+	assert_eq!(out["combat"], json!(["skip", "combat"]));
+	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "past the half hour, but he never left");
+	assert_eq!(out["cooldown"], json!(["skip", "cooldown"]));
+	assert_eq!(out["again"], json!(["alert"]));
+	assert_eq!(out["name"], "Fitz Polestar");
+	assert_eq!(out["is"], json!([true, true, false, false, false, false, false]));
+}
+
+/// The observer is a Forever character (a surname); `scene` runs after it, with `fitz(token, o)` showing a player
+/// named Fitz Polestar (o: guid, faction, name, surname) and `founders()` the founder alerts so far.
+fn founder_run(scene: &str) -> Vec<Value> {
+	run(&format!(
+		r#"local U = stub.rares
+U.me = {{ "Ana", "Smith" }}
+local function fitz(token, o)
+	o = o or {{}}
+	U.unit(token, {{ guid = o.guid or "Player-1-0000F175", name = o.name or "Fitz", surname = o.surname == nil and "Polestar" or o.surname or nil,
+		player = true, faction = o.faction or "Alliance", level = 13 }})
+end
+local function founders()
+	local n = 0
+	for _, a in ipairs(got) do if a.kind == "founder" then n = n + 1 end end
+	return n
+end
+{scene}"#
+	))
+}
+
+#[test]
+fn founder_a_player_named_fitz_polestar_alerts_once_with_the_card_and_the_rare_button_list_near_matches_never() {
+	let out = founder_run(
+		r#"
+-- Near matches: the other surname, the first name alone, another player.
+fitz("nameplate1", { guid = "Player-1-0000AAAA", surname = "Poletsar" })
+fitz("nameplate2", { guid = "Player-1-0000BBBB", surname = false })
+U.unit("nameplate3", { guid = "Player-1-0000CCCC", name = "Polestar", surname = "Fitz", player = true })
+for i = 1, 3 do stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate" .. i) end
+emit({ n = #got, nearby = #R.Nearby() })
+-- The founder, on the player's own side.
+fitz("nameplate4")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate4")
+local a = got[1]
+local f = PolestarRareToast
+emit({ n = founders(), kind = a.kind, name = a.name, enemy = a.enemy, zone = a.zone, sounds = #stub.sounds,
+	shown = f:IsShown(), title = f.Name:GetText(), facts = f.Facts:GetText(), row = f.Distance:GetText(),
+	waypoint = f.Waypoint:IsShown(), open = f.Open:IsShown(), nearby = R.Nearby()[1] })
+local h = 0
+for _ in pairs(R.History()) do h = h + 1 end
+emit({ history = h })
+-- The combined form ("Fitz Polestar" in one string) is the same character.
+U.clear("nameplate4")
+stub.advance(120)
+U.unit("target", { guid = "Player-1-0000F175", name = "Fitz Polestar", player = true, faction = "Alliance" })
+emit({ nearby = #R.Nearby(), action = { R.FounderSighting("target", "target", "Player-1-0000F175") } })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 0, "nearby": 0 }), "Fitz Poletsar, Fitz and Polestar Fitz are not him");
+	assert_eq!(
+		out[1],
+		json!({
+			"n": 1, "kind": "founder", "name": "Fitz Polestar", "enemy": false, "zone": "Elwynn Forest", "sounds": 1,
+			"shown": true, "title": "The Polestar founder is nearby!", "facts": "Fitz Polestar  \u{b7}  Elwynn Forest",
+			"row": "Go say hi", "waypoint": false, "open": false, "nearby": "Fitz Polestar"
+		})
+	);
+	assert_eq!(out[2], json!({ "history": 0 }), "the founder never enters the rares history");
+	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the half hour)");
+}
+
+#[test]
+fn founder_the_other_faction_gets_the_alert_with_its_own_line() {
+	let out = founder_run(
+		r#"
+fitz("mouseover", { faction = "Horde" })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ n = founders(), enemy = got[1] and got[1].enemy, row = PolestarRareToast.Distance:GetText() })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "enemy": true, "row": "Other faction: wave from a safe distance" }));
+}
+
+#[test]
+fn founder_once_per_half_hour_never_while_he_stays_again_after_he_left_and_the_half_hour_is_up() {
+	let out = founder_run(
+		r#"
+fitz("nameplate1")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit(founders())
+-- Still in range, seen by other paths: no second alert.
+stub.advance(4)
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit(founders())
+-- 31 minutes with his nameplate up the whole time: he never left.
+U.clear("target")
+stub.advance(31 * 60)
+fitz("mouseover")
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ founders(), R.Nearby()[1] })
+-- He leaves: off the list within a minute. Back after that, more than half an hour after the alert: due again.
+U.clear("nameplate1")
+U.clear("mouseover")
+stub.advance(120)
+emit(#R.Nearby())
+fitz("nameplate2")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+emit(founders())
+-- Leaves again and comes back ten minutes later: inside the new half hour.
+U.clear("nameplate2")
+stub.advance(10 * 60)
+fitz("nameplate3")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+emit(founders())"#,
+	);
+	assert_eq!(out[0], 1);
+	assert_eq!(out[1], 1, "seen again while in range");
+	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "the half hour passed, but he stayed in range");
+	assert_eq!(out[3], 0, "out of sight: off the rare button");
+	assert_eq!(out[4], 2, "left and came back after the half hour");
+	assert_eq!(out[5], 2, "back inside the half hour");
+}
+
+#[test]
+fn founder_never_on_his_own_client_in_an_instance_in_combat_or_with_the_option_off() {
+	let quiet = |setup: &str, after: &str| -> Vec<Value> {
+		founder_run(&format!(
+			r#"{setup}
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({{ n = founders(), nearby = #R.Nearby() }})
+{after}"#
+		))
+	};
+	let own = quiet(r#"U.me = { "Fitz", "Polestar" }"#, "");
+	assert_eq!(own[0], json!({ "n": 0, "nearby": 0 }), "his own client");
+	let instance = quiet("stub.world.inInstance = true", "");
+	assert_eq!(instance[0], json!({ "n": 0, "nearby": 0 }), "inside an instance, battleground or arena");
+	let off = quiet(r#"Polestar.Set("rares.founder", false)"#, "");
+	assert_eq!(off[0], json!({ "n": 0, "nearby": 0 }), "the option off");
+	// Combat: nothing then; a later sighting after the fight still alerts (combat used up nothing).
+	let combat = quiet(
+		"stub.inCombat = true",
+		r#"stub.inCombat = false
+stub.advance(4)
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ n = founders() })"#,
+	);
+	assert_eq!(combat[0], json!({ "n": 0, "nearby": 0 }), "in combat");
+	assert_eq!(combat[1], json!({ "n": 1 }));
+	// Turning the option off takes him off the rare button at once.
+	let later = founder_run(
+		r#"
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+local before = #R.Nearby()
+Polestar.Set("rares.founder", false)
+emit({ before, #R.Nearby() })"#,
+	);
+	assert_eq!(later[0], json!([1, 0]));
+}

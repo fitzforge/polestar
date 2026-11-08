@@ -733,6 +733,7 @@ L["a new icon each press"] = "un icono nuevo en cada pulsación"
 L["Marks it with %s."] = "Lo marca con %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Lo marca con %s si aún no tiene icono: no eres el líder del grupo."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "No marca nada: en una banda solo el líder y los ayudantes ponen iconos."
+-- L["Target and wave"] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Nivel %d"
@@ -2168,6 +2169,10 @@ L["known spawn %s"] = "aparición conocida %s"
 L["Set waypoint"] = "Fijar punto de ruta"
 L["Show rare"] = "Ver raro"
 L["Show treasure"] = "Ver tesoro"
+-- L["Other faction: wave from a safe distance"] = ""
+-- L["Say hi with the rare button"] = ""
+-- L["Go say hi"] = ""
+-- L["The Polestar founder is nearby!"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 minuto"
@@ -2207,6 +2212,8 @@ L["Hide rares below your level"] = "Ocultar raros por debajo de tu nivel"
 L["Rares too low to give experience leave the map."] = "Los raros de nivel demasiado bajo para dar experiencia desaparecen del mapa."
 L["Forget rares met on this realm"] = "Olvidar los raros vistos en este reino"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Borra la lista Vistos, los tiempos de espera de las alertas y el brillo de los marcadores vistos hace poco."
+-- L["Say when Polestar's founder is nearby"] = ""
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
 
 -- Rares/View.lua
 L["Seen"] = "Vistos"

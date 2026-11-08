@@ -298,6 +298,10 @@ L["%d quests"] = "%d Quests"
 -- Rares/Toast.lua
 L["Dismiss"] = "Verwerfen"
 L["known spawn %s"] = "bekannter Spawn %s"
+-- L["Other faction: wave from a safe distance"] = ""
+-- L["Say hi with the rare button"] = ""
+-- L["Go say hi"] = ""
+-- L["The Polestar founder is nearby!"] = ""
 
 -- Rares/View.lua
 L["Search"] = "Suchen"
@@ -1652,6 +1656,8 @@ L["Hide rares below your level"] = "Rares unter deiner Stufe ausblenden"
 L["Rares too low to give experience leave the map."] = "Rares, die zu niedrig für Erfahrung sind, verschwinden von der Karte."
 L["Forget rares met on this realm"] = "Auf diesem Realm getroffene Rares vergessen"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Leert die Liste „Gesehen“, die Alarm-Pausen und das Leuchten auf kürzlich gesehenen Markierungen."
+-- L["Say when Polestar's founder is nearby"] = ""
+-- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
 
 -- Maps/Maps.lua
 L["Dungeon entrances"] = "Dungeon-Eingänge"
@@ -2595,6 +2601,7 @@ L["a new icon each press"] = "bei jedem Druck ein neues Symbol"
 L["Marks it with %s."] = "Markiert es mit %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Markiert es mit %s, wenn es noch kein Symbol hat: Du führst die Gruppe nicht."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "Markiert nichts: In einem Schlachtzug setzen nur der Anführer und Assistenten Symbole."
+-- L["Target and wave"] = ""
 
 -- Core/Import.lua
 L["Imported"] = "Importiert"

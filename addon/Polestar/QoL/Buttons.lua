@@ -28,7 +28,9 @@
 --     session), with the action as a badge.
 --   Rare: /targetexact for the rares in range (Polestar.Rares.Nearby): the
 --     button comes up when the addon spots one and goes when it dies or is
---     out of sight; every click moves the next name to the front.
+--     out of sight; every click moves the next name to the front. When the
+--     name in front is the founder's (Rares.IsFounder), its macro targets him
+--     and waves instead (Buttons.FounderMacro).
 --   Bag: while the bags are nearly full (QoL/Space.lua), the cheapest junk
 --     in them with the free slot count; a press arms it, a second press
 --     within a few seconds deletes it. It has no secure action: the delete
@@ -1094,10 +1096,44 @@ end
 
 local rare = { list = {}, sig = nil, cycle = 1 }
 
+local function isFounder(name)
+	local R = ns.Rares
+	return R and R.IsFounder and R.IsFounder(name) or false
+end
+
+-- The founder's macro: out of combat from nothing, his full name (as
+-- Forever's own unit menu targets a surnamed player), then his first name
+-- alone while nothing is targeted (Forever's menu falls back to it when the
+-- client's regional unique names are off), then a wave: at him, or a plain
+-- wave when neither matched. One click, never automatic.
+function Buttons.FounderMacro(name)
+	if not Buttons.MacroSafeName(name) then return nil end
+	local lines = { "/cleartarget [nocombat]", "/targetexact " .. name }
+	local first = name:match("^(%S+)%s")
+	if first then lines[#lines + 1] = "/targetexact [noexists] " .. first end
+	lines[#lines + 1] = "/wave"
+	return concat(lines, "\n")
+end
+
+-- The macro for the name in front: the founder's, else the rares' from it
+-- (the founder left out of their chain).
+local function rareMacro(list, cycle)
+	local front = list[cycle]
+	if isFounder(front) then return Buttons.FounderMacro(front) end
+	local rares, preferred = {}, 1
+	for i = 1, #list do
+		if not isFounder(list[i]) then
+			rares[#rares + 1] = list[i]
+			if i == cycle then preferred = #rares end
+		end
+	end
+	return Buttons.TargetMacro(rares, preferred)
+end
+
 local function applyRare(b)
 	QoL.Secure("rare", function()
 		local list = rare.list
-		local text = Buttons.TargetMacro(list, rare.cycle)
+		local text = rareMacro(list, rare.cycle)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[rare.cycle]
@@ -1107,7 +1143,7 @@ local function applyRare(b)
 end
 
 local function rareTooltip(b, tip)
-	tip:SetText(L["Target rare"])
+	tip:SetText(isFounder(b.applied) and L["Target and wave"] or L["Target rare"])
 	for i = 1, #rare.list do tip:AddLine(rare.list[i], 1, 1, 1) end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
 		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
