@@ -223,12 +223,6 @@ step Gorillas
   turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
   note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
 
-step Level 52
-  when level<52
-  tip Top up here to level 52: The Rise of the Machines at Kargath needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 65.8,31.5 map 1449 "Bloodpetal Lasher"
-  level 52                          -- grind on Bloodpetal Lasher
-
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
   tip Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast Silithid Pox and Tunnelers and the Hive Guard use Tunneler Acid.
@@ -242,7 +236,9 @@ step Eastern Pylon
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
+  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   collect 11477 quest 4300
+  level 52                            -- grind on Ravasaur
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
