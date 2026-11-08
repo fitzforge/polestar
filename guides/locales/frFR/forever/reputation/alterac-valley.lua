@@ -16,29 +16,31 @@ return {
 	["{zone:1459} is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 {zone:1455} reputation. {npc:13843} recruits outside the {object:32372}. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:1459} est une bataille à 40 contre 40 pour le niveau 51 et plus, et la plus rapide des quatre réputations de champs de bataille : elle offre environ 2 000 de réputation en quêtes uniques, et une victoire complète rapporte plusieurs centaines. Les mêmes quêtes uniques rapportent aussi 1 870 de réputation avec {zone:1455}. {npc:13843} recrute devant la {object:32372}. L'atout Diplomate de l'Héritage de Forever ajoute jusqu'à 10 % à chaque chiffre de ce guide.",
 
 	-- Step 2: Lieutenant Haggerdin
-	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {area:287} Hillsbrad
-	["The Stormpike camp stands outside the {zone:1459} gate, on the {zone:1416} side above {area:287}. Take every quest here: they all pay 100 or more, once."] = "Le camp Foudrepique se trouve devant l'entrée de {zone:1459}, du côté des {zone:1416}, au-dessus de {area:287}. Prenez toutes les quêtes ici : elles rapportent toutes 100 ou plus, une seule fois.",
-	-- {quest:7162} Proving Grounds · {item:17849} Stormpike Banner · {area:3058} Icewing Cavern
-	["{quest:7162}: the {item:17849} in {area:3058}, 100"] = "{quest:7162} : l'{item:17849} dans la {area:3058}, 100",
+	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains
+	["The Stormpike camp stands outside the {zone:1459} gate, on the {zone:1416} side above Hillsbrad. Take every quest here: they all pay 100 or more, once."] = "",
+	-- {quest:7162} Proving Grounds · {item:17849} Stormpike Banner
+	["{quest:7162}: the {item:17849} in Icewing Cavern, 100"] = "",
 	-- {npc:13777} Sergeant Durgen Stormpike
 	["{npc:13777}: assault a graveyard, 100"] = "{npc:13777} : attaquez un cimetière, 100",
 	["destroy a tower or bunker banner, 100"] = "détruisez la bannière d'une tour ou d'un fortin, 100",
 	["capture a mine, 100"] = "prenez une mine, 100",
 
 	-- Step 3: Dun Baldar
-	-- {area:2959} Dun Baldar
-	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2959} in the north. Before the gates open, take the quests in the town: they are done during the battle."] = "Inscrivez-vous à l'entrée, auprès de n'importe quel maître de guerre ou depuis l'écran des champs de bataille ; vous entrez à {area:2959}, au nord. Avant l'ouverture des portes, prenez les quêtes de la ville : elles s'accomplissent pendant la bataille.",
+	["Dun Baldar"] = "",
+	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at Dun Baldar in the north. Before the gates open, take the quests in the town: they are done during the battle."] = "",
 
 	-- Step 4: Icewing Cavern
-	-- {area:3058} Icewing Cavern · {area:2959} Dun Baldar · {item:17849} Stormpike Banner
-	["{area:3058} lies southwest of {area:2959}. The {item:17849} stands at the back of the cave, past the yetis and harpies."] = "La {area:3058} se trouve au sud-ouest de {area:2959}. L'{item:17849} se dresse au fond de la grotte, après les yétis et les harpies.",
+	["Icewing Cavern"] = "",
+	-- {item:17849} Stormpike Banner
+	["Icewing Cavern lies southwest of Dun Baldar. The {item:17849} stands at the back of the cave, past the yetis and harpies."] = "",
 
 	-- Step 5: The battle
 	["The battle"] = "La bataille",
-	-- {npc:11946} Drek'Thar · {quest:7223} Armor Scraps · {area:3301} Snowfall Graveyard · {area:2963} Coldtooth Mine · {npc:13154} Commander Louis Philips · {area:2962} Tower Point · {npc:13597} Frostwolf Explosives Expert · {area:2961} Frostwolf Village · {quest:7301} Fallen Sky Lords · {npc:11947} Captain Galvangar
-	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the {area:3301} or any Horde graveyard, burn a Horde tower (click its banner), and take {area:2963}. {npc:13154} stands at {area:2962}; the {npc:13597} at {area:2961}. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "L'essentiel se fait en route vers {npc:11946}. Ramassez des {quest:7223} sur les joueurs de la Horde et les gardes que vous tuez. Attaquez le {area:3301} ou n'importe quel cimetière de la Horde, brûlez une tour de la Horde (cliquez sur sa bannière) et prenez la {area:2963}. {npc:13154} se tient à la {area:2962} ; l'{npc:13597} au {area:2961}. {quest:7301} vous demande de trouver où les trois commandants d'escadrille se sont posés. Dans Classic, chaque tour, cimetière ou mine rapportait 12 de réputation, {npc:11947} 125 et {npc:11946} environ 300.",
+	-- {npc:11946} Drek'Thar · {quest:7223} Armor Scraps · {npc:13154} Commander Louis Philips · {npc:13597} Frostwolf Explosives Expert · {quest:7301} Fallen Sky Lords · {npc:11947} Captain Galvangar
+	["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the Snowfall Graveyard or any Horde graveyard, burn a Horde tower (click its banner), and take Coldtooth Mine. {npc:13154} stands at Tower Point; the {npc:13597} at Frostwolf Village. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "",
 	["assault a graveyard"] = "attaquez un cimetière",
 	["Iceblood Tower banner"] = "Bannière de la tour de Glace-sang",
+	["Coldtooth Mine"] = "",
 	-- {npc:13437} Wing Commander Ichman
 	["{npc:13437}'s spot"] = "Emplacement de {npc:13437}",
 	-- {npc:13439} Wing Commander Vipore
@@ -47,8 +49,7 @@ return {
 	["{npc:13438}'s spot"] = "Emplacement de {npc:13438}",
 
 	-- Step 6: Back in Dun Baldar
-	-- {area:2959} Dun Baldar
-	["Back in {area:2959}"] = "De retour à {area:2959}",
+	["Back in Dun Baldar"] = "",
 
 	-- Step 7: Back at the gate
 	["Back at the gate"] = "De retour à l'entrée",
@@ -100,25 +101,26 @@ return {
 	-- Step 14: Warmaster Laggrond
 	-- {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains
 	["The Frostwolf camp stands outside the {zone:1459} gate in the {zone:1416}. Take every quest here: they all pay 100 or more, once."] = "Le camp Loup-de-givre se trouve devant l'entrée de {zone:1459}, dans les {zone:1416}. Prenez toutes les quêtes ici : elles rapportent toutes 100 ou plus, une seule fois.",
-	-- {quest:7161} Proving Grounds · {item:17850} Frostwolf Banner · {area:3337} Wildpaw Cavern
-	["{quest:7161}: the {item:17850} in {area:3337}, 100"] = "{quest:7161} : l'{item:17850} dans la {area:3337}, 100",
+	-- {quest:7161} Proving Grounds · {item:17850} Frostwolf Banner
+	["{quest:7161}: the {item:17850} in Wildpaw Cavern, 100"] = "",
 	-- {npc:13776} Corporal Teeka Bloodsnarl
 	["{npc:13776}: assault a graveyard, 100"] = "{npc:13776} : attaquez un cimetière, 100",
 	["capture a tower or bunker, 100"] = "prenez une tour ou un fortin, 100",
 
 	-- Step 15: Frostwolf Village
-	-- {area:2961} Frostwolf Village
-	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2961} in the south. Before the gates open, take the quests in the village: they are done during the battle."] = "Inscrivez-vous à l'entrée, auprès de n'importe quel maître de guerre ou depuis l'écran des champs de bataille ; vous entrez au {area:2961}, au sud. Avant l'ouverture des portes, prenez les quêtes du village : elles s'accomplissent pendant la bataille.",
+	["Frostwolf Village"] = "",
+	["Queue at the gate, at any battlemaster or from the battleground screen; you enter at Frostwolf Village in the south. Before the gates open, take the quests in the village: they are done during the battle."] = "",
 
 	-- Step 16: Wildpaw Cavern
-	-- {area:3337} Wildpaw Cavern · {area:2978} Frostwolf Keep · {item:17850} Frostwolf Banner
-	["{area:3337} lies south of {area:2978}. The {item:17850} stands at the back of the cave, past the gnolls."] = "La {area:3337} se trouve au sud du {area:2978}. L'{item:17850} se dresse au fond de la grotte, après les gnolls.",
+	["Wildpaw Cavern"] = "",
+	-- {item:17850} Frostwolf Banner
+	["Wildpaw Cavern lies south of Frostwolf Keep. The {item:17850} stands at the back of the cave, past the gnolls."] = "",
 
 	-- Step 17: The battle
-	-- {npc:11948} Vanndar Stormpike · {item:17422} Armor Scraps · {area:3301} Snowfall Graveyard · {area:2957} Irondeep Mine · {npc:13320} Commander Karl Philips · {area:3304} Icewing Bunker · {npc:13598} Stormpike Explosives Expert · {area:2959} Dun Baldar · {quest:7302} Fallen Sky Lords · {npc:11949} Captain Balinda Stonehearth
-	["Most of this happens on the way to {npc:11948}. Loot {item:17422} from Alliance players and guards you kill. Assault the {area:3301} or any Alliance graveyard, burn an Alliance bunker (click its banner), and take {area:2957}. {npc:13320} stands at {area:3304}; the {npc:13598} in {area:2959}. {quest:7302} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11949} 125 and Vanndar about 300."] = "L'essentiel se fait en route vers {npc:11948}. Ramassez des {item:17422} sur les joueurs de l'Alliance et les gardes que vous tuez. Attaquez le {area:3301} ou n'importe quel cimetière de l'Alliance, brûlez un fortin de l'Alliance (cliquez sur sa bannière) et prenez la {area:2957}. {npc:13320} se tient au {area:3304} ; l'{npc:13598} à {area:2959}. {quest:7302} vous demande de trouver où les trois commandants d'escadrille se sont posés. Dans Classic, chaque tour, cimetière ou mine rapportait 12 de réputation, {npc:11949} 125 et Vanndar environ 300.",
-	-- {area:3305} Stonehearth Bunker
-	["{area:3305} banner"] = "Bannière du {area:3305}",
+	-- {npc:11948} Vanndar Stormpike · {item:17422} Armor Scraps · {npc:13320} Commander Karl Philips · {npc:13598} Stormpike Explosives Expert · {quest:7302} Fallen Sky Lords · {npc:11949} Captain Balinda Stonehearth
+	["Most of this happens on the way to {npc:11948}. Loot {item:17422} from Alliance players and guards you kill. Assault the Snowfall Graveyard or any Alliance graveyard, burn an Alliance bunker (click its banner), and take Irondeep Mine. {npc:13320} stands at Icewing Bunker; the {npc:13598} in Dun Baldar. {quest:7302} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11949} 125 and Vanndar about 300."] = "",
+	["Stonehearth Bunker banner"] = "",
+	["Irondeep Mine"] = "",
 	-- {npc:13179} Wing Commander Guse
 	["{npc:13179}'s spot"] = "Emplacement de {npc:13179}",
 	-- {npc:13180} Wing Commander Jeztor
@@ -127,8 +129,7 @@ return {
 	["{npc:13181}'s spot"] = "Emplacement de {npc:13181}",
 
 	-- Step 18: Back in Frostwolf Village
-	-- {area:2961} Frostwolf Village
-	["Back in {area:2961}"] = "De retour au {area:2961}",
+	["Back in Frostwolf Village"] = "",
 
 	-- Step 19: Back at the gate
 	-- {npc:15350} Horde Warbringer · {quest:8369} Invaders of Alterac Valley · {zone:1459} Alterac Valley
@@ -171,6 +172,8 @@ return {
 	["{npc:13219}: Exalted rewards"] = "{npc:13219} : récompenses Exalté",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back in {area:2959}"] = "De retour à {area:2959}",
+	-- ["Back in {area:2961}"] = "De retour au {area:2961}",
 	-- ["Exalted with the {faction:729} earns a Legacy Point."] = "Être exalté auprès du {faction:729} rapporte un point d'héritage.",
 	-- ["Exalted with the {faction:730} earns a Legacy Point."] = "Être exalté auprès de la {faction:730} rapporte un point d'héritage.",
 	-- ["Full games that kill {npc:11946} after the towers fall pay the most."] = "Les parties complètes où {npc:11946} meurt après la chute des tours rapportent le plus.",
@@ -178,8 +181,16 @@ return {
 	-- ["Keep winning {zone:1459}. More Booty! ({npc:13176}), {item:17306} for {npc:13236} (it summons {npc:13256}) and Alterac Ram Hides for the {npc:13441} all repeat."] = "Continuez à gagner {zone:1459}. Plus de butin ! ({npc:13176}), {item:17306} pour {npc:13236} (il invoque {npc:13256}) et les Peaux de bélier d'Alterac ({item:17642}) pour {npc:13441} se répètent tous.",
 	-- ["Keep winning {zone:1459}. More Booty! ({npc:13176}), {item:17306} for {npc:13236} (it summons {npc:13256}) and {npc:10990} Hides for the {npc:13441} all repeat."] = "Continuez à gagner {zone:1459}. Plus de butin ! ({npc:13176}), du {item:17306} pour {npc:13236} (il invoque {npc:13256}) et des peaux de {npc:10990} pour le {npc:13441} : tout cela se répète.",
 	-- ["Keep winning {zone:1459}. More {quest:7223} ({npc:13257}), Storm Crystals for {npc:13442} (they summon {npc:13419}) and Frostwolf Hides for the {npc:13577} all repeat."] = "Continuez à gagner {zone:1459}. Encore des {quest:7223} ({npc:13257}), des Cristaux de tempête pour {npc:13442} (ils invoquent {npc:13419}) et des Peaux de loup des glaces pour le {npc:13577} : tout cela se répète.",
+	-- ["Most of this happens on the way to {npc:11946}. Loot {quest:7223} from Horde players and guards you kill. Assault the {area:3301} or any Horde graveyard, burn a Horde tower (click its banner), and take {area:2963}. {npc:13154} stands at {area:2962}; the {npc:13597} at {area:2961}. {quest:7301} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11947} 125 and {npc:11946} about 300."] = "L'essentiel se fait en route vers {npc:11946}. Ramassez des {quest:7223} sur les joueurs de la Horde et les gardes que vous tuez. Attaquez le {area:3301} ou n'importe quel cimetière de la Horde, brûlez une tour de la Horde (cliquez sur sa bannière) et prenez la {area:2963}. {npc:13154} se tient à la {area:2962} ; l'{npc:13597} au {area:2961}. {quest:7301} vous demande de trouver où les trois commandants d'escadrille se sont posés. Dans Classic, chaque tour, cimetière ou mine rapportait 12 de réputation, {npc:11947} 125 et {npc:11946} environ 300.",
+	-- ["Most of this happens on the way to {npc:11948}. Loot {item:17422} from Alliance players and guards you kill. Assault the {area:3301} or any Alliance graveyard, burn an Alliance bunker (click its banner), and take {area:2957}. {npc:13320} stands at {area:3304}; the {npc:13598} in {area:2959}. {quest:7302} asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, {npc:11949} 125 and Vanndar about 300."] = "L'essentiel se fait en route vers {npc:11948}. Ramassez des {item:17422} sur les joueurs de l'Alliance et les gardes que vous tuez. Attaquez le {area:3301} ou n'importe quel cimetière de l'Alliance, brûlez un fortin de l'Alliance (cliquez sur sa bannière) et prenez la {area:2957}. {npc:13320} se tient au {area:3304} ; l'{npc:13598} à {area:2959}. {quest:7302} vous demande de trouver où les trois commandants d'escadrille se sont posés. Dans Classic, chaque tour, cimetière ou mine rapportait 12 de réputation, {npc:11949} 125 et Vanndar environ 300.",
+	-- ["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2959} in the north. Before the gates open, take the quests in the town: they are done during the battle."] = "Inscrivez-vous à l'entrée, auprès de n'importe quel maître de guerre ou depuis l'écran des champs de bataille ; vous entrez à {area:2959}, au nord. Avant l'ouverture des portes, prenez les quêtes de la ville : elles s'accomplissent pendant la bataille.",
+	-- ["Queue at the gate, at any battlemaster or from the battleground screen; you enter at {area:2961} in the south. Before the gates open, take the quests in the village: they are done during the battle."] = "Inscrivez-vous à l'entrée, auprès de n'importe quel maître de guerre ou depuis l'écran des champs de bataille ; vous entrez au {area:2961}, au sud. Avant l'ouverture des portes, prenez les quêtes du village : elles s'accomplissent pendant la bataille.",
+	-- ["The Stormpike camp stands outside the {zone:1459} gate, on the {zone:1416} side above {area:287}. Take every quest here: they all pay 100 or more, once."] = "Le camp Foudrepique se trouve devant l'entrée de {zone:1459}, du côté des {zone:1416}, au-dessus de {area:287}. Prenez toutes les quêtes ici : elles rapportent toutes 100 ou plus, une seule fois.",
 	-- ["The {faction:729} holds {area:2978} in the south of {zone:1459}. Destroying towers, taking graveyards and mines, and killing captains and generals all pay reputation to the whole team. Loot {item:17422} from fallen enemies for {npc:13176}. Forever's Legacy Diplomat perk increases reputation gains."] = "Le {faction:729} tient {area:2978}, dans le sud de {zone:1459}. Détruire des tours, prendre des cimetières et des mines, et tuer capitaines et généraux rapportent de la réputation à toute l'équipe. Ramassez des {item:17422} sur les ennemis tombés pour {npc:13176}. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["The {faction:730} holds {area:2959} in the north of {zone:1459}. Destroying towers, taking graveyards and mines, and killing captains and generals all pay reputation to the whole team. Loot {quest:7223} from fallen enemies for {npc:13257}. Forever's Legacy Diplomat perk increases reputation gains."] = "La {faction:730} tient {area:2959}, dans le nord de {zone:1459}. Détruire des tours, prendre des cimetières et des mines, et tuer capitaines et généraux rapportent de la réputation à toute l'équipe. Ramassez des {quest:7223} sur les ennemis tombés pour {npc:13257}. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
+	-- ["{area:3058} lies southwest of {area:2959}. The {item:17849} stands at the back of the cave, past the yetis and harpies."] = "La {area:3058} se trouve au sud-ouest de {area:2959}. L'{item:17849} se dresse au fond de la grotte, après les yétis et les harpies.",
+	-- ["{area:3305} banner"] = "Bannière du {area:3305}",
+	-- ["{area:3337} lies south of {area:2978}. The {item:17850} stands at the back of the cave, past the gnolls."] = "La {area:3337} se trouve au sud du {area:2978}. L'{item:17850} se dresse au fond de la grotte, après les gnolls.",
 	-- ["{faction:729} to Exalted"] = "{faction:729} : Exalté",
 	-- ["{faction:729} to Honored"] = "{faction:729} : Honoré",
 	-- ["{faction:729} to Revered"] = "{faction:729} : Révéré",
@@ -192,4 +203,6 @@ return {
 	-- ["{npc:13236}: A Gallon of Blood"] = "{npc:13236} : Quelques litres de sang",
 	-- ["{npc:13257}: More {quest:7223}"] = "{npc:13257} : encore des {quest:7223}",
 	-- ["{npc:13442}: Crystal Cluster"] = "{npc:13442} : Grappes de cristaux",
+	-- ["{quest:7161}: the {item:17850} in {area:3337}, 100"] = "{quest:7161} : l'{item:17850} dans la {area:3337}, 100",
+	-- ["{quest:7162}: the {item:17849} in {area:3058}, 100"] = "{quest:7162} : l'{item:17849} dans la {area:3058}, 100",
 }

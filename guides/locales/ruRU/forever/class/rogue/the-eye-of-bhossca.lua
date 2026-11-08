@@ -7,19 +7,19 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery
-	["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246} — плата от C за одиночную работу внутри: {area:796}.",
+	-- {item:277246} Ruby-Adorned Blade
+	["The {item:277246}, C's payment for a solo job inside the Scarlet Monastery."] = "",
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "Тайник C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "Следующая работа от C приходит письмом: когда вы достигнете 30 уровня и выполните работу с рогом, посетите любую столицу, и письмо от C придет в почтовый ящик; только после этого {object:410369} у места {area:204}, на юге Серебряного бора чуть южнее: {area:236}, предложит задание. В данных задания указан минимум 25, но игроки получают письмо и работу на 30 уровне.",
+	-- {object:410369} Dead Drop · {object:1676} Pyrewood Village (no name in this language: may be words) · {object:1680} Shadowfang Keep (no name in this language: may be words)
+	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {object:1676}, in southern Silverpine just south of {object:1680}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "",
 
 	-- Step 2: The Scarlet Monastery
-	-- {area:796} Scarlet Monastery
-	["The {area:796}"] = "Локация: {area:796}",
-	-- {zone:1420} Tirisfal Glades · {spell:427592} Scarlet Initiate's Uniform · {spell:921} Pick Pocket · {npc:4293} Scarlet Scryer · {item:210963} Scryer's Key · {item:210968} Reliquary Key
-	["The monastery stands in the far north-east of {zone:1420}. Go in alone, out of any group. Before entering, take the {spell:427592} from the Supply Locker in the stables behind the monastery and wear it; stealth and suspicious actions remove it, so put it back on after each wing change. In the Graveyard, in the Chamber of Atonement (the first big room), {spell:921} a {npc:4293} or Scarlet Crier for the {item:210963}. In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message. It sends you back to sit on both benches between the two statues in the Graveyard. Watch for the mechanism's messages, then take the {item:210968} from the stone coffer: an elite stands by the coffer with a patrol behind it, but from beside the northern mausoleum you can turn the camera until the box shows and click it through the wall (an interact key works too). An elite ghost walks near the mausoleum; the broken piece at its edge keeps you out of its path. Then return to the Library for the locked reliquary and the eye. Avoid fighting through the instance."] = "",
+	["The Scarlet Monastery"] = "",
+	-- {zone:1420} Tirisfal Glades · {npc:1507} Scarlet Initiate · {npc:4293} Scarlet Scryer · {item:210963} Scryer's Key · {item:210968} Reliquary Key
+	["The monastery stands in the far north-east of {zone:1420}. Go in alone, out of any group. Before entering, take the {npc:1507}'s Uniform from the Supply Locker in the stables behind the monastery and wear it; stealth and suspicious actions remove it, so put it back on after each wing change. In the Graveyard, in the Chamber of Atonement (the first big room), Pick Pocket a {npc:4293} or Scarlet Crier for the {item:210963}. In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message. It sends you back to sit on both benches between the two statues in the Graveyard. Watch for the mechanism's messages, then take the {item:210968} from the stone coffer: an elite stands by the coffer with a patrol behind it, but from beside the northern mausoleum you can turn the camera until the box shows and click it through the wall (an interact key works too). An elite ghost walks near the mausoleum; the broken piece at its edge keeps you out of its path. Then return to the Library for the locked reliquary and the eye. Avoid fighting through the instance."] = "",
+	["Scarlet Monastery"] = "",
 	["Solo route: Graveyard key, Library letter, Graveyard benches and coffer, then Library reliquary for the eye. Read the letter before the bench puzzle; check the disguise each time you change wings."] = "",
 
 	-- Step 3: Back to the dead drop
@@ -28,8 +28,11 @@ return {
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "Следующая работа от C приходит письмом: когда вы достигнете 30 уровня и выполните работу с рогом, посетите любую столицу, и письмо от C придет в почтовый ящик; только после этого {object:410369} у места {area:204}, на юге Серебряного бора чуть южнее: {area:236}, предложит задание. В данных задания указан минимум 25, но игроки получают письмо и работу на 30 уровне.",
 	-- ["Find the Eye of Bhossca inside the {area:796}."] = "Найдите Глаз Бхосски внутри: {area:796}.",
 	-- ["Place the eye in the {object:410369} near Pyrewood. C's payment is the second Eye of Bhossca quest at the same chest."] = "Положите глаз сюда: {object:410369}, у Погребальных Костров. Плата от C – второе задание о Глазе Бхосски у того же сундука.",
 	-- ["The monastery stands in the far north-east of {zone:1420}. Go in alone; C advises a disguise from the monastery's grounds before you enter."] = "Монастырь стоит на крайнем северо-востоке зоны {zone:1420}. Идите один; C советует добыть маскировку на территории монастыря перед входом.",
+	-- ["The {area:796}"] = "Локация: {area:796}",
+	-- ["The {item:277246}, C's payment for a solo job inside the {area:796}."] = "{item:277246} — плата от C за одиночную работу внутри: {area:796}.",
 	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. C's next note waits there once you are 25."] = "{object:410369} — сундук у места {area:204} на юге Серебряного бора, чуть южнее: {area:236}. Следующая записка C ждет там, когда вам исполнится 25 уровень.",
 }

@@ -10,63 +10,64 @@ return {
 	["Your water travel form: swim fast and breathe underwater, with a belt and an idol besides."] = "Sua forma de viagem aquática: nade rápido e respire debaixo d'água, com um cinto e um ídolo de quebra.",
 
 	-- Step 1: A Lesson to Learn
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "",
+	-- {npc:4217} Mathrengyl Bearwalker · {zone:1450} Moonglade · {npc:11800} Silva Fil'naveth
+	["{npc:4217} stands upstairs in the druids' building of the Cenarion Enclave. Skyborne: cast Teleport: {zone:1450} and take {npc:11800}'s flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up."] = "",
 
 	-- Step 2: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
+	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {object:177117} Shrine of Remulos (no name in this language: may be words) · {npc:11799} Tajarri
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:29} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast Teleport: {zone:1450}: {npc:11802} stands upstairs in the building beside you. {quest:29} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {object:177117} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}, de um {object:177785} no lago",
-	-- {area:2362} Shrine of Remulos
-	["At the {area:2362}"] = "No {area:2362}",
+	-- {object:177117} Shrine of Remulos (no name in this language: may be words)
+	["At the {object:177117}"] = "",
 
 	-- Step 3: Half Pendant of Aquatic Agility
-	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox · {area:456} Cliffspring River
+	-- {object:177792} Strange Lockbox
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
+	["Fly from Nighthaven to Auberdine. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the Cliffspring River reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}, from the {object:177792}"] = "",
 
 	-- Step 4: Half Pendant of Aquatic Endurance
-	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
+	-- {zone:1453} Stormwind · {object:81} Sentinel Hill (no name in this language: may be words) · {object:177790} Strange Lockbox
+	["Take the boat from Auberdine to {zone:1453} and fly to {object:81}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "",
 
 	-- Step 5: Pendant of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	-- {zone:1450} Moonglade · {object:177117} Shrine of Remulos (no name in this language: may be words) · {item:15883} Half Pendant of Aquatic Agility · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth
+	["Cast Teleport: {zone:1450}. With both halves in your bags, stand by the {object:177117} on the north-west shore and use the {item:15883} to join them, then cast Teleport: {zone:1450} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of Nighthaven, flies druids straight to Rut'theran Village."] = "",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885}: junte as metades no santuário",
 
 	-- Step 6: Aquatic Form
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "",
+	-- {npc:4217} Mathrengyl Bearwalker · {quest:5061} Aquatic Form
+	["Take the portal up to {npc:4217} in the Cenarion Enclave. {quest:5061}: swim fast and breathe underwater."] = "",
 
 	-- Step 7: A Lesson to Learn
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands in the druids' hut on {area:1639}."] = "",
+	-- {npc:3033} Turak Runetotem · {object:50507} Elder Rise (no name in this language: may be words)
+	["{npc:3033} stands in the druids' hut on {object:50507}."] = "",
 
 	-- Step 8: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
+	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {object:177117} Shrine of Remulos (no name in this language: may be words) · {npc:11799} Tajarri
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. {quest:28} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast Teleport: {zone:1450}: {npc:11802} stands upstairs in the building beside you. {quest:28} runs on a 30-minute timer. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of Lake Elune'ara below Nighthaven, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {object:177117} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
 
 	-- Step 9: Half Pendant of Aquatic Endurance
-	-- {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1458} Undercity · {object:177790} Strange Lockbox · {area:228} Sepulcher
-	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "",
+	-- {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1458} Undercity · {object:177790} Strange Lockbox
+	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the Sepulcher, beside an air fissure where you can breathe: watch your breath on the way down."] = "",
 
 	-- Step 10: Half Pendant of Aquatic Agility
-	-- {object:177792} Strange Lockbox · {area:382} Sludge Fen · {area:380} Crossroads
-	["The {object:177792} lies underwater in the {area:382} pond north of the {area:380}, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	-- {object:177792} Strange Lockbox
+	["The {object:177792} lies underwater in the Sludge Fen pond north of the Crossroads, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
 
 	-- Step 11: Pendant of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. {npc:11798} flies druids to {area:1638}."] = "",
+	-- {zone:1450} Moonglade · {object:177117} Shrine of Remulos (no name in this language: may be words) · {item:15883} Half Pendant of Aquatic Agility · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff
+	["Cast Teleport: {zone:1450}. With both halves in your bags, stand by the {object:177117} on the north-west shore and use the {item:15883} to join them, then cast Teleport: {zone:1450} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {zone:1456}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At the {area:2362}"] = "No {area:2362}",
 	-- ["Cast {spell:18960}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. Fly to {area:702} afterwards."] = "Lance {spell:18960}. Junte as duas metades no {item:15885} perto de {area:2362}, na margem noroeste do lago, e depois fale com {npc:11802} em {area:2361}. Depois voe até {area:702}.",
 	-- ["Cast {spell:18960}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. {npc:11798} flies druids to {area:1638}."] = "Lance {spell:18960}. Junte as duas metades no {item:15885} perto de {area:2362}, na margem noroeste do lago, e depois fale com {npc:11802} em {area:2361}. {npc:11798} leva druidas voando até {area:1638}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Adornos de Altar ficam nos recipientes no fundo de {area:656}, abaixo de {area:2361}: leve um até {area:2362} na margem noroeste, use-o lá e fale com {npc:11799}.",

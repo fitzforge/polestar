@@ -11,13 +11,14 @@ return {
 	["{npc:2663}'s Parrots"] = "Perroquets de {npc:2663}",
 
 	-- Step 1: Narkk
-	-- {npc:2663} Narkk · {area:35} Booty Bay · {npc:2664} Kelsey Yance · {area:392} Ratchet
-	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, le fournisseur des pirates à {area:35}, vend deux perroquets (40 pa chacun), sans limite de stock. Il se tient à côté de {npc:2664}, la cuisinière. {area:35} est neutre : le bateau de {area:392} et la route de Strangleronce y arrivent tous deux. Chaque objet de mascotte apprend son compagnon quand vous l'utilisez ; les objectifs restent cochés ensuite.",
+	-- {npc:2663} Narkk · {object:3204} Booty Bay (no name in this language: may be words) · {npc:2664} Kelsey Yance
+	["{npc:2663}, the pirate supplier in {object:3204}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {object:3204} is neutral: the boat from Ratchet and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
 	-- {item:8495} Parrot Cage (Senegal)
 	["{item:8495}, 40s"] = "{item:8495}, 40 pa",
 	-- {item:8496} Parrot Cage (Cockatiel)
 	["{item:8496}, 40s"] = "{item:8496}, 40 pa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, le fournisseur des pirates à {area:35}, vend deux perroquets (40 pa chacun), sans limite de stock. Il se tient à côté de {npc:2664}, la cuisinière. {area:35} est neutre : le bateau de {area:392} et la route de Strangleronce y arrivent tous deux. Chaque objet de mascotte apprend son compagnon quand vous l'utilisez ; les objectifs restent cochés ensuite.",
 	-- ["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each). {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, le fournisseur des pirates à {area:35}, vend deux perroquets (40 pa chacun). {area:35} est neutre : le bateau de {area:392} et la route de Strangleronce y mènent. Chaque objet de mascotte apprend sa mascotte quand vous l'utilisez ; les objectifs restent cochés ensuite.",
 }

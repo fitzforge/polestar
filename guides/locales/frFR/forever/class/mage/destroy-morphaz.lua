@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "De l'expérience au niveau 50 via {zone:1447} et {area:1417} ; le choix d'objet de Classic a peut-être disparu sur Forever.",
+	-- {zone:1447} Azshara
+	["Experience at 50 through {zone:1447} and the Sunken Temple; Classic's item choice may be gone on Forever."] = "",
 	["Experience"] = "Expérience",
 
 	-- Step 1: Magecraft (Stormwind)
@@ -20,24 +20,24 @@ return {
 	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, l'un des maîtres des mages d'{zone:1454}, dans le pavillon Darkbriar, la donne ; tout comme {npc:4567} à {zone:1458} et {npc:3047} aux {zone:1456}.",
 
 	-- Step 3: Sanath Lim-yo
-	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "Volez jusqu'à {area:3137} (Alliance) ou {area:1237} (Horde). {npc:8395} campe au pied de la tour de son maître, un peu à l'est de {area:1237} : depuis la fourche de la route principale d'{zone:1447}, aux {area:1221}, allez droit au nord jusqu'aux falaises. Descendez de votre monture avant qu'il ne vous téléporte en haut, sinon la téléportation risque de ne pas vous emmener. Un sentier sans ennemis monte jusqu'à {npc:8379} au sommet de la tour ; un serviteur au sommet vous renvoie en bas, aussi souvent que vous le voulez.",
+	-- {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {npc:8379} Archmage Xylem
+	["Fly to Talrendis Point (Alliance) or Valormok (Horde). {npc:8395} camps below his master's tower, a short way east of Valormok: from the fork of {zone:1447}'s main road at the Ruins of Eldarath, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "{npc:8379}, dans la tour",
 
 	-- Step 4: Glittering Dust
-	-- {area:1220} Thalassian Base Camp · {zone:1447} Azshara
+	-- {zone:1447} Azshara
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor
-	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, Fire Nova up close) and Reclaimers (52-53, Fireball, and they heal and Renew each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
+	["The blood elves hold the Thalassian Base Camp on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, Fire Nova up close) and Reclaimers (52-53, Fireball, and they heal and Renew each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
 	["Back to {npc:8395}, who teleports you up to the tower."] = "Retournez voir {npc:8395}, qui vous téléporte dans la tour.",
 
 	-- Step 6: Enchanted Coral
-	-- {area:1221} Ruins of Eldarath · {area:1237} Valormok · {area:1223} Temple of Zin-Malor · {npc:7864} Lingering Highborne
+	-- {npc:7864} Lingering Highborne
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren · Spitelash Screamers = {npc:6193} Spitelash Screamer
-	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "Les Sirènes Fouette-bile (niveau 50-52) arpentent les ruines et les plages autour des {area:1221} et de la baie à l'est de {area:1237}, souvent par trois, et quelques-unes se tiennent dans le {area:1223} ; chacune laisse tomber un corail environ une fois sur quatre. Les Hurleuses Fouette-bile leur ressemblent beaucoup mais n'en laissent jamais tomber. Tuer les autres nagas sur place fait apparaître plus de Sirènes à leur place. Des fantômes {npc:7864} errent dans les ruines : surveillez vos arrières.",
+	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the Ruins of Eldarath and the bay east of Valormok, often three together, and a few stand inside the Temple of Zin-Malor; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "",
 
 	-- Step 7: Archmage Xylem again
 	-- {npc:8379} Archmage Xylem
@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: Morphaz
 	["Morphaz"] = "Morphaz",
-	-- {area:1477} The Temple of Atal'Hakkar · {area:1417} Sunken Temple · {area:74} Pool of Tears · {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched
-	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, Acid Breath and Wing Flap) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
+	-- {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched
+	["The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, Acid Breath and Wing Flap) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
 	-- {item:20085} Arcane Shard
 	["{item:20085}: Morphaz"] = "{item:20085} : Morphaz",
 
@@ -60,9 +60,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "Retournez en {zone:1447}, auprès de {npc:8395} et à la tour.",
+	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "De l'expérience au niveau 50 via {zone:1447} et {area:1417} ; le choix d'objet de Classic a peut-être disparu sur Forever.",
 	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "De l'expérience au niveau 50 via {zone:1447} et {area:1417} ; Forever a supprimé le choix d'objet de Classic.",
+	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "Volez jusqu'à {area:3137} (Alliance) ou {area:1237} (Horde). {npc:8395} campe au pied de la tour de son maître, un peu à l'est de {area:1237} : depuis la fourche de la route principale d'{zone:1447}, aux {area:1221}, allez droit au nord jusqu'aux falaises. Descendez de votre monture avant qu'il ne vous téléporte en haut, sinon la téléportation risque de ne pas vous emmener. Un sentier sans ennemis monte jusqu'à {npc:8379} au sommet de la tour ; un serviteur au sommet vous renvoie en bas, aussi souvent que vous le voulez.",
 	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "Volez jusqu'à {area:3137} (Alliance) ou {area:1237} (Horde). {npc:8395} campe au pied de la tour de son maître : depuis la fourche de la route principale d'{zone:1447}, à {area:1221}, allez droit au nord jusqu'aux falaises. Il vous téléporte auprès de {npc:8379}.",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "Morphaz, un drake vert, attend au fond de {area:1477}, {area:1417} dans {area:74} : groupe de cinq, niveaux 50-54. Tuez-le pour {item:20085}.",
+	-- ["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "Les Sirènes Fouette-bile (niveau 50-52) arpentent les ruines et les plages autour des {area:1221} et de la baie à l'est de {area:1237}, souvent par trois, et quelques-unes se tiennent dans le {area:1223} ; chacune laisse tomber un corail environ une fois sur quatre. Les Hurleuses Fouette-bile leur ressemblent beaucoup mais n'en laissent jamais tomber. Tuer les autres nagas sur place fait apparaître plus de Sirènes à leur place. Des fantômes {npc:7864} errent dans les ruines : surveillez vos arrières.",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "Les Sirènes Fouette-bile arpentent les ruines et les plages autour de {area:1221} et de la baie ; elles portent le corail.",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "Les elfes de sang campent le long des falaises au nord-est d'{zone:1447} ; les Géomètres et Vengeurs elfes de sang lâchent la poussière.",
 	-- ["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "Les elfes de sang tiennent le {area:1220} sur les collines du nord-est d'{zone:1447}. Les Géomètres elfes de sang (51-52, {spell:8349} au corps à corps) et les Vengeurs (52-53, {spell:133}, et ils se soignent et se lancent {spell:139} entre eux) laissent chacun tomber la poussière environ une fois sur quatre ; ils vous repèrent de loin, attirez-les donc par les bords. Ils reviennent au bout de 5 minutes et demie.",

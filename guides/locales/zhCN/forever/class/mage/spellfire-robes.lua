@@ -11,12 +11,14 @@ return {
 	["A robe at 15 for Horde mages, from the {zone:1458} and {zone:1421}."] = "部落法师15级的长袍，任务在{zone:1458}和{zone:1421}。",
 
 	-- Step 1: Uthel'nay (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
 	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
 
 	-- Step 2: Cain Firesong (Brill)
-	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
-	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}是{area:159}的法师训练师，在{area:2119}楼上：从室内楼梯上去，箭头无法区分楼层。",
+	-- {npc:2128} Cain Firesong
+	["{npc:2128} (Brill)"] = "",
+	-- {npc:2128} Cain Firesong
+	["{npc:2128} is the Brill mage trainer, upstairs in the Gallows' End Tavern: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
@@ -37,9 +39,10 @@ return {
 	["Back to {npc:4568}"] = "回到{npc:4568}处",
 
 	-- Step 6: Ambermill
-	-- {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:279} Dalaran · {item:7293} Dalaran Mana Gem · {item:2589} Linen Cloth · {spell:116} Frostbolt · {area:228} Sepulcher · {area:233} Ambermill · {spell:134} Fire Shield · {spell:2120} Flamestrike · {spell:122} Frost Nova
+	["Ambermill"] = "",
+	-- {zone:1458} Undercity · {zone:1421} Silverpine Forest · {item:7293} Dalaran Mana Gem · {item:2589} Linen Cloth
 	-- plural, as words: Dalaran Apprentices = {npc:1867} Dalaran Apprentice
-	["Leave the {zone:1458} and follow the road south through {zone:1421}. Every {area:279} human drops a {item:7293} four times in five, and {item:2589} too: the easiest are the Dalaran Apprentices (level 13-14, {spell:116}) on the hills south-east of the {area:228}, either side of the road south; deeper in, the walled town of {area:233} in south-east Silverpine has Watchers (18-19, {spell:134} and {spell:2120}) and Wizards (19-20, {spell:122}) that come back every 4 1/2 minutes and run for help at low health, so pull at the edge. Ten {item:2589} also come from any humanoid or the Undercity Auction House."] = "",
+	["Leave the {zone:1458} and follow the road south through {zone:1421}. Every Dalaran human drops a {item:7293} four times in five, and {item:2589} too: the easiest are the Dalaran Apprentices (level 13-14, Frostbolt) on the hills south-east of the Sepulcher, either side of the road south; deeper in, the walled town of Ambermill in south-east Silverpine has Watchers (18-19, Fire Shield and Flamestrike) and Wizards (19-20, Frost Nova) that come back every 4 1/2 minutes and run for help at low health, so pull at the edge. Ten {item:2589} also come from any humanoid or the Undercity Auction House."] = "",
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter · {quest:1962} Spellfire Robes
@@ -51,6 +54,7 @@ return {
 	-- ["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop."] = "回到{zone:1458}。{npc:4576}、{npc:11048}和{npc:11049}经营裁缝店。",
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "人型生物会掉落{item:2589}；幽暗城拍卖行也有出售。",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "离开{zone:1458}，沿道路向南穿过{zone:1421}。{area:279}法师占据着{area:228}东南的{area:233}；每个{npc:1867}、达拉然法师、达拉然保卫者、达拉然守卫、达拉然咒术师、达拉然卫士和达拉然巫师都可能掉落{item:7293}。",
+	-- ["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}是{area:159}的法师训练师，在{area:2119}楼上：从室内楼梯上去，箭头无法区分楼层。",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128}是{area:159}的法师训练师。",
 	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568}站在{object:36082}。{item:7247}和{item:7308}放在她身后。",
 	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}是{zone:1454}的法师训练师之一。然后在{zone:1454}正门外的塔上乘飞艇前往{zone:1420}。",

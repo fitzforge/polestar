@@ -13,13 +13,13 @@ return {
 	-- Step 1: Ruzan (Orcs and Trolls)
 	-- {npc:5765} Ruzan
 	["{npc:5765} (Orcs and Trolls)"] = "",
-	-- {item:9579} Tainted Parchment · {item:282346} Tainted Tablet · {npc:5765} Ruzan · {area:363} Valley of Trials
+	-- {item:9579} Tainted Parchment · {item:282346} Tainted Tablet · {npc:5765} Ruzan
 	-- plural, as words: Vile Familiar Heads = {item:6487} Vile Familiar Head
-	["Your first letter ({item:9579} for Orcs, {item:282346} for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. {npc:5765} stands just outside the Den in the {area:363} and asks for six Vile Familiar Heads."] = "",
+	["Your first letter ({item:9579} for Orcs, {item:282346} for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. {npc:5765} stands just outside the Den in the Valley of Trials and asks for six Vile Familiar Heads."] = "",
 
 	-- Step 2: Vile Familiars
-	-- {quest:1485} Vile Familiars · {area:365} Burning Blade Coven
-	["The {quest:1485} (level 3-4) swarm the {area:365}, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own {quest:1485} quest."] = "",
+	-- {quest:1485} Vile Familiars
+	["The {quest:1485} (level 3-4) swarm the Burning Blade Coven, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own {quest:1485} quest."] = "",
 	-- plural, as words: Vile Familiar Heads = {item:6487} Vile Familiar Head
 	["Vile Familiar Heads"] = "",
 
@@ -30,16 +30,15 @@ return {
 	-- Step 4: Venya Marthand (Undead)
 	-- {npc:5667} Venya Marthand
 	["{npc:5667} (Undead)"] = "",
-	-- {item:9578} Tainted Scroll · {npc:1569} Shadow Priest Sarvis · {area:154} Deathknell · {npc:5667} Venya Marthand
+	-- {item:9578} Tainted Scroll · {npc:1569} Shadow Priest Sarvis · {npc:5667} Venya Marthand
 	-- plural, as words: Rattlecage Skulls = {item:6281} Rattlecage Skull
-	["Your first letter ({item:9578}, from {npc:1569} after The Mindless Ones) points you to Maximillion, the warlock trainer in {area:154}. {npc:5667} waits inside the building beside him and asks for three Rattlecage Skulls."] = "",
+	["Your first letter ({item:9578}, from {npc:1569} after The Mindless Ones) points you to Maximillion, the warlock trainer in Deathknell. {npc:5667} waits inside the building beside him and asks for three Rattlecage Skulls."] = "",
 
 	-- Step 5: Rattlecage Skulls
 	-- plural, as words: Rattlecage Skulls = {item:6281} Rattlecage Skull
 	["Rattlecage Skulls"] = "",
-	-- {area:154} Deathknell
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton
-	["The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of {area:154}, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes."] = "",
+	["The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of Deathknell, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes."] = "",
 
 	-- Step 6: Summon Imp
 	-- {npc:5667} Venya Marthand · {spell:688} Summon Imp

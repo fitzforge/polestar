@@ -11,16 +11,18 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
-	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {faction:69} Darnassus · {skill:762} Riding
+	["{npc:4753} and {npc:4730}'s sabers are in the Cenarion Enclave's riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}, instructor de equitación",
 
 	-- Step 2: Tiger Riding for other races
-	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
-	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	-- {skill:762} Riding
+	["Tiger {skill:762} for other races"] = "",
+	-- {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
+	["Any Alliance race can buy these sabers, but riding one also takes Tiger Riding, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	-- {npc:4753} Jartsam
+	["{npc:4753}, Tiger Riding"] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

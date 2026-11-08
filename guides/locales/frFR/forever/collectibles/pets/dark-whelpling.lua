@@ -8,12 +8,13 @@
 return {
 	-- Step 1: Black whelps
 	["Black whelps"] = "Dragonnets noirs",
-	-- {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {zone:1418} Badlands
+	-- {zone:1445} Dustwallow Marsh · {zone:1418} Badlands
 	-- plural, as words: Searing Whelps = {npc:4324} Searing Whelp · Scalding Whelps = {npc:2725} Scalding Whelp
-	["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the {area:511}, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "Les Dragonnets incendiaires de la {area:511}, dans le sud du {zone:1445} (niveau 42-43), et les Dragonnets flamboyants de l'est des {zone:1418} (niveau 41-43) le lâchent environ une fois sur 900. Le point de passage est la {area:511}, où les dragonnets sont les plus nombreux ; ceux des {zone:1418} demandent le même farm. Le dragonnet peut être échangé, l'hôtel des ventes peut donc être plus rapide.",
-	-- {area:511} Wyrmbog
-	["The {area:511}"] = "{area:511}",
+	["The Searing Whelps of the Wyrmbog in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the Wyrmbog, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "",
+	["The Wyrmbog"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42) and the Scalding Whelps of eastern {zone:1418} (level 41) drop it about once in 900 kills in our data. The waypoint is the {area:511}; the {zone:1418} whelps are the same grind."] = "Les Dragonnets incendiaires de {area:511}, dans le sud de {zone:1445} (niveau 42), et les Dragonnets flamboyants de l'est de {zone:1418} (niveau 41) le laissent tomber environ une fois sur 900 victimes selon nos données. Le point de passage est {area:511} ; les dragonnets de {zone:1418} se farment de la même façon.",
+	-- ["The Searing Whelps of the {area:511} in southern {zone:1445} (level 42-43) and the Scalding Whelps of eastern {zone:1418} (level 41-43) drop it about once in 900 kills. The waypoint is the {area:511}, where the whelps stand thickest; the {zone:1418} whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker."] = "Les Dragonnets incendiaires de la {area:511}, dans le sud du {zone:1445} (niveau 42-43), et les Dragonnets flamboyants de l'est des {zone:1418} (niveau 41-43) le lâchent environ une fois sur 900. Le point de passage est la {area:511}, où les dragonnets sont les plus nombreux ; ceux des {zone:1418} demandent le même farm. Le dragonnet peut être échangé, l'hôtel des ventes peut donc être plus rapide.",
+	-- ["The {area:511}"] = "{area:511}",
 }

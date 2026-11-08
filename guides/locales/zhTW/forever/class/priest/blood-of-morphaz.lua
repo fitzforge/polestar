@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["17,060 XP and 1g55s at 50: {zone:1447}, then Morphaz in the {area:1417} (group of 5). The item choice may be gone."] = "",
+	-- {zone:1447} Azshara
+	["17,060 XP and 1g55s at 50: {zone:1447}, then Morphaz in the Sunken Temple (group of 5). The item choice may be gone."] = "",
 	["17,060 experience and 1 gold 55 silver"] = "",
 
 	-- Step 1: Cenarion Aid: High Priest Rohan
@@ -24,8 +24,8 @@ return {
 	["At 50, {npc:6018} in {zone:1454}'s {object:172961} offers {quest:8254}. Before you leave, buy an {item:7972} at the Auction House (a few silver): the third quest asks for one and it drops rarely."] = "",
 
 	-- Step 4: Ogtinc
-	-- {npc:8405} Ogtinc · {area:1221} Ruins of Eldarath · {area:3137} Talrendis Point · {area:1237} Valormok
-	["{npc:8405}, a furbolg, lives on the clifftop north-east of the {area:1221}. Alliance: fly to {area:3137}; Horde: fly to {area:1237}. Ride east and leave the road at the fork before the ruins, then follow the northern cliff edge east to him: the naga ruins and the beach below are walled in by cliffs with no way up."] = "",
+	-- {npc:8405} Ogtinc
+	["{npc:8405}, a furbolg, lives on the clifftop north-east of the Ruins of Eldarath. Alliance: fly to Talrendis Point; Horde: fly to Valormok. Ride east and leave the road at the fork before the ruins, then follow the northern cliff edge east to him: the naga ruins and the beach below are walled in by cliffs with no way up."] = "",
 
 	-- Step 5: Of Coursers We Know
 	-- {zone:1447} Azshara · {npc:8405} Ogtinc · {item:20027} Healthy Courser Gland · {item:7972} Ichor of Undeath
@@ -33,20 +33,19 @@ return {
 	["Mosshoof Coursers (level 52-53, not elite) graze all over {zone:1447}, thickest north-east of {npc:8405} and south of the mountains; about one in three drops a {item:20027}, so plan on a dozen kills for four. They enrage at 30% health: finish them fast. Killing them costs no Cenarion Circle reputation. Keep any {item:7972} you loot."] = "",
 
 	-- Step 7: The Ichor of Undeath
-	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne · {area:1221} Ruins of Eldarath · {npc:8405} Ogtinc · {zone:1447} Azshara · {zone:1440} Ashenvale · {npc:7523} Suffering Highborne · {zone:1452} Winterspring
-	["Carrying an {item:7972} already? It counts at once. Otherwise any undead may drop one, rarely: the {npc:7864} (level 48) in the {area:1221} below {npc:8405}'s cliff drop it about one kill in ten, the highborne ghosts on {zone:1447}'s border with {zone:1440} (level 45-46) a little less, the Anguished and {npc:7523} in {zone:1452} (54-55) about one in eight. The Auction House is usually quicker."] = "",
+	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne · {npc:8405} Ogtinc · {zone:1447} Azshara · {zone:1440} Ashenvale · {npc:7523} Suffering Highborne · {zone:1452} Winterspring
+	["Carrying an {item:7972} already? It counts at once. Otherwise any undead may drop one, rarely: the {npc:7864} (level 48) in the Ruins of Eldarath below {npc:8405}'s cliff drop it about one kill in ten, the highborne ghosts on {zone:1447}'s border with {zone:1440} (level 45-46) a little less, the Anguished and {npc:7523} in {zone:1452} (54-55) about one in eight. The Auction House is usually quicker."] = "",
 
 	-- Step 9: Morphaz in the Sunken Temple
-	-- {area:1417} Sunken Temple
-	["Morphaz in the {area:1417}"] = "{area:1417}的摩弗拉斯",
-	-- {area:1417} Sunken Temple · {area:75} Stonard · {area:1438} Nethergarde Keep · {zone:1419} Blasted Lands · {area:74} Pool of Tears · {npc:5710} Jammal'an the Prophet
-	["Morphaz is a level 52 elite green dragon inside the {area:1417}, a five-player dungeon: bring a group of five (a level 60 group clears it with ease). Horde: fly to {area:75}; Alliance: fly to {area:1438} in the {zone:1419} and ride north. The temple stands in the middle of the {area:74}: climb the steps on its south side, swim down through the flooded hall and take the stairs to the portal. Inside, Morphaz only appears late: kill the six troll minibosses on the upper balconies, then {npc:5710} below them; that wakes the drakes Weaver and Dreamscythe in the Pit of Sacrifice, and killing both brings Morphaz and Hazzas. The pair patrols together and cannot be split: pull them into a hallway and have the tank face them away from the group (breath and a knockback). Loot him in a party, not a raid group: the blood always drops."] = "",
-	-- {quest:8257} Blood of Morphaz · {area:1417} Sunken Temple
-	["{quest:8257}: the {area:1417} entrance"] = "{quest:8257}：{area:1417}入口",
+	["Morphaz in the Sunken Temple"] = "",
+	-- {zone:1419} Blasted Lands · {npc:5710} Jammal'an the Prophet
+	["Morphaz is a level 52 elite green dragon inside the Sunken Temple, a five-player dungeon: bring a group of five (a level 60 group clears it with ease). Horde: fly to Stonard; Alliance: fly to Nethergarde Keep in the {zone:1419} and ride north. The temple stands in the middle of the Pool of Tears: climb the steps on its south side, swim down through the flooded hall and take the stairs to the portal. Inside, Morphaz only appears late: kill the six troll minibosses on the upper balconies, then {npc:5710} below them; that wakes the drakes Weaver and Dreamscythe in the Pit of Sacrifice, and killing both brings Morphaz and Hazzas. The pair patrols together and cannot be split: pull them into a hallway and have the tank face them away from the group (breath and a knockback). Loot him in a party, not a raid group: the blood always drops."] = "",
+	-- {quest:8257} Blood of Morphaz
+	["{quest:8257}: the Sunken Temple entrance"] = "",
 
 	-- Step 10: Greta Mosshoof
-	-- {npc:10922} Greta Mosshoof · {area:2479} Emerald Sanctuary · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:415} Astranaar · {zone:1440} Ashenvale · {item:19990} Blessed Prayer Beads · {item:20006} Circle of Hope
-	["{npc:10922} is at the {area:2479} in southern {zone:1448}. Horde: fly to {area:1997} and ride south-east; Alliance: fly to {area:415} in {zone:1440} and ride north into {zone:1448}. She takes the blood for experience and gold. Look at the reward window before you hand in: Classic let you pick {item:19990}, {item:20006} or Woestave, and Forever's notes say that choice may be gone."] = "",
+	-- {npc:10922} Greta Mosshoof · {zone:1448} Felwood · {zone:1440} Ashenvale · {item:19990} Blessed Prayer Beads · {item:20006} Circle of Hope
+	["{npc:10922} is at the Emerald Sanctuary in southern {zone:1448}. Horde: fly to Bloodvenom Post and ride south-east; Alliance: fly to Astranaar in {zone:1440} and ride north into {zone:1448}. She takes the blood for experience and gold. Look at the reward window before you hand in: Classic let you pick {item:19990}, {item:20006} or Woestave, and Forever's notes say that choice may be gone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any undead can drop it. The {npc:7864} in the {area:1221}, below {npc:8405}'s cliffs, are the nearest; Highborne Apparitions and Lichlings haunt the ruins near {area:3137}."] = "任何不死生物都可能掉落。{npc:8405}所在懸崖下方{area:1221}的{npc:7864}是最近的；高等精靈的幻影和高等精靈鬼巫在{area:3137}附近的廢墟出沒。",
@@ -54,10 +53,12 @@ return {
 	-- ["At 50 {npc:6018} in {zone:1454}'s {object:172961} offers it."] = "50級時，{zone:1454}{object:172961}的{npc:6018}會提供此任務。",
 	-- ["Experience and gold"] = "經驗值和金幣",
 	-- ["Experience and gold at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "50級時經由{zone:1447}和{area:1417}獲得經驗值和金幣；Forever移除了經典版的物品選擇。",
+	-- ["Morphaz in the {area:1417}"] = "{area:1417}的摩弗拉斯",
 	-- ["Morphaz is an elite dragon boss inside the {area:1417}, a level 50 dungeon: bring a group of five. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance. Horde: fly to {area:75}; Alliance: fly to {area:42} or {area:1438} and ride on."] = "摩弗拉斯是{area:1417}裡的精英龍類首領，這是50級地城：請帶五人小隊。神廟位於{area:74}中央；潛入水中往下游就能到入口。部落：飛往{area:75}；聯盟：飛往{area:42}或{area:1438}，再騎過去。",
 	-- ["Mosshoof Coursers graze all over {zone:1447}; about one in three drops a {item:20027}."] = "苔蹄快步者在{zone:1447}各處吃草；大約三隻中有一隻會掉落{item:20027}。",
 	-- ["{npc:10922} is at the {area:2479} in southern {zone:1448}."] = "{npc:10922}在{zone:1448}南部的{area:2479}。",
 	-- ["{npc:8405} lives atop the cliffs north-east of the {area:1221}. Alliance: fly to {area:3137}; Horde: fly to {area:1237}."] = "{npc:8405}住在{area:1221}東北方的懸崖頂上。聯盟：飛往{area:3137}；部落：飛往{area:1237}。",
 	-- ["{quest:8254} (Alliance)"] = "{quest:8254}（聯盟）",
 	-- ["{quest:8254} (Horde)"] = "{quest:8254}（部落）",
+	-- ["{quest:8257}: the {area:1417} entrance"] = "{quest:8257}：{area:1417}入口",
 }

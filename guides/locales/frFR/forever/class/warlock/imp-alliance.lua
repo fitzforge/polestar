@@ -13,8 +13,8 @@ return {
 	-- Step 1: Drusilla La Salle (Humans)
 	-- {npc:459} Drusilla La Salle
 	["{npc:459} (Humans)"] = "{npc:459} (Humains)",
-	-- {item:9576} Tainted Letter · {npc:197} Marshal McBride · {npc:459} Drusilla La Salle · {area:24} Northshire Abbey
-	["Your first letter ({item:9576}, from {npc:197} after Kobold Camp Cleanup) points you to {npc:459}, the warlock trainer in the little graveyard beside {area:24}. She asks for a book the Defias stole."] = "Votre première lettre ({item:9576}, de {npc:197} après Nettoyer le camp des kobolds) vous mène à {npc:459}, la maîtresse des démonistes dans le petit cimetière à côté de l'{area:24}. Elle demande un livre volé par les Défias.",
+	-- {item:9576} Tainted Letter · {npc:197} Marshal McBride · {npc:459} Drusilla La Salle · {object:89} Northshire Abbey (no name in this language: may be words)
+	["Your first letter ({item:9576}, from {npc:197} after Kobold Camp Cleanup) points you to {npc:459}, the warlock trainer in the little graveyard beside {object:89}. She asks for a book the Defias stole."] = "",
 
 	-- Step 2: The Stolen Books
 	-- {object:83763} Stolen Books
@@ -31,18 +31,22 @@ return {
 	-- Step 4: Alamar Grimm (Gnomes)
 	-- {npc:460} Alamar Grimm
 	["{npc:460} (Gnomes)"] = "{npc:460} (Gnomes)",
-	-- {item:9577} Tainted Memorandum · {npc:658} Sten Stoutarm · {npc:460} Alamar Grimm · {area:77} Anvilmar
+	-- {item:9577} Tainted Memorandum · {npc:658} Sten Stoutarm · {npc:460} Alamar Grimm
 	-- plural, as words: Feather Charms = {item:6753} Feather Charm
-	["Your first letter ({item:9577}, from {npc:658} after Dwarven Outfitters) points you to {npc:460}, the warlock trainer upstairs inside {area:77}. He asks for three Feather Charms."] = "Votre première lettre ({item:9577}, de {npc:658} après Tailleur chez les nains) vous mène à {npc:460}, le maître des démonistes à l'étage d'{area:77}. Il demande trois Charmes de plume.",
+	["Your first letter ({item:9577}, from {npc:658} after Dwarven Outfitters) points you to {npc:460}, the warlock trainer upstairs inside Anvilmar. He asks for three Feather Charms."] = "",
 
 	-- Step 5: Feather Charms
 	-- plural, as words: Feather Charms = {item:6753} Feather Charm
 	["Feather Charms"] = "Charmes de plume",
-	-- {area:77} Anvilmar · {area:132} Coldridge Valley
 	-- plural, as words: Frostmane Novices = {npc:946} Frostmane Novice
-	["The Frostmane Novices (level 3-4) sit at the back of the troll cave south of {area:77}, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to {area:132}."] = "Les Novices Frostmane (niveau 3-4) se tiennent au fond de la grotte des trolls au sud d'{area:77}, près de Grik'nir le Froid au bord du bassin gelé : prenez le tunnel de gauche après l'entrée. Quatre fois sur cinq, ils lâchent un charme, mais seuls deux ou trois novices apparaissent, vous devrez donc peut-être attendre leur réapparition de trois minutes. Ils lancent des éclairs de givre à distance ; les Jeunes trolls à l'entrée de la grotte sautent sur quiconque passe. Une fois les charmes en main, votre pierre de foyer vous ramène tout droit : celle d'un nouveau personnage est liée à la {area:132}.",
+	["The Frostmane Novices (level 3-4) sit at the back of the troll cave south of Anvilmar, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to Coldridge Valley."] = "",
 
 	-- Step 6: Summon Imp
 	-- {npc:460} Alamar Grimm · {spell:688} Summon Imp
 	["{npc:460} teaches you {spell:688} at the hand-in: summon it right away, it costs nothing and fights beside you."] = "{npc:460} vous apprend {spell:688} quand vous rendez la quête : invoquez-le tout de suite, il ne coûte rien et combat à vos côtés.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Frostmane Novices (level 3-4) sit at the back of the troll cave south of {area:77}, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to {area:132}."] = "Les Novices Frostmane (niveau 3-4) se tiennent au fond de la grotte des trolls au sud d'{area:77}, près de Grik'nir le Froid au bord du bassin gelé : prenez le tunnel de gauche après l'entrée. Quatre fois sur cinq, ils lâchent un charme, mais seuls deux ou trois novices apparaissent, vous devrez donc peut-être attendre leur réapparition de trois minutes. Ils lancent des éclairs de givre à distance ; les Jeunes trolls à l'entrée de la grotte sautent sur quiconque passe. Une fois les charmes en main, votre pierre de foyer vous ramène tout droit : celle d'un nouveau personnage est liée à la {area:132}.",
+	-- ["Your first letter ({item:9576}, from {npc:197} after Kobold Camp Cleanup) points you to {npc:459}, the warlock trainer in the little graveyard beside {area:24}. She asks for a book the Defias stole."] = "Votre première lettre ({item:9576}, de {npc:197} après Nettoyer le camp des kobolds) vous mène à {npc:459}, la maîtresse des démonistes dans le petit cimetière à côté de l'{area:24}. Elle demande un livre volé par les Défias.",
+	-- ["Your first letter ({item:9577}, from {npc:658} after Dwarven Outfitters) points you to {npc:460}, the warlock trainer upstairs inside {area:77}. He asks for three Feather Charms."] = "Votre première lettre ({item:9577}, de {npc:658} après Tailleur chez les nains) vous mène à {npc:460}, le maître des démonistes à l'étage d'{area:77}. Il demande trois Charmes de plume.",
 }

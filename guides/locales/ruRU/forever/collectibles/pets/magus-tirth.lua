@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Magus Tirth
-	-- {npc:6548} Magus Tirth · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {item:11023} Ancona Chicken · {area:484} Freewind Post · {area:976} Gadgetzan · {zone:1446} Tanaris
-	["{npc:6548} at the {area:2240}, the goblin and gnome racetrack in the {area:439} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {area:484} (Horde) and {area:976} in {zone:1446} (both sides); from {area:976}, ride north into the {area:439}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	-- {npc:6548} Magus Tirth · {object:151976} Shimmering Flats (no name in this language: may be words) · {zone:1441} Thousand Needles · {item:11023} Ancona Chicken · {object:19840} Freewind Post (no name in this language: may be words) · {zone:1446} Tanaris
+	["{npc:6548} at the Mirage Raceway, the goblin and gnome racetrack in the {object:151976} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {object:19840} (Horde) and Gadgetzan in {zone:1446} (both sides); from Gadgetzan, ride north into the {object:151976}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
 	-- {item:11023} Ancona Chicken
 	["{item:11023}, 1g"] = "{item:11023}, 1з",
 

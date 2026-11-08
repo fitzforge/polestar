@@ -10,20 +10,21 @@ return {
 	["A rare off-hand orb or staff for your 20s, for fragments from two dungeons."] = "Редкая сфера для левой руки или посох для 20-х уровней за фрагменты из двух подземелий.",
 
 	-- Step 1: Doan Karhan
-	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:380} Crossroads · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
-	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the {area:380}. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "",
+	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {zone:1413} Barrens · {object:1680} Shadowfang Keep (no name in this language: may be words)
+	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of Camp Taurajo in the southern {zone:1413}. Alliance warlocks reach him from Ratchet or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your Blackfathom Deeps and {object:1680} runs."] = "",
 
 	-- Step 2: Blackfathom Deeps
-	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {area:414} Zoram Strand · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai
+	["Blackfathom Deeps"] = "",
+	-- {zone:1440} Ashenvale · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai
 	-- plural, as words: Twilight Acolytes = {npc:4809} Twilight Acolyte
-	["{area:2797} (level 24-32, a group of five) opens in the ruins on the north-west coast of {zone:1440}, under the water at {area:414}. The Twilight Acolytes (level 24-25, elite, healers) stand in the last halls, around {npc:4832} and the altar before {npc:4829}; each one drops a fragment, but only three spawn in a run and they do not come back for two hours, so one run covers one warlock: kill them first, before they heal the rest."] = "",
+	["Blackfathom Deeps (level 24-32, a group of five) opens in the ruins on the north-west coast of {zone:1440}, under the water at Zoram Strand. The Twilight Acolytes (level 24-25, elite, healers) stand in the last halls, around {npc:4832} and the altar before {npc:4829}; each one drops a fragment, but only three spawn in a run and they do not come back for two hours, so one run covers one warlock: kill them first, before they heal the rest."] = "",
 	-- plural, as words: Soran'ruk Fragments = {item:6914} Soran'ruk Fragment · Twilight Acolytes = {npc:4809} Twilight Acolyte
 	["Soran'ruk Fragments, from the Twilight Acolytes inside"] = "",
 
 	-- Step 3: Shadowfang Keep
-	-- {area:236} Shadowfang Keep · {area:228} Sepulcher
+	-- {object:1680} Shadowfang Keep (no name in this language: may be words)
 	-- plural, as words: Shadowfang Darksouls = {npc:3855} Shadowfang Darksoul
-	["{area:236} (level 22-30, a group of five) stands on the hill south of the {area:228}. Free the prisoner in the cells right of the entrance and he opens the way into the courtyard. The Shadowfang Darksouls (level 20-21, elite) are not in the courtyard: they walk the halls past it, up the ramp that curves left and in the building after. About twelve stand in a run and one in five drops the Large Fragment, so clear every Darksoul and run it again if it does not drop."] = "",
+	["{object:1680} (level 22-30, a group of five) stands on the hill south of the Sepulcher. Free the prisoner in the cells right of the entrance and he opens the way into the courtyard. The Shadowfang Darksouls (level 20-21, elite) are not in the courtyard: they walk the halls past it, up the ramp that curves left and in the building after. About twelve stand in a run and one in five drops the Large Fragment, so clear every Darksoul and run it again if it does not drop."] = "",
 	-- {item:6915} Large Soran'ruk Fragment
 	-- plural, as words: Shadowfang Darksouls = {npc:3855} Shadowfang Darksoul
 	["{item:6915}, from the Shadowfang Darksouls inside"] = "",

@@ -25,8 +25,7 @@ return {
 	-- {npc:14984} Sergeant Maclear · {zone:1461} Arathi Basin
 	["Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for {npc:14984}, three for the Brigadier General. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1461} marks: hand in or spend them before you reach that."] = "",
 	["Assault the Mine banner"] = "",
-	-- {area:3422} Lumber Mill
-	["Assault the {area:3422} banner"] = "",
+	["Assault the Lumber Mill banner"] = "",
 	["Assault the Blacksmith banner"] = "",
 	["Assault the Farm banner"] = "",
 	-- {item:20559} Arathi Basin Mark of Honor
@@ -34,14 +33,14 @@ return {
 	["three more marks"] = "",
 
 	-- Step 3: Back to Refuge Pointe
-	-- {area:320} Refuge Pointe
-	["Back to {area:320}"] = "",
+	-- {object:2685} Refuge Pointe (no name in this language: may be words)
+	["Back to {object:2685}"] = "",
 	["hand in the three marks first"] = "",
 
 	-- Step 4: League of Arathor to Friendly
 	["League of Arathor to Friendly"] = "阿拉索聯軍到友好",
-	-- {quest:8374} Claiming Arathi Basin · {area:320} Refuge Pointe
-	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General ({quest:8374}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:320} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General."] = "",
+	-- {quest:8374} Claiming Arathi Basin · {object:2685} Refuge Pointe (no name in this language: may be words)
+	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General ({quest:8374}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {object:2685} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General."] = "",
 	-- {npc:15351} Alliance Brigadier General · {quest:8374} Claiming Arathi Basin
 	["{npc:15351}: {quest:8374} again, 50 reputation for 3 marks"] = "",
 
@@ -83,6 +82,7 @@ return {
 	["all five bases held at once"] = "",
 
 	-- Step 11: Hammerfall
+	["Hammerfall"] = "",
 	-- {npc:15021} Deathmaster Dwire
 	["{npc:15021}: assault four bases, 200"] = "",
 	-- {npc:15022} Deathstalker Mortis
@@ -96,14 +96,13 @@ return {
 	["Assault the Stables banner"] = "",
 
 	-- Step 13: Back to Hammerfall
-	-- {area:321} Hammerfall
-	["Back to {area:321}"] = "",
+	["Back to Hammerfall"] = "",
 
 	-- Step 14: The Defilers to Friendly
 	-- {faction:510} The Defilers
 	["{faction:510} to Friendly"] = "{faction:510}到友好",
-	-- {quest:8370} Conquering Arathi Basin · {area:321} Hammerfall
-	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer ({quest:8370}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at {area:321} come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer."] = "",
+	-- {quest:8370} Conquering Arathi Basin
+	["Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer ({quest:8370}, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at Hammerfall come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer."] = "",
 	-- {npc:15350} Horde Warbringer · {quest:8370} Conquering Arathi Basin
 	["{npc:15350}: {quest:8370} again, 50 reputation for 3 marks"] = "",
 

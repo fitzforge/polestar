@@ -15,32 +15,32 @@ return {
 	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "48 patrons de {skill:164}, de {skill:165} et de {skill:197}",
 
 	-- Step 1: Skyboat from Dalaran
-	-- {area:279} Dalaran
-	["Skyboat from {area:279}"] = "Aéronef depuis {area:279}",
-	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "{zone:2521} est l'île de départ des Éolides, ouverte à tous. Un navire céleste part du côté nord de {area:279} environ toutes les cinq minutes ; un autre vole depuis le nord des {zone:1456}, et chaque faction peut prendre l'un ou l'autre.",
+	["Skyboat from Dalaran"] = "",
+	-- {zone:2521} Zephras Isle · {zone:1456} Thunder Bluff
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of Dalaran about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Navire céleste vers {zone:2521}",
 
 	-- Step 2: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Aéronef depuis {zone:1456}",
-	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "{zone:2521} est l'île de départ des Éolides, ouverte à tous. Un navire céleste part des falaises au sud du {area:17045}, au nord des {zone:1456}, environ toutes les cinq minutes ; un autre vole depuis {area:279}, et chaque faction peut prendre l'un ou l'autre.",
+	-- {zone:2521} Zephras Isle · {zone:1456} Thunder Bluff
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of Skywatcher Plateau, north of {zone:1456}, about every five minutes; another flies from Dalaran, and either faction may take either."] = "",
 
 	-- Step 3: Lotheluum Starbreeze
-	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
+	-- {npc:252359} Lotheluum Starbreeze
+	["{npc:252359} stands in Valanaar, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "",
 
 	-- Step 4: Elegael Thornpaw
-	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
-	["Head north into the {area:16631}. {npc:257944} holds the druids' camp in its north-east."] = "Allez au nord dans la {area:16631}. {npc:257944} tient le camp des druides au nord-est de la forêt.",
+	-- {npc:257944} Elegael Thornpaw
+	["Head north into the Shadowgale Forest. {npc:257944} holds the druids' camp in its north-east."] = "",
 
 	-- Step 5: Vayn Moongaze
-	-- {npc:254151} Vayn Moongaze · {npc:257944} Elegael Thornpaw · {area:16720} Nightclaw Cavern
-	["{npc:254151}, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of {npc:257944} ({area:16720} on the map; {npc:257944} calls it the Nightfang Den). Take his ear quest now: the cultists you fight for {npc:257944} drop ears for it."] = "{npc:254151}, l'intendant des druides, attend dans leur antre : la grotte juste de l'autre côté de la clairière, au nord-est de {npc:257944} ({area:16720} sur la carte ; {npc:257944} l'appelle le Nightfang Den). Acceptez maintenant sa quête d'oreilles : les sectateurs que vous combattez pour {npc:257944} en laissent pour elle.",
+	-- {npc:254151} Vayn Moongaze · {npc:257944} Elegael Thornpaw
+	["{npc:254151}, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of {npc:257944} (Nightclaw Cavern on the map; {npc:257944} calls it the Nightfang Den). Take his ear quest now: the cultists you fight for {npc:257944} drop ears for it."] = "",
 
 	-- Step 6: Shadowgale Forest
+	["Shadowgale Forest"] = "",
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Footsoldiers = {npc:252665} Al'Aketh Footsoldier · Bloody Heirlooms = {item:265141} Bloody Heirloom · Shadowgale Shrieklings = {npc:256092} Shadowgale Shriekling
 	["The Al'Aketh Footsoldiers and Stormchasers camp just north of {npc:257944} and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the {item:265105} grows on the trees along the stream west of her."] = "Les Fantassins al'aketh et les Chasseurs de tempêtes campent juste au nord de {npc:257944} et laissent les Héritages ensanglantés (et des oreilles, environ une victime sur quatre). Les Criailleuses trombenoires qui volent à l'ouest de celle-ci laissent les plumes ; la {item:265105} pousse sur les arbres le long du ruisseau à l'ouest de celle-ci.",
@@ -66,21 +66,18 @@ return {
 	["1000 reputation"] = "1000 de réputation",
 
 	-- Step 10: Ears at the Shrine of Akir
-	-- {area:16629} Shrine of Akir
-	["Ears at the {area:16629}"] = "Oreilles au {area:16629}",
-	-- {area:16629} Shrine of Akir · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
+	["Ears at the Shrine of Akir"] = "",
 	-- plural, as words: Honor Guards = {npc:3083} Honor Guard
-	["The best ears are south of the forest at the {area:16629}: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The {area:16626} just north-west of {area:16638} are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10."] = "Les meilleures oreilles sont au sud de la forêt, au {area:16629} : les prêtres du ciel en laissent une sur plus de la moitié de leurs victimes, les gardiens quatre sur dix, les implorateurs d'esprits et les gardes d'honneur une sur trois. Les {area:16626}, juste au nord-ouest de {area:16638}, viennent ensuite (bagarreurs et pillards, environ quatre sur dix). Tous les sectateurs sont de niveau 8 à 10.",
+	["The best ears are south of the forest at the Shrine of Akir: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The Gustberry Lowlands just north-west of Valanaar are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10."] = "",
 
 	-- Step 11: Mercy Falls on Deaf Ears
 	-- {npc:254151} Vayn Moongaze
 	["Back to {npc:254151} inside the den. Ten ears for 1000 reputation and a green piece: leather gloves, cloth pants or mail boots. {npc:254151} then takes ears five at a time, for 1000 each, as often as you like, up to level 18; in Classic the pay drops from level 19 and is 200 from level 22. The Legacy perk Diplomat adds up to 10% to every gain."] = "Retournez voir {npc:254151} dans l'antre. Dix oreilles contre 1000 de réputation et une pièce verte : gants en cuir, pantalon en tissu ou bottes en mailles. {npc:254151} prend ensuite les oreilles cinq par cinq, pour 1000 chaque fois, aussi souvent que vous le voulez, jusqu'au niveau 18 ; dans Classic, le gain baisse dès le niveau 19 et tombe à 200 à partir du niveau 22. L'atout Diplomate de l'Héritage ajoute jusqu'à 10 % à chaque gain.",
 
 	-- Step 12: Back to Valanaar
-	-- {area:16638} Valanaar
-	["Back to {area:16638}"] = "Retour à {area:16638}",
-	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
-	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "{npc:252359} attend à {area:16638}. Rendez la quête en allant vers un navire céleste ou vers les {area:16626}.",
+	["Back to Valanaar"] = "",
+	-- {npc:252359} Lotheluum Starbreeze
+	["{npc:252359} waits in Valanaar. Hand in on your way to a skyboat or to the Gustberry Lowlands."] = "",
 
 	-- Step 13: Friendly to Honored
 	["Friendly to Honored"] = "D'Amical à Honoré",
@@ -108,4 +105,16 @@ return {
 	["The {item:280363}"] = "Le {item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "Exalté ouvre le {item:280363}, des épaulières vertes en tissu de niveau 15, pour 8 pa 16 pc.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:16638}"] = "Retour à {area:16638}",
+	-- ["Ears at the {area:16629}"] = "Oreilles au {area:16629}",
+	-- ["Head north into the {area:16631}. {npc:257944} holds the druids' camp in its north-east."] = "Allez au nord dans la {area:16631}. {npc:257944} tient le camp des druides au nord-est de la forêt.",
+	-- ["Skyboat from {area:279}"] = "Aéronef depuis {area:279}",
+	-- ["The best ears are south of the forest at the {area:16629}: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The {area:16626} just north-west of {area:16638} are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10."] = "Les meilleures oreilles sont au sud de la forêt, au {area:16629} : les prêtres du ciel en laissent une sur plus de la moitié de leurs victimes, les gardiens quatre sur dix, les implorateurs d'esprits et les gardes d'honneur une sur trois. Les {area:16626}, juste au nord-ouest de {area:16638}, viennent ensuite (bagarreurs et pillards, environ quatre sur dix). Tous les sectateurs sont de niveau 8 à 10.",
+	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} se tient à {area:16638}, la ville des Éolides au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa course lance l'histoire de la Noctegriffe (niveau 8 et plus, toutes races). Chacune de ses quêtes rapporte de la réputation auprès de la Noctegriffe : 4100 en tout, assez pour Amical. Venez tôt : dans Classic, une quête rapporte moins une fois que vous la dépassez de 6 niveaux, un cinquième au plus à partir de 9 niveaux, et ce sont des quêtes de niveau 11 à 13.",
+	-- ["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "{npc:252359} attend à {area:16638}. Rendez la quête en allant vers un navire céleste ou vers les {area:16626}.",
+	-- ["{npc:254151}, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of {npc:257944} ({area:16720} on the map; {npc:257944} calls it the Nightfang Den). Take his ear quest now: the cultists you fight for {npc:257944} drop ears for it."] = "{npc:254151}, l'intendant des druides, attend dans leur antre : la grotte juste de l'autre côté de la clairière, au nord-est de {npc:257944} ({area:16720} sur la carte ; {npc:257944} l'appelle le Nightfang Den). Acceptez maintenant sa quête d'oreilles : les sectateurs que vous combattez pour {npc:257944} en laissent pour elle.",
+	-- ["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "{zone:2521} est l'île de départ des Éolides, ouverte à tous. Un navire céleste part des falaises au sud du {area:17045}, au nord des {zone:1456}, environ toutes les cinq minutes ; un autre vole depuis {area:279}, et chaque faction peut prendre l'un ou l'autre.",
+	-- ["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "{zone:2521} est l'île de départ des Éolides, ouverte à tous. Un navire céleste part du côté nord de {area:279} environ toutes les cinq minutes ; un autre vole depuis le nord des {zone:1456}, et chaque faction peut prendre l'un ou l'autre.",
 }

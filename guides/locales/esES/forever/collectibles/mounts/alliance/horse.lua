@@ -11,16 +11,18 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
-	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {object:95} Eastvale Logging Camp (no name in this language: may be words) · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
+	["{npc:4732} and {npc:384}'s horse pen are at {object:95} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, instructor de equitación",
 
 	-- Step 2: Horse Riding for other races
-	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
-	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	-- {skill:762} Riding
+	["Horse {skill:762} for other races"] = "",
+	-- {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
+	["Any Alliance race can buy these horses, but riding one also takes Horse Riding, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	-- {npc:4732} Randal Hunter
+	["{npc:4732}, Horse Riding"] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",
@@ -34,10 +36,10 @@ return {
 	["{item:5656}, 20g"] = "{item:5656}, 20 o",
 
 	-- Step 4: Black Stallion in Menethil Harbor
-	-- {npc:5404} Black Stallion · {area:150} Menethil Harbor
-	["{npc:5404} in {area:150}"] = "",
-	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {area:150} Menethil Harbor · {zone:1437} Wetlands
-	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
+	-- {npc:5404} Black Stallion · {object:1162} Menethil Harbor (no name in this language: may be words)
+	["{npc:5404} in {object:1162}"] = "",
+	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {object:1162} Menethil Harbor (no name in this language: may be words) · {zone:1437} Wetlands
+	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {object:1162} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
 	-- {item:2411} Black Stallion Bridle · {npc:1460} Unger Statforth
 	["{item:2411}, 20g, {npc:1460}"] = "",
 

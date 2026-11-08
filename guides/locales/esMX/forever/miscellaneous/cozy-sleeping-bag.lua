@@ -35,10 +35,9 @@ return {
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "",
 
 	-- Step 5: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
-	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "",
+	-- {object:19559} Sun Rock Retreat (no name in this language: may be words) · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
+	["The next hideout is a small camp in the hills north-west of {object:19559}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
+	["The road west runs through Honor's Stand, a Horde post; this way goes round it."] = "",
 	["North of Honor's Stand"] = "",
 	["Path into the hills"] = "",
 
@@ -50,12 +49,11 @@ return {
 	-- Step 7: The dam in Loch Modan
 	-- {zone:1432} Loch Modan
 	["The dam in {zone:1432}"] = "",
-	-- {area:146} Stonewrought Dam
-	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+	["The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
 
 	-- Step 8: Thoradin's Wall
-	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
+	["Thoradin's Wall"] = "",
+	["At the gate in Thoradin's Wall between Arathi and Hillsbrad, turn north and follow the wall on the Hillsbrad side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
 	["Fallen cart"] = "",
 
 	-- Step 9: The hidden camp

@@ -17,12 +17,12 @@ return {
 	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "",
 
 	-- Step 2: Norric Lochthane
-	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {area:144} Thelsamar
-	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "",
+	-- {npc:258043} Norric Lochthane
+	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below Stonewrought Dam, north of Thelsamar."] = "",
 
 	-- Step 3: Hervdana Saegrund
-	-- {npc:258203} Hervdana Saegrund · {zone:1437} Wetlands · {area:836} Dun Algaz · {zone:1432} Loch Modan
-	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "",
+	-- {npc:258203} Hervdana Saegrund · {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words) · {zone:1432} Loch Modan
+	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {object:1668}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "",
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "El odre marrón",
@@ -31,22 +31,22 @@ return {
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "El odre rojo",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {zone:1455} Ironforge · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "",
+	["Stonewatch Falls pour out of Lake Everstill at the east end of Redridge (fly from {zone:1455} to Lakeshire). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "El odre azul",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "",
+	-- {object:1162} Menethil Harbor (no name in this language: may be words) · {zone:1439} Darkshore · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
+	["Take the boat from {object:1162} to Auberdine (it stops in Southshore on the way), then fly or walk south through {zone:1439} to Astranaar in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
 	["the {item:7810}, for {npc:258043}"] = "{item:7810}, para {npc:258043}",
 
 	-- Step 10: Norric Lochthane
-	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	-- {npc:258043} Norric Lochthane · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
+	["Back to {npc:258043} by Stonewrought Dam with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}: tu {item:6637}",
 
@@ -59,8 +59,9 @@ return {
 	["{npc:258043}: a new {quest:94616}"] = "",
 
 	-- Step 12: Stendel's Pond
-	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Stendel's Pond"] = "",
+	-- {object:81} Sentinel Hill (no name in this language: may be words) · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
+	["Fly to {object:81} and head south to Moonbrook: Stendel's Pond and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, Frost Shock and Frost Nova; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
 	-- {npc:5895} Minor Manifestation of Water
 	["{npc:5895}, at the shrine"] = "{npc:5895}, en el santuario",
 

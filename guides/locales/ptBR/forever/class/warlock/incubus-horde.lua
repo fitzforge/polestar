@@ -17,24 +17,28 @@ return {
 	["the incubus"] = "",
 
 	-- Step 2: Zankaja
-	-- {npc:5910} Zankaja · {object:172982} Valley of Strength (no name in this language: may be words) · {area:380} Crossroads
-	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the {area:380}."] = "",
+	-- {npc:5910} Zankaja · {object:172982} Valley of Strength (no name in this language: may be words)
+	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "",
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {zone:1440} Ashenvale
 	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "",
 
 	-- Step 4: Gazrog
-	-- {npc:3464} Gazrog · {area:380} Crossroads · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
-	["{npc:3464} waits in front of the inn at the {area:380}. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "",
+	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {zone:1442} Stonetalon Mountains
+	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at Malaka'jin, in {zone:1442}."] = "",
 
 	-- Step 5: Ken'zigla
-	-- {area:380} Crossroads · {zone:1442} Stonetalon Mountains · {area:2539} Malaka'jin · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
-	["Take the road west from the {area:380} into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
+	-- {zone:1442} Stonetalon Mountains · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
+	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): Malaka'jin cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
+	-- {npc:4197} Ken'zigla
+	["{npc:4197}, Malaka'jin"] = "",
 
 	-- Step 6: Grunt Dogran
-	-- {npc:5911} Grunt Logmar · {area:378} Camp Taurajo · {area:380} Crossroads · {npc:5875} Gan'rul Bloodeye
-	["{npc:5911} stands at {area:378}, south down the road from the {area:380}. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
+	-- {npc:5911} Grunt Logmar · {npc:5875} Gan'rul Bloodeye
+	["{npc:5911} stands at Camp Taurajo, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
+	-- {npc:5911} Grunt Logmar
+	["{npc:5911}, Camp Taurajo"] = "",
 
 	-- Step 7: The Binding: succubus (Orgrimmar)
 	-- {quest:1513} The Binding · {zone:1454} Orgrimmar
@@ -45,9 +49,10 @@ return {
 	["{item:6626}, on the circle in Neeru's tent"] = "",
 
 	-- Step 8: Fallen Sky Lake
-	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
+	["Fallen Sky Lake"] = "",
+	-- {zone:1440} Ashenvale · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
 	-- plural, as words: Shadethicket Stone Movers = {npc:3782} Shadethicket Stone Mover
-	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "",
+	["Fallen Sky Lake lies in southern {zone:1440}, south-west of Splintertree Post. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "",
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
@@ -63,13 +68,13 @@ return {
 
 	-- Step 11: Silverpine hearts
 	["Silverpine hearts"] = "",
-	-- {npc:185333} Avelina Lilly · {area:279} Dalaran · {area:233} Ambermill · {npc:5682} Dalin Forgewright · {area:230} Greymane Wall
-	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
+	-- {npc:185333} Avelina Lilly · {npc:5682} Dalin Forgewright
+	["{npc:185333} (level 22) works as a tailor for the Dalaran wizards at Ambermill, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the Greymane Wall in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
 
 	-- Step 12: Corma Villard
 	["Corma Villard"] = "",
-	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
+	-- {zone:1437} Wetlands · {object:2673} Thandol Span (no name in this language: may be words) · {zone:1458} Undercity · {zone:1417} Arathi Highlands
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {object:2673}, to the right as you come off the bridge. From the {zone:1458} head through Hillsbrad and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
 	["Corma's Heart"] = "",
 
 	-- Step 13: The Binding: succubus (Undercity)
@@ -81,8 +86,8 @@ return {
 	["{item:6286}, on the circle below {npc:5675}"] = "",
 
 	-- Step 14: Isaac Pearson
-	-- {npc:185334} Isaac Pearson · {area:392} Ratchet · {zone:1413} Barrens · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{npc:185334} (level 22) works in {area:392}, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and head south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "",
+	-- {npc:185334} Isaac Pearson · {zone:1413} Barrens · {zone:1411} Durotar · {zone:1454} Orgrimmar
+	["{npc:185334} (level 22) works in Ratchet, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and head south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "",
 
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity

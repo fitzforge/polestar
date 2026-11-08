@@ -13,39 +13,38 @@ return {
 	["{item:21175} quest chain"] = "Цепочка заданий {item:21175}",
 
 	-- Step 1: Baristolth in Cenarion Hold
-	-- {area:3425} Cenarion Hold
-	["Baristolth in {area:3425}"] = "",
-	-- {faction:910} Brood of Nozdormu · {npc:15192} Anachronos · {npc:15180} Baristolth of the Shifting Sands · {area:3425} Cenarion Hold · {area:2677} Blackwing Lair · {area:16076} Temple of Ahn'Qiraj
-	["The {faction:910} is not in your reputation list until you meet {npc:15192}. {npc:15180}, in the main building of {area:3425}, sends you to him. Meeting him sets you at Hated, 0 of 36,000: Neutral is 42,000 reputation away, and almost all of it comes from raids. {area:2677} and the {area:16076} are not among the first raids Blizzard has announced for Forever: until one of them opens, the 100 from Baristolth's first quest is all the Brood reputation there is. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "",
+	["Baristolth in Cenarion Hold"] = "",
+	-- {faction:910} Brood of Nozdormu · {npc:15192} Anachronos · {npc:15180} Baristolth of the Shifting Sands
+	["The {faction:910} is not in your reputation list until you meet {npc:15192}. {npc:15180}, in the main building of Cenarion Hold, sends you to him. Meeting him sets you at Hated, 0 of 36,000: Neutral is 42,000 reputation away, and almost all of it comes from raids. Blackwing Lair and the Temple of Ahn'Qiraj are not among the first raids Blizzard has announced for Forever: until one of them opens, the 100 from Baristolth's first quest is all the Brood reputation there is. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "",
 
 	-- Step 2: Anachronos at the Caverns of Time
-	-- {npc:15192} Anachronos · {area:2300} Caverns of Time
-	["{npc:15192} at the {area:2300}"] = "",
-	-- {npc:15192} Anachronos · {area:2300} Caverns of Time · {zone:1446} Tanaris · {area:976} Gadgetzan
-	["{npc:15192}, a bronze dragon in elf form, stands at the mouth of the {area:2300} in eastern {zone:1446}, south-east of {area:976}. Walk up to him."] = "",
+	-- {npc:15192} Anachronos
+	["{npc:15192} at the Caverns of Time"] = "",
+	-- {npc:15192} Anachronos · {zone:1446} Tanaris
+	["{npc:15192}, a bronze dragon in elf form, stands at the mouth of the Caverns of Time in eastern {zone:1446}, south-east of Gadgetzan. Walk up to him."] = "",
 	-- {npc:15192} Anachronos
 	["Meet {npc:15192}"] = "",
 
 	-- Step 3: Back to Baristolth
 	["Back to Baristolth"] = "",
-	-- {quest:8288} Only One May Rise · {npc:12017} Broodlord Lashlayer · {area:2677} Blackwing Lair · {area:254} Blackrock Mountain · {quest:8286} What Tomorrow Brings
-	["{quest:8288} wants the head of {npc:12017}, the third boss of {area:2677} (a 40-player raid in {area:254}). Everything after it needs the head, the fragment turn-ins included: until you have it, {quest:8286} is all the Brood reputation there is, solo or not."] = "",
+	-- {quest:8288} Only One May Rise · {npc:12017} Broodlord Lashlayer · {quest:8286} What Tomorrow Brings
+	["{quest:8288} wants the head of {npc:12017}, the third boss of Blackwing Lair (a 40-player raid in Blackrock Mountain). Everything after it needs the head, the fragment turn-ins included: until you have it, {quest:8286} is all the Brood reputation there is, solo or not."] = "",
 
 	-- Step 4: Broodlord Lashlayer
-	-- {area:2677} Blackwing Lair · {area:254} Blackrock Mountain · {npc:12017} Broodlord Lashlayer
-	["{area:2677} is a 40-player raid at the top of {area:254}. {npc:12017} always drops his head."] = "",
+	-- {npc:12017} Broodlord Lashlayer
+	["Blackwing Lair is a 40-player raid at the top of Blackrock Mountain. {npc:12017} always drops his head."] = "",
 	-- {item:20383} Head of the Broodlord Lashlayer
 	["{item:20383}: raid of 40"] = "",
 
 	-- Step 5: The Path of the Righteous
-	-- {quest:8301} The Path of the Righteous · {area:3425} Cenarion Hold · {area:2743} Hive'Zora · {area:2744} Hive'Regal
+	-- {quest:8301} The Path of the Righteous
 	-- plural, as words: Silithid Carapace Fragments = {item:20384} Silithid Carapace Fragment · Hive'Ashi Workers = {npc:11721} Hive'Ashi Worker
-	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of {area:3425}, and those of {area:2743} in the west and {area:2744} in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "",
+	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of Cenarion Hold, and those of Hive'Zora in the west and Hive'Regal in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "",
 
 	-- Step 6: Hated to Neutral
 	["Hated to Neutral"] = "",
-	-- {quest:8302} The Hand of the Righteous · {area:16076} Temple of Ahn'Qiraj · {item:21230} Ancient Qiraji Artifact · {item:21229} Qiraji Lord's Insignia
-	["After The Path, Baristolth takes 200 more fragments for {quest:8302}: 200 reputation, again and again, but only until Neutral. From Hated 500 that is 208 turn-ins, 41,600 fragments, 20,000 to 30,000 elite kills: the only way without the Temple, and a very long one. With the {area:16076} open (a 40-player raid) it is far quicker: every Temple trash mob gives 100 until 2,999 of 3,000 Neutral, about 9,500 a full clear, so four to five clears reach Neutral. Save every {item:21230} and {item:21229} you loot until the trash stops counting: they pay the same later."] = "",
+	-- {quest:8302} The Hand of the Righteous · {item:21230} Ancient Qiraji Artifact · {item:21229} Qiraji Lord's Insignia
+	["After The Path, Baristolth takes 200 more fragments for {quest:8302}: 200 reputation, again and again, but only until Neutral. From Hated 500 that is 208 turn-ins, 41,600 fragments, 20,000 to 30,000 elite kills: the only way without the Temple, and a very long one. With the Temple of Ahn'Qiraj open (a 40-player raid) it is far quicker: every Temple trash mob gives 100 until 2,999 of 3,000 Neutral, about 9,500 a full clear, so four to five clears reach Neutral. Save every {item:21230} and {item:21229} you loot until the trash stops counting: they pay the same later."] = "",
 	-- {quest:8302} The Hand of the Righteous
 	["{quest:8302}: 200 fragments, 200"] = "",
 
@@ -58,8 +57,8 @@ return {
 	-- Step 9: The Crystalline Tear
 	-- {object:180633} Crystalline Tear
 	["The {object:180633}"] = "",
-	-- {object:180633} Crystalline Tear · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
-	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "",
+	-- {object:180633} Crystalline Tear · {zone:1451} Silithus
+	["The {object:180633} is a small red crystal on the ground just outside the gates of Ahn'Qiraj, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "",
 	["Watch the vision"] = "",
 
 	-- Step 10: The Charge of the Dragonflights
@@ -69,10 +68,10 @@ return {
 
 	-- Step 11: The red shard: Vaelastrasz
 	["The red shard: Vaelastrasz"] = "",
-	-- {npc:13020} Vaelastrasz the Corrupt · {area:2677} Blackwing Lair · {quest:8730} Nefarius's Corruption · {item:21138} Red Scepter Shard
-	["The red shard: {npc:13020}, the second boss of {area:2677}, gives {quest:8730} before his fight; Nefarian, the last boss, drops the {item:21138} for one raider on the quest each kill. The quest lasts five hours."] = "",
-	-- {npc:13020} Vaelastrasz the Corrupt · {area:2677} Blackwing Lair
-	["{npc:13020}, {area:2677}: raid of 40"] = "",
+	-- {npc:13020} Vaelastrasz the Corrupt · {quest:8730} Nefarius's Corruption · {item:21138} Red Scepter Shard
+	["The red shard: {npc:13020}, the second boss of Blackwing Lair, gives {quest:8730} before his fight; Nefarian, the last boss, drops the {item:21138} for one raider on the quest each kill. The quest lasts five hours."] = "",
+	-- {npc:13020} Vaelastrasz the Corrupt
+	["{npc:13020}, Blackwing Lair: raid of 40"] = "",
 	-- {item:21138} Red Scepter Shard
 	["{item:21138}, Nefarian"] = "",
 
@@ -82,63 +81,61 @@ return {
 	["The {npc:15481} stands on the south coast of {zone:1447}. His ledger starts {npc:11811}'s long chain in {zone:1446}."] = "",
 
 	-- Step 13: Narain Soothfancy
-	-- {npc:11811} Narain Soothfancy · {area:976} Gadgetzan · {zone:1421} Silverpine Forest · {zone:1446} Tanaris · {npc:8125} Dirge Quikcleave
-	["{npc:11811}, a goblin seer, lives in a hut north-east of {area:976}. He sends you three ways at once: to Stewvul's crate in {zone:1421}, to an island off the south coast of {zone:1446}, and to {npc:8125} in {area:976}."] = "",
+	-- {npc:11811} Narain Soothfancy · {zone:1421} Silverpine Forest · {zone:1446} Tanaris · {npc:8125} Dirge Quikcleave
+	["{npc:11811}, a goblin seer, lives in a hut north-east of Gadgetzan. He sends you three ways at once: to Stewvul's crate in {zone:1421}, to an island off the south coast of {zone:1446}, and to {npc:8125} in Gadgetzan."] = "",
 
 	-- Step 14: Stewvul's crate
 	["Stewvul's crate"] = "",
-	-- {object:180642} Inconspicuous Crate · {area:230} Greymane Wall · {zone:1421} Silverpine Forest
-	["The {object:180642} leans on the {area:230} at the south end of {zone:1421}, left of the closed gate."] = "",
+	-- {object:180642} Inconspicuous Crate · {zone:1421} Silverpine Forest
+	["The {object:180642} leans on the Greymane Wall at the south end of {zone:1421}, left of the closed gate."] = "",
 
 	-- Step 15: Meridith the Mermaiden
-	-- {object:180652} Freshly Dug Dirt · {area:987} Land's End Beach · {npc:15526} Meridith the Mermaiden · {quest:8599} Love Song for Narain
-	["The {object:180652} lies on the farther of two islands south of {area:987}, past the fatigue line. {npc:15526}, on the sea floor south of the beach's crashed gyrocopter, gives {quest:8599} and a three-minute swim-speed blessing that gets you across."] = "",
+	-- {object:180652} Freshly Dug Dirt · {npc:15526} Meridith the Mermaiden · {quest:8599} Love Song for Narain
+	["The {object:180652} lies on the farther of two islands south of Land's End Beach, past the fatigue line. {npc:15526}, on the sea floor south of the beach's crashed gyrocopter, gives {quest:8599} and a three-minute swim-speed blessing that gets you across."] = "",
 
 	-- Step 16: The island off Land's End Beach
-	-- {area:987} Land's End Beach
-	["The island off {area:987}"] = "",
+	["The island off Land's End Beach"] = "",
 
 	-- Step 17: Back to Narain Soothfancy
 	-- {npc:11811} Narain Soothfancy
 	["Back to {npc:11811}"] = "",
-	-- {quest:8606} Decoy! · {npc:11811} Narain Soothfancy · {area:2255} Everlook · {zone:1452} Winterspring · {npc:15554} Number Two
-	["{quest:8606} sends you, disguised with {npc:11811}'s turban, to a drop-off point south of {area:2255} in {zone:1452}. Leave the bag of gold there: {npc:15554}, a level 61 elite, comes for it (group of 3 to 5)."] = "",
+	-- {quest:8606} Decoy! · {npc:11811} Narain Soothfancy · {zone:1452} Winterspring · {npc:15554} Number Two
+	["{quest:8606} sends you, disguised with {npc:11811}'s turban, to a drop-off point south of Everlook in {zone:1452}. Leave the bag of gold there: {npc:15554}, a level 61 elite, comes for it (group of 3 to 5)."] = "",
 
 	-- Step 18: Decoy!
 	-- {npc:15554} Number Two
 	["{npc:15554}, elite: group of 3 to 5"] = "",
 
 	-- Step 19: Dirge Quikcleave
-	-- {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {area:1121} Isle of Dread · {zone:1444} Feralas
-	["{npc:8125} cooks in {area:976}. He sends you to the {area:1121} off southern {zone:1444} for a Chimaerok feast."] = "",
+	-- {npc:8125} Dirge Quikcleave · {zone:1444} Feralas
+	["{npc:8125} cooks in Gadgetzan. He sends you to the Isle of Dread off southern {zone:1444} for a Chimaerok feast."] = "",
 
 	-- Step 20: The Isle of Dread
-	-- {area:1121} Isle of Dread
-	["The {area:1121}"] = "",
-	-- {npc:12803} Lord Lakmaeran · {area:1121} Isle of Dread
-	["{npc:12803} and the Chimaerok on the {area:1121} are elites of level 60 to 62 that respawn every ten minutes: a raid's work. The Chimaerok drop a tenderloin about half the time, Lakmaeran two to four now and then."] = "",
+	["The Isle of Dread"] = "",
+	-- {npc:12803} Lord Lakmaeran
+	["{npc:12803} and the Chimaerok on the Isle of Dread are elites of level 60 to 62 that respawn every ten minutes: a raid's work. The Chimaerok drop a tenderloin about half the time, Lakmaeran two to four now and then."] = "",
 	-- {item:21027} Lakmaeran's Carcass · {npc:12803} Lord Lakmaeran
 	["{item:21027}, {npc:12803}: raid"] = "",
 
 	-- Step 21: Draconic for Dummies, Volume II
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}, Volume II"] = "",
-	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
+	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {zone:1419} Blasted Lands · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
 	-- plural, as words: Felguard Elites = {npc:8717} Felguard Elite · Doomguard Commanders = {npc:12396} Doomguard Commander
-	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "",
+	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on Alcaz Island (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of Everlook, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "",
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}: Volume II"] = "",
 
 	-- Step 22: Dirge Quikcleave's Chops
 	-- {npc:8125} Dirge Quikcleave
 	["{npc:8125}'s Chops"] = "",
-	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
+	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom (no name in this language: may be words) · {zone:1447} Azshara · {npc:15571} Maws · {item:21137} Blue Scepter Shard
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar · Azerothian Diamonds = {item:12800} Azerothian Diamond · Blue Sapphires = {item:12361} Blue Sapphire
-	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "",
+	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s Bay of Storms, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "",
 	-- {item:12360} Arcanite Bar
 	["{item:12360}: Alchemists, or the auction house"] = "",
-	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair
-	["{item:18562}: {area:2677}, or the auction house"] = "",
+	-- {item:18562} Elementium Ore
+	["{item:18562}: Blackwing Lair, or the auction house"] = "",
 
 	-- Step 23: Maws
 	-- {item:21137} Blue Scepter Shard · {npc:15571} Maws
@@ -146,10 +143,10 @@ return {
 
 	-- Step 24: The green shard: Eranikus
 	["The green shard: Eranikus"] = "",
-	-- {npc:15362} Malfurion Stormrage · {npc:5709} Shade of Eranikus · {area:1477} Temple of Atal'Hakkar · {npc:15624} Forest Wisp · {zone:1457} Darnassus · {npc:11832} Keeper Remulos · {zone:1450} Moonglade
-	["{npc:15362} appears beside the {npc:5709} at the bottom of the {area:1477} (a five-player dungeon). He sends you to a {npc:15624} outside {zone:1457} (Horde players walk past the city's guards), then to {npc:11832} in {zone:1450}."] = "",
-	-- {npc:15362} Malfurion Stormrage · {area:1477} Temple of Atal'Hakkar
-	["{npc:15362}, inside the {area:1477}"] = "",
+	-- {npc:15362} Malfurion Stormrage · {npc:5709} Shade of Eranikus · {npc:15624} Forest Wisp · {zone:1457} Darnassus · {npc:11832} Keeper Remulos · {zone:1450} Moonglade
+	["{npc:15362} appears beside the {npc:5709} at the bottom of the Temple of Atal'Hakkar (a five-player dungeon). He sends you to a {npc:15624} outside {zone:1457} (Horde players walk past the city's guards), then to {npc:11832} in {zone:1450}."] = "",
+	-- {npc:15362} Malfurion Stormrage
+	["{npc:15362}, inside the Temple of Atal'Hakkar"] = "",
 
 	-- Step 25: The Forest Wisp
 	-- {npc:15624} Forest Wisp
@@ -182,24 +179,24 @@ return {
 	["{zone:1425} portal"] = "",
 
 	-- Step 31: The Nightmare Manifests
-	-- {npc:11832} Keeper Remulos · {area:2361} Nighthaven
-	["A raid event: follow {npc:11832} toward {area:2361} and keep him alive against Eranikus and his nightmare adds until Tyrande arrives and redeems Eranikus. Do not kill Eranikus."] = "",
+	-- {npc:11832} Keeper Remulos
+	["A raid event: follow {npc:11832} toward Nighthaven and keep him alive against Eranikus and his nightmare adds until Tyrande arrives and redeems Eranikus. Do not kill Eranikus."] = "",
 	["100 (and 100 Cenarion Circle)"] = "",
 	["The Redemption of Eranikus: raid"] = "",
 	["200 (and 200 Cenarion Circle)"] = "",
 
 	-- Step 32: The Scepter of the Shifting Sands
-	-- {npc:15192} Anachronos · {object:180717} Scarab Gong · {area:3428} Ahn'Qiraj
-	["With the three shards, {npc:15192} makes the Scepter of the Shifting Sands. In Classic its first holder rings the {object:180717} once for the whole realm, opening the gates of {area:3428}, and those who finish within ten hours earn the black qiraji crystal mount; whether Forever's realms get that event is not known."] = "",
+	-- {npc:15192} Anachronos · {object:180717} Scarab Gong
+	["With the three shards, {npc:15192} makes the Scepter of the Shifting Sands. In Classic its first holder rings the {object:180717} once for the whole realm, opening the gates of Ahn'Qiraj, and those who finish within ten hours earn the black qiraji crystal mount; whether Forever's realms get that event is not known."] = "",
 
 	-- Step 33: Scarab Gong
-	-- {object:180717} Scarab Gong · {area:3428} Ahn'Qiraj · {npc:15693} Jonathan the Revelator · {quest:8745} Treasure of the Timeless One
-	["{object:180717} hangs before the gates of {area:3428}. {npc:15693} appears beside it once the gong has been rung, with {quest:8745}: a weapon and 200 reputation."] = "",
+	-- {object:180717} Scarab Gong · {npc:15693} Jonathan the Revelator · {quest:8745} Treasure of the Timeless One
+	["{object:180717} hangs before the gates of Ahn'Qiraj. {npc:15693} appears beside it once the gong has been rung, with {quest:8745}: a weapon and 200 reputation."] = "",
 
 	-- Step 34: Neutral to Friendly in the Temple
 	["Neutral to Friendly in the Temple"] = "",
-	-- {area:16076} Temple of Ahn'Qiraj · {area:2737} Scarab Wall · {item:21230} Ancient Qiraji Artifact · {npc:15502} Andorgos · {item:21229} Qiraji Lord's Insignia · {npc:15503} Kandrostrasz · {area:3454} Ruins of Ahn'Qiraj
-	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "",
+	-- {item:21230} Ancient Qiraji Artifact · {npc:15502} Andorgos · {item:21229} Qiraji Lord's Insignia · {npc:15503} Kandrostrasz
+	["Neutral to Friendly is 3,000 reputation. Every trash mob of the Temple of Ahn'Qiraj (a 40-player raid behind the Scarab Wall) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The Ruins of Ahn'Qiraj (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "",
 
@@ -230,8 +227,8 @@ return {
 	["Honored to Revered"] = "",
 	-- {npc:15727} C'Thun · {quest:8595} Mortal Champions · {quest:8789} Imperial Qiraji Armaments · {npc:15380} Arygos · {npc:15378} Merithra of the Dream · {item:18562} Elementium Ore
 	["Honored to Revered is 12,000: twelve artifacts, 24 insignias, or a mix with {npc:15727} (2,500). After the first, each insignia is the repeatable {quest:8595}. Every Temple boss sometimes drops an {quest:8789} or Regalia (about one time in twenty): {npc:15380} and {npc:15378}, inside the Temple once {npc:15727} is dead, take it with 3 {item:18562} for 200 and a weapon. Honored opens the chest exchange of the tier set (200)."] = "",
-	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair
-	["{item:18562}, {area:2677} or the auction house"] = "",
+	-- {item:18562} Elementium Ore
+	["{item:18562}, Blackwing Lair or the auction house"] = "",
 	-- {npc:15380} Arygos · {item:18562} Elementium Ore
 	["{npc:15380}: Armaments and 3 {item:18562}, 200"] = "",
 	-- {npc:15378} Merithra of the Dream · {item:18562} Elementium Ore

@@ -11,24 +11,24 @@ return {
 	["An off-hand orb or a staff for your late 30s, down the felhound's or the infernal's path, your pick."] = "Un orbe de main gauche ou un bâton vers la fin de la trentaine de niveaux, par la voie du gangrechien ou celle de l'infernal, au choix.",
 
 	-- Step 1: Knowledge of the Orb of Orahil (Stormwind)
-	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:461}, dans l'{object:2164}, dans le {object:2101}, vous envoie voir {npc:6266} à {area:392}.",
+	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender
+	["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 2: Knowledge of the Orb of Orahil (Ironforge)
-	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:5172}, à {zone:1455}, vous envoie voir {npc:6266} à {area:392}.",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender
+	["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 3: Knowledge of the Orb of Orahil (Orgrimmar)
-	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:3326}, dans la {object:172960}, vous envoie voir {npc:6266} à {area:392}.",
+	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender
+	["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in Ratchet."] = "",
 
 	-- Step 4: Knowledge of the Orb of Orahil (Undercity)
-	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar
-	["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "Au niveau 35, {npc:4563}, dans le {object:36082}, vous envoie voir {npc:6266} à {area:392}. Le zeppelin de {zone:1420} vole jusqu'à {zone:1411}.",
+	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {zone:1420} Tirisfal Glades · {zone:1411} Durotar
+	["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in Ratchet. The zeppelin from {zone:1420} flies to {zone:1411}."] = "",
 
 	-- Step 5: Menara Voidrender
-	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "{npc:6266} et ses deux acolytes se tiennent dans la tour de {npc:6251}, sur la colline au-dessus de {area:392}.",
+	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan
+	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above Ratchet."] = "",
 
 	-- Step 6: Choose an acolyte
 	["Choose an acolyte"] = "Choisissez un acolyte",
@@ -40,9 +40,10 @@ return {
 	["{npc:6252}: he gives you the {item:12646}"] = "{npc:6252} : il vous remet l'{item:12646}",
 
 	-- Step 7: Mannoroc Coven
-	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb
+	["Mannoroc Coven"] = "",
+	-- {zone:1443} Desolace · {object:176946} Shadowprey Village (no name in this language: may be words) · {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter · Ley Hunters = {npc:4685} Ley Hunter · Lesser Infernals = {npc:4676} Lesser Infernal
-	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with Drain Soul: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
+	["Mannoroc Coven fills south-central {zone:1443}, east of {object:176946}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with Drain Soul: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
 	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}, sur les Invocateurs de la Lame ardente",
@@ -53,8 +54,8 @@ return {
 
 	-- Step 8: The demon's spirit
 	["The demon's spirit"] = "L'esprit du démon",
-	-- {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "Retournez d'abord voir {npc:6266} dans la tour au-dessus de {area:392} avec l'esprit et la gemme : son orbe en découle.",
+	-- {npc:6266} Menara Voidrender
+	["Back to {npc:6266} in the tower above Ratchet with the spirit and the gem first: her orb follows from it."] = "",
 
 	-- Step 9: Tabetha
 	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb
@@ -63,8 +64,8 @@ return {
 	-- Step 10: The Orb of Dar'Orahil
 	-- {item:15108} Orb of Dar'Orahil
 	["The {item:15108}"] = "L'{item:15108}",
-	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
-	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "Retournez voir {npc:6266} dans la tour au-dessus de {area:392} avec l'orbe purifiée. Sur la voie du chien corrompu, acceptez sa dernière quête et attendez à côté d'elle pendant qu'elle termine l'{item:15108} (ne l'attaquez pas : le journal de quêtes parle de la tuer), puis parlez-lui de nouveau et choisissez l'orbe de main gauche ou le bâton.",
+	-- {npc:6266} Menara Voidrender · {item:15108} Orb of Dar'Orahil
+	["Back to {npc:6266} in the tower above Ratchet with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she makes the orb"] = "Attendez à côté de {npc:6266} pendant qu'elle fabrique l'orbe",
 
@@ -75,7 +76,13 @@ return {
 	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "Sur la voie de l'infernal, acceptez sa dernière quête et attendez à côté de {npc:6266} pendant qu'elle termine l'{item:15107}, puis parlez-lui de nouveau et choisissez l'orbe de main gauche ou le bâton.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 35 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:3326}, dans la {object:172960}, vous envoie voir {npc:6266} à {area:392}.",
+	-- ["At 35 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "Au niveau 35, {npc:4563}, dans le {object:36082}, vous envoie voir {npc:6266} à {area:392}. Le zeppelin de {zone:1420} vole jusqu'à {zone:1411}.",
+	-- ["At 35 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:461}, dans l'{object:2164}, dans le {object:2101}, vous envoie voir {npc:6266} à {area:392}.",
+	-- ["At 35 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "Au niveau 35, {npc:5172}, à {zone:1455}, vous envoie voir {npc:6266} à {area:392}.",
+	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "Retournez voir {npc:6266} dans la tour au-dessus de {area:392} avec l'orbe purifiée. Sur la voie du chien corrompu, acceptez sa dernière quête et attendez à côté d'elle pendant qu'elle termine l'{item:15108} (ne l'attaquez pas : le journal de quêtes parle de la tuer), puis parlez-lui de nouveau et choisissez l'orbe de main gauche ou le bâton.",
 	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, wait while she completes the {item:15108}, then speak to her again."] = "Retournez voir {npc:6266} dans la tour au-dessus de {area:392} avec l'orbe purifié. Sur la voie du gangrechien, attendez qu'elle achève l'{item:15108}, puis parlez-lui à nouveau.",
+	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "Retournez d'abord voir {npc:6266} dans la tour au-dessus de {area:392} avec l'esprit et la gemme : son orbe en découle.",
 	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit first: {npc:6546}'s cleansing follows it."] = "Retournez d'abord voir {npc:6266} dans la tour au-dessus de {area:392} avec l'esprit : la purification de {npc:6546} vient ensuite.",
 	-- ["On the infernal path, wait while {npc:6266} completes the {item:15107}, then speak to her again."] = "Sur la voie de l'infernal, attendez que {npc:6266} achève l'{item:15107}, puis parlez-lui à nouveau.",
 	-- ["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, {npc:6252}'s infernal path with the Orb or {item:15105}. The guide follows the one you take."] = "Choisissez un acolyte : vous ne pouvez prendre qu'une de leurs quêtes. La voie du gangrechien de {npc:6254} se termine par l'Orbe ou le {item:15106}, la voie de l'infernal de {npc:6252} par l'Orbe ou le {item:15105}. Le guide suit celle que vous prenez.",
@@ -84,6 +91,7 @@ return {
 	-- ["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "Le {area:602} occupe le centre-sud de {zone:1443}, à l'est du {area:2408}. Les Invocateurs de la Lame ardente (niveau 38-39, des démonistes avec des diablotins) portent l'{item:7291} à chaque fois. Pour l'esprit, amenez le démon à peu de vie avec vos dégâts sur la durée, puis canalisez le rubis ou l'émeraude sur lui et continuez pendant qu'il meurt, comme avec {spell:1120} : la gemme ne fait aucun dégât par elle-même. Le rubis fonctionne sur les chiens corrompus du convent : les deux Mange-mana (37-38) au nord, et les Chasseurs de mages (38) et Chasseurs Ley (39) plus au sud. L'émeraude fonctionne sur les Infernaux mineurs (36-37, ils sont seize, résistants au feu).",
 	-- ["{item:12648}, from a {npc:4678}"] = "{item:12648}, sur un {npc:4678}",
 	-- ["{npc:6266} and her two acolytes stand in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266} et ses deux acolytes se tiennent dans la tour sur la colline au-dessus de {area:392}, à côté de {npc:6251}.",
+	-- ["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "{npc:6266} et ses deux acolytes se tiennent dans la tour de {npc:6251}, sur la colline au-dessus de {area:392}.",
 	-- ["{npc:6546} lives at her farm in the middle of {zone:1445}, south of the road from the {zone:1413} and south-west of Theramore; a spirit healer stands beside it. Deadmire, a level 45 crocolisk, patrols the creeks just north-east. Before you accept Cleansing, clear the spiders and crocolisks around her paddock. Accepting starts a 3-minute timer: she walks to the paddock and lets the {npc:6549} out. It is elite (level 40): grouping up is encouraged; a warlock of about 40 can solo it with Fear or {spell:710} and damage over time, a level 35-38 one brings a friend. The timer keeps running after the kill, so hand in at once. If time runs out, abandon the quest and take it from {npc:6546} again."] = "{npc:6546} vit dans sa ferme au milieu du {zone:1445}, au sud de la route venant des {zone:1413} et au sud-ouest de Theramore ; un gardien des âmes se tient à côté. Deadmire, un crocilisque de niveau 45, patrouille les ruisseaux juste au nord-est. Avant d'accepter la purification, nettoyez les araignées et les crocilisques autour de son enclos. Accepter lance un compte à rebours de 3 minutes : elle marche jusqu'à l'enclos et libère le {npc:6549}. Il est élite (niveau 40) : mieux vaut former un groupe ; un démoniste d'environ 40 peut le battre seul avec Peur ou {spell:710} et des dégâts sur la durée, un démoniste de niveau 35-38 vient avec un ami. Le compte à rebours continue après la victoire, rendez donc la quête aussitôt. Si le temps s'écoule, abandonnez la quête et reprenez-la auprès de {npc:6546}.",
 	-- ["{npc:6546} lives at her farm in western {zone:1445}. She calls the {npc:6549} out of the {item:7291}; it is elite: grouping up is advised."] = "{npc:6546} vit dans sa ferme, dans l'ouest du {zone:1445}. Elle fait sortir le {npc:6549} de l'{item:7291} ; il est élite : il est conseillé de former un groupe.",
 }

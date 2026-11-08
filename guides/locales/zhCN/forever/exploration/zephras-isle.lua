@@ -11,16 +11,41 @@ return {
 	["Exploration: {zone:2521}"] = "探索：{zone:2521}",
 
 	-- Step 1: Zephras Isle (1/3)
-	-- {zone:2521} Zephras Isle · {area:17221} Skywall
-	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
+	-- {zone:2521} Zephras Isle
+	["{zone:2521} is the Skyborne starting island, a world of its own in Skywall; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
 	["Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."] = "天裔从这里开始。其他人乘坐天空飞船，约每五分钟一班；两个阵营都可以乘坐任意一艘。",
-	-- {area:279} Dalaran · {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
-	["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "天空飞船从{zone:1416}{area:279}的北侧出发（另一艘从{zone:1456}北边起飞）。",
-	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["The skyboat leaves the cliffs south of {area:17045}, north of {zone:1456} (another flies from {area:279})."] = "天空飞船从{zone:1456}北边、{area:17045}南边的悬崖出发（另一艘从{area:279}起飞）。",
+	-- {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
+	["The skyboat leaves the north side of Dalaran in the {zone:1416} (another flies from north of {zone:1456})."] = "",
+	-- {zone:1456} Thunder Bluff
+	["The skyboat leaves the cliffs south of Skywatcher Plateau, north of {zone:1456} (another flies from Dalaran)."] = "",
 	["any one of these names counts"] = "以下任意一个名称都算",
+	["Valanaar / Valanaar Skydocks"] = "",
+	["Gustberry Lowlands"] = "",
+	["East Pylon Watchtower"] = "",
+	["Rohashi Spires"] = "",
+	["Shrine of Akir"] = "",
+	["Shadowgale Forest"] = "",
+	["Ruins of Ban'aethal"] = "",
+
+	-- Step 2: Zephras Isle (2/3)
+	["Thendal Standing Stones / Thendal Village"] = "",
+	["Thendal Village"] = "",
+	["Thendal Grove"] = "",
+	["Windsong Standing Stones"] = "",
+	["Shen'dar Village"] = "",
+	["Windsong Lake"] = "",
+	["Falaath Village"] = "",
+
+	-- Step 3: Zephras Isle (3/3)
+	["Shen'dar Highlands"] = "",
+	["West Pylon Watchtower"] = "",
+	["Overlook Standing Stones"] = "",
+	["Windfield Orchard"] = "",
+	["Fairweather Stables"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 Forever 传承挑战（1点账号通用传承点数）。",
+	-- ["The skyboat leaves the cliffs south of {area:17045}, north of {zone:1456} (another flies from {area:279})."] = "天空飞船从{zone:1456}北边、{area:17045}南边的悬崖出发（另一艘从{area:279}起飞）。",
+	-- ["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "天空飞船从{zone:1416}{area:279}的北侧出发（另一艘从{zone:1456}北边起飞）。",
 	-- ["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit, and its map counts towards exploring the world. 20 areas to discover here, levels 3-12."] = "{zone:2521}是天裔的起始岛屿，位于{area:17221}的独立世界；任何人都可前往，其地图计入世界探索。这里有20个区域待发现，3-12级。",
 }
