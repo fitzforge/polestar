@@ -1114,6 +1114,26 @@
 				}
 			],
 			"issue": 1312
+		},
+		{
+			"id": "1317-464-1",
+			"quest": 464,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.5,
+				"y": 44.7,
+				"frame": "era"
+			},
+			"note": "War Banners: the Dragonmaw War Banners come from the Raiders (1034) and Swamprunners (1035) of the Dragonmaw camp north of Whelgar's dig, around 45.5,44.7. The banner also lists the elite Forever Dragonmaw (Infiltrators, Soulbinders and Reclaimers, 29-30, from 53,41 east to 78,47) as drop sources, so a goal without a place could lead a level 27 player among elites.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 464 to 2026-11-08: banner ticks by 5 people (2 established), their middle at 45.5,44.7; each tick that names a kill follows a Dragonmaw Raider (1034) or Swamprunner (1035), once a Bonewarder (1057), never an elite Dragonmaw"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

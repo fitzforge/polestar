@@ -1868,6 +1868,15 @@ test(`Talk of the Town is optional at Southshore and at its Booty Bay hand-in, w
 	assert.ok([take[0].step.note, take[0].step.tip].flat().filter(Boolean).join(' ').includes('Barkeep Kelly may not offer Talk of the Town'), 'the Southshore step says to skip it');
 });
 
+// Thin-data audit (#1317): War Banners' goal had no place, and the banner's drop list includes the elite Forever
+// Dragonmaw (29-30) east of the camp; players' recordings tick it on the Raiders and Swamprunners around 45.5,44.7.
+test(`${WETLANDS}: thin-data audit: War Banners points at the Raiders' and Swamprunners' camp, not among the elite Dragonmaw (#1317)`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const { goal } = list[at(list, 'collect 3337 (War Banners)', (g) => g.t === 'collect' && g.quest === 464)];
+	assert.equal(goal.map, 1437, 'on the Wetlands map');
+	assert.ok(Math.hypot(goal.x - 45.5, goal.y - 44.7) < 1, `at the camp (${goal.x},${goal.y})`);
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 

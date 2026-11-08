@@ -188,7 +188,7 @@ step Angerfang Encampment
   interact 671481 "Attack Plan: Menethil Harbor" quest 98221.1 @45.6,42.7 map 1437
   interact 671483 "Attack Plan: Southshore" quest 98221.3 @45.4,45.7 map 1437
   interact 671486 "Attack Plan: Thelsamar" quest 98221.2 @49.4,46.8 map 1437
-  collect 3337 quest 464                  -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
+  collect 3337 quest 464.1 @45.5,44.7 map 1437 -- Dragonmaw War Banner: the camp's Raiders and Swamprunners
 
 step Rethiel the Greenwarden
   tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river. Fire Taboo's flint came with you from your last Wetlands visit.
