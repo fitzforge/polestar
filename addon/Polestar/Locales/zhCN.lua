@@ -140,6 +140,8 @@ L["For %s: %s"] = "为 %s：%s"
 L["Hand in %s to %s"] = "交付%s给%s"
 L["Hand in %s"] = "交付%s"
 L["%s, %d more"] = "%s，还差 %d"
+-- L["On through %s to %s"] = ""
+-- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"

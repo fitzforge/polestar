@@ -140,6 +140,8 @@ L["For %s: %s"] = "Para %s: %s"
 L["Hand in %s to %s"] = "Entregar %s para %s"
 L["Hand in %s"] = "Entregar %s"
 L["%s, %d more"] = "%s e mais %d"
+-- L["On through %s to %s"] = ""
+-- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."

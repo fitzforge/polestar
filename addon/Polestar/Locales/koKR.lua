@@ -140,6 +140,8 @@ L["For %s: %s"] = "%s 님을 위해: %s"
 -- L["Hand in %s to %s"] = ""
 -- L["Hand in %s"] = ""
 -- L["%s, %d more"] = ""
+-- L["On through %s to %s"] = ""
+-- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."

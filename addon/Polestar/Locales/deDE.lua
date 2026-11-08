@@ -138,6 +138,8 @@ L["For %s: %s"] = "Für %s: %s"
 -- L["Hand in %s to %s"] = ""
 -- L["Hand in %s"] = ""
 -- L["%s, %d more"] = ""
+-- L["On through %s to %s"] = ""
+-- L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."

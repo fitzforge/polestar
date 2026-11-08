@@ -140,6 +140,8 @@ mod engine_when_skill;
 mod engine_when_upgrade;
 #[path = "engine-while-here.rs"]
 mod engine_while_here;
+#[path = "engine-zone-walk.rs"]
+mod engine_zone_walk;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;

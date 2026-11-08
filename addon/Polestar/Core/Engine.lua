@@ -2872,11 +2872,36 @@ local function fmt(pattern, value)
 	return pattern:format(value)
 end
 
+-- A walk's waypoint named only by its zone ("Go to Mulgore", the guide
+-- writer's label for a point on the way through a zone), shown while the
+-- player is already in that zone, reads as done though it leads deeper in
+-- (#1334). Such a goal of step s names where the walk goes instead: the zone
+-- and the title of the next step for the character that is not another walk
+-- through it. Display only: the goal completes as before. -> zone, title or nil
+function Own.onThroughZone(s, goal)
+	local text = goal.text
+	if not (s and guide and text and not goal.area) then return nil end
+	local C = Compat()
+	if C.GetMapName(goal.map) ~= text or C.GetZoneText() ~= text then return nil end
+	local steps = guide.steps
+	for _, other in ipairs(steps[s].goals) do
+		if other.t ~= "goto" and other.t ~= "note" then return nil end
+	end
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if not step.along and stepApplies(step) and not isSkipped(n) and step.title and step.title ~= text then
+			return text, step.title
+		end
+	end
+	return nil
+end
+
 -- verb, subject, subjectKind, detail. An accept above the character's level
 -- says from which level (an attunement's quests stay in its guide until then).
 -- Quests, NPCs, objects and items are named in the client's language where
--- Polestar.Names has them, else as the guide names them.
-local function describe(goal)
+-- Polestar.Names has them, else as the guide names them. `s`: the goal's step
+-- (Own.onThroughZone), when known.
+local function describe(goal, s)
 	local t = goal.t
 	local C = Compat()
 	local N = ns.Names
@@ -2909,6 +2934,8 @@ local function describe(goal)
 		return L["Collect"], item, "item", fmt(L["from %s"], npcName)
 	elseif t == "goto" then
 		local mapName = C.GetMapName(goal.map)
+		local zone, onTo = Own.onThroughZone(s, goal)
+		if zone then return "", L["On through %s to %s"]:format(zone, onTo), "text", mapName end
 		if place or goal.text then return L["Go to"], place or goal.text, "place", mapName end
 		local lx, ly = liveXY(goal)
 		return L["Go to"], ("%.1f, %.1f"):format(lx or goal.x, ly or goal.y), "place", mapName
@@ -3044,7 +3071,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		status, cur, max, label, pkind = goalStatus(s, g, goal, stepStatus == "current")
 	end
 	local progress = (cur and max) and { cur = cur, max = max, label = label, kind = pkind or "count" } or nil
-	local verb, subject, kind, detail = describe(goal)
+	local verb, subject, kind, detail = describe(goal, s)
 	local npc, npcName = npcOf(goal)
 	local map, x, y, f, _, z = posOf(goal)
 	local alternatives
@@ -3281,7 +3308,7 @@ local function waypointOf(g, goal, at, s, held)
 	end
 	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
 		or (not held and goalDone(s, g, goal)) then return nil end
-	local verb, subject, _, detail = describe(goal)
+	local verb, subject, _, detail = describe(goal, s)
 	local many = area and #goal.spots > 1
 	return {
 		map = map, x = x, y = y, f = f, z = z,

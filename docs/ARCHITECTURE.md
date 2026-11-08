@@ -1915,6 +1915,14 @@ each goal):
   `header = true`: the group's header already says it, so the window shows
   no row for it while the group has others, and the header carries the
   arrow's mark while it is the target.
+- **A walk's "Go to" named only by its zone** (the guide writer's label for
+  a point on the way through a zone, "Go to Mulgore"), in a step of gotos
+  and notes alone, reads while the zone text is that zone's name "On through
+  Mulgore to The Earthen Ring": the title of the next step for the character
+  (not along, not skipped) that is not titled after the zone, so it never
+  reads as done to a player already in the zone (#1334,
+  `Own.onThroughZone`). Elsewhere, or with no such step, it reads as written.
+  The row and the arrow's label only: the goto completes as before.
 
 Placement: when a tab loads a guide (login and reload, `SetGuide`/`OpenTab`,
 auto-chaining to `next`, `/polestar reset`), the evaluations until the quest
