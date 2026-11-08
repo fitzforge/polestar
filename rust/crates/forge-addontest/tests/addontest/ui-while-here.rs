@@ -46,13 +46,18 @@ local function toast()
 end
 "#;
 
+// The distances below are measured against a 60 yd radius (the default is 150).
 fn run(before_login: &str, script: &str) -> Vec<Value> {
+	run_with(before_login, r#"Polestar.Set("behavior.whileHereRadius", 60)"#, script)
+}
+
+fn run_with(before_login: &str, setup: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::name("Polestar")],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/here" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, before_login, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, HELPERS, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDE, before_login, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, setup, HELPERS, script].join("\n"),
 		..Default::default()
 	})
 }
@@ -232,8 +237,9 @@ fn reduced_motion_the_minimap_mark_flashes_once_instead_of_rings() {
 // and the ping plays there.
 #[test]
 fn off_the_minimap_the_mark_pings_at_the_rim_with_its_edge_pointer() {
-	let out = run(
-		r#"stub.minimapZoom = 5; Polestar.Set("behavior.whileHereRadius", 120)"#,
+	let out = run_with(
+		"stub.minimapZoom = 5",
+		r#"Polestar.Set("behavior.whileHereRadius", 120); stub.advance(0.6)"#,
 		&format!(
 			"{PING}{}",
 			r#"
@@ -247,8 +253,9 @@ fn off_the_minimap_the_mark_pings_at_the_rim_with_its_edge_pointer() {
 }
 
 #[test]
-fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_40_to_120_yards_and_the_sound() {
-	let out = run(
+fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_250_yards_and_the_sound() {
+	let out = run_with(
+		"",
 		"",
 		r#"
 		local UI, O = Polestar.UI, Polestar.UI.Options
@@ -263,8 +270,8 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_40_to_120_yar
 		emit({ before = before, wide = wide, off = Polestar.Get("behavior.whileHere"), radiusEnabled = radius:IsEnabled(), turninsEnabled = turnins:IsEnabled(), soundEnabled = sound:IsEnabled() })
 	"#,
 	);
-	assert_eq!(out[0]["before"], json!([true, true, true, true, true, 60, true, true]));
-	assert_eq!(out[0]["wide"], 120, "the slider steps by 5 yards");
+	assert_eq!(out[0]["before"], json!([true, true, true, true, true, 150, true, true]));
+	assert_eq!(out[0]["wide"], 120, "the slider steps by 10 yards");
 	assert_eq!(out[0]["off"], false);
 	assert_eq!(out[0]["radiusEnabled"], false, "its children grey out with it off");
 	assert_eq!(out[0]["turninsEnabled"], false);

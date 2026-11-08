@@ -73,14 +73,19 @@ fn run_edit(script: &str, from: &str, to: &str) -> Vec<Value> {
 	run_guide(&GUIDE.replace(from, to).replace("ESCORT", ""), "test/here", script)
 }
 
-// Guide source `guide` (registering guide `id`) in the world above, the player on it.
+// Guide source `guide` (registering guide `id`) in the world above, the player on it, the line's radius at 60 yd
+// (the distances below are measured against it; the default is 150).
 fn run_guide(guide: &str, id: &str, script: &str) -> Vec<Value> {
+	run_guide_with(guide, id, r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#, script)
+}
+
+fn run_guide_with(guide: &str, id: &str, setup: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), format!("PolestarCharDB = {{ schema = 1, guide = {id:?} }}"))],
-		script: [TEST_PACK, TEST_SOURCE, guide, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, guide, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, setup, script].join("\n"),
 		..Default::default()
 	})
 }
@@ -313,15 +318,24 @@ w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 local v, x = E.GetWhileHere(), E.GetWaypoint()
 local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
 local wc, wx, wy = Polestar.Compat.MapToWorld(x.map, x.x, x.y, x.f)
+local function report()
+	for _, l in ipairs(Polestar.UI.Report.Details().lines) do if l:find("^While here: ") then return l end end
+	return false
+end
 emit({{ live = E.GetLiveStep(), arrow = x.stepIndex, arrowYards = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5) or false,
 	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false,
-	zhevra = cands():find("18:1:work", 1, true) ~= nil }})
+	zhevra = cands():find("18:1:work", 1, true) ~= nil, report = report() }})
+-- Fitz on 0.3.5 at 60 yd: among four Zhevra Runners just north of the oasis, no line. Their camp there is an
+-- alternative spot (54.5,38, 59 yd across) 33 yd off; the nearest of the guide's picked spots is 94 yd off.
+Polestar.Set("behavior.whileHereRadius", 60); flush()
+w.moveTo(1413, 54.30, 38.38); stub.advance(0.6); stub.advance(0.6)
+emit(here())
 -- A Zhevra Runner camp on the road south of the Crossroads, the spores 600 yd off.
 w.moveTo(1413, 56.3, 32.6); stub.advance(0.6); stub.advance(0.6)
 emit(here())
 w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 w.progress(848, 1, 1); flush(); stub.advance(0.6)
-emit(here())
+emit({{ here(), report() }})
 "#,
 		loads.join("\n")
 	);
@@ -332,9 +346,14 @@ emit(here())
 	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
 	assert_eq!(out[0]["yards"], 0, "inside the mushrooms' spawn area at the oasis: {}", out[0]);
-	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too, but no runner spawns within reach of the oasis: {}", out[0]);
-	assert_eq!(out[1], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner spawn the zhevra show");
-	assert_eq!(out[2], json!("none"), "ready to hand in: no line");
+	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
+	let shown = out[0]["report"].as_str().unwrap();
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 0 yd · radius 150 yd · "), "{shown}");
+	assert_eq!(out[1], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "Fitz among the runners north of the oasis");
+	assert_eq!(out[2], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
+	assert_eq!(out[3][0], json!("none"), "ready to hand in: no line");
+	let none = out[3][1].as_str().unwrap();
+	assert!(none.starts_with("While here: none · radius 60 yd · ") && none.contains("nearest quest 845, step ") && none.ends_with("out of radius"), "{none}");
 }
 
 // Fitz: chasing one step's mobs through another step's objective, "I just do it, I'm here already". A big count
@@ -473,7 +492,6 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 #[test]
 fn the_options_turn_it_off_and_set_how_close() {
 	let out = run(r#"
-		emit({ Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"), Polestar.Get("behavior.whileHereTurnins") })
 		Polestar.Set("behavior.whileHere", false); flush()
 		at(47.6, 37.6); emit({ cands(), here() })
 		Polestar.Set("behavior.whileHere", true); Polestar.Set("behavior.whileHereRadius", 40); flush()
@@ -483,9 +501,79 @@ fn the_options_turn_it_off_and_set_how_close() {
 		Polestar.Set("behavior.whileHereRadius", 120); flush()
 		at(47.6, 40.1); emit(here())    -- 100 yd, within 120 (the vermin stay quiet: the candles are 150 yd off)
 	"#);
-	assert_eq!(out, vec![json!([true, 60, true]), json!(["", "none"]), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 40"), json!("none")]);
+	assert_eq!(out, vec![json!(["", "none"]), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 40"), json!("none")]);
 	let wide = run(r#"Polestar.Set("behavior.whileHereRadius", 120); flush(); at(47.6, 40.1); emit(here())"#);
 	assert_eq!(wide, vec![json!("2:1 Kill Kobold Vermin, 2 more 100")]);
+}
+
+// Fitz, in game: "we can almost 2-3x the distance". 150 yd by default; the line holds to 100/60 of the radius, but
+// never past 400 yd (at 250 that would be 417).
+#[test]
+fn by_default_the_line_shows_within_150_yards_and_never_holds_past_400() {
+	let out = run_guide_with(
+		GUIDE.replace("ESCORT", "").as_str(),
+		"test/here",
+		"",
+		r#"
+		emit({ Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"), Polestar.Get("behavior.whileHereTurnins") })
+		at(47.6, 43.1); emit(here())    -- 160 yd from the vermin
+		at(47.6, 42.6); emit(here())    -- 150 yd
+		at(47.6, 47.0); emit(here())    -- 238 yd: it holds
+		at(47.6, 48.1); emit(here())    -- 260 yd: gone
+		Polestar.Set("behavior.whileHereRadius", 250); flush()
+		at(47.6, 47.6); emit(here())    -- 250 yd
+		at(47.6, 54.6); emit(here())    -- 390 yd: it holds
+		at(47.6, 55.6); emit(here())    -- 410 yd: gone, though 100/60 of 250 is 417
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!([true, 150, true]),
+			json!("none"),
+			json!("2:1 Kill Kobold Vermin, 2 more 150"),
+			json!("2:1 Kill Kobold Vermin, 2 more 240"),
+			json!("none"),
+			json!("2:1 Kill Kobold Vermin, 2 more 250"),
+			json!("2:1 Kill Kobold Vermin, 2 more 390"),
+			json!("none")
+		]
+	);
+}
+
+// A mob of a later step seen around the player (a nameplate, the target) makes its objective a candidate at 30 yd,
+// whatever the spawn data says: the spiders' only spawn place is far off. The plate gone, the line goes with it.
+#[test]
+fn a_mob_in_sight_counts_whatever_the_spawn_data_says() {
+	let out = run(r#"
+		at(30.0, 60.0); emit(here())                                 -- 300 yd from the spiders' place (20,60)
+		w.units.nameplate3 = "Creature-0-1-0-1-42-0000AAAA"
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3"); stub.advance(0.6)
+		emit(here())
+		w.units.nameplate3 = nil; stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate3"); stub.advance(0.6)
+		emit(here())
+		w.units.target = "Creature-0-1-0-1-42-0000BBBB"
+		stub.fire("PLAYER_TARGET_CHANGED"); stub.advance(0.6)
+		emit(here())
+	"#);
+	assert_eq!(out, vec![json!("none"), json!("10:1 Kill Spider, 1 more 30"), json!("none"), json!("10:1 Kill Spider, 1 more 30")]);
+}
+
+// Fitz: only the × keeps a line away for the zone. An expired one (three minutes without progress) comes again, a
+// minute on at the earliest, when one of its mobs is seen anew; a dismissed one does not.
+#[test]
+fn an_expired_line_comes_again_on_a_new_sighting_a_dismissed_one_does_not() {
+	let out = run(r#"
+		local function plate(n) w.units["nameplate" .. n] = "Creature-0-1-0-1-42-0000" .. n; stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate" .. n); stub.advance(0.6) end
+		at(30.0, 60.0); plate(3); emit(here())
+		stub.advance(181); emit(here())                 -- expired
+		stub.advance(61); emit(here())                  -- the same spider still in sight: nothing new
+		plate(4); emit(here())                          -- another one: it comes again
+		E.DismissWhileHere(); stub.advance(0.6)
+		plate(5); stub.advance(61); emit(here())        -- dismissed: quiet for the zone
+	"#);
+	let v = "10:1 Kill Spider, 1 more 30";
+	assert_eq!(out, vec![json!(v), json!("none"), json!("none"), json!(v), json!("none")]);
 }
 
 // The poll measures the candidates every half second: it must leave nothing for the collector, with a line shown
