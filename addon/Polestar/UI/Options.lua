@@ -294,7 +294,7 @@ local BUILTIN = {
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],
-			help = L["Ask me: the guide stays on its step, the arrow leads back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."],
+			help = L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "back", label = L["Always go back for it"] }, { value = "skip", label = L["Always skip it"] } },
 			search = "abandon, abandoned quest, dropped quest, failed quest, quest log, go back, skip" },
 	} },
