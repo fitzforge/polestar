@@ -6149,7 +6149,9 @@ const HORDE_VOLUME = {
 	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
 	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
 	'forever/horde/50-60/01-un-goro-crater.guide': [4324], // Yuka Screwspigot
-	'forever/horde/50-60/05-eastern-plaguelands.guide': [7492], // Camp Mojache
+	'forever/horde/50-60/03-winterspring.guide': [5083, 5084], // Winterfall Firewater, Falling to Corruption (0.3.7: the flask drops from one Winterfall in ten)
+	'forever/horde/50-60/05-eastern-plaguelands.guide': [7492, 5085, 5086], // Camp Mojache; Mystery Goo; Toxic Horrors
+	'forever/horde/50-60/07-felwood.guide': [5087], // Winterfall Runners
 	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
 
@@ -6214,7 +6216,7 @@ test('Horde quest volume: every added quest has its include record in the route 
 	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
 	// record is a Horde pair that places it.
 	const horde = (q) => ov.pairs.some((p) => p.faction === 'Horde' && p.b[1] === q && /Quest volume|take and do it there/.test(p.why));
-	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume/.test(e.reason)) || horde(q), `include ${q} is recorded`);
+	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume|RouteGrind030/.test(e.reason)) || horde(q), `include ${q} is recorded`);
 });
 
 // Barrens carry-over (2026-11-07, re-chained the same day): the Barrens are two stays, 15-21

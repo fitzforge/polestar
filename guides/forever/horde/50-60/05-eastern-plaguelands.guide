@@ -54,10 +54,11 @@ step Light's Hope Chapel
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
-# Optional: the Deadwood Cauldron chain (5084-5086) and Winterfall Ritual
-# Totem (8471) start from rare Winterspring drops (forever/horde/50-60/03-
-# winterspring), and Kernda speaks only to characters at Neutral with the
-# Timbermaw.
+# The Deadwood Cauldron chain (5084-5086) follows Winterfall Firewater from
+# forever/horde/50-60/03-winterspring (taken since 0.3.7: its flask drops
+# from one Winterfall in ten). Optional: Winterfall Ritual Totem (8471)
+# starts from a rare Winterspring drop, and Kernda speaks only to characters
+# at Neutral with the Timbermaw.
 #
 # Flow: fly from the Undercity to Light's Hope Chapel (bind, Alen, Carlin)
 # -> Lake Mereldar elementals -> Sword of Marduk -> the Pestilent Scar ->
@@ -230,9 +231,9 @@ step Trull Failbane
   accept 4741
 
 step Deadwood Cauldron
-  tip Only if you found a Winterfall Firewater flask in Winterspring: ride north up the road. The cauldron stands in Felpaw Village, just south-west of Timbermaw Hold; the Deadwood furbolgs there are hostile.
-  turnin 5084 optional
-  accept 5085 optional
+  tip Ride north up the road. The cauldron stands in Felpaw Village, just south-west of Timbermaw Hold; the Deadwood furbolgs there are hostile.
+  turnin 5084
+  accept 5085
 
 step Kernda
   when onquest 8471
@@ -267,11 +268,11 @@ step Winterspring
 step Donova Snowden
   zone Winterspring
   tip Back through the tunnel and take the Winterspring exit, then ride south to Frostfire Hot Springs.
-  turnin 5085 optional
-  accept 5086 optional
+  turnin 5085
+  accept 5086
   turnin 3909
   accept 3912
-  note Toxic Horrors are in Felwood, on a later trip: keep it if you have it.
+  note Toxic Horrors are in Felwood, on a later trip: keep it.
 
 step Moontouched Owlbeasts
   tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
