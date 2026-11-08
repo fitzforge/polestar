@@ -4357,6 +4357,33 @@
 		],
 		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
 	},
+	"98059": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sealed Company Request delivered to Hillsbrad council",
+					"map": 1424,
+					"f": "l",
+					"x": 29.68,
+					"y": 41.65
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: one objective, 'Sealed Company Request delivered to Hillsbrad council' (a server credit, amount 1), start item 279386"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Hillsbrad's Hoard from Captain McManus (251493) at Southshore 46.5,50.2 with that one objective; 3 of them completed it while using the Sealed Company Request (spell 1306693) at Hillsbrad 29.73,41.65, 29.58,42.65 and 29.68,41.64, and handed it in to McManus"
+			}
+		],
+		"note": "Hillsbrad's Hoard (Southshore, Captain McManus): you deliver the Sealed Company Request he gives you by using it at the Hillsbrad council, in the Hillsbrad Fields west of Southshore (about 29.7,41.7). The merged data had no objective, so the guide accepted and handed it in on the spot."
+	},
 	"98072": {
 		"set": {
 			"pre": [

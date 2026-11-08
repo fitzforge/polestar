@@ -1818,16 +1818,6 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 	assert.ok(!list.some(({ goal }) => goal.x != null && near(goal, 53.5, 54.5)), 'nothing points at Nek\'rosh');
 });
 
-// --- Southshore (never-seen check, 2026-11-08): Captain McManus, giver and ender of Hillsbrad's Hoard (98059), has never
-// been seen in players' recordings and nobody has taken the quest; the guide keeps it, optional, with a tip to skip it.
-test(`${HILLSBRAD_ALLIANCE}: Hillsbrad's Hoard is optional, with a tip to skip it if Captain McManus isn't there`, { skip }, () => {
-	const list = goals(HILLSBRAD_ALLIANCE).filter(({ goal }) => goal.quest === 98059);
-	assert.ok(list.length >= 2, 'the accept and the hand-in');
-	for (const { goal } of list) assert.ok(goal.optional, `${goal.t} 98059 is optional`);
-	const step = list[0].step;
-	assert.ok([step.note, step.tip].flat().filter(Boolean).join(' ').includes('McManus may not be here'), 'the step says to skip it if he is not there');
-});
-
 // --- Never seen taken (#1314's pattern; RefusalSweep's never-taken sweep, 2026-11-08): Hearts of the Lost turned
 // out not to be in the game. Two more Forever quests nobody has been recorded taking or being offered, whose giver
 // nobody has ever seen, from another addon's data and the web only, are optional, with a tip to skip them when the
@@ -7578,4 +7568,21 @@ test("FlyHifiGuy's report (#1327): no teleport or Hearthstone while Trial of the
 		});
 	}
 	assert.ok(windows >= 30, `the timed accepts are found (${windows})`);
+});
+
+// --- Hillsbrad's Hoard (98059, 2026-11-08): its one objective is to use the Sealed
+// Company Request at the Hillsbrad council in the Hillsbrad Fields (players'
+// recordings: 3 people completed it there; the server's quest record in players'
+// caches has the same objective). The guide accepted and handed it in on the spot.
+test(`${HILLSBRAD_ALLIANCE}: Hillsbrad's Hoard is delivered at the Hillsbrad council after the Syndicate camp, then handed in at Southshore (optional)`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const take = at(list, 'accept 98059', is('accept', 98059));
+	const use = at(list, 'use 279386 (Sealed Company Request)', (g) => g.t === 'use' && g.item === 279386 && g.quest === 98059);
+	const hand = at(list, 'turnin 98059', is('turnin', 98059));
+	assert.ok(take < use && use < hand, 'accept, deliver, then hand in');
+	assert.ok(list[use].s !== list[take].s && list[hand].s !== list[use].s, 'three stops, not one');
+	assert.ok(at(list, 'accept 511 (the Syndicate camp)', is('accept', 511)) < use, 'delivered after the Syndicate camp');
+	const g = list[use].goal;
+	assert.ok(g.map === 1424 && Math.abs(g.x - 29.7) < 0.5 && Math.abs(g.y - 41.7) < 0.5, `at the Hillsbrad council (${g.map} ${g.x},${g.y})`);
+	for (const i of [take, use, hand]) assert.ok(list[i].goal.optional, `${list[i].goal.t} 98059 stays optional`);
 });

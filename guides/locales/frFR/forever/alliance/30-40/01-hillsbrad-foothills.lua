@@ -165,8 +165,8 @@ return {
 	["A report for {object:2117}; inside"] = "Un rapport pour {object:2117} ; à l'intérieur",
 
 	-- Step 35: Southshore
-	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard
-	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{npc:251493} may not be here on Forever: if he doesn't offer {quest:98059}, skip it."] = "",
+	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
+	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "",
 
 	-- Step 36: Yeti cave
 	["Yeti cave"] = "Grotte des yétis",
@@ -180,52 +180,58 @@ return {
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "",
 
-	-- Step 39: Snapjaws
+	-- Step 39: Hillsbrad council
+	-- {area:287} Hillsbrad
+	["{area:287} council"] = "",
+	-- {area:286} Hillsbrad Fields · {item:279386} Sealed Company Request · {area:287} Hillsbrad
+	["South-west from the Syndicate camp to the {area:286} farms: use the {item:279386} at the {area:287} council."] = "",
+
+	-- Step 40: Snapjaws
 	["Snapjaws"] = "Gueules d'acier",
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "Les tortues Gueule d'acier se prélassent le long de la rivière à l'est de {area:271}, au sud de {area:272} (Horde).",
 
-	-- Step 42: Fly to Ironforge
+	-- Step 43: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "Maître de vol d'{area:271}",
 
-	-- Step 43: Hall of Explorers
+	-- Step 44: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "Sorts des niveaux 30 et 32",
 
-	-- Step 47: King Magni Bronzebeard
+	-- Step 48: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 
-	-- Step 48: Fly to Stormwind
+	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Volez jusqu'à {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Maître de vol de {zone:1455}",
 
-	-- Step 49: Elling Trias
+	-- Step 50: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "La fromagerie dans {object:2096}.",
 
-	-- Step 50: Dashel Stonefist
+	-- Step 51: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} attend à la Taverne du Cochon siffleur, dans {object:2100} ; lui et ses deux voyous vous attaquent, mais s'arrêtent une fois vaincus.",
 
-	-- Step 51: The Islander
+	-- Step 52: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} entraîne les guerriers dans {object:2100}, près de la Taverne du Cochon siffleur. {npc:6236} attend sur {area:720}, dans {zone:1413}, sur la route de {area:392} bien plus tard (40-50/01).",
 
-	-- Step 53: Cathedral of Light
+	-- Step 54: Cathedral of Light
 	["Cathedral of Light"] = "Cathédrale de la Lumière",
 
-	-- Step 55: Mage Quarter
+	-- Step 56: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "",
 
-	-- Step 56: Druid training
+	-- Step 57: Druid training
 	["Druid training"] = "Entraînement de druide",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "",

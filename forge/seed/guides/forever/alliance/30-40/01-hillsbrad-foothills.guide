@@ -213,9 +213,8 @@ step Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
-  tip Captain McManus may not be here on Forever: if he doesn't offer Hillsbrad's Hoard, skip it.
+  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore; you deliver it after the Syndicate camp.
   accept 98059 optional               -- Captain McManus
-  turnin 98059 optional               -- Captain McManus
 
 step Yeti cave
   when onquest 565
@@ -236,6 +235,12 @@ step Syndicate camp
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
 
+step Hillsbrad council
+  when onquest 98059
+  zone Hillsbrad Foothills
+  tip South-west from the Syndicate camp to the Hillsbrad Fields farms: use the Sealed Company Request at the Hillsbrad council.
+  use 279386 quest 98059.1 @29.7,41.7 optional -- Sealed Company Request
+
 # ---------------------------------------------------------------- North of Southshore
 
 step Snapjaws
@@ -255,6 +260,7 @@ step Southshore
   turnin 511                          -- Loremaster Dibbs
   accept 514
   turnin 555                          -- Chef Jessen, upstairs
+  turnin 98059 optional               -- Captain McManus
 
 step Fly to Ironforge
   zone Hillsbrad Foothills
