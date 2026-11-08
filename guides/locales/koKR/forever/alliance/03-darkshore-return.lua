@@ -45,6 +45,8 @@ return {
 	["The {object:10076}"] = "{object:10076}",
 	-- {object:12666} Twilight Tome
 	["The {object:12666}"] = "{object:12666}",
+	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
+	["The {object:12666}, once it has {quest:949}"] = "",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}: 황혼의망치단 신도와 황혼의망치단 암살단원",
