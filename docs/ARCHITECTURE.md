@@ -3108,7 +3108,10 @@ at the height and with the opts the measure found its walks with, the other
 places' walks kept, as a batch prices each place's walk on its own) when
 every other place is in the measure, else in a whole batch; meanwhile it is that measure less the
 yards moved (its cost scaled alike), never less than the straight distance (x1.0), so a walk never
-gets dearer for coming closer. A walk on from a crossing's far end or a
+gets dearer for coming closer. Within 400 yd of the target, where it is not measured again, the
+player's walk keeps the straight estimate (#1053: a winding walk measured from the Barrens, less
+the yards moved, still counted thousands of yards beside Hamuul Runetotem on Thunder Bluff's Elder
+Rise, and the route went to the north lift's top and back). A walk on from a crossing's far end or a
 chain's mouth is no hand-made walk: the arrow and the route lines follow the
 engine's path on it like any other. Measures
 are fixed per target (the last 4 targets are kept), so plans never
