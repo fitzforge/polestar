@@ -4138,17 +4138,13 @@ test(`${ASHENVALE_HORDE}: Flight path sweep (#964): the Druids train in Thunder 
 	}
 });
 
-// Flow audit, Horde Ashenvale & Thousand Needles: Stonetalon Standstill's elementals and gazebo are in Mystral
-// Lake, where the walk hunts Tideress, but the guide came back to the lake after Shadumbra (1,475 yd from
-// Splintertree, 23 min later). Shamans filled Brine's waterskin by walking from Alonso back to the Zoram'gar
-// flight master (2,666 yd) and on to the Ruins of Stardust fountain (2,496 yd), beside Ursangous; and they
-// handed it to Brine on a flight from Freewind Post to Camp Taurajo and back, although the walk from Camp
-// Taurajo down to the Great Lift passes his hut.
-test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine on the road to the Great Lift; Stonetalon Standstill left out`, { skip }, () => {
+// Flow audit, Horde Ashenvale & Thousand Needles: Shamans filled Brine's waterskin by walking from Alonso back
+// to the Zoram'gar flight master (2,666 yd) and on to the Ruins of Stardust fountain (2,496 yd), beside
+// Ursangous; and they handed it to Brine on a flight from Freewind Post to Camp Taurajo and back, although the
+// walk from Camp Taurajo down to the Great Lift passes his hut. (The same audit left Stonetalon Standstill out
+// for its walk back to Mystral Lake; #1346 brought it back, see the next test.)
+test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine on the road to the Great Lift`, { skip }, () => {
 	const list = goals(ASHENVALE_HORDE);
-	// Horde 12-30 re-chain: Mastok offers Stonetalon Standstill from 23, after the first Ashenvale visit (21),
-	// and the second passes Mystral Lake before Splintertree, so it is a route-fixes skip.
-	assert.deepEqual(list.filter(({ goal }) => goal.quest === 25).map(({ goal }) => goal.t), [], 'no Stonetalon Standstill');
 	const shaman = list.filter(forRaceOf('Orc')).filter(forClass('SHAMAN'));
 	const fountain = at(shaman, 'the fountain (1534)', (g) => g.quest === 1534 && g.t === 'collect');
 	assert.ok(fountain < at(shaman, 'Ursangous\'s paw (23)', is('accept', 23)), 'the fountain before Ursangous, in his ruins');
@@ -4156,6 +4152,27 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 	const brine = at(shaman, 'turnin 1534 (Call of Water)', is('turnin', 1534));
 	assert.ok(brine < at(shaman, 'accept 4767 (Wind Rider)', is('accept', 4767)), 'Brine before Freewind Post');
 	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 2, 'two flights to Camp Taurajo (from Zoram\'gar and Thunder Bluff), none from Freewind Post');
+});
+
+// #1346: Tideress drops the Befouled Water Globe (16408, which starts The Befouled Element 1918) only for a
+// player with Stonetalon Standstill (25) in the log or handed in (players' recordings: the 7 people who took
+// 1918 all had 25, 2 people without it got no globe). The guide hunted Tideress on the way in, before
+// Splintertree, where Mastok gives 25, and since 0.3.5 left 25 out. Every guide that takes 1918 takes 25 first.
+test('#1346: Tideress (The Befouled Element) comes after Stonetalon Standstill is taken, in every guide', { skip }, () => {
+	const takers = allGuides().filter((g) => goals(g).some(({ goal }) => goal.t === 'accept' && goal.quest === 1918));
+	assert.ok(takers.includes(ASHENVALE_HORDE), `${ASHENVALE_HORDE} takes The Befouled Element`);
+	for (const guide of takers) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept 25`, is('accept', 25));
+		const globe = at(list, `${guide}: Tideress's globe`, (g) => g.t === 'collect' && g.item === 16408);
+		assert.ok(take < globe, `${guide}: Stonetalon Standstill (step ${list[take].s}) before Tideress (step ${list[globe].s})`);
+		assert.ok(globe < at(list, `${guide}: accept 1918`, is('accept', 1918)), `${guide}: the globe starts 1918`);
+	}
+	const list = goals(ASHENVALE_HORDE);
+	const done25 = at(list, 'complete 25', is('complete', 25));
+	assert.ok(done25 < at(list, 'turnin 25', is('turnin', 25)), 'Stonetalon Standstill handed in after the lake');
+	const in1918 = at(list, 'turnin 1918', is('turnin', 1918));
+	assert.ok(at(list, 'accept 1918', is('accept', 1918)) < in1918 && in1918 < at(list, 'accept 824', is('accept', 824)), 'The Befouled Element handed in, then Je\'neu of the Earthen Ring');
 });
 
 // The same pattern at Orgrimmar: the Warriors' (and the other classes') training step flew them to
