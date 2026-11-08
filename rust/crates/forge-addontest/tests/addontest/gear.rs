@@ -577,3 +577,27 @@ fn an_orc_hunters_axe_specialization_counts_by_how_much_a_hunter_fights_in_melee
 	assert!((axe - (2.9 * dps_w + crit_w)).abs() < 0.01, "the Warrior's axe keeps the whole crit: {axe} vs {dps_w} {crit_w}");
 	assert!(dagger > axe, "{dagger} > {axe}");
 }
+
+// #1304: an Orc Rogue at 2 with the Worn Dagger was told to equip a Skinning Knife (0.3 DPS more). The client lists
+// it as a Miscellaneous weapon (subclass 14), like the Mining Pick, Blacksmith Hammer, Arclight Spanner and Frying
+// Pan: profession tools and novelties, never a weapon pick. No upgrade, no score, no gear line on its tooltip.
+#[test]
+fn a_miscellaneous_weapon_is_a_profession_tool_never_an_upgrade_even_with_more_dps() {
+	let out = run(
+		r#"
+		Polestar.ItemDB.Register(nil, {
+			[2092] = "13 2 1 1 2 15 dmin1 dmax3 speed1600",
+			[7005] = "13 4 1 1 2 14 dmin2 dmax4 speed1600",
+		})
+		g.defineItem("item:2092", { equipLoc = "INVTYPE_WEAPON", classID = 2, subclassID = 15, minLevel = 1 })
+		g.defineItem("item:7005", { equipLoc = "INVTYPE_WEAPON", classID = 2, subclassID = 14, minLevel = 1 })
+		g.equip(16, "item:2092")
+		local r = G.CompareToEquipped("item:7005")
+		emit({ up = G.IsUpgrade("item:7005"), usable = r.usable, reason = r.reason, scored = G.ScoreItem("item:7005") ~= nil })
+		emit(g.showTooltip(GameTooltip, "item:7005"))
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, level: 2, race: "Orc", race_id: 2, ..Default::default() },
+	);
+	assert_eq!(out[0], json!({ "up": false, "usable": false, "scored": false }));
+	assert!(!out[1].to_string().contains("Polestar"), "no gear line on a tool's tooltip: {}", out[1]);
+}
