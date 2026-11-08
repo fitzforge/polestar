@@ -6573,3 +6573,15 @@ test('forever/alliance/06-ashenvale.guide: final review: the Talondeep Path tip 
 	const reaper = at(list, 'accept 1093', is('accept', 1093));
 	assert.equal(list[ziz].step, list[reaper].step, 'one stop at Ziz Fizziks');
 });
+
+// Final route review, Alliance 1-30 (2026-11-08): The Weathered Grave (225) and Morgan Ladimore (227) are talk-only
+// (level 35, from 28) and the Duskwood return walks past the grave at 29-30, but an old race filter offered them to
+// Dwarves and Skyborne only. Every race takes them (optional, offered from 28).
+test('forever/alliance/07-thousand-needles.guide: final review: The Weathered Grave for every race from 28', { skip }, () => {
+	const list = goals('forever/alliance/07-thousand-needles.guide');
+	for (const [t, q] of [['accept', 225], ['turnin', 225], ['accept', 227], ['turnin', 227]]) {
+		const { step, goal } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(!(goal.only && goal.only.races) && !(step.only && step.only.races), `${t} ${q} has no race filter`);
+	}
+	assert.ok(list[at(list, 'accept 225', is('accept', 225))].goal.optional, 'optional: offered from 28');
+});

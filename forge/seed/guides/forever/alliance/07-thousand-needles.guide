@@ -87,7 +87,8 @@ step Raven Hill Cemetery: kill these as you meet them
   kill 787 quest 323                      -- Skeletal Healer
 
 step The Weathered Grave
-  accept 225 optional only Dwarf,Skyborne -- The Weathered Grave is level 35, red here: optional
+  tip The grave stands among the skeletons at the cemetery's north-west corner, on the way to Sven. Its quest and the next are talk-only, to Sirra Von'Indi and Commander Althea in Darkshire: level 35 from level 28, but no fight.
+  accept 225 optional                         -- A Weathered Grave
 
 step Sven's Camp
   turnin 323                              -- Sven Yorgen
@@ -97,9 +98,9 @@ step Back to Darkshire
   turnin 160                              -- Lord Ello Ebonlocke, in the town hall
   accept 251
   turnin 251                              -- Sirra Von'Indi, in the house behind the town hall
-  turnin 225 optional only Dwarf,Skyborne
-  accept 227 optional only Dwarf,Skyborne
-  turnin 227 optional only Dwarf,Skyborne
+  turnin 225 optional
+  accept 227 optional
+  turnin 227 optional                         -- Commander Althea Ebonlocke
   turnin 96138 optional                   -- Sirra Von'Indi
   accept 401
   turnin 401                              -- Wait a moment, then speak with her again
