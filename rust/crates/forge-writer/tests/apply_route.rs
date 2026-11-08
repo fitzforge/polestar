@@ -1928,7 +1928,7 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	assert!(
 		m(
 			&text,
-			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
@@ -2035,7 +2035,7 @@ fn a_skipped_group_familys_xp_is_ground_back_after_its_step_for_skippers_only() 
 	assert!(
 		m(
 			&text,
-			r#" {2}kill 21 quest 2\.1\n( {2}.*\n)*\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when !group 2\n {2}when level<12\.4\n {2}tip If you skipped Two, grind here to level 12\.4 to stay on the route's plan\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#" {2}kill 21 quest 2\.1\n( {2}.*\n)*\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when !group 2\n {2}when level<12\.4\n {2}tip If you skipped Two, grind here to level 12\.4 to stay on the route's plan\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);

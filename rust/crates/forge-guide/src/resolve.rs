@@ -2313,6 +2313,13 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				if g.get("frac").truthy() {
 					goal.set("frac", g.get("frac"));
 				}
+				// `grind <npc>`: the mob's spawn areas place the goal (below), so the arrow leads to the nearest of
+				// them; without spawns, the step's goto.
+				if !g.get("grind").is_undef() {
+					goal.set("grind", g.get("grind"));
+					set_if(&goal, "npcName", optional_name(r, "npc", &g.get("grind")));
+					candidates = vec![cand("npc", g.get("grind"))];
+				}
 			}
 			"money" => {
 				goal.set("money", g.get("money"));
@@ -2717,14 +2724,14 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				}
 			}
 		}
-		let area = v == "kill" || v == "collect" || v == "interact";
+		let area = v == "kill" || v == "collect" || v == "interact" || !goal.get("grind").is_undef();
 		if !explicit && !picked.get("x").is_undef() {
 			let srcs: Vec<V> = if area && picked.get("sources").truthy() { picked.get("sources").items() } else { vec![c.clone()] };
 			let elites: Vec<V> = if area { picked.get("elites").items() } else { Vec::new() };
 			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
 			if let Some(sp) = sp {
 				goal.set("spots", sp.spots);
-				if v == "kill" || v == "collect" {
+				if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
 					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
 				}
 				if sp.spread && area {
@@ -2811,6 +2818,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			format!("`{v}` has no coordinates (no known spawns; add @x,y)"),
 			Some("add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"),
 		);
+	}
+	if !goal.get("grind").is_undef() && goal.get("x").is_undef() {
+		r.warn(&ln, format!("`grind {}` has no known spawns here: the arrow keeps the step's goto", goal.get("grind")), None);
 	}
 	goal
 }

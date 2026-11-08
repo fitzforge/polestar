@@ -3243,7 +3243,9 @@ end
 -- first blocking goal is a field goal (kill, collect, interact with a place)
 -- and the group has two or more such goals open, the nearest of them to the
 -- player takes its place (Own.nearestField: sticky, never switched in a
--- fight). A flight step the arrow leads to the flight's end (Own.flyAim)
+-- fight). A goto before a grind (Own.grindAfter) gives way to it: the arrow
+-- leads to the grind mob's nearest spawn area, the goto only where the mob
+-- has none. A flight step the arrow leads to the flight's end (Own.flyAim)
 -- marks its flight, not the walk to the flight master it names. Returns its
 -- index (or nil) and the open header's index (or nil).
 function Own.currentGoal(s, groups, focus)
@@ -3274,6 +3276,7 @@ function Own.currentGoal(s, groups, focus)
 			end
 		end
 	end
+	if first and step.goals[first].t == "goto" then first = Own.grindAfter(s, grp, first) or first end
 	if first then
 		if fields and #fields >= 2 and fields[1] == first then
 			first = Own.nearestField(s, fields)
@@ -3433,8 +3436,31 @@ Own.FIELD = { kill = true, collect = true, interact = true }
 Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
 
+-- A grind: `level N grind <npc>`, placed by the compiler at the mob's spawn
+-- areas (spots); a field goal like a kill. Without spawn data it has no place,
+-- and the step's goto leads.
+function Own.isGrind(goal)
+	return goal.t == "level" and goal.grind ~= nil and goal.spots ~= nil and goal.map ~= nil
+end
+
 function Own.isField(goal)
-	return Own.FIELD[goal.t] == true and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+end
+
+-- The grind after goal g (a goto) in group grp of step s that the arrow takes
+-- instead: open, and with only notes, optional, done or not applicable goals
+-- between them (another goto or open work keeps the goto). Nil when none.
+function Own.grindAfter(s, grp, g)
+	local goals = guide.steps[s].goals
+	for _, j in ipairs(grp.goals) do
+		if j > g then
+			local goal = goals[j]
+			local open = goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, j) and not goalDone(s, j, goal)
+			if open and Own.isGrind(goal) then return j end
+			if goal.t == "goto" or (open and goal.t ~= "note" and not goal.optional) then return nil end
+		end
+	end
+	return nil
 end
 
 -- Yards from the player (c, px, py) to a field goal's nearest spawn area
