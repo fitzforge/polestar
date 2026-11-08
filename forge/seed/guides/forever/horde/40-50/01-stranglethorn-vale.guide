@@ -24,13 +24,10 @@ step Booty Bay
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
-  accept 348                            -- Fin Fizracket
-  accept 2872                           -- for Stoley in Tanaris; on the top floor
-  accept 606                            -- "Sea Wolf" MacKinley
+  accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
-  accept 2864                           -- Krazek: for Tran'rek in Gadgetzan; upstairs
   accept 617                            -- Privateer Bloads
   vendor nearest
   accept 595                            -- First Mate Crazz
@@ -175,6 +172,7 @@ step Booty Bay
   turnin 587                            -- Deeg, on the top floor
   turnin 604                            -- Fleet Master Seahorn
   turnin 576                            -- Dizzy One-Eye
+  accept 348                            -- Fin Fizracket
 
 step The Bloodsail ships
   tip Optional, and tough at 41: the scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
@@ -229,6 +227,7 @@ step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
   collect 3904 quest 584.1
   collect 3905 quest 584.2
+  level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
@@ -257,6 +256,7 @@ step Booty Bay
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
+  accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609
   turnin 348                            -- Fin Fizracket
   vendor nearest
@@ -310,6 +310,7 @@ step Booty Bay
   turnin 609                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 621                            -- Crank Fizzlebub, inside
   turnin 209                            -- Kebok, upstairs
+  accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
 
 step Fly to Grom'gol
   zone Stranglethorn Vale

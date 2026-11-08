@@ -4716,14 +4716,15 @@ test('forever/horde/skyborne/01-zephras-isle.guide: flow review: the village han
 	assert.ok(at(list, 'turnin 92470', is('turnin', 92470)) > at(list, "Urs'anah", (g) => g.t === 'kill' && g.quest === 92470), 'after the den');
 });
 
-// Flow review, Horde 40-60 (#1166): "Sea Wolf" MacKinley offers Scaring Shaky on the first Booty Bay stop, where the
-// guide already takes Stoley's Debt from him; it waited for the next Booty Bay stop after the Bloodsail note.
-test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Shaky with Stoley\'s Debt on the first Booty Bay stop', { skip }, () => {
+// Flow review, Horde 40-60 (#1166): "Sea Wolf" MacKinley offers Scaring Shaky on the first Booty Bay stop; it waited for
+// the next Booty Bay stop after the Bloodsail note. Stoley's Debt (minimum level 40) is taken from him with Return to
+// MacKinley since the Horde 40-60 accept-level fix (2026-11-08): the route lands from Kargath at about 39.7.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Shaky on the first Booty Bay stop, Stoley\'s Debt with Return to MacKinley', { skip }, () => {
 	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	const shaky = list[at(list, 'accept 606', is('accept', 606))];
 	const stoley = list[at(list, 'accept 2872', is('accept', 2872))];
-	assert.equal(shaky.s, stoley.s, 'Scaring Shaky on the step that takes Stoley\'s Debt');
-	assert.ok(shaky.s < list[at(list, 'turnin 595', is('turnin', 595))].s, 'before the Bloodsail note');
+	assert.ok(shaky.s < list[at(list, 'turnin 595', is('turnin', 595))].s, 'Scaring Shaky before the Bloodsail note');
+	assert.equal(stoley.s, list[at(list, 'turnin 607', is('turnin', 607))].s, 'Stoley\'s Debt on the step that hands MacKinley Return to MacKinley');
 });
 
 // Flow review, Horde 40-60 (#1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep, the Ruins
@@ -6381,4 +6382,31 @@ test('Alliance 40-60 order: the quests the route passes are taken (... and Bugs,
 	assert.ok(goals(A('40-50/02-badlands')).some(({ goal }) => is('turnin', 1258)(goal)), 'back to Morgan Stern at Theramore');
 	const ws = goals(A('50-60/03-winterspring'));
 	for (const q of [5097, 5219, 4984]) assert.ok(ws.some(({ goal }) => is('accept', q)(goal)), `${q} taken where the Winterspring guide passes its giver on the way to the Eastern Plaguelands`);
+});
+
+// --- Horde 40-60 accept levels (2026-11-08). The level model ground before accepts it could not take at the route's
+// level (a minimum level above it, or a quest 5+ levels over): 1,287 minutes for an Orc Warrior, 409 of them in Feralas
+// at 46 for The Strength of Corruption (minimum 47). Each is now taken on a later stop at the same giver, or a written
+// top-up at the spot before it brings the level.
+test('Horde 40-60 accept levels: quests are taken where the route reaches their level', { skip }, () => {
+	const g = (n) => goals(`forever/horde/${n}.guide`);
+	const step = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const stv = g('40-50/01-stranglethorn-vale');
+	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
+	assert.equal(step(stv, 'accept', 2864), step(stv, 'turnin', 209), "Tran'rek on the last Booty Bay stop");
+	for (const q of [348, 2872, 2864]) assert.ok(step(stv, 'accept', q) > step(stv, 'turnin', 595), `${q} not on arrival`);
+	const zk = stv[at(stv, 'collect 3905 quest 584', (x) => x.t === 'collect' && x.quest === 584)];
+	assert.ok(zk.step.goals.some((x) => x.t === 'level' && x.level === 41), "Zul'Kunda brings you to 41 before Speaking with Gan'zulah");
+	assert.ok(!g('40-50/03-feralas').some(({ goal }) => is('accept', 4120)(goal)), 'The Strength of Corruption is not taken at 46');
+	const azs = g('40-50/06-azshara');
+	assert.equal(step(azs, 'accept', 4120), step(azs, 'turnin', 3123), "The Strength of Corruption from Talo on the Mojache stop at 49-50");
+	const t50 = azs.findIndex(({ goal }) => goal.t === 'level' && goal.level === 50);
+	assert.ok(t50 >= 0 && t50 < at(azs, 'accept 4494', is('accept', 4494)), "Azshara's top-up reaches 50 before March of the Silithid");
+	const ung = g('50-60/01-un-goro-crater');
+	const top = ung.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
+	assert.ok(top >= 0 && top < at(ung, 'accept 4061', is('accept', 4061)), "Un'Goro's top-up reaches 52 before The Rise of the Machines");
+	const sil = g('50-60/06-silithus');
+	assert.equal(step(sil, 'accept', 8318), step(sil, 'turnin', 8318), 'Secret Communication taken and handed in on one stop');
+	const t58 = sil.findIndex(({ goal }) => goal.t === 'level' && goal.level === 58);
+	assert.ok(t58 >= 0 && t58 < at(sil, 'accept 8304', is('accept', 8304)), 'a top-up to 58 before Dearest Natalia');
 });

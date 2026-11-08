@@ -43,7 +43,6 @@ step Cenarion Hold
   turnin 8276                         -- Windcaller Proudhorn
   accept 8280
   accept 8284                         -- Geologist Larksbane
-  accept 8318                         -- Bor Wildmane, on the west side of the Hold
   accept 9416                         -- Scout Bloodfist
   getfp "Cenarion Hold"
 
@@ -120,8 +119,15 @@ step Twilight Outpost
   collect 20396 quest 8279.3
   collect 20404 x20
 
+step Level 58
+  when level<58
+  tip Bor Wildmane's next errand, Dearest Natalia, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost.
+  goto 33.8,47.8 map 1451 "Twilight Avenger"
+  level 58                            -- grind on Twilight Avenger
+
 step Cenarion Hold
   tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
+  accept 8318                         -- Bor Wildmane, on the west side of the Hold: the texts are already in your bags
   turnin 8318
   accept 8304
   turnin 8281                         -- Windcaller Proudhorn
