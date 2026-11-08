@@ -5692,7 +5692,7 @@ test('Alliance quest volume: every added quest has its include record in the rou
 // east Elwynn on the walk from Goldshire to Westfall (Humans in their start guide; Night Elves and
 // Skyborne arrive at 14.5, where its level 9-10 quests turn grey).
 const A1220_LOCH = ['forever/alliance/03-loch-modan.guide', [127, 250, 199, 86614, 436, 297, 298, 301, 86613, 86758, 257, 258, 86585, 244, 246, 98407, 118, 119, 120, 121, 125, 89, 129, 130, 131, 92, 3741, 122, 124, 132, 135, 141, 142, 155, 104]];
-const A1220_ELWYNN = [35, 37, 52, 45, 71, 39, 83, 5545, 91732, 91733, 91723, 91724, 91725, 76, 239, 11, 109];
+const A1220_ELWYNN = [40, 35, 37, 52, 45, 71, 39, 83, 5545, 91732, 91733, 91723, 91725];
 
 test('Alliance 12-20 zone order: Darkshore, the Eastern Kingdoms loop, Darkshore again, then Ashenvale', { skip }, () => {
 	const next = (g) => String(compiled(g).next).replace(/\.guide$/, '');
@@ -5714,12 +5714,19 @@ test('forever/alliance/03-loch-modan.guide: Alliance 12-20 zone order: Loch Moda
 	for (const race of ['Dwarf', 'Gnome']) assert.ok(!list.filter(forRaceOf(race)).some(({ goal }) => is('accept', 307)(goal)), `${race}: Filthy Paws was done in Dun Morogh`);
 });
 
-test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24, Alther\'s Mill is taken on the first Lakeshire stop', { skip }, () => {
+test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24, its level 20-21 quests come with you from the first visit', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	for (const q of [244, 246, 98407, 125, 89, 129, 130, 131, 92, 65, 127]) assert.ok(!list.some(({ goal }) => goal.quest === q && (goal.t === 'accept' || goal.t === 'turnin')), `${q} is not in 04-redridge-mountains`);
-	const mill = list.find(({ goal }) => is('accept', 98386)(goal));
-	const marris = list.find(({ goal }) => is('accept', 20)(goal));
-	assert.ok(mill && marris && mill.s === marris.s, 'Alther\'s Mill comes from Foreman Oslow on the first Lakeshire stop, with Marshal Marris');
+	// Marshal Marris's Blackrock quests, Alther's Mill and Murloc Poachers are taken at their givers at 20 and done here.
+	const first = goals(LOCH_MODAN);
+	for (const q of [20, 98387, 98386, 150]) {
+		assert.ok(first.some(({ goal }) => is('accept', q)(goal)), `accept ${q} at 20`);
+		assert.ok(!list.some(({ goal }) => is('accept', q)(goal)) && list.some(({ goal }) => is('turnin', q)(goal)), `${q} handed in at 24`);
+	}
+	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
+	const baren = list.find(({ goal }) => is('turnin', 150)(goal));
+	const howe = list.find(({ goal }) => is('accept', 128)(goal));
+	assert.ok(howe.s < fins.s && fins.s < baren.s && baren.s === list.find(({ goal }) => is('accept', 91)(goal)).s, 'the murlocs on the way in, Baren on the first Lakeshire stop');
 });
 
 test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and Gnomes do east Elwynn on the way to Westfall, the later starts don\'t', { skip }, () => {
@@ -5727,13 +5734,17 @@ test('forever/alliance/02-westfall.guide: Alliance 12-20 zone order: Dwarves and
 	for (const race of ['Dwarf', 'Gnome']) {
 		const mine = list.filter(forRaceOf(race));
 		for (const q of A1220_ELWYNN) assert.ok(mine.some(({ goal }) => is('turnin', q)(goal)), `${race}: turnin ${q}`);
-		const elwynnEnd = mine.findIndex(({ goal }) => is('turnin', 11)(goal));
+		// The Jasperlode Mine (76) needs The Fargodeep Mine (62), which they never take (players' recordings): not asked for.
+		for (const q of [76, 239, 11]) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
+		const goldshire = mine.filter(({ goal }) => goal.npc === 240).map(({ s }) => s);
+		assert.equal(new Set(goldshire).size, 2, `${race}: Marshal Dughan on the way in and on the way west, nowhere else`);
+		const elwynnEnd = mine.findIndex(({ goal }) => is('accept', 109)(goal));
 		const jansen = mine.findIndex(({ goal }) => is('accept', 36)(goal));
 		assert.ok(elwynnEnd >= 0 && elwynnEnd < jansen, `${race}: east Elwynn before the Jansen Stead`);
 	}
 	for (const race of ['Human', 'NightElf', 'Skyborne']) {
 		const mine = list.filter(forRaceOf(race));
-		for (const q of A1220_ELWYNN.filter((q) => q !== 109 && q !== 35)) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
+		for (const q of A1220_ELWYNN.filter((q) => q !== 35 && q !== 40)) assert.ok(!mine.some(({ goal }) => goal.quest === q), `${race}: no ${q}`);
 	}
 });
 

@@ -23,9 +23,9 @@ next forever/alliance/05-duskwood
 # Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners ->
 # south to Darkshire (flight path, hearth, every quest giver) -> Duskwood's
 # first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> north to Three
-# Corners -> Lakeridge Highway (flight path) -> Lakeshire (hearth, every quest
-# giver) -> the murlocs east of the bridge -> Baren, Bellygrub's pen and
-# Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
+# Corners -> Lakeridge Highway (Guard Howe) -> the murlocs east of the
+# bridge -> Lakeshire (Baren, hearth, every quest giver) -> Bellygrub's pen
+# and Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
 # camps and Gar'im's cave ->
 # north through Galardell Valley (Fangore), the Old Lion Statue, the watch
 # tower and Stonewatch Keep -> back west along the lake to Render's Valley and
@@ -48,8 +48,11 @@ next forever/alliance/05-duskwood
 # - Alther's Mill (98386, Forever) is offered by Foreman Oslow only once The
 #   Everstill Bridge (89) is handed in (two players' reports; the quest data
 #   has no prerequisite for it, #51). Since 2026-11-07 that is at 20, on
-#   Redridge's first visit (03-loch-modan), so Oslow gives it on the first
-#   Lakeshire stop here. The tarantulas are still killed on the trip east.
+#   Redridge's first visit (03-loch-modan), where Oslow gives it with the
+#   hand-in; Marshal Marris's Blackrock Menace and Blockade (20, 98387) and
+#   Murloc Poachers (150) are taken on that visit too, at their givers, and
+#   done here, where level 20-21 quests still give full XP. The tarantulas are
+#   still killed on the trip east.
 # - Redridge's 15-20 quests (Guard Parker's and Deputy Feldon's gnolls, The
 #   Lost Tools and The Everstill Bridge, Darcy's and Martie's errands,
 #   Redridge Goulash, Verner's and Solomon's chains, Hilary's Necklace) and the
@@ -281,29 +284,20 @@ step Lakeridge Highway
   getfp "Lakeshire"
   accept 128                                  -- Guard Howe
 
+step Lake Everstill's murlocs: kill these as you meet them
+  zone Redridge Mountains
+  tip Murloc Flesheaters and Tidecallers line the south shore of Lake Everstill, just east of the gryphons and the bridge. Any of them can carry a fin.
+  collect 1468 quest 150                      -- Murloc Fin
+
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town. Foreman Oslow and Marshal Marris stand at the north end of the bridge, Bailiff Conacher in the town hall, Dockmaster Baren on the docks, the innkeeper in the inn, Martie Jainrose in her garden at the west end.
-  accept 20                                   -- Marshal Marris
-  accept 98387
-  accept 98386                                -- Foreman Oslow: after The Everstill Bridge (03-loch-modan)
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, the innkeeper in the inn, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
-  accept 150                                  -- Dockmaster Baren
   sethome "Lakeshire"
   accept 180                                  -- The Wanted poster by the inn
   accept 34                                   -- Martie Jainrose
-
-# ---------------------------------------------------------------- The lake
-
-step Lake Everstill's murlocs: kill these as you meet them
-  zone Redridge Mountains
-  tip Murloc Flesheaters and Tidecallers line the south shore of Lake Everstill, east of the bridge. Any of them can carry a fin.
-  collect 1468 quest 150                      -- Murloc Fin
-
-step Dockmaster Baren
-  tip Dockmaster Baren stands on the docks, on the way west through town.
-  turnin 150
 
 step Bellygrub
   tip Bellygrub (level 24) roots around the pen just west of Lakeshire, beside Martie's garden. Pull him away from the other boars and fight at full health.

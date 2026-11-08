@@ -16,18 +16,22 @@ next forever/alliance/03-darkshore
 # Elmore before the boat. Business in Auberdine (97894) is taken from Borgus Steelhand on that visit.
 # Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
-# arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): Guard Thomas'
-# chain, the Eastvale Logging Camp, the Tower of Azora, the Jasperlode Mine and Westbrook's
-# gnoll bounty, then Report to Gryan Stoutmantle (109) at Sentinel Hill.
+# arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
+# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
+# the Jasperlode Mine in one loop, then Report to Gryan Stoutmantle (109) from Dughan on the way west.
+# Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
+# Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
+# part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
 
 # ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
 
 step Goldshire
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip On the road from Stormwind to Westfall, Goldshire's Marshal Dughan stands outside the inn.
-  accept 35                                   -- Marshal Dughan
-  accept 76                                   -- Marshal Dughan: the Jasperlode Mine
+  tip On the road from Stormwind to Westfall, Goldshire is the first stop: Remy "Two Times" stands outside the inn, Marshal Dughan beside him. Remy's A Fishy Peril goes straight to Dughan, who then gives Further Concerns.
+  accept 40                                   -- Remy "Two Times"
+  turnin 40                                   -- Marshal Dughan
+  accept 35
 
 step The Tower of Azora
   only Dwarf,Gnome
@@ -39,26 +43,11 @@ step The Tower of Azora
 step The bridge
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip Guard Thomas guards the bridge on the road east; Ormin Pelford stands just across it.
+  tip Guard Thomas guards the bridge on the road east; Ormin Pelford stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back.
   turnin 35                                   -- Guard Thomas
   accept 37
   accept 52
   accept 91733                                -- Ormin Pelford
-
-step Downstream
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Kill Prowlers and Young Forest Bears on the way.
-  collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52                           -- Prowler
-  kill 822 quest 52                           -- Young Forest Bear
-  collect 247818 quest 91733                  -- Waterlogged Toolbox
-  collect 247817 quest 91733                  -- Waterlogged Axe
-
-step Ormin Pelford
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  turnin 91733
 
 step The Eastvale Logging Camp
   only Dwarf,Gnome
@@ -101,7 +90,6 @@ step Jasperlode Mine: kill these as you meet them
   zone Elwynn Forest
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
   collect 247816 quest 91732                  -- Mining Tools
-  complete 76 @60.2,49.2                      -- Walk into the mine
   kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
 
 step The Tower of Azora
@@ -109,62 +97,38 @@ step The Tower of Azora
   zone Elwynn Forest
   tip Follow the hills south to the tower.
   turnin 91723                                -- Hamish Bergwort
-  accept 91724
   turnin 91725                                -- Blixie Fitzwink
 
-step Guard Thomas
+step Downstream
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip Follow the road east past the Tower of Azora to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it.
-  turnin 71
+  tip East along the road, then into the river south of the bridge: the Waterlogged Saw, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks.
+  collect 247813 quest 91733                  -- Waterlogged Saw
+  kill 118 quest 52                           -- Prowler
+  kill 822 quest 52                           -- Young Forest Bear
+  collect 247818 quest 91733                  -- Waterlogged Toolbox
+  collect 247817 quest 91733                  -- Waterlogged Axe
+
+step The bridge
+  only Dwarf,Gnome
+  zone Elwynn Forest
+  turnin 91733                                -- Ormin Pelford
+  turnin 71                                   -- Guard Thomas
   accept 39
-  kill 118 quest 52 @75.5,76.5 map 1429 -- Prowler
   turnin 52
 
 step The Eastvale Logging Camp
   only Dwarf,Gnome
   zone Elwynn Forest
-  turnin 83                           -- Inside
+  turnin 83                                   -- Sara Timberlain, inside
   turnin 91732                                -- Hagar Lowe
-
-step Stone Cairn Lake
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.
-  kill 474 quest 91724                        -- Defias Rogue Wizard
-
-step The Tower of Azora
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip Follow the hills south to the tower, on the road west.
-  turnin 91724                                -- Hamish Bergwort
 
 step Goldshire
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip Follow the road west back to Goldshire: Marshal Dughan outside the inn.
+  tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
   turnin 39                                   -- Marshal Dughan
-  turnin 76
-  accept 239
-
-step Westbrook Garrison
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip Follow the road west to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks.
-  turnin 239                                  -- Deputy Rainer
-  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
-  accept 11
-
-step Forest's Edge
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border.
-  collect 782 quest 11                        -- Painted Gnoll Armbands
-
-step Westbrook Garrison
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  turnin 11                                   -- Deputy Rainer
+  accept 109                                  -- Marshal Dughan: for Gryan Stoutmantle at Sentinel Hill
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 

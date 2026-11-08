@@ -23,14 +23,14 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip Barithras Moonshade and Terenthis stand by the inn, the WANTED poster outside it; Archaeologist Hollee and Sentinel Elissa Starbreeze at the north end of the village, Alanndarian Nightsong by the moonwell.
-  accept 948                                  -- Barithras Moonshade
-  accept 986                                  -- Terenthis
-  accept 4740                                 -- The WANTED poster
-  accept 729                                  -- Archaeologist Hollee
-  accept 965                                  -- Sentinel Elissa Starbreeze
+  tip From the dock, up to the north end of the village first (Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: Barithras Moonshade by the inn, the WANTED poster outside it, Sentinel Elissa Starbreeze and Terenthis at its east end, where the road leaves south.
   accept 6123 only NightElf,Druid             -- Alanndarian Nightsong
+  accept 729                                  -- Archaeologist Hollee
+  accept 948                                  -- Barithras Moonshade
   vendor nearest
+  accept 4740                                 -- The WANTED poster
+  accept 965                                  -- Sentinel Elissa Starbreeze
+  accept 986                                  -- Terenthis
 
 step Onu
   when onquest 952
@@ -162,7 +162,7 @@ step Volcor
   tip Volcor hides in the hills east of the Master's Glaive. Help him back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
   turnin 993                                  -- Volcor, inside Blackwood Den
   accept 994
-  complete 994
+  complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
   kill 12298 quest 6124.1 only NightElf,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine

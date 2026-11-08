@@ -3648,6 +3648,90 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 12-20 re-order (2026-11-07): Darkshore's southern and last loops (Onu, the glaive, Remtravel, Murkdeep, the naga, Volcor) before Kerlonian's escort into Ashenvale (06-ashenvale)."
+			},
+			{
+				"a": [
+					"accept",
+					20
+				],
+				"b": [
+					"turnin",
+					118
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) are taken from him at the bridge on Redridge's first Lakeshire stop at 20 and done on the 24 visit, where they still give full XP; the 24 visit no longer stops for them."
+			},
+			{
+				"a": [
+					"accept",
+					98387
+				],
+				"b": [
+					"turnin",
+					118
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): see accept 20 before turnin 118."
+			},
+			{
+				"a": [
+					"turnin",
+					89
+				],
+				"b": [
+					"accept",
+					150
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from 20) is taken from Dockmaster Baren on the last Lakeshire stop at 20-21, with The Everstill Bridge's hand-in, and done at 24."
+			},
+			{
+				"a": [
+					"task",
+					150
+				],
+				"b": [
+					"accept",
+					91
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 12-20): at 24 the murlocs east of the bridge are on the way in from the gryphons, so Baren takes the fins on the first Lakeshire stop instead of a stop of his own."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"turnin",
+					297
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Loch Modan): Gathering Idols and Excavation Tools go to Magmar Fellhew and Prospector Ironband on the walk back west from the Farstrider Lodge, instead of a walk back from the dig before going east to the lodge."
+			},
+			{
+				"a": [
+					"turnin",
+					39
+				],
+				"b": [
+					"accept",
+					36
+				],
+				"faction": "Alliance",
+				"why": "Alliance 12-20 re-order (2026-11-07): Dwarves and Gnomes walk east Elwynn in one loop from Goldshire (Further Concerns to Deliver Thomas' Report) on the way to Westfall, before the Jansen Stead."
+			},
+			{
+				"a": [
+					"turnin",
+					246
+				],
+				"b": [
+					"task",
+					3741
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Redridge at 20): Hilary's necklace is fished from the lake with the Sunken Chest on the walk back from Deputy Feldon and handed to Hilary at the bridge on the pass through town, not on a stop of its own right after the first Lakeshire stop."
 			}
 		],
 		"notes": [
