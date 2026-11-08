@@ -410,6 +410,9 @@ Own.offered = {}
 -- The "pre" mark of each accept whose prerequisite is known to be missing,
 -- one table per accept goal.
 Own.preMarks = setmetatable({}, { __mode = "k" })
+-- The "level" mark of each accept the character is too low to take, one
+-- table per accept goal.
+Own.levelMarks = setmetatable({}, { __mode = "k" })
 
 -- Quests the player skipped (Engine.SkipQuest): saved per character by quest
 -- id (CharState().skippedQuests), so in every guide. Until the quest is
@@ -445,10 +448,12 @@ end
 -- for good (reason "closed"): one of its `closedBy` (the quest a breadcrumb
 -- leads to, or one exclusive with it) is in the log or done, so the giver
 -- never offers it again. Else the mark its giver's window left this session.
--- Else, also known in advance, "pre": the accept lacks a prerequisite the
--- route no longer brings (Own.preBlocked), a mark that goes the moment that
--- prerequisite is done. `depth`: how far Own.coming has followed a chain of
--- prerequisites.
+-- Else, also known in advance, "level": the accept's `minLevel` is above the
+-- character's level (the route passes it, "Requires level N", and comes back
+-- to it on the level-up; its objectives and turn-in wait with it). Else
+-- "pre": the accept lacks a prerequisite the route no longer brings
+-- (Own.preBlocked), a mark that goes the moment that prerequisite is done.
+-- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
 	if not q then return nil end
@@ -478,8 +483,22 @@ local function unavailableFor(goal, depth)
 		unavailable[q] = nil
 		u = nil
 	end
+	if u or Own.offered[q] then return u end
+	local level = player and player.level
+	for i = 1, level and (own and 1 or #list) or 0 do
+		local a = own and goal or list[i].goal
+		local lvl = tonumber(a.minLevel)
+		if lvl and level < lvl then
+			local m = Own.levelMarks[a]
+			if not m then
+				m = { reason = "level", accept = a }
+				Own.levelMarks[a] = m
+			end
+			return m
+		end
+	end
 	-- A chain followed this deep (or looping in the data) proves nothing.
-	if u or Own.offered[q] or (depth or 0) > 8 then return u end
+	if (depth or 0) > 8 then return nil end
 	for i = 1, own and 1 or #list do
 		local a = own and goal or list[i].goal
 		local pre = (a.pre or a.preAll) and Own.preBlocked(a, depth)
@@ -2350,6 +2369,26 @@ function Own.catchUpPast(level)
 	return out
 end
 
+-- The first step with an accept waiting for the character's level
+-- (unavailableFor's "level" mark: the route passes it until then), or nil.
+-- With nothing else left open the guide waits there (computeCurrent): it
+-- never reads finished, nor hands off to the next guide, for a quest the
+-- level-up brings back.
+function Own.levelHold()
+	local steps, sk = guide.steps, skippedFor(guide.id)
+	for s = 1, #steps do
+		if stepApplies(steps[s]) and not (sk and sk[s]) then
+			for g, goal in ipairs(steps[s].goals) do
+				if goal.t == "accept" and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+					local u = unavailableFor(goal)
+					if u and u.reason == "level" then return s end
+				end
+			end
+		end
+	end
+	return nil
+end
+
 -- Placement: where the quest log puts the player in the guide. Runs while the
 -- tab is being placed (`placing`: its guide was just loaded at login, reload,
 -- in a new tab, after /polestar reset).
@@ -2397,7 +2436,8 @@ local function place()
 		return nil
 	end
 	local out = Own.leftOut[guide.id]
-	local start, later, anyOut
+	-- An accept waiting for a level holds the guide (Own.levelHold).
+	local start, later, anyOut = nil, Own.levelHold() ~= nil, nil
 	for s = 1, #steps do
 		for _, goal in ipairs(steps[s].goals) do
 			if (goal.t == "accept" or goal.direct) and goal.quest and ((out and out[goal.quest]) or greyNeed(goal) == false) then anyOut = true end
@@ -2556,7 +2596,8 @@ local function computeCurrent()
 			end
 		end
 	end
-	return nil
+	-- Nothing else open: wait at an accept the level-up brings back.
+	return Own.levelHold()
 end
 
 -- Store the live-done latchable goals of steps from..to (steps the route has

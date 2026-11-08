@@ -100,9 +100,9 @@ fn another_npc_s_window_never_marks_an_accept_and_the_giver_offering_a_quest_cle
 			emit({ other = other, offered = brief(1), at = E.GetStepIndex() })
 		"#,
 	);
-	// 872's prerequisite (871) is missing and the guide never turns it in: known before any visit. Thork's window
-	// offering it has the last word.
-	assert_eq!(out["other"], json!(["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
+	// 872's prerequisite (871) is missing and the guide never turns it in, and 880 needs level 14 (#1320): both
+	// known before any visit. Thork's window offering them has the last word.
+	assert_eq!(out["other"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["offered"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["at"], 1);
 }
@@ -538,4 +538,62 @@ fn farm_spots_drop_rate_spawn_density_and_grey_mobs_weigh_against_distance() {
 	let alliance = r#"{ npcName = "Alliance only", map = 1413, x = 51, y = 31, faction = "A", lvl = { 12, 12 }, rate = 0.9, spawns = 8 }"#;
 	let only_red = farm_pick(&format!("{higher}, {alliance}, {high}"), "");
 	assert_eq!(only_red, json!({ "name": "High", "lvl": [18, 20], "alts": 1, "detail": "from High" }));
+}
+
+// #1320 (Fall of Dun Modr): at level 24 the arrow led to an accept that needs level 25 until the player clicked
+// the giver. An accept above the character's level is known in advance ("Requires level 25"): the route reaching it
+// passes it, its objectives and turn-in wait with it, and the level-up brings the guide back to it. With nothing else
+// left the guide waits there: never finished, never handed on.
+const DUN_MODR: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Wetlands", faction = "Horde", minLevel = 20, maxLevel = 30, steps = {
+	{ title = "Gazrog", goals = { { t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", map = 1413, x = 52, y = 31 } } },
+	{ title = "Dun Modr", goals = {
+		{ t = "accept", quest = 90600, title = "Fall of Dun Modr", npc = 3429, npcName = "Thork", minLevel = 25, map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Raptors", goals = { { t = "collect", item = 5062, itemName = "Raptor Head", count = 12, quest = 869, oi = 1, map = 1413, x = 45, y = 20 } } },
+	{ title = "Dun Modr's work", goals = { { t = "kill", target = "Dark Iron Raider", count = 8, quest = 90600, oi = 1, map = 1413, x = 40, y = 20 } } },
+	{ title = "Back", goals = { { t = "turnin", quest = 90600, title = "Fall of Dun Modr", npc = 3429, npcName = "Thork", map = 1413, x = 51, y = 30 } } },
+} })"#;
+
+#[test]
+fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_waits_and_the_level_up_brings_it_back_1320() {
+	let script = r#"
+			local w = stub.world
+			local done = 0
+			Polestar.On("GUIDE_COMPLETED", function() done = done + 1 end)
+			local function wp() local p = E.GetWaypoint(); return p and (p.stepIndex .. ":" .. p.goalIndex) or false end
+			local function at() return { E.GetStepIndex(), wp(), brief(2), brief(4), brief(5) } end
+			-- The quest log read: placed (placement passes gated accepts before the start on its own), then played on.
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			w.accept(869, { 12 }); flush()
+			local r = { low = at() }
+			w.setLevel(25); flush()
+			r.ding = at()
+			w.accept(90600, { 8 }); flush()
+			r.taken = at()
+			r.completed = done
+			emit(r)
+		"#;
+	let out = run("w.level = 24", DUN_MODR, script);
+	let held = json!(["skipped:level:Requires level 25"]);
+	assert_eq!(out["low"], json!([3, "3:1", held, held, held]), "level 24: Thork's accept passed with its level, on to the raptors; its kill and turn-in wait with it");
+	assert_eq!(out["ding"], json!([2, "2:1", ["active:nil:nil"], ["pending:nil:nil"], ["pending:nil:nil"]]), "level 25: back to Thork, the arrow on the accept");
+	assert_eq!(out["taken"][0], json!(3), "taken: on to the raptors");
+	assert_eq!(json!([out["taken"][3], out["taken"][4]]), json!([["pending:nil:nil"], ["pending:nil:nil"]]), "its kill and turn-in still to do");
+	assert_eq!(out["completed"], json!(0));
+
+	// Everything else done at level 24: the guide waits at Thork, not finished.
+	let wait = run(
+		"w.level = 24; w.complete({ 869 })",
+		DUN_MODR,
+		r#"local done = 0
+			Polestar.On("GUIDE_COMPLETED", function() done = done + 1 end)
+			flush()
+			emit({ E.GetStepIndex(), brief(2), done })"#,
+	);
+	assert_eq!(wait, json!([2, ["skipped:level:Requires level 25"], 0]));
+
+	// The level reached: the accept leads as before.
+	let level25 = run("w.level = 25", DUN_MODR, r#"stub.world.accept(869, { 12 }); flush(); local p = E.GetWaypoint(); emit({ E.GetStepIndex(), p and p.goalIndex or false, brief(2) })"#);
+	assert_eq!(level25, json!([2, 1, ["active:nil:nil"]]));
 }

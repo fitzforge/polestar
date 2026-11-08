@@ -666,12 +666,13 @@ emit(walk)"#,
 	assert_eq!(
 		*walk,
 		json!([
-			{ "step": 1, "accept": "from Tonga Runetotem, from level 25" },
+			// Below level 25 the gated quest is passed with its level (#1320), its follow-up with it: the entrance.
+			{ "step": 3, "accept": "from Tonga Runetotem, from level 25" },
 			{ "step": 1, "accept": "from Tonga Runetotem" },
 			{ "step": 2, "accept": "from Tonga Runetotem" },
 			{ "step": 3, "accept": "from Tonga Runetotem" },
 		]),
-		"the guide stays on the gated quest, then walks each quest in turn to the entrance"
+		"the gated quest passed until its level, then back to it, and each quest in turn to the entrance"
 	);
 }
 
