@@ -2913,6 +2913,8 @@ function W.Shell(name, opts)
 		Theme.RetextLater(self)
 		Anim.To(self, "alpha", 0, 1, Anim.FAST, "out")
 	end)
+	-- Another font measures the version line anew.
+	W.OnFontChanged(function() if f:IsShown() then W.ShellStatus(f) end end)
 	f:HookScript("OnHide", function() W.HideMenu() end)
 	ns.CloseOnEscape(name)
 	return f
