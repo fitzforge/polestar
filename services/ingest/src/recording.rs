@@ -21,22 +21,28 @@ const MAX_REASON: usize = 300;
 /// no `session` record saying which build, are stored flagged.
 pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context) -> Prepared {
 	if upload.text.len() > MAX_CHUNK_BYTES {
-		return reject(upload.seq, format!("chunk over {} KiB", MAX_CHUNK_BYTES / 1024));
+		return reject(upload.seq, format!("chunk over {} KiB", MAX_CHUNK_BYTES / 1024), "chunk over the size cap".into());
 	}
 	// The `chunk` header is not a record.
 	let records = upload.text.split('\n').filter(|l| !l.is_empty()).count().saturating_sub(1);
 	if records > MAX_CHUNK_RECORDS {
-		return reject(upload.seq, format!("chunk has {records} records, at most {MAX_CHUNK_RECORDS}"));
+		return reject(upload.seq, format!("chunk has {records} records, at most {MAX_CHUNK_RECORDS}"), "chunk over the record cap".into());
 	}
 	let decoded = match decode_chunk(&upload.text) {
 		Ok(c) => c,
-		Err(e) => return reject(upload.seq, e.to_string()),
+		Err(e) => {
+			let class = match e.kind {
+				Some(kind) => format!("{kind}: {}", e.message),
+				None => e.message.clone(),
+			};
+			return reject(upload.seq, e.to_string(), reason_class(&class));
+		}
 	};
 	if decoded.seq != upload.seq {
-		return reject(upload.seq, format!("chunk record says seq {}", decoded.seq));
+		return reject(upload.seq, format!("chunk record says seq {}", decoded.seq), "chunk record says another seq".into());
 	}
 	if decoded.skipped_unknown as usize > MAX_UNKNOWN_RECORDS {
-		return reject(upload.seq, format!("chunk has {} records of unknown kinds, at most {MAX_UNKNOWN_RECORDS}", decoded.skipped_unknown));
+		return reject(upload.seq, format!("chunk has {} records of unknown kinds, at most {MAX_UNKNOWN_RECORDS}", decoded.skipped_unknown), "too many records of unknown kinds".into());
 	}
 	let session = decoded.session();
 	let build = session.and_then(|s| s.int("build")).and_then(|b| u32::try_from(b).ok());
@@ -100,7 +106,44 @@ fn strip_unknown(text: &str) -> String {
 	out
 }
 
-fn reject(seq: u64, mut reason: String) -> Prepared {
+/// Longest reason class kept, in bytes.
+const MAX_CLASS: usize = 120;
+
+/// A rejection reason without what the uploader sent: the quoted value (`'-300'`, a list item;
+/// the library quotes at most one, which may itself hold a `'`) is dropped from the first quote
+/// to the last, and numbers become `N`, so the class names the rule and never a player's data,
+/// and one rule always counts under one class (`turnin: field money: bad value`).
+pub fn reason_class(reason: &str) -> String {
+	let kept = match (reason.find('\''), reason.rfind('\'')) {
+		(Some(a), Some(b)) if a < b => format!("{}{}", &reason[..a], &reason[b + 1..]),
+		(Some(a), _) => reason[..a].to_string(),
+		_ => reason.to_string(),
+	};
+	let mut out = String::with_capacity(kept.len().min(MAX_CLASS));
+	let mut digits = false;
+	for c in kept.chars() {
+		let piece = if c.is_ascii_digit() {
+			if digits {
+				continue;
+			}
+			digits = true;
+			'N'
+		} else {
+			digits = false;
+			if c.is_control() || (c == ' ' && out.ends_with(' ')) {
+				continue;
+			}
+			c
+		};
+		if out.len() + piece.len_utf8() > MAX_CLASS {
+			break;
+		}
+		out.push(piece);
+	}
+	out.trim().to_string()
+}
+
+fn reject(seq: u64, mut reason: String, class: String) -> Prepared {
 	if reason.len() > MAX_REASON {
 		let mut end = MAX_REASON;
 		while !reason.is_char_boundary(end) {
@@ -108,7 +151,7 @@ fn reject(seq: u64, mut reason: String) -> Prepared {
 		}
 		reason.truncate(end);
 	}
-	Prepared::Rejected(Rejected { seq, reason })
+	Prepared::Rejected(Rejected { seq, reason }, class)
 }
 
 #[cfg(test)]
@@ -125,13 +168,31 @@ mod tests {
 	fn caps_chunk_bytes_records_and_unknown_kinds() {
 		let afk = |n: usize| "afk\t1\t1\n".repeat(n);
 		assert!(matches!(prep(format!("{HEAD}{}", afk(MAX_CHUNK_RECORDS))), Prepared::Ok(_)));
-		let Prepared::Rejected(r) = prep(format!("{HEAD}{}", afk(MAX_CHUNK_RECORDS + 1))) else { panic!("over the record cap") };
+		let Prepared::Rejected(r, class) = prep(format!("{HEAD}{}", afk(MAX_CHUNK_RECORDS + 1))) else { panic!("over the record cap") };
 		assert!(r.reason.contains("records"), "{}", r.reason);
+		assert_eq!(class, "chunk over the record cap");
 		let big = format!("{HEAD}{}", "x".repeat(MAX_CHUNK_BYTES));
-		let Prepared::Rejected(r) = prep(big) else { panic!("over 64 KiB") };
+		let Prepared::Rejected(r, _) = prep(big) else { panic!("over 64 KiB") };
 		assert!(r.reason.contains("KiB"), "{}", r.reason);
-		let Prepared::Rejected(r) = prep(format!("{HEAD}{}", "x\n".repeat(MAX_UNKNOWN_RECORDS + 1))) else { panic!("too many unknown") };
+		let Prepared::Rejected(r, _) = prep(format!("{HEAD}{}", "x\n".repeat(MAX_UNKNOWN_RECORDS + 1))) else { panic!("too many unknown") };
 		assert!(r.reason.contains("unknown"), "{}", r.reason);
+	}
+
+	#[test]
+	fn a_reject_is_counted_by_its_rule_never_by_what_was_sent() {
+		// The player sees the full reason; the count keeps only the rule.
+		let Prepared::Rejected(r, class) = prep(format!("{HEAD}afk\t0\t1\nturnin\t412\t2945\to\t142487\t\t\t\t31\t-5\t0\t\n")) else { panic!("rejected") };
+		assert_eq!((r.reason.as_str(), class.as_str()), ("record 3 (turnin): field xp: bad value '-5'", "turnin: field xp: bad value"));
+		for (reason, want) in [
+			("field race: bad value 'Mak'gora Champion'", "field race: bad value"),
+			("list item 'Ana Smith:12:x:y' has 4 parts, expected 3", "list item has N parts, expected N"),
+			("position: bad position '10001 5' (0..=10000)", "position: bad position (N..=N)"),
+			("field text: bad value 'unclosed", "field text: bad value"),
+			("text longer than 4000 bytes", "text longer than N bytes"),
+		] {
+			assert_eq!(reason_class(reason), want, "{reason}");
+		}
+		assert!(reason_class(&"x".repeat(500)).len() <= MAX_CLASS);
 	}
 
 	#[test]

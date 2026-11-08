@@ -353,6 +353,15 @@ async fn accepts_then_reports_duplicates_and_rejects_malformed() {
 	assert_eq!(stats["quests"], 1);
 	assert_eq!(stats["records"]["session"], 4);
 	assert_eq!(stats["last30"][0]["chunks"], 4);
+	// Rejects are counted by rule, without the contributor or the value sent.
+	let day = stats["last30"][0]["day"].clone();
+	assert_eq!(
+		stats["rejects"],
+		json!([
+			{ "day": day, "reason": "chunk record says another seq", "chunks": 1 },
+			{ "day": day, "reason": "kill: field npcId: bad value", "chunks": 1 },
+		])
+	);
 
 	// Every export line says how long the contributor has been around and how much it sent.
 	let lines = export(&app, "").await;
