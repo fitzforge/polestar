@@ -1976,38 +1976,45 @@ local function layoutAfter(width)
 end
 
 -- The "While you're here" panel (GF.BuildHere), `width` wide: its label,
--- then the row as the step's goal rows lay out (the glyph on the first line,
--- the text from TEXT_X, wrapping, never cut), its step under the text; the
--- distance and the close button on the first line's right. -> its height
--- (On GF: the main chunk is at Lua's 200 locals.)
+-- then its rows (GF.HereRow) as the step's goal rows lay out (the glyph on
+-- the first line, the text from TEXT_X, wrapping, never cut), each row's step
+-- under its text, its distance and close button on its first line's right.
+-- -> its height. HERE_TINT: how much of the accent its ground takes
+-- (Theme.AccentGround). (On GF: the main chunk is at Lua's 200 locals.)
 GF.HERE_H = 28
+GF.HERE_TINT = 0.22
 function GF.LayoutHere(width)
 	local here = GF.here
 	local hb = here.Body
 	local top = 3 + 6
 	here.Label:ClearAllPoints()
 	here.Label:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD, -top)
-	local rowTop = top + floor(here.Label:GetStringHeight() + 0.5) + 4 + ROW_PAD
-	local closeW = here.Close:GetWidth()
-	local right = PAD - 4 + closeW + 4 + floor(here.Dist:GetStringWidth() + 1) + 8
-	here.Icon:ClearAllPoints()
-	here.Icon:SetPoint("CENTER", hb, "TOPLEFT", PAD + ICON / 2, -(rowTop + 12))
-	here.Close:ClearAllPoints()
-	here.Close:SetPoint("CENTER", hb, "TOPRIGHT", -(PAD - 4 + closeW / 2), -(rowTop + 12))
-	here.Dist:ClearAllPoints()
-	here.Dist:SetPoint("RIGHT", here.Close, "LEFT", -4, 0)
-	here.Text:ClearAllPoints()
-	here.Text:SetPoint("TOPLEFT", hb, "TOPLEFT", TEXT_X, -(rowTop + 4))
-	local tw = max(40, width - TEXT_X - right)
-	here.Text:SetWidth(tw)
-	local h = rowTop + 4 + max(16, floor(here.Text:GetStringHeight() + 0.5))
-	if here.Sub:IsShown() then
-		here.Sub:ClearAllPoints()
-		here.Sub:SetPoint("TOPLEFT", here.Text, "BOTTOMLEFT", 0, -2)
-		here.Sub:SetWidth(tw)
-		h = h + 2 + floor(here.Sub:GetStringHeight() + 0.5)
+	local y = top + floor(here.Label:GetStringHeight() + 0.5) + ROW_PAD
+	for _, r in ipairs(here.Rows) do
+		if r:IsShown() then
+			local closeW = r.Close:GetWidth()
+			local right = PAD - 4 + closeW + 4 + floor(r.Dist:GetStringWidth() + 1) + 8
+			r.Icon:ClearAllPoints()
+			r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -16)
+			r.Close:ClearAllPoints()
+			r.Close:SetPoint("CENTER", r, "TOPRIGHT", -(PAD - 4 + closeW / 2), -16)
+			r.Dist:ClearAllPoints()
+			r.Dist:SetPoint("RIGHT", r.Close, "LEFT", -4, 0)
+			r.Text:ClearAllPoints()
+			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -8)
+			local tw = max(40, width - TEXT_X - right)
+			r.Text:SetWidth(tw)
+			r.Sub:ClearAllPoints()
+			r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
+			r.Sub:SetWidth(tw)
+			local h = 8 + max(16, floor(r.Text:GetStringHeight() + 0.5)) + 2 + floor(r.Sub:GetStringHeight() + 0.5) + 4
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", hb, "TOPLEFT", 0, -y)
+			r:SetSize(width, h)
+			y = y + h
+		end
 	end
-	h = max(GF.HERE_H, h + 4 + 3 + 3)
+	local h = max(GF.HERE_H, y + 3 + 3)
 	hb:SetSize(width, h)
 	here:SetHeight(h)
 	return h
@@ -2639,25 +2646,26 @@ local function fillAlong(E)
 	along:SetShown(n > 0)
 end
 
--- "While you're here" (Engine.GetWhileHere): a quick objective of a later
--- step close by, in its own panel under the step's goals (GF.BuildHere), never
--- in the compact window (the toast, UI/WhileHere.lua, says it there). Its row
--- reads as the step's goal rows do ("Collect Fungal Spores 0/1", the target
--- in its colour; a hand-in as the game words it), its step under it. A new
--- one slides in from the left as it fades in (Anim.BASE, strong ease-out);
--- one that goes slides back out faster (Anim.FAST) before the window closes
--- the gap. Under ui.reduceMotion it only fades (Anim). psKey: "<step>:<goal>"
--- of the row on screen, nil while none is. (On GF: the main chunk is at
+-- "While you're here" (Engine.GetWhileHereList): quick objectives of later
+-- steps close by, in their own panel under the step's goals (GF.BuildHere),
+-- never in the compact window (the toast, UI/WhileHere.lua, says it there).
+-- One row each, read as the step's goal rows ("Collect Fungal Spores 0/1",
+-- the target in its colour; a hand-in as the game words it), its step under
+-- it. The panel slides in from the left as it fades in (Anim.BASE, strong
+-- ease-out) and slides back out faster (Anim.FAST) before the window closes
+-- the gap. Under ui.reduceMotion it only fades (Anim). psKey: the rows'
+-- "<step>:<goal>" on screen, nil while none is. (On GF: the main chunk is at
 -- Lua's 200 locals.)
 GF.HERE_DIST = { round = 5 }
 
 function GF.FillHere(E)
-	local v = not compact() and E.GetWhileHere and E.GetWhileHere() or nil
+	local list = not compact() and E.GetWhileHereList() or nil
 	local here = GF.here
 	local body = here.Body
-	if not v then
+	if not (list and list[1]) then
 		local was = here.psKey
-		here.psKey, here.psView = nil, nil
+		here.psKey = nil
+		for _, r in ipairs(here.Rows) do r.psView = nil end
 		if was and here:IsShown() and F:IsVisible() and not GF.catchingUp then
 			Anim.To(body, "offsetX", 0, -6, Anim.FAST, "out")
 			Anim.To(body, "alpha", body:GetAlpha(), 0, Anim.FAST, "out", function()
@@ -2671,15 +2679,25 @@ function GF.FillHere(E)
 		end
 		return
 	end
-	local key = v.step .. ":" .. v.index
-	local fresh = here.psKey ~= key
+	local keys = {}
+	for i, v in ipairs(list) do
+		local r = GF.HereRow(i)
+		r.psView = v
+		keys[i] = v.step .. ":" .. v.index
+		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
+		r.Text:SetText(v.here == "turnin" and (v.hereText or "") or UI.GoalLine(v))
+		r.Sub:SetText(string.format(L["Step %d"], UI.StepNo(v.step)))
+		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
+		r:Show()
+	end
+	for i = #list + 1, #here.Rows do
+		here.Rows[i].psView = nil
+		here.Rows[i]:Hide()
+	end
+	-- The panel slides in when it comes; rows coming and going inside it do not.
+	local fresh = here.psKey == nil
 	local wasShown = here:IsShown()
-	here.psKey, here.psView = key, v
-	here.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-	here.Text:SetText(v.here == "turnin" and (v.hereText or "") or UI.GoalLine(v))
-	here.Sub:SetText(string.format(L["Step %d"], UI.StepNo(v.step)))
-	here.Sub:Show()
-	here.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
+	here.psKey = table.concat(keys, " ")
 	here:Show()
 	if fresh and F:IsVisible() and not GF.catchingUp then
 		Anim.To(body, "alpha", wasShown and body:GetAlpha() or 0, 1, Anim.BASE, "out")
@@ -2697,11 +2715,12 @@ function GF.HereChanged()
 	GF.Layout()
 end
 
--- WHILE_HERE_MOVED: only its distance changed.
-function GF.HereMoved(yards)
+-- WHILE_HERE_MOVED (yards, i): only row i's distance changed.
+function GF.HereMoved(yards, i)
 	local here = GF.here
-	if not (F and here and here.psView and type(yards) == "number") then return end
-	here.Dist:SetText(ns.FormatDistance(yards, GF.HERE_DIST))
+	local r = here and here.Rows[i or 1]
+	if not (F and r and r.psView and type(yards) == "number") then return end
+	r.Dist:SetText(ns.FormatDistance(yards, GF.HERE_DIST))
 	-- A wider distance can wrap the text onto another line: lay the window out.
 	if here:IsShown() then
 		local was = here:GetHeight()
@@ -4010,61 +4029,39 @@ local function draggable(frame)
 	return hoverable(frame)
 end
 
-function GF.BuildHere()
-	-- While you're here (fillHere): its own section under the step's goals,
-	-- a tinted panel (the alternate panel ground with an accent wash and an
-	-- accent edge) with a small "While you're here" label, then the
-	-- suggestion as a goal row: the verb's glyph, the goal's line with its
-	-- coloured target and count, wrapping like the step's own rows; its step
-	-- under it; the distance and a close button on the right. Left-click
-	-- leads the arrow there, right-click (or the close button) dismisses it
-	-- for this zone. `Body` carries what moves.
-	local here = CreateFrame("Button", nil, body)
-	GF.here = here
-	here:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	here:SetHeight(GF.HERE_H)
-	W.Hover(here)
-	local hb = CreateFrame("Frame", nil, here)
-	hb:SetSize(300, GF.HERE_H)
-	Anim.Anchor(hb, "TOPLEFT", here, "TOPLEFT", 0, 0)
-	here.Body = hb
-	here.Panel = hb:CreateTexture(nil, "BACKGROUND", nil, -6)
-	here.Panel:SetTexture(Theme.Media("white"))
-	W.Color(here.Panel, "panelAlt")
-	here.Panel:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD - 6, -3)
-	here.Panel:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -(PAD - 6), 3)
-	here.Wash = hb:CreateTexture(nil, "BACKGROUND", nil, -5)
-	here.Wash:SetTexture(Theme.Media("white"))
-	W.Color(here.Wash, "accent", 0.08)
-	here.Wash:SetAllPoints(here.Panel)
-	here.Edge = hb:CreateTexture(nil, "ARTWORK")
-	here.Edge:SetTexture(Theme.Media("white"))
-	W.Color(here.Edge, "accent", 0.9)
-	here.Edge:SetPoint("TOPLEFT", here.Panel, "TOPLEFT", 0, 0)
-	here.Edge:SetPoint("BOTTOMLEFT", here.Panel, "BOTTOMLEFT", 0, 0)
-	here.Edge:SetWidth(2)
-	here.Label = T(hb, "small", "accent")
-	here.Label:SetText(L["While you're here"])
-	here.Icon = hb:CreateTexture(nil, "ARTWORK")
-	here.Icon:SetSize(ICON, ICON)
-	W.Color(here.Icon, "accent")
-	here.Close = W.IconButton(hb, "close", 18, L["Not now (right-click)"], function() local E = Engine(); if E and E.DismissWhileHere then E.DismissWhileHere() end end)
-	here.Dist = T(hb, "small", "textMuted")
-	here.Dist:SetJustifyH("RIGHT")
-	here.Text = T(hb, "goal", "text")
-	here.Text:SetWordWrap(true)
-	here.Text:SetJustifyV("TOP")
-	here.Sub = T(hb, "small", "textMuted")
-	here:SetScript("OnClick", function(_, button)
+-- A row of the While you're here panel (GF.BuildHere), one per suggestion:
+-- the verb's glyph, the goal's line with its coloured target and count,
+-- wrapping like the step's own rows; its step under it; the distance and a
+-- close button on the right. Left-click leads the arrow there, right-click
+-- (or the close button) dismisses it for this zone. psAt: its place in
+-- Engine.GetWhileHereList.
+function GF.HereRow(i)
+	local here = GF.here
+	local r = here.Rows[i]
+	if r then return r end
+	r = CreateFrame("Button", nil, here.Body)
+	r.psAt = i
+	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	W.Hover(r)
+	r.Icon = r:CreateTexture(nil, "ARTWORK")
+	r.Icon:SetSize(ICON, ICON)
+	W.Color(r.Icon, "accent")
+	r.Close = W.IconButton(r, "close", 18, L["Not now (right-click)"], function()
+		local E = Engine()
+		if E then E.DismissWhileHere(r.psAt) end
+	end)
+	r.Dist = T(r, "small", "textMuted")
+	r.Dist:SetJustifyH("RIGHT")
+	r.Text = T(r, "goal", "text")
+	r.Text:SetWordWrap(true)
+	r.Text:SetJustifyV("TOP")
+	r.Sub = T(r, "small", "textMuted")
+	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
 		if not E then return end
-		if button == "RightButton" then
-			if E.DismissWhileHere then E.DismissWhileHere() end
-		elseif E.AimWhileHere then
-			E.AimWhileHere()
-		end
+		if button == "RightButton" then E.DismissWhileHere(self.psAt) else E.AimWhileHere(self.psAt) end
 	end)
-	here:SetScript("OnEnter", function(self)
+	r:SetScript("OnEnter", function(self)
 		local v = self.psView
 		if not v then return end
 		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. (v.hereText or ""), {
@@ -4074,7 +4071,38 @@ function GF.BuildHere()
 		})
 		GF.HoverIn()
 	end)
-	here:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	here.Rows[i] = r
+	return r
+end
+
+function GF.BuildHere()
+	-- While you're here (fillHere): its own section under the step's goals,
+	-- a panel in the player's accent, dulled (Theme.AccentGround, painted
+	-- again when the accent changes), with the accent edge and a small
+	-- "While you're here" label, then one row per suggestion (GF.HereRow).
+	-- `Body` carries what moves.
+	local here = CreateFrame("Frame", nil, body)
+	GF.here = here
+	here.Rows = {}
+	here:SetHeight(GF.HERE_H)
+	local hb = CreateFrame("Frame", nil, here)
+	hb:SetSize(300, GF.HERE_H)
+	Anim.Anchor(hb, "TOPLEFT", here, "TOPLEFT", 0, 0)
+	here.Body = hb
+	here.Panel = hb:CreateTexture(nil, "BACKGROUND", nil, -6)
+	here.Panel:SetTexture(Theme.Media("white"))
+	W.Painter(here.Panel, function(t) t:SetVertexColor(Theme.AccentGround(GF.HERE_TINT)) end)
+	here.Panel:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD - 6, -3)
+	here.Panel:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -(PAD - 6), 3)
+	here.Edge = hb:CreateTexture(nil, "ARTWORK")
+	here.Edge:SetTexture(Theme.Media("white"))
+	W.Color(here.Edge, "accent", 0.9)
+	here.Edge:SetPoint("TOPLEFT", here.Panel, "TOPLEFT", 0, 0)
+	here.Edge:SetPoint("BOTTOMLEFT", here.Panel, "BOTTOMLEFT", 0, 0)
+	here.Edge:SetWidth(2)
+	here.Label = T(hb, "small", "accent")
+	here.Label:SetText(L["While you're here"])
 	here:Hide()
 end
 

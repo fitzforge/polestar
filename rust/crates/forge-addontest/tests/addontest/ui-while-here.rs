@@ -36,9 +36,11 @@ local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
 local H = GF.parts.here
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 local function top(f) local _, _, _, _, y = f:GetPoint(1); return y end
+local function row(i) return H.Rows[i or 1] end
 local function line()
-	return { shown = H:IsShown(), text = plain(H.Text:GetText()), label = H.Label:GetText(), sub = H.Sub:GetText(), dist = H.Dist:GetText(),
-		top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
+	local r = row(1)
+	return { shown = H:IsShown(), text = r and plain(r.Text:GetText()) or false, label = H.Label:GetText(), sub = r and r.Sub:GetText() or false,
+		dist = r and r.Dist:GetText() or false, top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
 end
 local function toast()
 	local t = PolestarWhileHereToast
@@ -72,10 +74,11 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 		local sliding = { Polestar.Anim.IsRunning(H.Body, "alpha"), Polestar.Anim.IsRunning(H.Body, "offsetX") }
 		stub.advance(0.5)
 		emit({ line = line(), sliding = sliding, alpha = H.Body:GetAlpha(), toast = toast() })
-		H:GetScript("OnClick")(H, "LeftButton"); stub.advance(0.2)
+		local R = row(1)
+		R:GetScript("OnClick")(R, "LeftButton"); stub.advance(0.2)
 		local t = Polestar.Nav.GetTarget()
 		emit(t and { t.stepIndex, t.goalIndex } or false)
-		H:GetScript("OnClick")(H, "RightButton"); stub.advance(0.05)
+		R:GetScript("OnClick")(R, "RightButton"); stub.advance(0.05)
 		local leaving = { H:IsShown(), Polestar.Anim.IsRunning(H.Body, "alpha") }
 		stub.advance(0.4)
 		t = Polestar.Nav.GetTarget()
@@ -103,28 +106,45 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 }
 
 // Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
-// tinted panel (the alternate panel ground under an accent wash) with a "While you're here" label, then the
-// suggestion as a goal row, its glyph, distance and close button on the first line; in a narrow window the text
-// wraps onto another line and the panel grows, never cutting it.
+// panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
+// change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
+// button on the first line; in a narrow window the text wraps onto another line and the panel grows, never cut.
 #[test]
-fn the_suggestion_is_a_goal_row_in_its_own_tinted_panel_and_wraps_in_a_narrow_window_never_cut() {
+fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent_and_wraps_in_a_narrow_window_never_cut() {
 	let out = run(
 		"",
 		r#"
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
+		local R = row(1)
 		local function rgb(t) local r, g, b = t:GetVertexColor(); return { r, g, b } end
 		local function cy(r) local _, _, _, _, y = r:GetPoint(1); return y end
 		local function at(width)
 			local h = GF.LayoutHere(width)
-			return { h = h, lines = H.Text:GetNumLines(), cut = H.Text:IsTruncated(), text = plain(H.Text:GetText()) }
+			return { h = h, lines = R.Text:GetNumLines(), cut = R.Text:IsTruncated(), text = plain(R.Text:GetText()) }
 		end
-		local pr, pg, pb = T.Color("panelAlt")
+		local function ground()
+			local p = rgb(H.Panel)
+			local r, g, b = T.AccentGround(GF.HERE_TINT)
+			local br, bg, bb = T.Color("bg")
+			return { panel = p, want = { r, g, b }, bg = { br, bg, bb }, contrast = T.Contrast({ T.Color("text") }, p) }
+		end
+		local own = ground()
+		Polestar.Set("ui.accent", { 0.2, 0.75, 0.3 })
+		local green = ground()
+		Polestar.Set("ui.accent", { 1, 0.95, 0.6 })
+		local pale = ground()
 		-- The stub measures the colour codes as characters too: 600 holds the line on one.
-		emit({ panel = rgb(H.Panel), panelAlt = { pr, pg, pb }, firstLine = { cy(H.Icon), cy(H.Close) }, wide = at(600), narrow = at(200) })"#,
+		emit({ own = own, green = green, pale = pale, firstLine = { cy(R.Icon), cy(R.Close) }, wide = at(600), narrow = at(200) })"#,
 	);
 	let o = &out[0];
-	assert_eq!(o["panel"], o["panelAlt"], "the panel is the theme's alternate panel ground");
+	for k in ["own", "green", "pale"] {
+		let g = &o[k];
+		assert_eq!(g["panel"], g["want"], "{k}: the panel is the accent dulled into the ground: {o}");
+		assert_ne!(g["panel"], g["bg"], "{k}: tinted, not the plain ground");
+		assert!(g["contrast"].as_f64().unwrap() >= 7.0, "{k}: the text reads at 7:1 on it: {o}");
+	}
+	assert_ne!(o["own"]["panel"], o["green"]["panel"], "a new accent repaints it live");
 	assert_eq!(o["firstLine"][0], o["firstLine"][1], "the glyph and the close button share the first line");
 	assert_eq!(o["wide"]["lines"], 1, "{o}");
 	assert!(o["narrow"]["lines"].as_i64().unwrap() >= 2, "a narrow window wraps the text: {o}");
@@ -133,6 +153,62 @@ fn the_suggestion_is_a_goal_row_in_its_own_tinted_panel_and_wraps_in_a_narrow_wi
 		assert_eq!(o[w]["text"], "Kill Kobold Vermin  8/10");
 	}
 	assert!(o["narrow"]["h"].as_f64().unwrap() > o["wide"]["h"].as_f64().unwrap(), "the panel grows with the text: {o}");
+}
+
+// Fitz, 0.3.5: several suggestions close by (Engine.GetWhileHereList) are rows of the one panel, under its one
+// label, in the engine's order, each with its own distance and close button; a click on a row aims at that one, a
+// right-click or its close button dismisses only that one, and the panel goes with the last.
+#[test]
+fn two_suggestions_are_two_rows_of_one_panel_each_aiming_and_dismissing_its_own() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local function rows()
+			local out = {}
+			for i, r in ipairs(H.Rows) do
+				if r:IsShown() then
+					local v = E.GetWhileHereList()[i]
+					out[#out + 1] = { text = plain(r.Text:GetText()), sub = r.Sub:GetText(), dist = r.Dist:GetText(), step = v and v.step or false }
+				end
+			end
+			return out
+		end
+		local labels = 0
+		for _, region in ipairs({ H.Body:GetRegions() }) do
+			if region.GetText and region:GetText() == "While you're here" then labels = labels + 1 end
+		end
+		local first = { rows = rows(), list = #E.GetWhileHereList(), labels = labels }
+		local second = H.Rows[2]
+		local aimAt = second.psView.step
+		second:GetScript("OnClick")(second, "LeftButton"); stub.advance(0.2)
+		local t = Polestar.Nav.GetTarget()
+		local aimed = t and t.stepIndex or false
+		local one = H.Rows[1]
+		local gone = one.psView.step
+		one:GetScript("OnClick")(one, "RightButton"); stub.advance(0.6)
+		local after = { rows = rows(), list = #E.GetWhileHereList(), shown = H:IsShown() }
+		H.Rows[1].Close:Click(); stub.advance(0.6)
+		emit({ first = first, aimAt = aimAt, aimed = aimed, gone = gone, after = after, last = { shown = H:IsShown(), list = #E.GetWhileHereList() } })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["first"]["list"], 2, "the vermin and the candles are both in reach: {o}");
+	assert_eq!(o["first"]["labels"], 1, "one label for the panel");
+	let rows = o["first"]["rows"].as_array().unwrap();
+	assert_eq!(rows.len(), 2, "{o}");
+	let texts: Vec<&str> = rows.iter().map(|r| r["text"].as_str().unwrap()).collect();
+	assert!(texts.contains(&"Kill Kobold Vermin  8/10") && texts.contains(&"Collect Large Candle  1/3"), "{texts:?}");
+	for r in rows {
+		assert!(r["dist"].as_str().unwrap().ends_with(" yd"), "each row has its own distance: {r}");
+		assert_eq!(r["sub"], format!("Step {}", r["step"]), "{r}");
+	}
+	assert_eq!(o["aimed"], o["aimAt"], "a click on the second row aims at its step: {o}");
+	let left = o["after"]["rows"].as_array().unwrap();
+	assert_eq!((o["after"]["list"].as_i64(), left.len()), (Some(1), 1), "a right-click dismisses only its row: {o}");
+	assert_ne!(left[0]["step"], o["gone"], "the other row stays: {o}");
+	assert_eq!(o["after"]["shown"], true);
+	assert_eq!(o["last"], json!({ "shown": false, "list": 0 }), "the last row's close button takes the panel with it");
 }
 
 #[test]
@@ -185,7 +261,7 @@ fn the_maps_and_the_minimap_show_its_mark_and_spawn_area_until_the_arrow_takes_i
 		local function mm(name) return #P.GetMinimapFrames(name) + #P.GetMinimapHulls(name) + #P.GetMinimapAreas(name) end
 		emit({ here = v and v.step or false, text = v and v.hereText or false, mark = n("nav.here"), areas = n("nav.hereAreas"),
 			mmMark = mm("nav.here"), mmAreas = mm("nav.hereAreas") })
-		H:GetScript("OnClick")(H, "LeftButton"); stub.advance(0.3)
+		row(1):GetScript("OnClick")(row(1), "LeftButton"); stub.advance(0.3)
 		emit({ mark = n("nav.here"), areas = n("nav.hereAreas"), own = n("nav.areas") })
 	"#,
 	);

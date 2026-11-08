@@ -700,6 +700,21 @@ function Theme.Legible(r, g, b)
 	return liftTo(lightestOf(pal), pal.text, { r, g, b })
 end
 
+-- A ground tinted by the accent: `share` of the accent mixed into the
+-- palette's window ground (bg), less where the text would no longer read at
+-- 7:1 on it (a bright accent on a light skin). Follows the accent: call it
+-- from a painter. -> r, g, b, a (the ground's alpha)
+function Theme.AccentGround(share)
+	local pal = Theme.Palette()
+	local g, a, t = pal.bg, pal.accent, pal.text
+	local k = share
+	while true do
+		local c = { g[1] + (a[1] - g[1]) * k, g[2] + (a[2] - g[2]) * k, g[3] + (a[3] - g[3]) * k }
+		if k <= 0 or Theme.Contrast(t, c) >= 7 then return c[1], c[2], c[3], g[4] or 1 end
+		k = math.max(0, k - 0.02)
+	end
+end
+
 -- The window border: shown (ui.border), and its thickness in physical
 -- pixels (ui.borderSize, 1-4). Its colour is the "windowBorder" token.
 -- -> shown, size
