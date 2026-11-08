@@ -421,13 +421,14 @@ its source is in [apps/client](apps/client).
   use the guide window's menu, and its open objectives join the Along the way
   list beside whatever step you are on, with their map marks, the target
   button and the arrow, until they are done or you unpin it.
-- **While you're here.** When you pass through the area of a later step's
+- **Dynamic Questing.** When you pass through the area of a later step's
   objective whose quest is already in your log (12 vermin as much as one
-  chest), one line under the step says so; done now, that step is
-  done or shorter when you get there. Click it for the arrow, right-click it
-  to leave it for this zone. A quest ready to hand in to someone standing
-  right there shows the same way (Options, Guide, Window, "While you're
-  here").
+  chest), a "While you're here" panel under the step lists it, up to three
+  at once; done now, that step is done or shorter when you get there. Click
+  one for the arrow, right-click it to leave it around there (twice: for the
+  rest of the zone). A quest ready
+  to hand in to someone standing right there shows the same way (Options,
+  Guide, Window, "Dynamic Questing").
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them

@@ -1,17 +1,19 @@
 -- The "While you're here" toast (PolestarWhileHereToast). The guide window
--- shows a "While you're here" line under the step (UI/GuideFrame.lua,
--- fillHere; Core/Engine.lua, Engine.GetWhileHere). While the window is
--- hidden or compact, a new line comes as this one small card near the top of
+-- shows Dynamic Questing's suggestions in its "While you're here" panel under
+-- the step, in every mode and style (UI/GuideFrame.lua, GF.FillHere;
+-- Core/Engine.lua, Engine.GetWhileHereList). While the window is
+-- hidden, a new line comes as this one small card near the top of
 -- the screen instead: the accent edge and the verb's glyph, "While you're
 -- here" in the accent, then what to do and how far. Once per line: it slides
 -- down into place as it fades in (Anim.BASE, strong ease-out) and leaves back
 -- up, faster (Anim.FAST), after SECONDS (held while the cursor is on it) or as
 -- soon as the line goes. Left-click leads the arrow there
--- (Engine.AimWhileHere), right-click dismisses it for this zone
+-- (Engine.AimWhileHere), right-click dismisses it around here (twice: for the zone)
 -- (Engine.DismissWhileHere). Under ui.reduceMotion it only fades (Anim).
 --
--- Each new line also plays a soft chime (with behavior.whileHereSound, at
--- most every SOUND_EVERY seconds, on the game's sound effects channel), as
+-- Each new line also plays a soft chime (with behavior.whileHereSound; a
+-- line coming back counts as new, one already up never chimes again; at
+-- least SOUND_EVERY seconds apart, so several at once chime once, on the game's sound effects channel), as
 -- the minimap's mark pings (Nav/Layers.lua, Pins `ping`), so the player knows
 -- to glance at it. Media/Sounds/while-here.ogg, "star twinkle", was made for
 -- Polestar: synthesized, no third-party source. Three quick rising glass-bell
@@ -34,18 +36,30 @@ local SECONDS = 8
 local DIST = { round = 5 }
 
 local SOUND = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Sounds\\while-here.ogg"
-local SOUND_EVERY = 30
+local SOUND_EVERY = 5
 local soundAt = -math.huge
 
 local f
-local shownKey -- "<step>:<goal>" of the line last toasted (or seen in the window)
+local shownKey -- "<step>:<goal>" of the line the toast shows
+local seen = 0 -- the newest line's `appeared` chimed for (Engine serials only grow)
 local token = 0 -- the current show; a timer or fade of an older one does nothing
 
--- Whether the guide window shows the line itself.
+-- The toast's line's place in Engine.GetWhileHereList (its rows change
+-- order), else 1.
+local function shownIndex()
+	local E = ns.Engine
+	local list = E and E.GetWhileHereList and E.GetWhileHereList() or {}
+	for i, v in ipairs(list) do
+		if v.step .. ":" .. v.index == shownKey then return i end
+	end
+	return 1
+end
+
+-- Whether the guide window shows the line itself (compact included).
 local function windowShows()
 	local GF = UI.GuideFrame
 	local F = GF and GF.frame
-	return F ~= nil and F:IsVisible() and not ns.Get("ui.compact")
+	return F ~= nil and F:IsVisible()
 end
 
 local function text(v)
@@ -82,16 +96,16 @@ local function build()
 		local E = ns.Engine
 		if not E then return end
 		if button == "RightButton" then
-			if E.DismissWhileHere then E.DismissWhileHere() end
+			if E.DismissWhileHere then E.DismissWhileHere(shownIndex()) end
 		elseif E.AimWhileHere then
-			E.AimWhileHere()
+			E.AimWhileHere(shownIndex())
 			T.Hide()
 		end
 	end)
 	f:SetScript("OnEnter", function(self)
 		W.Tooltip(self, "ANCHOR_BOTTOM", L["While you're here"], {
 			{ L["Click to point the arrow here"], Theme.Accent() },
-			{ L["Right-click: not now, for the rest of this zone."], Theme.Color("textDim") },
+			{ L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") },
 		})
 	end)
 	f:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -142,23 +156,31 @@ function T.Chime()
 	return true
 end
 
+-- A line that appears (a new `appeared`, also one coming back after a dismiss,
+-- an expiry or a walk away) chimes, wherever it sits among the rows, and is
+-- the toast's while the window is hidden. A line the toast shows follows its
+-- count; once it goes, so does the toast.
 ns.On("WHILE_HERE_CHANGED", function()
 	local E = ns.Engine
-	local v = E and E.GetWhileHere and E.GetWhileHere()
-	if not v then
-		shownKey = nil
-		T.Hide()
+	local list = E and E.GetWhileHereList and E.GetWhileHereList() or {}
+	local new, cur = nil, nil
+	for _, v in ipairs(list) do
+		if (v.appeared or 0) > seen and (not new or v.appeared > new.appeared) then new = v end
+		if v.step .. ":" .. v.index == shownKey then cur = v end
+	end
+	if not new then
+		if cur then
+			if f and f:IsShown() then f.Text:SetText(text(cur)) end
+		else
+			shownKey = nil
+			T.Hide()
+		end
 		return
 	end
-	local key = v.step .. ":" .. v.index
-	if key == shownKey then
-		-- The same line, its count changed: the card follows while it shows.
-		if f and f:IsShown() then f.Text:SetText(text(v)) end
-		return
-	end
-	shownKey = key
+	seen = new.appeared
 	if not ns.IsLoggedIn() then return end
 	T.Chime()
 	if windowShows() then return end
-	T.Show(v)
+	shownKey = new.step .. ":" .. new.index
+	T.Show(new)
 end)

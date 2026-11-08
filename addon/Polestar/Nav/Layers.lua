@@ -309,48 +309,63 @@ local function updateAreas(world, minimap, index, view)
 	end
 end
 
--- The While you're here line (Engine.GetWhileHere) on both surfaces until
--- the arrow leads there: its mark in the accent with a soft glow, clamped to
--- the minimap's rim with the edge pointer when it is off it (an edge layer),
--- and its spawn areas in the accent on the minimap too, so the minimap shows
--- what the line and its chime point at. The mark pings once as the line
--- appears (Pins `ping`: the line's `appeared`). Set again only when the line,
--- its colour or the surfaces changed.
+-- The While you're here lines (Engine.GetWhileHereList) on both surfaces
+-- until the arrow leads to one: each one's mark in the accent with a soft
+-- glow, clamped to the minimap's rim with the edge pointer when it is off it
+-- (an edge layer), and their spawn areas in the accent on the minimap too, so
+-- the minimap shows what the lines and their chime point at. A mark pings
+-- once as its line appears (Pins `ping`: the line's `appeared`; a line coming
+-- back has a new one). Set again only when the lines, their colour or the
+-- surfaces changed.
 local hereSig = {}
 local function updateHere(world, minimap)
 	local Engine = ns.Engine
-	local v = Engine and Engine.GetWhileHere and Engine.GetWhileHere()
+	local all = Engine and Engine.GetWhileHereList and Engine.GetWhileHereList() or {}
 	local target = Nav.GetTarget()
-	if v and target and target.stepIndex == v.step and target.goalIndex == v.index then v = nil end
+	local lines = {}
+	for i, v in ipairs(all) do
+		if v.map and v.x and v.y and not (target and target.stepIndex == v.step and target.goalIndex == v.index) then
+			lines[#lines + 1] = { v = v, i = i }
+		end
+	end
 	local r, g, b = Nav.RGB("accent")
 	local s = hereSig
-	if v and s.appeared == v.appeared and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap then return end
-	s.appeared, s.r, s.g, s.b, s.world, s.minimap = v and v.appeared, r, g, b, world, minimap
-	if not (v and v.map and v.x and v.y and (world or minimap)) then
+	local same = s.n == #lines and s.r == r and s.g == g and s.b == b and s.world == world and s.minimap == minimap
+	for k, e in ipairs(lines) do
+		if same and (s[k] ~= e.v.appeared or s["i" .. k] ~= e.i) then same = false end
+	end
+	if same then return end
+	s.n, s.r, s.g, s.b, s.world, s.minimap = #lines, r, g, b, world, minimap
+	for k, e in ipairs(lines) do s[k], s["i" .. k] = e.v.appeared, e.i end
+	if #lines == 0 or not (world or minimap) then
 		Pins.ClearLayer(HERE)
 		Pins.ClearLayer(HERE_AREAS)
 		return
 	end
-	local text = v.hereText
-	Pins.SetLayer(HERE, { {
-		map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
-		ping = v.appeared, label = text,
-		tooltip = function(tip)
-			tip:SetText(L["While you're here:"] .. " " .. (text or ""))
-			tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
-		end,
-		onClick = function(button)
-			if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere() end
-		end,
-	} }, { world = world, minimap = minimap, edge = true })
-	local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
-	local regions = goal and goal.map and goal.spots and regionsOf(goal)
-	if regions then
-		local list = {}
-		for _, rg in ipairs(regions) do
-			list[#list + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
+	local pins, areas = {}, {}
+	for _, e in ipairs(lines) do
+		local v, i = e.v, e.i
+		local text = v.hereText
+		pins[#pins + 1] = {
+			map = v.map, x = v.x, y = v.y, f = v.f, icon = "map:pin", color = { r, g, b, 1 }, glow = true, priority = 40,
+			ping = v.appeared, label = text,
+			tooltip = function(tip)
+				tip:SetText(L["While you're here:"] .. " " .. (text or ""))
+				tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
+			end,
+			onClick = function(button)
+				if button == "LeftButton" and Engine.AimWhileHere then Engine.AimWhileHere(i) end
+			end,
+		}
+		local goal = Engine.AlongGoal and Engine.AlongGoal(v.step, v.index)
+		local regions = goal and goal.map and goal.spots and regionsOf(goal)
+		for _, rg in ipairs(regions or {}) do
+			areas[#areas + 1] = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, color = { r, g, b, rg.alt and 0.4 or 0.75 } }
 		end
-		Pins.SetLayer(HERE_AREAS, list, { world = world, minimap = minimap, minimapAreas = true })
+	end
+	Pins.SetLayer(HERE, pins, { world = world, minimap = minimap, edge = true })
+	if #areas > 0 then
+		Pins.SetLayer(HERE_AREAS, areas, { world = world, minimap = minimap, minimapAreas = true })
 	else
 		Pins.ClearLayer(HERE_AREAS)
 	end

@@ -1314,7 +1314,7 @@ L["Ticked by you, but the game still counts its objectives open: finish them fir
 L["While you're here:"] = "Пока вы здесь:"
 L["Not now (right-click)"] = "Не сейчас (правый клик)"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "Шаг %d делает это позже; сделаете сейчас, и этот шаг будет короче или пропустится, когда вы до него дойдёте."
-L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
+-- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1749,6 +1749,7 @@ L["Settings: %s"] = "Настройки: %s"
 L["Log:"] = "Журнал:"
 L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
 L["Install: %s"] = "Установка: %s"
+-- L["While here: %s"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"
@@ -2068,13 +2069,14 @@ L["In dungeons and battlegrounds"] = "В подземельях и на поля
 L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = "Как ведут себя окно, его кнопки и оповещения в подземельях, рейдах, на полях боя и аренах. /polestar или назначенная клавиша открывает окно там до вашего выхода."
 L["Wait for Spoken"] = "Ждать Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "Пауза 200 мс перед каждым автоматическим принятием, сдачей задания и выбором награды, чтобы Spoken успел заметить окно и прочитать его."
-L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = "Когда рядом цель одного из следующих шагов, а её задание уже в журнале, об этом скажет строка под шагом. Щелчок наводит туда стрелку; правый клик скрывает строку до конца пребывания в зоне."
 L["How close"] = "Насколько близко"
-L["How near its spawn area must be for the line to show. It goes again a little further out."] = "Как близко должна быть область появления, чтобы строка показалась. Исчезает она чуть дальше."
 L["Include nearby hand-ins"] = "Включая сдачу заданий рядом"
 L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
-L["While you're here sound"] = "Звук «Пока вы здесь»"
-L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
+-- L["Dynamic Questing"] = ""
+-- L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = ""
+-- L["Sound for a new suggestion"] = ""
+-- L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."] = ""
+-- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3040,3 +3042,8 @@ L["looted %s, which starts %s"] = "добыча %s начинает задани
 -- L["Objective areas"] = "Области задач"
 -- L["Shade the area each group of mobs or objects spreads over on the world map."] = "Закрашивать на карте область, где встречается каждая группа мобов или объектов."
 -- L["(step %d)"] = "(шаг %d)"
+-- L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = "Когда рядом цель одного из следующих шагов, а её задание уже в журнале, об этом скажет строка под шагом. Щелчок наводит туда стрелку; правый клик скрывает строку до конца пребывания в зоне."
+-- L["How near its spawn area must be for the line to show. It goes again a little further out."] = "Как близко должна быть область появления, чтобы строка показалась. Исчезает она чуть дальше."
+-- L["While you're here sound"] = "Звук «Пока вы здесь»"
+-- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
+-- L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."

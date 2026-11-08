@@ -225,11 +225,11 @@ local function routesLine()
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
 end
 
--- The "While you're here" line (Engine.WhileHereState): the one shown (what,
--- quest, step, distance) or "none", the radius and how many candidates there
--- are, and without a line the nearest candidate and why it does not show.
--- The words stay English like Routes; after Routes, so Arrow, Where and
--- Routes keep their places for the bug bot.
+-- The "While you're here" line (Engine.WhileHereState): the lines shown
+-- (each: what, quest, step, distance; "; " between them) or "none", the
+-- radius and how many candidates there are, and without a line the nearest
+-- candidate and why it does not show. The words stay English like Routes;
+-- after Routes, so Arrow, Where and Routes keep their places for the bug bot.
 local function whileHereLine()
 	local E = ns.Engine
 	local st = E and E.WhileHereState and E.WhileHereState()
@@ -237,24 +237,24 @@ local function whileHereLine()
 	local function step(s) return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s) end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end
 	local parts = {}
-	local v = st.shown
-	if v then
-		parts[1] = plain(v.text or "?")
-		parts[2] = ("quest %s"):format(tostring(v.quest))
-		parts[3] = step(v.step)
-		parts[4] = ("%d yd"):format(v.yards or 0)
+	if st.shown then
+		local lines = {}
+		for i, v in ipairs(st.shown) do
+			lines[i] = table.concat({ plain(v.text or "?"), ("quest %s"):format(tostring(v.quest)), step(v.step), ("%d yd"):format(v.yards or 0) }, SEP)
+		end
+		parts[1] = table.concat(lines, "; ")
 	else
 		parts[1] = "none"
 	end
 	parts[#parts + 1] = ("radius %d yd"):format(st.radius)
 	parts[#parts + 1] = ("%d candidates"):format(st.candidates)
-	if not v then
+	if not st.shown then
 		local n = st.nearest
 		local why = st.why or "?"
 		parts[#parts + 1] = n and ("nearest quest %s, %s, %d yd%s: %s"):format(tostring(n.quest), step(n.step), n.yards, n.seen and ", its mob in sight" or "", why) or why
 	end
-	-- Longer than the other lines (LINE_MAX): what it shows and why both count.
-	return cut((L["While here: %s"]):format(table.concat(parts, SEP)), 200)
+	-- Longer than the other lines (LINE_MAX): what shows and why all count.
+	return cut((L["While here: %s"]):format(table.concat(parts, SEP)), 400)
 end
 
 -- Other guide packs that are on, with their versions.

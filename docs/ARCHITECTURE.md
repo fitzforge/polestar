@@ -1270,11 +1270,14 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
   hand-in) and the writer.
-- **While you're here.** While the player works the live step, an open
+- **Dynamic Questing (While you're here).** While the player works the live step, an open
   objective of a later step whose quest is already in the log, close by,
-  becomes one line under the step (`Engine.GetWhileHere`: the goal view of
-  its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
-  and `hereText`, "Kill Kobold Vermin, 2 more"). `Own.hereBuild` builds the
+  becomes a line under the step, up to `HERE_SHOW` (3) at once
+  (`Engine.GetWhileHereList`, nearest first, `Engine.GetWhileHere` its
+  first: each the goal view of its later step with `step`, `here` = "work" |
+  "turnin", `left`, `yards` and `hereText`, "Kill Kobold Vermin, 2 more";
+  `Engine.AimWhileHere(i)` and `Engine.DismissWhileHere(i)` take the line's
+  place in the list, 1 by default). `Own.hereBuild` builds the
   candidates (`Own.hereAll`, route order) in `evaluate` only when something
   changed them (`Own.hereDirty`: a step change of the active tab, another
   guide, the quest log, the level, a new zone, the `behavior.whileHere*`
@@ -1306,33 +1309,47 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   loaded, every creature that drops its item, `Own.hereNpcsOf`; it counts as
   `HERE_SEEN` yards and skips the walk check), the one whose target spawns in
   the fewest places on the map (`places`, its spots with the alternatives;
-  a point counts 1), then the nearest, becomes the line, so a pool or camp
+  a point counts 1), then the nearest, ranks first; while fewer than
+  `HERE_SHOW` lines show, the best in reach join in that order (with all
+  shown, the poll measures only them; each keeps its own time, distance and
+  dismiss). The rows read nearest first: a new one takes its place by
+  distance, and a row moves up past the one above it only once `HERE_ORDER`
+  (30) yards nearer, so rows do not jump. The ranking picks which show, so a pool or camp
   wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
-  radius (at most `HERE_CLEAR_MAX`, 400 yd; the radius is 150 by default, 60
-  to 250), once done, after `HERE_SECONDS` with no progress on it (each
-  change of its count starts the time again), or on `Engine.DismissWhileHere`.
+  radius (at most `HERE_CLEAR_MAX`, 600 yd; the radius is 180 by default, 60
+  to 400), once done, after `HERE_SECONDS` out of reach while still inside
+  that clear distance (in reach, a spawn area near or one of its mobs in
+  sight, it never expires: Fitz went AFK among the Zhevra Runners and the
+  line went), or on `Engine.DismissWhileHere`.
   Nothing appears, and nothing goes by distance or time, during a fight. A
-  dismissed line stays quiet for the zone stay (`Own.hereQuiet`, emptied
-  when `GetRealZoneText` changes). An expired one comes again, `HERE_AGAIN`
-  s on at the earliest, once one of its mobs is seen anew (a sighting after
-  it expired, `Own.hereSeenGen`) or the player is near another of its spawn
-  spots (`Own.hereAgain`). Never in an instance, on a taxi,
+  dismissed line is muted (`Own.hereMuted`): it may come again once
+  `HERE_MUTE` (2 minutes) have passed and the player has been
+  `HERE_DISMISS_AWAY` (100) yards from where they stood when dismissing it,
+  then in its reach anywhere, the same spawn area too (the Fungal Spores grow at one pool).
+  Dismissed a second time in the zone stay it stays quiet for the
+  rest of it (`Own.hereStrikes`, `Own.hereQuiet`; all emptied when
+  `GetRealZoneText` changes). An expired one comes again once in reach,
+  `HERE_AGAIN` s on at the earliest (`Own.hereAgain`). Never in an instance, on a taxi,
   while a Hearthstone or Astral Recall is cast, with a quest timer running,
-  or while the live step escorts (`Own.hereBlocked`). The line never takes
+  or while the live step escorts (`Own.hereBlocked`): there the lines shown
+  hide and wait (`Own.hereHeld`; nothing new, nothing goes or counts as
+  left), and back they show as they were, their time starting anew, with no
+  chime or ping (their `appeared` unchanged). The line never takes
   the arrow: `Engine.AimWhileHere` sets `aim` to its goal (`findWaypoint`
   leads there while it shows, a step change keeps it), and when the line
   goes `aim` is cleared and the arrow returns to the guide. Messages:
-  `WHILE_HERE_CHANGED` (came, count changed, went) and
-  `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
-  "Then:" (`fillHere`), the toast says it with the window hidden or compact
-  (UI/WhileHere.lua), and a new line plays a soft chime, "star twinkle"
+  `WHILE_HERE_CHANGED` (a line came, its count changed, it went) and
+  `WHILE_HERE_MOVED(yards, i)`. The window draws them between the step's goals and
+  "Then:" (`GF.FillHere`, in every mode and style), the toast says it with the window hidden
+  (UI/WhileHere.lua), and a line that appears (a new `appeared`, a line
+  coming back too, whichever row it takes) plays a soft chime, "star twinkle"
   (`behavior.whileHereSound`, `Media/Sounds/while-here.ogg`, our own
-  synthesized file, `tools/sounds/while-here-chime.py`, on the SFX channel, at most every 30 s). Nav/Layers
-  draws its mark and spawn areas in the accent on both surfaces (layers
+  synthesized file, `tools/sounds/while-here-chime.py`, on the SFX channel, at least 5 s apart so several at once chime once; a line already up never chimes again). Nav/Layers
+  draws each line's mark and spawn areas in the accent on both surfaces (layers
   `nav.here`, an edge layer, and `nav.hereAreas`) until the arrow leads
-  there; the mark carries the line's `appeared` as its Pins `ping`, so it
+  there; each mark carries its line's `appeared` as its Pins `ping`, so it
   pings once on the minimap as the line appears. The quest item button falls back to its item
   (QoL/Buttons `ChooseQuestItem`). Done early, the later step is done or
   shorter when the route gets there, as any objective done ahead.
@@ -2604,7 +2621,7 @@ rim, the edge pointer on its side toward the target. A city group of services
 0.4 of it and a badge with its count.
 
 A pin with `ping` plays once on the minimap frame that shows it, the first
-time that number is drawn (`Pins.PING.last`): three rings in its colour
+time that number is drawn (`Pins.PING.played`): three rings in its colour
 expand to 3.4 times the mark, 0.22 s apart, each over 0.7 s with a strong
 ease-out, fading as they grow (`Pins.PING_SECONDS`, 1.14 s), behind the
 mark; clamped to the rim, they ring the edge pointer there. One `ns.Anim`
@@ -5093,18 +5110,24 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   step's goals read under "Along the way" of the steps after it, its heading
   "Along the way, until step N" when every row ends at the same labelled
   step (`GetAlong` entries' `untilStep`).
-  The "While you're here" line (`fillHere`, `Engine.GetWhileHere`) sits
-  between the step's goals and "Then:": a soft accent wash with a 2 px accent
-  edge, the verb's glyph in the accent, "While you're here:" in the accent,
-  what to do, "(step N)" in textDim, the distance in textMuted and a close
-  button. A new line slides 8 px in from the left as it fades in
-  (`Anim.BASE`, ease-out); a line that goes slides back and fades faster
-  (`Anim.FAST`) before the window closes the gap; under `ui.reduceMotion` it
-  only fades. Left-click: `Engine.AimWhileHere`; right-click or the close
-  button: `Engine.DismissWhileHere`. Never in the compact window: the toast
-  (UI/WhileHere.lua, `UI.WhileHereToast`) says a new line once while the
-  window is hidden or compact, slides down into place as it fades in, and
-  leaves after 8 s (held under the cursor) or with the line.
+  The "While you're here" panel (`GF.FillHere`, `Engine.GetWhileHereList`)
+  sits between the step's goals and "Then:": a ground of the accent dulled
+  into the window ground (`Theme.AccentGround`, repainted on a look change)
+  with a 2 px accent edge and a "While you're here" label in the accent, then
+  one goal row per line (`GF.HereRow`): the verb's glyph, `UI.GoalLine` of
+  the later step's goal (a hand-in its `hereText`), wrapping, "Step N" under
+  it, the distance in textMuted and a close button. The panel slides 8 px in
+  from the left as it fades in (`Anim.BASE`, ease-out) and slides back and
+  fades faster (`Anim.FAST`) when its last line goes, before the window
+  closes the gap; rows coming and going inside it do not slide it; under
+  `ui.reduceMotion` it only fades. A row's left-click:
+  `Engine.AimWhileHere(i)`; right-click or its close button:
+  `Engine.DismissWhileHere(i)`; `WHILE_HERE_MOVED(yards, i)` moves its
+  distance. In the compact window the rows drop their "Step N" line; in the
+  transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
+  under the outlined text. With the window hidden, the toast (UI/WhileHere.lua,
+  `UI.WhileHereToast`) says a new line once, slides down into place as it
+  fades in, and leaves after 8 s (held under the cursor) or with the line.
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click
