@@ -21,6 +21,7 @@ step Mirage Raceway
   zone Thousand Needles
   tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles, with Zamek by the goblin camp beside the track.
   turnin 2769
+  turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1191                         -- Zamek
   turnin 1191                         -- He runs off to keep Rizzle busy
 

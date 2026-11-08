@@ -11,7 +11,8 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # into this file.
 # Added here: Blessed Arm (322), The Black Shield (1319, 1320), Highperch Venom (1135), Hardened Shells (1105),
 # Load Lightening (1176), A Bump in the Road (1175).
-# Left out: Martek the Exiled (1106) and its chain (1108, 1137), as on next's route (route-fixes skip).
+# Fizzle offers Martek the Exiled (1106) once Salt Flat Venom and Hardened Shells are both handed in: taken here, for the
+# Badlands at the end of 30-40 (Indurium, 1108), and News for Fizzle (1137) back at the Raceway in 40-50/04.
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
 # Theramore (the Raceway was a crossing of its own at 30 in 07-thousand-needles). The Missing Diplomat's Dustwallow
 # part (36-38) and Swamplight Manor stay in 40-50/01.
@@ -123,6 +124,7 @@ step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
   turnin 1105                             -- Wizzle Brassbolts
   turnin 1104                             -- Fizzle Brassbolts
+  accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, at the end of 30-40
   turnin 1176                             -- Pozzik
   turnin 1175                             -- Trackmaster Zherin
 
