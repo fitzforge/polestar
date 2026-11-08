@@ -1275,24 +1275,33 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   becomes one line under the step (`Engine.GetWhileHere`: the goal view of
   its later step with `step`, `here` = "work" | "turnin", `left`, `yards`
   and `hereText`, "Kill Kobold Vermin, 2 more"). `Own.hereBuild` builds the
-  candidates (at most `HERE_MAX`, kept in `Own.hereList`) in `evaluate` only
-  when something changed them (`Own.hereDirty`: a step change of the active
-  tab, another guide, the quest log, the level, a new zone, the
-  `behavior.whileHere*` settings): the open kill, collect, interact and use
-  goals with a place in the steps after the live step, up to the first
-  applying goal that leaves the zone (`fly`, `hearth`, `enter`, or a place on
-  another map than the player's), each for a quest in the log and not ready,
-  for the character (`stepApplies`, `goalApplies`), not skipped, not along
-  (an along step, background goals included, or a pinned quest: Along the
-  way lists them), not an objective the live step works itself, with mobs
-  at most `HERE_ABOVE` levels over the player, whatever is left (no size
-  cap: the player is there already; slow, spread drops are background goals,
-  which are along steps). With `behavior.whileHereTurnins`, a later `turnin`
-  of a ready quest counts too (its NPC within `HERE_TURNIN` yards). The arrival
-  poll measures them (`Own.hereTick`, allocation-free: cached world points,
-  no tables, a message only when the shown distance moves by `HERE_STEP`):
-  the nearest within `behavior.whileHereRadius` yards of its nearest spawn
-  area at the player's level becomes the line, after one budgeted walk check
+  candidates (`Own.hereAll`, route order) in `evaluate` only when something
+  changed them (`Own.hereDirty`: a step change of the active tab, another
+  guide, the quest log, the level, a new zone, the `behavior.whileHere*`
+  settings): the open kill, collect, interact and use goals with a place on
+  the player's map in every step of the guide after the live step (a trip
+  away and back, a flight or a hearth in between change nothing; goals on
+  other maps never count), each for a quest in the log and not ready, for
+  the character (`stepApplies`, `goalApplies`), not skipped, not shown
+  already (an open goal for the same objective in a listed along step,
+  background goals included, `Own.hereShown`, or a pinned quest: Along the
+  way lists them; a later along step not listed yet counts like any step),
+  not an objective the live step works itself, with mobs at most
+  `HERE_ABOVE` levels over the player, whatever is left (no size cap: the
+  player is there already). With `behavior.whileHereTurnins`, a later
+  `turnin` of a ready quest counts too (its NPC within `HERE_TURNIN` yards).
+  A build reads only the goals on the player's map: `Own.hereGoalsOn` indexes
+  each guide's goals with a quest and a place by map once (weak per guide).
+  The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
+  when that many fit, else the nearest (`Own.herePick`, again each
+  `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
+  cached world points, no tables, a message only when the shown distance
+  moves by `HERE_STEP`) measures from the player, wherever the live step's
+  target is: of those within `behavior.whileHereRadius` yards of a spawn area
+  at the player's level (not an `alt` place), the one whose target spawns in
+  the fewest places on the map (`places`, its spots with the alternatives;
+  a point counts 1), then the nearest, becomes the line, so a pool or camp
+  wins over mobs found all over the zone, after one budgeted walk check
   (`Own.hereMayShow`: not on a boat, and `Nav.EstimateTravel` at most
   `HERE_WALK` times the straight line); it goes past `HERE_CLEAR` times that
   radius, once done, after `HERE_SECONDS` with no progress on it (each
