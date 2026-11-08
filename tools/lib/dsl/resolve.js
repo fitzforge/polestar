@@ -844,8 +844,23 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		guide.steps.push(step);
 	}
-	// The guide menu's "Group" chip: some goal of the route needs a group.
-	if (guide.steps.some((s) => s.goals.some((goal) => goal.group && !goal.optional))) guide.group = true;
+	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
+	// not an `optional` one, not one in a step only the group way follows (`when group`, `when dungeon`)
+	// or of a quest accepted only in one, not a dungeon or raid quest's turn-in (the run was the group
+	// content).
+	const optIn = (s) => (s.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
+	const onlyOptIn = new Map();
+	for (const s of guide.steps) {
+		for (const goal of s.goals) {
+			if (goal.t === 'accept' && goal.quest !== undefined) onlyOptIn.set(goal.quest, onlyOptIn.get(goal.quest) !== false && optIn(s));
+		}
+	}
+	const needs = (goal) =>
+		goal.group &&
+		!goal.optional &&
+		!(goal.quest !== undefined && onlyOptIn.get(goal.quest) === true) &&
+		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid'));
+	if (guide.steps.some((s) => !optIn(s) && s.goals.some(needs))) guide.group = true;
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
 	checkBackground(ast.steps, guide.steps, err);
