@@ -112,10 +112,14 @@ step The dig site
   collect 2636 quest 297                      -- Carved Stone Idol
   collect 278398 quest 86613                  -- Excavation Tools
 
+step Ironband's Excavation
+  turnin 297                                  -- Magmar Fellhew
+  turnin 86613                                -- Prospector Ironband
+
 # ---------------------------------------------------------------- The Farstrider Lodge
 
 step The Farstrider Lodge
-  tip East from the dig to the lodge on the hill. Marek Ironheart stands inside, Daryl the Youngling outside.
+  tip North-east to the lodge on the hill. Marek Ironheart stands inside, Daryl the Youngling outside.
   accept 86758                                -- Marek Ironheart, inside
   accept 257                                  -- Daryl the Youngling: 15 minutes
 
@@ -138,13 +142,8 @@ step The Farstrider Lodge
 
 # ---------------------------------------------------------------- South to the tunnel
 
-step Ironband's Excavation
-  tip Back west past the dig to Magmar Fellhew and Prospector Ironband.
-  turnin 297                                  -- Magmar Fellhew
-  turnin 86613                                -- Prospector Ironband
-
 step Thelsamar
-  tip West along the south shore to Thelsamar: Jern Hornhelm by the inn, then Thorgrum Borrelson with the gryphons on the west side of town, on the way south.
+  tip Back west along the south shore to Thelsamar: Jern Hornhelm by the inn, then Thorgrum Borrelson with the gryphons on the west side of town, on the way south.
   turnin 298                                  -- Jern Hornhelm
   accept 301                                  -- For Prospector Stormpike in Ironforge
   getfp "Thelsamar" npc 1572
@@ -216,6 +215,11 @@ step Lakeshire
 
 # ---------------------------------------------------------------- West and south of the lake
 
+step Guard Parker
+  tip West along the road to Three Corners first; the gnolls are on the way back east.
+  turnin 129                                  -- Guard Parker walks around Three Corners: look inside the circle on the map
+  accept 130
+
 step Lakeridge Highway: kill these as you meet them
   zone Redridge Mountains
   tip Redridge Mongrels and Thrashers hold the hills east of Three Corners, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round Three Corners.
@@ -225,10 +229,6 @@ step Lakeridge Highway: kill these as you meet them
   collect 2296 quest 92                       -- Great Goretusk Snout
   collect 1080 quest 92                       -- Tough Condor Meat
   collect 1081 quest 92                       -- Crisp Spider Meat: Tarantulas
-
-step Guard Parker
-  turnin 129                                  -- Guard Parker walks around Three Corners: look inside the circle on the map
-  accept 130
 
 step Deputy Feldon
   tip East along the road to the gryphon master; Deputy Feldon stands beside her.
@@ -254,6 +254,11 @@ step Lakeshire
   accept 131
   turnin 131                                  -- Darcy, inside
   turnin 92                                   -- Chef Breanna, inside
+
+step Dockmaster Baren
+  when level>=20
+  tip From level 20 Dockmaster Baren gives Murloc Poachers: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24.
+  accept 150                                  -- Dockmaster Baren, on the docks
 
 # ---------------------------------------------------------------- Westfall
 

@@ -18,7 +18,7 @@ next forever/alliance/03-darkshore
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
 # arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
 # Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
-# the Jasperlode Mine in one loop, then Report to Gryan Stoutmantle (109) from Dughan on the way west.
+# the Jasperlode Mine in one loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
 # Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
 # Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
 # part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
@@ -28,10 +28,11 @@ next forever/alliance/03-darkshore
 step Goldshire
   only Dwarf,Gnome
   zone Elwynn Forest
-  tip On the road from Stormwind to Westfall, Goldshire is the first stop: Remy "Two Times" stands outside the inn, Marshal Dughan beside him. Remy's A Fishy Peril goes straight to Dughan, who then gives Further Concerns.
+  tip On the road from Stormwind to Westfall, Goldshire is the first stop: Remy "Two Times" stands outside the inn, Marshal Dughan beside him. Remy's A Fishy Peril goes straight to Dughan, who then gives Further Concerns; his Report to Gryan Stoutmantle goes with you to Westfall.
   accept 40                                   -- Remy "Two Times"
   turnin 40                                   -- Marshal Dughan
   accept 35
+  accept 109                                  -- Marshal Dughan: for Gryan Stoutmantle at Sentinel Hill
 
 step The Tower of Azora
   only Dwarf,Gnome
@@ -128,7 +129,6 @@ step Goldshire
   zone Elwynn Forest
   tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
   turnin 39                                   -- Marshal Dughan
-  accept 109                                  -- Marshal Dughan: for Gryan Stoutmantle at Sentinel Hill
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 

@@ -3676,14 +3676,14 @@
 			{
 				"a": [
 					"turnin",
-					89
+					92
 				],
 				"b": [
 					"accept",
 					150
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from 20) is taken from Dockmaster Baren on the last Lakeshire stop at 20-21, with The Everstill Bridge's hand-in, and done at 24."
+				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from level 20) is taken from Dockmaster Baren on Redridge's first visit, on the pass through town after the gnoll hills when the player is 20 by then, otherwise on the last Lakeshire stop with The Everstill Bridge's hand-in; its murlocs are done on the 24 visit."
 			},
 			{
 				"a": [
@@ -3696,18 +3696,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Alliance 12-20): at 24 the murlocs east of the bridge are on the way in from the gryphons, so Baren takes the fins on the first Lakeshire stop instead of a stop of his own."
-			},
-			{
-				"a": [
-					"turnin",
-					258
-				],
-				"b": [
-					"turnin",
-					297
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Loch Modan): Gathering Idols and Excavation Tools go to Magmar Fellhew and Prospector Ironband on the walk back west from the Farstrider Lodge, instead of a walk back from the dig before going east to the lodge."
 			},
 			{
 				"a": [
@@ -3732,6 +3720,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Redridge at 20): Hilary's necklace is fished from the lake with the Sunken Chest on the walk back from Deputy Feldon and handed to Hilary at the bridge on the pass through town, not on a stop of its own right after the first Lakeshire stop."
+			},
+			{
+				"a": [
+					"turnin",
+					129
+				],
+				"b": [
+					"task",
+					246
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Redridge at 20): Guard Parker at Three Corners, the far west end of the gnoll hills, first; the gnolls on the way back east to Deputy Feldon, so the walk doesn't pass Parker with his lunch and come back."
 			}
 		],
 		"notes": [
