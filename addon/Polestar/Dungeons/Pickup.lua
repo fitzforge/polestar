@@ -15,17 +15,23 @@
 --       open now or by the dungeon's lowest level (its prerequisites too:
 --       one above that level puts it off as `later`, #1076),
 --       picked up outside from a
---       giver (not from an item, not inside), not a follow-up of another quest
---       of this page -- unless the quests before it here are errands (no
---       objectives, any standing they name held, given (not by an item) and
---       turned in outside by an NPC or object this character may use: Hamuul
---       Runetotem and Nara Wildmane before Leaders of the Fang), which are
---       then done on the way as its prerequisites; one with a prerequisite
---       the guide cannot start out here waits until that one is in the log
---       or done (neither taken nor `later`): one an item starts that is not
---       in the bags nor given by a quest before it (The Unsent Letter, Edwin
---       VanCleef's drop in the Deadmines, before Bazil Thredd), or one with no
---       placed giver or turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
+--       giver (not inside), or from an item that drops outside from a mob or
+--       object with a known place, at MIN_DROP percent or more, once the
+--       item's quest's own prerequisites are done (Dungeons.DropPoint: the
+--       Damp Note from Blackfathom Deeps' tunnel naga, #1380), not a follow-up
+--       of another quest of this page -- unless the quests before it here are
+--       errands (no objectives, any standing they name held, given (not by an
+--       item, unless the item drops outside as above) and turned in outside by
+--       an NPC or object this character may use: Hamuul Runetotem and Nara
+--       Wildmane before Leaders of the Fang; the Damp Note's Allegiance to
+--       the Old Gods before the one that sends the player after Lorgus Jett),
+--       which are then done on the way as its prerequisites; one with a
+--       prerequisite the guide cannot start out here waits until that one is
+--       in the log or done (neither taken nor `later`): one an item starts
+--       that is not in the bags, nor given by a quest before it, nor dropped
+--       outside as above (The Unsent Letter, Edwin VanCleef's drop in the
+--       Deadmines, before Bazil Thredd), or one with no placed giver or
+--       turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
 --       prerequisites, in the order they are done
 --       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
 --       breadcrumbs of the page's chain each before the quest it leads to
@@ -39,14 +45,18 @@
 --       (Castpipe's Task in Stonetalon for Gnomeregan's Data Rescue in
 --       Ironforge); `breadcrumbs` says how each was judged.
 --       carried: the page's quests already in the log. giver: a point
---       { kind, id, name, map, x, y, f }. Each accept carries the page's
---       `closedBy`, so the Engine passes it once taken on the way.
+--       { kind, id, name, map, x, y, f }, or a drop point (kind "drop",
+--       Dungeons.DropPoint): the step collects the item there, then takes
+--       the quest from it. Each accept carries the page's `closedBy`, so the
+--       Engine passes it once taken on the way.
 --   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take
 --   Dungeons.PickUp(key) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
 --   Dungeons.GiverTarget(key, questId) -> point, label, firstTitle, turnIn | nil
 --       where to go for the quest: the giver of its first open prerequisite
 --       (its turn-in, turnIn true, when that one is in the log), firstTitle
---       its title; else the quest's own giver
+--       its title; else the quest's own giver; for a quest an item starts,
+--       the nearest place of a mob or object that drops it outside
+--       (Dungeons.DropPoint)
 --   Dungeons.Giver(pq, from, rec?) -> point | nil
 --       a page quest's giver for this character: nil when an item starts it
 --       or it starts inside. The page keeps one giver; a quest several NPCs
@@ -61,6 +71,20 @@
 --       one ender: Storm, Earth, and Fire's is the Horde's Rau Cliffrunner,
 --       and Alliance characters hand it in to Veyric Thunderhame. One of the
 --       other side only when no ender is the character's.
+--   Dungeons.StartDrops(key, pq, rec?) -> drops | nil
+--       where the item that starts a page quest comes from, by the Codex's
+--       item sources: drops = { item, itemName, inside = { src, ... },
+--       outside = { src, ... } }, each list best chance first; src =
+--       { kind = "npc"|"object", id, name, chance, spawns }. inside: an NPC
+--       of this dungeon (its Codex `instance`); outside: one with a place
+--       (spawns) outside it (the Damp Note's Blackfathom Tide Priestesses, in
+--       the tunnels before the portal). nil when no item starts it, or the
+--       Codex does not know the item.
+--   Dungeons.DropPoint(key, pq, from, rec?) -> point | nil
+--       the nearest place (from `from`) of the best outside source of the
+--       item that starts the quest, one that gives it MIN_DROP percent of
+--       the time or more: { kind = "drop", source = "npc"|"object", id, name,
+--       map, x, y, f, z, item, itemName, chance }
 --
 -- Route: the cheapest path from where the player stands, through the
 -- prerequisite quests (each after the one before it in its chain; after one,
@@ -83,11 +107,13 @@ local ADDON, ns = ...
 local L = ns.L
 local Dungeons = ns.Dungeons
 
-local type, ipairs, pairs, format = type, ipairs, pairs, string.format
+local type, ipairs, pairs, format, sort = type, ipairs, pairs, string.format, table.sort
 local max = math.max
 
 local KIND = "pickup"
 local FAR = 1e9
+local MIN_DROP = 25 -- percent: a rarer drop (or one of no known chance) is left for the run; the Damp Note drops one in three
+local SAME_SPOT = 10 -- seconds of travel: closer than this, a spawn on the entrance's zone is the one
 
 local function LK() return ns.Lookup end
 
@@ -153,6 +179,79 @@ function Dungeons.Ender(pq, from, rec)
 	local e = rec and Lk.QuestEnd(rec["end"], from, p)
 	if e and not e.hostile then return endPoint(e) end
 	return page or endPoint(e)
+end
+
+-- The item that starts a page quest -> item id | nil.
+local function startItemOf(pq, rec)
+	if type(pq.startItem) == "table" and pq.startItem.id then return pq.startItem.id end
+	local s = pq.start
+	if s and s.kind == "item" and s.id then return s.id end
+	local st = rec and rec.start
+	return st and st.item and st.item[1] or nil
+end
+
+local function byChance(a, b) return (a.chance or 0) > (b.chance or 0) end
+
+function Dungeons.StartDrops(key, pq, rec)
+	local C = ns.Codex
+	if not C then return nil end
+	rec = rec or C.Quest(pq.id)
+	local id = startItemOf(pq, rec)
+	local item = id and C.Item(id)
+	if not item then return nil end
+	local out = { item = id, itemName = item.name, inside = {}, outside = {} }
+	for _, src in ipairs(item.sources or {}) do
+		local kind, sid, r
+		if src.type == "drop" and src.npc then
+			kind, sid, r = "npc", src.npc, C.Npc(src.npc)
+		elseif src.type == "object" and src.object then
+			kind, sid, r = "object", src.object, C.Object(src.object)
+		end
+		if r then
+			local d = { kind = kind, id = sid, name = r.name, chance = src.chance, spawns = r.spawns }
+			if (src.instance or r.instance) == key then
+				out.inside[#out.inside + 1] = d
+			elseif not (src.instance or r.instance) and r.spawns and #r.spawns > 0 then
+				out.outside[#out.outside + 1] = d
+			end
+		end
+	end
+	sort(out.inside, byChance)
+	sort(out.outside, byChance)
+	return out
+end
+
+-- The spawn of `spawns` to send the player to: the nearest (Lookup.Nearest),
+-- or the nearest on map `zone` when that is no more than SAME_SPOT seconds
+-- farther. The same spot is often listed on two maps (Blackfathom Deeps'
+-- Tide Priestesses on Ashenvale and Darkshore, yards apart), and the guide
+-- step should name the entrance's zone.
+local function spawnOn(spawns, from, zone)
+	local Lk = LK()
+	local best, t = Lk.Nearest(spawns, from)
+	if not (best and zone) or best.map == zone then return best end
+	local own = {}
+	for _, s in ipairs(spawns) do if s.map == zone then own[#own + 1] = s end end
+	local o, ot = Lk.Nearest(own, from)
+	if o and (not t or not ot or ot <= t + SAME_SPOT) then return o end
+	return best
+end
+
+function Dungeons.DropPoint(key, pq, from, rec)
+	local d = Dungeons.StartDrops(key, pq, rec)
+	if not d then return nil end
+	local dg = Dungeons.Get(key)
+	local zone = dg and dg.entrance and dg.entrance.map
+	for _, s in ipairs(d.outside) do
+		if s.chance and s.chance >= MIN_DROP then
+			local p = spawnOn(s.spawns, from, zone)
+			if p then
+				return { kind = "drop", source = s.kind, id = s.id, name = s.name, map = p.map, x = p.x, y = p.y, f = p.f, z = p.z,
+					item = d.item, itemName = d.itemName, chance = s.chance }
+			end
+		end
+	end
+	return nil
 end
 
 local function hasClass(list, class)
@@ -277,6 +376,21 @@ local function preDone(r)
 		if done(id) then return true end
 	end
 	return false
+end
+
+-- Whether a chain quest is a delivery an item starts that drops outside
+-- (Dungeons.DropPoint), turned in outside by an NPC or object this
+-- character may use, with its own prerequisites done: Blackfathom Deeps'
+-- Allegiance to the Old Gods, the Damp Note from the tunnel naga to Je'neu
+-- Sancrea, who then gives the quest for Lorgus Jett (#1380). Done on the
+-- way like an errand. One whose own prerequisites are still open is not, so
+-- no trip is added for them (Trouble in the Deeps, from Stonetalon).
+local function dropErrand(key, r, from, p)
+	if #(r.objectives or {}) > 0 or not preDone(r) then return false end
+	local d = Dungeons.DropPoint(key, r, from, r)
+	if not d then return false end
+	local e = LK().QuestEnd(r["end"], d, p)
+	return (e and e.spawn and not e.hostile) and true or false
 end
 
 -- pre (a page quest's open prerequisites, in order) with the open
@@ -469,25 +583,30 @@ function Dungeons.PickupPlan(key)
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
 				plan.later = plan.later + 1
 			else
-				local giver = Dungeons.Giver(pq, from, rec)
+				-- No giver: an item that drops outside starts it, once its
+				-- own prerequisites are done (no trip for those, #1380).
+				local giver = Dungeons.Giver(pq, from, rec) or (rec and preDone(rec) and Dungeons.DropPoint(key, pq, from, rec)) or nil
 				local pre, ok, wait = {}, giver ~= nil, false
 				if ok and rec then
 					local chain = Lk.QuestChain(pq.id, p)
 					for i = 1, #chain - 1 do
 						local r = chain[i]
 						-- A follow-up of another quest here is taken after the
-						-- run, unless it is an errand done on the way; a
-						-- prerequisite this character can never take blocks it.
-						if (onPage[r.id] and not errand(r, from, p)) or NOT_YOURS[Lk.QuestBlock(r, p)] then ok = false end
+						-- run, unless it is an errand (or a delivery of an item
+						-- that drops outside) done on the way; a prerequisite
+						-- this character can never take blocks it.
+						if (onPage[r.id] and not (errand(r, from, p) or dropErrand(key, r, from, p))) or NOT_YOURS[Lk.QuestBlock(r, p)] then ok = false end
 						-- One it is too low for, now and by the dungeon's
 						-- lowest level, puts it off as its own level would: Fury
 						-- in the Depths (22) waits on The Dark Iron War (25), #1076.
 						if (r.minLevel or 1) > reach then wait = true end
 						-- One the guide cannot start out here (an item the
-						-- character lacks, no placed giver or turn-in) leaves it
-						-- for after that one: Bazil Thredd waits on The Unsent
-						-- Letter, which drops in the Deadmines.
-						if not inLog(r.id) and not startable(r, pre, from, p) then ok = false end
+						-- character lacks that drops nowhere outside, no placed
+						-- giver or turn-in) leaves it for after that one: Bazil
+						-- Thredd waits on The Unsent Letter, which drops in the
+						-- Deadmines; the Damp Note drops outside (#1380).
+						if not inLog(r.id) and not startable(r, pre, from, p)
+							and not (preDone(r) and Dungeons.DropPoint(key, r, from, r)) then ok = false end
 						pre[#pre + 1] = r
 					end
 				end
@@ -539,17 +658,36 @@ local function saveOrder(field, key, order)
 end
 
 -- An accept goal at giver point g, with the height of the giver's spawn
--- there (Lookup.SpawnZ: the arrow walks to its floor, #1024).
+-- there (Lookup.SpawnZ: the arrow walks to its floor, #1024). At a drop
+-- point (Dungeons.DropPoint) the quest is taken from the item, as a guide's
+-- "accept from item" (collectGoal comes first).
 local function acceptGoal(pq, rec, g)
 	local goal = { t = "accept", quest = pq.id, title = pq.title or (rec and rec.title),
-		map = g.map, x = g.x, y = g.y, f = g.f == "e" and "e" or nil, minLevel = (rec and rec.minLevel) or pq.minLevel,
-		closedBy = type(pq.closedBy) == "table" and pq.closedBy or nil }
+		minLevel = (rec and rec.minLevel) or pq.minLevel, closedBy = type(pq.closedBy) == "table" and pq.closedBy or nil }
+	if g.kind == "drop" then
+		goal.item, goal.itemName = g.item, g.itemName
+		return goal
+	end
+	goal.map, goal.x, goal.y, goal.f = g.map, g.x, g.y, g.f == "e" and "e" or nil
 	if g.kind == "object" then
 		goal.object, goal.objName = g.id, g.name
 	else
 		goal.npc, goal.npcName = g.id, g.name
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
+	return goal
+end
+
+-- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):
+-- the mob or object nearest the player that gives it.
+local function collectGoal(d)
+	local goal = { t = "collect", item = d.item, itemName = d.itemName, count = 1, map = d.map, x = d.x, y = d.y, f = d.f == "e" and "e" or nil }
+	if d.source == "object" then
+		goal.object, goal.objName = d.id, d.name
+	else
+		goal.npc, goal.npcName = d.id, d.name
+		goal.z = LK().SpawnZ("npc", d.id, d)
+	end
 	return goal
 end
 
@@ -704,9 +842,11 @@ local function stopsOf(plan, from)
 		for _, r in ipairs(t.pre) do
 			local k = "q" .. r.id
 			if not byKey[k] then
+				-- A quest an item starts begins where the item drops (#1380).
 				local start = endPoint(Lk.QuestEnd(r.start, from))
-				local finish = endPoint(Lk.QuestEnd(r["end"], start or from))
-				add({ key = k, rec = r, inP = start, outP = finish or start, deps = {} })
+				local drop = not start and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
+				local finish = endPoint(Lk.QuestEnd(r["end"], start or drop or from))
+				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop })
 			end
 			local s = stops[byKey[k]]
 			if prev and prev ~= byKey[k] then
@@ -784,10 +924,15 @@ local function route(key, plan)
 				step = { title = s.giver.name or L["Quest giver"], goals = {} }
 				steps[#steps + 1] = step
 			end
+			if s.giver.kind == "drop" then step.goals[#step.goals + 1] = collectGoal(s.giver) end
 			for _, t in ipairs(s.accepts) do step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver) end
 			lastGiver = s.giverKey
 		else
 			local step = Lk.QuestStep(s.rec, s.inP or pos)
+			-- One an item starts collects the item first, where it drops.
+			if s.drop and step and step.goals and step.goals[1] and step.goals[1].t == "accept" then
+				table.insert(step.goals, 1, collectGoal(s.drop))
+			end
 			-- A breadcrumb's accept knows the quest that closes it.
 			local by = plan.closedBy and plan.closedBy[s.rec.id]
 			if by and step then
@@ -851,7 +996,7 @@ end
 
 -- A quest of the chain -> where to go for it, turnIn: its turn-in when it is
 -- in the log, else its giver (Dungeons.Giver for a page quest; an item that
--- starts it where the page places one).
+-- starts it where the page places one, else where it drops outside).
 local function chainPoint(key, id, rec, from)
 	local Lk = LK()
 	local cq = Dungeons.Quest(key, id)
@@ -867,6 +1012,8 @@ local function chainPoint(key, id, rec, from)
 		local s = cq.start
 		if located(s) and not s.inside and (s.kind == "item" or cq.startItem) then return s, false end
 	end
+	local d = (cq or rec) and Dungeons.DropPoint(key, cq or rec, from, rec)
+	if d then return d, false end
 	local e = rec and Lk.QuestEnd(rec.start, from)
 	return e and not e.hostile and endPoint(e) or nil, false
 end
@@ -896,6 +1043,8 @@ function Dungeons.GiverTarget(key, questId)
 	end
 	local g = Dungeons.Giver(pq, ns.PlayerPoint())
 	if g then return g, g.name end
+	local d = Dungeons.DropPoint(key, pq, ns.PlayerPoint())
+	if d then return d, d.name end
 	local s = pq.start
 	if located(s) and (s.inside or s.kind == "item" or pq.startItem) then return s, s.name end
 	return nil

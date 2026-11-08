@@ -4932,17 +4932,23 @@ quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
 taken, such as Klockmort's Essentials once Essential Artificials is; each
 accept carries `closedBy` too, so the Engine passes it once taken on the way),
 open by max(level, the dungeon's lowest level), picked up outside from an NPC or object
-(not from an item, not inside), and not a follow-up of another quest of the
+(not inside) or from an item that drops outside (`Dungeons.DropPoint`: a mob
+or object with spawns outside the dungeon that gives it 25% of the time or
+more, once the quest's own prerequisites are done; the step collects the item
+at the nearest spawn, then takes the quest from it: the Damp Note from
+Blackfathom Deeps' tunnel naga, #1380), and not a follow-up of another quest of the
 page -- unless the quests before it here are errands (no objectives, any
-standing they name held, given (not by an item) and turned in outside by an
+standing they name held, given (not by an item, unless the item drops outside
+as above) and turned in outside by an
 NPC or object this character may use: Hamuul Runetotem and Nara Wildmane
-before Leaders of the Fang), which are then done on the way as its prerequisites; a quest done on the way
+before Leaders of the Fang; Allegiance to the Old Gods, the Damp Note handed to
+Je'neu Sancrea, before her quest for Lorgus Jett), which are then done on the way as its prerequisites; a quest done on the way
 to another is neither a take of its own nor carried; one with a prerequisite the
 guide cannot start out here (not in the log, and started by an item neither in
-the bags nor given by a quest before it in the chain, or with no placed giver or
-turn-in: The Unsent Letter, Edwin VanCleef's drop, before Bazil Thredd; Finkle
-Einhorn inside Blackrock Spire) is not taken before the run, nor counted as `later` (that
-is the level's); each with its open
+the bags, nor given by a quest before it in the chain, nor dropped outside as
+above, or with no placed giver or turn-in: The Unsent Letter, Edwin VanCleef's
+drop, before Bazil Thredd; Finkle Einhorn inside Blackrock Spire) is not taken
+before the run, nor counted as `later` (that is the level's); each with its open
 prerequisites (`Lookup.QuestChain`: all of `pre`, one
 of `preAny` this character can take, in the order they are done, the whole
 chain however long: each quest once, so a cycle in the data ends the walk), and
@@ -5552,10 +5558,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   difficulty colour (`GetQuestDifficultyColor`, else `QuestDifficultyColors`
   by level gap) lifted to 4.5:1, the state from `Compat.IsQuestCompleted`,
   `IsOnQuest`, `IsQuestReadyForTurnIn` and the level, level, requirement,
-  classes, picked up inside, shareable; Objective, Starts/Ends with pins
-  (`Dungeons.GuideToPoint`); the Starts line (pin and text) is one link to
+  classes, picked up inside (an item that starts it: when every known source
+  of the item is inside, `Dungeons.StartDrops`; else the page's flag),
+  shareable; Objective, Starts/Ends with pins
+  (`Dungeons.GuideToPoint`); the Starts line names what drops a starting
+  item (the boss, else the two likeliest mobs or objects, inside the dungeon
+  or out) and is one link to
   `Dungeons.GiverTarget`: the giver of the first prerequisite still to do
-  (its turn-in when that one is in the log), else the quest's giver, its
+  (its turn-in when that one is in the log), else the quest's giver (for an
+  item start, the nearest mob or object outside that drops it), its
   tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
   steps still to do numbered, the next one on an accent ground),
   Choose one / You get item tiles (border and name in the colour of the

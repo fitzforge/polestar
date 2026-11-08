@@ -39,7 +39,11 @@ fn instance_map(m: &Value) -> InstanceMap {
 /// The fixture's Codex as a pack, with its Dungeons journal (`buildJournal(fixture.inputs, fixture.codex)`).
 fn pack() -> CodexPack {
 	let f = fixture("dungeons.json");
-	let (codex, inputs) = (&f["codex"], &f["inputs"]);
+	pack_of(&f["codex"], &f["inputs"])
+}
+
+/// A Codex and its journal inputs as a pack, with its Dungeons journal.
+fn pack_of(codex: &Value, inputs: &Value) -> CodexPack {
 	let maps: Vec<InstanceMap> = inputs["client"]["instanceMaps"].as_array().map(|a| a.iter().map(instance_map).collect()).unwrap_or_default();
 	let fv = &inputs["forever"];
 	let (frames, quests, objects, zones, dungeons) = (v(&fv["mapFrames"]["forever"]), v(&fv["quests"]), v(&fv["objects"]), v(&fv["zones"]), v(&fv["dungeons"]));
@@ -125,7 +129,10 @@ local function plain(s) return (s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r
 "#;
 
 fn run_with(script: &str, with_pack: bool) -> Vec<Value> {
-	let pack = with_pack.then(pack);
+	run_pack(script, with_pack.then(pack))
+}
+
+fn run_pack(script: &str, pack: Option<CodexPack>) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: pack.as_ref().map(|p| p.stub_lua.clone()).unwrap_or_default(),
@@ -557,6 +564,55 @@ fn quests_one_block_per_quest_with_state_level_flags_objective_start_and_end_pin
 	assert_eq!(out["pins"][0], json!([1456, 75.6, 31.2, "Nara Wildmane"]));
 	assert_eq!(out["pins"][1], json!([1413, 52.2, 31.9, "Tonga Runetotem"]));
 	assert_eq!(out["tip"], true, "item hover shows the game tooltip");
+}
+
+// #1380: Blackfathom Deeps' Allegiance to the Old Gods starts from the Damp Note, which no boss drops: the
+// Blackfathom Tide Priestesses do, in the tunnels before the portal, outside the instance. Its card named the
+// item alone. A quest an item starts now names what drops it when no boss does (the mobs outside the dungeon
+// first), says "Picked up inside the dungeon" only when every mob that drops it is inside, and its pin leads
+// to the nearest one outside.
+#[test]
+fn a_quest_an_item_starts_names_the_mobs_that_drop_it_inside_or_outside_the_dungeon_its_pin_leads_to_one_outside_1380() {
+	let f = fixture("dungeons.json");
+	let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
+	let mob = |id: i64, name: &str, instance: Value, spawns: Value| {
+		json!({ "id": id, "name": name, "level": 20, "levelMax": 21, "faction": null, "rare": false, "elite": true, "boss": false, "instance": instance, "roles": [], "spawns": spawns })
+	};
+	codex["npcs"]["90040"] = mob(90040, "Tide Priestess", Value::Null, json!([{ "map": 1413, "x": 45, "y": 37, "f": "e" }]));
+	codex["npcs"]["90041"] = mob(90041, "Deviate Lurker", json!("wailing-caverns"), json!([]));
+	let item = |id: i64, name: &str, source: Value| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [source] });
+	codex["items"]["90042"] = item(90042, "Damp Note", json!({ "type": "drop", "npc": 90040, "chance": 33 }));
+	codex["items"]["90043"] = item(90043, "Lurker Scale", json!({ "type": "drop", "npc": 90041, "chance": 20, "instance": "wailing-caverns" }));
+	let quest = |id: i64, title: &str, start_item: i64| {
+		json!({
+			"id": id, "title": title, "level": 15, "minLevel": 10, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [], "object": [], "item": [start_item] }, "end": { "npc": [5767], "object": [] },
+			"objectives": [], "pre": [], "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	codex["quests"]["90044"] = quest(90044, "A Damp Note", 90042);
+	codex["quests"]["90045"] = quest(90045, "A Lurker Scale", 90043);
+	inputs["forever"]["quests"]["90044"] = json!({ "area": 718 });
+	inputs["forever"]["quests"]["90045"] = json!({ "area": 718 });
+	let out = run_pack(
+		r#"
+		Polestar.Dungeons.Open("wailing-caverns")
+		local pins = {}
+		Polestar.Nav.SetTarget = function(map, x, y, label) pins[#pins + 1] = { map, x, y, label } return true end
+		local note, scale = block(90044), block(90045)
+		note.StartPin:Click()
+		emit({ note = { note.Meta:GetText(), plain(note.Start:GetText()), note.StartPin:IsEnabled() },
+			scale = { scale.Meta:GetText(), plain(scale.Start:GetText()), scale.StartPin:IsEnabled() }, pins = pins })"#,
+		Some(pack_of(&codex, &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["note"][1], "Damp Note  \u{b7}  drops from Tide Priestess", "the mob that drops it, though no boss does");
+	assert!(!is_match(out["note"][0].as_str().unwrap(), "Picked up inside the dungeon"), "it drops outside: {}", out["note"][0]);
+	assert_eq!(out["note"][2], true, "its pin leads to the mob outside");
+	assert_eq!(out["pins"][0], json!([1413, 45, 37, "Tide Priestess"]));
+	assert_eq!(out["scale"][1], "Lurker Scale  \u{b7}  drops from Deviate Lurker");
+	assert!(is_match(out["scale"][0].as_str().unwrap(), "Picked up inside the dungeon"), "it drops only inside: {}", out["scale"][0]);
+	assert_eq!(out["scale"][2], false, "nowhere to point the arrow outside");
 }
 
 // #837: Axe of Orgrimmar is blue on its tooltip in the game and green on the page, whose quality comes
