@@ -655,6 +655,85 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 	assert_eq!(honored["take"], json!([90403]), "Honored: Nara Wildmane is an errand again");
 }
 
+// #1226 (rockzors, Gnome Warlock 27, Excavation Site: Wetlands): Horrors in the Highland's chain starts with
+// Tramping Paws at Rethiel the Greenwarden, and the page lists The Greenwarden, First Mate Fitzsimmons's
+// breadcrumb from Menethil Harbor to Rethiel, before it. The Codex names no prerequisite for Tramping Paws (the
+// game does not require the breadcrumb), so the guide picked up Menethil's quests and walked to Rethiel without
+// it. An open breadcrumb of the chain, an errand turned in at the giver of a prerequisite still to take, now goes
+// right before that prerequisite, and its accept is closed by it.
+#[test]
+fn an_open_breadcrumb_of_the_chain_is_done_on_the_way_before_the_quest_it_leads_to_1226_the_greenwarden_before_tramping_paws() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: i32| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": x, "f": "e" }],
+		})
+	};
+	c["npcs"]["90710"] = npc(90710, "Rethiel", 40);
+	c["npcs"]["90711"] = npc(90711, "Fitzsimmons", 30);
+	let quest = |id: i32, title: &str, giver: i32, objectives: Value, pre: &[i32], pre_any: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	let kill = json!([{ "type": "kill", "id": 90720, "count": 1, "text": "Mosshide Gnoll" }]);
+	// 90700 Tramping Paws (Rethiel's, with objectives), 90701 The Greenwarden (Fitzsimmons's errand to Rethiel,
+	// named only by 90700's breadcrumbs), 90702 the dungeon quest after 90700.
+	c["quests"]["90700"] = quest(90700, "Tramping Paws", 90710, kill.clone(), &[], &[]);
+	c["quests"]["90701"] = quest(90701, "The Greenwarden", 90711, json!([]), &[], &[]);
+	c["quests"]["90702"] = quest(90702, "Horrors in the Highland", 90710, kill.clone(), &[90700], &[]);
+	i["forever"]["quests"]["90700"] = json!({ "breadcrumbs": [90701] });
+	i["forever"]["quests"]["90702"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local pre = {}
+for _, t in ipairs(plan.take) do
+	if t.quest.id == 90702 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+local steps, closedBy = {}, {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90700 then
+			verbs[#verbs + 1] = g.t .. ":" .. g.quest
+			if g.t == "accept" and g.closedBy then closedBy[tostring(g.quest)] = table.concat(g.closedBy, ",") end
+		end
+	end
+	if #verbs > 0 then steps[#steps + 1] = table.concat(verbs, " ") end
+end
+local chain = {}
+for n, id in ipairs(D.Quest("{KEY}", 90702).chain or {}) do chain[n] = id end
+emit({ pre = pre, steps = steps, closedBy = closedBy, chain = chain })"#);
+	let open = run(&own, &script, Opts { done: vec![1098], ..Default::default() }).remove(0);
+	assert_eq!(open["chain"], json!([90701, 90700]), "the page lists the breadcrumb before Tramping Paws");
+	assert_eq!(open["pre"], json!([90701, 90700]), "The Greenwarden right before Tramping Paws");
+	assert_eq!(open["steps"], json!(["accept:90701 turnin:90701", "accept:90700 kill:90700 turnin:90700", "accept:90702"]), "the breadcrumb on the way to Rethiel, then his chain");
+	assert_eq!(open["closedBy"], json!({ "90701": "90700" }), "taking Tramping Paws first closes the breadcrumb");
+
+	let taken = run(&own, &script, Opts { done: vec![1098], log: vec![1013, 90700], ..Default::default() }).remove(0);
+	assert_eq!(taken["pre"], json!([90700]), "Tramping Paws in the log: the breadcrumb is closed");
+	let crumb_done = run(&own, &script, Opts { done: vec![1098, 90701], ..Default::default() }).remove(0);
+	assert_eq!(crumb_done["pre"], json!([90700]), "the breadcrumb done: nothing to add");
+	drop(own);
+
+	// An alternative of a `preAny` the chain did not choose is no breadcrumb, though the page lists it and it
+	// is an errand to the same giver: only one of them is needed.
+	c["quests"]["90702"]["pre"] = json!([]);
+	c["quests"]["90702"]["preAny"] = json!([90700, 90703]);
+	c["quests"]["90703"] = quest(90703, "Another Way In", 90711, json!([]), &[], &[]);
+	i["forever"]["quests"]["90700"] = json!({});
+	let any = pack_of(&c, &i);
+	let either = run(&any, &script, Opts { done: vec![1098], ..Default::default() }).remove(0);
+	assert_eq!(either["chain"], json!([90700, 90703]), "the page lists both alternatives");
+	assert_eq!(either["pre"], json!([90700]), "the first alternative alone");
+}
+
 // A quest whose chain is ten quests long (#918: Alba Fairmoon's chain to The State of the Mines, Testing the
 // Wells ten quests before the Deadmines quest): the plan lists every open prerequisite, the first first, and no
 // "Earlier quests of this chain are not listed." note. A second branch makes it fifteen: still all of them,

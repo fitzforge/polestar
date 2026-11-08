@@ -4730,7 +4730,12 @@ before Leaders of the Fang), which are then done on the way as its prerequisites
 to another is neither a take of its own nor carried; each with its open
 prerequisites (`Lookup.QuestChain`: all of `pre`, one
 of `preAny` this character can take, in the order they are done, the whole
-chain however long: each quest once, so a cycle in the data ends the walk). The giver
+chain however long: each quest once, so a cycle in the data ends the walk), and
+the open breadcrumbs of the page's chain, each right before the prerequisite it
+leads to (a chain quest no quest of the chain names as a prerequisite, an errand
+this character can take now, turned in at that prerequisite's giver; The
+Greenwarden from Menethil Harbor before Tramping Paws, #1226; its accept carries
+`closedBy`, the quest it leads to, in `plan.closedBy`). The giver
 is `Dungeons.Giver(pq, from)`: the page keeps one (the Codex's first), so a
 quest several NPCs give goes to the one of the character's side nearest the
 player (`Lookup.QuestEnd`, which takes an NPC of the other side only when no
