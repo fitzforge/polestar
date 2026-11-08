@@ -10344,6 +10344,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-08, Silverpine 13): the Decrepit Ferry on the shore walk from the murlocs, before Ambermill (see the pair task 91920 before turnin 438)"
+			},
+			{
+				"a": [
+					"task",
+					527
+				],
+				"b": [
+					"turnin",
+					496
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-08, Hillsbrad 22): the bears and creepers for Elixir of Suffering roam the hills west of Tarren Mill on the way down to Hillsbrad Fields, where the lions for Mountain Lion Blood stand too (#1123). The route walked back up to Tarren Mill for Lydon's hand-in and Umpi's delivery between the hills and the fields, then down the same slope again; both go on the Tarren Mill stop after the fields, with Battle of Hillsbrad and Mountain Lion Blood, saving about 1,000 yd"
 			}
 		]
 	}
