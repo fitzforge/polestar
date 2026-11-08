@@ -5782,7 +5782,8 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: final review: training i
 	const sham = list.filter(forClass('SHAMAN'));
 	assert.ok(flies(sham, 'The Sepulcher') < tm(sham), 'Shamans: the Sepulcher before Tarren Mill');
 	const war = list.filter(forClass('WARRIOR'));
-	const note = war.find(({ step }) => /Strong Troll/.test([].concat(step.note || []).join(' ')));
+	// #1322: the note names the Lesser Troll's Blood Elixir the objective takes (the quest text says Strong).
+	const note = war.find(({ step }) => /Lesser Troll's Blood Elixir/.test([].concat(step.note || []).join(' ')));
 	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
 	const next = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('DRUID'));
 	assert.ok(flies(next, 'Thunder Bluff') < flies(next, 'Freewind Post') || flies(next, 'Freewind Post') < 0, 'Druids at 32: Orgrimmar -> Thunder Bluff -> Freewind Post');
