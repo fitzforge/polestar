@@ -156,6 +156,6 @@ step Dungeon instead of grinding
 step Grind to 60
   tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
   goto 60.1,71.2 "Frostwhisper Gorge"
-  level 60 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
+  level 60 grind 7446 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
   train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
   train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook

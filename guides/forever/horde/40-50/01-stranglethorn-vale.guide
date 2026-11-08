@@ -348,7 +348,7 @@ step Level 42.68
   when level<42.68
   tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.68                          -- grind on Skullsplitter Warrior
+  level 42.68 grind 667                -- grind on Skullsplitter Warrior
 
 step Big Game Hunter
   when group 208
@@ -365,7 +365,7 @@ step Level 42.74
   when level<42.74
   tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
-  level 42.74                          -- grind on Skullsplitter Warrior
+  level 42.74 grind 667                -- grind on Skullsplitter Warrior
 
 step Duskwood
   zone Duskwood

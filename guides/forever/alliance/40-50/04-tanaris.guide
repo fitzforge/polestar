@@ -134,7 +134,7 @@ step Dunemaul Compound
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
-  level 47.06                          -- grind on Dunemaul Brute
+  level 47.06 grind 5474               -- grind on Dunemaul Brute
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris

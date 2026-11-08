@@ -139,7 +139,7 @@ step Level 5.48
   when level<5.48
   tip If you skipped The Big Picture, grind here to level 5.48 to stay on the route's plan.
   goto 48.9,28.1 map 1429 "Kobold Laborer"
-  level 5.48                          -- grind on Kobold Laborer
+  level 5.48 grind 80                 -- grind on Kobold Laborer
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
@@ -165,7 +165,7 @@ step Level 5.77
   when level<5.77
   tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77                          -- grind on Kobold Miner
+  level 5.77 grind 40                 -- grind on Kobold Miner
 
 step The lake shore
   tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
@@ -300,7 +300,7 @@ step Level 8.39
   when level<8.39
   tip If you skipped Book Return, grind here to level 8.39 to stay on the route's plan.
   goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 8.39                          -- grind on Kobold Miner
+  level 8.39 grind 40                 -- grind on Kobold Miner
 
 step Class trainer
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
@@ -363,7 +363,7 @@ step Level 8.85
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
   goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85                          -- grind on Prowler
+  level 8.85 grind 118                -- grind on Prowler
 
 step Ormin Pelford
   turnin 91733

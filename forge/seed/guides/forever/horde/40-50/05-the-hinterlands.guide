@@ -104,7 +104,7 @@ step The bloodmages
 step Grind to 48
   tip Only if you are not level 48 yet.
   goto 54.1,30.5 "Vulture hills"
-  level 48 -- grind on Black Slayer at the northern hills, Blasted Lands
+  level 48 grind 5982 -- grind on Black Slayer at the northern hills, Blasted Lands
 
 # ---------------------------------------------------------------- The Undercity
 

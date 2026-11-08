@@ -45,7 +45,7 @@ step Level 52.58
   when level<52.58
   tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 48.7,92.1 map 1448 "Deadwood Warrior"
-  level 52.58                          -- grind on Deadwood Warrior
+  level 52.58 grind 7153               -- grind on Deadwood Warrior
 
 step Grazle
   turnin 8460
@@ -57,7 +57,7 @@ step Level 52.69
   when level<52.69
   tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 52.69                          -- grind on Deadwood Pathfinder
+  level 52.69 grind 7155               -- grind on Deadwood Pathfinder
 
 # ---------------------------------------------------------------- The south
 
@@ -67,7 +67,7 @@ step Jadefire Glen
   tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
   collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
-  level 52.74                          -- grind on Jadefire Felsworn
+  level 52.74 grind 7109               -- grind on Jadefire Felsworn
 
 step Ruins of Constellas
   kill 7110 quest 4421.2              -- Jadefire Shadowstalker
@@ -85,7 +85,7 @@ step Jaedenar
   accept 5202 optional
   turnin 5202 optional                -- Captured Arko'narin, in Shadow Hold; below ground
   accept 5203 optional
-  level 52.87                          -- grind on Jaedenar Hound
+  level 52.87 grind 7125               -- grind on Jaedenar Hound
 
 step Jaedenar
   when onquest 5203
@@ -96,7 +96,7 @@ step Level 52.9
   when level<52.9
   tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 52.9                          -- grind on Jaedenar Hound
+  level 52.9 grind 7125               -- grind on Jaedenar Hound
 
 step The Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof

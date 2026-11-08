@@ -208,7 +208,7 @@ step Level 59.9
   when level<59.9
   tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 27.9,34.5 map 1452 "Winterfall Totemic"
-  level 59.9                          -- grind on Winterfall Totemic
+  level 59.9 grind 7441               -- grind on Winterfall Totemic
 
 step Winterspring
   zone Winterspring
@@ -243,6 +243,6 @@ step Dungeon instead of grinding
 step Grind to 60
   tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
   goto 60.1,71.2 "Frostwhisper Gorge"
-  level 60 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
+  level 60 grind 7446 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
   train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
   train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook
