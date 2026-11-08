@@ -519,6 +519,10 @@ L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ei
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

@@ -1318,6 +1318,10 @@ L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"

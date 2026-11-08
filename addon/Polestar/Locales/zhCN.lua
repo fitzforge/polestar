@@ -1318,6 +1318,10 @@ L["While you're here:"] = "顺便完成："
 L["Not now (right-click)"] = "暂不（右键）"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "步骤 %d 稍后会做这件事；现在完成，到那个步骤时它会更短或直接跳过。"
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"

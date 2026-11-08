@@ -1318,6 +1318,10 @@ L["While you're here:"] = "Пока вы здесь:"
 L["Not now (right-click)"] = "Не сейчас (правый клик)"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "Шаг %d делает это позже; сделаете сейчас, и этот шаг будет короче или пропустится, когда вы до него дойдёте."
 -- L["Right-click: not now, around here (twice: for the rest of this zone)."] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"

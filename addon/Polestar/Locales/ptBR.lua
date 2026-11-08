@@ -1318,6 +1318,10 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 L["Left out because you skipped %s"] = "Deixado de fora porque você pulou %s"
 L["Ticked by you, but the game still counts its objectives open: finish them first."] = "Marcado por você, mas o jogo ainda conta os objetivos como abertos: termine-os antes."
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "Botão direito: agora não, por aqui (duas vezes: pelo resto desta zona)."
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"] = ""
+-- L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
