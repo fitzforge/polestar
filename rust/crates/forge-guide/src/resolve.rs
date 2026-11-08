@@ -904,6 +904,38 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 	step.set("goals", kept);
 }
 
+/// A step only a player who chose the group way follows: `when group <quest>`, `when dungeon "<Name>"`.
+fn opt_in_step(step: &V) -> bool {
+	step.get("when").items().iter().any(|p| !p.get("neg").truthy() && matches!(p.get("k").as_str(), Some("group") | Some("dungeon")))
+}
+
+/// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group.
+/// Not an `optional` goal; not one in an opt-in step (opt_in_step) or of a quest accepted only in one
+/// (its later goals go with the accept, as validate's group_quests_of); not the turn-in of a dungeon or
+/// raid quest (the run was the group content, handing it in is not).
+fn route_needs_group(steps: &[V]) -> bool {
+	let mut only: FxHashMap<String, bool> = FxHashMap::default();
+	for step in steps {
+		for goal in step.get("goals").items() {
+			if goal.get("t").as_str() == Some("accept") && !goal.get("quest").is_undef() {
+				let k = stringify(&goal.get("quest"), None);
+				let prev = only.get(&k).copied();
+				only.insert(k, prev != Some(false) && opt_in_step(step));
+			}
+		}
+	}
+	steps.iter().filter(|s| !opt_in_step(s)).any(|step| {
+		step.get("goals").items().iter().any(|goal| {
+			let group = goal.get("group");
+			let quest = goal.get("quest");
+			group.truthy()
+				&& !goal.get("optional").truthy()
+				&& !(!quest.is_undef() && only.get(&stringify(&quest, None)) == Some(&true))
+				&& !(goal.get("t").as_str() == Some("turnin") && matches!(group.get("kind").as_str(), Some("dungeon") | Some("raid")))
+		})
+	})
+}
+
 /// `resolveGuide(ast, data, diag, { pack, author })`.
 pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<&str>, author: Option<&str>) -> V {
 	let file = ast.get("file").as_str().unwrap_or("").to_string();
@@ -1239,7 +1271,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		}
 		gsteps.push(step);
 	}
-	if gsteps.items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("group").truthy() && !goal.get("optional").truthy())) {
+	if route_needs_group(&gsteps.items()) {
 		guide.set("group", true);
 	}
 	check_labels(&steps, r);
