@@ -4339,6 +4339,24 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 2, 'two flights to Camp Taurajo (from Zoram\'gar and Thunder Bluff), none from Freewind Post');
 });
 
+// Maazias's report (#1333): The Tear of the Moons is a level 30 quest; its strongbox stands beside
+// General Twinbraid (30) and his Officers (26). Done with Gann Stonespire's Bael Modan quests in the
+// Barrens 24-26 it came at 26 for every Horde start, and the guide frame told everyone to reach 28
+// first. It is taken on the next pass, the road from Camp Taurajo to the Great Lift, at about 28.
+test(`${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is done on the road from Camp Taurajo to the Great Lift, not in the Barrens 24-26 (#1333)`, { skip }, () => {
+	assert.deepEqual(goals('forever/horde/04-the-barrens.guide').filter(({ goal }) => goal.quest === 857).map(({ goal }) => goal.t), [], 'not in the Barrens 24-26');
+	for (const [race, cls] of [['Orc', 'MAGE'], ['Tauren', 'SHAMAN'], ['Undead', 'PALADIN']]) {
+		const list = goals(ASHENVALE_HORDE).filter(forRaceOf(race)).filter(forClass(cls));
+		const taurajo = list.findLastIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
+		const accept = at(list, 'accept 857', is('accept', 857));
+		const box = at(list, 'the strongbox (857)', (g) => g.quest === 857 && g.t === 'collect');
+		const turnin = at(list, 'turnin 857', is('turnin', 857));
+		assert.ok(taurajo >= 0 && taurajo < accept && accept < box && box < turnin, `${race} ${cls}: after the flight to Camp Taurajo, taken, done and handed in`);
+		assert.ok(turnin < at(list, 'turnin 4542 (Message to Freewind Post)', is('turnin', 4542)), `${race} ${cls}: before the Great Lift and Freewind Post`);
+		assert.match([list[box].step.note, list[box].step.tip].flat().filter(Boolean).join(' '), /General Twinbraid.*\(30\)/, 'the step names General Twinbraid and his level');
+	}
+});
+
 // The same pattern at Orgrimmar: the Warriors' (and the other classes') training step flew them to
 // Orgrimmar from Orgrimmar's flight master, after the Crossroads flight there (Stonetalon) or the walk
 // there from Boulder Lode Mine (the Barrens). They train where they stand.

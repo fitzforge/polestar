@@ -151,7 +151,13 @@ return {
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "交给{area:392}南边的{npc:5901}：见下一个指南",
 
-	-- Step 42: Freewind Post
+	-- Step 40: Tear of the Moons
+	-- {area:485} Great Lift · {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox · {npc:3414} General Twinbraid
+	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "",
+	-- {object:3646} General Twinbraid's Strongbox
+	["{object:3646}; below ground"] = "",
+
+	-- Step 43: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "乘升降梯下去，然后沿道路向东穿过峡谷前往{area:484}，那是一座建在石柱顶上的牛头人村庄。它的升降梯在北侧。",
 	-- {npc:10377} Elu
@@ -165,21 +171,21 @@ return {
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
 
-	-- Step 43: Alien Egg
+	-- Step 44: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "乘升降梯下去。蛋在峡谷底部的一个巢里，位于三个地点之一：石柱东南（52.3,55.2）、东边（56.4,50.4）或西南（37.6,56.1）。",
 
-	-- Step 44: Galak centaurs
+	-- Step 45: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}在营地之间走动：遇到就杀死他，他的信件可以开始一个{area:2237}的任务。",
 
-	-- Step 45: Dorn Plainstalker
+	-- Step 46: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克营地东边的一座石柱顶上。做{quest:1149}时，从他旁边的木板尽头走下去：你会安全落地。",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
 
-	-- Step 48: Darkcloud Pinnacle
+	-- Step 49: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在乱风岗西边，恐怖图腾的营地在{area:2097}下方。密信在东南、西南和西北营地的文件箱里。",
@@ -190,7 +196,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, south-east camp"] = "{object:176344}，东南营地",
 
-	-- Step 49: Level 28.9
+	-- Step 50: Level 28.9
 	["Level 28.9"] = "",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps · {area:1717} Razorfen Kraul
 	["Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "",
@@ -199,34 +205,34 @@ return {
 	-- {area:2097} Darkcloud Pinnacle
 	["grind on the Grimtotem below {area:2097}"] = "",
 
-	-- Step 50: Lakota Windsong
+	-- Step 51: Lakota Windsong
 	-- {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
 	["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿小路爬上{area:2097}顶部。{npc:10646}被囚禁在{npc:10896}（29级）旁边：先清掉守卫和{npc:10896}，再救出她并在下山路上保护她；途中会有恐怖图腾伏击者袭击你。",
 
-	-- Step 51: Highperch
+	-- Step 52: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "",
 
-	-- Step 52: Whitereach Post
+	-- Step 53: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一个任务（生命圣火）在{zone:1456}结束，不在本路线上。跳过它。",
 
-	-- Step 54: Hypercapacitor Gizmo
+	-- Step 55: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 55: Whitereach Post
+	-- Step 56: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "杀死前来袭击{npc:10638}的{npc:10720}",
 
-	-- Step 58: Level 29.49
+	-- Step 59: Level 29.49
 	["Level 29.49"] = "",
 	-- {quest:5151} Hypercapacitor Gizmo · {area:487} Roguefeather Den · {area:2797} Blackfathom Deeps · {area:796} Scarlet Monastery
 	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:4101} Screeching Roguefeather
 	["grind on {npc:4101}"] = "",
 
-	-- Step 59: The Screeching Canyon: kill these as you meet them
+	-- Step 60: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies
@@ -234,7 +240,7 @@ return {
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "",
 
-	-- Step 60: Freewind Post
+	-- Step 61: Freewind Post
 	-- {area:484} Freewind Post · {area:487} Roguefeather Den · {npc:2986} Dorn Plainstalker
 	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "向东回到{area:484}：它就在从{area:487}去{npc:2986}所在平顶山的路上。",
 	-- {npc:10645} Thalia Amberhide
@@ -242,17 +248,17 @@ return {
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside"] = "",
 
-	-- Step 61: Test of Endurance
+	-- Step 62: Test of Endurance
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}'s mesa is north-east of Freewind."] = "",
 	-- {npc:2986} Dorn Plainstalker · {quest:1151} Test of Strength · {quest:1150} Test of Endurance
 	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "",
 
-	-- Step 62: Rok'Alim the Pounder
+	-- Step 63: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch · {area:2237} Whitereach Post
 	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "",
 
-	-- Step 63: Freewind Post
+	-- Step 64: Freewind Post
 	-- {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats
 	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "",
 	-- {zone:1454} Orgrimmar

@@ -10857,6 +10857,30 @@
 				"faction": "Alliance",
 				"why": "Timed-quest sweep (2026-11-08): Iverron's Antidote lasts five minutes (quests.json limit 300 s). Taken from Dirania at the foot of Aldrassil before Tenaron's turn-in at the top, the moonwell and the climb back to Tenaron, it reached Iverron in about 8 minutes on the sweep's estimate; players' recordings: 24 characters took it, 2 failed its timer and 4 abandoned it. Taken on the way down after Crown of the Earth's turn-in, Dirania to Iverron is one short walk.",
 				"source": "recordings: rec.py quest 3522 (2 timer fails, 4 abandons of 24 characters); timed_sweep.py FAIL nightelf/01-teldrassil:96"
+			},
+			{
+				"a": [
+					"turnin",
+					96259
+				],
+				"b": [
+					"accept",
+					857
+				],
+				"faction": "Horde",
+				"why": "#1333 (2026-11-08): The Tear of the Moons is a level 30 quest; its strongbox stands beside General Twinbraid (30) and his Officers (26). Done with Gann Stonespire's Bael Modan quests (forever/horde/04-the-barrens, 24-26) it came at 26.1-26.7 for every Horde start (calibrated level model), so the guide frame told everyone on pace to reach 28 first. Taken on the next pass, the road from Camp Taurajo to the Great Lift in forever/horde/07-ashenvale (after the Earthen Ring's hand-ins in Mulgore and the flight to Camp Taurajo), at 27.4-28.1 on the model, about 28-29 for players. Players' recordings: 11 people did it at 24-29."
+			},
+			{
+				"a": [
+					"turnin",
+					857
+				],
+				"b": [
+					"turnin",
+					4542
+				],
+				"faction": "Horde",
+				"why": "#1333 (2026-11-08): The Tear of the Moons is done in Bael Modan on the way from Camp Taurajo to the Great Lift, before the descent to Freewind Post (Message to Freewind Post's hand-in), as the pair above places it."
 			}
 		]
 	}

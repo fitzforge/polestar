@@ -120,17 +120,11 @@ return {
 	["The flying machine"] = "A máquina voadora",
 	["The dwarves' flying machine sits on its platform inside the dig site."] = "A máquina voadora dos anões fica na plataforma dentro do sítio de escavação.",
 
-	-- Step 23: Tear of the Moons
-	-- {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox
-	["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "",
-	-- {object:3646} General Twinbraid's Strongbox
-	["{object:3646}; below ground"] = "",
-
-	-- Step 26: Great Lift
+	-- Step 25: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
 	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "",
 
-	-- Step 27: The Great Lift
+	-- Step 26: The Great Lift
 	-- {area:1718} Great Lift
 	["The {area:1718}"] = "{area:1718}",
 	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
@@ -138,24 +132,24 @@ return {
 	-- {npc:10079} Brave Moonhorn
 	["{npc:10079}, at the top of the lift"] = "{npc:10079}, no alto do elevador",
 
-	-- Step 30: Fly to Crossroads
+	-- Step 29: Fly to Crossroads
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
 
-	-- Step 31: The Crossroads
+	-- Step 30: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, no alto da torre",
 
-	-- Step 32: Fly to Ratchet
+	-- Step 31: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voe para {area:392}",
 	["Crossroads flight master"] = "",
 
-	-- Step 33: Merchant Coast
+	-- Step 32: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 34: Isha Awak
+	-- Step 33: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}, um grande manguadonte, nada nas águas rasas da {area:391}, a leste de {npc:3388}.",
 

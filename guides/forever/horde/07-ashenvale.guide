@@ -9,7 +9,8 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
+# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
+# level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
 # Left out: Stonetalon Standstill (25): Mastok in Splintertree offers it from level 23, and its
@@ -259,6 +260,13 @@ step Brine
   tip Brine's hut stands on the ridge above the quilboar watering hole south of Camp Taurajo, on the road to the Great Lift.
   turnin 1534                         -- Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
+
+step Tear of the Moons
+  zone The Barrens
+  tip On the road south to the Great Lift, turn east into the Bael Modan dig. Feegly the Exiled hides at its south edge. General Twinbraid's Strongbox stands on the bottom floor of the dwarves' fortress, beside General Twinbraid (30) and his Officers (26): pull them to you one at a time.
+  accept 857                          -- Feegly the Exiled
+  collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
+  turnin 857
 
 step Thousand Needles
   zone Thousand Needles

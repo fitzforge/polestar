@@ -151,7 +151,13 @@ return {
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "para {npc:5901}, al sur de {area:392}: siguiente guía",
 
-	-- Step 42: Freewind Post
+	-- Step 40: Tear of the Moons
+	-- {area:485} Great Lift · {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox · {npc:3414} General Twinbraid
+	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "",
+	-- {object:3646} General Twinbraid's Strongbox
+	["{object:3646}; below ground"] = "",
+
+	-- Step 43: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "Baja en el elevador y sigue el camino al este por los cañones hasta {area:484}, un poblado tauren en lo alto de las mesetas. Su elevador está en el lado norte.",
 	-- {npc:10377} Elu
@@ -165,21 +171,21 @@ return {
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "",
 
-	-- Step 43: Alien Egg
+	-- Step 44: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "Baja en el elevador. El huevo está en un nido en el fondo del cañón, en uno de tres sitios: al sureste de las mesetas (52.3,55.2), al este (56.4,50.4) o al suroeste (37.6,56.1).",
 
-	-- Step 44: Galak centaurs
+	-- Step 45: Galak centaurs
 	["Galak centaurs"] = "Centauros Galak",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Los campamentos Galak llenan el cañón al norte del Poblado Viento Libre; exploradores, vaqueros y cazavientos comparten todos los campamentos. Un {npc:10617} solitario va de un campamento a otro: mátalo cuando lo encuentres, su nota inicia una misión para {area:2237}.",
 
-	-- Step 45: Dorn Plainstalker
+	-- Step 46: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} está en lo alto de una meseta al este de los campamentos Galak. Para {quest:1149}, salta desde el final de los tablones a su lado: aterrizarás sano y salvo.",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
 
-	-- Step 48: Darkcloud Pinnacle
+	-- Step 49: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "Al oeste del Poblado Viento Libre, los campamentos Tótem Siniestro bajo {area:2097}. Las Notas secretas están en Cofres de documentos en los campamentos del sureste, suroeste y noroeste.",
@@ -190,7 +196,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, south-east camp"] = "{object:176344}, campamento del sureste",
 
-	-- Step 49: Level 28.9
+	-- Step 50: Level 28.9
 	["Level 28.9"] = "",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps · {area:1717} Razorfen Kraul
 	["Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "",
@@ -199,34 +205,34 @@ return {
 	-- {area:2097} Darkcloud Pinnacle
 	["grind on the Grimtotem below {area:2097}"] = "",
 
-	-- Step 50: Lakota Windsong
+	-- Step 51: Lakota Windsong
 	-- {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
 	["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Sube por el sendero hasta lo alto de {area:2097}. {npc:10646} está cautiva junto a {npc:10896} (29): acaba primero con los guardias y con {npc:10896}, luego libérala y protégela en la bajada; te atacarán emboscadores Tótem Siniestro por el camino.",
 
-	-- Step 51: Highperch
+	-- Step 52: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "",
 
-	-- Step 52: Whitereach Post
+	-- Step 53: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "La siguiente misión de {npc:10428}, El fuego Sagrado, termina en {zone:1456}, fuera de esta ruta. Omítela.",
 
-	-- Step 54: Hypercapacitor Gizmo
+	-- Step 55: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 55: Whitereach Post
+	-- Step 56: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Mata al {npc:10720} que viene a por {npc:10638}",
 
-	-- Step 58: Level 29.49
+	-- Step 59: Level 29.49
 	["Level 29.49"] = "",
 	-- {quest:5151} Hypercapacitor Gizmo · {area:487} Roguefeather Den · {area:2797} Blackfathom Deeps · {area:796} Scarlet Monastery
 	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:4101} Screeching Roguefeather
 	["grind on {npc:4101}"] = "",
 
-	-- Step 59: The Screeching Canyon: kill these as you meet them
+	-- Step 60: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies
@@ -234,7 +240,7 @@ return {
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "",
 
-	-- Step 60: Freewind Post
+	-- Step 61: Freewind Post
 	-- {area:484} Freewind Post · {area:487} Roguefeather Den · {npc:2986} Dorn Plainstalker
 	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "",
 	-- {npc:10645} Thalia Amberhide
@@ -242,17 +248,17 @@ return {
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside"] = "",
 
-	-- Step 61: Test of Endurance
+	-- Step 62: Test of Endurance
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}'s mesa is north-east of Freewind."] = "",
 	-- {npc:2986} Dorn Plainstalker · {quest:1151} Test of Strength · {quest:1150} Test of Endurance
 	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "",
 
-	-- Step 62: Rok'Alim the Pounder
+	-- Step 63: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch · {area:2237} Whitereach Post
 	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "",
 
-	-- Step 63: Freewind Post
+	-- Step 64: Freewind Post
 	-- {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats
 	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "",
 	-- {zone:1454} Orgrimmar

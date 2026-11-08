@@ -4107,6 +4107,28 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1333-tear-of-the-moons-twinbraid",
+			"faction": "Horde",
+			"at": {
+				"quest": 857,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "On the road south to the Great Lift, turn east into the Bael Modan dig. Feegly the Exiled hides at its south edge. General Twinbraid's Strongbox stands on the bottom floor of the dwarves' fortress, beside General Twinbraid (30) and his Officers (26): pull them to you one at a time.",
+			"note": "The Tear of the Moons (857, level 30): General Twinbraid's Strongbox (object 3646, The Barrens 49.13,84.25) stands beside General Twinbraid (3414, level 30, 49.19,84.21) and seven Bael'dun Officers (3378, level 26, 48.6-49.8,83.6-84.3). Taken on forever/horde/07-ashenvale's road from Camp Taurajo to the Great Lift (route-fixes pairs, #1333).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3414 General Twinbraid level 30 at 49.19,84.21; 3378 Bael'dun Officer level 26, 7 spawns; objects.json 3646 at 49.13,84.25; quests.json 857 level 30, minLevel 22"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: 11 people did The Tear of the Moons at levels 24-29 (median 26), all completed"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }
