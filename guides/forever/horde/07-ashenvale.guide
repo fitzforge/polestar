@@ -170,15 +170,16 @@ step Fly to Camp Taurajo
   fly "Camp Taurajo"
   zone The Barrens
 
-step Mulgore
+step Skywatcher Plateau
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  goto 40.6,22.2 "Mulgore"
+  tip The Earthen Ring camp and its three quests stand up on Skywatcher Plateau, north of Thunder Bluff. Walk north past Thunder Bluff; the arrow then leads round to the plateau's north end and up onto it.
+  goto 40.6,22.2 "North of Thunder Bluff"
 
-step Mulgore
+step Skywatcher Plateau
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  goto 30.5,8.2 "Mulgore"
+  goto 30.5,8.2 "Skywatcher Plateau"
 
 step The Earthen Ring
   zone Mulgore

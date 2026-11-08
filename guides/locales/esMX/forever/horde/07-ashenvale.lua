@@ -91,6 +91,11 @@ return {
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Vuela a {area:378}",
 
+	-- Step 25: Skywatcher Plateau
+	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
+	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Walk north past {zone:1456}; the arrow then leads round to the plateau's north end and up onto it."] = "",
+	["North of Thunder Bluff"] = "",
+
 	-- Step 27: The Earthen Ring
 	["The Earthen Ring"] = "El Anillo de la Tierra",
 	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
