@@ -3698,6 +3698,18 @@ entrance lists and graph strings (`metadata` reads an entrance's cell, layer and
 Since the walking floor (#234) the cluster `Path.SurfacesAt` reads (the player's) stays decoded at rest while
 the arrow runs: one cluster; none without a target or 2 s after the arrow's last update.
 
+**A walk inside one cluster** (`Path.lua` run) skips the start's endpoint tree when it can. Each end's tree is a
+Dijkstra over its whole cluster to the entrances; the goal's is kept (`connect`), but the arrow asks again from a
+new start every few steps, and a moving start never reused its own: each ask flooded the cluster again, 15,000 to
+60,000 expansions for a quest objective a few yards off (measured in game, 0.3.5). Any walk that leaves the cluster
+comes back through an entrance e, so it costs at least the straight yards from the start to e at the cheapest yard
+(the abstract search's lower bound) plus the goal tree's exact cost from e. With no lift in the cluster, the start's
+A* to the goal is run first with the least of those as its limit (`search`'s `limit`: it stops once past it); when
+every surface the start stands on reaches the goal under it, that walk is the cheapest there is and the full search
+is skipped. A surface that cannot (a rock top the grid cannot leave, which the start's tree would move: `settle`)
+sends the search the full way, so the walks and costs are the full search's either way (`Path.direct = false` runs
+it always: `nav-maps.rs`, eleven asks walking in from 60 yards, 236,000 expansions down to under 1,000).
+
 **A map is used whole.** `API.lua` drops a map whose packed tables hold
 fewer entries than its `counts` (a part file missing from the folder, or one
 that failed to load), and every map when the client lacks

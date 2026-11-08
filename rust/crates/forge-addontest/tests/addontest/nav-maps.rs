@@ -735,3 +735,51 @@ fn the_packed_maps_decode_every_entrance_names_a_cell_of_its_cluster() {
 		assert!(n > 30000, "map {map}: {n} entrances");
 	}
 }
+
+// A walk inside one cluster, asked again every few steps as the player walks in (Nav/Walk.lua re-asks the arrow's walk
+// from a new start): each ask used to flood the whole cluster from the start for its endpoint tree, 15,000 to 60,000
+// expansions for a quest objective in the Barrens a few yards away (measured in game, 0.3.5). A direct walk under the
+// least any way through the cluster's entrances could cost needs neither: the same walks and costs as the full search
+// (Path.direct = false), a small part of the expansions.
+#[test]
+fn a_walk_inside_one_cluster_asked_again_as_the_player_walks_in_is_the_full_search_s_walk_without_its_flood() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local goal = { x = 825.397, y = -2686.950, z = 91.6 } -- a Barrens quest objective, east of the Crossroads
+local away = { x = 800.107, y = -2717.360 } -- where the player came from
+local dx, dy = away.x - goal.x, away.y - goal.y
+local len = math.sqrt(dx * dx + dy * dy)
+local opts = { profile = "Horde", style = "balanced" }
+local function walkIn(direct)
+	Path.direct = direct
+	local exp, costs, points = 0, {}, {}
+	for step = 0, 10 do
+		local d = 60 - step * 5
+		local from = { x = goal.x + dx / len * d, y = goal.y + dy / len * d, z = 92 }
+		local got
+		local job = Path.Find(1, from, goal, function(pts, cost) got = { pts = pts, cost = cost } end, opts)
+		drain()
+		exp = exp + job.expansions
+		costs[#costs + 1] = math.floor(got.cost * 1000 + 0.5)
+		points[#points + 1] = #got.pts
+	end
+	return { expansions = exp, costs = costs, points = points }
+end
+local full = walkIn(false)
+local direct = walkIn(true)
+Path.direct = nil
+emit({ full = full, direct = direct })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	let (full, direct) = (&got["full"], &got["direct"]);
+	assert_eq!(direct["costs"], full["costs"], "the same costs as the full search: {got}");
+	assert_eq!(direct["points"], full["points"], "and the same walks: {got}");
+	let (f, d) = (full["expansions"].as_i64().unwrap(), direct["expansions"].as_i64().unwrap());
+	assert!(f > 100_000, "the full search floods the cluster each time: {f}");
+	assert!(d * 20 < f, "the direct walk is a small part of it: {d} against {f}");
+}
