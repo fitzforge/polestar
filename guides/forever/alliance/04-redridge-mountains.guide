@@ -232,11 +232,10 @@ step Sven's Camp
 
 step The Hushed Bank: kill these as you meet them
   zone Duskwood
-  tip Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.
-  tip Careful: Wolves and other spider types share the area along the Westfall border, so you can easily pull several mobs at once.
+  tip Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the Hushed Bank west of Raven Hill, fewer up north towards Sven's camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the Westfall border, so pull with care.
   kill 565 quest 226                      -- Rabid Dire Wolf
   kill 213 quest 226                      -- Starving Dire Wolf
-  kill 539 quest 245                      -- Pygmy Venom Web Spider
+  kill 539 quest 245 @10.6,55.4 map 1431 era -- Pygmy Venom Web Spider
   collect 1130 quest 101                  -- Vial of Spider Venom: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses
 
 step Abercrombie

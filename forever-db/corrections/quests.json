@@ -4836,6 +4836,52 @@
 		},
 		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
 	},
+	"92458": {
+		"set": {
+			"pre": [
+				92432
+			],
+			"preAny": [
+				92432
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1235, #1239: an Alliance Warlock at level 28 found the City of Dalaran quests that lead in through An Alarming Request need level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB: An Alarming Request (92432) is the breadcrumb that leads to Heart of Disruption"
+			}
+		],
+		"note": "Heart of Disruption (Alliance; Image of Archmage Modera, Silverpine Forest) comes after An Alarming Request (92432, level 30, Emissary Jacques in Hillsbrad), as the Horde's Heart of Disruption (96984) comes after Blood in the Streets (92434). Our data had the breadcrumb as optional and the quest open from 24, so the City of Dalaran pick-up guide sent level 28 characters to Modera for a quest she does not offer them. Safe either way: if only the level held it back, the guide still takes An Alarming Request at 30 on the way to her."
+	},
+	"96984": {
+		"set": {
+			"pre": [
+				92434
+			],
+			"preAny": [
+				92434
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1250: an Orc Hunter at level 28 by Image of Archmage Modera, her window without Heart of Disruption"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Modera's window left 96984 out for an Orc Warrior at 30 with Blood in the Streets (92434) still in the log, and both players who took 96984 had handed in 92434 to her first (2 people, 0 established)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 92434"
+			}
+		],
+		"note": "Heart of Disruption (Horde; Image of Archmage Modera, Silverpine Forest) is offered once Blood in the Streets (92434, level 30, from Hillsbrad) is handed in to her. Our data had Blood in the Streets as an optional breadcrumb and the quest open from 24, so the City of Dalaran pick-up guide sent level 28 characters to Modera for a quest she does not offer them."
+	},
 	"92514": {
 		"set": {
 			"objectives": [

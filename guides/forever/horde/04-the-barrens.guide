@@ -62,9 +62,9 @@ step Sun Rock Retreat
   accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
   accept 6282
   sethome "Sun Rock Retreat"
+  accept 6301                         -- Tammra Windfield
   accept 1087                         -- Braelyn Firehand, outside the gate
   getfp "Sun Rock Retreat"
-  accept 6301                         -- Tammra Windfield
   vendor nearest
 
 step Gaea Seeds

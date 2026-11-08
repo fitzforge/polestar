@@ -249,7 +249,7 @@ step Ghost Walker Post
 
 step Kodo Graveyard
   zone Desolace
-  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed, five times.
+  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time.
   goto 52.0,57.5 "Kodo Graveyard"
   complete 5561
 
