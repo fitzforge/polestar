@@ -220,6 +220,7 @@ step Silverpine Forest: kill these as you meet them
 step Beren's Peril
   zone Silverpine Forest
   tip In the ruins of Beren's Peril: The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  tip An elite spirit (20) often stands beside the Offering Stone: pull the Ravenclaws away from the stone before you fight them.
   accept 95884 item 271343            -- Note Scrap, from a Ravenclaw Guardian
   turnin 95884 @58.1,69.8             -- Offering Stone
   accept 95883                        -- the Offering Stone offers The Tortured Soul once the Note Scrap is in; below ground

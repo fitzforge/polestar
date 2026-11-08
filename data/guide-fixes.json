@@ -3902,6 +3902,24 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1317-berens-peril-pull-from-the-stone",
+			"faction": "Horde",
+			"at": {
+				"quest": 95883,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "An elite spirit (20) often stands beside the Offering Stone: pull the Ravenclaws away from the stone before you fight them.",
+			"note": "The Tortured Soul (95883): its Ravenclaws stand around the Offering Stone in Beren's Peril, where the elite Tortured Soul (212753, level 20) that The Offering of Blood summons is often already standing, summoned by another player; a fight at the stone can pull it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: the elite Tortured Soul (212753) seen 12 times and killed 9 times at the stone with no offering of the player's own in the 5 minutes before; 5 deaths of 3 people (levels 19-24) within 30 yd of the stone; the Tortured Soul item ticked for 12 people at 57.5,70.1"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

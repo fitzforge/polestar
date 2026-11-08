@@ -5234,6 +5234,15 @@ test(`${STONETALON}: thin-data audit: The Offering of Blood uses the Tortured So
 	assert.equal(list[kill].goal.oi, 3, 'on line 3');
 });
 
+// Thin-data audit (#1317): the Tortured Souls' Ravenclaws stand around the Offering Stone, where another player's
+// elite Tortured Soul (20) often waits (players' recordings: 9 kills of it with no offering of the player's own;
+// 5 deaths of 3 people at 19-24 by the stone).
+test(`${STONETALON}: thin-data audit: The Tortured Soul's step says to pull the Ravenclaws away from the stone (#1317)`, { skip }, () => {
+	const list = goals(STONETALON);
+	const { step } = list[at(list, 'collect 271350 (95883.1)', (g) => g.t === 'collect' && g.quest === 95883)];
+	assert.match([].concat(step.note || []).join(' '), /elite spirit \(20\).*pull the Ravenclaws away from the stone/);
+});
+
 // Final route review before 0.3.5, Horde 1-30: three walks back to a town between two pieces of work on one road
 // (Jorn in Camp Taurajo between his thunderhawks and the Field of Giants' eggs south of them; Tarren Mill between the
 // bears on the slope down to Hillsbrad Fields and the fields; the Sepulcher and the Decrepit Ferry, a boat the later
