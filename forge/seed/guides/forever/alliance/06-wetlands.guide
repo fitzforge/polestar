@@ -156,6 +156,7 @@ step Whelgar's Excavation Site
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
+  tip Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.
   collect 2658 quest 299                  -- Ados Fragment
   collect 2659 quest 299                  -- Modr Fragment
   collect 2660 quest 299                  -- Golm Fragment

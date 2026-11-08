@@ -3880,6 +3880,28 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1317-whelgar-dig-goaz-warders",
+			"faction": "Alliance",
+			"at": {
+				"quest": 299,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Goaz Warders (elite, 32) stand among the relics and the Loose Soil: pull them away one at a time, or work around them.",
+			"note": "Uncovering the Past (299): the Ancient Relics and the Loose Soil at Whelgar's Excavation Site (Wetlands 32-36,42-52) lie among the 21 Goaz Warders Forever added (33-37,46-53), elite at level 32, while the guide starts at 27; the step only mentioned them for the optional Titanic Keystone.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 270892 Goaz Warder: level 32, rank 1 (elite), 21 spawns at Wetlands 33-37,46-53; objects.json 331/333/334/35252 spawns at 32-36,42-52"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-08: Goaz Warders seen hostile by 3 people and as elite, at 33-36,51-52; the relics ticked by 4-5 people at 33-35,45-49"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

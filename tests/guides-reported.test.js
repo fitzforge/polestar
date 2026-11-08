@@ -1877,6 +1877,14 @@ test(`${WETLANDS}: thin-data audit: War Banners points at the Raiders' and Swamp
 	assert.ok(Math.hypot(goal.x - 45.5, goal.y - 44.7) < 1, `at the camp (${goal.x},${goal.y})`);
 });
 
+// Thin-data audit (#1317): Uncovering the Past's relics and Loose Soil lie among the elite Goaz Warders (32) Forever
+// added at Whelgar's dig; the step mentioned them only for the optional Titanic Keystone.
+test(`${WETLANDS}: thin-data audit: Uncovering the Past warns of the elite Goaz Warders among the relics (#1317)`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const { step } = list[at(list, 'collect 2661 (Loose Soil)', (g) => g.t === 'collect' && g.quest === 299 && g.item === 2661)];
+	assert.match([].concat(step.note || []).join(' '), /Goaz Warders \(elite, 32\)/);
+});
+
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
 // Forever (Forever's quest data: Dwarf, Night Elf, Gnome, Skyborne).
 
