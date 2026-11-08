@@ -1570,6 +1570,44 @@ fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_pri
 	assert!(out["points"].as_array().unwrap().iter().any(|p| p[0] == 300 && p[1] == 400), "from where the player now stands");
 }
 
+// #1053, #1023 (Thunder Bluff: beside Hamuul Runetotem on Elder Rise, beside Nara Wildmane): the player's walk into
+// the target was measured from far away, and within 400 yd of the target (MEASURE_NEAR) it is never measured again.
+// Until 0.3.5 that far measure less the yards moved stood for the player's walk there, so a winding walk measured
+// from another zone still counted thousands of yards beside the target: the route went to a place with a short
+// measured walk in (the lift top across the bridge, Mulgore below) and back, and from there back again. Within 400 yd
+// of the target the player's walk keeps the straight estimate, as for a target set that near.
+#[test]
+fn terrain_beside_a_target_measured_from_far_away_the_player_s_walk_is_straight_never_the_far_measure_less_the_yards_moved_1053() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		-- A winding walk of 5,000 yd from where the player was; the flight masters' as on the terrain.
+		fake.settle(fake.of(true)[1], function(x, y)
+			if at(x, y, 900, 900) then return 5000 end
+			return terrain(x, y)
+		end)
+		local cost = N.walk.Measured(0, 0, 0, false)
+		r.beside = cost(0, 0, 20, true) or false
+		nav.place(0, 20)
+		T.Replan()
+		local legs, ci = N.GetRoute()
+		r.legs = {}
+		for i = ci, #legs do r.legs[#r.legs + 1] = { legs[i].kind .. "|" .. legs[i].label, legs[i].yards, legs[i].engine or false } end
+		r.batches = #fake.of(true)
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["beside"], false, "20 yd from the target: no measure for the player's walk (was 5,000 less 1,259 moved): {out}");
+	assert_eq!(out["legs"], json!([["walk|Target", 25, false]]), "the walk in at its straight estimate (20 x 1.25), not the far measure's 3,741 yd: {out}");
+	assert_eq!(out["batches"], 1, "and nothing measured again that near: {out}");
+}
+
 // 0.3.5: the player alone walked away from where their walk was measured: only their walk is measured again (a batch
 // of one, from the target, reversed), the other places' measured walks kept. Until 0.3.4 each such replan near the
 // target ran the whole 16-place batch again: 20-70 MB of the router's garbage each time.

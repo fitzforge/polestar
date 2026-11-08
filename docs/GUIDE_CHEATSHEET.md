@@ -112,7 +112,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `talk <npc>` | Speak to an NPC | `talk 197` |
 | `train class` | Visit the nearest trainer of the player's class | `train class only Warrior,Mage` |
 | `train <npc>` | Visit that trainer | `train 911 only Warrior,Paladin` |
-| `vendor nearest` / `vendor <npc>` | Sell and repair, at the closest vendor or that one | `vendor nearest` |
+| `vendor nearest` / `vendor <npc>` | Sell and repair, at the closest vendor or that one; beside other goals it never holds the step, alone it waits for the merchant window (0.3.5) | `vendor nearest` |
 | `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step | `talk 197 gossip 1` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `buy 159 x5 nearest` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |

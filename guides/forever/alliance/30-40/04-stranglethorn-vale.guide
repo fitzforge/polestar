@@ -75,7 +75,6 @@ step Panthers, raptors and elder tigers
 step Rebel Camp
   tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
   accept 215                          -- Private Thorsen
-  accept 207                          -- Brother Nimetz
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200
   accept 203                          -- Sergeant Yohwa
@@ -107,6 +106,7 @@ step Rebel Camp
   turnin 203                          -- Sergeant Yohwa
   turnin 204
   accept 574                          -- Sergeant Yohwa
+  accept 207                          -- Brother Nimetz
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
