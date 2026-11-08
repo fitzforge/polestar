@@ -225,7 +225,10 @@ function paint()
 	local text, countdown = statusText(s)
 	F.Status:SetText(text)
 	local free = s.on and not s.asked and not s.hopGroup and not inGroup() and true or false
-	F.Hop:SetEnabled(free)
+	-- A waiting request whose channel line is not out yet (the join was still
+	-- pending) keeps Hop live: the next click sends its line.
+	local retry = s.on and s.asked and not s.asked.channel and not s.hopGroup and not inGroup()
+	F.Hop:SetEnabled((free or retry) and true or false)
 	F.Now:SetEnabled(s.on and s.transfer == "offered" and not inCombat() and true or false)
 	F.Leave:SetEnabled(s.hopGroup and true or false)
 	F.List:SetEnabled(s.on and true or false)

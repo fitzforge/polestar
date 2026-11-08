@@ -171,10 +171,10 @@ test('layer hop window: the status says how far the request reached; the empty l
 		F.Hop:Click()
 		local before = F.Status:GetText()
 		stub.whoAnswer()
-		emit({ none, before, F.Status:GetText() })
+		emit({ none, before, F.Status:GetText(), F.Hop:IsEnabled() })
 	`);
 	assert.deepEqual(out[0], ['No reports yet. Refresh list asks the hosts here.', 'Asked the channel: 120 s left.',
-		'Asked the channel and 2 players: 120 s left.']);
+		'Asked the channel and 2 players: 120 s left.', false]);
 	const unjoined = run(`
 		LH.Open()
 		local F = LH.view.frame
@@ -183,8 +183,8 @@ test('layer hop window: the status says how far the request reached; the empty l
 		F.Hop:Click()
 		local before = F.Status:GetText()
 		stub.whoAnswer()
-		emit({ before, F.Status:GetText(), Ly.Status().asked.channel })
+		emit({ before, F.Status:GetText(), Ly.Status().asked.channel, F.Hop:IsEnabled() })
 	`);
-	assert.deepEqual(unjoined[0], ['Asked for a hop: 120 s left.', 'Asked 2 players: 120 s left.', false],
-		'the channel line did not go out: only the players whispered');
+	assert.deepEqual(unjoined[0], ['Asked for a hop: 120 s left.', 'Asked 2 players: 120 s left.', false, true],
+		'the channel line did not go out: only the players whispered, and Hop stays live for the line');
 });

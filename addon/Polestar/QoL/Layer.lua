@@ -541,11 +541,12 @@ end
 -- Whether one of the game's who lists is open (the social frame's on
 -- retail-style clients, the group finder's on Forever): its answers stay
 -- routed to it.
+local function shown(f)
+	return type(f) == "table" and f.IsShown and f:IsShown() and true or false
+end
+
 local function whoListShown()
-	for _, f in ipairs({ LFGWhoListFrame, WhoFrame }) do
-		if type(f) == "table" and f.IsShown and f:IsShown() then return true end
-	end
-	return false
+	return shown(LFGWhoListFrame) or shown(WhoFrame)
 end
 
 -- Our /who is answered or given up: the frames that listen for its answer

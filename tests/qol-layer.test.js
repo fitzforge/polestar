@@ -132,12 +132,19 @@ test('layer hop: a request sends one channel line inside the call, whispers the 
 		emit({ #calls("SendWho") })
 		stub.whoAnswer()
 		emit({ lay.whoToUi })
+		LFGWhoListFrame, WhoFrame = nil, { IsShown = function() return true end }
+		stub.now = stub.now + 11
+		Ly.CancelRequest()
+		Ly.Request("*")
+		stub.whoAnswer()
+		emit({ #calls("SendWho"), lay.whoToUi })
 	`);
 	assert.deepEqual(replaced[0], [true, 1, true, 0], 'the /who stays out across a cancel and a new request');
 	assert.deepEqual(replaced[1], [[R('Who One'), R('Who Two')], false, 2], 'its answer serves the request live now');
 	assert.deepEqual(replaced[2], [2, false], 'an answer with no request live whispers nobody');
 	assert.deepEqual(replaced[3], [2]);
 	assert.deepEqual(replaced[4], [true], 'the game\'s open who list keeps its routing');
+	assert.deepEqual(replaced[5], [3, true], 'so does the social frame\'s, with the group finder\'s absent');
 	const group = run(`
 		lay.whoResults = { "Who One", "Who Two", "Who Three", "Who Four", "Who Five", "Who Six", "Who Seven" }
 		Ly.Request("*")
