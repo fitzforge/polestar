@@ -6585,3 +6585,18 @@ test('Horde Stranglethorn: the Grom\'gol landing, the tigers and the Venture Co.
 	assert.doesNotMatch(venture, /past Nesingwary/);
 	assert.match(venture, /Lake Nazferiti/);
 });
+
+// Final route review for 0.3.5 (Alliance Badlands 38-39): Lotwil's level 42 bracers were listed at his
+// hand-in with no word on where they drop (the Greater Rock Elementals, 42-44, in the south-west); a note
+// said Lotwil's next test needs crafted gear (that is Lucien's quest); and another said the skeleton's next
+// task, Murdaloc, waits for a later guide right under the accept of Murdaloc itself.
+test('Alliance Badlands: Lotwil\'s bracers, Lucien\'s crafted bracers and Murdaloc are described as they are', { skip }, () => {
+	const guide = 'forever/alliance/30-40/06-badlands.guide';
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 712 && f.faction === 'Alliance' && f.tip);
+	assert.ok(rec, 'the bracers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /^\s+accept 712\b/), [rec.tip]);
+	assert.match(rec.tip, /Greater Rock Elementals/);
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+	assert.doesNotMatch(text, /Lotwil's next test needs crafted gear/);
+	assert.doesNotMatch(text, /The skeleton's next task, Murdaloc/);
+});

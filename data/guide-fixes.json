@@ -3565,6 +3565,22 @@
 					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
 				}
 			]
+		},
+		{
+			"id": "alliance-badlands-lotwil-bracers-optional-greater-elementals",
+			"faction": "Alliance",
+			"at": {
+				"quest": 712,
+				"goal": "accept"
+			},
+			"tip": "Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.",
+			"note": "Final route review 0.3.5: the Alliance step at Lotwil (about 38.8) took Study of the Elements: Rock (712, level 42) and listed its bracers and hand-in with no word on where they drop. Only the Greater Rock Elementals (2736, 42-44) drop them, at x 1-17, y 74-90 of the Badlands; the Horde guide says so in its tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
+				}
+			]
 		}
 	]
 }
