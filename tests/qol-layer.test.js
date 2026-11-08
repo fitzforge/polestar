@@ -102,15 +102,15 @@ test('layer hop: a request sends one channel line inside the call, whispers the 
 		wait(1.05)
 		local second = #sent()
 		wait(1.05)
-		emit({ first, second, #sent(), Ly.Status().asked.reach, #lay.chat })
+		emit({ first, second, #sent(), Ly.Status().asked.reach, #lay.chat, lay.whoToUi })
 		Ly.CancelRequest()
 		local again = Ly.Request("*")
 		emit({ again, #calls("SendWho"), #lay.chat })
 	`);
 	const R = (n) => `1R1429:2:*@WHISPER>${n}`;
 	assert.deepEqual(out[0], [true, ['PLH1 R 1429:2:*@CHANNEL:5'], [R('Hostone')], ['z-"Durotar"', 1], true, 1, true]);
-	assert.deepEqual(out[1], [[R('Hostone'), R('Who One'), R('Who Two'), R('Who Three')], 9, 12, 11, 1],
-		'the throttled name ends the burst and goes first next second; itself, a known host, a repeat and a secret name are skipped');
+	assert.deepEqual(out[1], [[R('Hostone'), R('Who One'), R('Who Two'), R('Who Three')], 9, 12, 11, 1, false],
+		'the throttled name ends the burst and goes first next second; itself, a known host, a repeat and a secret name are skipped; the /who goes back to chat');
 	assert.deepEqual(out[2], [true, 1, 2], 'a /who within 10 s of the last is not sent');
 	const group = run(`
 		lay.whoResults = { "Who One", "Who Two", "Who Three", "Who Four", "Who Five", "Who Six", "Who Seven" }

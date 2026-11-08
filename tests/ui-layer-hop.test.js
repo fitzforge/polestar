@@ -157,7 +157,34 @@ test('layer hop window: rows follow Layer.Known, the buttons and checkboxes foll
 	], 'Layer 1', false]);
 	assert.deepEqual(out[2], [true, [true, false, true]]);
 	assert.equal(out[3][0], '1R1429:2:10');
-	assert.deepEqual(out[3].slice(1), [[false, false, false, true], false, 'Asked for a hop: 120 s left.']);
+	assert.deepEqual(out[3].slice(1), [[false, false, false, true], false, 'Asked the channel and 1 player: 120 s left.']);
 	assert.deepEqual(out[4], [[false, false, true, true], 'In the host\'s group, waiting for the offer.']);
 	assert.deepEqual(out[5], [[[false, true, true, true], 'World refresh in 1:30'], 'World refresh in 1:29']);
+});
+
+test('layer hop window: the status says how far the request reached; the empty list says Refresh list asks the hosts', () => {
+	const out = run(`
+		LH.Open()
+		local F = LH.view.frame
+		local none = F.None:GetText()
+		lay.whoResults = { "Who One", "Who Two" }
+		F.Hop:Click()
+		local before = F.Status:GetText()
+		stub.whoAnswer()
+		emit({ none, before, F.Status:GetText() })
+	`);
+	assert.deepEqual(out[0], ['No reports yet. Refresh list asks the hosts here.', 'Asked the channel: 120 s left.',
+		'Asked the channel and 2 players: 120 s left.']);
+	const unjoined = run(`
+		LH.Open()
+		local F = LH.view.frame
+		lay.channels, lay.joinPending = {}, true
+		lay.whoResults = { "Who One", "Who Two" }
+		F.Hop:Click()
+		local before = F.Status:GetText()
+		stub.whoAnswer()
+		emit({ before, F.Status:GetText(), Ly.Status().asked.channel })
+	`);
+	assert.deepEqual(unjoined[0], ['Asked for a hop: 120 s left.', 'Asked 2 players: 120 s left.', false],
+		'the channel line did not go out: only the players whispered');
 });

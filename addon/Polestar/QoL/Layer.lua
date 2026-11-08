@@ -41,7 +41,7 @@
 -- SendChatMessage, ChatFrame_AddMessageEventFilter (ChatFrameUtil when it has
 -- it), C_ChatInfo.SendAddonMessage, RegisterAddonMessagePrefix and
 -- InChatMessagingLockdown, C_FriendList.SendWho, SetWhoToUi, GetNumWhoResults
--- and GetWhoInfo, GetRealZoneText, EnumerateFrames, C_PartyInfo.InviteUnit and
+-- and GetWhoInfo, WhoFrame, GetRealZoneText, EnumerateFrames, C_PartyInfo.InviteUnit and
 -- LeaveParty, C_NamePlate.GetNamePlates (Forever's API documentation); the
 -- SHARD_TRANSFER_IMMEDIATE dialog (GameDialogDefs.lua).
 
@@ -538,13 +538,19 @@ local function burst(a)
 end
 
 -- Our /who is answered or given up: the frames that listen for its answer
--- get it again, ours no longer does.
+-- get it again, ours no longer does, and the game's /who answers go back to
+-- chat (SetWhoToUi) unless its who list is open.
 local function release()
+	local out = whoOut
 	whoOut = nil
 	if whoFrame then whoFrame:UnregisterEvent("WHO_LIST_UPDATE") end
 	for f in pairs(muted) do
 		pcall(f.RegisterEvent, f, "WHO_LIST_UPDATE")
 		muted[f] = nil
+	end
+	if out and C_FriendList and C_FriendList.SetWhoToUi
+		and not (type(WhoFrame) == "table" and WhoFrame.IsShown and WhoFrame:IsShown()) then
+		pcall(C_FriendList.SetWhoToUi, false)
 	end
 end
 

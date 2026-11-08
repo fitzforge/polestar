@@ -275,7 +275,7 @@ local function layerOff() return not QoL.On("layerHop") end
 
 register(QOL, L["Layers"], L["Layer hop"], {
 	{ kind = "toggle", key = "qol.layerHop", label = L["Layer hop"],
-		help = L["Shows which layer of the zone you are on and asks Polestar players on another layer for a group invite, which moves you to their layer when the game refreshes your world. While on, Polestar joins a hidden chat channel and exchanges addon messages with other Polestar players in your guild and on that channel: your layer, your map and hop requests. Open the window with /polestar layer."],
+		help = L["Shows which layer of the zone you are on and asks Polestar players on another layer for a group invite, which moves you to their layer when the game refreshes your world. Requests go out as a line on a hidden Polestar channel and as hidden whispers to players in your zone; hosts answer with an invite. Open the window with /polestar layer."],
 		search = "layer, layers, hop, layer hop, shard, phase, world refresh, invite" },
 	{ kind = "button", button = L["Open"], label = L["Layer hop window"], disabled = layerOff,
 		help = L["Your layer, the hop in progress and the layers other Polestar players reported in your zone. Drag it by its top, resize it by its corner."],

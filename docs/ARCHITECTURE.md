@@ -4702,14 +4702,17 @@ Polestar.QoL.Layer.Expects(name) -> bool  -- an invite a waiting request expects
 - **Layer id.** Field `LAYER_FIELD` (5) of a creature or vehicle GUID, the
   one constant to change should Forever vary another field
   (`/polestar layer debug` prints them all).
-- **Messages.** Prefix `PolestarLayer`, in the guild and on the hidden
-  custom channel `PolestarLayer`, never party, raid or instance chat, and
-  nothing during a chat lockdown. Version 1: `1H<map>:<layer>:<host>`
-  presence, `1Q<map>` ask for presence, `1R<map>:<layer>:<want>` a hop
-  request (`want` an id or `*`), `1I<name>` a host's claim (other hosts
-  stand down for that name). Own echo, other realms, secret values, other
-  versions, messages over 120 bytes and more than one per sender per 2 s
-  are dropped.
+- **Messages.** Live Forever refuses addon messages on every channel and
+  lets plain channel text out only inside a click or keypress, so `Request`
+  and `Ask` send a plain line (`PLH1 R <map>:<from>:<want>`, `PLH1 Q <map>`)
+  on the hidden custom channel `PolestarLayer` synchronously inside the click
+  or typed command that calls them, and everything else goes as addon
+  whispers (prefix `PolestarLayer`, version 1): `1R<map>:<from>:<want>` to the
+  hosts heard on the map and to up to 30 names of a zone `/who`, five a
+  second; `1H<map>:<layer>:<host>` answering a `Q`; `1I<name>`, a host's
+  claim right before its invite. No guild, no presence beacon, nothing during
+  a chat lockdown; own echo, other realms, secret values, other versions,
+  messages over 120 bytes and more than four per sender per 2 s are dropped.
 - **World refresh.** `SHARD_TRANSFER_IMMINENT` offers it;
   `RefreshNow` calls `C_PlayerInteractionManager.ShardTransferConfirm()`
   out of combat, with Blizzard's `SHARD_TRANSFER_IMMEDIATE` dialog as the

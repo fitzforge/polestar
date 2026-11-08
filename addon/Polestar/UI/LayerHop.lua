@@ -145,8 +145,17 @@ local function statusText(s)
 	elseif s.hopGroup then
 		return L["In the host's group, waiting for the offer."], false
 	elseif s.asked then
-		local left = max(0, PENDING - (GetTime() - (s.asked.at or 0)))
-		return format(L["Asked for a hop: %d s left."], floor(left + 0.5)), true
+		local left = floor(max(0, PENDING - (GetTime() - (s.asked.at or 0))) + 0.5)
+		local reach = s.asked.reach or 0
+		if s.asked.channel and reach > 0 then
+			return format(reach == 1 and L["Asked the channel and %d player: %d s left."]
+				or L["Asked the channel and %d players: %d s left."], reach, left), true
+		elseif reach > 0 then
+			return format(reach == 1 and L["Asked %d player: %d s left."] or L["Asked %d players: %d s left."], reach, left), true
+		elseif s.asked.channel then
+			return format(L["Asked the channel: %d s left."], left), true
+		end
+		return format(L["Asked for a hop: %d s left."], left), true
 	end
 	return L["No hop in progress."], false
 end
@@ -158,6 +167,7 @@ local function newRow(i)
 	r:SetHeight(ROW_H)
 	r:SetPoint("TOPLEFT", F.Scroll.Child, "TOPLEFT", 0, -(i - 1) * ROW_H)
 	r:SetPoint("TOPRIGHT", F.Scroll.Child, "TOPRIGHT", 0, -(i - 1) * ROW_H)
+	-- The request goes out inside this click (a hardware event), never deferred.
 	r.Ask = W.Button(r, L["Ask"], function()
 		local Ly = layer()
 		if Ly and r.psId then act(Ly.Request(r.psId)) end
@@ -315,9 +325,11 @@ local function build()
 		local Ly = layer()
 		if Ly then act(Ly[name](...)) end
 	end
+	-- The request goes out inside this click (a hardware event), never deferred.
 	F.Hop = W.Button(F, L["Hop to another layer"], function() call("Request", "*") end, { primary = true, height = BUTTON_H })
 	F.Now = W.Button(F, L["Refresh now"], function() call("RefreshNow") end, { height = BUTTON_H })
 	F.Leave = W.Button(F, L["Leave group"], function() call("LeaveGroup") end, { height = BUTTON_H })
+	-- The ask goes out inside this click (a hardware event), never deferred.
 	F.List = W.Button(F, L["Refresh list"], function() call("Ask") end, { height = BUTTON_H })
 	F.Hop:SetPoint("TOPLEFT", F.Status, "BOTTOMLEFT", 0, -10)
 	F.Now:SetPoint("LEFT", F.Hop, "RIGHT", GAP, 0)
@@ -337,7 +349,7 @@ local function build()
 	F.None:SetPoint("RIGHT", F, "RIGHT", -PAD, 0)
 	F.None:SetJustifyH("LEFT")
 	F.None:SetWordWrap(true)
-	F.None:SetText(L["No layers seen yet: target or mouse over a creature, or press Refresh list."])
+	F.None:SetText(L["No reports yet. Refresh list asks the hosts here."])
 
 	-- The grip: drag to resize (UI/GearScales.lua's). The window is re-anchored
 	-- by its top-left corner first, so the corner opposite the grip stays put.
