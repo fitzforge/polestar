@@ -5564,5 +5564,29 @@
 			}
 		],
 		"note": "James Halloran offers Crimson Crate Delivery only after his Crocs of the Sky (98072), the last of his three favours (484, 471, 98072). Our data had no prerequisite, so the route took it on the first Menethil stop."
+	},
+	"95748": {
+		"set": {
+			"start": {
+				"npc": [
+					2519
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					2519
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "start npc 2519, end npc 2519"
+			}
+		],
+		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
 	}
 }
