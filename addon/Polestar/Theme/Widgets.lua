@@ -2247,6 +2247,26 @@ function W.SetStageChip(c)
 	return W.SetChip(c, string.upper(L[ns.stage]), "warning")
 end
 
+-- The version line and its stage chip, kept inside the sidebar and clear of
+-- the Discord mark at its end (UI/Report.lua, R.SidebarLink): "Version
+-- 0.3.5", the number alone when that is too long (a preview's
+-- "0.3.5-preview.2f100bfb3"), cut at the room left when even that is.
+function W.ShellStatus(f)
+	local status = f.Status
+	local room = (f.psSidebar or SHELL.sidebar) - SHELL.side * 2
+	local mark = rawget(f, "Discord")
+	if mark and mark:IsShown() then
+		local _, _, _, x = mark:GetPoint(1)
+		room = (f.psSidebar or SHELL.sidebar) - SHELL.side + (x or 0) - mark:GetWidth() - 4
+	end
+	local chip = W.SetStageChip(f.Stage)
+	if chip > 0 then room = room - chip - 8 end
+	status:SetWidth(0)
+	local text = statusText()
+	if textWidth(status, text) > room then text = tostring(ns.version or "dev") end
+	if textWidth(status, text) > room then status:SetWidth(math.max(room, 1)) end
+end
+
 -- Navigation rows in the sidebar, on the nav scroll area's child.
 local NAV_ROW = 36
 local function navButton(f, i)
@@ -2877,17 +2897,24 @@ function W.Shell(name, opts)
 	W.ShellTabs(f, nil)
 
 	if opts.scalePath then
-		local function applyScale() f:SetScale(ns.Get(opts.scalePath) or 1) end
+		local function applyScale()
+			f:SetScale(ns.Get(opts.scalePath) or 1)
+			if f:IsShown() then Theme.RetextLater(f) end
+		end
 		applyScale()
 		ns.On("SETTING_CHANGED", function(path)
 			if path == opts.scalePath or path == "" or path == "ui" then applyScale() end
 		end)
 	end
+	-- Every string the window shows is set again a frame later
+	-- (Theme.RetextLater): on a fresh start some drew blank.
 	f:HookScript("OnShow", function(self)
-		self.Status:SetText(statusText())
-		W.SetStageChip(self.Stage)
+		W.ShellStatus(self)
+		Theme.RetextLater(self)
 		Anim.To(self, "alpha", 0, 1, Anim.FAST, "out")
 	end)
+	-- Another font measures the version line anew.
+	W.OnFontChanged(function() if f:IsShown() then W.ShellStatus(f) end end)
 	f:HookScript("OnHide", function() W.HideMenu() end)
 	ns.CloseOnEscape(name)
 	return f

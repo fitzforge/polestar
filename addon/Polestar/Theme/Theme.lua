@@ -1696,6 +1696,35 @@ function Theme.Refresh()
 	end
 end
 
+-- A window's strings, set again a frame after it shows or changes scale. On a
+-- fresh client start (never after /reload) Forever drew some of a window's
+-- first strings blank, in a font another addon handed over too (the hub's
+-- rail labels and a guide's faction chip in EllesmereUI's font), and kept
+-- them blank: setting the same text again changes nothing, so only new text
+-- brought them back. The set in a later frame does (as the hand-over's above).
+local retextFrames = {}
+local function within(region, frame)
+	local p = region:GetParent()
+	while p do
+		if p == frame then return true end
+		p = p:GetParent()
+	end
+	return false
+end
+function Theme.RetextLater(frame)
+	if type(frame) ~= "table" or not (C_Timer and C_Timer.After) then return end
+	if retextFrames[frame] then return end
+	retextFrames[frame] = true
+	ns.After(0, function()
+		retextFrames[frame] = nil
+		if not frame:IsVisible() then return end
+		for fs in pairs(fonted) do
+			-- Font strings only: an edit box's text set again would run its search.
+			if fs:GetObjectType() == "FontString" and fs:IsVisible() and within(fs, frame) then textAgain(fs) end
+		end
+	end)
+end
+
 local LOOKS = {
 	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
 	["ui.brightness"] = true, ["ui.matchAccent"] = true, ["ui.classAccent"] = true, ["ui.matchFont"] = true,
