@@ -6451,3 +6451,16 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	const t58 = sil.findIndex(({ goal }) => goal.t === 'level' && goal.level === 58);
 	assert.ok(t58 >= 0 && t58 < at(sil, 'accept 8304', is('accept', 8304)), 'a top-up to 58 before Dearest Natalia');
 });
+
+// --- Alliance quest volume, flow follow-up (2026-11-08): the stops the added quests cost are folded
+// into walks the route makes anyway (the release audit's flow findings on the quest-volume batch).
+test('Alliance quest volume follow-up: the added quests ride on walks the route already makes', { skip }, () => {
+	const first = (list, pred) => list.findIndex(({ goal }) => pred(goal));
+	const tel = goals('forever/alliance/nightelf/01-teldrassil.guide');
+	assert.ok(first(tel, is('turnin', 490)) < first(tel, is('accept', 937)), 'Teldrassil: the fang bounty is handed to Shayla on the way to the Oracle Glade');
+	assert.ok(first(tel, is('accept', 931)) < first(tel, (g) => g.t === 'collect' && g.quest === 2518), 'Teldrassil: the Strange Fronded Plant is taken on the walk north to Lady Sathrah');
+	const owl = first(tel, (g) => g.t === 'use' && g.quest === 98067 && g.oi === 1);
+	assert.ok(owl > first(tel, is('accept', 98046)) && owl < first(tel, is('turnin', 923)), 'Darnassus: the tunnel-mouth owl is placed on the walk south from the Enclave');
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	assert.ok(first(wet, is('turnin', 469)) > first(wet, is('accept', 465)), 'Wetlands: Halloran after Stoutfist');
+});

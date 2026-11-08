@@ -295,8 +295,12 @@ step Dolanaar
   tip The road west to the Oracle Glade runs through Dolanaar: hand Tallonkai the jewel on the way.
   turnin 2459                                 -- Tallonkai Swiftroot, upstairs
 
+step Sentinel Shayla Nightbreeze
+  tip West along the road from Dolanaar: Shayla still stands beside it, before the turn north to the glade.
+  turnin 490
+
 step The Wellspring River
-  tip West from Dolanaar the road crosses the Wellspring River below the glade: the timberlings along it drop the Mossy Tumors.
+  tip North from the road the path to the glade crosses the Wellspring River: the timberlings along it drop the Mossy Tumors.
   collect 5170 quest 923.1                    -- Mossy Tumor: timberlings
 
 step The Oracle Glade
@@ -329,11 +333,9 @@ step The named harpies
   collect 280834 quest 98392.3                -- Witchmother Arysa's Amulet
 
 step Lady Sathrah
-  tip North of Witchmother Arysa, along the island's northern edge by Wellspring Lake: Lady Sathrah, a level 12 spider, lurks there.
-  collect 8344 quest 2518.1                   -- Silvery Spinnerets: Lady Sathrah
-
-step The Oracle Glade
+  tip The Strange Fronded Plant grows at the glade's north end, on the way: then north of Witchmother Arysa, along the island's northern edge by Wellspring Lake, Lady Sathrah, a level 12 spider, lurks.
   accept 931                                  -- Strange Fronded Plant
+  collect 8344 quest 2518.1                   -- Silvery Spinnerets: Lady Sathrah
 
 step Sentinel Arynia again
   turnin 98392
@@ -391,10 +393,6 @@ step Sentinel Eralya Leafshadow
   tip Take the road north-west from Dolanaar again; she still lies beside it, on the way to Darnassus.
   turnin 99073
 
-step Sentinel Shayla Nightbreeze
-  tip On to the city gate: Shayla still stands beside the road.
-  turnin 490
-
 step Into Darnassus
   only Warrior
   zone Darnassus
@@ -437,11 +435,11 @@ step Darnassus
 
 step Cenarion Enclave
   zone Darnassus
-  use 279378 quest 98067.1 @33.39,16.77       -- the tunnel mouth below Cenarion Hold
   accept 98046
   turnin 6103 only Hunter                     -- Jocaste, in the Cenarion Enclave: Beast Training
   turnin 5925 only Druid                      -- Mathrengyl Bearwalker, in the Cenarion Enclave
   accept 5921 only Druid
+  use 279378 quest 98067.1 @33.39,16.77       -- the tunnel mouth below Cenarion Hold, on the way south
   turnin 923                                  -- Rellian Greenspyre
   turnin 98046                                -- Lariia, in the Temple of the Moon
   accept 98065
