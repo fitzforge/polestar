@@ -31,10 +31,12 @@ next forever/alliance/06-wetlands
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
-#   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
-#   Darkshire, next to Viktori: handed in on the first visit, and its second
-#   part (175) handed to Blind Mary on her visit; the Insane Ghoul (177, level
-#   26) waits for the Duskwood return (07-thousand-needles).
+#   machines in Stonetalon (a 1-2% drop). The tube comes from the Stormwind
+#   Auction House on 04-redridge-mountains' Stormwind stop (Herble Baubbletump,
+#   next to Viktori, keeps one and is nearly always sold out, #1348): handed in
+#   on the first Darkshire visit, and its second part (175) handed to Blind
+#   Mary on her visit; the Insane Ghoul (177, level 26) waits for the Duskwood
+#   return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
 # - Hearthstone: none here. The second loop ends at Sven's camp in the west,
@@ -56,9 +58,9 @@ next forever/alliance/06-wetlands
 # (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
 # over the Westfall border from Raven Hill, and Mathias Shaw is in Stormwind
 # on the way to the boat. Optional for Rogues there: The Touch of Zanzil
-# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers, a Leaded
-# Vial and a Bronze Tube from Stormwind vendors, the thread in the city),
-# 1,305 XP without leaving Stormwind.
+# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers and a Leaded
+# Vial from Stormwind vendors, a Bronze Tube from the Auction House, the thread
+# in the city), 1,305 XP without leaving Stormwind.
 # Human Paladins hand the Defias Script (1787, from Henze Faulk in
 # 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
 # Redemption from Duthorian Rall (1788).
@@ -196,7 +198,7 @@ step Master Mathias Shaw
   accept 2609 optional
   buy 3421 x1 npc 1302 optional               -- Simple Wildflowers: Bernard Gump
   buy 3372 x1 npc 1313 optional               -- Leaded Vial: Maria Lumere, Alchemy Supplies
-  buy 4371 x1 npc 5519 optional               -- Bronze Tube: Billibub Cogspinner, Dwarven District
+  collect 4371 x1 @61.2,71.3 map 1453 live optional -- Bronze Tube: the Auction House, Trade District; Billibub Cogspinner keeps one and is nearly always sold out
   collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 

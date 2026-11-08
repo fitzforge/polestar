@@ -72,6 +72,12 @@ next forever/alliance/05-duskwood
 # - Lakeshire on arrival: Oslow, Marris, Conacher, the docks (Baren, Wiley),
 #   then Breanna and Martie at the west end, one sweep instead of crossing
 #   town twice.
+# - The Bronze Tube for Look to the Stars (174): every vendor keeps one or two,
+#   and in players' recordings Herble Baubbletump in Darkshire never had one
+#   (30 merchant windows, 19 people), nor Billibub Cogspinner in Stormwind (20,
+#   14). No recorded player bought it from a vendor; four of the eleven whose
+#   tube we can place got it at the Stormwind Auction House. So the Stormwind
+#   stop buys it there (optional), and Herble's buy stays optional (#1348).
 #
 # Class quests at the Stormwind stop (about level 23, at the end of 06-ashenvale since 2026-11-07): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks
@@ -104,8 +110,10 @@ next forever/alliance/05-duskwood
 step Stormwind
   zone Stormwind City
   tip Train, then leave by the main gate and follow the road east through Elwynn Forest.
+  tip Look to the Stars in Darkshire needs a Bronze Tube. Its vendors keep only one or two, and Herble Baubbletump in Darkshire is nearly always sold out: buy one at the Auction House in the Trade District on your way out. An engineer can make one too.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 18 and 20 spells
   vendor nearest optional
+  collect 4371 x1 @61.2,71.3 map 1453 live optional -- Bronze Tube: the Auction House, for Look to the Stars in Darkshire
 
 step Woo Ping
   only Warrior
@@ -184,7 +192,7 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
+  tip No Bronze Tube for Look to the Stars? Herble Baubbletump, in the house beside Viktori, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.
   getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
   accept 101                              -- Madame Eva, in her house by the tavern; inside
   accept 66                               -- Madame Eva, inside
