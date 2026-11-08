@@ -91,11 +91,21 @@ step Far Watch Post
   turnin 1505 only Warrior            -- Uzzek
   accept 1498 only Warrior
 
+step Durotar
+  only Orc,Troll,Warrior
+  zone Durotar
+  goto 39.7,29.2 "Durotar"
+
 step Thunder lizards across the river
   only Orc,Troll,Warrior
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge across the bridge; any of them can drop a Singed Scale.
   collect 6486 quest 1498.1
+
+step The Barrens
+  only Orc,Troll,Warrior
+  zone The Barrens
+  goto 61.4,21.1 "The Barrens"
 
 step Uzzek
   only Orc,Troll,Warrior
@@ -160,6 +170,11 @@ step Telf Joolam
   collect 6655 quest 1526.1
   turnin 1526
   accept 1527
+
+step The Barrens
+  only Orc,Troll,Shaman
+  zone The Barrens
+  goto 61.4,21.1 "The Barrens"
 
 step Kranal Fiss
   only Orc,Troll,Shaman
@@ -1120,6 +1135,10 @@ step Makaba Flathoof
   tip Back down to Makaba.
   turnin 6548
   accept 6629                         -- Grundig Darkcloud waits up the Webwinder Path
+
+step Stonetalon Mountains
+  zone Stonetalon Mountains
+  goto 73.3,95.1 "Stonetalon Mountains"
 
 step Malaka'jin
   zone Stonetalon Mountains

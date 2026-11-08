@@ -163,7 +163,7 @@ step Deathstalker Masoj
 step The Sepulcher
   zone Silverpine Forest
   tip Walk back up to Tarren Mill and fly to the Sepulcher: Shadow Priest Allister stands by the crypt entrance.
-  goto 60.21,18.75 "Tarren Mill flight master"
+  goto 60.21,18.75 map 1424 "Tarren Mill flight master"
   fly "The Sepulcher"
   turnin 516                          -- Shadow Priest Allister
   turnin 95981                        -- Shadow Priest Allister
