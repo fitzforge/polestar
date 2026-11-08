@@ -771,6 +771,49 @@ fn fonts_a_chinese_or_korean_name_takes_the_client_s_font_for_its_script_and_bac
 	assert_eq!(out["welcome"], "Fonts\\ARKai_T.ttf", "the welcome page's greeting");
 }
 
+// The Guiding Stars page (UI/Thanks.lua) names a translator credited as 山猫 (data/credits.json maps the login
+// YamanNekon to it): on every client the name is drawn in a font that has its glyphs, the client's own on a
+// Chinese client, the game's Chinese font everywhere else (#353's script fallback), both on a podium and in a
+// mixed line of Latin and Cyrillic names.
+#[test]
+fn guiding_stars_a_chinese_contributor_name_is_drawn_in_a_chinese_font_on_every_client() {
+	let faces = |locale: &str| {
+		run_with(
+			r#"
+			Polestar.Credits = { supporters = { "Xaden Ryan" }, contributors = {
+				{ name = "山猫", prs = 3 }, { name = "CDVolvik", prs = 2 }, { name = "Пётр", prs = 1 } } }
+			Polestar.UI.ShowOptions("thanks")
+			local out = {}
+			for _, f in ipairs(stub.frames) do
+				for _, r in ipairs(f.regions) do
+					local t = r.GetText and r:GetText()
+					if type(t) == "string" and t:find("山猫", 1, true) and r:IsVisible() then
+						out[#out + 1] = { text = t, font = (r:GetFont()) }
+					end
+				end
+			end
+			emit(out)"#,
+			&format!("function GetLocale() return \"{locale}\" end"),
+		)
+	};
+	for locale in ["enUS", "deDE", "frFR", "esES", "ptBR", "ruRU", "koKR"] {
+		let out = faces(locale);
+		let drawn = out.as_array().unwrap();
+		assert!(!drawn.is_empty(), "{locale}: the name is on the page");
+		for d in drawn {
+			assert_eq!(d["font"], "Fonts\\ARKai_T.ttf", "{locale}: {}", d["text"]);
+		}
+	}
+	for locale in ["zhCN", "zhTW"] {
+		let out = faces(locale);
+		let drawn = out.as_array().unwrap();
+		assert!(!drawn.is_empty(), "{locale}: the name is on the page");
+		for d in drawn {
+			assert!(!is_match(text(&d["font"]), r"Polestar\\Media\\Fonts"), "{locale}: the client's own font, not a bundled Latin face: {}", d["font"]);
+		}
+	}
+}
+
 // The game's looks (Theme/GameSkins.lua): each draws its own art source, and a window taken through all three
 // comes back to the house style as it was.
 #[test]

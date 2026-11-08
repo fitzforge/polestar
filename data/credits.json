@@ -36,5 +36,7 @@
 	"exclude": [
 		"fitzforge"
 	],
-	"names": {}
+	"names": {
+		"YamanNekon": "山猫"
+	}
 }
