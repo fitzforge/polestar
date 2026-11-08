@@ -1,6 +1,7 @@
 -- Mirrors the target to other navigation systems:
 --   TomTom (nav.tomtom): one waypoint, replaced whenever the target changes;
---     nav.useTomTomArrow hands the arrow over to TomTom's.
+--     nav.useTomTomArrow hands the arrow over to TomTom's, on the target's
+--     continent (Nav.TomTomArrowGuides).
 --   Blizzard's user waypoint (nav.blizzardWaypoint, off by default):
 --     C_Map.SetUserWaypoint plus C_SuperTrack, cleared only if we set it.
 --     With Waypoint UI loaded (its public WaypointUIAPI.Navigation), which
@@ -62,6 +63,20 @@ end
 
 function Nav.UsingTomTomArrow()
 	return ns.Get("nav.tomtom") and ns.Get("nav.useTomTomArrow") and tomtom() ~= nil or false
+end
+
+-- TomTom's arrow measures nothing to a waypoint on another continent and
+-- hides itself there (#1325: Durotar to Loch Modan showed no arrow at all).
+-- So it guides only while the player stands on the target's continent;
+-- elsewhere Polestar's own arrow and its route (a zeppelin, a boat) do. An
+-- unknown position or target stays TomTom's. Allocation-free (the arrow asks
+-- every sample).
+function Nav.TomTomArrowGuides()
+	if not Nav.UsingTomTomArrow() then return false end
+	local tc = Nav.GetTargetWorld()
+	local C = ns.Compat
+	local pc = C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition()
+	return tc == nil or pc == nil or tc == pc
 end
 
 local function syncTomTom(target)

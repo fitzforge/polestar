@@ -1096,6 +1096,39 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 	assert_eq!(out["arrowAfter"], true, "ours returns when the bridge is off");
 }
 
+// #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
+// with "Use TomTom's arrow" a goal across the sea showed no arrow at all. Polestar's own arrow guides until the
+// player reaches the goal's continent, then gives way to TomTom's; the mirror keeps TomTom's arrow on it.
+#[test]
+fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_arriving_1325() {
+	let out = run(r#"
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		local out = {}
+		N.SetTarget(9001, 50, 50, "Farland goal") -- the player stands on continent 0
+		out.away, out.guides = A.frame:IsShown(), N.TomTomArrowGuides()
+		out.crazy = TomTom.calls[#TomTom.calls].crazy
+		nav.place(0, 0, 1) -- landed on the goal's continent
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.arrived, out.guidesThere = A.frame:IsShown(), N.TomTomArrowGuides()
+		nav.place(0, 0, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		out.back = A.frame:IsShown()
+		target(100, 0, "Near goal")
+		out.near = A.frame:IsShown()
+		Polestar.Set("nav.useTomTomArrow", false)
+		out.off = N.TomTomArrowGuides()
+		emit(out)"#);
+	assert_eq!(out["away"], true, "Polestar's arrow guides to another continent");
+	assert_eq!(out["guides"], false);
+	assert_eq!(out["crazy"], true, "TomTom's arrow still holds the mirrored goal");
+	assert_eq!(out["arrived"], false, "on the goal's continent TomTom's arrow takes over");
+	assert_eq!(out["guidesThere"], true);
+	assert_eq!(out["back"], true, "leaving the continent brings Polestar's arrow back");
+	assert_eq!(out["near"], false, "a goal on the player's continent is TomTom's");
+	assert_eq!(out["off"], false);
+}
+
 // Waypoint UI's public API (WaypointUIAPI.Navigation) and the game's quest tracking, recording
 // what Polestar asks of them. `log` = quests in the quest log.
 const WAYPOINT_UI: &str = r#"

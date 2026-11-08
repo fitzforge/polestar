@@ -2372,6 +2372,13 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   `ClearWaypoint` alone). Waypoints TomTom restores at login are followed one
   frame after `PLAYER_ENTERING_WORLD`, the one its arrow was left on, unless
   something is picked already. A followed waypoint is not mirrored back.
+- **TomTom's arrow** (`nav.useTomTomArrow`, off; real TomTom with
+  `nav.tomtom`): `Nav/Bridges.lua` mirrors the target with `crazy` and
+  Polestar's arrow hides while `Nav.TomTomArrowGuides()`: the player and the
+  target on one continent, or either unknown. TomTom's arrow measures no
+  distance to a waypoint on another continent and hides itself there, so on
+  the way to one Polestar's own arrow and its route guide (#1325), and give
+  way to TomTom's on arriving (`ZONE_CHANGED_NEW_AREA`, `Nav.Refresh`).
 - **`/way`** (with `nav.answerTomTom`): claimed at login (`SLASH_POLESTARWAY1`)
   only when TomTom is not loaded and no `SLASH_*` global spells `/way`.
   `/way [#mapID | zone] x y [title]`: the zone is any name under the player's

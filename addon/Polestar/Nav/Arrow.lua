@@ -454,9 +454,10 @@ local function applyStyle(new)
 	tint(tintR, tintG, tintB)
 end
 
--- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua).
+-- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua),
+-- TomTom's while it is used and can point at the target (Nav.TomTomArrowGuides).
 local function shouldShow()
-	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.UsingTomTomArrow() and not Nav.HandedOff()
+	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.TomTomArrowGuides() and not Nav.HandedOff()
 end
 
 local function showSeconds(secs)
