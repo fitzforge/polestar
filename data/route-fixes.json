@@ -8198,6 +8198,29 @@
 				"q": 580,
 				"reason": "Quest volume, Horde 40-60 (0.3.7): Whiskey Slim's Lost Grog (level 50, from 40, 4700 XP). Whiskey Slim sits in the Booty Bay inn, where 40-50/01 binds; his twelve bottles of Pupellyverbos Port (object 2068, 24 spawns, all on the Hinterlands' east coast between Revantusk Village and the Overlook Cliffs, Forever's object data) lie on the beaches 40-50/05 works for Katoom's turtles; Whiskey Slim takes them on 40-50/06's Booty Bay stop at about 50. One accept, no extra trip.",
 				"issue": "-"
+			},
+			{
+				"q": 5083,
+				"reason": "Quest volume, Horde 50-60 (0.3.7): Winterfall Firewater (level 56, 2900 XP) starts from the Empty Firewater Flask, which every Winterfall furbolg drops one time in ten (Forever's loot data: 10% from Ursa, Shaman, Den Watcher, Totemic, Pathfinder and Runner; the server's loot table: the same 10%). 50-60/03 kills 24 of them for Threat of the Winterfall alone and 24 more for Winterfall Activity, so the flask comes with work the route does; Donova Snowden takes it on the next stop.",
+				"issue": "-"
+			},
+			{
+				"q": 5084,
+				"after": [
+					"turnin",
+					5083
+				],
+				"reason": "Quest volume, Horde 50-60 (0.3.7): Falling to Corruption (level 56, 4350 XP), Donova's follow-up, handed in at the Deadwood Cauldron in Felpaw Village, which 50-60/05 passes on the road from Bloodvenom Post to Timbermaw Hold.",
+				"issue": "-"
+			},
+			{
+				"q": 5085,
+				"after": [
+					"turnin",
+					5084
+				],
+				"reason": "Quest volume, Horde 50-60 (0.3.7): Mystery Goo (level 56, 4350 XP) from the Deadwood Cauldron back to Donova Snowden, whom 50-60/05 visits in Winterspring after the tunnel.",
+				"issue": "-"
 			}
 		],
 		"skip": [

@@ -59,8 +59,10 @@ step Winterspring
 #   and a hearth.
 #   Winterfall Activity (6241): no longer in the game; 8464, which the
 #   route takes, replaced it.
-# - Optional: Winterfall Firewater (5083) and Falling to Corruption (5084):
-#   the Empty Firewater Flask drops one kill in ten. Winterfall Ritual Totem
+# - Winterfall Firewater (5083) and Falling to Corruption (5084) are taken
+#   (0.3.7): the Empty Firewater Flask drops from one Winterfall kill in ten
+#   (Forever's loot data and the server's loot table agree), and the hot
+#   springs alone take 24 of them. Optional: Winterfall Ritual Totem
 #   (8471): the totem drops at 2-4%, and Kernda in Timbermaw Hold speaks
 #   only to characters at Neutral, which the route does not reach.
 # - Not taken: Guarding Secrets (4882, 4883, to Nara Wildmane here). The
@@ -134,15 +136,15 @@ step Frostfire Hot Springs: kill these as you meet them
   kill 7440 quest 5082.2
   kill 7440 quest 8464.2
   kill 7450 quest 4521.2
-  collect 12771 optional              -- Empty Firewater Flask, a rare drop from the Winterfall furbolgs
-  accept 5083 optional
+  collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
+  accept 5083
   collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
   accept 8471 optional
 
 step Donova Snowden
   turnin 5082
-  turnin 5083 optional
-  accept 5084 optional
+  turnin 5083
+  accept 5084
   note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
 
 # ---------------------------------------------------------------- Frostfire Hot Springs
