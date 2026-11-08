@@ -7937,6 +7937,24 @@
 				],
 				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game; one benchmark route takes it on the same visit.",
 				"issue": "-"
+			},
+			{
+								"q": 1111,
+				"after": [
+					"turnin",
+					1110
+				],
+				"reason": "Quest volume (2026-11-08, Horde 30-40): Wharfmaster Dizzywig (level 36, from 30, 1400 XP) is a delivery: Kravel Koalbeard gives his parts order with Rocket Car Parts' hand-in on 30-40/02's second Mirage Raceway stop, and Dizzywig stands on the Ratchet docks beside Gazlowe, where 30-40/04 already hands in Goblin Sponsorship (1178). No walk added. Recordings: offered to and handed in by Horde characters at 30.",
+				"issue": "-"
+			},
+			{
+				"q": 566,
+				"after": [
+					"accept",
+					503
+				],
+				"reason": "Quest volume (2026-11-08, Horde 30-40): WANTED: Baron Vardus (level 40, from 35, 3150 XP): the poster stands by Tarren Mill's inn, where 30-40/05 takes Gol'dir; Baron Vardus (40, not elite) appears at Strahnbrad's inn or one of the Syndicate camps in the uplands north of it, on the walk to the Perenolde manor, and High Executor Darthalia takes the head on the Tarren Mill stop after the Dalaran ruins.",
+				"issue": "-"
 			}
 		],
 		"skip": [

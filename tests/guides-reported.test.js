@@ -6328,6 +6328,8 @@ const HORDE_VOLUME = {
 	'forever/horde/03-silverpine-forest.guide': [422, 1359, 1358], // Arugal's Folly; Zinge's Delivery; Sample for Helbrim
 	'forever/horde/02-the-barrens.guide': [4021, 1062, 6548, 6629, 6461], // Counterattack!; Goblin Invaders; Avenge My Village; Kill Grundig Darkcloud; Blood Feeders
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
+	'forever/horde/30-40/02-thousand-needles.guide': [1111], // Wharfmaster Dizzywig (handed in at Ratchet in 30-40/04)
+	'forever/horde/30-40/05-arathi-highlands.guide': [566], // WANTED: Baron Vardus
 };
 
 // The guide and every guide its `next` leads to, in order.
