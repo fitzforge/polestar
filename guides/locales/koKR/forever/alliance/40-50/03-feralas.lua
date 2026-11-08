@@ -99,8 +99,14 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "길을 따라 서쪽으로 돌아간 다음 북쪽 무쇠설인 소굴 언덕으로 가십시오. 이곳의 설인은 모두 가죽을 떨어뜨릴 수 있고, {quest:7735}이(가) 나올 수도 있습니다. 이것도 {npc:7852}이(가) 값을 쳐 줍니다.",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -144,6 +150,7 @@ return {
 	-- ["Hearth to Feathermoon."] = "귀환석으로 페더문 요새에 가십시오.",
 	-- ["Rage Scar yetis"] = "분노한 무쇠설인",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "북서쪽 {area:1108} 부두로 돌아가 배를 타고 섬으로 가십시오.",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "길을 따라 서쪽으로 돌아간 다음 북쪽 무쇠설인 소굴 언덕으로 가십시오. 이곳의 설인은 모두 가죽을 떨어뜨릴 수 있고, {quest:7735}이(가) 나올 수도 있습니다. 이것도 {npc:7852}이(가) 값을 쳐 줍니다.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "서쪽으로 언덕 기슭의 우호적인 산거인에게 가십시오. 주변의 평지거인과 절벽거인은 정예이니 거리를 두십시오.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "{npc:7774}이(가) 멈춰서 헤맬 때마다 종을 울리고, 남쪽의 {npc:7765}에게 데려가십시오.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "파티로 사냥 대신 {area:978}을(를) 돌면 더 빨리 도달합니다. 트롤 도시는 경로상 다음 지역인 {zone:1446} 북쪽에 있습니다. 그 후 {area:1108}의 {npc:14637}에게 돌아오십시오.",

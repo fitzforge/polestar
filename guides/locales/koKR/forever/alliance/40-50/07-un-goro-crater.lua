@@ -140,6 +140,8 @@ return {
 	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 보관하세요",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: {zone:1447}의 오그틴크에게 줄 것, 보관하세요",
+	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
 	-- Step 30: Class trainer
 	["Class trainer"] = "",

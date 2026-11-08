@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, à l'intérieur",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "La livraison suivante de {npc:7881} retourne à {area:35} : passez-la.",
+	-- {area:35} Booty Bay · {area:47} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Attention : les Larrons lancent Désarmement. Les Voleurs restent cachés grâce à Camouflage. Les Assassins utilisent Exécution quand votre vie est à 20 % ou moins.",
@@ -175,6 +175,7 @@ return {
 	-- ["{item:8483} on the way"] = "{item:8483} en chemin",
 	-- ["{npc:7583}'s next ingredient grows in the {area:47}, and the route never brings it back: skip it."] = "L'ingrédient suivant de {npc:7583} pousse dans les {area:47}, et l'itinéraire n'y revient jamais : passez-le.",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "L'ingrédient suivant de {npc:7583} pousse dans les {zone:1425}, et l'itinéraire n'y revient jamais : passez-le.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "La livraison suivante de {npc:7881} retourne à {area:35} : passez-la.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, dans la taverne du port",
 	-- ["{object:20805}, inside"] = "{object:20805}, à l'intérieur",
 }

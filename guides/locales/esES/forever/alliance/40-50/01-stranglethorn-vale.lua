@@ -224,39 +224,37 @@ return {
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 67: Ruins of Zul'Mamwe: kill these as you meet them
+	-- Step 67: Level 42.16 at Zul'Mamwe
+	["Level 42.16 at Zul'Mamwe"] = "",
+	-- {npc:737} Kebok · {area:1517} Uldaman
+	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	-- {npc:667} Skullsplitter Warrior
+	["grind on {npc:667}"] = "",
+
+	-- Step 68: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
 	["{area:103}: kill these as you meet them"] = "",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
 
-	-- Step 68: Level 42.06
-	["Level 42.06"] = "",
-	-- {quest:193} Panther Mastery · {area:1517} Uldaman
-	["If you skipped {quest:193}, grind here to level 42.06 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
-	-- {npc:690} Cold Eye Basilisk
-	["grind on {npc:690}"] = "",
-
 	-- Step 69: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 73: Level 42.1
-	["Level 42.1"] = "",
-	-- {quest:196} Raptor Mastery · {area:1517} Uldaman
-	["If you skipped {quest:196}, grind here to level 42.1 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
-
-	-- Step 74: Big Game Hunter
+	-- Step 73: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
 
-	-- Step 76: Level 42.16
+	-- Step 75: Level 42.16
 	["Level 42.16"] = "",
-	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
-	["If you skipped {quest:208}, grind here to level 42.16 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	-- {area:310} Crystalvein Mine · {area:35} Booty Bay · {area:1517} Uldaman
+	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
+	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	-- {npc:690} Cold Eye Basilisk
+	["grind on {npc:690}"] = "",
 
-	-- Step 77: Booty Bay
+	-- Step 76: Booty Bay
 	-- {area:35} Booty Bay
 	["Ride south down the road to {area:35}."] = "",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
@@ -267,138 +265,138 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
 	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: para {quest:2864}, en {zone:1446}; guárdalo",
 
-	-- Step 78: Fly to Stormwind
+	-- Step 77: Fly to Stormwind
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 79: Stormwind
+	-- Step 78: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cocina en {object:2169}; {npc:5384} está en el {object:28027}.",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
 	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
 
-	-- Step 80: Stormwind
+	-- Step 79: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
 	["{npc:1440}, the Royal Library in {object:2117}"] = "{npc:1440}, el Archivo Real en {object:2117}",
 
-	-- Step 82: Paladin: The Tome of Nobility
+	-- Step 81: Paladin: The Tome of Nobility
 	-- {quest:1661} The Tome of Nobility
 	["Paladin: {quest:1661}"] = "Paladín: {quest:1661}",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}, en la Catedral de la Luz",
 
-	-- Step 83: Stormwind City
+	-- Step 82: Stormwind City
 	["Stormwind City"] = "",
 
-	-- Step 84: Warlock: Summon Felsteed
+	-- Step 83: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Brujo: {quest:3631}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, en {object:2164}: {npc:6251}, en {area:392}, la recoge al final de la siguiente guía",
 
-	-- Step 86: Fly to Rut'theran Village
+	-- Step 85: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 88: Riding at 40
+	-- Step 87: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {area:12} Elwynn Forest
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "A nivel 40 y con 100 de oro puedes aprender equitación, y al aprenderla recibes una montura. {npc:4753} enseña a los elfos de la noche en {zone:1457}, junto a los sables de {npc:4730}: el barco de {area:17203} a {area:442} y luego el vuelo a {area:702}. Puede que Forever permita a cualquier raza aprender con cualquier instructor de equitación (sin confirmar), como {npc:4732}, en el {area:88}, en {area:12}. Coleccionables, Monturas · Nivel 40, muestra todos los colores.",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730}: otros colores, 20 o",
 
-	-- Step 90: Fly to Auberdine
+	-- Step 89: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 91: Boat to Stormwind Harbor
+	-- Step 90: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 92: Fly to Darkshire
+	-- Step 91: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 93: Darkshire
+	-- Step 92: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
 	["{npc:5464}, by the flight master"] = "",
 
-	-- Step 95: Misty Valley
+	-- Step 94: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "El pergamino está en el pantano al norte de Biggs. Los Caminalodos al norte de él pueden soltar los ensayos de Khadgar.",
 
-	-- Step 97: Level 42.46
+	-- Step 96: Level 42.46
 	["Level 42.46"] = "",
 	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
 	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:766} Tangled Horror
 	["grind on {npc:766}"] = "",
 
-	-- Step 98: Cortello's Riddle
+	-- Step 97: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
 	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}: {quest:93176}, de 30-40/05-arathi-highlands",
 
-	-- Step 99: Watcher Biggs
+	-- Step 98: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
 	["{npc:5476} stands by the road junction in the west of the swamp."] = "",
 
-	-- Step 100: The sunken temple
+	-- Step 99: The sunken temple
 	["The sunken temple"] = "El Templo Sumergido",
 	-- {area:74} Pool of Tears
 	-- plural, as words: Tangled Horrors = {npc:766} Tangled Horror
 	["Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the {area:74}, where the temple's ruins break the water."] = "Ve al este; los Horrores enredados del camino también sueltan los ensayos. Busca en la orilla de la {area:74}, donde las ruinas del templo asoman del agua.",
 
-	-- Step 101: Misty Reed Strand
+	-- Step 100: Misty Reed Strand
 	["The driftwood washes up along the eastern shore."] = "La madera a la deriva llega a la orilla oriental.",
 	-- {item:5938} Pristine Crawler Leg
 	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler
 	["{item:5938}, from the Silt Crawlers on the same shore"] = "",
 
-	-- Step 102: Watcher Biggs
+	-- Step 101: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
 	["for {area:1438}: keep it"] = "para el {area:1438}: guárdalo",
 
-	-- Step 105: Stormwind
+	-- Step 104: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak
 	["for {npc:5635} at {area:348}: keep it"] = "para {npc:5635}, en {area:348}: guárdalo",
 
-	-- Step 106: Tram to Ironforge
+	-- Step 105: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 109: Ironforge
+	-- Step 108: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} no tiene instructor de chamanes",
 
-	-- Step 111: Riding at 40
+	-- Step 110: Riding at 40
 	-- {npc:4772} Ultham Ironhorn · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4772} teaches Dwarves at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}'s rams. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "A nivel 40 y con 100 de oro puedes aprender equitación, y al aprenderla recibes una montura. {npc:4772} enseña a los enanos en la {area:803}, al este de {area:131}, en el camino a {zone:1432}, junto a los carneros de {npc:1261}. Puede que Forever permita a cualquier raza aprender con cualquier instructor de equitación (sin confirmar). Coleccionables, Monturas · Nivel 40, muestra todos los colores.",
 	-- {npc:1261} Veron Amberstill
 	["{npc:1261}: other colours, 20g"] = "{npc:1261}: otros colores, 20 o",
 
-	-- Step 113: Riding at 40
+	-- Step 112: Riding at 40
 	-- {npc:7954} Binjy Featherwhistle · {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7955} Milli Featherwhistle
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:7954} teaches Gnomes at {area:189}, just east of {area:131}, beside {npc:7955}'s mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "A nivel 40 y con 100 de oro puedes aprender equitación, y al aprenderla recibes una montura. {npc:7954} enseña a los gnomos en el {area:189}, justo al este de {area:131}, junto a los mecazancudos de {npc:7955}. Puede que Forever permita a cualquier raza aprender con cualquier instructor de equitación (sin confirmar). Coleccionables, Monturas · Nivel 40, muestra todos los colores.",
 	-- {npc:7955} Milli Featherwhistle
 	["{npc:7955}: other colours, 20g"] = "{npc:7955}: otros colores, 20 o",
 
-	-- Step 114: Fly to Thelsamar
+	-- Step 113: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 115: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "Cabalga al sur, fuera de {zone:1432}, por el paso hasta {area:3}; {npc:2860} acampa en la excavación.",
 
-	-- Step 117: Garek
+	-- Step 116: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa solo en {area:1898}, al sureste de la excavación.",
 

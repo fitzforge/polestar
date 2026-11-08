@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}의 다음 배달은 {area:35}(으)로 돌아갑니다: 건너뛰십시오.",
+	-- {area:35} Booty Bay · {area:47} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
@@ -170,5 +170,6 @@ return {
 	-- ["Wastewander bandits"] = "사막유랑단 약탈자",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "{npc:4709}이(가) 리즐 브라스볼츠와 이야기하는 동안, 경주로 건너편 노움 야영지의 설계도는 무방비 상태입니다.",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}의 다음 재료는 {zone:1425}에서 자라고, 경로상 다시 가져오지 않습니다: 건너뛰십시오.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}의 다음 배달은 {area:35}(으)로 돌아갑니다: 건너뛰십시오.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, 항구의 선술집 안",
 }

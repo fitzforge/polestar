@@ -99,8 +99,14 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿著道路向西騎回去，然後向北進入怒痕雪人的山丘。這裡的每隻雪人都可能掉落毛皮；其中可能會掉落{quest:7735}，{npc:7852}也會為它付錢。",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -144,6 +150,7 @@ return {
 	-- ["Hearth to Feathermoon."] = "使用爐石回到羽月要塞。",
 	-- ["Rage Scar yetis"] = "怒痕雪人",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "向西北騎回{area:1108}的碼頭，搭船前往島上。",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿著道路向西騎回去，然後向北進入怒痕雪人的山丘。這裡的每隻雪人都可能掉落毛皮；其中可能會掉落{quest:7735}，{npc:7852}也會為它付錢。",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "向西騎往山丘腳下友善的山嶺巨人。他周圍的大地行者和峭壁巨人是精英：離牠們遠一點。",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "每當{npc:7774}停下來亂逛時就搖鈴，帶她向南到{npc:7765}處。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "組隊打{area:978}代替練等能更快達到目標。這座食人妖城市位於{zone:1446}北部，也就是路線的下一個地區；之後回到{area:1108}的{npc:14637}處。",

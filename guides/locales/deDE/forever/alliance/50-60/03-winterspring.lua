@@ -47,16 +47,12 @@ return {
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {quest:6031} Runecloth
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "Das westliche Lager der Winterfelle liegt in den Hügeln zwischen {npc:11556} und {npc:9298}. Jeder Furbolg hier kann {item:12771} (etwa einer von zehn) und selten {quest:8471} fallen lassen: Rechtsklicke, was immer fällt. Behalte {quest:6031}, das die Furbolgs fallen lassen, für Meilosh.",
-	-- {item:12771} Empty Firewater Flask
-	["{item:12771}, a rare drop"] = "{item:12771}, eine seltene Beute",
-	-- {quest:6031} Runecloth
-	["{quest:6031}, for Meilosh later"] = "{quest:6031}, später für Meilosh",
-	-- {quest:8471} Winterfall Ritual Totem
-	["{quest:8471}, a rare drop"] = "{quest:8471}, eine seltene Beute",
-	-- {area:1769} Timbermaw Hold
-	["For Kernda in {area:1769}: keep it"] = "Für Kernda in {area:1769}: behalten",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {area:618} Winterspring · {area:1584} Blackrock Depths
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {area:618}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	-- {item:14047} Runecloth · {area:1769} Timbermaw Hold
+	["{item:14047}: keep thirty for Meilosh in {area:1769}"] = "",
+	-- {npc:7442} Winterfall Pathfinder
+	["grind on {npc:7442}"] = "",
 
 	-- Step 10: Donova Snowden
 	-- {zone:1448} Felwood
@@ -64,43 +60,46 @@ return {
 
 	-- Step 11: Level 55.05
 	["Level 55.05"] = "",
-	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
-	-- {npc:7442} Winterfall Pathfinder
-	["grind on {npc:7442}"] = "",
+	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
 
-	-- Step 13: Winterfall Village
+	-- Step 12: Winterfall Ritual Totem
+	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
+	-- {area:1769} Timbermaw Hold
+	["For Kernda in {area:1769}: keep it"] = "Für Kernda in {area:1769}: behalten",
+
+	-- Step 14: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "Das Furbolgdorf der Winterfelle liegt östlich von {area:2255}: Schamanen (56-57), Höhlenbehüter (55-56) und Ursas (57-58), alle über deiner Stufe. Töte zuerst die Schamanen, sie heilen, und lock vom Rand aus. {npc:10738} in der Höhle hinten ist Elite: Bleib draußen.",
 
-	-- Step 14: Pristine Yeti Horns
+	-- Step 15: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
 	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "",
 
-	-- Step 15: Everlook
+	-- Step 16: Everlook
 	-- {npc:10978} Legacki
 	["On {npc:10978}, by the inn"] = "Bei {npc:10978}, am Gasthaus",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
 	["{npc:10978}: {npc:7583} and {npc:10977} come later"] = "{npc:10978}: {npc:7583} und {npc:10977} folgen später",
 
-	-- Step 17: Fly to Theramore
+	-- Step 18: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 18: Boat to Menethil Harbor
+	-- Step 19: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Schiff nach {area:150}",
 
-	-- Step 19: Fly to Southshore
+	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Flieg nach {area:271}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 21: Chillwind Camp
+	-- Step 22: Chillwind Camp
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
 	["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
@@ -110,20 +109,20 @@ return {
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
-	-- Step 22: Mulgris Deepriver
+	-- Step 23: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "",
 	["Inside"] = "",
 
-	-- Step 23: Into Eastern Plaguelands
+	-- Step 24: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
 	["Into {area:139}"] = "",
 
-	-- Step 25: Pamela Redpath
+	-- Step 26: Pamela Redpath
 	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Folge der südlichen Straße nach Osten nach {area:139}; die Ruinen von {area:2262} liegen südlich davon. {npc:10926}s Geist spielt beim zerstörten Haus am Südende.",
 
-	-- Step 26: Pamela Redpath's doll
+	-- Step 27: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}s Puppe",
 	-- {area:2262} Darrowshire
@@ -133,36 +132,36 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 27: Pamela Redpath
+	-- Step 28: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
 	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, in {area:28}: behalten",
 
-	-- Step 28: Light's Hope Chapel
+	-- Step 29: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Folge der Straße nach Osten durch das Gebiet zur Kapelle.",
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
 
-	-- Step 29: Corin's Crossing
+	-- Step 30: Corin's Crossing
 	-- {area:2264} Corin's Crossing
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it."] = "Die Geißel um {area:2264}, westlich der Kapelle, lässt beide Arten von Geißelsteinen fallen; aus ihnen erheben sich Geister von Darrowshire: Sprich mit jedem, um ihn zu befreien.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowshire: Sprich mit ihnen",
 
-	-- Step 30: The Undercroft
+	-- Step 31: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Zaeldarr ist Elite: Eine Gruppe wird empfohlen. Er wartet ganz unten in {area:2261}, der Krypta im Südwesten des Gebiets.",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
 
-	-- Step 31: Browman Mill: kill these as you meet them
+	-- Step 32: Browman Mill: kill these as you meet them
 	-- {area:2269} Browman Mill
 	["{area:2269}: kill these as you meet them"] = "",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 32: Light's Hope Chapel
+	-- Step 33: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp
 	["The next guide starts here and flies to {area:3197}."] = "Der nächste Guide beginnt hier und fliegt nach {area:3197}.",
 
@@ -179,10 +178,12 @@ return {
 	-- ["Ride west along the road to {npc:10301}."] = "Reite auf der Straße nach Westen zu {npc:10301}.",
 	-- ["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "Nach den Yetis noch nicht Stufe 54? {area:1417} (50-54) in einer Gruppe statt Grinden bringt dich schneller dorthin. Kehr danach nach {area:2255} zurück.",
 	-- ["The Winterfall camp"] = "Das Lager der Winterfelle",
+	-- ["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "Das westliche Lager der Winterfelle liegt in den Hügeln zwischen {npc:11556} und {npc:9298}. Jeder Furbolg hier kann {item:12771} (etwa einer von zehn) und selten {quest:8471} fallen lassen: Rechtsklicke, was immer fällt. Behalte {quest:6031}, das die Furbolgs fallen lassen, für Meilosh.",
 	-- ["The western Winterfall furbolgs drop the beads."] = "Die westlichen Furbolgs der Winterfelle lassen die Perlen fallen.",
 	-- ["The {area:2247}"] = "{area:2247}",
 	-- ["Walk through {area:1769} to {zone:1448} and fly on to the Eastern Kingdoms ({area:442}, the boat to {area:150}). Fly to {area:271} and ride north up the road through Alterac to {area:3197}."] = "Geh durch {area:1769} nach {zone:1448} und flieg weiter in die Östlichen Königreiche ({area:442}, das Schiff nach {area:150}). Flieg nach {area:271} und reite auf der Straße nach Norden durch das Alteracgebirge nach {area:3197}.",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "grinde {npc:7460} bei {area:2247}, {zone:1452}",
+	-- ["{item:12771}, a rare drop"] = "{item:12771}, eine seltene Beute",
 	-- ["{npc:10301}'s camp"] = "{npc:10301}s Lager",
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}s Vorräte",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}: beide für die Pestländer behalten",
@@ -190,4 +191,6 @@ return {
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} bewacht den Eingang von {area:1769}, nordwestlich von {npc:9298}.",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: für {area:2262} behalten",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} ist Elite: Eine Gruppe wird empfohlen. Er wartet ganz unten im {area:2261}, der Krypta im Südwesten des Gebiets.",
+	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, später für Meilosh",
+	-- ["{quest:8471}, a rare drop"] = "{quest:8471}, eine seltene Beute",
 }

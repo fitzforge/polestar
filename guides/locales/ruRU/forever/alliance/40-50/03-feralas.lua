@@ -99,8 +99,14 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Езжайте обратно на запад по дороге, затем на север к холмам Бешеного оврага. С любого йети здесь может выпасть шкура; с одного может выпасть {quest:7735}, за нее {npc:7852} тоже платит.",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -144,6 +150,7 @@ return {
 	-- ["Hearth to Feathermoon."] = "Используйте Камень возвращения: Крепость Оперенной Луны.",
 	-- ["Rage Scar yetis"] = "Йети Бешеного оврага",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "Езжайте обратно на северо-запад к причалу ({area:1108}) и плывите на корабле на остров.",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Езжайте обратно на запад по дороге, затем на север к холмам Бешеного оврага. С любого йети здесь может выпасть шкура; с одного может выпасть {quest:7735}, за нее {npc:7852} тоже платит.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Езжайте на запад к дружелюбному горному великану у подножия холмов. Сухопутные бродяги и скальные великаны вокруг него — элита: держитесь подальше.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Звоните в колокольчик всякий раз, когда {npc:7774} останавливается побродить, и ведите ее на юг к NPC {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Прохождение подземелья {area:978} вместо гринда в группе быстрее. Город троллей — на севере зоны {zone:1446}, следующей зоны маршрута; после этого вернитесь к {npc:14637} ({area:1108}).",

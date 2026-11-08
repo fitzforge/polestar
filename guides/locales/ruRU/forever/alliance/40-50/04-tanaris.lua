@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
+	-- {area:35} Booty Bay · {area:47} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
@@ -170,5 +170,6 @@ return {
 	-- ["Wastewander bandits"] = "Бандиты из шайки Скитальцев Пустыни",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Пока {npc:4709} заговаривает Риззлу зубы, его чертежи лежат без охраны в лагере гномов по ту сторону трассы.",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "Следующий ингредиент ({npc:7583}) растет здесь: {zone:1425}, а маршрут никогда не приводит его обратно: пропустите.",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, в таверне порта",
 }

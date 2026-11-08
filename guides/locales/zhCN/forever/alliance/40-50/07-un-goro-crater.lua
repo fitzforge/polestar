@@ -140,6 +140,8 @@ return {
 	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
+	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
 	-- Step 30: Class trainer
 	["Class trainer"] = "职业训练师",

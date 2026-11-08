@@ -161,11 +161,20 @@ return {
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 41: Monogrammed Sash
+	-- Step 41: Booty Bay
+	-- {npc:2487} Fleet Master Seahorn
+	["{npc:2487}, top floor"] = "{npc:2487}, oberstes Stockwerk",
+
+	-- Step 42: The Bloodsail captains
+	["The Bloodsail captains"] = "Die Kapitäne der Blutsegelbukaniere",
+	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+
+	-- Step 44: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 45: Facing Negolash
+	-- Step 48: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 

@@ -99,8 +99,14 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136} : tuez-les au passage",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Revenez vers l'ouest par la route, puis montez au nord dans les collines du Repaire des Griffes féroces. Tout yéti ici peut laisser tomber une peau ; l'un d'eux peut donner une {quest:7735}, que {npc:7852} McGrubben paie aussi.",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -147,6 +153,7 @@ return {
 	-- ["Into {zone:1413}"] = "Vers les {zone:1413}",
 	-- ["Rage Scar yetis"] = "Yétis Griffe féroce",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "Revenez au nord-ouest jusqu'au quai de la {area:1108} et prenez le bateau pour l'île.",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Revenez vers l'ouest par la route, puis montez au nord dans les collines du Repaire des Griffes féroces. Tout yéti ici peut laisser tomber une peau ; l'un d'eux peut donner une {quest:7735}, que {npc:7852} McGrubben paie aussi.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Chevauchez vers l'ouest jusqu'au géant des montagnes amical au pied des collines. Les Marcheurs des terres et les Géants des falaises autour de lui sont élites : gardez vos distances.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Faites sonner la cloche chaque fois que {npc:7774} s'arrête pour vagabonder, et ramenez-la au sud jusqu'à {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Faire {area:978} au lieu de farmer vous y amène plus vite en groupe. La cité troll se trouve au nord de {zone:1446}, la zone suivante de l'itinéraire ; revenez voir {npc:14637} Fandazzle sur la {area:1108} ensuite.",
