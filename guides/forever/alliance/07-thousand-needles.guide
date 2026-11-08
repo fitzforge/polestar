@@ -11,6 +11,7 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # into this file.
 # Added here: Look to the Stars (181), The Weathered Grave (225).
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), Load Lightening (1176), A Bump in the Road (1175).
+# Left out with it: Martek the Exiled (1106), which Fizzle offers only once both Salt Flat Venom (1104) and Hardened Shells are handed in, and its Badlands chain (1108, 1137).
 # Since 2026-11-07 the Wetlands and Ashenvale's 27-32 quests come before this guide (06-wetlands).
 
 step Duskwood
@@ -166,6 +167,5 @@ step Mirage Raceway: kill these as you meet them
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
   turnin 1104                             -- Fizzle Brassbolts
-  accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, later
 
 # ---------------------------------------------------------------- Back to Menethil

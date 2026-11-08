@@ -5275,6 +5275,94 @@
 		],
 		"note": "Captain Stoutfist's A Friend of the Family (98190, the statuette for Bolvar Fordragon) follows Return the Statuette (98189), handed in to him. The merged data had no prerequisite, so a route could send players to him for it before Karl Boran's statuette."
 	},
+	"98216": {
+		"set": {
+			"pre": [
+				299
+			],
+			"preAll": [
+				299
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#1206: Prospector Whelgar did not offer Understanding Our Present to a level 27 Night Elf with Uncovering the Past (299) in the log at 0/4"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds): refused to a level 25 Human without 299; the one window that offered it (level 28 Dwarf) is at Whelgar, where that character handed 299 in, with the log list still showing 299"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 299 for 98216"
+			}
+		],
+		"note": "Prospector Whelgar's Understanding Our Present (98216) follows Uncovering the Past (299), handed in to him. The merged data had no prerequisite, so the guide offered it together with 299."
+	},
+	"98283": {
+		"set": {
+			"pre": [
+				275
+			],
+			"preAll": [
+				275
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T193041Z-4f169629ddd9bab0-t26uhm3w7m17-mffu95onan, 20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, character 73c640aba1a5bada): twelve Rethiel the Greenwarden windows before Fen Creeper (275) was handed in (levels 24-30, three characters) refused Carnage; the Night Elf was offered it in the first window after handing 275 in, and both characters who took it (levels 24 and 30) took it after 275's hand-in"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 275 for 98283"
+			}
+		],
+		"note": "Rethiel the Greenwarden's Carnage (98283) ends his chain: he offers it only once Fen Creeper (275), after Tramping Paws (276) and Gnoll Hunt (277), is handed in. The merged data had no prerequisite, so the guide sent players to him for it on their first visit."
+	},
+	"98310": {
+		"set": {
+			"pre": [
+				98216
+			],
+			"preAll": [
+				98216
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused Gleaning Our Future and For Further Study to both characters, neither of whom had handed in Understanding Our Present (98216)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98216 for 98310"
+			}
+		],
+		"note": "Prospector Whelgar's Gleaning Our Future (98310) follows Understanding Our Present (98216), handed in to him. The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
+	"98313": {
+		"set": {
+			"pre": [
+				98310
+			],
+			"preAll": [
+				98310
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261106T230848Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261106T233256Z-4097d25bec050b9e-n5e3yzzku7wu-8ncu7zo2te): Prospector Whelgar's windows at levels 25 and 28 refused For Further Study to both characters, who had handed in neither Understanding Our Present (98216) nor Gleaning Our Future (98310)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest links: pre_all 98310 for 98313"
+			}
+		],
+		"note": "Prospector Whelgar's For Further Study (98313, for Historian Karnik in Ironforge) ends his chain, after Gleaning Our Future (98310). The merged data had no prerequisite, so the guide offered it on the first visit to the dig."
+	},
 	"526": {
 		"set": {
 			"pre": [

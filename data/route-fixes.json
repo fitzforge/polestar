@@ -5942,11 +5942,6 @@
 			},
 			{
 				"issue": "#1052",
-				"q": 19,
-				"reason": "Tharil'zun on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order); finished solo-or-grouped at 23 in the recordings (a Shaman, a Rogue). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
-			},
-			{
-				"issue": "#1052",
 				"q": 94,
 				"reason": "A Watchful Eye (Theocritus, on the Elwynn road the route walks): handed in at the Old Lion Statue in Galardell Valley after the Blackrock camps. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
@@ -5972,11 +5967,6 @@
 				"issue": "#1052",
 				"q": 91,
 				"reason": "Solomon's Law in Galardell Valley after the Blackrock camps (Redridge is entered at about 24.5 since the 2026-11-07 Alliance 20-30 re-order): the gnolls (median 24) are then within two levels (#977's rule). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
-			},
-			{
-				"issue": "#1052",
-				"q": 115,
-				"reason": "Shadow Magic on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
 			{
 				"q": 445,
@@ -6484,6 +6474,49 @@
 				"q": 343,
 				"faction": "Alliance",
 				"reason": "Flow (2026-11-07, Alliance 20-30): Speaking of Fortitude (195 XP) sent the player from the Cathedral Square into Stormwind Keep's Royal Library and back out for one hand-in on the Stormwind stop at the end of 06-ashenvale; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 19,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Tharil'zun only after Blackrock Menace (20) is handed in, with Blackrock Blockade (98387) taken (the data's preAll: 20 and 98387; players' recordings: refused in all eleven windows from six characters at 18-22 before 20 was handed in, and in two more after it while 98387 was not yet taken; offered at 23 with 20 handed in and 98387 in the log). The route hands 20 in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 115,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Shadow Magic only once Blackrock Menace (20) and Blackrock Blockade (98387) are handed in (the data's preAll; players' recordings: refused in every recorded window before then). The route hands them in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
+				"issue": "-"
+			},
+			{
+				"q": 1106,
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Fizzle Brassbolts offers Martek the Exiled only once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: 1104 and 1105 share an all-of exclusive group; the one recorded player who took it had handed in both). Hardened Shells is left out for the level (#977), so 1106 cannot be offered on either side's route; left out with its sequels.",
+				"issue": "-"
+			},
+			{
+				"q": 1108,
+				"reason": "Follows Martek the Exiled (1106), left out (see its skip).",
+				"issue": "-"
+			},
+			{
+				"q": 1137,
+				"reason": "Follows Indurium (1108), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1190,
+				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
+				"issue": "-"
+			},
+			{
+				"q": 79536,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
 				"issue": "-"
 			}
 		],
@@ -8879,6 +8912,78 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood return): coming back from Sven's camp, the walk passed Darkshire's town hall to Viktori's house at the east end for Look to the Stars (181), then turned back west for the town hall's hand-ins (07-thousand-needles steps 15-16 on 0.3.4). Viktori after the town hall, on the way to the flight master at the north-east end."
+			},
+			{
+				"a": [
+					"turnin",
+					204
+				],
+				"b": [
+					"accept",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Brother Nimetz offers Kurzen's Mystery only once Bad Medicine (204) and The Second Rebellion (203) are handed in (the data's preAll; the Classic reference has 204). The route took it on arrival at the Rebel Camp; now with Sergeant Yohwa's hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
+					637
+				],
+				"b": [
+					"accept",
+					683
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Sara Balloo offers Sara Balloo's Plea only once Sully Balloo's Letter (637) is handed in to her (the data's pre, TDB PrevQuestID 637). The route asked for it before that hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					275
+				],
+				"b": [
+					"accept",
+					98283
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Rethiel the Greenwarden offers Carnage only once Fen Creeper (275) is handed in (corrections: 98283)."
+			},
+			{
+				"a": [
+					"turnin",
+					299
+				],
+				"b": [
+					"accept",
+					98216
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1206): Prospector Whelgar offers Understanding Our Present only once Uncovering the Past (299) is handed in (corrections: 98216)."
+			},
+			{
+				"a": [
+					"turnin",
+					98216
+				],
+				"b": [
+					"accept",
+					98310
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184, #1206): Prospector Whelgar offers Gleaning Our Future only once Understanding Our Present (98216) is handed in (corrections: 98310)."
+			},
+			{
+				"a": [
+					"turnin",
+					98310
+				],
+				"b": [
+					"accept",
+					98313
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184): Prospector Whelgar offers For Further Study only once Gleaning Our Future (98310) is handed in (corrections: 98313)."
 			}
 		]
 	}

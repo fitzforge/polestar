@@ -209,8 +209,6 @@ step Into the Badlands
   goto 42.3,52.8 "Valley of Fangs"
 
 step Valley of Fangs
-  turnin 1106                         -- Martek the Exiled: Fizzle's letter from the Shimmering Flats
-  accept 1108
   accept 703                          -- Rigglefuzz
 
 step The Dustbowl
@@ -256,15 +254,13 @@ step Agmond's End
   tip Theldurin sits among the dwarven ruins at Agmond's End, south of the Valley of Fangs.
   accept 709
 
-step Stonevault troggs
-  tip The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way to Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End.
-  collect 5797 quest 1108
+step Buzzards
+  tip The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End.
   collect 3404 quest 703
 
 step Valley of Fangs
-  tip The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz and Martek take the wings and the flakes on the way.
+  tip The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz takes the wings on the way.
   turnin 703                          -- Rigglefuzz
-  turnin 1108                         -- Martek the Exiled
 
 step Ancient Chest
   tip Keep north on the road; the chest lies in the Uldaman dig site, at the foot of the ruins north-west of the road.
