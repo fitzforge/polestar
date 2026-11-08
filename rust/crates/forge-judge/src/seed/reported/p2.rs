@@ -410,8 +410,12 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 /// Bill (#1004): a town's bind never sends you back to the giver you just left (Ratchet's Raptor
 /// Horns by the WANTED poster; the sweep's Crossroads, Sun Rock and Tarren Mill).
 fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
-	let cases: &[(&str, &str, &[i64])] =
-		&[(BARRENS_12, "Ratchet", &[865]), (BARRENS_12, "The Crossroads", &[4921, 899]), ("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]), (HILLSBRAD_HORDE, "Tarren Mill", &[496, 493])];
+	let cases: &[(&str, &str, &[i64])] = &[
+		(BARRENS_12, "Ratchet", &[865]),
+		(BARRENS_12, "The Crossroads", &[4921, 899]),
+		("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]),
+		(HILLSBRAD_HORDE, "Tarren Mill", &[496, 493]),
+	];
 	let talk = |g: &V| t_is(g, "accept") || t_is(g, "turnin");
 	for &(guide, place, before) in cases {
 		let list = ctx.goals(guide);
