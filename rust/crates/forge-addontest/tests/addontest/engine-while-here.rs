@@ -330,7 +330,7 @@ emit(here())
 	assert_eq!(out[0]["arrow"], 15, "the arrow stays on the live step");
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
 	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
-	assert_eq!(out[0]["text"], "Collect Fungal Spores, 1 more", "{}", out[0]);
+	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
 	assert_eq!(out[0]["yards"], 0, "inside the mushrooms' spawn area at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too, but no runner spawns within reach of the oasis: {}", out[0]);
 	assert_eq!(out[1], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner spawn the zhevra show");
