@@ -597,3 +597,35 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 	let level25 = run("w.level = 25", DUN_MODR, r#"stub.world.accept(869, { 12 }); flush(); local p = E.GetWaypoint(); emit({ E.GetStepIndex(), p and p.goalIndex or false, brief(2) })"#);
 	assert_eq!(level25, json!([2, 1, ["active:nil:nil"]]));
 }
+
+// A leveling guide's dungeon run (`when dungeon`) is no step to move on to past an accept waiting for a level: the
+// guide waits at the accept. Without the dungeon chosen the route passes it as above.
+const RUN: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Gazrog", goals = { { t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", map = 1413, x = 52, y = 31 } } },
+	{ title = "Thork", goals = {
+		{ t = "accept", quest = 90601, title = "Searching for the Lost Satchel", npc = 3429, npcName = "Thork", minLevel = 25, map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Ragefire Chasm", when = { { k = "dungeon", map = 389, name = "Ragefire Chasm" } }, goals = {
+		{ t = "goto", map = 1413, x = 20, y = 20, text = "Ragefire Chasm" },
+	} },
+	{ title = "Raptors", goals = { { t = "collect", item = 5062, itemName = "Raptor Head", count = 12, quest = 869, oi = 1, map = 1413, x = 45, y = 20 } } },
+} })"#;
+
+#[test]
+fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide_waits_at_the_accept_1320() {
+	let script = |chosen: &str| {
+		format!(
+			r#"
+			{chosen}
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			stub.world.accept(869, {{ 12 }}); flush()
+			emit({{ E.GetStepIndex(), brief(2) }})
+		"#
+		)
+	};
+	let run_chosen = run("w.level = 24", RUN, &script("E.ChooseDungeon(389, true)"));
+	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork");
+	let solo = run("w.level = 24", RUN, &script(""));
+	assert_eq!(solo, json!([4, ["skipped:level:Requires level 25"]]), "no run: on to the raptors");
+}

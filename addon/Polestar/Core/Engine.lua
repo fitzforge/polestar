@@ -2389,6 +2389,25 @@ function Own.levelHold()
 	return nil
 end
 
+-- A step of a dungeon run in a leveling guide (`when dungeon`, not negated).
+function Own.dungeonStep(step)
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "dungeon" and not p.neg then return true end
+	end
+	return false
+end
+
+-- Where the route waits instead of moving on to step s: an accept before s
+-- waiting for a level (Own.levelHold) holds a guide that is no leveling
+-- guide (a dungeon's pick-up or hand-in, an attunement: its entrance is no
+-- place for a character too low for its quests) and a leveling guide's
+-- dungeon run. -> step | nil
+function Own.holdsBefore(s)
+	if not (Own.everyStep(guide) or Own.dungeonStep(guide.steps[s])) then return nil end
+	local hold = Own.levelHold()
+	return hold and hold < s and hold or nil
+end
+
 -- Placement: where the quest log puts the player in the guide. Runs while the
 -- tab is being placed (`placing`: its guide was just loaded at login, reload,
 -- in a new tab, after /polestar reset).
@@ -2580,8 +2599,9 @@ end
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop. A step the route
--- reaches may jump ahead (Own.jump), and a flight step it reaches may pass
--- to the travel route (Own.flightJudged).
+-- reaches may jump ahead (Own.jump), a flight step it reaches may pass to
+-- the travel route (Own.flightJudged), and an accept waiting for a level
+-- holds a dungeon guide or a dungeon run (Own.holdsBefore).
 local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
@@ -2589,7 +2609,10 @@ local function computeCurrent()
 	for s = 1, #steps do
 		-- The live step stays while the group waits on it (Own.partyHold).
 		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
-			if Own.jump(s) then
+			local hold = Own.holdsBefore(s)
+			if hold then
+				return hold
+			elseif Own.jump(s) then
 				sk = skippedFor(guide.id)
 			elseif not Own.flightJudged(s) then
 				return s
