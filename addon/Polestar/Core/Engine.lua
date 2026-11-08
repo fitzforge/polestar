@@ -2371,9 +2371,10 @@ end
 
 -- The first step with an accept waiting for the character's level
 -- (unavailableFor's "level" mark: the route passes it until then), or nil.
--- With nothing else left open the guide waits there (computeCurrent): it
--- never reads finished, nor hands off to the next guide, for a quest the
--- level-up brings back.
+-- A guide that is no leveling guide waits there with nothing else left open
+-- (computeCurrent): a dungeon's or an attunement's quest the level-up brings
+-- back. A leveling guide finishes past it, as past an accept its giver
+-- refused: its end is its last step (Own.noteEnd), not a pickup for later.
 function Own.levelHold()
 	local steps, sk = guide.steps, skippedFor(guide.id)
 	for s = 1, #steps do
@@ -2619,8 +2620,9 @@ local function computeCurrent()
 			end
 		end
 	end
-	-- Nothing else open: wait at an accept the level-up brings back.
-	return Own.levelHold()
+	-- Nothing else open: a guide that is no leveling guide waits at an accept
+	-- the level-up brings back (Own.levelHold).
+	return Own.everyStep(guide) and Own.levelHold() or nil
 end
 
 -- Store the live-done latchable goals of steps from..to (steps the route has
@@ -4929,6 +4931,9 @@ end
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
+	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
+	-- is no end yet: the end comes after it.
+	if computed and stepDone(computed) and Own.levelHold() == computed then return end
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
 	if ends[id] then return end

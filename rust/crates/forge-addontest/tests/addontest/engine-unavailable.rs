@@ -543,7 +543,7 @@ fn farm_spots_drop_rate_spawn_density_and_grey_mobs_weigh_against_distance() {
 // #1320 (Fall of Dun Modr): at level 24 the arrow led to an accept that needs level 25 until the player clicked
 // the giver. An accept above the character's level is known in advance ("Requires level 25"): the route reaching it
 // passes it, its objectives and turn-in wait with it, and the level-up brings the guide back to it. With nothing else
-// left the guide waits there: never finished, never handed on.
+// left a leveling guide finishes (its end is its last step); a guide that is no leveling guide waits at the accept.
 const DUN_MODR: &str = r#"
 Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Wetlands", faction = "Horde", minLevel = 20, maxLevel = 30, steps = {
 	{ title = "Gazrog", goals = { { t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", map = 1413, x = 52, y = 31 } } },
@@ -582,10 +582,21 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 	assert_eq!(json!([out["taken"][3], out["taken"][4]]), json!([["pending:nil:nil"], ["pending:nil:nil"]]), "its kill and turn-in still to do");
 	assert_eq!(out["completed"], json!(0));
 
-	// Everything else done at level 24: the guide waits at Thork, not finished.
-	let wait = run(
+	// Everything else done at level 24: the leveling guide finishes, and the level-up brings Thork back.
+	let finished = run(
 		"w.level = 24; w.complete({ 869 })",
 		DUN_MODR,
+		r#"flush()
+			local r = { E.GetStepIndex() or false, brief(2) }
+			stub.world.setLevel(25); flush()
+			r[3] = E.GetStepIndex() or false
+			emit(r)"#,
+	);
+	assert_eq!(finished, json!([false, ["skipped:level:Requires level 25"], 2]));
+	// The same guide as no leveling guide (a dungeon's or an attunement's): it waits at Thork, not finished.
+	let wait = run(
+		"w.level = 24; w.complete({ 869 })",
+		&DUN_MODR.replace(r#"title = "Wetlands","#, r#"title = "Wetlands", category = "Lookup","#),
 		r#"local done = 0
 			Polestar.On("GUIDE_COMPLETED", function() done = done + 1 end)
 			flush()

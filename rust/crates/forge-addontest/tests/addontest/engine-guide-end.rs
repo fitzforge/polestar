@@ -150,6 +150,35 @@ fn a_guide_whose_steps_changed_in_an_update_forgets_the_old_guide_s_end_the_same
 	assert_eq!(json!([same["ended"], same["saved"]]), json!([true, true]), "the same steps: the end stays");
 }
 
+// guides_end_early after #1320 (0.3.6's Loch Modan, Human Warrior; Hillsbrad Foothills, Orcs): the last Lakeshire
+// stop's Murloc Poachers needs level 20, which the character has not reached. Played to the end, the guide ends at
+// its last step, with no live step left; it never says "end" while waiting on the accept the level holds back.
+#[test]
+fn an_accept_held_back_by_its_level_never_ends_the_guide_with_a_live_step_the_end_comes_with_the_last_step_1320() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/lakeshire", pack = "test", title = "Lakeshire", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411,
+				steps = { { goals = { { t = "accept", quest = 80, title = "One", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "accept", quest = 81, title = "Two", map = 1411, x = 50, y = 50 },
+						{ t = "accept", quest = 82, title = "Murloc Poachers", minLevel = 20, map = 1411, x = 50, y = 50 } } },
+					{ title = "The Barrens", goals = { { t = "goto", map = 1413, x = 50, y = 50, text = "The Barrens" } } } } })
+			E.SetGuide("test/lakeshire"); flush(); takeLog()
+			w.accept(80, {}); flush()
+			w.accept(81, {}); flush()
+			local r = { at = E.GetStepIndex(), held = E.GetStepView(2).goals[2].unavailable or false }
+			w.moveTo(1413, 50, 50); stub.advance(1)
+			r.log, r.step = takeLog(), E.GetStepIndex() or false
+			emit(r)"#,
+	});
+	assert_eq!(out["at"], 3, "the accept held back by its level: on to the last step");
+	assert_eq!(out["held"], "level");
+	assert_eq!(out["step"], false, "the last step done: the guide is finished");
+	let ends: Vec<&str> = out["log"].as_array().unwrap().iter().filter_map(|l| l.as_str()).filter(|l| l.starts_with("GUIDE_END")).collect();
+	assert_eq!(ends, vec!["GUIDE_END test/lakeshire undone=0 live=nil next=nil choose=nil"], "the end with no live step");
+}
+
 #[test]
 fn playing_it_through_ends_it_complete_and_start_next_loads_the_next_guide_in_the_same_tab() {
 	let out = run(Run {
