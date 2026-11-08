@@ -527,7 +527,8 @@ fn check_flight_hops(g: &V, data: &Data, diag: &mut Diagnostics) {
 		})
 		.collect();
 	let mut hops: Vec<((usize, usize), CharSet)> = Vec::new();
-	for who in &characters(&[gl.clone()], &V::Undef) {
+	let all = characters(std::slice::from_ref(&gl), &V::Undef);
+	for who in &all {
 		let mine = |i: usize| -> Vec<V> {
 			let goals = steps[i].get("goals").items();
 			goals.into_iter().enumerate().filter(|(j, _)| sets[i].1[*j].contains(who)).map(|(_, goal)| goal).collect()
@@ -580,7 +581,7 @@ fn check_flight_hops(g: &V, data: &Data, diag: &mut Diagnostics) {
 		}
 	}
 	for ((i, j), who) in hops {
-		let fly_of = |s: &V| s.get("goals").items().into_iter().filter(|goal| t_of(goal) == "fly").last().unwrap_or(V::Undef);
+		let fly_of = |s: &V| s.get("goals").items().into_iter().rfind(|goal| t_of(goal) == "fly").unwrap_or(V::Undef);
 		let (a, b) = (fly_of(&steps[i]), fly_of(&steps[j]));
 		let mut races: Vec<String> = who.iter().map(|k| k.split('|').nth(1).unwrap_or("").to_string()).collect();
 		let mut classes: Vec<String> = who.iter().map(|k| k.split('|').nth(2).unwrap_or("").to_string()).collect();
@@ -588,7 +589,7 @@ fn check_flight_hops(g: &V, data: &Data, diag: &mut Diagnostics) {
 		races.dedup();
 		classes.sort();
 		classes.dedup();
-		let everyone = characters(&[gl.clone()], &V::Undef).len() == who.len();
+		let everyone = all.len() == who.len();
 		let whom = if everyone {
 			"every character".to_string()
 		} else {

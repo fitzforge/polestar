@@ -273,7 +273,7 @@ fn on_the_real_addon_the_reported_stonetalon_trip_leads_to_auberdine_not_astrana
 	let mut maps = String::new();
 	for era in ["forever", "era"] {
 		for (id, f) in data.map_frames.get(era).as_obj().map(|o| o.entries()).unwrap_or_default() {
-			let name = data.zones.get(&id.to_string()).get("name").to_js_string();
+			let name = data.zones.get(&id).get("name").to_js_string();
 			maps.push_str(&format!(
 				"w.addMap({id}, {{ name = {}, c = {}, left = {}, right = {}, top = {}, bottom = {} }})\n",
 				serde_json::to_string(if name == "undefined" { "" } else { &name }).unwrap(),
