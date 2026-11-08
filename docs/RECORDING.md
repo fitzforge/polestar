@@ -106,8 +106,10 @@ stays off until `/psrec on`.
   (`session.locale`). At most 4,000 bytes per text field, and no control
   characters. Quest titles (`text`), objectives (`objectives`) and zone names
   (`zone`) also have no `|` (the game's escape character) and at most 255
-  characters (100 for zone names); a record that breaks this makes its chunk
-  invalid.
+  characters (100 for zone names); readers empty a name that breaks this and
+  keep the record (the frFR client's kill objectives end in a
+  `|4personnage tué:personnages tués;` grammar escape, which the Recorder
+  drops). A control character still makes the chunk invalid.
 - `npcKind`: `c` creature, `o` game object, `i` item, `p` player (never
   stored beyond the kind), empty unknown.
 - `spawnUid`: 1–16 hex digits (`0-9`, `A-F`); `error`: a game constant's
@@ -159,7 +161,7 @@ Quests
 | `objectives` | q, list | at accept: `type:required:text` per objective (type `monster`, `item`, `object`, `event`, `reputation`, `log`) |
 | `progress` | q, index, cur, max, P | an objective count changes |
 | `complete` | q | all objectives done |
-| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid) |
+| `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid; `money` is negative for a quest that costs money to hand in, e.g. -300 for 3 silver) |
 | `abandon` | q | quest abandoned |
 | `fail` | q, P | a quest in the log turns failed (its timer ran out, the escort died), as the client flags it (`C_QuestLog.IsFailed`); once per failure, never for a quest already failed at login |
 | `gossip` | npcKind, npcId, P, optionId, optionText | a gossip option is chosen |

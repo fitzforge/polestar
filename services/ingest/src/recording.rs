@@ -150,6 +150,14 @@ mod tests {
 	}
 
 	#[test]
+	fn a_turnin_that_costs_money_is_stored() {
+		// Grime-Encrusted Ring costs 3 silver to hand in: the game reports money -300. Rejected whole
+		// before (a 0.3.5 player's "field money: bad value '-300'").
+		let Prepared::Ok(c) = prep(format!("{HEAD}accept\t0\t2945\ti\t9326\t\t\t\t31\t2700\t\t\t\nturnin\t412\t2945\to\t142487\t\t\t\t31\t2700\t-300\t\n")) else { panic!("stored") };
+		assert_eq!((c.quests.clone(), c.suspect.len()), (BTreeSet::from([2945]), 0));
+	}
+
+	#[test]
 	fn a_held_chunk_passes_again_only_when_its_reasons_are_rechecked_rules_and_it_passes_them() {
 		// One portal jump (Teldrassil, 1438): withheld by the old speed rule, plausible now.
 		let portal = format!("{HEAD}accept\t0\t364\tc\t1568\t\t\t\t12\t250\t\t\t\npos\t10\t1438\t5604\t8992\t0\t71\npos\t30\t1438\t2360\t5554\t16\t25\n");
