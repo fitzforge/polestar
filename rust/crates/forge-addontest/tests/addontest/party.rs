@@ -1230,7 +1230,7 @@ emit(PP.Frame():IsShown())
 stub.fire("PLAYER_REGEN_ENABLED")
 emit(PP.Frame():IsShown())
 local t
-Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return true end, GetTarget = function() return t end }
+Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return t end, GetTarget = function() return t end }
 emit({ P.PointAt("party1"), t, P.PointAt("party2") })
 p.disband()
 emit(PP.Frame():IsShown())"#

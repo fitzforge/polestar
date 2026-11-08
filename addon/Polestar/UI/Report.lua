@@ -199,10 +199,12 @@ local function arrowLine()
 	-- Always yards, whatever nav.distanceUnit says: the report is read by
 	-- whoever fixes the bug, in the game's own unit.
 	if d then line = line .. SEP .. ("%d yd"):format(floor(d + 0.5)) end
-	if N.IsOverride and N.IsOverride() then
-		line = line .. SEP .. L["your own waypoint"]
+	local own = N.IsOverride and N.IsOverride()
+	-- Held (the way back to your corpse or a Spirit Healer, Nav.Hold): its label says whose it is.
+	if own or (N.IsHeld and N.IsHeld()) then
+		if own then line = line .. SEP .. L["your own waypoint"] end
 		local pos = where(t.map, t.x, t.y, t.f)
-		if pos then line = line .. " " .. pos end
+		if pos then line = line .. (own and " " or SEP) .. pos end
 	end
 	return cut(line)
 end

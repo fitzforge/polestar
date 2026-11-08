@@ -3197,7 +3197,7 @@ fn death_resurrection_sickness_is_forever_s_ten_minutes_from_level_11_or_what_th
 }
 
 #[test]
-fn death_as_a_ghost_the_arrow_points_at_the_faster_choice_resurrection_releases_it() {
+fn death_as_a_ghost_the_arrow_is_held_on_the_faster_choice_resurrection_lets_go() {
 	let out = run(r#"
 		-- healer 20 yd north of the player; corpse 400 yd east
 		QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 }, { 1, 0, 0, 9001, 50, 50 } }, flightMasters = {} })
@@ -3205,35 +3205,37 @@ fn death_as_a_ghost_the_arrow_points_at_the_faster_choice_resurrection_releases_
 		local _, cx, cy = q.mapPoint(0, -400)
 		q.corpse = { cx, cy }
 		q.level = 30
+		q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
 		q.ghost = true
 		stub.fire("PLAYER_ALIVE")
 		local t = q.nav.target
-		emit({ label = t.label, x = t.x, y = t.y, choice = QoL.GetDeathAdvice().choice, pins = #q.pins["qol.death"] })
+		emit({ label = t.label, x = t.x, y = t.y, held = q.nav.held == t, choice = QoL.GetDeathAdvice().choice, pins = #q.pins["qol.death"] })
 		-- level 8: no sickness, the healer wins
 		q.level = 8
 		stub.advance(1.1)
 		t = q.nav.target
-		emit({ label = t.label, x = t.x, y = t.y, note = QoL.GetDeathAdvice().note })
-		-- the step changed and Nav dropped our target: it comes back on the next tick
-		q.nav.target = nil
-		stub.advance(1)
-		emit(q.nav.target and q.nav.target.label)
+		emit({ label = t.label, x = t.x, y = t.y, held = q.nav.held == t, note = QoL.GetDeathAdvice().note })
+		local sets = #q.nav.sets
+		stub.advance(3)
+		emit(#q.nav.sets == sets)
 		q.ghost = false
 		stub.fire("PLAYER_UNGHOST")
-		emit({ releases = q.nav.releases, target = q.nav.target == nil, pins = q.pins["qol.death"] == nil, advice = QoL.GetDeathAdvice() == nil })
-		local sets = #q.nav.sets
+		emit({ unholds = q.nav.unholds, target = q.nav.target and q.nav.target.label, pins = q.pins["qol.death"] == nil, advice = QoL.GetDeathAdvice() == nil })
+		sets = #q.nav.sets
 		stub.advance(3)
 		emit(#q.nav.sets == sets)
 	"#);
 	assert_eq!(out[0]["label"], "Your corpse");
 	assert!((out[0]["x"].as_f64().unwrap() - 70.0).abs() < 1e-9 && (out[0]["y"].as_f64().unwrap() - 50.0).abs() < 1e-9);
+	assert_eq!(out[0]["held"], true);
 	assert_eq!(out[0]["choice"], "corpse");
 	assert_eq!(out[0]["pins"], 2);
 	assert_eq!(out[1]["label"], "Spirit Healer");
 	assert!((out[1]["x"].as_f64().unwrap() - 50.0).abs() < 1e-9 && (out[1]["y"].as_f64().unwrap() - 49.0).abs() < 1e-9);
+	assert_eq!(out[1]["held"], true);
 	assert!(is_match(text(&out[1]["note"]), r"no resurrection sickness"));
-	assert_eq!(out[2], "Spirit Healer");
-	assert_eq!(out[3], json!({ "releases": 1, "target": true, "pins": true, "advice": true }));
+	assert_eq!(out[2], true, "held: no target set again while the choice stands");
+	assert_eq!(out[3], json!({ "unholds": 1, "target": "The guide's step", "pins": true, "advice": true }), "alive: the guide's target again");
 	assert_eq!(out[4], true, "no more targets after resurrection");
 }
 

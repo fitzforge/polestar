@@ -672,6 +672,7 @@ function Nav.SetTarget(map, x, y, label, f, stop, z)
 	-- `stop` and `z` sit after a nil `f` for most callers, so they are kept here, not in the call record.
 	uistub.target = { map = map, x = x, y = y, label = label, f = f, stop = stop, z = z }
 	Polestar.Fire("WAYPOINT_CHANGED", uistub.target)
+	return uistub.target
 end
 function Nav.ClearTarget() record("ClearTarget"); uistub.target = nil end
 -- Drops a point picked by hand: the Engine's waypoint is the target again.
