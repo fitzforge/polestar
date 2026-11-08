@@ -46,7 +46,7 @@ step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
 
-step Fly to Grom'gol
+step Grom'gol
   zone Stranglethorn Vale
   getfp "Grom'gol"
   accept 638                          -- Nimboya: for Arathi, later on the route
@@ -155,7 +155,7 @@ step Nesingwary's camp
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
-  tip Stranglethorn Tigers and Panthers (32-33) roam the hills east of the camp, along the lake shore.
+  tip Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.
   kill 682 quest 186
   collect 4106 quest 213
   kill 736 quest 191
@@ -282,7 +282,7 @@ step Shadowmaw panthers
   kill 1142 quest 569.1
 
 step Venture Co. camp
-  tip Head north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals.
+  tip Head north to Lake Nazferiti, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals.
   collect 4106 quest 213
 
 step Mosh'Ogg camp

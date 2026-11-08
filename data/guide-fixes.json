@@ -3548,6 +3548,23 @@
 					"ref": "smart_scripts 2768/276802 (summon group 1) and creature_summon_groups: two Vengeful Surge 2776 by the cave"
 				}
 			]
+		},
+		{
+			"id": "horde-stv-tigers-and-panthers-south-and-west-of-nesingwary",
+			"faction": "Horde",
+			"at": {
+				"quest": 186,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.",
+			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 682 (Stranglethorn Tiger), 736 (Panther) and 1096 (Venture Co. Geologist) spawns on map 1434"
+				}
+			]
 		}
 	]
 }

@@ -6566,3 +6566,22 @@ test('Sunken Treasure: the escort tip sends you up to the cave, where two water 
 		assert.deepEqual(stepTips(guide, /^\s+complete 665\b/), [rec.tip], `${guide}: the step's tip is the record's`);
 	}
 });
+
+// Final route review for 0.3.5 (Horde Stranglethorn 34-37): the step that lands from the zeppelin was
+// titled "Fly to Grom'gol"; the tigers' tip put them east of Nesingwary's camp along the lake (they are
+// around and south of it, the panthers west); the Venture Co. step sent you north past Nesingwary's camp
+// (the geologists' lake is south-east of it). The tigers' tip is a guide-fixes record, the other two are
+// seed lines.
+test('Horde Stranglethorn: the Grom\'gol landing, the tigers and the Venture Co. camp are where the steps say', { skip }, () => {
+	const guide = 'forever/horde/30-40/03-stranglethorn-vale.guide';
+	const list = goals(guide);
+	const fp = at(list, 'getfp Grom\'gol', (g) => g.t === 'getfp' && /Grom'gol/.test(g.location || ''));
+	assert.doesNotMatch(list[fp].step.title || '', /^Fly/, 'the zeppelin landing is not titled as a flight');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 186 && f.faction === 'Horde' && f.tip);
+	assert.ok(rec, 'the tigers\' tip is a record');
+	assert.deepEqual(stepTips(guide, /kill 682 quest 186\b/), [rec.tip]);
+	assert.doesNotMatch(rec.tip, /hills east of the camp|along the lake shore/);
+	const [venture] = stepTips(guide, /^step Venture Co\. camp/);
+	assert.doesNotMatch(venture, /past Nesingwary/);
+	assert.match(venture, /Lake Nazferiti/);
+});
