@@ -16,7 +16,7 @@ return {
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse
-	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "",
+	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "{npc:6171} fica na Catedral da Luz. No nível 40, ele oferece {quest:1661}: aceite e devolva na hora para aprender {spell:13819}. Paladinos não compram cavalo.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:5149} in the {object:32362} sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "No nível 40, {npc:5149} na {object:32362} manda você até {npc:6171} na Catedral da Luz de {zone:1453}. Pegue o metrô de {zone:1455} para {zone:1453}.",

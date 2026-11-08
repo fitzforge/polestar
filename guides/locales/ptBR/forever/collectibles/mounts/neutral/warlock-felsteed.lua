@@ -8,15 +8,15 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "Corcel Vil do Bruxo",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "Sua própria montaria no nível 40, invocada em qualquer lugar: sem precisar do treino de equitação de 100g.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "No nível 40, {npc:461}, no porão do {object:2164}, no {object:2101}, manda você para {npc:6251}, em {area:392}. Nenhuma missão oferecida? Termine primeiro a cadeia do caçador vil: jogadores relatam que a montaria vem depois dela.",
 
 	-- Step 2: Summon Felsteed (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "No nível 40, {npc:5172}, ao lado dos instrutores de bruxo em {zone:1455}, manda você para {npc:6251}, em {area:392}. Nenhuma missão oferecida? Termine primeiro a cadeia do caçador vil: jogadores relatam que a montaria vem depois dela.",
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:6251} Strahad Farsan · {area:392} Ratchet
