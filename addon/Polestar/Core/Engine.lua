@@ -3323,7 +3323,8 @@ function Own.alongAim(q)
 end
 
 -- The arrow's goal: the one the player chose in the current step (a row
--- click, the next spot), while it is open; else the current goal's own place;
+-- click, the next spot), while it is open and its quest is not waiting for
+-- its accept in the step (Own.acceptFirst); else the current goal's own place;
 -- else the header's; else the focus group's first open located goal
 -- (blocking, then optional, then notes); else, for a quest's current goal,
 -- the place of the focus group or of the nearest group before it for that
@@ -3342,7 +3343,7 @@ local function findWaypoint()
 	local goals = guide.steps[current].goals
 	if aim then
 		for g, goal in ipairs(goals) do
-			if goal == aim then
+			if goal == aim and not Own.acceptFirst(current, goal) then
 				local wp = waypointOf(g, goal)
 				if wp then return wp end
 			end
@@ -7561,14 +7562,42 @@ end
 
 -- Point the arrow at a goal of the current step the player chose (its place,
 -- spawn areas included) until the step changes or the goal is done. True if
--- the arrow can lead there.
+-- the arrow can lead there. A goal whose quest waits for its accept in the
+-- step (Own.acceptFirst) is not picked: the arrow goes to that accept, and
+-- false, "accept" and the quest's title come back (the window says "Take
+-- <quest> first", #1385).
 function Engine.AimGoal(stepIndex, goalIndex)
 	if not (guide and current) or stepIndex ~= current then return false end
 	local goal = guide.steps[current].goals[goalIndex]
-	if not (goal and waypointOf(goalIndex, goal)) then return false end
+	if not goal then return false end
+	local a = Own.acceptFirst(current, goal)
+	if a then
+		local accept = guide.steps[current].goals[a]
+		aim = waypointOf(a, accept) and accept or nil
+		evaluate()
+		return false, "accept", questTitle(accept)
+	end
+	if not waypointOf(goalIndex, goal) then return false end
 	aim = goal
 	evaluate()
 	return true
+end
+
+-- The index of step s's open accept for goal's quest while the quest is not
+-- taken yet, or nil (#1385): a collect, kill or turn-in before its accept
+-- cannot be done, so the arrow does not lead there (Engine.AimGoal,
+-- Engine.CycleWaypoint, findWaypoint's pick). Accepts and notes never wait.
+function Own.acceptFirst(s, goal)
+	local q = goal.quest
+	if not q or goal.t == "accept" or goal.t == "note" then return nil end
+	if Compat().IsOnQuest(q) or questDone(q) then return nil end
+	for g, other in ipairs(guide.steps[s].goals) do
+		if other.t == "accept" and other.quest == q and goalApplies(other) and not unavailableFor(other)
+			and not Own.goalSkipped(s, g) and not goalDone(s, g, other) then
+			return g
+		end
+	end
+	return nil
 end
 
 -- Lead the arrow to an open, located goal of a listed along step (a row
@@ -7645,7 +7674,7 @@ function Engine.CycleWaypoint(dir)
 	for k = 1, n do
 		local g = ((gi or (dir == 1 and 0 or 1)) - 1 + dir * k) % n + 1
 		local cand = step.goals[g]
-		if cand ~= goal and goalApplies(cand) and not Own.goalSkipped(current, g) and not goalDone(current, g, cand) and waypointOf(g, cand) then
+		if cand ~= goal and goalApplies(cand) and not Own.goalSkipped(current, g) and not goalDone(current, g, cand) and not Own.acceptFirst(current, cand) and waypointOf(g, cand) then
 			aim = cand
 			evaluate()
 			return true

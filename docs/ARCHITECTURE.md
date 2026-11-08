@@ -1052,7 +1052,7 @@ Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
-Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
+Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool[, "accept", title]  -- lead the arrow to a goal of the current step (row click); a goal whose quest waits for its accept in the step leaves the arrow on that accept: false, "accept", the quest's title (the window says "Take <quest> first")
 Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view, ... } }, ... }  -- open goals of along steps behind the live step; untilStep: an `along until` step's labelled step
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
@@ -1662,7 +1662,9 @@ the same person never splits that person's group.
   step's spots still form the circuit, its first pick the spot nearest the
   player. The
   arrow goes to the goal the player chose in the current step (`AimGoal`, a
-  cycled spot or candidate) while it is open, else the current goal's own
+  cycled spot or candidate) while it is open and its quest is not waiting for
+  its accept in the step (#1385: a row click there says "Take <quest> first",
+  and the waypoint keys pass it), else the current goal's own
   place (its coordinates, its spawn area, the source of its item), else the
   header's, else the focus group's first open located goal (blocking, then
   optional, then notes), else a quest's current goal at the place of the
@@ -2018,7 +2020,7 @@ Waypoint:
 ```
 
 = the goal of the current step the player aimed at (`AimGoal`) while it is
-open; else the current goal (the focus group's first open blocking goal, or
+open and its quest is not waiting for its accept in the step; else the current goal (the focus group's first open blocking goal, or
 the nearest of its open field goals when it has two or more, else its first
 open optional one, else its header); else the focus group's first open goal
 with coordinates (blocking, then optional, then notes). A done step has none.
@@ -5552,8 +5554,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   race, class, level (XP %) and faction (never the name or realm); the guide
   (title, id, pack and version); "Step n of N: title", with "the guide is at
   step m" while another step is looked at, or "skipped"; each goal (the first
-  six, then "... k more goals") as `[>]` the arrow's, `[x]` done, `[-]`
-  skipped, `[n/a]` not for this character or `[ ]` open, its line and count,
+  six, then "... k more goals") as `[>]` the window's current goal, `[→]` the
+  arrow's when the player picked another (a row click, the waypoint keys),
+  `[x]` done, `[-]` skipped, `[n/a]` not for this character or `[ ]` open, its line and count,
   `quest`, `npc`, `item`, `object` ids, `map <id> @x,y` as a guide writes it
   (`live` unless in the Era frame) and `spot i of n` for the arrow's spawn
   spot; the arrow's target and distance (and "your own waypoint" with its
