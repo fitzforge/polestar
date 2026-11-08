@@ -11,7 +11,7 @@ const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";
 const TIRISFAL: &str = "forever/horde/undead/01-tirisfal-glades.guide";
-const BARRENS: &str = "forever/horde/04-the-barrens.guide";
+const BARRENS: &str = "forever/horde/02-the-barrens.guide";
 const WESTFALL: &str = "forever/alliance/02-westfall.guide";
 const REDRIDGE: &str = "forever/alliance/04-redridge-mountains.guide";
 const HILLSBRAD_HORDE: &str = "forever/horde/06-hillsbrad-foothills.guide";
@@ -212,7 +212,7 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(WESTFALL, 92911, &[92910], true),
 		(WETLANDS, 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
-		(SILVERPINE, 95981, &[482], false),
+		(STONETALON, 95981, &[482], false),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
 		(SILVERPINE, 97275, &[97242], false),
 		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
@@ -410,8 +410,12 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 /// Bill (#1004): a town's bind never sends you back to the giver you just left (Ratchet's Raptor
 /// Horns by the WANTED poster; the sweep's Crossroads, Sun Rock and Tarren Mill).
 fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
-	let cases: &[(&str, &str, &[i64])] =
-		&[(BARRENS_12, "Ratchet", &[865]), (BARRENS_12, "The Crossroads", &[4921, 899]), (STONETALON, "Sun Rock Retreat", &[86576, 5881]), (HILLSBRAD_HORDE, "Tarren Mill", &[496, 493])];
+	let cases: &[(&str, &str, &[i64])] = &[
+		(BARRENS_12, "Ratchet", &[865]),
+		(BARRENS_12, "The Crossroads", &[4921, 899]),
+		("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]),
+		(HILLSBRAD_HORDE, "Tarren Mill", &[496, 493]),
+	];
 	let talk = |g: &V| t_is(g, "accept") || t_is(g, "turnin");
 	for &(guide, place, before) in cases {
 		let list = ctx.goals(guide);

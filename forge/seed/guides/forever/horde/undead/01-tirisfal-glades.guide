@@ -5,7 +5,7 @@ faction Horde
 race Undead
 levels 1-13
 zone Tirisfal Glades
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -519,9 +519,9 @@ step Paladin: Bandarion Keep
   turnin 91294                        -- Danitha Morr, inside the keep
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
-# a class step waits for the next step the route names, and after the Brill
-# step that is the Crossroads, over the sea (c14 sent Warlocks, Priests and
-# Mages from the Crossroads back by zeppelin and out again; RevUndead c14 read).
+# a class step waits for the next step the route names, so the trainers and
+# the class turn-ins come here, before the walk south into Silverpine Forest
+# (RevUndead c14 read).
 step The Undercity
   only Warlock,Priest,Mage
   zone Undercity
@@ -543,25 +543,4 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
-
-step Zeppelin to Orgrimmar
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step The Barrens
-  zone The Barrens
-  goto 52.2,31.0 "The Barrens"
-# ---------------------------------------------------------------- The Crossroads
-
-step The Crossroads
-  zone The Barrens
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
-  getfp "Crossroads"
-  accept 844                          -- Sergra Darkthorn
-  accept 869                          -- Gazrog
-  accept 1492
-  accept 848                          -- Apothecary Helbrim
-  accept 5041
-  accept 871                          -- Thork
-  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-
+  note The next guide walks south from Brill into Silverpine Forest.
