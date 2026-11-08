@@ -202,13 +202,19 @@ step The New Frontier, Thunder Bluff
   turnin 1000 optional                -- Arch Druid Hamuul Runetotem
   accept 1123 optional
 
+# Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
+# inside it: the arrow led onto a ledge outside, behind the wall (#1338). The goto at the building's
+# door on its south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight
+# at Fandral from there.
 step The New Frontier, Darnassus
   only Alliance
   zone Darnassus
   tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Herald Moonstalker sends you to Arch Druid Fandral Staghelm, who sends you to Mathrengyl Bearwalker, who sends you to Rabine Saturna in Nighthaven, Moonglade.
   accept 1047 optional                -- Herald Moonstalker
+  goto 35.8,11.6 "Cenarion Enclave" optional
   turnin 1047 optional                -- Arch Druid Fandral Staghelm
   accept 6761 optional
+  goto 35.8,11.6 "Cenarion Enclave" optional
   turnin 6761 optional                -- Mathrengyl Bearwalker
   accept 6762 optional
 

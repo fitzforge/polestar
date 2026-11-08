@@ -104,38 +104,38 @@ return {
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 
-	-- Step 27: Cenarion Enclave
+	-- Step 28: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 
-	-- Step 29: Cenarion Enclave
+	-- Step 30: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 구합니다",
 
-	-- Step 30: Portal to Teldrassil
+	-- Step 31: Portal to Teldrassil
 	-- {area:141} Teldrassil
 	["Portal to {area:141}"] = "",
 
-	-- Step 31: Fly to Auberdine
+	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 32: Boat to Stormwind Harbor
+	-- Step 33: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 33: Fly to Darkshire
+	-- Step 34: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
 
-	-- Step 36: The bloodmages
+	-- Step 37: The bloodmages
 	["The bloodmages"] = "혈법사",
 	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
 
-	-- Step 37: Nethergarde Keep
+	-- Step 38: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "먼저 길을 따라 동쪽 요새로 가십시오: {item:6091}은(는) {area:42}에서 받은 지 1시간 후에 사라지는데, 혈법사들의 야수 사냥은 그보다 오래 걸립니다.",
 	-- {quest:2990} Thadius Grimshade
@@ -145,27 +145,27 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "",
 
-	-- Step 38: Blasted Lands: kill these as you meet them
+	-- Step 39: Blasted Lands: kill these as you meet them
 	-- {area:4} Blasted Lands
 	["{area:4}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 39: The bloodmages
+	-- Step 40: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "혈법사들의 두 번째 단계는 같은 재료에 경험치 없이 강화 아이템만 줍니다: 건너뛰십시오.",
 
-	-- Step 40: Fly to Booty Bay
+	-- Step 41: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "",
 
-	-- Step 41: Monogrammed Sash
+	-- Step 42: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 45: Facing Negolash
+	-- Step 46: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
