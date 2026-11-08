@@ -903,7 +903,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `enter` | `location` | `area`, `map`, `x`, `y` | zone or subzone equals the client's name of `area` (without one, `location`), as `hearth` without the hearthstone: the in-step latch keeps it once its live step had it (`latchable`, so passing it keeps it too); the coordinates only make its waypoint |
 | `train` | — | `npc`, `npcName`, `text` | a spell learned (LEARNED_SPELL_IN_SKILL_LINE) while the trainer's window is open during this step: that NPC (`npc`), one of the candidates for the character's class (`candidates` with `classes`), or, for `train class`, a class trainer of the character's class; the window opening alone is no check-off (Fitz); else manual |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName` | item count ≥ `count` (default 1) |
-| `vendor` | — | `npc`, `npcName`, `text` | that merchant's window (`npc`, or one of the `candidates`; a plain `vendor`, any merchant) opened during this step; a window still open when the step comes up does not count (no carry-over for any NPC window); else manual |
+| `vendor` | — | `npc`, `npcName`, `text` | that merchant's window (`npc`, or one of the `candidates`; a plain `vendor`, any merchant) opened during this step; a window still open when the step comes up does not count (no carry-over for any NPC window); else manual. Beside other goals that hold the step and apply to the character it is a stop on the way, never holding the step (`Own.sideVendor`, `Own.holds`; its view's `side = true`): the step is done when those are, sold or not. A step of only vendor goals waits for the window, a tick or a skip |
 | `level` | `level` | `frac` | player level > `level`, or = `level` with XP / XPMax ≥ `frac` (no `frac`: level ≥ `level`); its view's `xpLeft` is the XP still to earn (`Own.xpLeft`: the client's XP to level for the level the character is at, the 1.12 table past it), shown "1,240 XP to go" |
 | `wait` | `seconds` | `text` | that many seconds after its countdown began: once every goal before it in the step that holds the route is done (`Own.startWaits`, `Own.waitStart`, for the session); its view's progress is `{ cur = seconds left, max = seconds, kind = "wait" }`, drawn as a draining line "0:23 left" (`UI.GoalBar`); `Own.watchWait` evaluates each second while one counts; latched on the live step |
 | `note` | `text` | — | never blocks (informational) |
@@ -1804,6 +1804,7 @@ Step view (render-ready; the UI never re-derives status):
       progress = { cur = 3, max = 10 } | nil,
       manual = true | false,               -- UI shows a checkbox when true (a `task` always: done only by the tick)
       optional = false, note = nil,
+      side = nil,                          -- true: a vendor check-off beside other work, which does not hold the step
       map = 1429, x = 47.6, y = 35.1, f = nil,   -- when the goal has coordinates
       quest = 7, npc = 6, item = nil,
       -- A collect's compiled source (GUIDE_FORMAT "What the compiler fills
@@ -1819,7 +1820,7 @@ Step view (render-ready; the UI never re-derives status):
 
 Current step = first step, in order, that is applicable (`only` matches
 and, with `when`, its predicates hold), not skipped, and not done. A step is done when every applicable,
-non-optional goal is done; a step of only notes/optional goals is done at
+non-optional goal is done, a `vendor` beside other such goals aside (`Own.holds`); a step of only notes/optional goals is done at
 once, and so is an `along` step. Step views for indices before the current step report `done`,
 `skipped` or `na`; after it, `upcoming` or `na`. A view carries the step's
 `along` and `label`.

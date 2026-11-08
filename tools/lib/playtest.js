@@ -803,8 +803,10 @@ while guard < 4000 do
 	visited[i] = true
 	local view = E.GetStepView(i)
 	local open
+	-- A vendor check-off beside other work (g.side) is left alone, as by a
+	-- player with nothing to sell: it must never hold the step.
 	for _, g in ipairs(view.goals) do
-		if g.status ~= "done" and g.status ~= "na" and not g.optional and g.t ~= "note" then open = g; break end
+		if g.status ~= "done" and g.status ~= "na" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
 	end
 	-- A chosen profession's train is taken first, while its step is current: a
 	-- step passed with its \`when\` failing keeps that outcome, so a profession

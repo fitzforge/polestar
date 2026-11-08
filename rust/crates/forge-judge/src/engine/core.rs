@@ -1158,12 +1158,26 @@ impl<'a> Sim<'a> {
 		self.w.areas.iter().any(|&(m, x1, y1, x2, y2, id)| m == map && x >= x1 && x <= x2 && y >= y1 && y <= y2 && self.w.explored.contains(&id))
 	}
 
-	/// Own.goalsDone: every blocking goal that applies is done or unavailable.
+	/// Own.sideVendor: a `vendor` beside another goal of its step that holds the step and applies to the
+	/// character is a stop on the way and never holds the step; a step of only vendor goals waits.
+	pub(crate) fn side_vendor(&mut self, s: usize, g: usize) -> bool {
+		if self.gd().goal(s, g).t != T::Vendor {
+			return false;
+		}
+		let n = self.gd().step(s).goals.len();
+		(1..=n).any(|k| {
+			let other = self.gd().goal(s, k);
+			other.t != T::Vendor && blocks(other) && self.goal_applies(s, k)
+		})
+	}
+
+	/// Own.goalsDone: every goal that holds the step (Own.holds: blocking, not a vendor beside other work)
+	/// and applies is done or unavailable.
 	pub fn goals_done(&mut self, s: usize) -> bool {
 		let n = self.gd().step(s).goals.len();
 		for g in 1..=n {
 			let goal = self.gd().goal(s, g);
-			if blocks(goal) && self.goal_applies(s, g) && self.unavailable_for(s, g, 0).is_none() && !self.goal_done(s, g).done {
+			if blocks(goal) && !self.side_vendor(s, g) && self.goal_applies(s, g) && self.unavailable_for(s, g, 0).is_none() && !self.goal_done(s, g).done {
 				return false;
 			}
 		}
