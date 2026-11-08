@@ -3691,6 +3691,234 @@
 			},
 			{
 				"a": [
+					"task",
+					905
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					3281
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"turnin",
+					891
+				],
+				"b": [
+					"turnin",
+					905
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					3281
+				],
+				"b": [
+					"task",
+					888
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+			},
+			{
+				"a": [
+					"task",
+					888
+				],
+				"b": [
+					"task",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+			},
+			{
+				"a": [
+					"turnin",
+					891
+				],
+				"b": [
+					"turnin",
+					888
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+			},
+			{
+				"a": [
+					"turnin",
+					584
+				],
+				"b": [
+					"accept",
+					2932
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Grim Message (level 42, for the Hinterlands at 48) is taken from Nimboya on the 40-50 Stranglethorn visit's Grom'gol stop with the Bloodscalp heads, not at 36 on the 30-40 visit, five levels under it."
+			},
+			{
+				"a": [
+					"turnin",
+					677
+				],
+				"b": [
+					"accept",
+					1110
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): The Mirage Raceway's quests (Rocket Car Parts, Salt Flat Venom with Kravel's crate for Nesingwary, Hardened Shells, Load Lightening, A Bump in the Road) are worked in one visit at 33, after Hillsbrad and the first Arathi visit, as both other orders do; 07-ashenvale did Rocket Car Parts and Salt Flat Venom alone at 29-30 and walked past the other three givers."
+			},
+			{
+				"a": [
+					"turnin",
+					544
+				],
+				"b": [
+					"turnin",
+					676
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Hillsbrad's Tarren Mill quests (Battle of Hillsbrad, Infiltration, Helcular's Revenge, the Dalaran crater) come before the first Arathi visit at 31-33, as both other orders have it."
+			},
+			{
+				"a": [
+					"turnin",
+					677
+				],
+				"b": [
+					"accept",
+					5361
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Hillsbrad and the first Arathi visit (30-33) come before the Shimmering Flats (33-34)."
+			},
+			{
+				"a": [
+					"turnin",
+					1147
+				],
+				"b": [
+					"accept",
+					5561
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): The Shimmering Flats (33-34) come before Desolace (34-36)."
+			},
+			{
+				"a": [
+					"turnin",
+					6143
+				],
+				"b": [
+					"accept",
+					581
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Desolace's 33-36 quests (34-35) come before Stranglethorn (36-37)."
+			},
+			{
+				"a": [
+					"turnin",
+					570
+				],
+				"b": [
+					"accept",
+					1268
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Stranglethorn (36-37) comes before Dustwallow (37-38)."
+			},
+			{
+				"a": [
+					"turnin",
+					1239
+				],
+				"b": [
+					"accept",
+					5581
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Dustwallow (37-38) comes before Desolace's 38-40 quests (Taiga's portals, Melizza and the ghost-o-plasm, the centaur totems), a short second visit by flight from Ratchet, as both other orders leave them for a later visit."
+			},
+			{
+				"a": [
+					"turnin",
+					5581
+				],
+				"b": [
+					"accept",
+					503
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Desolace's second visit (38) comes before Alterac and the second Arathi visit (38-39)."
+			},
+			{
+				"a": [
+					"turnin",
+					568
+				],
+				"b": [
+					"accept",
+					570
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Far Seer Mok'thardin's Enchantment (level 38) is taken on the mid-visit Grom'gol stop, before the loop that collects its Shadowmaw and tigress parts, instead of on arrival at 36."
+			},
+			{
+				"a": [
+					"turnin",
+					651
+				],
+				"b": [
+					"turnin",
+					1106
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Alterac and Arathi (38-39) come before the Badlands (39-40), which end Horde 30-40 at Kargath."
+			},
+			{
+				"a": [
+					"turnin",
+					1105
+				],
+				"b": [
+					"accept",
+					1106
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): Fizzle Brassbolts offers Martek the Exiled only once Salt Flat Venom (1104) and Wizzle's Hardened Shells (1105) are both handed in (the quest data's prerequisites); 07-ashenvale took it after 1104 alone, where the game does not offer it."
+			},
+			{
+				"a": [
+					"turnin",
+					1202
+				],
+				"b": [
+					"accept",
+					1166
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 re-order (2026-11-07): The Dustwallow accepts for 40-50/03-feralas (Overlord Mok'Morokk's Concern, Army of the Black Dragon, Identifying the Brood, quest level 43) are taken on the last Brackenwall stop, the latest point of the visit."
+			},
+			{
+				"a": [
 					"accept",
 					97926
 				],
@@ -3975,78 +4203,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 12-20 (2026-11-07): see turnin 1002 before turnin 965."
-			},
-			{
-				"a": [
-					"task",
-					905
-				],
-				"b": [
-					"task",
-					891
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
-			},
-			{
-				"a": [
-					"task",
-					3281
-				],
-				"b": [
-					"task",
-					891
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
-			},
-			{
-				"a": [
-					"turnin",
-					891
-				],
-				"b": [
-					"turnin",
-					905
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
-			},
-			{
-				"a": [
-					"task",
-					3281
-				],
-				"b": [
-					"task",
-					888
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
-			},
-			{
-				"a": [
-					"task",
-					888
-				],
-				"b": [
-					"task",
-					891
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
-			},
-			{
-				"a": [
-					"turnin",
-					891
-				],
-				"b": [
-					"turnin",
-					888
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
 			}
 		],
 		"notes": [
@@ -6237,6 +6393,31 @@
 				"q": 98310,
 				"size": 2,
 				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Gleaning Our Future's four hearts drop only from Golm, Ados, Neru and Modr, level-32 rank-1 creatures in Forever's data that the Goaz Stones call up, at the route's 30-31; no recorded character has done it. An elite at the quest's level is a group quest: a group of 2, like Defeat Nek'rosh, with the route's solo fallback (the top-up for skipped group quests)."
+			},
+			{
+				"q": 541,
+				"size": 3,
+				"why": "Horde 30-40 re-order (2026-11-07): Battle of Hillsbrad part 6: every Dun Garok dwarf is elite (28-32) and Captain Ironhill (32) leads them; a group quest, offered on the Tarren Mill stop after part 5 with a one-line tip"
+			},
+			{
+				"q": 547,
+				"size": 3,
+				"why": "Horde 30-40 re-order (2026-11-07): Humbert's Sword drops (about 8%) only from the elite Dun Garok dwarves; with Battle of Hillsbrad's group trip"
+			},
+			{
+				"q": 639,
+				"size": 3,
+				"why": "Horde 30-40 re-order (2026-11-07): Sigil of Strom drops (2-3%) only from Stromgarde's elite Syndicate (35-38); a group trip from the inner circle, handed in on a return to Hammerfall"
+			},
+			{
+				"q": 673,
+				"size": 3,
+				"why": "Horde 30-40 re-order (2026-11-07): Foul Magics part 2: Marez Cowl is a level 40 elite in Stromgarde, on the same group trip"
+			},
+			{
+				"q": 679,
+				"size": 3,
+				"why": "Horde 30-40 re-order (2026-11-07): Call to Arms part 3: Boulderfist Shaman and Lords in Stromgarde are elites (38-40), on the same group trip"
 			}
 		]
 	},
@@ -6245,7 +6426,6 @@
 		"include": [
 			{
 				"q": 1135,
-				"faction": "Alliance",
 				"reason": "Alliance 30-40 re-order (2026-11-07): Highperch Venom (Fiora Longears, Theramore; 3,650 XP) on the Thousand Needles leg of the Theramore crossing at 33-34 (30-40/03): the Great Lift comes down by Highperch, so the wyverns are a short walk west before the Mirage Raceway.",
 				"issue": "-"
 			},
@@ -6766,13 +6946,139 @@
 				]
 			},
 			{
-				"q": 1258,
+				"q": 98069,
+				"after": [
+					"accept",
+					98070
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Jandia offers Stolen Freewind Supplies beside Stop the Screeching, and its 8 supply crates lie in the same Roguefeather harpy den 07-ashenvale clears for 98070 (3 recorded people took it); taken with 98070 at the first Freewind stop and handed in with it on the way back.",
+				"issue": ""
+			},
+			{
+				"q": 1145,
 				"after": [
 					"turnin",
-					1204
+					1150
 				],
-				"reason": "Alliance 40-60 order (2026-11-08, #1228): ... and Bugs (40) is taken from Morgan Stern with Mudrock Soup and Bugs; the Silt Crawlers drop the legs (80%) on the Swamp of Sorrows shore where the route picks up the driftwood, and it goes back to Morgan Stern on the next Theramore stop.",
-				"issue": "-"
+				"reason": "Horde 30-40 re-order (2026-11-07): Korran stands beside the Crossroads flight master: The Swarm Grows is taken on the flight from Freewind Post to Orgrimmar (one landing), handed to Belgrom in Orgrimmar's Valley of Honor on the way out to the zeppelin, and its follow-ups (1146, 1147) are worked on the 33-34 Shimmering Flats visit.",
+				"issue": ""
+			},
+			{
+				"q": 1146,
+				"after": [
+					"turnin",
+					1145
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Belgrom Rockmaul's follow-up goes to Moktar Krin on the north-western edge of the Shimmering Flats, on the walk in from Freewind Post on the 33-34 visit.",
+				"issue": ""
+			},
+			{
+				"q": 553,
+				"after": [
+					"turnin",
+					552
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Helcular's Revenge part 2: two of its flames burn in the Foothill Caverns the guide has just cleared for the rod, the third in the cave above them, and the grave is at Southshore's graveyard on the sweep from the Azurelode Mine back to Tarren Mill (both other orders take it at 30-32).",
+				"issue": ""
+			},
+			{
+				"q": 97539,
+				"after": [
+					"accept",
+					671
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Doctor Gregory Victor in Hammerfall: the Plains Creepers that carry the spidersilk spin their webs south of Hammerfall, among the raptors of Raising Spirits; handed in on the same Hammerfall return.",
+				"issue": ""
+			},
+			{
+				"q": 1147,
+				"after": [
+					"turnin",
+					1146
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Moktar Krin's silithid dig is in the southern Shimmering Flats, beside the Saltstone Crystalhides and Gazers of A Bump in the Road.",
+				"issue": ""
+			},
+			{
+				"q": 1148,
+				"after": [
+					"accept",
+					1175
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): The Cracked Silithid Carapace drops from the first silithid of The Swarm Grows; its parts come from the same dig, and Korran takes them at the Crossroads at the start of 30-40/04-dustwallow-marsh, on the flight to Camp Taurajo.",
+				"issue": ""
+			},
+			{
+				"q": 1184,
+				"after": [
+					"turnin",
+					1148
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Korran's follow-up goes to Belgrom Rockmaul in Orgrimmar, handed in at the end of 30-40/04-dustwallow-marsh on the way to the Undercity zeppelin.",
+				"issue": ""
+			},
+			{
+				"q": 1178,
+				"after": [
+					"turnin",
+					1176
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Pozzik's Goblin Sponsorship goes to Gazlowe in Ratchet, handed in on 30-40/04-dustwallow-marsh's Ratchet stop (Stinky's Mebok stands beside him).",
+				"issue": ""
+			},
+			{
+				"q": 5361,
+				"after": [
+					"turnin",
+					1147
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Cliffwatcher Longhorn in Freewind Post (min level 32): Family Tree is taken on the walk back through Freewind to its flight master after the Shimmering Flats (not on the way out, below 32), and goes to Nataka Longhorn at Ghost Walker Post on the Desolace visit that follows.",
+				"issue": ""
+			},
+			{
+				"q": 97265,
+				"after": [
+					"turnin",
+					5561
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Aka'rai stands by the path into Shadowprey Village: Hate the Hatefury is taken on the first Shadowprey stop and its satyrs killed at Sargeron with Befouled by Satyr's, handed in on the second Shadowprey stop.",
+				"issue": ""
+			},
+			{
+				"q": 1436,
+				"after": [
+					"turnin",
+					1435
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Takata Steelblade offers the last Alliance Relations once both Befouled by Satyr and The Burning of Spirits are handed in; Keldran takes it in Orgrimmar on the way to the Grom'gol zeppelin at the start of 30-40/03-stranglethorn-vale.",
+				"issue": ""
+			},
+			{
+				"q": 507,
+				"after": [
+					"turnin",
+					506
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Krusk's Lord Aliden Perenolde follows Blackmoore's Legacy on the 38-39 Alterac visit; the manor is on the northern shore of Lordamere Lake, on the walk from Tarren Mill to the Dalaran ruins of Dalaran Patrols and Bracers of Binding (both other orders take the chain at 38-39).",
+				"issue": ""
+			},
+			{
+				"q": 508,
+				"after": [
+					"turnin",
+					507
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Elysa, beside Lord Aliden, gives Taretha's Gift for Krusk, handed in on the Tarren Mill stop after the Dalaran ruins.",
+				"issue": ""
+			},
+			{
+				"q": 92519,
+				"after": [
+					"accept",
+					678
+				],
+				"reason": "Horde 30-40 re-order (2026-11-07): Doctor Gregory Victor's Ward Restocking (offered after Silky Sutures): the Packaged Tonics are in Apothecary Jorell's shack at Go'shek Farm, on the 38-39 loop south of Hammerfall with Boulderfist Hall and the Fleshstalkers.",
+				"issue": ""
 			},
 			{
 				"q": 250,
@@ -6955,6 +7261,15 @@
 				"q": 127,
 				"reason": "Alliance 12-20 re-order, 2026-11-07: Selling Fish (level 21, from 16, 1250 XP) is taken on the 18-20 Eastern Kingdoms loop (03-loch-modan): Dockmaster Baren on the first Lakeshire stop; the Spotted Sunfish drop from the murlocs round the Sunken Chest the loop swims to. Recordings: offered to 17 characters, 16 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 1258,
+				"after": [
+					"turnin",
+					1204
+				],
+				"reason": "Alliance 40-60 order (2026-11-08, #1228): ... and Bugs (40) is taken from Morgan Stern with Mudrock Soup and Bugs; the Silt Crawlers drop the legs (80%) on the Swamp of Sorrows shore where the route picks up the driftwood, and it goes back to Morgan Stern on the next Theramore stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -7098,21 +7413,6 @@
 				"issue": ""
 			},
 			{
-				"q": 1175,
-				"reason": "Level fit (#977): A Bump in the Road's Saltstone Gazers are 34-35 and its ground a median 34 at the route's 30.2-30.4 (c19r Human order and Orc order, Mirage Raceway); no later visit. 2,650 XP. The writer's level fit leaves it out on its own",
-				"issue": 977
-			},
-			{
-				"q": 1105,
-				"reason": "Level fit (#977): Hardened Shells' Sparkleshell tortoises (32 the easiest) stand in ground a median 33 at the route's 30.0 (Mirage Raceway); no later visit. 2,450 XP",
-				"issue": 977
-			},
-			{
-				"q": 1176,
-				"reason": "Level fit (#977): Load Lightening's vultures fly over ground a median 33 at the route's 29.9-30.2 (Mirage Raceway); no later visit. 1,850 XP",
-				"issue": 977
-			},
-			{
 				"q": 2844,
 				"faction": "Alliance",
 				"reason": "Level fit (#977): The Giant Guardian is handed in to Shay Leafrunner, who wanders among the Northspring harpies (median 49) at the route's 44.1 (Feralas); its follow-up Wandering Shay (2845) is an escort through them. The writer's level fit judges quest work, not hand-ins and escorts. 3,400 XP",
@@ -7150,13 +7450,15 @@
 			},
 			{
 				"q": 1106,
-				"reason": "Prerequisite order (2026-11-07, Wetlands report): Fizzle Brassbolts offers Martek the Exiled only once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: 1104 and 1105 share an all-of exclusive group; the one recorded player who took it had handed in both). Hardened Shells is left out for the level (#977), so 1106 cannot be offered on either side's route; left out with its sequels.",
-				"issue": "-"
+				"reason": "Alliance only. Fizzle Brassbolts offers Martek the Exiled once both Salt Flat Venom (1104) and Hardened Shells (1105) are handed in (the data's preAll: the one recorded player who took it had handed in both). The Alliance 30-40 re-order (#1220) hands both in at 33-34 in alliance/30-40/03-ashenvale but leaves Martek and its chain (1108, 1137) out, as next's Alliance route did, so its Badlands visit at 38-39 is unchanged. The Horde route takes it at the raceway in 30-40/02-thousand-needles and hands it in in 30-40/06-badlands.",
+				"issue": "-",
+				"faction": "Alliance"
 			},
 			{
 				"q": 1108,
-				"reason": "Follows Martek the Exiled (1106), left out (see its skip).",
-				"issue": "-"
+				"reason": "Alliance only. Follows Martek the Exiled (1106), which the Alliance route leaves out (see its skip). The Horde route takes it in 30-40/06-badlands.",
+				"issue": "-",
+				"faction": "Alliance"
 			},
 			{
 				"q": 1137,
@@ -7208,6 +7510,24 @@
 				"faction": "Horde",
 				"reason": "Horde 12-30 re-chain (2026-11-07): Rot Hide Ichor (level 17): Silverpine is done at 12-15 now, and the Rot Hide gnolls of Fenris Isle are 15-17 (Fenris Keep 18-22), three to five levels above the player; the walk goes south along the lake shore to Ambermill instead. Resting in Pieces and The Hidden Niche (460, 461, optional, on the island) go with it.",
 				"issue": "-"
+			},
+			{
+				"q": 5501,
+				"faction": "Horde",
+				"reason": "Horde 30-40 re-order (2026-11-07): Bone Collector (level 39) is offered by Bibbly F'utzbuckle at Kormek's Hut, on the road into Desolace north of the Kodo Graveyard where its bones lie. The 34-36 Desolace visit rides past Bibbly at about 33 (five levels under it), and taking it later means a walk back north from the graveyard and back for 2,250 XP. Left out.",
+				"issue": ""
+			},
+			{
+				"q": 1164,
+				"faction": "Horde",
+				"reason": "Horde 30-40 re-order (2026-11-07): To Steal From Thieves is offered by Genavie Callow in the Undercity, which the route passes at 30 (the Dabyrie family are 33-35, quest level 36) and at 32-33 after Arathi; it never comes back to the Undercity after the 38-39 Arathi visit, so the heads would be carried from 30 or walked back for. Left out.",
+				"issue": ""
+			},
+			{
+				"q": 1361,
+				"faction": "Horde",
+				"reason": "Horde 30-40 re-order (2026-11-07): Regthar Deathgate (640 XP) was handed in on a trip from Orgrimmar to the Crossroads and up to the Forgotten Pools at the end of the old Arathi guide; the new order passes the Crossroads by flight only, so it is left out with its follow-up The Kolkar of Desolace (1362).",
+				"issue": ""
 			},
 			{
 				"q": 5249,

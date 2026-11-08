@@ -59,7 +59,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(&format!("{TELDRASSIL}: #619: the necklace and the jewel are collected where Ferocitas is killed, before any turn-in"), ferocitas_loot),
 		t("#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides", pirate_hats),
 		t("forever/alliance/03-darkshore.guide: Deadshot's report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine", how_big_a_threat),
-		t("forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard", ghost_o_plasm),
+		t("forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza", ghost_o_plasm),
 		t("forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too", junior_trainers),
 		t(&format!("{ELWYNN}: Nittepitte's report (#613): Marshal Dughan's turn-ins come between Collecting Kelp and The Escape, while William Pestle brews"), collecting_kelp),
 		t(&format!("{ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end"), mining_tools),
@@ -746,8 +746,8 @@ fn ghost_o_plasm(ctx: &Ctx, c: &mut Check) {
 	c.ok(num_is(goal, "map", 1443.0), "the goal is on Desolace");
 	let Some(y) = yards(ctx, c, goal, &pt(1443.0, 63.77, 91.6)) else { return };
 	c.ok(y <= 200.0, &format!("the arrow at {},{} is in the Valley of Bones, not {} yd off", goal.get("x").to_js_string(), goal.get("y").to_js_string(), round(y)));
-	let Some(bones) = at(c, &list, "collect 13703 (Kodo Bone)", |g| str_is(g, "t", "collect") && num_is(g, "quest", 5501.0)) else { return };
-	c.ok(bones < plasm, "the kodo bones come first");
+	let Some(melizza) = at(c, &list, "turnin 6132 (Melizza)", is("turnin", 6132)) else { return };
+	c.ok(melizza < plasm, "Melizza's escort comes first");
 	let Some(b) = before_at(c, &list, plasm, "turnin 6134", is("turnin", 6134)) else { return };
 	c.ok(b, "the plasm is collected before Hornizz is handed it");
 }
