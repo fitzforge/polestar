@@ -162,7 +162,7 @@ step Mystral Lake
   tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
-  collect 5455 quest 1016 @46.6,69.6      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
   turnin 1016
 
 step The Foulweald

@@ -1134,6 +1134,26 @@
 				}
 			],
 			"pr": 1317
+		},
+		{
+			"id": "1317-1016-1",
+			"quest": 1016,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1440,
+				"x": 49.6,
+				"y": 71.3,
+				"frame": "era"
+			},
+			"note": "Elemental Bracers: the Divined Scroll is made on the spot from five Intact Elemental Bracers (the Divining Scroll's spell), so the goal points where the Befouled Water Elementals wade in Mystral Lake; the old point, 46.6,69.6, was on the lake's west edge, about 70 yd from where players make it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 1016 to 2026-11-08: 9 people (3 established) did it; every Divined Scroll tick comes with a cast of the Divining Scroll's spell (6310), and the 7 ticks with a position lie at 47.5-51.9,69.8-72.2, their middle at 49.6,71.3"
+				}
+			],
+			"pr": 1317
 		}
 	]
 }

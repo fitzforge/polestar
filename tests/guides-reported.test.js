@@ -3870,6 +3870,15 @@ test(`${ASHENVALE}: #424: the Horn of Awakening is taken from Kerlonian's Chest 
 	assert.equal(list[horn].goal.map, 1439, 'the chest is at the Grove of the Ancients in Darkshore');
 });
 
+// Thin-data audit (#1317): Elemental Bracers' Divined Scroll is made where the elementals are; the goal pointed at the
+// lake's west edge, ~70 yd from every recorded tick (7 people, middle at 49.6,71.3).
+test(`${ASHENVALE}: thin-data audit: Elemental Bracers points where players make the Divined Scroll (#1317)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const { goal } = list[at(list, 'collect 5455 (1016)', (g) => g.t === 'collect' && g.quest === 1016)];
+	assert.equal(goal.map, 1440, 'Ashenvale');
+	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 71.3) < 1, `among the elementals (${goal.x},${goal.y})`);
+});
+
 // Fyurie (#920): The Sleeper Has Awakened (5321) was taken from Kerlonian
 // Evershade on the Darkshore visit at about 19, but his escort waits for the
 // Ashenvale guide at about 26, so players carried a timed escort for hours.
