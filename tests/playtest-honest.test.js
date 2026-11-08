@@ -83,10 +83,20 @@ test('R3: a loop step\'s collect finds its source near any of its spots, not onl
 	// Gordo walks the road from Brill to the west; Patience asks for his report. The loop's first spot is
 	// 488 yards from his spawn, its last stands on it.
 	const head = 'step Executor Zygand\n  zone Tirisfal Glades\n  accept 99141\n\nstep Gordo\n  zone Tirisfal Glades\n';
-	const looped = play(head + '  loop\n  goto 53.8,53.1\n  goto 49.7,58.0\n  goto 43.1,54.7\n  collect 286202 quest 99141.3\n', { persona: UNDEAD });
-	assert.deepEqual(of(looped, 'R3').map((f) => f.reason), [], 'Gordo stands at the last spot of the loop');
-	const single = play(head + '  collect 286202 quest 99141.3 @53.8,53.1\n', { persona: UNDEAD });
-	assert.match(of(single, 'R3')[0].reason, /Gordo's Report at Tirisfal Glades 53.8,53.1: nothing there drops it/, 'one place far from him is still a finding');
+	play(head, { persona: UNDEAD });
+	// Gordo hands his report over when asked (data/rules.json H31c); a data build may not list him as its
+	// source, so the test gives him as one for its own run.
+	const drops = data.items[286202].drops;
+	const had = drops.npc[10666];
+	drops.npc[10666] = had === undefined ? 100 : had;
+	try {
+		const looped = play(head + '  loop\n  goto 53.8,53.1\n  goto 49.7,58.0\n  goto 43.1,54.7\n  collect 286202 quest 99141.3\n', { persona: UNDEAD });
+		assert.deepEqual(of(looped, 'R3').map((f) => f.reason), [], 'Gordo stands at the last spot of the loop');
+		const single = play(head + '  collect 286202 quest 99141.3 @53.8,53.1\n', { persona: UNDEAD });
+		assert.match(of(single, 'R3')[0].reason, /Gordo's Report at Tirisfal Glades 53.8,53.1: nothing there drops it/, 'one place far from him is still a finding');
+	} finally {
+		if (had === undefined) delete drops.npc[10666];
+	}
 });
 
 test('R3: a quest item drops only while its quest is held', { skip }, () => {
