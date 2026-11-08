@@ -1764,9 +1764,9 @@ L["Did you mean:"] = "Tal vez buscabas:"
 -- L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."] = ""
 -- L["What's new"] = ""
 -- L["When you abandon a guide quest"] = ""
--- L["Ask me: the guide stays on its step, the arrow leads back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
 -- L["Always go back for it"] = ""
 -- L["Always skip it"] = ""
+-- L["Ask me: the guide stays on its step, leads you back to the quest giver, and the guide window asks. Or always go back for the quest, or always skip it and the quests that follow from it; chat says which."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
