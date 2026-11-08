@@ -2,8 +2,8 @@
 -- them; a key missing here shows in English. Grouped by the file that first
 -- uses each key.
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "deDE") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "deDE") then return end
 local L = ns.L
 
 -- Core/Automation.lua

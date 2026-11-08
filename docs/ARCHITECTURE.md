@@ -27,7 +27,7 @@ one into the other. The addons:
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
-| `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
+| `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
 | `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, his surfaces, graph, jumps and drops, with our area names and chokepoints; format 3 from our grid when packed without `--leffe`) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack --leffe` (the maps, `PACK.json`, from Leffe's navigation maps, the navigation grid and the ground layers) | yes | yes, always |
@@ -368,13 +368,18 @@ there until it is guarded and listed.
 ### Localisation
 
 `Polestar.L[key]`: a key is the English text, and a missing key returns
-itself, so a client without a translation reads English. A locale file
-(`Locales/<locale>.lua`, one per language of forge-guide's `locales.rs`,
-loaded by `Core/Core.xml` right after `Core/Init.lua` and returning at once on
-another client) fills `L` for its client, so every file after it may read `L`
-at load; Init.lua, which loads before it, reads `L` only when it prints (the
-commands register in Core/Commands.lua). docs/TRANSLATING.md describes the
-files and `forge i18n`.
+itself, so a client without a translation reads English. The translations
+are `Interface.lua` in each language folder `Polestar_<locale>` (one per
+language of forge-guide's `locales.rs`; load on demand), so a client compiles
+only its own language's. `Core/Locale.lua` loads the client's folder
+(`C_AddOns.LoadAddOn`, not `Data.Pack`: never refused in combat, and a failure
+is not kept, so Names and Guide texts still try the folder later) right after
+`Core/GuideTexts.lua`: the folder's `Names.lua` and `Texts.lua` fill
+`Polestar.Names` and `GuideTexts` as it loads, and every file after it may
+read `L` at load. The files before it, Init.lua included, read `L` only when
+they print (the commands register in Core/Commands.lua). An English client
+loads nothing; a missing or disabled folder leaves the interface in English.
+docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
 `Polestar.LC(context, text)` is the translation of `"<context>: <text>"`, and
@@ -449,11 +454,10 @@ Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
   argument). Flight points (`taxi`) and encounters are the pack's only.
   Then the names pack of the client's
   language, `Names.lua` in the language folder `Polestar_<GetLocale()>`,
-  loaded through `Data.Pack` on the
-  first ask, or already in when Guide texts loaded the folder (refused in
-  combat, it loads when combat ends, fires `NAMES_LOADED` and redraws the
-  guide window once; a missing folder is final for the session and
-  harmless). Then nil. On an English client every answer is nil and nothing
+  in since `Core/Locale.lua` loaded the folder; when that failed, loaded
+  through `Data.Pack` on the first ask (refused in combat, it loads when
+  combat ends, fires `NAMES_LOADED` and redraws the guide window once; a
+  missing folder is final for the session and harmless). Then nil. On an English client every answer is nil and nothing
   loads.
 - **Learned in play.** The client has no API for NPC or object names by id,
   but it names the units it shows: on `PLAYER_TARGET_CHANGED`,
@@ -500,14 +504,15 @@ Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
   `fromKind`), so the goal line names them in the client's language;
   `from` and `fromAlso` are the English for older packs and English clients.
 - **The packs.** One load-on-demand language folder per language,
-  `addon/Polestar_<locale>/`, shared with our guides' texts (Guide texts):
+  `addon/Polestar_<locale>/`, shared with our guides' texts (Guide texts)
+  and the interface strings (`Interface.lua`, Localisation):
   `Names.lua` handing `Names.AddChunk`
   each kind's names as LuaChunks text, `"<id>\t<name>"` lines of up to 500
   names a chunk, cut out when a name is asked (about 1 MB resident instead
   of 3 to 4), `LICENSE-DATA.txt`, Ding's `CREDITS.md`, and the folder's TOC,
   which `forge data names` and `forge guide compile` write alike (each leaves
   the other's files alone; `forge data names` removes the folder only once
-  no `Texts.lua` is left in it, and the old `Polestar_Names_<locale>`),
+  no `Texts.lua` or `Interface.lua` is left in it, and the old `Polestar_Names_<locale>`),
   committed and shipped. Kinds: `quest`, `npc`, `object`, `item`, and `map`
   (instance maps), `encounter` (DungeonEncounter ids), `faction`, `taxi`
   (TaxiNodes ids) and `objective` (the objective text of the dungeon quests
@@ -562,7 +567,8 @@ Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = { [id] = {.
   client's language, `<pack addon>_<locale>` (load on demand, generated by
   `compile` from the pack's `locales/<locale>/` files; our own pack's,
   `Polestar_Guides`, are `Texts.lua` in the language folder `Polestar_<locale>`
-  beside the game's names, so one load brings both): only that one loads,
+  beside the game's names, so one load brings both, and `Core/Locale.lua`
+  has loaded it before our pack registers): only that one loads,
   only on that client, through `Data.Pack`, at the pack's own
   `ADDON_LOADED`. While the pack's files load, its guides show their English
   names (asking Names then would load the names pack in the middle of

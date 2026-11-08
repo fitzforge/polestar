@@ -817,8 +817,9 @@ mod native {
 			}
 			std::fs::write(&file, content(c)).map_err(|e| io(e, &file))?;
 		}
-		// Our pack's texts share the language folder with the game's names (`forge data names`): only
-		// the texts' own files are written or removed there, and the folder goes once it holds no names.
+		// Our pack's texts share the language folder with the game's names (`forge data names`) and the
+		// interface strings: only the texts' own files are written or removed there, and the folder goes
+		// once it holds neither.
 		let shared = base == OWN_FOLDER;
 		for folder in texts.iter().chain(parts.iter()).chain(factions.iter()) {
 			let dir = parent.join(folder);
@@ -827,7 +828,7 @@ mod native {
 				None if language => {
 					if refusal(folder).is_none() {
 						let _ = std::fs::remove_file(dir.join("Texts.lua"));
-						if entries(&dir).is_some_and(|l| !l.iter().any(|e| e.file_name() == "Names.lua")) {
+						if entries(&dir).is_some_and(|l| !l.iter().any(|e| e.file_name() == "Names.lua" || e.file_name() == crate::toc::INTERFACE_FILE)) {
 							let _ = std::fs::remove_dir_all(&dir);
 						}
 					}

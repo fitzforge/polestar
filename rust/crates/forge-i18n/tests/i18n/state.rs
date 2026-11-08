@@ -41,12 +41,8 @@ fn a_file_in_another_layout_is_an_error_for_the_check() {
 
 #[test]
 fn every_shipped_interface_file_loads_has_no_stale_or_twice_set_key_and_keeps_the_english_formats() {
-	let names: Vec<String> = std::fs::read_dir(polestar().join("Locales")).unwrap().flatten().map(|e| e.file_name().to_string_lossy().into_owned()).filter(|f| f.ends_with(".lua")).collect();
-	assert!(!names.is_empty());
-	for f in &names {
-		assert!(forge_guide::locales::locale(f.trim_end_matches(".lua")).is_some(), "Locales/{f}: not a locale Polestar ships");
-	}
 	let shipped = shipped();
+	assert!(!shipped.is_empty());
 	let st = locale_state(root(), &polestar(), &shipped, None).unwrap();
 	for (l, s) in &st.locales {
 		assert_eq!(s.error, None, "{l}");
@@ -60,7 +56,7 @@ fn every_shipped_interface_file_loads_has_no_stale_or_twice_set_key_and_keeps_th
 fn sync_keeps_every_translation_line_of_the_shipped_files_byte_for_byte() {
 	let keys = extract_keys(root(), &polestar()).unwrap().by_file();
 	for l in shipped() {
-		let file = polestar().join("Locales").join(format!("{l}.lua"));
+		let file = forge_guide::i18n_files::locale_file(&polestar(), &l);
 		let text = std::fs::read_to_string(&file).unwrap();
 		let shown = file.to_string_lossy();
 		let out = update_locale_text(&text, &shown, &keys, &V::obj(), &V::obj()).unwrap();

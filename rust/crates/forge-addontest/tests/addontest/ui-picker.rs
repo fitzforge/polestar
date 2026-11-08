@@ -1006,7 +1006,8 @@ fn rail_labels(before: &str) -> Value {
 
 #[test]
 fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_options_at_80_90_and_100_percent_in_english_and_german() {
-	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", "function GetLocale() return \"deDE\" end", "Nachschlagen")] {
+	let german = format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE"));
+	for (locale, before, lookup) in [("enUS", "", "Lookup"), ("deDE", german.as_str(), "Nachschlagen")] {
 		let out = rail_labels(before);
 		let runs = out.as_array().unwrap();
 		assert_eq!(runs.len(), 3);

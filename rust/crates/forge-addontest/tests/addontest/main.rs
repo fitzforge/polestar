@@ -164,6 +164,8 @@ mod import;
 mod import_safety;
 mod install;
 mod levels;
+#[path = "locale-load.rs"]
+mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;

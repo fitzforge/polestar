@@ -87,17 +87,6 @@ Polestar.RegisterGuide({
 })
 "#;
 
-// The interface files stay out (their "%1$s" formats need the client's string.format): these tests
-// are about the names.
-const NO_INTERFACE_FILE: &str = r#"
-do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\]Locales[/\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
-	end
-end"#;
-
 fn run(locale: Option<&str>, script: &str) -> Vec<Value> {
 	let pack = ru_pack();
 	let codex = codex();
@@ -106,7 +95,6 @@ fn run(locale: Option<&str>, script: &str) -> Vec<Value> {
 		stubs: vec!["stub_world.lua"],
 		before: format!(
 			r#"{locale}
-{NO_INTERFACE_FILE}
 {}
 {}
 function C_QuestLog.RequestLoadQuestByID() end

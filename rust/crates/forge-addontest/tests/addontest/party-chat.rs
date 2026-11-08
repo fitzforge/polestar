@@ -56,7 +56,7 @@ fn with_settings(script: &str, party: &str) -> Vec<Value> {
 
 // Logged in on a client in `locale`.
 fn in_locale(script: &str, locale: &str) -> Vec<Value> {
-	run_full(script, true, DEFAULTS, &format!("function GetLocale() return {} end", lua_string(locale)))
+	run_full(script, true, DEFAULTS, &format!("function GetLocale() return {} end\n{}", lua_string(locale), forge_addontest::shipped_strings(locale)))
 }
 
 fn link(q: u32, title: &str) -> String {

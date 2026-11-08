@@ -27,15 +27,17 @@ Spain's and Latin America's clients use different words for game terms
 
 ## The file
 
-Each language has one file, `addon/Polestar/Locales/<locale>.lua`, and one
-for the optional Recorder's few chat lines,
-`addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way:
+Each language has one file, `Interface.lua` in its language folder
+`addon/Polestar_<locale>` (only a client in that language loads the folder),
+and one for the optional Recorder's few chat lines,
+`addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way (the
+Recorder's starts with `local _, ns = ...` and the plain locale check):
 
 ```lua
 -- German (deDE). ...
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "deDE") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "deDE") then return end
 local L = ns.L
 
 -- Core/Commands.lua
@@ -301,7 +303,7 @@ hand-written ones (Polestar, Polestar_Nav, Polestar_ItemDB,
 Polestar_Recorder) carry the same lines, and the forge-i18n tests check
 that every TOC under `addon/` has all nine and that they match. Our guides'
 race parts (`Polestar_Guides_<race>`, class chains and baked legs) fill one
-title and notes with the race's name as `addon/Polestar/Locales/` has it.
+title and notes with the race's name as the interface files (`addon/Polestar_<locale>/Interface.lua`) have it.
 
 ## Guide texts
 

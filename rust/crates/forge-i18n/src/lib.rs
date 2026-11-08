@@ -1,5 +1,6 @@
 //! Polestar's translations (docs/TRANSLATING.md), `forge i18n`: the interface strings of each addon
-//! (addon/<addon>/Locales/<locale>.lua: their keys, state, sync and import), a guide pack's texts in
+//! (addon/Polestar_<locale>/Interface.lua and addon/Polestar_Recorder/Locales/<locale>.lua: their
+//! keys, state, sync and import), a guide pack's texts in
 //! other languages (`<pack>/locales/<locale>/`) and the English a non-English client would show
 //! (`i18n leaks`). Port of tools/commands/i18n.js and tools/lib/i18n. The file layout and the guide
 //! texts' read side are forge-guide's (i18n_files, i18n_guides, locales, toc). Adapted from Ding! by
@@ -19,8 +20,9 @@ pub mod project;
 /// leaks-baseline.json.
 pub const DATA_DIR: &str = "data/i18n";
 
-/// An addon with interface translations, each with Locales/<locale>.lua: Polestar's own (loaded by
-/// Core/Core.xml) and the Recorder's (its TOC).
+/// An addon with interface translations: Polestar's own (Interface.lua in each language folder, loaded by
+/// Core/Locale.lua) and the Recorder's (Locales/<locale>.lua, listed in its TOC); forge_guide's
+/// i18n_files::locale_file names the file.
 pub struct Addon {
 	pub name: &'static str,
 	pub title: &'static str,

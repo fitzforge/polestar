@@ -1,9 +1,9 @@
 'use strict';
 // A fake translation for the addon's tests: Lua for runAddon's `before` that
 // makes GetLocale() return `locale` and fills Polestar.L with `strings`
-// right after Core/Init.lua runs, where a locale file (Locales/<locale>.lua)
-// loads in the client. Code that looks a string up too early, or two
-// meanings sharing one key, then shows in the test. The locale must be one
+// right after Core/Init.lua runs, before any file reads L at load. Code that
+// looks a string up too early, or two meanings sharing one key, then shows in
+// the test. The locale must be one
 // Polestar does not ship (itIT: WoW: Forever has no Italian client), or the
 // shipped file would load after these strings and replace them.
 //

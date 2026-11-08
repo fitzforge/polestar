@@ -38,9 +38,9 @@ ns.IssueURL = "https://github.com/fitzforge/polestar/issues/new"
 local pcall, type, pairs, select, tostring = pcall, type, pairs, select, tostring
 
 -- Translations: a key is the English text, and a missing key renders as
--- itself. A locale file loaded right after this one fills L for its client,
--- so nothing in this file reads L at load: the commands with their help
--- lines register in Commands.lua.
+-- itself. The client's language folder fills L when Core/Locale.lua loads
+-- it, so nothing in this file (nor any before Locale.lua) reads L at load:
+-- the commands with their help lines register in Commands.lua.
 local L = setmetatable({}, { __index = function(_, key) return key end })
 ns.L = L
 

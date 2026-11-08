@@ -1173,7 +1173,7 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 #[test]
 fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_label() {
 	let out = run_mods(
-		"function GetLocale() return \"deDE\" end",
+		&format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE")),
 		r#"emit({ german = top("Plündern"), noAccent = top("plundern"), term = top("autoloot"), english = top("faster auto loot"), stone = top("ruhestein button") })"#,
 	);
 	for q in ["german", "noAccent", "term", "english"] {
@@ -1187,7 +1187,7 @@ fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_lab
 #[test]
 fn search_finds_single_non_ascii_characters_inside_translated_labels() {
 	for (locale, query, expected) in [("zhCN", "图", "maps.minimapButton"), ("zhTW", "圖", "maps.minimapButton"), ("koKR", "템", "qol.itemButton"), ("ruRU", "ш", "nav.arrowScale")] {
-		let out = run_mods(&format!("function GetLocale() return \"{locale}\" end"), &format!("emit(keys(\"{query}\"))"));
+		let out = run_mods(&format!("function GetLocale() return \"{locale}\" end\n{}", forge_addontest::shipped_strings(locale)), &format!("emit(keys(\"{query}\"))"));
 		assert!(out.as_array().is_some_and(|keys| keys.iter().any(|key| key.as_str() == Some(expected))), "{locale}: {query:?} did not find {expected}: {out}");
 	}
 }

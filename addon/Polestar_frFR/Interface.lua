@@ -4,8 +4,8 @@
 -- first uses each key. docs/TRANSLATING.md explains the rest.
 -- From Yendi's (@moust4ki) French translation for Ding!, GPL-3.0, used with his permission (THIRD_PARTY.md).
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "frFR") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "frFR") then return end
 local L = ns.L
 
 -- Core/Init.lua

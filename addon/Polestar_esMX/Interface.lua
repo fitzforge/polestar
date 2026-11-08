@@ -2,8 +2,8 @@
 -- code writes them; a key missing here shows in English. Game terms follow
 -- the esMX client's own wording. Grouped by the file that first uses each key.
 
-local _, ns = ...
-if not (GetLocale and GetLocale() == "esMX") then return end
+local ns = Polestar
+if not (ns and GetLocale and GetLocale() == "esMX") then return end
 local L = ns.L
 
 -- Core/Automation.lua
