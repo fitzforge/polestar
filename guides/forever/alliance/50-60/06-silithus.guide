@@ -39,15 +39,28 @@ step The Emerald Sanctuary
 step Shadow Hold braziers
   tip Shadow Hold is the cave at the back of Jaedenar, west of the road. Use the Purified Moonwell Water on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the Silvery Claws.
   tip Careful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.
+  tip The Jaedenar Darkweavers, Warlocks and Enforcers in here drop a Blood Red Key, about one kill in thirty: keep killing them until it drops. It opens the cell of Arko'narin, the night elf held in the cave.
   collect 11172 quest 4084.1          -- Angerclaw bears and Felpaw wolves
   interact 176159 quest 5165.2        -- Brazier of Malice, below ground
   interact 176160 quest 5165.3        -- Brazier of Suffering, below ground
   interact 176158 quest 5165.1        -- Brazier of Pain, below ground
   interact 176161 quest 5165.4        -- Brazier of Hatred, below ground
+  collect 13140                       -- Blood Red Key
+  accept 5202
+  turnin 5202                         -- Captured Arko'narin, in her cell; below ground
+  accept 5203
+
+step Arko'narin
+  when onquest 5203
+  tip Lead her out of Shadow Hold and keep her alive until she is outside the cave: clear the way back first.
+  goto 35.4,59.1
+  complete 5203
 
 step The Emerald Sanctuary
   turnin 5165                         -- Greta Mosshoof
   accept 5242
+  turnin 5203                         -- Jessir Moonbow
+  accept 5204
 
 step Irontree Woods
   tip Follow the road north to Irontree Woods. The Irontree Stompers carry the heart; finish the claws on the Angerclaw Grizzlies and Felpaw Ravagers of the north.
@@ -66,8 +79,11 @@ step Felpaw Village
   accept 5085                         -- Mystery Goo: Donova Snowden in Winterspring, keep it
 
 step A Final Blow
-  tip Back into Shadow Hold: Moora and Salia guard Shadow Lord Fel'dan in its deepest chamber.
+  tip Back into Shadow Hold: Moora and Salia guard Shadow Lord Fel'dan in its deepest chamber. The succubus Rakaiah waits on the way, with Trey Lightforge's remains beside her.
   tip Careful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies.
+  kill 9518 quest 5204.1 @38.3,50.5 map 1448 -- Rakaiah, below ground
+  turnin 5204                         -- Remains of Trey Lightforge, below ground
+  accept 5385
   kill 9861 quest 5242.1              -- Moora, below ground
   kill 9860 quest 5242.2              -- Salia, below ground
   collect 13207 quest 5242.3          -- Shadow Lord Fel'dan; below ground
@@ -77,6 +93,7 @@ step The Emerald Sanctuary
   turnin 4084                         -- Eridan Bluewind, inside
   accept 4005                         -- Keep the Book of Aquor, the claws and the heart he hands back
   turnin 5242                         -- Greta Mosshoof
+  turnin 5385                         -- Jessir Moonbow
 
 step Azshara
   zone Azshara
@@ -300,10 +317,16 @@ step Felwood
 step Toxic Horrors
   collect 12822 quest 5086.1 @49.8,27.4 map 1448
 
-step Felpaw Village
-  when onquest 8471,6031
-  turnin 8471 optional                -- Kernda, just inside the cave: only from Neutral with the Timbermaw; walks around here: look inside the circle on the map
-  turnin 6031 optional                -- Meilosh, if you have thirty Runecloth; below ground
+step Kernda
+  when onquest 8471
+  tip Kernda stands just inside the Timbermaw Hold cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in Winterspring brought you to.
+  turnin 8471                         -- Kernda, just inside the cave: walks around here: look inside the circle on the map
+
+step Meilosh
+  when has 14047 x30
+  tip Meilosh, just inside the cave beside Kernda, takes thirty Runecloth from Friendly with the Timbermaw: the Winterspring top-up on the Winterfall furbolgs gets you both.
+  accept 6031                         -- Meilosh; below ground
+  turnin 6031
 
 step Winterspring
   zone Winterspring

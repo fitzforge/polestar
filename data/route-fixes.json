@@ -7755,6 +7755,53 @@
 				],
 				"reason": "Quest volume, Alliance 50-60 (2026-11-08): The Eastern Plagues (60, from 56, 8300 XP) is taken from Flint Shadowmore when Flint Shadowmore is handed in at Chillwind Camp; the three remains are at the Marris Stead on the way back from Egan, and it goes back to Flint with A Plague Upon Thee on the last Chillwind stop, before the route's last top-up would have ground the same XP. Nathanos is not fought.",
 				"issue": "-"
+			},
+			{
+				"q": 5202,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): A Strange Red Key is taken from the Blood Red Key on the 58-60 guide's first Shadow Hold visit (06, the braziers): the Jaedenar Darkweavers, Warlocks and Enforcers that drop it (3.5% each, TDB) live inside Shadow Hold, which that guide clears twice and calls group-level at 58; at 53 (02) the key was optional and the cave too hard alone.",
+				"issue": "-"
+			},
+			{
+				"q": 5203,
+				"after": [
+					"turnin",
+					5202
+				],
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Rescue From Jaedenar: Arko'narin is led out of Shadow Hold on the same visit and handed in to Jessir Moonbow on the Emerald Sanctuary stop right after it.",
+				"issue": "-"
+			},
+			{
+				"q": 5204,
+				"after": [
+					"turnin",
+					5203
+				],
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Retribution of the Light: Rakaiah (56) sits in Shadow Hold on the way to Shadow Lord Fel'dan (A Final Blow), so she dies on that visit.",
+				"issue": "-"
+			},
+			{
+				"q": 5385,
+				"after": [
+					"turnin",
+					5204
+				],
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): The Remains of Trey Lightforge: taken from the remains beside Rakaiah, handed in to Jessir Moonbow on the Emerald Sanctuary stop that ends the Felwood visit.",
+				"issue": "-"
+			},
+			{
+				"q": 8471,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Winterfall Ritual Totem: the Winterspring top-up (03) kills hundreds of Winterfall furbolgs (totem 3-4% from each kind), so the totem is certain; Kernda takes it when the 58-60 guide passes Timbermaw Hold, by then Neutral (the same kills).",
+				"issue": "-"
+			},
+			{
+				"q": 8470,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Deadwood Ritual Totem: the Felpaw Village kills for Deadwood of the North (02) go on until the totem drops (3.2%); handed in to Kernda then if Neutral, else on the 58 pass with the Winterfall totem.",
+				"issue": "-"
+			},
+			{
+				"q": 6031,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Runecloth: Meilosh needs Friendly with the Timbermaw (quest_template_addon RequiredMinRepFaction 576, 3000) and 30 Runecloth; the Winterspring top-up on the Winterfall furbolgs brings both, so the quest is taken and handed in on the 58 pass of Timbermaw Hold (06), not offered at 53.",
+				"issue": "-"
 			}
 		],
 		"skip": [
