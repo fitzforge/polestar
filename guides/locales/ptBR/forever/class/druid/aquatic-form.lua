@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: A Lesson to Learn
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "{npc:4217} fica no andar de cima do prédio dos druidas em {area:1658}. Celonatos: usem {spell:18960} e peguem o voo de {npc:11800} no meio de {area:2361} (ela leva druidas para {area:702}, sem precisar de rota de voo), depois subam pelo portal.",
 
 	-- Step 2: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
@@ -25,15 +25,15 @@ return {
 	-- Step 3: Half Pendant of Aquatic Agility
 	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox · {area:456} Cliffspring River
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
+	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "Voe de {area:2361} para {area:442}. O {object:177792} está longe, no fundo do mar ao largo da costa norte, entre rochas altas a oeste de onde {area:456} chega ao mar: do lado leste das rochas não dá para ver. Fique de olho no fôlego e nos Manguais da Costa Negra; lute fora d'água.",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
-	["{item:15883}, from the {object:177792}"] = "",
+	["{item:15883}, from the {object:177792}"] = "{item:15883}, do {object:177792}",
 
 	-- Step 4: Half Pendant of Aquatic Endurance
 	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
+	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "Pegue o barco de {area:442} para {zone:1453} e voe para {area:108}. Siga para oeste até a costa: o {object:177790} está longe, no fundo do mar, ao lado de uma fenda borbulhante (ar), a oeste de uma âncora afundada. Tubarões rondam por ali; não passe do naufrágio mais adiante, a água funda dá fadiga.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}, do {object:177790}",
 
 	-- Step 5: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
@@ -43,11 +43,11 @@ return {
 
 	-- Step 6: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "Suba pelo portal até {npc:4217}, em {area:1658}. {quest:5061}: nade rápido e respire debaixo d'água.",
 
 	-- Step 7: A Lesson to Learn
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands in the druids' hut on {area:1639}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}."] = "{npc:3033} fica na cabana dos druidas em {area:1639}.",
 
 	-- Step 8: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
@@ -56,7 +56,7 @@ return {
 
 	-- Step 9: Half Pendant of Aquatic Endurance
 	-- {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1458} Undercity · {object:177790} Strange Lockbox · {area:228} Sepulcher
-	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "",
+	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "Pegue o voo de {npc:11798} para {zone:1456}, voe para {zone:1454} e pegue o zepelim para {zone:1420}; {zone:1421} fica ao sul de {zone:1458}. O {object:177790} está no fundo de águas bem fundas, ao largo da costa a noroeste de {area:228}, ao lado de uma fenda de ar onde dá para respirar: cuide do fôlego na descida.",
 
 	-- Step 10: Half Pendant of Aquatic Agility
 	-- {object:177792} Strange Lockbox · {area:382} Sludge Fen

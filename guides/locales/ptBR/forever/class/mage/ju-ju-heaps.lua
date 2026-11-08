@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:9514} Arcane Staff
-	["Ley or {item:9514} or Orb (Horde)"] = "",
+	["Ley or {item:9514} or Orb (Horde)"] = "Meridiano ou {item:9514} ou Orbe (Horda)",
 	-- {area:368} Echo Isles
-	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "",
+	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "Um cajado ou um orbe de mão secundária no nível 10: Orcs e Trolls em {area:368}, Mortos-vivos numa fazenda de Tirisfal.",
 
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "Un'Thuwa",
@@ -25,15 +25,15 @@ return {
 	-- {quest:1884} Ju-Ju Heaps
 	["The {quest:1884}"] = "{quest:1884}",
 	-- plural, as words: Voodoo Trolls = {npc:3206} Voodoo Troll
-	["Wade across the shallows south-east of Sen'jin to the main Echo Isle, where Zalazane (level 10) holds his camp with Hexed and Voodoo Trolls (level 8). The heaps you can click are the skull piles inside the raised huts around his camp, one hut holding two, more in the huts to the north; the skulls lying on the ground outside cannot be clicked. Destroy four. There are seven and each comes back 30 seconds after it is destroyed."] = "",
+	["Wade across the shallows south-east of Sen'jin to the main Echo Isle, where Zalazane (level 10) holds his camp with Hexed and Voodoo Trolls (level 8). The heaps you can click are the skull piles inside the raised huts around his camp, one hut holding two, more in the huts to the north; the skulls lying on the ground outside cannot be clicked. Destroy four. There are seven and each comes back 30 seconds after it is destroyed."] = "Atravesse a água rasa a sudeste de Sen'jin até a ilha principal das Ilhas do Eco, onde Zalazane (nível 10) mantém o acampamento com Trolls Bagateados e Trolls Vodu (nível 8). As pilhas clicáveis são os montes de crânios dentro das cabanas elevadas em volta do acampamento dele, uma cabana com duas, e mais nas cabanas do norte; os crânios jogados no chão do lado de fora não dá para clicar. Destrua quatro. São sete, e cada uma volta 30 segundos depois de destruída.",
 	-- {object:102986} Ju-Ju Heap
-	["{object:102986}, four of them"] = "",
+	["{object:102986}, four of them"] = "{object:102986}, quatro delas",
 
 	-- Step 4: Back to Un'thuwa
 	["Back to Un'thuwa"] = "Volte a Un'Thuwa",
-	["The orb is an off-hand for a one-hand weapon; the staff is a two-hander."] = "",
+	["The orb is an off-hand for a one-hand weapon; the staff is a two-hander."] = "O orbe é mão secundária para quem usa arma de uma mão; o cajado é de duas mãos.",
 	-- {item:7508} Ley Orb · {item:9513} Ley Staff
-	["Un'thuwa: {item:7508} or {item:9513}"] = "",
+	["Un'thuwa: {item:7508} or {item:9513}"] = "Un'thuwa: {item:7508} ou {item:9513}",
 
 	-- Step 5: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36082} Magic Quarter (no name in this language: may be words)
@@ -41,12 +41,12 @@ return {
 
 	-- Step 6: The Balnir Farmstead
 	-- {quest:1882} The Balnir Farmstead · {area:159} Brill · {area:152} Bulwark · {skill:182} Herbalism
-	["{quest:1882} lies south-east of {area:159}, south of the road east to the {area:152}. The snapdragons grow in the farm's garden and look more like bushes than flowers; any of them will do and you need no {skill:182}. They come back within seconds."] = "",
+	["{quest:1882} lies south-east of {area:159}, south of the road east to the {area:152}. The snapdragons grow in the farm's garden and look more like bushes than flowers; any of them will do and you need no {skill:182}. They come back within seconds."] = "{quest:1882} fica a sudeste de {area:159}, ao sul da estrada para leste até {area:152}. As bocas-de-leão crescem na horta da fazenda e parecem mais arbustos que flores; qualquer uma serve e não precisa de {skill:182}. Voltam em segundos.",
 
 	-- Step 7: Back to Anastasia
-	["Back to Anastasia"] = "",
+	["Back to Anastasia"] = "De volta à Anastácia",
 	-- {npc:4568} Anastasia Hartwell · {item:7507} Arcane Orb · {item:9514} Arcane Staff
-	["{npc:4568}: {item:7507} or {item:9514}"] = "",
+	["{npc:4568}: {item:7507} or {item:9514}"] = "{npc:4568}: {item:7507} ou {item:9514}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A staff or an orb at 10 for Horde mages, worth a short trip back to the {area:368}."] = "Um cajado ou um orbe no nível 10 para magos da Horda; vale uma viagem curta de volta às {area:368}.",
