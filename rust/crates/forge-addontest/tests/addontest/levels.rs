@@ -390,3 +390,11 @@ emit(Lv.StepHint(4, p) == nil)"#,
 	assert_eq!(out[0]["handIn"], true, "handing a quest in is never hard");
 	assert_eq!(out[1], true, "a done quest: no hint");
 }
+
+#[test]
+fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() {
+	// Level 24 in the 20-24 guide (a Barrens 15-21 at 21): no `level` goal, the end target is the top the character
+	// already has, so on pace; the route's XP takes it past 24, which the guide window shows (ui.rs).
+	let out = lua(&[RIDGE, "p.level, p.xp, p.xpMax = 24, 0, 30000\nlocal s = Lv.Pace(p)\nemit({ kind = s.kind, target = s.target, bars = s.bars, past = s.reach > 24 })"].join("\n")).remove(0);
+	assert_eq!(out, json!({ "kind": "end", "target": 24, "bars": 0, "past": true }));
+}

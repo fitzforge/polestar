@@ -4646,7 +4646,8 @@ ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
 -- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
 -- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
--- grinding time. On pace (or ahead): "On pace for level 14 by step 32".
+-- grinding time. On pace (or ahead): "On pace for level 14 by step 32"; at
+-- the guide's end, the level the route gets you to ("level 22.4 by step 97").
 -- Behind, with a `level` goal ahead that grinds it: "Behind by 6 bars: step 32
 -- grinds to level 14 (~12m)". Behind with none, in the warning colour: a quest
 -- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
@@ -4676,6 +4677,10 @@ function GF.PaceText(stats)
 				or string.format(L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"], name, h.level, at, you, h.need)
 		end
 	elseif pace.bars == 0 then
+		-- At a guide's end there is no goal to meet, only the level the route
+		-- gets you to: say that one, which a character already at the guide's
+		-- top passes (15-21 at 21: "level 22.4", never "level 21").
+		if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
 		return string.format(L["On pace for level %s by step %d"], level, stepNo)
 	else
 		local bars = pace.bars

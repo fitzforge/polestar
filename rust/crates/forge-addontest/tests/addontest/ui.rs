@@ -1441,6 +1441,7 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 		local out = {}
 		out.onPace = line({ target = 20, step = 32, reach = 20.1, bars = 0, short = 0, xp = 0, kind = "goal", live = 30 }, stats)
 		out.ahead = line({ target = 24, step = 21, reach = 25.3, bars = 0, short = 0, xp = 0, kind = "end", live = 3 }, stats)
+		out.atTop = line({ target = 21, step = 97, reach = 21, bars = 0, short = 0, xp = 0, kind = "end", live = 22 }, stats)
 		local grind = { target = 20, step = 32, reach = 18.8, bars = 24, short = 1.2, xp = 1700, kind = "goal", live = 30 }
 		out.grind = line(grind, stats)
 		out.grindNoRate = line(grind, nil)
@@ -1463,7 +1464,8 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	.remove(0);
 	let warn = |s: &str| format!("|c{}{s}|r", text(&out["warn"]));
 	assert_eq!(out["onPace"], "On pace for level 20 by step 32", "on target: calm, as before");
-	assert_eq!(out["ahead"], "On pace for level 24 by step 21");
+	assert_eq!(out["ahead"], "On pace for level 25.3 by step 21", "past the guide's top: where the route gets you, not the top");
+	assert_eq!(out["atTop"], "On pace for level 21 by step 97", "exactly the top: the top");
 	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
 	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
 	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
