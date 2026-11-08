@@ -264,6 +264,29 @@ fn a_map_with_only_a_forever_frame_keeps_one_candidate_per_town_too_not_one_per_
 }
 
 #[test]
+fn a_live_frame_spawn_is_placed_in_the_maps_forever_frame_so_a_town_beside_it_is_kept() {
+	let data = data_with("live-frame", |raw| {
+		// Mulgore's Era and Forever frames differ by hundreds of yards; Thunder Bluff's are the same.
+		let frames = raw.get_mut("map-frames.json").unwrap();
+		frames["era"]["1412"] = json!({ "c": 1, "left": 2047.917, "right": -3089.583, "top": -272.917, "bottom": -3697.917 });
+		frames["era"]["1456"] = json!({ "c": 1, "left": 516.667, "right": -527.083, "top": -850, "bottom": -1545.833 });
+		frames["forever"] = json!({
+			"1412": { "c": 1, "left": 2479.167, "right": -3675, "top": 266.666, "bottom": -3835.416 },
+			"1456": { "c": 1, "left": 516.667, "right": -527.083, "top": -850, "bottom": -1545.833 }
+		});
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		// A smith north of the bluff, from a live-frame spawn on Mulgore (370 yd from the rise; 62 yd if
+		// read in the Era frame), and one on the bluff's Spirit Rise (#1294).
+		smith(npcs, 92000, "Plains Smith", 1412, 33.59, 22.4, false);
+		smith(npcs, 92001, "Rise Smith", 1456, 22.82, 21.11, true);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  vendor nearest"]), Some(&data)).1;
+	let mut ids: Vec<u64> = g[0]["candidates"].as_array().unwrap().iter().filter(|c| c["map"] == 1412 || c["map"] == 1456).map(|c| c["npc"].as_u64().unwrap()).collect();
+	ids.sort();
+	assert_eq!(ids, [92000, 92001]);
+}
+
+#[test]
 fn accept_goals_carry_the_quest_level_and_prerequisites_for_grey_quest_skipping() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 9500", "  accept 783 lvl 3"]), None).1;
 	let get = |x: &Value, k: &str| x.get(k).cloned().unwrap_or(Value::Null);

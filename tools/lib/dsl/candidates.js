@@ -24,11 +24,14 @@ function round2(n) {
 	return Object.is(r, -0) ? 0 : r;
 }
 
-// World yards of a map point through data.frame: the map's Era frame, else
-// its Forever one (Zephras Isle has only that). Without either the point
-// cannot be placed: the set then keeps one candidate per map (#299).
-function worldPos(data, map, x, y) {
-	const fr = data.frame(map);
+// World yards of a map point in the frame it is in: an Era point (f "e")
+// through data.frame (the map's Era frame, else its Forever one: Zephras Isle
+// has only that), any other point (live frame) through the map's Forever
+// frame, else its Era one. Mulgore's two frames are hundreds of yards apart
+// (#1294). Without either the point cannot be placed: the set then keeps one
+// candidate per map (#299).
+function worldPos(data, map, x, y, f) {
+	const fr = (f !== 'e' && ((data.mapFrames || {}).forever || {})[map]) || data.frame(map);
 	if (!fr) return null;
 	return { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
 }
@@ -85,7 +88,7 @@ function distinctPoints(data, id) {
 		return fr ? Math.abs((fr.right - fr.left) * (fr.bottom - fr.top)) : Infinity;
 	};
 	const pts = spawnPoints(data, id)
-		.map((p) => ({ p, w: worldPos(data, p.map, p.x, p.y), a: area(p.map) }))
+		.map((p) => ({ p, w: worldPos(data, p.map, p.x, p.y, p.f), a: area(p.map) }))
 		.sort((x, y) => x.a - y.a || x.p.map - y.p.map);
 	const kept = [];
 	for (const q of pts) {
@@ -101,7 +104,7 @@ function distinctPoints(data, id) {
 function buildCandidates(data, entries, opts) {
 	const sides = opts.sides;
 	const cap = opts.cap || MAX_PER_GROUP;
-	const ref = opts.ref ? worldPos(data, opts.ref.map, opts.ref.x, opts.ref.y) : null;
+	const ref = opts.ref ? worldPos(data, opts.ref.map, opts.ref.x, opts.ref.y, opts.ref.f) : null;
 	const merged = new Map(); // npc id -> { side, classes }
 	for (const e of entries) {
 		const id = Number(e.npc);
