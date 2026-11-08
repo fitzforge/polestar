@@ -4884,7 +4884,17 @@ the open breadcrumbs of the page's chain, each right before the prerequisite it
 leads to (a chain quest no quest of the chain names as a prerequisite, an errand
 this character can take now, turned in at that prerequisite's giver; The
 Greenwarden from Menethil Harbor before Tramping Paws, #1226; its accept carries
-`closedBy`, the quest it leads to, in `plan.closedBy`). The giver
+`closedBy`, the quest it leads to, in `plan.closedBy`). A breadcrumb to a quest
+the plan takes anyway (a quest of the plan with no objectives that none of its
+quests names as a prerequisite, turned in where another quest of the plan is
+given) is then left out of `take` and of `pre` when it is a detour: its giver on
+a continent no other stop is on (where the player stands, the entrance, the
+other givers and chain turn-ins), or its cheapest insertion on the way from any
+of those stops to its target, min T(A, giver) + T(giver, target) - T(A, target),
+over 300 seconds (Castpipe's Task in Stonetalon and Klockmort's Essentials in
+Darnassus for a Stormwind player's Gnomeregan quests; the sweep's taken
+breadcrumbs cost at most 185 s, its detours at least 479 s). `plan.breadcrumbs`
+says how each was judged (`detour`, `far`, `taken`). The giver
 is `Dungeons.Giver(pq, from)`: the page keeps one (the Codex's first), so a
 quest several NPCs give goes to the one of the character's side nearest the
 player (`Lookup.QuestEnd`, which takes an NPC of the other side only when no

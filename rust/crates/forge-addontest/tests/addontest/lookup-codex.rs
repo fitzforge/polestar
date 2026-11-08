@@ -580,3 +580,31 @@ fn the_excavation_site_pick_up_guide_takes_neither_titan_relic_follow_up_before_
 		assert_eq!(after["follow"], json!([next]));
 	}
 }
+
+// The dungeon sweep (2026-11-08): for an Alliance character in Stormwind, Gnomeregan's pick-up guide went to
+// Stonetalon for Castpipe's Task (2931) and to Darnassus for Klockmort's Essentials (2925), breadcrumbs to Data
+// Rescue (2930) and Essential Artificials (2924), which Ironforge gives anyway; the Excavation Site's went to
+// Ashenvale for Seeking Caitlin (95737) before Lost in the Thicket Things (95647) in the Wetlands. Those are left
+// out; Tinkmaster Overspark (2923, Stormwind, on the way to Save Techbot's Brain! 2922) and The Greenwarden (463,
+// Menethil Harbor, #1226) stay.
+#[test]
+fn a_stormwind_character_s_gnomeregan_and_excavation_site_pick_up_guides_skip_the_breadcrumbs_on_kalimdor_and_keep_the_ones_on_the_way() {
+	if skip() {
+		return;
+	}
+	let human = |level: u32| Dq { race: "Human", faction: "Alliance", cls: "PALADIN", level, at: [1453.0, 60.0, 70.0], ready: vec![] };
+	let gnomer = dungeon_quests("gnomeregan", &human(25));
+	let accepts = nums(&gnomer["accepts"]);
+	for far in [2931, 2925] {
+		assert!(!accepts.contains(&far), "no trip to Kalimdor for breadcrumb {far}: {}", js_string(&gnomer["accepts"]));
+	}
+	for kept in [2930, 2924, 2922, 2923] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&gnomer["accepts"]));
+	}
+	let wetlands = dungeon_quests("excavation-site-wetlands", &human(26));
+	let accepts = nums(&wetlands["accepts"]);
+	assert!(!accepts.contains(&95737), "no trip to Ashenvale for Seeking Caitlin: {}", js_string(&wetlands["accepts"]));
+	for kept in [95647, 463] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&wetlands["accepts"]));
+	}
+}

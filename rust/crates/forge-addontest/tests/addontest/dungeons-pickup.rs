@@ -1073,6 +1073,101 @@ emit({{ take = take, pre = pre, later = plan.later, accepts = table.concat(accep
 	assert_eq!(carries["pre"], json!([90713]), "after the quest the letter starts");
 }
 
+// The dungeon sweep (2026-11-08): Gnomeregan's Alliance pick-up guide sent a Stormwind player to Stonetalon for
+// Castpipe's Task and to Darnassus for Klockmort's Essentials, breadcrumbs to Ironforge quests it took anyway;
+// the Excavation Site's to Ashenvale for Seeking Caitlin. A breadcrumb (no objectives, required by no quest of
+// the plan, turned in where a quest the plan takes is given) is left out when its giver is on a continent no
+// other stop is on, or its detour (the cheapest insertion on the way to its target, from the player, the
+// entrance or another stop) is over 300 seconds; one on the way stays, and so does one a quest requires.
+// Fixture: a Mage (no Barrens class quest) in the Undercity; the target Down in the Keep (90810) and Lost Letters
+// (90815) are given by Hadrec in Silverpine. Breadcrumbs to him: Word from the Barrens (90811, Barrens: another
+// continent), Word from the Undercity (90812, next to the player), Word from Hillsbrad (90813, a zone further:
+// 400 s from Silverpine); Hillsbrad Orders (90814, Hillsbrad) is one Lost Letters requires.
+const CRUMB_TRAVEL: &str = r#"
+local ZONES = { [1458] = "uc", [1421] = "sp", [1413] = "b", [1424] = "hb" }
+local COST = { ["uc-sp"] = 120, ["uc-b"] = 250, ["sp-b"] = 370, ["sp-hb"] = 400, ["uc-hb"] = 450, ["b-hb"] = 700 }
+Polestar.TravelCost = function(a, b)
+	local za, zb = ZONES[a.map], ZONES[b.map]
+	if not (za and zb) then return nil end
+	if za == zb then return 20 + math.abs(a.x - b.x) + math.abs(a.y - b.y) end
+	return COST[za .. "-" .. zb] or COST[zb .. "-" .. za]
+end"#;
+
+#[test]
+fn a_breadcrumb_on_another_continent_or_a_long_detour_is_left_out_one_on_the_way_or_required_stays_gnomeregan_s_castpipe_s_task() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["frames"]["1424"] = json!({ "c": 0, "left": 1066.667, "right": -2133.333, "top": 400, "bottom": -1733.333 });
+	c["zones"]["1424"] = json!({ "id": 1424, "name": "Hillsbrad Foothills" });
+	let npc = |id: i32, name: &str, map: i32, x: i32, y: i32| {
+		json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
+	};
+	c["npcs"]["90802"] = npc(90802, "Barrens Runner", 1413, 50, 50);
+	c["npcs"]["90803"] = npc(90803, "Undercity Runner", 1458, 66, 44);
+	c["npcs"]["90804"] = npc(90804, "Hillsbrad Runner", 1424, 60, 20);
+	let quest = |id: i32, title: &str, giver: i32, kill: bool, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 22, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [1952], "object": [] },
+			"objectives": if kill { json!([{ "type": "kill", "id": 90899, "count": 1, "text": "Worgen" }]) } else { json!([]) },
+			"pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90810"] = quest(90810, "Down in the Keep", 1952, true, &[]);
+	c["quests"]["90811"] = quest(90811, "Word from the Barrens", 90802, false, &[]);
+	c["quests"]["90812"] = quest(90812, "Word from the Undercity", 90803, false, &[]);
+	c["quests"]["90813"] = quest(90813, "Word from Hillsbrad", 90804, false, &[]);
+	for id in ["90810", "90811", "90812", "90813"] {
+		i["forever"]["quests"][id] = json!({ "area": 209 });
+	}
+	let pack = pack_of(&c, &i);
+	let script = k(&format!(
+		r#"{CRUMB_TRAVEL}
+local plan = D.PickupPlan("{{KEY}}")
+local take, pre, crumbs = {{}}, {{}}, {{}}
+for _, t in ipairs(plan.take) do
+	take[#take + 1] = t.quest.id
+	if t.quest.id == 90815 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+table.sort(take)
+for _, b in ipairs(plan.breadcrumbs or {{}}) do crumbs[tostring(b.id)] = {{ far = b.far, taken = b.taken, detour = b.detour and math.floor(b.detour) or false }} end
+local accepts = {{}}
+for _, s in ipairs(D.PickupGuide("{{KEY}}").steps) do
+	for _, g in ipairs(s.goals) do if g.t == "accept" then accepts[#accepts + 1] = g.quest end end
+end
+table.sort(accepts)
+emit({{ take = take, pre = pre, crumbs = crumbs, accepts = accepts }})"#
+	));
+	let uc = run(&pack, &script, Opts { cls: "MAGE", ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&uc).unwrap();
+	assert!(takes(&uc, 90810), "the target is taken straight from Hadrec: {show}");
+	assert_eq!(uc["crumbs"]["90811"]["far"], true, "the Barrens breadcrumb is on another continent: {show}");
+	assert!(!takes(&uc, 90811), "left out: {show}");
+	assert!(uc["crumbs"]["90813"]["detour"].as_i64().unwrap_or(0) > 300, "Hillsbrad is a detour over 300 s: {show}");
+	assert!(!takes(&uc, 90813), "left out: {show}");
+	assert!(uc["crumbs"]["90812"]["detour"].as_i64().unwrap_or(9999) <= 300, "the Undercity one is on the way: {show}");
+	assert!(takes(&uc, 90812), "the breadcrumb next to the player stays: {show}");
+	let accepts: Vec<i64> = uc["accepts"].as_array().unwrap().iter().filter_map(Value::as_i64).collect();
+	assert!(!accepts.contains(&90811) && !accepts.contains(&90813), "no accept of a left-out breadcrumb: {show}");
+	// From Hillsbrad, Word from Hillsbrad is on the way out: it stays.
+	let hb = run(&pack, &script, Opts { cls: "MAGE", at: Some([1424, 60, 21]), ..Default::default() }).remove(0);
+	assert!(takes(&hb, 90813), "taken by a player standing beside its giver: {}", serde_json::to_string(&hb).unwrap());
+	drop(pack);
+	// Lost Letters (90815, Hadrec) requires Hillsbrad Orders (90814, Hillsbrad): a required errand stays however
+	// far, and Word from Hillsbrad, beside it, is then on the way too.
+	c["quests"]["90814"] = quest(90814, "Hillsbrad Orders", 90804, false, &[]);
+	c["quests"]["90815"] = quest(90815, "Lost Letters", 1952, true, &[90814]);
+	i["forever"]["quests"]["90815"] = json!({ "area": 209 });
+	let both = pack_of(&c, &i);
+	let req = run(&both, &script, Opts { cls: "MAGE", ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&req).unwrap();
+	assert!(takes(&req, 90815), "Lost Letters taken: {show}");
+	assert_eq!(req["pre"], json!([90814]), "after the required Hillsbrad Orders: {show}");
+	assert!(takes(&req, 90813), "Word from Hillsbrad rides along with it: {show}");
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"

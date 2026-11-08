@@ -6,7 +6,8 @@
 --
 --   Dungeons.PickupPlan(key) -> plan | nil, reason
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
---         done = n, later = n, closedBy = { [questId] = { questId } } }
+--         done = n, later = n, closedBy = { [questId] = { questId } },
+--         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, taken } } | nil }
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
@@ -31,7 +32,12 @@
 --       (an errand turned in at that quest's giver, which nothing requires:
 --       The Greenwarden before Tramping Paws, #1226; closedBy: the quest
 --       that closes each). A quest done on the way to another is neither a
---       take of its own nor carried.
+--       take of its own nor carried. A breadcrumb to a quest the plan takes
+--       anyway (no objectives, required by none of the plan's quests) is left
+--       out, from `take` and from `pre`, when it is a detour: its giver on a
+--       continent no other stop is on, or over 300 seconds out of the way
+--       (Castpipe's Task in Stonetalon for Gnomeregan's Data Rescue in
+--       Ironforge); `breadcrumbs` says how each was judged.
 --       carried: the page's quests already in the log. giver: a point
 --       { kind, id, name, map, x, y, f }. Each accept carries the page's
 --       `closedBy`, so the Engine passes it once taken on the way.
@@ -320,6 +326,121 @@ local function withBreadcrumbs(pq, rec, pre, onPage, from, p, closedBy)
 	return out
 end
 
+-- A breadcrumb the plan would take on a long detour (the dungeon sweep,
+-- 2026-11-08: Gnomeregan's Alliance guide sent a Stormwind player to
+-- Stonetalon for Castpipe's Task and to Darnassus for Klockmort's Essentials,
+-- both leading to Ironforge quests it took anyway). A breadcrumb here is a
+-- quest the plan accepts that has no objectives, that no quest of the plan
+-- names as a prerequisite (the game does not require it), and that is turned
+-- in where another quest the plan accepts is given (its target). Its detour
+-- is the cheapest insertion of its giver on the way to its target's giver,
+-- from where the player stands, the entrance, or any other stop of the plan
+-- (another giver, a chain quest's giver or turn-in), breadcrumbs left out:
+-- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
+-- when its giver is on a continent no other stop is on, or when the detour is
+-- over DETOUR seconds. Kept: one on the way (Tinkmaster Overspark in
+-- Stormwind for a player there, The Greenwarden in Menethil Harbor, #1226),
+-- and any the plan cannot place.
+-- DETOUR: over every dungeon page, both sides, the breadcrumbs players take
+-- on the way cost at most 185 s (Speak with Ruga from Orgrimmar, A Troubled
+-- Spirit), the real detours at least 479 s (Tran'rek in Stranglethorn for
+-- Zul'Farrak's Scarab Shells in Tanaris); 300 s (about one zone crossed and
+-- back) leaves a clear margin on both sides, and is many times what a
+-- breadcrumb's few hundred XP takes to earn at these levels.
+local DETOUR = 300
+
+local function continentOf(pt)
+	return pt and pt.map and (ns.Compat.MapToWorld(pt.map, pt.x, pt.y, pt.f)) or nil
+end
+
+-- plan, from -> plan without its detours; plan.breadcrumbs lists every
+-- breadcrumb it judged, by id: { id, targets = { ids }, detour = seconds |
+-- nil, far = another continent, taken }.
+local function dropDetours(plan, from, p)
+	local Lk, C = LK(), ns.Codex
+	local T = Lk.Travel
+	local recs, at, named, ids = {}, {}, {}, {}
+	local stops = {}
+	local function stop(pt) if located(pt) then stops[#stops + 1] = pt end end
+	local function add(id, r, pt)
+		if recs[id] or not r then return end
+		recs[id], at[id] = r, pt
+		ids[#ids + 1] = id
+	end
+	for _, t in ipairs(plan.take) do
+		add(t.quest.id, t.rec or C.Quest(t.quest.id), t.giver)
+		for _, q in ipairs(t.pre) do
+			local g = Lk.QuestEnd(q.start, from, p)
+			add(q.id, q, g and g.spawn)
+		end
+	end
+	table.sort(ids)
+	for _, r in pairs(recs) do
+		for _, id in ipairs(r.pre or {}) do named[id] = true end
+		for _, id in ipairs(r.preAny or {}) do named[id] = true end
+	end
+	-- breadcrumb id -> the quests it leads to (a delivery: turned in to
+	-- someone other than its giver, who gives a quest of the plan)
+	local crumbs = {}
+	for _, id in ipairs(ids) do
+		local r = recs[id]
+		if not named[id] and not inLog(id) and #(r.objectives or {}) == 0 and located(at[id]) and not startsAt(r, r["end"]) then
+			for _, tid in ipairs(ids) do
+				if tid ~= id and located(at[tid]) and startsAt(recs[tid], r["end"]) then
+					crumbs[id] = crumbs[id] or {}
+					crumbs[id][#crumbs[id] + 1] = tid
+				end
+			end
+		end
+	end
+	if not next(crumbs) then return plan end
+	-- The other stops: where the player stands, the entrance, every other
+	-- giver and chain turn-in.
+	stop(from)
+	stop(plan.dungeon.entrance)
+	for _, id in ipairs(ids) do
+		if not crumbs[id] then
+			stop(at[id])
+			local e = Lk.QuestEnd(recs[id]["end"], at[id] or from, p)
+			stop(e and e.spawn)
+		end
+	end
+	local drop = {}
+	plan.breadcrumbs = {}
+	for _, id in ipairs(ids) do
+		local targets = crumbs[id]
+		if targets then
+			local g = at[id]
+			local c, near = continentOf(g), false
+			local best
+			for _, a in ipairs(stops) do
+				near = near or continentOf(a) == c
+				for _, tid in ipairs(targets) do
+					local x, y, z = T(a, g), T(g, at[tid]), T(a, at[tid])
+					if x and y and z and (not best or x + y - z < best) then best = x + y - z end
+				end
+			end
+			local far = c ~= nil and not near
+			drop[id] = far or (best ~= nil and best > DETOUR)
+			plan.breadcrumbs[#plan.breadcrumbs + 1] = { id = id, targets = targets, detour = best, far = far, taken = not drop[id] }
+		end
+	end
+	if not next(drop) then return plan end
+	local take = {}
+	for _, t in ipairs(plan.take) do
+		if not drop[t.quest.id] then
+			local pre = {}
+			for _, q in ipairs(t.pre) do
+				if not drop[q.id] then pre[#pre + 1] = q end
+			end
+			t.pre = pre
+			take[#take + 1] = t
+		end
+	end
+	plan.take = take
+	return plan
+end
+
 function Dungeons.PickupPlan(key)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -397,7 +518,7 @@ function Dungeons.PickupPlan(key)
 		end
 		plan.carried = carried
 	end
-	return plan
+	return dropDetours(plan, from, p)
 end
 
 ---------------------------------------------------------------------------
