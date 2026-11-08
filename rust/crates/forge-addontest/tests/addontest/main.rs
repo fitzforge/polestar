@@ -114,6 +114,8 @@ mod engine_talk;
 mod engine_training;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
+#[path = "engine-vendor.rs"]
+mod engine_vendor;
 #[path = "engine-wait.rs"]
 mod engine_wait;
 #[path = "engine-waypoint-keys.rs"]

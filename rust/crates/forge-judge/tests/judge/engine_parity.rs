@@ -472,3 +472,19 @@ fn stuck_and_ticks() {
 	let want = [("accept", 1, false), ("kill", 1, false), ("goto", 2, false), ("getfp", 2, true), ("turnin", 2, false)];
 	assert_eq!(goals, want.map(|(v, s, t)| (v.to_string(), s, t)));
 }
+
+/// A vendor beside other work of its step (Own.sideVendor) is left alone and never holds the step: the play
+/// moves on with the hand-ins, the last step's too, so the guide ends. A step of only a vendor still opens the
+/// merchant (it holds the step).
+#[test]
+fn a_vendor_beside_other_work_never_holds_the_step() {
+	let guides = vec![compiled(
+		r#"{ "id": "t/v", "steps": [
+		{ "goals": [{ "t": "accept", "quest": 1 }, { "t": "accept", "quest": 2 }] },
+		{ "goals": [{ "t": "turnin", "quest": 1 }, { "t": "vendor", "npc": 54 }] },
+		{ "goals": [{ "t": "vendor", "npc": 54 }] },
+		{ "goals": [{ "t": "vendor" }, { "t": "turnin", "quest": 2 }] }
+	] }"#,
+	)];
+	assert_eq!(played(&guides, "WARRIOR"), ["t/v 1:1 accept", "t/v 1:2 accept", "t/v 2:1 turnin", "t/v 3:1 vendor", "t/v 4:2 turnin"]);
+}

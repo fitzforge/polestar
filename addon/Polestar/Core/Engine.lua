@@ -2117,12 +2117,33 @@ local function blocks(goal)
 	return goal.t ~= "note" and not goal.optional
 end
 
+-- A `vendor` check-off beside other work of its step is a stop on the way,
+-- not work of its own: it holds the step only while no other goal that
+-- holds it applies to the character. A step of nothing but vendor
+-- check-offs still waits for the merchant window (or the player's tick or
+-- skip); one with hand-ins beside it is done with them, whether the player
+-- sold or not. The line stays listed, and leads the arrow in its turn,
+-- while the step is live. (On Own: the main chunk is at Lua's 200 locals.)
+function Own.sideVendor(s, goal)
+	if goal.t ~= "vendor" then return false end
+	for _, other in ipairs(guide.steps[s].goals) do
+		if other.t ~= "vendor" and blocks(other) and goalApplies(other) then return true end
+	end
+	return false
+end
+
+-- Whether goal (of step s) holds the step until it is done: not a note,
+-- not optional, not a vendor check-off beside other work (Own.sideVendor).
+function Own.holds(s, goal)
+	return blocks(goal) and not Own.sideVendor(s, goal)
+end
+
 -- Every goal of step s that holds the route is done (or cannot be done).
 function Own.goalsDone(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
-		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
+		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
 	end
 	return true
 end
@@ -2976,6 +2997,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		ticked = checked(s, g),
 		dismissed = Own.goalSkipped(s, g) or nil,
 		optional = goal.optional and true or false,
+		-- A vendor check-off beside other work: it does not hold the step
+		-- (Own.sideVendor).
+		side = Own.sideVendor(s, goal) or nil,
 		note = goal.note,
 		map = map, x = x, y = y, f = f, z = z,
 		quest = goal.quest, oi = goal.oi, npc = npc, npcName = npcName, item = goal.item,
@@ -3482,7 +3506,7 @@ function Own.partyAim(s)
 	local goals = guide.steps[s].goals
 	local list, names
 	for g, goal in ipairs(goals) do
-		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) then
+		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) then
 			local done = goalDone(s, g, goal)
 			if not done and not (goal.t == "turnin" and P.HoldsQuest(goal.quest)) then return nil end
 			local w = done and goal.quest and goal.oi and P.Waiting(goal)
@@ -3955,7 +3979,7 @@ function Own.endWorkDone(s)
 	local goals, did = guide.steps[s].goals, false
 	for g = 1, #goals do
 		local goal = goals[g]
-		if blocks(goal) and goalApplies(goal) then
+		if Own.holds(s, goal) and goalApplies(goal) then
 			if goalDone(s, g, goal) then
 				did = true
 			else
@@ -5027,7 +5051,7 @@ function Own.startWaits(s)
 		if goal.t == "wait" and goalApplies(goal) and not Own.waitStart[goal] and ready then
 			Own.waitStart[goal] = GetTime()
 		end
-		if ready and blocks(goal) and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then ready = false end
+		if ready and Own.holds(s, goal) and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then ready = false end
 	end
 end
 
