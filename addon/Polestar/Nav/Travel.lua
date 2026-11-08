@@ -7,10 +7,12 @@
 --   boats, zeppelins, the Deeprun Tram (faction-filtered, timed by
 --     Nav/Transit.lua when it knows the timetable) and walk-in portals,
 --   the Hearthstone, when it is off cooldown and the bind location is a known
---     inn, and class teleports (Transit.Teleports); a ghost only walks.
+--     inn, and class teleports (Transit.Teleports), neither while a quest
+--     timer runs (#1327); a ghost only walks.
 -- The result is a list of legs; the arrow points at the current leg and
--- advances through them. Planning runs on target, zone, landing, bind and
--- hearth changes, never per frame, and is capped in nodes, pops and time.
+-- advances through them. Planning runs on target, zone, landing, bind,
+-- hearth and quest-timer changes, never per frame, and is capped in nodes,
+-- pops and time.
 --
 -- Zone crossings (Nav.RegisterCrossings): on a continent with full crossing
 -- data, walking between two zones goes only through a crossing (a pair of
@@ -1403,6 +1405,18 @@ local legSince = 0 -- GetTime() when the current leg became current
 local remeasureOwed = false -- the engine's measures came in on a flight or boat: weighed after it
 local walkHooks = {} -- Travel.WalkCostHook's rules, in the order registered
 
+-- A quest timer runs (Compat.QuestTimerRunning): the plans and estimates
+-- leave out the Hearthstone and class teleports, which can lose a timed trial
+-- (Trial of the Lake, #1327) or leave an escort behind. Read on every plan,
+-- and on the next Refresh after the quest log changed (timedCheck), where a
+-- change plans again.
+local questTimed = false
+local timedCheck = true
+local function readTimed()
+	local C = ns.Compat
+	return C and C.QuestTimerRunning and C.QuestTimerRunning() or false
+end
+
 -- A planner rule that scales walk costs:
 -- fn(walk, cost) -> cost, called for every walk the planner weighs, with
 -- walk = { from = { c, wx, wy }, to = { c, wx, wy }, seconds } and the walk's
@@ -1594,9 +1608,10 @@ local function plan(target)
 	refreshFaction()
 	planSpeed = runSpeed()
 	lastHearth = hearthReady()
+	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
 	local inn, bindName
-	if lastHearth and not ghost then inn, bindName = bindInn() end
+	if lastHearth and not ghost and not questTimed then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -1633,7 +1648,7 @@ local function plan(target)
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
-		teleports = not ghost and teleportList() or nil,
+		teleports = not ghost and not questTimed and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
 		walkCost = walkCost,
@@ -1700,7 +1715,8 @@ local function pointWorld(p)
 end
 
 -- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
--- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two)
+-- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
+-- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
 --   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
 function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local tc, twx, twy = pointWorld(to)
@@ -1713,10 +1729,14 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		fc, fwx, fwy = pointWorld(from)
 	end
 	if not fc then return nil end
+	local timed = false
+	if from == nil then
+		if timedCheck then timed = readTimed() else timed = questTimed end
+	end
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
 	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from ~= nil and 0 or noHearth and 2 or 1, D and D.Level() or 0)
+		tc, twx, twy, from ~= nil and 0 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -1727,7 +1747,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	refreshFaction()
 	local ghost = from == nil and isGhost()
 	local inn, bindName
-	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
+	if from == nil and not ghost and not timed and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
 		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
@@ -1736,7 +1756,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
-		teleports = from == nil and not ghost and teleportList() or nil,
+		teleports = from == nil and not ghost and not timed and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
 		-- The same way the plan takes (its walks through zones far above dearer).
@@ -2441,6 +2461,15 @@ function Travel:Refresh()
 	if taxiNow and not wasTaxi and legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
 	wasTaxi = taxiNow
 	if taxiNow or not Nav.GetTarget() or not ns.Get("nav.travel") then return end
+	-- A quest timer started or ended: the Hearthstone and teleports come in or go out.
+	if timedCheck then
+		timedCheck = false
+		local timed = readTimed()
+		if timed ~= questTimed then
+			questTimed = timed
+			if not riding() then dirty = true end
+		end
+	end
 	-- A Hearthstone coming off cooldown mid-ride is no reason to plan from the deck.
 	if not riding() and hearthReady() ~= lastHearth then dirty = true end
 	local ghost = isGhost()
@@ -2498,6 +2527,7 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED", "ZONE_CHANGED_
 	ns.RegisterEvent(event, onZone)
 end
 ns.RegisterEvent("HEARTHSTONE_BOUND", onBound)
+ns.RegisterEvent("QUEST_LOG_UPDATE", function() timedCheck = true end)
 -- A sighting moved a timetable, or a teleport became castable (Nav/Transit.lua):
 -- NAV_TRANSIT(changed, own), changed = { [transport or lift id] = kind } or nil
 -- (everything). The player's own rides and teleports plan again at once;

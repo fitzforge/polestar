@@ -394,6 +394,64 @@ fn review_p2_6_skipping_a_teleport_a_flight_or_a_ride_plans_the_rest_of_the_way_
 	assert_eq!(out["afterBoat"], 0, "no other way across: nothing left to follow");
 }
 
+// The quest timer (Compat.QuestTimerRunning, tested in compat.rs) the test turns on and off; the quest log's update tells
+// the planner to read it again.
+const TIMER: &str = r#"
+		local running = false
+		Polestar.Compat.QuestTimerRunning = function() return running end
+		local function timer(on)
+			running = on
+			stub.fire("QUEST_LOG_UPDATE")
+		end"#;
+
+#[test]
+fn issue_1327_no_class_teleport_while_a_quest_timer_runs_it_comes_back_when_the_quest_is_done() {
+	let out = run(&r#"
+		@TIMER@
+		local r = {}
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function() return { @TELEPORT@ } end }
+		nav.place(0, 0, 1)
+		target(-500, -480, "Quest")
+		r.free = route()[1]
+		local m, x, y = nav.mapPoint(-500, -470)
+		r.freeEstimate = N.EstimateTravel(nil, { map = m, x = x, y = y })
+		timer(true)
+		r.timedEstimate = N.EstimateTravel(nil, { map = m, x = x, y = y })
+		N.Refresh()
+		r.timed = route()[1]
+		timer(false)
+		N.Refresh()
+		r.done = route()[1]
+		emit(r)"#
+		.replace("@TIMER@", TIMER)
+		.replace("@TELEPORT@", TELEPORT));
+	assert_eq!(out["free"], "teleport|Cast Teleport: Testshire");
+	assert_eq!(out["timed"], "walk|Walk to the boat", "the running timer plans again, without the teleport");
+	assert!(out["timedEstimate"].as_f64() > out["freeEstimate"].as_f64(), "estimates leave it out too: {out}");
+	assert_eq!(out["done"], "teleport|Cast Teleport: Testshire", "the trial done: teleports count again");
+}
+
+#[test]
+fn issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_timer_ends() {
+	let out = run(&r#"
+		@TIMER@
+		local r = {}
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		timer(true)
+		nav.place(0, 0, 1)
+		target(-520, -690, "Innkeeper quest")
+		r.timed = route()[1]
+		timer(false)
+		N.Refresh()
+		r.ended = route()[1]
+		emit(r)"#
+		.replace("@TIMER@", TIMER));
+	assert_eq!(out["timed"], "walk|Walk to the boat");
+	assert_eq!(out["ended"], "hearth|Hearth to Testshire Inn: saves 10 min");
+}
+
 #[test]
 fn security_l6_estimates_evict_the_oldest_entry_instead_of_wiping_the_cache_and_stop_planning_for_the_frame_past_25_ms() {
 	let out = run(r#"

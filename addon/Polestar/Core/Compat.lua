@@ -373,6 +373,29 @@ function Compat.GetLogQuests()
 	return out
 end
 
+-- Whether a quest in the log runs its timer now: one with time allowed
+-- (C_QuestLog.GetTimeAllowed, the quest log's clock; the old GetQuestTimers
+-- where the client has it) that is neither ready to hand in nor failed.
+-- Nil-safe on any client; no tables of its own (the client's GetInfo makes
+-- one per entry).
+function Compat.QuestTimerRunning()
+	if GetQuestTimers and GetQuestTimers() then return true end
+	local QL = C_QuestLog
+	if not (QL and QL.GetTimeAllowed and QL.GetNumQuestLogEntries and QL.GetInfo) then return false end
+	for i = 1, QL.GetNumQuestLogEntries() or 0 do
+		local info = QL.GetInfo(i)
+		local q = info and not info.isHeader and info.questID
+		if type(q) == "number" and q > 0 then
+			local ok, total = pcall(QL.GetTimeAllowed, q)
+			if ok and type(total) == "number" and total > 0 and not Compat.IsQuestReadyForTurnIn(q)
+				and not (QL.IsFailed and QL.IsFailed(q)) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 -- How many quests the log holds: the client's word, else Forever's 40
 -- (QuestLogConstsMainlineCamelot.MAXIMUM_NUM_QUESTS_LOG_CAN_ACCEPT).
 function Compat.GetLogCap()

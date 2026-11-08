@@ -2906,6 +2906,12 @@ at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
 `hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
+While a quest timer runs (`Compat.QuestTimerRunning`: a log quest with
+`C_QuestLog.GetTimeAllowed`, not ready and not failed), the route and the
+player's own estimates leave out the Hearthstone and the class teleports: a
+player's teleport reset Trial of the Lake (#1327), and a hearth leaves an
+escort behind. `QUEST_LOG_UPDATE` marks the state to read again on the next
+`Refresh`, which plans again when it changed.
 A transport end is its ship's stop; where the ship lies in the water off
 its pier, the end carries a board point on the deck (TravelData's `board`,
 below), and the dock vertex is there: the walk to the boat ends on the

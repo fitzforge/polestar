@@ -134,6 +134,32 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 }
 
 #[test]
+fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neither_ready_nor_failed() {
+	let out = run(r#"
+		local allowed, ready, failed = { [29] = 1800 }, false, false
+		C_QuestLog.GetNumQuestLogEntries = function() return 2, 2 end
+		C_QuestLog.GetInfo = function(i) return ({ { questID = 0, isHeader = true }, { questID = 29 } })[i] end
+		C_QuestLog.GetTimeAllowed = function(q) return allowed[q], 10 end
+		C_QuestLog.IsOnQuest = function() return true end
+		C_QuestLog.ReadyForTurnIn = function() return ready end
+		C_QuestLog.IsComplete = function() return ready end
+		C_QuestLog.IsFailed = function() return failed end
+		local r = { running = C.QuestTimerRunning() }
+		ready = true
+		r.ready = C.QuestTimerRunning()
+		ready, failed = false, true
+		r.failed = C.QuestTimerRunning()
+		failed, allowed[29] = false, nil
+		r.untimed = C.QuestTimerRunning()
+		allowed[29] = 1800
+		C_QuestLog.GetTimeAllowed = nil
+		r.noApi = C.QuestTimerRunning()
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "running": true, "ready": false, "failed": false, "untimed": false, "noApi": false }));
+}
+
+#[test]
 fn getnpcid_parses_creature_and_object_guids_and_ignores_players() {
 	let out = run(r#"
 		w.units.npc = "Creature-0-4372-0-17-197-00001A2B3C"
