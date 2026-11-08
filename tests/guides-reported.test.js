@@ -6531,3 +6531,18 @@ test('#1257: Duskwood\'s Pygmy Venom Web Spiders are sought on the Hushed Bank w
 	assert.deepEqual(stepTips(guide, /kill 539 quest 245/), [rec.tip]);
 	assert.doesNotMatch(rec.tip, /east of the cemetery/);
 });
+
+// Final route review, Alliance 1-30 (2026-11-08): Night Elves take Further Concerns (35) from Marshal Dughan
+// at the end of their Darkshore guide (level 14), then walk the Elwynn road past Guard Thomas' bridge on
+// 03-loch-modan's way to Redridge at about 19; the route carried it to 04-redridge-mountains at about 24.
+test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Further Concerns to Guard Thomas on the Elwynn road', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const thomas = at(list, 'turnin 35', is('turnin', 35));
+	const { step } = list[thomas];
+	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
+	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
+	const road = at(list, 'goto 65.2,69.7', (g) => g.t === 'goto' && Math.abs(g.x - 65.2) < 0.1 && Math.abs(g.y - 69.7) < 0.1);
+	const wiley = at(list, 'turnin 65', is('turnin', 65));
+	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
+	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
+});

@@ -159,10 +159,6 @@ step Elwynn Forest
 step Theocritus
   accept 94                           -- On the top floor
 
-step Guard Thomas
-  when onquest 35
-  turnin 35 only NightElf
-
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
