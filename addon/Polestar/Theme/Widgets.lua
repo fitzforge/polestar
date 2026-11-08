@@ -2400,7 +2400,10 @@ function W.ShellNav(f, items, active, onSelect)
 	local view = W.ShellNavHeight(f)
 	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1)
 	W.SetScrollContent(sf, y, view)
-	if activeY then
+	-- A new selection is scrolled into view; a redraw with the same one (a
+	-- refresh, a guide picked in the list) keeps the place the player
+	-- scrolled to, a community guide's entry far down the list included.
+	if activeY and active ~= sf.psActive then
 		local cur = sf:GetVerticalScroll()
 		if activeY < cur then
 			W.ScrollTo(sf, activeY)
@@ -2408,6 +2411,7 @@ function W.ShellNav(f, items, active, onSelect)
 			W.ScrollTo(sf, activeY + NAV_ROW - view)
 		end
 	end
+	sf.psActive = active
 end
 
 -- The height the navigation rows may fill: from their top line to the

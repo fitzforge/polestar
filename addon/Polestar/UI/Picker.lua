@@ -1139,6 +1139,7 @@ local function renderDetails(byId, tabs, active)
 		d.EmptyTitle:Show()
 		d.EmptyNote:Show()
 		P.detail = nil
+		d.psReadFor = nil
 		return
 	end
 	d.EmptyTitle:Hide()
@@ -1385,7 +1386,14 @@ local function renderDetails(byId, tabs, active)
 	if pros > 0 and type(g.cons) == "table" and #g.cons > 0 then cy = cy + 4 end
 	lines(d.Cons, g.cons, "cross", "textMuted", "textDim", 9)
 	W.SetScrollContent(d.Scroll, cy + 8, win:GetHeight() - y - bottom)
-	W.ScrollTo(d.Scroll, 0)
+	-- Another guide (or another quest's search) reads from the top; the same
+	-- one drawn again (a tab's progress, a guide registering) keeps the
+	-- place the player scrolled to.
+	local readFor = g.id .. "\0" .. (questContext and questContext.query or "")
+	if d.psReadFor ~= readFor then
+		d.psReadFor = readFor
+		W.ScrollTo(d.Scroll, 0)
+	end
 
 	-- Buttons: Load and Open in new tab; on a guide already open, Continue
 	-- alone at full width.
@@ -1953,6 +1961,10 @@ local function build()
 	end, { ghost = true, height = 24 })
 	win.CardsMore.psTight = true
 	win.CardsMore:Hide()
+	-- The list's column ends where the details begin: the hidden footer
+	-- marks the body's width (W.ShellFooter), so the list's scroll area and
+	-- its bar stop at the details' edge rather than run on under them.
+	win.Footer:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -DETAIL_W, 0)
 	W.ShellFooter(win, nil, nil)
 
 	-- The faction filter, at the right of the tab row, centred in it; its
