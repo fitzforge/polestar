@@ -9,7 +9,7 @@ next forever/horde/50-60/01-un-goro-crater
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591).
+# Added here: The Monogrammed Sash (8552), Message in a Bottle (594), The Mind's Eye (591), The Bloodsail Buccaneers (608).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
 step Swamp of Sorrows
@@ -48,6 +48,16 @@ step Booty Bay
   accept 3721 optional                -- Only once all three robots are home
   turnin 3721 optional
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
+  accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
+
+step The Bloodsail ships
+  tip South of Booty Bay, three Bloodsail ships lie off the Wild Shore: Captain Stillwater, Captain Keelhaul and Fleet Master Firallon each stand on a deck with their crews. Swim out and work from ship to ship.
+  kill 2550 quest 608.1 @32.9,88.2 map 1434
+  kill 2548 quest 608.2 @29.3,88.3 map 1434
+  kill 2546 quest 608.3 @30.6,90.6 map 1434
+
+step Booty Bay
+  turnin 608                          -- Fleet Master Seahorn
 
 step Monogrammed Sash
   when group 8552

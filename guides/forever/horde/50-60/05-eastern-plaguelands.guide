@@ -9,7 +9,7 @@ next forever/horde/50-60/06-silithus
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Duskwing, Oh How I Hate Thee... (6135).
+# Added here: Duskwing, Oh How I Hate Thee... (6135), Camp Mojache (7492).
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -191,6 +191,7 @@ step Zeppelin to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
+  accept 7492                         -- Warcaller Gorlach, outside the front gate on the way in: for Talo Thornhoof at Camp Mojache, at the end of this guide
   goto 45.3,63.7 "Orgrimmar"
 
 step Fly to Bloodvenom Post
@@ -317,6 +318,11 @@ step Fly to Camp Mojache
   zone Tanaris
   goto 51.6,25.5 "Gadgetzan flight master"
   fly "Camp Mojache"
+
+step Camp Mojache
+  zone Feralas
+  turnin 7492                         -- Talo Thornhoof, a few steps from the flight master
+  note His next task is for the Dire Maul dungeon: leave it.
 
 step Ruins of Isildien
   zone Feralas

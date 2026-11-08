@@ -9,8 +9,7 @@ next forever/horde/40-50/04-tanaris
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626).
-# Left out: Continued Threat (1428).
+# Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626), Continued Threat (1428).
 
 step Zeppelin to Undercity
   zone Durotar
@@ -23,6 +22,7 @@ step Apothecary Zinge
   accept 238
   turnin 238
   accept 243
+  collect 8523                          -- the Field Testing Kit from these errands: keep it, Tanaris Field Sampling hands it back in Gadgetzan
   turnin 728
 
 # ---------------------------------------------------------------- The Undercity
@@ -90,6 +90,16 @@ step Misty Reed Post
   turnin 1426                           -- Katar
   accept 1427
   turnin 1427                           -- Tok'Kar
+  accept 1428                           -- Katar
+
+step Continued Threat
+  tip The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both.
+  kill 750 quest 1428.1
+  kill 751 quest 1428.2
+  kill 752 quest 1428.3
+
+step Misty Reed Post
+  turnin 1428                           -- Katar
 
 step Stonard
   turnin 1424                           -- Fel'zerul, on the top floor

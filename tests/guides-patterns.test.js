@@ -290,6 +290,7 @@ const VENDOR_EXCEPTIONS = {
 	16763: 'Warsong Runner Update: handed out by the Warsong scout, whom the data lists as its vendor; the guide collects it from him',
 	16764: 'Warsong Scout Update: handed out by the Warsong scout, whom the data lists as its vendor; the guide collects it from him',
 	16765: 'Warsong Outrider Update: handed out by the Warsong outrider, whom the data lists as its vendor; the guide collects it from him',
+	8523: 'Field Testing Kit: Alessandro Luca and Apothecary Zinge hand it out with Errand for Apothecary Zinge (238) and Into the Field (243), which the Horde route takes in the Undercity before Tanaris; the data lists Luca as its vendor',
 };
 
 // Sold, and dropped by nothing but the vendors themselves, from no object or container.

@@ -9,8 +9,8 @@ next forever/horde/40-50/02-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
-# Left out: The Bloodsail Buccaneers (608).
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748).
+# Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
 step Fly to Grom'gol
   zone Badlands
@@ -21,6 +21,7 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 598                            -- Kin'weelay
+  accept 95748                          -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -108,8 +109,9 @@ step Booty Bay
 # the Badlands). The Troll Witchdoctor (1240, from forever/horde/30-40/04-
 # dustwallow-marsh) at Kin'weelay in Grom'gol.
 #
-# Optional: The Bloodsail Buccaneers (608): the three captains are 45-48 on
-# decks crewed by 42-45 pirates, at about 41.
+# The Bloodsail Buccaneers (608): the three captains are 45-48 on decks
+# crewed by 42-45 pirates, too high at about 41; forever/horde/40-50/06-azshara
+# takes it on its Booty Bay stop at 50.
 #
 # Accepted here, finished later on the route: Stoley's Debt (2872) and
 # Tran'rek (2864) in Tanaris; Cortello's Riddle (624) in the Swamp of
@@ -219,11 +221,13 @@ step Nesingwary's camp
 step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead.
   collect 3904 quest 584.1
+  collect 2007 quest 95748.1 @23.0,12.0 map 1434 -- from the Fall of Gurubashi, in the ruins
   collect 3905 quest 584.2
   level 41                            -- grind on the Bloodscalps here: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
+  turnin 95748                          -- Kin'weelay
   accept 586
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48

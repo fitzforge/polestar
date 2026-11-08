@@ -8048,6 +8048,186 @@
 				"q": 7735,
 				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Pristine Yeti Hide: half of Feralas' level-45 top-up is ground on the Rage Scar yetis (3% hide), so the hide is certain and handed to Pratt McGrubben on the next Feathermoon stop.",
 				"issue": "-"
+			},
+			{
+				"q": 1137,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1108
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): News for Fizzle (level 38, 1450 XP) is taken from Martek with Indurium's hand-in on 30-40/06's Valley of Fangs stop and handed to Fizzle Brassbolts at the Mirage Raceway, which 40-50/02's ride from Freewind Post to Tanaris passes; it is a delivery, finished from the accept.",
+				"issue": "-"
+			},
+			{
+				"q": 1190,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1137
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Keeping Pace (level 41, 1650 XP) from Pozzik on the same Mirage Raceway stop: Zamek's Distraction, then Rizzle's Unguarded Plans in the gnomes' camp a few steps away.",
+				"issue": "-"
+			},
+			{
+				"q": 1191,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					1190
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Zamek's Distraction, needed for Keeping Pace's plans (no XP of its own), on the same Mirage Raceway stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1190
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Rizzle's Schematics (level 41, 1650 XP) from Rizzle's plans to Pozzik, on the same Mirage Raceway stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1428,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1427
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Continued Threat (level 45, 3900 XP) from Katar at Misty Reed Post once Threat From the Sea (1427) is handed in: the same murloc shore, a second sweep before Stonard. The 40-50/05 notes already counted it as done here.",
+				"issue": "-"
+			},
+			{
+				"q": 654,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					379
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Tanaris Field Sampling (level 46, 4050 XP) from the power source Bilgewhizzle hands out with Slake That Thirst: the hyenas, basilisks and scorpids on the dunes just south of Gadgetzan, on the way to Marvon; handed in on the next Gadgetzan stop (two-hour timer).",
+				"issue": "-"
+			},
+			{
+				"q": 864,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					654
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Return to Apothecary Zinge (level 46, 5050 XP): a delivery from Gadgetzan to Zinge in the Apothecarium, beside Chemist Cuely, whom 50-60/01's Undercity stop visits.",
+				"issue": "-"
+			},
+			{
+				"q": 2784,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1444
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Fall From Grace (level 50, from 45, 470 XP): the Fallen Hero of the Horde stands by the canyon road from Stonard into the Blasted Lands, which 40-50/05 rides at 49.",
+				"issue": "-"
+			},
+			{
+				"q": 2621,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					2784
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Disgraced One (1200 XP), the Fallen Hero to Dispatch Commander Ruag in Stonard, where 40-50/05 returns from the Blasted Lands to fly on.",
+				"issue": "-"
+			},
+			{
+				"q": 2622,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					2621
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Missing Orders (1200 XP), Ruag to Bengor, both in Stonard.",
+				"issue": "-"
+			},
+			{
+				"q": 608,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					2874
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Bloodsail Buccaneers' captains (level 45, 4850 XP) on 40-50/06's Booty Bay stop at about 50, as the RevH2 pair (turnin 2932 -> accept 608) asks: the ships lie just south of Booty Bay, the captains are normal 45-48.",
+				"issue": "-"
+			},
+			{
+				"q": 4324,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					4507
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Yuka Screwspigot (level 53, from 48, 2650 XP): Yorba Screwspigot stands by the Steamwheedle Port dock where 50-60/01 takes the boat to Powderfuse Port, and Yuka is at Flame Crest, the guide's Burning Steppes hub a little later; a delivery. Its follow-up, Ribbly Screwspigot, is in Blackrock Depths and is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7492,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					5181
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Camp Mojache (level 57, from 54, 1500 XP, Horde): Warcaller Gorlach stands outside Orgrimmar's front gate on 50-60/05's walk from the zeppelin, and Talo Thornhoof a few steps from Camp Mojache's flight master, where 50-60/05 lands at its end. A delivery; Talo's next task (Lethtendris's Web) is in Dire Maul and is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5234,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					5233
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Return to the Bulwark (level 55, 2800 XP) from the Writhing Haunt cauldron, to Shadow Priestess Vandis on the way back to Tirisfal for the zeppelin at the end of 50-60/06.",
+				"issue": "-"
+			},
+			{
+				"q": 5235,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					5234
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Target: Gahrron's Withering (level 58, 6200 XP): Cauldron Lord Soulwrath (normal, 58) at Gahrron's Withering, east of the Writhing Haunt; with 5236 and 5238 about 18,600 XP at 59, where the route otherwise grinds to 60.",
+				"issue": "-"
+			},
+			{
+				"q": 5236,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					5235
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Return to the Bulwark (level 58, 3100 XP) from the Gahrron's Withering cauldron to Vandis.",
+				"issue": "-"
+			},
+			{
+				"q": 5238,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					5236
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): Mission Accomplished! (level 58, 9300 XP): High Executor Derrington, beside Vandis at the Bulwark, on the same stop.",
+				"issue": "-"
+			},
+			{
+				"q": 95748,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					1240
+				],
+				"reason": "Quest volume, Horde 40-60 (2026-11-08): The Gurubashi Legends of Old (level 40, 3150 XP, Horde) from Kin'weelay on the Grom'gol stop where The Troll Witchdoctor is handed in; the Third Troll Legend comes from the Fall of Gurubashi in Zul'Kunda, where the guide goes for Gan'zulah and Nezzliok, and Kin'weelay takes it on the cauldron stop after.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -8135,6 +8315,12 @@
 				"reason": "RevA2 c13 Alliance 40-50 read: the Bloodsail captains (45, 46, 48) stand on ship decks with crews of 42-45; the seed writes them optional, yet the route counts them and the model grinds 41.2 -> 42.0 before Captain Keelhaul (40-50/01-stranglethorn-vale:328), a hidden grind the guide never shows. It is on level only on a Stranglethorn visit at 48-50, which this route does not make. Alliance (0.3.7 quest volume, 2026-11-09): the Hinterlands guide now ends with a Booty Bay stop at 48 for everyone, where the captains are level; the include record takes it there",
 				"issue": "",
 				"faction": "Horde"
+			},
+			{
+				"q": 608,
+				"faction": "Alliance",
+				"reason": "RevA2 c13 Alliance 40-50 read: the Bloodsail captains (45, 46, 48) stand on ship decks with crews of 42-45; the seed writes them optional, yet the route counts them and the model grinds 41.2 -> 42.0 before Captain Keelhaul (40-50/01-stranglethorn-vale:328), a hidden grind the guide never shows. It is on level only on a Stranglethorn visit at 48-50, which this route does not make",
+				"issue": ""
 			},
 			{
 				"q": 5218,
@@ -8228,18 +8414,14 @@
 				"issue": "-"
 			},
 			{
-				"q": 1137,
-				"faction": "Horde",
-				"reason": "News for Fizzle: the Horde route takes Martek the Exiled (1106) and Indurium (1108) in 30-40/02 and 30-40/06 (#1204) but has no later Mirage Raceway stop to bring the news back to Fizzle; left out there. The Alliance hands it in on 40-50/04's Raceway stop (see its turnin 1108 -> accept 1137 pair).",
-				"issue": "-"
-			},
-			{
 				"q": 1190,
+				"faction": "Alliance",
 				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137): the Horde leaves out 1137; the Alliance hands 1137 in at 45 in 40-50/04, where Keeping Pace would send it back across Thousand Needles to Rizzle for a race the route doesn't wait for. Left out.",
 				"issue": "-"
 			},
 			{
 				"q": 1194,
+				"faction": "Alliance",
 				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
 				"issue": "-"
 			},

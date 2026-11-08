@@ -9,7 +9,7 @@ next forever/horde/50-60/02-felwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Pawn Captures Queen (4507).
+# Added here: Pawn Captures Queen (4507), Yuka Screwspigot (4324).
 # Left out: Uncle Carlin (5241).
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 
@@ -285,6 +285,7 @@ step Back to Gadgetzan
 step Boat to Powderfuse Port
   zone Tanaris
   goto 67.6,23.1 "Boat to Powderfuse Port"
+  accept 4324                         -- Yorba Screwspigot, by the dock: for Yuka Screwspigot at Flame Crest, later in this guide
 
 step Badlands
   zone Badlands
@@ -312,6 +313,7 @@ step Flame Crest
   getfp "Flame Crest"
   accept 4296                         -- Maxwort Uberglint
   accept 4726                         -- Tinkee Steamboil
+  turnin 4324                         -- Yuka Screwspigot
 
 step Sha'ni Proudtusk
   tip Follow the cliffs south to Dreadmaul Rock, the Firegut ogres' hill. Sha'ni Proudtusk's remains lie at its foot.
@@ -377,6 +379,7 @@ step Oran Snakewrithe
 step Undercity
   zone Undercity
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
+  turnin 864                          -- Apothecary Zinge, near Cuely in the Apothecarium
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   turnin 3542                         -- Andron Gant, the Rogues' Quarter
   accept 3564

@@ -9,7 +9,7 @@ next forever/horde/40-50/01-stranglethorn-vale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: To the Undercity for Yagyin's Digest (728).
+# Added here: To the Undercity for Yagyin's Digest (728), News for Fizzle (1137).
 
 # The Badlands at 39-40, the last zone of Horde 30-40 (the 2026-11-07 re-order; they followed
 # Arathi at 37-38 before, and the route went back to Stranglethorn, Orgrimmar and Dustwallow
@@ -89,6 +89,7 @@ step Valley of Fangs
   tip The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz and Martek take the wings and the flakes on the way.
   turnin 703                          -- Rigglefuzz
   turnin 1108                         -- Martek the Exiled
+  accept 1137                         -- for Fizzle at the Mirage Raceway, on the way from Freewind Post to Tanaris around level 43
 
 step Ancient Chest
   tip Keep north on the road; the chest lies in the Uldaman dig site, at the foot of the ruins north-west of the road.
