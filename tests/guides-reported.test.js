@@ -6581,3 +6581,20 @@ test('forever/horde/50-60/02-felwood.guide: final review: Kirsta before the Nort
 	assert.ok(top >= 0, 'the top-up is in the guide');
 	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < top, 'Unfinished Business before the Scarlet grind');
 });
+
+// Winterspring ended in Orgrimmar taking the Wool, Silk and Mageweave donations, and the Azshara guide landed in
+// Orgrimmar again between the Crossroads and Valormok just to hand them in, from the Valley of Spirits to the Valley of
+// Honor. They are handed in on the stop that takes them, as the Thunder Bluff ones are; the Runecloth ones are taken
+// there and still handed in at the end of the route.
+test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in where they are taken', { skip }, () => {
+	const ws = goals('forever/horde/50-60/03-winterspring.guide');
+	for (const q of [7833, 7834, 7835, 7826, 7827, 7831]) {
+		assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} on the stop that takes it`);
+	}
+	for (const q of [7836, 7824]) at(ws, `accept ${q}`, is('accept', q));
+	const az = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!az.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no donation stop in the Azshara guide');
+	const between = az.slice(at(az, 'turnin 91904', is('turnin', 91904)) + 1, at(az, 'turnin 3562', is('turnin', 3562)));
+	assert.deepEqual(between.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location), ['Valormok'], 'one flight, the Crossroads to Valormok');
+	assert.ok(!between.some(({ goal }) => goal.map === 1454), 'no Orgrimmar stop between the crates and Valormok');
+});

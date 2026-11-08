@@ -4228,6 +4228,102 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review before 0.3.5 (Horde Stranglethorn Vale 39-43): the visit starts at Kargath since the 30-40 rework (#1204), so it flies to Grom'gol first (Kin'weelay, the Jungle Stalkers' feathers, Mok'thardin) and from there to Booty Bay. Taken after Booty Bay's arrival stop, it flew Kargath to Booty Bay, Booty Bay to Grom'gol and back again: one flight more, a leftover of the Ratchet boat that used to land in Booty Bay."
+			},
+			{
+				"a": [
+					"turnin",
+					7833
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde Winterspring 55-56 / Azshara 56): the Orgrimmar cloth donations are handed in on the stop that takes them, at the end of the Winterspring guide, as the Thunder Bluff ones already were: each is sixty cloth carried in the bags (optional, see deliberate.optional). Handed in on the Azshara guide's second Orgrimmar stop, they cost a landing in Orgrimmar between the Crossroads and Valormok and a walk from the Valley of Spirits to the Valley of Honor for nothing else. The Runecloth donations (7836, 7824) are taken there too and still handed in by 50-60/07-felwood (deliberate.stay)."
+			},
+			{
+				"a": [
+					"turnin",
+					7834
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7835
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7836
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7826
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7827
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"turnin",
+					7831
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
+			},
+			{
+				"a": [
+					"accept",
+					7824
+				],
+				"b": [
+					"turnin",
+					4300
+				],
+				"faction": "Horde",
+				"why": "Final route review before 0.3.5 (Horde 55-56): see turnin 7833 before turnin 4300."
 			}
 		],
 		"notes": [
