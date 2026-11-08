@@ -6481,3 +6481,33 @@ test("Bonesavv77's report (#1241): Sun Rock Retreat takes Tammra Windfield befor
 	assert.ok(tammra < braelyn && braelyn < fp, 'Tammra, then Braelyn, then the flight master');
 	assert.equal(list[tammra].step, list[fp].step, 'one Sun Rock stop');
 });
+
+// The guide file's tip lines for the step holding the first goal that matches `re`.
+function stepTips(guide, re) {
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').split('\n');
+	const k = lines.findIndex((l) => re.test(l));
+	assert.ok(k >= 0, `${re} is in ${guide}`);
+	let s = k;
+	while (s > 0 && !/^step /.test(lines[s])) s--;
+	let e = k;
+	while (e < lines.length && !/^step /.test(lines[e + 1] || 'step ')) e++;
+	return lines.slice(s, e + 1).filter((l) => /^\s+tip /.test(l)).map((l) => l.replace(/^\s+tip /, ''));
+}
+
+// Gray's report (#1234): Kodo Roundup counts a tamed kodo only once you talk to it at Smeed's camp, and
+// the Kombobulator tames no other until then (players' recordings: each of the five ticks came with the
+// kodo's window). The tips said "five times" and nothing about talking to it. The tip is a guide-fixes
+// record for each side, so a build writes it again.
+test("Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo at Smeed's, one at a time", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [guide, faction, re] of [
+		['forever/horde/30-40/02-thousand-needles.guide', 'Horde', /^\s+complete 5561\b/],
+		['forever/alliance/30-40/02-desolace.guide', 'Alliance', /quest 5561\.1\b/],
+	]) {
+		const rec = fixes.find((f) => f.at.quest === 5561 && f.faction === faction && f.tip);
+		assert.ok(rec, `${faction}: the tip is a record`);
+		assert.deepEqual(stepTips(guide, re), [rec.tip], `${faction}: the step's tip is the record's`);
+		assert.match(rec.tip, /talk to the kodo/);
+		assert.match(rec.tip, /one at a time/);
+	}
+});
