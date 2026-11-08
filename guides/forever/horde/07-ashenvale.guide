@@ -4,14 +4,14 @@ title Ashenvale & Thousand Needles
 faction Horde
 levels 26-30
 zone Ashenvale
-next forever/horde/30-40/01-desolace
+next forever/horde/30-40/01-hillsbrad-foothills
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
-# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), A Bump in the Road (1175), Load Lightening (1176).
-# Left out with it: Martek the Exiled (1106), which Fizzle offers only once both Salt Flat Venom (1104) and Hardened Shells are handed in, and its Badlands sequel Indurium (1108).
+# The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
+# visit at 33 in forever/horde/30-40/02-thousand-needles.
 # Left out: Stonetalon Standstill (25): Mastok in Splintertree offers it from level 23, and its
 # elementals and gazebo are at Mystral Lake, which this guide passes before Splintertree; the first
 # Ashenvale visit (forever/horde/05-stonetalon-mountains) is at 21.
@@ -278,6 +278,7 @@ step Freewind Post
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
+  accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
   sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Alien Egg
@@ -373,10 +374,11 @@ step Level 29.49
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles
-  tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's.
+  tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top.
   kill 4101 quest 98070.2
   kill 4104 quest 98070.3
   kill 4100 quest 98070.1
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441 -- Stolen Freewind Supplies, on the ground around the den
   collect 5843 quest 1150
 
 step Freewind Post
@@ -386,10 +388,11 @@ step Freewind Post
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
   turnin 98070                        -- Jandia, inside
+  turnin 98069                        -- Jandia, inside
   vendor nearest
 
 step Test of Endurance
-  tip Dorn Plainstalker's mesa is north-east of Freewind; from him, head south-east out to the Shimmering Flats.
+  tip Dorn Plainstalker's mesa is north-east of Freewind.
   turnin 1150                         -- Dorn Plainstalker, below ground
   accept 1151 optional                -- Dorn Plainstalker offers Test of Strength once Test of Endurance is in
 
@@ -398,23 +401,6 @@ step Rok'Alim the Pounder
   collect 5844 quest 1151 optional
   turnin 1151 optional                -- Dorn Plainstalker, below ground
 
-# ---------------------------------------------------------------- Shimmering Flats
-
-step Mirage Raceway
-  tip Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
-  accept 1110                         -- Kravel Koalbeard
-  accept 5762                         -- His crate is for Stranglethorn, later on the route
-  accept 1104                         -- Fizzle Brassbolts
-
-step Mirage Raceway: kill these as you meet them
-  zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats north of the raceway. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) west of the track, in the middle and the far south.
-  collect 5794 quest 1104
-  collect 5798 quest 1110
-
-step Mirage Raceway
-  turnin 1110                         -- Kravel Koalbeard
-  turnin 1104                         -- Fizzle Brassbolts
-
 step Freewind Post
-  note The next guide flies on from here to Orgrimmar.
+  tip Back to Freewind Post. The Mirage Raceway's quests come with the next visit to the Shimmering Flats, at 33.
+  note The next guide flies on from here to the Crossroads and Orgrimmar.

@@ -452,7 +452,7 @@ const BUY_AT_TURNIN = [
 	// [guide, quest, item, count, vendor npc or 'H' for `nearest` on the Horde, what]
 	['forever/alliance/30-40/01-hillsbrad-foothills.guide', 555, 3713, 1, 2381, 'the Soothing Spices for Chef Jessen'],
 	['forever/alliance/40-50/01-stranglethorn-vale.guide', 1218, 3713, 3, 4897, 'the Soothing Spices for "Swamp Eye" Jarl, from Theramore'],
-	['forever/horde/30-40/04-dustwallow-marsh.guide', 1218, 3713, 3, 'H', 'the Soothing Spices for "Swamp Eye" Jarl, bought in Ratchet in the Arathi guide'],
+	['forever/horde/30-40/04-dustwallow-marsh.guide', 1218, 3713, 3, 'H', 'the Soothing Spices for "Swamp Eye" Jarl, bought in Orgrimmar at the start of the Dustwallow guide'],
 	[TELDRASSIL, 99050, 3371, 1, 3614, 'the Empty Vial for Byancie'],
 	[TELDRASSIL, 99050, 159, 1, 6736, 'the Refreshing Spring Water for Byancie'],
 	['forever/collectibles/mounts/alliance/paladin-charger.guide', 7645, 13724, 20, 10857, 'the Enriched Manna Biscuits for Merideth Carlson, from Chillwind Camp'],
@@ -1259,13 +1259,14 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 // Flow audit, Horde Hillsbrad (#1079): Battle of Hillsbrad was walked out in one visit, Tarren Mill ->
 // Hillsbrad Fields -> Tarren Mill five times, the last two for Magistrate Burnside and Foreman Bonds (both
 // level 30) at 25-27. Parts 4 and 5 (532, 539) and Dangerous!'s clerk and miner come on the Tarren Mill
-// visit at about 32 (30-40/01-desolace): the town hall after the yeti caves, the mine on the way to
-// Dalaran's crater, Infiltration and Helcular's Revenge handed in on the Tarren Mill stop between.
+// visit at 30-32 (30-40/01-hillsbrad-foothills since the 2026-11-07 Horde 30-40 re-order): the town hall
+// after the yeti caves, Infiltration and Helcular's Revenge handed in on the Tarren Mill stop between, then
+// the flames, Dalaran's crater and the mine on one sweep south-west to Southshore's graveyard.
 test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
 	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
 	assert.deepEqual(early.filter(({ goal }) => [532, 539].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing of parts 4 and 5 at 25-27');
 	assert.deepEqual(early.filter(({ goal }) => goal.quest === 567 && goal.t === 'kill').map(({ goal }) => goal.npc).sort(), [2449, 2451], "only Dangerous!'s Kalaba and Wilkes at 25-27");
-	const list = goals('forever/horde/30-40/01-desolace.guide');
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const idx = (what, pred) => at(list, what, pred);
 	const accept = idx('accept 532', is('accept', 532));
 	const rod = idx("Helcular's Rod", (g) => g.t === 'collect' && g.quest === 552);
@@ -1273,7 +1274,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 	const back = idx('turnin 532', is('turnin', 532));
 	const bonds = idx('Foreman Bonds', (g) => g.t === 'kill' && g.quest === 539 && g.npc === 2305);
 	const dalaran = idx('the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
-	assert.ok(accept < rod && rod < hall && hall < back && back < bonds && bonds < dalaran, 'Tarren Mill, the yetis, the town hall, Tarren Mill, the mine, Dalaran');
+	assert.ok(accept < rod && rod < hall && hall < back && back < dalaran && dalaran < bonds, 'Tarren Mill, the yetis, the town hall, Tarren Mill, Dalaran, the mine');
 	for (const q of [533, 552]) assert.equal(list[idx(`turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the Tarren Mill stop between`);
 	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
 });
@@ -1783,8 +1784,8 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 // Sar'theris Strand and walked past Drulzegar Skraghook in Shadowprey with the
 // quest done, carrying it into the Dustwallow guide, whose Desolace visit
 // killed the naga again and handed it in about nine hours later.
-test('forever/horde/30-40/01-desolace.guide: flow re-order: Other Fish to Fry is handed to Drulzegar on the Shadowprey stop after the naga, not in the Dustwallow guide', { skip }, () => {
-	const list = goals('forever/horde/30-40/01-desolace.guide');
+test('forever/horde/30-40/02-thousand-needles.guide: flow re-order: Other Fish to Fry is handed to Drulzegar on the Shadowprey stop after the naga, not in the Dustwallow guide', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
 	const kills = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 6143);
 	assert.equal(kills.length, 3, 'the three naga kinds are killed in the Desolace guide');
 	const turnin = at(list, 'turnin 6143 (Other Fish to Fry)', is('turnin', 6143));
@@ -1811,7 +1812,7 @@ test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's ele
 
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
-const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
+const STRANGLETHORN_HORDE = 'forever/horde/30-40/03-stranglethorn-vale.guide';
 const TANARIS_ALLIANCE = 'forever/alliance/40-50/04-tanaris.guide';
 
 test('#213: quests whose giver the route already stands at are taken there, not on a walk back', { skip }, () => {
@@ -1856,8 +1857,8 @@ test('Sweep from #957: a drop is collected with the later quest that kills the s
 // Rock Elementals before Kargath, where Jarkal gives Badlands Reagent Run, and
 // came back to the Dustbowl for his Rock Elemental Shards after Agmond's End;
 // the buzzard wings were a stop of their own at Agmond's End.
-test('forever/horde/30-40/03-arathi-highlands.guide: flow re-order: Jarkal\'s shards with the Dustbowl elementals, the wings on the way to Agmond\'s End', { skip }, () => {
-	const list = goals('forever/horde/30-40/03-arathi-highlands.guide');
+test('forever/horde/30-40/06-badlands.guide: flow re-order: Jarkal\'s shards with the Dustbowl elementals, the wings on the way to Agmond\'s End', { skip }, () => {
+	const list = goals('forever/horde/30-40/06-badlands.guide');
 	const jarkal = at(list, 'accept 2258 (Badlands Reagent Run)', is('accept', 2258));
 	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
 	assert.ok(jarkal < stones, 'Badlands Reagent Run taken before the Lesser Rock Elementals');
@@ -3589,16 +3590,18 @@ emit(out)`,
 // and the step showed the bones' point; the Magrami Spectres the Crate of
 // Ghost Magnets draws are in the Valley of Bones, where the report finished
 // the quest (63.77,91.60). The ghosts now come on the Mannoroc Coven trip,
-// and Hornizz is handed the plasm afterwards.
+// and Hornizz is handed the plasm afterwards (on the second Desolace stop of
+// 30-40/04-dustwallow-marsh since the 2026-11-07 Horde 30-40 re-order, after
+// Melizza's escort: Bone Collector and its kodo bones are left out).
 
-test('forever/horde/30-40/04-dustwallow-marsh.guide: Syrael\'s report (#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard', { skip }, () => {
+test('forever/horde/30-40/04-dustwallow-marsh.guide: Syrael\'s report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza', { skip }, () => {
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	const plasm = at(list, 'collect 15849 (Ghost-o-plasm)', (g) => g.t === 'collect' && g.quest === 6134 && g.item === 15849);
 	const { goal } = list[plasm];
 	const finished = { map: 1443, x: 63.77, y: 91.6 };
 	assert.equal(goal.map, 1443, 'the goal is on Desolace');
 	assert.ok(yards(goal, finished) <= 200, `the arrow at ${goal.x},${goal.y} is in the Valley of Bones, not ${Math.round(yards(goal, finished))} yd off`);
-	assert.ok(at(list, 'collect 13703 (Kodo Bone)', (g) => g.t === 'collect' && g.quest === 5501) < plasm, 'the kodo bones come first');
+	assert.ok(at(list, 'turnin 6132 (Melizza)', is('turnin', 6132)) < plasm, "Melizza's escort comes first");
 	assert.ok(plasm < at(list, 'turnin 6134', is('turnin', 6134)), 'the plasm is collected before Hornizz is handed it');
 });
 
@@ -4136,9 +4139,10 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/04-the-barrens', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
-		// (Since the final route review the Druids fly from Shadowprey straight to Thunder Bluff, skipping Orgrimmar.)
-		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
+		// (Since the Horde 30-40 re-order the Druids fly from Freewind Post, Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
+		['horde/30-40/01-hillsbrad-foothills', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar|from Shadowprey/],
+		['horde/30-40/03-stranglethorn-vale', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
 	for (const [guide, anchor, wrong] of cases) {
@@ -5317,16 +5321,16 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the isla
 });
 // Final route review, 30-40 (2026-11-07): the step after the flight into Grom'gol told the player to follow the road south to
 // Grom'gol.
-test('forever/horde/30-40/02-stranglethorn-vale.guide: final review: no walk to Grom\'gol after the flight there', { skip }, () => {
-	const steps = compiled('forever/horde/30-40/02-stranglethorn-vale.guide').steps;
+test('forever/horde/30-40/03-stranglethorn-vale.guide: final review: no walk to Grom\'gol after the flight there', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/03-stranglethorn-vale.guide').steps;
 	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 581));
 	assert.ok(s > 0, 'turnin 581 is in the guide');
 	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /road south to Grom'gol/, 'the tip names where the NPC stands, not a walk to the town');
 });
 // Final route review, 30-40 (2026-11-07): Blackmoore's Legacy's hand-in, right after the Tarren Mill hand-ins to Keeper
-// Bel'varil, told the player to head back south to Tarren Mill.
-test('forever/horde/30-40/01-desolace.guide: final review: no walk to Tarren Mill from Tarren Mill', { skip }, () => {
-	const steps = compiled('forever/horde/30-40/01-desolace.guide').steps;
+// Bel'varil, told the player to head back south to Tarren Mill (on the 38-39 Alterac visit since the Horde 30-40 re-order).
+test('forever/horde/30-40/05-arathi-highlands.guide: final review: no walk to Tarren Mill from Tarren Mill', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
 	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 506));
 	assert.ok(s > 0, 'turnin 506 is in the guide');
 	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /back south to Tarren Mill/, 'the tip names where the NPC stands, not a walk to the town');
@@ -5367,29 +5371,26 @@ test('forever/alliance/30-40/06-badlands.guide: final review: Rigglefuzz on the 
 // pointed at Thunder Bluff, then flew them Tarren Mill -> Undercity -> Tarren Mill for Garen Largo; Druids and Paladins
 // skipped their level-30 training; Druids at 32 flew Orgrimmar -> Thunder Bluff -> Orgrimmar; the Undercity shopping
 // note and the Shamans' Sepulcher trip came after the flight to Tarren Mill.
-test('forever/horde/30-40/01-desolace.guide: final review: training in the cities the walk passes', { skip }, () => {
-	const list = goals('forever/horde/30-40/01-desolace.guide');
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: final review: training in the cities the walk passes', { skip }, () => {
+	// Since the Horde 30-40 re-order the Druids train in Thunder Bluff on the flight from Freewind Post (30) and from
+	// Orgrimmar to Freewind Post (32-33), the Paladins with Garen Largo in the Undercity on the way to Tarren Mill (30)
+	// and on the way back from Arathi (32-33).
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const flies = (l, dest) => l.findIndex(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes(dest));
 	const trains = (l) => l.map((e, i) => (e.goal.t === 'train' ? i : -1)).filter((i) => i >= 0);
 	const tm = (l) => flies(l, 'Tarren Mill');
-	for (const cls of ['PALADIN', 'DRUID']) {
-		const l = list.filter(forClass(cls));
-		const t = trains(l);
-		assert.equal(t.length, 2, `${cls}: trains twice (30 and 32)`);
-		assert.ok(t[0] < flies(l, 'Sun Rock Retreat') && flies(l, 'Thunder Bluff') < t[0], `${cls}: level-30 training in Thunder Bluff before Sun Rock Retreat`);
-		assert.ok(t[1] < tm(l), `${cls}: level-32 training before the flight to Tarren Mill`);
-		assert.equal(l.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, `${cls}: one flight to Tarren Mill`);
-	}
-	const pal = list.filter(forClass('PALADIN'));
-	assert.ok(!pal.some(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('"Undercity"')), 'no Paladin flight back to the Undercity');
 	const dru = list.filter(forClass('DRUID'));
-	const after = dru.slice(at(dru, 'turnin 6143', is('turnin', 6143)));
-	assert.deepEqual(after.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => JSON.stringify(goal).match(/Thunder Bluff|Orgrimmar|Tarren Mill/)?.[0]), ['Thunder Bluff', 'Orgrimmar', 'Tarren Mill'], 'Druids at 32: Shadowprey -> Thunder Bluff -> Orgrimmar -> Tarren Mill');
+	assert.ok(flies(dru, 'Thunder Bluff') >= 0 && flies(dru, 'Thunder Bluff') < trains(dru)[0] && trains(dru)[0] < flies(dru, 'Crossroads'), 'Druids: Thunder Bluff on the flight from Freewind Post to the Crossroads');
+	const pal = list.filter(forClass('PALADIN'));
+	assert.ok(trains(pal)[0] < tm(pal), 'Paladins: Garen Largo before the flight to Tarren Mill');
+	assert.equal(pal.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, 'Paladins: one flight to Tarren Mill');
 	const sham = list.filter(forClass('SHAMAN'));
 	assert.ok(flies(sham, 'The Sepulcher') < tm(sham), 'Shamans: the Sepulcher before Tarren Mill');
 	const war = list.filter(forClass('WARRIOR'));
 	const note = war.find(({ step }) => /Strong Troll/.test([].concat(step.note || []).join(' ')));
 	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
+	const next = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('DRUID'));
+	assert.ok(flies(next, 'Thunder Bluff') < flies(next, 'Freewind Post') || flies(next, 'Freewind Post') < 0, 'Druids at 32: Orgrimmar -> Thunder Bluff -> Freewind Post');
 });
 // Final route review, 30-40 (2026-11-07): Alliance Wetlands & Hillsbrad put Druid training between Elling Trias's
 // hand-in and accept, though Sheldras stands across the city; it now sits on the walk from the Mage Quarter to the boat.
@@ -5410,8 +5411,8 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew w
 	const sinew = list[at(list, 'collect 3862', (g) => g.t === 'collect' && g.item === 3862)];
 	assert.equal(sinew.s, list[at(list, 'collect 2799', (g) => g.t === 'collect' && g.item === 2799)].s, 'with the gorilla fangs');
 	assert.notEqual(sinew.s, list[at(list, 'collect 3920', (g) => g.t === 'collect' && g.item === 3920)].s, 'not with the Bloodsail charts');
-	const boat = at(list, 'Boat to Booty Bay', (g) => g.t === 'goto' && /Boat to Booty Bay/.test(g.text || g.label || g.note || ''));
-	assert.ok(!list.slice(0, boat).some(({ goal }) => goal.t === 'vendor'), 'no vendor before the boat');
+	const arrive = at(list, 'fly Booty Bay', (g) => g.t === 'fly' && /Booty Bay/.test(JSON.stringify(g)));
+	assert.ok(!list.slice(0, arrive).some(({ goal }) => goal.t === 'vendor'), 'no vendor before the flight to Booty Bay (from Kargath since the Horde 30-40 re-order)');
 	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Tarren Mill/.test(goal.text || goal.note || '')), 'no note about the next guide flying to Tarren Mill');
 });
 
@@ -6087,4 +6088,49 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 			}
 		});
 	}
+});
+
+// --- Horde 30-40 re-order (2026-11-07, Final3040's report: 379 minutes of grind in Desolace &
+// Hillsbrad and 310 in Stranglethorn, a top-up to 32.2 at Sargeron right after arriving at 30). The
+// zones in the order their quest levels fit, as both other orders run them: Hillsbrad and a first
+// Arathi visit 30-32, the Shimmering Flats and Desolace's 33-36 quests 32-34, Stranglethorn, Dustwallow
+// with a short second Desolace stop for its 38-40 quests, Alterac and Arathi, the Badlands, then the
+// flight to Booty Bay for 40-50. Martek the Exiled is taken once Hardened Shells is in (the game's
+// prerequisites), and Stolen Freewind Supplies goes with Stop the Screeching.
+const H3040 = ['01-hillsbrad-foothills', '02-thousand-needles', '03-stranglethorn-vale', '04-dustwallow-marsh', '05-arathi-highlands', '06-badlands'].map((n) => `forever/horde/30-40/${n}.guide`);
+test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, Stranglethorn, Dustwallow, Alterac and Arathi, the Badlands', { skip }, () => {
+	const header = (g) => fs.readFileSync(path.join(__dirname, '..', 'guides', g), 'utf8');
+	const nextOf = (g) => (header(g).match(/^next (.*)$/m) || [])[1];
+	assert.equal(nextOf('forever/horde/07-ashenvale.guide'), 'forever/horde/30-40/01-hillsbrad-foothills');
+	for (let i = 0; i < H3040.length - 1; i++) assert.equal(nextOf(H3040[i]), H3040[i + 1].replace(/\.guide$/, ''), `${H3040[i]} leads to the next zone`);
+	assert.equal(nextOf(H3040[5]), 'forever/horde/40-50/01-stranglethorn-vale');
+	const retired = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'guides', 'retired.json'), 'utf8'));
+	for (const id of ['01-desolace', '02-stranglethorn-vale', '03-arathi-highlands']) assert.ok(retired.includes(`forever/horde/30-40/${id}`), `${id} is retired`);
+	const [hills, tn, , dust, alterac] = H3040.map((g) => goals(g));
+	const has = (list, t, q) => list.some(({ goal }) => goal.t === t && goal.quest === q);
+	for (const q of [532, 539, 553, 677]) assert.ok(has(hills, 'turnin', q), `${q} in the 30-32 guide`);
+	assert.ok(!has(hills, 'turnin', 1365) && has(tn, 'turnin', 1365), 'Desolace is not entered at 30');
+	for (const q of [1105, 1176, 1175, 1147, 5361, 6027]) assert.ok(has(tn, 'turnin', q), `${q} with the Flats and Desolace`);
+	for (const q of [5581, 6134, 93225]) assert.ok(has(dust, 'turnin', q) && !has(tn, 'turnin', q), `${q} on the second Desolace stop, at 38`);
+	for (const q of [503, 507, 508, 651]) assert.ok(has(alterac, 'turnin', q), `${q} on the 38-39 Alterac and Arathi visit`);
+	const shells = at(tn, 'turnin 1105', is('turnin', 1105));
+	assert.ok(shells < at(tn, 'accept 1106', is('accept', 1106)), 'Martek the Exiled taken after Hardened Shells');
+	assert.ok(!has(goals('forever/horde/07-ashenvale.guide'), 'accept', 1106), 'not after Salt Flat Venom alone');
+	// Short written grind steps (2026-11-07, Fitz): each skipped once the player is at its level, none above the next zone's quests.
+	for (const g of H3040) {
+		for (const { step, goal } of goals(g).filter(({ goal }) => goal.t === 'level')) {
+			const want = (goal.level || 0) + (goal.frac || 0);
+			assert.ok((step.when || []).some((p) => p.k === 'level' && p.op === '<' && !p.neg && Math.abs((p.n || 0) + (p.frac || 0) - want) < 0.6), `${g}: "${step.title}" is skipped at level ${want}`);
+			assert.ok(want <= 37.5, `${g}: "${step.title}" stays a short top-up (${want})`);
+		}
+	}
+	assert.ok(!dust.some(({ goal }) => [1166, 1168, 1169].includes(goal.quest) && goal.t === 'accept'), 'the level-43 Brackenwall quests are left for the 40-50 Dustwallow visit');
+});
+
+test('forever/horde/07-ashenvale.guide: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const step = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(step('accept', 98069), step('accept', 98070), 'taken from Jandia with Stop the Screeching');
+	assert.equal(list[at(list, 'collect 279383', (g) => g.t === 'collect' && g.quest === 98069)].s, list[at(list, 'kill 4101', (g) => g.t === 'kill' && g.quest === 98070)].s, 'the supplies in the Screeching Canyon step');
+	assert.equal(step('turnin', 98069), step('turnin', 98070), 'handed in with it');
 });

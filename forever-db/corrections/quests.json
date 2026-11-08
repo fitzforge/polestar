@@ -4065,6 +4065,23 @@
 		],
 		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
 	},
+	"97265": {
+		"set": {
+			"end": {
+				"npc": [
+					268705
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: ender npc 268705"
+			}
+		],
+		"note": "Hate the Hatefury: Aka'rai (npc 268705), who gives it by the path into Shadowprey Village, also takes it back (the quest text sends you back to Aka'rai). The merged data had no ender, so no guide could hand it in."
+	},
 	"97275": {
 		"set": {
 			"pre": [
