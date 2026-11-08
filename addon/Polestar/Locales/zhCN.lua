@@ -1428,6 +1428,8 @@ L["You are level %d. Level %d is recommended for this guide; from there:"] = "�
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "未显示任何指南：Polestar 自带的指南已关闭。请在“选项”中的“社区指南”（/polestar packs）里开启。"
 L["Other starting zones"] = "其他起始地区"
 -- L["Heads-up"] = ""
+L["Expand"] = "展开"
+L["Collapse"] = "折叠"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"

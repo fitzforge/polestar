@@ -1428,6 +1428,8 @@ L["You are level %d. Level %d is recommended for this guide; from there:"] = "�
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "표시할 가이드가 없습니다: Polestar 자체 가이드가 꺼져 있습니다. 설정의 커뮤니티 가이드(/polestar packs)에서 켜십시오."
 -- L["Other starting zones"] = ""
 -- L["Heads-up"] = ""
+L["Expand"] = "펼치기"
+L["Collapse"] = "접기"
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"

@@ -606,6 +606,8 @@ L["You are level %d. Level %d is recommended for this guide; from there:"] = "Du
 L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = "Keine Guides angezeigt: Die eigenen Guides von Polestar sind ausgeschaltet. Schalte sie unter Optionen, Community-Guides ein (/polestar packs)."
 L["Other starting zones"] = "Andere Startgebiete"
 -- L["Heads-up"] = ""
+L["Expand"] = "Ausklappen"
+L["Collapse"] = "Einklappen"
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"

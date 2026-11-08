@@ -1428,6 +1428,8 @@ L["Miscellaneous"] = "Miscelánea"
 -- L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."] = ""
 -- L["Other starting zones"] = ""
 -- L["Heads-up"] = ""
+L["Expand"] = "Desplegar"
+L["Collapse"] = "Plegar"
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota"
