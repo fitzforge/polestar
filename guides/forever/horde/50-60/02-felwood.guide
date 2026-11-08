@@ -61,17 +61,17 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
-step Level 52.63
-  zone Western Plaguelands
-  when level<52.63
-  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53.
-  goto 53.1,37.3 map 1422 "Scarlet Mage"
-  level 52.63                          -- grind on Scarlet Mage
-
 step Kirsta Deepshadow
   zone Western Plaguelands
   tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
+
+step Level 52.63
+  zone Western Plaguelands
+  when level<52.63
+  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business.
+  goto 53.1,37.3 map 1422 "Scarlet Mage"
+  level 52.63                          -- grind on Scarlet Mage
 
 step Diseased Wolves
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.

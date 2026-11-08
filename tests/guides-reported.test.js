@@ -6572,3 +6572,12 @@ test('Horde 40-60 final review: tips point the way the route goes', { skip }, ()
 	assert.doesNotMatch(stepTips(H('40-50/03-feralas'), /kill 8612 quest 3520/).join(' '), /Ride west/);
 	assert.doesNotMatch(stepTips(H('50-60/01-un-goro-crater'), /accept 5021/).join(' '), /Leave the Undercity/);
 });
+
+// Felwood & Western Plaguelands: the top-up to 52.63 ground on Northridge's Scarlet Mages, then walked on to Kirsta
+// Deepshadow on the hill above for Unfinished Business, which wants those Scarlets. Kirsta first: the grind counts.
+test('forever/horde/50-60/02-felwood.guide: final review: Kirsta before the Northridge top-up', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const top = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
+	assert.ok(top >= 0, 'the top-up is in the guide');
+	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < top, 'Unfinished Business before the Scarlet grind');
+});
