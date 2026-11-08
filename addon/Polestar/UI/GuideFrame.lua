@@ -292,12 +292,24 @@ local function rowClick(row, button)
 		return
 	end
 	-- A goal of the step the guide is on: the Engine leads the arrow there
-	-- (its spawn areas and spots too) and drops any point picked by hand.
-	-- Anywhere else, a plain point.
+	-- (its spawn areas and spots too) and drops any point picked by hand;
+	-- a goal whose quest is not taken yet leaves the arrow on the accept and
+	-- says so (#1385). Anywhere else, a plain point.
 	local E, nav = Engine(), ns.Nav
-	if view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index and E.AimGoal(view.index, goal.index) then
+	local onStep = view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index
+	local aimed, why, title
+	if onStep then aimed, why, title = E.AimGoal(view.index, goal.index) end
+	if aimed or why == "accept" then
 		if nav and nav.ReleaseTarget then nav.ReleaseTarget() end
 		GF.UpdateTargets()
+		if why == "accept" then
+			local message = string.format(L["Take %s first"], title or "")
+			if UIErrorsFrame and UIErrorsFrame.AddMessage then
+				UIErrorsFrame:AddMessage(message, 1, 0.82, 0)
+			else
+				ns.Print(message)
+			end
+		end
 	else
 		pointAt(goal, goal.text)
 	end

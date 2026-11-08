@@ -470,6 +470,28 @@ fn left_click_on_a_goal_of_the_step_aims_the_arrow_at_it_right_click_a_menu_on_a
 	assert_eq!(out["after"], false, "the box follows the engine, which flipped it back");
 }
 
+// #1385: a click on a goal whose quest is not taken yet (Engine.AimGoal answers false, "accept", its title) leaves
+// the arrow with the Engine, on the accept: no point set by hand, and the player reads "Take <quest> first".
+#[test]
+fn left_click_on_a_goal_whose_quest_is_not_taken_yet_says_take_it_first_and_sets_no_point_by_hand() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Engine.AimGoal = function(s, g)
+			table.insert(uistub.calls, { "AimGoal", s, g })
+			return false, "accept", "Wolves Across the Border"
+		end
+		local said = {}
+		function UIErrorsFrame.AddMessage(_, message) said[#said + 1] = message end
+		local calls = #uistub.calls
+		stub.RunScript(rowFor("Tough Wolf Meat"), "OnClick", "LeftButton")
+		local after = {}
+		for i = calls + 1, #uistub.calls do after[#after + 1] = uistub.calls[i][1] end
+		emit({ calls = after, said = table.concat(said, " | ") })"#)
+	.remove(0);
+	assert_eq!(out["calls"], json!(["AimGoal", "ReleaseTarget"]), "the Engine keeps the arrow; no SetTarget");
+	assert_eq!(out["said"], "Take Wolves Across the Border first", "said once, where the game says what can't be done");
+}
+
 // Skip this quest (Engine.SkipQuest): a quest's line, right-clicked, offers its tick and the quest's skip. The
 // card moves on, so a banner offers the undo; a skipped quest's line reads so, its accept shows Undo, and a
 // right-click brings it back. A line with no quest ticks.

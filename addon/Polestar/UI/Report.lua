@@ -74,13 +74,17 @@ local function where(map, x, y, f)
 end
 
 local MARK = { done = "[x]", skipped = "[-]", na = "[n/a]" }
+-- The window's current goal, and the goal the arrow leads to when the player
+-- picked another one (a row click, the waypoint keys: #1385).
+local CURRENT, ARROW = "[>]", "[\226\134\146]"
 
--- One goal: its state ([>] the arrow's, [x] done, [-] skipped, [n/a] not for
--- this character, [ ] open), its line and count, its ids and position.
-local function goalLine(gv, raw, isCurrent, wp)
+-- One goal: its state (`mark`: CURRENT the window's current goal, ARROW the
+-- arrow's when it is another; else [x] done, [-] skipped, [n/a] not for this
+-- character, [ ] open), its line and count, its ids and position.
+local function goalLine(gv, raw, mark, wp)
 	local text = gv.text
 	if type(text) ~= "string" or text == "" then text = (gv.verb or "") .. " " .. tostring(gv.subject or "") end
-	local head = (isCurrent and "[>]" or MARK[gv.status] or "[ ]") .. " " .. plain(text):match("^%s*(.-)%s*$")
+	local head = (mark or MARK[gv.status] or "[ ]") .. " " .. plain(text):match("^%s*(.-)%s*$")
 	local p = gv.progress
 	if p and p.cur and p.max then head = head .. (" %s/%s"):format(tostring(p.cur), tostring(p.max)) end
 	local parts = { head }
@@ -171,13 +175,17 @@ local function guideLines(d, on)
 	end
 	out[#out + 1] = cut(step)
 	local wp = E.GetWaypoint and E.GetWaypoint()
+	-- The arrow's goal on this step, when the player picked one other than
+	-- the window's current goal.
+	local picked = wp and wp.stepIndex == index and wp.goalIndex ~= view.current and wp.goalIndex or nil
 	local raws = guide.steps and guide.steps[index] and guide.steps[index].goals or {}
 	local goals = view.goals or {}
 	local shown = min(#goals, GOALS_MAX)
 	d.goals = { first = #out + 1, last = #out + shown, more = #goals - shown }
 	for g = 1, shown do
 		if view.current == g then d.goals.current = #out + 1 end
-		out[#out + 1] = goalLine(goals[g], raws[g], view.current == g, wp)
+		local mark = (view.current == g and CURRENT) or (picked == g and ARROW) or nil
+		out[#out + 1] = goalLine(goals[g], raws[g], mark, wp)
 	end
 	if d.goals.more > 0 then out[#out + 1] = (L["... %d more goals"]):format(d.goals.more) end
 end
@@ -422,7 +430,7 @@ end
 --   key       the guide and the step, to tell a report on another step
 --   context   the line under the window's title
 --   goals     where the step's goal lines sit in `lines`: first, last, the
---             arrow's (current), and how many more were not listed
+--             window's current goal (current), and how many more were not listed
 --   names     the other addons' names, for the report's Addons line
 --   addons    the other addons with their versions, for the issue's field
 --   issue     on a step, the facts a "Wrong step" issue names: the guide's
