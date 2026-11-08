@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Simplified Chinese: clarify declined equipment being remembered per
-  character, recovering or skipping a missing quest and its follow-ups,
-  the quests that can be abandoned to make room, and removing an item
-  from restock settings.
+- Simplified Chinese: clearer wording for declined gear (remembered per
+  character), going back for or skipping a missing quest and its
+  follow-ups, the quests you can abandon to make room, and removing an item
+  from restock (thanks nepyanbin).

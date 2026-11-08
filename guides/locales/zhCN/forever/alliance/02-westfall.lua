@@ -16,7 +16,7 @@ return {
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 	-- {area:18} Crystal Lake · {npc:248242} Hamish Bergwort · {npc:248248} Blixie Fitzwink
-	["East along the road past {area:18}: {npc:248242} and {npc:248248} stand at the foot of the tower."] = "",
+	["East along the road past {area:18}: {npc:248242} and {npc:248248} stand at the foot of the tower."] = "沿路向东，经过{area:18}：{npc:248242}和{npc:248248}站在塔脚下。",
 
 	-- Step 3: The bridge
 	["The bridge"] = "桥",
@@ -44,7 +44,7 @@ return {
 	-- Step 7: The gnoll camps
 	["The gnoll camps"] = "豺狼人营地",
 	-- {area:86} Stone Cairn Lake · {quest:91725} Stolen Enchanting Supplies
-	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "河爪豺狼人在{area:86}西边的山丘上扎营；{quest:91725}在它们的营地里。",
+	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "河爪豺狼人在{area:86}西边的山丘上扎营，{quest:91725}就在他们的营地里。",
 
 	-- Step 8: The Jasperlode Mine's entrance
 	-- {area:54} Jasperlode Mine
@@ -129,7 +129,7 @@ return {
 
 	-- Step 24: Molsen Farm: kill these as you meet them
 	-- {area:918} Molsen Farm
-	["{area:918}: kill these as you meet them"] = "{area:918}：遇到就击杀",
+	["{area:918}: kill these as you meet them"] = "{area:918}：下面这些，遇到了就顺手杀",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper · Harvest Watchers = {npc:114} Harvest Watcher · Young Goretusks = {npc:454} Young Goretusk
 	["Defias Trappers and Smugglers camp in the fields between {area:108} and {area:918}.\nWest of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone.\nYoung Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew."] = "{npc:504}和迪菲亚走私者在{area:108}与{area:918}之间的田野扎营。\n在萨丁农场以西。{npc:114}和麦田傀儡在田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。\n{npc:454}和碎尸鸟在这条路线的每一段游荡：它们的肝脏和肉用于馅饼和炖肉。",
@@ -180,7 +180,7 @@ return {
 
 	-- Step 31: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
-	["{area:20}: kill these as you meet them"] = "{area:20}：遇到就击杀",
+	["{area:20}: kill these as you meet them"] = "{area:20}：下面这些，遇到了就顺手杀",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
 	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "",
@@ -240,7 +240,7 @@ return {
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "为{zone:1439}的任务“收集解药”（6123）准备{item:2449}：在{npc:1313}的炼金用品店购买；草药师可在那里采集",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
-	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "",
+	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：为了他在{area:442}的兄弟",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}，法师圣殿：{quest:1861}",
 
@@ -271,10 +271,17 @@ return {
 	["{item:6529}, from {npc:5494}"] = "{item:6529}，来自{npc:5494}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north past Molsen Farm to the mine: Kobold Diggers work inside."] = "向北经过摩尔森农场回到矿洞：{npc:1236}在里面干活。",
+	-- ["Back to {object:81}"] = "返回哨兵岭",
+	-- ["Back to {zone:1453}"] = "返回{zone:1453}",
 	-- ["Defensive Stance"] = "防御姿态",
+	-- ["Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在月溪镇巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的死亡矿井入口是小队地下城。\n小心：山丘上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
 	-- ["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon."] = "迪菲亚巡路者和迪菲亚拳匪在{area:20}巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的{area:1581}入口是团队地下城。",
 	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}."] = "迪菲亚抢劫者和迪菲亚强夺者占据了{area:108}以西、海岸道路与{area:20}之间的农场。",
 	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "{npc:589}和迪菲亚强夺者占据了{area:108}以西、海岸道路与{area:20}之间的农场。\n小心：{area:113}洞穴里有许多迪菲亚挤在一起，很容易一次拉到好几个。",
+	-- ["Defias Pillagers and Looters hold the farms west of {object:81}, between the coast road and Moonbrook. {object:1166} stands in the farmhouse at the Alexston Farmstead, among them: {npc:1646}' compass is inside.\nCareful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there."] = "{npc:589}和迪菲亚强夺者占据了哨兵岭以西、海岸道路与月溪镇之间的农场。{object:1166}就在阿历克斯顿农场的农舍里，在他们中间：{npc:1646}的罗盘在箱子里。\n小心：金海岸矿洞的洞穴里有许多迪菲亚挤在一起，很容易一次拉到好几个。",
+	-- ["Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "{npc:474}在石碑湖边扎营，他们也掉{item:1019}。{object:56}在东北岸的鱼人村里。",
+	-- ["Defias Trappers and Smugglers camp in the fields between {object:81} and Molsen Farm.\nWest of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone.\nYoung Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew."] = "{npc:504}和迪菲亚走私者在哨兵岭与摩尔森农场之间的田野扎营。\n在萨丁农场以西。{npc:114}和麦田傀儡在田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。\n{npc:454}和碎尸鸟在这条路线的每一段游荡：它们的肝脏和肉用于馅饼和炖肉。",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "飞往或骑往{zone:1453}。训练师：{object:2100}（战士、潜行者），大教堂（圣骑士、牧师），{object:2101}（法师、术士），公园（德鲁伊）。",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids). {npc:11026} works in the {object:28027}, {npc:279} in the {object:2096}."] = "飞往或骑往{zone:1453}。训练师：{object:2100}（战士、潜行者），大教堂（圣骑士、牧师），{object:2101}（法师、术士），公园（德鲁伊）。{npc:11026}在{object:28027}，{npc:279}在{object:2096}。",
 	-- ["Fly or ride to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "飞往或骑往{zone:1453}。{npc:376}在光明大教堂。",
@@ -284,65 +291,46 @@ return {
 	-- ["Fly or walk to {zone:1453}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "飞往或步行前往{zone:1453}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。",
 	-- ["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路从艾尔文森林进入{zone:1436}：法布隆夫妇坐在被烧毁的农场旁，就是道路边第一座农场。沿途从田里的燕麦袋中收集燕麦。",
 	-- ["Follow the road north. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west."] = "沿道路向北。{npc:233}站在屋外，{npc:235}在屋里，{npc:253395}在西边的谷仓里。",
+	-- ["Follow the road west to Goldshire, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西回闪金镇，去{zone:1436}的路上正好经过：{npc:240}站在旅店外。",
+	-- ["Furlbrow's Pumpkin Farm: kill these as you meet them"] = "法布隆农场：下面这些，遇到了就顺手杀",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦，并在农场的井里装满药瓶。",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦。",
+	-- ["Goldshire"] = "闪金镇",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "炉石在冷却？沿道路向东北走。",
+	-- ["Jasperlode Mine"] = "詹戈洛德矿洞",
+	-- ["Jasperlode Mine: kill these as you meet them"] = "詹戈洛德矿洞：下面这些，遇到了就顺手杀",
 	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "矿洞北边的海滩上排列着{npc:126}和鱼人袭击者。它们血量低时会逃跑：一次只拉一只。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "在摩尔森农场以北。{npc:504}和迪菲亚走私者在矿洞外扎营，{npc:1236}在矿洞内干活。{object:290}在矿洞东边的废墟房屋旁。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "在摩尔森农场以北。迪菲亚捕兽者和迪菲亚走私者在矿洞外扎营。{object:290}在矿洞东边的废墟房屋旁。",
+	-- ["On the road from {zone:1453} to {zone:1436}, Goldshire is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "从{zone:1453}去{zone:1436}的路上，闪金镇是第一站：{npc:241}站在旅店外，{npc:240}在他旁边。{npc:241}的{quest:40}直接找杜汉交，他接着给{quest:35}；杜汉的{quest:109}你顺路带去{zone:1436}。",
 	-- ["Only if he takes the isosprings alone"] = "仅当他只收下同位弹簧时",
 	-- ["Ride to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "骑往{zone:1453}。那里没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，在{npc:258098}处学习，然后乘地铁返回去坐船。",
 	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills."] = "{npc:117}和河爪斥候（11-13级）在海岸南边的山丘上游荡，从{area:111}上方一直到东边的{area:916}。更南边和西边的豺狼人是13-19级：待在北边的山丘。",
+	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {object:83} east to the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.\nMurloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.\nCareful: {object:290} stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{npc:117}和河爪斥候（11-13级）在海岸南边的山丘上游荡，从詹戈洛德矿洞上方一直向东到詹森农场。更南边和西边的豺狼人是13-19级：待在北边的山丘。\n矿洞北边的海滩上排列着{npc:126}和鱼人袭击者。它们血量低时会逃跑：一次只拉一只。\n小心：站得很近的豺狼人往往会成群加入战斗。一次拉一只更安全。\n小心：{object:290}在矿洞东边的废墟房屋里，位于去詹森农场的路上。屋内有两个迪菲亚守卫，其中一个是15级的具名怪{npc:502}。它们是关联的，攻击任何一个都会引来两个。",
 	-- ["Riverpaw Gnolls and Scouts roam the hills between the coast and the {area:916}."] = "{npc:117}和河爪斥候在海岸与{area:916}之间的山丘上游荡。",
 	-- ["Sacks of Oats"] = "一袋燕麦",
+	-- ["Saldean's Farm"] = "萨丁农场",
+	-- ["South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry."] = "向西南到海岸，摩尔森农场以西。{npc:1426}在采石场干活。",
+	-- ["Stone Cairn Lake"] = "石碑湖",
 	-- ["Stormwind City"] = "暴风城",
+	-- ["The Jansen Stead"] = "詹森农场",
+	-- ["The Jasperlode Mine's entrance"] = "詹戈洛德矿洞入口",
 	-- ["The gnoll hills"] = "豺狼人山丘",
 	-- ["The north coast"] = "北部海岸",
 	-- ["The western farms"] = "西部农场",
+	-- ["The {object:95}"] = "东谷伐木场",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "在摩尔森农场以西，靠近海岸。{npc:1426}在采石场干活。",
 	-- ["West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "在萨丁农场以西。{npc:114}和麦田傀儡在田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。在这条路线的每一段都继续击杀血牙野猪和碎尸鸟。",
+	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "顺便：在{npc:11867}处学习双手剑（{object:2096}，10银币）；圣骑士用双手武器升级最快。",
+	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习双手剑（{object:2096}，10银币）；双手武器能让战士升级最快。",
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "农场周围的田野里游荡着{npc:454}和碎尸鸟：返程时先收集肝脏和炖肉用的肉。",
+	-- ["Young Goretusks root in the fields along the road south from Saldean's to {object:81}: take their snouts on the way."] = "{npc:454}在萨丁农场往南去哨兵岭的路边田里拱土：顺路把它们的鼻子收了。",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔顶上。{npc:491}在塔内，{npc:878}和{npc:253092}在山丘南侧，旅店和狮鹫管理员{npc:523}旁边。",
+	-- ["{npc:240}: for {npc:234} at {object:81}"] = "{npc:240}：交给哨兵岭的{npc:234}",
+	-- ["{npc:476} walks around Jasperlode Mine: look inside the circle on the map"] = "{npc:476}在詹戈洛德矿洞里四处走动：看地图上圆圈里面",
 	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}；不要乘坐它提供的免费飞行",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089}：防御姿态",
-	-- ["{quest:153}: every Defias drops them"] = "{quest:153}：每个迪菲亚都会掉落",
-	-- ["Goldshire"] = "闪金镇",
-	-- ["On the road from {zone:1453} to {zone:1436}, Goldshire is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "从{zone:1453}去{zone:1436}的路上，闪金镇是第一站：{npc:241}站在旅店外，{npc:240}在他旁边。{npc:241}的{quest:40}直接找杜汉交，他接着给{quest:35}；杜汉的{quest:109}你顺路带去{zone:1436}。",
-	-- ["{npc:240}: for {npc:234} at {object:81}"] = "{npc:240}：交给哨兵岭的{npc:234}",
-	-- ["The Tower of Azora"] = "阿祖拉之塔",
-	-- ["East along the road past Crystal Lake: {npc:248242} and {npc:248248} stand at the foot of the tower."] = "沿路向东，经过水晶湖：{npc:248242}和{npc:248248}站在塔脚下。",
-	-- ["The {object:95}"] = "东谷伐木场",
-	-- ["Stone Cairn Lake"] = "石碑湖",
-	-- ["Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "{npc:474}在石碑湖边扎营，他们也掉{item:1019}。{object:56}在东北岸的鱼人村里。",
-	-- ["Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the {quest:91725} lie in their camps."] = "河爪豺狼人在石碑湖西边的山丘上扎营，{quest:91725}就在他们的营地里。",
-	-- ["The Jasperlode Mine's entrance"] = "詹戈洛德矿洞入口",
-	-- ["Jasperlode Mine"] = "詹戈洛德矿洞",
-	-- ["Jasperlode Mine: kill these as you meet them"] = "詹戈洛德矿洞：下面这些，遇到了就顺手杀",
-	-- ["{npc:476} walks around Jasperlode Mine: look inside the circle on the map"] = "{npc:476}在詹戈洛德矿洞里四处走动：看地图上圆圈里面",
-	-- ["Follow the road west to Goldshire, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西回闪金镇，去{zone:1436}的路上正好经过：{npc:240}站在旅店外。",
-	-- ["The Jansen Stead"] = "詹森农场",
-	-- ["Saldean's Farm"] = "萨丁农场",
-	-- ["Young Goretusks root in the fields along the road south from Saldean's to {object:81}: take their snouts on the way."] = "{npc:454}在萨丁农场往南去哨兵岭的路边田里拱土：顺路把它们的鼻子收了。",
 	-- ["{object:81}'s tower and {npc:523}"] = "哨兵岭的塔和{npc:523}",
-	-- ["Molsen Farm: kill these as you meet them"] = "摩尔森农场：下面这些，遇到了就顺手杀",
-	-- ["Defias Trappers and Smugglers camp in the fields between {object:81} and Molsen Farm.\nWest of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone.\nYoung Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew."] = "{npc:504}和迪菲亚走私者在哨兵岭与摩尔森农场之间的田野扎营。\n在萨丁农场以西。{npc:114}和麦田傀儡在田里干活；它们掉落同位弹簧、陀螺稳定器、{item:732}，有时还有{item:255155}。{npc:573}是20级稀有怪，在此巡逻：别惹它。\n{npc:454}和碎尸鸟在这条路线的每一段游荡：它们的肝脏和肉用于馅饼和炖肉。",
-	-- ["Furlbrow's Pumpkin Farm: kill these as you meet them"] = "法布隆农场：下面这些，遇到了就顺手杀",
-	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {object:83} east to the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.\nMurloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.\nCareful: {object:290} stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{npc:117}和河爪斥候（11-13级）在海岸南边的山丘上游荡，从詹戈洛德矿洞上方一直向东到詹森农场。更南边和西边的豺狼人是13-19级：待在北边的山丘。\n矿洞北边的海滩上排列着{npc:126}和鱼人袭击者。它们血量低时会逃跑：一次只拉一只。\n小心：站得很近的豺狼人往往会成群加入战斗。一次拉一只更安全。\n小心：{object:290}在矿洞东边的废墟房屋里，位于去詹森农场的路上。屋内有两个迪菲亚守卫，其中一个是15级的具名怪{npc:502}。它们是关联的，攻击任何一个都会引来两个。",
+	-- ["{quest:153}: every Defias drops them"] = "{quest:153}：每个迪菲亚都会掉落",
 	-- ["{quest:153}: every Defias drops them, from {object:83} to the Jansen Stead"] = "{quest:153}：每个迪菲亚都会掉落，从詹戈洛德矿洞到詹森农场",
-	-- ["For {npc:266} in Lakeshire, Redridge"] = "交给赤脊山湖畔镇的{npc:266}",
-	-- ["Back north past Molsen Farm to the mine: Kobold Diggers work inside."] = "向北经过摩尔森农场回到矿洞：{npc:1236}在里面干活。",
-	-- ["The Gold Coast Quarry"] = "金海岸矿洞",
-	-- ["South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry."] = "向西南到海岸，摩尔森农场以西。{npc:1426}在采石场干活。",
-	-- ["Moonbrook: kill these as you meet them"] = "月溪镇：下面这些，遇到了就顺手杀",
-	-- ["Defias Pillagers and Looters hold the farms west of {object:81}, between the coast road and Moonbrook. {object:1166} stands in the farmhouse at the Alexston Farmstead, among them: {npc:1646}' compass is inside.\nCareful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there."] = "{npc:589}和迪菲亚强夺者占据了哨兵岭以西、海岸道路与月溪镇之间的农场。{object:1166}就在阿历克斯顿农场的农舍里，在他们中间：{npc:1646}的罗盘在箱子里。\n小心：金海岸矿洞的洞穴里有许多迪菲亚挤在一起，很容易一次拉到好几个。",
-	-- ["Moonbrook and the Defias hills"] = "月溪镇和迪菲亚山丘",
-	-- ["Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在月溪镇巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的死亡矿井入口是小队地下城。\n小心：山丘上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
-	-- ["{item:254676}, from the crates around Moonbrook"] = "{item:254676}，来自月溪镇周围的箱子",
-	-- ["Back to {object:81}"] = "返回哨兵岭",
-	-- ["{npc:6172}, by Stone Cairn Lake in Elwynn, on the road to Redridge"] = "{npc:6172}，在艾尔文森林的石碑湖旁，通往赤脊山的路上",
-	-- ["Head to {zone:1453}. It has no shaman trainer: take the Deeprun Tram from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "前往{zone:1453}。那里没有萨满祭司训练师：从{object:28027}乘矿道地铁前往{zone:1455}，在{npc:258098}处学习技能，然后乘地铁返回坐船。",
-	-- ["Back to {zone:1453}"] = "返回{zone:1453}",
-	-- ["{npc:7232}, {object:28027}: for his brother in Auberdine"] = "{npc:7232}，{object:28027}：为了他在奥伯丁的兄弟",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习双手剑（{object:2096}，10银币）；双手武器能让战士升级最快。",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "顺便：在{npc:11867}处学习双手剑（{object:2096}，10银币）；圣骑士用双手武器升级最快。",
 }
