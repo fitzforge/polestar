@@ -7213,3 +7213,31 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 	}
 	assert.ok(n >= 19, `the grind steps are found (${n})`);
 });
+
+// #1357 (MrBackus, Skyborne Shaman 30): Hillsbrad & Arathi's Orgrimmar training step came up while he
+// stood in the Barrens by Ratchet, and the Engine took the Shaman trainer nearest him, Shikrik in the
+// Valley of Trials. The Undercity training step of the Arathi guide comes up at Orgrimmar's zeppelin tower
+// the same way. A `train class` goal carries its step's zone, whose trainers the Engine ranks first
+// wherever the player stands: each of these steps names its town, and the town has a trainer of every
+// class the step trains.
+test('#1357: a training step carries its town, and the town has a trainer of each class it trains', { skip }, () => {
+	const cases = [
+		['forever/horde/30-40/01-hillsbrad-foothills.guide', /^Train$/, 1454],
+		['forever/horde/30-40/05-arathi-highlands.guide', /^(Undercity|\{zone:1458\}) trainers$/, 1458],
+		['forever/alliance/02-westfall.guide', /^Shaman training$/, 1455],
+		['forever/alliance/50-60/01-burning-steppes.guide', /^Druid training$/, 1457],
+	];
+	for (const [guide, title, town] of cases) {
+		const list = goals(guide).filter(({ step, goal }) => title.test(step.title) && goal.t === 'train' && goal.class);
+		assert.ok(list.length > 0, `${guide}: the "${title}" step trains`);
+		for (const { step, goal } of list) {
+			assert.equal(goal.zone, town, `${guide}, "${title}": the step's town`);
+			const classes = (goal.only && goal.only.classes) || (step.only && step.only.classes) || [];
+			for (const cls of classes) {
+				const side = guide.includes('/horde/') ? 'H' : 'A';
+				const there = goal.candidates.filter((c) => c.map === town && (c.faction === side || c.faction === 'AH') && (c.classes || []).includes(cls.toUpperCase()));
+				assert.ok(there.length > 0, `${guide}, "${title}": a ${cls} trainer in the town`);
+			}
+		}
+	}
+});

@@ -1483,6 +1483,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 					.map((t) => ({ npc: t.id, classes: t.classes.filter((c) => set.classes.includes(c)) }))
 					.filter((e) => e.classes.length);
 				smart(goal, entries, `class trainer`);
+				// The step's zone: the Engine ranks its trainers first wherever the player stands (#1357).
+				if (ctx.zoneId != null && goal.candidates) goal.zone = ctx.zoneId;
 			}
 			if (g.nearest && v === 'sethome') smart(goal, data.npcsWithRole('innkeeper').map((id) => ({ npc: id })), 'innkeeper');
 			// A located `sethome` naming no npc: its inn's innkeeper, for the

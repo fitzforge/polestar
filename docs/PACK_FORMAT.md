@@ -565,7 +565,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `fly` | `location` | `area` |
 | `enter` | `location` (format 5) | `area`, `map`, `x`, `y` |
 | `cast` | `spell`, `spellName` (format 5) | `map`, `x`, `y` |
-| `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
+| `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
 | `level` | `level` | `frac` (format 4) |
@@ -595,6 +595,7 @@ The fields:
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |
 | `class` | `true` on `train`: the nearest trainer of the player's class |
+| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.7 and later rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; older Polestar ignores it |
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |

@@ -1256,9 +1256,19 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- planner's estimate (a set can hold one vendor per town in the world); the
 -- rest count their straight-line running time. An unplaceable candidate counts
 -- as right here when it is on the player's own map, else after every placed one.
+-- A `train class` goal carries its step's zone (`zone`, a uiMapID): when that
+-- map has a trainer of the character's class, the others come after all of
+-- the zone's, wherever the player stands, unless one is within HOME_NEAR
+-- yards of them (the trainers at the Skyborne camp below Thunder Bluff for a
+-- step in Thunder Bluff). Before, the step's town lost to the trainer nearest
+-- the player whenever the step came up away from it: a Shaman still in the
+-- Barrens at Orgrimmar's training step was sent to the Valley of Trials
+-- (#1357), and the Undercity's training step, current at Orgrimmar's
+-- zeppelin tower, named Orgrimmar's trainers.
 local UNMEASURED = 1e9
 local PLANNED = 8
 local RUN_SPEED = 7 -- yards per second, unmounted
+local HOME_NEAR = 100
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
 -- (3 or more: too high).
@@ -1326,6 +1336,23 @@ local function pickFor(goal)
 			local zoneMin = not farm and zoneLevels and zoneLevels(c.map)
 			if zoneMin and zoneMin > (player.level or 1) + 10 then tier[c] = tier[c] + 2 end
 			cost[c] = line or ((here and c.map == here.map) and 0 or UNMEASURED)
+		end
+	end
+	-- `train class`: the step's zone first, unless a trainer stands by the
+	-- player (cost: straight-line seconds here, before the planner's).
+	local home = goal.zone
+	if home then
+		local has = false
+		for _, c in ipairs(list) do
+			if c.map == home then
+				has = true
+				break
+			end
+		end
+		if has then
+			for _, c in ipairs(list) do
+				if c.map ~= home and cost[c] * RUN_SPEED > HOME_NEAR then tier[c] = tier[c] + 4 end
+			end
 		end
 	end
 	-- Farm spots whose mobs are too high go, unless nothing else is left:
