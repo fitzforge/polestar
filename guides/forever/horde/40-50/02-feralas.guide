@@ -9,7 +9,8 @@ next forever/horde/40-50/03-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: A Threat in Feralas (2981).
+# Added here: A Threat in Feralas (2981), News for Fizzle (1137), Keeping Pace (1190), Zamek's Distraction (1191),
+# Rizzle's Schematics (1194).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -199,6 +200,17 @@ step Fly to Freewind Post
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
+
+step Mirage Raceway
+  zone Thousand Needles
+  tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
+  turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  accept 1190                           -- Pozzik
+  accept 1191                           -- Zamek
+  turnin 1191
+  turnin 1190                           -- Rizzle's Unguarded Plans
+  accept 1194
+  turnin 1194                           -- Pozzik
 
 step Tanaris
   zone Tanaris

@@ -6140,6 +6140,17 @@ const HORDE_VOLUME = {
 	'forever/horde/03-silverpine-forest.guide': [422, 1359, 1358], // Arugal's Folly; Zinge's Delivery; Sample for Helbrim
 	'forever/horde/02-the-barrens.guide': [4021, 1062, 6548, 6629, 6461], // Counterattack!; Goblin Invaders; Avenge My Village; Kill Grundig Darkcloud; Blood Feeders
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
+	// Horde 40-60 (2026-11-08, 0.3.6)
+	'forever/horde/30-40/06-badlands.guide': [1137], // News for Fizzle, to the Mirage Raceway on 40-50/02's ride to Tanaris
+	'forever/horde/40-50/01-stranglethorn-vale.guide': [95748], // The Gurubashi Legends of Old
+	'forever/horde/40-50/02-feralas.guide': [1190, 1191, 1194], // Keeping Pace; Zamek's Distraction; Rizzle's Schematics
+	'forever/horde/40-50/03-feralas.guide': [1428], // Continued Threat
+	'forever/horde/40-50/04-tanaris.guide': [654, 864], // Tanaris Field Sampling; Return to Apothecary Zinge
+	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
+	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
+	'forever/horde/50-60/01-un-goro-crater.guide': [4324], // Yuka Screwspigot
+	'forever/horde/50-60/05-eastern-plaguelands.guide': [7492], // Camp Mojache
+	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
 
 // The guide and every guide its `next` leads to, in order.

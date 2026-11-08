@@ -9,7 +9,8 @@ next forever/horde/50-60/07-felwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972).
+# Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972),
+# Return to the Bulwark (5234), Target: Gahrron's Withering (5235), Return to the Bulwark (5236), Mission Accomplished! (5238).
 # Left out: Little Pamela (5142).
 
 # ---------------------------------------------------------------- Valor's Rest and Southwind
@@ -499,3 +500,24 @@ step Artist Renfray
 step Target: Writhing Haunt
   collect 13197 quest 5233.1 @52.9,66.1 map 1422
   turnin 5233
+  accept 5234                         -- from the cauldron, for Shadow Priestess Vandis at the Bulwark
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip West to the Bulwark.
+  turnin 5234                         -- Shadow Priestess Vandis
+  accept 5235
+
+step Target: Gahrron's Withering
+  zone Western Plaguelands
+  tip Back east past the Writhing Haunt to Gahrron's Withering, the farm under the eastern hills: Cauldron Lord Soulwrath guards its cauldron. Kill him for the key, then use the cauldron.
+  collect 13196 quest 5235.1 @62.2,59.1 map 1422
+  turnin 5235
+  accept 5236
+
+step The Bulwark
+  zone Tirisfal Glades
+  tip West to the Bulwark one last time.
+  turnin 5236                         -- Shadow Priestess Vandis
+  accept 5238                         -- High Executor Derrington
+  turnin 5238
