@@ -1089,7 +1089,8 @@ fn target_button_icon_and_name_follow_the_goal_type_a_sword_a_bag_a_skull_a_bubb
 		set("targetPlate", false)
 		emit(look())
 	"#);
-	let row = |name: &str, icon: &str, tone: &str| json!({ "name": name, "icon": icon, "iconTone": tone, "label": tone, "minis": [], "face": false, "badge": false });
+	// An empty Lua table emits as {}.
+	let row = |name: &str, icon: &str, tone: &str| json!({ "name": name, "icon": icon, "iconTone": tone, "label": tone, "minis": {}, "face": false, "badge": false });
 	assert_eq!(out[0], row("Kobold Vermin", "icon-kill", "danger"));
 	assert_eq!(out[1], row("Kobold Laborer", "icon-collect", "danger"));
 	assert_eq!(out[2], row("Elder Stranglethorn Tiger", "icon-elite", "quest"), "elite work: the skull in gold");
@@ -1097,7 +1098,7 @@ fn target_button_icon_and_name_follow_the_goal_type_a_sword_a_bag_a_skull_a_bubb
 	assert_eq!(out[4], row("Gryan Stoutmantle", "icon-talk", "success"));
 	assert_eq!(out[5], row("Marshal Dughan", "icon-accept", "success"));
 	assert_eq!(out[6], true, "on by default");
-	assert_eq!(out[7], json!({ "name": "Marshal Dughan", "icon": "qol-target", "iconTone": "danger", "label": "textDim", "minis": [], "face": false, "badge": false }), "off: the crosshair and the plain name");
+	assert_eq!(out[7], json!({ "name": "Marshal Dughan", "icon": "qol-target", "iconTone": "danger", "label": "textDim", "minis": {}, "face": false, "badge": false }), "off: the crosshair and the plain name");
 }
 
 #[test]
