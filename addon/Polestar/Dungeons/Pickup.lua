@@ -43,6 +43,13 @@
 --       one of the character's side nearest `from` (Lookup.QuestEnd), never
 --       to one of the other side; the page's place when it is the only one.
 --       rec: the Codex quest (default: read now)
+--   Dungeons.Ender(pq, from, rec?) -> point | nil
+--       a page quest's turn-in for this character: the page's own place
+--       when the character may talk to it, else the Codex ender of the
+--       character's side nearest `from` (Lookup.QuestEnd). The page keeps
+--       one ender: Storm, Earth, and Fire's is the Horde's Rau Cliffrunner,
+--       and Alliance characters hand it in to Veyric Thunderhame. One of the
+--       other side only when no ender is the character's.
 --
 -- Route: the cheapest path from where the player stands, through the
 -- prerequisite quests (each after the one before it in its chain; after one,
@@ -122,6 +129,19 @@ function Dungeons.Giver(pq, from, rec)
 		if e then return endPoint(e) end
 	end
 	return page
+end
+
+function Dungeons.Ender(pq, from, rec)
+	local f = pq.finish
+	local page = f and (f.kind == "npc" or f.kind == "object") and f.id and located(f)
+		and { kind = f.kind, id = f.id, name = f.name, map = f.map, x = f.x, y = f.y, f = f.f } or nil
+	local Lk = LK()
+	local p = Lk.PlayerInfo()
+	if page and sideOK(page, p) then return page end
+	rec = rec or (ns.Codex and ns.Codex.Quest(pq.id))
+	local e = rec and Lk.QuestEnd(rec["end"], from, p)
+	if e and not e.hostile then return endPoint(e) end
+	return page or endPoint(e)
 end
 
 local function hasClass(list, class)
