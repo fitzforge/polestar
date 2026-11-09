@@ -88,9 +88,6 @@ step Lotwil Veriatus
   turnin 710
   accept 711
 
-step Lucien Tosselwrench
-  note Lucien Tosselwrench, beside Lotwil, wants Patterned Bronze Bracers, a blacksmith's craft: skip him unless you carry a pair.
-
 # ---------------------------------------------------------------- The north
 
 step The Ancient Chest
@@ -116,13 +113,23 @@ step Lotwil Veriatus
   tip Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.
   turnin 711
   accept 712 optional
-  collect 4628 quest 712 optional     -- Bracers of Rock Binding
+
+step Bracers of Rock Binding
+  when onquest 712
+  tip South-west into the gulches: only the Greater Rock Elementals there drop the bracers.
+  collect 4628 quest 712              -- Bracers of Rock Binding
+
+step Lotwil Veriatus
+  when complete 712
   turnin 712
 
 step Lucien Tosselwrench
+  when has 2868
   zone Badlands
-  accept 716 optional                 -- Lucien Tosselwrench, beside Lotwil
-  turnin 716 optional                 -- only if you carry Patterned Bronze Bracers (a blacksmith's craft)
+  tip Lucien Tosselwrench, beside Lotwil, trades for Patterned Bronze Bracers, a blacksmith's craft: this step shows only when you carry a pair.
+  accept 716                          -- Lucien Tosselwrench, beside Lotwil
+  turnin 716
+
 step To Stoutlager Inn
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
