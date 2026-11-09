@@ -51,7 +51,8 @@ parts, and its texts in the language folders `Polestar_<locale>`), then writes t
 It stops before writing anything when the Codex is not built (`forge data codex`), was built with local
 extras, names a local-only source, or names ForeverLevelingBiS (a Codex built before it left, 2026-11);
 when an addon's TOC is missing; when the guides have errors; when a leveling guide changed since its
-legs were baked (`guides/legs.json`: it would ship without legs; each such guide is named); or
+legs were baked, or `guides/legs.json` has no legs for it (either way it would ship without legs; each
+such guide is named); or
 without reference data (`forge data build`). A TOC whose version is not `package.json`'s is a warning.
 
 `--bake` bakes those guides instead of stopping: only their legs are routed, on the maps

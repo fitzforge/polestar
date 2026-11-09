@@ -363,26 +363,47 @@ fn pack_takes_the_pack_folder_as_its_one_argument_and_two_folders_exit_2() {
 	assert!(none.stderr.contains("no pack.json in "), "{}", none.out());
 }
 
-/// The fixture guides copied into `root/guides` with a legs.json for 02-elwynn: baked on its current leg
-/// ends (`fresh`), or on ends it has since changed.
-fn guides_with_legs(root: &Path, fresh: bool) -> PathBuf {
+/// The fixture guides copied into `root/guides` with a legs.json for every leveling guide but `unbaked`:
+/// baked on their current leg ends, 02-elwynn's on ends it has since changed unless `fresh`.
+fn guides_with_legs(root: &Path, fresh: bool, unbaked: Option<&str>) -> PathBuf {
 	let guides = root.join("guides");
 	copy_dir(&repo().join("tests/fixtures/dsl/guides"), &guides);
 	let mut diag = forge_guide::diag::Diagnostics::new();
 	let data = forge_guide::project::load_project_data(&repo().join("tests/fixtures/dsl/data"), &mut diag).unwrap();
 	let (manifest, _) = forge_guide::manifest::read_manifest(&guides, true);
 	let project = forge_guide::project::compile_project(&guides, &manifest.unwrap(), &data, diag, false, None);
-	let g = project.guides.iter().find(|g| g.get("id").to_js_string() == "forever/alliance/human/02-elwynn").unwrap();
-	let hash = if fresh { forge_guide::bake::guide_hash(g, &data.map_frames) } else { "000000000000".into() };
-	let legs = format!("{{\n  \"schema\": 1,\n  \"grid\": \"test maps\",\n  \"legs\": {{\n    \"forever/alliance/human/02-elwynn\": {{\n      \"hash\": \"{hash}\",\n      \"steps\": {{\n        \"1\": \"CgA\"\n      }}\n    }}\n  }}\n}}\n");
-	std::fs::write(guides.join("legs.json"), legs).unwrap();
+	let mut legs = serde_json::Map::new();
+	for g in project.guides.iter().filter(|g| forge_guide::project::legs_races(g).is_some()) {
+		let id = g.get("id").to_js_string();
+		if Some(id.as_str()) == unbaked {
+			continue;
+		}
+		let hash = if fresh || id != "forever/alliance/human/02-elwynn" { forge_guide::bake::guide_hash(g, &data.map_frames) } else { "000000000000".into() };
+		legs.insert(id, serde_json::json!({ "hash": hash, "steps": { "1": "CgA" } }));
+	}
+	let doc = serde_json::json!({ "schema": 1, "grid": "test maps", "legs": legs });
+	std::fs::write(guides.join("legs.json"), serde_json::to_string_pretty(&doc).unwrap() + "\n").unwrap();
 	guides
+}
+
+#[test]
+fn pack_refuses_leveling_guides_legs_json_has_no_legs_for() {
+	let root = checkout("unbaked-legs", &RELEASE);
+	let guides = guides_with_legs(&root, true, Some("forever/alliance/human/02-elwynn"));
+	let dist = root.join("dist");
+	let d = fixture("tests/fixtures/dsl/data");
+	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
+	assert_eq!(r.status, 1, "{}", r.out());
+	assert!(r.stderr.contains("1 leveling guide has no legs in"), "{}", r.out());
+	assert!(r.stderr.contains("\n  forever/alliance/human/02-elwynn\n"), "{}", r.out());
+	assert!(!r.stderr.contains("changed since"), "{}", r.out());
+	assert!(!dist.exists(), "no zip");
 }
 
 #[test]
 fn pack_refuses_guides_whose_legs_are_stale_naming_each_and_writes_no_zip() {
 	let root = checkout("stale-legs", &RELEASE);
-	let guides = guides_with_legs(&root, false);
+	let guides = guides_with_legs(&root, false, None);
 	let dist = root.join("dist");
 	let d = fixture("tests/fixtures/dsl/data");
 	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
@@ -396,7 +417,7 @@ fn pack_refuses_guides_whose_legs_are_stale_naming_each_and_writes_no_zip() {
 #[test]
 fn pack_ships_current_legs_in_the_race_part() {
 	let root = checkout("fresh-legs", &RELEASE);
-	let guides = guides_with_legs(&root, true);
+	let guides = guides_with_legs(&root, true, None);
 	let dist = root.join("dist");
 	let d = fixture("tests/fixtures/dsl/data");
 	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
