@@ -9349,7 +9349,7 @@ test('forever/horde/50-60/02-felwood.guide: the Kitten Carrier is used on the mo
 	const done = list[at(list, 'complete 4506', is('complete', 4506))];
 	assert.equal(use[0].s, done.s, 'on the step that completes Corrupted Sabers');
 	assert.ok(list.indexOf(use[0]) < list.indexOf(done));
-	assert.ok(done.step.goals.some((g) => g.t === 'goto' && g.x === 32.3 && g.y === 66.6), 'the step walks to the Jadefire moonwell');
+	assert.ok(use[0].goal.x === 32.3 && use[0].goal.y === 66.6 && use[0].goal.map === 1448, 'the use leads to the Jadefire moonwell');
 });
 
 // GuideHealth036 breadcrumb sweep (0.3.6): Horde 50-60/01 took Defenders of Darrowshire (5211) from Carlin Redpath on

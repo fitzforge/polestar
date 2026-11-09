@@ -321,8 +321,7 @@ step Bloodvenom Post
 
 step Winna's kitten
   tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
-  goto 32.3,66.6 "Jadefire moonwell"
-  use 12565                           -- Winna's Kitten Carrier, at the moonwell
+  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
   complete 4506
 
 step Winna Hazzard
