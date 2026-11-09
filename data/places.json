@@ -1218,6 +1218,23 @@
 					"ref": "players' in-game recordings: The Affray completed at The Barrens 68.6,48.7 (1 person)"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-rock-elementals-agmonds-end",
+			"quest": 711,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1418,
+				"x": 40.4,
+				"y": 77.1,
+				"frame": "era"
+			},
+			"note": "Study of the Elements: Rock (711): the Rock Elementals (92) that drop the Large Stone Slabs stand in two groups, 12-17,32-36 by Kargath and 35-46,74-88 beside Agmond's End; the Horde route works them beside Agmond's End, where it goes for Theldurin, and hands them to Lotwil on the way back to Kargath.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 92 spawns on map 1418; items.json 4627 drops from 92 (100%)"
+			}
 		}
 	]
 }

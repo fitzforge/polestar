@@ -7916,3 +7916,15 @@ test('Horde 30-40 audit: Gol\'dir is found, not killed', { skip }, () => {
 	const find = at(list, 'complete 503', is('complete', 503));
 	assert.ok(find < at(list, 'turnin 503', is('turnin', 503)));
 });
+
+// Badlands: Lotwil's Large Stone Slabs come from the Rock Elementals beside Agmond's End, where the route goes for
+// Theldurin, and Lotwil takes them on the walk back to Kargath (no walk back to his camp from the basin in between).
+test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way back', { skip }, () => {
+	const list = goals('forever/horde/30-40/06-badlands.guide');
+	const slabs = at(list, 'collect 4627', (g) => g.t === 'collect' && g.item === 4627);
+	assert.ok(list[slabs].goal.y > 70, 'the slabs\' Rock Elementals are the group beside Agmond\'s End');
+	assert.ok(at(list, 'turnin 709', is('turnin', 709)) < at(list, 'turnin 711', is('turnin', 711)), 'Lotwil after Theldurin');
+	assert.ok(!list.some(({ goal }) => goal.quest === 712 || goal.quest === 716), 'Lotwil\'s level 42 bracers left out');
+	const [kargath] = stepTips('forever/horde/30-40/06-badlands.guide', /^\s+turnin 1419\b/);
+	assert.match(kargath, /west back to Kargath/);
+});

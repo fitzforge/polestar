@@ -8031,6 +8031,18 @@
 				"faction": "Horde",
 				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
 				"issue": "-"
+			},
+			{
+				"q": 712,
+				"faction": "Horde",
+				"reason": "Horde 30-40 audit (2026-11-09): Lotwil's third study wants 5 Bracers of Rock Binding from the Greater Rock Elementals (2736, level 42-44, 20%) in the Badlands' south-western gulches, 3-5 levels over the route at 39 and a walk out from Lotwil and back; it was optional. Both benchmarks of the zone leave it out or give it to groups.",
+				"issue": "-"
+			},
+			{
+				"q": 716,
+				"faction": "Horde",
+				"reason": "Horde 30-40 audit (2026-11-09): Stone Is Better than Cloth needs Lotwil's third study (712, left out) and Patterned Bronze Bracers (2868, Blacksmithing); it was optional.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -10992,6 +11004,18 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40 audit (2026-11-09): Hostile Takeover's crystals come from the Venture Co. Geologists on the second Nesingwary loop, so Kebok takes it on the mid-guide Booty Bay stop; the route carried it to horde/40-50/01's Booty Bay stop and walked a second Venture Co. trip near the end."
+			},
+			{
+				"a": [
+					"accept",
+					709
+				],
+				"b": [
+					"turnin",
+					711
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (2026-11-09): Lotwil's Large Stone Slabs come from the Rock Elementals (92) beside Agmond's End (35-46,74-88), where the route goes for Theldurin; Lotwil (26,45) takes them on the walk back to Kargath instead of a walk back to his camp from the basin and out again."
 			}
 		]
 	}
