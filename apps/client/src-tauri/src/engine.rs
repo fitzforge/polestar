@@ -510,7 +510,7 @@ impl Engine {
 		let status = response.status();
 		if !status.is_success() {
 			let retry_after = retry_after(&response);
-			let message = server_message(response).await.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = server_message(response).await.unwrap_or_else(|| not_from_server(status));
 			return Err(Failed::Status(status, retry_after, message));
 		}
 		read_answer(response).await.map_err(Failed::Offline)
@@ -561,7 +561,7 @@ impl Engine {
 				self.wake();
 				return false;
 			}
-			let message = message.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = message.unwrap_or_else(|| not_from_server(status));
 			if self.fail_status(status, retry_after, message.clone()) {
 				let _ = self.store.push_activity(ActivityEntry {
 					kind: ActivityKind::Failed,
@@ -631,6 +631,8 @@ impl Engine {
 	}
 
 	fn fail_offline(&self, message: String, retry_after: Option<u64>) {
+		// Also on stderr: a player running the client from a terminal can quote it.
+		eprintln!("upload: {message}");
 		let mut state = self.lock();
 		let attempts = match &state.failure {
 			Some(Failure::Offline { attempts, .. }) => attempts + 1,
@@ -948,14 +950,36 @@ impl Batch {
 	}
 }
 
-fn describe_reqwest(e: &reqwest::Error) -> String {
+/// What went wrong with a request that got no answer, with the underlying cause (a DNS failure,
+/// a refused or reset connection, a TLS failure) and what to try. The server answers every request
+/// it gets, so a connect failure is between this PC and the server: a firewall or antivirus
+/// blocking Polestar Client, a VPN or proxy, or the network. Players saw only "check your
+/// internet connection" while their browser was online.
+pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
+	let cause = root_cause(e);
 	if e.is_timeout() {
 		"The server took too long to answer.".to_owned()
 	} else if e.is_connect() {
-		"Can't reach the recording server. Check your internet connection.".to_owned()
+		let check = e.url().map(|u| format!("{}/v1/stats", u.origin().ascii_serialization())).unwrap_or_else(|| "the recording server's address".to_owned());
+		format!("Can't reach the recording server from this PC ({cause}). If your browser opens {check}, a firewall, antivirus, VPN or proxy is probably blocking Polestar Client: allow it there.")
 	} else {
-		format!("The upload did not get through: {e}")
+		format!("The request did not get through ({cause}).")
 	}
+}
+
+/// A non-success answer without the recording server's `{"error": ...}`: it came from something
+/// between this PC and the server (a proxy, a VPN, a network filter, the server's front end).
+pub(crate) fn not_from_server(status: reqwest::StatusCode) -> String {
+	format!("The answer was {status}, not from the recording server itself: a proxy, VPN or network filter on the way may be blocking it, or the server's front end is briefly down. Polestar Client keeps trying.")
+}
+
+/// The innermost error of a chain: "dns error: …", "Connection refused", "invalid peer certificate".
+fn root_cause(e: &(dyn std::error::Error + 'static)) -> String {
+	let mut inner: &(dyn std::error::Error + 'static) = e;
+	while let Some(next) = inner.source() {
+		inner = next;
+	}
+	inner.to_string()
 }
 
 /// The server's `{"error": ...}`, from at most [`MAX_ANSWER`] bytes of its answer.
@@ -1419,6 +1443,18 @@ mod tests {
 		assert_eq!(confirmed_ack(&sent, &[3, u64::MAX], &[]), Some(3));
 		assert_eq!(confirmed_ack(&sent, &[9], &[2]), None);
 		assert_eq!(confirmed_ack(&[], &[1], &[]), None);
+	}
+
+	#[test]
+	fn a_request_that_gets_no_answer_says_why_and_what_to_try() {
+		// Port 9 on this machine: nothing listens, the connection is refused. 0.1.4 said only
+		// "Check your internet connection", which a player whose browser was online could not act on.
+		let _ = rustls::crypto::ring::default_provider().install_default();
+		let e = tauri::async_runtime::block_on(async { reqwest::Client::new().get("http://127.0.0.1:9/v1/upload").send().await.unwrap_err() });
+		let text = describe_reqwest(&e);
+		assert!(text.contains("Can't reach the recording server from this PC (") && text.to_lowercase().contains("refused"), "{text}");
+		assert!(text.contains("http://127.0.0.1:9/v1/stats") && text.contains("firewall, antivirus, VPN or proxy"), "{text}");
+		assert!(not_from_server(reqwest::StatusCode::FORBIDDEN).starts_with("The answer was 403 Forbidden, not from the recording server itself"));
 	}
 
 	#[test]
