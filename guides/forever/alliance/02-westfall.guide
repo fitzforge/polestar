@@ -355,6 +355,7 @@ step Defensive Stance
 
 step Stormwind City
   only Human,Priest
+  when onquest 94774
   zone Stormwind City
   goto 49.5,44.6 "High Priestess Laurena" live
 

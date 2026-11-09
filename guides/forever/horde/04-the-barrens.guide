@@ -136,6 +136,7 @@ step Grunt Logmar
 
 step The Barrens
   only Shaman
+  when onquest 1536
   zone The Barrens
   goto 43.4,77.4 "Brine"
 

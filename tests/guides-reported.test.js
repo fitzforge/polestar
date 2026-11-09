@@ -4531,6 +4531,25 @@ test('Alliance 40-60: a class walk to a carried class quest waits for that quest
 	}
 });
 
+// Final route review 0.3.6 (1-30, the same sweep): the class walks to a class quest carried from an earlier guide in
+// Westfall (Human Priests to Laurena, 94774), Duskwood (Rogues to Agent Kearnen, 2360) and the Barrens (Orc and Troll
+// Shamans to Telf Joolam, 1525; Shamans to Brine, 1536) wait for that quest in the log.
+test('Leveling 1-30: a class walk to a carried class quest waits for that quest in the log', { skip }, () => {
+	for (const [guide, quest] of [
+		['forever/alliance/02-westfall.guide', 94774],
+		['forever/alliance/05-duskwood.guide', 2360],
+		['forever/horde/02-the-barrens.guide', 1525],
+		['forever/horde/04-the-barrens.guide', 1536],
+	]) {
+		const steps = compiled(guide).steps;
+		const hand = steps.findIndex((st) => st.goals.some(is('turnin', quest)));
+		assert.ok(hand > 0, `${guide}: turnin ${quest} is in the guide`);
+		const walk = steps[hand - 1];
+		assert.ok(walk.only && walk.goals.length && walk.goals.every((g) => g.t === 'goto'), `${guide}: a class walk leads to turnin ${quest}`);
+		assert.ok((walk.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(quest)), `${guide}: "${walk.title}" waits for ${quest} in the log`);
+	}
+});
+
 // Final route review 0.3.6 (Alliance 55-57, found with the Horde reviewer): Gregan Brewspewer gives the Videre
 // Elixir only as the reward of his own errand, The Videre Elixir (4041: an Evoroot from a ruined building north of
 // Rockbiter); he sells none. The Feralas stop collected the elixir for Donova's quest (3909) without the errand, so

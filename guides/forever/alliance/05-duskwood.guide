@@ -172,6 +172,7 @@ step Sven's Camp
 
 step Westfall
   only Rogue
+  when onquest 2360
   zone Westfall
   goto 68.5,70.1 "Agent Kearnen"
 

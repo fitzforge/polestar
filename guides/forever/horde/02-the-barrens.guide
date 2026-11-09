@@ -145,6 +145,7 @@ step Razormane camp: Thork's quilboar
 
 step Durotar
   only Orc,Troll,Shaman
+  when onquest 1525
   zone Durotar
   goto 38.5,59.0 "Telf Joolam"
 
