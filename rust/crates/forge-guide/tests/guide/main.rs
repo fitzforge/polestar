@@ -5,6 +5,7 @@ mod compile_pack;
 mod dsl_abandon_destroy;
 mod dsl_along;
 mod dsl_cast;
+mod dsl_class_spells;
 mod dsl_enter;
 mod dsl_escort;
 mod dsl_farm;

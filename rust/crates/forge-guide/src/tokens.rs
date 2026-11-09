@@ -9,7 +9,8 @@
 //! a matcher ([`token_at`], [`replace_tokens`]). Texts are scanned as UTF-16 code units like JS strings.
 //! The JS per-data caches (WeakMaps) are rebuilt per [`tokenise_guides`] call, except the client's spell
 //! names, cached in `data.memo` under `tokens.spellNames` (a host without a file system may fill that slot with
-//! [[name, id], ...] itself).
+//! [[name, id], ...] itself), and the client's class and profession abilities, under `tokens.abilities`
+//! ([[id, name, classMask], ...]).
 
 use std::rc::Rc;
 use std::sync::LazyLock;
@@ -48,6 +49,7 @@ const MIN_NAME: usize = 3;
 const MIN_FIRST: usize = 4;
 const RANKS: [&str; 4] = ["Apprentice", "Journeyman", "Expert", "Artisan"];
 const MEMO_SPELLS: &str = "tokens.spellNames";
+const MEMO_ABILITIES: &str = "tokens.abilities";
 
 // ---------------------------------------------------------------- JS character classes
 
@@ -261,7 +263,7 @@ pub fn data_name(data: &Data, kind: &str, id: &V) -> Option<String> {
 		"skill" => data.profession(id),
 		"spell" => {
 			let n = id.as_num()?;
-			return spell_names(data).into_iter().find(|(_, sid)| *sid == n).map(|(name, _)| name).filter(|s| !s.is_empty());
+			return spell_names(data).into_iter().find(|(_, sid)| *sid == n).map(|(name, _)| name).filter(|s| !s.is_empty()).or_else(|| ability_name(data, n));
 		}
 		_ => V::Null,
 	};
@@ -974,6 +976,113 @@ pub fn read_spell_names(_data: &Data) -> Vec<(String, f64)> {
 	Vec::new()
 }
 
+/// The JS `clientAbilities`: the client's class and profession abilities (SkillLineAbility) as [(id, name
+/// (SpellName), classMask (the classes whose skill lines list it, ORed))], names other things have too, cached
+/// in `data.memo`.
+fn client_abilities(data: &Data) -> Vec<(f64, String, f64)> {
+	let cached = data.memo.borrow().get(MEMO_ABILITIES).cloned();
+	let v = match cached {
+		Some(v) => v,
+		None => {
+			let v: V = read_abilities(data).into_iter().map(|(id, n, m)| arr![V::Num(id), V::from(n), V::Num(m)]).collect::<Vec<V>>().into();
+			data.memo.borrow_mut().insert(MEMO_ABILITIES, v.clone());
+			v
+		}
+	};
+	v.items().iter().map(|p| (p.at(0).num(), p.at(1).to_js_string(), p.at(2).num())).collect()
+}
+
+#[cfg(feature = "native")]
+fn read_abilities(data: &Data) -> Vec<(f64, String, f64)> {
+	use std::fs;
+	let Some(dir) = data.dir.as_ref().and_then(|_| pinned_build_dir(data, &["SpellName.csv", "SkillLineAbility.csv"])) else { return Vec::new() };
+	let csv = |file: &std::path::Path| -> Vec<V> {
+		let text = fs::read_to_string(file).unwrap_or_else(|e| panic!("{}: {e}", file.display()));
+		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
+	};
+	let mut masks: FxHashMap<i64, f64> = FxHashMap::default();
+	for r in csv(&dir.join("SkillLineAbility.csv")) {
+		let id = r.get("Spell").num();
+		if !is_integer(id) {
+			continue;
+		}
+		let mask = r.get("ClassMask").num();
+		let mask = if mask.is_finite() { mask } else { 0.0 };
+		let had = masks.get(&(id as i64)).copied().unwrap_or(0.0);
+		let mut union = had;
+		let mut bit = 1.0;
+		while bit <= mask {
+			if crate::races::has_bit(mask, bit) && !crate::races::has_bit(had, bit) {
+				union += bit;
+			}
+			bit *= 2.0;
+		}
+		masks.insert(id as i64, union);
+	}
+	let mut out: Vec<(f64, String, f64)> = Vec::new();
+	let mut pos: FxHashMap<i64, usize> = FxHashMap::default();
+	for r in csv(&dir.join("SpellName.csv")) {
+		let id = r.get("ID").num();
+		if !is_integer(id) {
+			continue;
+		}
+		let Some(&mask) = masks.get(&(id as i64)) else { continue };
+		let nl = r.get("Name_lang");
+		let raw = if nl.truthy() { nl.to_js_string() } else { String::new() };
+		let name = js_trim(&raw).to_string();
+		if name.is_empty() || junk_spell(&name) {
+			continue;
+		}
+		// A later row of the same id wins, as the JS Map.set.
+		match pos.get(&(id as i64)) {
+			Some(&p) => out[p] = (id, name, mask),
+			None => {
+				pos.insert(id as i64, out.len());
+				out.push((id, name, mask));
+			}
+		}
+	}
+	out
+}
+
+#[cfg(not(feature = "native"))]
+fn read_abilities(_data: &Data) -> Vec<(f64, String, f64)> {
+	Vec::new()
+}
+
+/// The client's name of a class or profession ability (the JS `abilityName`).
+pub fn ability_name(data: &Data, id: f64) -> Option<String> {
+	client_abilities(data).into_iter().find(|(sid, _, _)| *sid == id).map(|(_, n, _)| n)
+}
+
+/// The JS `classSpells`: [(name, id)] of the abilities of the classes `classes` (class files: "MAGE"), each name
+/// once at its lowest id, whatever else has the name: a class guide's own spells (#1504).
+fn class_spells(data: &Data, classes: &V) -> Vec<(String, f64)> {
+	let bits: Vec<f64> = or_empty(classes).iter().filter_map(|c| c.as_str().and_then(crate::races::class_by_file)).map(|c| c.bit).filter(|b| *b > 0.0).collect();
+	if bits.is_empty() {
+		return Vec::new();
+	}
+	let mut best: Vec<(String, f64)> = Vec::new();
+	let mut pos: FxHashMap<String, usize> = FxHashMap::default();
+	for (id, name, mask) in client_abilities(data) {
+		if mask == 0.0 || !bits.iter().any(|b| crate::races::has_bit(mask, *b)) {
+			continue;
+		}
+		match pos.get(&name) {
+			Some(&p) => {
+				if id < best[p].1 {
+					best[p].1 = id;
+				}
+			}
+			None => {
+				pos.insert(name.clone(), best.len());
+				best.push((name, id));
+			}
+		}
+	}
+	best
+}
+
 /// /[()[\]<>_]|\b(OLD|DND|TEST|Test|QA|zz)\b|^\d/
 #[cfg(feature = "native")]
 fn junk_spell(name: &str) -> bool {
@@ -1146,6 +1255,10 @@ fn guide_index(guide: &V, data: &Data, common: &Rc<FxHashSet<String>>, ctx: &mut
 		if is_int(&r.get("spell")) {
 			idx.add("spell", &r.get("spell"), r.get("spellName").as_str(), GUIDE);
 		}
+	}
+	// A class guide's own spells, before the world's things of the same name.
+	for (name, id) in class_spells(data, &guide.get("classes")) {
+		idx.add("spell", &V::Num(id), Some(&name), GUIDE);
 	}
 	let steps = or_empty(&guide.get("steps"));
 	let mut all_goals = Vec::new();

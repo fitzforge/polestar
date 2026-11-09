@@ -2419,16 +2419,21 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				let rc = if found.truthy() { found.get("recipe") } else { V::Null };
 				let where_ = if data.has_professions { "" } else { " (professions.json missing)" };
 				goal.set("spell", g.get("spell"));
+				// A class spell (`learn 116 "Frostbolt"`) is no recipe: the client's SkillLineAbility knows it, and
+				// names it (#1505).
+				let ability = if !found.truthy() && v == "learn" { g.get("spell").as_num().and_then(|id| crate::tokens::ability_name(data, id)) } else { None };
 				let name: V = if g.get("spellName").truthy() {
 					g.get("spellName")
 				} else if rc.truthy() && rc.get("name").truthy() {
 					rc.get("name").to_js_string().into()
+				} else if let Some(a) = &ability {
+					a.clone().into()
 				} else {
 					V::Null
 				};
 				if !name.truthy() {
 					r.err(&ln, format!("spell {} is not in data{}; give its name: `{} {} \"Name\"`", g.get("spell"), where_, v, g.get("spell")), None);
-				} else if !found.truthy() {
+				} else if !found.truthy() && ability.is_none() {
 					r.warn(&ln, format!("spell {} is not in data{}; using the explicit name (new Forever content?)", g.get("spell"), where_), None);
 				}
 				goal.set("spellName", or_undef(name));

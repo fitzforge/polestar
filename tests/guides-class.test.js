@@ -140,7 +140,9 @@ const SPELL_TABLES = ['SpellName', 'SpellMisc', 'SkillLineAbility'];
 const spellBuild = fs.existsSync(WAGO)
 	? fs.readdirSync(WAGO).filter((b) => PRODUCTS.forever.family.test(b) && SPELL_TABLES.every((t) => fs.existsSync(path.join(WAGO, b, `${t}.csv`)))).sort(compareVersions).pop()
 	: null;
+// Header classes are class files ("MAGE"); the level-up check below names them "Mage".
 const CLASS_BIT = { Warrior: 1, Paladin: 2, Hunter: 4, Rogue: 8, Priest: 16, Shaman: 64, Mage: 128, Warlock: 256, Druid: 1024 };
+const bitOf = (c) => CLASS_BIT[c] || CLASS_BIT[c[0] + c.slice(1).toLowerCase()] || 0;
 
 test('reward spells are the client\'s: each id is in the Forever spell tables under its name, with an icon; no class spell is left as words', { skip: spellBuild ? false : 'no cached Forever wago build with SpellName, SpellMisc and SkillLineAbility (forge data build)' }, () => {
 	const table = (t) => parseCsv(fs.readFileSync(path.join(WAGO, spellBuild, `${t}.csv`), 'utf8'));
@@ -153,7 +155,7 @@ test('reward spells are the client\'s: each id is in the Forever spell tables un
 	}
 	let spells = 0;
 	for (const g of GUIDES) {
-		const mask = (g.ast.header.classes || []).reduce((m, c) => m | (CLASS_BIT[c] || 0), 0);
+		const mask = (g.ast.header.classes || []).reduce((m, c) => m | bitOf(c), 0);
 		for (const r of g.ast.header.reward || []) {
 			if (r.spell !== undefined) {
 				spells++;

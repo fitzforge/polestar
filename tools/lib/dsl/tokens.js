@@ -37,6 +37,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseCsv } = require('../data/csv');
+const { CLASS_BY_FILE, hasBit } = require('../game/races');
 
 const KINDS = ['npc', 'object', 'item', 'quest', 'zone', 'area', 'spell', 'faction', 'skill'];
 const TOKEN_RE = /\{(npc|object|item|quest|zone|area|spell|faction|skill):(\d+)\}/g;
@@ -90,7 +91,7 @@ function dataName(data, kind, id) {
 	else if (kind === 'area') rec = data.areas ? data.areas.byId.get(id) : null;
 	else if (kind === 'faction') rec = data.faction(id);
 	else if (kind === 'skill') rec = data.profession(id);
-	else if (kind === 'spell') return spellById(data).get(id) || null;
+	else if (kind === 'spell') return spellById(data).get(id) || abilityName(data, id);
 	return (rec && str(rec.name)) || null;
 }
 
@@ -354,6 +355,7 @@ function worldIndex(data, common) {
 // of any spell; one-word names only of a class or profession ability
 // (SkillLineAbility: "Polymorph", "Whirlwind").
 const SPELLS = new WeakMap();
+const JUNK_SPELL = /[()[\]<>_]|\b(OLD|DND|TEST|Test|QA|zz)\b|^\d/;
 function spellNames(data) {
 	if (!SPELLS.has(data)) SPELLS.set(data, readSpellNames(data));
 	return SPELLS.get(data);
@@ -377,12 +379,65 @@ function readSpellNames(data) {
 	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
 		const id = Number(r.ID);
 		const name = String(r.Name_lang || '').trim();
-		if (!Number.isInteger(id) || !name || /[()[\]<>_]|\b(OLD|DND|TEST|Test|QA|zz)\b|^\d/.test(name)) continue;
+		if (!Number.isInteger(id) || !name || JUNK_SPELL.test(name)) continue;
 		// A profession's rank spell reads as rank and profession: words and {skill:id}.
 		if (/^(Apprentice|Journeyman|Expert|Artisan|Master) /.test(name) || / Reputation$/.test(name) || taken.has(name.toLowerCase())) continue;
 		if (!/[ '’:]/.test(name) && !abilities.has(id)) continue;
 		const had = best.get(name);
 		if (had === undefined || id < had) best.set(name, id);
+	}
+	return [...best];
+}
+
+// The client's class and profession abilities (SkillLineAbility), cached
+// per data: id -> { name (SpellName), classMask (the classes whose skill
+// lines list it, ORed) }, names other things of the game have too ("Ice
+// Block", "Cold Snap", "Frostbite"). Empty without the data's client build.
+const ABILITIES = new WeakMap();
+function clientAbilities(data) {
+	if (!ABILITIES.has(data)) {
+		const out = new Map();
+		const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
+		if (dir) {
+			const masks = new Map();
+			for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'))) {
+				const id = Number(r.Spell);
+				if (!Number.isInteger(id)) continue;
+				const mask = Number(r.ClassMask) || 0;
+				const had = masks.get(id) || 0;
+				// The union of the masks, past 32-bit operators like hasBit.
+				let union = had;
+				for (let bit = 1; bit <= mask; bit *= 2) if (hasBit(mask, bit) && !hasBit(had, bit)) union += bit;
+				masks.set(id, union);
+			}
+			for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
+				const id = Number(r.ID);
+				const name = String(r.Name_lang || '').trim();
+				if (masks.has(id) && name && !JUNK_SPELL.test(name)) out.set(id, { name, classMask: masks.get(id) });
+			}
+		}
+		ABILITIES.set(data, out);
+	}
+	return ABILITIES.get(data);
+}
+
+// The client's name of a class or profession ability, or null.
+function abilityName(data, id) {
+	const a = clientAbilities(data).get(id);
+	return a ? a.name : null;
+}
+
+// [[name, id]] of the abilities of the classes `classes` (class files:
+// "MAGE"), each name once at its lowest id, whatever else has the name: a
+// class guide's own spells (#1504).
+function classSpells(data, classes) {
+	const bits = (classes || []).map((c) => CLASS_BY_FILE[c] && CLASS_BY_FILE[c].bit).filter((b) => b > 0);
+	const best = new Map();
+	if (!bits.length) return [];
+	for (const [id, a] of clientAbilities(data)) {
+		if (!a.classMask || !bits.some((b) => hasBit(a.classMask, b))) continue;
+		const had = best.get(a.name);
+		if (had === undefined || id < had) best.set(a.name, id);
 	}
 	return [...best];
 }
@@ -476,6 +531,8 @@ function guideIndex(guide, data, common) {
 		if (Number.isInteger(r.item)) idx.add('item', r.item, r.itemName, GUIDE);
 		if (Number.isInteger(r.spell)) idx.add('spell', r.spell, r.spellName, GUIDE);
 	}
+	// A class guide's own spells, before the world's things of the same name.
+	for (const [name, id] of classSpells(data, guide.classes)) idx.add('spell', id, name, GUIDE);
 	for (const step of guide.steps || []) {
 		for (const goal of step.goals || []) {
 			for (const n of goalNames(goal, data)) idx.add(n.kind, n.id, n.name, GUIDE);
@@ -701,4 +758,4 @@ function onlyTokens(text) {
 	return !/\p{L}/u.test(String(text).replace(TOKEN_RE, ''));
 }
 
-module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf };
+module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf, abilityName };

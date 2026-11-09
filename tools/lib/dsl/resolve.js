@@ -25,6 +25,7 @@ const { goalHeight, spotHeight } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper, goalFlightMaster } = require('./places');
 const { areaNamed } = require('../data/areas');
 const { levelRange } = require('./when');
+const { abilityName } = require('./tokens');
 
 // A collect's sources are named only for an item that few creatures or
 // objects drop (at 2% or more, with spawns); past this it drops everywhere.
@@ -1629,9 +1630,12 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const r = found ? found.recipe : null;
 			const where = data.hasProfessions ? '' : ' (professions.json missing)';
 			goal.spell = g.spell;
-			const name = g.spellName || (r && r.name ? String(r.name) : null);
+			// A class spell (`learn 116 "Frostbolt"`) is no recipe: the client's
+			// SkillLineAbility knows it, and names it (#1505).
+			const ability = !found && v === 'learn' ? abilityName(data, g.spell) : null;
+			const name = g.spellName || (r && r.name ? String(r.name) : null) || ability;
 			if (!name) err(ln, `spell ${g.spell} is not in data${where}; give its name: \`${v} ${g.spell} "Name"\``);
-			else if (!found) warn(ln, `spell ${g.spell} is not in data${where}; using the explicit name (new Forever content?)`);
+			else if (!found && !ability) warn(ln, `spell ${g.spell} is not in data${where}; using the explicit name (new Forever content?)`);
 			goal.spellName = name || undefined;
 			if (found) goal.skillLine = found.profession.id;
 			if (v === 'learn') {
