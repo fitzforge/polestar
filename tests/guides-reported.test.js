@@ -5294,7 +5294,9 @@ test('Redridge level gap (PR #1052): Redridge\'s Gath\'Ilzogg, Gar\'im and Fango
 	const back = at(list, 'turnin 20 (Back to Lakeshire)', is('turnin', 20));
 	for (const q of [169, 95999, 180]) {
 		assert.ok(at(list, `accept ${q}`, is('accept', q)) < camps, `${q} is taken in Lakeshire before the camps`);
-		assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the stop back in Lakeshire`);
+		// #1415: the elite posters' hand-ins are steps of their own behind the group choice, right before that stop.
+		const ts = list[at(list, `turnin ${q}`, is('turnin', q))].s;
+		assert.ok(ts <= list[back].s && list[back].s - ts <= 2, `${q} is handed in on the stop back in Lakeshire (${ts} vs ${list[back].s})`);
 	}
 	const dusk = goals('forever/alliance/05-duskwood.guide');
 	assert.ok(!dusk.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
