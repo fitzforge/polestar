@@ -6674,6 +6674,32 @@ function Engine.ChooseDungeon(map, on)
 	requestUpdate()
 end
 
+-- The dungeons the guides for this character have `when dungeon` steps for
+-- (not negated): { [map] = true }. For the Options list, which offers only
+-- these. A guide whose steps are not read yet is searched in its source
+-- (the compiler writes `{ k = "dungeon", name = "...", map = N }`, a
+-- negated one with `neg = true` after `k`), so nothing is loaded for it.
+function Engine.GuideDungeons()
+	if not player then refreshPlayer() end
+	local out = {}
+	for _, h in ipairs(Guides.List()) do
+		local g = Guides.Get(h.id)
+		local src = g and rawget(g, "steps") == nil and rawget(g, "stepsSrc")
+		if g and Guides.GuideMatches(g, player) and type(src) == "string" then
+			if src:find('k = "dungeon"', 1, true) then
+				for map in src:gmatch('{ k = "dungeon", name = "[^"]*", map = (%d+)') do out[tonumber(map)] = true end
+			end
+		elseif g and Guides.GuideMatches(g, player) then
+			for _, step in ipairs(g.steps) do
+				for _, p in ipairs(step.when or NONE) do
+					if p.k == "dungeon" and not p.neg and type(p.map) == "number" then out[p.map] = true end
+				end
+			end
+		end
+	end
+	return out
+end
+
 -- The group quest the live step waits on (`when group`, unanswered): its
 -- quest id and title (the step's goal for it, else the guide's accept, else
 -- the step's title), or nil.

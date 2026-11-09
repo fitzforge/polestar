@@ -621,6 +621,10 @@ function Engine.ChooseDungeon(map, on)
 	record("ChooseDungeon", map, on)
 	Polestar.CharState().dungeons[map] = on and true or nil
 end
+-- uistub.guideDungeons: the maps the character's guides have `when dungeon`
+-- steps for ({ [map] = true }, Engine.GuideDungeons).
+uistub.guideDungeons = {}
+function Engine.GuideDungeons() return uistub.guideDungeons end
 -- Group quests (`when group`): uistub.groupQuestion = { quest, title } is the
 -- one the live step waits on until answered; answers per character
 -- (CharState().groupQuests). uistub.groupQuests: the character's guides'

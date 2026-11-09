@@ -2590,7 +2590,6 @@ L["Kill %d %s"] = "Töte %d %s"
 L["Collect %s"] = "Sammle %s"
 L["Collect %d %s"] = "Sammle %d %s"
 L["Use %s"] = "Benutze %s"
-L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Leveling-Guides führen dich durch diesen Dungeon, wo sie Schritte dafür haben. Aus: Sie bleiben auf der Solo-Route."
 L["Dungeons in leveling guides"] = "Dungeons in Leveling-Guides"
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "Aus: Der Guide überspringt diese Gruppenquest und bleibt auf der Solo-Route. Bis du dich entscheidest, fragt er nach, wenn er dort ankommt."
 L["Group quests"] = "Gruppenquests"
@@ -2601,6 +2600,7 @@ L["Entrance in Horde territory (outside the Undercity)"] = "Eingang im Horde-Geb
 L["Entrance in Alliance territory (in Ironforge)"] = "Eingang im Allianz-Gebiet (in Eisenschmiede)"
 L["Entrance in Horde territory (in Orgrimmar)"] = "Eingang im Horde-Gebiet (in Orgrimmar)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Eingang im Allianz-Gebiet (in Sturmwind)"
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = ""
 
 -- Dungeons/Attune.lua
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Lässt dich Lothos Riftwaker im Blackrock zum Geschmolzenen Kern schicken; ohne ihn läufst du durch die Blackrocktiefen hinein."
@@ -3279,3 +3279,4 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 -- L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "Grind-Schritte zeigen dorthin, wo der Mob zu finden ist, und bei einem Schritt mit mehreren Lagern zieht der Pfeil von einem geleerten weiter. Der Ziel-Button zeigt, wen er anvisiert, auch die Mobs von „Wenn du schon hier bist“."
 -- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Jeder Level-Guide wurde noch einmal durchgesehen, und 40-60 wurde für beide Fraktionen überarbeitet, mit mehr Quests und kürzerem Grinden. Quests, die in Forever neu sind, tragen ein kleines ∞-Zeichen. Passt der Guide, den du offen hattest, nicht mehr zu deinem Standort, öffne die Guide-Liste und wähle den Guide unter %s. Dein Questlog bleibt erhalten."
 -- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."] = "Ordner beim Durchsuchen lassen sich einklappen, ein geschlossener Tab kommt mit „Wieder öffnen“ zurück, die Route kann auf Karte und Minikarte als Linie, Punkte oder Funken erscheinen, und der Minikarten-Button und ein schwebender Polestar-Button lassen sich in den Optionen einschalten."
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route."] = "Leveling-Guides führen dich durch diesen Dungeon, wo sie Schritte dafür haben. Aus: Sie bleiben auf der Solo-Route."
