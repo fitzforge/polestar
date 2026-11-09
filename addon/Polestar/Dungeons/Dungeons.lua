@@ -29,7 +29,8 @@
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
 --         objectives = { { k = "kill"|"item"|"object"|"event", id, n (count over one), name (English) } },
---         start, finish (= { kind, id, name, map, x, y, f, inside }), startItem = { id, name },
+--         start, finish (= { kind, id, name, map, x, y, f, inside, instance }: inside, it stands only inside
+--           an instance; instance, the key of that one when it is another dungeon's), startItem = { id, name },
 --         chain = { ids }, closedBy = { ids } | nil (taken or done, these close it for good:
 --         the quest a breadcrumb leads to, its exclusive group),
 --         rewards = { items = { { id, name, quality, choice } }, xp, money, rep = { { faction, name, value } } },

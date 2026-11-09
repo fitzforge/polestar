@@ -1737,6 +1737,45 @@ emit(D.HandinText(D.HandinPlan("{KEY}")))"#),
 }
 
 #[test]
+fn a_quest_turned_in_inside_another_dungeon_is_a_note_that_names_that_dungeon_not_turned_in_nowhere_known() {
+	// Plan 0.3.7 item 5 (SweepDungeons' 'handin-all-missed'): Molten Core's Favor Amongst the Brotherhood is
+	// turned in to Lokhtos Darkbargainer, who stands only inside Blackrock Depths. The page put no `inside` on
+	// a turn-in in another instance, so the hand-in guide said "Where it is turned in is not known".
+	// Here The Book of Ur's Keeper Bel'dugur stands only inside a second dungeon.
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let mut brd = c["instances"]["shadowfang-keep"].clone();
+	brd["key"] = json!("blackrock-depths");
+	brd["name"] = json!("Blackrock Depths");
+	brd["areaId"] = json!(1584);
+	brd["entrance"] = json!({ "map": 1428, "x": 34.8, "y": 85.3, "f": "e" });
+	brd["levels"] = json!([52, 52, 60]);
+	c["instances"]["blackrock-depths"] = brd;
+	c["npcs"]["2934"]["instance"] = json!("blackrock-depths");
+	c["npcs"]["2934"]["spawns"] = json!([]);
+	i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": 230, "name": "Blackrock Depths", "raid": false, "players": 5, "area": 1584, "areas": [1584], "inner": [], "zones": [] }));
+	let out = run(
+		&pack_of(&c, &i),
+		&k(r#"
+local plan = D.HandinPlan("{KEY}")
+local inside = {}
+for i, q in ipairs(plan.inside) do inside[i] = q.id end
+local def = D.HandinGuide("{KEY}")
+local last = def.steps[#def.steps]
+emit({ inside = inside, unplaced = #plan.unplaced, note = last.goals[#last.goals].text, text = D.HandinText(plan),
+	finish = D.Quest("{KEY}", 1013).finish.instance })"#),
+		Opts { done: vec![1098, 1740, 1011], log: vec![], ready: vec![1014, 1013], ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["finish"], "blackrock-depths");
+	assert_eq!(out["inside"], json!([1013]));
+	assert_eq!(out["unplaced"], 0);
+	assert_eq!(out["note"], "Turned in inside Blackrock Depths: “The Book of Ur”");
+	assert_eq!(out["text"], "Turned in inside Blackrock Depths: “The Book of Ur”.");
+}
+
+#[test]
 fn handin_takes_the_place_of_the_pick_up_guide_once_that_one_is_at_the_entrance_comes_back_after_reload_and_plays_to_the_end() {
 	let pack = default_pack();
 	let opts = || Opts { done: vec![1098, 1740, 1011, 1014], log: vec![], ready: vec![1013], ..Default::default() };

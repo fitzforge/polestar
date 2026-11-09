@@ -355,6 +355,13 @@ end
 
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 
+-- "inside the dungeon", or "inside Blackrock Depths" for a point inside
+-- another one (its `instance`: Lokhtos Darkbargainer on Molten Core's page).
+local function insideText(p)
+	local other = p.instance and D().Get(p.instance)
+	return other and other.name and format(L["inside %s"], other.name) or L["inside the dungeon"]
+end
+
 -- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
@@ -364,7 +371,7 @@ local function pointText(p)
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
 	if p.inside then
-		place = "|c" .. Theme.Hex("dungeon") .. L["inside the dungeon"] .. "|r"
+		place = "|c" .. Theme.Hex("dungeon") .. insideText(p) .. "|r"
 	else
 		local z = mapName(p.map)
 		if z then place = "|c" .. Theme.Hex("textDim") .. z .. "|r" end
@@ -1625,7 +1632,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 			if cq.level then sub[#sub + 1] = format(L["Level %d"], cq.level) end
 			local st = startOf(cq, ns.PlayerPoint())
 			if st and st.name then
-				local z = st.inside and L["inside the dungeon"] or mapName(st.map)
+				local z = st.inside and insideText(st) or mapName(st.map)
 				sub[#sub + 1] = z and format(L["%s, %s"], st.name, z) or st.name
 			end
 			r.Sub:SetText(concat(sub, DOT))

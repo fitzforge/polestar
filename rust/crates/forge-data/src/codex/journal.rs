@@ -895,34 +895,6 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			let d = lv(a) - lv(b);
 			super::util::ord(if d != 0.0 { d } else { a.get("id").num() - b.get("id").num() })
 		});
-		// A quest an unplaced object of this instance starts (Forever's objects list the instance maps they
-		// stand in) is picked up inside: Gnomeregan's Sparklematic 5200, Uldaman's Discs of Norgannon (the
-		// #1380 sweep; a quest the Codex fills in alone had `inside` false whatever its start). The same for
-		// an unplaced NPC the Codex puts in this instance (The Hall of Thanes' Ghostly Attendant), and for
-		// a turn-in at either: Commander Gor'shak and Marshal Windsor in Blackrock Depths, the Altar of
-		// Hakkar in the Sunken Temple, Menethil's Gift in Stratholme are turned in inside.
-		let im = inst.get("map");
-		if let Some(pm) = if im.is_nullish() { m.map(|m| m.id) } else { Some(im.num()) } {
-			let inside = |p: &V| {
-				p.get("map").is_nullish()
-					&& match p.get("kind").as_str() {
-						Some("object") => inp.fv_objects.get(&kstr(&p.get("id"))).get("instances").items().iter().any(|x| x.num() == pm),
-						Some("npc") => codex.npcs.get(&kstr(&p.get("id"))).get("instance").as_str() == Some(k.as_str()),
-						_ => false,
-					}
-			};
-			for q in &quests {
-				let st = q.get("start");
-				if inside(&st) {
-					st.set("inside", true);
-					q.set("inside", true);
-				}
-				let fi = q.get("finish");
-				if inside(&fi) {
-					fi.set("inside", true);
-				}
-			}
-		}
 		let chain = Obj::new();
 		for q in &quests {
 			for cid in q.get("chain").items() {
@@ -934,6 +906,46 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				if rec.truthy() {
 					rec.set("chain", V::arr());
 					chain.set(&kstr(&cid), rec);
+				}
+			}
+		}
+		// A quest an unplaced object of this instance starts (Forever's objects list the instance maps they
+		// stand in) is picked up inside: Gnomeregan's Sparklematic 5200, Uldaman's Discs of Norgannon (the
+		// #1380 sweep; a quest the Codex fills in alone had `inside` false whatever its start). The same for
+		// an unplaced NPC the Codex puts in this instance (The Hall of Thanes' Ghostly Attendant), and for
+		// a turn-in at either: Commander Gor'shak and Marshal Windsor in Blackrock Depths, the Altar of
+		// Hakkar in the Sunken Temple, Menethil's Gift in Stratholme are turned in inside. One standing in
+		// another instance is inside that one, which `instance` names (SweepDungeons' 'handin-all-missed'):
+		// Lokhtos Darkbargainer in Blackrock Depths for Molten Core's Favor Amongst the Brotherhood, Marshal
+		// Windsor for Blackrock Spire's and Onyxia's Lair's chain, Lorekeeper Lydros in Dire Maul for the
+		// Forging of Quel'Serrar; the hand-in guide said "not known" for them. The chain's quests too.
+		let im = inst.get("map");
+		let pm = if im.is_nullish() { m.map(|m| m.id) } else { Some(im.num()) };
+		let standing_in = |p: &V| -> Option<String> {
+			if !p.get("map").is_nullish() {
+				return None;
+			}
+			match p.get("kind").as_str() {
+				Some("object") => {
+					let maps = inp.fv_objects.get(&kstr(&p.get("id"))).get("instances").items();
+					if maps.iter().any(|x| Some(x.num()) == pm) {
+						return Some(k.clone());
+					}
+					maps.iter().find_map(|x| map_keys.get(&(x.num() as i64)).and_then(|ks| ks.first().cloned()))
+				}
+				Some("npc") => codex.npcs.get(&kstr(&p.get("id"))).get("instance").as_str().map(str::to_string),
+				_ => None,
+			}
+		};
+		for q in quests.iter().chain(chain.values().iter()) {
+			for end in ["start", "finish"] {
+				let p = q.get(end);
+				let Some(at) = standing_in(&p) else { continue };
+				p.set("inside", true);
+				if at != k {
+					p.set("instance", V::str(&at));
+				} else if end == "start" {
+					q.set("inside", true);
 				}
 			}
 		}

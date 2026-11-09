@@ -244,6 +244,14 @@ local function stopsOf(plan, follow)
 	return stops
 end
 
+-- The other dungeon a quest is turned in inside (its finish's `instance`,
+-- Lokhtos Darkbargainer in Blackrock Depths for Molten Core), by name | nil.
+local function elsewhere(pq)
+	local key = pq.finish and pq.finish.instance
+	local d = key and Dungeons.Get(key)
+	return d and d.name or nil
+end
+
 function Dungeons.HandinGuide(key)
 	local plan, err = Dungeons.HandinPlan(key)
 	if not plan then return nil, err end
@@ -287,7 +295,12 @@ function Dungeons.HandinGuide(key)
 		end
 	end
 	note(L["Not finished yet: %s"], plan.unfinished)
-	note(L["Turned in inside the dungeon: %s"], plan.inside)
+	for _, pq in ipairs(plan.inside) do
+		local other = elsewhere(pq)
+		local text = other and format(L["Turned in inside %s: %s"], other, ns.Quoted(pq.title) or "")
+			or format(L["Turned in inside the dungeon: %s"], ns.Quoted(pq.title) or "")
+		last.goals[#last.goals + 1] = { t = "note", text = text }
+	end
 	note(L["Where it is turned in is not known: %s"], plan.unplaced)
 	return { title = format(L["%s: hand in the quests"], d.name), steps = steps, dungeon = key }
 end
@@ -302,7 +315,23 @@ function Dungeons.HandinText(plan)
 	end
 	local parts = {}
 	if #plan.unfinished > 0 then parts[#parts + 1] = format(L["Not finished yet: %s."], titles(plan.unfinished)) end
-	if #plan.inside > 0 then parts[#parts + 1] = format(L["Turned in inside the dungeon: %s."], titles(plan.inside)) end
+	-- Inside this dungeon, then inside each other one, by name.
+	local here, others, names = {}, {}, {}
+	for _, pq in ipairs(plan.inside) do
+		local other = elsewhere(pq)
+		if other then
+			if not others[other] then
+				others[other] = {}
+				names[#names + 1] = other
+			end
+			local list = others[other]
+			list[#list + 1] = pq
+		else
+			here[#here + 1] = pq
+		end
+	end
+	if #here > 0 then parts[#parts + 1] = format(L["Turned in inside the dungeon: %s."], titles(here)) end
+	for _, name in ipairs(names) do parts[#parts + 1] = format(L["Turned in inside %s: %s."], name, titles(others[name])) end
 	if #plan.unplaced > 0 then parts[#parts + 1] = format(L["Where it is turned in is not known: %s."], titles(plan.unplaced)) end
 	if #parts == 0 then return L["None of this dungeon's quests is in your log."] end
 	return concat(parts, " ")

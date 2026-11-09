@@ -5252,7 +5252,11 @@ game event (pfQuest's `event`: the Darkmoon Faire, the holidays, the war
 efforts) is on a page only where QuestieDB or Forever's quest data files it (Copper
 Modulator, Rinling's Faire turn-in, is on none). What no rule can catch is
 in the cited table `data/codex/journal-quests.json` (Shards of the
-Felvine). Each quest has giver and ender and their positions, its objective
+Felvine). Each quest has giver and ender and their positions (one with no
+place outside that stands in an instance, an NPC the Codex puts there or an
+object listing its map, is `inside`; in another dungeon's instance, `instance`
+names it: Lokhtos Darkbargainer in Blackrock Depths on Molten Core's page, so
+the hand-in guide says "Turned in inside Blackrock Depths"), its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
 name; the escorts' and events' text), composed at run time into our own
 objective line in the client's language (`Dungeons.ObjectiveText`:
