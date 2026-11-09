@@ -6658,5 +6658,85 @@
 			}
 		],
 		"note": "Silvia's Sword, the Duskwood pair of Grant's Shield (both from items, both handed in to Sirra Von'Indi), is open to any Alliance class and race; the merged data had the Shaman class and the Dwarf race."
+	},
+	"98517": {
+		"set": {
+			"classes": 64
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0, wowf build 1.60.1.70840: quest record categoryId -82 (the Shaman quest sort)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13: zoneOrSort -82 (Shaman)"
+			}
+		],
+		"note": "Call of Fire (98517), Swart's pointer that sends a Horde Skyborne shaman back to Sessaria Skystride or Aarnor Galestrike on Zephras Isle, is a Shaman quest. The merged data had no class limit, so it counted as open to every Skyborne class."
+	},
+	"6061": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6061 (the breadcrumbs 6065/6066/6067 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people took Taming the Beast (6061) from Yaw Sharpmane with none of The Hunter's Path breadcrumbs (6065/6066/6067) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6061, Yaw Sharpmane) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6062": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6062 (the breadcrumbs 6068/6069/6070 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Taming the Beast (6062) from Thotar with none of The Hunter's Path breadcrumbs (6068/6069/6070) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6062, Thotar) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6063": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6063 (the breadcrumbs 6071/6072/6073/6721/6722 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 4 people took Taming the Beast (6063) from Dazalar with none of The Hunter's Path breadcrumbs (6071/6072/6073/6721/6722) taken or handed in anywhere in that character's recorded history"
+			}
+		],
+		"note": "The first Taming the Beast (6063, Dazalar) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
+	},
+	"6064": {
+		"set": {
+			"pre": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 0 for 6064 (the breadcrumbs 6074/6075/6076 sit in their own exclusive group and lead to it)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template PrevQuestId 0 for 6064"
+			}
+		],
+		"note": "The first Taming the Beast (6064, Grif Wildheart) needs no The Hunter's Path breadcrumb: those only point the way. The merged data listed the breadcrumbs as prerequisites."
 	}
 }
