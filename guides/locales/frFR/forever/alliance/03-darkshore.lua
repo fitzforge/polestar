@@ -18,6 +18,8 @@ return {
 	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "",
+	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "",
 
@@ -34,6 +36,11 @@ return {
 	["{item:12238}: fish from the pier"] = "{item:12238} : à pêcher depuis la jetée",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg
 	["Crawler Legs"] = "Pattes de clampant",
+
+	-- Step 5: Auberdine
+	-- {quest:3524} Washed Ashore
+	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
