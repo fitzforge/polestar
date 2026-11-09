@@ -4239,6 +4239,22 @@
 				}
 			],
 			"issue": 1370
+		},
+		{
+			"id": "a3040-menethil-slim-jahn-follow",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1249,
+				"goal": "accept"
+			},
+			"tip": "Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.",
+			"note": "Alliance 30-40 audit (0.3.7): 2 of the 3 recorded people who took The Missing Diplomat (1249) at 30-33 failed it on the first try (one abandoned and retook it, then completed it); its objective is an event (Defeat Tapoke Jahn) that ends in his surrender. The step had no word on it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of quest 1249: 3 people, 2 fails on the first try, 1 abandon and retake"
+				}
+			]
 		}
 	]
 }

@@ -19,6 +19,7 @@ next forever/alliance/30-40/04-stranglethorn-vale
 
 step Fly to Menethil Harbor
   zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
@@ -34,6 +35,7 @@ step Glorin Steelbrow
   accept 321
 
 step Deepwater Tavern
+  tip Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.
   sethome "Deepwater Tavern"
   turnin 1248                         -- Mikhail
   accept 1249
@@ -126,6 +128,7 @@ step Mirage Raceway: kill these as you meet them
   kill 4147 quest 1175.1                  -- Saltstone Basilisk
   kill 4151 quest 1175.2                  -- Saltstone Crystalhide
   kill 4150 quest 1175.3                  -- Saltstone Gazer
+  collect 5675 quest 1078.1               -- Crystalized Scale, from the Saltstone Basilisks: for Collin Mauren in Stormwind
 
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
@@ -135,9 +138,14 @@ step Mirage Raceway
   turnin 1176                             -- Pozzik
   turnin 1175                             -- Trackmaster Zherin
 
+step Into Tanaris
+  zone Thousand Needles
+  tip From the raceway follow the road south out of the Shimmering Flats into Tanaris.
+  goto 74.2,93.6 "Into Tanaris"
+
 step Gadgetzan
   zone Tanaris
-  tip From the raceway follow the road south out of the Shimmering Flats into Tanaris; Gadgetzan is a short walk down it. Keep to the road. Bera Stonehammer, the Alliance flight master, stands inside the walls.
+  tip Gadgetzan is a short walk down the road; keep to it. Bera Stonehammer, the Alliance flight master, stands inside the walls.
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
 
 step Fly to Theramore

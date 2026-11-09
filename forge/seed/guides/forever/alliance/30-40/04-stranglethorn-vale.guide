@@ -12,6 +12,9 @@ next forever/alliance/30-40/02-desolace
 # Added here: Panther Mastery (193), Raptor Mastery (196).
 # Since 2026-11-07 Stranglethorn is done in two visits around Desolace: this first loop at 33-35, the second
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
+# Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
+# stop, Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it, and the top-up to 34 is three short steps on
+# the loop's own quest mobs (Stranglethorn Tigers, Kurzen Jungle Fighters, elder tigers) instead of one block.
 
 step Fly to Darkshire
   zone Wetlands
@@ -55,6 +58,12 @@ step Stranglethorn Tigers
   tip The adult tigers prowl the hills just south and west of the camp.
   kill 682 quest 186                  -- Stranglethorn Tiger
 
+step Level 33.2
+  when level<33.2
+  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+  goto 30.8,11.2 map 1434 "Stranglethorn Tiger"
+  level 33.2 grind 682                 -- grind on Stranglethorn Tiger
+
 step Ajeck Rouack
   turnin 186
   accept 187                          -- The elder tigers come later, on the way back from the Rebel Camp
@@ -66,22 +75,35 @@ step Panthers, raptors and elder tigers
   kill 736 quest 191                  -- Panther
   accept 635 optional                 -- Gluggle, a rare murloc on the coast west of camp, drops the Pendant of Myzrael: take it if you meet him
 
+step Sir S. J. Erlgadin
+  tip Back east to Nesingwary's camp on the way north to the Rebel Camp.
+  turnin 191
+
 # ---------------------------------------------------------------- Rebel Camp
 
 step Rebel Camp
   tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
   accept 215                          -- Private Thorsen
   turnin 215                          -- Lieutenant Doren, in the hut
-  accept 200                          -- Lieutenant Doren: Bookie Herod's records, on the northern loop (04b)
+  accept 200                          -- Lieutenant Doren: Bookie Herod's records lie at the edge of Kurzen's Compound, next
+  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay, later in this guide
   accept 203                          -- Sergeant Yohwa
   accept 204
 
 step Kurzen's Compound: kill these as you meet them
   zone Stranglethorn Vale
-  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents.
+  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side.
+  turnin 200                          -- Bookie Herod's Records, in the hut
+  accept 328                          -- The strongbox is deeper in, by the cave: on the northern loop (04b)
   collect 2633 quest 204.1            -- Jungle Remedy
   kill 937 quest 203                  -- Kurzen Jungle Fighter
   collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
+
+step Level 33.6
+  when level<33.6
+  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+  goto 44.6,10.0 map 1434 "Kurzen Jungle Fighter"
+  level 33.6 grind 937                 -- grind on Kurzen Jungle Fighter
 
 step Rebel Camp
   turnin 203                          -- Sergeant Yohwa
@@ -101,7 +123,6 @@ step Level 34
   level 34 grind 1085                  -- grind on Elder Stranglethorn Tiger
 
 step Nesingwary's Expedition
-  turnin 191                          -- Sir S. J. Erlgadin
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
   accept 339 optional
   accept 340 optional
@@ -126,6 +147,7 @@ step Down to Booty Bay
   sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
   turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
   accept 198                          -- Krazek, in the tavern; upstairs
+  turnin 210                          -- Krazek, from Corporal Kaleb
   accept 201
   accept 616                          -- Krazek
   accept 189                          -- Kebok, in the tavern
@@ -188,6 +210,10 @@ step Fly to Stormwind
 step Grimand Elmore
   turnin 322
 
+step Collin Mauren
+  tip Collin Mauren is in the Slaughtered Lamb, in the Mage Quarter.
+  turnin 1078
+
 step Druid training
   only Druid
   zone Stormwind City
@@ -216,7 +242,4 @@ step Heartswood
 step Stonetalon Mountains
   zone Stonetalon Mountains
   goto 33.7,72.8 "Stonetalon Mountains"
-
-step Retrieval for Mauren
-  collect 5675 quest 1078.1 @33.3,72.7 map 1442
 
