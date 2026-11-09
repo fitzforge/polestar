@@ -25,7 +25,8 @@
 		"LucaNerlich"
 	],
 	"exclude": [
-		"fitzforge"
+		"fitzforge",
+		"Fitz | Polestar"
 	],
 	"names": {}
 }

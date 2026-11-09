@@ -1,16 +1,20 @@
 //! The Guiding Stars page's names (addon/Polestar/Core/Credits.lua): the supporters, kept by hand in
-//! data/credits.json in rank order (highest Ko-fi total first; amounts are never stored), and the
-//! contributors, counted from the repository's merged pull requests on GitHub.
+//! data/credits.json in rank order (highest Ko-fi total first; amounts are never stored), the
+//! contributors, counted from the repository's merged pull requests on GitHub, and the bug reporters,
+//! counted from its issues (see [`useful_report`] for which reports count).
 
 use serde_json::Value;
 use std::path::Path;
+use unicode_normalization::UnicodeNormalization;
 
 pub const SOURCE: &str = "data/credits.json";
 pub const OUT: &str = "addon/Polestar/Core/Credits.lua";
 pub const REPO: &str = "fitzforge/polestar";
+/// How many bug reporters the page lists, so the three columns stay a readable length.
+pub const REPORTERS_SHOWN: usize = 40;
 
-/// data/credits.json: `supporters` (names, rank order), `exclude` (logins left out: the maintainer),
-/// `names` (login -> the name shown).
+/// data/credits.json: `supporters` (names, rank order), `exclude` (logins and names left out: the
+/// maintainer, and anyone who asked not to be listed), `names` (login or name -> the name shown).
 pub struct Source {
 	pub supporters: Vec<String>,
 	pub exclude: Vec<String>,
@@ -90,14 +94,161 @@ pub fn rank_contributors(prs: &[Merged], src: &Source) -> Vec<(String, usize)> {
 	by.into_iter().map(|(login, n, _)| (src.names.iter().find(|(l, _)| *l == login).map_or(login.clone(), |(_, name)| name.clone()), n)).collect()
 }
 
+/// One issue on GitHub: who filed it, what it says, and how it ended.
+#[derive(Clone, Debug, Default)]
+pub struct Issue {
+	pub author: Option<String>,
+	pub body: String,
+	pub created_at: Option<String>,
+	/// OPEN or CLOSED.
+	pub state: String,
+	/// COMPLETED, NOT_PLANNED, DUPLICATE or REOPENED; None while it never closed.
+	pub state_reason: Option<String>,
+	pub labels: Vec<String>,
+	/// The pull requests that closed it.
+	pub closing_prs: usize,
+	/// The comments by the repository's owner, members and collaborators.
+	pub maintainer_comments: Vec<String>,
+}
+
+const ISSUE_FIELDS: &str = "author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments";
+
+/// Every issue of `repo`, open or closed, through the GitHub CLI (`gh`, logged in).
+pub fn fetch_issues(repo: &str) -> Result<Vec<Issue>, String> {
+	let out = std::process::Command::new("gh")
+		.args(["issue", "list", "--repo", repo, "--state", "all", "--limit", "20000", "--json", ISSUE_FIELDS])
+		.output()
+		.map_err(|e| format!("gh (the GitHub CLI) could not run: {e}"))?;
+	if !out.status.success() {
+		return Err(format!("gh issue list failed: {}", String::from_utf8_lossy(&out.stderr).trim()));
+	}
+	parse_issues(&String::from_utf8_lossy(&out.stdout))
+}
+
+/// `gh issue list --json author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments` output.
+pub fn parse_issues(json: &str) -> Result<Vec<Issue>, String> {
+	let doc: Value = serde_json::from_str(json).map_err(|e| format!("gh issue list: {e}"))?;
+	let list = doc.as_array().ok_or("gh issue list: not a list")?;
+	let text = |v: &Value, key: &str| v.get(key).and_then(Value::as_str).map(str::to_string);
+	let maintainer = |c: &&Value| matches!(c.get("authorAssociation").and_then(Value::as_str), Some("OWNER" | "MEMBER" | "COLLABORATOR"));
+	Ok(list
+		.iter()
+		.map(|i| Issue {
+			author: i.pointer("/author/login").and_then(Value::as_str).map(str::to_string),
+			body: text(i, "body").unwrap_or_default(),
+			created_at: text(i, "createdAt"),
+			state: text(i, "state").unwrap_or_default(),
+			state_reason: text(i, "stateReason").filter(|r| !r.is_empty()),
+			labels: i.get("labels").and_then(Value::as_array).map(|a| a.iter().filter_map(|l| text(l, "name")).collect()).unwrap_or_default(),
+			closing_prs: i.get("closedByPullRequestsReferences").and_then(Value::as_array).map_or(0, Vec::len),
+			maintainer_comments: i.get("comments").and_then(Value::as_array).map(|a| a.iter().filter(maintainer).filter_map(|c| text(c, "body")).collect()).unwrap_or_default(),
+		})
+		.collect())
+}
+
+/// Undoes the Discord bot's escaping of a name in a Markdown table cell (tools/discord-bot/lib/issue.js:
+/// `inert` and `cell`).
+fn unescape_cell(s: &str) -> String {
+	s.replace("\\|", "|").replace("@\u{200d}", "@").replace("#\u{200d}", "#").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+}
+
+/// Who reported an issue: the Discord name in the bot's first line ("**Reported by <name> on
+/// [Discord](...)**"), else the GitHub login that opened it. The Discord name is folded to NFKC, so
+/// styled letters (𝔄𝔫𝔫𝔦𝔢) come out as the plain ones the game's fonts draw (Annie).
+pub fn reporter(issue: &Issue) -> Option<String> {
+	let first = issue.body.lines().next().unwrap_or_default().trim();
+	if let Some(rest) = first.strip_prefix("**Reported by ") {
+		if let Some(at) = rest.find(" on [Discord](") {
+			return Some(unescape_cell(&rest[..at]).nfkc().collect::<String>().trim().to_string());
+		}
+	}
+	issue.author.clone()
+}
+
+/// A maintainer's comment saying the bug is fixed ("Fixed in 0.3.5", "This is already fixed"), and
+/// not that it isn't ("not fixed", "isn't fixed yet").
+fn says_fixed(comment: &str) -> bool {
+	let lower = comment.to_lowercase();
+	let negation = |w: &str| matches!(w, "not" | "never") || w.ends_with("n't") || w.ends_with("n’t");
+	lower.match_indices("fixed").any(|(at, _)| {
+		let whole = !lower[..at].ends_with(char::is_alphanumeric) && !lower[at + 5..].starts_with(char::is_alphanumeric);
+		let mut before = lower[..at].split_whitespace().rev();
+		let negated = match before.next() {
+			Some("yet") => before.next().is_some_and(negation),
+			Some(w) => negation(w),
+			None => false,
+		};
+		whole && !negated
+	})
+}
+
+/// Whether an issue counts toward its reporter on the Guiding Stars page: a bug report that helped.
+///
+/// - Only bug reports: an issue labelled `enhancement` (a feature request) counts only if it is also
+///   labelled `bug`.
+/// - Never: closed as a duplicate or as not planned, or labelled `duplicate`, `invalid`, `wontfix` or
+///   `resolution:*` (no action, cannot reproduce), or still labelled `needs-info` or `stale` (waiting
+///   on the reporter).
+/// - Otherwise it counts when it is labelled `confirmed` (reproduced and checked: a real bug) or
+///   `fix-merged`, or it was closed as completed by a fix: a pull request that closed it, a
+///   `released:*` label (the fix shipped), or a maintainer's comment saying it is fixed.
+pub fn useful_report(issue: &Issue) -> bool {
+	let has = |l: &str| issue.labels.iter().any(|x| x == l);
+	let has_prefix = |p: &str| issue.labels.iter().any(|x| x.starts_with(p));
+	if has("enhancement") && !has("bug") {
+		return false;
+	}
+	if matches!(issue.state_reason.as_deref(), Some("DUPLICATE" | "NOT_PLANNED")) || ["duplicate", "invalid", "wontfix", "needs-info", "stale"].iter().any(|l| has(l)) || has_prefix("resolution:") {
+		return false;
+	}
+	if has("confirmed") || has("fix-merged") {
+		return true;
+	}
+	issue.state == "CLOSED" && issue.state_reason.as_deref() == Some("COMPLETED") && (issue.closing_prs > 0 || has_prefix("released:") || issue.maintainer_comments.iter().any(|c| says_fixed(c)))
+}
+
+/// Bug reporters by useful reports ([`useful_report`]), most first; a tie goes to whoever reported
+/// first. At most `cap` of them. Bots, names without a letter or digit, and the logins and names in
+/// `exclude` are left out; `names` maps a login or Discord name to the name shown, and the same name
+/// in another case is one person. -> (name, reports).
+pub fn rank_reporters(issues: &[Issue], src: &Source, cap: usize) -> Vec<(String, usize)> {
+	let skip: Vec<String> = src.exclude.iter().map(|l| l.to_lowercase()).collect();
+	// shown name, count, first report; in order of first appearance.
+	let mut by: Vec<(String, usize, Option<String>)> = Vec::new();
+	for issue in issues.iter().filter(|i| useful_report(i)) {
+		let Some(raw) = reporter(issue).filter(|r| r.chars().any(char::is_alphanumeric)) else { continue };
+		if raw.starts_with("app/") || raw.ends_with("[bot]") {
+			continue;
+		}
+		let name = src.names.iter().find(|(l, _)| *l == raw).map_or(raw.clone(), |(_, n)| n.clone());
+		if skip.contains(&raw.to_lowercase()) || skip.contains(&name.to_lowercase()) {
+			continue;
+		}
+		let i = by.iter().position(|c| c.0.to_lowercase() == name.to_lowercase()).unwrap_or_else(|| {
+			by.push((name.clone(), 0, issue.created_at.clone()));
+			by.len() - 1
+		});
+		let c = &mut by[i];
+		c.1 += 1;
+		if let Some(at) = &issue.created_at {
+			if c.2.as_ref().is_none_or(|f| at < f) {
+				c.2 = Some(at.clone());
+			}
+		}
+	}
+	let first = |c: &(String, usize, Option<String>)| c.2.clone().unwrap_or_else(|| "undefined".into());
+	by.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| first(a).cmp(&first(b))));
+	by.into_iter().take(cap).map(|(name, n, _)| (name, n)).collect()
+}
+
 fn lua_string(s: &str) -> String {
 	format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\"").replace('\n', "\\n"))
 }
 
 /// Core/Credits.lua.
-pub fn render(supporters: &[String], contributors: &[(String, usize)]) -> String {
+pub fn render(supporters: &[String], contributors: &[(String, usize)], reporters: &[(String, usize)]) -> String {
 	let mut out = vec![
-		"-- Generated by `forge release credits` from data/credits.json and the repository's merged pull requests. Do not edit: rebuild with that command.".to_string(),
+		"-- Generated by `forge release credits` from data/credits.json and the repository's merged pull requests and issues. Do not edit: rebuild with that command.".to_string(),
 		String::new(),
 		"local _, ns = ...".into(),
 		String::new(),
@@ -108,6 +259,8 @@ pub fn render(supporters: &[String], contributors: &[(String, usize)]) -> String
 	out.extend(supporters.iter().map(|s| format!("\t\t{},", lua_string(s))));
 	out.extend(["\t},".to_string(), "\t-- GitHub contributors by merged pull requests, most first.".into(), "\tcontributors = {".into()]);
 	out.extend(contributors.iter().map(|(name, prs)| format!("\t\t{{ name = {}, prs = {prs} }},", lua_string(name))));
+	out.extend(["\t},".to_string(), format!("\t-- Bug reporters by confirmed or fixed reports, most first (the top {REPORTERS_SHOWN})."), "\tbugReporters = {".into()]);
+	out.extend(reporters.iter().map(|(name, n)| format!("\t\t{{ name = {}, reports = {n} }},", lua_string(name))));
 	out.extend(["\t},".to_string(), "}".into(), String::new()]);
 	out.join("\n")
 }
@@ -141,7 +294,7 @@ mod tests {
 	#[test]
 	fn names_with_quotes_backslashes_and_newlines_load_back_unchanged_in_lua() {
 		let odd: Vec<String> = ["Say \"hi\"", "back\\slash", "two\nlines", "pipe|name"].iter().map(|s| s.to_string()).collect();
-		let lua_text = render(&odd, &[("q\"uote".into(), 1)]);
+		let lua_text = render(&odd, &[("q\"uote".into(), 1)], &[("大地瓜 | x".into(), 4)]);
 		let lua = mlua::Lua::new();
 		let ns = lua.create_table().unwrap();
 		lua.load(&lua_text).call::<()>((mlua::Nil, ns.clone())).unwrap();
@@ -151,6 +304,9 @@ mod tests {
 		let first: mlua::Table = credits.get::<mlua::Table>("contributors").unwrap().get(1).unwrap();
 		assert_eq!(first.get::<String>("name").unwrap(), "q\"uote");
 		assert_eq!(first.get::<i64>("prs").unwrap(), 1);
+		let reporter: mlua::Table = credits.get::<mlua::Table>("bugReporters").unwrap().get(1).unwrap();
+		assert_eq!(reporter.get::<String>("name").unwrap(), "大地瓜 | x");
+		assert_eq!(reporter.get::<i64>("reports").unwrap(), 4);
 	}
 
 	#[test]
@@ -158,5 +314,138 @@ mod tests {
 		let got = parse_merged(r#"[{"author":{"login":"ann"},"mergedAt":"2026-10-01T00:00:00Z"},{"author":null,"mergedAt":null}]"#).unwrap();
 		assert_eq!(got[0].login.as_deref(), Some("ann"));
 		assert!(got[1].login.is_none());
+	}
+
+	/// A Discord report as the bot files it, under the maintainer's account.
+	fn discord(name: &str, at: &str, labels: &[&str]) -> Issue {
+		Issue {
+			author: Some("fitzforge".into()),
+			body: format!("**Reported by {name} on [Discord](https://discord.com/channels/1/2)** · Questing\n\n> the arrow points the wrong way"),
+			created_at: Some(at.into()),
+			state: "OPEN".into(),
+			labels: labels.iter().map(|l| l.to_string()).collect(),
+			..Default::default()
+		}
+	}
+
+	/// An issue opened on GitHub by `login`.
+	fn github(login: &str, at: &str, labels: &[&str]) -> Issue {
+		Issue {
+			author: Some(login.into()),
+			body: "### What went wrong\n\nIt broke.".into(),
+			created_at: Some(at.into()),
+			state: "OPEN".into(),
+			labels: labels.iter().map(|l| l.to_string()).collect(),
+			..Default::default()
+		}
+	}
+
+	fn closed(mut i: Issue, reason: &str) -> Issue {
+		i.state = "CLOSED".into();
+		i.state_reason = Some(reason.into());
+		i
+	}
+
+	fn src(exclude: &[&str], names: &[(&str, &str)]) -> Source {
+		Source { supporters: vec![], exclude: exclude.iter().map(|s| s.to_string()).collect(), names: names.iter().map(|(a, b)| (a.to_string(), b.to_string())).collect() }
+	}
+
+	#[test]
+	fn the_reporter_is_the_bots_discord_name_unescaped_else_the_author() {
+		assert_eq!(reporter(&discord("Pynte", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("Pynte"));
+		// The bot escapes a pipe for its table cell, and @ and # so they don't ping or link.
+		assert_eq!(reporter(&discord("Tazul \\| Robin", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("Tazul | Robin"));
+		assert_eq!(reporter(&discord("@\u{200d}me &amp; #\u{200d}1 &lt;3", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("@me & #1 <3"));
+		// Styled letters fold to the plain ones the game's fonts have.
+		assert_eq!(reporter(&discord("𝔄𝔫𝔫𝔦𝔢", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("Annie"));
+		assert_eq!(reporter(&discord("大地瓜", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("大地瓜"));
+		assert_eq!(reporter(&github("thmastin", "2026-10-01T00:00:00Z", &[])).as_deref(), Some("thmastin"));
+		// A maintainer's own issue that only mentions Discord in its text is the maintainer's.
+		let mut own = github("fitzforge", "2026-10-01T00:00:00Z", &[]);
+		own.body = "Reported on Discord by someone: the panel never shows.".into();
+		assert_eq!(reporter(&own).as_deref(), Some("fitzforge"));
+	}
+
+	#[test]
+	fn a_report_counts_when_confirmed_or_closed_by_a_fix() {
+		let at = "2026-10-01T00:00:00Z";
+		assert!(useful_report(&discord("a", at, &["bug", "confirmed"])));
+		assert!(useful_report(&discord("a", at, &["bug", "fix-merged"])));
+		assert!(!useful_report(&discord("a", at, &["bug", "triage"])), "open and unconfirmed");
+		let mut by_pr = closed(discord("a", at, &["bug"]), "COMPLETED");
+		assert!(!useful_report(&by_pr), "closed as completed with no fix shown");
+		by_pr.closing_prs = 1;
+		assert!(useful_report(&by_pr));
+		assert!(useful_report(&closed(discord("a", at, &["bug", "released:v0.3.4"]), "COMPLETED")));
+		let mut said = closed(discord("a", at, &["bug"]), "COMPLETED");
+		said.maintainer_comments = vec!["Thanks! This is fixed in 0.3.5.".into()];
+		assert!(useful_report(&said));
+		for not_yet in ["This isn't fixed yet, reopening later.", "Not fixed: it works as intended.", "It's not yet fixed.", "Unfixed for now", "fixedness"] {
+			said.maintainer_comments = vec![not_yet.into()];
+			assert!(!useful_report(&said), "{not_yet}");
+		}
+	}
+
+	#[test]
+	fn duplicates_rejections_feature_requests_and_needs_info_never_count() {
+		let at = "2026-10-01T00:00:00Z";
+		let mut dup = closed(discord("a", at, &["bug", "confirmed"]), "DUPLICATE");
+		dup.closing_prs = 1;
+		assert!(!useful_report(&dup), "closed as a duplicate");
+		assert!(!useful_report(&closed(discord("a", at, &["bug", "duplicate"]), "NOT_PLANNED")));
+		assert!(!useful_report(&closed(discord("a", at, &["bug", "duplicate"]), "COMPLETED")), "the duplicate label");
+		assert!(!useful_report(&closed(discord("a", at, &["bug", "resolution:no-action"]), "NOT_PLANNED")));
+		assert!(!useful_report(&closed(discord("a", at, &["bug", "resolution:cannot-reproduce", "released:v0.3.4"]), "COMPLETED")));
+		assert!(!useful_report(&closed(discord("a", at, &["invalid", "fix-merged"]), "COMPLETED")));
+		assert!(!useful_report(&discord("a", at, &["bug", "confirmed", "needs-info"])), "still waiting on the reporter");
+		assert!(!useful_report(&discord("a", at, &["bug", "needs-info", "stale"])));
+		assert!(!useful_report(&github("ann", at, &["enhancement", "fix-merged"])), "a feature request");
+		assert!(useful_report(&github("ann", at, &["bug", "enhancement", "confirmed"])));
+	}
+
+	#[test]
+	fn reporters_rank_by_useful_reports_ties_to_the_first_report_without_bots_or_excluded_names() {
+		let ok = &["bug", "confirmed"];
+		let issues = [
+			discord("Late", "2026-10-05T00:00:00Z", ok),
+			discord("Late", "2026-10-06T00:00:00Z", ok),
+			github("early", "2026-10-01T00:00:00Z", ok),
+			github("early", "2026-10-09T00:00:00Z", ok),
+			discord("Most", "2026-10-08T00:00:00Z", ok),
+			github("most", "2026-10-08T01:00:00Z", ok), // the same name in another case: one person
+			discord("Aka", "2026-10-08T02:00:00Z", ok), // mapped onto Most's name
+			discord("Most", "2026-10-08T03:00:00Z", &["bug", "duplicate"]),
+			discord("Most", "2026-10-08T03:00:00Z", &["bug", "needs-info"]),
+			discord("Lone", "2026-10-02T00:00:00Z", &["bug", "triage"]), // never confirmed: not listed
+			github("dependabot[bot]", "2026-10-01T00:00:00Z", ok),
+			github("app/polestar-bot", "2026-10-01T00:00:00Z", ok),
+			github("fitzforge", "2026-10-01T00:00:00Z", ok),          // the maintainer's own issue
+			discord("Fitz \\| Polestar", "2026-10-01T00:00:00Z", ok), // the maintainer on Discord
+			discord("Private", "2026-10-01T00:00:00Z", ok),           // asked to be left out
+			discord("᲼", "2026-10-01T00:00:00Z", ok),                 // a blank-looking name
+			discord("Once", "2026-10-03T00:00:00Z", ok),
+		];
+		let s = src(&["FitzForge", "fitz | polestar", "private"], &[("Aka", "Most"), ("Once", "Once Upon")]);
+		assert_eq!(rank_reporters(&issues, &s, 40), [("Most".to_string(), 3), ("early".into(), 2), ("Late".into(), 2), ("Once Upon".into(), 1)]);
+		assert_eq!(rank_reporters(&issues, &s, 2), [("Most".to_string(), 3), ("early".into(), 2)], "capped");
+		// An exclude entry can name the shown name too.
+		let by_shown = src(&["fitzforge", "fitz | polestar", "private", "once upon"], &[("Once", "Once Upon")]);
+		assert!(!rank_reporters(&issues, &by_shown, 40).iter().any(|(n, _)| n == "Once Upon"));
+	}
+
+	#[test]
+	fn gh_issue_output_parses() {
+		let got = parse_issues(
+			r#"[{"author":{"login":"ann"},"body":"x","createdAt":"2026-10-01T00:00:00Z","state":"CLOSED","stateReason":"COMPLETED",
+			"labels":[{"name":"bug"}],"closedByPullRequestsReferences":[{"number":5}],
+			"comments":[{"author":{"login":"fitzforge"},"authorAssociation":"OWNER","body":"Fixed."},{"author":{"login":"ann"},"authorAssociation":"NONE","body":"fixed?"}]},
+			{"author":null,"body":"","createdAt":"2026-10-02T00:00:00Z","state":"OPEN","stateReason":"","labels":[],"closedByPullRequestsReferences":[],"comments":[]}]"#,
+		)
+		.unwrap();
+		assert_eq!(got[0].author.as_deref(), Some("ann"));
+		assert_eq!((got[0].state.as_str(), got[0].state_reason.as_deref(), got[0].closing_prs), ("CLOSED", Some("COMPLETED"), 1));
+		assert_eq!(got[0].labels, ["bug"]);
+		assert_eq!(got[0].maintainer_comments, ["Fixed."]);
+		assert!(got[1].author.is_none() && got[1].state_reason.is_none());
 	}
 }
