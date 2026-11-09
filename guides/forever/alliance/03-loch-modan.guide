@@ -70,6 +70,14 @@ next forever/alliance/03-darkshore-return
 # Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
 # Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
 # after Alba Fairmoon's 92749-92752, not on the route), the Paladin's Test of Righteousness (class guide).
+#
+# The Hall of Thanes (`when dungeon "The Hall of Thanes"`, dungeons in the route): for a character who chose
+# it, Thom Filch's Important Heirlooms (96403) and Afadra Dunwall's The Restless Dead (96394) are taken on the
+# Ironforge stop at about 19.5 (level 15 quests, full XP to about 21), the run follows from the hall's door
+# on the city's west side, a short walk past them (Ironforge 28.2,47.7, where players' recordings go in), and
+# both take theirs back at once. King Magni takes Old Ironforge Incursion (96393, Earthseer Farsen's, for a
+# Dwarf or Gnome who carries it from Dun Morogh) and the Treaty of Understanding (98423, an item inside). An
+# Ancient Grudge (96395) starts and ends inside, with the Ghostly Attendant (the run tip names it).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -224,6 +232,45 @@ step Into Ironforge
   when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
+
+step Thom Filch and Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  zone Ironforge
+  tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand a few steps apart on the city's west side, west of the High Seat. The hall's door is a short walk further west.
+  accept 96403                        -- Thom Filch
+  accept 96394                        -- Afadra Dunwall
+
+step The Hall of Thanes
+  when dungeon "The Hall of Thanes"
+  when onquest 96403,96394,96393
+  zone Ironforge
+  tip The Hall of Thanes is a dungeon for a group of five at about level 15 to 16, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
+  tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
+  enter "The Hall of Thanes" @28.2,47.7 live
+  complete 96403 @28.2,47.7 live      -- Important Heirlooms: the heirlooms, inside
+  complete 96394 @28.2,47.7 live      -- The Restless Dead, inside
+  complete 96393 @28.2,47.7 live      -- Old Ironforge Incursion: Durgen Dirgehammer, inside
+
+step Thom Filch
+  when complete 96403
+  zone Ironforge
+  turnin 96403                        -- Thom Filch
+
+step Afadra Dunwall
+  when complete 96394
+  zone Ironforge
+  turnin 96394                        -- Afadra Dunwall
+
+step King Magni Bronzebeard
+  when complete 96393
+  zone Ironforge
+  tip Old Ironforge Incursion: King Magni sits on the High Seat, east of the hall's door.
+  turnin 96393                        -- King Magni Bronzebeard
+
+step King Magni Bronzebeard
+  when onquest 98423
+  zone Ironforge
+  turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
 
 step Ironforge
   zone Ironforge
