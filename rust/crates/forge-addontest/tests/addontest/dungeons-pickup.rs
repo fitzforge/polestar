@@ -524,7 +524,7 @@ emit(r)"#),
 	assert_eq!(out["before"], json!([1, ["pending:nil"]]), "while the route still brings it, the accept waits its turn");
 	assert_eq!(
 		out["after"],
-		json!([4, "skipped:Requires Orders from the Undercity first", "skipped:Requires The Dalaran Inquiry first"]),
+		json!([4, "skipped:Requires “Orders from the Undercity” first", "skipped:Requires “The Dalaran Inquiry” first"]),
 		"Bethor's step skipped: the accepts after it say why, and the guide goes on to Doan Karhan"
 	);
 }

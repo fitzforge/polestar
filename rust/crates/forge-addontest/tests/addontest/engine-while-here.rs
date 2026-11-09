@@ -737,7 +737,7 @@ fn a_shown_hand_in_is_handed_in_at_its_npc_as_the_guide_steps_are() {
 	// The progress window; Polestar's CompleteQuest opens the reward window (the stub's), where it takes the reward.
 	let talk = r#"w.calls = {}; w.questProgress(240, 40); flush()"#;
 	let shown = run(&format!("{calls}at(42.0, 36.1); emit(here()); {talk}; emit({{ calls(), w.log[40] == nil }})"));
-	assert_eq!(shown, vec![json!("8:1 Hand in A Fishy Peril to Marshal Dughan 20"), json!(["CompleteQuest 40 nil, GetQuestReward 40 0", true])]);
+	assert_eq!(shown, vec![json!("8:1 Hand in “A Fishy Peril” to Marshal Dughan 20"), json!(["CompleteQuest 40 nil, GetQuestReward 40 0", true])]);
 	let choose = run(&format!("{calls}w.choices[40] = 3; at(42.0, 36.1); {talk}; emit({{ calls(), w.log[40] ~= nil }})"));
 	assert_eq!(choose, vec![json!(["CompleteQuest 40 nil", true])], "several rewards: the player chooses");
 	let one = run(&format!("{calls}w.choices[40] = 1; at(42.0, 36.1); {talk}; emit(calls())"));
