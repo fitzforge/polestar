@@ -149,12 +149,17 @@ Polestar.RegisterGuide({ id = "test/horde", pack = "test", title = "Horde", fact
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		script: [TEST_PACK, guides, "stub.login()", r#"
+		script: [
+			TEST_PACK,
+			guides,
+			"stub.login()",
+			r#"
 local maps = {}
 for m in pairs(Polestar.Engine.GuideDungeons()) do maps[#maps + 1] = m end
 table.sort(maps)
-emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps") ~= nil })"#]
-			.join("\n"),
+emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps") ~= nil })"#,
+		]
+		.join("\n"),
 		..Default::default()
 	})
 	.remove(0);
