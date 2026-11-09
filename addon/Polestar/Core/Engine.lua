@@ -4384,6 +4384,29 @@ local function signature()
 	return table.concat(sigParts, ",")
 end
 
+-- How far from a `vendor nearest` candidate a merchant still stands in its
+-- town, in yards: the compiler keeps one candidate per town of this radius
+-- (forge-guide candidates.rs, HUB_YARDS).
+Own.VENDOR_TOWN = 250
+
+-- Whether the merchant window open now is a sell-and-repair stop for a
+-- `vendor nearest` goal: the merchant repairs, and the player stands within
+-- Own.VENDOR_TOWN yards of one of the goal's candidates. Menethil Harbor
+-- has Murndan Derth and Brak Durnad side by side; the guide lists one, and
+-- selling and repairing at the other is the same errand (#1400).
+function Own.repairsInTown(goal)
+	local C = Compat()
+	if not C.CanMerchantRepair() then return false end
+	local c, px, py = C.GetPlayerWorldPosition()
+	if not c then return false end
+	local r2 = Own.VENDOR_TOWN * Own.VENDOR_TOWN
+	for _, cand in ipairs(goal.candidates) do
+		local cc, cx, cy = goalWorld(cand)
+		if cc == c and (cx - px) ^ 2 + (cy - py) ^ 2 <= r2 then return true end
+	end
+	return false
+end
+
 -- An NPC interaction while a step is current checks off its talk/train/
 -- vendor goals (sethome: binding); while the player looks at another step,
 -- the live step's too. Stored with the manual check-offs, so the result
@@ -4392,10 +4415,13 @@ end
 -- class), one naming its NPC for that NPC, `train class` for a trainer of
 -- the character's class; a quest `talk` only on a line the client does not
 -- list yet (Own.talkCounts); profession trains complete from the skill's max
--- rank instead. A window still open when the step changes counts for nothing
--- in the new step: only what opens, or what the player does, while it is
--- current (Fitz: "clear signals from the game"). Returns true if anything
--- changed.
+-- rank instead. One exception: `vendor nearest` is a sell-and-repair stop,
+-- so any merchant who repairs in one of its candidates' towns counts
+-- (Own.repairsInTown, #1400); a `vendor` naming its NPC (a mount vendor)
+-- stays that NPC's. A window still open when the step changes counts for
+-- nothing in the new step: only what opens, or what the player does, while
+-- it is current (Fitz: "clear signals from the game"). Returns true if
+-- anything changed.
 local function latch(kind, npc)
 	if not (guide and current and player) then return false end
 	local hit = false
@@ -4416,7 +4442,7 @@ local function latch(kind, npc)
 					elseif kind == "train" and isProfessionTrain(goal) then
 						ok = false
 					elseif goal.candidates then
-						ok = npc ~= nil and isCandidate(goal, npc)
+						ok = npc ~= nil and isCandidate(goal, npc) or kind == "vendor" and Own.repairsInTown(goal)
 					elseif goal.npc then
 						ok = goal.npc == npc
 					elseif kind == "train" and goal.class then

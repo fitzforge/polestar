@@ -2,7 +2,8 @@
 //! step is done once its hand-ins are, merchant window or not; the line is listed while the step is live and
 //! the arrow still leads to the vendor in its turn. A step of only vendor goals waits for the merchant window,
 //! and a merchant opened during the step still ticks the line. A guide's last step of hand-ins and a vendor
-//! ends the guide with the hand-ins. Real Core manifest, stub world.
+//! ends the guide with the hand-ins. `vendor nearest` ticks at any merchant who repairs in one of its
+//! candidates' towns (#1400); a `vendor` naming its NPC only at that NPC. Real Core manifest, stub world.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::Value;
@@ -130,4 +131,118 @@ fn a_last_step_of_a_hand_in_and_a_vendor_ends_the_guide_with_the_hand_in() {
 	assert_eq!(out["at"], 4);
 	assert_eq!(out["after"], false, "the last step is done with its hand-in: the guide is complete");
 	assert_eq!(out["ended"], "test/vendor", "and its end is reached");
+}
+
+// #1400: `vendor nearest` (candidates, one per town) is a sell-and-repair stop: any merchant who repairs in a
+// candidate's town ticks it. Brill's candidate is Mrs. Winters (61.4, 53.0); Morley Bates (2135) stands beside
+// her. A `vendor` naming its NPC stays that NPC's. 1% of the test map is 20 yards.
+const TOWN_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/vendor-town", pack = "test", title = "Vendor town", faction = "Horde", minLevel = 1, maxLevel = 12, steps = {
+	{ title = "Brill", goals = { { t = "vendor", candidates = {
+		{ npc = 2134, npcName = "Mrs. Winters", map = 1420, x = 61.4, y = 53.0, faction = "H" },
+		{ npc = 2116, npcName = "Blacksmith Rand", map = 1420, x = 20.0, y = 20.0, faction = "H" },
+	} } } },
+	{ title = "Named", goals = { { t = "vendor", npc = 2134, npcName = "Mrs. Winters", map = 1420, x = 61.4, y = 53.0 } } },
+	{ title = "After", goals = { { t = "goto", map = 1420, x = 10, y = 10 } } },
+} })
+"#;
+
+fn run_town(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{TOWN_GUIDE}\n{}",
+			r#"			E = Polestar.Engine
+			w = stub.world
+			function flush() stub.advance(0.25) end
+			stub.login()
+			E.SetGuide("test/vendor-town")
+			flush()
+			"#
+		) + script,
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn vendor_nearest_ticks_at_another_merchant_who_repairs_in_the_same_town() {
+	let out = run_town(
+		r#"
+		local r = {}
+		w.moveTo(1420, 61.0, 53.4); flush()
+		r.at = E.GetStepIndex()
+		w.merchant(2135, { repair = true }); flush(); w.close(); flush()
+		r.after = E.GetStepIndex()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["at"], 1);
+	assert_eq!(out["after"], 2, "a merchant who repairs a few yards from the candidate is the same errand");
+}
+
+#[test]
+fn vendor_nearest_does_not_tick_at_a_merchant_who_cannot_repair() {
+	let out = run_town(
+		r#"
+		local r = {}
+		w.moveTo(1420, 61.0, 53.4); flush()
+		w.merchant(2135, { repair = false }); flush(); w.close(); flush()
+		r.after = E.GetStepIndex()
+		r.status = E.GetStepView(1).goals[1].status
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["after"], 1, "selling alone is not the sell-and-repair stop");
+	assert_ne!(out["status"], "done");
+}
+
+#[test]
+fn vendor_nearest_does_not_tick_at_a_repairer_outside_every_candidates_town() {
+	let out = run_town(
+		r#"
+		local r = {}
+		w.moveTo(1420, 90.0, 90.0); flush()
+		w.merchant(2135, { repair = true }); flush(); w.close(); flush()
+		r.after = E.GetStepIndex()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["after"], 1, "about 900 yards from Brill and the other candidate: not this stop");
+}
+
+#[test]
+fn vendor_nearest_still_ticks_at_its_own_candidate() {
+	let out = run_town(
+		r#"
+		local r = {}
+		w.moveTo(1420, 61.4, 53.0); flush()
+		w.merchant(2134); flush(); w.close(); flush()
+		r.after = E.GetStepIndex()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["after"], 2);
+}
+
+#[test]
+fn a_vendor_naming_its_npc_stays_that_npcs() {
+	let out = run_town(
+		r#"
+		local r = {}
+		w.moveTo(1420, 61.0, 53.4); flush()
+		w.merchant(2134); flush(); w.close(); flush()
+		r.at = E.GetStepIndex()
+		w.merchant(2135, { repair = true }); flush(); w.close(); flush()
+		r.other = E.GetStepIndex()
+		w.merchant(2134); flush(); w.close(); flush()
+		r.named = E.GetStepIndex()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["at"], 2);
+	assert_eq!(out["other"], 2, "another merchant beside the named one does not tick a named vendor");
+	assert_eq!(out["named"], 3);
 }

@@ -16,7 +16,7 @@
 --   w.questDetail(197, 7, { auto = false, pvp = false, objectives = { 10 } })
 --   w.questProgress(197, 783); w.questComplete(197, 783, { choices = 2, money = 0 })
 --   w.greeting(197, { active = {...}, available = {...} })
---   w.trainer(911); w.merchant(54); w.taxi(352, "Stormwind, Elwynn"); w.close()
+--   w.trainer(911); w.merchant(54, { repair = true }); w.taxi(352, "Stormwind, Elwynn"); w.close()
 --   w.calls                                -- { { "AcceptQuest", q }, { "GetQuestReward", q, choice }, { "CloseQuest", q }, ... }
 --   w.learnSkill(171, "Alchemy", 1, 75); w.skillUp(171, 50)    -- SKILL_LINES_CHANGED + CHAT_MSG_SKILL
 --   w.learnSpell(2330)                     -- spellbook spell (LEARNED_SPELL_IN_SKILL_LINE, SPELLS_CHANGED)
@@ -262,9 +262,10 @@ function world.trainer(npc)
 	fire("TRAINER_SHOW")
 end
 
-function world.merchant(npc)
+-- opts.repair: the merchant repairs (CanMerchantRepair).
+function world.merchant(npc, opts)
 	talkTo(npc)
-	world.frame = { kind = "merchant", npc = npc }
+	world.frame = { kind = "merchant", npc = npc, repair = opts and opts.repair or false }
 	fire("MERCHANT_SHOW")
 end
 
@@ -396,6 +397,7 @@ function GetSubZoneText() return world.subzone or "" end
 function GetMinimapZoneText() return (world.subzone ~= "" and world.subzone) or world.zone or "" end
 function GetBindLocation() return world.bindLocation or "" end
 function GetMoney() return world.money or 0 end
+function CanMerchantRepair() local f = world.frame; return f and f.kind == "merchant" and f.repair or false end
 function GetPlayerFacing() if world.inInstance then return nil end return world.facing end
 function IsInInstance() return world.inInstance, world.inInstance and "party" or "none" end
 
