@@ -51,8 +51,8 @@ return {
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
 
 	-- Step 13: Rebel Camp
-	-- {npc:738} Private Thorsen
-	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "Pegue a estrada para o norte; {npc:738} patrulha nela, e o acampamento fica nas colinas a oeste.",
+	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, na cabana",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
@@ -148,8 +148,8 @@ return {
 	["River Crocolisks swim the river by the {area:99}."] = "Crocoliscos do Rio nadam no rio junto a {area:99}.",
 
 	-- Step 26: Private Thorsen
-	-- {area:99} Rebel Camp
-	["Thorsen patrols the road north of camp, toward the {area:99}."] = "Turgo patrulha a estrada ao norte do acampamento, rumo a {area:99}.",
+	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
+	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
 
 	-- Step 27: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
@@ -205,12 +205,14 @@ return {
 	-- ["Skullsplitter trolls"] = "Trolls Rachacrânio",
 	-- ["Snapjaw Crocolisks"] = "Crocoliscos Arapuca",
 	-- ["Snapjaw Crocolisks bask on the shore and islands along the coast north of {area:35}."] = "Crocoliscos Arapuca tomam sol na praia e nas ilhas ao longo da costa ao norte de {area:35}.",
+	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "Pegue a estrada para o norte; {npc:738} patrulha nela, e o acampamento fica nas colinas a oeste.",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "Pegue a estrada para o norte; {npc:738} está nela, e o acampamento fica nas colinas a oeste.",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Os trolls Sanguescalpo dominam as ruínas na costa a oeste do acampamento de Rosarães.",
 	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Os rebeldes de Kurzen dominam o complexo a leste de {area:99}; trabalhe pela borda externa, onde ficam os Guerrilheiros da Selva e os Curandeiros, e saqueie os caixotes de suprimentos junto às barracas.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Os trolls Rachacrânio dominam as ruínas a leste da estrada, entre Rosarães e {object:3202}.",
 	-- ["The jungle ruins"] = "As ruínas da selva",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "O minério cai dos kobolds Bigodesseco em {zone:1417}",
+	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "Turgo patrulha a estrada ao norte do acampamento, rumo a {area:99}.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Volte para o norte; {area:310} fica a oeste da estrada, no meio da selva. Os Basiliscos da Serra dos Cristais de lá deixam cair os fragmentos.",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} não tem instrutor de druida: pegue o {area:2257} em {object:171524} até {zone:1453} e treine com {npc:5504}.",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, junto ao banco",

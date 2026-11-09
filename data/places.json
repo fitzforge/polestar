@@ -1486,6 +1486,42 @@
 				"ref": "prog:98246.1 objective ticks in players' recordings (3 people)"
 			},
 			"pr": 1421
+		},
+		{
+			"id": "1425-stv-thorsen-camp-giver",
+			"quest": 215,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 38.0,
+				"y": 3.4,
+				"frame": "era"
+			},
+			"note": "Jungle Secrets: Private Thorsen stands at the top of the Rebel Camp's path (38.0,3.4) for about 28 minutes, then walks down to the road (40.3,8.4), waits there about 3.5 minutes and walks back; the data's spawn is the road end, where he is only a few minutes of each ~36-minute round. Recordings meet him on both ends (38.0-38.2,3.4-4.5 and 40.2-40.4,8.4).",
+			"source": {
+				"kind": "tdb",
+				"ref": "creature 20002243 (entry 738) waypoint_path 800022430: node 1 delay 1,700,000 ms, node 24 delay 180,000 ms"
+			},
+			"issue": 1425
+		},
+		{
+			"id": "1425-stv-thorsen-camp-ender",
+			"quest": 198,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 38.0,
+				"y": 3.4,
+				"frame": "era"
+			},
+			"note": "Supplies to Private Thorsen: the same walk as Jungle Secrets (see 1425-stv-thorsen-camp-giver); the arrow leads to his camp spot.",
+			"source": {
+				"kind": "tdb",
+				"ref": "creature 20002243 (entry 738) waypoint_path 800022430"
+			},
+			"issue": 1425
 		}
 	]
 }

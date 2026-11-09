@@ -37,6 +37,7 @@ step Rebel Camp
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
 step Bookie Herod
+  when onquest 200
   tip Herod's records lie in a hut on the west side of Kurzen's Compound, east of the Rebel Camp.
   turnin 200                          -- Bookie Herod's Records, upstairs
   accept 328
