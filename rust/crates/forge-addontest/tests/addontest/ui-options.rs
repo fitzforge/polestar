@@ -68,7 +68,52 @@ local function footerButton(text)
 		for _, b in ipairs(PolestarOptions.footerButtons[side]) do if b:IsShown() and b.Label:GetText() == text then return b end end
 	end
 end
+-- A setting's row wherever its page and tab are (the Look pages are their modules'): its page opened there.
+local function ctl(key)
+	for _, c in ipairs(O.AllControls()) do
+		if c.key == key then
+			O.Select(c.page.key, c.tab or "")
+			return O.view.cache[c], c
+		end
+	end
+end
+-- The sidebar's tree: { { group, { page, ... } }, ... }
+local function navTree()
+	local out, g = {}, nil
+	for _, b in ipairs(PolestarOptions.navButtons) do
+		if b:IsShown() then
+			if b.psGroup then
+				g = { b.Label:GetText(), {} }
+				out[#out + 1] = g
+			elseif g then
+				table.insert(g[2], b.Label:GetText())
+			end
+		end
+	end
+	return out
+end
 "#;
+
+// The tree's groups in order and the pages of each.
+fn tree(v: &Value) -> Vec<(String, Vec<String>)> {
+	v.as_array()
+		.unwrap()
+		.iter()
+		.map(|g| {
+			let pages = match &g[1] {
+				Value::Array(a) => a.iter().map(|p| p.as_str().unwrap().to_string()).collect(),
+				_ => vec![],
+			};
+			(g[0].as_str().unwrap().to_string(), pages)
+		})
+		.collect()
+}
+
+// Is `want` in `list` in this order (other entries between allowed)?
+fn in_order(list: &[String], want: &[&str]) -> bool {
+	let mut it = list.iter();
+	want.iter().all(|w| it.any(|x| x == w))
+}
 
 // A module page, registered the way Quests/Gear/Maps/QoL do.
 const FAKE_PAGE: &str = r#"
@@ -86,12 +131,12 @@ Polestar.RegisterOptions({ page = "Quests", icon = "icon-accept", order = 30, ta
 "#;
 
 #[test]
-fn pages_by_order_a_page_with_nothing_to_set_left_out_recorder_and_about_last_tabs_and_sections() {
+fn pages_by_order_in_the_tree_s_groups_a_page_with_nothing_to_set_left_out_recorder_and_about_last_tabs_and_sections() {
 	let out = run_opts(
 		r#"
 		Polestar.RegisterOptions({ page = "Gear", icon = "star", order = 40, section = "Weights", controls = {} })
 		UI.ShowOptions()
-		emit({ nav = navLabels(), pages = O.Pages(), title = PolestarOptions.Title:GetText(),
+		emit({ tree = navTree(), pages = O.Pages(), title = PolestarOptions.Title:GetText(),
 			tabs = (function() local t = {} for _, b in ipairs(PolestarOptions.tabButtons) do if b:IsShown() then t[#t + 1] = b.Label:GetText() end end return t end)(),
 			footer = footer() })"#,
 		"",
@@ -100,13 +145,21 @@ fn pages_by_order_a_page_with_nothing_to_set_left_out_recorder_and_about_last_ta
 	);
 	// Questing and Discovery fill from modules not loaded here; Gear registered no control: all left out of the
 	// list. Quality of Life shows Guide's trainer reminders, declared with the built-in pages. Community guides (a
-	// custom page) and Integrations (which says when it has nothing) are always there.
-	assert_eq!(out["nav"], json!(["Guide", "Appearance", "Map", "Quests", "Quality of Life", "Integrations", "Community guides", "Gamepad", "Guiding Stars", "Recorder", "About"]));
+	// custom page) and Integrations (which says when it has nothing) are always there. The Look group holds the
+	// pages the look modules register (20-29), Setup 63-79, About from 80.
+	let tree = tree(&out["tree"]);
+	let groups: Vec<&str> = tree.iter().map(|(g, _)| g.as_str()).collect();
+	assert_eq!(groups, ["Guiding", "Look", "Setup", "About"]);
+	assert_eq!(tree[0].1, ["Guide", "Map", "Quests", "Quality of Life"]);
+	assert!(!tree[1].1.is_empty() && !tree[1].1.iter().any(|p| ["Guide", "Map", "Integrations", "About"].contains(&p.as_str())), "Look: {:?}", tree[1].1);
+	assert!(in_order(&tree[2].1, &["Integrations", "Community guides", "Gamepad"]), "Setup: {:?}", tree[2].1);
+	assert_eq!(tree[3].1, ["Guiding Stars", "Recorder", "About"]);
 	assert_eq!(out["title"], "Guide");
 	assert_eq!(out["tabs"], json!(["Window", "Arrow & routes", "Automation"]));
 	let quests = out["pages"].as_array().unwrap().iter().find(|p| p["name"] == "Quests").cloned();
-	assert_eq!(quests, Some(json!({ "name": "Quests", "key": "quests", "builtin": false, "tabs": ["Map"] })));
-	assert_eq!(out["footer"], json!(["Reset page", "Reload UI", "Close"]));
+	assert_eq!(quests, Some(json!({ "name": "Quests", "key": "quests", "builtin": false, "tabs": ["Map"], "group": "guiding" })));
+	let footer: Vec<String> = out["footer"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
+	assert!(in_order(&footer, &["Reset page", "Reload UI", "Close"]), "footer: {footer:?}");
 }
 
 // Options > Integrations: a section per supported addon, there only while that addon is installed or loaded;
@@ -170,7 +223,8 @@ fn integrations_lists_questie_only_when_it_is_installed_or_loaded_else_says_none
 }
 
 // Players and macros still type the old page names (/polestar options navigation); each lands on the page and
-// tab that holds those settings now.
+// tab that holds those settings now. A page's own key wins: "guidewindow" is the Look page of that name now,
+// "appearance" (and "look") the Theme page.
 #[test]
 fn old_page_keys_open_the_page_and_tab_that_hold_their_settings_now() {
 	let out = run(r#"
@@ -178,23 +232,28 @@ fn old_page_keys_open_the_page_and_tab_that_hold_their_settings_now() {
 			UI.ShowOptions(key)
 			local tab
 			for name, v in pairs(O.page.views) do if v == O.view then tab = name end end
-			return PolestarOptions.Title:GetText() .. " > " .. tab
+			return O.page.key .. ": " .. PolestarOptions.Title:GetText() .. " > " .. tab
 		end
 		local out = {}
-		for _, k in ipairs({ "guidewindow", "navigation", "automation", "appearance", "map", "recorder", "nav", "behaviour", "General" }) do out[k] = at(k) end
+		for _, k in ipairs({ "guidewindow", "navigation", "automation", "appearance", "look", "map", "recorder", "nav", "behaviour", "General" }) do out[k] = at(k) end
 		emit(out)"#);
+	assert!(is_match(text(&out["appearance"]), r"^theme: Theme > "), "appearance: {}", out["appearance"]);
+	assert_eq!(out["look"], out["appearance"]);
+	assert!(is_match(text(&out["guidewindow"]), r"^guidewindow: Guide window > "), "guidewindow: {}", out["guidewindow"]);
+	let mut rest = out.clone();
+	for k in ["appearance", "look", "guidewindow"] {
+		rest.as_object_mut().unwrap().remove(k);
+	}
 	assert_eq!(
-		out,
+		rest,
 		json!({
-			"guidewindow": "Guide > Window",
-			"navigation": "Guide > Arrow & routes",
-			"automation": "Guide > Automation",
-			"appearance": "Appearance > Colour & type",
-			"map": "Map > Guide & quests",
-			"recorder": "Recorder > ",
-			"nav": "Guide > Arrow & routes",
-			"behaviour": "Guide > Automation",
-			"General": "Guide > Window",
+			"navigation": "guide: Guide > Arrow & routes",
+			"automation": "guide: Guide > Automation",
+			"map": "map: Map > Guide & quests",
+			"recorder": "recorder: Recorder > ",
+			"nav": "guide: Guide > Arrow & routes",
+			"behaviour": "guide: Guide > Automation",
+			"General": "guide: Guide > Window",
 		})
 	);
 	let mods = emitted(&RunAddon {
@@ -235,7 +294,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			"itIT",
 			&[
 				("Guide", "Leitfaden"),
-				("Appearance", "Darstellung"),
+				("Theme", "Thema"),
 				("Questing", "Questen"),
 				("Discovery", "Entdecken"),
 				("Quality of Life", "Komfort"),
@@ -264,17 +323,26 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 		..Default::default()
 	})
 	.remove(0);
+	let keys: Vec<String> = out["keys"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
+	assert!(
+		in_order(&keys, &["guide", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"]),
+		"keys: {keys:?}"
+	);
+	assert!(keys.contains(&"theme".to_string()) && !keys.contains(&"appearance".to_string()), "keys: {keys:?}");
+	assert!(is_match(text(&out["options appearance"]), r"^theme: Thema > "), "{}", out["options appearance"]);
+	let mut rest = out.clone();
+	for k in ["keys", "options appearance"] {
+		rest.as_object_mut().unwrap().remove(k);
+	}
 	assert_eq!(
-		out,
+		rest,
 		json!({
 			"options quests": "questing: Questen > Aufträge",
 			"options gear": "questing: Questen > Belohnungen & Ausrüstung",
 			"options lookup": "discovery: Entdecken > Nachschlagen",
-			"options appearance": "appearance: Darstellung > Colour & type",
 			"options qualityoflife": "qualityoflife: Komfort > Aufträge",
 			"options about": "about: Über > ",
 			"packs": "guidepacks: Community-Guides > ",
-			"keys": ["guide", "appearance", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"],
 		})
 	);
 }
@@ -357,33 +425,26 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		O.Select("guide", "Arrow & routes")
 		local nav = O.Controls("guide", "Arrow & routes")
 		Polestar.Set("nav.tomtom", false)
-		UI.ShowOptions("appearance")
-		local look = O.Controls("appearance")
-		look["ui.accent"]:Click("LeftButton")
+		stub.RunScript(O.Controls("guide", "Window")["ui.maxHeight"].Slider, "OnValueChanged", 0.79, true)
+		-- The accent lives on the Theme page now (UI/Looks/Theme.lua); its colour row is the window's.
+		local accent = ctl("ui.accent")
+		accent:Click("LeftButton")
 		local info = ColorPickerFrame.info
 		ColorPickerFrame.GetColorRGB = function() return 0.9, 0.3, 0.1 end
 		info.swatchFunc()
 		local picked = Polestar.Get("ui.accent")
 		info.cancelFunc()
-		O.Select("appearance", "Windows")
-		local win = O.Controls("appearance", "Windows")
-		win["ui.style"].Button:Click()
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Transparent" then r:Click() end end
-		stub.RunScript(win["ui.scale"].Slider, "OnValueChanged", 1.234, true)
-		O.Select("appearance", "Arrow")
-		emit({ compact = compact, followed = followed, notesOpen = notesOpen, style = Polestar.Get("ui.style"),
-			scale = Polestar.Get("ui.scale"), picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey"),
-			tomtomArrow = nav["nav.useTomTomArrow"]:IsEnabled(), arrowStyle = O.Controls("appearance", "Arrow")["nav.arrowStyle"].Button.Label:GetText() })"#);
+		emit({ compact = compact, followed = followed, notesOpen = notesOpen, height = Polestar.Get("ui.maxHeight"),
+			picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey"),
+			tomtomArrow = nav["nav.useTomTomArrow"]:IsEnabled() })"#);
 	assert_eq!(out["compact"], true);
 	assert_eq!(out["followed"], false);
 	assert_eq!(out["notesOpen"], false, "Expand step tips greys out with the tips off");
-	assert_eq!(out["style"], "transparent");
-	assert_eq!(out["scale"], 1.25, "slider values snap to the step");
+	assert_eq!(out["height"], 0.8, "slider values snap to the step");
 	assert_eq!(out["picked"], json!([0.9, 0.3, 0.1]));
 	assert_eq!(out["cancelled"], false, "cancel restores the previous value: no custom accent");
 	assert_eq!(out["skipGrey"], true);
 	assert_eq!(out["tomtomArrow"], false);
-	assert_eq!(out["arrowStyle"], "3D");
 }
 
 #[test]
@@ -404,7 +465,8 @@ fn the_lock_for_the_arrow_buttons_and_timers_sits_under_lock_window_off_by_defau
 		local default = Polestar.Get("ui.lockHud")
 		w:Click()
 		emit({ labels = labels, help = help, default = default, clicked = Polestar.Get("ui.lockHud"), label = w.Label:GetText() })"#);
-	assert_eq!(out["labels"], json!(["Lock window", "Lock arrow and buttons"]));
+	// Move frames and its grid (UI/Movers.lua) follow them in the section.
+	assert_eq!(out["labels"].as_array().unwrap()[..2], [json!("Lock window"), json!("Lock arrow and buttons")]);
 	assert_eq!(out["help"], "Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them.");
 	assert_eq!(out["default"], false);
 	assert_eq!(out["clicked"], true);
@@ -427,7 +489,7 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 		local help = { n = n, label = groups[1] and groups[1].controls[1].label }
 		local _, none = O.Search("zzzz")
 		local found = {}
-		for _, q in ipairs({ "border", "band", "shadow", "arrow colour", "arrival colour" }) do found[q] = select(2, O.Search(q)) end
+		for _, q in ipairs({ "compact", "tomtom", "trainer", "minimap button" }) do found[q] = select(2, O.Search(q)) end
 		box:SetText("")
 		stub.RunScript(box, "OnTextChanged", true)
 		emit({ arrow = arrow, help = help, none = none, found = found, back = PolestarOptions.Title:GetText() })"#,
@@ -435,11 +497,18 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 		"",
 		FAKE_PAGE,
 	);
-	assert_eq!(out["arrow"]["titles"], json!(["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes", "Appearance  \u{b7}  Arrow", "Map  \u{b7}  Guide & quests", "Gamepad  \u{b7}  Key bindings"]));
+	let titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
+	assert!(
+		in_order(&titles[..2], &["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes"]),
+		"the best groups first: {titles:?}"
+	);
+	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
+	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
 	assert_eq!(out["arrow"]["sub"], format!("{} settings match", out["arrow"]["count"]).as_str());
 	assert_eq!(out["arrow"]["tabRow"], false);
-	assert_eq!(out["arrow"]["footer"], json!(["Reload UI", "Close"]));
+	let footer: Vec<String> = out["arrow"]["footer"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
+	assert!(footer.contains(&"Reload UI".to_string()) && footer.contains(&"Close".to_string()) && !footer.contains(&"Reset page".to_string()), "{footer:?}");
 	assert_eq!(out["help"], json!({ "n": 1, "label": "Objective markers" }), "help text is searchable");
 	assert_eq!(out["none"], 0);
 	for (q, v) in out["found"].as_object().unwrap() {
@@ -467,7 +536,7 @@ fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_onl
 	assert_eq!(out["cancelled"], json!([false, true]), "cancel closes the dialog and resets nothing");
 	assert_eq!(out["closed"], true);
 	assert_eq!(out["compact"], false);
-	assert_eq!(out["arrow"], 1.5, "the arrow's look is on Appearance, not reset with Guide");
+	assert_eq!(out["arrow"], 1.5, "the arrow's look is on its own page, not reset with Guide");
 }
 
 #[test]
@@ -536,48 +605,23 @@ fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_sa
 	assert_eq!(out["arrow"], json!(["ResetArrowPosition"]));
 }
 
+// The Menu scale sits in the settings window's header: the value follows the drag, the window rescales when it
+// ends (it sits in what it scales), and the window's size stays within the screen at the new scale.
 #[test]
-fn appearance_every_look_control_is_searchable_menu_scale_applies_when_the_drag_ends() {
+fn the_header_s_menu_scale_applies_when_the_drag_ends_and_the_window_stays_on_the_screen() {
 	let out = run(r#"
-		UI.ShowOptions("appearance")
-		local look = O.Controls("appearance")
-		O.Select("appearance", "Windows")
-		local keys = {}
-		for k in pairs(O.Controls("appearance")) do keys[#keys + 1] = k end
-		table.sort(keys)
-		local s = O.Controls("appearance", "Windows")["ui.menuScale"]
-		stub.RunScript(s.Slider, "OnValueChanged", 1.2, true)
-		local during = { PolestarOptions:GetScale(), s.Value:GetText() }
-		stub.RunScript(s.Slider, "OnMouseUp")
+		UI.ShowOptions("guide")
+		local t = PolestarOptions.HeaderTools
+		stub.RunScript(t.Slider, "OnValueChanged", 1.2, true)
+		local during = { PolestarOptions:GetScale(), t.Value:GetText() }
+		stub.RunScript(t.Slider, "OnMouseUp", "LeftButton")
 		local after = PolestarOptions:GetScale()
-		O.Select("appearance", "Colour & type")
-		Polestar.Set("ui.brightness", 0.3)
-		local bright = look["ui.brightness"].Value:GetText()
-		look["ui.brightness"]:Click("RightButton")
-		look["ui.scheme"].Button:Click()
-		local choices = {}
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Graphite" then r:Click() end end
-		local found = {}
-		for _, q in ipairs({ "colour scheme", "accent", "background colour", "brightness", "background opacity", "font", "menu scale" }) do
-			local _, n = O.Search(q)
-			found[q] = n
-		end
-		emit({ keys = keys, during = during, after = after, stored = Polestar.Get("ui.menuScale"), bright = bright,
-			reset = Polestar.Get("ui.brightness"), choices = choices, scheme = Polestar.Get("ui.scheme"),
-			bgNote = look["ui.bgColor"].Note:GetText(), found = found })"#);
-	assert!(!includes(&out["keys"], "ui.matchAccent") && !includes(&out["keys"], "ui.matchFont"), "without EllesmereUI its follow toggles are left out");
+		emit({ during = during, after = after, stored = Polestar.Get("ui.menuScale"),
+			size = { PolestarOptions:GetWidth() * after, PolestarOptions:GetHeight() * after }, screen = { UIParent:GetWidth(), UIParent:GetHeight() } })"#);
 	assert_eq!(out["during"], json!([1, "120%"]));
 	assert_eq!(out["after"], 1.2);
 	assert_eq!(out["stored"], 1.2);
-	assert_eq!(out["bright"], "+30%");
-	assert_eq!(out["reset"], 0, "right-click resets");
-	assert_eq!(out["choices"], json!(["Dusk", "Night", "Graphite"]));
-	assert_eq!(out["scheme"], "graphite");
-	assert_eq!(out["bgNote"], "Graphite", "the swatch names the scheme its colour comes from");
-	for (q, v) in out["found"].as_object().unwrap() {
-		assert!(n(v) >= 1.0, "search finds \"{q}\"");
-	}
+	assert!(n(&out["size"][0]) <= n(&out["screen"][0]) && n(&out["size"][1]) <= n(&out["screen"][1]), "on screen: {} in {}", out["size"], out["screen"]);
 }
 
 // The sidebar's page list must never run into the version and stage chip at its foot, however many pages
@@ -661,9 +705,9 @@ fn window_border_band_and_shadow_repaint_every_window_live_right_click_restores_
 	let out = run(r#"
 		local T = Polestar.Theme
 		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
-		UI.ShowOptions("appearance")
-		O.Select("appearance", "Windows")
-		local c = O.Controls("appearance", "Windows")
+		UI.ShowOptions("guide")
+		-- The frame's settings are on the Theme page (UI/Looks/Theme.lua): each row where it lives.
+		local c = setmetatable({}, { __index = function(_, k) return (ctl(k)) end })
 		local GF = PolestarGuideFrame
 		local wins = { options = PolestarOptions, guide = GF }
 		local bands = { options = PolestarOptions.Band, guide = Polestar.UI.GuideFrame.parts.band }
@@ -836,7 +880,7 @@ fn the_settings_carry_the_hub_rail_a_section_goes_back_to_the_hub_in_the_same_pl
 		local opened = { shown = settings:IsShown(), hubHidden = not hub:IsShown(), rail = rail(settings), at = place(settings) }
 		settings.x, settings.y = 300, 50
 		railButton(settings, "Guides"):Click()
-		emit({ opened = opened, back = { shown = hub:IsShown(), settingsHidden = not settings:IsShown(), at = place(hub),
+		emit({ opened = opened, height = settings:GetHeight(), back = { shown = hub:IsShown(), settingsHidden = not settings:IsShown(), at = place(hub),
 			section = UI.Picker.ActiveSection() and UI.Picker.ActiveSection().key or "Guides" } })"#);
 	assert_eq!(out["opened"]["shown"], true);
 	assert_eq!(out["opened"]["hubHidden"], true);
@@ -845,7 +889,8 @@ fn the_settings_carry_the_hub_rail_a_section_goes_back_to_the_hub_in_the_same_pl
 	assert_eq!(out["opened"]["at"], json!(["TOPLEFT", true, "BOTTOMLEFT", 200, 100 + 680]));
 	assert_eq!(out["back"]["shown"], true);
 	assert_eq!(out["back"]["settingsHidden"], true);
-	assert_eq!(out["back"]["at"], json!(["TOPLEFT", true, "BOTTOMLEFT", 300, 50 + 680]));
+	// The settings window is taller than the hub: their top-left corners meet.
+	assert_eq!(out["back"]["at"], json!(["TOPLEFT", true, "BOTTOMLEFT", 300, 50 + n(&out["height"]) as i64]));
 	assert_eq!(out["back"]["section"], "Guides");
 }
 
@@ -855,7 +900,7 @@ fn the_settings_carry_the_hub_rail_a_section_goes_back_to_the_hub_in_the_same_pl
 fn a_shell_subtitle_wraps_to_two_lines_within_the_main_column_and_cuts_the_rest() {
 	let out = run(r#"
 		local W = Polestar.Widgets
-		UI.ShowOptions("appearance")
+		UI.ShowOptions("guide")
 		local f = PolestarOptions
 		local s = f.Subtitle
 		local page = { text = s:GetText(), width = s:GetWidth(), lines = s:GetNumLines(), wrap = s:GetWordWrap(), height = s:GetHeight() }
@@ -864,7 +909,7 @@ fn a_shell_subtitle_wraps_to_two_lines_within_the_main_column_and_cuts_the_rest(
 		local cut = { text = s:GetText(), lines = s:GetNumLines() }
 		UI.ShowPicker()
 		emit({ page = page, cut = cut, bodyWidth = f.BodyWidth, hub = { width = PolestarPicker.Subtitle:GetWidth(), bodyWidth = PolestarPicker.BodyWidth } })"#);
-	assert!(is_match(text(&out["page"]["text"]), r"^Colours, type, window frames and the arrow\."));
+	assert!(is_match(text(&out["page"]["text"]), r"^The guide window, the arrow and its routes"));
 	assert_eq!(out["page"]["wrap"], true);
 	assert_eq!(out["page"]["width"], out["bodyWidth"]);
 	assert!(n(&out["page"]["lines"]) <= 2.0, "{} lines", out["page"]["lines"]);
@@ -1270,4 +1315,307 @@ fn the_version_line_and_its_stage_chip_end_before_the_discord_mark_in_both_windo
 		let end = n(&f["right"]) + 8.0 + n(&f["chip"]);
 		assert!(end <= n(&f["markLeft"]), "{key}: the line and its chip end at {end}, the Discord mark starts at {}", f["markLeft"]);
 	}
+}
+
+// A Look page the way the look modules register theirs: a preview per tab, sections of new settings.
+const LOOK_PAGE: &str = r#"
+Polestar.RegisterDefaults("fake", { pinSize = 1, numbers = true, fade = true, glow = true, goalSize = 1, goalAlpha = 1, goalGlow = true, ring = true,
+	style = "a", face = "x", tint = false, glass = false, filler = true })
+local built, laid = 0, nil
+uifake = { built = function() return built end, laid = function() return laid end, drawn = {} }
+local function preview(height)
+	return function(host)
+		built = built + 1
+		local f = CreateFrame("Frame", nil, host)
+		f.caption = "Elwynn Forest, zoomed out"
+		function f:Layout(width) laid = width return height end
+		return f
+	end
+end
+local function pct(v) return math.floor(v * 100 + 0.5) .. "%" end
+local filler = {}
+-- The first across both columns, so the sections after it start under it, far down the page.
+for i = 1, 14 do filler[i] = { kind = "toggle", key = "fake.filler", label = "Filler " .. i, wide = i == 1 or nil } end
+Polestar.RegisterOptions({ page = "Fake pins", key = "fakepins", icon = "icon-goto", order = 23, tab = "World map", section = "Before",
+	preview = preview(200), controls = filler })
+Polestar.RegisterOptions({ page = "Fake pins", tab = "World map", section = "Numbered step pins", controls = {
+	{ kind = "slider", key = "fake.pinSize", label = "Numbered pin size", min = 0.5, max = 2, step = 0.05, format = pct, new = "0.3.7",
+		help = "How big the step pins are." },
+	{ kind = "toggle", key = "fake.numbers", label = "Numbers", new = "0.3.7" },
+} })
+Polestar.RegisterOptions({ page = "Fake pins", tab = "World map", section = "Goal pins", controls = {
+	{ kind = "slider", key = "fake.goalSize", label = "Goal size", min = 0.5, max = 2, step = 0.05, format = pct },
+	{ kind = "slider", key = "fake.goalAlpha", label = "Goal opacity", min = 0, max = 1, step = 0.05, format = pct },
+	{ kind = "toggle", key = "fake.goalGlow", label = "Glow on the goal" },
+	{ kind = "toggle", key = "fake.ring", label = "Ring" },
+	{ kind = "toggle", key = "fake.fade", label = "Fade" },
+} })
+Polestar.RegisterOptions({ page = "Fake pins", tab = "Minimap", section = "Kinds", preview = preview(2000), controls = {
+	{ kind = "cards", key = "fake.style", label = "Style", choices = {
+		{ value = "a", label = "A", draw = function(art, v) table.insert(uifake.drawn, v) end },
+		{ value = "b", label = "B", draw = function(art, v) table.insert(uifake.drawn, v) end },
+		{ value = "c", label = "C", disabled = true, note = "Not loaded", draw = function(art, v) table.insert(uifake.drawn, v) end },
+	} },
+	{ kind = "font", key = "fake.face", label = "Face", choices = { { value = "x", label = "Xenia", font = "Fonts\\XENIA.TTF" }, { value = "y", label = "Yoda" } } },
+	{ kind = "color", key = "fake.tint", label = "Tint" },
+	{ kind = "color", key = "fake.glass", label = "Glass", alpha = true },
+} })
+"#;
+
+// The window opens at EllesmereUI's options' size (1300 x 946 screen pixels at the default Menu scale: the
+// stub's screen is 1080 pixels in 1080 units), the grip's drag is kept in ui.optionsSize and the body takes the
+// new width; a saved size never goes past the screen nor under 860 x 560; right-click on the grip goes back.
+#[test]
+fn the_window_opens_at_ellesmereui_s_size_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
+	let out = run(r#"
+		local before = PolestarOptions == nil
+		UI.ShowOptions("guide")
+		local f = PolestarOptions
+		local default = { f:GetWidth(), f:GetHeight(), f.Grip ~= nil, f:IsResizable() }
+		stub.RunScript(f.Grip, "OnMouseDown", "LeftButton")
+		local sizing = f.sizing
+		f:SetSize(1000, 700)
+		stub.RunScript(f.Grip, "OnMouseUp", "LeftButton")
+		local saved = Polestar.Get("ui.optionsSize")
+		local body = { f.BodyWidth, f:GetWidth() - f.psRail - f.psSidebar - 2 - 2 * Polestar.Widgets.SHELL.pad, f.psViewH }
+		local row = O.Controls("guide", "Window")["ui.shown"]
+		local rowW = row:GetWidth()
+		f:Hide()
+		Polestar.Set("ui.optionsSize", { 5000, 5000 })
+		UI.ShowOptions("guide")
+		local huge = { f:GetWidth(), f:GetHeight() }
+		Polestar.Set("ui.optionsSize", { 100, 100 })
+		local tiny = { f:GetWidth(), f:GetHeight() }
+		f.Grip:Click("RightButton")
+		emit({ before = before, default = default, sizing = sizing, saved = saved, body = body, rowW = rowW, huge = huge, tiny = tiny,
+			bounds = f.resizeBounds, reset = { f:GetWidth(), f:GetHeight(), Polestar.Get("ui.optionsSize") } })"#);
+	assert_eq!(out["before"], true, "nothing is built before the window first opens");
+	assert_eq!(out["default"], json!([1300, 946, true, true]));
+	assert_eq!(out["sizing"], true, "the grip sizes the window");
+	assert_eq!(out["saved"], json!([1000, 700]));
+	assert_eq!(out["body"][0], out["body"][1], "the body takes the new width");
+	assert!(n(&out["rowW"]) < 1000.0 - 300.0, "the rows laid out anew at the new width: {}", out["rowW"]);
+	assert_eq!(out["huge"], json!([1920 - 32, 1080 - 32]), "never past the screen");
+	assert_eq!(out["tiny"], json!([860, 560]), "never under its least");
+	assert_eq!(out["bounds"], json!([860, 560, 1920 - 32, 1080 - 32]));
+	assert_eq!(out["reset"], json!([1300, 946, false]), "right-click on the grip: the default, nothing stored");
+}
+
+// A section's Reset shows while one of its settings is off its default and puts them back; more than three ask
+// first in the shared dialog. The section beside it keeps its settings.
+#[test]
+fn a_section_s_reset_shows_while_a_setting_is_off_its_default_and_restores_the_section_asking_past_three() {
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("fakepins")
+		local function header(name)
+			for _, h in ipairs(O.view.headers) do if h:IsShown() and h.Text:GetText() == name then return h end end
+		end
+		local pins, goal = header("Numbered step pins"), header("Goal pins")
+		local before = { pins.Reset:IsShown(), goal.Reset:IsShown() }
+		Polestar.Set("fake.pinSize", 1.5)
+		local shown = { pins.Reset:IsShown(), goal.Reset:IsShown() }
+		Polestar.Set("fake.goalSize", 1.5); Polestar.Set("fake.goalAlpha", 0.5); Polestar.Set("fake.ring", false); Polestar.Set("fake.fade", false)
+		pins.Reset:Click()
+		local small = { asked = Polestar.Widgets.ModalShown(), pin = Polestar.Get("fake.pinSize"), goal = Polestar.Get("fake.goalSize"), shown = pins.Reset:IsShown() }
+		goal.Reset:Click()
+		local asked = { Polestar.Widgets.ModalShown(), Polestar.Get("fake.goalSize") }
+		PolestarModal.Box.Action:Click()
+		emit({ before = before, shown = shown, small = small, asked = asked,
+			after = { Polestar.Get("fake.goalSize"), Polestar.Get("fake.goalAlpha"), Polestar.Get("fake.ring"), Polestar.Get("fake.fade") },
+			stored = PolestarDB.settings.fake == nil or next(PolestarDB.settings.fake) == nil, goalShown = goal.Reset:IsShown() })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["before"], json!([false, false]), "nothing to reset");
+	assert_eq!(out["shown"], json!([true, false]), "only the section with a changed setting");
+	assert_eq!(out["small"], json!({ "asked": false, "pin": 1, "goal": 1.5, "shown": false }), "one setting: at once, that section only");
+	assert_eq!(out["asked"], json!([true, 1.5]), "four settings: it asks first");
+	assert_eq!(out["after"], json!([1, 1, true, true]));
+	assert_eq!(out["stored"], true, "defaults are not stored");
+	assert_eq!(out["goalShown"], false);
+}
+
+// Players type what they want, not the setting's name: "bigger pins" finds the numbered pin size (bigger: size;
+// pins: its label), and a result's chevron opens its page and tab, scrolls the row into view and lights it a
+// moment, then nothing runs.
+#[test]
+fn search_finds_bigger_pins_by_synonym_and_a_result_jumps_to_its_page_and_tab_scrolls_to_the_row_and_lights_it() {
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("guide")
+		local box = PolestarOptions.Search
+		box:SetText("bigger pins")
+		stub.RunScript(box, "OnTextChanged", true)
+		local first = O.results.groups[1] and O.results.groups[1].controls[1]
+		local jump
+		for _, v in ipairs({ PolestarOptions.Body:GetChildren() }) do
+			if v:IsShown() and v.cache then
+				for c, w in pairs(v.cache) do if c.key == "fake.pinSize" and w:IsShown() then jump = rawget(w, "psJump") end end
+			end
+		end
+		local _, seeThrough = O.Search("see-through goal")
+		jump:Click()
+		local row = O.Controls("fakepins", "World map")["fake.pinSize"]
+		local tab
+		for name, v in pairs(O.page.views) do if v == O.view then tab = name end end
+		local flash = rawget(row, "psFlash")
+		local lit = flash and flash:IsShown()
+		stub.advance(3)
+		emit({ first = first and first.key, count = O.results.count, page = O.page.key, tab = tab, query = box:GetText(),
+			scroll = PolestarOptions.Scroll:GetVerticalScroll(), range = PolestarOptions.Scroll.psContent - PolestarOptions.Scroll.psView,
+			top = row.psTop, lit = lit, after = flash and flash:IsShown(),
+			seeThrough = seeThrough, anims = Polestar.Anim.Active() })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["first"], "fake.pinSize", "the best match first");
+	assert_eq!(out["page"], "fakepins");
+	assert_eq!(out["tab"], "World map");
+	assert_eq!(out["query"], "", "the search is left");
+	assert!(n(&out["top"]) > 400.0, "the row is far down the page: {}", out["top"]);
+	assert!(n(&out["range"]) > 0.0);
+	assert_eq!(n(&out["scroll"]), (n(&out["top"]) - 40.0).min(n(&out["range"])), "scrolled to 40px over the row, as far as it goes");
+	assert_eq!(out["lit"], true, "the row lights");
+	assert_eq!(out["after"], false, "and goes out");
+	assert_eq!(out["anims"], 0, "nothing runs once it is out");
+	assert!(n(&out["seeThrough"]) >= 1.0, "see-through finds an opacity");
+}
+
+// A setting new in this release has a New badge on its row, and its page's sidebar row counts the new ones
+// until the page is opened; the rows keep their badges that session and lose them in the next (the seen state,
+// PolestarDB.optionsSeen, is the account's, not a setting); a later release's settings count again.
+#[test]
+fn new_settings_carry_a_badge_and_their_page_a_count_until_opened_gone_the_next_session_back_for_a_newer_release() {
+	let script = r#"
+		UI.ShowOptions("guide")
+		local function navRow(label)
+			for _, b in ipairs(PolestarOptions.navButtons) do if b:IsShown() and b.Label:GetText() == label then return b end end
+		end
+		local function count() local b = navRow("Fake pins") return b.New:IsShown() and b.New.Text:GetText() or false end
+		local before = count()
+		O.Select("fakepins")
+		local c = O.Controls("fakepins", "World map")
+		local function badge(k) local b = rawget(c[k], "Badge") return b ~= nil and b:IsShown() and b.Text:GetText() or false end
+		emit({ before = before, opened = count(), pin = badge("fake.pinSize"), numbers = badge("fake.numbers"), old = badge("fake.goalSize"),
+			seen = PolestarDB.optionsSeen and PolestarDB.optionsSeen.fakepins or false, settings = PolestarDB.settings.optionsSeen == nil })"#;
+	let first = run_opts(script, "", "", LOOK_PAGE);
+	assert_eq!(
+		first,
+		json!({ "before": "2", "opened": false, "pin": "New", "numbers": "New", "old": false, "seen": "0.3.7", "settings": true })
+	);
+	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.7\" }}"));
+	assert_eq!(next["before"], false);
+	assert_eq!(next["pin"], false, "seen in an earlier session: no badge");
+	let later = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.6\" }}"));
+	assert_eq!(later["before"], "2", "seen up to 0.3.6: the 0.3.7 settings are new");
+	assert_eq!(later["pin"], "New");
+}
+
+// A tab's preview is built when the tab first shows, laid out across the main column and pinned between the tab
+// band and the rows, which scroll under it; the slot's chrome says what it shows. Another tab's taller preview
+// is capped; a tab without one gives the room back; nothing is built twice.
+#[test]
+fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_and_given_back() {
+	let out = run_opts(
+		r#"
+		local before = uifake.built()
+		UI.ShowOptions("fakepins")
+		local f = PolestarOptions
+		local slot = f.PreviewSlot
+		local _, _, _, _, scrollY = f.Scroll:GetPoint(1)
+		local host = O.view.PreviewHost
+		local first = { built = uifake.built(), laid = uifake.laid(), main = f.psMainW, slot = slot:IsShown(), h = f.psPreviewH,
+			scrollY = scrollY, viewH = f.psViewH, room = f:GetHeight() - 112 - 40 - 56, caption = host.Caption:GetText(), label = host.Label:GetText() }
+		O.Select("fakepins", "Minimap")
+		local capped = { h = f.psPreviewH, room = f:GetHeight() - 112 - 40 - 56 }
+		O.Select("guide")
+		local gone = { h = f.psPreviewH, slot = slot:IsShown() }
+		O.Select("fakepins", "World map")
+		emit({ before = before, first = first, capped = capped, gone = gone, built = uifake.built() })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["before"], 0, "nothing built before the window opens");
+	let first = &out["first"];
+	assert_eq!(first["built"], 1);
+	assert_eq!(first["laid"], first["main"], "laid out across the main column");
+	assert_eq!(first["slot"], true);
+	assert_eq!(first["h"], 200);
+	assert_eq!(first["scrollY"], -204, "the rows start under it");
+	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 200.0, "and scroll in the room left");
+	assert_eq!(first["caption"], "Elwynn Forest, zoomed out");
+	assert_eq!(first["label"], "Preview");
+	assert_eq!(n(&out["capped"]["h"]), (n(&out["capped"]["room"]) * 0.45).floor(), "a taller preview is capped");
+	assert_eq!(out["gone"], json!({ "h": 0, "slot": false }), "a page without one gives the room back");
+	assert_eq!(out["built"], 2, "each tab's preview built once");
+}
+
+// The new control kinds: picture cards (each drawn once; a click picks, a card that cannot be picked does
+// nothing, right-click restores), a font list drawn in its faces, colour rows that take a typed hex and opacity
+// and keep the colours picked last, and a slider's typed value (in its own terms, clamped).
+#[test]
+fn cards_font_faces_typed_colours_and_typed_slider_values() {
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("fakepins")
+		O.Select("fakepins", "Minimap")
+		local c = O.Controls("fakepins", "Minimap")
+		local cards = c["fake.style"]
+		local by = cards.psCardBy
+		by.b:Click("LeftButton")
+		local picked = { Polestar.Get("fake.style"), by.b.Check:IsShown(), by.a.Check:IsShown() }
+		by.c:Click("LeftButton")
+		local off = Polestar.Get("fake.style")
+		O.Select("fakepins", "World map"); O.Select("fakepins", "Minimap")
+		by.b:Click("RightButton")
+		local drawn = table.concat(uifake.drawn, ",")
+		local face = c["fake.face"]
+		local boxFace = { face.Button.Face:IsShown(), (face.Button.Face:GetFont()) }
+		face.Button:Click()
+		local rows = {}
+		for _, r in ipairs(PolestarMenu.rows) do
+			if r:IsShown() then
+				local f = rawget(r, "Face")
+				rows[#rows + 1] = { r.Text:GetText(), f ~= nil and f:IsShown() and (f:GetFont()) or false }
+			end
+		end
+		Polestar.Widgets.HideMenu()
+		local tint = c["fake.tint"]
+		tint.Hex:SetText(string.char(35) .. "336699")
+		stub.RunScript(tint.Hex, "OnEnterPressed")
+		local glass = c["fake.glass"]
+		glass.Alpha:SetText("40%")
+		stub.RunScript(glass.Alpha, "OnEnterPressed")
+		local size = O.Controls("fakepins", "World map")["fake.pinSize"]
+		size.ValueHit:Click()
+		local entry = size.Entry:IsShown()
+		size.Entry:SetText("150")
+		stub.RunScript(size.Entry, "OnEnterPressed")
+		local typed = Polestar.Get("fake.pinSize")
+		size.ValueHit:Click(); size.Entry:SetText("1000%"); stub.RunScript(size.Entry, "OnEnterPressed")
+		emit({ picked = picked, off = off, reset = Polestar.Get("fake.style"), drawn = drawn, boxFace = boxFace, rows = rows,
+			tint = Polestar.Get("fake.tint"), hex = tint.Hex:GetText(), recent = PolestarDB.recentColors[1],
+			glass = Polestar.Get("fake.glass"), alpha = glass.Alpha:GetText(), entry = entry, typed = typed, clamped = Polestar.Get("fake.pinSize") })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["picked"], json!(["b", true, false]));
+	assert_eq!(out["off"], "b", "a card that cannot be picked does nothing");
+	assert_eq!(out["reset"], "a", "right-click: the default");
+	assert_eq!(out["drawn"], "a,b,c", "each card's picture drawn once");
+	assert_eq!(out["boxFace"], json!([true, "Fonts\\XENIA.TTF"]), "the box shows the choice in its face");
+	assert_eq!(out["rows"], json!([["Xenia", "Fonts\\XENIA.TTF"], ["Yoda", false]]), "each name in its face, or the face in use");
+	assert_eq!(round(&out["tint"]), json!([0.2, 0.4, 0.6]));
+	assert_eq!(out["hex"], "336699");
+	assert_eq!(round(&out["recent"]), json!([0.2, 0.4, 0.6]), "a typed colour goes to the recent ones");
+	assert_eq!(round(&out["glass"]), json!([1, 1, 1, 0.4]), "an opacity typed in percent");
+	assert_eq!(out["alpha"], "40%");
+	assert_eq!(out["entry"], true);
+	assert_eq!(out["typed"], 1.5, "150 on a slider showing percent is 1.5");
+	assert_eq!(out["clamped"], 2, "clamped to the slider's range");
 }

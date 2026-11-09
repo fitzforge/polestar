@@ -58,10 +58,17 @@
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
 --
 -- The buttons hang off one holder: the bag and hearth above the item, target and rare
--- below. A left-drag on any of them moves the set (out of combat; with
+-- below (or in a row: buttons.layout). A left-drag on any of them moves the set (out of combat; with
 -- ui.lockHud on, only a Shift-drag); the position is per character, so the
 -- Hearthstone button, shown only for hearth goals, appears in its slot of the
 -- moved set.
+--
+-- Their look is the Buttons page's (QoL/ButtonsOptions.lua, the buttons.*
+-- settings): sizes, spacing and layout move protected frames, so they wait
+-- out combat with the rest (place()); backing, border, text, glow and
+-- opacity are plain regions and SetAlpha, and change at once. The same face
+-- code draws the settings preview's plain buttons (Buttons.NewFace), never a
+-- secure one.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -75,21 +82,98 @@ local SIZE = 36
 local RANGE_INTERVAL = 0.2
 local MAX_NAMES = 5
 local MACRO_LIMIT = 255
--- The target button's small icons for the names after the next one: size,
--- gap, how far the name moves up for them, and how many faces it keeps.
+-- The target button's small icons for the names after the next one: size
+-- (buttons.miniSize's default; the name moves up half of it for them), gap,
+-- and how many faces it keeps.
 local MINI = 14
 local MINI_GAP = 3
-local MINI_LIFT = 7
 local PORTRAIT_CAP = 16
 
 local Buttons = {}
 QoL.Buttons = Buttons
 
 -- The holder's spot (it sits where the quest item button does) and each
--- button's slot above (+) or below (-) it, GAP button units apart.
+-- kind's slot above (+) or below (-) it in a column; in a row, left (+) or
+-- right (-) of it (Buttons.Offsets).
 local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
-local GAP = 44
-local SLOT = { PolestarBagButton = 2, PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local SLOT = { bag = 2, hearth = 1, item = 0, target = -1, rare = -2 }
+
+-- How the buttons look (the Buttons page, QoL/ButtonsOptions.lua). Sizes are
+-- pixels before qol.buttonScale; colours false for the theme's, else
+-- { r, g, b[, a] }.
+ns.RegisterDefaults("buttons", {
+	itemSize = SIZE, hearthSize = SIZE, targetSize = SIZE, rareSize = SIZE, bagSize = SIZE,
+	spacing = 8,           -- between two buttons of the set
+	layout = "column",     -- column (Hearthstone above, target below) | row (left to right) | rowReverse
+	padding = 2,           -- the icon's inset from the button's edge
+	backing = "panel",     -- panel | dark | none
+	backingColor = false,
+	border = true,
+	borderColor = false,
+	borderSize = 1,
+	hoverColor = false,    -- the hairline under the mouse; false: the accent
+	labelScale = 1,        -- the names' text size against the theme's
+	labelOutline = "auto", -- auto (the target's name outlined on its plate) | theme | outline | thick
+	miniSize = MINI,       -- the target button's small icons and badge
+	hotkey = true,         -- the key binding in the corner
+	hotkeyScale = 1,       -- ... its text size against the theme's
+	count = true,          -- the item count
+	cooldownText = true,   -- the cooldown's countdown numbers
+	idleAlpha = 1,         -- opacity out of combat (full under the mouse)
+	alpha = 1,             -- opacity in combat
+	glow = false,          -- a glow round a quest item or Hearthstone ready to use, and round the rare button
+	glowColor = false,     -- false: the accent
+})
+
+local SIZE_KEY = { item = "buttons.itemSize", hearth = "buttons.hearthSize", target = "buttons.targetSize", rare = "buttons.rareSize", bag = "buttons.bagSize" }
+
+-- A number setting held to lo..hi; def when it is none.
+local function num(path, lo, hi, def)
+	local v = tonumber(ns.Get(path))
+	if not v then return def end
+	return v < lo and lo or v > hi and hi or v
+end
+
+local function isColor(c)
+	return type(c) == "table" and type(c[1]) == "number" and type(c[2]) == "number" and type(c[3]) == "number"
+end
+
+-- A kind's button size in pixels, before qol.buttonScale.
+function Buttons.Size(kind)
+	return num(SIZE_KEY[kind] or SIZE_KEY.item, 16, 96, SIZE)
+end
+
+function Buttons.Column()
+	local l = ns.Get("buttons.layout")
+	return l ~= "row" and l ~= "rowReverse"
+end
+
+-- Each kind's centre from the quest item button's, in button pixels before
+-- qol.buttonScale: the slots walk out from it, each its own size plus the
+-- spacing from the last. Column: bag and Hearthstone up, target and rare
+-- down; row: bag and Hearthstone left, target and rare right; rowReverse
+-- the other way round. -> { kind = { x, y } } (reused)
+local offsets = { bag = {}, hearth = {}, item = { 0, 0 }, target = {}, rare = {} }
+function Buttons.Offsets()
+	local gap = num("buttons.spacing", 0, 40, 8)
+	local layout = ns.Get("buttons.layout")
+	local sx, sy = 0, 1
+	if layout == "row" then sx, sy = -1, 0 elseif layout == "rowReverse" then sx, sy = 1, 0 end
+	local function walk(kinds, sign)
+		local d, prev = 0, Buttons.Size("item")
+		for i = 1, #kinds do
+			local s = Buttons.Size(kinds[i])
+			d = d + prev / 2 + gap + s / 2
+			prev = s
+			local o = offsets[kinds[i]]
+			-- 0 on the other axis, never -0 (it would compare and print apart).
+			o[1], o[2] = sx == 0 and 0 or sign * sx * d, sy == 0 and 0 or sign * sy * d
+		end
+	end
+	walk({ "hearth", "bag" }, 1)
+	walk({ "target", "rare" }, -1)
+	return offsets
+end
 
 local function Theme() return ns.Theme end
 
@@ -115,44 +199,75 @@ local function font(fs, role)
 	if T and T.Font then T.Font(fs, role) end
 end
 
+-- The hairline: buttons.hoverColor (else the accent) under the mouse; else
+-- buttons.borderColor, or the theme's, or none with buttons.border off.
+-- buttons.borderSize thick.
 local function paintBorder(b, hover)
 	local T = Theme()
 	if not (T and T.Border) then return end
+	local size = num("buttons.borderSize", 1, 4, 1)
 	if hover then
-		local r, g, bl = T.Accent()
-		T.Border(b, r, g, bl, 1)
+		local c = ns.Get("buttons.hoverColor")
+		if isColor(c) then
+			T.Border(b, c[1], c[2], c[3], c[4] or 1, nil, size)
+		else
+			local r, g, bl = T.Accent()
+			T.Border(b, r, g, bl, 1, nil, size)
+		end
+		return
+	end
+	local own = ns.Get("buttons.borderColor")
+	if not ns.Get("buttons.border") then
+		T.Border(b, 0, 0, 0, 0, nil, size)
+	elseif isColor(own) then
+		T.Border(b, own[1], own[2], own[3], own[4] or 1, nil, size)
 	else
 		local r, g, bl, a = T.Color("border")
-		T.Border(b, r, g, bl, (a or 0.08) * 2.5)
+		T.Border(b, r, g, bl, (a or 0.08) * 2.5, nil, size)
 	end
 end
 
 ---------------------------------------------------------------------------
--- Position and scale (secure)
+-- Position, size and scale (secure)
 ---------------------------------------------------------------------------
 
 local holder, set
+local placeLabel
 
 local function savedPos()
 	local p = QoL.State().buttonPos
 	return type(p) == "table" and p or DEFAULT_POS
 end
 
--- Holder position and scale, and the buttons in their slots. The holder takes
--- the button scale too, so the saved offsets and the slot spacing scale with
--- the buttons.
+-- Holder position and scale, and the buttons at their sizes in their slots
+-- (Buttons.Offsets). The holder takes the button scale too, so the saved
+-- offsets and the slot spacing scale with the buttons; its clamp covers
+-- every slot.
 local function place()
 	QoL.Secure("place", function()
 		local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
+		local at, item = Buttons.Offsets(), Buttons.Size("item")
+		local half = item / 2
+		local left, right, top, bottom = 0, 0, 0, 0
+		for kind, o in pairs(at) do
+			local h = Buttons.Size(kind) / 2
+			left, right = math.min(left, o[1] - h + half), math.max(right, o[1] + h - half)
+			top, bottom = math.max(top, o[2] + h - half), math.min(bottom, o[2] - h + half)
+		end
 		holder:SetScale(s)
+		holder:SetSize(item, item)
+		holder:SetClampRectInsets(left, right, top, bottom)
 		holder:ClearAllPoints()
 		holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
 		for i = 1, #set do
 			local b = set[i]
+			local o, size = at[b.psKind], Buttons.Size(b.psKind)
 			b:SetScale(s)
+			b:SetSize(size, size)
 			b:ClearAllPoints()
-			b:SetPoint("CENTER", holder, "CENTER", 0, SLOT[b:GetName()] * GAP)
+			b:SetPoint("CENTER", holder, "CENTER", o[1], o[2])
 		end
+		for i = 1, #set do placeLabel(set[i]) end
 	end)
 end
 
@@ -259,20 +374,23 @@ local LABEL_SIDE = {
 
 -- Above sits over the shown buttons stacked on top of b (the quest item
 -- button over the target button, the Hearthstone over that), not in the 8 px
--- gap between them, where it would run into the button above.
-local function placeLabel(b)
+-- gap between them, where it would run into the button above. The stack is
+-- b.psStack: the live set, or the settings preview's own buttons; in a row
+-- nothing stands over b.
+function placeLabel(b)
 	local a = LABEL_SIDE[ns.Get("qol.buttonTextSide")] or LABEL_SIDE.right
+	local column = Buttons.Column()
 	-- The rare button sits under the target button, whose name has the space
 	-- above: a rare's name goes below instead.
-	if a == LABEL_SIDE.above and b:GetName() == "PolestarRareButton" then a = LABEL_SIDE.below end
-	local to = b
-	if a == LABEL_SIDE.above and set then
-		local slot, moved = SLOT[b:GetName()], true
+	if a == LABEL_SIDE.above and b.psKind == "rare" and column then a = LABEL_SIDE.below end
+	local to, stack = b, b.psStack
+	if a == LABEL_SIDE.above and stack and column then
+		local slot, moved = SLOT[b.psKind], true
 		while moved do
 			moved = false
-			for i = 1, #set do
-				local o = set[i]
-				if SLOT[o:GetName()] == slot + 1 and o:IsShown() then
+			for i = 1, #stack do
+				local o = stack[i]
+				if SLOT[o.psKind] == slot + 1 and o:IsShown() then
 					to, slot, moved = o, slot + 1, true
 					break
 				end
@@ -282,11 +400,11 @@ local function placeLabel(b)
 	-- The target button's row of small icons (b.Minis, b.miniCount shown):
 	-- right or left, a second line under the name, the pair centred on the
 	-- button; above or below, on the name's line after it.
-	local mine = b == Buttons.target
+	local mine = b.psKind == "target"
 	local rows = mine and (b.miniCount or 0) > 0
 	local side = a == LABEL_SIDE.left and "left" or a == LABEL_SIDE.right and "right" or nil
 	b.Label:ClearAllPoints()
-	b.Label:SetPoint(a[1], to, a[2], a[3], (rows and side) and MINI_LIFT or a[4])
+	b.Label:SetPoint(a[1], to, a[2], a[3], (rows and side) and math.floor(num("buttons.miniSize", 8, 32, MINI) / 2) or a[4])
 	if not mine then return end
 	local minis = b.Minis
 	for k = 1, #minis do
@@ -302,35 +420,25 @@ local function placeLabel(b)
 	end
 end
 
-local function newButton(name, onEnter)
-	local b = CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
-	b:SetSize(SIZE, SIZE)
-	b:SetFrameStrata("MEDIUM")
-	b:RegisterForClicks("AnyUp", "AnyDown")
-	b:RegisterForDrag("LeftButton")
-	-- A /reload in combat creates the buttons under lockdown.
-	QoL.Secure("init:" .. name, function() if not b.itemID and not b.applied then b:Hide() end end)
-
+-- The face of a button of kind ("item", "hearth", "target", "rare", "bag"):
+-- ground, inset icon, hover wash, cooldown, count, key and name, and for the
+-- target button its action badge and small icons. Regions only, on any
+-- Button: the live secure buttons and the settings preview's plain ones
+-- (Buttons.NewFace) are drawn by the same code.
+local function buildFace(b, kind)
+	b.psKind = kind
 	local bg = b:CreateTexture(nil, "BACKGROUND")
 	bg:SetTexture(media("white"))
 	bg:SetAllPoints(b)
-	color(bg, "panel")
 	b.Bg = bg
 
 	local icon = b:CreateTexture(nil, "ARTWORK")
-	icon:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
-	icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
 	icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	b.Icon = icon
 
 	local hl = b:CreateTexture(nil, "HIGHLIGHT")
 	hl:SetTexture(media("white"))
 	hl:SetAllPoints(icon)
-	local function paintHover()
-		local T = Theme()
-		if T and T.Wash then hl:SetVertexColor(T.Wash("hover")) else hl:SetVertexColor(1, 1, 1, 0.07) end
-	end
-	paintHover()
 	b.Hl = hl
 
 	local cd = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
@@ -339,13 +447,11 @@ local function newButton(name, onEnter)
 
 	local count = b:CreateFontString(nil, "OVERLAY")
 	font(count, "number")
-	color(count, "text")
 	count:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -3, 3)
 	b.Count = count
 
 	local hotkey = b:CreateFontString(nil, "OVERLAY")
 	font(hotkey, "small")
-	color(hotkey, "textDim")
 	-- One line inside the button: a long key name is cut at the edge, never drawn across the label (#1211).
 	hotkey:SetPoint("TOPLEFT", b, "TOPLEFT", 3, -3)
 	hotkey:SetPoint("TOPRIGHT", b, "TOPRIGHT", -3, -3)
@@ -355,25 +461,193 @@ local function newButton(name, onEnter)
 
 	local label = b:CreateFontString(nil, "OVERLAY")
 	font(label, "small")
-	color(label, "textDim")
 	b.Label = label
-	placeLabel(b)
 
-	paintBorder(b, false)
-	local T = Theme()
-	if T and T.OnChanged then
-		T.OnChanged(function()
-			color(bg, "panel")
-			paintHover()
-			color(count, "text")
-			color(hotkey, "textDim")
-			color(label, "textDim")
-			paintBorder(b, false)
-		end)
+	if kind == "target" or kind == "rare" then
+		icon:SetTexture(media("qol-target"))
+		icon:SetTexCoord(0, 1, 0, 1)
 	end
+	if kind == "target" then
+		-- The action's glyph in the corner while a face stands in for the icon.
+		local badge = b:CreateTexture(nil, "OVERLAY")
+		badge:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
+		badge:Hide()
+		b.Badge = badge
+		-- The names after the next one, as small icons (placeLabel lays them out).
+		b.Minis = {}
+		for k = 1, MAX_NAMES - 1 do
+			local m = b:CreateTexture(nil, "OVERLAY")
+			m:Hide()
+			b.Minis[k] = m
+		end
+	end
+end
+
+-- Under combat (from PLAYER_REGEN_DISABLED to PLAYER_REGEN_ENABLED).
+local fighting = false
+
+-- The opacity of a button: full under the mouse, else buttons.alpha in
+-- combat (inCombat; nil: now), buttons.idleAlpha out of it.
+function Buttons.Alpha(inCombat, hover)
+	if hover then return 1 end
+	if inCombat == nil then inCombat = fighting end
+	return num(inCombat and "buttons.alpha" or "buttons.idleAlpha", 0, 1, 1)
+end
+
+local function applyAlpha(b)
+	b:SetAlpha(Buttons.Alpha(nil, b.psHover))
+end
+
+-- An item button's item ready now: in the bags, usable, off cooldown and not
+-- out of range.
+local function ready(b)
+	local id = b.itemID
+	if not id or b.tint == "far" or Client.ItemCount(id) == 0 or not Client.ItemUsable(id) then return false end
+	local start, duration = Client.ItemCooldown(id)
+	return not (duration and duration > 1.5 and start and GetTime and start + duration > GetTime())
+end
+
+-- The glow round a button (buttons.glow): a quest item or the Hearthstone
+-- ready to use, the rare button while it is up; b.psReady stands in for the
+-- preview's. It breathes unless ui.reduceMotion is on. Made on first use.
+local function paintGlow(b)
+	local kind = b.psKind
+	local on = ns.Get("buttons.glow") and (b.psReady or kind == "rare" or ((kind == "item" or kind == "hearth") and ready(b))) or false
+	b.psGlowOn = ns.Get("buttons.glow") and true or false
+	local g = b.psGlow
+	if not on then
+		if g then g:Hide() end
+		return
+	end
+	if not g then
+		g = b:CreateTexture(nil, "BACKGROUND", nil, -8)
+		g:SetTexture(media("glow"))
+		g:SetPoint("TOPLEFT", b, "TOPLEFT", -12, 12)
+		g:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 12, -12)
+		g:SetBlendMode("ADD")
+		local pulse = g:CreateAnimationGroup()
+		pulse:SetLooping("BOUNCE")
+		local fade = pulse:CreateAnimation("Alpha")
+		fade:SetFromAlpha(1)
+		fade:SetToAlpha(0.35)
+		fade:SetDuration(0.8)
+		g.psPulse = pulse
+		b.psGlow = g
+	end
+	local T = Theme()
+	local own, r, gr, bl, a = ns.Get("buttons.glowColor"), 1, 0.82, 0, 0.9
+	if isColor(own) then
+		r, gr, bl, a = own[1], own[2], own[3], own[4] or 0.9
+	elseif T and T.Accent then
+		r, gr, bl = T.Accent()
+	end
+	g:SetVertexColor(r, gr, bl, a)
+	g:Show()
+	if ns.Get("ui.reduceMotion") then
+		g.psPulse:Stop()
+	elseif not g.psPulse:IsPlaying() then
+		g.psPulse:Play()
+	end
+end
+
+-- The text's outline: buttons.labelOutline, or with "auto" the button's own
+-- (on: the target's name on its plate).
+local OUTLINE = { outline = true, thick = "thick" }
+local function outlineLabel(b, auto)
+	local T = Theme()
+	if not (T and T.SetOutline) then return end
+	local v = ns.Get("buttons.labelOutline")
+	if v == "theme" then
+		T.SetOutline(b.Label, false)
+	elseif OUTLINE[v] then
+		T.SetOutline(b.Label, OUTLINE[v])
+	else
+		T.SetOutline(b.Label, auto)
+	end
+end
+
+-- The look settings and the theme's colours on a face: backing, border, the
+-- icon's inset, the texts (size, outline, which show), the small icons, the
+-- glow. Plain regions, so at any time, in combat too; size and place are
+-- protected (place()).
+local paintTarget
+local function paintFace(b)
+	local T = Theme()
+	local bg = b.Bg
+	local backing, own = ns.Get("buttons.backing"), ns.Get("buttons.backingColor")
+	if backing == "none" then
+		bg:Hide()
+	else
+		bg:Show()
+		if isColor(own) then bg:SetVertexColor(own[1], own[2], own[3], own[4] or 1) else color(bg, backing == "dark" and "scrim" or "panel") end
+	end
+	if T and T.Wash then b.Hl:SetVertexColor(T.Wash("hover")) else b.Hl:SetVertexColor(1, 1, 1, 0.07) end
+	local pad = num("buttons.padding", 0, 8, 2)
+	b.Icon:ClearAllPoints()
+	b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", pad, -pad)
+	b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -pad, pad)
+	color(b.Count, "text")
+	color(b.Hotkey, "textDim")
+	b.Count:SetShown(ns.Get("buttons.count") and true or false)
+	b.Hotkey:SetShown(ns.Get("buttons.hotkey") and true or false)
+	-- The client's countdown numbers, and cooldown-count addons (OmniCC).
+	local numbers = ns.Get("buttons.cooldownText") and true or false
+	if b.Cooldown.SetHideCountdownNumbers then b.Cooldown:SetHideCountdownNumbers(not numbers) end
+	b.Cooldown.noCooldownCount = (not numbers) or nil
+	if T and T.SetFontScale then
+		T.SetFontScale(b.Label, num("buttons.labelScale", 0.6, 2, 1))
+		T.SetFontScale(b.Hotkey, num("buttons.hotkeyScale", 0.6, 2, 1))
+	end
+	if b.psKind == "target" then
+		local m = num("buttons.miniSize", 8, 32, MINI)
+		b.Badge:SetSize(m, m)
+		for k = 1, #b.Minis do b.Minis[k]:SetSize(m, m) end
+	end
+	paintBorder(b, b.psHover)
+	paintGlow(b)
+	if b.psKind == "target" then
+		paintTarget(b)
+	else
+		if b.psKind == "rare" then color(b.Icon, "quest") end
+		color(b.Label, "textDim")
+		outlineLabel(b, false)
+		placeLabel(b)
+	end
+end
+Buttons.Paint = paintFace
+
+-- A face on a plain Button for the settings window's preview: never a
+-- secure template, no scripts, nothing the clicks, the step key or the
+-- holder see. Sized by Buttons.Size(kind); the caller fills it (icon, text,
+-- b.aList... for the target) and repaints it with Buttons.Paint.
+function Buttons.NewFace(parent, kind)
+	local b = CreateFrame("Button", nil, parent)
+	buildFace(b, kind)
+	local size = Buttons.Size(kind)
+	b:SetSize(size, size)
+	paintFace(b)
+	return b
+end
+
+local function newButton(name, kind, onEnter)
+	local b = CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
+	b.psLive = true
+	local size = Buttons.Size(kind)
+	b:SetSize(size, size)
+	b:SetFrameStrata("MEDIUM")
+	b:RegisterForClicks("AnyUp", "AnyDown")
+	b:RegisterForDrag("LeftButton")
+	-- A /reload in combat creates the buttons under lockdown.
+	QoL.Secure("init:" .. name, function() if not b.itemID and not b.applied then b:Hide() end end)
+	buildFace(b, kind)
+	paintFace(b)
+	local T = Theme()
+	if T and T.OnChanged then T.OnChanged(function() paintFace(b) end) end
 
 	b:SetScript("OnEnter", function(self)
+		self.psHover = true
 		paintBorder(self, true)
+		applyAlpha(self)
 		hoverStart(self)
 		if GameTooltip and onEnter then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -382,7 +656,9 @@ local function newButton(name, onEnter)
 		end
 	end)
 	b:SetScript("OnLeave", function(self)
+		self.psHover = nil
 		paintBorder(self, false)
+		applyAlpha(self)
 		hoverEnd(self)
 		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
 	end)
@@ -392,6 +668,7 @@ local function newButton(name, onEnter)
 	b:SetScript("OnHide", function(self) if self.dragging then onDragStop(self) end end)
 
 	refreshHotkey(b)
+	applyAlpha(b)
 	return b
 end
 
@@ -408,9 +685,11 @@ local function paintItem(b)
 	local start, duration = Client.ItemCooldown(id)
 	if duration and duration > 0 then b.Cooldown:SetCooldown(start, duration) else b.Cooldown:Clear() end
 	b.Icon:SetDesaturated(n == 0 or not Client.ItemUsable(id))
+	if b.psGlowOn then paintGlow(b) end
 end
 
--- Range tint: red out of range, white otherwise. Runs only while shown.
+-- Range tint: red out of range, white otherwise; and with buttons.glow, the
+-- glow as the item comes ready or goes out of range. Runs only while shown.
 local function rangeUpdate(b, elapsed)
 	b.rangeElapsed = (b.rangeElapsed or 0) + elapsed
 	if b.rangeElapsed < RANGE_INTERVAL then return end
@@ -427,6 +706,13 @@ local function rangeUpdate(b, elapsed)
 		b.tint = "near"
 		b.Icon:SetVertexColor(1, 1, 1, 1)
 	end
+	if b.psGlowOn then
+		local now = ready(b)
+		if now ~= b.psWasReady then
+			b.psWasReady = now
+			paintGlow(b)
+		end
+	end
 end
 
 local function itemTooltip(b, tip)
@@ -434,8 +720,8 @@ local function itemTooltip(b, tip)
 	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
 
-local function newItemButton(name)
-	local b = newButton(name, itemTooltip)
+local function newItemButton(name, kind)
+	local b = newButton(name, kind, itemTooltip)
 	b:SetScript("OnUpdate", ns.Safe(rangeUpdate))
 	return b
 end
@@ -977,15 +1263,18 @@ end
 
 -- Repaint the target button from what its macro does now (b.aList at
 -- b.aCycle): plain textures and text, so at any time, in combat too.
--- Without qol.targetPlate: the crosshair and the name in textDim.
-local function paintTarget(b)
+-- Without qol.targetPlate: the crosshair and the name in textDim. The
+-- settings preview's face (b.psLive unset) shows glyphs only: the faces
+-- seen are the live button's textures.
+function paintTarget(b)
 	local list, cycle = b.aList, b.aCycle or 1
 	local n = list and #list or 0
 	local name = list and list[cycle]
 	b.Label:SetText(name or "")
-	for _, tex in pairs(portraits) do tex:Hide() end
+	if b.psLive then
+		for _, tex in pairs(portraits) do tex:Hide() end
+	end
 	local shown = 0
-	local T = Theme()
 	if not (name and QoL.On("targetPlate")) then
 		b.Icon:SetTexture(media("qol-target"))
 		color(b.Icon, "danger")
@@ -993,10 +1282,10 @@ local function paintTarget(b)
 		b.Badge:Hide()
 		font(b.Label, "small")
 		color(b.Label, "textDim")
-		if T and T.SetOutline then T.SetOutline(b.Label, false) end
+		outlineLabel(b, false)
 	else
 		local glyph, tone, face = Buttons.TargetLook(b.aVerbs[cycle], name, b.aIds[cycle], b.aMarks[cycle])
-		local tex = face and portraits[name]
+		local tex = face and b.psLive and portraits[name]
 		if tex then
 			tex:ClearAllPoints()
 			tex:SetAllPoints(b.Icon)
@@ -1014,12 +1303,12 @@ local function paintTarget(b)
 		-- On the game world: the label size, outlined like the transparent window.
 		font(b.Label, "label")
 		color(b.Label, tone)
-		if T and T.SetOutline then T.SetOutline(b.Label, true) end
+		outlineLabel(b, true)
 		for k = 1, math.min(n - 1, #b.Minis) do
 			local j = (cycle - 1 + k) % n + 1
 			local m = b.Minis[k]
 			local g2, t2, face2 = Buttons.TargetLook(b.aVerbs[j], list[j], b.aIds[j], b.aMarks[j])
-			local tex2 = face2 and portraits[list[j]]
+			local tex2 = face2 and b.psLive and portraits[list[j]]
 			m:SetTexture(media(g2))
 			color(m, t2)
 			if tex2 then
@@ -1534,30 +1823,9 @@ local function create()
 	holder:SetSize(SIZE, SIZE)
 	holder:SetMovable(true)
 	holder:SetClampedToScreen(true)
-	-- The clamp covers the bag, hearth, target and rare slots too.
-	holder:SetClampRectInsets(0, 0, 2 * GAP, -2 * GAP)
-	itemButton = newItemButton("PolestarQuestItemButton")
-	hearthButton = newItemButton("PolestarHearthButton")
-	targetButton = newButton("PolestarTargetButton", targetTooltip)
-	targetButton.Icon:SetTexture(media("qol-target"))
-	targetButton.Icon:SetTexCoord(0, 1, 0, 1)
-	color(targetButton.Icon, "danger")
-	-- The action's glyph in the corner while a face stands in for the icon.
-	local badge = targetButton:CreateTexture(nil, "OVERLAY")
-	badge:SetSize(MINI, MINI)
-	badge:SetPoint("BOTTOMRIGHT", targetButton, "BOTTOMRIGHT", -1, 1)
-	badge:Hide()
-	targetButton.Badge = badge
-	-- The names after the next one, as small icons (placeLabel lays them out).
-	targetButton.Minis = {}
-	for k = 1, MAX_NAMES - 1 do
-		local m = targetButton:CreateTexture(nil, "OVERLAY")
-		m:SetSize(MINI, MINI)
-		m:Hide()
-		targetButton.Minis[k] = m
-	end
-	local T = Theme()
-	if T and T.OnChanged then T.OnChanged(function() paintTarget(targetButton) end) end
+	itemButton = newItemButton("PolestarQuestItemButton", "item")
+	hearthButton = newItemButton("PolestarHearthButton", "hearth")
+	targetButton = newButton("PolestarTargetButton", "target", targetTooltip)
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
@@ -1565,10 +1833,7 @@ local function create()
 		local marked = Buttons.AdvanceMark(target.kind)
 		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
-	rareButton = newButton("PolestarRareButton", rareTooltip)
-	rareButton.Icon:SetTexture(media("qol-target"))
-	rareButton.Icon:SetTexCoord(0, 1, 0, 1)
-	color(rareButton.Icon, "quest")
+	rareButton = newButton("PolestarRareButton", "rare", rareTooltip)
 	rareButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #rare.list
@@ -1577,7 +1842,7 @@ local function create()
 			applyRare(rareButton)
 		end
 	end)
-	bagButton = newButton("PolestarBagButton", bagTooltip)
+	bagButton = newButton("PolestarBagButton", "bag", bagTooltip)
 	bagButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local Space = QoL.Space
@@ -1608,12 +1873,31 @@ local function create()
 	-- An Above name moves when a button over it comes or goes.
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	for i = 1, #set do
+		set[i].psStack = set
 		set[i]:HookScript("OnShow", placeLabels)
 		set[i]:HookScript("OnHide", placeLabels)
 	end
+	fighting = QoL.InLockdown()
+	for i = 1, #set do applyAlpha(set[i]) end
 	placeLabels()
 	place()
 end
+
+-- The opacity in and out of combat: SetAlpha is no protected call, so it
+-- changes as the fight starts.
+local function combat(on)
+	fighting = on
+	if not set then return end
+	for i = 1, #set do applyAlpha(set[i]) end
+end
+ns.RegisterEvent("PLAYER_REGEN_DISABLED", function() combat(true) end)
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() combat(false) end)
+
+-- The look settings that move or size the buttons (protected: place()).
+local PLACE_KEYS = {
+	["qol.buttonScale"] = true, ["buttons.itemSize"] = true, ["buttons.hearthSize"] = true, ["buttons.targetSize"] = true,
+	["buttons.rareSize"] = true, ["buttons.bagSize"] = true, ["buttons.spacing"] = true, ["buttons.layout"] = true,
+}
 
 ns.OnLogin(function()
 	create()
@@ -1648,8 +1932,15 @@ ns.On("WHILE_HERE_CHANGED", refreshSoon)
 ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
-	if path == "qol.buttonScale" or path == "qol" or path == "" then
+	local all = path == ""
+	if PLACE_KEYS[path] or path == "qol" or path == "buttons" or all then
 		place()
+	end
+	if path:sub(1, 8) == "buttons." or path == "buttons" or path == "ui.reduceMotion" or path == "ui" or all then
+		for i = 1, #set do
+			paintFace(set[i])
+			applyAlpha(set[i])
+		end
 	end
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
@@ -1666,5 +1957,15 @@ ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an 
 -- Back to the default spot (options button).
 function Buttons.ResetPositions()
 	QoL.State().buttonPos = nil
+	if itemButton then place() end
+end
+
+-- Unlock mode (UI/Movers.lua): the holder (nil until the buttons are first
+-- made), its spot { point, relPoint, x, y } in its own units, and a new spot
+-- (nil: the default) applied as a drag's would be.
+function Buttons.Holder() return holder end
+function Buttons.SavedPos() return savedPos() end
+function Buttons.SetPosition(p)
+	QoL.State().buttonPos = type(p) == "table" and p or nil
 	if itemButton then place() end
 end

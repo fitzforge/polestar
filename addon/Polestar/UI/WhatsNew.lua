@@ -42,6 +42,26 @@ end
 -- theme's colours when shown).
 local NOTES = {
 	{
+		version = "0.3.7",
+		notes = {
+			{ glyph = "sliders", color = "accent", head = L["A bigger settings window"], text = function()
+				return L["Groups in the sidebar, a live preview over each look, and a corner to drag it to any size."]
+			end },
+			{ glyph = "palette", color = "accent", head = L["Make every part yours"], text = function()
+				return L["Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts."]
+			end },
+			{ glyph = "icon-goto", color = "accent", head = L["Bigger map pins"], text = function()
+				return L["The numbered step pins and their numbers take a size of their own (thanks Silverina)."]
+			end },
+			{ glyph = "search", color = "accent", head = L["Find any setting"], text = function()
+				return L["Search knows what you mean, %s finds the pin size, and takes you to it."]:format(cmd(L["\"bigger pins\""]))
+			end },
+			{ glyph = "layers", color = "accent", head = L["Profiles and moving frames"], text = function()
+				return L["Keep looks to switch between; %s lets you drag every Polestar frame into place."]:format(cmd(L["Move frames"]))
+			end },
+		},
+	},
+	{
 		version = "0.3.6",
 		notes = {
 			{ glyph = "guides", color = "accent", head = L["Every route reviewed"], text = function()

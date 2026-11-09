@@ -11,7 +11,9 @@
 -- chain's step) or, without one, "Show me" (the arrow to the giver); "Later"
 -- and the close button dismiss it. It follows the window when moved, flips
 -- below it when there is no room above, and hides while the window is
--- hidden. Under ui.reduceMotion it fades in instead of sliding.
+-- hidden. Under ui.reduceMotion it fades in instead of sliding. Its size
+-- (over the window's), opacity, type, entrance and whether it goes by itself
+-- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua).
 --
 -- When it shows (CT.Candidates): a chain of the character's class whose
 -- start has a giver for its race and side (ClassRewards `starts`, `r`), not
@@ -25,6 +27,7 @@
 --   UI.ClassToast.Check(level, mode)       show the best candidate
 --   UI.ClassToast.Show(quest), .Hide(), .Open(), .ShowMe(), .Place()
 --   UI.ClassToast.frame, .current
+--   UI.ClassToast.NewCard(parent), .FillCard(card, model, width)  a sandbox card (the options' preview)
 --   /polestar classtoast [quest]           show it again (the best due one, or `quest`)
 
 local ADDON, ns = ...
@@ -328,8 +331,14 @@ end
 
 local layout
 
-local function build()
-	f = CreateFrame("Frame", "PolestarClassToast", UIParent)
+-- The look's settings (UI/Looks/Toasts.lua), when that file is loaded.
+local function looks() return UI.Toasts end
+
+-- The card, drawn into `parent`: the live heads-up (build) or a sandbox one
+-- for the options' preview (CT.NewCard): its buttons do nothing and it
+-- follows no window.
+local function newCard(parent, name, sandbox)
+	local f = CreateFrame("Frame", name, parent)
 	f:SetSize(340, 120)
 	f:EnableMouse(true)
 	-- The guide window's own panel, border and corners.
@@ -386,15 +395,33 @@ local function build()
 
 	-- The window's icon button and its buttons: the gold primary ("Choose a
 	-- guide") and the quiet one beside it.
-	f.Close = W.IconButton(f, "close", 24, L["Dismiss"], function() CT.Hide() end)
-	f.Open = W.Button(f, L["Open in a new tab"], function() CT.Open() end, { primary = true })
-	f.ShowMe = W.Button(f, L["Show me"], function() CT.ShowMe() end, { primary = true })
-	f.Later = W.Button(f, L["Later"], function() CT.Hide() end, { ghost = true })
+	local function act(fn) return sandbox and function() end or fn end
+	f.Close = W.IconButton(f, "close", 24, L["Dismiss"], act(function() CT.Hide() end))
+	f.Open = W.Button(f, L["Open in a new tab"], act(function() CT.Open() end), { primary = true })
+	f.ShowMe = W.Button(f, L["Show me"], act(function() CT.ShowMe() end), { primary = true })
+	f.Later = W.Button(f, L["Later"], act(function() CT.Hide() end), { ghost = true })
 	-- Another heads-up's own action, its second button and its "stop these"
 	-- (UI/DungeonToast.lua).
-	f.Act = W.Button(f, "", function() CT.Act() end, { primary = true })
-	f.More = W.Button(f, "", function() CT.More() end, { ghost = true })
-	f.Off = W.Button(f, "", function() CT.Off() end, { ghost = true })
+	f.Act = W.Button(f, "", act(function() CT.Act() end), { primary = true })
+	f.More = W.Button(f, "", act(function() CT.More() end), { ghost = true })
+	f.Off = W.Button(f, "", act(function() CT.Off() end), { ghost = true })
+	local TS = looks()
+	if TS then
+		-- The guide window's scale stays its own: the card is CT.Place's to scale.
+		TS.Attach("headsup", f, { titles = { f.Title }, bodies = { f.Head, f.Giver, f.Route }, sandbox = sandbox, noScale = true,
+			relayout = function(self)
+				if self == CT.frame then
+					if self:IsShown() then CT.Place(false) end
+				elseif self.psModel then
+					layout(self, self:GetWidth())
+				end
+			end })
+	end
+	return f
+end
+
+local function build()
+	f = newCard(UIParent, "PolestarClassToast")
 	f:Hide()
 	CT.frame = f
 
@@ -408,7 +435,7 @@ end
 
 -- class: the class colour's stripe, ring and header; nil (another heads-up)
 -- the accent's.
-local function paint(class)
+local function paint(f, class)
 	local r, g, b = Theme.ClassColor(class)
 	if not r then r, g, b = Theme.Accent() end
 	local tr, tg, tb
@@ -427,7 +454,7 @@ local function paint(class)
 	W.SetFramed(f.Close, "icon")
 end
 
-function layout(width)
+function layout(f, width)
 	f:SetWidth(width)
 	local x = PAD + STRIPE + RING + 12
 	local closeW = f.Close:GetWidth() + 6
@@ -518,16 +545,19 @@ function CT.Place(animate)
 		f:Hide()
 		return
 	end
-	f:SetScale(w:GetScale() or 1)
+	local TS = looks()
+	local k = TS and TS.Scale("headsup") or 1
+	f:SetScale((w:GetScale() or 1) * k)
 	f:SetFrameStrata(w:GetFrameStrata())
 	-- Behind the window, so it slides out from under its edge.
 	if w:GetFrameLevel() < 2 then w:SetFrameLevel(2) end
 	f:SetFrameLevel(w:GetFrameLevel() - 1)
-	layout(w:GetWidth())
+	-- As wide as the window, whatever the card's own scale.
+	layout(f, w:GetWidth() / k)
 	local h = f:GetHeight()
 	local top, room = w:GetTop(), UIParent:GetTop()
 	local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
-	local above = not (top and room) or (top + h) * s <= room * us
+	local above = not (top and room) or (top + h * k) * s <= room * us
 	CT.side = above and "above" or "below"
 	if above then
 		Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
@@ -537,8 +567,13 @@ function CT.Place(animate)
 	local wasShown = f:IsShown()
 	f:Show()
 	if animate and not wasShown then
-		Anim.To(f, "offset", above and -h or h, 0, SLIDE, "out")
-		Anim.To(f, "alpha", 0, 1, SLIDE, "out")
+		-- From behind the edge it sits on; the entrance, speed and opacity are the player's (Alerts & toasts).
+		if TS then
+			TS.Enter("headsup", f, above and -h or h, SLIDE)
+		else
+			Anim.To(f, "offset", above and -h or h, 0, SLIDE, "out")
+			Anim.To(f, "alpha", 0, 1, SLIDE, "out")
+		end
 	end
 end
 
@@ -567,6 +602,61 @@ function CT.Show(q)
 	return true
 end
 
+-- Paint card c for model m (without placing it).
+local function fillCard(c, m)
+	c.psModel = m
+	paint(c, m.class)
+	local art = m.art
+	local size = art and ART or (m.iconColor and GLYPH) or ICON
+	c.Icon:SetSize(size, size)
+	if c.Mask then c.Mask:SetSize(max(size, ICON), max(size, ICON)) end
+	if art then
+		c.Icon:SetTexture(art.file)
+		c.Icon:SetTexCoord(art.l, art.r, art.t, art.b)
+	else
+		c.Icon:SetTexture(m.icon)
+		c.Icon:SetTexCoord(0, 1, 0, 1)
+	end
+	local lift = art and art.lift
+	if lift then
+		c.Lift:SetTexture(art.file)
+		c.Lift:SetTexCoord(art.l, art.r, art.t, art.b)
+		c.Lift:SetSize(size, size)
+		c.Lift:SetAlpha(lift)
+	end
+	c.Lift:SetShown(lift ~= nil)
+	if m.iconColor and not art then
+		W.Color(c.Icon, m.iconColor)
+	else
+		W.Uncolor(c.Icon)
+		c.Icon:SetVertexColor(1, 1, 1, 1)
+	end
+	c.Head:SetText(m.head)
+	W.Color(c.Title, m.titleColor or "personName")
+	c.Title:SetText(m.title)
+	c.Giver:SetText(m.giver or "")
+	c.Giver:SetShown(m.giver ~= nil)
+	c.Route:SetText(m.route or "")
+	c.Route:SetShown(m.route ~= nil)
+	c.Badge.Text:SetText(m.badge or "")
+	c.Badge:SetShown(m.badge ~= nil)
+	c.Act:SetShown(m.act ~= nil)
+	if m.act then W.SetButtonText(c.Act, m.act.label) end
+	c.More:SetShown(m.more ~= nil)
+	if m.more then W.SetButtonText(c.More, m.more.label) end
+	c.Off:SetShown(m.off ~= nil)
+	if m.off then W.SetButtonText(c.Off, m.off.label) end
+	c.Open:SetShown(m.act == nil and m.guideId ~= nil)
+	c.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+end
+
+-- A sandbox card for the options' preview, painted for model m at `width`.
+function CT.NewCard(parent) return newCard(parent, nil, true) end
+function CT.FillCard(c, m, width)
+	fillCard(c, m)
+	layout(c, width or 340)
+end
+
 -- Paint and place the card for model m: a class quest's (CT.Model) or
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
@@ -575,61 +665,34 @@ end
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
 -- small on the disc, and an untinted one a full-colour icon.
+-- With toasts.headsup.seconds set (Alerts & toasts), an unanswered card
+-- goes after that long, as Later does.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
 	if not f then build() end
 	local wasShown = f:IsShown() and CT.current ~= nil
 	CT.current = m
-	paint(m.class)
-	local art = m.art
-	local size = art and ART or (m.iconColor and GLYPH) or ICON
-	f.Icon:SetSize(size, size)
-	if f.Mask then f.Mask:SetSize(max(size, ICON), max(size, ICON)) end
-	if art then
-		f.Icon:SetTexture(art.file)
-		f.Icon:SetTexCoord(art.l, art.r, art.t, art.b)
-	else
-		f.Icon:SetTexture(m.icon)
-		f.Icon:SetTexCoord(0, 1, 0, 1)
-	end
-	local lift = art and art.lift
-	if lift then
-		f.Lift:SetTexture(art.file)
-		f.Lift:SetTexCoord(art.l, art.r, art.t, art.b)
-		f.Lift:SetSize(size, size)
-		f.Lift:SetAlpha(lift)
-	end
-	f.Lift:SetShown(lift ~= nil)
-	if m.iconColor and not art then
-		W.Color(f.Icon, m.iconColor)
-	else
-		W.Uncolor(f.Icon)
-		f.Icon:SetVertexColor(1, 1, 1, 1)
-	end
-	f.Head:SetText(m.head)
-	W.Color(f.Title, m.titleColor or "personName")
-	f.Title:SetText(m.title)
-	f.Giver:SetText(m.giver or "")
-	f.Giver:SetShown(m.giver ~= nil)
-	f.Route:SetText(m.route or "")
-	f.Route:SetShown(m.route ~= nil)
-	f.Badge.Text:SetText(m.badge or "")
-	f.Badge:SetShown(m.badge ~= nil)
-	f.Act:SetShown(m.act ~= nil)
-	if m.act then W.SetButtonText(f.Act, m.act.label) end
-	f.More:SetShown(m.more ~= nil)
-	if m.more then W.SetButtonText(f.More, m.more.label) end
-	f.Off:SetShown(m.off ~= nil)
-	if m.off then W.SetButtonText(f.Off, m.off.label) end
-	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
-	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
+	fillCard(f, m)
 	CT.Place(not wasShown)
 	if not wasShown and f:IsShown() then
 		local C = CC()
 		if ns.Get("ui.classCardSound") and C.GameSoundOn() and PlaySound then
 			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
+	end
+	local TS = looks()
+	local secs = TS and tonumber(TS.Get("headsup", "seconds")) or 0
+	if secs > 0 then
+		ns.After(secs, function()
+			if CT.current ~= m then return end
+			-- Held while the cursor is on it.
+			if f:IsShown() and f:IsMouseOver() then
+				ns.After(2, function() if CT.current == m and not f:IsMouseOver() then CT.Hide() end end)
+				return
+			end
+			CT.Hide()
+		end)
 	end
 	return f:IsShown()
 end

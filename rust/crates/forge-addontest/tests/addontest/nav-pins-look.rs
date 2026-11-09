@@ -1,0 +1,267 @@
+//! The Map pins look settings (Settings > Map pins, Nav/PinsOptions.lua): the numbered pins of the steps
+//! ahead (Silverina asked for bigger ones), the target, every mark's size and opacity on each surface, the
+//! areas; each with real effect on the pins Polestar.Pins draws, the defaults drawing exactly as before,
+//! and the page's preview painting sandbox pins with Pins' own code.
+
+use forge_addontest::{emitted, Addon, RunAddon};
+use serde_json::{json, Value};
+
+const PRELUDE: &str = r#"
+local N = Polestar.Nav
+local Pins = Polestar.Pins
+local nav = stub.nav
+local scroll = WorldMapFrame.ScrollContainer
+local function at(wx, wy, extra)
+	local m, x, y = nav.mapPoint(wx, wy)
+	local p = { map = m, x = x, y = y }
+	for k, v in pairs(extra or {}) do p[k] = v end
+	return p
+end
+local function rgba(t) local r, g, b, a = t:GetVertexColor() return { r, g, b, a } end
+local function r3(v) return math.floor(v * 1000 + 0.5) / 1000 end
+-- The live steps ahead: step 3 is the live one, 4 to 7 ahead on map 9000.
+local function steps(n)
+	local views = { [3] = { status = "current", goals = {} } }
+	for s = 4, 3 + n do views[s] = { title = "S" .. s, status = "upcoming", goals = { { map = 9000, x = 10 * s, y = 50, status = "pending" } } } end
+	Polestar.Engine = { GetLiveStep = function() return 3 end, GetStepCount = function() return 3 + n end, GetStepView = function(i) return views[i] end }
+end
+-- The world map's numbered pins, left to right: size, size on screen, number font, colours.
+local function drawn()
+	stub.advance(0.05)
+	stub.runMapFrame(WorldMapFrame, 0)
+	local r = {}
+	for _, f in ipairs(nav.pins()) do
+		if f.data.layer.name == "nav.upcoming" then
+			local _, font, outline = f.text:GetFont()
+			local tr, tg, tb = f.text:GetTextColor()
+			local c = rgba(f.fill)
+			r[#r + 1] = { x = f.data.x, w = r3(f.width), screen = r3(f.width * f.scale * (scroll.currentScale or 1)),
+				font = r3(font or 0), outline = outline, text = f.text:IsShown() and f.text:GetText() or false,
+				number = { r3(tr), r3(tg), r3(tb) }, fill = { r3(c[1]), r3(c[2]), r3(c[3]), r3(c[4]) } }
+		end
+	end
+	table.sort(r, function(a, b) return a.x < b.x end)
+	for _, p in ipairs(r) do p.x = nil end
+	return r
+end
+"#;
+
+fn run(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// Silverina: "can the numbered map pins be bigger?" The size, the number, the colours, the fade and the count
+// reach the real upcoming pins on the world map; bigger pins pass the usual 28 px cap on screen.
+#[test]
+fn the_numbered_pins_size_number_colours_fade_and_count_apply_to_the_real_upcoming_pins_on_the_world_map() {
+	let out = run(r#"
+		local out = {}
+		steps(3)
+		Polestar.Set("ui.upcoming", 3)                 -- Up next shows three
+		Polestar.Set("nav.upcomingPins", true)
+		nav.showWorldMap(9000)
+		out.default = drawn()
+		out.accent = { Polestar.Theme.Accent() }
+		for i = 1, 3 do out.accent[i] = r3(out.accent[i]) end
+		Polestar.Set("nav.stepPinSize", 3)
+		Polestar.Set("nav.stepNumberSize", 1.5)
+		Polestar.Set("nav.stepNumberColor", { 1, 0, 0 })
+		Polestar.Set("nav.stepNumberOutline", "THICKOUTLINE")
+		Polestar.Set("nav.stepColorMode", "own")
+		Polestar.Set("nav.stepColor", { 0, 0, 1 })
+		Polestar.Set("nav.stepAlpha", 0.8)
+		Polestar.Set("nav.stepFadeTo", 0.2)
+		out.big = drawn()
+		Polestar.Set("nav.upcomingCount", 2)
+		Polestar.Set("nav.stepNumbers", false)
+		out.two = drawn()
+		out.minimap = #Pins.GetMinimapFrames("nav.upcoming")
+		Polestar.Set("nav.upcomingMinimap", false)
+		stub.advance(0.05)
+		out.minimapOff = #Pins.GetMinimapFrames("nav.upcoming")
+		out.worldStill = #drawn()
+		emit(out)"#);
+	let a = &out["accent"];
+	let fill = |alpha: Value| json!([a[0], a[1], a[2], alpha]);
+	// The defaults draw as before: 15 px in the accent, at 0.7 zoomed out, white 9 px numbers, 1 to 0.35.
+	assert_eq!(
+		out["default"],
+		json!([
+			{ "w": 15, "screen": 10.5, "font": 9, "outline": "OUTLINE", "text": "4", "number": [1, 1, 1], "fill": fill(json!(1)) },
+			{ "w": 15, "screen": 10.5, "font": 9, "outline": "OUTLINE", "text": "5", "number": [1, 1, 1], "fill": fill(json!(0.675)) },
+			{ "w": 15, "screen": 10.5, "font": 9, "outline": "OUTLINE", "text": "6", "number": [1, 1, 1], "fill": fill(json!(0.35)) },
+		])
+	);
+	// 300%: 45 px, 31.5 on screen (past the old 28 cap), numbers 0.6 x 45 x 1.5, red, thick; blue from 0.8 to 0.2.
+	assert_eq!(
+		out["big"],
+		json!([
+			{ "w": 45, "screen": 31.5, "font": 40.5, "outline": "THICKOUTLINE", "text": "4", "number": [1, 0, 0], "fill": [0, 0, 1, 0.8] },
+			{ "w": 45, "screen": 31.5, "font": 40.5, "outline": "THICKOUTLINE", "text": "5", "number": [1, 0, 0], "fill": [0, 0, 1, 0.5] },
+			{ "w": 45, "screen": 31.5, "font": 40.5, "outline": "THICKOUTLINE", "text": "6", "number": [1, 0, 0], "fill": [0, 0, 1, 0.2] },
+		])
+	);
+	assert_eq!(out["two"].as_array().unwrap().len(), 2, "two steps ahead");
+	assert_eq!(out["two"][0]["text"], false, "numbers off");
+	assert_eq!(out["two"][1]["fill"], json!([0, 0, 1, 0.2]), "the farthest of two at the fade's end");
+	assert_eq!(out["minimap"], 2, "on the minimap by default");
+	assert_eq!(json!([out["minimapOff"], out["worldStill"]]), json!([0, 2]), "minimap off, the world map keeps them");
+}
+
+// Every Polestar mark on the world map scales with nav.worldIconSize, its 28 px cap with it, and takes
+// nav.worldPinAlpha; the minimap's take their own opacity and may stop fading over the player's arrow; areas
+// take their opacity and an own colour.
+#[test]
+fn world_icon_size_scales_every_mark_and_its_cap_and_the_opacities_reach_both_surfaces_and_the_areas() {
+	let out = run(r#"
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		Pins.SetLayer("marks", {
+			at(20, 20, { icon = "map:kill", size = 16, minimapSize = 14, tooltip = "Kill" }),
+			at(-20, 20, { icon = "map:quest-turnin", size = 23.4, tooltip = "Turn in" }),
+			at(0, 0, { icon = "map:quest-turnin", minimapSize = 14, tooltip = "On" }),
+			at(60, 60, { area = 60, areaOnly = true, color = { 1, 0.5, 0.5, 1 } }),
+		})
+		local function world()
+			stub.runMapFrame(WorldMapFrame, 0)
+			local r = {}
+			for _, f in ipairs(nav.pins()) do
+				r[f.data.pin.tooltip] = { medal = r3(f.medal.width * f.scale * (scroll.currentScale or 1)), alpha = f:GetAlpha() or 1 }
+			end
+			local a = nav.pins("areas")[1]
+			r.area = a and rgba(a.tex)
+			return r
+		end
+		local function minimap()
+			stub.advance(0.3)
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do r[f.pin.tooltip] = r3(f:GetAlpha() or 1) end
+			return r
+		end
+		local out = { defaults = {} }
+		for _, k in ipairs({ "worldIconSize", "worldPinAlpha", "minimapPinAlpha", "minimapArrowFade", "areaAlpha", "areaColor",
+			"medalColor", "pinBacking", "badgeSize", "stepPinSize", "upcomingCount", "targetPinSize", "targetGlow", "targetPulse" }) do
+			out.defaults[k] = Polestar.Get("nav." .. k)
+		end
+		nav.showWorldMap(9000)
+		out.world = world()
+		out.mm = minimap()
+		Polestar.Set("nav.worldIconSize", 2)
+		Polestar.Set("nav.worldPinAlpha", 0.5)
+		Polestar.Set("nav.areaAlpha", 0.64)
+		Polestar.Set("nav.areaColor", { 0, 1, 0 })
+		out.bigWorld = world()
+		scroll.currentScale, scroll.zoomPercent = 8, 1; stub.runMapFrame(WorldMapFrame, 0)
+		out.bigZoomed = world()
+		Polestar.Set("nav.minimapPinAlpha", 0.5)
+		Polestar.Set("nav.minimapArrowFade", false)
+		out.mmSet = minimap()
+		emit(out)"#);
+	assert_eq!(
+		out["defaults"],
+		json!({ "worldIconSize": 1, "worldPinAlpha": 1, "minimapPinAlpha": 1, "minimapArrowFade": true, "areaAlpha": 0.32,
+			"areaColor": false, "medalColor": false, "pinBacking": false, "badgeSize": 1, "stepPinSize": 1, "upcomingCount": 0,
+			"targetPinSize": 1, "targetGlow": true, "targetPulse": false })
+	);
+	// Defaults as before: a 16 px mark's 22 px medallion at 0.7, the 23.4 px one's 32; the area at 0.32.
+	assert_eq!(out["world"]["Kill"], json!({ "medal": 15.4, "alpha": 1 }));
+	assert_eq!(out["world"]["Turn in"]["medal"], json!(22.4));
+	assert_eq!(out["world"]["area"], json!([1, 0.5, 0.5, 0.32]));
+	assert_eq!(out["mm"]["On"], json!(0.3), "over the arrow: 30%");
+	// 200%: medallions of 44 and 66 px at 0.7; zoomed in 0.9, the cap of 56 holding the larger.
+	assert_eq!(out["bigWorld"]["Kill"], json!({ "medal": 30.8, "alpha": 0.5 }));
+	assert_eq!(out["bigWorld"]["Turn in"]["medal"], json!(46.2));
+	assert_eq!(out["bigZoomed"]["Kill"]["medal"], json!(39.6));
+	assert_eq!(out["bigZoomed"]["Turn in"]["medal"], json!(56), "the cap grows with the size");
+	assert_eq!(out["bigWorld"]["area"], json!([0, 1, 0, 0.64]), "own colour, own opacity");
+	assert_eq!(out["mmSet"]["On"], json!(0.5), "no fade over the arrow, at the minimap's opacity");
+	assert_eq!(out["mmSet"]["Kill"], json!(0.5));
+}
+
+// The target pin: its size, glow and pulse (a client animation, none under Reduce motion).
+#[test]
+fn the_target_pin_takes_its_size_glow_and_pulse_and_reduce_motion_stops_the_pulse() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(40, 0)
+		N.SetTarget(m, x, y, "Goal")
+		nav.showWorldMap(9000)
+		local function target()
+			stub.advance(0.05)
+			stub.runMapFrame(WorldMapFrame, 0)
+			for _, f in ipairs(nav.pins()) do
+				if f.data.layer.name == "nav.target" then
+					return { w = r3(f.width), glow = f.glow:IsShown(), pulsing = f.pulsing or false, plays = f.pulse and f.pulse.plays or 0 }
+				end
+			end
+		end
+		local out = { default = target() }
+		Polestar.Set("nav.targetPinSize", 2)
+		Polestar.Set("nav.targetPulse", true)
+		out.big = target()
+		Polestar.Set("ui.reduceMotion", true)
+		out.reduced = target()
+		Polestar.Set("ui.reduceMotion", false)
+		Polestar.Set("nav.targetGlow", false)
+		out.noGlow = target()
+		emit(out)"#);
+	assert_eq!(out["default"], json!({ "w": 22.4, "glow": true, "pulsing": false, "plays": 0 }), "16 x 1.4, glowing, still");
+	assert_eq!(out["big"]["w"], json!(44.8));
+	assert_eq!(json!([out["big"]["glow"], out["big"]["pulsing"]]), json!([true, true]));
+	assert!(out["big"]["plays"].as_f64().unwrap() >= 1.0, "the pulse plays");
+	assert_eq!(out["reduced"]["pulsing"], false, "Reduce motion: no pulse");
+	assert_eq!(json!([out["noGlow"]["glow"], out["noGlow"]["pulsing"]]), json!([false, false]));
+}
+
+// The page's preview: Pins' own builder and paint on sandbox frames (never the live pins), repainted by its
+// settings while shown, else on its next show; the page is registered with every new row searchable.
+#[test]
+fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_shown() {
+	let out = run(r#"
+		local out = {}
+		local P = N.PinsPreview(UIParent)          -- the stub takes addon frames under UIParent
+		P:Show()
+		out.height = P:Layout(640)
+		local M = P.Map
+		local s1 = M.steps[1]
+		out.live = #nav.pins() == 0 and s1:GetParent() ~= WorldMapFrame.Child
+		out.steps = { r3(M.steps[1].width), M.steps[1].text:GetText(), r3(rgba(M.steps[3].fill)[4]) }
+		out.target = { glow = M.target.glow:IsShown(), icon = M.target.icon.texture:match("icon%-[%a-]+$") }
+		Polestar.Set("nav.stepPinSize", 2)
+		out.repainted = r3(M.steps[1].width)
+		P:Hide()
+		Polestar.Set("nav.stepPinSize", 2.5)
+		out.hidden = r3(M.steps[1].width)
+		P:Show()
+		out.shown = r3(M.steps[1].width)
+		out.updates = P:GetScript("OnUpdate") == nil
+		local n, page = 0, nil
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			if spec.page == Polestar.L["Map pins"] then
+				if spec.key then page = { key = spec.key, order = spec.order, group = spec.group } end
+				for _, c in ipairs(spec.controls) do
+					n = n + 1
+					if c.new and not (c.search and c.help) then out.missing = c.key end
+					if c.key and Polestar.GetDefault(c.key) == nil then out.noDefault = c.key end
+				end
+			end
+		end
+		out.page, out.controls = page, n
+		emit(out)"#);
+	assert_eq!(out["height"], json!(200));
+	assert_eq!(out["live"], true, "sandbox pins, not the world map's");
+	assert_eq!(out["steps"], json!([15, "1", 0.35]), "the next three steps as the real ones");
+	assert_eq!(out["target"], json!({ "glow": true, "icon": "icon-target" }));
+	assert_eq!(json!([out["repainted"], out["hidden"], out["shown"]]), json!([30, 30, 37.5]), "repaints while shown, else on show");
+	assert_eq!(out["updates"], true, "no OnUpdate");
+	assert_eq!(out["page"], json!({ "key": "mappins", "order": 23, "group": "look" }));
+	assert!(out["controls"].as_f64().unwrap() >= 30.0, "{} controls", out["controls"]);
+	assert_eq!(out.get("missing"), None, "every new row has search words and help");
+	assert_eq!(out.get("noDefault"), None, "every row's key has a default");
+}

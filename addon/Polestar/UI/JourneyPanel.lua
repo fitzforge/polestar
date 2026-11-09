@@ -16,7 +16,9 @@
 -- time is whole seconds and the header adds up the steps, so the totals
 -- always match what the rows say. Clicking the current step opens the skip
 -- menu (Nav/Prompts.lua). Off with nav.journeySteps, collapsed with
--- nav.journeyOpen = false, never in compact mode.
+-- nav.journeyOpen = false, never in compact mode. How many legs it lists and
+-- whether their numbers show: trackers.journey.rows, .numbers (Options >
+-- Trackers > Journey).
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
 -- yards, step, lift, side, transport, to, hubs: a walk entering the other
@@ -429,10 +431,21 @@ end
 -- Painting
 ---------------------------------------------------------------------------
 
+-- How many legs it lists and whether their numbers show (Options > Trackers
+-- > Journey: trackers.journey.rows, .numbers).
+local function journeyLook(prop, fallback)
+	local TR = UI.Trackers
+	local v = TR and TR.Get("journey", prop)
+	if v == nil then return fallback end
+	return v
+end
+
 -- Labels, glyphs and colours: only when the steps themselves change.
 local function fillStructure(legs, ci)
 	local n = #legs - ci + 1
-	local shown = n > MAX_ROWS and MAX_ROWS or n
+	local most = math.max(1, math.floor(tonumber(journeyLook("rows", MAX_ROWS)) or MAX_ROWS))
+	local shown = n > most and most or n
+	local numbers = journeyLook("numbers", true) ~= false
 	for i = 1, shown do
 		local leg = legs[ci + i - 1]
 		local r = row(i)
@@ -440,6 +453,7 @@ local function fillStructure(legs, ci)
 		r.psCurrent = current
 		r.psLeg = ci + i - 1
 		r.Num:SetFormattedText("%d", ci + i - 1)
+		r.Num:SetShown(numbers)
 		r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
 		r.Text:SetText(JP.StepText(leg))
 		r.Bar:SetShown(current)
@@ -621,7 +635,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "nav.journeyOpen" then
 		JP.Refresh()
 		relayout()
-	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.")) then
+	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.") or path == "trackers" or path:find("^trackers%.journey%.")) then
 		JP.Refresh(true)
 	end
 end)

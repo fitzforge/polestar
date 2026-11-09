@@ -346,8 +346,9 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 		Polestar.UI.ShowOptions("integrations")
 		Polestar.UI.Options.Controls("integrations")["ui.matchAccent"]:Click()
 		local rematched = { accent = Polestar.Get("ui.accent"), live = { T.Accent() } }
-		Polestar.UI.ShowOptions("appearance")
-		look = Polestar.UI.Options.Controls("appearance")
+		Polestar.UI.ShowOptions("theme")
+		Polestar.UI.Options.Select("theme", "Type")
+		look = Polestar.UI.Options.Controls("theme", "Type")
 		local font = look["ui.font"]
 		local fontLabel = font.Button.Label:GetText()
 		font.Button:Click()

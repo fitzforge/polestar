@@ -124,7 +124,9 @@ local KITS = {
 }
 Theme.KITS = KITS
 
--- The kit of the skin in use, or nil (the house style, Halo, Hearth).
+-- The kit of the skin in use, or nil (the house style, Halo, Hearth). A skin
+-- another addon registered on one of the game's looks (docs/SKINS-API.md,
+-- spec.base) draws in that look's kit.
 function Theme.Kit()
 	return KITS[Theme.SkinKey()]
 end
@@ -886,6 +888,8 @@ local function paints(name)
 	}
 end
 
+-- The game looks' painters: the base painters of these three skins, and of
+-- any registered skin built on them (Theme.lua's paint passes them on).
 for name in pairs(KITS) do Theme.SKIN_PAINT[name] = paints(name) end
 
 ---------------------------------------------------------------------------

@@ -14,6 +14,7 @@
 	<Script file="RouteStrokes.lua"/>
 	<Script file="RouteSparkle.lua"/>
 	<Script file="RouteLines.lua"/>
+	<Script file="RouteOptions.lua"/>
 	<Script file="FlightTimer.lua"/>
 	<Script file="Instances.lua"/>
 </Ui>
