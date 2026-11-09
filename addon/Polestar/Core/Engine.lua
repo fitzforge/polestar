@@ -1020,10 +1020,14 @@ end
 -- guide still turns it in (a turn-in of it, not optional, that applies to
 -- the character, in a step the player has not skipped, not skipped or
 -- ticked itself, and not unavailable down the chain of prerequisites), or
--- every goal of p in the guide is for other characters (`only`): another
--- race's or class's version of the chain, whose own the data does not list
--- (Emphasis on Sacrifice names the Human Lord Grayson Shadowbreaker, 7638,
--- not the Dwarf's 7670). Nor is one the guide does not turn in for the
+-- every goal of p in the guide is for other characters (`only`) and p is
+-- not this character's (Own.notMine): another race's or class's version of
+-- the chain, whose own the data does not list (Emphasis on Sacrifice names
+-- the Human Lord Grayson Shadowbreaker, 7638, not the Dwarf's 7670). A p
+-- the character can take, whose steps here are for other races only, is
+-- one the route gives them elsewhere (Washed Ashore, 4681, for a Night Elf
+-- in Darkshore, done in the Night Elf's own Darkshore guide before, #1442):
+-- it is missing. Nor is one the guide does not turn in for the
 -- character that the player holds (not skipped, Engine.SkipQuest): another
 -- giver's version of a breadcrumb the guide takes elsewhere, handed in at
 -- the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff, 1529,
@@ -1051,7 +1055,19 @@ function Own.coming(p, depth)
 	for _, t in ipairs(accepts) do
 		if stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return false end
 	end
-	return #turnins + #accepts > 0
+	return #turnins + #accepts > 0 and Own.notMine(p)
+end
+
+-- Whether quest p is closed to the character by faction, race or class in
+-- the quest data (the Codex, Lookup.QuestBlock); also true when that cannot
+-- be told (no Codex, a quest it lacks), which keeps such a prerequisite to
+-- the giver's window as before.
+function Own.notMine(p)
+	local X, Lk = ns.Codex, ns.Lookup
+	local rec = X and X.Quest and Lk and Lk.QuestBlock and X.Quest(p)
+	if not rec then return true end
+	local why = Lk.QuestBlock(rec, player)
+	return why == "faction" or why == "race" or why == "class"
 end
 
 -- The quest the player skipped that leaves out an accept missing
@@ -1270,7 +1286,11 @@ function Own.feederPlan(g)
 	-- turn-in of a quest neither held nor taken here is orphaned).
 	local function coming(p, depth)
 		if C.IsOnQuest(p) and not Own.questSkipped(p) then return true end
-		if not turnsIn(p) then return false end
+		if not turnsIn(p) then
+			-- Every goal of p here for other characters, p not this one's: another
+			-- race's version of the chain (Own.coming, Own.notMine).
+			return not acceptOf(p) and #(l.turnins[p] or NONE) + #(l.accepts[p] or NONE) > 0 and Own.notMine(p)
+		end
 		local a = acceptOf(p)
 		if not a then return false end
 		if depth > 8 then return true end

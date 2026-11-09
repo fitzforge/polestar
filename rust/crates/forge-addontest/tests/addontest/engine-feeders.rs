@@ -275,6 +275,12 @@ const WETLANDS_LOG: &str = "945, 968, 98461, 967, 990, 97926, 173, 174, 337, 134
 const JOE_DONE: &str = "743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 759, 760, 761, 763, 764, 765, 766, 767, 771, 772, 773, 775, 780, 781, 833, 860, 861, 886, 1656, 3376, 95805, 96130, 96605, 96659, 96661, 97485, 98424, 98430, 98435, 99079, 99080, 99081, 99082, 99101, 99108, 99411";
 
 fn shipped(faction: &str, race: &str, class: &str, level: u32, done: &str, log: &str, guide: &str) -> Value {
+	shipped_with(faction, race, class, level, done, log, guide, "")
+}
+
+// `extra`: Lua run after login, before the quest log is in (stubs for the Codex, ...).
+#[allow(clippy::too_many_arguments)]
+fn shipped_with(faction: &str, race: &str, class: &str, level: u32, done: &str, log: &str, guide: &str, extra: &str) -> Value {
 	let dir = forge_addontest::run::addons_dir();
 	let part = format!("Polestar_Guides_{faction}");
 	emitted(&RunAddon {
@@ -292,6 +298,7 @@ E = Polestar.Engine
 -- The client's maps as the pack has them (the stub world knows none).
 for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
 stub.login(); stub.advance(0.25)
+{extra}
 Polestar.Set("behavior.autoAccept", false)
 -- Opened before the quest log is in: the guide as written; then the log, and the plan.
 E.SetGuide("{guide}"); stub.advance(0.25)
@@ -475,4 +482,115 @@ emit({ senani = senani, live = live, first = first, again = lost(), steps = E.Ge
 	assert_eq!(out["again"]["step"], "Senani Thunderheart");
 	assert_eq!(out["again"]["q"], 25);
 	assert_eq!(out["again"]["arrow"], json!({ "x": 73, "y": 61 }));
+}
+
+// #1442: a prerequisite whose every step in the guide is for other races (Washed Ashore in Darkshore, `only`
+// the races that did not play the Night Elf's own Darkshore guide) is not "coming" for a character who can
+// take it: the follow-up (Beached Sea Turtle) waits on it. Another race's own version of a chain (the quest
+// data closes it to the character) still leaves the follow-up to its giver.
+const DARKSHORE: &str = r#"
+local D = 1439
+local OTHERS = { races = { "Human", "Dwarf", "Gnome" } }
+Polestar.RegisterGuide({ id = "test/ds", pack = "test", title = "Darkshore", faction = "Alliance", minLevel = 15, maxLevel = 19, steps = {
+	{ title = "Auberdine", goals = { { t = "accept", quest = 4681, title = "Washed Ashore", only = OTHERS, map = D, x = 37, y = 44 } } },
+	{ title = "The skeletal turtle", goals = { { t = "turnin", quest = 4681, title = "Washed Ashore", only = OTHERS, map = D, x = 36, y = 70 } } },
+	{ title = "Cliffspring Falls", goals = {
+		{ t = "accept", quest = 4727, title = "Beached Sea Turtle", pre = { 4681 }, preTitles = { [4681] = "Washed Ashore" }, map = D, x = 53, y = 18 },
+		{ t = "accept", quest = 999, title = "Fine Crab Chunks", map = D, x = 53, y = 18 },
+	} },
+} })
+"#;
+
+// An earlier guide that gives Washed Ashore to the Night Elf, far from Darkshore's steps.
+const NE_DARKSHORE: &str = r#"
+Polestar.RegisterGuide({ id = "test/nds", pack = "test", title = "Darkshore (Night Elf)", faction = "Alliance", minLevel = 12, maxLevel = 14, next = "test/ds", steps = {
+	{ title = "Far away", goals = { { t = "accept", quest = 4681, title = "Washed Ashore", map = 1429, x = 50, y = 50 } } },
+	{ title = "Far away", goals = { { t = "turnin", quest = 4681, title = "Washed Ashore", map = 1429, x = 50, y = 50 } } },
+} })
+"#;
+
+fn darkshore(race: &str, races: &str, guides: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!(
+			r#"local w = stub.world
+w.addMap(1439, {{ name = "Darkshore", c = 1, left = 1000, right = -1000, top = 1000, bottom = -3000 }})
+w.addMap(1429, {{ name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }})
+w.moveTo(1439, 53, 18)
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "{race}", "{race}", "Alliance", "HUNTER", "Hunter", 17"#
+		),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{DARKSHORE}
+{guides}
+E = Polestar.Engine
+-- The Codex's records: Washed Ashore's races ({races}: nil = everyone).
+Polestar.Codex.Quest = function(id) return {{ id = id, title = "Quest " .. id, faction = "A", races = {races} }} end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+E.SetGuide("test/ds"); stub.advance(0.25)
+local out, g = {{}}, E.GetGuide()
+for i = 1, E.GetStepCount() do
+	local v = E.GetStepView(i)
+	for k, goal in ipairs(g.steps[i].goals) do
+		if goal.quest == 4727 or goal.quest == 999 then out[#out + 1] = goal.quest .. ":" .. v.goals[k].status .. ":" .. tostring(v.goals[k].unavailableText) end
+	end
+end
+local hidden = {{}}
+for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
+emit({{ goals = out, hidden = hidden }})"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn t_1442_a_prerequisite_the_guide_has_only_for_other_races_is_missing_for_a_character_who_can_take_it() {
+	let ne = darkshore("NightElf", "nil", "");
+	assert_eq!(ne["goals"], json!(["4727:skipped:Requires Washed Ashore first", "999:active:nil"]), "{ne}");
+	// A Human has Washed Ashore in the guide: Beached Sea Turtle waits on the route, not passed.
+	let human = darkshore("Human", "nil", "");
+	assert_eq!(human["goals"][0], "4727:pending:nil", "{human}");
+	// Washed Ashore closed to Night Elves by the quest data (another race's version): left to the giver.
+	let other = darkshore("NightElf", "69", "");
+	assert_eq!(other["goals"][0], "4727:active:nil", "{other}");
+	// The Night Elf's own earlier guide gives it, far away: the catch-up leaves Beached Sea Turtle out.
+	let planned = darkshore("NightElf", "nil", NE_DARKSHORE);
+	assert_eq!(planned["goals"], json!(["999:active:nil"]), "{planned}");
+	assert_eq!(planned["hidden"], json!([4727]));
+}
+
+// #1442 on the shipped Darkshore (03-darkshore, 15-19) for a Night Elf Hunter at 17. The guide's Washed Ashore,
+// How Big a Threat? and Plagued Lands steps are for the other races (a Night Elf does them in its own
+// Darkshore guide); the Codex is stubbed to say every quest is the character's (they are open to every
+// Alliance race). NE_TELDRASSIL: Teldrassil's hand-ins; NE_DARKSHORE: also the Night Elf's own Darkshore.
+const NE_TELDRASSIL: &str = "456, 457, 458, 459, 475, 476, 483, 486, 487, 488, 489, 490, 916, 917, 918, 919, 920, 921, 922, 923, 928, 929, 930, 931, 932, 933, 935, 937, 938, 940, 997, 2159, 2399, 2438, 2459, 2518, 2519, 2520, 2541, 2561, 3519, 3521, 3522, 3524, 4161, 4495, 6341, 6342, 6343, 6344, 7383, 87288, 96606, 96630, 96634, 97236, 97977, 97979, 98046, 98065, 98067, 98391, 98392, 98398, 99046, 99047, 99050, 99053, 99073";
+const NE_TELDRASSIL_LOG: &str = "952, 98025, 954, 958, 1141";
+const NE_DARKSHORE_DONE: &str = "40, 456, 457, 458, 459, 475, 476, 483, 486, 487, 488, 489, 490, 916, 917, 918, 919, 920, 921, 922, 923, 928, 929, 930, 931, 932, 933, 935, 937, 938, 940, 953, 954, 955, 956, 957, 958, 984, 985, 997, 1141, 2118, 2159, 2399, 2438, 2459, 2518, 2519, 2520, 2541, 2561, 3519, 3521, 3522, 3524, 4161, 4495, 4681, 4722, 4723, 4728, 4811, 4812, 4813, 6341, 6342, 6343, 6344, 7383, 87288, 96606, 96630, 96634, 97220, 97222, 97236, 97977, 97979, 98025, 98046, 98065, 98067, 98391, 98392, 98398, 99046, 99047, 99050, 99053, 99073";
+const NE_DARKSHORE_LOG: &str = "952, 983, 399, 35";
+const ALL_MINE: &str = "Polestar.Codex = { Quest = function(id) return { id = id } end }\nPolestar.Lookup = { QuestBlock = function() return nil end }";
+
+#[test]
+fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_are_never_shown_as_ready() {
+	// Washed Ashore, How Big a Threat? and Plagued Lands neither done nor in the log.
+	let out = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_TELDRASSIL, NE_TELDRASSIL_LOG, "forever/alliance/03-darkshore", ALL_MINE);
+	// Before the plan: Beached Sea Turtle, Cleansing of the Infected, Thundris Windweaver and what follows
+	// wait on them ("Requires … first", no longer "Accept"). After: the Night Elf's own Teldrassil and
+	// Darkshore steps for them go in beside Auberdine (all in Darkshore, ~4 min), and nothing waits.
+	let before = ids(&out["before"]["requires"]);
+	for q in [4727, 2138, 4761] {
+		assert!(before.contains(&q), "{q} waits on its prerequisite: {before:?}");
+	}
+	assert!(ids(&out["after"]["requires"]).is_empty(), "{out}");
+	let feeders = lines(&out["feeders"]);
+	assert!(!feeders.is_empty() && feeders.iter().all(|f| f.contains("[forever/alliance/nightelf/")), "{feeders:?}");
+	assert!(feeders.iter().any(|f| f.contains("turnin:4681")), "{feeders:?}");
+
+	// A Night Elf who played its own Darkshore: the guide as written, nothing waiting.
+	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);
+	assert!(lines(&route["feeders"]).is_empty() && ids(&route["hidden"]).is_empty(), "{route}");
 }
