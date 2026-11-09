@@ -590,6 +590,13 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
 	-- A level goal: the XP still to earn.
 	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
+	-- Finished quests the guide hands in before the level is needed (#1431):
+	-- what they give, or that they cover it ("hand in first").
+	if goal.xpLeft and (goal.readyXp or 0) > 0 then
+		parts[#parts + 1] = format(L["your finished quests give %s: hand them in first"], thousands(goal.readyXp))
+	elseif goal.handInFirst then
+		parts[#parts + 1] = L["Hand in first: your finished quests cover it"]
+	end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
