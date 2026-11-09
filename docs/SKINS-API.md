@@ -10,6 +10,13 @@ This page is the reference and a walkthrough. The repository has a complete,
 commented example, [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Example)
 ("Moonlit": a scheme and a skin), which is never part of a Polestar release.
 
+> The full developer documentation is in [docs/skins/](skins/README.md):
+> concepts, [getting started](skins/getting-started.md), the complete
+> [reference](skins/reference.md) (every token with its default, every error
+> message), [recipes](skins/examples.md), [versioning](skins/versioning.md),
+> [publishing](skins/publishing.md) and the [known gaps](skins/API-GAPS.md).
+> This page is the short form.
+
 - [Quick start](#quick-start)
 - [The API at a glance](#the-api-at-a-glance)
 - [RegisterScheme](#registerscheme)
