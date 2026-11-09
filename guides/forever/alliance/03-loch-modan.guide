@@ -433,7 +433,7 @@ step Lakeshire
 step Fly to Stormwind
   zone Redridge Mountains
   tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
-  goto 25.5,59.4 "Lakeshire flight master"
+  goto 25.5,59.4 "Lakeshire flight master" live
   fly "Stormwind"
 
 step Sprite Jumpsprocket

@@ -84,7 +84,7 @@ next forever/alliance/06-wetlands
 step Fly to Darkshire
   zone Redridge Mountains
   tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
-  goto 25.5,59.4 "Lakeshire flight master"
+  goto 25.5,59.4 "Lakeshire flight master" live
   fly "Darkshire"
 
 step Blind Mary
@@ -218,7 +218,7 @@ step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
   tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
-  goto 50.5,47.5 "Cathedral of Light"
+  goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
   turnin 1788 only Human -- Duthorian Rall: Redemption

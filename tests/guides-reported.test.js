@@ -9265,3 +9265,21 @@ test('forever/alliance/03-loch-modan.guide: Dwarves and Gnomes fly to Ironforge,
 	}
 });
 
+
+// Travel sweep (0.3.6): four gotos on maps whose Era and live frames differ (Redridge, Stormwind, the Eastern
+// Plaguelands) were typed with the live coordinates of their NPC but read as Era: the Lakeshire flight master
+// 110 yd off (03-loch-modan, 05-duskwood), the Cathedral of Light 214 yd off (05-duskwood), Egan 219 yd off
+// (50-60/06-silithus). They are marked `live`.
+test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { skip }, () => {
+	const cases = [
+		['forever/alliance/03-loch-modan.guide', 25.5, 59.4],
+		['forever/alliance/05-duskwood.guide', 25.5, 59.4],
+		['forever/alliance/05-duskwood.guide', 50.5, 47.5],
+		['forever/alliance/50-60/06-silithus.guide', 11.4, 26.6],
+	];
+	for (const [guide, x, y] of cases) {
+		const hit = goals(guide).find(({ goal }) => goal.t === 'goto' && goal.x === x && goal.y === y);
+		assert.ok(hit, `${guide}: goto ${x},${y}`);
+		assert.notEqual(hit.goal.f, 'e', `${guide}: goto ${x},${y} is in the live frame`);
+	}
+});
