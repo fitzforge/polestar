@@ -375,6 +375,50 @@ test('Horde 1-30: a `when group` step has a goal that holds it, so a player who 
 	assert.deepEqual(bad, []);
 });
 
+// Horde 1-30 audit (#1414): the zeppelin starts walk past Brill and Deathguard Linnea's camp on the way to Silverpine;
+// Hadric Harlson's Argent quests are done there (both benchmark routes do), before the Sepulcher.
+test('forever/horde/03-silverpine-forest.guide: Orcs take the Argent quests in Tirisfal on the way to the Sepulcher (#1414)', { skip }, () => {
+	const forOrc = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
+	const list = goals('forever/horde/03-silverpine-forest.guide').filter(forOrc);
+	const sepulcher = at(list, 'getfp The Sepulcher', (g) => g.t === 'getfp' && /Sepulcher/.test(g.location || ''));
+	for (const q of [96895, 445, 96897, 96898]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < sepulcher, `${q} is taken before the Sepulcher`);
+	for (const q of [96897, 96898]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < sepulcher, `${q} is handed in before the Sepulcher`);
+	assert.ok(at(list, 'turnin 445', is('turnin', 445)) > sepulcher - 1, 'Renferrel takes the delivery at the Sepulcher');
+});
+
+// Horde 1-30 audit (#1414): Undead Paladins at 15 and 22 were sent from Orgrimmar to Thunder Bluff's paladin trainer.
+test('Horde 1-30: no Paladin training step waits in Orgrimmar, which has no paladin trainer (#1414)', { skip }, () => {
+	for (const guide of ['forever/horde/03-silverpine-forest.guide', 'forever/horde/05-stonetalon-mountains.guide']) {
+		const bad = goals(guide).filter(forClass('PALADIN')).filter(({ goal }) => goal.t === 'train' && goal.class && goal.zone === 1454);
+		assert.deepEqual(bad.map(({ s }) => s), [], `${guide}: no Paladin train goal on the Orgrimmar map`);
+	}
+});
+
+// Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected's camp is a few steps east of Gann Stonespire.
+test('forever/horde/04-the-barrens.guide: Logmar\'s quest is taken in Camp Taurajo, done by Gann\'s camp, handed in on the way back (#1414)', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const take = at(list, 'accept 97250', is('accept', 97250));
+	const kill = at(list, 'kill 268622', (g) => g.t === 'kill' && g.quest === 97250);
+	const gann = at(list, 'accept 843', is('accept', 843));
+	const back = at(list, 'turnin 97250', is('turnin', 97250));
+	assert.ok(take < gann && gann < kill && kill < back, 'Camp Taurajo, Gann, the camp, back');
+	assert.ok(Math.hypot(list[kill].goal.x - 48.8, list[kill].goal.y - 77.0) < 1, 'at the recorded camp');
+});
+
+// Horde 1-30 audit (#1414): Kyle's meat comes from the Poison Water loop's plainstriders.
+test(`${MULGORE}: Kyle's Gone Missing! is taken before the Poison Water loop (#1414)`, { skip }, () => {
+	const list = goals(MULGORE);
+	assert.ok(at(list, 'accept 99411', is('accept', 99411)) < at(list, 'collect 4758', (g) => g.t === 'collect' && g.quest === 748), 'Ahab before the paws');
+});
+
+// Horde 1-30 audit (#1414): Encroachment from Gar'Thok on the first Razor Hill stop, before the prickly pears.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Encroachment can be taken on the first Razor Hill stop, before the prickly pears (#1414)`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const early = list.findIndex(({ step, goal }) => is('accept', 837)(goal) && [].concat(step.when || []).length);
+	assert.ok(early >= 0, 'a level-gated accept of 837');
+	assert.ok(early < at(list, 'collect 275718', (g) => g.t === 'collect' && g.quest === 96825), 'before the pears');
+});
+
 test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
 	for (const race of ['Orc', 'Troll']) {
 		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
