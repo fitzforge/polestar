@@ -469,7 +469,7 @@ step The Fire Spirit Stone
   tip Braldir gives you the Fire Sapta. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the Minor Manifestation of Fire, then place its Glowing Ember in the Brazier of the Dormant Flame, atop the Shrine of Eternal Flame.
   turnin 94466                                -- Braldir Ashmantle
   accept 94467
-  use 6636 @31.9,64.5                         -- Fire Sapta, beside the Spirit Stone
+  use 6636 quest 94467.1 @31.9,64.5           -- Fire Sapta, beside the Spirit Stone
   collect 6655 quest 94467.1 @31.9,64.5       -- Glowing Ember: Minor Manifestation of Fire
   turnin 94467 @31.9,64.5                     -- Brazier of the Dormant Flame
   accept 94468 @31.9,64.5
