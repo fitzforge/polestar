@@ -48,9 +48,13 @@ fn pack_files(name: &str) -> String {
 /// corrections); raised for the hotfix; trim in 0.3.7.
 /// 0.3.7 stage (grind spots without alternatives, goals with the same spots sharing one list): the pack
 /// compiled from the stage reads Alliance 21,871 and Horde 21,412 (was 23,548 / 22,933 for 0.3.6 compiled the
-/// same way); read budgets lowered to those plus ~1%. Resident and peak unchanged by it.
+/// same way); read budgets lowered to those plus ~1%.
+/// 0.3.7 stage at 58f9962a1, the pack compiled from it (`forge guide compile`): Alliance resident 15,959, peak 34,193,
+/// read 21,871; Horde resident 14,624, peak 31,522, read 21,412 (0.3.6 compiled the same way: 15,911 / 34,086 /
+/// 23,548 and 14,575 / 31,440 / 22,933). Every budget is the stage figure plus ~1%: resident and Alliance peak
+/// raised (0.3.6 itself was over them once compiled), Horde peak and both reads lowered.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 15850.0), ("peak", 34000.0), ("read", 22100.0)]), ("Horde", "Orc", [("resident", 14600.0), ("peak", 31900.0), ("read", 21650.0)])];
+	[("Alliance", "Human", [("resident", 16120.0), ("peak", 34530.0), ("read", 22100.0)]), ("Horde", "Orc", [("resident", 14770.0), ("peak", 31840.0), ("read", 21650.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
