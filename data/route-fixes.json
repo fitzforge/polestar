@@ -11109,6 +11109,19 @@
 				"faction": "Horde",
 				"why": "#1346: the Befouled Water Globe that starts The Befouled Element (1918) drops from Tideress only for a player with Stonetalon Standstill (25) in the log or handed in (players' recordings: 7 people with it got the globe, 2 without it did not), so Tideress comes after Mastok's accept of 25.",
 				"source": "#1346"
+			},
+			{
+				"a": [
+					"accept",
+					99411
+				],
+				"b": [
+					"task",
+					748
+				],
+				"faction": "Horde",
+				"why": "Horde 1-30 audit (#1414): Kyle's Gone Missing! (Ahab Wheathoof, level 7, from 5) is taken on the first Bloodhoof stop, beside Ruul, Mull and Baine, so the Tender Strider Meat comes from the Adult Plainstriders of the Poison Water loop; it was taken on the third stop and the meat farmed on the way to the Thunderhorn well (flow audit: Ahab walked past 39 minutes before). Players' recordings: 12 accepts at 6-9, every meat drop from Adult Plainstriders (2956, 2957) with the quest in the log.",
+				"source": "#1414"
 			}
 		]
 	}
