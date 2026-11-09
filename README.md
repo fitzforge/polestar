@@ -1281,7 +1281,10 @@ permission; his map files are not part of the addon.
 7: guide packs produced by Polestar's compiler and import strings produced by
 its tools, including the reference data they place in them, may be
 distributed under terms of the author's choice (not guide text copied from
-Polestar's own guides, nor Polestar's code).
+Polestar's own guides, nor Polestar's code), and a second one for skin
+addons: an addon that changes Polestar's look only through the documented
+Skin API ([docs/skins/](docs/skins/README.md)) may be licensed as its author
+chooses.
 
 <p align="center"><img src="docs/assets/emblem.svg" width="28" alt=""></p>
 

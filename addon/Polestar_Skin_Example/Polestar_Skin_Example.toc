@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 皮膚範例
 ## Notes-zhTW: 供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。
 ## Author: Polestar
-## X-License: GPL-3.0-only
+## X-License: CC0-1.0
 ## X-Website: https://github.com/fitzforge/polestar
 ## Version: 0.3.5
 ## Category: Polestar
