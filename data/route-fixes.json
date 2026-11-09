@@ -4647,7 +4647,7 @@
 					198
 				],
 				"faction": "Alliance",
-				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Bookie Herod's Records lie in the hut on Kurzen's Compound's west edge, which the first loop works for The Second Rebellion; the records are handed in and The Hidden Key taken there (the route walked past them at 14 yd and came back two guides later; the primary benchmark route does the same split: records on the first visit, the strongbox on the second)."
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Stranglethorn first loop: Bookie Herod's Records lie in the hut on Kurzen's Compound's west edge, which the first loop works for The Second Rebellion; the records are handed in and The Hidden Key taken there (the route walked past them at 14 yd and came back two guides later: records on the first visit, the strongbox on the second)."
 			},
 			{
 				"a": [
@@ -7899,7 +7899,7 @@
 					"accept",
 					879
 				],
-				"reason": "Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected (level 23, from 18, 2,300 XP) from Grunt Logmar in Camp Taurajo was in no Horde guide, though its Encroaching Soldiers and Outraged Pillager camp at 48.8,77.0, a few steps east of Gann Stonespire, which the Barrens & Stonetalon guide (24-26) visits from Camp Taurajo and comes back from. Players' recordings: offered to 20 people by Logmar, 15 people did it, every tick at 48-49,77, taken and handed in at Logmar (44.6,59.3). Both benchmark routes do it. Its Outraged Pillager (23) is elite (26 recorded sightings, all elite), so the guide's steps for it are `when group 97250`: the player chooses it (the class-chain heads-up rule); 7 of the 9 recorded runs at 22-26 were finished, the two abandons at 20.",
+				"reason": "Horde 1-30 audit (#1414): Wrongly Blamed, Justly Corrected (level 23, from 18, 2,300 XP) from Grunt Logmar in Camp Taurajo was in no Horde guide, though its Encroaching Soldiers and Outraged Pillager camp at 48.8,77.0, a few steps east of Gann Stonespire, which the Barrens & Stonetalon guide (24-26) visits from Camp Taurajo and comes back from. Players' recordings: offered to 20 people by Logmar, 15 people did it, every tick at 48-49,77, taken and handed in at Logmar (44.6,59.3). Its Outraged Pillager (23) is elite (26 recorded sightings, all elite), so the guide's steps for it are `when group 97250`: the player chooses it (the class-chain heads-up rule); 7 of the 9 recorded runs at 22-26 were finished, the two abandons at 20.",
 				"issue": "-"
 			},
 			{
@@ -7908,7 +7908,7 @@
 					"accept",
 					97246
 				],
-				"reason": "Horde 1-30 audit (#1414): Orcs, Trolls, Tauren and Skyborne take the zeppelin to Tirisfal Glades at 12-13 and walk past Brill and Deathguard Linnea's camp to Silverpine; The Argent Emissary (Deathguard Terrence, Brill) and Hadric Harlson's The Cult of the Damned and Remnants of War (96897, 96898; level 12, from 10, 900 XP each), on the cultists a short walk south-east of Hadric, and Delivery to Silverpine Forest (445, Johaan in Brill, to Renferrel at the Sepulcher) were left to the Undead guide. Players' recordings: Terrence's window at 61.5,53.4 (69 windows), Hadric's at 65.9,61.0, the objective ticks at 66-70,62-67. Calibrated level model: Silverpine exit +0.25 level, 0.2-0.35 h sooner to 60 for those starts. Both benchmark routes take them on the way down.",
+				"reason": "Horde 1-30 audit (#1414): Orcs, Trolls, Tauren and Skyborne take the zeppelin to Tirisfal Glades at 12-13 and walk past Brill and Deathguard Linnea's camp to Silverpine; The Argent Emissary (Deathguard Terrence, Brill) and Hadric Harlson's The Cult of the Damned and Remnants of War (96897, 96898; level 12, from 10, 900 XP each), on the cultists a short walk south-east of Hadric, and Delivery to Silverpine Forest (445, Johaan in Brill, to Renferrel at the Sepulcher) were left to the Undead guide. Players' recordings: Terrence's window at 61.5,53.4 (69 windows), Hadric's at 65.9,61.0, the objective ticks at 66-70,62-67. Calibrated level model: Silverpine exit +0.25 level, 0.2-0.35 h sooner to 60 for those starts.",
 				"issue": "-"
 			},
 			{
@@ -7940,7 +7940,7 @@
 					"accept",
 					1437
 				],
-				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game; one benchmark route takes it on the same visit.",
+				"reason": "Quest volume (Alliance 30-40 audit (0.3.7, 2026-11-09)): Desolace (30-40/02): Vahlarriel's Vengeance (level 33, from 30, 2650 XP; Vahlarriel Demonslayer at Nijel's Point) asks for four each of the Burning Blade Augurs, Reavers, Adepts and Felsworn in Thunder Axe Fortress, where the guide already goes for Dalinda, Tyranis and the Sceptre of Light. EG live and Forever's quest page agree on giver, ender and objectives, and a collector saw its XP in game.",
 				"issue": "-"
 			},
 			{
@@ -8490,7 +8490,7 @@
 			{
 				"q": 98230,
 				"faction": "Alliance",
-				"reason": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32 (30-40/01), group branch of Defeat Nek'rosh: This Land Was Their Land is offered by Captain Stoutfist only after 474 (#1299) and is handed to Howin Kindfeather in the Green Belt, which sent group players from Menethil back east across the zone and west again for 240 XP. Neither benchmark route takes it; 2 recorded people took it.",
+				"reason": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32 (30-40/01), group branch of Defeat Nek'rosh: This Land Was Their Land is offered by Captain Stoutfist only after 474 (#1299) and is handed to Howin Kindfeather in the Green Belt, which sent group players from Menethil back east across the zone and west again for 240 XP. 2 recorded people took it.",
 				"issue": "-"
 			},
 			{
@@ -8502,7 +8502,7 @@
 			{
 				"q": 712,
 				"faction": "Horde",
-				"reason": "Horde 30-40 audit (2026-11-09): Lotwil's third study wants 5 Bracers of Rock Binding from the Greater Rock Elementals (2736, level 42-44, 20%) in the Badlands' south-western gulches, 3-5 levels over the route at 39 and a walk out from Lotwil and back; it was optional. Both benchmarks of the zone leave it out or give it to groups.",
+				"reason": "Horde 30-40 audit (2026-11-09): Lotwil's third study wants 5 Bracers of Rock Binding from the Greater Rock Elementals (2736, level 42-44, 20%) in the Badlands' south-western gulches, 3-5 levels over the route at 39 and a walk out from Lotwil and back; it was optional.",
 				"issue": "-"
 			},
 			{

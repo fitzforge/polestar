@@ -378,7 +378,7 @@ test('Horde 1-30: a `when group` step has a goal that holds it, so a player who 
 });
 
 // Horde 1-30 audit (#1414): the zeppelin starts walk past Brill and Deathguard Linnea's camp on the way to Silverpine;
-// Hadric Harlson's Argent quests are done there (both benchmark routes do), before the Sepulcher.
+// Hadric Harlson's Argent quests are done there, before the Sepulcher.
 test('forever/horde/03-silverpine-forest.guide: Orcs take the Argent quests in Tirisfal on the way to the Sepulcher (#1414)', { skip }, () => {
 	const forOrc = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	const list = goals('forever/horde/03-silverpine-forest.guide').filter(forOrc);
@@ -5168,7 +5168,7 @@ test('forever/alliance/30-40/04b-stranglethorn-vale.guide: flow re-order: Krazek
 	assert.equal(stepOf('turnin', 210), stepOf('turnin', 601), 'handed to Krazek on the Booty Bay stop that ends the loop');
 	assert.equal(stepOf('accept', 627), stepOf('turnin', 210), 'Favor for Krazek taken there');
 	// Alliance 30-40 audit (0.3.7): the first loop now takes Krazek's Cookery from Kaleb and hands it to Krazek, and turns
-	// in Herod's records (both benchmarks split it so); 04b's lines stay for players who load it fresh. Favor for Krazek
+	// in Herod's records; 04b's lines stay for players who load it fresh. Favor for Krazek
 	// (Arathi's kobolds) still waits for 04b.
 	assert.ok(!goals('forever/alliance/30-40/04-stranglethorn-vale.guide').some(({ goal }) => goal.quest === 627), 'Favor for Krazek not on the first loop at 33-34');
 });
