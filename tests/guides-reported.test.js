@@ -9456,3 +9456,13 @@ test('Orgrimmar (Horde 55): Camp Mojache points at Warcaller Gorlach\'s walk in 
 	assert.match(src, /tip Warcaller Gorlach walks the Valley of Strength/);
 	assert.doesNotMatch(src, /Gorlach, outside the front gate/);
 });
+
+// Position sweep (0.3.6, IngestCheck036's patrol item): Craven Drok walks the Drag (TDB waypoint path; 46 people met
+// him across it, the 3 who took Alliance Relations at three different spots); the tip said he waits there.
+test('Orgrimmar (Horde 30): Craven Drok\'s step says he walks the Drag', { skip }, () => {
+	const g = goals('forever/horde/30-40/02-thousand-needles.guide');
+	at(g, 'accept 1431', is('accept', 1431));
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/30-40/02-thousand-needles.guide'), 'utf8');
+	assert.match(src, /tip [^\n]*Craven Drok walks the Drag/);
+	assert.doesNotMatch(src, /Craven Drok waits in the Drag/);
+});

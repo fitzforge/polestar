@@ -4965,6 +4965,26 @@
 					"ref": "npc 10880 met by 71 people, most in the Valley of Strength"
 				}
 			]
+		},
+		{
+			"id": "orgrimmar-craven-drok-walks-1431",
+			"faction": "Horde",
+			"at": {
+				"quest": 1431,
+				"goal": "accept"
+			},
+			"tip": "The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.",
+			"note": "Alliance Relations (1431): Craven Drok walks a waypoint path through the Drag from his spawn at 51.3,45.9 (the data's point); the tip said he waits there. Players' recordings: 46 people met him across the Drag (46-52,43-52, most at 48-51,49-51), and the 3 who took the quest did so at 51.8,45.1, 47.8,49.7 and 44.5,52.4.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20001903 (entry 5639) at 1844.49,-4400.1, MovementType 2 (waypoint path)"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 5639 met by 46 people in the Drag; accept 1431 by 3 people at 51.8,45.1 / 47.8,49.7 / 44.5,52.4"
+				}
+			]
 		}
 	]
 }
