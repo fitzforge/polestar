@@ -4707,6 +4707,7 @@ Polestar.Lookup.Show(query, kind, id)                 -- SHOW_LOOKUP(query, kind
 Polestar.Lookup.RegisterPlanner(kind, build)          -- build(id) -> { title, steps, ... } | nil, reason: another module's guide kind
 Polestar.Lookup.QuestChain(questId, player) -> { quest, ... }  -- every open prerequisite first, the quest last
 Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, turn-in
+Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the quest's pre (preAll), preAny (pre, the character's own) and preTitles
 ```
 
 - **Codex records** use the field names of `data/forever/codex/*.json` (see
@@ -4829,7 +4830,12 @@ The pick-up guide is built in game (`addon/Polestar/Dungeons/Pickup.lua`):
 list), not done, not in the log (those are `carried`), not closed for good (a
 quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
 taken, such as Klockmort's Essentials once Essential Artificials is; each
-accept carries `closedBy` too, so the Engine passes it once taken on the way),
+accept carries `closedBy` too, so the Engine passes it once taken on the way,
+and its quest's prerequisites (`Lookup.AcceptPre`: `preAll`, `pre`,
+`preTitles`, as a compiled accept, and so do `Lookup.QuestStep`'s and the
+hand-in guide's follow-up accepts): when the step that does one is skipped,
+the accept reads "Requires ... first" and the guide moves on rather than
+sending the player to a giver who does not offer it, #1406),
 open by max(level, the dungeon's lowest level), picked up outside from an NPC or object
 (not inside) or from an item that drops outside (`Dungeons.DropPoint`: a mob
 or object with spawns outside the dungeon that gives it 25% of the time or

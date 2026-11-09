@@ -310,6 +310,62 @@ fn kp_s_report_the_deadmines_pick_up_guide_of_a_level_21_gnome_rogue_in_lakeshir
 	assert_eq!(found, Vec::<&String>::new(), "The Ectoplasmic Distiller (Mux, Tanaris) and The Dread Citadel (Dosantos, Light's Hope) are on no raid page through a boss's stray essence or crystal");
 }
 
+const IN0K_SCRIPT: &str = r#"
+local w = stub.world
+w.complete({ 65, 132, 135, 141, 142, 92742, 92744, 92745, 92747, 92748, 92749, 92750, 92751, 92752, 92753 })
+for _, q in ipairs({ 168, 167, 2040 }) do w.onQuest(q, { 1 }) end
+stub.login()
+Polestar.Set("behavior.autoAccept", false)
+local D, E = Polestar.Dungeons, Polestar.Engine
+D.Load()
+D.PickUp("deadmines")
+stub.advance(0.25)
+local function view()
+	local out = {}
+	for i, s in ipairs(E.GetGuide().steps) do
+		local gs = {}
+		for g, v in ipairs(E.GetStepView(i).goals) do
+			local goal = s.goals[g]
+			gs[g] = goal.t .. ":" .. tostring(goal.quest) .. ":" .. v.status .. ":" .. tostring(v.unavailableText)
+		end
+		out[i] = table.concat(gs, " ")
+	end
+	return out
+end
+local r = { at = E.GetStepIndex(), steps = view() }
+E.Skip()
+stub.advance(0.25)
+r.skipped = { at = E.GetStepIndex(), steps = view() }
+emit(r)"#;
+
+// #1406 (In0k, Human Mage 18 at Sentinel Hill): the Deadmines pick-up guide's step 3 sent him to Gryan
+// Stoutmantle for The Defias Brotherhood (166), which Gryan gives only after the escort before it (155, The
+// Defias Traitor), so it was not there. The escort comes first; skipped (the Traitor is often away on another
+// player's escort), Gryan's and Scout Riell's accepts, which both need it, say so and the guide goes on.
+#[test]
+fn in0k_s_report_a_skipped_defias_traitor_escort_leaves_gryan_s_and_riell_s_accepts_requiring_it_not_a_giver_who_refuses() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before("\"Human\"", "\"MAGE\"", "\"Alliance\"", 18, &[1436.0, 55.78, 48.03]),
+		addons: vec!["Polestar".into()],
+		script: IN0K_SCRIPT.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let steps = strs(&out["steps"]);
+	assert_eq!(out["at"], 1);
+	assert!(steps[0].starts_with("accept:155:active"), "the escort first: {steps:?}");
+	let skipped = strs(&out["skipped"]["steps"]);
+	let gryan = skipped.iter().find(|s| s.starts_with("accept:166:")).expect("Gryan's The Defias Brotherhood");
+	let riell = skipped.iter().find(|s| s.starts_with("accept:214:")).expect("Scout Riell's Red Silk Bandanas");
+	assert_eq!(gryan, "accept:166:skipped:Requires The Defias Brotherhood first");
+	assert_eq!(riell, "accept:214:skipped:Requires The Defias Brotherhood first");
+	assert_eq!(out["skipped"]["at"].as_u64(), Some(skipped.len() as u64), "on at the entrance: {skipped:?}");
+}
+
 const TABETHA: &str = r#"
 stub.login()
 local D = Polestar.Dungeons
