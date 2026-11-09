@@ -301,9 +301,11 @@ is the default. A choice changes only the steps still ahead: like any `when`,
 a step the route has passed keeps its outcome.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
-stops the route makes anyway; the run itself is one `when dungeon` step with
-an `enter` goal first (the arrow leads to the door) and the quests' objectives
-(`optional` for the slow or rare ones); the hand-ins come on the next stops,
+stops the route makes anyway; the run itself is one `when dungeon` step, also
+`when onquest` its quests (a character who chose the dungeon after passing its
+pick-ups is not sent to the door with nothing to do), with an `enter` goal
+first (the arrow leads to the door) and the quests' objectives (`optional`
+for the slow or rare ones); the hand-ins come on the next stops,
 each in a step with `when complete <quest>` (or `when onquest <quest>` for one
 with no objectives), so a run left unfinished, or never chosen, passes them
 and a later guide can hand in what is still carried. A quest an item inside
@@ -318,6 +320,7 @@ step Gryan Stoutmantle
 
 step The Deadmines
   when dungeon "The Deadmines"
+  when onquest 166
   tip A dungeon for a group of five, about levels 17 to 24.
   enter "The Deadmines" @42.5,71.7
   complete 166

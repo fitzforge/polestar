@@ -28,11 +28,13 @@ next forever/alliance/07-thousand-needles
 #
 # The Stockade (`when dungeon "The Stockade"`, DungeonRoutes pilot 2026-11-09): for a character who chose it,
 # the run is on this guide's Stormwind stop, at about 29: Warden Thelwater (Quell the Uprising; The
-# Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) and Nikova Raskol
-# are picked up and handed in on the same stop; Councilman Millstipe's Crime and Punishment comes from
+# Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) is picked up and
+# handed in at the gate on the same stop; Councilman Millstipe's Crime and Punishment comes from
 # 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). Left out:
-# What Comes Around... (386: Guard Berton in Lakeshire, which the route doesn't pass after the run) and The
-# Fury Runs Deep (378: Motley Garmason's chain at Dun Modr).
+# The Color of Blood (388: Nikova Raskol in Old Town, a second Old Town visit after the run: an avoidable
+# hub revisit in the flow audit, outside DungeonRoutes' requirement A budget), What Comes Around... (386:
+# Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
+# at Dun Modr).
 
 # ---------------------------------------------------------------- Night Elves: Moonglade and Darnassus
 
@@ -512,20 +514,14 @@ step Warden Thelwater
   zone Stormwind City
   accept 391                              -- Warden Thelwater: The Stockade Riots
 
-step Nikova Raskol
-  when dungeon "The Stockade"
-  zone Stormwind City
-  tip Nikova Raskol stands in Old Town, east of the Trade District.
-  accept 388                              -- Nikova Raskol
-
 step The Stockade
   when dungeon "The Stockade"
+  when onquest 387,377,391
   zone Stormwind City
   tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
-  tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Red Wool Bandanas for Nikova, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
+  tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
   enter "The Stockade" @52.4,70.0
   complete 387                            -- Quell the Uprising
-  complete 388                            -- The Color of Blood
   complete 377                            -- Crime and Punishment: Dextren Ward
   complete 391                            -- The Stockade Riots: Bazil Thredd
 
@@ -538,11 +534,6 @@ step Warden Thelwater
   when complete 391
   zone Stormwind City
   turnin 391                              -- Warden Thelwater, at the gate
-
-step Nikova Raskol
-  when complete 388
-  zone Stormwind City
-  turnin 388                              -- Nikova Raskol, in Old Town
 
 step Jorgen and Elling Trias
   turnin 1241                             -- Jorgen
