@@ -55,7 +55,6 @@ step Boarton Shadetotem
 step The Venture Co. Mine
   zone Mulgore
   tip Ride down the lift and south-east across Mulgore to the Venture Co. Mine. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges.
-  goto 61.2,49.3 "Venture Co. Mine"
   collect 206157 x5 quest 76156.1             -- Seaforium Mining Charge, from the Blasting Supplies
 
 step Boarton Shadetotem

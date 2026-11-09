@@ -208,5 +208,59 @@
 			}
 		],
 		"note": "The Essence Font stands inside the Sunken Temple (instance map 109)."
+	},
+	"164689": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "The Monument of Franclorn Forgewright (Dark Iron Legacy) stands inside Blackrock Depths."
+	},
+	"164869": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "The Spectral Chalice stands inside Blackrock Depths."
+	},
+	"179880": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Drakkisath's Brand (Blackhand's Command) stands inside Upper Blackrock Spire."
 	}
 }

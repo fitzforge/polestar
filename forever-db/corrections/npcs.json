@@ -835,5 +835,95 @@
 			}
 		],
 		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
+	},
+	"9500": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Mistress Nagmara (The Love Potion) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"9503": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"12944": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Lokhtos Darkbargainer, the Thorium Brotherhood's quartermaster, stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"10740": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Awbee stands inside Blackrock Spire."
+	},
+	"10799": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Warosh (Urok Doomhowl) stands inside Blackrock Spire."
 	}
 }
