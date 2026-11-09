@@ -250,41 +250,47 @@ return {
 	-- {npc:11558} Kernda
 	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "",
 
-	-- Step 53: Meilosh
+	-- Step 53: Kernda
+	-- {area:1762} Felpaw Village · {npc:11558} Kernda
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "",
+	-- {npc:11558} Kernda
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+
+	-- Step 54: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {area:618} Winterspring
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {area:618} top-up on the Winterfall furbolgs gets you both."] = "",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "",
 
-	-- Step 57: Winterspring: kill these as you meet them
+	-- Step 58: Winterspring: kill these as you meet them
 	-- {area:618} Winterspring
 	["{area:618}: kill these as you meet them"] = "",
 	-- {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 61: Umber
+	-- Step 62: Umber
 	-- {area:1769} Timbermaw Hold · {area:618} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
 	["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "{npc:9298} 서쪽의 {area:618} 쪽 입구에서 {area:1769} 터널을 타고 {area:493} 갈림길을 따라 {area:2361}(으)로 가세요. {npc:11939}은(는) 호숫가에서 연구 중입니다.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
 
-	-- Step 62: Rabine Saturna
+	-- Step 63: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {npc:11939} Umber
 	["{npc:11801}'s house stands in {area:2361}, east of {npc:11939}."] = "{npc:11801}의 집은 {area:2361}, {npc:11939}의 동쪽에 있습니다.",
 
-	-- Step 64: Nighthaven
+	-- Step 65: Nighthaven
 	-- {area:2361} Nighthaven
 	["Learn the flight path in {area:2361}."] = "",
 
-	-- Step 65: Fly to Rut'theran Village
+	-- Step 66: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 
-	-- Step 66: Rut'theran Village
+	-- Step 67: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
 	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "",
 
-	-- Step 68: Darnassus
+	-- Step 69: Darnassus
 	-- {zone:1457} Darnassus
 	["Take the portal up to {zone:1457}."] = "차원문을 타고 {zone:1457}(으)로 올라가세요.",
 	-- {npc:7740} Gracina Spiritmight
@@ -294,27 +300,27 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, atop the {area:1658}"] = "{npc:3516}, {area:1658} 꼭대기",
 
-	-- Step 69: Portal to Teldrassil
+	-- Step 70: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "",
 
-	-- Step 70: Fly to Auberdine
+	-- Step 71: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 71: Boat to Menethil Harbor
+	-- Step 72: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 
-	-- Step 72: Fly to Stormwind
+	-- Step 73: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 73: Stormwind
+	-- Step 74: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
 	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {item:4306} Silk Cloth
@@ -328,29 +334,29 @@ return {
 	-- {item:14047} Runecloth
 	["{item:14047}, from your bags"] = "",
 
-	-- Step 74: Tram to Ironforge
+	-- Step 75: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 75: Ironforge
+	-- Step 76: Ironforge
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
 	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453}에는 주술사 상급자가 없습니다",
 
-	-- Step 76: Fly to Southshore
+	-- Step 77: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 80: Chillwind Camp
+	-- Step 81: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}은(는) 61레벨 정예입니다",
 	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {area:139} Eastern Plaguelands
 	["{quest:6184}: the agents' remains lie at the {area:2260} in the {area:139}"] = "",
 
-	-- Step 81: Andorhal
+	-- Step 82: Andorhal
 	["Andorhal"] = "안돌할",
 	-- {npc:10667} Chromie · {npc:1852} Araj the Summoner
 	["{npc:10667} waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. {npc:1852} guards his phylactery in the middle of the town."] = "{npc:10667}은(는) 야영지 북쪽의 폐허 도시 안돌할 서쪽, 무너진 여관에서 기다립니다. {npc:1852}은(는) 마을 한가운데에서 성물함을 지킵니다.",
@@ -358,33 +364,33 @@ return {
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "",
 
-	-- Step 82: Felstone Field
+	-- Step 83: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "{npc:10778}의 유령은 안돌할 서쪽 {area:199}의 농가 옆을 떠돕니다. 들판의 {npc:10801}이(가) 부적의 나머지 반쪽을 가지고 있습니다. 두 반쪽을 합치세요.",
 	["Upstairs"] = "",
 
-	-- Step 83: Northridge Lumber Camp
+	-- Step 84: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "길을 따라 북쪽의 제재소로 가서 한가운데에 흰개미 통을 내려놓으세요.",
 
-	-- Step 84: Tirion Fordring (optional)
+	-- Step 85: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
 	["{npc:1855} (optional)"] = "{npc:1855}(선택)",
 	-- {npc:1855} Tirion Fordring · {quest:5781} Of Forgotten Memories
 	["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}은(는) 벌목지 북동쪽, 경계 강가의 작은 오두막에 삽니다. {quest:5781}을(를) 완료했다면 제출하세요.",
 
-	-- Step 86: Of Lost Honor
+	-- Step 87: Of Lost Honor
 	["Underwater"] = "",
 
-	-- Step 88: Egan
+	-- Step 89: Egan
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {npc:11140} Egan
 	["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "",
 
-	-- Step 89: Marris Stead
+	-- Step 90: Marris Stead
 	-- {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
 	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "",
 
-	-- Step 91: Scholomance (optional)
+	-- Step 92: Scholomance (optional)
 	-- {area:2057} Scholomance
 	["{area:2057} (optional)"] = "{area:2057}(선택)",
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {area:28} Western Plaguelands · {area:2279} Stratholme
@@ -392,7 +398,7 @@ return {
 	-- {area:2057} Scholomance · {quest:5505} The Key to Scholomance · {area:3197} Chillwind Camp
 	["{area:2057} fits levels 58 to 60; {quest:5505} is handed in at {area:3197} below."] = "{area:2057}은(는) 58-60레벨에 맞습니다. {quest:5505}은(는) 아래 {area:3197}에서 제출합니다.",
 
-	-- Step 92: Level 59.93
+	-- Step 93: Level 59.93
 	["Level 59.93"] = "",
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
@@ -400,7 +406,7 @@ return {
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {area:139}"] = "{area:139} {area:2627}에서 {npc:14564} 사냥",
 
-	-- Step 94: Chillwind Camp
+	-- Step 95: Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Ride back south-west to {area:3197}."] = "남서쪽으로 {area:3197}에 돌아가세요.",
 	-- {zone:1453} Stormwind

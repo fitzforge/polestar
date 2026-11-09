@@ -51,6 +51,10 @@ return {
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
+	-- {npc:8737} Linken
+	["{npc:8737}, at the back of the refuge"] = "{npc:8737}, 야영지 안쪽",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:9298}에게서 끝납니다: 보관하세요",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
@@ -64,8 +68,6 @@ return {
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
-	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["Ends with {npc:9298} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:9298}에게서 끝납니다: 보관하세요",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "{zone:1444}의 {npc:7775}에게 줄 것: 보관하세요",
 

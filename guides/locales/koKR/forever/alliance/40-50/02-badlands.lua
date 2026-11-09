@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}의 다음 퀘스트는 경험치를 주지 않으니 건너뛰십시오.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "{zone:1418}을(를) 가로질러 서쪽 {area:342}의 먼지목도리 야영지로 가십시오. {npc:2944}은(는) 그 한가운데에 있으며 주위에 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼이 있습니다.",
+	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "{area:3}을(를) 가로질러 서쪽 {area:342}의 먼지목도리 야영지로 가십시오. {npc:2944}은(는) 그 한가운데에 있으며 주위에 먼지목도리일족 고룡사냥꾼과 먼지목도리일족 싸움꾼이 있습니다.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -28,13 +28,48 @@ return {
 	-- plural, as words: Scalding Whelps = {npc:2725} Scalding Whelp · Scorched Guardians = {npc:2726} Scorched Guardian
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "화염의 새끼비룡은 {npc:2888} 동쪽 협곡에 둥지를 틀고 있습니다. 화염의 수호비룡(정예)은 건드리지 마십시오. {item:4612}은(는) 드물게 떨어지니 사냥 중에 나오면 챙기십시오.",
 
-	-- Step 7: Fly to Southshore
+	-- Step 7: Into Loch Modan
+	-- {area:38} Loch Modan
+	["Into {area:38}"] = "",
+
+	-- Step 8: Ironband's Excavation Site
+	-- {area:38} Loch Modan
+	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "",
+
+	-- Step 9: Into Badlands
+	-- {area:3} Badlands
+	["Into {area:3}"] = "",
+
+	-- Step 11: The Uldaman dig
+	-- {area:1517} Uldaman
+	["The {area:1517} dig"] = "{area:1517} 발굴지",
+	-- {area:1517} Uldaman · {area:3} Badlands
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	-- {item:8047} Magenta Fungus Cap
+	["{item:8047}; below ground"] = "",
+	-- {object:2743} Carved Stone Urn
+	["{object:2743}; below ground"] = "",
+
+	-- Step 12: Back to Loch Modan
+	-- {area:38} Loch Modan
+	["Back to {area:38}"] = "",
+
+	-- Step 13: Ironband's Excavation Site
+	["Ride back north to Ironband's camp."] = "북쪽 아이언밴드의 발굴현장으로 돌아가십시오.",
+
+	-- Step 14: Thelsamar
+	-- {area:144} Thelsamar
+	["Ride west along the loch to {area:144}."] = "",
+	-- {npc:1470} Ghak Healtouch
+	["{npc:1470}, below ground"] = "",
+
+	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 8: Southshore
+	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
@@ -42,7 +77,7 @@ return {
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "랄레이의 다음 심부름은 {area:796}에 있으니 건너뛰십시오.",
 
-	-- Step 10: Aerie Peak
+	-- Step 18: Aerie Peak
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "길을 따라 북동쪽으로 {area:271}을(를) 빠져나가 {area:47}로 가십시오. {area:348}은(는) 경계 바로 너머에 있습니다. {npc:5635}은(는) 꼭대기에, {quest:1450}은(는) 그리핀 둥지에, {npc:7884}은(는) 여관 옆에 있습니다.",
 	-- {quest:1450} Gryphon Master Talonaxe
@@ -52,16 +87,16 @@ return {
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
 
-	-- Step 11: Rhapsody Shindigger
+	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634}은(는) {area:348} 동쪽 길가에 야영하고 있습니다.",
 
-	-- Step 12: Witherbark villages
+	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "마른나무껍질 마을",
 	-- {npc:5634} Rhapsody Shindigger
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "처음 두 우리는 {npc:5634} 남쪽 마른나무껍질 마을에 함께 있고, 세 번째는 동쪽의 다음 마을에 있습니다. 모든 마른나무껍질 트롤이 목걸이를 떨어뜨릴 수 있습니다.",
 
-	-- Step 13: Aerie Peak
+	-- Step 21: Aerie Peak
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}은(는) 목걸이를 계속 받습니다. 남는 것은 제출하십시오",
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -69,13 +104,13 @@ return {
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "탈론액스의 다음 임무는 이후 {area:47} 가이드에서 합니다.",
 
-	-- Step 14: Fly to Menethil Harbor
+	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
-	-- Step 16: Theramore
+	-- Step 24: Theramore
 	["Theramore"] = "테라모어 섬",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}은(는) 배가 도착하는 부두에 있습니다.",
@@ -86,14 +121,14 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "",
 
-	-- Step 17: Cortello's Riddle
+	-- Step 25: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 18: Theramore flight master
+	-- Step 26: Theramore flight master
 	["Theramore flight master"] = "",
 
-	-- Step 20: Warlock: Summon Felsteed
+	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

@@ -51,6 +51,10 @@ return {
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Volte cavalgando para oeste até o refúgio.\nPasse bem longe dos Demossauros e Estegodons elite. Daqui em diante, pegue todo Cristal de Poder e {object:157936} que encontrar.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, na entrada do refúgio",
+	-- {npc:8737} Linken
+	["{npc:8737}, at the back of the refuge"] = "{npc:8737}, no fundo do refúgio",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Termina com {npc:9298}, em {zone:1452}: guarde",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, no fundo da caverna; no subterrâneo",
 
@@ -64,8 +68,6 @@ return {
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
-	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Termina com {npc:9298}, em {zone:1452}: guarde",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Para {npc:7775}, em {zone:1444}: guarde",
 

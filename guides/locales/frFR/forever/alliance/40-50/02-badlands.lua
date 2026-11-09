@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La quête suivante de {npc:2817} ne rapporte pas d'expérience : passez-la.",
 
 	-- Step 3: Boss Tho'grun
-	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Traversez les {zone:1418} vers l'ouest jusqu'au camp Crache-poussières de {area:342}. {npc:2944} se tient au centre, entouré de Chasseurs Wyrm et de Marteleurs Crache-poussières.",
+	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Chevauchez vers l'ouest à travers les {area:3} jusqu'au camp Crache-poussières du {area:342}. {npc:2944} se tient au milieu, entouré de Chasseurs Wyrm et de Marteleurs.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -28,13 +28,48 @@ return {
 	-- plural, as words: Scalding Whelps = {npc:2725} Scalding Whelp · Scorched Guardians = {npc:2726} Scorched Guardian
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "Les Dragonnets flamboyants nichent dans le ravin à l'est de {npc:2888} ; laissez tranquilles les Gardiens des terres brûlées (élites). Le {item:4612} tombe rarement : prenez-le s'il tombe pendant que vous tuez des monstres.",
 
-	-- Step 7: Fly to Southshore
+	-- Step 7: Into Loch Modan
+	-- {area:38} Loch Modan
+	["Into {area:38}"] = "Vers le {area:38}",
+
+	-- Step 8: Ironband's Excavation Site
+	-- {area:38} Loch Modan
+	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "",
+
+	-- Step 9: Into Badlands
+	-- {area:3} Badlands
+	["Into {area:3}"] = "Vers les {area:3}",
+
+	-- Step 11: The Uldaman dig
+	-- {area:1517} Uldaman
+	["The {area:1517} dig"] = "Les fouilles d'{area:1517}",
+	-- {area:1517} Uldaman · {area:3} Badlands
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	-- {item:8047} Magenta Fungus Cap
+	["{item:8047}; below ground"] = "{item:8047} ; sous terre",
+	-- {object:2743} Carved Stone Urn
+	["{object:2743}; below ground"] = "{object:2743} ; sous terre",
+
+	-- Step 12: Back to Loch Modan
+	-- {area:38} Loch Modan
+	["Back to {area:38}"] = "",
+
+	-- Step 13: Ironband's Excavation Site
+	["Ride back north to Ironband's camp."] = "Revenez vers le nord jusqu'aux Excavations de Baguefer.",
+
+	-- Step 14: Thelsamar
+	-- {area:144} Thelsamar
+	["Ride west along the loch to {area:144}."] = "",
+	-- {npc:1470} Ghak Healtouch
+	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
+
+	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Prendre un vol pour {area:271}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maître de vol de {area:144}",
 
-	-- Step 8: Southshore
+	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
@@ -42,7 +77,7 @@ return {
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "La mission suivante de Raleigh se déroule au {area:796} : passez-la.",
 
-	-- Step 10: Aerie Peak
+	-- Step 18: Aerie Peak
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Chevauchez vers le nord-est en sortant d'{area:271} par la route jusque dans les {area:47} ; {area:348} se trouve juste après la frontière. {npc:5635} tient sa cour au sommet, {quest:1450} s'occupe de la volière et {npc:7884} se tient près de l'auberge.",
 	-- {quest:1450} Gryphon Master Talonaxe
@@ -52,16 +87,16 @@ return {
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744} : le guide précédent vous fait lier votre pierre de foyer ici, donc ceci se coche généralement tout de suite ; sous terre",
 
-	-- Step 11: Rhapsody Shindigger
+	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634} campe sur la route à l'est de {area:348}.",
 
-	-- Step 12: Witherbark villages
+	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Villages de Fanécorce",
 	-- {npc:5634} Rhapsody Shindigger
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Les deux premières cages se trouvent ensemble dans le village de Fanécorce au sud de {npc:5634} ; la troisième est dans le village suivant, à l'est. Chaque troll Witherbark peut lâcher un collier.",
 
-	-- Step 13: Aerie Peak
+	-- Step 21: Aerie Peak
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} paie toujours les colliers : rendez ceux en trop",
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -69,13 +104,13 @@ return {
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "La tâche suivante de Talonaxe attend un guide des {area:47} ultérieur.",
 
-	-- Step 14: Fly to Menethil Harbor
+	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "Maître de vol du {area:348}",
 
-	-- Step 16: Theramore
+	-- Step 24: Theramore
 	["Theramore"] = "Theramore",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} se tient sur les quais où accoste le bateau.",
@@ -86,14 +121,14 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, à l'intérieur",
 
-	-- Step 17: Cortello's Riddle
+	-- Step 25: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "À l'intérieur de {area:498}",
 
-	-- Step 18: Theramore flight master
+	-- Step 26: Theramore flight master
 	["Theramore flight master"] = "Maître de vol de Theramore",
 
-	-- Step 20: Warlock: Summon Felsteed
+	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -109,7 +144,7 @@ return {
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Partez au nord-est hors d'{area:271} par la route des {zone:1425} ; {area:348} se trouve juste après la frontière. Falstad tient sa cour au sommet, {quest:1450} s'occupe de la volière et {npc:7884} se tient près de l'auberge.",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Partez au nord-est hors d'{area:271} par la route des {zone:1425} ; {area:348} se trouve juste après la frontière. {npc:5635} tient sa cour au sommet, {quest:1450} s'occupe de la volière et {npc:7884} se tient près de l'auberge.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Partez au sud hors du {zone:1432}, par le col, jusqu'aux {zone:1418} ; {npc:2860} campe sur le site de fouilles.",
-	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Chevauchez vers l'ouest à travers les {area:3} jusqu'au camp Crache-poussières du {area:342}. {npc:2944} se tient au milieu, entouré de Chasseurs Wyrm et de Marteleurs.",
+	-- ["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Traversez les {zone:1418} vers l'ouest jusqu'au camp Crache-poussières de {area:342}. {npc:2944} se tient au centre, entouré de Chasseurs Wyrm et de Marteleurs Crache-poussières.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Partez à l'ouest vers {area:1877}, au milieu des {zone:1418} ; {npc:2817} campe à côté de Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Prenez le bateau pour Theramore au quai le plus éloigné.",
 	-- ["Talonaxe's next task waits for a later {zone:1425} guide."] = "La tâche suivante de Talonaxe attend un guide des {zone:1425} ultérieur.",
