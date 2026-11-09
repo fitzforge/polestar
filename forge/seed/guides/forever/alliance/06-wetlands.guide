@@ -199,6 +199,7 @@ step Goaz Warders
   collect 279993 quest 98216.1            -- Titanic Keystone
 
 step Prospector Whelgar
+  when group 98216
   when complete 98216
   turnin 98216                            -- Below ground
 
