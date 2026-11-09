@@ -1,4 +1,4 @@
-//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 30). Every
+//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 31). Every
 //! step keeps the JS order of iteration and of floating-point operations, so the world equals
 //! the JS world bit for bit (docs/forge/internals.md, "How a port was checked"). Comments name the JS they port; the
 //! reasons behind each rule are documented in world.js.
@@ -21,7 +21,7 @@ use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::rc::Rc;
 
-pub const BUILDER_VERSION: u32 = 30;
+pub const BUILDER_VERSION: u32 = 31;
 const RIDE_PAIR_YD: f64 = 60.0;
 const CITY_LIFT_FLOOR: [(&str, &str); 5] =
 	[("lift-thunder-bluff-north", "top"), ("lift-thunder-bluff-west", "top"), ("lift-undercity-east", "bottom"), ("lift-undercity-south", "bottom"), ("lift-undercity-west", "bottom")];
@@ -2879,9 +2879,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	let grind_spacing: Vec<f64> = spacing.into_iter().map(|x| x.unwrap_or(f64::NAN)).collect();
 
 	// ---- travel safety ----
+	// Each zone's danger level: its lowest level, or its danger floor where a low pocket pulls that
+	// under the ground walks cross (zonelevels.rs DANGER_FLOORS, #1490).
 	let mut zone_min: BTreeMap<u32, f64> = BTreeMap::new();
 	for (id, z) in zone_levels(&d.npcs, &d.zones, &[]) {
-		if let Some(m) = z.min.filter(|m| m.is_finite()) {
+		if let Some(m) = z.danger_level().filter(|m| m.is_finite()) {
 			zone_min.insert(id, m);
 		}
 	}

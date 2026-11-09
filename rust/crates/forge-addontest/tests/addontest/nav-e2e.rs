@@ -2315,25 +2315,28 @@ fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_th
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
 
-/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
-/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
-/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
-/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
-#[test]
-fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
-	skip_unless_ready!();
-	let out = run(
-		r#"
+/// A Horde character at `level` with no flight path known walks from Tarren Mill (Hillsbrad 60.79,19.92) to
+/// `to` (uiMapID, x, y, name): the planned legs' kinds and the yards each zone's ground takes of the walk legs
+/// (by uiMapID, the router's own zone field every 20 yd), and Nav.danger.Mult at that level for Alterac Mountains.
+/// `p10`: price every zone from its P10 as before #1490 (Maps.GetZoneLevels without the danger floor).
+fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
+	run(
+		&format!(
+			r#"
+		if {p10} then
+			local get = Polestar.Maps.GetZoneLevels
+			Polestar.Maps.GetZoneLevels = function(id) local lo, hi = get(id) return lo, hi, lo end
+		end
 		w.faction = "Horde"
-		w.setLevel(24)
+		w.setLevel({level})
 		local c, wx, wy = C.MapToWorld(1424, 60.79, 19.92, "e")
 		place(1424, wx, wy)
-		Polestar.CharState().flags.taxi = {}
-		N.SetTarget(1420, 61.82, 52.83, "Nurse Neela", "e")
+		Polestar.CharState().flags.taxi = {{}}
+		N.SetTarget({}, {}, {}, "{}", "e")
 		for _ = 1, 600 do stub.advance(0.05); aim() end
 		local legs, ci = N.GetRoute()
-		local kinds, yards = {}, {}
-		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		local kinds, yards = {{}}, {{}}
+		for i = ci or 1, #(legs or {{}}) do kinds[#kinds + 1] = legs[i].kind end
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			if leg.kind == "walk" then
 				local pts = leg.pts
@@ -2350,11 +2353,44 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 			end
 		end
 		for z, y in pairs(yards) do yards[z] = floor(y + 0.5) end
-		emit({ kinds = kinds, yards = yards })"#,
+		emit({{ kinds = kinds, yards = yards, alterac = N.danger.Mult({level}, 1416) }})"#,
+			to.0,
+			js(to.1),
+			js(to.2),
+			to.3
+		),
 		true,
-	);
+	)
+}
+
+/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
+/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
+/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
+/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
+#[test]
+fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
+	skip_unless_ready!();
+	let out = tarren_mill_walk(24, (1420, 61.82, 52.83, "Nurse Neela"), false);
 	let kinds = strs(&out["kinds"]);
 	assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "it walks ({})", kinds.join(", "));
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
 	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
+}
+
+/// #1490 (Malifax, AuditOther's lead), replayed: from Tarren Mill to Archmage Modera's image at the Dalaran wall
+/// (Silverpine 68.6,45.2, where 0.3.6 places her) at level 26. Alterac Mountains' lowest level is 24 (the P10,
+/// pulled down by the Lordamere Lake murlocs and the bears on the Hillsbrad border), so from level 21 up the zone
+/// never counted as dangerous while Strahnbrad, the Crushridge ogres and the Syndicate are 30-40. With its danger
+/// floor (30) it costs x3 at 26, and the walk crosses less of it than when priced from the P10.
+#[test]
+fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
+	skip_unless_ready!();
+	let to = (1421, 68.6, 45.2, "Image of Archmage Modera");
+	let now = tarren_mill_walk(26, to, false);
+	let before = tarren_mill_walk(26, to, true);
+	eprintln!("1490 replay: floor {now}\n             P10 {before}");
+	let alterac = |v: &Value| v["yards"]["1416"].as_f64().unwrap_or(0.0);
+	assert_eq!((now["alterac"].clone(), before["alterac"].clone()), (serde_json::json!(3), serde_json::json!(1)), "x3 from the floor, x1 from the P10");
+	assert!(strs(&now["kinds"]).iter().all(|k| k == "walk"), "it walks ({})", strs(&now["kinds"]).join(", "));
+	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 }
