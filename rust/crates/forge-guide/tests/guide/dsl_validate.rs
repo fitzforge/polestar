@@ -755,7 +755,7 @@ fn elite_data() -> Data {
 }
 
 fn elite_tip(target: &str) -> String {
-	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it) or make it `optional`, with the tip \"{target} is elite: grouping up is advised.\"")
+	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
 #[test]
@@ -772,6 +772,45 @@ fn elite_work_in_a_leveling_guide_killing_a_hostile_elite_is_an_error_unless_opt
 	let group = guide_text(&["step S", "  when group 7", "  kill 95003", "", "step T", "  when !group 7", "  kill 95003"]);
 	let last = group.split('\n').collect::<Vec<_>>().iter().rposition(|l| *l == "  kill 95003").unwrap() + 1;
 	assert_eq!(only(&compile_with(&group, &data).errors, "elite"), vec![format!("test.guide:{last}: `kill` npc 95003 (Elite Kobold) is elite; {}", elite_tip("Elite Kobold"))]);
+}
+
+#[test]
+fn a_group_or_dungeon_step_of_optional_goals_only_is_an_error_in_our_pack_and_a_warning_in_others() {
+	// The Monogrammed Sash, Margol's Horn: a step of optional goals only is done at once, so the player who
+	// chose the group way got no arrow. One goal that holds, notes only, or the solo way (`!group`) is fine.
+	let src = guide_text(&[
+		"step Asked",
+		"  when group 7",
+		"  collect 95100 x1 optional",
+		"  accept 7 optional",
+		"",
+		"step Held",
+		"  when group 7",
+		"  accept 7",
+		"  accept 783 optional",
+		"",
+		"step Solo",
+		"  when !group 7",
+		"  accept 7 optional",
+		"",
+		"step Talk",
+		"  when group 7",
+		"  note Ask around for a group.",
+		"",
+		"step Run",
+		"  when dungeon \"Ragefire Chasm\"",
+		"  turnin 783 optional",
+	]);
+	let msg = |what: &str, at: &str| {
+		format!("test.guide:{}: every goal of this `{what}` step is `optional`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop `optional` (only that player sees the step)", line_of(&src, at))
+	};
+	let want = vec![msg("when group 7", "  collect 95100 x1 optional"), msg("when dungeon", "  turnin 783 optional")];
+	let data = elite_data();
+	let ours = compile_with(&src, &data);
+	assert_eq!(only(&ours.errors, "every goal of this"), want, "{}", ours.text);
+	let theirs = compile_files(&[("test.guide", &src)], &data, Some("someone"));
+	assert!(only(&theirs.errors, "every goal of this").is_empty(), "{}", theirs.text);
+	assert_eq!(only(&theirs.warnings, "every goal of this"), want, "{}", theirs.text);
 }
 
 #[test]

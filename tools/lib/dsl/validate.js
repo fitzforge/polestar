@@ -73,7 +73,7 @@ function followProblem(g, other, data) {
 const eliteReported = new WeakSet();
 
 function eliteTip(target) {
-	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it) or make it \`optional\`, with the tip "${target} is elite: grouping up is advised."`;
+	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it), not optional there, or make it \`optional\` in a step for everyone, with the tip "${target} is elite: grouping up is advised."`;
 }
 
 // A step the route takes only for a player who chose to do a group quest
@@ -436,6 +436,26 @@ function checkBareUses(g, diag) {
 	}
 }
 
+// A step only players who chose the group way follow (`when group <quest>`,
+// `when dungeon "<Name>"`) whose every goal is `optional`: an optional goal
+// never holds a step, so it is done at once and the player who chose it gets
+// no arrow to the accept, the elite or the hand-in (the Monogrammed Sash,
+// Margol's Horn). House rule.
+function checkChosenAllOptional(g, diag) {
+	for (const step of g.steps) {
+		const p = (step.when || []).find((w) => (w.k === 'group' || w.k === 'dungeon') && !w.neg);
+		if (!p) continue;
+		const goals = step.goals.filter((goal) => goal.t !== 'note');
+		if (goals.length === 0 || !goals.every((goal) => goal.optional)) continue;
+		const what = p.k === 'group' ? `when group ${p.q}` : 'when dungeon';
+		houseRule(diag, g)(
+			g._ast.file,
+			goals[0]._line,
+			`every goal of this \`${what}\` step is \`optional\`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop \`optional\` (only that player sees the step)`,
+		);
+	}
+}
+
 function validateGuides(guides, data, diag) {
 	const byId = new Map();
 	for (const g of guides) {
@@ -576,6 +596,7 @@ function validateGuides(guides, data, diag) {
 		checkTurninItems(g, ancestors(g), data, diag);
 		checkBareCompletes(g, data, diag);
 		checkBareUses(g, diag);
+		checkChosenAllOptional(g, diag);
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();

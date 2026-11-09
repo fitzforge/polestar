@@ -205,12 +205,31 @@ fn elite_reported(goal: &V) -> bool {
 }
 
 fn elite_tip(target: &str) -> String {
-	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it) or make it `optional`, with the tip \"{target} is elite: grouping up is advised.\"")
+	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
 /// A step the route takes only for a player who chose to do a group quest.
 fn group_step(step: &V) -> bool {
 	step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("group") && !p.get("neg").truthy())
+}
+
+/// A step only players who chose the group way follow (`when group <quest>`, `when dungeon "<Name>"`)
+/// whose every goal is `optional`: an optional goal never holds a step, so it is done at once and the
+/// player who chose it gets no arrow to the accept, the elite or the hand-in (the Monogrammed Sash,
+/// Margol's Horn). House rule.
+fn check_chosen_all_optional(g: &V, diag: &mut Diagnostics) {
+	for step in g.get("steps").items() {
+		let Some(p) = step.get("when").items().into_iter().find(|p| matches!(p.get("k").as_str(), Some("group" | "dungeon")) && !p.get("neg").truthy()) else { continue };
+		let goals: Vec<V> = step.get("goals").items().into_iter().filter(|goal| t_of(goal) != "note").collect();
+		if goals.is_empty() || !goals.iter().all(|goal| goal.get("optional").truthy()) {
+			continue;
+		}
+		let what = if p.get("k").as_str() == Some("group") { format!("when group {}", ts(&p.get("q"))) } else { "when dungeon".to_string() };
+		let msg = format!(
+			"every goal of this `{what}` step is `optional`: a step of optional goals only is done at once, so the player who chose it gets no arrow; drop `optional` (only that player sees the step)"
+		);
+		house_rule(diag, g, &ast_file(g), line(&goals[0]), msg);
+	}
 }
 
 /// The quests of g the player takes only by choosing a group quest.
@@ -1027,6 +1046,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_turnin_items(g, &ctx.ancestors(g), data, diag);
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
+		check_chosen_all_optional(g, diag);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
 		let mut when_only: FxHashSet<Key> = FxHashSet::default();
