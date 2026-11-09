@@ -304,6 +304,26 @@ assert(wp.goalIndex == 2 and wp.x == 60, wp.goalIndex .. " at " .. wp.x)
 	);
 }
 
+#[test]
+fn a_goal_left_after_a_dwell_leaves_the_tour_and_the_rest_is_still_routed() {
+	// Standing on the first goal's point: it leads (west then east, or here then west then east, are the
+	// same 160 yd; the nearer first stop wins). Nothing happens there for the dwell, so it is left, and the
+	// two others are toured: west 30 yd first and out east past the other (160), not the nearest, 20 yd
+	// east, and back (200). The same where every goal is above the player's level.
+	for level in ["", ", lvl = 45"] {
+		check(
+			&fields(&[(50, 50), (47, 50), (52, 50)], level),
+			"",
+			r#"{ t = "talk", npc = 90, npcName = "Exit", map = 1429, x = 60, y = 50 }"#,
+			r#"
+assert(E.GetWaypoint().goalIndex == 1)
+for _ = 1, 18 do stub.advance(0.5) end
+assert(E.GetWaypoint().goalIndex == 2, E.GetWaypoint().goalIndex)
+"#,
+		);
+	}
+}
+
 fn leveled_goals() -> String {
 	[fields(&[(70, 50)], ", quest = 900001, oi = 1"), fields(&[(51, 50)], ", quest = 900002, oi = 1"), fields(&[(80, 50)], ", quest = 900003, oi = 1")].join(",")
 }

@@ -4562,10 +4562,11 @@ end
 -- (#827): the nearest place whose mobs are at most Spots.ABOVE levels above
 -- the player (a spot's `lvl`, else its goal's; a place with neither counts),
 -- of any open goal; only with no such place the harder camps enter the tour.
--- Quest difficulty adds a soft delay cost (Own.fieldDelay). Unmeasurable or
--- oversized groups keep the previous nearest-goal fallback. An unfinished
--- stop holds unless the complete route improves materially, and while
--- Spots.busy holds.
+-- Quest difficulty adds a soft delay cost (Own.fieldDelay). A goal with no
+-- place to measure (all left after a dwell, another continent) is left out
+-- of the tour until it has one; with fewer than two to tour, or an oversized
+-- group, the previous nearest-goal rule holds. An unfinished stop holds
+-- unless the complete route improves materially, and while Spots.busy holds.
 -- The tour is planned once and kept (Own.routedField): each goal has one
 -- place in it, and it is planned again only when its work changes or the
 -- player goes Own.DETOUR yards off the way to its stop.
@@ -4575,7 +4576,9 @@ Own.DETOUR = 80 -- yards walked before a tour asks whether the player still head
 Own.DELAY_YARDS, Own.DELAY_LEVELS = 40, 10 -- Own.fieldDelay
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
 Own.fieldTours = setmetatable({}, { __mode = "k" }) -- step -> remaining independent work
-Own.fieldLow = {} -- scratch: place in Own.nearestField's list -> the goal has a place at the player's level
+-- Scratch, by place in Own.nearestField's list: whether the goal has a place
+-- to measure, and one at the player's level.
+Own.fieldAny, Own.fieldLow = {}, {}
 
 -- A grind: `level N grind <npc>`, placed by the compiler at the mob's spawn
 -- areas (spots); a field goal like a kill. Without spawn data it has no place,
@@ -4757,7 +4760,7 @@ end
 -- place for the tour's life (Own.fieldPoint, taken when it is planned):
 -- walking between a goal's camps changes nothing. It is planned again when
 --   - the goals in it change: one done or skipped, one with no place left
---     at the player's level;
+--     to measure (it is toured again once it has one);
 --   - the player's level or a quest's does (the level cap, the delays);
 --   - a goal's place in it is left after a dwell (Spots.isLeft);
 --   - the player is on another continent, or the arrow left its first stop;
@@ -4768,18 +4771,18 @@ end
 -- 40 yard-equivalent points overall (walking distance plus quest-level delay
 -- cost; Own.NEAR_SHARE, Own.NEAR_YARDS), so only then is it planned a second
 -- time, with the current stop held first, to compare.
--- Own.nearestField filled Own.fieldLow for `list`; curD: the yards to the
--- current stop as it measured them.
+-- Own.nearestField filled Own.fieldAny and Own.fieldLow for `list`; curD:
+-- the yards to the current stop as it measured them.
 function Own.routedField(s, list, c, px, py, top, cur, low, curD)
 	local R = ns.FieldRoute
 	if not R then return nil end
-	local step, eligible = guide.steps[s], Own.fieldLow
+	local step, eligible = guide.steps[s], low and Own.fieldLow or Own.fieldAny
 	local goals, tour = step.goals, Own.fieldTours[step]
 	local same = tour ~= nil and tour.c == c and tour.top == top and tour.low == low and tour.pick == cur
 	if same then
 		local now, k = GetTime(), 0
 		for i, g in ipairs(list) do
-			if not low or eligible[i] then
+			if eligible[i] then
 				k = k + 1
 				local goal, p = goals[g], tour.points[k]
 				if tour.ids[k] ~= g or Spots.isLeft(goal, p.place, now) or p.delay ~= Own.fieldDelay(goal) then
@@ -4803,7 +4806,7 @@ function Own.routedField(s, list, c, px, py, top, cur, low, curD)
 	Own.fieldTours[step] = nil
 	local points, ids, fixed = {}, {}, nil
 	for i, g in ipairs(list) do
-		if not low or eligible[i] then
+		if eligible[i] then
 			local goal = goals[g]
 			local place, x, y = Own.fieldPoint(goal, c, px, py, low and top or nil, g == cur)
 			if not place then return nil end
@@ -4946,7 +4949,7 @@ function Own.nearestField(s, list)
 		local best, bestD, curD, low, lowD, curLow
 		for i, g in ipairs(list) do
 			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top)
-			Own.fieldLow[i] = dl ~= nil
+			Own.fieldAny[i], Own.fieldLow[i] = d ~= nil, dl ~= nil
 			if g == cur then curD, curLow = d, dl end
 			if d and (not bestD or d < bestD) then best, bestD = g, d end
 			if dl and (not lowD or dl < lowD) then low, lowD = g, dl end
