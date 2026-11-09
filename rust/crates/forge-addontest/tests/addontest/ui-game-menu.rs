@@ -125,30 +125,191 @@ fn turned_off_under_appearance_the_button_goes_and_the_menu_is_blizzards_alone_t
 	assert_eq!(out, json!({ "on": true, "off": false, "back": true, "esc": false }));
 }
 
-#[test]
-fn a_client_that_lays_the_menu_out_itself_gets_the_button_through_its_own_add_button() {
-	let out = emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		before: r#"
+/// Forever's menu (Blizzard_GameMenu): InitButtons fills a pool (Options, Shop | AddOns, Edit Mode, Support,
+/// Macros | Log Out, Exit Game | Return to Game), the menu's vertical layout stacks every shown child by
+/// layoutIndex, topPadding opening a section. `stub.layout()` gives each laid-out child its top (layoutY);
+/// `top(f)` follows a TOP-to-BOTTOM anchor. Layout calls from addon code on the menu or its buttons are recorded,
+/// and each pooled button's layoutIndex and topPadding are checked against what the menu set.
+const FOREVER_MENU: &str = r#"
+BLIZZARD_STORE, GAMEMENU_OPTIONS = "Shop", "Options"
 GameMenuFrame = CreateFrame("Frame", "GameMenuFrame", UIParent)
 GameMenuFrame:Hide()
-stub.added = {}
-function GameMenuFrame:AddButton(text, fn) table.insert(stub.added, { text, fn }) end
-function GameMenuFrame:InitButtons() stub.added = {} self:AddButton("Options", function() end) end
-"#
-		.into(),
+stub.menuTouched, stub.pooled = {}, {}
+local function fromAddon()
+	local level = 3
+	while true do
+		local info = debug.getinfo(level, "S")
+		if not info then return false end
+		if stub.addonSources[info.source] then return true end
+		level = level + 1
+	end
+end
+local function guardFrame(f, label)
+	for _, m in ipairs({ "SetPoint", "ClearAllPoints", "SetSize", "SetWidth", "SetHeight", "SetScale", "SetParent" }) do
+		local orig = f[m]
+		f[m] = function(self, ...)
+			if fromAddon() then table.insert(stub.menuTouched, label .. ":" .. m) end
+			return orig(self, ...)
+		end
+	end
+end
+local made = {}
+local active = {}
+GameMenuFrame.buttonPool = { EnumerateActive = function() local i = 0 return function() i = i + 1 return active[i] end end }
+function GameMenuFrame:InitButtons()
+	active = {}
+	local n, pad = 0, nil
+	local function add(text)
+		n = n + 1
+		local b = made[n]
+		if not b then
+			b = CreateFrame("Button", nil, self)
+			b:SetSize(200, 35)
+			guardFrame(b, text)
+			made[n] = b
+		end
+		b:SetText(text)
+		b.layoutIndex, b.topPadding = n, pad
+		pad = nil
+		b:Show()
+		active[#active + 1] = b
+		stub.pooled[text] = { n, b.topPadding or 0 }
+	end
+	local function section() pad = 20 end
+	add("Options") add("Shop") section()
+	add("AddOns") add("Edit Mode") add("Support") add("Macros") section()
+	add("Log Out") add("Exit Game") section() add("Return to Game")
+end
+function GameMenuFrame:Layout()
+	local kids = {}
+	for _, c in ipairs(self.children) do
+		if c:IsShown() and c.layoutIndex then kids[#kids + 1] = c end
+	end
+	table.sort(kids, function(a, b) return a.layoutIndex < b.layoutIndex end)
+	local y = -10
+	for _, c in ipairs(kids) do
+		y = y - (c.topPadding or 0)
+		c.layoutY = y
+		y = y - c:GetHeight()
+	end
+end
+GameMenuFrame:SetScript("OnShow", function(self) self:InitButtons() self:Layout() end)
+guardFrame(GameMenuFrame, "GameMenuFrame")
+-- The top of a frame: its layout place, or below the frame its TOP is anchored to.
+function stub.top(f)
+	local p, rel, rp, _, y = f:GetPoint(1)
+	if p == "TOP" and rel and rp == "BOTTOM" then return stub.top(rel) - rel:GetHeight() + (y or 0) end
+	return f.layoutY
+end
+-- The shown buttons, top to bottom, with the gap above each.
+function stub.order()
+	local list = {}
+	for _, c in ipairs(GameMenuFrame.children) do
+		if c:IsShown() and c.kind == "Button" and stub.top(c) then list[#list + 1] = c end
+	end
+	table.sort(list, function(a, b) return stub.top(a) > stub.top(b) end)
+	local out, prevBottom = {}, nil
+	for _, c in ipairs(list) do
+		local gap = prevBottom and math.floor(prevBottom - stub.top(c) + 0.5) or 0
+		out[#out + 1] = c:GetText() .. (gap > 0 and (" +" .. gap) or (gap < 0 and (" overlaps " .. -gap) or ""))
+		prevBottom = stub.top(c) - c:GetHeight()
+	end
+	return table.concat(out, ", ")
+end
+function stub.pooledKept()
+	for _, b in ipairs(made) do
+		local want = stub.pooled[b:GetText()]
+		if not want or b.layoutIndex ~= want[1] or (b.topPadding or 0) ~= want[2] then return b:GetText() end
+	end
+	return true
+end
+"#;
+
+/// EllesmereUI's way (learnt from its API, not its code): its button below Shop, the menu's pooled buttons below
+/// Shop moved down by its height, not in combat.
+const ELLESMERE_LIKE: &str = r#"
+local eui = CreateFrame("Button", "EllesmereUI_GameMenuButton", GameMenuFrame)
+eui:SetSize(200, 35)
+eui:SetText("EllesmereUI")
+eui:Hide()
+hooksecurefunc(GameMenuFrame, "Layout", function(self)
+	if InCombatLockdown() then eui:Hide() return end
+	local shop
+	for b in self.buttonPool:EnumerateActive() do if b:GetText() == "Shop" then shop = b end end
+	eui:Show()
+	eui:ClearAllPoints()
+	eui:SetPoint("TOP", shop, "BOTTOM", 0, -12)
+	for b in self.buttonPool:EnumerateActive() do
+		if b.layoutIndex > shop.layoutIndex then b.layoutY = b.layoutY - 40 end
+	end
+end)
+"#;
+
+fn run_forever(ellesmere: bool, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: format!("{FOREVER_MENU}\n{}", if ellesmere { ELLESMERE_LIKE } else { "" }),
 		addons: vec![Addon::files("Polestar", &FILES)],
-		script: r#"uistub.install()
-stub.login()
-GameMenuFrame:InitButtons()
-local texts = {}
-for i, a in ipairs(stub.added) do texts[i] = a[1] end
-stub.added[#stub.added][2]()
-local P = Polestar.UI.Picker
-emit({ texts = texts, own = PolestarGameMenuButton ~= nil, picker = P.frame ~= nil and P.frame:IsShown() })"#
-			.into(),
+		script: format!("uistub.install()\nstub.login()\n{script}"),
 		..Default::default()
 	})
-	.remove(0);
-	assert_eq!(out, json!({ "texts": ["Options", "Polestar"], "own": false, "picker": true }));
+	.remove(0)
+}
+
+const OPEN: &str = r#"
+GameMenuFrame:Show()
+local order = stub.order()
+local P = Polestar.UI.Picker
+stub.inCombat = true
+GameMenuFrame:Hide() GameMenuFrame:Show()
+local combat = stub.order()
+PolestarGameMenuButton:Click()
+stub.inCombat = false
+emit({ order = order, combat = combat, closed = not GameMenuFrame:IsShown(), picker = P.frame ~= nil and P.frame:IsShown(),
+	touched = table.concat(stub.menuTouched, " "), under = table.concat(stub.underGameFrames, " "), kept = stub.pooledKept() })
+"#;
+
+// Fitz in game, 2026-11-09: the button sat under "Return to Game". On Forever's menu it is a small section of its
+// own after Shop, in combat too, and the click opens the guide menu; no Blizzard button is touched.
+#[test]
+fn on_forevers_menu_polestar_is_a_section_of_its_own_right_after_shop_in_combat_too() {
+	let out = run_forever(false, OPEN);
+	let order = "Options, Shop, Polestar +20, AddOns +20, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20";
+	assert_eq!(out["order"], order);
+	assert_eq!(out["combat"], order, "the same in combat");
+	assert_eq!(out["closed"], true, "the click closes the game menu");
+	assert_eq!(out["picker"], true, "and opens the guide menu");
+	assert_eq!(out["touched"], "", "no layout call from addon code on the menu or its buttons");
+	assert_eq!(out["under"], "", "no frame made by addon code under a game frame");
+	assert_eq!(out["kept"], true, "the menu's buttons keep the layoutIndex and topPadding it gave them");
+}
+
+// With EllesmereUI's button under Shop, Polestar's comes right under it (in the same section, the gap below as
+// EllesmereUI leaves under its own); in combat, when
+// EllesmereUI hides its button, Polestar's is the section after Shop again.
+#[test]
+fn with_ellesmereui_polestar_comes_right_under_its_button_and_after_shop_in_combat_when_it_hides() {
+	let out = run_forever(true, OPEN);
+	assert_eq!(out["order"], "Options, Shop, EllesmereUI +12, Polestar +4, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20");
+	assert_eq!(out["combat"], "Options, Shop, Polestar +20, AddOns +20, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20");
+	assert_eq!(out["touched"], "");
+	assert_eq!(out["under"], "");
+	assert_eq!(out["kept"], true);
+}
+
+#[test]
+fn on_forevers_menu_turned_off_there_is_no_button_and_no_gap() {
+	let out = run_forever(
+		true,
+		r#"
+Polestar.Set("ui.gameMenuButton", false)
+GameMenuFrame:Show()
+local off = stub.order()
+GameMenuFrame:Hide()
+Polestar.Set("ui.gameMenuButton", true)
+GameMenuFrame:Show()
+emit({ off = off, on = stub.order() })"#,
+	);
+	assert_eq!(out["off"], "Options, Shop, EllesmereUI +12, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20", "EllesmereUI's own gap, as without Polestar");
+	assert_eq!(out["on"], "Options, Shop, EllesmereUI +12, Polestar +4, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20");
 }
