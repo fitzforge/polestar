@@ -5149,7 +5149,7 @@ test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, (
 // after the Kodo Graveyard, then walked back to the graveyard for the last hides.
 test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, no Kormek\'s Hut stop', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const kodos = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 5561);
+	const kodos = list.find(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)); // #1458: a talk at Smeed's camp, not a kill
 	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);
 	const hides = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249);
 	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
@@ -7291,7 +7291,7 @@ function stepTips(guide, re) {
 test("Gray's report (#1234): Kodo Roundup's tip says to talk to each tamed kodo at Smeed's, one at a time", { skip }, () => {
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	for (const [guide, faction, re] of [
-		['forever/horde/30-40/02-thousand-needles.guide', 'Horde', /^\s+complete 5561\b/],
+		['forever/horde/30-40/02-thousand-needles.guide', 'Horde', /quest 5561\.1\b/],
 		['forever/alliance/30-40/02-desolace.guide', 'Alliance', /quest 5561\.1\b/],
 	]) {
 		const rec = fixes.find((f) => f.at.quest === 5561 && f.faction === faction && f.tip);
@@ -8686,4 +8686,28 @@ test('Class audit: Spellfire Robes is taken from Josef Gregorian', { skip }, () 
 	assert.equal(list[at(list, 'accept 1962', is('accept', 1962))].goal.npc, 4576);
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	assert.deepEqual(corrections[1962].set.start.npc, [4576], 'the correction a data build applies');
+});
+
+// Fyurie's report (#1458): Kodo Roundup (5561) was written `kill 4700 quest 5561.1`, so the guide window said "Kill
+// Aged Kodo"; the kodos are tamed with Smeed's Kodo Kombobulator (13892) and counted when the tamed kodo is talked to
+// at Smeed's camp (players' recordings: every tick at 60-61,62 with the kodo's window). The same class, swept over
+// every guide (~/work/maintainer/kill-for-use-sweep): a kill goal whose objective is a use, tame, cure, scare or capture
+// names the action.
+test("Fyurie's report (#1458): Kodo Roundup uses the Kombobulator and counts at Smeed's camp, never 'Kill Aged Kodo'", { skip }, () => {
+	for (const guide of ['forever/alliance/30-40/02-desolace.guide', 'forever/horde/30-40/02-thousand-needles.guide']) {
+		const list = goals(guide);
+		assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.quest === 5561), `${guide}: no kill goal for 5561`);
+		const use = at(list, 'use 13892', (g) => g.t === 'use' && g.item === 13892);
+		const talk = at(list, 'talk 4700 quest 5561.1', (g) => g.t === 'talk' && g.quest === 5561);
+		assert.ok(use < talk, `${guide}: the Kombobulator, then the tamed kodo at the camp`);
+		const g = list[talk].goal;
+		assert.ok(g.map === 1443 && Math.abs(g.x - 60.6) < 1 && Math.abs(g.y - 61.6) < 1, `${guide}: at Smeed's camp (${g.x},${g.y})`);
+	}
+	const src = (f) => fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+	for (const [f, re] of [
+		['forever/horde/02-the-barrens.guide', /kill 12296 quest 6129\.1 "Cure Sickly Gazelle"/],
+		['forever/alliance/03-darkshore-return.guide', /kill 12298 quest 6124\.1 "Cure Sickly Deer"/],
+		['forever/reputation/orgrimmar.guide', /kill 10556 x5 quest 5441\.1 "Wake Lazy Peon"/],
+		['forever/alliance/dwarf/01-dun-morogh.guide', /quest 6661\.1 @78\.0,51\.4 "Catch Deeprun Rat"/],
+	]) assert.match(src(f), re, `${f} names the action`);
 });

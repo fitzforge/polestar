@@ -492,6 +492,8 @@ return {
 	["{npc:12997}, on the {zone:1455} platform"] = "",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
 	["{npc:13016}: use the {item:17117}"] = "",
+	-- {npc:13016} Deeprun Rat
+	["Catch {npc:13016}"] = "",
 
 	-- Step 97: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District

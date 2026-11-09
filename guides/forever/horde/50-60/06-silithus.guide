@@ -204,7 +204,7 @@ step Marshal's Refuge
   turnin 3941                         -- J.D. Collie, below ground
   accept 3942
   note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
-  kill 10977 quest 5163.3             -- Use Umi's Mechanical Yeti on Quixxil
+  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Use Umi's Mechanical Yeti on Quixxil
 
 step Ringo
   tip Ringo sits on the ridge, lost and exhausted.

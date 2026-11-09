@@ -131,6 +131,14 @@ return {
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "{npc:10902}：在门口使用 {item:12815}",
+	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
+	["Mark {npc:10902} with the {item:12815}"] = "",
+	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
+	["Mark {npc:10903} with the {item:12815}"] = "",
+	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
+	["Mark {npc:10904} with the {item:12815}"] = "",
+	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
+	["Mark {npc:10905} with the {item:12815}"] = "",
 
 	-- Step 22: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears

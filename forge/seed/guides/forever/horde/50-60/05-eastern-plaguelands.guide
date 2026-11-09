@@ -206,7 +206,7 @@ step Gadgetzan
 
 step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
-  kill 7583 quest 5163.2
+  kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
 
 step Gaeriyan
   tip Gaeriyan is a ghost at the graveyard just north of Gadgetzan; the Conspicuous Gravestone is south of it, outside the town wall.

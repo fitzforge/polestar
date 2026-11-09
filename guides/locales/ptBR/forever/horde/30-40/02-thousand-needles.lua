@@ -150,6 +150,10 @@ return {
 	-- Step 28: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "Use o {item:13892} de {npc:11596} num Kodo Idoso, Moribundo ou {npc:4702} no cemitério e leve o kodo domado de volta a {npc:11596}. No acampamento dele, fale com o kodo: isso o conta e deixa você domar o próximo. Cinco kodos, um de cada vez.",
+	-- {npc:4702} Ancient Kodo
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	-- {npc:11596} Smeed Scrabblescrew
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
 	-- Step 30: Level 33
 	["Level 33"] = "Nível 33",

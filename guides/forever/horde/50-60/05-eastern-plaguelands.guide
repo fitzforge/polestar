@@ -269,7 +269,7 @@ step Gaeriyan
 
 step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
-  kill 7583 quest 5163.2
+  kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
   use 12928 quest 5163.2 @51.1,26.9 map 1446
 
 # ---------------------------------------------------------------- Tanaris

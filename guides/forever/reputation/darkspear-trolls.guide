@@ -64,7 +64,7 @@ step Boars, weapons and peons
   tip The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping Lazy Peon and use the Foreman's Blackjack on it.
   kill 3098 x10 quest 788.1           -- Mottled Boar
   collect 277653 x6 quest 97279.1     -- Abandoned Training Weapon
-  kill 10556 x5 quest 5441.1          -- Lazy Peon: hit it with the Foreman's Blackjack
+  kill 10556 x5 quest 5441.1 "Wake Lazy Peon" -- Lazy Peon: hit it with the Foreman's Blackjack
 
 step The Den: hand in
   when done valley
