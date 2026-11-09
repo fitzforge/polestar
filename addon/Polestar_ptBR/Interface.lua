@@ -212,9 +212,9 @@ L["Previous waypoint"] = "Ponto de rota anterior"
 L["List the quests in your log the route never hands in"] = "Listar as missões do seu registro que a rota nunca entrega"
 L["Show what's new in this version"] = "Mostrar as novidades desta versão"
 L["Nothing to skip: the guide has no step open."] = "Nada para pular: o guia não tem etapa aberta."
--- L["Reopen closed tab"] = ""
--- L["No closed tab to reopen."] = ""
--- L["Reopen the last guide tab you closed"] = ""
+L["Reopen closed tab"] = "Reabrir aba fechada"
+L["No closed tab to reopen."] = "Nenhuma aba fechada para reabrir."
+L["Reopen the last guide tab you closed"] = "Reabrir a última aba de guia que você fechou"
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crepúsculo"
@@ -729,10 +729,10 @@ L["Click again for the next name. Shift-drag to move."] = "Clique de novo para o
 L["Press again to delete"] = "Aperte de novo para apagar"
 L["Bag space"] = "Espaço nas bolsas"
 L["Press twice to delete it."] = "Aperte duas vezes para apagar."
--- L["a new icon each press"] = ""
--- L["Marks it with %s."] = ""
--- L["Marks it with %s if it has no icon yet: you don't lead the party."] = ""
--- L["Marks nothing: in a raid only the leader and assistants set icons."] = ""
+L["a new icon each press"] = "um ícone novo a cada clique"
+L["Marks it with %s."] = "Marca com %s."
+L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Marca com %s se ainda não tiver ícone: você não lidera o grupo."
+L["Marks nothing: in a raid only the leader and assistants set icons."] = "Não marca nada: em uma raide, só o líder e os assistentes definem ícones."
 
 -- QoL/XP.lua
 L["Level %d"] = "Nível %d"
@@ -927,7 +927,7 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Escolhe a única opção de PNJs sem missões. Segure Shift para ler. Desligado, o próprio jogo ainda pula algumas, Escolher o que a etapa pede ainda escolhe a opção da etapa e os mestres de voo seguem Abrir mapa de voo."
 L["Click objectives to target"] = "Clicar nos objetivos seleciona o alvo"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
--- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = ""
+L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "O botão de alvo e a tecla de etapa põem um ícone de raide no inimigo e no PNJ que selecionam; fora de combate, um clique que não encontra nenhum dos dois limpa seu alvo. Clicar de novo nunca tira um ícone. Em um grupo que você não lidera, só uma unidade sem ícone ganha um; em uma raide, só quando você é líder ou assistente."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -1350,8 +1350,8 @@ L["Press %s or type /polestar to show it."] = "Pressione %s ou digite /polestar 
 L["Type /polestar to show it."] = "Digite /polestar para mostrá-la."
 L["Polestar is hidden here"] = "O Polestar está oculto aqui"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "A janela do guia fica oculta em masmorras e campos de batalha. %s Mude isso em Opções > Guia > Janela."
--- L["Closed %s"] = ""
--- L["Reopen"] = ""
+L["Closed %s"] = "Fechado: %s"
+L["Reopen"] = "Reabrir"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -1451,8 +1451,8 @@ L["Other starting zones"] = "Outras zonas iniciais"
 L["Heads-up"] = "Aviso"
 L["Expand"] = "Expandir"
 L["Collapse"] = "Recolher"
--- L["The tabs you closed and the last guides you loaded."] = ""
--- L["Recently closed"] = ""
+L["The tabs you closed and the last guides you loaded."] = "As abas que você fechou e os últimos guias que você carregou."
+L["Recently closed"] = "Fechados recentemente"
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascote"
@@ -1548,7 +1548,7 @@ L["Click to see where to get it."] = "Clique para ver onde conseguir."
 L["Look up everything for %s"] = "Consultar tudo sobre %s"
 L["Opens Lookup with this search."] = "Abre a Consulta com esta busca."
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "Ainda não há guia para esta montaria: as fontes acima dizem de onde ela vem e o que exige. O botão Guia de uma delas leva você até lá."
--- L["Origin"] = ""
+L["Origin"] = "Origem"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Pronta para entregar"
@@ -1735,9 +1735,9 @@ L["%s opens the guide window on the right. The arrow points at your first stop."
 L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."] = "Jogado até o fim em testes, mas ainda não por jogadores. Se uma etapa estiver errada, aperte %s na janela do guia e conte para nós no Discord."
 L["Feedback, bug reports and news."] = "Opiniões, relatos de bugs e novidades."
 L["Guides by other players, installed like any addon. They show under Community guides in the guide list."] = "Guias de outros jogadores, instalados como qualquer addon. Aparecem em Guias da comunidade na lista de guias."
--- L["A few choices to start with. Everything else is in %s."] = ""
--- L["Route line"] = ""
--- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = ""
+L["A few choices to start with. Everything else is in %s."] = "Algumas escolhas para começar. Todo o resto está em %s."
+L["Route line"] = "Linha de rota"
+L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Como o caminho até o seu objetivo aparece no mapa-múndi e no minimapa. A linha é a mais fácil de seguir; os brilhos aparecem como pontos enquanto Reduzir movimento estiver ativado."
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Já selecionado: copie com Ctrl+C (Cmd+C no Mac) e aperte Esc."
@@ -2134,10 +2134,10 @@ L["Floating button"] = "Botão flutuante"
 L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = "Um pequeno botão do Polestar que você pode pôr em qualquer lugar da tela. Clique para mostrar ou ocultar o guia, clique com o botão direito para um menu, arraste para mover. Ele some com a janela em combate e em masmorras quando estas estão em Ocultar."
 L["Step key targets their mobs"] = "Tecla de etapa seleciona criaturas das sugestões"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "A tecla de etapa também seleciona as criaturas das sugestões, da mais próxima para a mais distante, depois das da própria etapa atual. Só muda fora de combate."
--- L["Mark quests new in Forever"] = ""
--- L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = ""
--- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
--- L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = ""
+L["Mark quests new in Forever"] = "Marcar missões novas no Forever"
+L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Uma pequena marca de infinito ao lado do nome de uma missão que o Forever adicionou, no guia, em Já que está aqui, no Codex e nas dicas das missões."
+L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "O caminho até o objetivo no mapa e no minimapa: uma linha ou pontos onde você anda, linhas onde voa, navega ou cavalga, e os trechos seguintes mais fracos. Desenhado como o Shortest Path Forever, de Cillian Berragan, desenha."
+L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Como as linhas da rota são desenhadas: uma linha contínua, os pontos do Polestar ou brilhos que flutuam pelo caminho até o objetivo (pontos enquanto Reduzir movimento estiver ativado)."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -2738,11 +2738,11 @@ L["Magenta"] = "Magenta"
 L["White"] = "Branco"
 L["Minimap opacity"] = "Opacidade no minimapa"
 L["Minimap size"] = "Tamanho no minimapa"
--- L["Line thickness"] = ""
--- L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = ""
--- L["Route colour"] = ""
--- L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = ""
--- L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = ""
+L["Line thickness"] = "Espessura da linha"
+L["How thick the solid line is on the world map; the minimap's follows its size. Right-click to reset."] = "A espessura da linha contínua no mapa-múndi; a do minimapa acompanha o tamanho dele. Botão direito para redefinir."
+L["Route colour"] = "Cor da rota"
+L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."] = "Quão forte a rota aparece no minimapa, em linha, pontos ou brilhos; o mapa-múndi mantém a sua. Botão direito para redefinir."
+L["The route's line, dots or sparkles on the minimap, and the gaps between the dots; the world map keeps its own. Right-click to reset."] = "A linha, os pontos ou os brilhos da rota no minimapa, e os espaços entre os pontos; o mapa-múndi mantém o seu. Botão direito para redefinir."
 
 -- QoL/XPMark.lua
 L["Guide: %d"] = "Guia: %d"
@@ -3074,9 +3074,9 @@ L["Every route reviewed"] = "Todas as rotas revisadas"
 L["The arrow finds your targets"] = "A seta encontra seus alvos"
 L["Guide menu and minimap"] = "Menu do guia e minimapa"
 L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."] = "Missões pedidas antes de o jogo oferecê-las, locais errados, missões de masmorra, guias abertos no meio, a seta enquanto você é fantasma, e muito mais."
--- L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = ""
--- L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = ""
--- L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = ""
+L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."] = "As etapas de matar monstros apontam para onde a criatura é encontrada, e numa etapa com vários acampamentos a seta passa adiante quando você esvazia um. O botão de alvo mostra quem ele seleciona, inclusive as criaturas de Já que está aqui."
+L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."] = "Todos os guias de evolução foram revistos, e os de 40-60 foram refeitos para as duas facções, com mais missões e menos tempo matando monstros. Missões novas no Forever trazem uma pequena marca ∞. Se o guia que você tinha aberto não combina com onde você está, abra a lista de guias e escolha o guia em %s. Seu registro de missões é mantido."
+L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."] = "As pastas de navegação se recolhem, uma aba fechada volta com Reabrir, a rota pode ser uma linha, pontos ou brilhos no mapa e no minimapa, e um botão flutuante do Polestar pode ser ativado nas Opções."
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Cadeia longa: %d missões em %d zonas de %d continentes"
@@ -3090,11 +3090,11 @@ L["Shift-drag: move it"] = "Shift + arrastar: mover"
 L["Drag: move it"] = "Arrastar: mover"
 
 -- Quests/NewQuests.lua
--- L["New in Forever"] = ""
+L["New in Forever"] = "Novo no Forever"
 
 -- Maps/RouteLines.lua
--- L["Line"] = ""
--- L["Sparkles"] = ""
+L["Line"] = "Linha"
+L["Sparkles"] = "Brilhos"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
