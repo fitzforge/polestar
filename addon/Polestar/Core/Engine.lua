@@ -3169,6 +3169,22 @@ function Own.holdsBefore(s)
 	return hold and hold < s and hold or nil
 end
 
+-- Whether the route waits at step s for its accept waiting on a level, as
+-- computeCurrent decides it: s is Own.levelHold with nothing else open on
+-- it, no open step comes before it, and the first open step after it is
+-- held (Own.holdsBefore: a guide that is no leveling guide, a dungeon run),
+-- or none is open and the guide is no leveling guide.
+function Own.waitsOnLevel(s)
+	if Own.levelHold() ~= s or not stepDone(s) then return false end
+	local steps, sk = guide.steps, skippedFor(guide.id)
+	for k = 1, #steps do
+		if k ~= s and stepApplies(steps[k]) and not (sk and sk[k]) and not stepDone(k) then
+			return k > s and (Own.everyStep(guide) or Own.dungeonStep(steps[k]))
+		end
+	end
+	return Own.everyStep(guide)
+end
+
 -- Placement: where the quest log puts the player in the guide. Runs while the
 -- tab is being placed (`placing`: its guide was just loaded at login, reload,
 -- in a new tab, after /polestar reset).
@@ -3963,10 +3979,13 @@ local function goalView(s, g, goal, stepStatus, group)
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
 	-- An accept waiting for the character's level is no task yet (Fitz,
 	-- 0.3.6: no level text on pick-ups): not shown, like a goal for another
-	-- class; the level-up brings it back (Own.clearMarks).
-	-- `waitsLevel`: the level it waits for (playtest.js's SIMULATE levels the player to it).
+	-- class; the level-up brings it back (Own.clearMarks). Unless the route
+	-- waits on it (Own.waitsOnLevel: a guide that is no leveling guide, or a
+	-- dungeon run ahead, with nothing else left open there): then its
+	-- "Requires level" line is the one thing the step says.
+	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and goal.t == "accept" then
+	if unavail and unavail.reason == "level" and goal.t == "accept" and not Own.waitsOnLevel(s) then
 		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.

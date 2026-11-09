@@ -254,8 +254,9 @@ impl<'a> Sim<'a> {
 				Some(cur) => self.goal_status(s, g, cur),
 			};
 			// An accept waiting for the character's level is no task: the view hides it (Engine.lua's goal
-			// view, Fitz 0.3.6: no level text on pick-ups).
-			if status == Status::Skipped && self.gd().goal(s, g).t == T::Accept && self.unavailable_for(s, g, 0) == Some(Reason::Level) {
+			// view, Fitz 0.3.6: no level text on pick-ups), unless the route waits on it there
+			// (Own.waitsOnLevel).
+			if status == Status::Skipped && self.gd().goal(s, g).t == T::Accept && self.unavailable_for(s, g, 0) == Some(Reason::Level) && !self.waits_on_level(s) {
 				status = Status::Na;
 				waits_level = true;
 			}

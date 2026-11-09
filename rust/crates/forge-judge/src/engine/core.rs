@@ -1484,6 +1484,22 @@ impl<'a> Sim<'a> {
 		self.level_hold().filter(|&hold| hold < s)
 	}
 
+	/// Own.waitsOnLevel: the route waits at step s for its accept waiting on a level, as compute_current
+	/// decides it: s is the level hold with nothing else open on it, no open step before it, and the first
+	/// open step after it held (holds_before), or none open and the guide no leveling guide.
+	pub(crate) fn waits_on_level(&mut self, s: usize) -> bool {
+		if self.level_hold() != Some(s) || !self.step_done(s) {
+			return false;
+		}
+		let n = self.gd().steps.len();
+		for k in 1..=n {
+			if k != s && self.step_applies(k) && !self.is_skipped(k) && !self.step_done(k) {
+				return k > s && (self.every_step() || self.dungeon_step(k));
+			}
+		}
+		self.every_step()
+	}
+
 	/// Own.levelHold: the first step with an accept waiting for the character's level (unavailableFor's
 	/// level mark: the route passes it until then), or none.
 	fn level_hold(&mut self) -> Option<usize> {

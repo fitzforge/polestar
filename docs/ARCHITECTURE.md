@@ -2201,7 +2201,14 @@ holds at its opening, see "Not yet available"):
 - An accept waiting for the character's level is no task in the step view
   (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
   pick-ups); the route passes it as below and the level-up brings it back.
-  The goals of its quest further on keep their "Requires level" line.
+  The goals of its quest further on keep their "Requires level" line. Where
+  the route waits on it instead (`Own.waitsOnLevel`: computeCurrent's own
+  rule, the level hold with nothing else open there and the next open step
+  held behind it, i.e. a guide that is no leveling guide or a chosen dungeon
+  run ahead) it keeps its "Requires level" line, the one thing that step
+  says (without it the Orgrimmar reputation guide's Crossroads hub sat
+  empty and never moved on). The Rust port's step view (forge-judge
+  `Sim::view`) does the same.
 - The last quest progress (`anchorStep`) counts only goals of quests the
   guide offers at or before that goal (or `direct` hand-ins): progress on a
   quest taken in another guide is no sign of where the player is in this

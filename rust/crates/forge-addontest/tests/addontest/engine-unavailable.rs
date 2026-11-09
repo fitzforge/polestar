@@ -599,7 +599,8 @@ fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_
 			flush()
 			emit({ E.GetStepIndex(), brief(2), done })"#,
 	);
-	assert_eq!(wait, json!([2, ["na:nil:nil"], 0]));
+	// Waiting there, the accept's level is the one thing the step says.
+	assert_eq!(wait, json!([2, ["skipped:level:Requires level 25"], 0]));
 
 	// The level reached: the accept leads as before.
 	let level25 = run("w.level = 25", DUN_MODR, r#"stub.world.accept(869, { 12 }); flush(); local p = E.GetWaypoint(); emit({ E.GetStepIndex(), p and p.goalIndex or false, brief(2) })"#);
@@ -633,7 +634,7 @@ fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide
 		)
 	};
 	let run_chosen = run("w.level = 24", RUN, &script("E.ChooseDungeon(389, true)"));
-	assert_eq!(run_chosen, json!([2, ["na:nil:nil"]]), "the run chosen: the guide waits at Thork");
+	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork, saying why");
 	let solo = run("w.level = 24", RUN, &script(""));
 	assert_eq!(solo, json!([4, ["na:nil:nil"]]), "no run: on to the raptors");
 }
