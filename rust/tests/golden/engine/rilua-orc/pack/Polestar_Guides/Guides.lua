@@ -484,7 +484,7 @@ do
 						{ t = "accept", quest = 4402, title = "Galgar's Cactus Apple Surprise", npc = 9796, npcName = "Galgar", minLevel = 1, qlvl = 3, pre = { 788 }, preTitles = { [788] = "Cutting Teeth" }, map = 1411, x = 42.7, y = 67.2, z = 41.7, f = "e", note = "{npc:9796}, by the cooking fire" },
 						{ t = "accept", quest = 792, title = "Vile Familiars", npc = 3145, npcName = "Zureetha Fargaze", minLevel = 2, qlvl = 4, map = 1411, x = 42.8, y = 69.1, z = 38.2, f = "e", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
 						{ t = "accept", quest = 1485, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", minLevel = 1, qlvl = 4, map = 1411, x = 42.6, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -605,7 +605,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 794, title = "Burning Blade Medallion", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.8, y = 69.1, z = 38.2, f = "e" },
 						{ t = "accept", quest = 805, title = "Report to Sen'jin Village", npc = 3145, npcName = "Zureetha Fargaze", minLevel = 1, qlvl = 5, pre = { 794 }, preTitles = { [794] = "Burning Blade Medallion" }, map = 1411, x = 42.8, y = 69.1, z = 38.2, f = "e" },
-						{ t = "train", class = true, candidates = { candidateRecords[4], candidateRecords[5], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[4], candidateRecords[5], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -669,7 +669,7 @@ do
 						{ t = "turnin", quest = 830, title = "The Admiral's Orders", npc = 3139, npcName = "Gar'Thok", map = 1411, x = 51.9, y = 43.5, z = 17.6, f = "e" },
 						{ t = "accept", quest = 825, title = "From The Wreckage....", npc = 3139, npcName = "Gar'Thok", minLevel = 3, qlvl = 8, pre = { 784 }, preTitles = { [784] = "Vanquish the Betrayers" }, map = 1411, x = 51.9, y = 43.5, z = 17.6, f = "e" },
 						{ t = "turnin", quest = 791, title = "Carry Your Weight", npc = 3147, npcName = "Furl Scornbrow", map = 1411, x = 49.9, y = 40.4, z = 76.2, f = "e" },
-						{ t = "train", class = true, candidates = { candidateRecords[10], candidateRecords[9], candidateRecords[12], candidateRecords[14], candidateRecords[11], candidateRecords[13], candidateRecords[6], candidateRecords[3], candidateRecords[1], candidateRecords[2], candidateRecords[4], candidateRecords[5], candidateRecords[7], candidateRecords[16], candidateRecords[22], candidateRecords[8], candidateRecords[17], candidateRecords[18], candidateRecords[23], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[10], candidateRecords[9], candidateRecords[12], candidateRecords[14], candidateRecords[11], candidateRecords[13], candidateRecords[6], candidateRecords[3], candidateRecords[1], candidateRecords[2], candidateRecords[4], candidateRecords[5], candidateRecords[7], candidateRecords[16], candidateRecords[22], candidateRecords[8], candidateRecords[17], candidateRecords[18], candidateRecords[23], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -749,7 +749,7 @@ do
 						{ t = "accept", quest = 806, title = "Dark Storms", npc = 3142, npcName = "Orgnil Soulscar", minLevel = 4, qlvl = 12, pre = { 823 }, preTitles = { [823] = "Report to Orgnil" }, map = 1411, x = 52.2, y = 43.2, z = 13.2, f = "e" },
 						{ t = "accept", quest = 840, title = "Conscript of the Horde", npc = 3336, npcName = "Takrin Pathseeker", minLevel = 10, qlvl = 12, map = 1411, x = 50.8, y = 43.6, z = 11.8, f = "e" },
 						{ t = "accept", quest = 837, title = "Encroachment", npc = 3139, npcName = "Gar'Thok", minLevel = 6, qlvl = 10, map = 1411, x = 51.9, y = 43.5, z = 17.6, f = "e" },
-						{ t = "train", class = true, candidates = { candidateRecords[10], candidateRecords[9], candidateRecords[12], candidateRecords[11], candidateRecords[13], candidateRecords[14], candidateRecords[3], candidateRecords[1], candidateRecords[4], candidateRecords[6], candidateRecords[5], candidateRecords[2], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[23], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[10], candidateRecords[9], candidateRecords[12], candidateRecords[11], candidateRecords[13], candidateRecords[14], candidateRecords[3], candidateRecords[1], candidateRecords[4], candidateRecords[6], candidateRecords[5], candidateRecords[2], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[23], candidateRecords[21] } },
 						{ t = "accept", quest = 1505, title = "Veteran Uzzek", npc = 3169, npcName = "Tarshaw Jaggedscar", minLevel = 10, qlvl = 10, closedBy = { 1818 }, map = 1411, x = 54.2, y = 42.5, z = 9.7, f = "e", only = { classes = { "WARRIOR" } } },
 						{ t = "accept", quest = 2983, title = "Call of Fire", npc = 3173, npcName = "Swart", minLevel = 10, qlvl = 10, map = 1411, x = 54.4, y = 42.6, z = 10.6, f = "e", only = { classes = { "SHAMAN" } } },
 						{ t = "accept", quest = 6062, title = "Taming the Beast", npc = 3171, npcName = "Thotar", minLevel = 10, qlvl = 10, pre = { 6068, 6069, 6070 }, preTitles = { [6068] = "The Hunter's Path", [6069] = "The Hunter's Path", [6070] = "The Hunter's Path" }, map = 1411, x = 51.8, y = 43.5, z = 11.7, f = "e", only = { classes = { "HUNTER" } } },
@@ -882,7 +882,7 @@ do
 					title = "{object:3224}",
 					note = "Back south to {object:3224}.",
 					goals = {
-						{ t = "train", class = true, candidates = { candidateRecords[14], candidateRecords[16], candidateRecords[12], candidateRecords[13], candidateRecords[11], candidateRecords[22], candidateRecords[10], candidateRecords[9], candidateRecords[20], candidateRecords[17], candidateRecords[18], candidateRecords[21], candidateRecords[23], candidateRecords[6], candidateRecords[3], candidateRecords[1], candidateRecords[2], candidateRecords[4], candidateRecords[5], candidateRecords[7], candidateRecords[8] } },
+						{ t = "train", class = true, zone = 1411, candidates = { candidateRecords[14], candidateRecords[16], candidateRecords[12], candidateRecords[13], candidateRecords[11], candidateRecords[22], candidateRecords[10], candidateRecords[9], candidateRecords[20], candidateRecords[17], candidateRecords[18], candidateRecords[21], candidateRecords[23], candidateRecords[6], candidateRecords[3], candidateRecords[1], candidateRecords[2], candidateRecords[4], candidateRecords[5], candidateRecords[7], candidateRecords[8] } },
 					},
 				},
 				{

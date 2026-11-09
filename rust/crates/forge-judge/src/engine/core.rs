@@ -780,7 +780,8 @@ impl<'a> Sim<'a> {
 	}
 
 	/// unavailableFor: the goal's quest is skipped, closed for good, refused by its giver this session
-	/// (a mark), or its accept lacks a prerequisite the route no longer brings.
+	/// (a mark), its accept is above the character's level (#1320: the route passes it and comes back on
+	/// the level-up), or its accept lacks a prerequisite the route no longer brings.
 	pub fn unavailable_for(&mut self, s: usize, g: usize, depth: u32) -> Option<Reason> {
 		let gd = self.gd();
 		let gi = self.gi();
@@ -812,8 +813,18 @@ impl<'a> Sim<'a> {
 			self.unavailable.remove(&q);
 			u = None;
 		}
-		if u.is_some() || self.offered.contains(&q) || depth > 8 {
+		if u.is_some() || self.offered.contains(&q) {
 			return u.map(|u| u.reason);
+		}
+		// #1320: an accept whose minLevel is above the character's level, known in advance.
+		for &(as_, ag) in &list {
+			if gd.goal(as_, ag).min_level.is_some_and(|l| self.pl_level < l) {
+				return Some(Reason::Level);
+			}
+		}
+		// A chain followed this deep (or looping in the data) proves nothing.
+		if depth > 8 {
+			return None;
 		}
 		for &(as_, ag) in &list {
 			let a = gd.goal(as_, ag);
@@ -822,6 +833,26 @@ impl<'a> Sim<'a> {
 			}
 		}
 		None
+	}
+
+	/// The level a goal waits for (its view's `unavailable == "level"`, the number in "Requires level
+	/// N": the marked accept's minLevel), or none. SIMULATE levels the player to it (#1320).
+	pub(crate) fn level_wait(&mut self, s: usize, g: usize) -> Option<f64> {
+		if self.unavailable_for(s, g, 0) != Some(Reason::Level) {
+			return None;
+		}
+		let gd = self.gd();
+		let gi = self.gi();
+		let goal = gd.goal(s, g);
+		let q = goal.quest?;
+		if let Some(u) = self.unavailable.get(&q).filter(|u| u.reason == Reason::Level && u.accept.0 == gi) {
+			return self.gs[gi].goal(u.accept.1, u.accept.2).min_level;
+		}
+		if goal.t == T::Accept {
+			return goal.min_level;
+		}
+		let level = self.pl_level;
+		gd.accepts.get(&q).and_then(|l| l.iter().map(|a| gd.goal(a.s, a.g).min_level).find(|m| m.is_some_and(|m| level < m)).flatten())
 	}
 
 	/// orphaned: a turn-in or objective of a quest the character neither has nor has done, with no
@@ -1375,13 +1406,66 @@ impl<'a> Sim<'a> {
 		false
 	}
 
-	/// computeCurrent: the first applicable, not skipped, not done step (placing first).
+	/// computeCurrent: the first applicable, not skipped, not done step (placing first), unless an earlier
+	/// accept waiting for a level holds it (Own.holdsBefore); with nothing else open, a guide that is no
+	/// leveling guide waits at such an accept (Own.levelHold, #1320).
 	fn compute_current(&mut self) -> Option<usize> {
 		if self.placing.is_some() {
 			self.place();
 		}
 		let n = self.gd().steps.len();
-		(1..=n).find(|&s| self.step_applies(s) && !self.is_skipped(s) && !self.step_done(s) && !self.jump(s))
+		for s in 1..=n {
+			if self.step_applies(s) && !self.is_skipped(s) && !self.step_done(s) {
+				if let Some(hold) = self.holds_before(s) {
+					return Some(hold);
+				}
+				if !self.jump(s) {
+					return Some(s);
+				}
+			}
+		}
+		if self.every_step() {
+			self.level_hold()
+		} else {
+			None
+		}
+	}
+
+	/// Own.everyStep: the open guide is no leveling guide (its category set and not "Leveling").
+	fn every_step(&self) -> bool {
+		self.gd().category.as_deref().is_some_and(|c| c != "Leveling")
+	}
+
+	/// Own.dungeonStep: step s has a `when dungeon` (not negated).
+	fn dungeon_step(&self, s: usize) -> bool {
+		self.gd().step(s).when.iter().flatten().any(|p| p.k == "dungeon" && !p.neg)
+	}
+
+	/// Own.holdsBefore: in a guide that is no leveling guide, or at a dungeon's step, an accept waiting for
+	/// a level before step s holds the route there.
+	fn holds_before(&mut self, s: usize) -> Option<usize> {
+		if !(self.every_step() || self.dungeon_step(s)) {
+			return None;
+		}
+		self.level_hold().filter(|&hold| hold < s)
+	}
+
+	/// Own.levelHold: the first step with an accept waiting for the character's level (unavailableFor's
+	/// level mark: the route passes it until then), or none.
+	fn level_hold(&mut self) -> Option<usize> {
+		let n = self.gd().steps.len();
+		for s in 1..=n {
+			if !self.step_applies(s) || self.is_skipped(s) {
+				continue;
+			}
+			for g in 1..=self.gd().step(s).goals.len() {
+				let goal = self.gd().goal(s, g);
+				if goal.t == T::Accept && blocks(goal) && self.goal_applies(s, g) && !self.goal_done(s, g).done && self.unavailable_for(s, g, 0) == Some(Reason::Level) {
+					return Some(s);
+				}
+			}
+		}
+		None
 	}
 
 	/// latchPassed: store the live-done latchable goals of steps the route just moved past.
