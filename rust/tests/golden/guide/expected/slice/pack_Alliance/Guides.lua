@@ -72,7 +72,7 @@ do
 						{ t = "turnin", quest = 33, title = "Wolves Across the Border", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.2, z = 81, f = "e" },
 						{ t = "turnin", quest = 5261, title = "Eagan Peltskinner", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.2, z = 81, f = "e" },
 						{ t = "accept", quest = 18, title = "Brotherhood of Thieves", npc = 823, npcName = "Deputy Willem", minLevel = 2, qlvl = 4, pre = { 783 }, preTitles = { [783] = "A Threat Within" }, map = 1429, x = 48.2, y = 42.9, z = 83.4, f = "e", note = "{npc:823}, back at the Abbey steps" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -124,7 +124,7 @@ do
 						{ t = "turnin", quest = 3103, title = "Hallowed Letter", npc = 375, npcName = "Priestess Anetta", map = 1429, x = 49.8, y = 39.5, z = 82.1, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:375}, the priest trainer" },
 						{ t = "turnin", quest = 3104, title = "Glyphic Letter", npc = 198, npcName = "Khelden Bremen", map = 1429, x = 49.7, y = 39.4, z = 89.5, f = "e", only = { classes = { "MAGE" } }, note = "{npc:198}, the mage trainer, inside the Abbey" },
 						{ t = "turnin", quest = 3105, title = "Tainted Letter", npc = 459, npcName = "Drusilla La Salle", map = 1429, x = 49.9, y = 42.6, z = 80.8, f = "e", only = { classes = { "WARLOCK" } }, note = "{npc:459}, outside the Abbey" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[11], candidateRecords[10], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[11], candidateRecords[10], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -197,7 +197,7 @@ do
 						{ t = "turnin", quest = 91758, optional = true, note = "Tordrin Sternblade" },
 						{ t = "accept", quest = 91772, optional = true, note = "his kobold tracker shows the kobolds to click on the road to {area:87}" },
 						{ t = "accept", quest = 2158, title = "Rest and Relaxation", npc = 6774, npcName = "Falkhaan Isenstrider", minLevel = 1, qlvl = 5, map = 1429, x = 45.6, y = 47.7, z = 88.4, f = "e", note = "{npc:6774}, by the stables south of the Abbey" },
-						{ t = "train", class = true, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[7], candidateRecords[8], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[7], candidateRecords[8], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -267,7 +267,7 @@ do
 						{ t = "turnin", quest = 96626, note = "Tomas" },
 						{ t = "turnin", quest = 99129, note = "{npc:241}" },
 						{ t = "accept", quest = 99130 },
-						{ t = "train", class = true, candidates = { candidateRecords[11], candidateRecords[9], candidateRecords[10], candidateRecords[12], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[11], candidateRecords[9], candidateRecords[10], candidateRecords[12], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
@@ -375,7 +375,7 @@ do
 						{ t = "accept", quest = 61, title = "Shipment to Stormwind", npc = 253, npcName = "William Pestle", minLevel = 3, qlvl = 7, pre = { 60 }, preTitles = { [60] = "Kobold Candles" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e", note = "{npc:279} in {zone:1453} takes it (02-westfall)" },
 						{ t = "turnin", quest = 107, title = "Note to William", npc = 253, npcName = "William Pestle", map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
 						{ t = "accept", quest = 112, title = "Collecting Kelp", npc = 253, npcName = "William Pestle", minLevel = 5, qlvl = 7, pre = { 107 }, preTitles = { [107] = "Note to William" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
-						{ t = "train", class = true, candidates = candidateLists[1] },
+						{ t = "train", class = true, zone = 1429, candidates = candidateLists[1] },
 					},
 				},
 				{
@@ -502,7 +502,7 @@ do
 						{ t = "accept", quest = 59, title = "Cloth and Leather Armor", npc = 240, npcName = "Marshal Dughan", minLevel = 7, qlvl = 10, pre = { 39 }, preTitles = { [39] = "Deliver Thomas' Report" }, map = 1429, x = 42.1, y = 65.9, z = 56.8, f = "e" },
 						{ t = "accept", quest = 239, title = "Westbrook Garrison Needs Help!", npc = 240, npcName = "Marshal Dughan", minLevel = 6, qlvl = 10, pre = { 76 }, preTitles = { [76] = "The Jasperlode Mine" }, map = 1429, x = 42.1, y = 65.9, z = 56.8, f = "e" },
 						{ t = "accept", quest = 114, title = "The Escape", npc = 253, npcName = "William Pestle", minLevel = 5, qlvl = 7, pre = { 112 }, preTitles = { [112] = "Collecting Kelp" }, map = 1429, x = 43.3, y = 65.7, z = 57, f = "e" },
-						{ t = "train", class = true, candidates = candidateLists[1] },
+						{ t = "train", class = true, zone = 1429, candidates = candidateLists[1] },
 					},
 				},
 				{
@@ -632,7 +632,7 @@ do
 						{ t = "accept", quest = 5635, title = "Desperate Prayer", npc = 377, npcName = "Priestess Josetta", minLevel = 10, qlvl = 10, closedBy = { 5634, 5636, 5637, 5638, 5639, 5640 }, preTitles = { [5634] = "Desperate Prayer", [5636] = "Desperate Prayer", [5637] = "Desperate Prayer", [5638] = "Desperate Prayer", [5639] = "Desperate Prayer", [5640] = "Desperate Prayer" }, map = 1429, x = 43.3, y = 65.7, z = 63.9, f = "e", only = { classes = { "PRIEST" } }, note = "{npc:377}: {npc:376} in {zone:1453} takes both" },
 						{ t = "accept", quest = 94774, only = { classes = { "PRIEST" } } },
 						{ t = "accept", quest = 1860, title = "Speak with Jennea", npc = 328, npcName = "Zaldimar Wefhellt", minLevel = 10, qlvl = 10, closedBy = { 1879 }, map = 1429, x = 43.2, y = 66.2, z = 63.9, f = "e", only = { classes = { "MAGE" } }, note = "{npc:328}: {npc:5497} in {zone:1453} takes it" },
-						{ t = "train", class = true, candidates = { candidateRecords[12], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
+						{ t = "train", class = true, zone = 1429, candidates = { candidateRecords[12], candidateRecords[10], candidateRecords[9], candidateRecords[11], candidateRecords[14], candidateRecords[13], candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[6], candidateRecords[5], candidateRecords[4], candidateRecords[7], candidateRecords[8], candidateRecords[16], candidateRecords[22], candidateRecords[15], candidateRecords[17], candidateRecords[18], candidateRecords[20], candidateRecords[21] } },
 					},
 				},
 				{
