@@ -171,10 +171,11 @@ step Fly to Freewind Post
 
 step Ratchet for the Felsteed
   only Warlock
-  zone The Barrens
+  zone Orgrimmar
   tip Fly from Orgrimmar to Ratchet; Strahad Farsan stands on the hill above the docks.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Ratchet"
+  zone The Barrens
   turnin 3631                           -- Strahad Farsan
   accept 4490
   turnin 4490

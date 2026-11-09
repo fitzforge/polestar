@@ -9232,3 +9232,14 @@ test('Leveling guides: a step titled with an NPC\'s name takes or hands in at le
 	}
 	assert.deepEqual(bad, []);
 });
+
+// Travel sweep (0.3.6): Horde 40-50/02-feralas's Warlock step to Ratchet for the Felsteed put its "Orgrimmar flight
+// master" goto (45.3,63.7, Orgrimmar's coordinates) under `zone The Barrens`, so the arrow led Warlocks from Orgrimmar
+// to a spot by Camp Taurajo before the flight to Ratchet.
+test('forever/horde/40-50/02-feralas.guide: the Felsteed trip starts at Orgrimmar\'s flight master', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const strahad = at(list, 'turnin 3631', is('turnin', 3631));
+	const fm = list.slice(0, strahad).reverse().find(({ goal }) => goal.t === 'goto' && goal.x === 45.3 && goal.y === 63.7);
+	assert.ok(fm, 'a goto to the flight master before Strahad');
+	assert.equal(fm.goal.map, 1454, 'on the Orgrimmar map');
+});
