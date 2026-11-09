@@ -62,14 +62,14 @@ next forever/alliance/03-darkshore-return
 # Skins and Spoils of War (463, 484, 98197: level 21-22, 3+ over at 18.7; taken at 22-24).
 #
 # The Deadmines (`when dungeon "The Deadmines"`, dungeons in the route): for a character who
-# chose it, its quests are picked up on stops this route makes anyway (Gnoarn on the way to Ironforge's
-# tram, Shoni and Wilder Thistlenettle off the tram in Stormwind, Gryan and Scout Riell when the Defias
-# chain ends at Sentinel Hill, about level 20), the run follows the traitor's escort, and the hand-ins
-# are Sentinel Hill's tower and the Stormwind stop before the boat (`when complete`/`when onquest`, so a
-# run left unfinished, or never chosen, passes them). Left out: Collecting Memories (168: four union cards
-# from the mine's undead, slow drops), Destruction in Deadmines (92753: the end of Alba Fairmoon's chain
-# after Sprite Jumpsprocket, 92749-92752, which the route doesn't take), the Paladin's Test of
-# Righteousness (class guide).
+# chose it, Gryan's and Scout Riell's quests are picked up when the Defias chain ends at Sentinel Hill
+# (about level 20), the run follows, and the hand-ins are Sentinel Hill's tower and Baros Alexston (the
+# Unsent Letter) on the Stormwind stop before the boat (`when complete`/`when onquest`, so a run left
+# unfinished, or never chosen, passes them). Left out on the route's travel budget (the flow audit
+# measured +2.0 km and +5 hub visits with them, +0 without): Underground Assault (2040,
+# Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
+# Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
+# after Alba Fairmoon's 92749-92752, not on the route), the Paladin's Test of Righteousness (class guide).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -233,23 +233,9 @@ step Ironforge
   vendor nearest optional
   turnin 301                                  -- Prospector Stormpike, Hall of Explorers
 
-step Gnoarn
-  when dungeon "The Deadmines"
-  zone Ironforge
-  tip For your Deadmines run: Gnoarn stands in Tinker Town, on your way to the tram.
-  accept 2041                                 -- Gnoarn: for Shoni the Shilent in Stormwind, by the tram
-
 step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
-
-step Stormwind: the Dwarven District
-  when dungeon "The Deadmines"
-  zone Stormwind City
-  tip For your Deadmines run, on your way out of the Dwarven District: Shoni the Shilent first, then Wilder Thistlenettle south-east of her.
-  turnin 2041                                 -- Shoni the Shilent
-  accept 2040
-  accept 167                                  -- Wilder Thistlenettle: his brother is in the mine outside the Deadmines
 
 # ---------------------------------------------------------------- Redridge
 
@@ -461,13 +447,12 @@ step Gryan Stoutmantle
 
 step The Deadmines
   when dungeon "The Deadmines"
+  when onquest 214,166
   zone Westfall
   tip The Deadmines is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
-  tip Foreman Thistlenettle walks the mine before the portal. Inside, the Defias drop the Red Silk Bandanas; Sneed's Shredder, then Sneed, carry the Gnoam Sprecklesprocket; Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
+  tip Inside: the Defias drop the Red Silk Bandanas, and Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
   enter "The Deadmines" @42.5,71.7
-  collect 1875 quest 167.1                    -- Thistlenettle's Badge: Foreman Thistlenettle, in the mine before the portal
   collect 915 x10 quest 214.1                 -- Red Silk Bandana: the Defias
-  complete 2040                               -- Underground Assault: Sneed
   complete 166                                -- The Defias Brotherhood: Edwin VanCleef
 
 step Gryan Stoutmantle
@@ -485,7 +470,6 @@ step Scout Riell
 step Fly to Lakeshire
   when turnedin 65
   zone Westfall
-  goto 56.6,52.6 "Sentinel Hill flight master"
   fly "Lakeshire"
 
 # ---------------------------------------------------------------- North of the lake
@@ -534,17 +518,6 @@ step Baros Alexston
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
-
-step Wilder Thistlenettle
-  when complete 167
-  zone Stormwind City
-  tip Your Deadmines hand-ins, before the boat: north from the gryphons into the Dwarven District.
-  turnin 167                                  -- Wilder Thistlenettle
-
-step Shoni the Shilent
-  when complete 2040
-  zone Stormwind City
-  turnin 2040                                 -- Shoni the Shilent, in the Dwarven District
 
 step Baros Alexston
   when onquest 373
