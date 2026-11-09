@@ -406,6 +406,7 @@ step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
   tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
+  enter "Stormwind City" @69.5,85.5          -- In through the main gate (already done if you are in the city)
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
 
 step Back to Stormwind City
