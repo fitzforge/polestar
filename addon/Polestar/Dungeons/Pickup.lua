@@ -590,6 +590,27 @@ function Dungeons.PickupPlan(key)
 	local onPage = {}
 	for _, q in ipairs(quests) do onPage[q.id] = true end
 	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, closedBy = {} }
+	-- One alternative per exclusive group: a quest of this page or its chains
+	-- clashes with one the plan already takes (or the log holds) when each
+	-- closes the other (Ahn'Qiraj's The Path of the Protector, Invoker and
+	-- Conqueror; Scholomance's left and right Valthalak amulet pieces). A
+	-- breadcrumb is closed by the quest it leads to but does not close it,
+	-- so it never clashes.
+	local chosen = {}
+	local function closes(a, b)
+		local q = Dungeons.Quest(key, a)
+		for _, by in ipairs(q and type(q.closedBy) == "table" and q.closedBy or {}) do
+			if by == b then return true end
+		end
+		return false
+	end
+	local function clashes(id)
+		local q = Dungeons.Quest(key, id)
+		for _, by in ipairs(q and type(q.closedBy) == "table" and q.closedBy or {}) do
+			if (chosen[by] or inLog(by)) and closes(by, id) then return true end
+		end
+		return false
+	end
 	for _, pq in ipairs(quests) do
 		local rec = C.Quest(pq.id)
 		if not notYours(key, pq, rec, p) then
@@ -607,7 +628,7 @@ function Dungeons.PickupPlan(key)
 				local giver = Dungeons.Giver(pq, from, rec) or (rec and preDone(rec) and Dungeons.DropPoint(key, pq, from, rec)) or nil
 				local pre, ok, wait = {}, giver ~= nil, false
 				if ok and rec then
-					local chain = Lk.QuestChain(pq.id, p)
+					local chain = Lk.QuestChain(pq.id, p, clashes)
 					for i = 1, #chain - 1 do
 						local r = chain[i]
 						-- A follow-up of another quest here is taken after the
@@ -629,11 +650,19 @@ function Dungeons.PickupPlan(key)
 						pre[#pre + 1] = r
 					end
 				end
+				-- A chain through an alternative the plan already ruled out
+				-- (no other way in): this quest is closed by that choice.
+				if ok and clashes(pq.id) then ok = false end
+				for _, r in ipairs(ok and pre or {}) do
+					if clashes(r.id) then ok = false; break end
+				end
 				if ok and wait then
 					plan.later = plan.later + 1
 				elseif ok then
 					pre = withBreadcrumbs(pq, rec, pre, onPage, from, p, plan.closedBy)
 					plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre }
+					chosen[pq.id] = true
+					for _, r in ipairs(pre) do chosen[r.id] = true end
 				end
 			end
 		end

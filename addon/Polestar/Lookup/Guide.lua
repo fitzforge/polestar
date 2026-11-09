@@ -318,8 +318,10 @@ end
 -- a giver who refused, #1076). Done prerequisites are left out. The chain is
 -- whole however long (Alba Fairmoon's to The State of the Mines is ten
 -- quests): a cut would drop the first quests to do. Each quest is visited
--- once, so the walk ends.
-local function questChain(questId, player)
+-- once, so the walk ends. avoid(id), optional: a `preAny` alternative it
+-- names is passed over while another can be taken (a dungeon pick-up keeps
+-- to one alternative of an exclusive group).
+local function questChain(questId, player, avoid)
 	local C = Codex()
 	local order, seen = {}, {}
 	local function visit(qid, depth)
@@ -336,14 +338,17 @@ local function questChain(questId, player)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
-				local pick, later
-				for _, pid in ipairs(any) do
-					local pq = C.Quest(pid)
-					local why = pq and Lookup.QuestBlock(pq, player)
-					if pq and not why then pick = pid; break end
-					if why == "level" and not later then later = pid end
+				local function choose(skip)
+					local pick, later
+					for _, pid in ipairs(any) do
+						local pq = not (skip and avoid(pid)) and C.Quest(pid) or nil
+						local why = pq and Lookup.QuestBlock(pq, player)
+						if pq and not why then pick = pid; break end
+						if why == "level" and not later then later = pid end
+					end
+					return pick or later
 				end
-				pick = pick or later
+				local pick = avoid and choose(true) or choose(false)
 				if pick then visit(pick, depth + 1) end
 			end
 		end
