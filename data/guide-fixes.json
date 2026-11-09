@@ -4243,6 +4243,31 @@
 				}
 			],
 			"issue": 1370
+		},
+		{
+			"id": "1414-durotar-encroachment-early",
+			"at": {
+				"quest": 837,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"early": {
+				"after": {
+					"quest": 96821,
+					"goal": "turnin"
+				},
+				"title": "Gar'Thok",
+				"when": "level>=6",
+				"tip": "From level 6 Gar'Thok also offers Encroachment: the Razormane you pass among the quilboar huts west of town count for it."
+			},
+			"note": "Encroachment (837, from level 6) is also taken on the first Razor Hill stop, where Gar'Thok takes Legging It (96821): the Razormane among the quilboar huts west of town, where the prickly pears are picked next, then count for it (flow audit: a missed merge on every Orc and Troll branch, Gar'Thok walked past 76 minutes before the accept). Gated on level 6: 5 recorded people were below it at his window. The later accept stays for players who were below 6.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: Gar'Thok (3139) offered 837 to 21 people; 5 could not take it yet (level)"
+				}
+			],
+			"pr": 1414
 		}
 	]
 }

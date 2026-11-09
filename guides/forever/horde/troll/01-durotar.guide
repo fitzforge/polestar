@@ -185,6 +185,11 @@ step Razor Hill
   turnin 96821                        -- Gar'Thok
   accept 815
 
+step Gar'Thok
+  when level>=6
+  tip From level 6 Gar'Thok also offers Encroachment: the Razormane you pass among the quilboar huts west of town count for it.
+  accept 837                          -- Gar'Thok
+
 # ---------------------------------------------------------------- Razor Hill and the north
 
 step Razor Hill
