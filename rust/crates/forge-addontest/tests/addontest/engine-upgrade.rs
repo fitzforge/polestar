@@ -79,7 +79,6 @@ fn run(saved: Option<String>) -> Value {
 		saved: saved.map(|s| ("Polestar".to_string(), s)).into_iter().collect(),
 		login: false,
 		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}"),
-		..Default::default()
 	})
 	.remove(0)
 }
@@ -153,7 +152,6 @@ E.SkipBehind(108)
 emit({{ left = #E.GetBehind(), live = E.GetLiveStep() }})"#,
 			GUIDE.replace(BEHIND_GUIDE_FROM, BEHIND_GUIDE_TO)
 		),
-		..Default::default()
 	});
 	let (at, ui, skipped) = (&out[0], &out[1], &out[2]);
 	// The player stays at 103's hand-in; the step behind passes.
@@ -187,7 +185,6 @@ fn an_error_in_the_update_s_mapping_falls_back_to_the_plain_restore_with_one_deb
 				r#"Polestar.LegacyStepsLoad = function() error("broken") end"#
 			)
 		),
-		..Default::default()
 	});
 	let (at, after) = (&out[0], &out[1]);
 	// No Lua error reached the player (the run would fail), one line in the log for /polestar report.
@@ -213,7 +210,6 @@ fn reset_progress_brings_back_what_an_update_passed() {
 		script: format!(
 			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}\nE.ResetProgress()\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), behind = E.GetStepView(2).goals[1].status, gone = PolestarCharDB.gone and PolestarCharDB.gone[\"test/up\"] or false }})"
 		),
-		..Default::default()
 	});
 	assert_eq!(out[0]["status"][1], "na", "{}", out[0]);
 	// The player's own correction: Reset progress places the guide as if just opened, 108's accept included.
@@ -276,7 +272,6 @@ for i, step in ipairs(g.steps) do
 end
 emit({{ shape = shape, live = E.GetLiveStep(), title = g.steps[E.GetLiveStep()].title, requires = requires, hidden = g.hidden and g.hidden[112] and true or false }})"#
 		),
-		..Default::default()
 	})
 	.remove(0)
 }

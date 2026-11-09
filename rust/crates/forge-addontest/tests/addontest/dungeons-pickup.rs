@@ -881,9 +881,7 @@ fn a_quest_an_item_starts_that_drops_outside_is_collected_on_the_way_and_opens_t
 	};
 	c["npcs"]["90510"] = npc(90510, "Giver J", json!("H"), 40, 40);
 	c["npcs"]["90511"] = npc(90511, "Tide Priestess", Value::Null, 46, 46);
-	let note =
-		|chance: f64| json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 90511, "chance": chance }] });
-	c["items"]["90520"] = note(33.0);
+	c["items"]["90520"] = json!({ "id": 90520, "name": "Damp Note", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 90511, "chance": 33.0 }] });
 	let quest = |id: i32, title: &str, start: Value, pre: &[i32], min_level: i32, objectives: Value| {
 		json!({
 			"id": id, "title": title, "level": 25, "minLevel": min_level, "faction": "H", "races": null, "classes": null,
