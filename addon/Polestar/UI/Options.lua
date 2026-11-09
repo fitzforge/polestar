@@ -352,6 +352,14 @@ local BUILTIN = {
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
+		-- A zone the guide comes to later, done now (Core/Engine.lua, "Zone detours", #1249).
+		{ kind = "dropdown", key = "behavior.zoneDetour", label = L["Zones ahead of the guide"],
+			help = L["In a zone the guide comes to later, the guide window offers to do that zone now and then come back to the steps you passed over. Offer it after half a minute there and in the Up next menu, only in the menu, or never."],
+			choices = { { value = "both", label = L["Offer it"] }, { value = "menu", label = L["Only in the Up next menu"] }, { value = "off", label = L["Never"] } },
+			search = "zone ahead, jump to zone, do this zone, come back, detour, skip ahead" },
+		{ kind = "toggle", key = "behavior.zoneDetourPartial", label = L["Offer zones that partly wait"],
+			help = L["Also offer a zone where some steps need quests from the steps you pass over; those steps wait until you come back, and the offer names them."],
+			disabled = function() return ns.Get("behavior.zoneDetour") == "off" end },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
 		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
 			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],

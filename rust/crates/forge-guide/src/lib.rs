@@ -57,3 +57,4 @@ pub mod validate;
 pub mod walks;
 pub mod when;
 pub mod xp;
+pub mod zones;

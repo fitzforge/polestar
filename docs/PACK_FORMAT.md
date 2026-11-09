@@ -117,6 +117,18 @@ the baked legs of the leveling guides that race may follow, in `Legs.lua`
 with `Legs.lua` only. Polestar's own pack also splits its other guides by
 faction ([Format 8](#format-8)).
 
+**Zone blocks.** A leveling guide that visits more than one zone carries
+`zones`, a list `{ { start, stop, map, steps, waits }, ... }` (#1249): its runs of
+steps on one zone map, `start`..`stop` in the guide's step numbers, `steps`
+of them with a zone of their own (travel, `only` and `along` steps take the
+zone of the steps they lead into; a run of fewer than 3 is left out). `waits`
+lists what the run needs from the steps before it: `{ s, q, at, done }`, step
+`s` works on quest `q` accepted at step `at` (with `done`, it accepts a quest
+whose prerequisite `q` is turned in at step `at`). A run whose every quest
+step waits is left out. Polestar offers such a run while the player is in its
+zone ahead of the guide ("do this zone, then come back", Core/Engine.lua,
+"Zone detours"). A pack without `zones` simply has no such offer.
+
 **Retired guides.** A pack folder's `retired.json`, a list of guide ids
 (`["forever/horde/02-the-barrens", ...]`), names the guides a new route set
 replaced. `Guides.lua` ends with `Polestar.RetireGuides("<pack id>", { ...

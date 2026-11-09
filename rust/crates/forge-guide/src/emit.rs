@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+pub const GUIDE_KEYS: [&str; 29] = [
 	"id",
 	"pack",
 	"title",
@@ -67,6 +67,8 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"group",
 	"names",
 	"written",
+	// Zone blocks (zones.rs, #1249): { start, stop, map, steps, waits }, before the steps they number.
+	"zones",
 	"steps",
 ];
 /// `image` follows note, so a step without one is emitted as before.
@@ -201,6 +203,8 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
+		"zones" => &crate::zones::ZONE_KEYS,
+		"waits" => &crate::zones::WAIT_KEYS,
 		_ => return None,
 	})
 }

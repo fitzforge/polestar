@@ -142,6 +142,8 @@ mod engine_upgrade;
 mod engine_vendor;
 #[path = "engine-wait.rs"]
 mod engine_wait;
+#[path = "engine-zone-detour.rs"]
+mod engine_zone_detour;
 #[path = "engine-waypoint-keys.rs"]
 mod engine_waypoint_keys;
 #[path = "engine-when.rs"]

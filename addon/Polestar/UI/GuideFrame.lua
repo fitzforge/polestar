@@ -1237,12 +1237,22 @@ local function upRow(i)
 	r.Text = GF.SizeAs(T(r, "label", "textDim"), "up")
 	r.Text:SetWordWrap(true)
 	r.Text:SetMaxLines(2)
-	r:SetScript("OnClick", function(self)
+	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	r:SetScript("OnClick", function(self, button)
+		-- Right-click: do this step's zone now (GF.UpNextMenu, #1249).
+		if button == "RightButton" then
+			GF.UpNextMenu(self)
+			return
+		end
 		local E = Engine()
 		if E and E.Goto and self.psIndex then E.Goto(self.psIndex) end
 	end)
 	r:SetScript("OnEnter", function(self)
-		W.Tooltip(self, tooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
+		local lines = { { L["Click to jump to this step"], Theme.Accent() } }
+		local E = Engine()
+		local b = E and E.DetourBlockAt and E.DetourBlockAt(self.psIndex)
+		if b then lines[2] = { string.format(L["Right-click to do %s now"], UI.MapName(b.map) or L["This zone"]), Theme.Color("textDim") } end
+		W.Tooltip(self, tooltipAnchor(), self.psSummary or "", lines)
 		GF.HoverIn()
 	end)
 	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -1568,12 +1578,20 @@ local function bannerNotice()
 	local gq, gtitle
 	if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
 	if gq then return "group", { quest = gq, title = gtitle } end
+	-- A zone ahead chosen from the Up next menu: its preview, until answered (#1249).
+	local dm = notices.detourOffer
+	if dm and g ~= nil and g.id == dm.guideId then return "detourOffer", dm end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 	local s = notices.skipped
 	if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
 	local a = E and awayNotice(E, g)
 	if a then return "away", a end
+	-- A zone detour running, or a zone ahead the player has stayed in (Engine.DetourOffer).
+	local dt = E and E.GetDetour and E.GetDetour()
+	if dt then return "detour", dt end
+	local zo = E and E.DetourOffer and E.DetourOffer()
+	if zo and g ~= nil then return "detourOffer", { guideId = g.id, block = zo } end
 	-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
 	local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()
 	if lo and notices.logSeen ~= g.id .. ":" .. view.index then
@@ -1595,6 +1613,65 @@ local function bannerNotice()
 	return nil
 end
 GF.BannerNotice = bannerNotice
+
+-- A zone ahead's offer with its preview (Engine.DetourPreview, #1249): where
+-- the guide comes to it, what waits for the steps passed over, what is above
+-- the player's level, what the passed steps may lose, and where it comes back.
+function GF.DetourText(b)
+	local E = Engine()
+	local p = E and E.DetourPreview and E.DetourPreview(b)
+	if not p then return "" end
+	local zone = UI.MapName(p.map) or L["This zone"]
+	local backZone = UI.MapName(p.backMap) or L["the steps before it"]
+	local lines = { string.format(L["This guide comes to %s at step %d. Do %s now?"], zone, UI.StepNo(p.start), zone) }
+	if #p.waits > 0 then
+		local names = {}
+		for i, x in ipairs(p.waits) do names[i] = ns.Quoted(x.title) or ("#" .. x.quest) end
+		if #p.waits == 1 then
+			lines[#lines + 1] = string.format(L["1 quest here needs %s first and waits: %s."], backZone, names[1])
+		else
+			lines[#lines + 1] = string.format(L["%d quests here need %s first and wait: %s."], #p.waits, backZone, table.concat(names, ", "))
+		end
+	end
+	if #p.high > 0 then
+		local parts = {}
+		for i, h in ipairs(p.high) do parts[i] = (ns.Quoted(h.title) or "") .. " (" .. string.format(L["Level %d"], h.level or 0) .. ")" end
+		lines[#lines + 1] = string.format(L["Above your level for now: %s."], table.concat(parts, ", "))
+	end
+	for _, x in ipairs(p.loses) do
+		local t = ns.Quoted(x.title) or ""
+		if x.why == "timed" then
+			lines[#lines + 1] = string.format(L["%s is timed: it may run out before you come back."], t)
+		elseif x.why == "escort" then
+			lines[#lines + 1] = string.format(L["%s is an escort in progress."], t)
+		else
+			lines[#lines + 1] = string.format(L["%s is for below level %d: it may be gone when you come back."], t, x.level or 0)
+		end
+	end
+	if p.back then lines[#lines + 1] = string.format(L["Then back to step %d in %s."], UI.StepNo(p.back), backZone) end
+	return table.concat(lines, "\n")
+end
+
+-- An Up next row right-clicked: "Do <zone> now" when its step is in a zone
+-- the guide can do ahead (Engine.DetourBlockAt); the preview opens in the banner.
+function GF.UpNextMenu(row)
+	local E = Engine()
+	local g = E and E.GetGuide and E.GetGuide()
+	local b = g and E.DetourBlockAt and E.DetourBlockAt(row.psIndex)
+	if not b then return false end
+	W.ShowMenu(row, { { text = string.format(L["Do %s now"], UI.MapName(b.map) or L["This zone"]), icon = "chevron-right",
+		onClick = function()
+			notices.detourOffer = { guideId = g.id, block = b }
+			GF.Layout()
+		end } })
+	return true
+end
+
+-- A detour started, ended or a zone offer came due (Engine, ZONE_DETOUR_CHANGED).
+ns.On("ZONE_DETOUR_CHANGED", function(_, why)
+	if why == "done" then ns.Print(L["Zone done: the guide is back on the steps you passed over."]) end
+	if F and ns.IsLoggedIn() then GF.Layout() end
+end)
 
 -- Skip the step on screen (the navigator's Skip, the menu).
 function GF.SkipStep()
@@ -1835,6 +1912,19 @@ function GF.LayoutBanner(width)
 			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 		end
 		banner.Close:Show()
+	elseif kind == "detourOffer" then
+		banner.Icon:SetTexture(Theme.Media("chevron-right"))
+		banner.Text:SetText(GF.DetourText(n.block))
+		local w = placeLink(banner.Jump, L["Do it now"], 0, -4)
+		placeLink(banner.Later, L["Not now"], w + 10, -4)
+		banner.Close:Show()
+	elseif kind == "detour" then
+		banner.Icon:SetTexture(Theme.Media("chevron-right"))
+		local zone = UI.MapName(n.map) or L["This zone"]
+		banner.Text:SetText(n.back and string.format(L["%s first, then back to step %d in %s."], zone, UI.StepNo(n.back), UI.MapName(n.backMap) or "")
+			or string.format(L["%s first."], zone))
+		placeLink(banner.Jump, L["Back now"], 0, -4)
+		banner.Close:Hide()
 	elseif kind == "trip" then
 		banner.Icon:SetTexture(Theme.Media("icon-goto"))
 		banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
@@ -1989,6 +2079,11 @@ function GF.TakeBanner()
 		elseif E and E.Goto and n.live then
 			E.Goto(n.live)
 		end
+	elseif kind == "detourOffer" then
+		notices.detourOffer = nil
+		if E and E.DetourStart then E.DetourStart(n.block) end
+	elseif kind == "detour" then
+		if E and E.DetourBack then E.DetourBack() end
 	elseif kind == "ended" then
 		if n.choose then
 			UI.ShowRouteChoice(n.guideId)
@@ -2076,6 +2171,12 @@ function GF.DismissBanner(later)
 		ns.QoL.Space.Dismiss()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Dismiss()
+	elseif kind == "detourOffer" then
+		-- Not offered again for this zone this session; a menu pick only closes.
+		local E = Engine()
+		if notices.detourOffer then notices.detourOffer = nil elseif E and E.DetourDismiss then E.DetourDismiss(n.block) end
+	elseif kind == "detour" then
+		-- the way back is a choice ("Back now"), never dismissed
 	elseif kind == "ended" then
 		notices.endSeen = n.guideId
 	elseif kind then

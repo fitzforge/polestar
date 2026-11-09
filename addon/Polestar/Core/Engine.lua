@@ -49,6 +49,8 @@ ns.RegisterDefaults("behavior", {
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
 	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
+	zoneDetour = "both", -- "both" | "menu" | "off": offer a zone the guide comes to later while the player is in it, as a line after Own.DETOUR_DWELL seconds there and in the Up next menu, the menu only, or never (#1249, "Zone detours")
+	zoneDetourPartial = true, -- offer a zone whose steps partly wait for earlier steps, naming what waits (#1249)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd
@@ -3370,14 +3372,181 @@ function Own.keep(s)
 	end
 end
 
+---------------------------------------------------------------------------
+-- Zone detours (#1249, "do this zone, then come back"): the steps of
+-- a zone the guide comes to later, done now, then back to the steps passed
+-- over, which are neither done nor skipped. A leveling guide's blocks come
+-- from the compiler (`zones`, docs/PACK_FORMAT.md "Zone blocks"), numbered
+-- in the guide's own steps and moved here onto the Engine's plan of them
+-- (Own.withFeeders' fromBase). One guide at a time: the block is in the
+-- guide the tab shows.
+--
+-- Saved per character: CharState().detours[guideId] = { start, stop, map }
+-- (the block's numbers as compiled: a pack update that moves the block drops
+-- the detour, the steps simply come in order again), `back = true` once the
+-- detour is over and until the route reaches the block in order (the guide's
+-- end waits for the steps passed over, Own.noteEnd).
+--
+-- Fitz's choices (2026-11-09, the design's recommendations), one knob each:
+-- Q1 the offer: behavior.zoneDetour "both" (a line after Own.DETOUR_DWELL
+--    seconds in the zone and the Up next menu), "menu" (the menu only), "off";
+-- Q2 no "open this zone's part" from Lookup yet (later);
+-- Q3 behavior.zoneDetourPartial true: a block with steps that wait for the
+--    steps before it is offered, the waiting quests named (false: only
+--    blocks with nothing waiting).
+---------------------------------------------------------------------------
+
+Own.DETOUR_DWELL = 30 -- seconds in a zone before the guide window offers its block
+
+-- Guide g's blocks on its plan of the steps: { start, stop, map, steps, base
+-- = { start, stop } (as compiled), waits = { { s, q, at, done }, ... } }, in
+-- step order. Cached per guide table (a new plan is a new table).
+Own.detourCache = setmetatable({}, { __mode = "k" })
+function Own.detourBlocks(g)
+	local c = Own.detourCache[g]
+	if c then return c end
+	local out, fb = {}, type(g.fromBase) == "table" and g.fromBase or nil
+	local function at(s) if fb then return fb[s] end return s end
+	for _, z in ipairs(type(g.zones) == "table" and g.zones or NONE) do
+		local a, b
+		if type(z.start) == "number" and type(z.stop) == "number" then
+			for s = z.start, z.stop do
+				local p = at(s)
+				if p then a, b = a or p, p end
+			end
+		end
+		if a and g.steps[b] then
+			local waits = {}
+			for _, w in ipairs(type(z.waits) == "table" and z.waits or NONE) do
+				local s, from = at(w.s), at(w.at)
+				if s and from and type(w.q) == "number" then waits[#waits + 1] = { s = s, q = w.q, at = from, done = w.done } end
+			end
+			out[#out + 1] = { start = a, stop = b, map = z.map, steps = z.steps, base = { start = z.start, stop = z.stop }, waits = waits }
+		end
+	end
+	Own.detourCache[g] = out
+	return out
+end
+
+-- The loaded guide's saved detour record and its block, or nil (a record
+-- whose block the guide no longer has is dropped).
+function Own.detourRecord()
+	local all = guide and ns.CharState().detours
+	local rec = type(all) == "table" and all[guide.id]
+	if type(rec) ~= "table" then return nil end
+	for _, b in ipairs(Own.detourBlocks(guide)) do
+		if b.base.start == rec.start and b.base.stop == rec.stop and b.map == rec.map then return rec, b end
+	end
+	all[guide.id] = nil
+	return nil
+end
+
+-- The block of the loaded guide's detour while it runs, or nil.
+function Own.detourBlock()
+	local rec, b = Own.detourRecord()
+	if rec and not rec.back then return b end
+	return nil
+end
+
+-- Step s of block b waits for the steps before the block: a quest it needs
+-- (taken, or with `done` turned in) is missing while the step that gives it
+-- is still open. -> the quest | nil
+function Own.detourWaits(b, s)
+	local C = Compat()
+	for _, w in ipairs(b.waits) do
+		if w.s == s and not Own.questSkipped(w.q) then
+			local met = questDone(w.q) or (not w.done and C.IsOnQuest(w.q))
+			local from = guide.steps[w.at]
+			if not met and from and stepApplies(from) and not isSkipped(w.at) and not stepDone(w.at) then return w.q end
+		end
+	end
+	return nil
+end
+
+-- A grind step (`level` goals only) above the player's level: the guide
+-- planned it after the steps passed over, so the detour passes it.
+function Own.detourGrind(s)
+	local level, grind = player and player.level or 1, false
+	for _, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "level" then
+			if (goal.level or 0) <= level then return false end
+			grind = true
+		elseif goal.t ~= "note" then
+			return false
+		end
+	end
+	return grind
+end
+
+-- The first open step of block b the detour can do now (not waiting, not a
+-- grind ahead of the player's level), or nil.
+function Own.detourOpen(b)
+	local steps, sk = guide.steps, skippedFor(guide.id)
+	for s = b.start, b.stop do
+		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) and not Own.detourWaits(b, s) and not Own.detourGrind(s) then return s end
+	end
+	return nil
+end
+
+-- The first open step before step `upTo` by the usual rule: where a detour
+-- comes back to. nil when none.
+function Own.detourBack(upTo)
+	local steps = guide.steps
+	for s = 1, upTo - 1 do
+		if stepApplies(steps[s]) and not isSkipped(s) and not stepDone(s) then return s end
+	end
+	return nil
+end
+
+-- End the loaded guide's detour (`why`: "done", "back", "sync", "reset"):
+-- the steps passed over are the route again. The record stays (back) until
+-- the route reaches the block, so the guide's end waits for them; a party
+-- sync (it moves the live step) and a reset drop it, finished or not.
+function Own.detourEnd(why)
+	local all = guide and ns.CharState().detours
+	local rec = type(all) == "table" and all[guide.id]
+	if type(rec) ~= "table" then return end
+	local running = not rec.back
+	if why == "sync" or why == "reset" then all[guide.id] = nil else rec.back = true end
+	if running then Own.detourNews = { guideId = guide.id, map = rec.map, why = why } end
+end
+
+-- computeCurrent's first look: the live step inside a running detour; its
+-- end when the block has nothing open left.
+function Own.detourLive()
+	local b = Own.detourBlock()
+	if not b then return nil end
+	local s = Own.detourOpen(b)
+	if s then return s end
+	Own.detourEnd("done")
+	return nil
+end
+
+-- evaluateLoaded: the live step up to which the route has passed the steps
+-- (their `when` and bag counts latch). A running detour passed over the
+-- steps before its block, not through them: up to where it comes back. A
+-- finished detour's record goes once the route reaches its block in order.
+function Own.detourPassed(live)
+	local rec, b = Own.detourRecord()
+	if not rec then return live end
+	if rec.back then
+		if not live or live >= b.start then ns.CharState().detours[guide.id] = nil end
+		return live
+	end
+	return Own.detourBack(b.start) or live
+end
+
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop. A step the route
 -- reaches may jump ahead (Own.jump), a flight step it reaches may pass to
 -- the travel route (Own.flightJudged), and an accept waiting for a level
--- holds a dungeon guide or a dungeon run (Own.holdsBefore).
+-- holds a dungeon guide or a dungeon run (Own.holdsBefore). A running zone
+-- detour's block comes first (Own.detourLive).
 local function computeCurrent()
 	if placing then place() end
+	local detour = Own.detourLive()
+	if detour then return detour end
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
 	for s = 1, #steps do
@@ -6726,6 +6895,8 @@ end
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
+	-- A zone detour done ahead (Own.detourRecord): the end waits for the steps it passed over.
+	if Own.detourRecord() then return end
 	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
 	-- is no end yet: the end comes after it.
 	if computed and stepDone(computed) and Own.levelHold() == computed then return end
@@ -6808,7 +6979,7 @@ local function evaluateLoaded(active)
 		sawIncomplete = true
 		Own.startWaits(computed)
 	end
-	local passed = (computed or #guide.steps + 1) - 1
+	local passed = (Own.detourPassed(computed) or #guide.steps + 1) - 1
 	if passed > passedUpTo then latchPassed(passedUpTo + 1, passed) end
 	Own.latchCaughtUp(passed)
 	passedUpTo = passed
@@ -7031,6 +7202,7 @@ local function evaluate()
 	evaluateLoaded(true)
 	Own.watchHearth()
 	Own.watchWait()
+	Own.detourWatch()
 	-- Out-levelled: once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
@@ -9963,6 +10135,12 @@ end
 -- the window's undo of it (PLAYER_SKIPPED_STEP) brings them all back.
 -- Returns how many steps it skipped.
 function Engine.SkipUpTo(t, keep)
+	-- A party sync moves the live step: a zone detour is dropped, never merged (#1249).
+	if guide and Own.detourRecord() then
+		refreshPlayer()
+		Own.detourEnd("sync")
+		computed = computeCurrent()
+	end
 	if not (guide and computed) or type(t) ~= "number" or not guide.steps[t] or t <= computed then return 0 end
 	refreshPlayer()
 	placing = nil
@@ -10149,6 +10327,202 @@ function Engine.Goto(i)
 	computed = comp
 	Own.view(i)
 	evaluate()
+end
+
+-- Zone detours (#1249; see "Zone detours" above): the offer, its preview,
+-- the start and the way back.
+
+Own.detourSeen = {} -- { zone, at }: the zone the player is in (Compat.GetUnitZone) since GetTime() `at`
+Own.detourDismissed = {} -- "guideId:start" -> true: an offer closed with its x, this session
+
+-- After each evaluation: say a detour's end (ZONE_DETOUR_CHANGED(guideId,
+-- why)), and note a zone change; DETOUR_DWELL seconds later, still there,
+-- ZONE_DETOUR_CHANGED() again so the guide window can offer the zone.
+function Own.detourWatch()
+	local news = Own.detourNews
+	if news then
+		Own.detourNews = nil
+		ns.Fire("ZONE_DETOUR_CHANGED", news.guideId, news.why)
+	end
+	if ns.Get("behavior.zoneDetour") ~= "both" then return end
+	local zone = Compat().GetUnitZone("player")
+	if zone == Own.detourSeen.zone then return end
+	local seen = { zone = zone, at = GetTime() }
+	Own.detourSeen = seen
+	if zone then
+		ns.After(Own.DETOUR_DWELL + 0.1, function()
+			if Own.detourSeen == seen then ns.Fire("ZONE_DETOUR_CHANGED") end
+		end)
+	end
+end
+
+-- Block b can be done ahead now: something in it is open and not waiting;
+-- with behavior.zoneDetourPartial off, nothing in it waits either.
+function Own.detourDoable(b)
+	if not Own.detourOpen(b) then return false end
+	if ns.Get("behavior.zoneDetourPartial") then return true end
+	for s = b.start, b.stop do
+		if Own.detourWaits(b, s) then return false end
+	end
+	return true
+end
+
+-- The loaded guide's block that block-offers may name: one the route comes
+-- to after the live step, doable now, and no detour running. `pick(b)`
+-- chooses among them; the first chosen one or nil.
+function Own.detourAhead(pick)
+	if not (guide and computed and not placing and Own.leveling(guide)) or Own.detourBlock() then return nil end
+	if not player then refreshPlayer() end
+	for _, b in ipairs(Own.detourBlocks(guide)) do
+		if b.start > computed and pick(b) and Own.detourDoable(b) then return b end
+	end
+	return nil
+end
+
+-- The zone of step s: its block's, else its first goal's map with one.
+function Own.detourZoneOf(s)
+	for _, b in ipairs(Own.detourBlocks(guide)) do
+		if s >= b.start and s <= b.stop then return b.map end
+	end
+	for _, goal in ipairs(guide.steps[s] and guide.steps[s].goals or NONE) do
+		if goal.map then return goal.map end
+	end
+	return nil
+end
+
+-- The offer line (Q1, behavior.zoneDetour "both"): the player has been in a
+-- zone for DETOUR_DWELL seconds that the live step is not in and the guide
+-- comes to later. -> the block (Engine.DetourPreview, DetourStart) | nil.
+-- The window asks at each layout: worked out once per evaluation.
+Own.detourOfferCache = {}
+function Engine.DetourOffer()
+	if ns.Get("behavior.zoneDetour") ~= "both" then return nil end
+	local seen = Own.detourSeen
+	if not (seen.zone and GetTime() - seen.at >= Own.DETOUR_DWELL) or not (guide and computed) then return nil end
+	local c = Own.detourOfferCache
+	if c.gen == generation and c.guide == guide and c.seen == seen then return c.v end
+	local v
+	if Own.detourZoneOf(computed) ~= seen.zone then
+		v = Own.detourAhead(function(b)
+			return b.map == seen.zone and not Own.detourDismissed[guide.id .. ":" .. b.base.start]
+		end)
+	end
+	Own.detourOfferCache = { gen = generation, guide = guide, seen = seen, v = v }
+	return v
+end
+
+-- The Up next menu's entry: the block step i is in, when it can be done
+-- ahead (behavior.zoneDetour "both" or "menu"). -> the block | nil
+function Engine.DetourBlockAt(i)
+	if ns.Get("behavior.zoneDetour") == "off" or type(i) ~= "number" then return nil end
+	return Own.detourAhead(function(b) return i >= b.start and i <= b.stop end)
+end
+
+-- What doing block b now means, before anything changes: { map, start,
+-- back (the step the route comes back to), backMap, waits = { { quest,
+-- title, step } } (the quests of the block that wait for the steps before
+-- it, Q3), high = { { quest, title, level } } (its accepts above the
+-- player's level), loses = { { quest | step, title, why = "timed" | "escort"
+-- | "level", level } } (what the steps passed over lose by coming later: a
+-- timed or escort quest in progress, a `when level<N` step out of range by
+-- then) }.
+function Engine.DetourPreview(b)
+	if not (guide and type(b) == "table" and b.start) then return nil end
+	if not player then refreshPlayer() end
+	local C, steps, level = Compat(), guide.steps, player.level or 1
+	local back = Own.detourBack(b.start)
+	local out = { map = b.map, start = b.start, back = back, backMap = back and Own.detourZoneOf(back), waits = {}, high = {}, loses = {} }
+	local seen = {}
+	for s = b.start, b.stop do
+		if stepApplies(steps[s]) and not isSkipped(s) and not stepDone(s) then
+			local q = Own.detourWaits(b, s)
+			if q and not seen[q] then
+				seen[q] = true
+				out.waits[#out.waits + 1] = { quest = q, title = titleOfQuest(q), step = s }
+			end
+			for _, goal in ipairs(steps[s].goals) do
+				local id = goal.quest
+				if goal.t == "accept" and id and not seen[id] and (tonumber(goal.minLevel) or 0) > level and goalApplies(goal)
+					and not (C.IsOnQuest(id) or questDone(id)) then
+					seen[id] = true
+					out.high[#out.high + 1] = { quest = id, title = questTitle(goal), level = tonumber(goal.minLevel) }
+				end
+			end
+		end
+	end
+	for s = back or b.start, b.start - 1 do
+		local step = steps[s]
+		if stepApplies(step) and not isSkipped(s) and not stepDone(s) then
+			for _, goal in ipairs(step.goals) do
+				local id = goal.quest
+				if goal.t == "accept" and id and not seen[id] and (goal.limit or goal.escort) and C.IsOnQuest(id) then
+					seen[id] = true
+					out.loses[#out.loses + 1] = { quest = id, title = questTitle(goal), why = goal.escort and "escort" or "timed" }
+				end
+			end
+			for _, p in ipairs(type(step.when) == "table" and step.when or NONE) do
+				if p.k == "level" and (p.op == "<" or p.op == "<=") and type(p.n) == "number" and p.n - level <= 2 and not p.neg then
+					out.loses[#out.loses + 1] = { step = s, title = step.title, why = "level", level = p.n }
+					break
+				end
+			end
+		end
+	end
+	return out
+end
+
+-- Do block b now: its steps first, then back to the steps before it.
+-- False when b is not a block of the loaded guide that can be done ahead.
+function Engine.DetourStart(b)
+	if not (guide and computed and type(b) == "table") then return false end
+	refreshPlayer()
+	local mine
+	for _, x in ipairs(Own.detourBlocks(guide)) do
+		if x == b or (b.base and x.base.start == b.base.start and x.map == b.map) then mine = x end
+	end
+	if not (mine and mine.start > computed and Own.detourOpen(mine)) then return false end
+	local st = ns.CharState()
+	if type(st.detours) ~= "table" then st.detours = {} end
+	st.detours[guide.id] = { start = mine.base.start, stop = mine.base.stop, map = mine.map }
+	placing = nil
+	Own.view(nil)
+	Own.detourNews = { guideId = guide.id, map = mine.map, why = "start" }
+	evaluate()
+	return true
+end
+
+-- Back now: the running detour ends, the route is back on the steps it
+-- passed over (the block's open steps come again in order).
+function Engine.DetourBack()
+	if not (guide and Own.detourBlock()) then return false end
+	refreshPlayer()
+	Own.detourEnd("back")
+	evaluate()
+	return true
+end
+
+-- The offer line's x: not offered again for this block this session.
+function Engine.DetourDismiss(b)
+	if not (guide and type(b) == "table" and b.base) then return end
+	Own.detourDismissed[guide.id .. ":" .. b.base.start] = true
+	Own.detourOfferCache = {}
+	ns.Fire("ZONE_DETOUR_CHANGED")
+end
+
+-- The running detour of the active guide: { map, start, stop, back, backMap }
+-- (back: the step it comes back to, in the zone backMap) | nil.
+Own.detourGetCache = {}
+function Engine.GetDetour()
+	local c = Own.detourGetCache
+	if c.gen == generation and c.guide == guide then return c.v end
+	local b = guide and Own.detourBlock()
+	local v
+	if b then
+		local back = Own.detourBack(b.start)
+		v = { map = b.map, start = b.start, stop = b.stop, back = back, backMap = back and Own.detourZoneOf(back) }
+	end
+	Own.detourGetCache = { gen = generation, guide = guide, v = v }
+	return v
 end
 
 -- One applicable step back, done, skipped or open alike: a look at it like
@@ -10465,6 +10839,7 @@ end
 function Engine.ResetProgress()
 	if not guide then return end
 	local state = ns.CharState()
+	Own.detourEnd("reset")
 	state.manual[guide.id] = nil
 	state.skipped[guide.id] = nil
 	state.when[guide.id] = nil

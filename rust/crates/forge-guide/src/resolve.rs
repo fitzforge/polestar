@@ -1285,6 +1285,12 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	check_labels(&steps, r);
 	check_along_goals(&gsteps.items(), r);
 	check_background(&steps, &gsteps.items(), r);
+	// Its zone blocks (#1249): a leveling guide's runs of steps in one zone, for "do this zone, then come back".
+	if guide.get("category").as_str() == Some("Leveling") {
+		if let Some(z) = crate::zones::blocks(&gsteps.items()) {
+			guide.set("zones", z);
+		}
+	}
 	guide
 }
 
