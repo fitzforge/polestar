@@ -8047,7 +8047,8 @@ test(`${REDRIDGE}: #1415: Alther's Mill's Tarantula Eggs have their goal beside 
 test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Baros before the boat, Making Do to Thundris where it lands`, { skip }, () => {
 	const loch = goals(LOCH_MODAN);
 	const baros = at(loch, 'turnin 97914', is('turnin', 97914));
-	assert.ok(baros < at(loch, 'the boat to Auberdine', (g) => g.t === 'goto' && /Boat to/.test(g.text || '')), 'Baros before the boat');
+	const boat = loch.findLastIndex(({ goal }) => goal.t === 'goto' && /Boat to/.test(goal.text || ''));
+	assert.ok(boat > 0 && baros < boat, 'Baros before the last boat, back to Auberdine');
 	assert.ok(loch[at(loch, 'accept 97926', is('accept', 97926))].goal.optional, 'Making Do taken there, optional (#453)');
 	const dark = goals(DARKSHORE_RETURN);
 	assert.equal(dark[at(dark, 'turnin 97926', is('turnin', 97926))].s, 1, 'Making Do handed to Thundris on the first Auberdine stop');
