@@ -4576,6 +4576,30 @@
 				],
 				"faction": "Horde",
 				"why": "Hand-in-first check (2026-11-08): Magus Wordeen Voidglare offered Dalaran Patrols right after the Key to the City hand-in to all 6 people (4 established) who took it; nobody took it without (players' recordings). Their refusals all came before Prison Break In (544), so whether 93680 is required is not proven: the guide hands it in first either way."
+			},
+			{
+				"a": [
+					"turnin",
+					681
+				],
+				"b": [
+					"accept",
+					663
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Arathi: Northfold Manor and Worth Its Weight in Gold are handed in (and Trelane's Wand taken) at Refuge Pointe on the walk from Go'Shek Farm west to the Stone of West Binding; the route passed Refuge Pointe (77 yd) and came back after Faldir's Cove (flow audit, passed ender, 28/28)."
+			},
+			{
+				"a": [
+					"turnin",
+					1389
+				],
+				"b": [
+					"turnin",
+					1421
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Swamp of Sorrows: from Galen's strongbox the road runs west past the Harborage, then south to Watcher Biggs on the way out to Deadwind Pass: Magtoor's hand-ins first, Biggs last (the route went Biggs, north to the Harborage, and back south past Biggs)."
 			}
 		],
 		"notes": [
