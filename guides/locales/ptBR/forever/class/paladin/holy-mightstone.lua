@@ -22,12 +22,12 @@ return {
 	["{area:3197} is the Alliance camp at the south end of the {zone:1422}, north of the Alterac foothills. {npc:10838} commands it; {npc:10840} stands in the same camp."] = "{area:3197} é o acampamento da Aliança na ponta sul de {zone:1422}, ao norte do sopé de Alterac. Quem comanda é {npc:10838}; {npc:10840} fica no mesmo acampamento.",
 
 	-- Step 4: The Argent Dawn Commission
-	-- {item:12846} Argent Dawn Commission
-	["The {item:12846}"] = "A {item:12846}",
-	-- {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "O Flagelo só deixa cair Pedras do Flagelo se você estiver usando uma {item:12846}. {npc:10840} dá uma pela missão dela, {item:12846}, que você entrega na hora (se já tiver uma de {area:2268}, use essa). Equipe num espaço de berloque: aparece como um bônus que nunca acaba. Fique com ela até juntar 20 pedras.",
-	-- {item:12846} Argent Dawn Commission
-	["{item:12846}: equip it"] = "{item:12846}: equipe",
+	-- {quest:5401} Argent Dawn Commission
+	["The {quest:5401}"] = "",
+	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
+	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
+	-- {quest:5401} Argent Dawn Commission
+	["the {quest:5401} trinket: equip it"] = "",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
@@ -65,8 +65,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "Uma pedra de uso único que o deixa muito mais forte contra mortos-vivos por 10 minutos; as antigas recompensas à escolha foram removidas.",
+	-- ["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "O Flagelo só deixa cair Pedras do Flagelo se você estiver usando uma {item:12846}. {npc:10840} dá uma pela missão dela, {item:12846}, que você entrega na hora (se já tiver uma de {area:2268}, use essa). Equipe num espaço de berloque: aparece como um bônus que nunca acaba. Fique com ela até juntar 20 pedras.",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "O Flagelo em todas as {zone:1422} solta Pedras do Flagelo do Lacaio.",
+	-- ["The {item:12846}"] = "A {item:12846}",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477} fica no {area:74}, no leste do {zone:1435}. Lá dentro, Talho e {npc:5716} soltam a {item:20606}, Hukkah e Mirran a azul, Zolo e Lorro a verde.",
+	-- ["{item:12846}: equip it"] = "{item:12846}: equipe",
 	-- ["{item:20606}, inside"] = "{item:20606}, lá dentro",
 	-- ["{item:20607}, inside"] = "{item:20607}, lá dentro",
 	-- ["{item:20608}, inside"] = "{item:20608}, lá dentro",

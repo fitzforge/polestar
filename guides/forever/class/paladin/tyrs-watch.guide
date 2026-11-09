@@ -85,7 +85,7 @@ step Coming to Terms
   level 4
   accept 91208                        -- Aramis Hammerhand
   accept 91209
-  kill 246143                         -- Talk to the Frightened Paladin, then defeat her
+  kill 246143 quest 91208.1           -- Talk to the Frightened Paladin, then defeat her
   turnin 91208                        -- Aramis Hammerhand
 
 step Shari Stilwell
@@ -114,13 +114,13 @@ step Murlocs at the Gates
   kill 250282 quest 91285.2           -- Vile Fin Seers x8
 
 step Touring the Grounds
-  tip Breton gives you a weapon, then sends you round the keep to speak with four of its people: Hilda the Breaker just south of the gate, Jorin Croge and Danitha Morr inside the keep, and Ander Solliden, the lookout, who walks the road south-east of the keep. Pick the conversation option with each.
+  tip Breton gives you a weapon, then sends you round the keep to speak with four of its people: Hilda the Breaker just south of the gate, Ander Solliden, the lookout, who walks the road south-east of the keep, then Jorin Croge and Danitha Morr inside the keep. Pick the conversation option with each.
   turnin 91285 choose 246164 246165   -- Breton Samuels: Skullthumper or Driftwood Smasher
   accept 91294
-  talk 246389                         -- Hilda the Breaker
-  talk 246393                         -- Jorin Croge
-  talk 246394                         -- Ander Solliden
-  talk 246378                         -- Danitha Morr
+  talk 246389 quest 91294.1           -- Hilda the Breaker
+  talk 246394 quest 91294.3           -- Ander Solliden
+  talk 246393 quest 91294.2           -- Jorin Croge
+  talk 246378 quest 91294.4           -- Danitha Morr
 
 step Danitha Morr
   tip Danitha Morr leads the order from inside the keep; Jorin Croge stands beside it. The Tarnished need level 9.
@@ -155,11 +155,15 @@ step Back to the keep
   turnin 91317                        -- Danitha Morr
   accept 95803
 
-step Hilda and Ephram
-  when onquest 99152,99153
+step Hilda the Breaker
+  when onquest 99152
   tip Hilda and Ephram wait at the forest's edge south of the gate.
-  turnin 99152 optional               -- Hilda the Breaker
-  turnin 99153 optional               -- Ephram Barbaro
+  turnin 99152                        -- Hilda the Breaker
+
+step Ephram Barbaro
+  when onquest 99153
+  tip Ephram waits at the forest's edge south of the gate, a few steps west of Hilda.
+  turnin 99153                        -- Ephram Barbaro
 
 # ---------------------------------------------------------------- A Lesson in Divinity
 

@@ -6505,5 +6505,26 @@
 			"ref": "players' in-game recordings since launch: 19 people took It's All Fun and Games Until... (98042) at the Twilight Tome (object 12666), every one seconds after handing The Twilight Camp (949) in there, none before it (sessions 20261104T232008Z to 20261108T001845Z)"
 		},
 		"note": "It's All Fun and Games Until... starts at the Twilight Tome in the Master's Glaive, which offers it only once The Twilight Camp (949) is handed in to it. The merged data had no prerequisite, so the guide sent players to the tome for it before that hand-in, when there was nothing to take (#1352)."
+	},
+	"91209": {
+		"set": {
+			"pre": [
+				90902
+			],
+			"preAny": [
+				90902
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 10 people (5 established) took Continue Your Training (91209) from Aramis Hammerhand within two seconds of Coming to Terms (91208), each before handing 91208 in"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 91208"
+			}
+		],
+		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts."
 	}
 }
