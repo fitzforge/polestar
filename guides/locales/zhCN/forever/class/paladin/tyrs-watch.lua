@@ -45,8 +45,8 @@ return {
 	["Vile Fin Seers x8"] = "邪鳍先知 x8",
 
 	-- Step 7: Touring the Grounds
-	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr · {npc:246394} Ander Solliden
-	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246393} and {npc:246378} inside the keep, and {npc:246394}, the lookout, who walks the road south-east of the keep. Pick the conversation option with each."] = "{npc:246349} 会给你一件武器，然后让你绕城堡与四个人交谈：城门正南的 {npc:246389}、城堡内的 {npc:246393} 和 {npc:246378}，以及在城堡东南道路上巡逻的哨兵 {npc:246394}。与每个人交谈时都要选择对话选项。",
+	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
+	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "",
 	-- {npc:246349} Breton Samuels · {item:246164} Skullthumper · {item:246165} Driftwood Smasher
 	["{npc:246349}: {item:246164} or {item:246165}"] = "{npc:246349}：{item:246164}或{item:246165}",
 
@@ -90,28 +90,30 @@ return {
 	-- {npc:246378} Danitha Morr · {npc:259431} Rudolph Gelhardt
 	["{npc:246378} hands you {npc:259431}'s head for Sylvanas: keep it in your bags, it is what you hand in."] = "{npc:246378} 会给你 {npc:259431} 的头颅，让你交给希尔瓦娜斯：把它留在背包里，这是交还任务需要的物品。",
 
-	-- Step 14: Hilda the Breaker and Ephram Barbaro
-	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190}"] = "{npc:246389}和{npc:259190}",
+	-- Step 14: Hilda the Breaker
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["{npc:246389} and {npc:259190} wait at the forest's edge south of the gate."] = "{npc:246389}和{npc:259190}在大门南方的森林边缘等候。",
 
-	-- Step 15: A Lesson in Divinity
+	-- Step 15: Ephram Barbaro
+	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker
+	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "",
+
+	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
 	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "{npc:246378}在12级时提供第一个神性一课任务。如果有，带上10块{item:2589}：接下来{zone:1458}会用到。",
 
-	-- Step 16: The Undercity
+	-- Step 17: The Undercity
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {npc:257648} Tanis Alderwood · {object:36078} Trade Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:10181} holds court in the {object:36126}; {npc:257648} begs in the {object:36078}."] = "从{area:159}向南走到{area:153}，再下到{zone:1458}。{npc:10181}在{object:36126}接见臣民；{npc:257648}在{object:36078}乞讨。",
 
-	-- Step 17: Linen Cloth
+	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
 	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648}需要10块{item:2589}。人型生物会掉落：林地里的血色狂热者和修士约每击杀10个掉3次。幽暗城拍卖行也有出售。",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "{item:2589} × 10",
 
-	-- Step 19: The Symbol of Life
+	-- Step 20: The Symbol of Life
 	-- {item:6866} Symbol of Life
 	["The {item:6866}"] = "{item:6866}",
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {item:6866} Symbol of Life · {npc:257655} Deathguard Billmuth
@@ -119,18 +121,18 @@ return {
 	-- {npc:257655} Deathguard Billmuth
 	["{npc:257655}, downstairs"] = "{npc:257655}，在楼下",
 
-	-- Step 20: Deathguard Falgan
+	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:239036} Scarlet Crusader
 	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "{area:812} 位于林地最东端，路途很远。亡灵卫兵法尔甘的尸体躺在那里的血色十字军中：选中尸体使用 {item:6866}，随后立刻与他交谈，因为他活不了多久。如果他已经被其他玩家复活，直接交谈即可；如果又死了，就再复活一次。",
 
-	-- Step 21: The Scarlet attack plans
+	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "血色十字军的进攻计划",
 	-- {area:812} Venomweb Vale
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
 	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "{area:812} 周围的血色狂热者（8-9 级）、血色修士（9-10 级）和黯淡者携带进攻计划。它们在生命值低时会逃跑求援，每五分钟刷新。",
 
-	-- Step 22: Redemption
+	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
 	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "穿过整片林地，回到 {area:16602}：先把计划交给楼下的亡灵卫兵比尔穆斯，再回城堡楼上找 {npc:246378} 学习 {spell:7328}。",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
@@ -149,8 +151,10 @@ return {
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602}位于{area:156}西北的悬崖上。{npc:246349}在大门口等候。",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812}位于林地的最东端。对{npc:257663}使用{item:6866}，然后与他交谈。如果弄丢了圣物，{npc:246378}会再给你一个。",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "在{area:159}训练圣骑士的{npc:246152}会让你去西海岸的修会要塞。",
+	-- ["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246393} and {npc:246378} inside the keep, and {npc:246394}, the lookout, who walks the road south-east of the keep. Pick the conversation option with each."] = "{npc:246349} 会给你一件武器，然后让你绕城堡与四个人交谈：城门正南的 {npc:246389}、城堡内的 {npc:246393} 和 {npc:246378}，以及在城堡东南道路上巡逻的哨兵 {npc:246394}。与每个人交谈时都要选择对话选项。",
 	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378}在要塞内领导修会；{npc:246393}站在一旁。",
 	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378}在12级时提供第一堂神圣课程。",
+	-- ["{npc:246389} and {npc:259190}"] = "{npc:246389}和{npc:259190}",
 	-- ["{npc:257648} needs 10 {item:2589}. Scarlet Zealots and Scarlet Friars drop it about three times in ten; bring it along if you already carry some."] = "{npc:257648}需要10块{item:2589}。{npc:1537}和{npc:1538}大约十次掉落三次；如果你身上已经有一些，带上即可。",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}，在地窖里",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}，在地窖里",

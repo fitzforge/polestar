@@ -99,7 +99,7 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "O pico oeste",
 	-- {area:287} Hillsbrad
-	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Da vila de {area:287}, siga para o norte pelo sopé de Alterac: a ampola do oeste vai no topo do morro logo depois da fronteira.",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
@@ -190,6 +190,7 @@ return {
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull e {npc:2238} estão acorrentados nos prédios do pátio de {area:275}; abra as duas trancas.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Siga a estrada para o sul até a escavação anã em {area:359}. {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo da escavação.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "De {area:272}, vá para sudeste pelas colinas no caminho até {area:275}. Ladinos e Vigias ocupam os acampamentos pelo caminho.",
+	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Da vila de {area:287}, siga para o norte pelo sopé de Alterac: a ampola do oeste vai no topo do morro logo depois da fronteira.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:1638} e treine em {area:1639}, depois siga voando até {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Use a Pedra de Regresso para {area:378} e voe até {area:392}. {quest:874} acampa na praia ao norte de {area:392}.",

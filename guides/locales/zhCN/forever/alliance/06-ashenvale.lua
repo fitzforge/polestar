@@ -27,8 +27,8 @@ return {
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}过来的道路通向飞行管理员旁：{npc:3845}和{npc:4079}站在那里，{npc:3691}在旅店，{npc:3894}在旅店后方的建筑内。",
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}，在旅店里",
-	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine · {area:331} Ashenvale
-	["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}：交{area:442}接到的{quest:990}（其他人在下次来{area:331}时接）",
+	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
+	["{npc:3691}: {quest:990}, from {area:442}"] = "",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}：在屋内",
 
@@ -52,6 +52,8 @@ return {
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
 	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
 	["Below ground"] = "在地下",
+	-- {npc:4276} Piznik
+	["Keep {npc:4276} alive while he mines, below ground"] = "",
 
 	-- Step 13: Windshear Crag
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle · {area:1076} Webwinder Path
@@ -252,13 +254,17 @@ return {
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
 
-	-- Step 53: Cathedral Square
-	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {npc:376} High Priestess Laurena
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "地铁在{object:28027}停靠，向西走到{object:2098}。{npc:1646}站在广场东侧，{npc:376}在圣光大教堂里。",
+	-- Step 53: Baros Alexston
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
-	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "须先交{quest:97914}：之后回{area:442}交给{npc:3649}（06-wetlands）",
+	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
+	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "",
+
+	-- Step 54: Cathedral Square
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
 	["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}：之后交给{zone:1455}的{npc:11406}",
 	-- {npc:376} High Priestess Laurena · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -266,19 +272,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}：之后交给{zone:1457}的{npc:11401}",
 
-	-- Step 54: Master Mathias Shaw
+	-- Step 55: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "马迪亚斯·肖尔在要塞南边{object:2100}的军情7处。",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}：交给{zone:1436}的{npc:7024}，{zone:1431}第二轮路线结束时会去",
 
-	-- Step 55: Collin Mauren
+	-- Step 56: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164}位于{object:2101}。术士：{npc:6122}在其地下室。",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：之后交给{zone:1413}的{npc:6244}",
 
-	-- Step 56: Trade District
+	-- Step 57: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "接下来：在{zone:1453}学习技能，沿路向东穿过艾尔文森林，再向南前往{zone:1431}。",
 
@@ -308,6 +314,7 @@ return {
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "{npc:1020}和杂斑尖啸龙在挖掘场西边的山丘上游荡。",
 	-- ["Next: fly to {area:42}."] = "下一步：飞往{area:42}。",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "仅当你在{zone:1431}拾取了{quest:337}",
+	-- ["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-wetlands)"] = "须先交{quest:97914}：之后回{area:442}交给{npc:3649}（06-wetlands）",
 	-- ["Raptor valley"] = "迅猛龙山谷",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "沿{zone:1437}的道路向东骑行，向南穿过{area:836}进入{zone:1432}，再向西穿过隧道进入{zone:1426}，到达{area:1537}。",
 	-- ["Ride south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}. {npc:4080} and {npc:4077} camp on the {area:1076} south-west of the crag."] = "向南骑过{area:421}，进入{area:1276}隧道；出口在石爪山脉的{area:461}。{npc:4080}和{npc:4077}在峭壁西南方的{area:1076}扎营。",
@@ -322,6 +329,7 @@ return {
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "更大的迅猛龙在挖掘场西边的山谷里捕猎。",
 	-- ["The excavation site sits on the hill south of the road."] = "挖掘场位于道路南边的山丘上。",
 	-- ["The raptor hills"] = "迅猛龙山丘",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "地铁在{object:28027}停靠，向西走到{object:2098}。{npc:1646}站在广场东侧，{npc:376}在圣光大教堂里。",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "鱼人小屋里的三个容器，从南到北：{object:261}，然后是{object:142151}，最后是北端的{object:259}。",
 	-- ["Venture Co. loggers"] = "风险投资公司伐木者",
@@ -343,6 +351,7 @@ return {
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on."] = "{npc:210995}可能不会向所有职业提供这些任务；如果没有，就继续路线。",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}：巴隆斯·阿历克斯顿的回信",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664}和他的虚空行者占据着神殿南边的{area:412}。先拉他的卫兵。",
+	-- ["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}：交{area:442}接到的{quest:990}（其他人在下次来{area:331}时接）",
 	-- ["{npc:3987} (25) leads the Thistlefur gnolls at the camp north of {area:415}. Clear his guards first, one at a time."] = "{npc:3987}（25级）率领{area:415}北边营地的蓟皮豺狼人。先清理他的卫兵，一次一个。",
 	-- ["{npc:4201}, in the hut north of them"] = "{npc:4201}，在他们北边的小屋里",
 	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines."] = "{npc:4276}在峭壁东端的{area:2160}采矿。和他交谈，在他采矿时击退风险投资公司的袭击者。",

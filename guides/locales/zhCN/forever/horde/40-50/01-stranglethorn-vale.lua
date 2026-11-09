@@ -12,6 +12,10 @@ return {
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
+	-- Step 2: Grom'gol Base Camp
+	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
+	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
+
 	-- Step 3: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "丛林捕猎者",
@@ -30,8 +34,6 @@ return {
 	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "飞行管理员格林戈在{area:35}的上层平台等候。任务给予者分布在海港周围的栈道和旅店里。",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}：交还之前收集的钳嘴龟皮；他在屋内",
-	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "{npc:737}：在楼上",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 	["Inside"] = "在里面",
 
@@ -83,6 +85,8 @@ return {
 	["Zul'Kunda"] = "祖昆达废墟",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead."] = "远征队西边，血顶酋长{npc:1061}和{npc:1062}一起待在祖昆达废墟。先清掉卫兵，再引他们。在这里继续击杀血顶巨魔直到41级：下一站大锅处的{quest:586}会让你去对付41-43级的劈颅巨魔。也可组队挑战{area:1517}副本。",
+	-- {object:52} Fall of Gurubashi
+	["from the {object:52}, in the ruins"] = "",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "在这里刷血顶巨魔升级：下一站大锅处的{quest:586}会让你去对付41-43级的劈颅巨魔",
 
@@ -91,6 +95,8 @@ return {
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁边",
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
 	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}：留到约48级去{zone:1425}时完成",
+	-- {npc:2519} Kin'weelay
+	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
 
 	-- Step 22: Jungle stalkers
 	["Jungle stalkers"] = "丛林捕猎者",
@@ -108,6 +114,10 @@ return {
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "向南前往 {area:35}。“病鬼”菲利普 在码头等着。",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "{npc:6807}：在楼上",
+	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "顶层的“海狼”马克基雷：交给{zone:1446}的斯杜雷",
 
@@ -140,51 +150,63 @@ return {
 	["Head west to {object:3202}."] = "向西前往 {object:3202}。",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
+	-- {object:2076} Bubbling Cauldron
+	["the {object:2076} again: Yenniku's fate"] = "",
+	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
+	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs"] = "{npc:737}：在楼上",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}，在楼上：交给{area:976}的{quest:2864}",
 
-	-- Step 32: Fly to Grom'gol
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "{area:35}的飞行管理员",
+	-- Step 32: Ironjaw Basilisks
+	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
+	["Ironjaw Basilisks"] = "",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
+	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 
-	-- Step 34: Nesingwary's Expedition
+	-- Step 33: Grom'gol Base Camp
+	-- {object:3202} Grom'gol
+	["Ride on north to {object:3202}."] = "",
+
+	-- Step 35: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿路向北前往猎人营地。",
 
-	-- Step 36: Raptor Mastery
+	-- Step 37: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:730}是 43 级精英，多数职业到 45 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 37: Panther Mastery
+	-- Step 38: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:728}是 40 级精英，多数职业到 42 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 41: Level 42.68
+	-- Step 42: Level 42.68
 	["Level 42.68"] = "等级 42.68",
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
 	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "如果跳过了{quest:192}或{quest:195}，就在这里刷怪到42.68级，跟上路线的等级规划。也可组队挑战{area:1517}副本。",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "击杀{npc:667}刷经验",
 
-	-- Step 42: Big Game Hunter
+	-- Step 43: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:731}是 43 级精英，多数职业到 45 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。\n注意：附近有老虎和潜行的暗影黑豹，先清理再拉首领。拉到{npc:731}时，它会召集 20 码内的生物支援。",
 
-	-- Step 44: Level 42.74
+	-- Step 45: Level 42.74
 	["Level 42.74"] = "等级 42.74",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "如果跳过了{quest:208}，就在这里刷怪到42.74级，跟上路线的等级规划。也可组队挑战{area:1517}副本。",
 
-	-- Step 48: Into the Swamp of Sorrows
+	-- Step 49: Into the Swamp of Sorrows
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "进入{area:8}",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "从{area:10}沿路向东，经过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候；那是靠近{zone:1430}入口、道路旁的德莱尼营地。",
 
-	-- Step 49: Stonard
+	-- Step 50: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "向东前往{area:75}，就在路南的芦苇丛中。把炉石绑定在这里。",
 	-- {npc:5591} Dar
@@ -196,29 +218,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，位于最顶层",
 
-	-- Step 50: Sawtooth crocolisks
+	-- Step 51: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鳄鱼在{npc:5391}营地周围的水塘里打滚，一直到南边的{area:75}；大约四分之一会掉落鳄鱼肉。",
 
-	-- Step 51: Noboru the Cudgel
+	-- Step 52: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒诺博鲁在{area:76}西南的空地上游荡；他的木棒可以开始一个任务。",
 
-	-- Step 52: Draenethyst crystals
+	-- Step 53: Draenethyst crystals
 	["Draenethyst crystals"] = "德莱尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向东北骑往{area:76}。水晶分布在通往{npc:5391}笼子的路上。",
 
-	-- Step 53: Galen's Escape
+	-- Step 54: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被关在沼泽东北的{area:76}。救出他并跟着他出去，击退追赶他的沼泽生物。",
 
-	-- Step 54: Galen's Strongbox
+	-- Step 55: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "他的保险箱在{area:75}北边的旧营地里，向西返程时会经过。",
 
-	-- Step 55: Harborage
+	-- Step 56: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "沿路骑行向西，前往{area:657}的德莱尼营地，靠近从{zone:1430}过来的入口。{quest:698}留到下次来沼泽时，交给{area:1978}的{npc:5592}；保留鳄鱼肉。",
 
@@ -254,6 +276,7 @@ return {
 	-- ["for Stoley in {zone:1446}"] = "交给{zone:1446}的斯杜雷",
 	-- ["for later: the {zone:1425}, around level 48"] = "留到之后：{zone:1425}，大约48级时",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁边",
+	-- ["{area:35} flight master"] = "{area:35}的飞行管理员",
 	-- ["{area:392} pier"] = "{area:392}码头",
 	-- ["{npc:773}: for {quest:2864} in {area:976}"] = "{npc:773}：交给{area:976}的{quest:2864}",
 }

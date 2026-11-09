@@ -30,7 +30,7 @@ return {
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} 站在岛屿南部的天裔城镇 {area:16638}，一直没有收到北边德鲁伊的消息。他的差事是 夜爪 故事线的开端（8 级起，所有种族均可）。这条线的每个任务都会奖励 夜爪 声望：总共 4100 点，足够到友善。尽早来做：经典怀旧服中，超过任务 6 级后奖励会减少，超过 9 级及以上时最多只能获得五分之一，而这些任务是 11 至 13 级。",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -108,4 +108,7 @@ return {
 	["The {item:280363}"] = "{item:280363}",
 	-- {item:280363} Nightclaw Mantle
 	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "崇拜后解锁{item:280363}，一件15级绿色布甲护肩，售价8银16铜。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests."] = "{npc:252359} 站在岛屿南部的天裔城镇 {area:16638}，一直没有收到北边德鲁伊的消息。他的差事是 夜爪 故事线的开端（8 级起，所有种族均可）。这条线的每个任务都会奖励 夜爪 声望：总共 4100 点，足够到友善。尽早来做：经典怀旧服中，超过任务 6 级后奖励会减少，超过 9 级及以上时最多只能获得五分之一，而这些任务是 11 至 13 级。",
 }

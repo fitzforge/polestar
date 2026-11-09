@@ -236,14 +236,14 @@ return {
 	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "{npc:3034}在{zone:1412}；{area:362}没有德鲁伊训练师",
 
 	-- Step 57: Razor Hill
-	-- {area:362} Razor Hill
-	["Back south to {area:362}."] = "向南返回{area:362}。",
+	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
+	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
 
 	-- Step 58: Spitelash naga
 	["Spitelash naga"] = "恶鞭纳迦",
-	-- {npc:275657} Heglan Shadeeye · {area:370} Drygulch Ravine · {npc:3107} Surf Crawler
+	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "向东回到{npc:275657}北边的海岸。{npc:275662}和其他恶鞭纳迦占据着{area:370}下方的海滩。猎人：在海滩上驯服一只{npc:3107}。",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
 
 	-- Step 59: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -327,6 +327,8 @@ return {
 	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "从{area:379}沿路向北前往{area:1637}正门。下篇指南从{area:1637}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{area:17}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "向东回到{npc:275657}北边的海岸。{npc:275662}和其他恶鞭纳迦占据着{area:370}下方的海滩。猎人：在海滩上驯服一只{npc:3107}。",
+	-- ["Back south to {area:362}."] = "向南返回{area:362}。",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}和{npc:3131}在桥对面的{area:369}上吃草；任何一只都可能掉落{item:6486}。",
 	-- ["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there."] = "涉水到回音群岛北部的岛屿。血爪族母在那里的迅猛龙中间潜行。",

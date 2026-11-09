@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "{faction:2740} 的 {npc:247264} 在 {area:271} 等候。他会让你去 {area:279} 城墙外、{area:1338} 岸边找 {npc:246748} 的影像。{faction:2740} 的任务起始等级为 24 至 30 级，最多比你低 5 级时仍给予完整声望；经典怀旧服中，比你低 6 级及以上的任务会减少奖励（60 级时只有五分之一）。",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
@@ -75,4 +75,7 @@ return {
 	["The {item:285327}"] = "{item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
 	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "{npc:32287}及{area:279}的战袍商人{npc:28776}会在崇拜后出售{item:285327}，售价25金币。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "{faction:2740} 的 {npc:247264} 在 {area:271} 等候。他会让你去 {area:279} 城墙外、{area:1338} 岸边找 {npc:246748} 的影像。{faction:2740} 的任务起始等级为 24 至 30 级，最多比你低 5 级时仍给予完整声望；经典怀旧服中，比你低 6 级及以上的任务会减少奖励（60 级时只有五分之一）。",
 }

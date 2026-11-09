@@ -99,7 +99,7 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "西边的山峰",
 	-- {area:287} Hillsbrad
-	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "从{area:287}镇向北进入奥特兰克山麓：西边的药瓶放在刚过边界的山顶上。",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
@@ -191,6 +191,7 @@ return {
 	-- ["Fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "飞往{area:392}。{quest:874}在{area:392}北边的海岸上扎营。",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "沿道路向南前往{area:359}的矮人挖掘场。{npc:3421}躲在挖掘场南缘；{object:3646}在挖掘坑底部。",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "从{area:272}向东南进入山丘，前往{area:275}。沿途的营地由辛迪加潜行者和辛迪加卫士占据。",
+	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "从{area:287}镇向北进入奥特兰克山麓：西边的药瓶放在刚过边界的山顶上。",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:1638}，在{area:1639}训练，然后继续飞往{area:378}。",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:378}。",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "用炉石回到{area:378}，飞往{area:392}。{quest:874}在{area:392}北边的海岸上扎营。",

@@ -1335,6 +1335,14 @@ L["Right-click: not now, around here (twice: for the rest of this zone)."] = "�
 -- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
 -- L["Undo the skip"] = ""
 -- L["Take %s first"] = ""
+-- L["Click the minimap button or press %s to show it."] = ""
+-- L["Click the minimap button to show it."] = ""
+-- L["Press %s to show it."] = ""
+-- L["Turn on the minimap button or bind a key to show it."] = ""
+-- L["Press %s or type /polestar to show it."] = ""
+-- L["Type /polestar to show it."] = ""
+-- L["Polestar is hidden here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2093,7 +2101,6 @@ L["Wait for Spoken"] = "等待 Spoken"
 L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = "每次自动接受任务、交还任务和选择奖励前等待 200 毫秒，让 Spoken 有时间注意到窗口并朗读。"
 L["How close"] = "距离范围"
 L["Include nearby hand-ins"] = "包括附近的交任务"
-L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
 L["Dynamic Questing"] = "动态任务"
 L["How near its spawn area must be for a suggestion to show. It goes again a little further out."] = "目标刷新区域需在此距离内才显示建议；距离再远一些时会隐藏。"
 L["Sound for a new suggestion"] = "新建议提示音"
@@ -2113,6 +2120,8 @@ L["A soft chime for each new suggestion (once when several come together), at th
 -- L["Show and hide"] = ""
 -- L["Floating button"] = ""
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
+-- L["Step key targets their mobs"] = ""
+-- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3049,12 +3058,14 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+
 -- QoL/ClassQuests.lua
 -- L["Long chain: %d quests across %d zones on %d continents"] = ""
 -- L["Long chain: %d quests across %d zones"] = ""
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""
@@ -3118,3 +3129,4 @@ L["looted %s, which starts %s"] = "拾取了 %s，可开始任务 %s"
 -- L["Right-click: not now, for the rest of this zone."] = "右键：暂不，在这个地区内不再提示。"
 
 -- UI/WhileHere.lua and UI/Options.lua
+-- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"

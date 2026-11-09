@@ -121,7 +121,7 @@ return {
 	-- {area:17} The Barrens
 	["{area:17}: kill these as you meet them"] = "{area:17} : tuez-les au passage",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
-	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Les pirates campent sur la plage au sud de {area:392}. Les tas de pièces compliquées sont dans le sable au milieu d'eux.\nLes pirates campent sur la plage au sud de {area:392} ; le {npc:3467} se tient à son extrémité sud.",
+	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
 
 	-- Step 35: Ratchet
 	-- {npc:3391} Gazlowe · {area:385} Northwatch Hold
@@ -670,6 +670,7 @@ return {
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "Les Tueuses Ensorçaile tiennent l'ouest de {area:383} ; ce sont elles qui portent les anneaux.\nAttention : des harpies embusquées et camouflées attendent dans la zone et restent cachées jusqu'à ce que vous approchiez. Une harpie élite de niveau 19 patrouille aussi par là.",
 	-- ["The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Le prochain guide commence ici et vous emmène à {zone:1454}, puis au zeppelin pour les {zone:1420}.",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "Les pirates campent sur la plage au sud de {area:392}. Les tas de pièces compliquées se trouvent dans le sable parmi eux.",
+	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Les pirates campent sur la plage au sud de {area:392}. Les tas de pièces compliquées sont dans le sable au milieu d'eux.\nLes pirates campent sur la plage au sud de {area:392} ; le {npc:3467} se tient à son extrémité sud.",
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "Les bassins se trouvent juste au nord de {npc:3389}. Entrez dans l'eau pour les explorer ; les Champignons chargés pour Helbrim poussent autour. Tuez chaque kolkar sur votre passage pour les brassards.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "Les trois nids se trouvent ensemble à {area:1697}, au sud-ouest de l'oasis ; des Faucheurs solécaille les gardent.",
 	-- ["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "Les seaux à outils avec les rondelles se trouvent autour du site de forage de la KapitalRisk, dans {area:382}, à l'est de {npc:9316}.",

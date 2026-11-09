@@ -6,12 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Stormwind
-	["Mauren, from Stonetalon"] = "Mauren，从石爪山脉来的任务",
+	-- Step 1: Collin Mauren
+	-- {object:2164} Slaughtered Lamb
+	["In the {object:2164}, if you still carry it"] = "",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
@@ -94,4 +97,7 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Mauren, from Stonetalon"] = "Mauren，从石爪山脉来的任务",
 }

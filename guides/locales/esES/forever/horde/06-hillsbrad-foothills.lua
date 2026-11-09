@@ -99,7 +99,7 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "",
 	-- {area:287} Hillsbrad
-	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill

@@ -186,11 +186,10 @@ return {
 	["The Wanted poster on the town hall doorway"] = "镇公所门口的通缉告示",
 	["The Wanted poster beside it"] = "旁边的另一张通缉告示",
 
-	-- Step 33: Lake Everstill: kill these as you meet them
-	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "{area:68}：沿途击杀以下目标",
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "巨型狼蛛在湖东北边伐木场周围的山坡上爬行。",
+	-- Step 33: Alther's Mill
+	-- {quest:98386} Alther's Mill
+	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "黑石营地",
@@ -236,13 +235,15 @@ return {
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}：在地下",
 
-	-- Step 42: Back to Lakeshire
+	-- Step 42: Magistrate Solomon: Gath'Ilzogg
+	-- {npc:344} Magistrate Solomon
+	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
+
+	-- Step 44: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "回到{area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "随基沙恩从北边进入{area:69}：{npc:900}和{npc:344}在镇公所，{npc:382}和{npc:341}在桥北端，然后过桥去找{npc:903}和狮鹫。",
-	-- {npc:344} Magistrate Solomon
-	["{npc:344}, in the town hall"] = "{npc:344}，在市政厅",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {area:42} Darkshire · {area:10} Duskwood
@@ -270,6 +271,7 @@ return {
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "来自艾尔文森林的道路在{area:1002}进入赤脊山。{npc:464}站在通往赤脊山和{zone:1431}的道路交汇处。",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "来自{area:442}的船停靠在{area:17203}。走进城里学习技能并找{npc:1646}，然后从正门离开，沿道路向东穿过{zone:1429}。",
 	-- ["Train, then leave by the main gate and follow the road east through {area:12}."] = "学习技能，然后从正门出城，沿路向东穿过{area:12}。",
+	-- ["{area:68}: kill these as you meet them"] = "{area:68}：沿途击杀以下目标",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}：任何暗皮豺狼人",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}：任何黑石兽人",

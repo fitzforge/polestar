@@ -121,7 +121,7 @@ return {
 	-- {area:17} The Barrens
 	["{area:17}: kill these as you meet them"] = "{area:17}：沿途遇到就击杀",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
-	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南方海滩扎营。复杂零件堆就在营地间的沙地上。\n海盗在{area:392}南方海滩扎营；{npc:3467}站在营地最南端。",
+	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
 
 	-- Step 35: Ratchet
 	-- {npc:3391} Gazlowe · {area:385} Northwatch Hold
@@ -671,6 +671,7 @@ return {
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "草原徘徊者在镇子和东边钢鬃营地之间的平原上狩猎。营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "巫翼杀戮者占据{area:383}西部；戒指在它们身上。",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "海盗在{area:392}南边的海滩上扎营。一堆错综复杂的零件散落在他们之间的沙子里。",
+	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南方海滩扎营。复杂零件堆就在营地间的沙地上。\n海盗在{area:392}南方海滩扎营；{npc:3467}站在营地最南端。",
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "水池就在{npc:3389}北边。走进水里即可探索；给赫布瑞姆的丰满的蘑菇长在水池周围。杀死途中的每个科卡尔半人马获取护腕。",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "三个巢穴一起位于绿洲西南方的{area:1697}；赤鳞镰爪龙守卫着它们。",
 	-- ["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "装有高强度齿轮的工具桶散落在{npc:9316}东边{area:382}中的风险投资公司钻探点周围。",

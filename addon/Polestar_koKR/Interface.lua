@@ -1335,6 +1335,14 @@ L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시
 -- L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = ""
 -- L["Undo the skip"] = ""
 -- L["Take %s first"] = ""
+-- L["Click the minimap button or press %s to show it."] = ""
+-- L["Click the minimap button to show it."] = ""
+-- L["Press %s to show it."] = ""
+-- L["Turn on the minimap button or bind a key to show it."] = ""
+-- L["Press %s or type /polestar to show it."] = ""
+-- L["Type /polestar to show it."] = ""
+-- L["Polestar is hidden here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2112,6 +2120,8 @@ L["Did you mean:"] = "찾으시는 항목:"
 -- L["Show and hide"] = ""
 -- L["Floating button"] = ""
 -- L["A small Polestar button you can put anywhere on the screen. Click to show or hide the guide, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."] = ""
+-- L["Step key targets their mobs"] = ""
+-- L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3048,12 +3058,14 @@ L["looted %s, which starts %s"] = "%s 획득, 이 아이템으로 %s 시작"
 -- L["Open the guide list"] = ""
 -- L["What's new in Polestar %s"] = ""
 -- L["Full notes: %s"] = ""
+
 -- QoL/ClassQuests.lua
 -- L["Long chain: %d quests across %d zones on %d continents"] = ""
 -- L["Long chain: %d quests across %d zones"] = ""
 -- L["an escort"] = ""
 -- L["elite mobs at %s: bring a group"] = ""
 -- L["mobs up to level %d"] = ""
+
 -- UI/Launcher.lua
 -- L["Shift-drag: move it"] = ""
 -- L["Drag: move it"] = ""

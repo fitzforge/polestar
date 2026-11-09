@@ -87,37 +87,36 @@ return {
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "{area:431}飞行管理员",
 
-	-- Step 17: Paladin trainer
-	["Paladin trainer"] = "圣骑士训练师",
-	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
-
-	-- Step 18: Druid trainer
+	-- Step 17: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 
-	-- Step 20: The Binding
+	-- Step 19: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875}站在{object:172960}。在那里的召唤法阵上使用{item:6626}，击败魅魔来束缚她。",
 
-	-- Step 21: Shenthul
+	-- Step 20: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "如果已经组队完成{quest:2478}，现在可交给{object:172960}的{npc:3401}。",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}的{npc:2391}教授毒药：留着它",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 
-	-- Step 24: Strange Lockbox
+	-- Step 22: Brill
+	-- {npc:246152} Shari Stilwell · {area:159} Brill
+	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "",
+
+	-- Step 23: Strange Lockbox
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "{item:15882}，来自{object:177790}",
 
-	-- Step 25: Sepulcher
+	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "从飞艇塔出发，向南穿过提瑞斯法，进入银松森林，沿路到{area:228}。{npc:2121}和{npc:1937}站在墓穴入口旁。",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -125,16 +124,16 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "{npc:2121}：{quest:516}，在{area:233}东南方",
 
-	-- Step 26: Silverpine Forest: kill these as you meet them
+	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}：沿途遇到就击杀",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "沿路向南经过焚木村：达拉然卫士和达拉然巫师在{area:233}周围的道路上巡逻；镇子西南方、森林东南部的{quest:516}废墟中，鸦爪苦工和鸦爪守护者出没。",
 
-	-- Step 27: Beren's Peril
+	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
-	["In the ruins of {quest:516}: The Ravenclaw undead haunt the ruins of {quest:516} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
+	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}，来自{npc:1973}",
 	-- {object:645153} Offering Stone · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
@@ -143,13 +142,13 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}，从废墟地下的被折磨的灵魂身上获得",
 
-	-- Step 28: The Offering of Blood
+	-- Step 27: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 30: Southpoint Tower
+	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "回到向南的道路。在道路向东转入{area:287}的地方，{npc:2214}在{area:285}等候。",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -172,6 +171,7 @@ return {
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "继续沿道路向北。{npc:12862}在碎木岗哨南边的战歌伐木营地等候。",
 	-- ["Learn the flight path here while you pick up the outpost's quests."] = "在这里学习飞行路线，同时接取哨站的任务。",
 	-- ["On the ride west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "向西骑行时，{npc:267214}被困在主路南边的一条峡谷里，位于{area:415}东南。黑角鹿和灰谷熊在峡谷周围的林子里游荡。",
+	-- ["Paladin trainer"] = "圣骑士训练师",
 	-- ["Ride back down the {area:1076} to {area:2539}."] = "沿{area:1076}骑回{area:2539}。",
 	-- ["Ride east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "向东骑到{area:380}，飞往{zone:1454}。从{zone:1454}外的塔楼乘飞艇前往{zone:1420}；{area:1497}在{area:153}下方。蝙蝠管理员在{object:36078}。",
 	-- ["Ride south to the {area:380}, then west along the road out of the {zone:1413} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "向南骑到{area:380}，然后沿道路向西离开{zone:1413}进入石爪山脉。巨魔村庄{area:2539}位于峡谷入口。",
@@ -197,6 +197,7 @@ return {
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到27级下次来{zone:1440}时。",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "佐拉姆加的{npc:12736}，27级时",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}站在伐木营地。暗夜精灵灰谷先驱者在营地东南的树林里潜伏；他们会潜行，所以留意他们。",
+	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}的下一个任务“奥达努斯”在{zone:1440}的联盟一方。跳过。",
 	-- ["{npc:4198}, outside the gate"] = "{npc:4198}，在大门外",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606}站在{object:36070}。",

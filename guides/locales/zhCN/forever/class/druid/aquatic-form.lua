@@ -58,15 +58,21 @@ return {
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
 	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
 
-	-- Step 11: Half Pendant of Aquatic Endurance
-	-- {npc:11798} Bunthen Plainswind · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1458} Undercity · {object:177790} Strange Lockbox · {area:228} Sepulcher
-	["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "乘坐{npc:11798}提供的航班前往{zone:1456}，再飞往{zone:1454}，乘飞艇去{zone:1420}；{zone:1421}在{zone:1458}南面。{object:177790}位于{area:228}西北面海岸外的深水海底，旁边有可以呼吸的空气裂隙：下潜时注意剩余呼吸时间。",
+	-- Step 11: Half Pendant of Aquatic Agility
+	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177792} Strange Lockbox · {area:382} Sludge Fen
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
 
-	-- Step 12: Half Pendant of Aquatic Agility
-	-- {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["The {object:177792} lies underwater in the {area:382} pond north of the Crossroads, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "{object:177792} 位于十字路口北侧的 {area:382} 池塘水下，一堵木墙前。那里的风险投资公司成员很容易加入战斗：从西侧接近，可避开大多数敌人。",
+	-- Step 12: Zeppelin to Undercity
+	-- {zone:1458} Undercity
+	["Zeppelin to {zone:1458}"] = "",
+	-- {area:1637} Orgrimmar · {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "",
 
-	-- Step 13: Pendant of the Sea Lion
+	-- Step 13: Half Pendant of Aquatic Endurance
+	-- {object:177790} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
+	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+
+	-- Step 14: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
 	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "施放{spell:18960}。两半都在背包里时，站在西北岸的{area:2362}旁，使用{item:15883}将其合成，然后再次施放{spell:18960}（在{zone:1450}内也可使用），传送到{npc:11802}身边。他站在自己建筑的楼上：从室内上楼，箭头无法区分楼层。{npc:11798}可以送德鲁伊飞往{area:1638}。",
 
@@ -84,8 +90,10 @@ return {
 	-- ["Fly from {area:2361} to {area:442}. The {object:177792} lies under the water off the north coast, west of the {area:443}."] = "从{area:2361}飞往{area:442}。{object:177792}在北部海岸外的水下，{area:443}以西。",
 	-- ["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Ride north-west to the coast: the {object:177790} lies on the sea floor off the shore."] = "从{area:442}乘船前往{zone:1453}，再飞往{area:108}。向西北骑到海岸：{object:177790}在近岸的海底。",
 	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "乘传送门上到{area:1658}找{npc:4217}。",
+	-- ["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down."] = "乘坐{npc:11798}提供的航班前往{zone:1456}，再飞往{zone:1454}，乘飞艇去{zone:1420}；{zone:1421}在{zone:1458}南面。{object:177790}位于{area:228}西北面海岸外的深水海底，旁边有可以呼吸的空气裂隙：下潜时注意剩余呼吸时间。",
 	-- ["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies on the coast west of the {area:240}, north of the {area:228}."] = "乘{npc:11798}的飞行路线前往{zone:1456}，飞往{zone:1454}，再乘飞艇前往{zone:1420}；{zone:1421}在{zone:1458}以南。{object:177790}在{area:240}以西、{area:228}以北的海岸上。",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower, north of the {area:380}."] = "{object:177792}在{area:382}北缘，风险投资公司的塔旁，{area:380}以北。",
+	-- ["The {object:177792} lies underwater in the {area:382} pond north of the Crossroads, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "{object:177792} 位于十字路口北侧的 {area:382} 池塘水下，一堵木墙前。那里的风险投资公司成员很容易加入战斗：从西侧接近，可避开大多数敌人。",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}上。",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",
 }

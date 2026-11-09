@@ -109,7 +109,7 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}: vá matando estes pelo caminho",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows south of {area:16624}. The Galestriders drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Garraltivas e Vagaventos dividem os prados ao sul de {area:16624}. Os Vagaventos deixam cair tanto os Ovos Pequenos quanto {item:5469} para {npc:251905}.",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
 
 	-- Step 16: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
@@ -482,6 +482,7 @@ return {
 	-- ["On the way north, back to {npc:255853} by the falls."] = "No caminho para o norte, volte a {npc:255853} junto às cachoeiras.",
 	-- ["Prideclaws and Galestriders"] = "Garraltivas e Vagaventos",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Garraltivas e Vagaventos dividem os prados ao sul da aldeia. Guarde {item:5469} para {npc:251905}; os ovos vêm depois, dos hipogrifos.",
+	-- ["Prideclaws and Galestriders share the meadows south of {area:16624}. The Galestriders drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Garraltivas e Vagaventos dividem os prados ao sul de {area:16624}. Os Vagaventos deixam cair tanto os Ovos Pequenos quanto {item:5469} para {npc:251905}.",
 	-- ["Ride north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Siga para nordeste até {area:17675}. O acampamento Al'Aketh fica logo a oeste, com {npc:252666} no extremo norte. Todo sectário pode deixar cair um amuleto de pedra eólica.",
 	-- ["Rorian: {quest:92485}"] = "Rorian: {quest:92485}",
 	-- ["Sit by {npc:263664}'s campfire (type /sit) until you get the {spell:1229451} buff, then find {npc:251905} at the cook fire."] = "Sente-se junto à fogueira de {npc:263664} (digite /sit) até receber o bônus {spell:1229451}, depois encontre {npc:251905} na fogueira de cozinhar.",

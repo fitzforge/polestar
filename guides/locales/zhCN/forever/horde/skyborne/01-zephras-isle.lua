@@ -109,7 +109,7 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}：沿途击杀以下目标",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows south of {area:16624}. The Galestriders drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "傲爪和疾风陆行鸟一同栖息在 {area:16624} 南边的草地。疾风陆行鸟会同时掉落小蛋和 {npc:251905} 需要的 {item:5469}。",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
 
 	-- Step 16: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
@@ -482,6 +482,7 @@ return {
 	-- ["On the way north, back to {npc:255853} by the falls."] = "向北的路上，回到瀑布旁找{npc:255853}。",
 	-- ["Prideclaws and Galestriders"] = "傲爪和疾风陆行鸟",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "傲爪和疾风陆行鸟分布在村子南边的草地上。把{item:5469}留给{npc:251905}；蛋稍后从角鹰兽身上获得。",
+	-- ["Prideclaws and Galestriders share the meadows south of {area:16624}. The Galestriders drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "傲爪和疾风陆行鸟一同栖息在 {area:16624} 南边的草地。疾风陆行鸟会同时掉落小蛋和 {npc:251905} 需要的 {item:5469}。",
 	-- ["Ride north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "向东北骑到{area:17675}。奥拉凯斯营地就在它西边，{npc:252666}在营地北端。每个教徒都可能掉落风石护符。",
 	-- ["Rorian: {quest:92485}"] = "逐日者罗里安：{quest:92485}",
 	-- ["Sit by {npc:263664}'s campfire (type /sit) until you get the {spell:1229451} buff, then find {npc:251905} at the cook fire."] = "坐在{npc:263664}的营火旁（输入/sit），直到获得{spell:1229451}增益效果，然后到烹饪火堆旁找{npc:251905}。",

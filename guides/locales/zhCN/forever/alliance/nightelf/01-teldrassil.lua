@@ -406,15 +406,19 @@ return {
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "降落后向{npc:3841}学习飞行路线。{npc:4200}的鱼摊就在她北侧、码头旁。\n船在村庄西侧停靠，飞行管理员位于旅店南侧山丘，任务 NPC 分布在主街沿线。",
 	["The WANTED poster outside the inn"] = "旅店外的通缉布告",
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
 
 	-- Step 68: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "从{npc:3841}处飞回{area:702}，把{item:16263}交给码头上的{npc:10118}，然后飞回{area:442}。",
 
 	-- Step 69: The Long Wash
-	-- {object:17182} Buzzbox 827 · {object:175207} Beached Sea Creature
+	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村庄下方海岸活动，{object:17182}位于码头南侧海滩。黑海岸蛇颈龙在浅水区游动，{object:175207}位于村庄南侧海岸。",
+	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
+	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
+	["Crawler Legs: the Tide Crawlers"] = "",
 
 	-- Step 70: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -478,6 +482,7 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "兽穴在道路南边。{npc:275744}被关在里面，{npc:7317}在深处沉睡，四个圣物箱在下层房间里。",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "月亮井在{area:256}北边；{npc:8584}在稍远的西北方。{quest:3522}只有五分钟：装满药瓶后直接去找他。",
 	-- ["The {area:264}"] = "{area:264}",
+	-- ["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村庄下方海岸活动，{object:17182}位于码头南侧海滩。黑海岸蛇颈龙在浅水区游动，{object:175207}位于村庄南侧海岸。",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "沿岛屿西侧向南走。乌萨尔在最南端、{area:478}下方徘徊。",
 	-- ["Webwood Spiders"] = "树林蜘蛛",
 	-- ["{area:186} quests"] = "{area:186}的任务",

@@ -81,18 +81,19 @@ return {
 	-- Step 18: The Theramore Docks
 	["Underwater"] = "在水下",
 
-	-- Step 19: Level 37.5
-	["Level 37.5"] = "等级37.5",
-	-- {zone:1443} Desolace · {area:502} Witch Hill · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。还没到37.5级？沿东北海岸越过{area:502}，继续击杀泥鳍鱼人，直到37.5级。也可以组队刷{area:1316}地下城或{area:796}地下城的武器库。",
-	-- {npc:4362} Mirefin Coastrunner
-	["grind on {npc:4362}"] = "刷{npc:4362}升级",
-
-	-- Step 20: Brackenwall Village
+	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} in the village."] = "带着头颅向西返回蕨墙村：{npc:4503}站在道路进入村庄处的南缘，{npc:4791}在村子里。",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol
 	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "交给{object:3202}的{npc:2519}，在forever/horde/40-50/01-stranglethorn-vale指南中处理",
+
+	-- Step 20: Level 37.5
+	["Level 37.5"] = "等级37.5",
+	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	["Darkmist cavern"] = "",
+	-- {npc:4377} Darkmist Lurker
+	["grind on {npc:4377}"] = "",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -105,6 +106,10 @@ return {
 	["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391}在飞行管理员旁房子的楼上等候；{npc:3446}在房子下方、靠码头的一侧。",
 	-- {npc:3391} Gazlowe · {area:35} Booty Bay
 	["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "{npc:3391}的下一个差事要去{area:35}，偏离这段路线：先不接。",
+	-- {quest:1111} Wharfmaster Dizzywig
+	["{quest:1111}, on the docks"] = "",
+	-- {area:439} Shimmering Flats
+	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "",
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
@@ -121,9 +126,9 @@ return {
 	["{npc:11624} stands in the village."] = "{npc:11624}站在村里。",
 
 	-- Step 26: Portals of the Legion
-	-- {area:602} Mannoroc Coven
+	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向东前往 {area:602}。在每座恶魔传送门旁使用放逐法杖，关闭其中六座。\n小心：许多传送门附近都有地狱火、末日守卫和火刃召唤师游荡，可能加入战斗；先杀附近的小怪，或把守护者拉远，比如拉到集会所中央的湖边。",
+	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -175,10 +180,12 @@ return {
 	-- Step 38: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}站在{object:172958}。",
-	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}，在{object:172958}的{npc:4485}旁：如果刷过{area:133}，可交{quest:2841}",
 
-	-- Step 39: Orgrimmar trainers
+	-- Step 39: Nogg
+	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
+	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
+
+	-- Step 40: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "{zone:1454}训练师",
 	-- {zone:1458} Undercity
@@ -189,6 +196,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "暗牙蜘蛛",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "交给{object:3202}的{npc:2519}，在下一个指南中",
+	-- ["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向东前往 {area:602}。在每座恶魔传送门旁使用放逐法杖，关闭其中六座。\n小心：许多传送门附近都有地狱火、末日守卫和火刃召唤师游荡，可能加入战斗；先杀附近的小怪，或把守护者拉远，比如拉到集会所中央的湖边。",
 	-- ["Hearth to Shadowprey"] = "用炉石回到葬影村",
 	-- ["Hearth to {area:392}"] = "用炉石回到{area:392}",
 	-- ["Kodo bones and ghosts"] = "科多兽骨和幽灵",
@@ -212,8 +220,11 @@ return {
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃纳迦占据着{area:2405}北边直到{area:598}的海岸。{npc:12369}在最北端守护着{quest:6027}。",
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "商队终点是{area:596}东侧{npc:11596}的营地。",
 	-- ["The next guide takes you back to {zone:1434}."] = "下一个指南会带你回到{zone:1434}。",
+	-- ["grind on {npc:4362}"] = "刷{npc:4362}升级",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商队停在{area:602}边缘的路上。护送商队向东经过集会所；恶魔会袭击两次。",
+	-- ["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}，在{object:172958}的{npc:4485}旁：如果刷过{area:133}，可交{quest:2841}",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}和{npc:5412}站在{npc:11596}营地正西的哨站里。",
 	-- ["{npc:6236}: Berserker Stance"] = "{npc:6236}：狂暴姿态",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
+	-- ["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。还没到37.5级？沿东北海岸越过{area:502}，继续击杀泥鳍鱼人，直到37.5级。也可以组队刷{area:1316}地下城或{area:796}地下城的武器库。",
 }

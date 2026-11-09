@@ -47,6 +47,8 @@ return {
 	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "{npc:259620} 在 {area:228} 内的 {npc:248840} 身边等候（这名 {npc:259620} 与你护送的那位不是同一个）。做 {quest:95034} 时，要逐项点击，听完她的全部故事。",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
+	-- {npc:259620} Lumina Windsinger
+	["{npc:259620}: hear her story to the end"] = "",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -63,17 +65,17 @@ return {
 	["{item:267361}, on Arugal's table"] = "{item:267361}，在阿鲁高的桌上。",
 
 	-- Step 9: Whitestone Oak Lumber
-	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall
+	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581}在联盟领地{zone:1436}的{area:20}下方：适合约17-24级的五人小队。入口是{area:20}的矿洞。斯尼德伐木房里的地精木匠（精英，18-19级）必定掉落木材。",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}的矿洞里",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
 	["Goblin Woodcarvers, inside"] = "地精木匠，在副本内",
 
 	-- Step 10: Ulric Frostveil
-	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: from the {zone:1458} take the zeppelin to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} 在 {zone:1440} 西海岸的 {area:2897} 等待：从 {zone:1458} 乘飞艇前往 {zone:1454}，再向北穿过 {zone:1413} 进入 {zone:1440}，沿道路向西走。前哨站的双足飞龙管理员安德鲁克能让你下次免去步行。猎杀纳迦前先接受 {npc:259649} 的任务：只有接到任务后才会掉落 科尔宝石。",
+	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -94,6 +96,8 @@ return {
 	-- Step 14: Ott
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "武器锻造师 {npc:3539} 位于 {zone:1424} 的 {area:272} 正南边。接受 {quest:95125} 后，他就会开始锻造：退开一些，在附近等他完成。",
+	-- {npc:3539} Ott
+	["Watch {npc:3539} forge the blade"] = "",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} 会给你 {quest:95125}",
 
@@ -122,8 +126,10 @@ return {
 	-- ["Once she is clear of {area:235}, {npc:259620} waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "离开{area:235}后，{npc:259620}会在{area:228}等你。再次与她交谈，听听路上到底发生了什么。",
 	-- ["Rescuing {quest:91862}"] = "营救{quest:91862}",
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "向南穿过{zone:1421}前往{area:228}。{npc:248840}站在镇里；{npc:259611}在入口附近守望。",
+	-- ["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581}在联盟领地{zone:1436}的{area:20}下方：适合约17-24级的五人小队。入口是{area:20}的矿洞。斯尼德伐木房里的地精木匠（精英，18-19级）必定掉落木材。",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172}位于{area:228}东边的湖中。烧焦的遗骸就在岛的岸边。",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378}在{area:156}西北的悬崖上，于{area:16602}内领导Tyr's Watch的圣骑士。",
+	-- ["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: from the {zone:1458} take the zeppelin to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} 在 {zone:1440} 西海岸的 {area:2897} 等待：从 {zone:1458} 乘飞艇前往 {zone:1454}，再向北穿过 {zone:1413} 进入 {zone:1440}，沿道路向西走。前哨站的双足飞龙管理员安德鲁克能让你下次免去步行。猎杀纳迦前先接受 {npc:259649} 的任务：只有接到任务后才会掉落 科尔宝石。",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862}被关在岛北端的{area:235}里。她周围的腐皮豺狼人身上带着钥匙。",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "{zone:1458}和大地之环声望",
 }

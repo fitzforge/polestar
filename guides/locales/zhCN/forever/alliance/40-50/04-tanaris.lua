@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}的下一趟送货要回{area:35}：跳过。",
+	-- {area:35} Booty Bay · {area:47} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
@@ -107,12 +107,10 @@ return {
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小乌龟{npc:5955}躲在山谷北端。带他回家去找他妻子{npc:6015}，她在{area:977}东边不远处的水边：他走得慢，沙漠里的野兽会攻击他，保护好他。",
 
 	-- Step 21: Gadgetzan
-	-- {area:976} Gadgetzan
-	["Ride back west to {area:976}."] = "向西骑回{area:976}。",
+	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
-	-- {npc:11758} Andi Lynn
-	["{npc:11758}, on the east side of town"] = "{npc:11758}，在镇子东侧",
 
 	-- Step 22: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -159,6 +157,7 @@ return {
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "沿海岸向南到落帆海湾。南海海盗挤满了海滩和船：沿着边缘清理，一次拉一个。{npc:7883}站在远端；{npc:7881}被偷的货物在营地里。",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "从{area:1108}码头乘船前往羽月要塞，飞往{area:489}，然后向东骑过{zone:1441}，到{area:439}的{area:2240}。{npc:4454}和{npc:4630}在赛道旁的营地里；{npc:4709}站在地精营地旁。",
 	-- ["Hearth to {area:976}."] = "用炉石返回{area:976}。",
+	-- ["Ride back west to {area:976}."] = "向西骑回{area:976}。",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "向西骑回{area:976}。废土强盗和废土窃贼占据着沿途的沙丘；任何一个都可能带着废土水袋。",
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "向西北骑到沙丘中的森提帕尔虫巢腐化之巢。任何森提帕尔都可能掉落昆虫部件。",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "向南骑进{quest:3362}。灌木露水收集者掉落腺体；只有部分是饱满的，留下饱满的露水腺。{npc:5490}和灌木塑根者也在山谷里。灌木怪是48-50级，比你高：一次拉一个。",
@@ -169,6 +168,8 @@ return {
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "更强的废土游荡者、废土暗法师和废土刺客在{area:976}东南方、强盗的南边扎营。把南边营地中间的{npc:7847}留到之后。",
 	-- ["Wastewander bandits"] = "废土强盗",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "{npc:4709}拖住Rizzle说话时，他的设计图就在赛道对面的侏儒营地里，无人看守。",
+	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}，在镇子东侧",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}的下一种材料生长在{zone:1425}，路线不会再回来：跳过。",
+	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}的下一趟送货要回{area:35}：跳过。",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}，在港口的酒馆里",
 }

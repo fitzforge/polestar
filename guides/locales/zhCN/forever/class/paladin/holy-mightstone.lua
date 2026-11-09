@@ -22,12 +22,12 @@ return {
 	["{area:3197} is the Alliance camp at the south end of the {zone:1422}, north of the Alterac foothills. {npc:10838} commands it; {npc:10840} stands in the same camp."] = "{area:3197} 是 {zone:1422} 最南端的联盟营地，位于奥特兰克山麓以北。{npc:10838} 在此指挥；{npc:10840} 也在同一个营地中。",
 
 	-- Step 4: The Argent Dawn Commission
-	-- {item:12846} Argent Dawn Commission
-	["The {item:12846}"] = "{item:12846}",
-	-- {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{item:12846}，否则天灾怪物不会掉落天灾石。{npc:10840}会通过她的“{item:12846}”任务给你一个，该任务可立即交还（如果你已经从{area:2268}拿到一个，就戴那个）。将它装备到饰品栏：会显示为一个永不消失的增益效果。收集满20块石头前一直戴着。",
-	-- {item:12846} Argent Dawn Commission
-	["{item:12846}: equip it"] = "{item:12846}：装备上",
+	-- {quest:5401} Argent Dawn Commission
+	["The {quest:5401}"] = "",
+	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
+	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
+	-- {quest:5401} Argent Dawn Commission
+	["the {quest:5401} trinket: equip it"] = "",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
@@ -65,8 +65,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "一次性石头，10分钟内大幅增强你对亡灵的战斗力；旧的可选奖励已经取消。",
+	-- ["The Scourge drop no Scourgestones unless you wear an {item:12846}. {npc:10840} gives you one through her quest, {item:12846}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{item:12846}，否则天灾怪物不会掉落天灾石。{npc:10840}会通过她的“{item:12846}”任务给你一个，该任务可立即交还（如果你已经从{area:2268}拿到一个，就戴那个）。将它装备到饰品栏：会显示为一个永不消失的增益效果。收集满20块石头前一直戴着。",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "{zone:1422}各处的天灾都会掉落{item:12840}。",
+	-- ["The {item:12846}"] = "{item:12846}",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477}位于{zone:1435}东部的{area:74}。在里面，加什尔和{npc:5716}掉落{item:20606}，胡库和米杉掉落蓝色，祖罗和洛若尔掉落绿色。",
+	-- ["{item:12846}: equip it"] = "{item:12846}：装备上",
 	-- ["{item:20606}, inside"] = "{item:20606}，在里面",
 	-- ["{item:20607}, inside"] = "{item:20607}，在里面",
 	-- ["{item:20608}, inside"] = "{item:20608}，在里面",

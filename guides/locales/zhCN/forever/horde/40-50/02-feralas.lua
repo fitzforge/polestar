@@ -69,11 +69,17 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
-	-- Step 21: Gadgetzan
+	-- Step 20: Mirage Raceway
+	-- {area:484} Freewind Post · {area:440} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["The road from {area:484} to {area:440} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan · {area:440} Tanaris
 	["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976}是刚过{area:440}边界的地精城镇，有城墙环绕。",
 
-	-- Step 22: Noonshade Ruins: kill these as you meet them
+	-- Step 23: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}：沿途击杀以下目标",
 	-- {area:976} Gadgetzan
@@ -81,40 +87,40 @@ return {
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土敌人都可能携带水袋：保留十个，操作员鲁格伦克的两个悬赏各需五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。",
 	["water pouches in your bags"] = "背包里的废土水袋",
 
-	-- Step 24: Steamwheedle Port
+	-- Step 25: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "向东北骑往海岸边的地精港口。",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}：在屋内",
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
+	-- {npc:8579} Yeh'kinya · {area:357} Feralas
+	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "{npc:8579}：尖啸者生活在{area:357}，下次去{area:357}时再杀",
 
-	-- Step 25: Lost Rigger Cove: kill these as you meet them
+	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}：沿途击杀以下目标",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "沿海岸向南，南海海盗占据着海湾。{npc:7883} 和失窃货物位于海湾最里面的码头上。任何海盗都有可能掉帽子，绑匪的掉率最高。\n小心：{npc:7883} 身旁有两三名海盗，开战后镇内还会有更多海盗加入。",
 	["Upstairs"] = "在楼上",
 
-	-- Step 26: Waterspring Field: kill these as you meet them
+	-- Step 27: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "{area:985}：沿途遇到就击杀",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "暗影法师、潜行者和刺客驻扎在 {area:976} 东南。\n加基森东南的沙丘中有废土强盗营地；{npc:7847} 站在东边的营地里。\n小心：废土游荡者脱战后会保持潜行，在营地开战时，隐藏的游荡者可能加入战斗。\n小心：他无论走到哪里，都有两名潜行的废土游荡者同行。在刷新营地时，附近的两名暗影法师及其爪牙也会被引来。到塔楼附近就能单独与他战斗，避开这些法师。",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "向东北骑回港口：{npc:7881}、{npc:15165}和安全主管会收下你从{area:1336}带回的东西。{area:976}就在港口西边。",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "留到{area:35}，大约50级时",
-	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "{npc:8579}：尖啸者生活在{area:357}，下次去{area:357}时再杀",
 
-	-- Step 29: Fly to Freewind Post
+	-- Step 30: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 31: Camp Mojache
+	-- Step 32: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777}在{area:1099}附近巡逻，请在地图标出的圆圈内寻找",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
@@ -122,39 +128,39 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
-	-- Step 32: Gordunni Outpost
+	-- Step 33: Gordunni Outpost
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。",
 
-	-- Step 33: Woodpaw north camp
+	-- Step 34: Woodpaw north camp
 	["Woodpaw north camp"] = "木爪北营地",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "木爪豺狼人在莫沙彻西北不远处的山丘扎营；所有种类都可能掉落鬃毛。\n小心：除首领外，所有木爪豺狼人都会在15%生命值时逃跑求援，可能将更多豺狼人引入战斗。",
 
-	-- Step 34: Camp Mojache
+	-- Step 35: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}：从现在起一小时内",
 
-	-- Step 35: Feralas: kill these as you meet them
+	-- Step 36: Feralas: kill these as you meet them
 	-- {area:357} Feralas
 	["{area:357}: kill these as you meet them"] = "{area:357}：沿途遇到就击杀",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "精龙在莫沙彻西侧紧邻的林地上方飞舞；几乎每只都会掉落翅膀。木爪豺狼人首领率领着其西南方各营地：要在一小时内杀死它们。\n小心：大多数首领都待在小帐篷营地中，旁边有 2-4 只会加入战斗的豺狼人，营地之间还有其他豺狼人巡逻。",
 
-	-- Step 37: Grimtotem camp
+	-- Step 38: Grimtotem camp
 	["Grimtotem camp"] = "恐怖图腾营地",
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns."] = "恐怖图腾牛头人在小精龙的树林旁扎营；恐怖图腾袭击者、恐怖图腾博学者和恐怖图腾萨满祭司都携带恐怖图腾之角。",
 
-	-- Step 38: Woodpaw battle map
+	-- Step 39: Woodpaw battle map
 	["Woodpaw battle map"] = "木爪作战地图",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "木爪作战地图在莫沙彻营地南边的木爪营地里。",
 
-	-- Step 39: Camp Mojache
+	-- Step 40: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "交给{zone:1454}，大约45级时",
 
-	-- Step 40: The Writhing Deep
+	-- Step 41: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "祖卡什异种蝎的巢穴深入营地东南的山丘；{quest:7731}在最深处的洞室里等候。",
 
-	-- Step 41: Ruins of Isildien: kill these as you meet them
+	-- Step 42: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}：沿途遇到就击杀",
 	-- {area:1105} Feral Scar Vale
@@ -162,29 +168,29 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234}在{area:2522}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 42: Feral Scar Vale yetis
+	-- Step 43: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "{area:1105}的雪人",
 	-- {area:1105} Feral Scar Vale
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在废墟西北，雪人栖息在{area:1105}；那里的每只雪人都可能掉落厚雪人皮。",
 
-	-- Step 43: Homing Robot OOX-22/FE
+	-- Step 44: Homing Robot OOX-22/FE
 	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{area:357}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
 
-	-- Step 44: Camp Mojache
+	-- Step 45: Camp Mojache
 	-- {area:357} Feralas
 	["the Rage Scar yetis, on the next visit to {area:357}"] = "狂怒疤痕雪人，下次来{area:357}时",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}：交给{zone:1454}的{npc:7010}",
 
-	-- Step 45: Fly to Orgrimmar
+	-- Step 46: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
-	-- Step 46: Orgrimmar
+	-- Step 47: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
 	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "飞往 {zone:1454}。德罗弗斯兄弟在暗巷区经营商店。\n先去 {object:172958}，再去 {object:172960} 和 {object:172961}。",
 	-- {zone:1425} Hinterlands

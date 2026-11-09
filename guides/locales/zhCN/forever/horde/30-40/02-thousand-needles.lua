@@ -106,22 +106,24 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "{quest:1104}，击杀北半部的恐蝎劫掠者获取",
 
-	-- Step 21: Level 32.5
-	["Level 32.5"] = "32.5级",
-	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer
-	["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "{zone:1443}的任务为33-38级。还没到32.5级？继续击杀异种虫挖掘场附近的盐壳钳嘴龟，以及挖掘场南边的盐石凝视者，直到32.5级。也可组队挑战{area:796}副本（墓地或图书馆）。",
-	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
-	["Sparkleshell Snappers"] = "盐壳钳嘴龟",
-	-- {npc:4143} Sparkleshell Snapper
-	["grind on {npc:4143}"] = "刷{npc:4143}升级",
-
-	-- Step 22: Mirage Raceway
+	-- Step 21: Mirage Raceway
 	["South-west back to the raceway."] = "向西南返回赛道。",
+	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
+	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "{npc:4454}：他的信要交给{zone:1418}的流放者马特克，39级时会去",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}：交给{area:392}的加兹鲁维，后续路线会去",
+
+	-- Step 22: Level 32.5
+	["Level 32.5"] = "32.5级",
+	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
+	["Sparkleshell Snappers"] = "盐壳钳嘴龟",
+	-- {npc:4143} Sparkleshell Snapper
+	["grind on {npc:4143}"] = "刷{npc:4143}升级",
 
 	-- Step 23: Freewind Post
 	-- {area:484} Freewind Post · {npc:10537} Cliffwatcher Longhorn
@@ -166,11 +168,18 @@ return {
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "{npc:268705}：目标是{area:603}的怨怒萨特，本指南稍后会去",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}：交给荆棘谷的{quest:5762}，下篇指南会去",
+	-- {npc:6726} Thalon
+	["{npc:6726}, at the village's south-west end"] = "",
 
 	-- Step 32: Clam beds
 	["Clam beds"] = "蚌床",
+	-- {item:15874} Soft-shelled Clam
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
-	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "沿海岸向北。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩行走；打开背包里的每个蚌壳取出蚌肉。",
+	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "",
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
+	["Giant Softshell Clams, on the sea floor"] = "",
+	-- {item:15874} Soft-shelled Clam
+	["{item:15874}: open it in your bags"] = "",
 	["Underwater"] = "在水下",
 
 	-- Step 33: Sar'theris Strand
@@ -183,9 +192,11 @@ return {
 	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863}在东边内陆{area:2405}的废塔里等候。",
 
 	-- Step 35: Thunder Axe Fortress
-	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:14523} Demon Pick · {npc:11876} Demon Spirit · {item:13542} Demon Box · {item:20310} Flayed Demon Skin
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "向东前往{area:599}。把一名火刃祭司打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层；对{npc:11876}使用{item:14523}，取得{item:13542}。这些祭司偶尔也会掉落{item:20310}（1-5%），掉落后记得阅读。",
+	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
+	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
 	["On the top floor"] = "在最顶层",
+	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
+	["{item:14523}, on the {object:176581}"] = "",
 
 	-- Step 36: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
@@ -194,8 +205,10 @@ return {
 	-- Step 37: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "{quest:6027}",
-	-- {area:2405} Ethel Rethor · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃纳迦占据了{area:2405}北边的海岸；{npc:12369}在最北端守着{quest:6027}。",
+	-- {area:2405} Ethel Rethor · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the coast north of {area:2405}. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first."] = "",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "",
 
 	-- Step 39: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
@@ -226,5 +239,9 @@ return {
 	["{npc:11624}'s Portals of the Legion and {zone:1443}'s other 38-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "{npc:11624}的燃烧军团的传送门，以及{zone:1443}其他38-40级任务，留到38级第二次来时再做。接下来的指南会先飞往{zone:1454}，再乘飞艇前往{zone:1434}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "向东前往{area:599}。把一名火刃祭司打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层；对{npc:11876}使用{item:14523}，取得{item:13542}。这些祭司偶尔也会掉落{item:20310}（1-5%），掉落后记得阅读。",
+	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "沿海岸向北。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩行走；打开背包里的每个蚌壳取出蚌肉。",
 	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。",
+	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃纳迦占据了{area:2405}北边的海岸；{npc:12369}在最北端守着{quest:6027}。",
+	-- ["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "{zone:1443}的任务为33-38级。还没到32.5级？继续击杀异种虫挖掘场附近的盐壳钳嘴龟，以及挖掘场南边的盐石凝视者，直到32.5级。也可组队挑战{area:796}副本（墓地或图书馆）。",
 }

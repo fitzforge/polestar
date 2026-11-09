@@ -65,8 +65,8 @@ return {
 	["{item:9248}; below ground"] = "{item:9248}：在地下",
 
 	-- Step 16: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}在建筑楼上，从屋内上楼，箭头无法区分楼层。",
+	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}：在楼上",
 
@@ -99,8 +99,18 @@ return {
 	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136}：沿途击杀以下目标",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿道路向西骑回，然后向北进入怒痕山丘。这里的每个雪人都可能掉落毛皮；可能会掉落{quest:7735}，{npc:7852}也会收购。",
+	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5296} Rage Scar Yeti
+	["grind on {npc:5296}"] = "",
+
+	-- Step 24: Rage Scar Hold
+	-- {quest:7735} Pristine Yeti Hide
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+
+	-- Step 25: Feathermoon Stronghold
+	-- {npc:7880} Ginro Hearthkindle
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}在建筑楼上，从屋内上楼，箭头无法区分楼层。",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -144,6 +154,7 @@ return {
 	-- ["Hearth to Feathermoon."] = "用炉石返回羽月要塞。",
 	-- ["Rage Scar yetis"] = "怒痕雪人",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "向西北骑回{area:1108}的码头，乘船前往岛上。",
+	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿道路向西骑回，然后向北进入怒痕山丘。这里的每个雪人都可能掉落毛皮；可能会掉落{quest:7735}，{npc:7852}也会收购。",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "向西骑到山脚下友好的山岭巨人那里。他周围的{npc:5357}和{npc:5358}是精英：离它们远点。",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "每当{npc:7774}停下乱走时就摇铃，带她向南到{npc:7765}处。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "组队刷{area:978}代替刷怪升级更快。巨魔城市在{zone:1446}北部，也就是路线的下一个区域；之后回到{area:1108}找{npc:14637}。",
