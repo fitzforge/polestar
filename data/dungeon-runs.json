@@ -635,6 +635,128 @@
 			"budget": {
 				"flow": "03-darkshore-return +0.1 km; 06-ashenvale +1.0 km, +6.2 min, hub visits +0 (Ruuzel <-> the ruins' pit, the run's own trip); 06-wetlands +0 km (Gershala beside Terenthis); no new passed enders (a hand-in on 06-ashenvale's way to the boat added one: moved)"
 			}
+		},
+		{
+			"dungeon": "Excavation Site: Wetlands",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 98815,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 471,
+						"goal": "accept"
+					},
+					"when": "turnedin 484",
+					"note": "the first Menethil stop (~27.5)"
+				},
+				{
+					"quest": 95646,
+					"after": {
+						"guide": "forever/alliance/06-wetlands",
+						"quest": 275,
+						"goal": "turnin"
+					},
+					"note": "Rethiel, when Blisters on the Land is handed in (~28.3); level 31, 2.7 over"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/06-wetlands",
+				"after": {
+					"quest": 95646,
+					"goal": "accept",
+					"note": "on the road back west, the entrance ~130 yd off it"
+				},
+				"entrance": {
+					"map": 1437,
+					"x": 48.0,
+					"y": 56.5,
+					"frame": "live",
+					"source": "players' recordings: 161 of 177 entries"
+				},
+				"objectives": [
+					98815,
+					95646
+				],
+				"itemStarts": [
+					{
+						"quest": 95810,
+						"item": 270865
+					}
+				],
+				"guard": "onquest 98815,95646"
+			},
+			"handins": [
+				{
+					"quest": 98815,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"step": "Captain Stoutfist"
+					}
+				},
+				{
+					"quest": 95810,
+					"guide": "forever/alliance/06-wetlands",
+					"after": "run",
+					"when": "onquest",
+					"note": "Whelgar's dig, west of the entrance on the walk back west; he gives Prehistoric Prism (98824)"
+				},
+				{
+					"quest": 98824,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 1179,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"note": "High Explorer Magellas, Hall of Explorers, on this guide's Ironforge stop"
+				},
+				{
+					"quest": 95646,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 98245,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 95810,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"step": "Prospector Whelgar"
+					},
+					"when": "onquest",
+					"note": "for whoever still carries it"
+				},
+				{
+					"quest": 98824,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 514,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"note": "Hall of Explorers, for whoever still carries it"
+				}
+			],
+			"leftOut": {
+				"95647": "Lost in the Thicket Things: Caitlin Grassman, level 31, 3+ levels over on the first Menethil stop",
+				"95809": "Heartwoven: from Ardin inside, after 95647",
+				"95737": "Seeking Caitlin: Llana in Astranaar, after the Wetlands",
+				"95772": "Songblade Search: Dorin Songblade in Redridge, level 31, 3+ over on the Redridge stops",
+				"95795": "Fallen in the Fen: for Dorin Songblade in Redridge, off the route after the run"
+			},
+			"budget": {
+				"flow": "06-wetlands +0.5 km, +4.5 min, hub visits +0; 30-40/01-hillsbrad-foothills +0.6 km (Rethiel, Whelgar), backtracks +1, avoidable 0; 06-ashenvale passed givers +1 (Halloran's 98815 at 24.85: 3.2 over, the level rule wins). Whelgar on the walk west and Magellas on the Ironforge stops came after this measurement: re-measure"
+			},
+			"followUps": [
+				{
+					"quest": 98824,
+					"from": 95810,
+					"giver": "Prospector Whelgar",
+					"note": "accepted where 95810 is handed in, behind `when onquest 95810`"
+				}
+			]
 		}
 	]
 }

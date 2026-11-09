@@ -43,6 +43,18 @@ next forever/alliance/07-thousand-needles
 #
 # Blackfathom Deeps (run in 06-ashenvale): Gershala Nightwhisper takes Researching the Corruption (1275) on
 # the Auberdine stop, beside Terenthis (`when complete`).
+#
+# Excavation Site: Wetlands (`when dungeon "Excavation Site: Wetlands"`, dungeons in the route): for a
+# character who chose it, James Halloran's Highland Hides (98815, after Young Crocolisk Skins, 484) is taken
+# on the first Menethil stop and Rethiel the Greenwarden's Horrors in the Highland (95646, after Blisters on
+# the Land, 275) when 275 is handed in, at about 28.3; the run follows on the road back west (the entrance,
+# 48.0,56.5, is where players' recordings go in), and Prospector Whelgar's dig, west of it on the way, takes the
+# Titan Relic's Lost Relic Carry (95810, from the Relic Guardian inside) and gives Prehistoric Prism (98824)
+# for High Explorer Magellas on this guide's Ironforge stop. Halloran takes the hides at the docks before
+# the boat; Rethiel takes the root core on the Wetlands loop of 30-40/01-hillsbrad-foothills (`when
+# complete`). Left out: Lost in the Thicket Things and Heartwoven (95647, 95809: Caitlin Grassman, level 31,
+# 3+ levels over on the first Menethil stop), Seeking Caitlin (95737, Llana in Astranaar), Songblade Search
+# and Fallen in the Fen (95772, 95795: Dorin Songblade in Redridge, off the route).
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -145,6 +157,13 @@ step Menethil Harbor
   accept 471                              -- James Halloran, by the docks
   accept 98208                            -- Sylessa Duskwhisper, beside James Halloran by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
+
+step James Halloran
+  when dungeon "Excavation Site: Wetlands"
+  when turnedin 484
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, later in this guide: James Halloran, by the docks, wants hides from the raptors inside.
+  accept 98815                        -- James Halloran
 
 step Nord'el
   zone Wetlands
@@ -271,6 +290,29 @@ step Rethiel the Greenwarden
   turnin 275
   accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
+step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, on the way back west: Rethiel wants the root core of a Highland Horror inside.
+  accept 95646                        -- Rethiel the Greenwarden
+
+step Excavation Site: Wetlands
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98815,95646
+  zone Wetlands
+  tip Excavation Site: Wetlands is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.
+  tip Inside: the Thicket raptors and Shadetooth drop the hides for Halloran, a Highland Horror the root core for Rethiel. Saltspine, Shadetooth and the Relic Guardian are the bosses; the Relic Guardian drops a Titan Relic, which starts a quest for Prospector Whelgar.
+  enter "Excavation Site: Wetlands" @48.0,56.5 live
+  complete 98815 @48.0,56.5 live      -- Highland Hides: the hides, inside
+  complete 95646 @48.0,56.5 live      -- Horrors in the Highland: the root core, inside
+
+step Prospector Whelgar
+  when onquest 95810
+  zone Wetlands
+  tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, west of the entrance on the way back west.
+  turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
 step Captain Stoutfist
   tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
   turnin 464                              -- On the top floor
@@ -279,6 +321,12 @@ step Captain Stoutfist
   turnin 292                              -- Glorin Steelbrow, in the Deepwater Tavern
   accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
+
+step James Halloran
+  when complete 98815
+  zone Wetlands
+  tip Your Excavation Site hides: James Halloran, by the docks.
+  turnin 98815                        -- James Halloran
 
 # ---------------------------------------------------------------- Ashenvale
 
@@ -497,6 +545,12 @@ step Ironforge
   accept 1179                             -- Pilot Longbeard
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
+
+step High Explorer Magellas
+  when onquest 98824
+  zone Ironforge
+  tip Prehistoric Prism: High Explorer Magellas stands in the Hall of Explorers, north-east of the Great Forge.
+  turnin 98824                        -- High Explorer Magellas
 
 step Ironforge priests
   only Dwarf,Gnome,Priest
