@@ -8823,3 +8823,18 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: the step after the dam's no
 	assert.match(tip, /west bank/, tip);
 	assert.match(tip, /Thandol Span/, tip);
 });
+
+// Discord question (2026-11-09, Horde Thousand Needles): the Galak centaurs step waited for the Galak Messenger, a lone
+// roaming centaur, because his plot (12564) and the quest it starts (4881) were required goals. Both are optional now,
+// and Kanati's hand-in and the assassin defence (4966, which needs 4881) apply only to a player carrying the plot.
+test('Horde Thousand Needles: the Galak Messenger never holds the centaur step', { skip }, () => {
+	const guide = 'forever/horde/07-ashenvale.guide';
+	const list = goals(guide);
+	for (const pred of [(g) => g.t === 'collect' && g.item === 12564, is('accept', 4881)]) {
+		const { goal } = list[at(list, 'the Galak Messenger goals', pred)];
+		assert.ok(goal.optional, `${goal.t} ${goal.quest || goal.item} is optional`);
+	}
+	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 4966 || (goal.t === 'turnin' && goal.quest === 4881))) {
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg), `${goal.t} ${goal.quest}: only while the plot's quest chain is in the log`);
+	}
+});

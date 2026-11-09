@@ -299,8 +299,8 @@ step Galak centaurs
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3
-  collect 12564
-  accept 4881 item 12564
+  collect 12564 optional              -- Galak Messenger's Assassination Plot, if you meet him
+  accept 4881 item 12564 optional
 
 step Dorn Plainstalker
   tip Dorn Plainstalker stands on a mesa top east of the Galak camps. For the Test of Faith, walk off the end of the planks beside him: you land safely.
@@ -347,7 +347,11 @@ step Whitereach Post
   turnin 4770                         -- Motega Firemane
   turnin 4865                         -- Motega Firemane
   note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
-  turnin 4881 optional -- Kanati Greycloud
+
+step Kanati Greycloud
+  when onquest 4881,4966
+  tip Only if the Galak Messenger dropped his plot for you: Kanati Greycloud stands at Whitereach Post.
+  turnin 4881                         -- Kanati Greycloud
   accept 4966
 
 step Wizlo Bearingshiner
@@ -360,6 +364,7 @@ step Hypercapacitor Gizmo
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 
 step Whitereach Post
+  when onquest 4966
   complete 4966 @21.25,32.06 map 1441 era -- Kill the Galak Assassin that comes for Kanati
 
 step Whitereach Post
