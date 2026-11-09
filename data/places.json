@@ -1727,6 +1727,98 @@
 					"ref": "turnin 1267 at npc 4968, the same 3 sessions"
 				}
 			]
+		},
+		{
+			"id": "loch-modan-kadrell-414-ender",
+			"quest": 414,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Stout to Kadrell (414): Mountaineer Kadrell walks the road through Thelsamar (his spawn 34.17,47.84, a 97 yd walk). The point stands within 15 yd of his spawn so the compiler draws his walk, and within 50 yd of the data's point (32.63,49.74, the south end of the road, where few players met him); players handed it in along the road, median about 34.3,47.8 (14 people).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 414 at npc 1340: 14 people, 32.6-36.8,42.1-49.9"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 1340 (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-giver",
+			"quest": 416,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): Mountaineer Kadrell walks the road through Thelsamar; see loch-modan-kadrell-414-ender (17 people took it along the road).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 416 at npc 1340: 17 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-ender",
+			"quest": 416,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): handed in to Mountaineer Kadrell on his walk through Thelsamar (14 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 416 at npc 1340: 14 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-1339-giver",
+			"quest": 1339,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Mountaineer Stormpike's Task (1339): taken from Mountaineer Kadrell on his walk through Thelsamar (16 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1339 at npc 1340: 16 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
 		}
 	]
 }

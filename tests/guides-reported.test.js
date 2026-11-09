@@ -9402,3 +9402,17 @@ test('Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry P
 		assert.ok(near(i, x, y), `${what} beside North Point Tower`);
 	}
 });
+
+// Position sweep (0.3.6, IngestCheck036's patrol item): Mountaineer Kadrell walks the road through Thelsamar (his
+// spawn 34.17,47.84, a 97 yd walk). The data's point, 32.63,49.74, is the south end of the road, 55 yd from his spawn,
+// so his goals got no walk circle and players met him 60-90 yd from the arrow (35 people, most at 34-36,46-48). His
+// goals point within 15 yd of his spawn, where the compiler draws his walk.
+test('Loch Modan (Dwarf, Gnome): Mountaineer Kadrell\'s goals point at his walk through Thelsamar', { skip }, () => {
+	for (const f of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide']) {
+		const g = goals(f);
+		for (const [what, pred] of [['turnin 414', is('turnin', 414)], ['accept 416', is('accept', 416)], ['accept 1339', is('accept', 1339)], ['turnin 416', is('turnin', 416)]]) {
+			const goal = g[at(g, what, pred)].goal;
+			assert.ok(goal.map === 1432 && Math.abs(goal.x - 33.8) < 0.3 && Math.abs(goal.y - 48.3) < 0.3, `${f} ${what} at Kadrell's walk (${goal.x},${goal.y})`);
+		}
+	}
+});

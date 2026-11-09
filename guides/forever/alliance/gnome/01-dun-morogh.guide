@@ -514,9 +514,9 @@ step Back to the tunnel post
 step Thelsamar
   zone Loch Modan
   tip North up the road to Thelsamar. Mountaineer Kadrell walks the road through town, Vidra Hearthstove stands outside the Stoutlager Inn, Brock Stoneseeker on the east side of town; Thorgrum Borrelson keeps the gryphons.
-  turnin 414                                  -- Mountaineer Kadrell
-  accept 416
-  accept 1339
+  turnin 414 @33.8,48.3                       -- Mountaineer Kadrell
+  accept 416 @33.8,48.3
+  accept 1339 @33.8,48.3
   accept 418                                  -- Vidra Hearthstove
   accept 6387                                 -- Brock Stoneseeker
   turnin 6387                                 -- Thorgrum Borrelson, the gryphon master
@@ -545,8 +545,8 @@ step Back to the Algaz Station
 
 step Thelsamar
   zone Loch Modan
-  tip South down the road to Thelsamar, finishing the ears, meat and ichor on the way.
-  turnin 416                                  -- Mountaineer Kadrell
+  tip South down the road to Thelsamar, finishing the ears, meat and ichor on the way. Mountaineer Kadrell walks the road through town.
+  turnin 416 @33.8,48.3                       -- Mountaineer Kadrell
   turnin 418                                  -- Vidra Hearthstove
   fly "Ironforge"
 
