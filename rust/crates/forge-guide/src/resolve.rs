@@ -11,6 +11,7 @@ use crate::data::{objective_label, Data};
 use crate::diag::Diagnostics;
 use crate::js::{cmp_utf16, hypot, is_integer, math_round, num_str, stringify, Obj, V};
 use crate::obj;
+use crate::tokens::taught_spell_name;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::cell::RefCell;
 use std::cmp::Ordering;
@@ -2406,18 +2407,23 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			"learn" | "craft" => {
 				let found = data.recipe(&g.get("spell"));
 				let rc = if found.truthy() { found.get("recipe") } else { V::Null };
+				// A learn is checked in the spellbook, so a spell no recipe has that a skill line of the client
+				// teaches (a class spell) is known, by its client name. A craft needs the recipe: its item and reagents.
+				let taught = if !found.truthy() && v == "learn" { taught_spell_name(data, &g.get("spell")) } else { None };
 				let where_ = if data.has_professions { "" } else { " (professions.json missing)" };
 				goal.set("spell", g.get("spell"));
 				let name: V = if g.get("spellName").truthy() {
 					g.get("spellName")
 				} else if rc.truthy() && rc.get("name").truthy() {
 					rc.get("name").to_js_string().into()
+				} else if let Some(t) = &taught {
+					t.as_str().into()
 				} else {
 					V::Null
 				};
 				if !name.truthy() {
 					r.err(&ln, format!("spell {} is not in data{}; give its name: `{} {} \"Name\"`", g.get("spell"), where_, v, g.get("spell")), None);
-				} else if !found.truthy() {
+				} else if !found.truthy() && taught.is_none() {
 					r.warn(&ln, format!("spell {} is not in data{}; using the explicit name (new Forever content?)", g.get("spell"), where_), None);
 				}
 				goal.set("spellName", or_undef(name));

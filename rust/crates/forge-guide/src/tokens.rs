@@ -48,6 +48,7 @@ const MIN_NAME: usize = 3;
 const MIN_FIRST: usize = 4;
 const RANKS: [&str; 4] = ["Apprentice", "Journeyman", "Expert", "Artisan"];
 const MEMO_SPELLS: &str = "tokens.spellNames";
+const MEMO_TAUGHT: &str = "tokens.taughtSpells";
 
 // ---------------------------------------------------------------- JS character classes
 
@@ -1038,6 +1039,52 @@ fn path_join(base: &str, parts: &[&str]) -> std::path::PathBuf {
 pub fn spell_id_of(data: &Data, name: &str) -> Option<f64> {
 	let n = js_trim(name);
 	spell_names(data).into_iter().find(|(s, _)| s == n).map(|(_, id)| id).filter(|id| *id != 0.0)
+}
+
+/// `taughtSpellName(data, id)`: the client's name of a spell a skill line teaches (SkillLineAbility: class
+/// spells, talents, recipes, Forever's new ones), each rank by its own id, from the SpellName table of the
+/// data's own client build; None without that build and for any other spell. Cached in `data.memo` under
+/// `tokens.taughtSpells` as { id: name }. Read only from the data's own client build, unlike the spell names: a
+/// host without one (the browser planner) has none, and its `learn`s of such spells keep their old warning or
+/// error.
+pub fn taught_spell_name(data: &Data, id: &V) -> Option<String> {
+	let n = id.as_num()?;
+	let cached = data.memo.borrow().get(MEMO_TAUGHT).cloned();
+	let names = match cached {
+		Some(v) => v,
+		None => {
+			let v = read_taught_spells(data);
+			data.memo.borrow_mut().insert(MEMO_TAUGHT, v.clone());
+			v
+		}
+	};
+	str_(&names.get(&num_str(n))).map(str::to_string)
+}
+
+#[cfg(feature = "native")]
+fn read_taught_spells(data: &Data) -> V {
+	let out = V::obj();
+	let Some(dir) = data.dir.as_ref().and_then(|_| pinned_build_dir(data, &["SpellName.csv", "SkillLineAbility.csv"])) else { return out };
+	let csv = |file: &str| -> Vec<V> {
+		let path = dir.join(file);
+		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()));
+		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
+	};
+	let taught: FxHashSet<i64> = csv("SkillLineAbility.csv").iter().map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
+	for r in csv("SpellName.csv") {
+		let id = r.get("ID").num();
+		let nl = r.get("Name_lang");
+		let name = if nl.truthy() { js_trim(&nl.to_js_string()).to_string() } else { String::new() };
+		if !name.is_empty() && is_integer(id) && taught.contains(&(id as i64)) {
+			out.set(&num_str(id), name);
+		}
+	}
+	out
+}
+
+#[cfg(not(feature = "native"))]
+fn read_taught_spells(_data: &Data) -> V {
+	V::obj()
 }
 
 fn first_words(data: &Data) -> FxHashMap<String, usize> {

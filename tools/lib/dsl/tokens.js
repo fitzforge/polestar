@@ -401,6 +401,28 @@ function spellIdOf(data, name) {
 	return SPELL_BY_NAME.get(data).get(String(name).trim()) || null;
 }
 
+// The client's name of a spell a skill line teaches (SkillLineAbility: class
+// spells, talents, recipes, Forever's new ones), each rank by its own id, from
+// the SpellName table of the data's own client build (pinnedBuildDir); null
+// without that build and for any other spell.
+const TAUGHT = new WeakMap();
+function taughtSpellName(data, id) {
+	if (!TAUGHT.has(data)) TAUGHT.set(data, readTaughtSpells(data));
+	return TAUGHT.get(data).get(Number(id)) || null;
+}
+
+function readTaughtSpells(data) {
+	const out = new Map();
+	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
+	if (!dir) return out;
+	const taught = new Set(parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8')).map((r) => Number(r.Spell)));
+	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
+		const name = String(r.Name_lang || '').trim();
+		if (name && taught.has(Number(r.ID))) out.set(Number(r.ID), name);
+	}
+	return out;
+}
+
 // First word of every NPC name -> how many different names start with it
 // (a one-word name counts too), cached per data.
 const FIRST_WORDS = new WeakMap();
@@ -701,4 +723,4 @@ function onlyTokens(text) {
 	return !/\p{L}/u.test(String(text).replace(TOKEN_RE, ''));
 }
 
-module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf };
+module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf, taughtSpellName };
