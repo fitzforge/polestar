@@ -29,7 +29,6 @@ step Kerlonian Evershade
   zone Darkshore
   tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest, open his chest for the Horn of Awakening, use it to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow the horn again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
   tip Careful: Scripted ambushes of three mobs each attack along the road.
-  goto 44.4,76.4 "Grove of the Ancients"
   accept 5321                                 -- Kerlonian Evershade
   collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
@@ -111,7 +110,7 @@ step Piznik
   tip Piznik's defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   tip Piznik mines at the bottom of the Windshear Mine at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails.
   accept 1090                         -- Below ground
-  complete 1090
+  complete 1090 @71.87,60.0           -- Keep Piznik alive while he mines, below ground
   turnin 1090
   accept 1092
 
@@ -152,7 +151,6 @@ step Webwinder Path
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
-  goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
 step Alonso
