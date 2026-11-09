@@ -89,7 +89,7 @@ step Camp Narache
   tip Back west to the camp.
   turnin 780                          -- Grull Hawkwind
   turnin 3376                         -- Brave Windfeather walks around Camp Narache: look inside the circle on the map
-  turnin 781 optional -- Chief Hawkwind
+  turnin 781 -- Chief Hawkwind
   turnin 757                          -- Inside
   accept 763
   accept 96659

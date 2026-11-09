@@ -232,6 +232,11 @@ step Fly to Auberdine
   fly "Auberdine"
   zone Darkshore
 
+step Terenthis
+  zone Darkshore
+  tip Terenthis stands at the east end of the main street, a short walk from the flight master; then back west to the dock.
+  turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
 step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"

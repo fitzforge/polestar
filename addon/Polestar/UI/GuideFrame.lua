@@ -1274,6 +1274,12 @@ local function alongRow(i)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
+		-- The finished quests the route never hands in (RoutePlan.Carried):
+		-- their list, with who takes each and a hand-in guide.
+		if self.psCarried then
+			if UI.ShowQuestRoom then UI.ShowQuestRoom("carried") end
+			return
+		end
 		-- A quest an update left behind the player (Engine.GetBehind): the
 		-- arrow on a click, Skip or Abandon on a right-click.
 		local q = self.psBehind
@@ -1302,6 +1308,9 @@ local function alongRow(i)
 		if self.psBehind then
 			lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
 			lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
+		end
+		if self.psCarried then
+			lines[#lines + 1] = { L["The route ahead never hands these in. Click to see who takes each, with a guide there."], Theme.Color("textDim") }
 		end
 		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 		GF.HoverIn()
@@ -1848,11 +1857,21 @@ function GF.LayoutBanner(width)
 		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
-		banner.Text:SetText(L["You have outlevelled this guide."])
+		-- Finished quests the route hands in before the guide the jump goes to
+		-- (RoutePlan.LeftBehind): said here, and the jump asks once.
+		local left = ns.RoutePlan and ns.RoutePlan.LeftBehind(n.to)
+		n.left = left and left.n > 0 and left or nil
+		local text = L["You have outlevelled this guide."]
+		if n.left then
+			local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
+			text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%d XP)"], what, n.left.xp) or what)
+			if n.asked then text = text .. "\n" .. L["Jump anyway? They stay in your log, and the guide lists who takes each in."] end
+		end
+		banner.Text:SetText(text)
 		-- The suggested guide is one of a route choice: offer the choice.
 		local E = Engine()
 		n.choiceFrom = n.to and E and E.RouteChoiceFor and E.RouteChoiceFor(n.to) or nil
-		placeLink(banner.Jump, n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
+		placeLink(banner.Jump, (n.left and n.asked) and L["Jump anyway"] or n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
 		banner.Close:Show()
 	elseif kind == "train" then
 		banner.Icon:SetTexture(Theme.Media("icon-train"))
@@ -1996,10 +2015,15 @@ function GF.TakeBanner()
 			E.StartNext(n.guideId)
 		end
 	elseif kind == "outlevel" then
-		notices.outlevel = nil
-		-- A route choice opens the choice window, which loads the zone picked.
-		if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
-			E.SetGuide(n.to)
+		-- Finished quests the jump would leave behind: the first click asks.
+		if n.left and not n.asked then
+			n.asked = true
+		else
+			notices.outlevel = nil
+			-- A route choice opens the choice window, which loads the zone picked.
+			if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
+				E.SetGuide(n.to)
+			end
 		end
 	elseif kind == "train" then
 		notices.train = nil
@@ -2910,11 +2934,26 @@ local function fillAlong(E)
 			local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
 			local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
 			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
-			r.psPlace = true
+			r.psPlace, r.psCarried = true, nil
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
 			r:Show()
 		end
+	end
+	-- Then, in one row, the finished quests the route never hands in
+	-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere, 410 XP";
+	-- a click lists them (UI/QuestRoom.lua, "carried").
+	local carried = ns.RoutePlan and ns.RoutePlan.Carried()
+	if carried and #carried > 0 and n < ALONG_MAX then
+		n, back = n + 1, back + 1
+		local r, xp = alongRow(n), 0
+		for _, c in ipairs(carried) do xp = xp + (c.xp or 0) end
+		r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, L["Finished quests you're still carrying"], nil, nil
+		r.psPlace, r.psCarried = nil, true
+		r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+		local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
+		r.Text:SetText(xp > 0 and string.format(L["%s, %d XP"], text, xp) or text)
+		r:Show()
 	end
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
@@ -2925,7 +2964,7 @@ local function fillAlong(E)
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
 				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
-				r.psPlace = gv.map and gv.x and gv.y and true or nil
+				r.psPlace, r.psCarried = gv.map and gv.x and gv.y and true or nil, nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				r.Text:SetText(UI.GoalLine(gv))
 				r:Show()

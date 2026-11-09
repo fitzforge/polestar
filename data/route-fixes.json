@@ -4718,6 +4718,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32: Red Jack Flint stands by Menethil Keep's door, beside Captain Stoutfist where 30-40/01 hands in the Tattered Spellbook; Fiora Longears is taken there and handed in when 30-40/03's boat lands in Theramore (the route walked past him, 14 yd, and took it on 30-40/03's next Menethil stop)."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Escape Through Force (994) is finished at the end of 03-darkshore-return (~22.6) and was handed in to Terenthis only on 06-wetlands' Auberdine stop (~29.5, 40-60% of its XP left). 06-ashenvale already flies Astranaar -> Auberdine for the boat to Menethil at ~25: Terenthis stands at the east end of the main street by the flight master, so it is handed in there, before Menethil's first accept (Karl Boran, 279). 06-wetlands keeps its Terenthis step for anyone still carrying it."
 			}
 		],
 		"notes": [
@@ -4775,6 +4787,14 @@
 			{
 				"q": 93739,
 				"why": "EpicTibbles #532: Exploring the Horde stays for Skyborne (its leaders' visits are on the route's way through Orgrimmar, Thunder Bluff and the Undercity; the report's Talk to lines test it)"
+			},
+			{
+				"q": 5845,
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Of Lost Honor (Alliance 50-60/06-silithus): the route takes it from Tirion Fordring and fetches the Symbol of Lost Honor from the lake, but its hand-in back at Tirion was optional (the guide writer's 'optional at its NPC'), and the engine never holds an optional goal, so players walked past Tirion carrying it finished. The hand-in is a plain goal, as the Horde's 50-60/06-silithus already has it (its turn-in is hidden for anyone who did not take it)."
+			},
+			{
+				"q": 2479,
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Hinott's Assistance (Rogue): horde/05-stonetalon-mountains takes it from Shenthul ('keep it'), but its hand-in to Serge Hinott in Tarren Mill (horde/06-hillsbrad-foothills) was optional, so Rogues walked past Serge carrying it. The hand-in is a plain goal (hidden for anyone without the quest); the Poisons follow-up (2480) stays optional."
 			}
 		],
 		"southward": [
@@ -6263,6 +6283,30 @@
 				],
 				"faction": "Horde",
 				"why": "Egg Hunt (Korran) is offered from level 17 (Forever's quest data); its eggs are worked in the Field of Giants south of Camp Taurajo at about 20-21. #1244 took it on the Crossroads stop after Echeyakee at 17, and 0.3.4's players carried it that long: 8 of the 14 who took it abandoned it (Ingest report 2026-11-08). Final route review (2026-11-08): it is taken on the last Crossroads stop before the eggs (Mankrik's Lost in Battle hand-in, Korran a few yards away), before the Orgrimmar trip at 20"
+			},
+			{
+				"a": [
+					"accept",
+					702
+				],
+				"b": [
+					"turnin",
+					702
+				],
+				"faction": "Horde",
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Guile of the Raptor (702, a delivery from Tor'gan to Gor'mul, both in Hammerfall) was taken on the solo 'Back to Hammerfall' stop (30-40/05-arathi-highlands) but handed in only in the `when group 679` step, so a solo player carried it. Its hand-in, the follow-up 847 and 847's hand-in back to Tor'gan are done on the same Hammerfall stop: Gor'mul stands beside Drum Fel."
+			},
+			{
+				"a": [
+					"turnin",
+					702
+				],
+				"b": [
+					"turnin",
+					847
+				],
+				"faction": "Horde",
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Guile of the Raptor part 3 (847): Gor'mul's errand back to Tor'gan, on the same Hammerfall stop as 702's hand-in (see the 702 record)."
 			}
 		],
 		"after": [
@@ -6891,6 +6935,10 @@
 			{
 				"q": 1012,
 				"why": "Alliance 1-30 audit (#1415, route review vWL4 2026-11-08) took Insane Druids (level 32, three druids deep in the Dor'Danil Barrow Den, Kayneth Stillwind before and after, nobody took it on a recorded version) out of 06-wetlands, but #1336 and #1341 had promised its barrow-entrance step publicly. A public promise wins: it is back where it was, optional, with a tip saying why to skip it and the entrance step from #1336 (611dbaf10)."
+			},
+			{
+				"q": 706,
+				"why": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Fiery Blaze Enchantments (40-50/01-stranglethorn-vale, Hammertoe's Digsite) was a required accept whose only work, the Black Drake's Heart (a rare drop from the Lethlor Ravine whelps), and hand-in to Sigrun Ironhew (40-50/02-badlands) are optional: players carried it unfinished out of the Badlands. The accept is optional too."
 			}
 		],
 		"group": [
@@ -8535,6 +8583,12 @@
 				"q": 6603,
 				"faction": "Horde",
 				"reason": "Horde 40-60 flow pass (0.3.7): Winterspring is played west to east: from the Timbermaw tunnel to Donova at Frostfire Hot Springs first, then Everlook. Trouble in Winterspring! is only Meggi's 580 XP pointer from Everlook to Donova (Threat of the Winterfall needs nothing: the compiled accept has no prerequisite), so it is left out instead of riding east and back west for it.",
+				"issue": "-"
+			},
+			{
+				"q": 1037,
+				"faction": "Alliance",
+				"reason": "Stranded quests (0.3.7 plan, OrphanQuests report 2026-11-09; orphan-quests gate): Velinde Starsong (610 XP at quest level 30) was taken at Maestra's Post/the Shrine of Aessina in 06-wetlands (~29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only at 40-50/01-stranglethorn-vale (Night Elves, ~41) or 40-50/05-the-hinterlands (~47, a tenth of its XP by then): an 18-level carry for 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			}
 		],

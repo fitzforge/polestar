@@ -308,6 +308,7 @@ mod riding;
 mod route_plan;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
+mod stranded;
 mod syntax;
 mod talents;
 mod theme;

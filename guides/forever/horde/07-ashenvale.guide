@@ -136,8 +136,8 @@ step Mystral Lake
   complete 25
 
 step Splintertree Post
-  turnin 2 optional -- Senani Thunderheart
-  turnin 24 optional
+  turnin 2 -- Senani Thunderheart
+  turnin 24
   accept 247
   turnin 247
   turnin 6441                         -- Pixel

@@ -201,6 +201,9 @@ step Back to Hammerfall
   turnin 701                          -- Tor'gan
   accept 702
   turnin 678                          -- Drum Fel
+  turnin 702                          -- Gor'mul, beside Drum Fel
+  accept 847
+  turnin 847                          -- Tor'gan
 
 step Boulderfist quests for a group
   when group 679
@@ -208,9 +211,6 @@ step Boulderfist quests for a group
   tip Drum Fel's next Call to Arms and Korin Fel's The Real Threat are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil.
   accept 679                          -- Drum Fel
   accept 680                          -- Korin Fel, beside him
-  turnin 702                          -- Gor'mul
-  accept 847
-  turnin 847                          -- Tor'gan
   vendor nearest
 
 # ---------------------------------------------------------------- The circles

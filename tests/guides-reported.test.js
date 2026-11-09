@@ -8793,3 +8793,59 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 	const list = goals(guide);
 	assert.ok(at(list, 'turnin 535', is('turnin', 535)) < at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601), 'Valik before the missive drops');
 });
+
+// jaff's report (2026-11-09): "I always have grey quests that are completed in random spots that I haven't
+// handed in". The orphan-quests gate (OrphanQuests report) found 10 accepts the route takes as required whose only
+// hand-in is `optional` or group-gated: the engine never holds an optional goal, so the player walks past the ender
+// carrying the quest. The hand-in now holds (it is hidden for anyone without the quest), or the accept is optional
+// with its work. (Assassination Plot, 4881, is RouteHorde037's: its accept went optional with the Galak step.)
+test("jaff's report: a quest the route takes as required is handed in by a goal that holds", { skip }, () => {
+	const A = (g) => `forever/alliance/${g}.guide`;
+	const H = (g) => `forever/horde/${g}.guide`;
+	const holds = [
+		[A('50-60/06-silithus'), 5845], [H('07-ashenvale'), 2], [H('07-ashenvale'), 24], [DUROTARS[0], 830], [DUROTARS[1], 830],
+		[H('03-silverpine-forest'), 832], [H('tauren/01-mulgore'), 781], [H('06-hillsbrad-foothills'), 2479],
+	];
+	for (const [guide, q] of holds) {
+		const t = goals(guide).find(({ goal }) => is('turnin', q)(goal));
+		assert.ok(t && !t.goal.optional, `${guide}: turnin ${q} is a goal that holds`);
+		assert.ok(!(t.step.when || []).some((p) => p.k === 'group' || (p.k === 'onquest' && !p.neg && ![p.q].flat().includes(q))), `${guide}: turnin ${q} is not behind another quest's or a group's condition`);
+	}
+	// Fiery Blaze Enchantments: a rare drop, its work and hand-in optional, so the accept is too.
+	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
+	assert.ok(stv && stv.goal.optional, 'accept 706 is optional');
+	// Guile of the Raptor: Gor'mul's and Tor'gan's deliveries on the solo Hammerfall stop that takes it.
+	const ah = goals(H('30-40/05-arathi-highlands'));
+	const take = ah[at(ah, 'accept 702', is('accept', 702))];
+	for (const [t, q] of [['turnin', 702], ['accept', 847], ['turnin', 847]]) {
+		const e = ah[at(ah, `${t} ${q}`, is(t, q))];
+		assert.equal(e.s, take.s, `${t} ${q} on the stop that takes 702`);
+	}
+	assert.ok(!(take.step.when || []).some((p) => p.k === 'group'), 'that stop is no group step');
+});
+
+// The same report: long carries. Escape Through Force (994, finished at the end of Darkshore, ~22.6) went to Terenthis
+// only on 06-wetlands' Auberdine stop (~29.5): 06-ashenvale's flight through Auberdine to the Menethil boat hands it
+// in at ~25. Velinde Starsong (1037, taken at 29, handed in at 41-48) is no longer taken.
+test("jaff's report: Escape Through Force on the Auberdine pass to the boat, Velinde Starsong left out", { skip }, () => {
+	const ash = goals('forever/alliance/06-ashenvale.guide');
+	const hand = at(ash, 'turnin 994', is('turnin', 994));
+	assert.ok(!ash[hand].goal.optional && !ash[hand].step.only, 'every race and class hands it in');
+	assert.ok(hand > at(ash, 'fly Auberdine', (g) => g.t === 'fly' && /Auberdine/.test(g.location || g.text || '')), 'after the flight to Auberdine');
+	assert.ok(hand < at(ash, 'accept 279', is('accept', 279)), 'before Menethil');
+	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
+		assert.ok(!goals(file).some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+	}
+});
+
+// The same report: 0.3.5 re-ordered the Alliance 12-30 route, so characters past Darkshore on 0.3.4 never reach
+// 06-ashenvale, where its quests are handed in. 06-wetlands stops at each ender anyway; there it hands in the ones a
+// character still carries, only while carried (`when onquest`), as Thundris Windweaver's step does.
+test("jaff's report: 06-wetlands hands in Darkshore quests carried from before the 0.3.5 re-order", { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	for (const q of [990, 945, 967, 97914]) {
+		const e = list[at(list, `turnin ${q}`, is('turnin', q))];
+		assert.ok(!e.goal.optional, `turnin ${q} holds while carried`);
+		assert.ok((e.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(q)), `turnin ${q} only while carried`);
+	}
+});

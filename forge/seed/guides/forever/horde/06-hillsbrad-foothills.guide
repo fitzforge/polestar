@@ -53,7 +53,7 @@ step Tarren Mill
 step Serge Hinott
   only Rogue
   tip After returning Mission: Possible But Not Probable to Shenthul, bring Hinott's Assistance to Serge Hinott in Tarren Mill. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill.
-  turnin 2479 optional                -- Serge Hinott
+  turnin 2479                         -- Serge Hinott
   accept 2480 optional
   complete 2480 optional
   turnin 2480 optional                -- Serge Hinott: Poisons

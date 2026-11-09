@@ -546,7 +546,7 @@ step Of Lost Honor
 
 step Tirion Fordring
   zone Eastern Plaguelands
-  turnin 5845 optional
+  turnin 5845                         -- Of Lost Honor: the route takes it and fetches the Symbol, so its hand-in holds
   accept 5846
 
 step Egan

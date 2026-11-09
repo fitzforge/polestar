@@ -82,7 +82,7 @@ local function build(active)
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], index = index, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], seen = seen, index = index, pending = pending, missing = missing }
 end
 
 function Plan.Invalidate() cached = nil end
@@ -222,6 +222,81 @@ function Plan.LogOverflow()
 		end
 	end
 	return { take = take, free = math.max(free, 0), drop = drop }
+end
+
+---------------------------------------------------------------------------
+-- Finished quests the route leaves behind (plan 0.3.7 "stranded quests"):
+-- the ones it never hands in (Plan.Carried: the guide window's "Still to do"
+-- row, the Quest room's "carried" list, its hand-in guide), and the ones a
+-- jump to another guide would leave (Plan.LeftBehind: the outlevelled banner
+-- and the guide menu). Nothing here hands in or abandons anything.
+---------------------------------------------------------------------------
+
+-- What handing quest q in gives the character now: the Codex's full reward
+-- times Levels.Share for the level gap; nil when the Codex has no XP for it.
+local function xpNow(C, q, level)
+	local X, Lv = ns.Codex, ns.Levels
+	local rec = X and X.Quest and X.Quest(q)
+	if not (rec and rec.xp and Lv and Lv.Share) then return nil end
+	local qlvl = C.GetQuestLevel and C.GetQuestLevel(q) or rec.level
+	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
+end
+
+-- The finished quests in the log (ready to hand in) the route never hands
+-- in (GetTurnIn "missed", "skipped" or "unplanned"): { { quest, title,
+-- status, grey, xp }, ... } in log order (xp nil when unknown); nil while
+-- the plan cannot say (no guide, a route choice to make, a guide not loaded).
+function Plan.Carried()
+	local C, out = ns.Compat, {}
+	local level = (C.GetPlayerInfo() or {}).level
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		if C.IsQuestReadyForTurnIn(q) then
+			local r = Plan.GetTurnIn(q)
+			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
+			if NEVER[r.status] then
+				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
+			end
+		end
+	end
+	return out
+end
+
+-- The finished quests in the log that the selected route hands in from the
+-- live step on and before guide `toId` (anywhere ahead when `toId` is not on
+-- the route): what a jump to `toId` leaves behind. { n, xp (the known ones
+-- summed), quests = { { quest, title, xp, guide }, ... } }; nil without a
+-- guide.
+function Plan.LeftBehind(toId)
+	local E, C = ns.Engine, ns.Compat
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return nil end
+	if not cached or cached.active ~= active then cached = build(active) end
+	local before = toId and cached.seen[toId] or math.huge
+	local level = (C.GetPlayerInfo() or {}).level
+	local out = { n = 0, xp = 0, quests = {} }
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		if C.IsQuestReadyForTurnIn(q) then
+			local r = Plan.GetTurnIn(q)
+			if (r.status == "now" or r.status == "future" or r.status == "later") and r.chapter < before then
+				local xp = xpNow(C, q, level)
+				out.n, out.xp = out.n + 1, out.xp + (xp or 0)
+				out.quests[out.n] = { quest = q, title = C.GetQuestTitle(q), xp = xp, guide = r.guide }
+			end
+		end
+	end
+	return out
+end
+
+-- Where quest q is handed in for this character: the Codex's ender of the
+-- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
+-- name, map, x, y, f, zone }; nil when unknown.
+function Plan.Ender(q)
+	local X, Lk = ns.Codex, ns.Lookup
+	local rec = X and X.Quest and Lk and Lk.QuestEnd and X.Quest(q)
+	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
+	local s = e and not e.hostile and e.spawn
+	if not s then return nil end
+	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
 end
 
 for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED" }) do
