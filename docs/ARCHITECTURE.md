@@ -1420,7 +1420,9 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   targets or has nothing else to do, takes the same names alone
   (`HereNames`) after the step's own, as many as fit its macro (`StepAction`;
   `behavior.whileHereStepKey`, on by default; #1316). Both macros change only
-  out of combat (`QoL.Secure`). Done early, the later step is done or shorter
+  out of combat (`QoL.Secure`). An item keeps the step key, including the
+  first line's item that `ChooseQuestItem` falls back to (its `use` item or
+  its quest's log item). Done early, the later step is done or shorter
   when the route gets there, as any objective done ahead.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the

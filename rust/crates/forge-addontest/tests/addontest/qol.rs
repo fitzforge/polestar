@@ -570,6 +570,7 @@ q.Engine.GetWhileHereList = function()
 	for i, r in ipairs(shown) do out[i] = r end
 	return out
 end
+q.Engine.GetWhileHere = function() return shown[1] end
 q.Engine.AlongGoal = function(s, g)
 	for _, r in ipairs(shown) do
 		if r.step == s and r.index == g then return r.raw end
@@ -642,6 +643,28 @@ fn step_key_with_nothing_else_to_do_it_targets_the_while_you_re_here_mobs_an_ite
 	assert_eq!(out[1], json!(["macro", "Murloc, Kobold Vermin"]), "no action of its own: the rows' mobs");
 	assert_eq!(out[2], json!(["item", "item:900"]), "a use goal keeps its item");
 	assert_eq!(out[3], json!(["macro", "Marshal McBride"]), "an NPC goal keeps its NPC");
+}
+
+#[test]
+fn step_key_with_nothing_else_to_do_the_nearest_while_you_re_here_row_s_quest_item_keeps_the_key_1316() {
+	let out = run(&format!(
+		"{HERE_ROWS}{}",
+		r#"
+		local s = PolestarStepButton
+		local function now() return { s:GetAttribute("type") or "nil", s:GetAttribute("item") or names() } end
+		q.items[902] = { name = "Murloc Lure", classID = 12, spell = 12 }
+		q.specialItems[30] = 902
+		q.addItem(0, 1, 902, 1)
+		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
+		rows({ { t = "kill", subject = "Murloc", quest = 30 }, { t = "kill", subject = "Kobold Vermin" } })
+		emit(now())
+		q.bags[0].slots[1] = nil
+		rows({ { t = "kill", subject = "Murloc", quest = 30 }, { t = "kill", subject = "Kobold Vermin" } })
+		emit(now())
+	"#
+	));
+	assert_eq!(out[0], json!(["item", "item:902"]), "the nearest row's quest log item (ChooseQuestItem, #1156) keeps the key");
+	assert_eq!(out[1], json!(["macro", "Murloc, Kobold Vermin"]), "not in the bags: the rows' mobs");
 }
 
 #[test]
