@@ -1202,7 +1202,7 @@ fn a_breadcrumb_on_another_continent_or_a_long_detour_is_left_out_one_on_the_way
 		json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
 			"instance": null, "roles": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
 	};
-	c["npcs"]["90802"] = npc(90802, "Barrens Runner", 1413, 50, 50);
+	c["npcs"]["90802"] = npc(90802, "Barrens Runner", 1413, 90, 90);
 	c["npcs"]["90803"] = npc(90803, "Undercity Runner", 1458, 66, 44);
 	c["npcs"]["90804"] = npc(90804, "Hillsbrad Runner", 1424, 60, 20);
 	let quest = |id: i32, title: &str, giver: i32, kill: bool, pre: &[i32]| {
@@ -1252,6 +1252,20 @@ emit({{ take = take, pre = pre, crumbs = crumbs, accepts = accepts }})"#
 	// From Hillsbrad, Word from Hillsbrad is on the way out: it stays.
 	let hb = run(&pack, &script, Opts { cls: "MAGE", at: Some([1424, 60, 21]), ..Default::default() }).remove(0);
 	assert!(takes(&hb, 90813), "taken by a player standing beside its giver: {}", serde_json::to_string(&hb).unwrap());
+	// #1402 (Geekmandem at Stonetalon Peak, Castpipe's Task 200 s out of his way): a breadcrumb that crosses the
+	// sea to its target is taken only from the town of its giver (150 s). From beside the Barrens Runner, Word
+	// from the Barrens stays; from the zone's far corner it is 190 s out of the way, under 300 s, and left out.
+	let beside = run(&pack, &script, Opts { cls: "MAGE", at: Some([1413, 90, 95]), ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&beside).unwrap();
+	assert_eq!(beside["crumbs"]["90811"]["far"], false, "the player is on its continent: {show}");
+	assert!(beside["crumbs"]["90811"]["detour"].as_i64().unwrap_or(9999) <= 150, "beside the player: {show}");
+	assert!(takes(&beside, 90811), "taken from beside its giver: {show}");
+	let corner = run(&pack, &script, Opts { cls: "MAGE", at: Some([1413, 5, 5]), ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&corner).unwrap();
+	let detour = corner["crumbs"]["90811"]["detour"].as_i64().unwrap_or(0);
+	assert!(detour > 150 && detour <= 300, "a detour the 300 s rule would keep: {show}");
+	assert!(!takes(&corner, 90811), "left out: it crosses the sea for a quest Hadrec gives anyway: {show}");
+	assert!(takes(&corner, 90810), "the target still taken: {show}");
 	drop(pack);
 	// Lost Letters (90815, Hadrec) requires Hillsbrad Orders (90814, Hillsbrad): a required errand stays however
 	// far, and Word from Hillsbrad, beside it, is then on the way too.
