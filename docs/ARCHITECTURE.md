@@ -2110,7 +2110,7 @@ and both of its values start on `"ask"`.
 #### Tabs (several guides at once)
 
 ```lua
-Polestar.Engine.GetTabs() -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex
+Polestar.Engine.GetTabs([noCounts]) -> { { guideId, title, category, stepIndex, stepCount, done, total, complete }, ... }, activeIndex   -- noCounts: no done/total (they read every step)
 Polestar.Engine.OpenTab(guideId [, activate])  -> index   -- already open: just activates it (when activate ~= false)
 Polestar.Engine.CloseTab(index [, quiet])                  -- the last tab may be closed (no guide); quiet: Polestar's own close
 Polestar.Engine.ClosedTabs() -> { { guideId, title, at }, ... }   -- newest first, registered and not open

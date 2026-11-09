@@ -10,7 +10,8 @@
 //     refreshes it schedules: under 4 ms;
 //   - a frame while the player walks (OnUpdate scripts and tickers): under 1 ms;
 //   - SetGuide, and every step change while a leveling guide plays, with what
-//     they schedule: under 12.5 ms and 10.5 ms;
+//     they schedule (for SetGuide, the guide window's catch-up to its end):
+//     under 13.5 ms and 10.5 ms;
 //   - a gathering guide plays to the end in under 15 s of wall time.
 //
 // Budgets are steady-state: the data packs are loaded first (each is a single
@@ -151,7 +152,8 @@ stub.advance(6) -- delayed work (Rares' minimap layers wait 5 s)
 ${REFERENCE}
 
 -- Addon time of fn plus the frames that follow it (deferred refreshes), less
--- what those frames cost when nothing happens.
+-- what those frames cost when nothing happens. settle: more frames while it
+-- says so (5 s at most), each charged to fn too.
 local function idleFrames(seconds)
 	local t = P.total()
 	stub.advance(seconds)
@@ -160,18 +162,30 @@ end
 local idle = math.huge
 for _ = 1, 5 do idle = math.min(idle, idleFrames(0.5)) end
 out.idle = idle
-local function withFrames(fn)
+local function withFrames(fn, settle)
 	collectgarbage("collect")
 	local t = P.total()
 	local direct = P.measure(fn)
 	stub.advance(0.5)
-	return direct + P.total() - t - idle
+	local frames = 0.5
+	while settle and settle() and frames < 5 do
+		stub.advance(0.05)
+		frames = frames + 0.05
+	end
+	return direct + P.total() - t - idle * frames / 0.5
 end
 
+-- A guide opened past its first steps plays the guide window's catch-up
+-- (GuideFrame's PlayCatchUp: the steps before the one placed go by, up to
+-- 2.5 s, then the window paints the step placed). It is the open's work,
+-- so it is charged to setGuide, and the burst starts after it.
+local GF = Polestar.UI and Polestar.UI.GuideFrame
+local function catchingUp() return GF ~= nil and GF.catchingUp ~= nil end
 reference()
 out.setGuide = math.max(
-	withFrames(function() E.SetGuide(${luaValue(gathering.id)}) end),
-	withFrames(function() E.SetGuide(${luaValue(leveling.id)}) end))
+	withFrames(function() E.SetGuide(${luaValue(gathering.id)}) end, catchingUp),
+	withFrames(function() E.SetGuide(${luaValue(leveling.id)}) end, catchingUp))
+out.caughtUp = not catchingUp()
 
 reference()
 out.burst = 0
@@ -269,6 +283,7 @@ test('event bursts, walking frames and step changes stay within budget with ever
 		})}`;
 	for (const r of m.rounds) {
 		assert.ok(r.result && r.result.done, `the leveling guide did not finish: ${JSON.stringify(r.result && r.result.stuck)}`);
+		assert.ok(r.caughtUp, 'the guide window\'s catch-up was still playing when the burst started');
 	}
 	assert.ok(m.changes > 10, `too few step changes measured (${m.changes})`);
 	for (const k of ['burst', 'tick', 'setGuide', 'stepChange']) assert.ok(within(m, k, m[k]), `${k} over budget: ${report}`);

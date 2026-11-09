@@ -110,7 +110,8 @@ end
 local function tabList()
 	local E = ns.Engine
 	if not (E and E.GetTabs) then return nil end
-	local ok, list, active = pcall(E.GetTabs)
+	-- No done/total counts: the entry keeps the step and the step count only.
+	local ok, list, active = pcall(E.GetTabs, true)
 	if not (ok and type(list) == "table") then return nil end
 	local out = {}
 	for i = 1, min(#list, MAX_TABS) do

@@ -5679,7 +5679,10 @@ function Engine.TabIds()
 	return out
 end
 
-function Engine.GetTabs()
+-- noCounts: leave out done and total, which run the done rules over every
+-- tab's steps once the tabs were evaluated again (the alts list's write,
+-- Alts/Snapshot.lua, keeps only the step and the step count).
+function Engine.GetTabs(noCounts)
 	sync()
 	if not player and #tabs > 0 then refreshPlayer() end
 	local out = {}
@@ -5687,7 +5690,8 @@ function Engine.GetTabs()
 		local t = tabs[i]
 		use(t)
 		local g = t.guide
-		local done, total = progressLoaded()
+		local done, total
+		if not noCounts then done, total = progressLoaded() end
 		out[i] = {
 			guideId = g.id, title = g.title, category = g.category or "Leveling",
 			stepIndex = t.current, stepCount = #g.steps, done = done, total = total, complete = t.computed == nil,
