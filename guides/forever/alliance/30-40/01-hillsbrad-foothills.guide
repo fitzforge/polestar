@@ -30,7 +30,6 @@ step Angerfang Encampment
   accept 474
 
 step Angerfang Encampment
-  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
   accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
 
 step Defeat Nek'rosh
