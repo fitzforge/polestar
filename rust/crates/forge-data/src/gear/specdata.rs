@@ -231,6 +231,42 @@ pub fn racials(flb_racials: &Obj) -> Obj {
 	out
 }
 
+/// The committed SpecData.lua's Gear.RACIALS (in [`racials`]' form) and the ForeverLevelingBiS
+/// version its header names: what `forge data gear --weights-only` keeps.
+pub fn pinned_racials(spec_data: &Path) -> Result<(Obj, String), String> {
+	let text = std::fs::read_to_string(spec_data).map_err(|e| format!("{}: {e}", spec_data.display()))?;
+	let version = regex::Regex::new(r"(?m)^-- Racial gear traits: ForeverLevelingBiS (\S+) by Thunder")
+		.unwrap()
+		.captures(&text)
+		.map(|m| m[1].to_string())
+		.ok_or_else(|| format!("{}: no \"Racial gear traits: ForeverLevelingBiS <version>\" line", spec_data.display()))?;
+	let mut path = String::new();
+	json_quote(&mut path, &spec_data.to_string_lossy());
+	let list = crate::lua::lua_to_value(
+		&[],
+		"local ns = { Gear = {} }; __ns = ns",
+		&format!(
+			"local chunk = assert(loadfile({path}))\nchunk(\"Polestar\", __ns)\nlocal out = {{}}\nfor id, r in pairs(__ns.Gear.RACIALS or {{}}) do\n  local wc, subs = r.weaponCrit, {{}}\n  if wc then for s in pairs(wc.subclasses) do subs[#subs + 1] = s end table.sort(subs) end\n  out[#out + 1] = {{ id = id, pct = wc and wc.pct, subs = subs, name = wc and wc.name, statMult = r.statMult }}\nend\nreturn out"
+		),
+	)?;
+	let out = Obj::new();
+	for r in list.items() {
+		let rec = Obj::new();
+		if r.get("pct").truthy() {
+			let w = Obj::new();
+			w.set("pct", r.get("pct"));
+			w.set("subclasses", V::Arr(Arr::from_vec(r.get("subs").items())));
+			w.set("name", r.get("name"));
+			rec.set("weaponCrit", V::Obj(w));
+		}
+		if r.get("statMult").truthy() {
+			rec.set("statMult", r.get("statMult"));
+		}
+		out.set(&r.get("id").to_js_string(), V::Obj(rec));
+	}
+	Ok((out, version))
+}
+
 fn lua(v: &V) -> String {
 	match v {
 		V::Null | V::Undef => "nil".into(),

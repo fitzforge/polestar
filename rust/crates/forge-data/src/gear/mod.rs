@@ -8,6 +8,8 @@
 //!   data/forever/gear/report.json          counts and provenance (`builtAt` from Options)
 //! Reads the installed ForeverLevelingBiS, addon/Polestar_ItemDB/Items.lua (`forge data itemdb`),
 //! addon/Polestar/Gear/Weights.lua and the wowsims cache (data/sources/wowsims). Offline.
+//! `--weights-only` ([`build_weights`]): SpecData.lua's weight bands only, keeping the gear data
+//! built from ForeverLevelingBiS v0.12.0-beta (MIT) and never reading the installed addon.
 
 pub mod addonlua;
 pub mod flb;
@@ -199,6 +201,44 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 		warnings,
 		summary,
 	})
+}
+
+/// `forge data gear --weights-only`: SpecData.lua's weight bands rebuilt from Weights.lua and the
+/// wowsims cache, and nothing else. It never reads an installed ForeverLevelingBiS: the data derived
+/// from it (Forever.lua, and the racial gear traits read back from the committed SpecData.lua with
+/// the version they came from) stays as last built from the MIT v0.12.0-beta, the only version our
+/// gear data comes from. One file: addon/Polestar/Gear/SpecData.lua (its notice is unchanged).
+pub fn build_weights(opts: &Options) -> Result<Output, String> {
+	let root = &opts.root;
+	let spec_file = root.join("addon").join("Polestar").join("Gear").join("SpecData.lua");
+	let (racials, flb_version) = specdata::pinned_racials(&spec_file)?;
+	let sim_cache = opts.wowsims_cache.clone().unwrap_or_else(|| root.join("data").join("sources").join("wowsims"));
+	let mut warnings = Vec::new();
+	let ws = match wowsims::read_wowsims(&sim_cache) {
+		Ok(w) => Some(w),
+		Err(e) => {
+			warnings.push(format!("wowsims: not used ({e})"));
+			None
+		}
+	};
+	let authored = specdata::authored_weights(&root.join("addon").join("Polestar").join("Gear").join("Weights.lua"))?;
+	let (bands, band_counts) = specdata::weight_bands(ws.as_ref(), &authored);
+	let spec_data = specdata::emit_spec_data(&bands, &racials, ws.is_some(), &V::str(&flb_version));
+	let mut summary = String::new();
+	if let Some(w) = ws.as_ref() {
+		summary.push_str(&format!(
+			"wowsims: {} specs, {} level bands blended with a sim, {} authored only; {} sim sets rejected\n",
+			band_counts.get("specs").to_js_string(),
+			band_counts.get("simBands").to_js_string(),
+			band_counts.get("authoredOnly").to_js_string(),
+			w.rejected
+		));
+	}
+	summary.push_str(&format!("SpecData.lua {} KiB; racial gear traits kept from ForeverLevelingBiS {flb_version}\n", to_fixed(spec_data.len() as f64 / 1024.0, 0)));
+	let report = Obj::new();
+	report.set("bands", band_counts);
+	report.set("specDataBytes", V::Num(spec_data.len() as f64));
+	Ok(Output { files: vec![("addon/Polestar/Gear/SpecData.lua".into(), spec_data)], report: V::Obj(report), warnings, summary })
 }
 
 #[cfg(test)]
