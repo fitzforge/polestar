@@ -1925,6 +1925,14 @@ end
 -- spot not visited for FORGET seconds takes over (all visited: the one
 -- visited longest ago), so a circuit forms. CycleSpot moves on by hand (or
 -- to a given spot); a spot picked that way holds until reached.
+-- Dwell (Fitz, 2026-11-09: the arrow cycles a step's places by itself): a
+-- camp or searched spot the player has stood in for Spots.DWELL seconds, out
+-- of combat and with no progress on its goal (Own.dwelt), is left
+-- (Spots.left, for FORGET seconds): the arrow moves on to the nearest place
+-- not left (repick "dwell"), never back to one left while another is open;
+-- with every place left, the one left longest ago. A step's other field
+-- goals measure without left places (Own.fieldDistance), so a goal whose
+-- places are all left gives way to the nearest other one.
 -- Alternatives (`alt`): other places the target spawns. The automatic picks
 -- above never choose one; moving on by hand walks them too, so every place
 -- is reachable, and one picked that way holds like any other current spot.
@@ -1942,11 +1950,20 @@ local Spots = {
 	LEAVE = 4, -- yards past the arrival radius
 	FORGET = 300, -- seconds a visited spot is skipped
 	ABOVE = 1, -- levels above the player a spot's mobs may be
+	DWELL = 7, -- seconds in a place with no progress before the arrow moves on
 	chosen = setmetatable({}, { __mode = "k" }), -- goal -> chosen spot
 	pinned = setmetatable({}, { __mode = "k" }), -- goal -> spot picked by hand, until reached
 	seen = setmetatable({}, { __mode = "k" }), -- spot -> GetTime() of the last visit
+	left = setmetatable({}, { __mode = "k" }), -- spot (or a point goal) -> GetTime() it was left after a dwell
+	stay = setmetatable({}, { __mode = "k" }), -- goal -> { place, since, sign }: the dwell being counted
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 }
+
+-- Whether a place (a spot, or a point goal) was left after a dwell within FORGET seconds.
+function Spots.isLeft(place, now)
+	local t = Spots.left[place]
+	return t ~= nil and (now or GetTime()) - t <= Spots.FORGET
+end
 
 -- Yards from the player to a spot's centre, nil on another continent.
 function Spots.dist(goal, s, c, px, py)
@@ -1987,14 +2004,17 @@ function Spots.cap(goal)
 end
 
 -- Re-pick a goal's spot from the player's world position (c nil: unknown).
--- moveOn: leave the current spot (CycleSpot marked it visited first); spots
--- visited lately are then skipped for camps too, so cycling walks them all.
--- True if the spot changed.
+-- moveOn: leave the current spot: true by hand (CycleSpot marked it visited
+-- first; alternatives and spots above the player count), "dwell" after a
+-- dwell (Own.dwelt left it; the automatic picks' rules hold); spots visited
+-- lately are then skipped for camps too, so moving on walks them all. A spot
+-- left after a dwell is never fresh within FORGET. True if the spot changed.
 function Spots.repick(goal, c, px, py, moveOn)
 	local now, spread, reach = GetTime(), goal.spread, goal.r or DEFAULT_RADIUS
 	local spots = goal.spots
 	local cur = Spots.chosen[goal]
-	local cap = not moveOn and Spots.cap(goal)
+	local manual = moveOn == true
+	local cap = not manual and Spots.cap(goal)
 	local lvl = goal.lvl
 	if cur and not c and not moveOn then return false end
 	local curD = cur and c and Spots.edge(goal, cur, c, px, py)
@@ -2017,6 +2037,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	-- Not visited lately; the spot the player stands in counts as fresh too
 	-- (search it now), unless moving on.
 	local function fresh(s)
+		if Spots.isLeft(s, now) then return false end
 		local t = (spread or moveOn) and Spots.seen[s]
 		if not t or now - t > Spots.FORGET then return true end
 		if moveOn or not c then return false end
@@ -2031,7 +2052,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	end
 	local best, bestKey, old, oldT
 	for i, s in ipairs(spots) do
-		if not (moveOn and s == cur) and (moveOn or not s.alt) and not (cap and (s.lvl or lvl or 0) > cap) then
+		if not (moveOn and s == cur) and (manual or not s.alt) and not (cap and (s.lvl or lvl or 0) > cap) then
 			if fresh(s) then
 				local d = c and Spots.edge(goal, s, c, px, py)
 				local key = d or (1e9 + (i - at - 1) % #spots)
@@ -4110,25 +4131,82 @@ end
 -- (its edge; alternatives left out, as the spot picks leave them), else to
 -- its point; nil on another continent. Second: the same to its nearest area
 -- whose mobs are at most `top` levels (its `lvl`, else the goal's; one with
--- neither counts; nil without one, or with top nil).
+-- neither counts; nil without one, or with top nil). Places left after a
+-- dwell (Spots.isLeft) do not count: a goal with every place left measures
+-- nil, so another field goal of the step takes over.
 function Own.fieldDistance(goal, c, px, py, top)
 	local best, low
 	local lvl = goal.lvl
+	local now, places = GetTime(), false
 	for _, s in ipairs(goal.spots or NONE) do
 		if not s.alt then
-			local d = Spots.edge(goal, s, c, px, py)
-			if d then
-				if not best or d < best then best = d end
-				local l = s.lvl or lvl
-				if top and not (l and l > top) and (not low or d < low) then low = d end
+			places = true
+			if not Spots.isLeft(s, now) then
+				local d = Spots.edge(goal, s, c, px, py)
+				if d then
+					if not best or d < best then best = d end
+					local l = s.lvl or lvl
+					if top and not (l and l > top) and (not low or d < low) then low = d end
+				end
 			end
 		end
 	end
-	if best or not (goal.map and goal.x and goal.y) then return best, low end
+	if best or places or not (goal.map and goal.x and goal.y) or Spots.isLeft(goal, now) then return best, low end
 	local gc, gx, gy = goalWorld(goal)
 	if gc ~= c then return nil end
 	local d = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
 	return d, top and not (lvl and lvl > top) and d or nil
+end
+
+-- What changes while the player works on goal g of step s: its count (an
+-- objective's, the bags'), for a level goal the XP. A dwell starts again when
+-- it changes (Own.dwelt).
+function Own.workSign(s, g, goal)
+	if goal.t == "level" then return (UnitLevel and UnitLevel("player") or 0) * 1e7 + (UnitXP and UnitXP("player") or 0) end
+	local done, cur = goalDone(s, g, goal)
+	if done then return -1 end
+	return tonumber(cur) or 0
+end
+
+-- The place the arrow leads to for goal (its chosen spot; a goal without
+-- spots, its point) and the yards from the player to its edge, or nil: not
+-- measurable, or a spot picked by hand not reached yet (it holds).
+function Own.dwellPlace(goal, c, px, py)
+	if goal.spots then
+		local s = Spots.chosen[goal]
+		if not s or Spots.pinned[goal] == s then return nil end
+		return s, Spots.edge(goal, s, c, px, py)
+	end
+	if not (goal.map and goal.x and goal.y) then return nil end
+	local gc, gx, gy = goalWorld(goal)
+	if gc ~= c then return nil end
+	return goal, ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+end
+
+-- The dwell (Spots, "Dwell"): true once the player has stood within the
+-- arrival radius of field goal g's place for Spots.DWELL seconds, out of
+-- combat, with its work unchanged (Own.workSign); the place is then left.
+-- Leaving the place, a fight or progress starts the count again.
+function Own.dwelt(s, g, goal, c, px, py)
+	local place, d = Own.dwellPlace(goal, c, px, py)
+	local st = Spots.stay[goal]
+	if not (place and d and d <= (goal.r or DEFAULT_RADIUS)) then
+		if st then Spots.stay[goal] = nil end
+		return false
+	end
+	local now, sign = GetTime(), Own.workSign(s, g, goal)
+	if not st then
+		Spots.stay[goal] = { place = place, since = now, sign = sign }
+		return false
+	end
+	if (UnitAffectingCombat and UnitAffectingCombat("player")) or st.place ~= place or st.sign ~= sign then
+		st.place, st.since, st.sign = place, now, sign
+		return false
+	end
+	if now - st.since < Spots.DWELL then return false end
+	Spots.left[place], Spots.seen[place] = now, now
+	Spots.stay[goal] = nil
+	return true
 end
 
 -- Of step s's open field goals `list` (indexes, written order), the one the
@@ -4737,6 +4815,14 @@ local function checkArrival()
 		if arriveLoaded(c, px, py) then hit = true end
 	end
 	useActive()
+	-- The waypoint's field goal: a dwell at its place with no progress moves the
+	-- arrow on (Spots, "Dwell"): to its next spot, or, with every place left, to
+	-- the step's nearest other field goal (below).
+	local wg = waypoint and guide and current and waypoint.stepIndex == current and guide.steps[current].goals[waypoint.goalIndex]
+	if wg and Own.isField(wg) and Own.dwelt(current, waypoint.goalIndex, wg, c, px, py) then
+		if wg.spots then Spots.repick(wg, c, px, py, "dwell") end
+		hit = true
+	end
 	local sg = Spots.waypointGoal()
 	if sg and Spots.repick(sg, c, px, py) then hit = true end
 	-- A step with several open field goals: the nearest may have changed.
