@@ -20,15 +20,15 @@ L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"] = "軌
 L["trail off: %s, %d points"] = "軌跡關閉：%s，%d 個點"
 L["no trail running"] = "沒有正在記錄的軌跡"
 L["usage: /psrec trail on [label] | trail off"] = "用法：/psrec trail on [名稱] | trail off"
--- L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = ""
--- L["last chunk the uploader confirmed: %d (newest: %d)"] = ""
--- L["the uploader has not confirmed a chunk yet (newest: %d)"] = ""
--- L["install id: %s"] = ""
--- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = ""
--- L["mark not recorded (not in the world yet)"] = ""
--- L["every recording not yet uploaded was deleted"] = ""
--- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
--- L["/reload or log out to send what's recorded"] = ""
+L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = "%d 個區塊等待上傳程式傳送（約 %d KiB / %d KiB）"
+L["last chunk the uploader confirmed: %d (newest: %d)"] = "上傳程式最後確認的區塊：%d（最新：%d）"
+L["the uploader has not confirmed a chunk yet (newest: %d)"] = "上傳程式尚未確認任何區塊（最新：%d）"
+L["install id: %s"] = "安裝 ID：%s"
+L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = "指令：/psrec on | off | ui | mark <文字> | trail on [名稱] | trail off | clear"
+L["mark not recorded (not in the world yet)"] = "標記未記錄（尚未進入遊戲世界）"
+L["every recording not yet uploaded was deleted"] = "所有尚未上傳的記錄已刪除"
+L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "這會刪除所有尚未上傳的記錄。請在 %d 秒內輸入 |cffffd100/psrec clear confirm|r 以繼續。"
+L["/reload or log out to send what's recorded"] = "/reload 或登出即可傳送已記錄的內容"
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "軌跡在 %d 分鐘後停止：%s，%d 個點"
@@ -64,8 +64,8 @@ L["Recorder: start or stop the position trail"] = "記錄器：開始或停止�
 L["Recorder: show or hide the window"] = "記錄器：顯示或隱藏視窗"
 
 -- Recorder.lua
--- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
--- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
+L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "舊版 Recorder（schema 1）的記錄已移除；記錄現在使用 schema 2"
+L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "開啟，因為 Polestar Client 中的分享已開啟。輸入 /psrec off 可停止。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "此用戶端未提供天賦樹 API"
