@@ -201,6 +201,7 @@ pub fn run() {
 			commands::set_sharing,
 			commands::dismiss_share_notice,
 			commands::set_paused,
+			commands::set_explore,
 			commands::get_autostart,
 			commands::set_autostart,
 			commands::set_server_url,

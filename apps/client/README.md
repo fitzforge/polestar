@@ -34,6 +34,12 @@ the upload API, and the public list of what is never collected.
   (its opt-out is unknown). With sharing off, the Recording section's "Help
   improve Polestar's guides" page (what is shared, what never is) offers
   "Start sharing" again.
+- **Explorer mode** (Settings). The Recorder's explorer mode (more about the
+  game world in Forever's new zones and dungeons, docs/RECORDING.md) is on
+  unless the player turns it off here. Until the switch is used the client
+  writes no flag and the Recorder decides; from then on Ack.lua carries
+  `PolestarRecorderExplore = true|false`, which the Recorder reads at login
+  or /reload. What we send's "Never sent" tab says what explorer mode adds.
 - **Connecting** (`net.rs`). Requests go out the normal way: the system's
   DNS, certificate checks and proxy. Only requests to the recording server
   fall back when that can't connect: IPv4 only; the bundled Mozilla

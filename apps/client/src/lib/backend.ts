@@ -46,6 +46,7 @@ export const api = {
 	setSharing: (enabled: boolean) => call<void>('set_sharing', { enabled }),
 	dismissShareNotice: () => call<void>('dismiss_share_notice'),
 	setPaused: (paused: boolean) => call<void>('set_paused', { paused }),
+	setExplore: (enabled: boolean) => call<void>('set_explore', { enabled }),
 	getAutostart: () => call<boolean>('get_autostart'),
 	setAutostart: (enabled: boolean) => call<void>('set_autostart', { enabled }),
 	setServerUrl: (url: string) => call<string>('set_server_url', { url }),

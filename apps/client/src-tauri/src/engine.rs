@@ -80,8 +80,9 @@ impl Account {
 
 #[derive(Clone, Debug)]
 enum Failure {
-	/// No answer, or a server error: try again with backoff.
-	Offline { message: String, attempts: u32, retry_at: i64 },
+	/// No answer, or a server error or 429: try again with backoff. `answered`: the server
+	/// answered (it asked to wait), so this is no connection problem.
+	Offline { message: String, attempts: u32, retry_at: i64, answered: bool },
 	/// The server answered and refused the request as a whole.
 	Refused { message: String, retry_at: i64 },
 }
@@ -228,7 +229,7 @@ impl Engine {
 		change(&mut state.settings);
 		self.store.save_settings(&state.settings).map_err(|e| format!("Could not save settings: {e}"))?;
 		drop(state);
-		self.sync_share();
+		self.sync_flags();
 		self.wake();
 		Ok(())
 	}
@@ -254,7 +255,7 @@ impl Engine {
 			let force = std::mem::take(&mut self.lock().rescan);
 			if force || last_scan.is_none_or(|t| t.elapsed() >= RESCAN) {
 				self.scan().await;
-				self.sync_share();
+				self.sync_flags();
 				self.refresh_packs();
 				// Before any upload (which can take a while): the window shows what was found now.
 				self.publish();
@@ -528,7 +529,7 @@ impl Engine {
 	/// Records a failed request (see [`Engine::fail_status`]); None, for the caller to return.
 	fn record<T>(&self, failed: Failed) -> Option<T> {
 		match failed {
-			Failed::Offline(message) => self.fail_offline(message, None),
+			Failed::Offline(message) => self.fail_offline(message, None, false),
 			Failed::Status(status, retry_after, message) => {
 				self.fail_status(status, retry_after, message);
 			}
@@ -555,7 +556,7 @@ impl Engine {
 		let response = match result {
 			Ok(r) => r,
 			Err(e) => {
-				self.fail_offline(describe_reqwest(&e), None);
+				self.fail_offline(describe_reqwest(&e), None, false);
 				return false;
 			}
 		};
@@ -589,7 +590,7 @@ impl Engine {
 		let answer: api::UploadResponse = match read_answer(response).await {
 			Ok(a) => a,
 			Err(e) => {
-				self.fail_offline(e, None);
+				self.fail_offline(e, None, false);
 				return false;
 			}
 		};
@@ -618,10 +619,10 @@ impl Engine {
 		state.week_dirty = true;
 		state.rejected = (!rejected.is_empty()).then(|| (now, rejected.clone()));
 		let addon_dir = state.install.as_ref().and_then(|i| i.addon_dir.clone());
-		let share = sharing(&state.settings);
+		let flags = ack_flags(&state.settings);
 		drop(state);
 		if let (Some(dir), true) = (addon_dir, acked > 0) {
-			if let Err(e) = ack::write(&dir, &request.install, acked, share) {
+			if let Err(e) = ack::write(&dir, &request.install, acked, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -640,7 +641,7 @@ impl Engine {
 		true
 	}
 
-	fn fail_offline(&self, message: String, retry_after: Option<u64>) {
+	fn fail_offline(&self, message: String, retry_after: Option<u64>, answered: bool) {
 		// Also on stderr: a player running the client from a terminal can quote it.
 		eprintln!("upload: {message}");
 		let mut state = self.lock();
@@ -649,14 +650,14 @@ impl Engine {
 			_ => 0,
 		};
 		let backoff = backoff_secs(attempts, retry_after);
-		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000) });
+		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000), answered });
 	}
 
 	/// Records a non-success answer: a server error or 429 is retried with backoff, anything
 	/// else is refused. Returns whether it was refused.
 	fn fail_status(&self, status: reqwest::StatusCode, retry_after: Option<u64>, message: String) -> bool {
 		if is_temporary(status) {
-			self.fail_offline(message, retry_after);
+			self.fail_offline(message, retry_after, true);
 			false
 		} else {
 			self.refuse(message);
@@ -669,23 +670,23 @@ impl Engine {
 	}
 
 	/// Writes Ack.lua again for every install the server confirmed chunks of
-	/// (after the Recorder was reinstalled, which ships it empty), and the share
-	/// flag. `ack::write` merges each install into the file's per-install map.
+	/// (after the Recorder was reinstalled, which ships it empty), and the flags.
+	/// `ack::write` merges each install into the file's per-install map.
 	pub fn rewrite_ack(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
 		let acks: Vec<(String, u64)> = state.progress.iter().filter(|(_, p)| p.acked > 0).map(|(i, p)| (i.clone(), p.acked)).collect();
-		let share = sharing(&state.settings);
+		let flags = ack_flags(&state.settings);
 		drop(state);
 		if !dir.is_dir() {
 			return;
 		}
 		for (install, upto) in acks {
-			if let Err(e) = ack::write(&dir, &install, upto, share) {
+			if let Err(e) = ack::write(&dir, &install, upto, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
-		self.sync_share();
+		self.sync_flags();
 	}
 
 	/// Sharing is on by default: turns it on, as Start sharing does, for a player who never chose
@@ -710,19 +711,20 @@ impl Engine {
 		}
 	}
 
-	/// Puts the share flag in Ack.lua when the file does not say it already: the Recorder records
-	/// while the player shares (docs/RECORDING.md "Ack file"). Called when the settings change
-	/// and after every look for the game (which also catches a Recorder reinstalled by hand).
-	fn sync_share(&self) {
+	/// Puts the share and explorer flags in Ack.lua when the file does not say them already: the
+	/// Recorder records while the player shares, and keeps explorer mode off when they turned it
+	/// off here (docs/RECORDING.md "Ack file"). Called when the settings change and after every
+	/// look for the game (which also catches a Recorder reinstalled by hand).
+	fn sync_flags(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
-		let Some(share) = sharing(&state.settings) else { return };
+		let flags = ack_flags(&state.settings);
 		drop(state);
-		if !dir.is_dir() {
+		if flags == ack::Flags::default() || !dir.is_dir() {
 			return;
 		}
-		if ack::read_share(&dir) != Some(share) {
-			if let Err(e) = ack::write_share(&dir, share) {
+		if ack::read_flags(&dir) != flags {
+			if let Err(e) = ack::write_flags(&dir, flags) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -826,6 +828,7 @@ impl Engine {
 			consent: state.settings.consent,
 			share_notice: state.settings.consent && !state.settings.share_notice_seen,
 			paused: state.settings.paused,
+			explore: state.settings.explore != Some(false),
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
 			custom: CustomSites {
@@ -1034,6 +1037,11 @@ fn sharing(settings: &Settings) -> Option<bool> {
 	(settings.ever_shared || settings.consent).then_some(settings.consent && !settings.paused)
 }
 
+/// Ack.lua's flags: [`sharing`], and the explorer toggle once the player used it.
+fn ack_flags(settings: &Settings) -> ack::Flags {
+	ack::Flags { share: sharing(settings), explore: settings.explore }
+}
+
 /// Whether sharing turns on by default now: the player never chose (sharing was never on, so
 /// they never stopped it either), the game is found (setup done, an install) and no account's
 /// Recorder was turned off with `/psrec off` (its `optout`). Every account's file must have been
@@ -1131,8 +1139,9 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 	if let Some(n) = state.uploading {
 		return make("uploading", "Sending", format!("Sending your latest play ({n} {}).", plural(n as u64, "part", "parts")), None);
 	}
-	if let Some(Failure::Offline { message, retry_at, .. }) = &state.failure {
-		let mut view = make("offline", "Can't reach the server", message.clone(), Some("retry"));
+	if let Some(Failure::Offline { message, retry_at, answered, .. }) = &state.failure {
+		let (title, detail) = if *answered { server_waits(message) } else { ("Can't reach the server", message.clone()) };
+		let mut view = make("offline", title, detail, Some("retry"));
 		view.next_retry = Some(*retry_at);
 		return view;
 	}
@@ -1166,6 +1175,17 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 	make("watching", "Sharing on", "New play is sent a few seconds after you log out or type /reload.".into(), None)
 }
 
+/// The status of an answer that asks to wait (a 429 or 5xx): the server was reached, so it is no
+/// connection problem. The daily registration cap per network (several new installs, or tests,
+/// from one network in a day) says what happens to the play meanwhile.
+fn server_waits(message: &str) -> (&'static str, String) {
+	if message.contains("registration limit") {
+		("Too many new registrations today", "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.".to_owned())
+	} else {
+		("The server asked to wait", format!("{}. Your play is kept on this PC and sent when it's ready.", message.trim_end_matches('.')))
+	}
+}
+
 fn plural<'a>(n: u64, one: &'a str, many: &'a str) -> &'a str {
 	if n == 1 {
 		one
@@ -1185,6 +1205,8 @@ pub struct Snapshot {
 	/// Sharing is on and the notice saying what it sends has not been read yet.
 	pub share_notice: bool,
 	pub paused: bool,
+	/// The explorer toggle: on unless the player turned it off.
+	pub explore: bool,
 	pub server_url: String,
 	pub default_server_url: String,
 	pub data_dir: String,
@@ -1466,6 +1488,41 @@ mod tests {
 		let chunk = api::UploadChunk { seq: 7, text };
 		let reading = read_chunks(std::iter::once(&chunk), "would be turned away");
 		assert_eq!((reading.problems, reading.total_records), (Vec::<String>::new(), 2));
+	}
+
+	#[test]
+	fn explorer_records_leave_and_the_toggle_reaches_ack_lua() {
+		// Recorder 0.3.6's explorer kinds: known, so sent (Client 0.1.5 left them out).
+		let text = [
+			"chunk\t0\t7\t1794170000\tk3j9x0q2m7",
+			"unitx\t1\t261306\t000043F59F\t2521\t4512\t6633",
+			"imap\t2\t2943\t2681\t512\t1",
+			"engage\t3\t3301\t1\t5",
+			"poi\t4\t90012\t0\t2521\t4400\t6100",
+			"where\t5\tc\t261306\tThe Drowned Chapel\t1",
+			"open\t6\t3365\t2521\t4520\t6640\to\t500123",
+		]
+		.join("\n");
+		let chunk = api::UploadChunk { seq: 7, text: text.clone() };
+		let reading = read_chunks(std::iter::once(&chunk), "would be turned away");
+		assert_eq!((reading.problems, reading.total_records), (Vec::<String>::new(), 6));
+		assert_eq!(prepare_chunk(&text, &[]).unwrap(), text);
+		// No explorer flag until the toggle is used; then it follows it, beside the share flag.
+		let shared = Settings { consent: true, ever_shared: true, ..Settings::default() };
+		assert_eq!(ack_flags(&shared), ack::Flags { share: Some(true), explore: None });
+		assert_eq!(ack_flags(&Settings { explore: Some(false), ..shared.clone() }), ack::Flags { share: Some(true), explore: Some(false) });
+		assert_eq!(ack_flags(&Settings { explore: Some(true), ..Settings::default() }), ack::Flags { share: None, explore: Some(true) });
+	}
+
+	#[test]
+	fn an_answer_that_asks_to_wait_is_no_connection_problem() {
+		// The server's 429 at registration (#1453's smoke: the fourth registration from one network
+		// in a day) showed as "Can't reach the server".
+		let (title, detail) = server_waits("registration limit for today reached, try again tomorrow");
+		assert_eq!(title, "Too many new registrations today");
+		assert_eq!(detail, "Too many new registrations from your network today. Your play is kept on this PC and sent tomorrow.");
+		let (title, detail) = server_waits("too many requests, try again in a minute");
+		assert_eq!((title, detail.as_str()), ("The server asked to wait", "too many requests, try again in a minute. Your play is kept on this PC and sent when it's ready."));
 	}
 
 	#[test]

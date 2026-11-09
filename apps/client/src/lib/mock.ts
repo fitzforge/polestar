@@ -55,6 +55,7 @@ const base: Snapshot = {
 	consent: true,
 	shareNotice: scene === 'notice',
 	paused: false,
+	explore: true,
 	serverUrl: MOCK_SERVER,
 	defaultServerUrl: MOCK_SERVER,
 	dataDir: '/home/player/.local/share/gg.polestar.client',
@@ -492,6 +493,10 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		snapshot.status = a.paused
 			? { ...snapshot.status, kind: 'paused', title: 'Uploads paused', detail: 'Your play waits on this PC until you resume. The Recorder keeps recording in the game.', action: 'resume' }
 			: structuredClone(base.status);
+		emit();
+	},
+	set_explore: (a) => {
+		snapshot.explore = a.enabled as boolean;
 		emit();
 	},
 	get_autostart: () => false,
