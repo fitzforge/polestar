@@ -56,6 +56,20 @@ const STAT_KEYS: [&str; 31] = [
 	"rdps",
 ];
 
+const SCHOOLS: [&str; 6] = ["spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow"];
+
+/// A band with no `sp` weight gets no school weights: bonus damage to one school is part of spell
+/// damage, so a spec that doesn't value spell damage doesn't value it either. wowsims' Season of
+/// Discovery Rogue values Nature damage for its runes; Forever's Rogues have none (#1324 class sweep).
+fn drop_schools_without_sp(w: &Obj) {
+	if or0(&w.get("sp")) > 0.0 {
+		return;
+	}
+	for k in SCHOOLS {
+		w.delete(k);
+	}
+}
+
 fn phase_label(p: &str) -> &str {
 	match p {
 		"sod-p1" => "SoD phase 1",
@@ -153,6 +167,9 @@ pub fn weight_bands(wowsims: Option<&Wowsims>, authored: &V) -> (Bands, V) {
 			for band in &BANDS {
 				let sim = band.sim.and_then(|l| sim_for(entries, l));
 				let w = sim.and_then(|s| blend(&base, s, band.alpha).map(|w| (s, w)));
+				if let Some((_, w)) = &w {
+					drop_schools_without_sp(w);
+				}
 				let rec = if let Some((sim, w)) = w {
 					let phase = phase_label(sim.phase);
 					let rec = BandRec {
@@ -180,6 +197,7 @@ pub fn weight_bands(wowsims: Option<&Wowsims>, authored: &V) -> (Bands, V) {
 					for k in sorted {
 						w2.set(&k, base.get(&k));
 					}
+					drop_schools_without_sp(&w2);
 					authored_only += 1;
 					BandRec { up_to: band.up_to, weights: w2, source: "polestar".into(), label: "Polestar leveling".into(), note: "Authored from Classic stat formulas; no sim for this band.".into() }
 				};

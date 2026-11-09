@@ -31,6 +31,8 @@ const FIXTURE: &str = r#"{
 	[9062] = "16 30 25 2 4 1 spFire10 spFrost10",
 	[9063] = "16 30 25 2 4 1 sp10",
 	[9064] = "16 30 25 2 4 1 spShadow20",
+	[9065] = "8 61 56 3 4 2 armor118 spNature24 heal37",
+	[9066] = "8 61 56 3 4 2 armor118 heal37",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -753,4 +755,48 @@ fn a_custom_scale_with_school_weights_only_keeps_their_value_and_two_schools_cou
 	);
 	assert_eq!(out[0], json!([20, 34]), "Shadow only: +20 Shadow is 20, +34 Fire +34 Shadow is 34");
 	assert_eq!(out[1], json!([20, 34]), "Shadow and Fire: the two bonuses count as the larger one");
+}
+
+// #1324 class sweep: the Rogue bands carried spNature 0.201 with no sp weight (from wowsims' Season of
+// Discovery Rogue), so Verdant Footpads (+24 Nature damage, 13954) scored about five times its armor.
+#[test]
+fn rogues_give_nature_spell_damage_no_value_verdant_footpads_score_as_their_armor_alone() {
+	let out = run(
+		r#"
+		local res = {}
+		for _, spec in ipairs({ "assassination", "combat", "subtlety" }) do
+			Polestar.Set("gear.spec.ROGUE", spec)
+			res[spec] = { G.ScoreItem("item:9065"), G.ScoreItem("item:9066") }
+		end
+		emit(res)
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, level: 56, ..Default::default() },
+	);
+	for spec in ["assassination", "combat", "subtlety"] {
+		let r = &out[0][spec];
+		assert!(r[0].as_f64().unwrap() > 0.0, "{spec}: {r}");
+		assert_eq!(r[0], r[1], "{spec}: +24 Nature damage adds nothing: {r}");
+	}
+}
+
+#[test]
+fn no_weight_band_values_a_spell_school_without_valuing_spell_damage() {
+	let out = run(
+		r#"
+		local bad = {}
+		for class, specs in pairs(G.WEIGHT_BANDS) do
+			for spec, bands in pairs(specs) do
+				for _, b in ipairs(bands) do
+					for _, k in ipairs({ "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow" }) do
+						if (b.weights[k] or 0) > 0 and not ((b.weights.sp or 0) > 0) then bad[#bad + 1] = class .. "." .. spec .. " " .. b.upTo .. " " .. k end
+					end
+				end
+			end
+		end
+		table.sort(bad)
+		emit(#bad == 0 and "none" or table.concat(bad, "; "))
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], json!("none"), "bands with a school weight and no sp weight");
 }
