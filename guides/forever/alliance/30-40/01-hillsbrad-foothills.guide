@@ -10,9 +10,9 @@ next forever/alliance/30-40/03-ashenvale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
-# The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
-# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
-# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop.
+# The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands).
+# Left out: This Land Was Their Land (98230) and Word to Ironforge (98300) on the Defeat Nek'rosh group branch: Captain
+# Stoutfist offers 98230 only after 474 (#1299), and it sent group players back east to Howin and west again for 240 XP.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
@@ -56,16 +56,24 @@ step Dragonmaw Gates: kill these as you meet them
   collect 280330 quest 98283.2 optional -- Carnage's Head
   collect 280103 quest 98245.1        -- Razormaw Incisor
 
+step Razormaw nests
+  when onquest 98246
+  tip The Perfect Razormaw Eggs for Trying Times lie in the raptors' nests in the hills around Carnage.
+  collect 280132 quest 98246.1 @69.2,32.7 -- Perfect Razormaw Egg
+
 step Neru
   when group 98310
   tip Neru stands in the hills between the Dragonmaw Gates and Dun Modr (use the Goaz Stone).
   collect 280398 quest 98310.4        -- Heart of Neru
 
 step The Green Belt
-  when onquest 98283
-  tip Maddened Rotclaws roam the Green Belt around Rethiel.
-  collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh
-  turnin 98283 optional               -- Rethiel the Greenwarden
+  when has 280330
+  tip Maddened Rotclaws roam the Green Belt around Rethiel; one of them drops the flesh. Rethiel takes the quest only with Carnage's head too.
+  collect 280331 quest 98283.1        -- Malignant Rotclaw Flesh
+
+step Rethiel the Greenwarden
+  when complete 98283
+  turnin 98283                        -- With Carnage's head and the flesh
 
 # ---------------------------------------------------------------- Dun Modr
 
@@ -119,6 +127,10 @@ step Rhag Garmason again
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
+step Howin Kindfeather
+  when complete 98246
+  turnin 98246                        -- Trying Times: the eggs
+
 step Prospector Whelgar
   when group 98310
   turnin 98310                        -- Below ground
@@ -127,18 +139,12 @@ step Prospector Whelgar
 step Menethil Harbor
   tip West along the road to Menethil.
   turnin 98223                        -- On the top floor
+  accept 1132                         -- Red Jack Flint, by the keep's door: for Fiora Longears in Theramore, in the next guide
 
 step Menethil Harbor
   tip Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.
   when group 474
   turnin 474
-  accept 98230                        -- Captain Stoutfist: for Howin Kindfeather, back east along the road
-
-step Howin Kindfeather
-  when group 474
-  tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
-  turnin 98230                        -- Howin Kindfeather
-  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
 
 step Level 30.8
   when !group 474
@@ -170,9 +176,14 @@ step Southshore
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 565 optional                 -- Bartolo Ginsetti: only if you have or can buy a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth (Tailoring); no vendor sells them
   accept 505                          -- Magistrate Henry Maleb, inside
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
+
+step Bartolo Ginsetti
+  when has 3719
+  when has 2997
+  tip Bartolo makes a yeti fur cloak for anyone who brings a Hillman's Cloak (Leatherworking) and a Bolt of Woolen Cloth (Tailoring); no vendor sells either, so this step shows only when you carry both.
+  accept 565 optional                 -- Bartolo Ginsetti, between the flight master and the inn: he wants a Hillman's Cloak and a Bolt of Woolen Cloth too
 
 # ---------------------------------------------------------------- The coast
 
@@ -220,8 +231,7 @@ step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
-  collect 3720 quest 565.4 optional   -- Yeti Fur
-  note Bartolo also wants a Hillman's Cloak (Leatherworking), a Bolt of Woolen Cloth (Tailoring) and Fine Thread (any trade supplier): the cloak is turned in when you are back in Southshore later.
+  collect 3720 quest 565.4            -- Yeti Fur
 
 step Alterac Mountains
   zone Alterac Mountains
@@ -235,11 +245,17 @@ step Syndicate camp
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
 
+step Hillsbrad Fields
+  when onquest 98059
+  zone Hillsbrad Foothills
+  tip South-west from the Syndicate camp to the Hillsbrad Fields farms.
+  goto 32.5,39.5 "Hillsbrad Fields"
+
 step Hillsbrad council
   when onquest 98059
   zone Hillsbrad Foothills
-  tip South-west from the Syndicate camp to the Hillsbrad Fields farms: use the Sealed Company Request at the Hillsbrad council.
-  use 279386 quest 98059.1 @29.7,41.7 optional -- Sealed Company Request
+  tip Use the Sealed Company Request at the Hillsbrad council.
+  use 279386 quest 98059.1 @29.7,41.7 -- Sealed Company Request
 
 # ---------------------------------------------------------------- North of Southshore
 
@@ -254,11 +270,11 @@ step Hillsbrad Foothills
 
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  turnin 511                          -- Loremaster Dibbs
+  accept 514
   turnin 510                          -- Inside
   accept 512
   turnin 505                          -- Magistrate Henry Maleb
-  turnin 511                          -- Loremaster Dibbs
-  accept 514
   turnin 555                          -- Chef Jessen, upstairs
   turnin 98059 optional               -- Captain McManus
 
@@ -291,11 +307,6 @@ step King Magni Bronzebeard
   when onquest 683
   turnin 683 only Skyborne
 
-step King Magni Bronzebeard
-  when onquest 98300
-  zone Ironforge
-  turnin 98300                        -- King Magni Bronzebeard, the High Seat
-
 step Fly to Stormwind
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
@@ -313,7 +324,7 @@ step Dashel Stonefist
   tip Dashel waits in the Pig and Whistle tavern in Old Town; he and his two thugs fight you, but stop once beaten.
   turnin 1246
   accept 1447
-  complete 1447
+  complete 1447 @74.3,59.2 live          -- Beat Dashel and his thugs: they give up
   turnin 1447
   accept 1247
 
