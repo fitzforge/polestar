@@ -796,6 +796,73 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 }
 
 #[test]
+fn a_pick_up_takes_one_alternative_of_an_exclusive_group_ahn_qiraj_s_paths_and_the_valthalak_amulet_pieces() {
+	// Ahn'Qiraj's The Path of the Protector, Conqueror and Invoker (8747/8752/8757) close one another, and
+	// each is one way into later quests' `preAny`. The plan took the first open alternative per quest, so two
+	// quests reached through different ones had the guide accept two quests the game never gives together.
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: i32| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": 40, "f": "e" }],
+		})
+	};
+	c["npcs"]["90510"] = npc(90510, "Path Giver One", 40);
+	c["npcs"]["90511"] = npc(90511, "Path Giver Two", 50);
+	let kill = json!([{ "type": "kill", "id": 90520, "count": 1, "text": "Test Mob" }]);
+	let quest = |id: i32, title: &str, giver: i32, pre: &[i32], pre_any: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [giver], "object": [] },
+			"objectives": kill.clone(), "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	// Two exclusive paths, off the page; three page quests: one prefers the first path, one the second (either
+	// does), one needs the second.
+	c["quests"]["90500"] = quest(90500, "The Path of the Protector", 90510, &[], &[]);
+	c["quests"]["90501"] = quest(90501, "The Path of the Invoker", 90511, &[], &[]);
+	c["quests"]["90502"] = quest(90502, "Protector's Reward", 90510, &[], &[90500, 90501]);
+	c["quests"]["90503"] = quest(90503, "Either Reward", 90511, &[], &[90501, 90500]);
+	c["quests"]["90504"] = quest(90504, "Invoker's Reward", 90511, &[90501], &[]);
+	i["forever"]["quests"]["90500"] = json!({ "excl": [90501] });
+	i["forever"]["quests"]["90501"] = json!({ "excl": [90500] });
+	for id in [90502, 90503] {
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 209, "preAny": c["quests"][id.to_string()]["preAny"].clone() });
+	}
+	i["forever"]["quests"]["90504"] = json!({ "area": 209, "pre": [90501] });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take, pre = {}, {}
+for _, t in ipairs(plan.take) do
+	if t.quest.id >= 90500 then
+		take[#take + 1] = t.quest.id
+		local ids = {}
+		for _, r in ipairs(t.pre) do ids[#ids + 1] = r.id end
+		pre[tostring(t.quest.id)] = table.concat(ids, ",")
+	end
+end
+table.sort(take)
+local accepts = {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do if g.t == "accept" and g.quest >= 90500 then accepts[#accepts + 1] = g.quest end end
+end
+table.sort(accepts)
+emit({ take = take, pre = pre, accepts = accepts })"#);
+	let out = run(&own, &script, Opts::default()).remove(0);
+	assert_eq!(out["take"], json!([90502, 90503]), "the Invoker's quest needs the path the plan has ruled out");
+	assert_eq!(out["pre"], json!({ "90502": "90500", "90503": "90500" }), "both go through the Path of the Protector");
+	assert_eq!(out["accepts"], json!([90500, 90502, 90503]), "never both paths");
+	// The Invoker's path already in the log: the plan keeps to it.
+	let invoker = run(&own, &script, Opts { log: vec![1013, 90501], ..Default::default() }).remove(0);
+	assert_eq!(invoker["take"], json!([90502, 90503, 90504]));
+	assert_eq!(invoker["pre"], json!({ "90502": "90501", "90503": "90501", "90504": "90501" }));
+	assert!(!invoker["accepts"].as_array().unwrap().contains(&json!(90500)), "the Protector's path is never accepted: {}", invoker["accepts"]);
+}
+
+#[test]
 fn a_quest_an_item_starts_that_drops_outside_is_collected_on_the_way_and_opens_the_quest_after_it_1380_the_damp_note() {
 	// #1380: Blackfathom Deeps' Allegiance to the Old Gods (6564) starts from the Damp Note, which the
 	// Blackfathom Tide Priestesses drop one time in three in the tunnels before the portal, outside the instance.
