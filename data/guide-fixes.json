@@ -4421,6 +4421,27 @@
 			]
 		},
 		{
+			"id": "alliance-3040-book-of-the-ancients-statue",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6027,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.",
+			"note": "Final route review 0.3.6 (2026-11-09), Alliance side of horde-3040-book-of-the-ancients-statue: the Alliance Desolace south loop (30-40/06) collected the book with no use of the Gem of the Serpent (15766, the quest's source item) and called Lord Kragaru (12369) a centaur chieftain who camps on the coast; he is summoned at the Serpent Statue (object 177673), 28.24,6.67.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 177673; npcs.json 12369 at Desolace 28.24,6.67; quests.json 6027 sourceItem 15766"
+				},
+				{
+					"kind": "eg",
+					"ref": "EG Link live quest 6027: objectives the Book (15803) and the Gem of the Serpent (15766)"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-nesingwary-pages-later",
 			"faction": "Horde",
 			"at": {
