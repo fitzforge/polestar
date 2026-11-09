@@ -58,16 +58,40 @@ const STAT_KEYS: [&str; 31] = [
 
 const SCHOOLS: [&str; 6] = ["spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow"];
 
-/// A band with no `sp` weight gets no school weights: bonus damage to one school is part of spell
-/// damage, so a spec that doesn't value spell damage doesn't value it either. wowsims' Season of
-/// Discovery Rogue values Nature damage for its runes; Forever's Rogues have none (#1324 class sweep).
-fn drop_schools_without_sp(w: &Obj) {
-	if or0(&w.get("sp")) > 0.0 {
-		return;
-	}
+/// A spec's spell damage splits over its schools, so bonus damage to one school is worth that
+/// school's share of spell damage: a band's school weights add up to its `sp` weight, in the
+/// proportions its sources give (#1324). A band with no `sp` weight gets none: a spec that doesn't
+/// value spell damage doesn't value one school of it (wowsims' Season of Discovery Rogue values
+/// Nature damage for its runes; Forever's Rogues have none).
+fn calibrate_schools(w: &Obj) {
+	let sp = or0(&w.get("sp"));
+	let sum: f64 = SCHOOLS.iter().map(|k| or0(&w.get(k))).sum();
 	for k in SCHOOLS {
-		w.delete(k);
+		if !w.has(k) {
+			continue;
+		}
+		let v = if sp > 0.0 && sum > 0.0 { round(or0(&w.get(k)) * sp / sum) } else { 0.0 };
+		if v > 0.0 {
+			w.set(k, V::Num(v));
+		} else {
+			w.delete(k);
+		}
 	}
+}
+
+/// One source's school weights as shares of its own `sp` weight (they add up to it); empty when it
+/// has no `sp` weight or no school weights.
+fn school_shares(get: &dyn Fn(&str) -> f64) -> Vec<(&'static str, f64)> {
+	let sp = get("sp");
+	let sum: f64 = SCHOOLS.iter().map(|k| get(k)).sum();
+	if sp <= 0.0 || sum <= 0.0 {
+		return Vec::new();
+	}
+	SCHOOLS.iter().map(|k| (*k, get(k) * sp / sum)).filter(|s| s.1 > 0.0).collect()
+}
+
+fn share(shares: &[(&str, f64)], k: &str) -> f64 {
+	shares.iter().find(|s| s.0 == k).map_or(0.0, |s| s.1)
 }
 
 fn phase_label(p: &str) -> &str {
@@ -123,6 +147,17 @@ fn blend(authored: &V, sim: &Entry, alpha: f64) -> Option<Obj> {
 	if scale == 0.0 || scale.is_nan() {
 		return None;
 	}
+	let a = |k: &str| or0(&authored.get(k));
+	let s = |k: &str| sim.weights.get(k).filter(|w| *w != 0.0 && !w.is_nan()).unwrap_or(0.0);
+	// Each source's schools blend as its split of its own sp weight. A class sim covering several
+	// builds lists every school at the full spell power weight (wowsims' Mage: Arcane, Fire and Frost
+	// 1 beside Spell Power 1; the SoD Warlock's Fire and Shadow): each build's own school, not a
+	// split, which summed to 2.4-2.95 against sp 1.1 in the Mage bands. The authored split stands in
+	// for it, at the sim's sp weight.
+	let a_shares = school_shares(&a);
+	let listed: Vec<f64> = SCHOOLS.iter().map(|k| s(k)).filter(|v| *v > 0.0).collect();
+	let no_split = s("sp") > 0.0 && listed.len() >= 2 && listed.iter().all(|v| *v >= s("sp"));
+	let s_shares = if no_split && !a_shares.is_empty() { a_shares.iter().map(|(k, v)| (*k, v / a("sp") * s("sp"))).collect() } else { school_shares(&s) };
 	let mut keys: Vec<String> = authored.keys().iter().map(|k| k.to_string()).collect();
 	for (k, _) in &sim.weights.0 {
 		if !keys.contains(k) {
@@ -135,8 +170,11 @@ fn blend(authored: &V, sim: &Entry, alpha: f64) -> Option<Obj> {
 		if !STAT_KEYS.contains(&k.as_str()) {
 			continue;
 		}
-		let s = sim.weights.get(&k).filter(|w| *w != 0.0 && !w.is_nan()).unwrap_or(0.0);
-		let v = alpha * or0(&authored.get(&k)) + (1.0 - alpha) * s * scale;
+		let v = if SCHOOLS.contains(&k.as_str()) {
+			alpha * share(&a_shares, &k) + (1.0 - alpha) * share(&s_shares, &k) * scale
+		} else {
+			alpha * a(&k) + (1.0 - alpha) * s(&k) * scale
+		};
 		if v > 0.0 {
 			out.set(&k, V::Num(round(v)));
 		}
@@ -168,7 +206,7 @@ pub fn weight_bands(wowsims: Option<&Wowsims>, authored: &V) -> (Bands, V) {
 				let sim = band.sim.and_then(|l| sim_for(entries, l));
 				let w = sim.and_then(|s| blend(&base, s, band.alpha).map(|w| (s, w)));
 				if let Some((_, w)) = &w {
-					drop_schools_without_sp(w);
+					calibrate_schools(w);
 				}
 				let rec = if let Some((sim, w)) = w {
 					let phase = phase_label(sim.phase);
@@ -197,7 +235,7 @@ pub fn weight_bands(wowsims: Option<&Wowsims>, authored: &V) -> (Bands, V) {
 					for k in sorted {
 						w2.set(&k, base.get(&k));
 					}
-					drop_schools_without_sp(&w2);
+					calibrate_schools(&w2);
 					authored_only += 1;
 					BandRec { up_to: band.up_to, weights: w2, source: "polestar".into(), label: "Polestar leveling".into(), note: "Authored from Classic stat formulas; no sim for this band.".into() }
 				};

@@ -21,4 +21,4 @@ Test: rust/crates/forge-data/tests/gear.rs, which byte-compares them. A second t
 
 Since the JS command was retired, the generated files' first line names `forge data gear` instead of `node tools/polestar.js gear build`; expected/ is the JS output with that line (and the byte counts that include it) as forge writes it.
 
-Since 0.3.7 the weight bands follow rules the JS never had (#1324: no school weight without an `sp` weight), so expected/ is forge's own output: `FORGE_GOLDEN_BLESS=1 cargo test -p forge-data --test data gear::` rewrites it.
+Since 0.3.7 the weight bands follow rules the JS never had (#1324: a band's school weights add up to its `sp` weight, none without one), so expected/ is forge's own output: `FORGE_GOLDEN_BLESS=1 cargo test -p forge-data --test data gear::` rewrites it.

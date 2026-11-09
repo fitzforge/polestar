@@ -25,6 +25,9 @@
 --   * sp = spell damage of every school, spFire etc. = one school only, heal =
 --     healing. Classic +spell-power items carry both sp and heal, so damage
 --     specs read the sp half and healers the heal half.
+--   * A spec's spell damage splits over its schools, so its school weights
+--     add up to its sp weight: each is that school's share (#1324). A spec
+--     with no sp weight has none. `forge data gear` keeps the bands so.
 
 local ADDON, ns = ...
 
@@ -101,7 +104,7 @@ Gear.WEIGHTS = {
 			hit = 6, crit = 4, ap = 0.25, dps = 2.5, rdps = 0.3, hp5 = 1.5, health = 0.1, spi = 0.05 },
 	},
 	PALADIN = {
-		holy = { int = 1, heal = 0.65, sp = 0.15, spHoly = 0.1, mp5 = 2.2, spi = 0.5, sta = 0.45, spellCrit = 7, str = 0.15,
+		holy = { int = 1, heal = 0.65, sp = 0.15, spHoly = 0.15, mp5 = 2.2, spi = 0.5, sta = 0.45, spellCrit = 7, str = 0.15,
 			armor = 0.005, dps = 0.5, health = 0.05, mana = 0.06 },
 		protection = { sta = 1, armor = 0.05, defense = 1, dodge = 10, parry = 10, block = 6, blockValue = 0.4, str = 0.5, agi = 0.5,
 			int = 0.4, sp = 0.5, spHoly = 0.5, spellHit = 4, hit = 4, mp5 = 1, dps = 2, health = 0.1 },
@@ -133,7 +136,7 @@ Gear.WEIGHTS = {
 			heal = 0.05, armor = 0.005, mana = 0.05, health = 0.06 },
 	},
 	SHAMAN = {
-		elemental = { int = 1, sp = 0.9, spNature = 0.9, spFire = 0.3, spFrost = 0.2, spellCrit = 8, spellHit = 8, mp5 = 2,
+		elemental = { int = 1, sp = 0.9, spNature = 0.579, spFire = 0.193, spFrost = 0.128, spellCrit = 8, spellHit = 8, mp5 = 2,
 			spi = 0.35, sta = 0.5, str = 0.2, agi = 0.15, armor = 0.01, dps = 1.5, mana = 0.06, health = 0.05 },
 		enhancement = { str = 1, agi = 0.7, ap = 0.5, crit = 9, hit = 9, dps = 7, sta = 0.5, int = 0.35, spi = 0.15, armor = 0.02,
 			mp5 = 1, sp = 0.15, spNature = 0.15, block = 0.3, health = 0.05, mana = 0.02 },
@@ -141,23 +144,23 @@ Gear.WEIGHTS = {
 			mana = 0.06, health = 0.05 },
 	},
 	MAGE = {
-		arcane = { int = 1, sp = 1.1, spArcane = 1.1, spFire = 0.4, spFrost = 0.4, spellCrit = 7, spellHit = 9, spi = 0.55,
+		arcane = { int = 1, sp = 1.1, spArcane = 0.636, spFire = 0.232, spFrost = 0.232, spellCrit = 7, spellHit = 9, spi = 0.55,
 			sta = 0.55, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.07, health = 0.05 },
-		fire = { int = 0.9, sp = 1.1, spFire = 1.1, spFrost = 0.2, spArcane = 0.2, spellCrit = 9, spellHit = 9, spi = 0.5,
+		fire = { int = 0.9, sp = 1.1, spFire = 0.806, spFrost = 0.147, spArcane = 0.147, spellCrit = 9, spellHit = 9, spi = 0.5,
 			sta = 0.55, mp5 = 1.6, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.05 },
-		frost = { int = 0.9, sp = 1.1, spFrost = 1.1, spFire = 0.2, spArcane = 0.2, spellCrit = 6, spellHit = 9, spi = 0.6,
+		frost = { int = 0.9, sp = 1.1, spFrost = 0.806, spFire = 0.147, spArcane = 0.147, spellCrit = 6, spellHit = 9, spi = 0.6,
 			sta = 0.6, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.06 },
 	},
 	WARLOCK = {
-		affliction = { sta = 0.8, int = 0.75, spi = 0.6, sp = 1, spShadow = 1, spFire = 0.2, spellHit = 9, spellCrit = 3,
+		affliction = { sta = 0.8, int = 0.75, spi = 0.6, sp = 1, spShadow = 0.833, spFire = 0.167, spellHit = 9, spellCrit = 3,
 			mp5 = 1, rdps = 2, armor = 0.005, health = 0.08, mana = 0.05 },
-		demonology = { sta = 1, int = 0.75, spi = 0.55, sp = 0.85, spShadow = 0.85, spFire = 0.2, spellHit = 8, spellCrit = 3,
+		demonology = { sta = 1, int = 0.75, spi = 0.55, sp = 0.85, spShadow = 0.688, spFire = 0.162, spellHit = 8, spellCrit = 3,
 			mp5 = 1, rdps = 2, armor = 0.005, health = 0.1, mana = 0.05 },
-		destruction = { sta = 0.7, int = 0.85, spi = 0.4, sp = 1, spShadow = 0.8, spFire = 0.6, spellHit = 9, spellCrit = 7,
+		destruction = { sta = 0.7, int = 0.85, spi = 0.4, sp = 1, spShadow = 0.571, spFire = 0.429, spellHit = 9, spellCrit = 7,
 			mp5 = 1, rdps = 2, armor = 0.005, health = 0.07, mana = 0.05 },
 	},
 	DRUID = {
-		balance = { int = 1, sp = 0.9, spNature = 0.9, spArcane = 0.7, spellCrit = 6, spellHit = 8, spi = 0.5, sta = 0.5, mp5 = 2,
+		balance = { int = 1, sp = 0.9, spNature = 0.506, spArcane = 0.394, spellCrit = 6, spellHit = 8, spi = 0.5, sta = 0.5, mp5 = 2,
 			heal = 0.1, armor = 0.005, mana = 0.06, health = 0.05 },
 		feral = { str = 1, agi = 1, ap = 0.5, crit = 9, hit = 9, sta = 0.65, armor = 0.04, defense = 0.4, dodge = 6, int = 0.2,
 			spi = 0.15, hp5 = 0.5, health = 0.07 },

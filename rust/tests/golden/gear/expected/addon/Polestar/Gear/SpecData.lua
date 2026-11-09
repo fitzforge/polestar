@@ -11,7 +11,7 @@ Gear.WEIGHT_BANDS = {
 	DRUID = {
 		balance = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, heal = 0.1, health = 0.05, int = 1, mana = 0.06, mp5 = 2, sp = 0.9, spArcane = 0.7, spNature = 0.9, spellCrit = 6, spellHit = 8, spi = 0.5, sta = 0.5 } },
+				weights = { armor = 0.005, heal = 0.1, health = 0.05, int = 1, mana = 0.06, mp5 = 2, sp = 0.9, spArcane = 0.394, spNature = 0.506, spellCrit = 6, spellHit = 8, spi = 0.5, sta = 0.5 } },
 		},
 		feral = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
@@ -39,39 +39,39 @@ Gear.WEIGHT_BANDS = {
 	MAGE = {
 		arcane = {
 			{ upTo = 39, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.05, int = 1, mana = 0.07, mp5 = 1.8, rdps = 1.5, sp = 1.1, spArcane = 1.1, spFire = 0.4, spFrost = 0.4, spellCrit = 7, spellHit = 9, spi = 0.55, sta = 0.55 } },
+				weights = { armor = 0.005, health = 0.05, int = 1, mana = 0.07, mp5 = 1.8, rdps = 1.5, sp = 1.1, spArcane = 0.637, spFire = 0.232, spFrost = 0.232, spellCrit = 7, spellHit = 9, spi = 0.55, sta = 0.55 } },
 			{ upTo = 49, source = "wowsims:wowsims/sod@6f19e7806:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 2 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.025, int = 0.61, mana = 0.035, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 1.1, spFire = 0.75, spFrost = 0.75, spellCrit = 6.894, spellHit = 7.25, spi = 0.275, sta = 0.275 } },
+				weights = { armor = 0.003, health = 0.025, int = 0.61, mana = 0.035, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.636, spFire = 0.232, spFrost = 0.232, spellCrit = 6.894, spellHit = 7.25, spi = 0.275, sta = 0.275 } },
 			{ upTo = 59, source = "wowsims:wowsims/sod@9568974bd:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 3 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.025, int = 0.61, mana = 0.035, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 1.1, spFire = 0.75, spFrost = 0.75, spellCrit = 6.894, spellHit = 7.25, spi = 0.275, sta = 0.275 } },
+				weights = { armor = 0.003, health = 0.025, int = 0.61, mana = 0.035, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.636, spFire = 0.232, spFrost = 0.232, spellCrit = 6.894, spellHit = 7.25, spi = 0.275, sta = 0.275 } },
 			{ upTo = 60, source = "wowsims:wowsims/classic@7779ebbf7:ui/mage/sim.ts", label = "Polestar leveling 25% + wowsims Classic Era 75%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.001, health = 0.013, int = 0.654, mana = 0.018, mp5 = 0.541, rdps = 0.375, sp = 1.1, spArcane = 1.1, spFire = 0.925, spFrost = 0.925, spellCrit = 13.226, spellHit = 17.587, spi = 0.138, sta = 0.138 } },
+				weights = { armor = 0.001, health = 0.013, int = 0.654, mana = 0.018, mp5 = 0.541, rdps = 0.375, sp = 1.1, spArcane = 0.636, spFire = 0.232, spFrost = 0.232, spellCrit = 13.226, spellHit = 17.587, spi = 0.138, sta = 0.138 } },
 		},
 		fire = {
 			{ upTo = 39, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.05, int = 0.9, mana = 0.06, mp5 = 1.6, rdps = 1.5, sp = 1.1, spArcane = 0.2, spFire = 1.1, spFrost = 0.2, spellCrit = 9, spellHit = 9, spi = 0.5, sta = 0.55 } },
+				weights = { armor = 0.005, health = 0.05, int = 0.9, mana = 0.06, mp5 = 1.6, rdps = 1.5, sp = 1.1, spArcane = 0.147, spFire = 0.807, spFrost = 0.147, spellCrit = 9, spellHit = 9, spi = 0.5, sta = 0.55 } },
 			{ upTo = 49, source = "wowsims:wowsims/sod@6f19e7806:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 2 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.025, int = 0.56, mana = 0.03, mp5 = 0.85, rdps = 0.75, sp = 1.1, spArcane = 0.65, spFire = 1.1, spFrost = 0.65, spellCrit = 7.894, spellHit = 7.25, spi = 0.25, sta = 0.275 } },
+				weights = { armor = 0.003, health = 0.025, int = 0.56, mana = 0.03, mp5 = 0.85, rdps = 0.75, sp = 1.1, spArcane = 0.147, spFire = 0.806, spFrost = 0.147, spellCrit = 7.894, spellHit = 7.25, spi = 0.25, sta = 0.275 } },
 			{ upTo = 59, source = "wowsims:wowsims/sod@9568974bd:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 3 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.025, int = 0.56, mana = 0.03, mp5 = 0.85, rdps = 0.75, sp = 1.1, spArcane = 0.65, spFire = 1.1, spFrost = 0.65, spellCrit = 7.894, spellHit = 7.25, spi = 0.25, sta = 0.275 } },
+				weights = { armor = 0.003, health = 0.025, int = 0.56, mana = 0.03, mp5 = 0.85, rdps = 0.75, sp = 1.1, spArcane = 0.147, spFire = 0.806, spFrost = 0.147, spellCrit = 7.894, spellHit = 7.25, spi = 0.25, sta = 0.275 } },
 			{ upTo = 60, source = "wowsims:wowsims/classic@7779ebbf7:ui/mage/sim.ts", label = "Polestar leveling 25% + wowsims Classic Era 75%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.001, health = 0.013, int = 0.629, mana = 0.015, mp5 = 0.491, rdps = 0.375, sp = 1.1, spArcane = 0.875, spFire = 1.1, spFrost = 0.875, spellCrit = 13.726, spellHit = 17.587, spi = 0.125, sta = 0.138 } },
+				weights = { armor = 0.001, health = 0.013, int = 0.629, mana = 0.015, mp5 = 0.491, rdps = 0.375, sp = 1.1, spArcane = 0.147, spFire = 0.806, spFrost = 0.147, spellCrit = 13.726, spellHit = 17.587, spi = 0.125, sta = 0.138 } },
 		},
 		frost = {
 			{ upTo = 39, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.06, int = 0.9, mana = 0.06, mp5 = 1.8, rdps = 1.5, sp = 1.1, spArcane = 0.2, spFire = 0.2, spFrost = 1.1, spellCrit = 6, spellHit = 9, spi = 0.6, sta = 0.6 } },
+				weights = { armor = 0.005, health = 0.06, int = 0.9, mana = 0.06, mp5 = 1.8, rdps = 1.5, sp = 1.1, spArcane = 0.147, spFire = 0.147, spFrost = 0.807, spellCrit = 6, spellHit = 9, spi = 0.6, sta = 0.6 } },
 			{ upTo = 49, source = "wowsims:wowsims/sod@6f19e7806:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 2 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.03, int = 0.56, mana = 0.03, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.65, spFire = 0.65, spFrost = 1.1, spellCrit = 6.394, spellHit = 7.25, spi = 0.3, sta = 0.3 } },
+				weights = { armor = 0.003, health = 0.03, int = 0.56, mana = 0.03, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.147, spFire = 0.147, spFrost = 0.806, spellCrit = 6.394, spellHit = 7.25, spi = 0.3, sta = 0.3 } },
 			{ upTo = 59, source = "wowsims:wowsims/sod@9568974bd:ui/mage/sim.ts", label = "Polestar leveling 50% + wowsims SoD phase 3 50%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.003, health = 0.03, int = 0.56, mana = 0.03, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.65, spFire = 0.65, spFrost = 1.1, spellCrit = 6.394, spellHit = 7.25, spi = 0.3, sta = 0.3 } },
+				weights = { armor = 0.003, health = 0.03, int = 0.56, mana = 0.03, mp5 = 0.95, rdps = 0.75, sp = 1.1, spArcane = 0.147, spFire = 0.147, spFrost = 0.806, spellCrit = 6.394, spellHit = 7.25, spi = 0.3, sta = 0.3 } },
 			{ upTo = 60, source = "wowsims:wowsims/classic@7779ebbf7:ui/mage/sim.ts", label = "Polestar leveling 25% + wowsims Classic Era 75%", note = "Simulated with Season of Discovery runes; Forever has none, so the sim share is directional.",
-				weights = { armor = 0.001, health = 0.015, int = 0.629, mana = 0.015, mp5 = 0.541, rdps = 0.375, sp = 1.1, spArcane = 0.875, spFire = 0.875, spFrost = 1.1, spellCrit = 12.976, spellHit = 17.587, spi = 0.15, sta = 0.15 } },
+				weights = { armor = 0.001, health = 0.015, int = 0.629, mana = 0.015, mp5 = 0.541, rdps = 0.375, sp = 1.1, spArcane = 0.147, spFire = 0.147, spFrost = 0.806, spellCrit = 12.976, spellHit = 17.587, spi = 0.15, sta = 0.15 } },
 		},
 	},
 	PALADIN = {
 		holy = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, dps = 0.5, heal = 0.65, health = 0.05, int = 1, mana = 0.06, mp5 = 2.2, sp = 0.15, spHoly = 0.1, spellCrit = 7, spi = 0.5, sta = 0.45, str = 0.15 } },
+				weights = { armor = 0.005, dps = 0.5, heal = 0.65, health = 0.05, int = 1, mana = 0.06, mp5 = 2.2, sp = 0.15, spHoly = 0.15, spellCrit = 7, spi = 0.5, sta = 0.45, str = 0.15 } },
 		},
 		protection = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
@@ -131,7 +131,7 @@ Gear.WEIGHT_BANDS = {
 	SHAMAN = {
 		elemental = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { agi = 0.15, armor = 0.01, dps = 1.5, health = 0.05, int = 1, mana = 0.06, mp5 = 2, sp = 0.9, spFire = 0.3, spFrost = 0.2, spNature = 0.9, spellCrit = 8, spellHit = 8, spi = 0.35, sta = 0.5, str = 0.2 } },
+				weights = { agi = 0.15, armor = 0.01, dps = 1.5, health = 0.05, int = 1, mana = 0.06, mp5 = 2, sp = 0.9, spFire = 0.193, spFrost = 0.129, spNature = 0.579, spellCrit = 8, spellHit = 8, spi = 0.35, sta = 0.5, str = 0.2 } },
 		},
 		enhancement = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
@@ -145,15 +145,15 @@ Gear.WEIGHT_BANDS = {
 	WARLOCK = {
 		affliction = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.08, int = 0.75, mana = 0.05, mp5 = 1, rdps = 2, sp = 1, spFire = 0.2, spShadow = 1, spellCrit = 3, spellHit = 9, spi = 0.6, sta = 0.8 } },
+				weights = { armor = 0.005, health = 0.08, int = 0.75, mana = 0.05, mp5 = 1, rdps = 2, sp = 1, spFire = 0.167, spShadow = 0.833, spellCrit = 3, spellHit = 9, spi = 0.6, sta = 0.8 } },
 		},
 		demonology = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.1, int = 0.75, mana = 0.05, mp5 = 1, rdps = 2, sp = 0.85, spFire = 0.2, spShadow = 0.85, spellCrit = 3, spellHit = 8, spi = 0.55, sta = 1 } },
+				weights = { armor = 0.005, health = 0.1, int = 0.75, mana = 0.05, mp5 = 1, rdps = 2, sp = 0.85, spFire = 0.162, spShadow = 0.688, spellCrit = 3, spellHit = 8, spi = 0.55, sta = 1 } },
 		},
 		destruction = {
 			{ upTo = 60, source = "polestar", label = "Polestar leveling", note = "Authored from Classic stat formulas; no sim for this band.",
-				weights = { armor = 0.005, health = 0.07, int = 0.85, mana = 0.05, mp5 = 1, rdps = 2, sp = 1, spFire = 0.6, spShadow = 0.8, spellCrit = 7, spellHit = 9, spi = 0.4, sta = 0.7 } },
+				weights = { armor = 0.005, health = 0.07, int = 0.85, mana = 0.05, mp5 = 1, rdps = 2, sp = 1, spFire = 0.429, spShadow = 0.571, spellCrit = 7, spellHit = 9, spi = 0.4, sta = 0.7 } },
 		},
 	},
 	WARRIOR = {

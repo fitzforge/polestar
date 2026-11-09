@@ -33,6 +33,22 @@ const FIXTURE: &str = r#"{
 	[9064] = "16 30 25 2 4 1 spShadow20",
 	[9065] = "8 61 56 3 4 2 armor118 spNature24 heal37",
 	[9066] = "8 61 56 3 4 2 armor118 heal37",
+	[9067] = "16 30 25 2 4 1 spFrost10",
+	[9068] = "16 30 25 2 4 1 spFire10",
+	[9069] = "16 30 25 2 4 1 sp20",
+	[9070] = "16 30 25 2 4 1 spNature10",
+	[944] = "17 61 56 4 2 10 spFire36 spFrost36 dmin147 dmax221 speed3200",
+	[70944] = "17 61 56 4 2 10 sp36 dmin147 dmax221 speed3200",
+	[6898] = "23 25 0 3 4 0 spFire9 spShadow9 cls2816",
+	[76898] = "23 25 0 3 4 0 sp9 cls2816",
+	[15109] = "17 25 0 3 2 10 sta14 spFire34 spShadow34 dmin36 dmax55 speed2900 cls256",
+	[75109] = "17 25 0 3 2 10 sta14 sp34 dmin36 dmax55 speed2900 cls256",
+	[20530] = "20 52 0 3 4 1 sta15 int10 armor75 spFire23 spShadow23",
+	[70530] = "20 52 0 3 4 1 sta15 int10 armor75 sp23",
+	[2879] = "23 22 17 3 4 0 spFire6 spFrost6 uniq1",
+	[72879] = "23 22 17 3 4 0 sp6 uniq1",
+	[279270] = "16 65 60 4 4 0 sta16 spi14 armor50 spArcane15 spFire15 spNature15 cls1088",
+	[79270] = "16 65 60 4 4 0 sta16 spi14 armor50 sp15 cls1088",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -799,4 +815,89 @@ fn no_weight_band_values_a_spell_school_without_valuing_spell_damage() {
 		Opts::default(),
 	);
 	assert_eq!(out[0], json!("none"), "bands with a school weight and no sp weight");
+}
+
+// #1324 recalibration: a spec's damage splits over its schools, so its school weights add up to its sp
+// weight. Before, Warlock's added up to 1.2 / 1.05 / 1.4 against sp 1 / 0.85 / 1, the Mage bands to
+// 2.4-2.95 against 1.1 (wowsims lists each school at the full spell power weight), Elemental and
+// Balance to 1.09-1.6 against 0.9.
+#[test]
+fn every_weight_bands_school_weights_add_up_to_its_spell_damage_weight() {
+	let out = run(
+		r#"
+		local bad = {}
+		for class, specs in pairs(G.WEIGHT_BANDS) do
+			for spec, bands in pairs(specs) do
+				for _, b in ipairs(bands) do
+					local sum, n = 0, 0
+					for _, k in ipairs({ "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow" }) do
+						if b.weights[k] then sum, n = sum + b.weights[k], n + 1 end
+					end
+					if n > 0 and math.abs(sum - (b.weights.sp or 0)) > 0.002 then
+						bad[#bad + 1] = ("%s.%s %d: schools %.3f, sp %s"):format(class, spec, b.upTo, sum, tostring(b.weights.sp))
+					end
+				end
+			end
+		end
+		table.sort(bad)
+		emit(#bad == 0 and "none" or table.concat(bad, "; "))
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], json!("none"));
+}
+
+// One school's damage is worth less than the same spell damage of every school to a spec that casts in
+// several, and an off-school is worth little: a sample of single-school bonuses across levels.
+#[test]
+fn one_school_of_bonus_damage_is_worth_its_share_of_spell_damage_mage_warlock_elemental_balance() {
+	let probe = |cls: &'static str, class_name: &'static str, class_id: i32, spec: &str, level: i32, school: &str, sp: &str| {
+		let script = format!("Polestar.Set(\"gear.spec.{cls}\", \"{spec}\")\nemit({{ G.ScoreItem(\"item:{school}\"), G.ScoreItem(\"item:{sp}\") }})");
+		let out = run(&script, Opts { cls, class_name, class_id, level, ..Default::default() });
+		(out[0][0].as_f64().unwrap(), out[0][1].as_f64().unwrap())
+	};
+	for level in [30, 45, 55, 60] {
+		let (frost, sp) = probe("MAGE", "Mage", 8, "frost", level, "9067", "9063");
+		assert!(frost < sp, "Frost Mage {level}: +10 Frost {frost} against +10 spell damage {sp}");
+		let (fire, _) = probe("MAGE", "Mage", 8, "frost", level, "9068", "9063");
+		assert!(fire < 0.25 * sp, "Frost Mage {level}: +10 Fire {fire} against +10 spell damage {sp}");
+		let (fire, sp) = probe("MAGE", "Mage", 8, "fire", level, "9068", "9063");
+		assert!(fire < sp, "Fire Mage {level}: +10 Fire {fire} against +10 spell damage {sp}");
+		let (frost, _) = probe("MAGE", "Mage", 8, "fire", level, "9067", "9063");
+		assert!(frost < 0.25 * sp, "Fire Mage {level}: +10 Frost {frost} against +10 spell damage {sp}");
+		let (shadow, sp) = probe("WARLOCK", "Warlock", 9, "affliction", level, "9064", "9069");
+		assert!(shadow < sp, "Affliction {level}: +20 Shadow {shadow} against +20 spell damage {sp}");
+	}
+	for (cls, class_name, class_id, spec) in [("SHAMAN", "Shaman", 7, "elemental"), ("DRUID", "Druid", 11, "balance")] {
+		for level in [30, 60] {
+			let (nature, sp) = probe(cls, class_name, class_id, spec, level, "9070", "9063");
+			assert!(nature > 0.0 && nature < sp, "{spec} {level}: +10 Nature {nature} against +10 spell damage {sp}");
+		}
+	}
+}
+
+// The six items with bonus damage to several schools (#1317's sweep: 944, 6898, 15109, 20530, 2879,
+// 279270) never score above the same bonus as spell damage, for any spec that can use them; to a Frost
+// Mage, Fire and Frost together are worth less than spell damage (most of a Fire bonus is wasted).
+#[test]
+fn the_six_several_school_items_score_no_higher_than_the_same_spell_damage_for_any_spec() {
+	let twins = "{ { 944, 70944 }, { 6898, 76898 }, { 15109, 75109 }, { 20530, 70530 }, { 2879, 72879 }, { 279270, 79270 } }";
+	let mut checked = 0;
+	for (cls, class_name, class_id) in [("MAGE", "Mage", 8), ("WARLOCK", "Warlock", 9), ("SHAMAN", "Shaman", 7), ("DRUID", "Druid", 11), ("PRIEST", "Priest", 5), ("PALADIN", "Paladin", 2)] {
+		for level in [30, 60] {
+			let script = format!(
+				"local res = {{}}\nfor _, s in ipairs(G.CLASSES.{cls}.specs) do\n  Polestar.Set(\"gear.spec.{cls}\", s.key)\n  for _, p in ipairs({twins}) do\n    local a, b = G.ScoreItem(\"item:\" .. p[1]), G.ScoreItem(\"item:\" .. p[2])\n    if a and b then res[#res + 1] = {{ spec = s.key, item = p[1], score = a, twin = b }} end\n  end\nend\nemit(res)"
+			);
+			let out = run(&script, Opts { cls, class_name, class_id, level, ..Default::default() });
+			for r in out[0].as_array().unwrap() {
+				let (a, b) = (r["score"].as_f64().unwrap(), r["twin"].as_f64().unwrap());
+				assert!(a <= b + 1e-9, "{cls} {level}: {r}");
+				if cls == "MAGE" && r["spec"] == "frost" && r["item"] == 944 {
+					assert!(a < b, "Frost Mage: +36 Fire +36 Frost below +36 spell damage: {r}");
+				}
+				checked += 1;
+			}
+		}
+	}
+	assert!(checked >= 30, "{checked} item x spec pairs");
 }
