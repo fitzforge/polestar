@@ -20,6 +20,12 @@ step Fly to Marshal's Refuge
   goto 75.4,44.3 "Camp Mojache flight master"
   fly "Marshal's Refuge"
 
+step Marshal's Refuge
+  zone Un'Goro Crater
+  tip The flight lands at Marshal's Refuge: the wooden sign and Spraggle Frock stand beside the flight master. Their work is in Un'Goro on this guide's way back north.
+  accept 4501                         -- The wooden sign beside Spraggle
+  accept 4492                         -- Spraggle Frock
+
 step Layo Starstrike
   zone Silithus
   tip The pass from Un'Goro comes out at Valor's Rest, the graveyard in north-east Silithus. Layo stands among the graves.
@@ -181,8 +187,6 @@ step Marshal's Refuge
   tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave.
   turnin 3914                         -- Linken
   accept 3941
-  accept 4501                         -- The wooden sign beside Spraggle
-  accept 4492                         -- Spraggle Frock
 
 step Frenzied Pterrordax
   kill 9167 quest 4501.2              -- Frenzied Pterrordax walks around here: look inside the circle on the map

@@ -252,6 +252,7 @@ step Steamwheedle Port
   accept 8366                           -- Security Chief Bilgewhizzle, inside
   turnin 2872                           -- Stoley, inside
   accept 2873
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
@@ -284,7 +285,6 @@ step Steamwheedle Port
   accept 2874                           -- for Booty Bay, around level 50
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
   turnin 8366
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
 
 step Gadgetzan
   turnin 1878

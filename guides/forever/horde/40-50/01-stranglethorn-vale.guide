@@ -297,6 +297,8 @@ step Grom'gol Base Camp
   turnin 598                            -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
+  accept 588                            -- the Bubbling Cauldron again: Yenniku's fate
+  turnin 588
   turnin 573                            -- Far Seer Mok'thardin
 
 step Fly to Booty Bay
