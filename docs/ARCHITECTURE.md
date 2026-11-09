@@ -2198,6 +2198,12 @@ holds at its opening, see "Not yet available"):
   what they chose to pass. (Before this rule, a saved skip on a step with its
   quest in the log was dropped at every load, so a player who had skipped
   ahead with › was sent back to the first such step on every reload.)
+- An accept within `Own.LEVEL_WAIT` (one level, fractional) of its level
+  never passes (`Own.waitsHere`): its step holds, in play and at placement
+  (it can be the start), the accept pending with "Requires level 29: 0.3
+  levels to go", the rest of the step doable (Fitz, 0.3.6: Horde Hillsbrad's
+  Korran at 28.7; #1485's Warlock at Gan'rul). Further off, it passes as
+  below and the route goes on to the next step.
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back
@@ -4989,25 +4995,25 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
   window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
-  level 14 by step 32" (on pace or ahead); "Behind by 6 bars: step 32 grinds
-  to level 14 (~12m)" (a `level` goal ahead makes up the gap); in the warning
-  colour, "Behind: Missing In Action (25) at step 20, you'll be 21.0; grind
-  ~1h 10m first" (a hard quest; "you're" on the live step, "reach 23 first"
-  without an XP rate; with the character on pace for the target, the hard
-  quest is the route's, not their lag: "On pace, but Ashenvale Outrunners
-  (24) at step 4 is hard: you'll be 21.3; reach 22 first"), or "Behind by 2.4
-  levels for level 24 by step 21: grind ~1h 10m before then" ("and no grind
-  step ahead" without a rate).
-  Under a level the gap reads in the XP bar's bars (20 a level, rounded up),
-  from one level in levels; grinding time is the XP short over the QoL
-  tracker's XP an hour. Nothing without the Codex (Lookup), at 60, or with
-  no target (a guide that is not a leveling one with no `level` goal
-  ahead). Re-read with the XP row and on `STEP_CHANGED`.
+  level 14 by step 32" (on pace, ahead, or up to `GF.PACE_SLACK`, one
+  level, short: Fitz, 0.3.6, players read a few bars short as being behind);
+  "Behind by 1.2 levels: step 32 grinds to level 14 (~12m)" (a `level` goal
+  ahead makes up the gap, said plainly); in the warning colour, "Behind by
+  2.4 levels for level 24 by step 21: grind ~1h 10m before then" ("and no
+  grind step ahead" without a rate). The hard quest is named only on its own
+  step: calmly, "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
+  you're 21.3; reach 22 first", or past the slack, in the warning colour,
+  "Behind: Missing In Action (25) at step 20, you're 21.0; grind ~1h 10m
+  first" ("reach 23 first" without an XP rate). Grinding time is the XP
+  short over the QoL tracker's XP an hour. Nothing without the Codex
+  (Lookup), at 60, or with no target (a guide that is not a leveling one
+  with no `level` goal ahead). Re-read with the XP row and on
+  `STEP_CHANGED`.
 - **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
-  step with an open quest 3 or more levels above the character says so
+  step with work (not an accept, a hand-in or a talk: taking a quest early
+  is normal) on an open quest 3 or more levels above the character says so
   under its header, "Level 25 quest: you're 19.7" (your level and share of
-  it, cut to one place), in the warning colour, red from 5 levels over as in
-  the quest log.
+  it, cut to one place), in a calm colour, never red.
 
 ### Items kept for later — QoL/Keep, asks the Engine
 

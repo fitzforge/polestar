@@ -3109,13 +3109,14 @@ local function fillCard(sameFocus)
 	local why = view.why
 	person.Why:SetText(why or "")
 	person.Why:SetShown(why ~= nil)
-	-- A quest on the step 3 or more levels above the character (Levels.StepHint):
-	-- "Level 25 quest: you're 19.7", red from 5 levels as in the quest log.
+	-- Work on the step for a quest 3 or more levels above the character
+	-- (Levels.StepHint; never an accept): "Level 25 quest: you're 19.7", in a
+	-- calm colour (Fitz, 0.3.6: players read red as being behind).
 	local Lv = ns.Levels
 	local hint = Lv and Lv.StepHint and Lv.StepHint(view.index)
 	if hint then
 		person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
-		W.Color(person.Level, hint.level - floor(hint.you) >= 5 and "danger" or "warning")
+		W.Color(person.Level, "textDim")
 	end
 	person.Level:SetShown(hint ~= nil)
 	person:Show()
@@ -4966,17 +4967,19 @@ ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
 -- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
 -- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
--- grinding time. On pace (or ahead): "On pace for level 14 by step 32"; at
--- the guide's end, the level the route gets you to ("level 22.4 by step 97").
--- Behind, with a `level` goal ahead that grinds it: "Behind by 6 bars: step 32
--- grinds to level 14 (~12m)". Behind with none, in the warning colour: a quest
--- that will be 3+ levels over you, "Behind: Missing In Action (25) at step
--- 20, you'll be 21.0; grind ~1h 10m first" (or "reach 23 first"), else
--- "Behind by 2.4 levels for level 24 by step 21: grind ~1h 10m before then"
--- (or "and no grind step ahead"). Such a quest with the character on pace for
--- the target is the route's, not the character's lag: "On pace, but Ashenvale
--- Outrunners (24) at step 4 is hard: you'll be 21.3; reach 22 first", never
--- "Behind". nil without a target ahead or the Codex.
+-- grinding time. "Behind" only past GF.PACE_SLACK levels short of the route's
+-- target (Fitz, 0.3.6: a few bars short read as a warning and players thought
+-- they were behind); within it, on pace. On pace: "On pace for level 14 by
+-- step 32"; at the guide's end, the level the route gets you to ("level 22.4
+-- by step 97"). Behind, with a `level` goal ahead that grinds it: "Behind by
+-- 2.4 levels: step 32 grinds to level 14 (~12m)", said plainly. Behind with
+-- none, in the warning colour: "Behind by 2.4 levels for level 24 by step 21:
+-- grind ~1h 10m before then" (or "and no grind step ahead"). A quest 3+
+-- levels over the character (pace.hard) is named only on the step where it is
+-- fought, calmly: "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
+-- you're 21.3; reach 22 first", or the "Behind:" form past the slack. nil
+-- without a target ahead or the Codex.
+GF.PACE_SLACK = 1
 function GF.PaceText(stats)
 	local Lv = ns.Levels
 	local pace = Lv and Lv.Pace and Lv.Pace()
@@ -4989,43 +4992,35 @@ function GF.PaceText(stats)
 	end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
 	local stepNo = UI.StepNo(pace.step)
-	local h, text = pace.hard, nil
+	local behind = (pace.short or 0) > GF.PACE_SLACK
+	local h = pace.hard
+	if h and h.step ~= pace.live then h = nil end
 	if h then
 		local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
-		if pace.bars == 0 then
-			if h.step == pace.live then
-				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
-			else
-				text = time and string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; grind ~%s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you'll be %s; reach %d first"], name, h.level, at, you, h.need)
-			end
-		elseif h.step == pace.live then
-			text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
-		else
-			text = time and string.format(L["Behind: %s (%d) at step %d, you'll be %s; grind ~%s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you'll be %s; reach %d first"], name, h.level, at, you, h.need)
+		if not behind then
+			return time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
+				or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
 		end
-	elseif pace.bars == 0 then
+		local text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
+			or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
+		return "|c" .. Theme.Hex("warning") .. text .. "|r"
+	end
+	if not behind then
 		-- At a guide's end there is no goal to meet, only the level the route
 		-- gets you to: say that one, which a character already at the guide's
 		-- top passes (15-21 at 21: "level 22.4", never "level 21").
 		if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
 		return string.format(L["On pace for level %s by step %d"], level, stepNo)
-	else
-		local bars = pace.bars
-		local by = pace.short >= 1 and string.format(L["%s levels"], string.format("%.1f", pace.short))
-			or (bars == 1 and L["1 bar"] or string.format(L["%d bars"], bars))
-		local time = grind(pace.xp)
-		if pace.kind == "goal" then
-			-- The guide grinds it at that step: said plainly, not as a warning.
-			return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
-				or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
-		end
-		text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
-			or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
 	end
+	local by = string.format(L["%s levels"], string.format("%.1f", pace.short))
+	local time = grind(pace.xp)
+	if pace.kind == "goal" then
+		-- The guide grinds it at that step: said plainly, not as a warning.
+		return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
+			or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
+	end
+	local text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
+		or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
 	return "|c" .. Theme.Hex("warning") .. text .. "|r"
 end
 

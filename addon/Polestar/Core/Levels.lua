@@ -43,8 +43,9 @@
 --       step or the Codex, and with no target (no `level` goal ahead in a
 --       guide that is not a leveling one)
 --   Levels.StepHint(i[, p]) -> { quest, title, level, you } | nil  -- step i
---       of the active guide holds an open quest 3 or more levels above the
---       character (you: their level and share of it, 19.75)
+--       of the active guide holds work (not an accept, a hand-in or a talk)
+--       on an open quest 3 or more levels above the character (you: their
+--       level and share of it, 19.75)
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
@@ -410,7 +411,9 @@ function Levels.StepHint(i, p)
 	p = p or Levels.Player()
 	local lvl = p.level or 1
 	if lvl >= MAX_LEVEL then return nil end
-	local q, l, title = stepQuest(g, i, p)
+	-- Only work on the step counts (kills, objectives): taking a quest above
+	-- your level early is normal, and an accept-only step says nothing.
+	local q, l, title = stepQuest(g, i, p, true)
 	if not (l and l - lvl >= HARD) then return nil end
 	return { quest = q, title = title, level = l, you = lvl + ((p.xpMax or 0) > 0 and (p.xp or 0) / p.xpMax or 0) }
 end

@@ -164,7 +164,8 @@ fn the_pace_line_names_its_quest_in_the_client_s_words() {
 	let script = r#"
 local E = Polestar.Engine
 E.SetGuide("test/shown"); stub.advance(0.3)
-local h = Polestar.Levels.StepHint(1)
+-- On the step that does its work (an accept-only step says no quest level).
+local h = Polestar.Levels.StepHint(2)
 emit({ title = h and h.title or false, quest = h and h.quest or false })"#;
 	assert_eq!(run(Some("ruRU"), script)[0], json!({ "title": "Узы", "quest": 1689 }));
 	assert_eq!(run(None, script)[0], json!({ "title": "The Binding", "quest": 1689 }));

@@ -96,6 +96,8 @@ mod engine_l10n;
 mod engine_level;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
+#[path = "engine-level-wait.rs"]
+mod engine_level_wait;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]

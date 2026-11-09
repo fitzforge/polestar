@@ -2912,9 +2912,33 @@ function Own.goalsDone(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
-		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
+		if Own.holds(s, goal) and goalApplies(goal) and Own.waitsHere(goal) and not goalDone(s, g, goal) then return false end
 	end
 	return true
+end
+
+-- How far (in levels, fractional) the character is from an accept's level
+-- (unavailableFor's "level" mark), or nil without one.
+function Own.levelsToGo(goal)
+	local u = unavailableFor(goal)
+	if not (u and u.reason == "level") then return nil end
+	local need = tonumber(u.accept.minLevel) or 0
+	local max = player.xpMax or 0
+	local now = (player.level or 1) + (max > 0 and (player.xp or 0) / max or 0)
+	return math.max(0, need - now)
+end
+
+-- Within this many levels of an accept's level the route waits at its step
+-- (the rest of the step stays doable); further off, it moves on to the next
+-- step. Fitz, 0.3.6: Horde Hillsbrad's Korran at 28.7 for a level-29 quest.
+Own.LEVEL_WAIT = 1
+
+-- Whether goal keeps its step open while not done: not marked unavailable,
+-- or an accept within Own.LEVEL_WAIT levels of the character.
+function Own.waitsHere(goal)
+	if not unavailableFor(goal) then return true end
+	local left = Own.levelsToGo(goal)
+	return left ~= nil and left < Own.LEVEL_WAIT
 end
 
 local function stepDone(s)
@@ -3193,8 +3217,9 @@ local function place()
 	local anchor = anchorStep(added)
 	if catchUp then Own.leftOut[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
+	-- An accept close to its level (Own.waitsHere) is open: the route waits there.
 	local function open(s, g, goal)
-		return blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal)
+		return blocks(goal) and goalApplies(goal) and Own.waitsHere(goal) and not goalDone(s, g, goal)
 	end
 	local function gated(goal)
 		if goal.t ~= "accept" then return nil end
@@ -3217,7 +3242,7 @@ local function place()
 					if goal.t == "accept" then
 						-- An accept an update added behind the player is no start:
 						-- an update never moves them back (Own.passAdded).
-						doable = doable or (not gated(goal) and not (added and Own.goalAdded(added, s, goal)))
+						doable = doable or ((not gated(goal) or Own.waitsHere(goal)) and not (added and Own.goalAdded(added, s, goal)))
 						-- Only a level to reach holds a guide the catch-up could
 						-- pass: a missing prerequisite is often a grey quest it
 						-- left out, which will never come.
@@ -3454,7 +3479,12 @@ local function goalStatus(s, g, goal, stepIsCurrent)
 	if not goalApplies(goal) then return "na" end
 	local done, cur, max, label, kind = goalDone(s, g, goal)
 	if done then return "done", cur, max, label, kind end
-	if unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
+	if Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
+	-- An accept a little under its level (Own.waitsHere): waited for, not passed.
+	if unavailableFor(goal) then
+		if Own.levelsToGo(goal) and Own.waitsHere(goal) then return "pending", cur, max, label, kind end
+		return "skipped", cur, max, label, kind
+	end
 	return stepIsCurrent and "active" or "pending", cur, max, label, kind
 end
 
@@ -3594,7 +3624,14 @@ local function unavailableText(u)
 	if u.reason == "skipped" then return L["You skipped this quest"] end
 	local a = u.accept
 	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
-	if u.reason == "level" then return L["Requires level %d"]:format(tonumber(a.minLevel) or 0) end
+	if u.reason == "level" then
+		-- Close to it (the route waits there, Own.waitsHere): how far.
+		local left = Own.levelsToGo(a)
+		if left and left < Own.LEVEL_WAIT then
+			return L["Requires level %d: %s levels to go"]:format(tonumber(a.minLevel) or 0, string.format("%.1f", math.max(0.1, left)))
+		end
+		return L["Requires level %d"]:format(tonumber(a.minLevel) or 0)
+	end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
@@ -3920,7 +3957,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		local n = #pickFor(goal).list
 		alternatives = n > 0 and n - 1 or 0
 	end
-	local unavail = status == "skipped" and unavailableFor(goal) or nil
+	-- (An accept waited for a little under its level is pending, Own.waitsHere.)
+	local unavail = (status == "skipped" or (status == "pending" and goal.t == "accept")) and unavailableFor(goal) or nil
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail, kind)

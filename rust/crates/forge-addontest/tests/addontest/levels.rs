@@ -388,16 +388,18 @@ fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_nam
 	assert_eq!(hard["need"], 23);
 	assert_eq!(hard["xp"], xp_from_19_050(23));
 	assert!((hard["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
-	// Taken earlier (an accept alone at step 2): the line still points at step 4, which does it; step 2 hints.
+	// Taken earlier (an accept alone at step 2): the line still points at step 4, which does it; step 2 says no
+	// quest level (Fitz, 0.3.6: taking a quest above your level early is normal).
 	let early = lua(&[
 		RIDGE,
 		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 25, qlvl = 25, title = "Missing In Action" })
 local s = Lv.Pace(p)
-emit({ step = s.hard.step, hint = Lv.StepHint(2, p).level })"#,
+local h = Lv.StepHint(2, p)
+emit({ step = s.hard.step, hint = h and h.level or false })"#,
 	]
 	.join("\n"))
 	.remove(0);
-	assert_eq!(early, json!({ "step": 4, "hint": 25 }));
+	assert_eq!(early, json!({ "step": 4, "hint": false }));
 	// Done already: nothing hard is left, the gap to 24 still shows.
 	let left = lua(&[RIDGE, "done[25] = true\nlocal s = Lv.Pace(p)\nemit({ hard = s.hard == nil, kind = s.kind, bars = s.bars })"].join("\n")).remove(0);
 	assert_eq!(left, json!({ "hard": true, "kind": "end", "bars": 81 }), "19.98 to 24: 4.02 levels, 81 bars");
@@ -426,7 +428,8 @@ emit(Lv.StepHint(4, p) == nil)"#,
 
 // #1333: Calling in the Reserves (level 28) is a delivery: taken at Sun Rock, handed in at the Great Lift. Its step
 // said "Level 28 quest" in red to everyone. A quest with no work (no objective goal in the guide, none in the
-// Codex) gives no hint; one taken here whose work the Codex lists (done in another guide) still does.
+// Codex) never counts as hard; one whose work the Codex lists (done in another guide) does for the pace line,
+// though its accept-only step says no quest level (Fitz, 0.3.6).
 #[test]
 fn a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333() {
 	let out = lua(&[
@@ -437,11 +440,19 @@ table.insert(guide.steps[3].goals, { t = "accept", quest = 27, qlvl = 23, title 
 CODEX[26] = { level = 28, xp = 1000, objectives = {} }
 CODEX[27] = { level = 23, xp = 1000, objectives = { { type = "monster", id = 1, count = 8 } } }
 local d, w = Lv.StepHint(2, p), Lv.StepHint(3, p)
-emit({ delivery = d and d.quest or false, elsewhere = w and w.quest or false, pace = Lv.Pace(p).hard.quest })"#,
+local pace = Lv.Pace(p).hard.quest
+-- Its work on step 3 (as the Codex has it elsewhere): that step hints.
+table.insert(guide.steps[3].goals, { t = "kill", target = "Raider", count = 8, quest = 27, oi = 1 })
+local k = Lv.StepHint(3, p)
+emit({ delivery = d and d.quest or false, elsewhere = w and w.quest or false, work = k and k.quest or false, pace = pace })"#,
 	]
 	.join("\n"))
 	.remove(0);
-	assert_eq!(out, json!({ "delivery": false, "elsewhere": 27, "pace": 25 }), "no hint for the delivery; the quest with work hints; the pace line still points at the escort");
+	assert_eq!(
+		out,
+		json!({ "delivery": false, "elsewhere": false, "work": 27, "pace": 25 }),
+		"no hint for the delivery or an accept; work on the quest hints; the pace line still points at the escort"
+	);
 }
 
 #[test]
