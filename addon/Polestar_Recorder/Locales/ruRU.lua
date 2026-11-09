@@ -29,10 +29,10 @@ L["mark not recorded (not in the world yet)"] = "метка не записан�
 L["every recording not yet uploaded was deleted"] = "все ещё не загруженные записи удалены"
 L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "будут удалены все ещё не загруженные записи. Чтобы продолжить, введите |cffffd100/psrec clear confirm|r в течение %d с."
 L["/reload or log out to send what's recorded"] = "/reload или выход из игры, чтобы отправить записанное"
--- L["explorer mode: %s (/psrec explore on | off)"] = ""
--- L["usage: /psrec explore on | off"] = ""
--- L["explorer mode %s"] = ""
--- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = ""
+L["explorer mode: %s (/psrec explore on | off)"] = "режим исследователя: %s (/psrec explore on | off)"
+L["usage: /psrec explore on | off"] = "использование: /psrec explore on | off"
+L["explorer mode %s"] = "режим исследователя %s"
+L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "В новых зонах Forever и рядом с их новыми подземельями Recorder записывает существ и позиции подробнее. Везде он также записывает точки заданий на карте, этажи подземелий, пулы боссов, область, где стоит каждый, кто выдаёт задания, и объекты, которые вы открываете. Ничего нового о вас."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "след остановлен через %d мин: %s, точек: %d"

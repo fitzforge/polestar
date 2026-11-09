@@ -29,10 +29,10 @@ L["mark not recorded (not in the world yet)"] = "repère non enregistré (pas en
 L["every recording not yet uploaded was deleted"] = "tous les enregistrements pas encore envoyés ont été supprimés"
 L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "cela supprime tous les enregistrements pas encore envoyés. Tapez |cffffd100/psrec clear confirm|r dans les %d secondes pour continuer."
 L["/reload or log out to send what's recorded"] = "/reload ou déconnectez-vous pour envoyer l'enregistrement"
--- L["explorer mode: %s (/psrec explore on | off)"] = ""
--- L["usage: /psrec explore on | off"] = ""
--- L["explorer mode %s"] = ""
--- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = ""
+L["explorer mode: %s (/psrec explore on | off)"] = "mode explorateur : %s (/psrec explore on | off)"
+L["usage: /psrec explore on | off"] = "utilisation : /psrec explore on | off"
+L["explorer mode %s"] = "mode explorateur %s"
+L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "Dans les nouvelles zones de Forever et près de ses nouveaux donjons, le Recorder note les créatures et les positions plus en détail. Partout, il note aussi les points de quête sur la carte, les étages des donjons, les engagements de boss, la zone où se tient chaque donneur de quête et les objets que vous ouvrez. Rien de nouveau sur vous."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "trace arrêtée après %d min : %s, %d points"

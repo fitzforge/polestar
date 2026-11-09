@@ -29,10 +29,10 @@ L["mark not recorded (not in the world yet)"] = "標記未記錄（尚未進入�
 L["every recording not yet uploaded was deleted"] = "所有尚未上傳的記錄已刪除"
 L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "這會刪除所有尚未上傳的記錄。請在 %d 秒內輸入 |cffffd100/psrec clear confirm|r 以繼續。"
 L["/reload or log out to send what's recorded"] = "/reload 或登出即可傳送已記錄的內容"
--- L["explorer mode: %s (/psrec explore on | off)"] = ""
--- L["usage: /psrec explore on | off"] = ""
--- L["explorer mode %s"] = ""
--- L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = ""
+L["explorer mode: %s (/psrec explore on | off)"] = "探索模式：%s（/psrec explore on | off）"
+L["usage: /psrec explore on | off"] = "用法：/psrec explore on | off"
+L["explorer mode %s"] = "探索模式%s"
+L["In Forever's new zones and near their new dungeons the Recorder notes creatures and positions in more detail. Everywhere it also notes quest map points, dungeon floors, boss pulls, the area each quest giver stands in and the objects you open. Nothing new about you."] = "在 Forever 的新區域和新副本附近，Recorder 會更詳細地記錄生物和位置。在所有地方，它也會記錄地圖上的任務點、副本樓層、首領開戰、每位任務給予者所在的區域以及你打開的物件。不會記錄關於你的任何新資訊。"
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "軌跡在 %d 分鐘後停止：%s，%d 個點"
