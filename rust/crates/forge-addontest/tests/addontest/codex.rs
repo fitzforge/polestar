@@ -768,7 +768,7 @@ fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_ev
 	s.forever["quests"]["9002"]["web"] = json!({ "choices": [], "items": [[20001, 1]] });
 	s.recorded = json!({
 		"meta": { "sessions": 4, "counted": 4, "voters": 4, "minVoters": 3, "minWindows": 10, "through": null },
-		"drops": {},
+		"drops": { "4730": { "windows": 12, "items": { "17": { "voters": 1, "chance": null }, "1179": { "voters": 2, "chance": null } } } },
 		"objects": {},
 		"vendors": { "4730": [20001] },
 		"rewards": {
@@ -788,6 +788,9 @@ fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_ev
 	assert_eq!(quests_of("17"), vec![json!({ "type": "quest", "quest": 6063, "choice": true, "from": ["recordings"] })], "it fills a quest no other input gives rewards for");
 	assert_eq!(find_type(&it["20001"]["sources"], "vendor"), json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] }));
 	assert!(codex["npcs"]["4730"]["roles"].as_array().unwrap().contains(&json!("vendor")));
+	// A recorded loot source counts from two players (the learning loop's rule): one player's is left out.
+	assert_eq!(find_type(&it["1179"]["sources"], "drop"), json!({ "type": "drop", "npc": 4730, "from": ["recordings"] }));
+	assert!(!it["17"]["sources"].as_array().unwrap().iter().any(|s| s["type"] == "drop"), "a single player's loot window is no source");
 }
 
 // A Forever-only racial mount no quest data sells (the Reins of the Striped Dawnsaber) takes its vendor from
