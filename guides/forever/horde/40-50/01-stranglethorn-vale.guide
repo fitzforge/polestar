@@ -61,10 +61,10 @@ step Booty Bay
 # (Kin'weelay, the jungle stalkers, Mok'thardin) -> fly to Booty Bay -> the
 # Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
 # Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
-# -> Grom'gol (bind) -> Nesingwary -> Zul'Kunda -> hearth to Grom'gol ->
-# jungle stalkers -> the naga shore and the Holy Spring -> Booty Bay (bind)
+# -> Grom'gol -> Nesingwary -> Zul'Kunda -> Grom'gol ->
+# jungle stalkers -> the naga shore and the Holy Spring -> Booty Bay
 # -> the ghost pirates -> Zul'Mamwe and the Balia'mah and Ziata'jai trophy
-# skulls -> Grom'gol -> hearth to Booty Bay -> fly Grom'gol -> Nesingwary ->
+# skulls -> Grom'gol -> Booty Bay -> fly Grom'gol -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
 # (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
 # escort -> Galen's strongbox -> the Harborage, where the next guide rides back
@@ -82,14 +82,12 @@ step Booty Bay
 #   the same Zul'Mamwe loop, so merging saves a later trip from Grom'gol.
 # - Witch Doctor Unbagwa's part of Stranglethorn Fever (349) is taken before
 #   the gorillas, so the fangs and the giblets come from the same kills.
-# - Binds: the simulator's Booty Bay bind on arrival is dropped (replaced by
-#   Grom'gol before any hearth). Grom'gol (for the hearth back from
-#   Zul'Kunda) and Booty Bay are kept.
-# - Hearthstone: the simulator rebinds at Grom'gol, hearths there from
-#   Nesingwary and flies to Booty Bay for Voodoo Dues. Here the Booty Bay
-#   bind carries you from Grom'gol to Booty Bay, and one flight back to
-#   Grom'gol puts Nesingwary on the road north. The Stonard bind is dropped:
-#   the route never hearths to it before the next bind.
+# - Binds: none in this guide (travel sweep, 0.3.7). The arrow's planner
+#   never hearthed to Grom'gol, Booty Bay or Stonard before the next bind,
+#   even with the stone ready (Zul'Kunda is a short walk from Grom'gol, and
+#   the flight is quicker between Grom'gol and Booty Bay), so the stops at
+#   their innkeepers are left out; the Hearthstone stays bound where the
+#   last guide left it.
 # - Swamp of Sorrows: one pass east and back west (final review, 0.3.5).
 #   Lack of Surplus (698) is handed to Tok'Kar on the Misty Reed stop of
 #   forever/horde/40-50/03-feralas instead of a ride to the far south-east
@@ -198,7 +196,6 @@ step Venture Co. mine
 
 step Grom'gol Base Camp
   turnin 571                          -- Far Seer Mok'thardin
-  sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek
   accept 573                            -- Far Seer Mok'thardin
 
 step Nesingwary's camp
@@ -248,7 +245,6 @@ step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
   accept 607
-  sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   turnin 617                            -- Privateer Bloads
   turnin 600                          -- Inside
@@ -400,12 +396,11 @@ step Into the Swamp of Sorrows
 
 step Stonard
   zone Swamp of Sorrows
-  tip Head east to Stonard, in the reeds south of the road. Bind here.
+  tip Head east to Stonard, in the reeds south of the road.
   accept 698                            -- Dar, inside
   accept 1430                           -- Dar, inside
   getfp "Stonard" npc 6026              -- Breyk
   turnin 1420                           -- Helgrum the Swift, upstairs
-  sethome "Stonard" npc 6930            -- Innkeeper Karakul, upstairs
   accept 1424                           -- Fel'zerul, on the top floor
 
 step Sawtooth crocolisks

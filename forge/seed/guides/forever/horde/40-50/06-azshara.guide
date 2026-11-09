@@ -349,7 +349,6 @@ step Gadgetzan
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
-  sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
   turnin 2662

@@ -326,7 +326,6 @@ step Ratchet
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
   accept 895                          -- WANTED poster
   accept 865                          -- Mebok Mizzyrix
-  sethome "Ratchet"
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig: the emerald comes from the Boulder Lode Mine, later
 

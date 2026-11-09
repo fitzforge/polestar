@@ -288,7 +288,6 @@ step Freewind Post
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Alien Egg
   tip Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1).

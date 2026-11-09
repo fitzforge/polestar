@@ -17,7 +17,7 @@ next forever/horde/40-50/01-stranglethorn-vale
 #
 # Flow: Faldir's Cove (where the previous guide ends) -> the Thandol Span, the Wetlands and
 # Loch Modan -> the Valley of Fangs (Martek, Rigglefuzz) -> Lotwil's camp -> Kargath (flight
-# path, bind) -> the lesser rock elementals -> Lotwil -> the coyotes and buzzards -> the slabs
+# path) -> the lesser rock elementals -> Lotwil -> the coyotes and buzzards -> the slabs
 # by Agmond's End -> Agmond's End -> the Stonevault troggs -> the Valley of Fangs -> the Uldaman
 # dig -> Agmond's End -> Lotwil -> Kargath, from where the next guide flies to Grom'gol.
 #
@@ -45,7 +45,6 @@ step The Dustbowl
 step Kargath
   tip Kargath is the Horde fortress built into the cliffs at the zone's western edge. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   getfp "Kargath"
-  sethome "Kargath"
   accept 1419                         -- Neeka Bloodscar
   accept 1420                         -- for Helgrum in Stonard, around level 42
   accept 2258                         -- Jarkal Mossmeld, inside

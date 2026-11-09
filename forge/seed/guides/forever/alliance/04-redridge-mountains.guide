@@ -24,7 +24,7 @@ next forever/alliance/05-duskwood
 # south to Darkshire (flight path, hearth, every quest giver) -> Duskwood's
 # first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> north to Three
 # Corners -> Lakeridge Highway (Guard Howe) -> the murlocs east of the
-# bridge -> Lakeshire (Baren, hearth, every quest giver) -> Bellygrub's pen
+# bridge -> Lakeshire (Baren, every quest giver) -> Bellygrub's pen
 # and Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
 # camps and Gar'im's cave ->
 # north through Galardell Valley (Fangore), the Old Lion Statue, the watch
@@ -58,9 +58,11 @@ next forever/alliance/05-duskwood
 #   Redridge Goulash, Verner's and Solomon's chains, Hilary's Necklace) and the
 #   Defias chain from Wiley the Black are done at 19-20 in 03-loch-modan,
 #   where they give full XP.
-# - The Lakeshire flight path and hearth (listed at the end of Darkshore in
-#   the export) are taken on arrival. The Darkshire flight path and hearth
-#   the export lists at the end of this visit belong to the Duskwood guide.
+# - The Lakeshire flight path (listed at the end of Darkshore in the export)
+#   is taken on arrival; its bind is left out: the route never hearths to it
+#   before the Deepwater Tavern bind (travel sweep, 0.3.7). The Darkshire
+#   flight path and hearth the export lists at the end of this visit belong
+#   to the Duskwood guide.
 # - Left out, accepted but never turned in on the route: Theocritus'
 #   Retrieval (178, a pendant drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
@@ -289,10 +291,9 @@ step Lake Everstill's murlocs: kill these as you meet them
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, the innkeeper in the inn, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
-  sethome "Lakeshire"
   accept 180                                  -- The Wanted poster by the inn
   accept 34                                   -- Martie Jainrose
 

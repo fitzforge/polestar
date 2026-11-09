@@ -2875,7 +2875,7 @@ test('Fitz (0.3.3): no guide of ours has a hearth goal; Westfall walks from Moon
 	assert.deepEqual(offenders, [], 'hearth goals');
 	const list = goals(WESTFALL);
 	assert.ok(!list.some(({ step }) => /^Hearth to/.test(step.title)), 'no "Hearth to" step');
-	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && goal.location === 'Sentinel Hill'), 'the bind at Sentinel Hill stays');
+	// (The Sentinel Hill bind itself is gone since 0.3.7's travel sweep: see "Travel sweep (0.3.7)" below.)
 	// #1415 (vW1): the Moonbrook step moved to the 19-20 Westfall walk (03-loch-modan); it still walks on, no hearth.
 	const loch = goals(LOCH_MODAN);
 	const moonbrook = loch.findIndex(({ step }) => step.title === 'Moonbrook and the Defias hills');
@@ -4289,14 +4289,13 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: TP1186's report (#727
 
 // --- TP1186's route report (#727). The Westfall and Darkshore seeds carry
 // the order into the built routes: Sentinel Hill's tower before Thor's
-// flight path and the inn at its foot, and no boat goto in Darkshore before
-// the Druids' Cat Form trip (the route's own boat step follows it).
-test("TP1186's report (#727): Sentinel Hill's tower before its flight path and inn; no boat to Stormwind before Darkshore's Druid trip", { skip }, () => {
+// flight path, and no boat goto in Darkshore before the Druids' Cat Form trip
+// (the route's own boat step follows it). (The inn at the tower's foot is no
+// longer a stop: the bind there went in 0.3.7's travel sweep.)
+test("TP1186's report (#727): Sentinel Hill's tower before its flight path; no boat to Stormwind before Darkshore's Druid trip", { skip }, () => {
 	const westfall = goals(WESTFALL);
 	const danuvin = at(westfall, 'accept 102', is('accept', 102));
-	for (const t of ['getfp', 'sethome']) {
-		assert.ok(at(westfall, `${t} Sentinel Hill`, (g) => g.t === t && g.location === 'Sentinel Hill') > danuvin, `${t} after the tower quests`);
-	}
+	assert.ok(at(westfall, 'getfp Sentinel Hill', (g) => g.t === 'getfp' && g.location === 'Sentinel Hill') > danuvin, 'getfp after the tower quests');
 	const darkshore = darkshoreBoth();
 	const cat = at(darkshore, 'turnin 98397', is('turnin', 98397));
 	assert.ok(!darkshore.slice(0, cat).some(({ goal }) => goal.t === 'goto' && /Boat to Stormwind/.test(goal.text)), 'no boat to Stormwind before Cat Form');
@@ -4777,8 +4776,8 @@ test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins poin
 // the inn wedged between two goals at one NPC at the Crossroads (Mankrik), Sun
 // Rock (Maggran Earthbinder) and Tarren Mill (Apothecary Lydon).
 test("Bill's report (#1004): a town's bind never sends you back to the giver you just left", { skip }, () => {
+	// (Ratchet's bind went in 0.3.7's travel sweep: the arrow never hearthed to it before the Crossroads' next one.)
 	for (const [guide, place, before] of [
-		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
 		['forever/horde/02-the-barrens.guide', 'The Crossroads', [903, 881]],
 		['forever/horde/04-the-barrens.guide', 'Sun Rock Retreat', [86576, 5881]],
 		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
@@ -4799,6 +4798,41 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 		const back = inStep.filter(([, i]) => i > bind).map(([{ goal }]) => goal).filter((g) => g.npc && npcsBefore.has(g.npc));
 		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
 	}
+});
+
+// Travel sweep (0.3.7, ~/work/maintainer/sweep-travel's gate: every start walked with the arrow's own planner):
+// these binds were never hearthed to before the guides bound somewhere else, though the stone was ready on
+// trips of 3+ minutes there (1 to 12 of them per bind for most starts), and the gate run again without them plans no more travel
+// for any start (the commit has the numbers), so their innkeeper stops went. Four binds the planner
+// also never used stay: Darkshire (Alliance, 04-redridge-mountains) and the first Crossroads bind (Horde,
+// 02-the-barrens), where the stone was on cooldown for the whole stay and the sweep could not test them;
+// Cenarion Hold (Alliance, 50-60/04-western-plaguelands): without it the stone, still bound at Ratchet, is
+// spent on the way to Ratchet and is cooling down for Silithus's long walk (+7.5 min); Camp Taurajo (Horde,
+// 02-the-barrens): a Tauren Druid hearths there (+1 min without it).
+test('Travel sweep (0.3.7): no innkeeper stop for a bind the arrow never hearths to', { skip }, () => {
+	const gone = [
+		['forever/alliance/02-westfall.guide', 'Sentinel Hill'],
+		['forever/alliance/nightelf/02-darkshore.guide', 'Auberdine'],
+		['forever/alliance/04-redridge-mountains.guide', 'Lakeshire'],
+		['forever/alliance/06-ashenvale.guide', 'Astranaar'],
+		['forever/alliance/40-50/01-stranglethorn-vale.guide', 'Stormwind City'],
+		['forever/alliance/40-50/02-badlands.guide', 'Aerie Peak'],
+		['forever/horde/03-silverpine-forest.guide', 'The Sepulcher'],
+		['forever/horde/02-the-barrens.guide', 'Ratchet'],
+		['forever/horde/07-ashenvale.guide', 'Freewind Post'],
+		['forever/horde/30-40/06-badlands.guide', 'Kargath'],
+		['forever/horde/40-50/01-stranglethorn-vale.guide', "Grom'gol Base Camp"],
+		['forever/horde/40-50/01-stranglethorn-vale.guide', 'Booty Bay'],
+		['forever/horde/40-50/01-stranglethorn-vale.guide', 'Stonard'],
+		['forever/horde/40-50/06-azshara.guide', 'Gadgetzan'],
+		['forever/horde/50-60/03-winterspring.guide', 'Everlook'],
+	];
+	const binds = (guide) => goals(guide).filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location);
+	for (const [guide, place] of gone) assert.ok(!binds(guide).includes(place), `${guide}: no bind at ${place}`);
+	assert.deepEqual(binds('forever/alliance/04-redridge-mountains.guide'), ['Darkshire'], 'Darkshire stays');
+	assert.deepEqual(binds('forever/horde/02-the-barrens.guide').filter((p) => p === 'The Crossroads').length, 2, 'both Crossroads binds stay');
+	assert.ok(binds('forever/horde/02-the-barrens.guide').includes('Camp Taurajo'), 'Camp Taurajo stays');
+	assert.ok(binds('forever/alliance/50-60/04-western-plaguelands.guide').includes('Cenarion Hold'), 'Cenarion Hold stays');
 });
 
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under

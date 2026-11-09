@@ -68,7 +68,7 @@ step Winterspring
 # Chillwind chimaeras -> Everlook -> ride west (Raging Owlbeasts) -> Donova
 # Snowden -> Salfa -> Frostfire Winterfall camps -> Salfa -> Donova ->
 # Darkwhisper Gorge -> Winterfall Village -> Donova -> Salfa (beads) ->
-# hearth to Everlook -> grind to 55 -> Mau'ari -> fly to Camp Mojache
+# Everlook -> grind to 55 -> Mau'ari -> fly to Camp Mojache
 # (Videre Elixir, Talo) -> Thunder Bluff (Morrowgrain, Hamuul, Nara, cloth
 # donations, Druid and Paladin training) -> Orgrimmar (bind, cloth
 # donations), where the next guide
@@ -123,7 +123,6 @@ step Everlook
   getfp "Everlook"
   note Gregor's and Harlo's quests lead to other zones: keep them.
   accept 3783                         -- Umi Rumplesnicker
-  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
   accept 6029                         -- Gregor Greystone, inside
   accept 6030
   turnin 4808                         -- Felnok Steelspring

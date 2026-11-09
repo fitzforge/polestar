@@ -491,7 +491,6 @@ step Fly to Stormwind
 step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
-  sethome "Stormwind City"
   accept 1271                         -- Angus Stern
   turnin 1271
   accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp

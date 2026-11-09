@@ -21,7 +21,7 @@ next forever/horde/02-the-barrens
 #
 # Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
-# the Sepulcher (flight path, bind) -> the Dalaran crate and back -> north loop: the Dead Field,
+# the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
 # Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
 # Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
@@ -255,7 +255,6 @@ step The Sepulcher
   accept 421
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
-  sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
   turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
 
 step The Sepulcher

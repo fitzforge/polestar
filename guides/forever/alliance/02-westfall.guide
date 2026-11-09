@@ -301,7 +301,6 @@ step Sentinel Hill
   accept 13
   turnin 102                                  -- Captain Danuvin
   turnin 153                                  -- Scout Galiaan
-  sethome "Sentinel Hill"
   turnin 92742                                -- Alba Fairmoon
   turnin 92744
   accept 92745
