@@ -709,13 +709,14 @@ pub fn grind_before_handin(run: &Run, steps: &[Step], lv_after: &[f64]) -> u32 {
 
 /// Whether a grind at `p` right before `steps[from..]` is on the trip of a hand-in that waits (the
 /// #617 guard, grind_before_handin): a turn-in among the next GRIND_TRIP_STEPS steps, within
-/// GRIND_TRIP_YD of p or of the route's next town (the first turn-in after it in p's zone: towns lie
-/// farther than that from their camps, Brackenwall from the Mirefin coast, Gadgetzan from Dunemaul,
-/// GrindVsHandin), of a quest with no tasks or whose work is all done before (`last_task`: per quest
-/// the index of its last task step before `from`, -1 none), none of its tasks in between.
+/// GRIND_TRIP_YD of p or of the route's next town (the next stop, a turn-in in p's zone with no work
+/// before it: towns lie farther than that from their camps, Brackenwall from the Mirefin coast,
+/// Gadgetzan from Dunemaul, GrindVsHandin), of a quest with no tasks or whose work is all done before
+/// (`last_task`: per quest the index of its last task step before `from`, -1 none), none of its tasks
+/// in between.
 pub fn handin_waits(run: &Run, steps: &[Step], from: usize, p: u32, last_task: &[i64]) -> bool {
 	let end = (from + GRIND_TRIP_STEPS).min(steps.len());
-	let town = steps[from..end].iter().find(|t| t.kind == K_TURNIN && run.p_map[t.pt as usize] == run.p_map[p as usize]).map(|t| t.pt);
+	let town = steps[from..end].iter().find(|t| matches!(t.kind, K_TURNIN | K_TASK)).filter(|t| t.kind == K_TURNIN && run.p_map[t.pt as usize] == run.p_map[p as usize]).map(|t| t.pt);
 	(from..end).any(|j| {
 		let t = steps[j];
 		t.kind == K_TURNIN && (run.straight(p, t.pt) <= GRIND_TRIP_YD || town.is_some_and(|h| run.straight(h, t.pt) <= GRIND_TRIP_YD)) && {

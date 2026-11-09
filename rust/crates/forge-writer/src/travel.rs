@@ -297,12 +297,14 @@ impl Ways<'_> {
 		Some(WayStep { title: l.clone(), zone: Some(z), lines: vec![format!("  goto {} \"{l}\"{}", Self::xy(b.x, b.y), Self::live(b))] })
 	}
 	/// A travel-only goto's label, where it leads, never just the zone's name (#1450): the town whose
-	/// flight master stands within TOWN_YD of it ("To Camp Taurajo"), else the zone it crosses into.
+	/// flight master stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the zone it
+	/// crosses into.
 	fn dest_label(&self, b: &Pt, z: &str) -> String {
 		const TOWN_YD: f64 = 400.0;
 		let at = self.at_pt(b).map(|a| a.w);
 		self.nodes
 			.iter()
+			.filter(|n| n.get("map").num() == b.map)
 			.map(|n| (dist(at, wpt(n)), n))
 			.filter(|&(d, _)| d <= TOWN_YD)
 			.min_by(|a, b| a.0.total_cmp(&b.0))

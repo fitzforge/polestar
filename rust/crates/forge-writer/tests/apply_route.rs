@@ -117,6 +117,22 @@ fn idx(lines: &[String], l: &str) -> i64 {
 	lines.iter().position(|x| x == l).map_or(-1, |i| i as i64)
 }
 
+/// The travel-only steps (one `goto`, nothing else to do) into `zone`, in order; each says where it
+/// leads, never just the zone's name (#1450): asserted here.
+fn zone_walks(lines: &[String], zone: &str) -> Vec<i64> {
+	let mut out = Vec::new();
+	for (i, l) in lines.iter().enumerate() {
+		let Some(title) = l.strip_prefix("step ") else { continue };
+		let body: Vec<&String> = lines[i + 1..].iter().take_while(|x| !x.is_empty() && !x.starts_with("step ")).collect();
+		let goals: Vec<&&String> = body.iter().filter(|x| m(x, r"^\s+(accept|turnin|kill|collect|interact|use|complete|goto|talk|fly|getfp|sethome|hearth|level|train|vendor)\b")).collect();
+		if goals.len() == 1 && goals[0].trim_start().starts_with("goto ") && body.iter().any(|x| **x == format!("  zone {zone}")) {
+			assert!(!["", "To ", "Back to "].iter().any(|p| title == format!("{p}{zone}")), "a travel step named just {zone:?}: {lines:#?}");
+			out.push(i as i64);
+		}
+	}
+	out
+}
+
 fn has(lines: &[String], l: &str) -> bool {
 	lines.iter().any(|x| x == l)
 }
@@ -2360,7 +2376,7 @@ fn a_class_detour_comes_back_before_everyones_walk_on() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (back, walk) = (idx(&g, "step Back to Durotar"), idx(&g, "step The Barrens"));
+	let (back, walk) = (zone_walks(&g, "Durotar").first().copied().unwrap_or(-1), zone_walks(&g, "The Barrens").last().copied().unwrap_or(-1));
 	assert!(back >= 0 && walk > back, "{g:#?}");
 	assert_eq!(g[back as usize + 1], "  only Druid");
 }
@@ -2504,7 +2520,7 @@ fn a_starts_way_onto_the_shared_route_takes_its_waiting_class_steps_on_the_way()
 		..Case::default()
 	};
 	let g = run(&c, None).read("s");
-	let (way, class) = (idx(&g, "step The Barrens"), idx(&g, "step Warrior Quest"));
+	let (way, class) = (zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1), idx(&g, "step Warrior Quest"));
 	assert!(way >= 0 && class > way, "{g:#?}");
 }
 
@@ -2795,7 +2811,8 @@ fn a_walk_into_another_zone_goes_over_its_zone_crossing() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (cross, walk) = (idx(&g, "step Into Winterspring"), idx(&g, "step Winterspring"));
+	let ws = zone_walks(&g, "Winterspring");
+	let (cross, walk) = (ws.first().copied().unwrap_or(-1), ws.get(1).copied().unwrap_or(-1));
 	assert!(cross >= 0 && walk > cross, "{g:#?}");
 	assert_eq!(&g[cross as usize + 1..cross as usize + 3], ["  zone Winterspring", "  goto 50.5,90.0 \"Into Winterspring\""], "{g:#?}");
 	// No crossings known: the one goto.
@@ -3453,7 +3470,7 @@ fn a_class_flight_off_is_written_at_the_flight_master_the_route_walks_away_from(
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0 && idx(&g, "step Druid trainer") < walk, "{g:#?}");
 }
 
@@ -3480,7 +3497,7 @@ fn the_routes_way_to_a_step_for_other_races_is_its_own_races() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("start");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0, "{g:#?}");
 	assert_ne!(g[walk as usize + 1], "  only Orc,Skyborne", "{g:#?}");
 }
@@ -3739,7 +3756,8 @@ fn a_class_way_prices_its_walks_over_the_zone_crossings() {
 	};
 	let g = run(&c, None).read("a");
 	assert!(pick(&g, r"^\s+fly\s").is_empty() && pick(&g, r"flight master").is_empty(), "{g:#?}");
-	let (into, there, takar) = (idx(&g, "step Into The Barrens"), idx(&g, "step The Barrens"), idx(&g, "step Takar the Seer"));
+	let into = idx(&g, "step Into The Barrens");
+	let (there, takar) = (zone_walks(&g, "The Barrens").into_iter().find(|&w| w > into).unwrap_or(-1), idx(&g, "step Takar the Seer"));
 	assert!(into >= 0 && into < there && there < takar, "{g:#?}");
 	assert!(g[into as usize + 1] == "  only Warlock" && g[there as usize + 1] == "  only Warlock", "{g:#?}");
 }
@@ -3966,7 +3984,7 @@ fn a_class_crossing_from_a_dock_out_of_reach_walks_to_its_zone_first() {
 	};
 	let g = run(&c, None).read("a");
 	let z = idx(&g, "step Zeppelin to Undercity");
-	let w = idx(&g, "step Durotar");
+	let w = zone_walks(&g, "Durotar").first().copied().unwrap_or(-1);
 	assert!(w < z && z < idx(&g, "step Tirisfal"), "{g:#?}");
 	assert_eq!(g[w as usize + 1], "  only Paladin", "{g:#?}");
 }
@@ -9265,7 +9283,7 @@ fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
 	};
 	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(hearth|accept|turnin|goto)");
 	let a7 = g.iter().position(|l| l.starts_with("  accept 7")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
-	let leg = g.iter().position(|l| l.contains("\"Ironforge\"")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
+	let leg = g.iter().position(|l| m(l, r#"^\s+goto .*Ironforge""#)).unwrap_or_else(|| panic!("{g:#?}")) as i64;
 	assert!(leg < a7 && a7 < idx(&g, "  turnin 1"), "{g:#?}");
 }
 
@@ -9638,7 +9656,7 @@ fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_
 	};
 	let g = run(&c, None).read("a");
 	let druid = idx(&g, "step Druid trainer");
-	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*"Elwynn Forest""#)).map_or(-1, |i| i as i64);
+	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*Elwynn Forest""#)).map_or(-1, |i| i as i64);
 	let stop = idx(&g, "step Class trainer");
 	assert!(druid >= 0 && into_elwynn > druid && stop > into_elwynn, "{g:#?}");
 	assert!(g[druid as usize..].iter().take_while(|l| !l.is_empty()).any(|l| l == "  zone Stormwind City"), "{g:#?}");

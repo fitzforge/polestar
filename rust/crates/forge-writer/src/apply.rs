@@ -362,8 +362,9 @@ impl<'a> Ctx<'a> {
 
 	/// The label of a travel-only goto to `pt`: where it leads, never just the zone's name, which reads
 	/// in game as "Go to The Barrens", a spot with nothing to do (#1450). The town whose flight master
-	/// stands within TOWN_YD of it ("To Camp Taurajo"), else the step it leads to (`dest`, its title),
-	/// else the zone it crosses into ("Into The Barrens").
+	/// stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the step it leads to (`dest`,
+	/// its title), else the client's area there ("To Everlook"), else the zone it crosses into ("Into
+	/// The Barrens").
 	fn dest_label(&self, pt: Option<u32>, dest: Option<&str>) -> String {
 		const TOWN_YD: f64 = 400.0;
 		let p = self.w(pt);
@@ -372,7 +373,7 @@ impl<'a> Ctx<'a> {
 				.nodes
 				.iter()
 				.filter(|n| n.kind == "fp")
-				.filter_map(|n| self.w(n.pt).filter(|q| q.c == p.c).map(|q| (js_hypot(q.wx - p.wx, q.wy - p.wy), n)))
+				.filter_map(|n| self.w(n.pt).filter(|q| q.c == p.c && q.map == p.map).map(|q| (js_hypot(q.wx - p.wx, q.wy - p.wy), n)))
 				.filter(|&(d, _)| d <= TOWN_YD)
 				.min_by(|a, b| a.0.total_cmp(&b.0))
 				.map(|(_, n)| n.name.split(',').next().unwrap_or("").trim().to_string())
@@ -384,6 +385,10 @@ impl<'a> Ctx<'a> {
 		let is_zone = |s: &str| self.world.zones.values().any(|z| z == s);
 		if let Some(d) = dest.map(str::trim).filter(|d| !d.is_empty() && !is_zone(re!(r"^(Back to|To|Into) ").replace(d, "").as_ref())) {
 			return if re!(r"^(Back to|To|Into) ").is_match(d) { d.to_string() } else { format!("To {d}") };
+		}
+		let area = p.and_then(|p| self.area_at.and_then(|a| a.at(p.c, p.wx, p.wy))).map(|a| a.name).filter(|s| !s.is_empty() && !s.starts_with("area ") && !is_zone(s));
+		if let Some(a) = area {
+			return format!("To {a}");
 		}
 		match p.and_then(|p| self.zone_name(Some(p.map))) {
 			Some(z) => format!("Into {z}"),
@@ -7321,7 +7326,7 @@ impl Writer<'_, '_> {
 							_ => w,
 						}
 					};
-					let label = cx.dest_label(p0, None);
+					let label = cx.dest_label(p0, Some(trim(&re!(r"^step\s+").replace(&s.title, ""))));
 					if let Some((_, f0, f1)) = cx.best_flight_by(from, p0, &known, &yd) {
 						// (From where they are: over the crossings to its flight master, and on from where it
 						// lands, into another zone or far.)
