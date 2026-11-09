@@ -384,6 +384,17 @@ test('every leveling guide: no travel-only step is labelled with just a zone nam
 	assert.deepEqual(bad, []);
 });
 
+// doctor-house's report (#1509): "Route has you walk into the Tower of Azora for no reason". Loch Modan's walk east
+// through Elwynn to Redridge pointed at 65.2,69.7, Theocritus's spot inside the tower, ~90 yd north of the road.
+// The point is on the road below it (the walking route passes 65.8,74.0), in Elwynn.
+test('forever/alliance/03-loch-modan.guide: the road east to Redridge points at the road, not into the Tower of Azora (#1509)', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const { goal } = list.find(({ goal }) => goal.t === 'goto' && goal.text === 'The road east to Redridge');
+	assert.equal(goal.map, 1429, 'in Elwynn Forest');
+	assert.ok(Math.hypot(goal.x - 65.2, goal.y - 69.7) > 3, `not at the tower (${goal.x},${goal.y})`);
+	assert.ok(Math.hypot(goal.x - 65.8, goal.y - 74.0) < 0.5, `on the road (${goal.x},${goal.y})`);
+});
+
 // Horde 1-30 audit (#1414): a step gated `when group <quest>` holds only players who answered "Do it with a group",
 // but a step whose every goal is `optional` is done at once (Engine Own.holds), so those players were walked past the
 // accept, the elite and the hand-in with no arrow (WANTED: Bruuz, Aggor the Young, WANTED: Vulgara). Every Horde

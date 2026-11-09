@@ -203,7 +203,7 @@ step Tram to Stormwind
 step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
-  goto 65.2,69.7 "Elwynn Forest"
+  goto 65.8,74.0 "The road east to Redridge"
 
 step Guard Thomas
   only NightElf
