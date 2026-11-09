@@ -65,9 +65,9 @@ Polestar.Set("behavior.autoTurnin", false)
 	.remove(0)
 }
 
-// (a) One goal with several camps: the arrow stays on a camp while the player works it, moves on after the dwell
-// at a camp where nothing happens, to the nearest camp not left, never back to a left one while another is open,
-// and with every camp left to the one left longest ago.
+// (a) One goal with several camps: at a camp where nothing happens the arrow moves on after the dwell, to the
+// nearest camp not left, never back to a left one while another is open, and with every camp left to the one left
+// longest ago.
 #[test]
 fn a_camp_with_no_progress_for_the_dwell_hands_the_arrow_to_the_nearest_camp_not_left() {
 	let out = run(
@@ -76,15 +76,35 @@ fn a_camp_with_no_progress_for_the_dwell_hands_the_arrow_to_the_nearest_camp_not
 		E.SetGuide("test/camps"); stub.advance(0.25)
 		local r = { start = arrow() }
 		wait(5); r.at5 = arrow()
-		w.progress(7, 1, 1)                         -- a kill: they are working here
-		wait(5); r.killed = arrow()
-		wait(4); r.dwelt = arrow()                  -- 9 s since the kill: on to B (C is as near, B comes first)
+		wait(4); r.dwelt = arrow()                  -- A empty: on to B (C is farther)
 		at(60); wait(9); r.atB = arrow()            -- B empty: on to C, not back to A
 		at(15); wait(9); r.atC = arrow()            -- every camp left: the one left longest ago, A
 		emit(r)
 	"#,
 	);
-	assert_eq!(out, json!({ "start": 40, "at5": 40, "killed": 40, "dwelt": 60, "atB": 15, "atC": 40 }));
+	assert_eq!(out, json!({ "start": 40, "at5": 40, "dwelt": 60, "atB": 15, "atC": 40 }));
+}
+
+// A camp being cleared keeps the arrow (ArrowGuard's replay: with the dwell alone, the drink or the walk to the
+// next pull moved it off camps still worked): a kill there, or a fight up to 40 yd past its edge, holds it for
+// FORGET (300 s); after that the dwell moves on as before.
+#[test]
+fn a_camp_worked_in_the_last_five_minutes_is_never_left_drinks_and_pulls_from_the_edge_included() {
+	let out = run(
+		"w.onQuest(7, { 10 }); w.moveTo(1429, 40, 50)",
+		r#"
+		E.SetGuide("test/camps"); stub.advance(0.25)
+		local r = {}
+		wait(3); w.progress(7, 1, 1)                -- a kill at A
+		wait(60); r.drink = arrow()                 -- a minute's drink in the camp: still A
+		at(42)                                      -- 30 yd past A's edge: a pull from there
+		stub.inCombat = true; wait(5); stub.inCombat = false
+		at(40); wait(200); r.later = arrow()        -- 200 s after the fight: still A
+		wait(110); r.forgot = arrow()               -- 310 s after it, with the dwell: on to B
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!({ "drink": 40, "later": 40, "forgot": 60 }));
 }
 
 #[test]
@@ -97,7 +117,7 @@ fn no_move_on_in_a_fight_nor_between_two_camps_and_a_spot_cycled_by_hand_holds_u
 		stub.inCombat = true
 		wait(12); r.fight = arrow()                 -- fighting at A: the arrow stays
 		stub.inCombat = false
-		wait(3); r.after = arrow()                  -- the count starts when the fight ends
+		wait(12); r.after = arrow()                 -- a camp fought at is worked: it holds
 		-- Between A and B (each edge 270 yd off): no dwell, no flapping.
 		at(50)
 		local seen = {}
@@ -124,13 +144,11 @@ fn a_searched_object_spot_with_nothing_to_click_moves_the_arrow_on_after_the_dwe
 		E.SetGuide("test/crates"); stub.advance(0.25)
 		local r = { start = arrow() }
 		wait(5); r.at5 = arrow()
-		w.progress(8, 1, 1)                          -- one crate clicked
-		wait(5); r.clicked = arrow()
 		wait(4); r.dwelt = arrow()
 		emit(r)
 	"#,
 	);
-	assert_eq!(out, json!({ "start": 30, "at5": 30, "clicked": 30, "dwelt": 50 }));
+	assert_eq!(out, json!({ "start": 30, "at5": 30, "dwelt": 50 }));
 }
 
 // (c) A step with field goals at different places: the goal the arrow is on, left after the dwell with nothing to
