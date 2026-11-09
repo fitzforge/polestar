@@ -304,10 +304,13 @@ Polestar.Compat.IsQuestCompleted = function(id) return done[id] or false end
 local p = { level = 19, xp = 14550, xpMax = 19400, class = "WARRIOR", race = "Human", faction = "Alliance" }
 "#;
 
-// The guide window asks for the pace line on every PLAYER_XP_UPDATE. The route's quests and kills only change with
-// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left.
+// The guide window asks for the pace line on every PLAYER_XP_UPDATE and on every step change. The route's quests
+// and kills only change with a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of
+// every step left. Each step's Codex records are read once (0.3.7 perf): the spans the line asks (to its target,
+// then hardQuest's up to the hard quest) overlap, and a turn-in or a level sums them again from the steps already
+// read, the quest turned in left out.
 #[test]
-fn pace_a_kill_s_xp_reruns_the_sums_without_scanning_the_route_again_a_turn_in_or_a_level_does_scan() {
+fn pace_reads_each_step_s_quests_once_a_kill_s_xp_reruns_the_sums_a_turn_in_or_a_level_sums_again_without_reading() {
 	let out = lua(&[
 		RIDGE,
 		r#"local reads = 0
@@ -320,21 +323,25 @@ local kill0 = reads
 local second = Lv.Pace(p)
 local kill = reads - kill0
 local before = reads
+done[11] = true
 stub.fire("QUEST_TURNED_IN", 11, 0, 0)
-Lv.Pace(p)
+local third = Lv.Pace(p)
 local turnin = reads - before
 before = reads
 stub.fire("PLAYER_LEVEL_UP", 20)
 Lv.Pace(p)
-emit({ scan = scan, kill = kill, turnin = turnin, levelup = reads - before, moved = second.reach > first.reach })"#,
+emit({ scan = scan, kill = kill, turnin = turnin, levelup = reads - before, moved = second.reach > first.reach,
+	dropped = third.reach < second.reach, hard = first.hard and first.hard.quest or false })"#,
 	]
 	.join("\n"))
 	.remove(0);
-	assert!(out["scan"].as_i64().unwrap() > 0, "the first pace line reads the route's quests");
+	assert_eq!(out["hard"], 25, "the line asked a second span, up to the hard quest");
+	assert_eq!(out["scan"], 3, "the first pace line reads each of the route's 3 hand-ins once, over both spans");
 	assert_eq!(out["kill"], 0, "a kill's XP reads none of them again");
 	assert_eq!(out["moved"], true, "and the line still moves with the XP");
-	assert!(out["turnin"].as_i64().unwrap() > 0, "a turn-in reads the route again");
-	assert!(out["levelup"].as_i64().unwrap() > 0, "so does a level");
+	assert_eq!(out["turnin"], 0, "a turn-in sums the route again from the steps already read");
+	assert_eq!(out["dropped"], true, "without the quest turned in");
+	assert_eq!(out["levelup"], 0, "so does a level");
 }
 
 /// Levels 19 to `to`, from 19,050 of 19,400 into 19: what is left of 19, then each whole level's XP.

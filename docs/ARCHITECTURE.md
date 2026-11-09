@@ -5150,9 +5150,14 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   their turn-ins' XP from the Codex, their kills and loot at the mobs'
   levels, from where the character is). A span's entries are kept, by the
   guide's table, the span and who the character is (level, class, race,
-  faction), until a turn-in, a level, or a guide, pack or Codex change
+  faction), until a turn-in, a level, or a guide change
   (`Levels.Invalidate`): the line is asked on every `PLAYER_XP_UPDATE`, and a
-  kill's XP only reruns `Levels.Run` over them. It also looks for the first open
+  kill's XP only reruns `Levels.Run` over them. Each step's own rows (what
+  its goals give, read from the Codex) are kept per guide and class, race and
+  faction until the guides, a pack or the Codex change, so the overlapping
+  spans asked after a step change (the pace line's, its hard-quest look,
+  While-here's plan per hand-in) read each step's records once; whether a
+  quest is done is asked when a span is summed. It also looks for the first open
   quest before the target (not a turn-in or a talk) that will be 3 or more
   levels above the character when the route gets there (`hard`; its level
   from the guide's `qlvl`, else the Codex, else the client). The guide
@@ -5325,7 +5330,10 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 - **Codex records** use the field names of `data/forever/codex/*.json` (see
   Toolchain, "Codex"); the pack holds one compact string per record plus an
   id → name table per group, so search never decodes records, and decoded
-  records are cached weakly.
+  records are cached weakly. The pack writes each chunk's lines in id order,
+  so a number id is found by halving the chunk (a string id, or a chunk not
+  in that form, by a plain find), and an id a group lacks is remembered as
+  absent until its chunks change.
 - **Ranking.** A row is unavailable (kept, dimmed, `why` = `faction`, `race`,
   `class`, `level`, `profession`, `reputation`, `done` or `retired`) when the character
   cannot use it now; available rows come first, then by `cost` = travel

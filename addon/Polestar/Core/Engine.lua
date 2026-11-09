@@ -5659,8 +5659,9 @@ local function progressLoaded()
 		return t.progDone, t.progTotal
 	end
 	local done, total = 0, 0
+	local hidden = Own.numbersOf(guide).hidden
 	for s, step in ipairs(guide.steps) do
-		if stepApplies(step) and not Own.numbersOf(guide).hidden[s] then
+		if not hidden[s] and stepApplies(step) then
 			total = total + 1
 			if (not computed or s < computed) or isSkipped(s) or stepDone(s) then done = done + 1 end
 		end
