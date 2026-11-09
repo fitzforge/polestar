@@ -26,13 +26,12 @@ local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- Guidance options with no effect while Shortest Path Forever guides (Nav/Handoff.lua).
 local function H(c) return Nav.HandoffOption and Nav.HandoffOption(c) or c end
 local function arrowOff() return not ns.Get("nav.arrow") end
-local function glowOff() return not ns.Get("nav.arrowGlow") end
 
 ---------------------------------------------------------------------------
 -- The preview
 ---------------------------------------------------------------------------
 
-local STAGE_H, CAPTION_H, TOP = 196, 18, 30
+local STAGE_H, CAPTION_H, TOP = 168, 18, 26
 -- The demo: heading (radians), yards and seconds for each state.
 local STATES = {
 	{ state = "travel", angle = 0.6, dist = 420, eta = 95, caption = L["On its way"] },
@@ -53,7 +52,7 @@ local function buildPreview(view)
 	-- page's. The window draws "Preview", the caption and "Live" over it.
 	W.Fill(f, "scrim", "BACKGROUND", -8)
 	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
-	f.caption = L["On its way, closing in, arrived"]
+	-- No caption over it: each dial says its state under it.
 
 	local lk = {}
 	local cols = {}
@@ -121,10 +120,29 @@ local function buildPreview(view)
 	end)
 	f:SetScript("OnHide", function() f:SetScript("OnUpdate", nil) end)
 
+	-- Click a part of the preview to find its row (the window's hotspots,
+	-- f:Hotspot or O.PreviewHotspot): each dial to its colour, the text lines
+	-- to their size rows. Registered once, on the first layout, when the
+	-- window has given the frame its methods.
+	local hot = false
+	local HOTSPOTS = {
+		{ 1, "dial", "nav.arrowScale" }, { 2, "dial", "nav.arrowNearColor" }, { 3, "dial", "nav.arrowRingColor" },
+		{ 1, "distText", "nav.arrowDistSize" }, { 1, "labelText", "nav.arrowLabelSize" }, { 1, "etaText", "nav.arrowEtaSize" },
+	}
+	local function hotspots()
+		local O = ns.UI and ns.UI.Options
+		local add = f.Hotspot and function(region, key) f:Hotspot(region, key) end
+			or (O and O.PreviewHotspot and function(region, key) O.PreviewHotspot(f, region, key) end)
+		if not add then return end
+		hot = true
+		for _, h in ipairs(HOTSPOTS) do add(cols[h[1]].dial[h[2]], h[3]) end
+	end
+
 	function f:Layout(w)
 		self:SetWidth(w)
 		width = w
 		if dirty then paint() else place() end
+		if not hot then hotspots() end
 		return STAGE_H
 	end
 	return f
@@ -193,176 +211,178 @@ local function yards(v)
 end
 
 ---------------------------------------------------------------------------
--- The controls
+-- The controls (layout v2: one section per part of the arrow, in the order
+-- it is drawn: the arrow, its glow, its arrival, then its text lines; the
+-- part's on/off in the section header, its size and colour on one row, the
+-- finer knobs behind the row's cog; help is the label's tooltip)
 ---------------------------------------------------------------------------
 
+local function pickedOr(key, token)
+	return function()
+		local c = ns.Get(key)
+		if type(c) == "table" then return c[1], c[2], c[3] end
+		return Theme.Color(token)
+	end
+end
+
 local SPECS = {
-	-- Look: the style, size, opacity, glow and arrival.
-	{ page = PAGE, key = "arrow", icon = "icon-goto", order = 22, group = "look", tab = L["Look"], section = L["Style"],
+	-- Look: the arrow itself, its glow, its arrival, when it shows.
+	{ page = PAGE, key = "arrow", icon = "icon-goto", order = 22, group = "look", tab = L["Look"], section = L["Arrow"],
 		preview = buildPreview,
-		subtitle = L["The waypoint arrow: its style, size, colours, glow, text and when it shows. The preview shows it on its way, closing in and arrived; right-click a setting to reset it."],
+		subtitle = L["The waypoint arrow: its style, size, colours, glow, arrival, text and when it shows."],
+		toggle = H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"],
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, hide arrow",
+			help = L["Points to the current goal."] }),
 		controls = {
-		H({ kind = "cards", key = "nav.arrowStyle", label = L["Arrow style"],
-			search = "arrow look, arrow type, 3d arrow, flat arrow, dart, pointer, halo, hearth, skin",
+		H({ kind = "cards", key = "nav.arrowStyle", label = L["Style"], wide = true,
+			search = "arrow style, arrow look, arrow type, 3d arrow, flat arrow, dart, pointer, halo, hearth, skin",
 			help = L["The skin's arrow (the default: 3D in Polestar's look, the Halo or Hearth dart in theirs), or one of your choice."],
 			choices = styleChoices }),
-		H({ kind = "slider", key = "nav.arrowScale", label = L["Arrow scale"], min = 0.5, max = 2, step = 0.05, format = percent,
-			search = "arrow size, bigger arrow, smaller arrow, huge, tiny, large, scale",
-			help = L["The arrow and its text together."] }),
-		H({ kind = "slider", key = "nav.arrowAlpha", label = L["Arrow opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
-			search = "arrow transparency, alpha, see through, faint, fade",
+		H({ kind = "slider", key = "nav.arrowScale", label = L["Size"], min = 0.5, max = 2, step = 0.05, format = percent,
+			search = "arrow scale, arrow size, bigger arrow, smaller arrow, huge, tiny, large, scale",
+			help = L["The arrow and its text together."],
+			extras = {
+				{ kind = "color", key = "nav.arrowColor", label = L["Arrow colour"],
+					search = "arrow colour, far colour, tint, accent",
+					help = L["The arrow on its way; the target's pin on the maps and the route's stops wear it too. Right-click to go back to the accent."],
+					shown = function() return Theme.Color("arrow") end,
+					source = function() return L["Accent"] end },
+			} }),
+		H({ kind = "slider", key = "nav.arrowAlpha", label = L["Opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
+			search = "arrow opacity, arrow transparency, alpha, see through, faint, fade",
 			help = L["How solid the arrow and its text are."] }),
-	} },
-	{ page = PAGE, tab = L["Look"], section = L["Glow & arrival"], controls = {
-		{ kind = "toggle", key = "nav.arrowGlow", label = L["Glow"], new = NEW,
-			search = "glow, halo, shine, light, bloom, soft light",
-			help = L["The soft light under the flat arrow, behind the arrival ring and behind a travel instruction's sign."] },
-		{ kind = "slider", key = "nav.arrowGlowStrength", label = L["Glow strength"], min = 0, max = 2, step = 0.05, format = percent, new = NEW,
-			child = true, disabled = glowOff,
-			search = "glow brightness, brighter glow, softer glow, intensity, bloom",
-			help = L["How bright the glow is: 100% as it always was."] },
-		{ kind = "toggle", key = "nav.arrowPulse", label = L["Arrival animation"], new = NEW,
-			search = "pulse, breathing ring, animation, motion, arrived ring, check mark",
-			help = L["On arrival the ring breathes, and the skins' check follows the ring. Off: a still ring, the check at once."] },
-		{ kind = "dropdown", key = "nav.arrowTurn", label = L["Turning"], new = NEW,
+		{ kind = "color", key = "nav.arrowNearColor", label = L["Near colour"],
+			search = "arrival colour, near colour, close colour, green, success",
+			help = L["The arrow's colour as it closes on the goal, and the ring when you arrive. Right-click to go back to jade."],
+			shown = function() return Theme.Color("arrowNear") end,
+			source = function() return L["Jade"] end,
+			more = {
+				{ kind = "slider", key = "nav.arrowNearRange", label = L["Starts at"], min = 0, max = 600, step = 10, format = yards, new = NEW,
+					search = "blend, fade, colour shift, colour change, near distance, how close, range, gradient",
+					help = L["How far from the goal the arrow starts turning to this colour (the skins' darts change at a sixth of it). Only the colour: arriving is the same."] },
+			} },
+		{ kind = "dropdown", key = "nav.arrowTurn", label = L["Turning"], new = NEW, info = true,
 			search = "rotation, smoothing, damping, responsiveness, snappy, smooth, turn speed, lag",
 			help = L["How quickly the arrow swings round to a new direction. Only its movement on screen: where it points is the same."],
 			choices = { { value = "snappy", label = L["Snappy"] }, { value = "smooth", label = L["Smooth"] }, { value = "gentle", label = L["Gentle"] } } },
 	} },
-
-	-- Colours.
-	{ page = PAGE, tab = L["Colours"], section = L["Arrow"], preview = buildPreview, controls = {
-		{ kind = "color", key = "nav.arrowColor", label = L["Arrow colour"],
-			search = "arrow colour, far colour, tint, accent",
-			help = L["The arrow on its way; the target's pin on the maps and the route's stops wear it too. Right-click to go back to the accent."],
-			shown = function() return Theme.Color("arrow") end,
-			source = function() return L["Accent"] end },
-		{ kind = "color", key = "nav.arrowNearColor", label = L["Arrival colour"],
-			search = "near colour, close colour, arrival colour, green, success",
-			help = L["The arrow as it closes on the target, and the ring when you arrive. Right-click to go back to jade."],
-			shown = function() return Theme.Color("arrowNear") end,
-			source = function() return L["Jade"] end },
-		{ kind = "color", key = "nav.arrowRingColor", label = L["Arrived ring colour"], new = NEW,
+	{ page = PAGE, tab = L["Look"], section = L["Arrival"], controls = {
+		{ kind = "color", key = "nav.arrowRingColor", label = L["Ring colour"], new = NEW,
 			search = "ring colour, arrived colour, check colour, arrival ring, circle",
-			help = L["The ring and the check when you arrive. Right-click to go back to the arrival colour."],
-			shown = function()
-				local c = ns.Get("nav.arrowRingColor")
-				if type(c) == "table" then return c[1], c[2], c[3] end
-				return Theme.Color("arrowNear")
-			end,
-			source = function() return L["Arrival colour"] end },
-		{ kind = "slider", key = "nav.arrowNearRange", label = L["Colour change starts at"], min = 0, max = 600, step = 10, format = yards, new = NEW,
-			search = "blend, fade, colour shift, near distance, how close, range, gradient",
-			help = L["How far from the goal the arrow starts turning to the arrival colour (the skins' darts change at a sixth of it). Only the colour: arriving is the same."] },
+			help = L["The ring and the check when you arrive. Right-click to go back to the near colour."],
+			shown = pickedOr("nav.arrowRingColor", "arrowNear"),
+			source = function() return L["Near colour"] end },
+		{ kind = "toggle", key = "nav.arrowPulse", label = L["Pulse"], new = NEW,
+			search = "pulse, breathing ring, arrival animation, motion, arrived ring, check mark",
+			help = L["On arrival the ring breathes, and the skins' check follows the ring. Off: a still ring, the check at once."] },
+		{ kind = "slider", key = "nav.arrowGlowStrength", label = L["Glow"], min = 0, max = 2, step = 0.05, format = percent, new = NEW,
+			search = "glow, glow strength, glow brightness, brighter glow, softer glow, intensity, bloom, halo, shine",
+			help = L["The soft light under the flat arrow, behind the arrival ring and behind a travel instruction's sign: the switch turns it off, the slider sets how bright it is (100% as it always was)."],
+			extras = {
+				{ kind = "toggle", key = "nav.arrowGlow", label = L["Glow"], new = NEW,
+					search = "glow on, glow off, halo, shine, light, bloom, soft light",
+					help = L["The soft light under the flat arrow, behind the arrival ring and behind a travel instruction's sign."] },
+			} },
+		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Sound"],
+			search = "arrival sound, chime, audio, ding",
+			help = L["A soft chime when you reach a waypoint."] }),
 	} },
-	{ page = PAGE, tab = L["Colours"], section = L["Text"], controls = {
-		{ kind = "color", key = "nav.arrowDistColor", label = L["Distance colour"], new = NEW,
-			search = "distance colour, yards colour, number colour, text colour",
-			help = L["The distance on the way. Right-click to go back to the text colour."],
-			shown = function()
-				local c = ns.Get("nav.arrowDistColor")
-				if type(c) == "table" then return c[1], c[2], c[3] end
-				return Theme.Color("text")
-			end,
-			source = function() return L["Text"] end },
-		{ kind = "color", key = "nav.arrowLabelColor", label = L["Label colour"], new = NEW,
-			search = "label colour, name colour, target name, destination text colour",
-			help = L["The goal's name or the route's next leg under the distance. Right-click to go back to the skin's."],
-			shown = function()
-				local c = ns.Get("nav.arrowLabelColor")
-				if type(c) == "table" then return c[1], c[2], c[3] end
-				return Theme.Color("text")
-			end,
-			source = function() return L["Text"] end },
-		{ kind = "color", key = "nav.arrowEtaColor", label = L["Arrival time colour"], new = NEW,
-			search = "eta colour, time colour, arrival time colour, text colour",
-			help = L["The arrival time and the arrow's last line. Right-click to go back to the text colour."],
-			shown = function()
-				local c = ns.Get("nav.arrowEtaColor")
-				if type(c) == "table" then return c[1], c[2], c[3] end
-				return Theme.Color("text")
-			end,
-			source = function() return L["Text"] end },
-	} },
-
-	-- Text: what shows, its type and where it sits.
-	{ page = PAGE, tab = L["Text"], section = L["Distance"], preview = buildPreview, controls = {
-		{ kind = "toggle", key = "nav.arrowDistance", label = L["Show the distance"], new = NEW,
-			search = "distance, yards, metres, number, hide distance, how far",
-			help = L["The distance on the way. Off hides the number; \"Arrived\" and the other notes still show."] },
-		{ kind = "slider", key = "nav.arrowDistSize", label = L["Distance size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
-			search = "distance size, bigger numbers, larger text, font size, huge, tiny",
-			help = L["The distance and the arrow's notes, against the skin's size."] },
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"],
-			search = "units, yards, metres, meters, metric, distance",
-			help = L["How the arrow, map tooltips, rares and the death helper show distances."],
-			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
-	} },
-	{ page = PAGE, tab = L["Text"], section = L["Label & time"], controls = {
-		{ kind = "slider", key = "nav.arrowLabelLines", label = L["Label lines"], min = 0, max = 2, step = 1, new = NEW,
-			format = function(v) v = floor(v + 0.5); return v == 0 and L["Off"] or tostring(v) end,
-			search = "label, target name, destination, lines, hide label, wrap",
-			help = L["How many lines the goal's name or the route's next leg may take. Off hides it."] },
-		{ kind = "slider", key = "nav.arrowLabelSize", label = L["Label size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
-			search = "label size, name size, bigger text, font size",
-			help = L["The label, against the skin's size."] },
-		{ kind = "slider", key = "nav.arrowLabelWidth", label = L["Label width"], min = 120, max = 400, step = 10, new = NEW,
-			format = function(v) return string.format(L["%d px"], floor(v + 0.5)) end,
-			search = "label width, wrap, wider, narrower, max width, long names",
-			help = L["How wide the label may run before it wraps to its next line."] },
-		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"],
-			search = "eta, time left, travel time, minutes",
-			help = L["Estimated time under the distance."] }),
-		{ kind = "slider", key = "nav.arrowEtaSize", label = L["Time size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
-			child = true, disabled = function() return not ns.Get("nav.arrowEta") end,
-			search = "eta size, time size, smaller text, font size",
-			help = L["The arrival time and the arrow's last line, against the skin's size."] },
-	} },
-	{ page = PAGE, tab = L["Text"], section = L["Type"], controls = {
-		{ kind = "font", key = "nav.arrowFont", label = L["Font"], new = NEW,
-			search = "typeface, font face, family, letters, text font",
-			help = L["The arrow's text: Polestar's text font (the default), or one of its own."],
-			choices = fontChoices },
-		{ kind = "dropdown", key = "nav.arrowOutline", label = L["Outline"], new = NEW,
-			search = "outline, border, stroke, thick, legible, readable, shadow",
-			help = L["The edge round the arrow's text that keeps it readable over bright ground."],
-			choices = { { value = "NONE", label = L["None"] }, { value = "OUTLINE", label = L["Thin"] }, { value = "THICKOUTLINE", label = L["Thick"] } } },
-		{ kind = "dropdown", key = "nav.arrowTextPos", label = L["Text position"], new = NEW,
-			search = "text above, text below, position, layout, place, move text",
-			help = L["The distance and label under the arrow (the default) or over it."],
-			choices = { { value = "below", label = L["Below the arrow"] }, { value = "above", label = L["Above the arrow"] } } },
-		{ kind = "toggle", key = "nav.arrowBacking", label = L["Backing"], new = NEW,
-			search = "background, plate, panel, backdrop, behind text, contrast, readable",
-			help = L["A dark plate behind the arrow's text, for reading it over bright ground."] },
-		{ kind = "slider", key = "nav.arrowBackingAlpha", label = L["Backing opacity"], min = 0.05, max = 1, step = 0.05, format = percent, new = NEW,
-			child = true, disabled = function() return not ns.Get("nav.arrowBacking") end,
-			search = "backing transparency, plate opacity, darker, lighter",
-			help = L["How dark the plate is."] },
-	} },
-
-	-- When it shows.
-	{ page = PAGE, tab = L["Visibility"], section = L["When it shows"], preview = buildPreview, controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, hide arrow",
-			help = L["Points to the current goal."] }),
-		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"],
+	{ page = PAGE, tab = L["Look"], section = L["Visibility"], controls = {
+		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide with guide"],
+			search = "hide the arrow with the guide, guide hidden, window closed",
 			help = L["When the guide window is hidden, hide the arrow too."],
-			child = true, disabled = arrowOff }),
-		{ kind = "dropdown", key = "nav.arrowNoTarget", label = L["With no goal"], new = NEW,
+			disabled = arrowOff }),
+		{ kind = "dropdown", key = "nav.arrowNoTarget", label = L["No goal"], new = NEW,
 			search = "no target, no waypoint, idle, empty, placeholder, dim, always show",
 			help = L["Hide the arrow when there is nowhere to go (the default), or keep a faint ring in its place."],
 			disabled = arrowOff,
 			choices = { { value = "hide", label = L["Hide it"] }, { value = "dim", label = L["Show it dimmed"] } } },
-		{ kind = "slider", key = "nav.arrowCombatAlpha", label = L["Opacity in combat"], min = 0, max = 1, step = 0.05, format = percent, new = NEW,
-			search = "combat, fight, fade in combat, hide in combat, transparency, alpha",
+		{ kind = "slider", key = "nav.arrowCombatAlpha", label = L["Combat opacity"], min = 0, max = 1, step = 0.05, format = percent, new = NEW,
+			search = "opacity in combat, fight, fade in combat, hide in combat, transparency, alpha",
 			help = L["How solid the arrow is while you fight, against its opacity. 0% hides it in combat."],
 			disabled = arrowOff },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"],
-			search = "sound, chime, audio, ding",
-			help = L["A soft chime when you reach a waypoint."] }),
-		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset arrow position"],
+		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Position"],
+			search = "reset arrow position, move arrow, default place, top of the screen",
 			help = L["Back to the top of the screen. Drag the arrow to move it."],
 			onClick = function() Nav.ResetArrowPosition() end }),
+	} },
+
+	-- Text: one card, a row per line of text (size and colour, its on/off as a
+	-- switch), then the face and the backing.
+	{ page = PAGE, tab = L["Text"], section = L["Text"], preview = buildPreview, controls = {
+		{ kind = "slider", key = "nav.arrowDistSize", label = L["Distance size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
+			search = "distance size, bigger numbers, larger text, text size, font size, huge, tiny",
+			help = L["The distance and the arrow's notes, against the skin's size. The switch hides the distance on the way; \"Arrived\" and the other notes still show."],
+			extras = {
+				{ kind = "toggle", key = "nav.arrowDistance", label = L["Distance"], new = NEW,
+					search = "show the distance, yards, metres, number, hide distance, how far",
+					help = L["The distance on the way. Off hides the number; \"Arrived\" and the other notes still show."] },
+				{ kind = "color", key = "nav.arrowDistColor", label = L["Distance colour"], new = NEW,
+					search = "distance colour, yards colour, number colour, text colour",
+					help = L["The distance on the way. Right-click to go back to the text colour."],
+					shown = pickedOr("nav.arrowDistColor", "text"),
+					source = function() return L["Text"] end },
+			} },
+		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Units"],
+			search = "distances, units, yards, metres, meters, metric, distance",
+			help = L["How the arrow, map tooltips, rares and the death helper show distances."],
+			choices = { { value = "yards", label = L["Yards"] }, { value = "metres", label = L["Metres"] } } },
+		{ kind = "slider", key = "nav.arrowLabelSize", label = L["Label size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
+			search = "label size, name size, bigger text, text size, font size",
+			help = L["The goal's name or the route's next leg, against the skin's size."],
+			extras = {
+				{ kind = "color", key = "nav.arrowLabelColor", label = L["Label colour"], new = NEW,
+					search = "label colour, name colour, target name, destination text colour",
+					help = L["The goal's name or the route's next leg. Right-click to go back to the skin's."],
+					shown = pickedOr("nav.arrowLabelColor", "text"),
+					source = function() return L["Text"] end },
+			},
+			more = {
+				{ kind = "slider", key = "nav.arrowLabelWidth", label = L["Width"], min = 120, max = 400, step = 10, new = NEW,
+					format = function(v) return string.format(L["%d px"], floor(v + 0.5)) end,
+					search = "label width, wrap, wider, narrower, max width, long names",
+					help = L["How wide the label may run before it wraps to its next line."] },
+			} },
+		{ kind = "slider", key = "nav.arrowLabelLines", label = L["Label lines"], min = 0, max = 2, step = 1, new = NEW,
+			format = function(v) v = floor(v + 0.5); return v == 0 and L["Off"] or tostring(v) end,
+			search = "label lines, target name, destination, hide label, wrap",
+			help = L["How many lines the goal's name or the route's next leg may take. Off hides it."] },
+		{ kind = "slider", key = "nav.arrowEtaSize", label = L["Arrival time"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
+			search = "eta size, time size, arrival time size, smaller text, text size, font size",
+			help = L["The estimated time under the distance, and the arrow's last line, against the skin's size. The switch shows or hides the time."],
+			extras = {
+				H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"],
+					search = "eta, time left, travel time, minutes, show arrival time",
+					help = L["Estimated time under the distance."] }),
+				{ kind = "color", key = "nav.arrowEtaColor", label = L["Arrival time colour"], new = NEW,
+					search = "eta colour, time colour, arrival time colour, text colour",
+					help = L["The arrival time and the arrow's last line. Right-click to go back to the text colour."],
+					shown = pickedOr("nav.arrowEtaColor", "text"),
+					source = function() return L["Text"] end },
+			} },
+		{ kind = "dropdown", key = "nav.arrowTextPos", label = L["Position"], new = NEW,
+			search = "text position, text above, text below, layout, place, move text",
+			help = L["The distance and label under the arrow (the default) or over it."],
+			choices = { { value = "below", label = L["Below the arrow"] }, { value = "above", label = L["Above the arrow"] } } },
+		{ kind = "font", key = "nav.arrowFont", label = L["Font"], new = NEW,
+			search = "typeface, font face, family, letters, text font",
+			help = L["The arrow's text: Polestar's text font (the default), or one of its own."],
+			choices = fontChoices,
+			more = {
+				{ kind = "dropdown", key = "nav.arrowOutline", label = L["Outline"], new = NEW,
+					search = "outline, border, stroke, thick, legible, readable, shadow",
+					help = L["The edge round the arrow's text that keeps it readable over bright ground."],
+					choices = { { value = "NONE", label = L["None"] }, { value = "OUTLINE", label = L["Thin"] }, { value = "THICKOUTLINE", label = L["Thick"] } } },
+			} },
+		{ kind = "toggle", key = "nav.arrowBacking", label = L["Backing"], new = NEW,
+			search = "background, plate, panel, backdrop, behind text, contrast, readable",
+			help = L["A dark plate behind the arrow's text, for reading it over bright ground."],
+			more = {
+				{ kind = "slider", key = "nav.arrowBackingAlpha", label = L["Opacity"], min = 0.05, max = 1, step = 0.05, format = percent, new = NEW,
+					disabled = function() return not ns.Get("nav.arrowBacking") end,
+					search = "backing opacity, backing transparency, plate opacity, darker, lighter",
+					help = L["How dark the plate is."] },
+			} },
 	} },
 }
 

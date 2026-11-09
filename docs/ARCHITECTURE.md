@@ -3066,8 +3066,8 @@ minimap the size is 0.7 of it at zoom 0 (the widest, the default: a 14 px
 mark's medallion at 14) up to all of it at the closest zoom
 (`Minimap:GetZoom()` of `GetZoomLevels()`), the look laid out again when the
 zoom changes. The player's `nav.minimapIconSize` (default 1, Settings ›
-Map pins › Minimap) scales minimap sizes and their cap, `nav.worldIconSize`
-(default 1, Map pins › Pins & icons) world map sizes and their cap. A medallion is held to
+Map pins › Icons) scales minimap sizes and their cap, `nav.worldIconSize`
+(default 1, the same section) world map sizes and their cap. A medallion is held to
 28 (times `nav.worldIconSize`) on the world map's screen and 24 px (times
 `nav.minimapIconSize`) on the minimap, both times a pin's own `grow` (a size
 the player set: the numbered pins', the target's),
@@ -3114,7 +3114,8 @@ one small pin with the step's number as its `text`, its look from
 `nav.stepColorMode` = accent, a colour per step or `nav.stepColor`,
 `nav.stepRingColor`), its alpha falling from `nav.stepAlpha` (1) to
 `nav.stepFadeTo` (0.35) with how far ahead the step is; on the minimap too
-unless `nav.upcomingMinimap` is off. A step whose place is
+unless `nav.upcomingMinimap` is off, at `nav.stepMinimapSize` of their size
+(`minimapSize`, its cap with it: `minimapGrow`). A step whose place is
 within 0.6 map percent of an earlier pin's joins it ("4+", every step in the
 tooltip). Rebuilt on step, guide, tab and theme changes and its settings.
 
@@ -3303,7 +3304,11 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   the same goal drawn again). Drawing only: no style, thickness or switch
   changes the route, the target or the arrow (tested).
 - The Route lines page (`Maps/RouteOptions.lua`, settings window, Look,
-  key `routelines`): tabs Line, Minimap and Dots & sparkles over a pinned
+  key `routelines`): one tab, Route, with sections Route lines (on/off in its
+  header, the style cards, world map and minimap opacity each with its on/off
+  switch, minimap size), the drawn style's own section only (Line, Dots or
+  Sparkles, with the sparkle presets as picture cards: section `shown`) and
+  Flights & rides, under a pinned
   preview drawn by the maps' own code (`RouteLines.NewCanvas`, `Paint`,
   `Look`, `MapSparkles`, `MinimapSparkles`, and `Strokes.Map`/`Minimap`)
   for a fixed route (a walk with two bends from the player, a flight, a
@@ -5598,56 +5603,104 @@ Polestar.RegisterOptions({
   page = "Quests", icon = "icon-accept", order = 30,      -- sidebar page (created on first use), its title as shown
   key = "quests",                                           -- optional: the page's stable key (default: made from page)
   group = "guiding",                                        -- optional: guiding | look | setup | about (default: by order)
-  tab = "Map", section = "Markers",                         -- tab row entry and section header
+  tab = "Map", section = "Markers",                         -- tab row entry and section (a card)
+  toggle = { kind = "toggle", key = "qol.markers", label = "Markers", help = "One line." }, -- optional: the section's on/off, in its header
+  shown = function() return Polestar.Get("nav.lineStyle") == "sparkle" end, -- optional: hide the section's card (a mode's settings)
   preview = function(host) return frame end,               -- optional: the tab's live preview, pinned over its rows (below)
   controls = {
-    { kind = "toggle",   key = "qol.mapObjectives", label = "Objective markers", help = "One line.",
+    { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
-      new = "0.3.7" },                                                  -- optional: the release it came in (a New badge)
-    { kind = "slider",   key = "qol.markerScale", label = "Marker size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
-      release = true },                                                 -- optional: write when the drag ends
+      new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
+      info = true },                                                    -- optional: an (i) after the label (1-2 a page at most)
+    { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
+      release = true,                                                   -- optional: write when the drag ends
+      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
+                 { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
+      more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
       -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path
     { kind = "font",     key = "ui.font", label = "Font", choices = { { value = "inter", label = "Inter", font = path }, ... } },
       -- a dropdown whose names are drawn each in its face (`font`: the file; nil: the face in use)
     { kind = "cards",    key = "ui.skin", label = "Skin", choices = { { value = "halo", label = "Halo",
-      draw = function(art, value) end, disabled = fn, note = "Not loaded" }, ... }, wide = true },
-      -- picture cards: draw paints a card's picture once into `art` (W.CARD_W - 2 by W.CARD_ART);
-      -- wide: the section spans both columns (also when more cards than fit half the body)
-    { kind = "color",    key = "qol.markerColor", label = "Marker colour", alpha = true, -- example key
+      draw = function(art, value) end, disabled = fn, note = "Not loaded" }, ... } },  -- or no key and get()/set(v): a preset
+      -- picture cards, across the row: draw paints a card's picture once into `art` (W.CARD_W - 2 by W.CARD_ART)
+    { kind = "color",    key = "qol.trailColor", label = "Trail", alpha = true, -- example key
       shown = function() return r, g, b end, source = function() return "Scheme" end, linked = { "other.key" } }, -- example key
-      -- shown: the colour in effect while the key holds none; source: where it comes from;
+      -- shown: the colour in effect while the key holds none; source: where it comes from (in the tooltip);
       -- linked: paths a cancelled pick restores too; alpha: with an opacity, stored { r, g, b, a }.
       -- The row takes a typed hex and opacity, and offers the colours picked last (PolestarDB.recentColors).
       -- Right-click resets (sliders too; a slider's value takes a typed number).
-    { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end },
+    { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end, wide = true },
     { kind = "binding",  action = "POLESTAR_NEXT", label = "Next step", help = "One line." }, -- a key binding row (UI/GamepadGuide.lua)
   },
 })
 ```
 
+**Layout** (DESIGN.md "The Row Rule"). A section is a card across the body:
+a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
+Reset link while one of its settings is off its default (more than three ask
+first, `O.ResetSection`) and a New pill while it holds settings new to the
+player. Its controls run as halves of 36px rows, two to a row with a hairline
+between (one a row below a 760px body); `wide = true`, picture cards and the
+search results take a whole row. A half is the label and the control, no
+description: `help` is the tooltip (`O.TipOf`: the help, where its colour
+comes from, why it is off, "Right-click to reset." while off its default, and
+on a search result its page path), shown 0.25s after the cursor arrives.
+`extras` (at most one colour and one on/off) sit inline before the control in
+fixed columns (right to left: swatch, switch, cog, left of a control zone as
+wide as the widest control, an empty column keeping its place), each its
+own setting with its own tooltip and right-click; `more` sits behind a cog
+(`O.ShowMore`) that opens a popup of single-column 30px rows by it, with a
+dot while one of them is off its default. While a section's toggle is off
+every setting in it is stopped (its marks at 40%, its label and value in
+textMuted, legible) and its tooltip says so; a section's `shown()` hides
+its card, worked out again on every setting change; a `child`
+(no longer indented) is the next half and keeps its own `disabled`; an
+extra's `disabled` is its own (a row's does not reach its extras). The
+gamepad reaches a row's extras and cog after the row; A on the cog opens its
+popup, which holds the gamepad until B. `O.Controls(page, tab)` maps keys to
+widgets, extras and header switches included; `O.MoreControls()` those of the
+open popup. A custom page builds the same parts with `W.SectionCard`,
+`W.CompactRow`, `W.HeaderSwitch`, `W.InlineSwatch`, `W.InlineToggle` and
+`W.Cog`. The first open shows one line over the first card ("Hover a setting
+for what it does. Right-click resets it.") until its close button
+(`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
+section, the best first, the chevron to the row in a gutter inside the card;
+a result its section's toggle stops comes after an equally good one that
+works, its card carrying that toggle in the header.
+
+**Preview hotspots.** A preview may make its parts lead to their settings:
+`host:Hotspot(region, key)` while it is built (or
+`Polestar.UI.Options.PreviewHotspot(frame, region, key)`) lays a button over
+`region`; under the cursor a 1px accent outline goes round it and the tooltip
+names the setting; a click opens its row (`O.Jump`, the tab on screen first)
+and lights it. The first preview with hotspots says "Click a part of the
+preview to find its settings" in a foot row under it until the first click
+(`PolestarDB.optionsPreviewHint`). The other way round, the pointer on a row
+(or its extras or cog) calls the preview frame's optional `f:Focus(key)`
+(`O.PreviewFocus`), so a preview can show the part that setting draws.
+
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
 registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
 when the control is drawn or searched (a name in the client's language that
 is not loaded at registration, `Names.Instance`). A toggle with `get()` and
-`set(on)` and no `key` holds state that is no setting (per character): it
+`set(on)` and no `key` holds state that is no setting (per character; a
+slider or picture cards the same, the cards' `get` naming the preset in use): it
 reads and writes through them, right-click and Reset page call `set(nil)`.
 Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
 Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
 instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
 fixed, so the list is not built from the dungeons the loaded guides name. Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
-out of the sidebar and tab row. Every row resets to its default on right-click;
-a section's **Reset section** (right of its heading while one of its settings
-is off its default) resets the section, asking first when more than three
-would change (`O.ResetSection`).
+out of the sidebar and tab row. Every row resets to its default on right-click.
 
-**New settings.** A control's `new` puts a New badge after its label, and its
-page's sidebar row counts the page's new settings until the page is opened:
+**New settings.** A setting's `new` puts a New pill in its section's header
+(nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
+page's new settings until the page is opened:
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
-(account-wide, not a setting, so profiles and resets leave it). The rows keep
-their badges through the session the page is first opened in (they read the
-seen state as it was when the window first opened), and lose them the next.
+(account-wide, not a setting, so profiles and resets leave it). The pills keep
+through the session the page is first opened in (they read the seen state as
+it was when the window first opened), and go the next.
 
 **The pinned preview.** A tab's `preview(host)` is called the first time the
 tab shows, with a host frame in the shell's preview slot (`W.ShellPreview`,
@@ -5782,9 +5835,8 @@ right-click on the grip goes back to the default. It is never smaller than
 860 by 560 or larger than the screen at its Menu scale, less 16px each side,
 and is clamped anew when the scale changes. The header holds the search
 (`W.Shell` `headerSearch`), the Menu scale and the close; the navigation
-starts under the band. Sections run in two columns once the body is 904px
-wide, each into the shorter column in reading order, a section of more
-picture cards than fit half the body (or `wide`) across both. The footer has
+starts under the band. Sections are cards across the body, one under
+another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles
 and Manage profiles) and "Special thanks to" on the right. Nothing of the

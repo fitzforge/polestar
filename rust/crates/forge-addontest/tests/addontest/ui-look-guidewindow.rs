@@ -246,6 +246,13 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 				strip = f.Strip:IsShown(), foot = f.Foot:IsShown(), w = f.Window:GetWidth(), line = r.Text:GetText() }
 		end
 		local before = card()
+		-- At its own size the window is taller than the band: a change scrolls to its part.
+		Polestar.Set("guideWindow.progressHeight", 6)
+		local footScroll = f.psScroll
+		Polestar.Set("guideWindow.tabHeight", 1.1)
+		local topScroll = f.psScroll
+		Polestar.Set("guideWindow.progressHeight", nil)
+		Polestar.Set("guideWindow.tabHeight", nil)
 		Polestar.Set("guideWindow.goalSize", 1.5)
 		Polestar.Set("guideWindow.titleSize", 1.4)
 		Polestar.Set("guideWindow.padding", 6)
@@ -256,8 +263,8 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 		local after = card()
 		local liveRow = firstRow()
 		emit({ h = h, before = before, after = after, rows = #GF.rows == rows, liveText = size(liveRow.Text),
-			window = f.Window ~= F, scale = f.psScale })"#);
-	assert_eq!(out["h"], 290);
+			window = f.Window ~= F, scale = f.psScale, footScroll = footScroll, topScroll = topScroll, hot = f.psHot or false })"#);
+	assert_eq!(out["h"], 250);
 	let b = &out["before"];
 	let a = &out["after"];
 	assert_eq!(b["text"], 14, "the preview's goals at the goal role's size");
@@ -277,24 +284,54 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert_eq!(out["rows"], true, "no row added to the live window");
 	assert_eq!(out["window"], true, "the preview draws its own window");
 	assert_eq!(out["liveText"], 21, "the live window followed the same setting");
+	assert_eq!(out["scale"], 1, "drawn at 100%");
+	assert!(out["footScroll"].as_f64().unwrap() > 0.0, "scrolled down to the progress bar it edits");
+	assert_eq!(out["topScroll"], 0, "back up to the bars");
+	assert_eq!(out["hot"], true, "the parts are hotspots that jump to their rows");
 }
 
 #[test]
-fn the_settings_window_has_the_guide_window_page_with_its_controls() {
+fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatches_and_cogs() {
 	let out = run(r#"
+		Polestar.Set("ui.style", "transparent") -- the backing and its cog are for the transparent style
 		Polestar.UI.ShowOptions("guidewindow")
 		local O = Polestar.UI.Options
 		local page
 		for _, p in ipairs(O.Pages()) do if p.key == "guidewindow" then page = p end end
-		local c = O.Controls("guidewindow")
-		local keys = {}
-		for k in pairs(c) do if type(k) == "string" and (k:find("^guideWindow%.") or k:find("^ui%.")) then keys[#keys + 1] = k end end
-		table.sort(keys)
-		emit({ tabs = page and page.tabs or false, keys = keys })"#);
-	let tabs = out["tabs"].as_array().expect("the page is listed");
-	assert!(tabs.len() >= 4, "Window, Text, Parts, Motion: {:?}", tabs);
-	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
-	for k in ["ui.style", "ui.backing", "ui.barShown", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity"] {
-		assert!(keys.contains(&k), "{k} on the Window tab: {:?}", keys);
+		local function keysOf(c)
+			local keys = {}
+			for k in pairs(c) do if type(k) == "string" and (k:find("^guideWindow%.") or k:find("^ui%.")) then keys[#keys + 1] = k end end
+			table.sort(keys)
+			return keys
+		end
+		local window = O.Controls("guidewindow", "Window")
+		-- What only the Transparent style uses sits behind the Style row's cog,
+		-- the step slide's speed behind its own.
+		window["ui.style"].Cog:Click()
+		local styleMore = keysOf(O.MoreControls())
+		window["guideWindow.stepAnim"].Cog:Click()
+		local slideMore = keysOf(O.MoreControls())
+		O.Select("guidewindow", "Parts")
+		emit({ tabs = page and page.tabs or false, window = keysOf(window), parts = keysOf(O.Controls("guidewindow", "Parts")),
+			styleMore = styleMore, slideMore = slideMore })"#);
+	assert_eq!(out["tabs"], json!(["Window", "Parts"]), "the frame as a whole, then its parts in the window's order");
+	let has = |list: &str, k: &str| out[list].as_array().unwrap().iter().any(|v| v == k);
+	for k in [
+		"ui.style", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity",
+		"guideWindow.bgColor", "ui.combat", "guideWindow.hideTaxi",
+	] {
+		assert!(has("window", k), "{k} on the Window tab: {}", out["window"]);
 	}
+	for k in [
+		"guideWindow.tabs", "guideWindow.targetBar", "guideWindow.targetBarColor", "guideWindow.progress", "guideWindow.progressColor",
+		"ui.showNotes", "guideWindow.goalSize", "guideWindow.titleSize", "ui.upcoming", "guideWindow.noteSize",
+	] {
+		assert!(has("parts", k), "{k} on the Parts tab (inline switches and swatches included): {}", out["parts"]);
+	}
+	assert_eq!(
+		out["styleMore"],
+		json!(["guideWindow.outline", "guideWindow.shade", "guideWindow.veil", "ui.backing", "ui.barShown"]),
+		"the transparent style's settings in the Style cog"
+	);
+	assert_eq!(out["slideMore"], json!(["guideWindow.animSpeed"]), "the slide's speed in its cog");
 }

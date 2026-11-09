@@ -530,18 +530,20 @@ Polestar.Set("nav.arrowColor", { 0.45, 0.7, 1 }); Polestar.Set("nav.arrowNearCol
 // Every module, Nav included: the settings window's Look pages (Arrow, Map pins, Route lines, Buttons, Alerts & toasts, Trackers).
 const LOOK_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', ...MODULE_FILES.slice(2)];
 // Settings page `key` on its tab number `i` (1 = the first), by the window's own list of tabs.
-const lookTab = (key, i) => `Polestar.UI.ShowOptions("${key}")
+// POLESTAR_FULL_PAGES=1 draws the window tall enough to show each tab's whole page (design reviews).
+const FULL_PAGES = process.env.POLESTAR_FULL_PAGES ? 'UIParent:SetSize(1920, 3000); Polestar.Set("ui.optionsSize", { 1300, 2960 })\n' : '';
+const lookTab = (key, i) => `${FULL_PAGES}Polestar.UI.ShowOptions("${key}")
 for _, p in ipairs(Polestar.UI.Options.Pages()) do if p.key == "${key}" and p.tabs[${i}] then Polestar.UI.Options.Select("${key}", p.tabs[${i}]) end end`;
 // The Look pages and how many tabs each shows.
 const LOOK_PAGES = [
-	['theme', 'Settings: Theme (Colour, Type, Frames, Motion & sound): skin cards, accent, grounds, text and name colours, fonts with outline and shadow, borders, depth, motion', 4],
-	['guidewindow', 'Settings: Guide window (Window, Text, Parts, Motion): style, size, its own background and border, per-element text sizes and spacing, the bars and the current-goal bar', 4],
-	['arrow', 'Settings: Arrow (Look, Colours, Text, Visibility): style cards drawn by the arrow itself, glow and arrival, colours per state, the distance and label text', 4],
-	['mappins', 'Settings: Map pins (Steps ahead, Pins & icons, Areas & trail, Minimap): numbered step pins size, numbers and colours (Silverina\'s request), world-map icon size, target, areas', 4],
-	['routelines', 'Settings: Route lines (Line, Minimap, Dots & sparkles): style cards, thickness, colours per way of travel, fading, the minimap, dots and sparkles', 3],
+	['theme', 'Settings: Theme (Colour, Text, Names, Frames): skin and scheme cards, accent and grounds; fonts, sizes, outline and shadow, text colours; name and status colours; frame, band, shadow and motion', 4],
+	['guidewindow', 'Settings: Guide window (Window, Parts): style, size, its own background and border, visibility, motion; each part from the tabs to the progress bar', 2],
+	['arrow', 'Settings: Arrow (Look, Text): style cards drawn by the arrow itself, size and colour, glow, arrival; the distance, label and arrival-time text', 2],
+	['mappins', 'Settings: Map pins (Pins, Icons), the numbered pins on: the target pin, then the numbered step pins\' size, colour, numbers and fading (Silverina\'s request) with a size comparison in the preview; world-map and minimap icon sizes, medallions', 2, 'Polestar.Set("nav.upcomingPins", true)\n'],
+	['routelines', 'Settings: Route lines: style cards, then the settings of the style in use (here the line: walk colour, thickness, fading, marks), flights and rides, the minimap', 1],
 	['buttons', 'Settings: Buttons (Action buttons, Launcher & minimap): sizes, layout, backing and border, text, opacity and glow; the floating and minimap buttons', 2],
-	['alerts', 'Settings: Alerts & toasts: the rare and transport alerts, While you\'re here, the heads-up and class cards, the alert line', 6],
-	['trackers', 'Settings: Trackers: the flight timer, the instance tracker, the party panel, the guide level on the XP bar, the journey', 5],
+	['alerts', 'Settings: Alerts & toasts (Rare alert with the alert line, Transport alert, While you\'re here, Heads-up card, Class quest card): each card\'s scale, opacity, background, border, text and entrance', 5],
+	['trackers', 'Settings: Trackers (Travel, Instances & XP, Party panel): the flight timer and journey, the instance tracker and the level mark on the XP bar, the party panel', 3],
 ];
 // The Community guides page over the real registry (uistub.realGuides in place
 // of stub_ui's fake): ours and Joe's on, Ann's with two problems, Sam's
@@ -1415,10 +1417,10 @@ end`,
 			{ roots: [...PAD_OPTIONS, 'PolestarMenu'], before: PAD(), script: 'Polestar.UI.ShowOptions("gamepad"); stub.advance(0.3); Polestar.Gamepad.Dispatch("PAD1")' },
 		],
 	},
-	...LOOK_PAGES.map(([key, title, tabs]) => ({
+	...LOOK_PAGES.map(([key, title, tabs, setup = '']) => ({
 		file: `settings-${key}.svg`,
 		title,
-		panels: Array.from({ length: tabs }, (_, i) => ({ files: LOOK_FILES, roots: OPTIONS, script: lookTab(key, i + 1) })),
+		panels: Array.from({ length: tabs }, (_, i) => ({ files: LOOK_FILES, roots: OPTIONS, script: setup + lookTab(key, i + 1) })),
 	})),
 	{
 		file: 'settings-custom.svg',

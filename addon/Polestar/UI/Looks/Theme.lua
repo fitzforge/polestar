@@ -183,6 +183,20 @@ local function buildPreview(view)
 	local skip = W.Button(f, L["Skip"])
 	f.Buttons = { accept, skip }
 
+	-- A click on a part jumps to its setting (the window's hotspots): the
+	-- guide window's ground first, its parts over it.
+	local hotspot = ns.UI.Options and ns.UI.Options.PreviewHotspot
+	if hotspot then
+		f.Hot = {}
+		for _, h in ipairs({
+			{ gw, "ui.bgOpacity" }, { band, "ui.starAlpha" }, { title, "ui.headingFont" }, { done, "ui.textMutedColor" },
+			{ cur, "ui.colors.npc" }, { turnIn, "ui.colors.quest" }, { arrow, "ui.accent" }, { dist, "ui.textSize" },
+			{ toast, "ui.panelColor" }, { tBody, "ui.colors.item" }, { accept, "ui.accent" },
+		}) do
+			f.Hot[#f.Hot + 1] = hotspot(f, h[1], h[2])
+		end
+	end
+
 	-- -> the preview's height, its parts placed across `width`: the guide
 	-- window at the left, the arrow beside it, the toast and the buttons at
 	-- the right (under the guide window when the page is narrow).
@@ -224,24 +238,25 @@ ns.UI.ThemePreview = buildPreview
 
 -- The colours names are drawn in, by subject: label, search words.
 local SUBJECT = {
-	npc = { L["NPC names"], "npc, person, people, characters, talk to, giver, name colour" },
-	quest = { L["Quest names"], "quest, quests, title, gold, name colour" },
-	item = { L["Item names"], "item, items, loot, collect, objects, name colour" },
+	npc = { L["NPCs"], "npc, npc names, person, people, characters, talk to, giver, name colour" },
+	quest = { L["Quests"], "quest, quest names, quests, title, gold, name colour" },
+	item = { L["Items"], "item, item names, items, loot, collect, objects, name colour" },
 	place = { L["Places"], "place, location, town, go to, destination, waypoint" },
-	object = { L["Objects & treasure"], "object, objects, treasure, chest, interact" },
+	object = { L["Objects"], "object, objects, treasure, chest, interact" },
 	area = { L["Areas"], "area, region, subzone, explore" },
-	dungeon = { L["Dungeons & raids"], "dungeon, dungeons, raid, instance, portal, entrance" },
-	rare = { L["Rare NPCs"], "rare, rares, elite, silver dragon" },
-	skill = { L["Skills & professions"], "skill, profession, crafting, trade" },
-	spell = { L["Spells & abilities"], "spell, spells, ability, cast, use" },
-	faction = { L["Factions"], "faction, reputation, rep" },
+	dungeon = { L["Dungeons"], "dungeon, dungeons, raid, raids, instance, portal, entrance" },
+	rare = { L["Rares"], "rare, rares, rare npcs, elite, silver dragon" },
+	skill = { L["Skills"], "skill, skills, profession, professions, crafting, trade" },
+	spell = { L["Spells"], "spell, spells, ability, abilities, cast, use" },
+	faction = { L["Factions"], "faction, factions, reputation, rep" },
 	achievement = { L["Achievements"], "achievement, achievements" },
 	level = { L["Levels"], "level, levels, number" },
-	success = { L["Done & success"], "success, done, complete, finished, green, check" },
-	warning = { L["Warnings"], "warning, caution, orange, attention" },
-	danger = { L["Danger & errors"], "danger, error, red, failed, alert" },
+	success = { L["Success"], "success, done, complete, finished, green, check" },
+	warning = { L["Warnings"], "warning, warnings, caution, orange, attention" },
+	danger = { L["Danger"], "danger, error, errors, red, failed, alert" },
 }
 
+-- One swatch per subject, two to a row; the section's Reset puts them all back.
 local function subjectControls()
 	local out = {}
 	for _, name in ipairs(Theme.SUBJECTS) do
@@ -249,16 +264,10 @@ local function subjectControls()
 		if s then
 			out[#out + 1] = { kind = "color", key = "ui.colors." .. name, label = s[1], new = NEW,
 				search = s[2] .. ", subject colour, text colour, highlight, custom colour, change colour",
-				help = L["The colour these are drawn in, everywhere Polestar names them. Right-click to go back to the skin's. A colour too dark to read is lifted until it does."],
+				help = L["The colour these are drawn in, everywhere Polestar names them. A colour too dark to read is lifted until it does."],
 				shown = function() return Theme.Color(name) end, source = fromSkin }
 		end
 	end
-	out[#out + 1] = { kind = "button", label = L["Reset name colours"], button = L["Reset"], icon = "reset", new = NEW,
-		search = "reset colours, default colours, restore, undo",
-		help = L["Every colour above back to the skin's."],
-		onClick = function()
-			for _, name in ipairs(Theme.SUBJECTS) do ns.Set("ui.colors." .. name, nil) end
-		end }
 	return out
 end
 
@@ -269,16 +278,28 @@ local function fontChoices(first)
 	return list
 end
 
+-- The skin in use's preset (Theme/Theme.lua), whether one is applied, and
+-- whether the Apply / Undo pair shows (either of them).
+local function skinPreset() return Theme.SkinPreset ~= nil and Theme.SkinPreset(Theme.SkinId()) ~= nil end
+local function presetApplied() return Theme.SkinPresetApplied ~= nil and Theme.SkinPresetApplied() ~= nil end
+local function presetShown() return skinPreset() or presetApplied() end
+
 local skinCards = Theme.DrawSkinCard and true or false
 local schemeCards = Theme.DrawSchemeCard and true or false
 
+-- Four tabs, sections by element: Colour (the skin and accent, the grounds),
+-- Text (its face, sizes, outline, shadow and colours), Names (the colours
+-- names and states are drawn in), Frames (the window's frame, then motion).
+-- One element's size, colour and on/off share a row (extras); its finer
+-- knobs sit behind the row's cog (more).
 local SPECS = {
-	-- Colour: the skin, the accent, the grounds, the text ladder, names.
-	{ page = PAGE, key = "theme", icon = "palette", order = 20, group = "look", tab = L["Colour"], section = L["Skin"],
+	-- Colour
+	{ page = PAGE, key = "theme", icon = "palette", order = 20, group = "look", tab = L["Colour"], section = L["Skin & accent"],
 		preview = buildPreview,
-		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion. Everything repaints as you change it; right-click a setting to reset it."],
+		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion."],
 		controls = {
-		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever",
+		{ kind = skinCards and "cards" or "dropdown", key = "ui.skin", label = L["Skin"], wide = true,
+			search = "theme, look, style, frame, skin, halo, hearth, blizzard, classic, forever",
 			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
 			-- The skin drawn (a saved skin whose addon is gone draws Polestar;
 			-- the saved choice is kept for when it returns).
@@ -291,21 +312,38 @@ local SPECS = {
 				end
 				return list
 			end },
-	} },
-	{ page = PAGE, tab = L["Colour"], section = L["Accent"], controls = {
-		{ kind = "color", key = "ui.accent", label = L["Accent colour"], linked = { "ui.matchAccent", "ui.classAccent" }, search = "theme colour, highlight colour, tint",
+		-- A skin may recommend settings of its own (its preset): the player
+		-- applies them, and may take them back this session. The pair shows
+		-- while the skin has one or one is applied; each dims when it has
+		-- nothing to do.
+		{ kind = "button", label = function()
+				local info = Theme.SkinInfo and Theme.SkinInfo(Theme.SkinId())
+				return string.format(L["Apply %s's layout"], info and info.name or "")
+			end, button = L["Apply"], new = NEW,
+			search = "skin preset, recommended settings, skin layout, apply skin settings",
+			help = L["Changes the settings this skin recommends; Undo puts them back."],
+			needs = presetShown, disabled = function() return not skinPreset() end,
+			onClick = function() Theme.ApplySkinPreset(Theme.SkinId()) end },
+		{ kind = "button", label = L["Undo layout"], button = L["Undo"], icon = "reset", new = NEW,
+			search = "undo skin preset, restore settings, undo layout",
+			help = L["Puts back every setting the skin's layout changed."],
+			needs = presetShown, disabled = function() return not presetApplied() end,
+			onClick = function() Theme.UndoSkinPreset() end },
+		{ kind = "color", key = "ui.accent", label = L["Accent"], linked = { "ui.matchAccent", "ui.classAccent" },
+			search = "accent colour, theme colour, highlight colour, tint, gold",
 			help = L["Click to pick your own, right-click to go back to the scheme's."],
 			shown = function() return Theme.Accent() end,
 			source = function()
 				if Theme.FollowsClassAccent() then return (UnitClass and UnitClass("player")) or L["Class colour"] end
 				return Theme.FollowsEllesmereAccent() and "EllesmereUI" or L["Polestar gold"]
 			end },
-		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"],
+		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"], search = "class colour, class color, accent follows class",
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
 	} },
 	{ page = PAGE, tab = L["Colour"], section = L["Background"], controls = {
-		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Colour scheme"], search = "theme, dark mode, darker, dusk, night, graphite",
-			-- A skin of the house's family may bring its own scheme; then this has no effect.
+		{ kind = schemeCards and "cards" or "dropdown", key = "ui.scheme", label = L["Scheme"], wide = true,
+			search = "colour scheme, theme, dark mode, darker, dusk, night, graphite",
+			-- A skin may bring its own scheme; then this has no effect.
 			disabled = function() return houseOnly() or (Theme.SkinScheme and Theme.SkinScheme() ~= nil) or false end,
 			help = L["How deep the night runs. Dusk is the default, Night the darkest, Graphite a neutral grey; EllesmereUI takes its panel colour and accent. A skin that brings its own colours greys this out."],
 			choices = function()
@@ -316,45 +354,30 @@ local SPECS = {
 				end
 				return list
 			end },
-		{ kind = "color", key = "ui.bgColor", label = L["Background colour"], disabled = houseOnly,
-			help = L["The ground of every Polestar window. Right-click to go back to the scheme's. Text always stays legible: a colour too light for it is darkened."],
-			shown = function() return Theme.Color("bg") end,
-			source = schemeLabel },
-		{ kind = "color", key = "ui.panelColor", label = L["Panel colour"], alpha = true, disabled = houseOnly, new = NEW,
-			search = "panel, card, popup, menu, raised, inner background, box colour, ground",
-			help = L["The raised panels inside a window: setting groups, menus, cards and toasts. With its opacity. Right-click to go back to the background's shade."],
-			shown = function() return Theme.Color("panel") end,
-			source = schemeLabel },
-		{ kind = "color", key = "ui.sidebarColor", label = L["Sidebar colour"], alpha = true, disabled = houseOnly, new = NEW,
-			search = "sidebar, side bar, navigation, left column, rail, ground",
-			help = L["The sidebar of the settings window and the guide menu. With its opacity. Right-click to go back to the background's shade."],
-			shown = function() return Theme.Color("sidebar") end,
-			source = schemeLabel },
+		{ kind = "slider", key = "ui.bgOpacity", label = L["Background"], min = 0, max = 1, step = 0.05, format = percent,
+			search = "background opacity, transparency, alpha, see through, translucent",
+			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."],
+			extras = {
+				{ kind = "color", key = "ui.bgColor", label = L["Background colour"], disabled = houseOnly,
+					search = "background colour, ground, window colour",
+					help = L["The ground of every Polestar window. Right-click to go back to the scheme's. Text always stays legible: a colour too light for it is darkened."],
+					shown = function() return Theme.Color("bg") end, source = schemeLabel },
+			} },
 		{ kind = "slider", key = "ui.brightness", label = L["Brightness"], disabled = houseOnly, min = -1, max = 1, step = 0.05, format = signed,
 			search = "lighter, darker, light, dark, lift",
 			help = L["Lifts or lowers every background together. Right-click to reset."] },
-		{ kind = "slider", key = "ui.bgOpacity", label = L["Background opacity"], min = 0, max = 1, step = 0.05, format = percent,
-			search = "transparency, alpha, see through, translucent",
-			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."] },
+		{ kind = "color", key = "ui.panelColor", label = L["Panels"], alpha = true, disabled = houseOnly, new = NEW,
+			search = "panel colour, card, popup, menu, raised, inner background, box colour, ground",
+			help = L["The raised panels inside a window: setting groups, menus, cards and toasts, with their opacity."],
+			shown = function() return Theme.Color("panel") end, source = schemeLabel },
+		{ kind = "color", key = "ui.sidebarColor", label = L["Sidebar"], alpha = true, disabled = houseOnly, new = NEW,
+			search = "sidebar colour, side bar, navigation, left column, rail, ground",
+			help = L["The sidebar of the settings window and the guide menu, with its opacity."],
+			shown = function() return Theme.Color("sidebar") end, source = schemeLabel },
 	} },
-	{ page = PAGE, tab = L["Colour"], section = L["Text colours"], controls = {
-		{ kind = "color", key = "ui.textColor", label = L["Text"], new = NEW,
-			search = "text colour, font colour, white, primary text, main text, readability",
-			help = L["Titles, goals and labels. Right-click to go back to the skin's. Text always stays legible: a colour too dark to read is lifted until it does."],
-			shown = function() return Theme.Color("text") end, source = fromSkin },
-		{ kind = "color", key = "ui.textDimColor", label = L["Secondary text"], new = NEW,
-			search = "dim text, secondary, descriptions, grey text, font colour",
-			help = L["Descriptions, zone names and secondary lines. Right-click to go back to the skin's."],
-			shown = function() return Theme.Color("textDim") end, source = fromSkin },
-		{ kind = "color", key = "ui.textMutedColor", label = L["Muted text"], new = NEW,
-			search = "muted, faint, quiet, done goals, hints, grey text, font colour",
-			help = L["Finished goals, hints and counts. Right-click to go back to the skin's."],
-			shown = function() return Theme.Color("textMuted") end, source = fromSkin },
-	} },
-	{ page = PAGE, tab = L["Colour"], section = L["Names & status"], controls = subjectControls() },
 
-	-- Type: faces, sizes, outline and shadow of every Polestar string.
-	{ page = PAGE, tab = L["Type"], section = L["Font"], preview = buildPreview, controls = {
+	-- Text
+	{ page = PAGE, tab = L["Text"], section = L["Text"], preview = buildPreview, controls = {
 		{ kind = "font", key = "ui.font", label = L["Font"], search = "typeface, text, letters, font face, family",
 			help = L["The skin's font (the default: the game's own, Fira Sans in Halo), or a font of your choice."],
 			choices = function()
@@ -371,89 +394,92 @@ local SPECS = {
 				ns.Set("ui.font", v)
 				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
 			end },
+		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent,
+			search = "text size, font size, bigger text, smaller text, readability, larger, huge, tiny",
+			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
 		{ kind = "font", key = "ui.headingFont", label = L["Heading font"], new = NEW,
-			search = "heading, title, titles, headline, header font, typeface",
+			search = "heading font, title font, titles, headline, header font, typeface",
 			help = L["Window titles, step titles and section headings: the text's font (the default), or one of their own."],
 			choices = function() return fontChoices({ value = "body", label = L["Same as the text"] }) end },
-	} },
-	{ page = PAGE, tab = L["Type"], section = L["Size"], controls = {
-		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent,
-			search = "font size, bigger text, smaller text, readability, larger, huge, tiny",
-			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
 		{ kind = "slider", key = "ui.headingSize", label = L["Heading size"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
-			search = "title size, heading size, bigger titles, smaller titles, headline",
-			help = L["Titles and headings against the text size above. Right-click to reset."] },
-		{ kind = "slider", key = "ui.smallSize", label = L["Small print size"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
-			search = "small text, captions, counters, chips, fine print, tiny text, bigger, readability",
-			help = L["Secondary lines, captions, chips and counters against the text size above. Right-click to reset."] },
-	} },
-	{ page = PAGE, tab = L["Type"], section = L["Outline & shadow"], controls = {
-		{ kind = "dropdown", key = "ui.fontOutline", label = L["Text outline"], new = NEW,
-			search = "outline, border, stroke, thick, readable, contrast, legible",
+			search = "heading size, title size, bigger titles, smaller titles, headline",
+			help = L["Titles and headings, against the text size."] },
+		{ kind = "dropdown", key = "ui.fontOutline", label = L["Outline"], new = NEW,
+			search = "text outline, border, stroke, thick, readable, contrast, legible",
 			help = L["A dark outline round every Polestar letter, for text that holds over any background."],
 			choices = { { value = "none", label = L["None"] }, { value = "outline", label = L["Outline"] }, { value = "thick", label = L["Thick outline"] } } },
-		{ kind = "dropdown", key = "ui.textShadow", label = L["Text shadow"], new = NEW,
-			search = "shadow, drop shadow, glow, depth, readable, contrast",
+		{ kind = "dropdown", key = "ui.textShadow", label = L["Shadow"], new = NEW,
+			search = "text shadow, drop shadow, glow, depth, readable, contrast",
 			help = L["The shadow under every Polestar letter: the skin's, a soft one, the game's hard one, or none."],
 			choices = { { value = "skin", label = L["The skin's"] }, { value = "soft", label = L["Soft"] }, { value = "hard", label = L["Hard"] }, { value = "none", label = L["None"] } } },
+		{ kind = "slider", key = "ui.smallSize", label = L["Small print"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
+			search = "small text size, captions, counters, chips, fine print, tiny text, bigger, readability",
+			help = L["Secondary lines, captions, chips and counters, against the text size."] },
+		{ kind = "color", key = "ui.textColor", label = L["Text colour"], new = NEW, info = true,
+			search = "text colour, font colour, white, primary text, main text, readability",
+			help = L["Titles, goals and labels. Text always stays legible: a colour too dark to read is lifted until it does."],
+			shown = function() return Theme.Color("text") end, source = fromSkin },
+		{ kind = "color", key = "ui.textDimColor", label = L["Secondary"], new = NEW,
+			search = "secondary text, dim text, descriptions, grey text, font colour",
+			help = L["Descriptions, zone names and secondary lines."],
+			shown = function() return Theme.Color("textDim") end, source = fromSkin },
+		{ kind = "color", key = "ui.textMutedColor", label = L["Muted"], new = NEW,
+			search = "muted text, faint, quiet, done goals, hints, grey text, font colour",
+			help = L["Finished goals, hints and counts."],
+			shown = function() return Theme.Color("textMuted") end, source = fromSkin },
 	} },
 
-	-- Frames: border, hairlines, depth and light, menus.
-	{ page = PAGE, tab = L["Frames"], section = L["Window border"], preview = buildPreview, controls = {
-		{ kind = "toggle", key = "ui.border", label = L["Window border"], search = "border, edge, outline, frame",
-			help = L["The line around every Polestar window."] },
-		{ kind = "color", key = "ui.borderColor", label = L["Border colour"], linked = { "ui.borderAccent" }, disabled = borderOff, child = true,
-			help = L["Click to pick your own, right-click to go back to the scheme's hairline."],
-			shown = function() return Theme.Color("windowBorder") end,
-			source = function() return ns.Get("ui.borderAccent") and L["Accent"] or L["Hairline"] end },
-		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff, child = true,
+	-- Names
+	{ page = PAGE, tab = L["Names"], section = L["Names & status"], preview = buildPreview, controls = subjectControls() },
+
+	-- Frames
+	{ page = PAGE, tab = L["Frames"], section = L["Frame & motion"], preview = buildPreview, controls = {
+		{ kind = "slider", key = "ui.borderSize", label = L["Border"], min = 1, max = 4, step = 1, format = px, disabled = borderOff,
+			search = "border thickness, thicker border, wide border, border size, window border",
+			help = L["In screen pixels; a thicker border grows outward. Right-click to reset."],
+			extras = {
+				{ kind = "toggle", key = "ui.border", label = L["Window border"], search = "window border, edge, outline, frame",
+					help = L["The line around every Polestar window."] },
+				{ kind = "color", key = "ui.borderColor", label = L["Border colour"], linked = { "ui.borderAccent" }, disabled = borderOff,
+					search = "border colour, edge colour",
+					help = L["Click to pick your own, right-click to go back to the scheme's hairline."],
+					shown = function() return Theme.Color("windowBorder") end,
+					source = function() return ns.Get("ui.borderAccent") and L["Accent"] or L["Hairline"] end },
+			} },
+		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff,
+			search = "accent border, gold border, border takes accent",
 			help = L["The border takes your accent colour. Picking your own border colour turns this off."] },
-		{ kind = "slider", key = "ui.borderSize", label = L["Border thickness"], min = 1, max = 4, step = 1, format = px, disabled = borderOff, child = true,
-			search = "thicker border, wide border, border size",
-			help = L["In screen pixels; a thicker border grows outward. Right-click to reset."] },
+		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow"], min = 0, max = 2, step = 0.05, format = percent, disabled = shadowOff, new = NEW,
+			search = "shadow strength, window shadow, darker shadow, lighter shadow, depth, drop shadow opacity",
+			help = L["How dark the window shadow falls, against the skin's."],
+			extras = {
+				{ kind = "toggle", key = "ui.shadow", label = L["Window shadow"], disabled = houseOnly, search = "window shadow, drop shadow, depth",
+					help = L["The soft shadow under every window."] },
+			} },
+		{ kind = "slider", key = "ui.starAlpha", label = L["Band"], min = 0, max = 1, step = 0.05, format = percent, disabled = bandOff, new = NEW,
+			search = "starlit band, stars, starfield, sparkle, twinkle, sky, fewer stars, band",
+			help = L["How bright the stars in the band shine; at 0% the sky alone."],
+			extras = {
+				{ kind = "toggle", key = "ui.band", label = L["Starlit band"], disabled = houseOnly, search = "stars, sky, header, night, band",
+					help = L["The night sky with its stars across the top of every window. Off: the plain background."] },
+			} },
+		{ kind = "toggle", key = "ui.haze", label = L["Haze"], disabled = bandOff, new = NEW,
+			search = "header haze, glow, blue light, header glow, corner glow",
+			help = L["The faint blue light under the top of each window's band."] },
 		{ kind = "slider", key = "ui.hairlineOpacity", label = L["Hairlines"], min = 0, max = 3, step = 0.1, format = percent, new = NEW,
 			search = "divider, dividers, separator, lines, rules, hairline, border opacity, stronger lines, faint lines",
-			help = L["How strongly the thin lines between rows and round panels show, against the skin's. Right-click to reset."] },
-	} },
-	{ page = PAGE, tab = L["Frames"], section = L["Depth & light"], controls = {
-		{ kind = "toggle", key = "ui.shadow", label = L["Window shadow"], disabled = houseOnly, search = "shadow, drop shadow, depth",
-			help = L["The soft shadow under every window."] },
-		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow strength"], min = 0, max = 2, step = 0.05, format = percent, child = true, disabled = shadowOff, new = NEW,
-			search = "shadow, darker shadow, lighter shadow, depth, drop shadow opacity",
-			help = L["How dark the window shadow falls, against the skin's. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.band", label = L["Starlit band"], disabled = houseOnly, search = "stars, sky, header, night, band",
-			help = L["The night sky with its stars across the top of every window. Off: the plain background."] },
-		{ kind = "slider", key = "ui.starAlpha", label = L["Stars"], min = 0, max = 1, step = 0.05, format = percent, child = true, disabled = bandOff, new = NEW,
-			search = "stars, starfield, sparkle, twinkle, sky, fewer stars, band",
-			help = L["How bright the stars in the band shine; at 0% the sky alone. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.haze", label = L["Header haze"], child = true, disabled = bandOff, new = NEW,
-			search = "glow, haze, blue light, header glow, corner glow",
-			help = L["The faint blue light under the top of each window's band."] },
+			help = L["How strongly the thin lines between rows and round panels show, against the skin's."] },
 		{ kind = "toggle", key = "ui.rim", label = L["Accent rim"], disabled = houseOnly, new = NEW,
 			search = "rim, glow, light, top edge, accent line, corner glow, shine",
 			help = L["The lit accent line along the top edge of Polestar's windows, and the light it throws."] },
-	} },
-	{ page = PAGE, tab = L["Frames"], section = L["Menus"], controls = {
-		{ kind = "slider", key = "ui.menuScale", label = L["Menu scale"], min = 0.7, max = 1.4, step = 0.05, format = percent, release = true,
-			search = "settings size, menu size, bigger menu, zoom, options scale",
-			help = L["The guide menu and this window; applies when you let go. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Button in the game menu"],
+		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Game menu button"],
 			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
 			search = "game menu, escape, esc, main menu, button, open polestar" },
-	} },
-
-	-- Motion and sound.
-	{ page = PAGE, tab = L["Motion & sound"], section = L["Motion"], preview = buildPreview, controls = {
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
 			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
-		{ kind = "slider", key = "ui.animSpeed", label = L["Animation speed"], min = 0.5, max = 2, step = 0.1, format = times, new = NEW,
-			search = "animation, speed, faster, slower, snappy, transitions, slide, fade, tween, motion",
-			help = L["How fast Polestar's windows slide, fade and pop: 2x takes half the time. Right-click to reset."] },
-	} },
-	{ page = PAGE, tab = L["Motion & sound"], section = L["Sound"], controls = {
-		{ kind = "toggle", key = "ui.classCardSound", label = L["Class quest chime"], search = "sound, chime, audio, class quest",
-			disabled = function() return not (ns.UI and ns.UI.ClassCard and ns.UI.ClassCard.GameSoundOn()) end,
-			help = L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] },
+		{ kind = "slider", key = "ui.animSpeed", label = L["Speed"], min = 0.5, max = 2, step = 0.1, format = times, new = NEW,
+			search = "animation speed, faster, slower, snappy, transitions, slide, fade, tween, motion",
+			help = L["How fast Polestar's windows slide, fade and pop: 2x takes half the time."] },
 	} },
 }
 

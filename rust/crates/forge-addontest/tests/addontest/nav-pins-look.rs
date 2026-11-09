@@ -219,49 +219,194 @@ fn the_target_pin_takes_its_size_glow_and_pulse_and_reduce_motion_stops_the_puls
 	assert_eq!(json!([out["noGlow"]["glow"], out["noGlow"]["pulsing"]]), json!([false, false]));
 }
 
-// The page's preview: Pins' own builder and paint on sandbox frames (never the live pins), repainted by its
-// settings while shown, else on its next show; the page is registered with every new row searchable.
+// The page's previews: Pins' own builder and paint on sandbox frames (never the live pins), repainted by their
+// settings while shown, else on the next show. Pins: the numbered pins at their true size on a route, shown as a
+// sample while off, a "Pin size" inset of 100% against yours. Icons: the marks at full size, one with its badge.
+// The page (layout v2: section toggles, extras, cogs) holds every setting a player could set, each new one with
+// search words and help (its tooltip).
 #[test]
 fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_shown() {
 	let out = run(r#"
 		local out = {}
 		local P = N.PinsPreview(UIParent)          -- the stub takes addon frames under UIParent
 		P:Show()
-		out.height = P:Layout(640)
+		out.height = P:Layout(900)
 		local M = P.Map
 		local s1 = M.steps[1]
+		local count = math.min(5, N.upcoming.Count())
 		out.live = #nav.pins() == 0 and s1:GetParent() ~= WorldMapFrame.Child
-		out.steps = { r3(M.steps[1].width), M.steps[1].text:GetText(), r3(rgba(M.steps[3].fill)[4]) }
+		out.sample = { Polestar.Get("nav.upcomingPins"), s1:IsShown(), count >= 3 }
+		-- Zoomed in by default: a 15 px pin at 0.9 on screen, its number legible.
+		out.steps = { r3(s1.width), r3(s1.width * s1.scale), s1.text:GetText(), r3(rgba(M.steps[count].fill)[4]) }
 		out.target = { glow = M.target.glow:IsShown(), icon = M.target.icon.texture:match("icon%-[%a-]+$") }
 		Polestar.Set("nav.stepPinSize", 2)
-		out.repainted = r3(M.steps[1].width)
+		out.repainted = r3(s1.width)
+		out.inset = { r3(M.inset.base.width), r3(M.inset.yours.width) }
 		P:Hide()
 		Polestar.Set("nav.stepPinSize", 2.5)
-		out.hidden = r3(M.steps[1].width)
+		out.hidden = r3(s1.width)
 		P:Show()
-		out.shown = r3(M.steps[1].width)
+		out.shown = r3(s1.width)
+		-- The zoom switch: zoomed out draws them at 0.7.
+		P.Zoom:GetChildren():Click()
+		out.zoomedOut = r3(s1.scale)
 		out.updates = P:GetScript("OnUpdate") == nil
-		local n, page = 0, nil
+		local I = N.PinsIconsPreview(UIParent)
+		I:Show()
+		I:Layout(900)
+		local badged
+		for _, m in ipairs(I.Marks) do if m.badge.text:IsShown() then badged = m.badge.text:GetText() end end
+		out.icons = { #I.Marks, r3(I.Marks[1].medal.width * I.Marks[1].scale), badged }
+		local n, page, keys, sections = 0, nil, {}, {}
+		local function visit(c)
+			n = n + 1
+			if c.key then keys[#keys + 1] = c.key end
+			if c.new and not (c.search and c.help) then out.missing = c.key end
+			if c.key and Polestar.GetDefault(c.key) == nil then out.noDefault = c.key end
+			for _, e in ipairs(c.extras or {}) do visit(e) end
+			for _, e in ipairs(c.more or {}) do visit(e) end
+		end
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == Polestar.L["Map pins"] then
 				if spec.key then page = { key = spec.key, order = spec.order, group = spec.group } end
-				for _, c in ipairs(spec.controls) do
-					n = n + 1
-					if c.new and not (c.search and c.help) then out.missing = c.key end
-					if c.key and Polestar.GetDefault(c.key) == nil then out.noDefault = c.key end
-				end
+				sections[#sections + 1] = spec.tab .. " / " .. spec.section .. (spec.toggle and " [" .. spec.toggle.key .. "]" or "")
+				if spec.toggle then visit(spec.toggle) end
+				for _, c in ipairs(spec.controls) do visit(c) end
 			end
 		end
-		out.page, out.controls = page, n
+		table.sort(keys)
+		out.page, out.controls, out.keys, out.sections = page, n, keys, sections
 		emit(out)"#);
-	assert_eq!(out["height"], json!(200));
+	assert_eq!(out["height"], json!(196));
 	assert_eq!(out["live"], true, "sandbox pins, not the world map's");
-	assert_eq!(out["steps"], json!([15, "1", 0.35]), "the next three steps as the real ones");
+	assert_eq!(out["sample"], json!([false, true, true]), "numbered pins drawn as a sample while off");
+	assert_eq!(out["steps"], json!([15, 13.5, "2", 0.35]), "true on-map size zoomed in; the farthest at the fade's end");
 	assert_eq!(out["target"], json!({ "glow": true, "icon": "icon-target" }));
 	assert_eq!(json!([out["repainted"], out["hidden"], out["shown"]]), json!([30, 30, 37.5]), "repaints while shown, else on show");
+	assert_eq!(out["inset"], json!([15, 30]), "Pin size: 100% beside yours");
+	assert_eq!(out["zoomedOut"], json!(0.7));
 	assert_eq!(out["updates"], true, "no OnUpdate");
+	assert_eq!(out["icons"], json!([6, 19.8, "3"]), "six marks, a 22 px medallion zoomed in, a group's badge");
 	assert_eq!(out["page"], json!({ "key": "mappins", "order": 23, "group": "look" }));
-	assert!(out["controls"].as_f64().unwrap() >= 30.0, "{} controls", out["controls"]);
+	assert_eq!(
+		out["sections"],
+		json!([
+			"Pins / Target pin",
+			"Pins / Numbered pins [nav.upcomingPins]",
+			"Icons / Icons",
+			"Icons / Medallions",
+		]),
+		"two tabs, a section per element, the first card live at defaults"
+	);
+	// Nothing a player could set is gone: every Map pins setting is on the page once (extras and cogs included).
+	let mut want: Vec<&str> = vec![
+		"nav.areaAlpha", "nav.areaColor", "nav.badgeSize", "nav.mapIcons", "nav.medalColor", "nav.minimapArrowFade",
+		"nav.minimapIconSize", "nav.minimapPinAlpha", "nav.minimapPins", "nav.pinBacking", "nav.pulseSeconds",
+		"nav.stepAlpha", "nav.stepColor", "nav.stepColorMode", "nav.stepFadeTo", "nav.stepNumberColor",
+		"nav.stepNumberOutline", "nav.stepNumberSize", "nav.stepNumbers", "nav.stepPinSize", "nav.stepRingColor",
+		"nav.targetGlow", "nav.targetPinSize", "nav.targetPulse", "nav.trailDotAlpha", "nav.trailDotSize", "nav.trailDots",
+		"nav.upcomingCount", "nav.upcomingMinimap", "nav.upcomingPins", "nav.worldIconSize", "nav.worldPinAlpha", "nav.worldPins",
+		"nav.stepMinimapSize",
+	];
+	want.sort();
+	assert_eq!(out["keys"], json!(want));
 	assert_eq!(out.get("missing"), None, "every new row has search words and help");
 	assert_eq!(out.get("noDefault"), None, "every row's key has a default");
+}
+
+const PAGE_FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"];
+
+fn page(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &PAGE_FILES)],
+		script: format!("uistub.install({{ noNav = true }})\nstub.login()\nlocal UI, O, W = Polestar.UI, Polestar.UI.Options, Polestar.Widgets\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// In the window (layout v2, FIXES-V2): the Pins tab opens on the target, live at defaults; the numbered pins' on/off
+// is their section's header switch and dims their rows while off; one switch and one swatch at most per row, the
+// rim colour and the outline behind cogs, the pulse and its speed behind the glow's; help is the row's tooltip; a
+// click on a part of the preview jumps to its row.
+#[test]
+fn in_the_window_the_numbered_pins_switch_heads_its_section_and_extras_and_cogs_set_their_own_settings() {
+	let out = page(
+		r#"
+		local flashed
+		local flash = O.Flash
+		O.Flash = function(w, ...) flashed = w.psControl and w.psControl.key; return flash(w, ...) end
+		-- Opens row's cog (a second click on the same cog closes it) -> whether every key is in it.
+		local function cog(row, ...)
+			if not (row and row.Cog) then return false end
+			row.Cog:Click()
+			local shown = O.MoreControls()
+			for _, key in ipairs({ ... }) do if shown[key] == nil then return false end end
+			return true
+		end
+		UI.ShowOptions("mappins")
+		O.Select("mappins", "Pins")
+		local m = O.Controls("mappins", "Pins")
+		local r = { have = {} }
+		for _, k in ipairs({ "nav.targetPinSize", "nav.targetGlow", "nav.worldPins", "nav.minimapPins", "nav.areaAlpha", "nav.areaColor",
+			"nav.upcomingPins", "nav.stepPinSize", "nav.stepColorMode", "nav.stepColor", "nav.stepNumberSize", "nav.stepNumberColor",
+			"nav.stepNumbers", "nav.upcomingCount", "nav.stepAlpha", "nav.stepFadeTo", "nav.upcomingMinimap", "nav.stepMinimapSize" }) do
+			r.have[#r.have + 1] = m[k] ~= nil
+		end
+		-- The trail stands in for route lines: its row shows once they are off.
+		r.trailHidden = m["nav.trailDotSize"] == nil or not m["nav.trailDotSize"]:IsShown()
+		r.targetLive = W.Enabled(m["nav.targetPinSize"])
+		r.offRow = W.Enabled(m["nav.stepPinSize"])
+		m["nav.upcomingPins"]:Click()
+		r.on = Polestar.Get("nav.upcomingPins")
+		r.onRow = W.Enabled(m["nav.stepPinSize"])
+		-- The numbers' own switch: off dims their size, the switch itself stays live.
+		m["nav.stepNumbers"]:Click()
+		r.numbersOff = { Polestar.Get("nav.stepNumbers"), W.Enabled(m["nav.stepNumberSize"]), W.Enabled(m["nav.stepNumbers"]) }
+		m["nav.stepNumbers"]:Click("RightButton")
+		r.numbersReset = Polestar.Get("nav.stepNumbers")
+		r.cogs = { cog(m["nav.stepNumberSize"], "nav.stepNumberOutline"), cog(m["nav.stepPinSize"], "nav.stepRingColor"),
+			cog(m["nav.targetGlow"], "nav.targetPulse", "nav.pulseSeconds") }
+		-- The own colour swatch waits for "Own colour".
+		r.ownBefore = W.Enabled(m["nav.stepColor"])
+		Polestar.Set("nav.stepColorMode", "own")
+		r.ownAfter = W.Enabled(m["nav.stepColor"])
+		-- Help is the tooltip.
+		local spec
+		for _, s in ipairs(W.OptionsRegistry) do
+			for _, c in ipairs(s.controls) do if c.key == "nav.stepPinSize" then spec = c end end
+		end
+		Polestar.Set("nav.stepPinSize", 2)
+		local tip = O.TipOf(spec)(m["nav.stepPinSize"])
+		r.tip = { type(tip[1]) == "string" and tip[1]:find("numbered pins") ~= nil, #tip }
+		-- The previews' parts jump to their rows.
+		local function preview(field)
+			for _, f in ipairs(stub.frames) do if rawget(f, "psHotspots") and rawget(f, field) then return f end end
+		end
+		local P = preview("Map")
+		r.hotspots = P and #P.psHotspots or 0
+		for _, h in ipairs(P and P.psHotspots or {}) do
+			if h[1] == "nav.targetPinSize" then h[2]:GetScript("OnClick")(h[2]) end
+		end
+		r.jumpedTarget = flashed
+		O.Select("mappins", "Icons")
+		local I = preview("Marks")
+		for _, h in ipairs(I and I.psHotspots or {}) do
+			if h[1] == "nav.badgeSize" then h[2]:GetScript("OnClick")(h[2]) end
+		end
+		r.jumpedBadge = flashed
+		emit(r)"#,
+	);
+	assert!(out["have"].as_array().unwrap().iter().all(|v| v == true), "every setting of the Pins tab on it: {}", out["have"]);
+	assert_eq!(out["trailHidden"], true, "no trail row while route lines draw the way");
+	assert_eq!(out["targetLive"], true, "the first card is live at defaults");
+	assert_eq!(json!([out["offRow"], out["on"], out["onRow"]]), json!([false, true, true]), "the header switch dims and wakes the rows");
+	assert_eq!(out["numbersOff"], json!([false, false, true]), "numbers off: their size dims, their switch stays live");
+	assert_eq!(out["numbersReset"], true, "right-click resets the inline switch");
+	assert_eq!(out["cogs"], json!([true, true, true]), "outline, rim colour, pulse and its speed behind cogs");
+	assert_eq!(json!([out["ownBefore"], out["ownAfter"]]), json!([false, true]));
+	assert_eq!(out["tip"], json!([true, 2]), "help, then the reset hint");
+	assert!(out["hotspots"].as_f64().unwrap() >= 5.0, "parts of the preview are click targets");
+	assert_eq!(json!([out["jumpedTarget"], out["jumpedBadge"]]), json!(["nav.targetPinSize", "nav.badgeSize"]));
 }

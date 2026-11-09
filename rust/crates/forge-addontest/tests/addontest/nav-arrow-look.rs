@@ -181,21 +181,43 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		out.shownAgain = { D[1].dial.body:IsShown(), D[1].dial.sheet:IsShown(), rgba(D[1].dial.glow)[4] }
 		Polestar.Set("nav.arrowPulse", false)
 		out.noPulse = P:GetScript("OnUpdate")
-		-- The page is registered: key, order, the look group.
-		local n, page = 0, nil
+		-- The page is registered: key, order, the look group; every setting is
+		-- reachable (rows, section toggles, inline extras, cog popups), with
+		-- search words and help (the tooltip); labels short; at most 2 (i).
+		local n, page, keys, sections, infos, long = 0, nil, {}, {}, 0, nil
+		local function visit(c)
+			n = n + 1
+			if c.key then keys[#keys + 1] = c.key end
+			if not (c.search and c.help) then out.missing = c.key or c.label end
+			if c.kind == "slider" and type(c.format) ~= "function" then out.unformatted = c.key end
+			if c.info then infos = infos + 1 end
+			local _, words = (c.label or ""):gsub("%S+", "")
+			if words > 3 then long = c.label end
+			local switches, swatches = 0, 0
+			for _, x in ipairs(c.extras or {}) do
+				if x.kind == "toggle" then switches = switches + 1 elseif x.kind == "color" then swatches = swatches + 1 end
+				visit(x)
+			end
+			if switches > 1 or swatches > 1 then out.crowded = c.key end
+			for _, x in ipairs(c.more or {}) do visit(x) end
+		end
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == Polestar.L["Arrow"] then
 				if spec.key then page = { key = spec.key, order = spec.order, group = spec.group } end
+				sections[#sections + 1] = spec.tab .. "/" .. spec.section .. (spec.toggle and (" [" .. spec.toggle.key .. "]") or "")
+				if spec.toggle then visit(spec.toggle) end
+				local halves = 0
 				for _, c in ipairs(spec.controls) do
-					n = n + 1
-					if c.new and not (c.search and c.help) then out.missing = c.key end
-					if c.kind == "slider" and type(c.format) ~= "function" then out.unformatted = c.key end
+					visit(c)
+					halves = halves + (c.wide and 2 or 1)
 				end
+				if halves < 3 then out.thin = spec.section end
 			end
 		end
-		out.page, out.controls = page, n
+		table.sort(keys)
+		out.page, out.controls, out.keys, out.sections, out.infos, out.long = page, n, table.concat(keys, " "), sections, infos, long
 		emit(out)"#);
-	assert_eq!(out["height"], json!(196));
+	assert_eq!(out["height"], json!(168));
 	assert_eq!(out["states"], json!([true, true, true, false]), "3D on its way and closing in, the ring on arrival");
 	assert_eq!(out["texts"], json!(["420 yd", "Arrived"]));
 	assert_eq!(out["liveDial"], true, "the preview builds its own dials");
@@ -209,7 +231,26 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 	assert_eq!(out["shownAgain"], json!([true, false, 0.9]));
 	assert_eq!(out["noPulse"], Value::Null, "nothing animates without the pulse");
 	assert_eq!(out["page"], json!({ "key": "arrow", "order": 22, "group": "look" }));
-	assert!(out["controls"].as_i64().unwrap() >= 30, "a full page: {}", out["controls"]);
-	assert_eq!(out.get("missing"), None, "every new control has search words and help");
+	assert!(out["controls"].as_i64().unwrap() >= 33, "a full page: {}", out["controls"]);
+	assert_eq!(out.get("missing"), None, "every control has search words and help (its tooltip)");
 	assert_eq!(out.get("unformatted"), None, "every slider says its value in its unit (percent, yards, px)");
+	assert_eq!(out.get("long"), None, "labels are 1-3 words");
+	assert!(out["infos"].as_i64().unwrap() <= 2, "at most two (i) marks");
+	assert_eq!(out.get("crowded"), None, "at most one switch and one swatch beside a control");
+	assert_eq!(out.get("thin"), None, "no one-row sections");
+	assert_eq!(
+		out["sections"],
+		json!(["Look/Arrow [nav.arrow]", "Look/Arrival", "Look/Visibility", "Text/Text"]),
+		"the arrow, its arrival and when it shows, then its text in one card"
+	);
+	let keys = out["keys"].as_str().unwrap();
+	for k in [
+		"nav.arrow", "nav.arrowStyle", "nav.arrowScale", "nav.arrowAlpha", "nav.arrowColor", "nav.arrowNearColor", "nav.arrowNearRange",
+		"nav.arrowTurn", "nav.arrowGlow", "nav.arrowGlowStrength", "nav.arrowRingColor", "nav.arrowPulse", "nav.arrivalSound",
+		"nav.hideArrowWithGuide", "nav.arrowNoTarget", "nav.arrowCombatAlpha", "nav.arrowDistance", "nav.arrowDistSize", "nav.arrowDistColor",
+		"nav.distanceUnit", "nav.arrowLabelLines", "nav.arrowLabelSize", "nav.arrowLabelColor", "nav.arrowLabelWidth", "nav.arrowEta",
+		"nav.arrowEtaSize", "nav.arrowEtaColor", "nav.arrowFont", "nav.arrowOutline", "nav.arrowTextPos", "nav.arrowBacking", "nav.arrowBackingAlpha",
+	] {
+		assert!(keys.split(' ').any(|x| x == k), "{k} is still settable on the page");
+	}
 }

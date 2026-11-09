@@ -392,6 +392,11 @@ fn the_profiles_page_lists_switches_creates_deletes_after_asking_exports_and_imp
 		UI.ShowOptions("profiles")
 		local first = PV.Shown()
 		local v = PV.view
+		-- Settings window v2: cards by subject, 36px one-line rows, help in the tooltip only.
+		local layout = { cards = { v.ListCard.Title:GetText(), v.ShareCard.Title:GetText() }, newRow = v.NewRow:IsShown() and v.NewRow.psCompact == true,
+			heights = { v.Profile:GetHeight(), v.ForChar:GetHeight(), v.ExportAreas.look:GetHeight() },
+			help = (rawget(v.ForChar, "Help") ~= nil and v.ForChar.Help:IsShown()) or (rawget(v.Profile, "Help") ~= nil and v.Profile.Help:IsShown()),
+			tip = v.ForChar.psTipFn(v.ForChar)[1], compact = v.ForChar.psCompact == true and v.Profile.psCompact == true }
 		v.NewButton:Click()
 		v.NameBox:SetText("Raid")
 		v.NameOK:Click()
@@ -415,18 +420,28 @@ fn the_profiles_page_lists_switches_creates_deletes_after_asking_exports_and_imp
 		v.ImportName:SetText("Shared")
 		v.ImportNew:Click()
 		local imported = PV.Shown()
+		local importedScale = Polestar.Get("ui.scale")
 		PV.Check("not a profile")
 		local refused = PV.Shown().refusal
+		v.Profile.psSet("Default")
+		local viaMenu = { PV.Shown().inUse, Polestar.Get("ui.scale") }
 		local page
 		for _, p in ipairs(UI.Options.Pages()) do if p.key == "profiles" then page = p.name end end
 		emit({ first = first, made = made, exported = exported.exported:sub(1, 6), copyNote = exported.copyNote, clash = clash, back = back,
-			asked = asked, afterDelete = afterDelete, previewed = previewed, imported = imported, refused = refused,
-			scale = Polestar.Get("ui.scale"), page = page })"#
+			asked = asked, afterDelete = afterDelete, previewed = previewed, imported = imported, refused = refused, viaMenu = viaMenu,
+			scale = importedScale, page = page, layout = layout })"#
 			.into(),
 		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["page"], "Profiles");
+	assert_eq!(out["layout"]["cards"], json!(["Profiles", "Share"]), "no one-row cards: who uses it sits with the list, import with export");
+	assert_eq!(out["layout"]["newRow"], true, "New profile is a row beside the switches");
+	assert_eq!(out["layout"]["heights"], json!([36, 36, 36]));
+	assert_eq!(out["layout"]["help"], false, "no description lines on the page");
+	assert_eq!(out["layout"]["tip"], "This character keeps its own choice of profile. Off: it follows its class's profile, else the account's.");
+	assert_eq!(out["layout"]["compact"], true, "the window's compact rows");
+	assert_eq!(out["viaMenu"], json!(["Default", 1]), "the Profile menu switches");
 	assert_eq!(out["first"]["inUse"], "Default");
 	assert_eq!(out["first"]["source"], "Every character on this account uses it, unless one has its own.");
 	assert_eq!(out["first"]["rows"], json!([{ "name": "Default", "inUse": true, "actions": ["Copy"] }]));

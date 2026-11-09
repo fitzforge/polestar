@@ -120,13 +120,9 @@ fn own_text_and_name_colours_repaint_live_in_any_skin_a_dark_pick_is_lifted_unti
 		Polestar.Set("ui.panelColor", { 0.3, 0.1, 0.1, 0.5 })
 		local panel = T.Skin(CreateFrame("Frame", nil, UIParent), "panel")
 		out.panel = { panel.psSkin.bg:GetVertexColor() }
-		-- The page's reset: every name colour back to the skin's.
-		local reset
-		for _, spec in ipairs(W.OptionsRegistry) do
-			for _, c in ipairs(spec.controls) do if c.kind == "button" and c.label == "Reset name colours" then reset = c end end
-		end
+		-- A section's Reset sets each of its keys back; the colour follows.
 		Polestar.Set("ui.colors.quest", { 1, 1, 0.8 })
-		reset.onClick()
+		for _, name in ipairs(T.SUBJECTS) do Polestar.Set("ui.colors." .. name, nil) end
 		out.afterReset, out.questStored = rgb(npc), Polestar.Get("ui.colors.quest")
 		emit(out)"#);
 	assert_eq!(rounded(&out["light"]), vec![1.0, 0.6, 1.0], "a legible pick is drawn as picked, at once");
@@ -188,47 +184,76 @@ fn hairlines_shadow_stars_haze_rim_and_animation_speed_follow_their_settings() {
 }
 
 #[test]
-fn the_theme_page_holds_every_old_appearance_colour_type_and_frame_setting_and_marks_each_new_one_searchable() {
+fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_tooltips_and_one_switch_and_swatch_per_row() {
 	let out = run(r#"
-		local keys, news, bad, tabs, previews, first = {}, {}, {}, {}, {}, nil
+		local keys, news, bad, tabs, previews, first, infos, toggles, extras, wides = {}, {}, {}, {}, {}, nil, 0, {}, {}, {}
+		local function check(c)
+			if c.key then
+				keys[#keys + 1] = c.key
+				if Polestar.GetDefault(c.key) == nil then bad[#bad + 1] = c.key .. ": no default" end
+			end
+			local name = c.key or c.label
+			if type(c.help) ~= "string" or c.help == "" or type(c.search) ~= "string" or c.search == "" then bad[#bad + 1] = name .. ": no help or search" end
+			local _, words = tostring(c.label):gsub("%S+", "")
+			if words > 3 then bad[#bad + 1] = name .. ": label of " .. words .. " words" end
+			if c.info then infos = infos + 1 end
+			if c.wide then wides[#wides + 1] = c.key end
+			if c.new then
+				news[#news + 1] = name
+				if c.new ~= "0.3.7" then bad[#bad + 1] = name .. ": new is not 0.3.7" end
+			end
+			local switches, swatches = 0, 0
+			for _, x in ipairs(c.extras or {}) do
+				extras[#extras + 1] = x.key
+				if x.kind == "toggle" then switches = switches + 1 elseif x.kind == "color" then swatches = swatches + 1 end
+				check(x)
+			end
+			if switches > 1 or swatches > 1 then bad[#bad + 1] = name .. ": more than one switch or swatch beside it" end
+			for _, x in ipairs(c.more or {}) do check(x) end
+		end
 		for _, spec in ipairs(W.OptionsRegistry) do
 			if spec.page == "Theme" then
 				first = first or spec
 				if not tabs[spec.tab] then tabs[spec.tab] = true; tabs[#tabs + 1] = spec.tab end
 				if spec.preview then previews[spec.tab] = true end
+				if spec.toggle then toggles[#toggles + 1] = spec.toggle.key; check(spec.toggle) end
+				-- A section of at least two rows: a wide row is one, the rest two to a row.
+				local rows, halves = 0, 0
 				for _, c in ipairs(spec.controls) do
-					if c.key then
-						keys[#keys + 1] = c.key
-						if Polestar.GetDefault(c.key) == nil then bad[#bad + 1] = c.key .. ": no default" end
-					end
-					if c.new then
-						news[#news + 1] = c.key or c.label
-						if c.new ~= "0.3.7" or type(c.search) ~= "string" or c.search == "" or type(c.help) ~= "string" or c.help == "" then bad[#bad + 1] = (c.key or c.label) .. ": new without search or help" end
-					end
+					check(c)
+					if c.wide then rows = rows + 1 else halves = halves + 1 end
 				end
+				rows = rows + math.ceil(halves / 2)
+				if rows < 2 then bad[#bad + 1] = spec.tab .. " > " .. spec.section .. ": one row" end
 			end
 		end
 		local withPreview = 0
 		for i = 1, #tabs do if previews[tabs[i]] then withPreview = withPreview + 1 end end
 		emit({ keys = keys, news = #news, bad = table.concat(bad, "; "), tabs = { unpack(tabs) }, withPreview = withPreview,
+			infos = infos, toggles = toggles, extras = extras, wides = wides,
 			page = { key = first.key, order = first.order, group = first.group } })"#);
 	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
-	// The old Appearance > Colour & type and Windows > Frame / Menus settings.
+	// The old Appearance > Colour & type and Windows > Frame settings (the menu scale lives in the window's header,
+	// the class quest chime on Alerts & toasts).
 	for k in [
 		"ui.accent", "ui.classAccent", "ui.scheme", "ui.bgColor", "ui.brightness", "ui.bgOpacity", "ui.font", "ui.textSize", "ui.reduceMotion",
-		"ui.classCardSound", "ui.skin", "ui.border", "ui.borderColor", "ui.borderAccent", "ui.borderSize", "ui.band", "ui.shadow", "ui.menuScale",
-		"ui.gameMenuButton",
+		"ui.skin", "ui.border", "ui.borderColor", "ui.borderAccent", "ui.borderSize", "ui.band", "ui.shadow", "ui.gameMenuButton",
 	] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
+	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound"), "one home per setting");
 	for k in ["ui.fontOutline", "ui.textShadow", "ui.headingFont", "ui.textColor", "ui.colors.npc", "ui.colors.quest", "ui.panelColor", "ui.hairlineOpacity", "ui.shadowStrength", "ui.starAlpha", "ui.rim", "ui.animSpeed"] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
 	assert_eq!(out["bad"], "");
 	assert!(n(&out["news"]) >= 25.0, "many new controls: {}", out["news"]);
-	assert_eq!(out["tabs"], json!(["Colour", "Type", "Frames", "Motion & sound"]));
+	assert_eq!(out["tabs"], json!(["Colour", "Text", "Names", "Frames"]));
 	assert_eq!(out["withPreview"], 4, "every tab pins the live preview");
 	assert_eq!(out["page"], json!({ "key": "theme", "order": 20, "group": "look" }));
+	assert!(n(&out["infos"]) <= 2.0, "an (i) on at most two rows");
+	assert_eq!(out["toggles"], json!({}), "no header switches: each on/off sits beside its own row");
+	assert_eq!(out["extras"], json!(["ui.bgColor", "ui.border", "ui.borderColor", "ui.shadow", "ui.band"]), "an element's on/off and colour beside its slider");
+	assert_eq!(out["wides"], json!(["ui.skin", "ui.scheme"]), "the picture cards span the row");
 }
 
 #[test]
@@ -236,7 +261,7 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	let out = run(r#"
 		local f = Polestar.UI.ThemePreview(UIParent)
 		local h = f:Layout(900)
-		local out = { h = h, toast = f.Toast:IsShown(), buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown() }
+		local out = { h = h, toast = f.Toast:IsShown(), buttons = f.Buttons[1]:IsShown() and f.Buttons[2]:IsShown(), hot = f.Hot and #f.Hot or 0 }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
 		out.body = f.ToastBody:GetText()
@@ -247,7 +272,45 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 	assert_eq!(out["h"], 196);
 	assert_eq!(out["toast"], true);
 	assert_eq!(out["buttons"], true);
+	assert_eq!(out["hot"], 11, "each part of the preview leads to its setting");
 	assert!(out["body"].as_str().unwrap().contains("|cff99ff99"), "the toast names the item in its own colour: {}", out["body"]);
 	assert_eq!(out["titleFlags"], "OUTLINE");
 	assert_eq!(out["narrowToast"], false, "a narrow page keeps the guide window and the arrow");
+}
+
+#[test]
+fn a_skin_with_a_preset_offers_apply_and_undo_under_the_skin_cards_which_set_and_put_back_its_settings() {
+	let out = run(r#"
+		local apply, undo
+		for _, spec in ipairs(W.OptionsRegistry) do
+			if spec.page == "Theme" then
+				for _, c in ipairs(spec.controls) do
+					if c.kind == "button" and c.onClick then
+						if c.button == "Apply" then apply = c elseif c.button == "Undo" then undo = c end
+					end
+				end
+			end
+		end
+		local function state()
+			return { shown = apply.needs() and undo.needs(), apply = not apply.disabled(), undo = not undo.disabled() }
+		end
+		local out = { house = { apply.needs(), undo.needs() } }
+		local ok, why = T.RegisterSkin("dawn", { name = "Dawn", addon = "Test_Dawn",
+			preset = { ["ui.fontOutline"] = "thick", ["ui.headingSize"] = 1.3 } })
+		out.registered = ok or why
+		Polestar.Set("ui.skin", "dawn")
+		out.offered, out.label = state(), apply.label()
+		apply.onClick()
+		out.applied = { state = state(), outline = Polestar.Get("ui.fontOutline"), heading = Polestar.Get("ui.headingSize") }
+		undo.onClick()
+		out.undone = { state = state(), outline = Polestar.Get("ui.fontOutline"), heading = Polestar.Get("ui.headingSize") }
+		emit(out)"#);
+	assert_eq!(out["house"], json!([false, false]), "Polestar's own skin has no preset: no buttons");
+	assert_eq!(out["registered"], true);
+	assert_eq!(out["offered"], json!({ "shown": true, "apply": true, "undo": false }), "the pair shows; Undo waits for an apply");
+	assert_eq!(out["label"], "Apply Dawn's layout");
+	assert_eq!(out["applied"], json!({ "state": { "shown": true, "apply": true, "undo": true }, "outline": "thick", "heading": 1.3 }));
+	assert_eq!(out["undone"]["state"], json!({ "shown": true, "apply": true, "undo": false }));
+	assert_eq!(out["undone"]["outline"], "none", "Undo puts the settings back");
+	assert_eq!(out["undone"]["heading"], 1);
 }

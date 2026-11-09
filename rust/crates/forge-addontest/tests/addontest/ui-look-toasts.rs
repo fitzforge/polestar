@@ -216,12 +216,12 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		local host = TS.NewStage(UIParent)
 		host:SetSize(700, 400)
 		local stages, heights = {}, {}
-		for _, tab in ipairs({ "rare", "transport", "whilehere", "headsup", "classcard", "line" }) do
+		for _, tab in ipairs({ "rare", "transport", "whilehere", "headsup", "classcard" }) do
 			local s = TS.Preview(host, tab)
 			heights[#heights + 1] = s:Layout(640)
 			stages[tab] = s
 		end
-		for _, tab in ipairs({ "flight", "instances", "party", "xp" }) do
+		for _, tab in ipairs({ "flight", "instances", "party" }) do
 			local s = TR.Preview(host, tab)
 			heights[#heights + 1] = s:Layout(640)
 			stages[tab] = s
@@ -237,7 +237,15 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 			flight = stages.flight.Tracker.Dest:GetText(),
 			instances = stages.instances.Tracker.Count:GetText(),
 			party = stages.party.Tracker.rows[2] and stages.party.Tracker.rows[2].Step:GetText() or false,
+			xp = stages.instances.XP.mark.Label:GetText(),
 		}
+		-- Its parts lead to their settings' rows.
+		local hots = {}
+		for _, tab in ipairs({ "rare", "classcard", "flight", "instances" }) do
+			for key in pairs(rawget(stages[tab], "Hots") or {}) do hots[#hots + 1] = key end
+		end
+		table.sort(hots)
+		live.hots = hots
 		emit({ heights = heights, live = live, sounds = #stub.sounds, fired = fired, target = Polestar.Nav.GetTarget() ~= nil })
 
 		-- A bigger rare alert: the preview shows it shrunk to fit and says so.
@@ -272,7 +280,15 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		first["live"],
 		json!({
 			"sandbox": true, "name": "Thuros Lightfingers", "banner": "Boat to Menethil Harbor", "here": "Kill Kobold Vermin  8/10  \u{b7}  50 yd",
-			"heads": "The Deadmines is open to you", "card": "The Binding", "flight": "Sentinel Hill", "instances": "3/5 this hour", "party": "Step 39"
+			"heads": "The Deadmines is open to you", "card": "The Binding", "flight": "Sentinel Hill", "instances": "3/5 this hour", "party": "Step 39",
+			"xp": "Guide: 14 (2 levels)",
+			"hots": [
+				"toasts.classcard.bodySize", "toasts.classcard.glow", "toasts.classcard.stripe", "toasts.classcard.titleSize",
+				"toasts.rare.bodySize", "toasts.rare.scale", "toasts.rare.titleSize",
+				"trackers.flight.barHeight", "trackers.flight.bodySize", "trackers.flight.scale", "trackers.flight.titleSize",
+				"trackers.instances.bodySize", "trackers.instances.scale", "trackers.instances.titleSize",
+				"trackers.xp.labelSize", "trackers.xp.tickWidth"
+			]
 		})
 	);
 	assert_eq!(first["sounds"], 0, "no sound while previewing");
@@ -295,8 +311,118 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 	assert_eq!(
 		out[0],
 		json!({
-			"alerts": ["Rare alert", "Transport alert", "While you're here", "Heads-up card", "Class quest card", "Stacking"],
-			"trackers": ["Flight timer", "Instance tracker", "Party panel", "XP bar", "Journey"]
+			"alerts": ["Rare alert", "Transport alert", "While you're here", "Heads-up card", "Class quest card"],
+			"trackers": ["Travel", "Instances & XP", "Party panel"]
 		})
 	);
+}
+
+// Layout v2: each section is one element; its on/off sits in its header; a colour rides on its slider's row and
+// secondary knobs behind the cog; row labels are short; every control, extra and cog row keeps its tooltip
+// (help), its search words and its "New" mark; and nothing a player could set before is gone from the pages.
+#[test]
+fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_and_keep_every_setting() {
+	let out = run(r#"
+		local toggles, extras, more, missing, long, keys, thin, crowded, count = {}, {}, {}, {}, {}, {}, {}, {}, {}
+		local function check(c, row)
+			if c.key then keys[c.key] = true end
+			if not (c.help and c.help ~= "") or not (c.search and c.search ~= "") then missing[#missing + 1] = c.key or c.label end
+			if row and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
+		end
+		Polestar.Widgets.OnOptionsRegistered(function(spec)
+			if spec.key ~= "alerts" and spec.key ~= "trackers" then return end
+			local where = spec.key .. "/" .. spec.tab .. "/" .. spec.section
+			if spec.toggle then
+				toggles[where] = spec.toggle.key
+				check(spec.toggle, false)
+			end
+			count[where] = (count[where] or 0) + #(spec.controls or {})
+			for _, c in ipairs(spec.controls or {}) do
+				check(c, true)
+				local switches, swatches = 0, 0
+				for _, e in ipairs(c.extras or {}) do
+					if e.kind == "toggle" then switches = switches + 1 else swatches = swatches + 1 end
+				end
+				if switches > 1 or swatches > 1 then crowded[#crowded + 1] = c.key end
+				for _, e in ipairs(c.extras or {}) do extras[c.key] = e.key; check(e, false) end
+				for _, m in ipairs(c.more or {}) do more[c.key] = m.key; check(m, false) end
+			end
+		end)
+		-- Two halves a row: a section of fewer than three controls is one row.
+		for where, n in pairs(count) do if n < 3 then thin[#thin + 1] = where end end
+		local all = {}
+		for k in pairs(keys) do all[#all + 1] = k end
+		table.sort(all)
+		emit({ toggles = toggles, extras = extras, more = more, missing = table.concat(missing, ", "), long = table.concat(long, ", "), keys = all,
+			thin = table.concat(thin, ", "), crowded = table.concat(crowded, ", ") })
+	"#);
+	let o = &out[0];
+	assert_eq!(o["missing"], "", "every control has help (its tooltip) and search words");
+	assert_eq!(o["long"], "", "row labels are one to three words");
+	assert_eq!(o["thin"], "", "no section of one row");
+	assert_eq!(o["crowded"], "", "at most one switch and one swatch beside a control");
+	assert_eq!(
+		o["toggles"],
+		json!({
+			"alerts/Rare alert/Rare alert": "rares.alerts",
+			"alerts/Transport alert/Transport alert": "nav.alerts",
+			"trackers/Travel/Flight timer": "maps.flightTimer",
+			"trackers/Instances & XP/Instance tracker": "maps.instances",
+			"trackers/Party panel/Party panel": "party.panel"
+		})
+	);
+	assert_eq!(o["extras"]["toasts.rare.bgAlpha"], "toasts.rare.bg");
+	assert_eq!(o["extras"]["toasts.rare.borderSize"], "toasts.rare.border");
+	assert_eq!(o["extras"]["rares.soundKit"], "rares.sound");
+	assert_eq!(o["extras"]["trackers.flight.barHeight"], "trackers.flight.barColor");
+	assert_eq!(o["extras"]["trackers.xp.tickWidth"], "trackers.xp.tickColor");
+	assert_eq!(o["more"]["toasts.stack"], "toasts.max");
+	assert_eq!(o["more"]["trackers.flight.titleSize"], "trackers.flight.format", "the time's outline and format behind its size's cog");
+	assert_eq!(o["more"]["trackers.xp.labelSize"], "trackers.xp.outline");
+	let keys: Vec<&str> = o["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
+	for kind in ["rare", "transport", "whilehere", "headsup"] {
+		for prop in ["scale", "alpha", "bgAlpha", "bg", "border", "borderSize", "enter", "speed", "titleSize", "bodySize"] {
+			let key = format!("toasts.{kind}.{prop}");
+			assert!(keys.contains(&key.as_str()), "{key} is on the page");
+		}
+	}
+	for kind in ["flight", "instances", "party"] {
+		for prop in ["scale", "width", "alpha", "bgAlpha", "bg", "border", "borderSize", "combat", "instance", "titleSize", "bodySize", "outline"] {
+			let key = format!("trackers.{kind}.{prop}");
+			assert!(keys.contains(&key.as_str()), "{key} is on the page");
+		}
+	}
+	for key in [
+		"rares.toastSeconds", "rares.treasureAlerts", "rares.combatAlerts", "nav.alertBanner", "nav.alertSound", "nav.alertFlash",
+		"toasts.transport.linger", "toasts.whilehere.seconds", "toasts.whilehere.accent", "behavior.whileHereSound", "toasts.headsup.seconds",
+		"dungeons.headsUp", "ui.classCardSound", "toasts.classcard.glow", "toasts.classcard.stripe", "toasts.classcard.shine",
+		"toasts.classcard.note", "toasts.classcard.titleSize", "toasts.classcard.bodySize", "toasts.growth", "toasts.spacing", "toasts.max",
+		"trackers.flight.barHeight", "trackers.flight.format", "maps.instanceDisplay", "trackers.xp.label", "trackers.journey.rows",
+		"trackers.journey.numbers",
+	] {
+		assert!(keys.contains(&key), "{key} is on the page");
+	}
+}
+
+// The window's own widgets on the page: the header switch turns rare alerts off, the inline swatch is its own
+// setting (right-click resets it), and the entrance row's cog opens its speed.
+#[test]
+fn on_the_rare_alert_tab_the_header_switch_the_inline_swatch_and_the_cog_are_the_settings_they_name() {
+	let out = run(r#"
+		local O = UI.Options
+		UI.ShowOptions("alerts")
+		O.Select("alerts", "Rare alert")
+		local c = O.Controls("alerts", "Rare alert")
+		local found = { header = c["rares.alerts"] ~= nil, swatch = c["toasts.rare.bg"] ~= nil, slider = c["toasts.rare.bgAlpha"] ~= nil }
+		c["rares.alerts"]:Click()
+		local off = Polestar.Get("rares.alerts")
+		c["rares.alerts"]:Click()
+		Polestar.Set("toasts.rare.bg", { 0.2, 0.1, 0.3 })
+		c["toasts.rare.bg"]:Click("RightButton")
+		local bg = Polestar.Get("toasts.rare.bg")
+		c["toasts.stack"].Cog:Click()
+		local more = O.MoreControls()
+		emit({ found = found, off = off, on = Polestar.Get("rares.alerts"), bg = bg, speed = more["toasts.spacing"] ~= nil })
+	"#);
+	assert_eq!(out[0], json!({ "found": { "header": true, "swatch": true, "slider": true }, "off": false, "on": true, "bg": false, "speed": true }));
 }

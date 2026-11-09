@@ -212,117 +212,145 @@ fn page(script: &str) -> Value {
 	.remove(0)
 }
 
+// What the Route tab shows for one style: every key on it (shown rows only), and the widget map.
+const ROWS: &str = r#"
+local function rows(style)
+	Polestar.Set("nav.lineStyle", style)
+	O.Select("routelines", "Route")
+	local c, keys = O.Controls("routelines", "Route"), {}
+	for key, w in pairs(c) do if w:IsVisible() then keys[#keys + 1] = key end end
+	table.sort(keys)
+	return keys, c
+end
+-- The settings behind a row's cog.
+local function cog(row)
+	if not (row and row.Cog) then return {} end
+	row.Cog:Click()
+	local keys = {}
+	for key in pairs(O.MoreControls and O.MoreControls() or {}) do keys[#keys + 1] = key end
+	table.sort(keys)
+	return keys
+end
+"#;
+
 #[test]
-fn the_gear_beside_route_lines_opens_the_route_lines_page_which_holds_the_line_style_window_s_settings() {
-	let out = page(
-		r#"
+fn the_gear_opens_one_route_tab_where_only_the_drawn_style_s_section_shows_and_the_presets_are_picture_cards() {
+	let out = page(&format!(
+		r#"{ROWS}
 		UI.ShowOptions("guide")
 		O.Select("guide", "Arrow & routes")
 		local row = O.Controls("guide", "Arrow & routes")["nav.routeLines"]
-		local r = { gear = row and row.Gear ~= nil or false, window = _G.PolestarLineStyle == nil, show = UI.ShowLineStyle == nil }
+		local r = {{ gear = row and row.Gear ~= nil or false, window = _G.PolestarLineStyle == nil, show = UI.ShowLineStyle == nil }}
 		if row and row.Gear then row.Gear:Click() end
 		r.page = false
 		for f in pairs(R.Previews()) do if f:IsVisible() then r.page = true end end
-		local keys = {}
-		for _, tab in ipairs({ "Line", "Minimap", "Dots & sparkles" }) do
-			O.Select("routelines", tab)
-			for key in pairs(O.Controls("routelines", tab)) do keys[#keys + 1] = key end
-		end
-		table.sort(keys)
-		r.keys = keys
-		local c = O.Controls("routelines", "Dots & sparkles")
-		Polestar.Set("nav.lineStyle", "dots")
-		r.intensityWithDots, r.dotSizeWithDots = W.Enabled(c["nav.sparkleIntensity"]), W.Enabled(c["nav.dotSize"])
-		Polestar.Set("nav.lineStyle", "sparkle")
-		r.intensityWithSparkle, r.dotSizeWithSparkle = W.Enabled(c["nav.sparkleIntensity"]), W.Enabled(c["nav.dotSize"])
-		c["Dazzling sparkles"].Button:Click()
+		local tabs
+		for _, p in ipairs(O.Pages()) do if p.key == "routelines" then tabs = p.tabs end end
+		r.tabs = tabs
+		local c
+		r.line, c = rows("line")
+		r.dots = rows("dots")
+		r.sparkle, c = rows("sparkle")
+		r.intensityCog, r.densityCog = cog(c["nav.sparkleIntensity"]), cog(c["nav.sparkleDensity"])
+		r.sparkleOn = W.Enabled(c["nav.sparkleIntensity"])
+		local cards = c["Presets"]
+		local dazzling = cards and cards.psCardBy and cards.psCardBy.dazzling
+		if dazzling then dazzling:Click() end
 		r.dazzling = Polestar.Get("nav.sparkleIntensity")
-		emit(r)"#,
-	);
+		local subtle = cards and cards.psCardBy and cards.psCardBy.subtle
+		if subtle then subtle:Click() end
+		r.subtle = Polestar.Get("nav.sparkleIntensity")
+		if cards then cards:Click("RightButton") end
+		r.reset = Polestar.Get("nav.sparkleIntensity")
+		Polestar.Set("ui.reduceMotion", true)
+		r.reduced = rows("sparkle")
+		emit(r)"#
+	));
 	assert_eq!(out["gear"], true, "a gear beside the switch");
 	assert_eq!(out["window"], true, "the Line style window is gone");
 	assert_eq!(out["show"], true);
 	assert_eq!(out["page"], true, "the gear opens the Route lines page");
-	let keys = out["keys"].as_array().expect("keys");
+	assert_eq!(out["tabs"], json!(["Route"]), "one tab");
+	let has = |list: &str, key: &str| out[list].as_array().is_some_and(|a| a.contains(&json!(key)));
 	for key in [
 		"nav.routeLines",
-		"nav.worldRoute",
 		"nav.lineStyle",
-		"nav.lineWidth",
+		"nav.worldRoute",
+		"nav.worldRouteAlpha",
+		"nav.drawIn",
+		"nav.laterAlpha",
 		"nav.lineOutline",
-		"nav.flightDash",
-		"nav.routeChevrons",
-		"nav.dotColor",
-		"nav.walkColor",
 		"nav.flightColor",
 		"nav.boatColor",
 		"nav.zeppelinColor",
 		"nav.tramColor",
-		"nav.worldRouteAlpha",
-		"nav.laterAlpha",
-		"nav.walkedFade",
-		"nav.drawIn",
 		"nav.minimapRoute",
-		"nav.minimapRouteAlpha",
 		"nav.minimapRouteSize",
-		"nav.dotSize",
-		"nav.dotSpacing",
-		"nav.sparkleIntensity",
-		"nav.sparkleDensity",
-		"nav.sparkleSubtlety",
-		"nav.sparkleSize",
-		"nav.sparkleFlow",
-		"nav.sparkleMax",
-		"nav.sparkleColor",
-		"nav.sparkleLater",
-		"Subtle sparkles",
-		"Default sparkles",
-		"Dazzling sparkles",
+		"nav.minimapRouteAlpha",
 	] {
-		assert!(keys.contains(&json!(key)), "{key} on the page: {keys:?}");
+		for style in ["line", "dots", "sparkle"] {
+			assert!(has(style, key), "{key} shows with the {style} style: {}", out[style]);
+		}
 	}
-	assert_eq!(out["intensityWithDots"], false, "the sparkle settings wait for the sparkles");
-	assert_eq!(out["dotSizeWithDots"], true);
-	assert_eq!(out["intensityWithSparkle"], true);
-	assert_eq!(out["dotSizeWithSparkle"], false, "the dots' size waits for the dots");
-	assert_eq!(out["dazzling"], 1, "a preset applies");
+	for key in ["nav.lineWidth", "nav.walkedFade", "nav.routeChevrons", "nav.flightDash"] {
+		assert!(has("line", key) && !has("dots", key) && !has("sparkle", key), "{key}: the line's section alone");
+	}
+	// The walk and route colours lead both the line's and the dots' sections (one of the two widgets is mapped).
+	for key in ["nav.walkColor", "nav.dotColor"] {
+		assert!((has("line", key) || has("dots", key)) && !has("sparkle", key), "{key}: the line's or the dots' section");
+	}
+	for key in ["nav.dotSize", "nav.dotSpacing"] {
+		assert!(has("dots", key) && !has("line", key) && !has("sparkle", key), "{key}: the dots' section alone");
+	}
+	for key in ["Presets", "nav.sparkleColor", "nav.sparkleSize", "nav.sparkleIntensity", "nav.sparkleDensity", "nav.sparkleFlow", "nav.sparkleLater"] {
+		assert!(has("sparkle", key) && !has("line", key) && !has("dots", key), "{key}: the sparkles' section alone");
+	}
+	assert_eq!(out["intensityCog"], json!(["nav.sparkleSubtlety"]));
+	assert_eq!(out["densityCog"], json!(["nav.sparkleMax"]));
+	assert_eq!(out["sparkleOn"], true, "nothing greyed out while sparkles are drawn");
+	assert_eq!(out["dazzling"], 1, "a preset card applies");
+	assert_eq!(out["subtle"], 0.45);
+	assert_eq!(out["reset"], 0.75, "right-click: the default preset");
+	assert!(has("reduced", "nav.dotSize") && !has("reduced", "nav.sparkleIntensity"), "reduced motion draws dots: their section shows");
 }
 
-// Issue #1381 (moved from the Line style window): the dots' colour and the minimap line's opacity and size, the
-// colour waiting for the dots, each reset by right-click; the minimap size slider follows the chosen style;
-// "Route line on the minimap" stays under Map > Guide & quests too, waiting for "Guide pin on the minimap".
+// Issue #1381 (moved from the Line style window): the dots' colour and the minimap line's opacity and size, each
+// reset by right-click; the minimap size slider follows the chosen style; the Minimap header switch; "Route line on
+// the minimap" stays under Map > Guide & quests too, waiting for "Guide pin on the minimap".
 #[test]
 fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_follows_the_style() {
-	let out = page(
-		r#"
-		Polestar.Set("nav.lineStyle", "dots")
+	let out = page(&format!(
+		r#"{ROWS}
 		UI.ShowOptions("routelines")
-		O.Select("routelines", "Line")
-		local colour = O.Controls("routelines", "Line")["nav.dotColor"]
-		O.Select("routelines", "Minimap")
-		local m = O.Controls("routelines", "Minimap")
-		local r = { colourWithDots = W.Enabled(colour) }
-		Polestar.Set("nav.lineStyle", "sparkle")
-		r.colourWithSparkle = W.Enabled(colour)
-		r.alphaWithSparkle, r.sizeWithSparkle = W.Enabled(m["nav.minimapRouteAlpha"]), W.Enabled(m["nav.minimapRouteSize"])
+		local _, m = rows("dots")
+		local colour = m["nav.dotColor"]
+		local r = {{ colourWithDots = W.Enabled(colour) }}
 		local slider = m["nav.minimapRouteSize"]
 		local function shows() return slider.Slider:GetValue() end
 		Polestar.Set("nav.lineStyle", "line"); r.line = shows()
 		Polestar.Set("nav.lineStyle", "dots"); r.dots = shows()
 		Polestar.Set("nav.lineStyle", "sparkle"); r.sparkle = shows()
+		r.sizeWithSparkle = W.Enabled(slider)
 		stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
-		r.after = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }
+		r.after = {{ Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }}
 		slider:Click("RightButton")
 		r.sizeReset = Polestar.Get("nav.minimapSparkleSize")
-		Polestar.Set("nav.lineStyle", "dots")
+		r.max = select(2, slider.Slider:GetMinMaxValues())
+		_, m = rows("dots")
+		colour = m["nav.dotColor"]
 		Polestar.Set("nav.dotColor", "cyan")
 		Polestar.Set("nav.minimapRouteAlpha", 0.4)
 		colour:Click("RightButton")
 		m["nav.minimapRouteAlpha"]:Click("RightButton")
-		r.reset = { Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha") }
-		Polestar.Set("nav.walkColor", { 1, 0, 0 })
+		r.reset = {{ Polestar.Get("nav.dotColor"), Polestar.Get("nav.minimapRouteAlpha") }}
+		Polestar.Set("nav.walkColor", {{ 1, 0, 0 }})
 		r.colourWithOwnWalk = W.Enabled(colour)
-		r.max = select(2, slider.Slider:GetMinMaxValues())
+		-- The minimap section's switch in its header: off dims its rows.
+		local header = m["nav.minimapRoute"]
+		if header then header:Click() end
+		r.headerOff, r.sizeWhileOff = Polestar.Get("nav.minimapRoute"), W.Enabled(m["nav.minimapRouteSize"])
+		if header then header:Click("RightButton") end
+		r.headerReset = Polestar.Get("nav.minimapRoute")
 		UI.ShowOptions("map")
 		O.Select("map", "Guide & quests")
 		local toggle = O.Controls("map", "Guide & quests")["nav.minimapRoute"]
@@ -333,17 +361,19 @@ fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_fol
 		Polestar.Set("nav.minimapRoute", false)
 		if toggle then toggle:Click("RightButton") end
 		r.toggleReset = Polestar.Get("nav.minimapRoute")
-		emit(r)"#,
-	);
+		emit(r)"#
+	));
 	assert_eq!(out["colourWithDots"], true);
-	assert_eq!(out["colourWithSparkle"], false, "the route colour waits for the dots or the line");
-	assert_eq!(json!([out["alphaWithSparkle"], out["sizeWithSparkle"]]), json!([true, true]), "the minimap look holds for every style");
+	assert_eq!(out["sizeWithSparkle"], true, "the minimap look holds for every style");
 	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
 	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
 	assert_eq!(out["sizeReset"], 1.5);
+	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
 	assert_eq!(out["reset"], json!(["route", 1]), "right-click restores each default");
 	assert_eq!(out["colourWithOwnWalk"], false, "a walk colour of your own wins over the route colour");
-	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
+	assert_eq!(out["headerOff"], false, "the Minimap section's header switch turns the minimap route off");
+	assert_eq!(out["sizeWhileOff"], false, "and dims its rows");
+	assert_eq!(out["headerReset"], true, "right-click on it resets");
 	assert_eq!(out["toggleOn"], true, "the switch is on Map > Guide & quests");
 	assert_eq!(out["toggleWithoutPin"], false, "it waits for the minimap pin, which hides the line too");
 	assert_eq!(out["toggleReset"], true);
@@ -354,7 +384,7 @@ fn the_preview_paints_the_route_with_the_maps_painters_and_runs_no_onupdate_whil
 	let out = page(
 		r#"
 		UI.ShowOptions("routelines")
-		O.Select("routelines", "Line")
+		O.Select("routelines", "Route")
 		local function preview()
 			for f in pairs(R.Previews() or {}) do if f:IsVisible() then return f end end
 		end
@@ -368,6 +398,12 @@ fn the_preview_paints_the_route_with_the_maps_painters_and_runs_no_onupdate_whil
 		if not f then emit(r) return end
 		r.world, r.worldShown, r.minimap = f.strokes.n, shown(f.world), f.mmStrokes.n
 		r.still = f:GetScript("OnUpdate") == nil
+		-- The walk, the flight, the boat and the minimap are click targets that jump to their rows.
+		r.hotspots = {}
+		for key in pairs(f.hotButtons or {}) do r.hotspots[#r.hotspots + 1] = key end
+		table.sort(r.hotspots)
+		local fly = f.hotButtons and f.hotButtons["nav.flightColor"]
+		r.jumped = fly ~= nil and pcall(fly:GetScript("OnClick"), fly) or false
 		Polestar.Set("nav.walkColor", { 1, 0, 0 })
 		local rr, rg, rb = f.world.lines[1]:GetVertexColor()
 		r.red = { rr, rg, rb }
@@ -397,6 +433,8 @@ fn the_preview_paints_the_route_with_the_maps_painters_and_runs_no_onupdate_whil
 	assert!(f(&out["world"]) > 10.0 && out["worldShown"] == out["world"], "the world panel's route painted: {out}");
 	assert!(f(&out["minimap"]) > 0.0, "and the minimap disc's");
 	assert_eq!(out["still"], true, "no OnUpdate for a still line");
+	assert_eq!(out["hotspots"], json!(["nav.boatColor", "nav.flightColor", "nav.minimapRouteSize", "nav.walkColor"]), "click targets on the preview");
+	assert_eq!(out["jumped"], true, "a click on the flight jumps to its row");
 	assert_eq!(out["red"], json!([1, 0, 0]), "a setting repaints it");
 	assert_eq!(out["width"], 8);
 	assert_eq!(out["sparkling"], true, "sparkles animate while shown");

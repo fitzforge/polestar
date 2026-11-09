@@ -749,11 +749,12 @@ function Pins.WorldScale(f, zoom)
 end
 
 -- A pin's size on the minimap at zoom factor zoomK and nav.minimapIconSize
--- sizeK, its medallion held to PIN_ZOOM.minimap.max (times sizeK and `grow`).
+-- sizeK, its medallion held to PIN_ZOOM.minimap.max (times sizeK and the
+-- pin's `minimapGrow`, else `grow`).
 function Pins.MinimapPinSize(p, layerScale, zoomK, sizeK)
 	local scale = (layerScale or 1) * zoomK * sizeK
 	local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
-	local cap = PIN_ZOOM.minimap.max / MEDAL_SCALE * sizeK * (tonumber(p.grow) or 1)
+	local cap = PIN_ZOOM.minimap.max / MEDAL_SCALE * sizeK * (tonumber(p.minimapGrow) or tonumber(p.grow) or 1)
 	if p.state == "focus" then cap = cap / FOCUS_SCALE end
 	if size > cap then size = cap end
 	return size

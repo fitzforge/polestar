@@ -305,13 +305,143 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 		emit({ v = T.API_VERSION, skins = T.HasCapability("skins"), schemes = T.HasCapability("schemes"),
 			window = T.HasCapability("surfaces.window"), toast = T.HasCapability("surfaces.toast"),
 			arrow = T.HasCapability("surfaces.arrow"), pin = T.HasCapability("surfaces.pin"), fonts = T.HasCapability("fonts"),
+			preset = T.HasCapability("preset"), light = T.HasCapability("lightSchemes"),
 			nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil), n = #T.Capabilities() })"##);
 	assert_eq!(out["v"], 1);
-	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts"] {
+	for k in ["skins", "schemes", "window", "toast", "arrow", "pin", "fonts", "preset", "light"] {
 		assert_eq!(out[k], true, "{k}");
 	}
 	assert_eq!((out["nope"].clone(), out["odd"].clone()), (json!(false), json!(false)));
 	assert!(out["n"].as_u64().unwrap() >= 20);
+}
+
+// A skin's preset: the settings it recommends, checked against Polestar's own (the key exists, the value has its
+// default's type, a look setting only), never applied by itself; applying it goes through Polestar.Set, repaints
+// once, and Undo puts every setting back, also the colour source it turned off.
+#[test]
+fn a_skin_preset_is_checked_against_the_settings_applied_only_on_request_and_undone() {
+	let out = run(r##"
+		-- UI/UI.lua's colour-source defaults (not loaded here).
+		Polestar.RegisterDefaults("ui", { accent = false, classAccent = false, matchAccent = false })
+		local out = {}
+		local function try(preset)
+			local ok, msg = T.RegisterSkin("p" .. tostring(math.random(1e6)), { name = "P", addon = "Test_P", preset = preset })
+			return { ok = ok, msg = msg or false }
+		end
+		out.unknown = try({ ["ui.nope"] = 1 })
+		out.type = try({ ["ui.headingSize"] = "big" })
+		out.colour = try({ ["ui.panelColor"] = "red" })
+		out.behaviour = try({ ["behavior.autoAccept"] = true })
+		out.skin = try({ ["ui.skin"] = "halo" })
+		out.path = try({ scale = 1 })
+		out.empty = try({})
+		out.reg = { T.RegisterSkin("layout", { name = "Layout", addon = "Test_Layout", preset = {
+			["ui.fontOutline"] = "outline", ["ui.headingSize"] = 1.2, ["ui.panelColor"] = "#203040", ["ui.haze"] = false,
+			["ui.accent"] = { 0.2, 0.6, 1 } } }) }
+		out.none = T.SkinPreset("halo") == nil
+		local p = T.SkinPreset("layout")
+		out.preset = { p["ui.fontOutline"], p["ui.headingSize"], p["ui.haze"], hexOf(p["ui.panelColor"]) }
+		p["ui.headingSize"] = 9
+		out.copy = T.SkinPreset("layout")["ui.headingSize"]
+		-- Choosing the skin applies nothing.
+		Polestar.Set("ui.classAccent", true)
+		Polestar.Set("ui.skin", "layout")
+		out.untouched = { Polestar.Get("ui.fontOutline"), Polestar.Get("ui.headingSize"), Polestar.Get("ui.haze") }
+		local refreshes = 0
+		T.OnChanged(function() refreshes = refreshes + 1 end)
+		out.applied = { T.ApplySkinPreset("layout") }
+		out.refreshes = refreshes
+		out.after = { Polestar.Get("ui.fontOutline"), Polestar.Get("ui.headingSize"), Polestar.Get("ui.haze"),
+			hexOf(Polestar.Get("ui.panelColor")), hexOf(T.Palette().accent), Polestar.Get("ui.classAccent") }
+		out.outline = select(3, T.FontSpec("body"))
+		out.which = T.SkinPresetApplied()
+		out.undo = T.UndoSkinPreset()
+		out.back = { Polestar.Get("ui.fontOutline"), Polestar.Get("ui.headingSize"), Polestar.Get("ui.haze"),
+			Polestar.Get("ui.panelColor"), Polestar.Get("ui.accent"), Polestar.Get("ui.classAccent") }
+		out.stored = PolestarDB.settings.ui.fontOutline == nil and PolestarDB.settings.ui.headingSize == nil
+		out.again = T.UndoSkinPreset()
+		out.which2 = T.SkinPresetApplied() or false
+		out.noPreset = { T.ApplySkinPreset("halo") }
+		emit(out)"##);
+	let refused = |k: &str, pat: &str| {
+		assert_eq!(out[k]["ok"], false, "{k}: {}", out[k]);
+		let msg = out[k]["msg"].as_str().unwrap_or("");
+		assert!(msg.contains(pat), "{k}: {msg:?} should say {pat:?}");
+	};
+	refused("unknown", "Polestar has no setting \"ui.nope\"");
+	refused("type", "preset.ui.headingSize must be a number");
+	refused("colour", "preset.ui.panelColor must be false or a colour");
+	refused("behaviour", "not a look setting");
+	refused("skin", "not a look setting");
+	refused("path", "is not a setting path");
+	refused("empty", "preset is empty");
+	assert_eq!(out["reg"], json!([true]));
+	assert_eq!(out["none"], true);
+	assert_eq!(out["preset"], json!(["outline", 1.2, false, "203040"]));
+	assert_eq!(out["copy"], 1.2, "SkinPreset hands out a copy");
+	assert_eq!(out["untouched"], json!(["none", 1, true]), "never applied by choosing the skin");
+	assert_eq!(out["applied"], json!([true]));
+	assert_eq!(out["refreshes"], 1, "one repaint for the whole preset");
+	assert_eq!(out["after"], json!(["outline", 1.2, false, "203040", "3399ff", false]), "your own accent turned the class accent off");
+	assert_eq!(out["outline"], "OUTLINE");
+	assert_eq!(out["which"], "layout");
+	assert_eq!(out["undo"], true);
+	assert_eq!(out["back"], json!(["none", 1, true, false, false, true]), "every setting as it was, the class accent too");
+	assert_eq!(out["stored"], true, "values equal to their defaults are not stored");
+	assert_eq!((out["again"].clone(), out["which2"].clone()), (json!(false), json!(false)));
+	assert_eq!(out["noPreset"], json!([false, "this skin has no preset"]));
+}
+
+// A light scheme (dark text on parchment): the guard lifts its grounds instead of darkening them, at registration
+// and live, so a negative brightness or a dark ground colour can never send a light palette's grounds to black.
+#[test]
+fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_sends_it_to_black() {
+	let out = run(r##"
+		local tokens = {
+			bg = "#f2e8d0", panel = "#f5ecd6", panelAlt = "#e8dcc0", sidebar = "#ebe0c6", footer = "#ece2c9", sky = "#e0d2ae",
+			text = "#1e1a14", textDim = "#463e32", textMuted = "#574e40", ink = "#000000", star = "#7a6a40",
+			success = "#1f6b2e", warning = "#7a4a00", danger = "#9a1f1f", quest = "#6e4a00", npc = "#1d4f8a", item = "#5a3a9a",
+			place = "#8a3f1a", object = "#5a4a2a", level = "#1e1a14", skill = "#2e6a1e", spell = "#1a5a6a", faction = "#8a2a5a",
+			area = "#7a4a2a", achievement = "#8a4a00", dungeon = "#4a2a9a", rare = "#9a3a10",
+		}
+		local out = {}
+		out.reg = { T.RegisterScheme("parchment", { name = "Parchment", addon = "Test_Light", tokens = tokens, accent = "#8a5a00" }) }
+		local function L(c) return T.Luminance(c[1], c[2], c[3]) end
+		local function state()
+			local pal = T.Palette()
+			return { light = L(pal.bg) > L(pal.text), legible = T.Legibility(pal) >= 1, bg = L(pal.bg), bgHex = hexOf(pal.bg) }
+		end
+		Polestar.Set("ui.scheme", "parchment")
+		out.plain = state()
+		Polestar.Set("ui.brightness", -1)
+		out.dimmed = state()
+		Polestar.Set("ui.brightness", 0)
+		Polestar.Set("ui.bgColor", { 0.12, 0.1, 0.08 })
+		out.dark = state()
+		Polestar.Set("ui.bgColor", false)
+		-- Grounds a little too grey for its text: lifted at registration, and said so.
+		local grey = {}
+		for k, v in pairs(tokens) do grey[k] = v end
+		grey.bg, grey.panel, grey.panelAlt, grey.sidebar, grey.footer, grey.sky = "#b8ae96", "#bcb29a", "#b0a68e", "#b4aa92", "#b6ac94", "#aca288"
+		local ok, note = T.RegisterScheme("dusty", { name = "Dusty", addon = "Test_Light", tokens = grey })
+		out.dusty = { ok, note or false, L(T.SCHEMES.dusty.panelAlt) > L(T.HexColor("b0a68e")) }
+		-- A dark scheme is still darkened.
+		Polestar.Set("ui.scheme", "dusk")
+		Polestar.Set("ui.brightness", 1)
+		out.duskBright = { T.Legibility(T.Palette()) >= 1, L(T.Palette().bg) < L(T.Palette().text) }
+		emit(out)"##);
+	assert_eq!(out["reg"], json!([true]), "legible as given: no note");
+	assert_eq!(out["plain"]["bgHex"], "f2e8d0");
+	for k in ["plain", "dimmed", "dark"] {
+		assert_eq!(out[k]["light"], true, "{k}: {}", out[k]);
+		assert_eq!(out[k]["legible"], true, "{k}: {}", out[k]);
+		assert!(out[k]["bg"].as_f64().unwrap() > 0.4, "{k}: grounds kept light: {}", out[k]);
+	}
+	assert_eq!(out["dusty"][0], true);
+	let note = out["dusty"][1].as_str().unwrap();
+	assert!(note.contains("lightened"), "{note}");
+	assert_eq!(out["dusty"][2], true, "the stored grounds are lighter");
+	assert_eq!(out["duskBright"], json!([true, true]));
 }
 
 #[test]

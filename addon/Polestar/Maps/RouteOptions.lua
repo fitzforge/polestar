@@ -3,12 +3,15 @@
 -- look (Maps/RouteLines.lua) over a live preview of them. The gear beside
 -- Guide > Arrow & routes > "Route lines" opens it (UI.ShowOptions("routelines")).
 --
---   Line      the style, the line's thickness and outline, dashed flights,
---             chevrons, each way of travel's colour, the world map's opacity,
---             the legs after this one, the walked stretch, the draw-in;
---   Minimap   the line on the minimap, its opacity and its size;
---   Dots & sparkles  the dots' size and spacing; the sparkles' presets and
---             settings (Maps/RouteSparkle.lua).
+-- One tab, Route: Route lines (on/off in the header; the style as picture
+-- cards, the world map's and the minimap's opacity each with its on/off
+-- switch, the minimap size, the draw-in, later legs, the outline); then the
+-- drawn style's own section, the only one shown (Line: walk and route
+-- colour, thickness, walked fade, direction marks, dashed flights; Dots:
+-- walk and route colour, dot size and spacing; Sparkles: presets as picture
+-- cards and the sparkle settings, Maps/RouteSparkle.lua); Flights & rides
+-- (each one's colour).
+-- The preview's walk, flight, boat and minimap jump to their rows on a click.
 --
 -- The preview pinned above each tab draws a route of its own (a walk with two
 -- bends from the player, a flight, a later boat leg, fainter) with the maps'
@@ -36,14 +39,6 @@ local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 -- What each control waits for.
 local function off() return not ns.Get("nav.routeLines") end
 local function style() return ns.Get("nav.lineStyle") end
-local function notLine() return off() or style() ~= "line" end
-local function plain() return off() or style() ~= "sparkle" end
--- The dots draw: their style, or the sparkles' under Reduce motion.
-local function notDots()
-	if off() then return true end
-	local s = style()
-	return not (s == "dots" or (s == "sparkle" and ns.Get("ui.reduceMotion")))
-end
 -- The colours show in the line and the dots, and in sparkles of the route colours.
 local function uncoloured()
 	return off() or (style() == "sparkle" and not ns.Get("ui.reduceMotion") and ns.Get("nav.sparkleColor") ~= "route")
@@ -55,9 +50,10 @@ local function sizeKey()
 	return "nav." .. (R.SIZE_KEYS[style()] or R.SIZE_KEYS.dots)
 end
 
--- A colour row for a way of travel: its own colour, or the default shown.
-local function colour(kind, key, label, help, search)
-	return { kind = "color", key = "nav." .. key, label = label, help = help, new = NEW, search = search,
+-- A colour row for a way of travel: its own colour, or the default shown;
+-- more: its cog's settings.
+local function colour(kind, key, label, help, search, more)
+	return { kind = "color", key = "nav." .. key, label = label, help = help, new = NEW, search = search, more = more,
 		shown = function() return R.DefaultColor(kind) end,
 		source = function()
 			if kind == "walk" and R.DOT_COLORS[ns.Get("nav.dotColor")] then return L["Route colour"] end
@@ -81,7 +77,7 @@ local SPARKLE_COLORS = {
 -- The preview
 ---------------------------------------------------------------------------
 
-local PREVIEW_H, PAD, MM = 214, 12, 128
+local PREVIEW_H, MM = 226, 128
 local MM_RADIUS = 230 -- yards the preview's minimap shows from its centre
 -- The preview's own continent; its yards are map fractions x 1000 (fx = wy / 1000, fy = wx / 1000).
 local C, YARDS = -1, 1000
@@ -100,6 +96,13 @@ local LEGS = {
 local PLAYER_T = 0.45
 -- The stops' marks, as the maps leave a gap around (RouteLines' STOP_MARK, GOAL_MARK).
 local MARKS = { { 0.56, 0.42, 7 }, { 0.81, 0.30, 7 }, { 0.95, 0.80, 11 } }
+-- The preview's click targets: each leg's box on the world panel (map
+-- fractions left, top, right, bottom) and the row it jumps to.
+local HOTSPOTS = {
+	{ key = "nav.walkColor", box = { 0.02, 0.40, 0.57, 0.86 } },
+	{ key = "nav.flightColor", box = { 0.57, 0.10, 0.80, 0.42 } },
+	{ key = "nav.boatColor", box = { 0.80, 0.26, 0.98, 0.86 } },
+}
 
 -- The settings the preview shows (nav.<key>), and the paths that change it all.
 local WATCHED = { ["nav"] = true, [""] = true, ["ui"] = true, ["ui.reduceMotion"] = true }
@@ -275,8 +278,9 @@ local function repaintShown()
 end
 
 -- The window's chrome ("Preview", f.caption, "Live") sits over the top
--- TOP px; the body's own pad is INSET at either side.
-local TOP, INSET = 34, 32
+-- TOP px and its one-time hint ("Click a part of the preview…") over the
+-- bottom BOTTOM px; the body's own pad is INSET at either side.
+local TOP, BOTTOM, INSET = 34, 30, 32
 
 local function buildPreview(host)
 	local f = CreateFrame("Frame", nil, host)
@@ -293,14 +297,14 @@ local function buildPreview(host)
 	-- The world map: the player's zone painting, or the night band.
 	local panel = CreateFrame("Frame", nil, f)
 	panel:SetPoint("TOPLEFT", f, "TOPLEFT", INSET, -TOP)
-	panel:SetHeight(PREVIEW_H - TOP - PAD)
+	panel:SetHeight(PREVIEW_H - TOP - BOTTOM)
 	if panel.SetClipsChildren then panel:SetClipsChildren(true) end
 	W.Fill(panel, "scrim", "BACKGROUND", -8)
 	W.Painter(panel, function(self) Theme.Border(self, Theme.Wash("divider")) end)
 	f.Panel = panel
 	local ZA = ns.UI and ns.UI.ZoneArt
 	if ZA and ZA.Create then
-		local art = ZA.Create(panel, 400, PREVIEW_H - TOP - PAD, "scrim")
+		local art = ZA.Create(panel, 400, PREVIEW_H - TOP - BOTTOM, "scrim")
 		art:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, 0)
 		-- The whole painting, no fade into a name below it.
 		if art.Fade then art.Fade:Hide() end
@@ -315,7 +319,7 @@ local function buildPreview(host)
 	f.world:SetFrameLevel(panel:GetFrameLevel() + 5)
 	local cap = W.Text(f.world, "caption", "textMuted")
 	cap:SetText(L["World map"])
-	cap:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 8, 6)
+	cap:SetPoint("TOPLEFT", panel, "TOPLEFT", 8, -6)
 
 	-- The stops' marks and the player, as the maps' pins show them.
 	f.marks = {}
@@ -343,6 +347,19 @@ local function buildPreview(host)
 	mmCap:SetText(L["Minimap"])
 	mmCap:SetPoint("TOP", mmFrame, "BOTTOM", 0, -6)
 
+	-- Click targets: a part of the preview jumps to its settings (the
+	-- window's hotspots). The walk, the flight and the boat by the box their
+	-- leg spans on the world panel (placed in Layout), the minimap by its disc.
+	f.hot, f.hotButtons = {}, {}
+	local hotspot = host.Hotspot and function(region, key) return host:Hotspot(region, key) end
+		or (ns.UI.Options and ns.UI.Options.PreviewHotspot and function(region, key) return ns.UI.Options.PreviewHotspot(f, region, key) end)
+	for i, spot in ipairs(HOTSPOTS) do
+		local region = CreateFrame("Frame", nil, f.world)
+		f.hot[i] = region
+		if hotspot then f.hotButtons[spot.key] = hotspot(region, spot.key) end
+	end
+	if hotspot then f.hotButtons["nav.minimapRouteSize"] = hotspot(mmFrame, "nav.minimapRouteSize") end
+
 	-- The route, its views and buffers: the maps' own geometry.
 	f.paths = {}
 	for i, leg in ipairs(LEGS) do f.paths[i] = Strokes.Path(leg.kind, leg.pts, leg.later) end
@@ -366,7 +383,7 @@ local function buildPreview(host)
 	function f:Layout(width)
 		self:SetWidth(width)
 		local ww = max(120, floor(width - INSET * 2 - MM - 24))
-		local wh = PREVIEW_H - TOP - PAD
+		local wh = PREVIEW_H - TOP - BOTTOM
 		if ww == self.worldW and not self.dirty then return PREVIEW_H end
 		panel:SetWidth(ww)
 		self.worldW, self.worldH = ww, wh
@@ -390,6 +407,12 @@ local function buildPreview(host)
 		self.player:ClearAllPoints()
 		self.player:SetPoint("CENTER", self.world, "TOPLEFT", self.py / YARDS * ww, -self.px / YARDS * wh)
 		if self.player.SetRotation then self.player:SetRotation(atan2(-dx, dy)) end
+		for i, spot in ipairs(HOTSPOTS) do
+			local box, region = spot.box, self.hot[i]
+			region:ClearAllPoints()
+			region:SetPoint("TOPLEFT", self.world, "TOPLEFT", box[1] * ww, -box[2] * wh)
+			region:SetSize((box[3] - box[1]) * ww, (box[4] - box[2]) * wh)
+		end
 		paint(self)
 		return PREVIEW_H
 	end
@@ -418,129 +441,204 @@ function R.Previews()
 end
 
 ---------------------------------------------------------------------------
--- The page
+-- The page: one tab, one section per element of the route in its anatomy
+-- order. Route lines (on/off in its header, the style as picture cards, the
+-- world map and the minimap); then the chosen style's own section, shown
+-- only while that style is drawn (Line, Dots or Sparkles: nothing greyed out
+-- for a style not in use); Flights & rides. One element's size,
+-- colour and switch share a row (`extras`), secondary knobs sit in the row's
+-- cog (`more`), short labels, the help in each row's tooltip.
 ---------------------------------------------------------------------------
 
 local function preview(host) return buildPreview(host) end
-local SUBTITLE = L["How the way to your goal is drawn on the world map and the minimap. Everything shows in the preview as you change it; right-click a setting to reset it."]
+local SUBTITLE = L["How the way to your goal is drawn on the world map and the minimap."]
 
-local function register(tab, section, controls)
-	ns.RegisterOptions({ page = PAGE, key = KEY, icon = ICON, order = ORDER, group = "look", subtitle = SUBTITLE,
-		tab = tab, section = section, preview = preview, controls = controls })
+local ROUTE = L["Route"]
+
+local function register(section, controls, extra)
+	local spec = { page = PAGE, key = KEY, icon = ICON, order = ORDER, group = "look", subtitle = SUBTITLE,
+		tab = ROUTE, section = section, preview = preview, controls = controls }
+	for k, v in pairs(extra or {}) do spec[k] = v end
+	ns.RegisterOptions(spec)
 end
 
-local LINE, MINIMAP, DOTS = L["Line"], L["Minimap"], L["Dots & sparkles"]
+-- The style drawn (sparkles are drawn as dots under Reduce motion).
+local function drawn(s) return function() return R.Style() == s end end
 
-register(LINE, L["Style"], {
-	{ kind = "toggle", key = "nav.routeLines", label = L["Route lines"],
-		help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter."],
-		search = "path line, route on map, show route, hide route, sparkles, dots, trail" },
-	{ kind = "toggle", key = "nav.worldRoute", label = L["On the world map"], child = true, new = NEW,
-		disabled = function() return off() or not ns.Get("nav.worldPins") end,
-		help = L["The route lines on the world map. Off leaves them on the minimap only."],
-		search = "world map route, hide on world map, map line, visibility, where" },
-	{ kind = "cards", key = "nav.lineStyle", label = L["Line style"], child = true, disabled = off,
+local function minimapOff() return off() or ns.Get("nav.minimapRoute") == false end
+
+register(L["Route lines"], {
+	{ kind = "cards", key = "nav.lineStyle", label = L["Style"], wide = true, disabled = off,
 		help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-		search = "route style, solid line, path line, dots, sparkles, breadcrumbs, look",
-		choices = STYLE_CARDS },
-	{ kind = "slider", key = "nav.lineWidth", label = L["Line thickness"], min = 2, max = 12, step = 1, format = px, disabled = notLine,
-		help = L["How thick the solid line is on the world map; the minimap's follows it at its own size (Minimap tab). Right-click to reset."],
-		search = "bigger, thicker, thinner, width, bold, size, wide, line width, huge, tiny" },
-	{ kind = "slider", key = "nav.lineOutline", label = L["Outline"], min = 0, max = 2, step = 0.05, format = percent, new = NEW, disabled = off,
-		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
-		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
-	{ kind = "toggle", key = "nav.flightDash", label = L["Dashed flights"], new = NEW, disabled = notLine,
-		help = L["Flights drawn as a dashed line, so a walk and a flight never read as one. Off: a solid line in the flight's colour."],
-		search = "dash, dashes, dotted, flight path, taxi, gryphon, wyvern, solid" },
-	{ kind = "toggle", key = "nav.routeChevrons", label = L["Direction marks"], new = NEW, disabled = notLine,
-		help = L["Small chevrons along the line on the world map pointing the way to the goal."],
-		search = "chevrons, arrows, direction, which way, heading, marks, ticks" },
-})
-
-register(LINE, L["Colours"], {
-	{ kind = "dropdown", key = "nav.dotColor", label = L["Route colour"],
-		disabled = function() return off() or (style() == "sparkle" and not ns.Get("ui.reduceMotion")) or ownWalk() end,
-		help = L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. A walk colour of your own below wins. Right-click to reset."],
-		search = "colour, color, tint, cyan, magenta, white, walk colour, preset",
-		choices = DOT_CHOICES },
-	colour("walk", "walkColor", L["Walk colour"], L["The walks' colour: the line, the dots, and route-coloured sparkles. Right-click for the route colour again."],
-		"walking colour, color, tint, path colour, foot, on foot, custom colour"),
-	colour("flight", "flightColor", L["Flight colour"], L["Flights' colour. Right-click for the theme's."],
-		"flying colour, color, taxi, gryphon, wyvern, bat, flight path"),
-	colour("boat", "boatColor", L["Boat colour"], L["Boats' colour. Right-click for the theme's."],
-		"ship colour, color, ferry, sea, sail"),
-	colour("zeppelin", "zeppelinColor", L["Zeppelin colour"], L["Zeppelins' colour. Right-click for the theme's."],
-		"zeppelin colour, color, airship, blimp"),
-	colour("tram", "tramColor", L["Tram & lift colour"], L["The Deeprun Tram's and lifts' colour. Right-click for the theme's."],
-		"tram colour, color, deeprun, lift, elevator, underground"),
-})
-
-register(LINE, L["Fading"], {
-	{ kind = "slider", key = "nav.worldRouteAlpha", label = L["World map opacity"], min = 0.2, max = 1, step = 0.05, format = percent, new = NEW, disabled = off,
-		help = L["How strongly the route shows on the world map, line, dots or sparkles; the minimap keeps its own."],
-		search = "opacity, transparency, alpha, faint, see through, strength, world map, fade" },
-	{ kind = "slider", key = "nav.laterAlpha", label = L["Later legs"], min = 0, max = 1, step = 0.05, format = percent, new = NEW, disabled = off,
-		help = L["How strongly the legs after this one show, so the way ahead reads first. 0%: only the leg you are on; 100%: as strong as this leg."],
-		search = "later legs, next legs, fade, fainter, dim, opacity, rest of the route, upcoming" },
-	{ kind = "toggle", key = "nav.walkedFade", label = L["Fade the walked stretch"], new = NEW, disabled = notLine,
-		help = L["A short stretch of the line stays behind you, fading out. Off: the line starts where you stand."],
-		search = "tail, trail behind, walked, behind me, fade out, history" },
-	{ kind = "toggle", key = "nav.drawIn", label = L["Draw-in animation"], new = NEW,
+		search = "route style, line style, solid line, path line, dots, sparkles, breadcrumbs, look", choices = STYLE_CARDS },
+	{ kind = "slider", key = "nav.worldRouteAlpha", label = L["World map opacity"], min = 0.2, max = 1, step = 0.05, format = percent, new = NEW,
+		disabled = function() return off() or ns.Get("nav.worldRoute") == false end,
+		help = L["How strongly the route shows on the world map, line, dots or sparkles; the minimap keeps its own. The switch takes the lines off the world map."],
+		search = "opacity, transparency, alpha, faint, see through, strength, world map, fade, hide on world map, visibility",
+		extras = {
+			{ kind = "toggle", key = "nav.worldRoute", label = L["On the world map"], new = NEW,
+				disabled = function() return off() or not ns.Get("nav.worldPins") end,
+				help = L["The route lines on the world map. Off leaves them on the minimap only."],
+				search = "world map route, hide on world map, map line, visibility, where" },
+		} },
+	{ kind = "slider", key = "nav.minimapRouteAlpha", label = L["Minimap opacity"], min = 0.2, max = 1, step = 0.05, format = percent, disabled = minimapOff,
+		help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. The switch takes the line off the minimap (the guide pin stays)."],
+		search = "opacity, transparency, alpha, faint, minimap, see through, hide on minimap, radar",
+		extras = {
+			{ kind = "toggle", key = "nav.minimapRoute", label = L["Route on the minimap"],
+				disabled = function() return off() or not ns.Get("nav.minimapPins") end,
+				help = L["The route line (or the trail) on the minimap. Off keeps the guide pin there."],
+				search = "minimap route, minimap line, hide on minimap, radar" },
+		} },
+	{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
+		get = function() return ns.Get(sizeKey()) end, set = function(v) ns.Set(sizeKey(), v) end, disabled = minimapOff,
+		help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own."],
+		search = "bigger, smaller, size, scale, thickness, minimap line, huge, tiny" },
+	{ kind = "toggle", key = "nav.drawIn", label = L["Draw-in"], new = NEW,
 		disabled = function() return off() or ns.Get("ui.reduceMotion") end,
 		help = L["A new goal's route grows from you to the goal over a moment. Never with Reduce motion on."],
 		search = "animation, animate, grow, draw in, motion, reveal, effect" },
-})
+	{ kind = "slider", key = "nav.laterAlpha", label = L["Later legs"], min = 0, max = 1, step = 0.05, format = percent, new = NEW, disabled = off, info = true,
+		help = L["How strongly the legs after this one show, so the way ahead reads first. 0%: only the leg you are on; 100%: as strong as this leg."],
+		search = "later legs, next legs, fade, fainter, dim, opacity, rest of the route, upcoming, only current leg" },
+	{ kind = "slider", key = "nav.lineOutline", label = L["Outline"], min = 0, max = 2, step = 0.05, format = percent, new = NEW, disabled = off,
+		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
+		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
+}, { toggle = { kind = "toggle", key = "nav.routeLines", label = L["Route lines"],
+	help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter."],
+	search = "path line, route on map, show route, hide route, sparkles, dots, trail" } })
 
-register(MINIMAP, L["Minimap"], {
-	{ kind = "toggle", key = "nav.minimapRoute", label = L["Route on the minimap"],
-		help = L["The route line (or the trail) on the minimap. Off keeps the guide pin there."],
-		search = "minimap route, minimap line, hide on minimap, radar",
-		disabled = function() return off() or not ns.Get("nav.minimapPins") end },
-	{ kind = "slider", key = "nav.minimapRouteAlpha", label = L["Minimap opacity"], min = 0.2, max = 1, step = 0.05, format = percent,
-		disabled = function() return off() or ns.Get("nav.minimapRoute") == false end,
-		help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. Right-click to reset."],
-		search = "opacity, transparency, alpha, faint, minimap, see through" },
-	{ kind = "slider", key = "nav.minimapRouteSize", label = L["Minimap size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
-		get = function() return ns.Get(sizeKey()) end, set = function(v) ns.Set(sizeKey(), v) end,
-		disabled = function() return off() or ns.Get("nav.minimapRoute") == false end,
-		help = L["The route's line, dots or sparkles on the minimap, each style its own size; the world map keeps its own. Right-click to reset."],
-		search = "bigger, smaller, size, scale, thickness, minimap line, huge, tiny" },
-})
-
-register(DOTS, L["Dots"], {
-	{ kind = "slider", key = "nav.dotSize", label = L["Dot size"], min = Strokes.DOTS[1], max = Strokes.DOTS[2], step = 1, format = px, new = NEW, disabled = notDots,
-		help = L["How big each of the dots is, on both maps (smaller on continent maps)."],
-		search = "bigger, smaller, dot size, breadcrumbs, size, huge, tiny" },
-	{ kind = "slider", key = "nav.dotSpacing", label = L["Dot spacing"], min = Strokes.SPACINGS[1], max = Strokes.SPACINGS[2], step = 1, format = px, new = NEW, disabled = notDots,
-		help = L["How far apart the dots sit along the way."],
-		search = "gap, distance, spacing, density, closer, further, breadcrumbs" },
-})
-
-local function preset(name, label, help)
-	return { kind = "button", label = label, button = L["Apply"], help = help, disabled = plain, new = NEW,
-		search = "sparkle preset, look, " .. name,
-		onClick = function() R.ApplySparklePreset(name) end }
+-- The walks' own colour and the route colour presets (nav.dotColor): the
+-- first line of the Line and the Dots sections both.
+local function walkColours()
+	return colour("walk", "walkColor", L["Walk colour"], L["The walks' colour: the line, the dots, and route-coloured sparkles. Right-click for the route colour again."],
+		"walking colour, color, tint, path colour, foot, on foot, custom colour"),
+	{ kind = "dropdown", key = "nav.dotColor", label = L["Route colour"],
+		disabled = function() return off() or ownWalk() end,
+		help = L["Route colours tint each leg by how you travel it. Cyan, magenta and white stand apart from the minimap's yellow herb and ore dots and its gold quest marks. A walk colour of your own wins."],
+		search = "colour, color, tint, cyan, magenta, white, walk colour, preset, route colour, dot colour",
+		choices = DOT_CHOICES }
 end
 
-register(DOTS, L["Sparkles"], {
-	preset("subtle", L["Subtle sparkles"], L["Fewer, smaller, calmer sparkles that drift slowly."]),
-	preset("default", L["Default sparkles"], L["The sparkles as they come."]),
-	preset("dazzling", L["Dazzling sparkles"], L["Many bright sparkles flowing quickly toward the goal."]),
-	{ kind = "slider", key = "nav.sparkleIntensity", label = L["Intensity"], min = 0, max = 1, step = 0.05, format = percent, disabled = plain,
-		help = L["How bright each sparkle and its glow are."], search = "brightness, glow, bright, strength" },
-	{ kind = "slider", key = "nav.sparkleDensity", label = L["Density"], min = 1, max = 10, step = 1, format = "%d", disabled = plain,
-		help = L["How close together the sparkles sit, the same at any zoom."], search = "how many, spacing, amount, more, fewer" },
-	{ kind = "slider", key = "nav.sparkleSubtlety", label = L["Subtlety"], min = 0, max = 1, step = 0.05, format = percent, disabled = plain,
-		help = L["Smaller, dimmer, calmer twinkles that drift less; no glow at 100%."], search = "calm, quiet, twinkle, subtle" },
-	{ kind = "slider", key = "nav.sparkleSize", label = L["Sparkle size"], min = 6, max = 28, step = 1, format = px, disabled = plain,
-		help = L["Each sparkle's size before subtlety."], search = "bigger, smaller, size, huge, tiny" },
-	{ kind = "slider", key = "nav.sparkleFlow", label = L["Flow toward goal"], min = 0, max = 1, step = 0.05, format = percent, disabled = plain,
-		help = L["How fast the sparkles drift toward the goal; 0 holds them still."], search = "speed, drift, movement, animation, still" },
-	{ kind = "slider", key = "nav.sparkleMax", label = L["Most sparkles shown"], min = 10, max = 400, step = 10, format = "%d", disabled = plain,
-		help = L["A ceiling on each map, whatever the density."], search = "limit, maximum, cap, performance, fps" },
-	{ kind = "dropdown", key = "nav.sparkleColor", label = L["Sparkle colour"], disabled = plain,
+local walk, presets = walkColours()
+register(L["Line"], {
+	walk, presets,
+	{ kind = "slider", key = "nav.lineWidth", label = L["Thickness"], min = 2, max = 12, step = 1, format = px, disabled = off,
+		help = L["How thick the solid line is on the world map; the minimap's follows it at its own size."],
+		search = "bigger, thicker, thinner, width, bold, size, wide, line width, huge, tiny" },
+	{ kind = "toggle", key = "nav.walkedFade", label = L["Walked fade"], new = NEW, disabled = off,
+		help = L["A short stretch of the line stays behind you, fading out. Off: the line starts where you stand."],
+		search = "tail, trail behind, walked, behind me, fade out, history" },
+	{ kind = "toggle", key = "nav.routeChevrons", label = L["Direction marks"], new = NEW, disabled = off,
+		help = L["Small chevrons along the line on the world map pointing the way to the goal."],
+		search = "chevrons, arrows, direction, which way, heading, marks, ticks" },
+	{ kind = "toggle", key = "nav.flightDash", label = L["Dashed flights"], new = NEW, disabled = off,
+		help = L["Flights drawn as a dashed line, so a walk and a flight never read as one. Off: a solid line in the flight's colour."],
+		search = "dash, dashes, dotted, flight path, taxi, gryphon, wyvern, solid" },
+}, { shown = drawn("line") })
+
+walk, presets = walkColours()
+register(L["Dots"], {
+	walk, presets,
+	{ kind = "slider", key = "nav.dotSize", label = L["Dot size"], min = Strokes.DOTS[1], max = Strokes.DOTS[2], step = 1, format = px, new = NEW, disabled = off,
+		help = L["How big each of the dots is, on both maps (smaller on continent maps)."],
+		search = "bigger, smaller, dot size, breadcrumbs, size, huge, tiny" },
+	{ kind = "slider", key = "nav.dotSpacing", label = L["Dot spacing"], min = Strokes.SPACINGS[1], max = Strokes.SPACINGS[2], step = 1, format = px, new = NEW, disabled = off,
+		help = L["How far apart the dots sit along the way."],
+		search = "gap, distance, spacing, density, closer, further, breadcrumbs" },
+}, { shown = drawn("dots") })
+
+-- The sparkle presets as picture cards: each drawn with its own settings;
+-- the chosen one is the preset the sparkle settings match (none after a
+-- change of your own); right-click puts the default preset back.
+local PRESETS = { "subtle", "default", "dazzling" }
+local PRESET_NAMES = { subtle = L["Subtle"], default = L["Default"], dazzling = L["Dazzling"] }
+local function presetNow()
+	local Sp = ns.RouteSparkle
+	for _, name in ipairs(PRESETS) do
+		local same = true
+		for key, value in pairs(Sp.PRESETS[name]) do
+			if math.abs((tonumber(ns.Get("nav." .. key)) or 0) - value) > 1e-6 then same = false break end
+		end
+		if same then return name end
+	end
+end
+
+local function drawPreset(art, name)
+	local Sp = ns.RouteSparkle
+	local look = Sp.PRESETS[name]
+	local st = Sp.Style(function(key) if look[key] ~= nil then return look[key] end return ns.Get("nav." .. key) end)
+	local w, h = W.CARD_W - 2, W.CARD_ART
+	local function place()
+		local c = st.color or { R.DefaultColor("walk") }
+		art.psStars = art.psStars or {}
+		local count = 3 + floor(st.spacing > 0 and (w - 24) / st.spacing or 6)
+		for k = 1, count do
+			local t = art.psStars[k]
+			if not t then
+				t = art:CreateTexture(nil, "ARTWORK", nil, 2)
+				t:SetTexture(SPARKLE_TEXTURE)
+				t:SetBlendMode("ADD")
+				art.psStars[k] = t
+			end
+			local fx = (k - 0.5) / count
+			-- Half again as big as on the map, so the card reads at its size; the presets keep their proportions.
+			local s = 1.5 * st.size * (0.75 + 0.45 * Sp.Hash(k, 1))
+			t:SetSize(s, s)
+			t:ClearAllPoints()
+			t:SetPoint("CENTER", art, "TOPLEFT", 12 + fx * (w - 24), -h / 2 + (Sp.Hash(k, 4) - 0.5) * st.jitter * s * 2)
+			t:SetVertexColor(c[1], c[2], c[3])
+			t:SetAlpha(min(1, max(0.35, 1.3 * st.alpha * (1 - 0.5 * st.twinkle * (1 - Sp.Hash(k, 2) ^ 3)))))
+			t:Show()
+		end
+		for k = count + 1, #art.psStars do art.psStars[k]:Hide() end
+	end
+	place()
+	W.Painter(art, function()
+		st = Sp.Style(function(key) if look[key] ~= nil then return look[key] end return ns.Get("nav." .. key) end)
+		place()
+	end)
+end
+
+local PRESET_CARDS = {}
+for i, name in ipairs(PRESETS) do PRESET_CARDS[i] = { value = name, label = PRESET_NAMES[name], draw = drawPreset } end
+
+register(L["Sparkles"], {
+	{ kind = "cards", label = L["Presets"], wide = true, new = NEW, disabled = off, choices = PRESET_CARDS,
+		get = presetNow, set = function(v) R.ApplySparklePreset(v or "default") end,
+		help = L["Subtle: fewer, smaller, calmer sparkles. Default: as they come. Dazzling: many bright sparkles flowing quickly toward the goal. The settings below fine-tune them."],
+		search = "sparkle preset, subtle, default, dazzling, look" },
+	{ kind = "dropdown", key = "nav.sparkleColor", label = L["Sparkle colour"], disabled = off,
 		help = L["Loot gold is the colour of the game's own loot sparkle. Route colours tint each leg as the dots are."],
-		search = "colour, color, gold, tint", choices = SPARKLE_COLORS },
-	{ kind = "toggle", key = "nav.sparkleLater", label = L["Whole route"], disabled = plain,
-		help = L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."], search = "all legs, later legs, whole way" },
+		search = "sparkle colour, color, gold, tint", choices = SPARKLE_COLORS },
+	{ kind = "slider", key = "nav.sparkleSize", label = L["Sparkle size"], min = 6, max = 28, step = 1, format = px, disabled = off,
+		help = L["Each sparkle's size before subtlety."], search = "sparkle size, bigger, smaller, huge, tiny" },
+	{ kind = "slider", key = "nav.sparkleIntensity", label = L["Intensity"], min = 0, max = 1, step = 0.05, format = percent, disabled = off,
+		help = L["How bright each sparkle and its glow are. The cog holds Subtlety: smaller, dimmer, calmer twinkles."],
+		search = "sparkle brightness, glow, bright, strength",
+		more = {
+			{ kind = "slider", key = "nav.sparkleSubtlety", label = L["Subtlety"], min = 0, max = 1, step = 0.05, format = percent, disabled = off,
+				help = L["Smaller, dimmer, calmer twinkles that drift less; no glow at 100%."], search = "sparkle calm, quiet, twinkle, subtle" },
+		} },
+	{ kind = "slider", key = "nav.sparkleDensity", label = L["Density"], min = 1, max = 10, step = 1, format = "%d", disabled = off,
+		help = L["How close together the sparkles sit, the same at any zoom. The cog sets a ceiling on how many show."],
+		search = "how many sparkles, spacing, amount, more, fewer",
+		more = {
+			{ kind = "slider", key = "nav.sparkleMax", label = L["Most shown"], min = 10, max = 400, step = 10, format = "%d", disabled = off,
+				help = L["A ceiling on each map, whatever the density."], search = "sparkle limit, maximum, cap, performance, fps" },
+		} },
+	{ kind = "slider", key = "nav.sparkleFlow", label = L["Flow"], min = 0, max = 1, step = 0.05, format = percent, disabled = off,
+		help = L["How fast the sparkles drift toward the goal; 0 holds them still."], search = "sparkle speed, drift, movement, animation, still, flow toward goal" },
+	{ kind = "toggle", key = "nav.sparkleLater", label = L["Whole route"], disabled = off,
+		help = L["Sparkle the legs after this one too, fainter. Off: only the leg you are on."], search = "sparkle all legs, later legs, whole way" },
+}, { shown = drawn("sparkle") })
+
+register(L["Flights & rides"], {
+	colour("flight", "flightColor", L["Flights"], L["Flights' colour. Right-click for the theme's."],
+		"flying colour, color, taxi, gryphon, wyvern, bat, flight path"),
+	colour("boat", "boatColor", L["Boats"], L["Boats' colour. Right-click for the theme's."], "ship colour, color, ferry, sea, sail"),
+	colour("zeppelin", "zeppelinColor", L["Zeppelins"], L["Zeppelins' colour. Right-click for the theme's."], "zeppelin colour, color, airship, blimp"),
+	colour("tram", "tramColor", L["Trams & lifts"], L["The Deeprun Tram's and lifts' colour. Right-click for the theme's."],
+		"tram colour, color, deeprun, lift, elevator, underground"),
 })
+

@@ -17,7 +17,6 @@ local PV = {}
 UI.Profiles = PV
 
 local DOT = "  \194\183  "
-local ROW_H = 48
 local SHOWN_CHANGES = 8 -- settings named in an import's preview; the rest counted
 
 local function Profiles() return ns.Profiles end
@@ -287,36 +286,64 @@ local function pasteBox(parent)
 	return e
 end
 
+-- Settings window v2 metrics (DIRECTION-V2.md): section cards with a 36px
+-- header and 36px rows, controls in two halves, help only in tooltips.
+local ROW, PAD, GAP, STACK_BELOW = 36, 16, 24, 760
+
 -- A row of the profile list: the name, an "In use" chip, and its actions.
 local function newRow(parent)
 	local row = CreateFrame("Frame", nil, parent)
-	row:SetHeight(ROW_H)
+	row:SetHeight(ROW)
 	row.Rule = W.Divider(row, false, 0.6)
 	row.Rule:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
 	row.Rule:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, 0)
 	row.Name = W.Text(row, "body", "rowLabel")
-	row.Name:SetPoint("LEFT", row, "LEFT", 12, 0)
+	row.Name:SetPoint("LEFT", row, "LEFT", PAD, 0)
 	row.Chip = W.Chip(row)
 	row.Chip:SetPoint("LEFT", row.Name, "RIGHT", 10, 0)
 	local function act(label, fn, opts)
-		local b = W.Button(row, label, function() if row.psName then fn(row.psName) end end, opts)
-		return b
+		return W.Button(row, label, function() if row.psName then fn(row.psName) end end, opts)
 	end
 	row.Delete = act(L["Delete"], PV.Delete, { ghost = true, danger = true, height = 24 })
 	row.Rename = act(L["Rename"], function(name) PV.Edit("rename", name) end, { ghost = true, height = 24 })
 	row.Copy = act(L["Copy"], function(name) PV.Edit("copy", name) end, { ghost = true, height = 24 })
 	row.Use = act(L["Use"], PV.Use, { height = 24 })
+	row.Delete.psTip, row.Rename.psTip, row.Copy.psTip, row.Use.psTip =
+		L["Delete this profile (asks first)."], L["Give this profile another name."], L["Make a new profile from this one and use it."], L["Use this profile now."]
 	return row
 end
 
--- A switch row (W.Toggle) for state that is no setting.
-local function switchRow(parent, label, help, get, set)
+-- A switch row (W.Toggle) for state that is no setting, as a compact half;
+-- its help is the tooltip (tip(row) -> lines, else the help).
+local function switchRow(parent, label, help, get, set, tip)
 	local row = W.Toggle(parent, label, nil, help, nil, { get = get, set = function(v)
 		set(v)
 		relayout()
 	end })
-	W.RowDetails(row, { marks = false })
-	return row
+	return W.CompactRow(row, { tip = tip })
+end
+
+-- A section card (W.SectionCard) with a count after its title and the
+-- hairline between the halves of its rows.
+local function newCard(parent, title)
+	local c = W.SectionCard(parent)
+	c:SetTitle(title)
+	c.Count = W.Text(c.Header, "number", "textMuted")
+	c.Count:SetPoint("LEFT", c.Title, "RIGHT", 8, 0)
+	c.Count:Hide()
+	-- The hairlines between halves: one per block of halves (Share has two).
+	c.Split = W.Divider(c, true)
+	c.Split:Hide()
+	c.Split2 = W.Divider(c, true)
+	c.Split2:Hide()
+	return c
+end
+
+local function sourceLine(P)
+	local source = P.Source()
+	if source == "character" then return L["Only this character uses it."] end
+	if source == "class" then return (L["Every %s uses it (the class's profile)."]):format(P.ClassName() or "") end
+	return L["Every character on this account uses it, unless one has its own."]
 end
 
 local AREA_LABEL = { look = L["Look"], guiding = L["Guiding"], positions = L["Positions"] }
@@ -330,31 +357,36 @@ function PV.Build(v)
 	view = v
 	PV.view = v
 	local P = Profiles()
-	v.InUseH = W.SectionHeader(v, { plain = true })
-	W.SetSection(v.InUseH, L["In use"])
-	v.InUsePanel = W.RowPanel(v)
-	v.InUse = W.InfoRow(v, L["Profile in use"])
-	W.RowDetails(v.InUse, { marks = false })
-	v.ForChar = switchRow(v, L["Use a profile for this character only"],
+	-- Profiles: which one this character uses, then every profile with its actions.
+	v.ListCard = newCard(v, L["Profiles"])
+	v.Profile = W.Dropdown(v, L["Profile"], nil, function()
+		local out = {}
+		for i, name in ipairs(P.List()) do out[i] = { value = name, text = P.Label(name) } end
+		return out
+	end, L["The profile this character uses now."], nil, { get = function() return P.Active() end, set = function(name) PV.Use(name) end })
+	W.CompactRow(v.Profile, { tip = function() return { sourceLine(P), L["Pick another to switch to it."] } end })
+	v.ForChar = switchRow(v, L["This character only"],
 		L["This character keeps its own choice of profile. Off: it follows its class's profile, else the account's."],
 		function() return P.ForCharacter() end, function(on) P.UseForCharacter(on) end)
-	v.ForClass = switchRow(v, L["Use this profile for the whole class"],
+	v.ForClass = switchRow(v, L["Whole class"],
 		L["Every character of this class uses the profile in use, unless one has its own."],
-		function() return P.ClassProfile() ~= nil end, function(on) P.UseForClass(on) end)
+		function() return P.ClassProfile() ~= nil end, function(on) P.UseForClass(on) end,
+		function() return { (L["Every %s uses the profile in use, unless one has its own."]):format(P.ClassName() or "") } end)
 
-	v.ListH = W.SectionHeader(v, { plain = true })
-	v.ListPanel = W.RowPanel(v)
+	v.NewRow = W.CompactRow(W.ActionRow(v, L["New profile"], L["A new profile, every setting at its default. Polestar switches to it."],
+		L["New"], function() PV.Edit("new") end, { icon = "plus" }))
+	v.NewButton = v.NewRow.Button
 	v.Rows = {}
-	v.NewButton = W.Button(v, L["New profile"], function() PV.Edit("new") end, { icon = "plus", height = 28 })
-	v.NameLabel = W.Text(v, "label", "text")
+	v.NameLabel = W.Text(v, "body", "rowLabel")
+	v.NameLabel:SetWordWrap(false)
 	v.NameBox = field(v, function() PV.CommitEdit() end)
-	v.NameOK = W.Button(v, "", function() PV.CommitEdit() end, { primary = true, height = 28 })
-	v.NameCancel = W.Button(v, L["Cancel"], function() PV.CancelEdit() end, { height = 28 })
+	v.NameBox:SetHeight(26)
+	v.NameOK = W.Button(v, "", function() PV.CommitEdit() end, { primary = true, height = 24 })
+	v.NameCancel = W.Button(v, L["Cancel"], function() PV.CancelEdit() end, { height = 24 })
 	v.NameError = text(v, "note", "warning")
 
-	v.ExportH = W.SectionHeader(v, { plain = true })
-	W.SetSection(v.ExportH, L["Share a profile"])
-	v.ExportPanel = W.RowPanel(v)
+	-- Share: a string of the profile in use, and pasting someone's.
+	v.ShareCard = newCard(v, L["Share"])
 	v.ExportAreas = {}
 	for _, area in ipairs(P.AREAS) do
 		v.ExportAreas[area] = switchRow(v, AREA_LABEL[area], AREA_HELP[area],
@@ -364,17 +396,15 @@ function PV.Build(v)
 				if exported then PV.Export() end
 			end)
 	end
-	v.ExportNote = text(v, "note", "textDim")
-	v.ExportButton = W.Button(v, L["Make a profile string"], function() PV.Export() end, { primary = true, height = 28 })
-	v.CopyBox = W.CopyBox(v, { lines = 4 })
+	v.ExportButton = W.Button(v, L["Make a string"], function() PV.Export() end, { primary = true, height = 24 })
+	v.ExportButton.psTip = L["A line of text holding the parts switched on above, from the profile in use, to paste anywhere."]
+	v.CopyBox = W.CopyBox(v, { lines = 3 })
 	v.CopyNote = text(v, "note", "textDim")
 
-	v.ImportH = W.SectionHeader(v, { plain = true })
-	W.SetSection(v.ImportH, L["Import a profile"])
 	v.PasteBox = pasteBox(v)
+	v.PasteBox:SetHeight(26)
 	v.Preview = text(v, "body", "text")
 	v.Changes = text(v, "note", "textDim")
-	v.ImportPanel = W.RowPanel(v)
 	v.ImportAreas = {}
 	for _, area in ipairs(P.AREAS) do
 		v.ImportAreas[area] = switchRow(v, AREA_LABEL[area], AREA_HELP[area],
@@ -384,12 +414,15 @@ function PV.Build(v)
 	v.Screen = text(v, "note", "warning")
 	v.Dropped = text(v, "note", "warning")
 	v.Refusal = text(v, "note", "warning")
-	v.ImportNameLabel = W.Text(v, "label", "text")
+	v.ImportNameLabel = W.Text(v, "body", "rowLabel")
 	v.ImportNameLabel:SetText(L["Name"])
 	v.ImportName = field(v, function() PV.ImportNew() end)
-	v.ImportNew = W.Button(v, L["Import as a new profile"], function() PV.ImportNew() end, { primary = true, height = 28 })
-	v.ImportHere = W.Button(v, L["Apply to the profile in use"], function() PV.ImportHere() end, { height = 28 })
-	v.ImportCancel = W.Button(v, L["Cancel"], function() PV.ClearImport() end, { height = 28 })
+	v.ImportName:SetHeight(26)
+	v.ImportNew = W.Button(v, L["Import as new"], function() PV.ImportNew() end, { primary = true, height = 24 })
+	v.ImportNew.psTip = L["A new profile with the string's settings (the parts switched on), every other setting at its default. Polestar switches to it."]
+	v.ImportHere = W.Button(v, L["Apply to current"], function() PV.ImportHere() end, { height = 24 })
+	v.ImportHere.psTip = L["The string's settings (the parts switched on) into the profile in use; the rest stay as they are. Asks first."]
+	v.ImportCancel = W.Button(v, L["Cancel"], function() PV.ClearImport() end, { height = 24 })
 	v.ImportError = text(v, "note", "warning")
 	v.ImportDone = text(v, "note", "success")
 
@@ -406,52 +439,76 @@ local function place(region, x, y)
 	region:SetPoint("TOPLEFT", view, "TOPLEFT", x, -y)
 end
 
-local function block(fs, s, width, x, y, gap)
+-- A line of feedback inside a card (a status, a warning). -> y under it
+local function line(fs, s, width, x, y)
 	fs:SetShown(s ~= nil)
 	if not s then return y end
 	fs:SetText(s)
-	fs:SetWidth(width)
-	place(fs, x, y)
-	return y + fs:GetStringHeight() + (gap or 8)
+	fs:SetWidth(width - 2 * PAD)
+	place(fs, x + PAD, y + 10)
+	return y + fs:GetStringHeight() + 20
 end
 
-local function header(h, x, y, width)
-	h:SetWidth(width)
-	place(h, x, y)
-	return y + W.PLAIN_SECTION_H
+-- One compact half at `w` (W.CompactRow: 36 tall, label and control 16 in).
+local function setRow(row, x, y, w)
+	W.LayoutRow(row, w)
+	if row.Refresh then row:Refresh() end
+	place(row, x, y)
+	row:Show()
 end
 
--- Rows in a panel; -> y under them.
-local function rows(panel, list, x, y, width)
-	local top = y
-	for _, row in ipairs(list) do
-		if row:IsShown() then
-			local h = W.LayoutRow(row, width)
-			if row.Refresh then row:Refresh() end
-			place(row, x, y)
-			y = y + h
-		end
+-- Rows in two halves (stacked below STACK_BELOW), the hairline between the
+-- halves on the card. list items: a row, or false for an empty half. -> y
+local function halves(split, list, x, y, width)
+	local shown = {}
+	for _, r in ipairs(list) do if r == false or r:IsShown() then shown[#shown + 1] = r end end
+	if #shown == 0 then
+		split:Hide()
+		return y
 	end
-	panel:ClearAllPoints()
-	panel:SetPoint("TOPLEFT", view, "TOPLEFT", x, -top)
-	panel:SetSize(width, max(1, y - top))
-	panel:SetShown(y > top)
+	local two = width >= STACK_BELOW
+	local half = two and floor((width - 1) / 2) or width
+	local top = y
+	for i, r in ipairs(shown) do
+		local col = two and (i - 1) % 2 or 0
+		if r then setRow(r, x + col * (half + 1), y, half) end
+		if not two or col == 1 or i == #shown then y = y + ROW end
+	end
+	split:SetShown(two)
+	if two then
+		split:ClearAllPoints()
+		split:SetPoint("TOPLEFT", view, "TOPLEFT", x + half, -top)
+		split:SetHeight(y - top)
+	end
 	return y
 end
 
-local function sourceLine(P)
-	local source = P.Source()
-	if source == "character" then return L["Only this character uses it."] end
-	if source == "class" then return (L["Every %s uses it (the class's profile)."]):format(P.ClassName() or "") end
-	return L["Every character on this account uses it, unless one has its own."]
+-- Start a card at y: -> the y its rows start at.
+local function openCard(card, title, count, x, y, width)
+	card.psTop = y
+	if title then card:SetTitle(title) end
+	card.Count:SetShown(count ~= nil)
+	if count then
+		card.Count:SetText(count)
+		card.Count:ClearAllPoints()
+		card.Count:SetPoint("LEFT", card.Title, "LEFT", math.ceil(W.TextWidth(card.Title)) + 8, 0)
+	end
+	return y + card.RowsTop
+end
+
+local function closeCard(card, x, y, width)
+	return card.psTop + card:Place(x, card.psTop, width, y - card.psTop - card.RowsTop)
 end
 
 local function layoutList(P, x, y, width)
+	local card = view.ListCard
 	local names = P.List()
-	W.SetSection(view.ListH, L["Profiles"], #names)
-	y = header(view.ListH, x, y, width)
+	y = openCard(card, nil, #names, x, y, width)
+	-- Who uses it beside the menu; the class's switch paired with New profile.
+	local class = P.ClassName() ~= nil
+	view.ForClass:SetShown(class)
+	y = halves(card.Split, class and { view.Profile, view.ForChar, view.ForClass, view.NewRow } or { view.Profile, view.ForChar, view.NewRow, false }, x, y, width)
 	local active = P.Active()
-	local top = y
 	for i, name in ipairs(names) do
 		local row = view.Rows[i] or newRow(view)
 		view.Rows[i] = row
@@ -466,7 +523,7 @@ local function layoutList(P, x, y, width)
 		row.Delete:SetShown(not fixed and not using)
 		row.Rename:SetShown(not fixed)
 		row.Use:SetShown(not using)
-		local right = -12
+		local right = -PAD
 		for _, b in ipairs({ row.Delete, row.Rename, row.Copy, row.Use }) do
 			if b:IsShown() then
 				b:ClearAllPoints()
@@ -474,94 +531,89 @@ local function layoutList(P, x, y, width)
 				right = right - b:GetWidth() - 6
 			end
 		end
-		row.Name:SetWidth(max(40, min(row.Name:GetStringWidth() + 2, width + right - 12 - 100)))
+		row.Name:SetWidth(max(40, min(row.Name:GetStringWidth() + 2, width + right - PAD - 100)))
 		place(row, x, y)
 		row:Show()
-		y = y + ROW_H
+		y = y + ROW
 	end
 	for i = #names + 1, #view.Rows do view.Rows[i]:Hide() end
-	view.ListPanel:ClearAllPoints()
-	view.ListPanel:SetPoint("TOPLEFT", view, "TOPLEFT", x, -top)
-	view.ListPanel:SetSize(width, y - top)
-	y = y + 12
 
-	-- The name editor, or New profile.
+	-- The name editor: one row under the list.
 	local editing = editor ~= nil
-	view.NewButton:SetShown(not editing)
 	for _, r in ipairs({ view.NameLabel, view.NameBox, view.NameOK, view.NameCancel }) do r:SetShown(editing) end
-	if not editing then
-		view.NameError:Hide()
-		place(view.NewButton, x, y)
-		return y + 28 + 8
+	if editing then
+		local label, action
+		if editor.mode == "rename" then
+			label, action = (L["Rename %s"]):format(P.Label(editor.subject)), L["Rename"]
+		elseif editor.mode == "copy" then
+			label, action = (L["Copy of %s"]):format(P.Label(editor.subject)), L["Copy"]
+		else
+			label, action = L["New profile"], L["Create"]
+		end
+		W.SetButtonText(view.NameOK, action)
+		local buttons = view.NameOK:GetWidth() + 8 + view.NameCancel:GetWidth()
+		local boxW = max(140, min(280, floor(width / 2) - PAD - buttons - 12))
+		view.NameCancel:ClearAllPoints()
+		view.NameCancel:SetPoint("RIGHT", view, "TOPLEFT", x + width - PAD, -(y + ROW / 2))
+		view.NameOK:ClearAllPoints()
+		view.NameOK:SetPoint("RIGHT", view.NameCancel, "LEFT", -8, 0)
+		view.NameBox:SetWidth(boxW)
+		view.NameBox:ClearAllPoints()
+		view.NameBox:SetPoint("RIGHT", view.NameOK, "LEFT", -12, 0)
+		view.NameLabel:SetText(label)
+		view.NameLabel:SetWidth(max(40, width - PAD * 2 - boxW - buttons - 24))
+		view.NameLabel:ClearAllPoints()
+		view.NameLabel:SetPoint("LEFT", view, "TOPLEFT", x + PAD, -(y + ROW / 2))
+		y = y + ROW
 	end
-	local label, action
-	if editor.mode == "rename" then
-		label, action = (L["Rename %s to"]):format(P.Label(editor.subject)), L["Rename"]
-	elseif editor.mode == "copy" then
-		label, action = (L["Copy %s as"]):format(P.Label(editor.subject)), L["Copy"]
-	else
-		label, action = L["New profile, every setting at its default"], L["Create"]
-	end
-	view.NameLabel:SetText(label)
-	view.NameLabel:SetWidth(width)
-	place(view.NameLabel, x, y)
-	y = y + 22
-	W.SetButtonText(view.NameOK, action)
-	local buttons = view.NameOK:GetWidth() + 8 + view.NameCancel:GetWidth()
-	view.NameBox:SetWidth(max(120, min(320, width - buttons - 12)))
-	place(view.NameBox, x, y)
-	view.NameOK:ClearAllPoints()
-	view.NameOK:SetPoint("LEFT", view.NameBox, "RIGHT", 12, 0)
-	view.NameCancel:ClearAllPoints()
-	view.NameCancel:SetPoint("LEFT", view.NameOK, "RIGHT", 8, 0)
-	y = y + 30 + 8
-	return block(view.NameError, editorError, width, x, y)
+	y = line(view.NameError, editing and editorError or nil, width, x, y)
+	return closeCard(card, x, y, width)
 end
 
-local function layoutExport(P, x, y, width)
-	y = header(view.ExportH, x, y, width)
-	local list = {}
-	for _, area in ipairs(P.AREAS) do list[#list + 1] = view.ExportAreas[area] end
-	y = rows(view.ExportPanel, list, x, y, width) + 12
-	place(view.ExportButton, x, y)
-	y = y + 28 + 12
+-- Share, first half: a string of the profile in use.
+local function layoutExport(P, card, x, y, width)
+	local a = view.ExportAreas
+	y = halves(card.Split, { a.look, a.guiding, a.positions, false }, x, y, width)
+	-- The button sits in the empty last half (its own row when stacked).
+	view.ExportButton:ClearAllPoints()
+	view.ExportButton:SetPoint("RIGHT", view, "TOPLEFT", x + width - PAD, -(y - ROW / 2))
 	local shown = exported ~= nil
 	view.CopyBox:SetShown(shown)
 	if shown then
-		view.CopyBox:SetWidth(width)
-		place(view.CopyBox, x, y)
-		y = y + view.CopyBox:GetHeight() + 8
-		local line
+		view.CopyBox:SetWidth(width - 2 * PAD)
+		place(view.CopyBox, x + PAD, y + 12)
+		y = y + 12 + view.CopyBox:GetHeight()
+		local note
 		if exportedCount == 0 then
-			line = L["Nothing in it: every setting ticked above is at its default."]
+			note = L["Nothing in it: every setting switched on above is at its default."]
 		else
-			line = (L["%s of %s. Selected for you: copy it with Ctrl+C, then share it anywhere."]):format(
+			note = (L["%s of %s. Selected for you: copy it with Ctrl+C, then share it anywhere."]):format(
 				count(exportedCount, L["1 setting"], L["%d settings"]), P.Label(P.Active()))
 		end
-		y = block(view.CopyNote, line, width, x, y)
+		y = line(view.CopyNote, note, width, x, y)
 	else
 		view.CopyNote:Hide()
 	end
 	return y
 end
 
-local function changeLines(P)
+local function changeLines()
 	local labels = {}
 	for i, path in ipairs(preview.changes) do
 		if i > SHOWN_CHANGES then break end
 		labels[i] = ns.EscapeText(preview.labels[path])
 	end
-	local line = table.concat(labels, ", ")
+	local s = table.concat(labels, ", ")
 	local more = #preview.changes - #labels
-	if more > 0 then line = line .. ", " .. (L["and %d more"]):format(more) end
-	return #labels > 0 and line or nil
+	if more > 0 then s = s .. ", " .. (L["and %d more"]):format(more) end
+	return #labels > 0 and s or nil
 end
 
-local function layoutImport(P, x, y, width)
-	y = header(view.ImportH, x, y, width)
-	view.PasteBox:SetWidth(width)
-	place(view.PasteBox, x, y)
-	y = y + 30 + 12
+-- Share, second half: pasting someone's string.
+local function layoutImport(P, card, x, y, width)
+	view.PasteBox:SetWidth(width - 2 * PAD)
+	place(view.PasteBox, x + PAD, y + 5)
+	y = y + ROW
 	local has = preview ~= nil
 	if has then
 		local parts = { preview.name and P.Label(preview.name) or L["A profile"], count(preview.count, L["1 setting"], L["%d settings"]) }
@@ -574,18 +626,18 @@ local function layoutImport(P, x, y, width)
 		else
 			parts[#parts + 1] = (L["%d differ from %s"]):format(n, active)
 		end
-		y = block(view.Preview, table.concat(parts, DOT), width, x, y, 4)
-		y = block(view.Changes, changeLines(P), width, x, y)
+		y = line(view.Preview, table.concat(parts, DOT), width, x, y) - 10
+		y = line(view.Changes, changeLines(), width, x, y)
 		local list = {}
 		for _, area in ipairs(P.AREAS) do
 			local row = view.ImportAreas[area]
-			local n = preview.areas[area]
-			row:SetShown(n > 0)
-			row.Label:SetText(AREA_LABEL[area] .. DOT .. count(n, L["1 setting"], L["%d settings"]))
+			local k = preview.areas[area]
+			row:SetShown(k > 0)
+			row.Label:SetText(AREA_LABEL[area] .. DOT .. count(k, L["1 setting"], L["%d settings"]))
 			list[#list + 1] = row
 		end
-		y = rows(view.ImportPanel, list, x, y + 4, width) + 8
-		y = block(view.Screen, preview.otherScreen and L["The positions were made on another screen or UI scale: things may need moving again."] or nil, width, x, y)
+		y = halves(card.Split2, list, x, y, width)
+		y = line(view.Screen, preview.otherScreen and L["The positions were made on another screen or UI scale: things may need moving again."] or nil, width, x, y)
 		local dropped
 		if #preview.dropped > 0 then
 			local names = {}
@@ -593,33 +645,37 @@ local function layoutImport(P, x, y, width)
 			dropped = (L["Left out, as this Polestar has no such setting or the value does not fit: %s"]):format(table.concat(names, ", "))
 			if #preview.dropped > #names then dropped = dropped .. ", " .. (L["and %d more"]):format(#preview.dropped - #names) end
 		end
-		y = block(view.Dropped, dropped, width, x, y)
-		view.ImportNameLabel:SetWidth(0)
-		place(view.ImportNameLabel, x, y + 8)
-		local lw = floor(view.ImportNameLabel:GetStringWidth() + 12)
-		view.ImportName:SetWidth(max(120, min(320, width - lw)))
-		place(view.ImportName, x + lw, y)
-		y = y + 30 + 10
-		place(view.ImportNew, x, y)
-		view.ImportHere:ClearAllPoints()
-		view.ImportHere:SetPoint("LEFT", view.ImportNew, "RIGHT", 8, 0)
+		y = line(view.Dropped, dropped, width, x, y)
+		-- Name, then the actions at the right: one row.
+		view.ImportNameLabel:ClearAllPoints()
+		view.ImportNameLabel:SetPoint("LEFT", view, "TOPLEFT", x + PAD, -(y + ROW / 2))
 		view.ImportCancel:ClearAllPoints()
-		view.ImportCancel:SetPoint("LEFT", view.ImportHere, "RIGHT", 8, 0)
-		y = y + 28 + 10
+		view.ImportCancel:SetPoint("RIGHT", view, "TOPLEFT", x + width - PAD, -(y + ROW / 2))
+		view.ImportHere:ClearAllPoints()
+		view.ImportHere:SetPoint("RIGHT", view.ImportCancel, "LEFT", -8, 0)
+		view.ImportNew:ClearAllPoints()
+		view.ImportNew:SetPoint("RIGHT", view.ImportHere, "LEFT", -8, 0)
+		local buttons = view.ImportNew:GetWidth() + view.ImportHere:GetWidth() + view.ImportCancel:GetWidth() + 16
+		local lw = floor(W.TextWidth(view.ImportNameLabel) + 12)
+		view.ImportName:SetWidth(max(120, min(280, width - 2 * PAD - lw - buttons - 16)))
+		view.ImportName:ClearAllPoints()
+		view.ImportName:SetPoint("LEFT", view.ImportNameLabel, "RIGHT", 12, 0)
+		y = y + ROW
 	else
 		for _, fs in ipairs({ view.Preview, view.Changes, view.Screen, view.Dropped }) do fs:Hide() end
-		view.ImportPanel:Hide()
 		for _, row in pairs(view.ImportAreas) do row:Hide() end
+		card.Split2:Hide()
 	end
 	for _, r in ipairs({ view.ImportNameLabel, view.ImportName, view.ImportNew, view.ImportHere }) do r:SetShown(has) end
 	view.ImportCancel:SetShown(has or refusal ~= nil)
-	y = block(view.Refusal, refusal, width, x, y)
+	y = line(view.Refusal, refusal, width, x, y)
 	if refusal and not has then
-		place(view.ImportCancel, x, y)
-		y = y + 28 + 10
+		view.ImportCancel:ClearAllPoints()
+		view.ImportCancel:SetPoint("TOPRIGHT", view, "TOPLEFT", x + width - PAD, -(y - 6))
+		y = y + ROW
 	end
-	y = block(view.ImportError, importError, width, x, y)
-	return block(view.ImportDone, importDone, width, x, y)
+	y = line(view.ImportError, importError, width, x, y)
+	return line(view.ImportDone, importDone, width, x, y)
 end
 
 function PV.Layout()
@@ -627,18 +683,12 @@ function PV.Layout()
 	local P = Profiles()
 	local width = bodyWidth()
 	local x, y = SH.pad, 16
-	y = header(view.InUseH, x, y, width)
-	view.InUse.Value:SetText(P.Label(P.Active()))
-	view.InUse.psDesc = sourceLine(P)
-	W.RowDetails(view.InUse, { marks = false })
-	local class = P.ClassName()
-	view.ForClass:SetShown(class ~= nil)
-	if class then view.ForClass.Label:SetText((L["Use this profile for every %s"]):format(class)) end
-	y = rows(view.InUsePanel, { view.InUse, view.ForChar, view.ForClass }, x, y, width) + 24
-	y = layoutList(P, x, y, width) + 16
-	y = layoutExport(P, x, y, width) + 16
-	y = layoutImport(P, x, y, width)
-	return y + 24
+	y = layoutList(P, x, y, width) + GAP
+	local card = view.ShareCard
+	y = openCard(card, nil, nil, x, y, width)
+	y = layoutExport(P, card, x, y, width)
+	y = layoutImport(P, card, x, y, width)
+	return closeCard(card, x, y, width) + 24
 end
 
 -- What the page shows, for the tests.
@@ -655,8 +705,8 @@ function PV.Shown()
 		end
 	end
 	return {
-		inUse = view.InUse.Value:GetText(),
-		source = view.InUse.psDesc,
+		inUse = view.Profile.Button.Label:GetText(),
+		source = view.Profile.psTipFn(view.Profile)[1],
 		rows = list,
 		editing = editor and editor.mode or nil,
 		editorError = view.NameError:IsShown() and view.NameError:GetText() or nil,

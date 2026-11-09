@@ -20,6 +20,7 @@
 --   nav.stepRingColor     the pins' rim (false: nav.medalColor, else white)
 --   nav.stepAlpha         the next step's opacity (1)
 --   nav.stepFadeTo        the farthest step's opacity (FADE_TO)
+--   nav.stepMinimapSize   on the minimap, against their world map size (1: the same)
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -41,7 +42,7 @@ Upcoming.PALETTE = { "quest", "npc", "item", "skill", "spell", "faction", "place
 ns.RegisterDefaults("nav", {
 	upcomingPins = false, upcomingMinimap = true, upcomingCount = 0,
 	stepPinSize = 1, stepNumbers = true, stepNumberSize = 1, stepNumberColor = false, stepNumberOutline = "OUTLINE",
-	stepColorMode = "accent", stepColor = false, stepRingColor = false, stepAlpha = 1, stepFadeTo = FADE_TO,
+	stepColorMode = "accent", stepColor = false, stepRingColor = false, stepAlpha = 1, stepFadeTo = FADE_TO, stepMinimapSize = 1,
 })
 
 -- The settings a rebuild follows.
@@ -50,7 +51,7 @@ Upcoming.KEYS = {
 	["nav.stepPinSize"] = true, ["nav.stepNumbers"] = true, ["nav.stepNumberSize"] = true, ["nav.stepNumberColor"] = true,
 	["nav.stepNumberOutline"] = true,
 	["nav.stepColorMode"] = true, ["nav.stepColor"] = true, ["nav.stepRingColor"] = true, ["nav.stepAlpha"] = true,
-	["nav.stepFadeTo"] = true,
+	["nav.stepFadeTo"] = true, ["nav.stepMinimapSize"] = true,
 }
 
 local function accent()
@@ -92,17 +93,19 @@ end
 
 -- The pin fields for the n-th step ahead of `want` in the player's look:
 -- color (alpha falling from nav.stepAlpha to nav.stepFadeTo), size, grow,
--- textScale, textColor, rimColor; showNumber says whether it carries its
--- number. Shared with the options' preview.
-function Upcoming.Look(n, want)
+-- minimapSize, minimapGrow, textScale, textColor, rimColor; showNumber says
+-- whether it carries its number. k: a pin size instead of nav.stepPinSize
+-- (the options' size comparison). Shared with the options' preview.
+function Upcoming.Look(n, want, k)
 	local near = tonumber(ns.Get("nav.stepAlpha")) or 1
 	local far = tonumber(ns.Get("nav.stepFadeTo")) or FADE_TO
 	local a = want > 1 and near - (near - far) * (n - 1) / (want - 1) or near
-	local k = tonumber(ns.Get("nav.stepPinSize")) or 1
+	k = k or tonumber(ns.Get("nav.stepPinSize")) or 1
+	local mk = k * (tonumber(ns.Get("nav.stepMinimapSize")) or 1)
 	local r, g, b = Upcoming.Color(n)
 	local outline = ns.Get("nav.stepNumberOutline")
 	return {
-		color = { r, g, b, a }, size = SIZE * k, grow = k,
+		color = { r, g, b, a }, size = SIZE * k, grow = k, minimapSize = SIZE * mk, minimapGrow = mk,
 		textScale = tonumber(ns.Get("nav.stepNumberSize")) or 1,
 		textOutline = outline == "NONE" and "" or outline == "THICKOUTLINE" and outline or "OUTLINE",
 		textColor = colorSetting("nav.stepNumberColor"), rimColor = colorSetting("nav.stepRingColor"),

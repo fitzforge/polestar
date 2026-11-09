@@ -91,6 +91,8 @@ All of it is on `Polestar.Theme`:
 | `PaletteFor(id)` | The palette a skin would give, with the player's own colours |
 | `Color(token)`, `Accent()`, `Wash(name)`, `Media(name)` | Read the palette in use from your painters |
 | `SkinKit` | The paint kit ([below](#painters-and-the-paint-kit)) |
+| `SkinPreset(id)`, `ApplySkinPreset(id)`, `UndoSkinPreset()`, `SkinPresetApplied()` | A skin's recommended settings ([Presets](#presets)) |
+| `IsLightPalette(palette)` | Whether a palette's text is darker than its window ground ([Legibility](#legibility)) |
 
 `ok` is `false` when the spec is refused, and `message` says why, in English,
 for you the author (`"tokens.textMuted is missing (a scheme gives bg, ...)"`).
@@ -153,10 +155,14 @@ Theme.RegisterScheme(id, {
 | | | `onAccent` | text on an accent fill |
 | | | `shadow` | the window's drop shadow (its alpha is its strength) |
 
-A scheme gives only these: the status and subject colours (quest gold, NPC
-blue, success green...) are the same in every scheme, so a quest reads the
-same everywhere. A token that belongs to skins (`accent`, `border`, `quest`...)
-is refused with that reason; use `accent` and `washes` instead.
+A scheme gives these, and may give its own status and subject colours
+(`success`, `warning`, `danger`, `quest`, `npc`, `item`, `place`, `object`,
+`level`, `skill`, `spell`, `faction`, `area`, `achievement`, `dungeon`,
+`rare`). Polestar's are drawn for night grounds and are the same in every
+dark scheme, so a quest reads the same everywhere; a **light** scheme
+(parchment) must give its own, dark enough for its grounds. A token that
+belongs to skins (`accent`, `border`, `title`...) is refused with that reason;
+use `accent` and `washes` instead.
 
 `washes` sets how strong the white ink is for the hairlines and washes, by
 name: `border`, `divider`, `hover`, `selected`, `progress`, `track`, `toggle`,
@@ -188,6 +194,7 @@ Theme.RegisterSkin(id, {
 	hooks = { arrow = function(frame, style) ... end, pin = function(pin) ... end },
 	onApply = function(id) end,   -- this skin became the one in use
 	onLeave = function(id) end,   -- another skin replaced it
+	preset = { ["guideWindow.padding"] = 4, ["ui.fontOutline"] = "outline" },  -- settings it recommends
 	strict = false,
 })
 ```
@@ -206,6 +213,34 @@ Theme.RegisterSkin(id, {
 | `paint` | [Painters](#painters-and-the-paint-kit), by kind of frame. |
 | `hooks` | [Hooks](#hooks-the-arrow-and-the-map-pins) for the art modules draw themselves. |
 | `onApply`, `onLeave` | Called with the skin's id when it becomes, or stops being, the one in use (also at login when it is). For your own frames, if any. |
+| `preset` | Settings the skin recommends ([Presets](#presets)); never applied unless the player asks. |
+
+### Presets
+
+A skin may recommend settings to go with it (roomier guide window rows, an
+outline on the text, its own panel colour): `preset = { [setting] = value }`,
+keyed by the setting's path as Polestar stores it (`"ui.fontOutline"`,
+`"guideWindow.padding"`). Each is checked when the skin registers:
+
+- the setting exists (Polestar registered a default for it; Polestar
+  registers all of its settings as it loads, before your addon);
+- the value has the default's type (a number for a number...); a colour
+  setting (default `false`) takes a colour in any of the forms above;
+- it is a look setting: the sections that decide what Polestar does
+  (`behavior`, `gear`, `talents`, `alts`, `party`, `lookup`, `routePlan`,
+  `gamepad`, `dungeons`) and `ui.skin` itself are refused.
+
+A preset is **never applied by choosing the skin**. The Theme page shows
+"Apply <skin>'s layout" under the skin cards while the chosen skin has one;
+`Theme.ApplySkinPreset(id)` sets each value through Polestar's settings (a
+value equal to its default is not stored), repaints once, and remembers
+what each setting was, including a colour source it turned off (your own
+accent turns the class accent off). `Theme.UndoSkinPreset()` puts them all
+back; applying a second preset before undoing keeps the first one's "before",
+so Undo always returns to where the player was. The undo lasts for the
+session; profiles keep a lasting copy. `Theme.SkinPreset(id)` returns a copy
+of a skin's preset (nil without one), `Theme.SkinPresetApplied()` the skin
+whose preset Undo would take back.
 
 ## Tokens
 
@@ -241,17 +276,21 @@ checked at registration against that same rule (`Theme.Legibility`,
 the window ground over black.
 
 - **Legible**: accepted as given.
-- **Grounds too light** for the text: the six grounds are darkened together,
-  by the least that makes every text read, and the registration says so:
+- **Grounds too close to the text**: the six grounds are moved together, by
+  the least that makes every text read: **darkened** under light text,
+  **lifted** under dark text (a light palette, text darker than the window
+  ground: `Theme.IsLightPalette`). The registration says so:
   `ok = true, message = "textMuted on panelAlt reads 3.9:1, needs 4.5:1; the
-  grounds were darkened (-0.12) until the text reads"`. With `strict = true`
-  the spec is refused with that reason instead.
-- **Text too dark** to read even on the darkest grounds: refused
-  (`"... even with the grounds at their darkest"`).
+  grounds were darkened (-0.12) until the text reads"` (or "lightened"). With
+  `strict = true` the spec is refused with that reason instead.
+- **Text that cannot read** even on the darkest (or lightest) grounds:
+  refused (`"... even with the grounds at their darkest"`).
 
-At run time Polestar keeps darkening the grounds if a player's own ground
-colour or brightness would drop the text below the floor, as for its own
-schemes.
+At run time Polestar keeps the grounds legible when a player's own ground
+colour or brightness would drop the text below the floor, moving them the
+way the scheme (or skin) is drawn: a light palette is lifted, never sent
+down to its own dark text, whatever brightness or ground colour the player
+picks; a dark one is darkened.
 
 ## Painters and the paint kit
 
@@ -365,7 +404,8 @@ if Theme.HasCapability("surfaces.pin") then spec.hooks = { pin = paintPin } end
 
 The capabilities of version 1: `schemes`, `skins`, `tokens`, `legibility`,
 `fonts`, `fontSizes`, `textShadow`, `icons`, `media.band`, `media.bandStars`,
-`media.medallion`, `arrow.style`, `mapIcons`, `events` (`onApply`,
+`media.medallion`, `arrow.style`, `mapIcons`, `preset`, `lightSchemes` (light
+palettes lifted, schemes may give subject colours), `events` (`onApply`,
 `onLeave`), `preview` (the picker's cards), and `surfaces.<kind>` for every
 painter kind and hook (`surfaces.window`, `surfaces.guide`, `surfaces.toast`,
 `surfaces.panel`, `surfaces.sidebar`, `surfaces.inset`, `surfaces.button`,
@@ -435,7 +475,7 @@ What Polestar took, and what it does differently:
 | After-apply callback | `callback(skin, instance)` | `onApply`, `onLeave` | Taken; `onLeave` added so a skin can tidy its own frames |
 | Identity | The display name is the key | A stable `id`, the `name` separate | A skin can rename itself (or be translated) without losing every player's saved choice |
 | Look | One texture atlas at fixed coordinates, plus settings | Tokens, fonts, media by name, and painters per kind of frame | Polestar has many frames of many shapes, and a palette every frame reads; painters keep a skin working when Polestar adds frames of a known kind |
-| Player settings | The skin writes its values over the player's window settings | A skin never writes a setting: it is a layer under the player's own accent, border, ground and arrow colours | Switching skins must not reset what a player chose (Polestar's rule: never change a player's settings behind their back) |
+| Player settings | The skin writes its values over the player's window settings | A skin never writes a setting by itself: it is a layer under the player's own accent, border, ground and arrow colours. Settings it recommends (`preset`) are applied only when the player asks, and undone in one click | Switching skins must not reset what a player chose (Polestar's rule: never change a player's settings behind their back) |
 | Errors | Callbacks are not isolated; `InstallSkin` returns false without a reason | Every painter and hook under `pcall`; the first error noted once, the skin off for the session; refusals and corrections say why | A broken third-party skin must never break the guide; an author needs the reason |
 | Legibility | Not checked | Every scheme and skin held to the text floors, corrected or refused | Polestar is read at arm's length over a busy game world |
 | Versioning | None | `api`, `API_VERSION`, `HasCapability` | Lets a skin target a newer feature and still load on an older Polestar |

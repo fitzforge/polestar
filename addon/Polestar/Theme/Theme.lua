@@ -368,13 +368,26 @@ local function legibility(P)
 end
 Theme.Legibility = legibility
 
--- Darken every ground together, by the least lightness that makes all text
--- legible again.
-local function keepLegible(P)
+-- Whether a palette is a light one: its text darker than its window ground
+-- (a parchment scheme or skin), so the guard below lifts its grounds instead.
+local function isLight(P)
+	local t, g = P.text, P.bg
+	return Theme.Luminance(t[1], t[2], t[3]) < Theme.Luminance(g[1], g[2], g[3])
+end
+Theme.IsLightPalette = isLight
+
+-- Move every ground together, by the least lightness that makes all text
+-- legible again: darker under light text, lighter under dark text (a light
+-- palette), so the player's brightness or ground colour can never take a
+-- light palette's grounds down to its text, nor a dark one's up to it.
+-- `light` says which way (default: as P stands now).
+local function keepLegible(P, light)
 	if legibility(P) >= 1 then return P end
 	local base = {}
 	for _, gname in ipairs(Theme.GROUNDS) do base[gname] = P[gname] end
-	local lo, hi = -1, 0 -- lightness shift: lo is legible, hi is not
+	if light == nil then light = isLight(P) end
+	local far = light and 1 or -1
+	local lo, hi = far, 0 -- lightness shift: lo is legible, hi is not
 	for _ = 1, 14 do
 		local mid = (lo + hi) / 2
 		for _, gname in ipairs(Theme.GROUNDS) do P[gname] = shifted(base[gname], mid) end
@@ -701,6 +714,9 @@ local function resolve(id, schemeKey)
 			if name == "accent" then skinAccent = c else out[name] = copy(c) end
 		end
 	end
+	-- Light or dark as the scheme (or skin) gives it, before the player's own
+	-- ground and brightness: the way the guard moves the grounds.
+	local light = isLight(out)
 	if key == "ellesmere" then
 		local panel = euiPanel()
 		if panel then
@@ -719,7 +735,7 @@ local function resolve(id, schemeKey)
 	if type(bright) == "number" and bright ~= 0 then
 		for _, gname in ipairs(Theme.GROUNDS) do out[gname] = shifted(out[gname], bright * 0.2) end
 	end
-	keepLegible(out)
+	keepLegible(out, light)
 	local r, g, b
 	local own = get("ui.accent")
 	if isColor(own) then
@@ -2187,6 +2203,9 @@ local RIVALS = {
 	["ui.borderAccent"] = { "ui.borderColor" },
 }
 
+-- A skin's preset applies many settings at once (Theme.ApplySkinPreset):
+-- the palette is repainted once at its end, not once per setting.
+local batching, batchRefresh = false, false
 if ns.On then
 	ns.On("SETTING_CHANGED", function(path, value)
 		local rivals = RIVALS[path]
@@ -2196,7 +2215,9 @@ if ns.On then
 			-- Each change above already repainted through its own event.
 			if changed then return end
 		end
-		if LOOKS[path] then Theme.Refresh() end
+		if LOOKS[path] then
+			if batching then batchRefresh = true else Theme.Refresh() end
+		end
 	end)
 end
 
@@ -2278,7 +2299,7 @@ local SCHEME_MAY = { "ink", "star", "shade", "scrim", "onAccent", "shadow" }
 
 local CAPABILITIES = {}
 for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontSizes", "textShadow", "icons", "media.band",
-	"media.bandStars", "media.medallion", "arrow.style", "mapIcons", "events", "preview" }) do CAPABILITIES[c] = true end
+	"media.bandStars", "media.medallion", "arrow.style", "mapIcons", "events", "preview", "preset", "lightSchemes" }) do CAPABILITIES[c] = true end
 for kind in pairs(PAINT_KINDS) do CAPABILITIES["surfaces." .. kind] = true end
 for name in pairs(HOOKS) do CAPABILITIES["surfaces." .. name] = true end
 
@@ -2384,14 +2405,17 @@ local function weakest(pal)
 	return worst, role, ground, ratio, need
 end
 
--- `pal` legible as given, or its grounds darkened together (alpha kept) by
--- the least that makes it so; nil when even the darkest grounds would not
--- carry the text. -> grounds | nil, why, corrected
+-- `pal` legible as given, or its grounds moved together (alpha kept) by the
+-- least that makes it so: darkened under light text, lifted under dark text
+-- (a light palette, Theme.IsLightPalette); nil when even the darkest (or
+-- lightest) grounds would not carry the text. -> grounds | nil, why, corrected
 local function legibleGrounds(pal, strict)
 	local worst, role, ground, ratio, need = weakest(seen(pal))
 	if worst >= 1 then return pal, nil, false end
 	local why = format("%s on %s reads %.1f:1, needs %g:1", role, ground, ratio, need)
 	if strict then return nil, why end
+	local light = isLight(pal)
+	local far = light and 1 or -1
 	local base, trial = {}, {}
 	for k, v in pairs(pal) do trial[k] = v end
 	for _, g in ipairs(Theme.GROUNDS) do base[g] = pal[g] end
@@ -2399,14 +2423,14 @@ local function legibleGrounds(pal, strict)
 		for _, g in ipairs(Theme.GROUNDS) do trial[g] = shifted(base[g], dL) end
 		return weakest(seen(trial)) >= 1
 	end
-	if not at(-1) then return nil, why .. " even with the grounds at their darkest" end
-	local lo, hi = -1, 0
+	if not at(far) then return nil, why .. (light and " even with the grounds at their lightest" or " even with the grounds at their darkest") end
+	local lo, hi = far, 0
 	for _ = 1, 14 do
 		local mid = (lo + hi) / 2
 		if at(mid) then lo = mid else hi = mid end
 	end
 	at(lo)
-	return trial, why .. format("; the grounds were darkened (%.2f) until the text reads", lo), true
+	return trial, why .. format("; the grounds were %s (%.2f) until the text reads", light and "lightened" or "darkened", lo), true
 end
 
 local function apiCheck(spec)
@@ -2441,7 +2465,57 @@ local SCHEME_FIELDS = { api = true, name = true, addon = true, author = true, ve
 	accent = true, washes = true, strict = true }
 local SKIN_FIELDS = { api = true, name = true, addon = true, author = true, version = true, desc = true, base = true,
 	scheme = true, tokens = true, font = true, fontSizes = true, textShadow = true, icons = true, media = true, arrow = true,
-	mapIcons = true, paint = true, hooks = true, onApply = true, onLeave = true, strict = true }
+	mapIcons = true, paint = true, hooks = true, onApply = true, onLeave = true, strict = true, preset = true }
+
+-- A preset may hold the look's settings, never what Polestar does: these
+-- sections are behaviour (automation, gear, talents...), and ui.skin is the
+-- choice the preset belongs to.
+local PRESET_DENIED_SECTIONS = { behavior = true, gear = true, talents = true, alts = true, party = true, lookup = true,
+	routePlan = true, gamepad = true, dungeons = true }
+local PRESET_DENIED_KEYS = { ["ui.skin"] = true }
+
+-- A preset value as its setting holds it, checked against the setting's
+-- default: the same type; a colour setting (default false) takes a colour.
+-- -> value | nil, why
+local function presetValue(path, v)
+	if type(path) ~= "string" or not path:match("^[%a][%w_]*%.[%w_.]+$") then
+		return nil, format("preset key %q is not a setting path (like \"ui.scale\")", tostring(path))
+	end
+	if PRESET_DENIED_KEYS[path] or PRESET_DENIED_SECTIONS[path:match("^[^.]+")] then
+		return nil, format("preset.%s is not a look setting (a preset changes how Polestar looks, never what it does)", path)
+	end
+	local d = ns.GetDefault and ns.GetDefault(path)
+	if d == nil then return nil, format("preset: Polestar has no setting %q", path) end
+	if d == false and type(v) ~= "boolean" then
+		local c = specColor(v)
+		if not c then return nil, format("preset.%s must be false or a colour", path) end
+		return c
+	end
+	if type(v) ~= type(d) then return nil, format("preset.%s must be a %s, like its default", path, type(d)) end
+	if type(v) == "number" and (v ~= v or v == math.huge or v == -math.huge) then return nil, format("preset.%s is not a number", path) end
+	if type(v) == "table" then
+		local c = {}
+		for k, x in pairs(v) do
+			if type(x) == "table" or type(x) == "function" then return nil, format("preset.%s holds a nested table", path) end
+			c[k] = x
+		end
+		return c
+	end
+	return v
+end
+
+local function readPreset(preset)
+	if preset == nil then return true end
+	if type(preset) ~= "table" then return false, "preset must be a table of setting = value" end
+	local out, any = {}, false
+	for path, v in pairs(preset) do
+		local value, why = presetValue(path, v)
+		if value == nil then return false, why end
+		out[path], any = value, true
+	end
+	if not any then return false, "preset is empty" end
+	return true, out
+end
 
 local function fieldsCheck(spec, allowed)
 	for k in pairs(spec) do
@@ -2491,9 +2565,12 @@ local function registerScheme(id, spec, builtin)
 	for _, k in ipairs(SCHEME_MAY) do
 		if not tokens[k] then tokens[k] = copy(SCHEMES.dusk[k]) end
 	end
+	-- The status and subject colours (quest gold, NPC blue...) are the same in
+	-- every dark scheme; a scheme may give its own (a light one must: they
+	-- are drawn for night grounds).
 	for k in pairs(tokens) do
-		if SHARED[k] or ART[k] or BRAND[k] or WASH[k] or HOUSE_EXTRA[k] or k == "accent" or k == "windowBorder" then
-			return false, format("tokens.%s belongs to a skin, not a scheme (a scheme gives the grounds and the text ladder)", k)
+		if ART[k] or BRAND[k] or WASH[k] or HOUSE_EXTRA[k] or k == "accent" or k == "windowBorder" then
+			return false, format("tokens.%s belongs to a skin, not a scheme (a scheme gives the grounds, the text ladder and the subject colours)", k)
 		end
 	end
 	local accent
@@ -2622,6 +2699,9 @@ local function registerSkin(id, spec, builtin)
 	end
 	if spec.arrow ~= nil and not ARROW_STYLES[spec.arrow] then return false, "arrow must be \"3d\", \"flat\", \"halo\" or \"hearth\"" end
 	if spec.mapIcons ~= nil and not MAP_ICONS[spec.mapIcons] then return false, "mapIcons must be \"polestar\", \"halo\" or \"hearth\"" end
+	local preset
+	ok, preset = readPreset(spec.preset)
+	if not ok then return false, preset end
 	for _, k in ipairs({ "onApply", "onLeave" }) do
 		if spec[k] ~= nil and type(spec[k]) ~= "function" then return false, k .. " must be a function" end
 	end
@@ -2643,7 +2723,7 @@ local function registerSkin(id, spec, builtin)
 	else
 		s.name, s.addon, s.author, s.version, s.desc = spec.name, spec.addon, spec.author, spec.version, spec.desc
 		s.scheme, s.tokens, s.arrow, s.mapIcons = spec.scheme, tokens, spec.arrow, spec.mapIcons
-		s.paint, s.hooks, s.onApply, s.onLeave = spec.paint, spec.hooks, spec.onApply, spec.onLeave
+		s.paint, s.hooks, s.onApply, s.onLeave, s.preset = spec.paint, spec.hooks, spec.onApply, spec.onLeave, preset
 		if spec.media then
 			s.media = {}
 			for k, v in pairs(spec.media) do s.media[k] = v end
@@ -2722,6 +2802,89 @@ end
 function Theme.SkinMapIcons()
 	local s = SKINS[Theme.SkinId()]
 	return s and s.mapIcons or nil
+end
+
+-- A skin's preset (spec.preset): the settings it recommends, as a copy, or
+-- nil. Never applied by itself: the player applies it (the Theme page's
+-- "Apply <skin>'s layout") and may undo it.
+local function copyValue(v)
+	if type(v) ~= "table" then return v end
+	local c = {}
+	for k, x in pairs(v) do c[k] = x end
+	return c
+end
+
+function Theme.SkinPreset(id)
+	local s = SKINS[id]
+	if not (s and s.preset) then return nil end
+	local out = {}
+	for path, v in pairs(s.preset) do out[path] = copyValue(v) end
+	return out
+end
+
+-- The settings an applied preset changed, as they were before: one level of
+-- undo for the session (a reload forgets it; the profiles keep a copy).
+local presetUndo -- { id = skin id, values = { [path] = value before } }
+
+-- Apply skin `id`'s preset through ns.Set (so each setting fires its own
+-- change and a value equal to its default is not stored), remembering what
+-- each setting (and the colour sources it turns off) was. Applying another
+-- preset before undoing keeps the oldest values, so Undo goes back to before
+-- the first. -> ok, why
+function Theme.ApplySkinPreset(id)
+	local s = SKINS[id]
+	if not s then return false, "no such skin" end
+	if not s.preset then return false, "this skin has no preset" end
+	local undo = presetUndo or { values = {} }
+	local function remember(path)
+		if undo.values[path] == nil then
+			local v = ns.Get(path)
+			undo.values[path] = v == nil and false or copyValue(v)
+		end
+	end
+	for path in pairs(s.preset) do
+		remember(path)
+		for _, rival in ipairs(RIVALS[path] or {}) do remember(rival) end
+	end
+	undo.id = id
+	presetUndo = undo
+	batching, batchRefresh = true, false
+	local ok, err = pcall(function()
+		for path, v in pairs(s.preset) do ns.Set(path, copyValue(v)) end
+	end)
+	batching = false
+	if batchRefresh then
+		batchRefresh = false
+		Theme.Refresh()
+	end
+	if not ok then
+		if ns.NoteError then ns.NoteError(err) end
+		return false, tostring(err)
+	end
+	return true
+end
+
+-- The skin whose preset Undo would take back, or nil.
+function Theme.SkinPresetApplied()
+	return presetUndo and presetUndo.id or nil
+end
+
+-- Put back every setting the last applied preset(s) changed. -> ok
+function Theme.UndoSkinPreset()
+	local undo = presetUndo
+	if not undo then return false end
+	presetUndo = nil
+	batching, batchRefresh = true, false
+	local ok, err = pcall(function()
+		for path, v in pairs(undo.values) do ns.Set(path, copyValue(v)) end
+	end)
+	batching = false
+	if batchRefresh then
+		batchRefresh = false
+		Theme.Refresh()
+	end
+	if not ok and ns.NoteError then ns.NoteError(err) end
+	return ok
 end
 
 -- A module's own art handed to the skin in use (Nav/Arrow.lua: "arrow",

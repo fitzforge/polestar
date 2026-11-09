@@ -160,47 +160,114 @@ fn buttons_sizes_and_layout_wait_out_combat_the_look_changes_at_once() {
 	assert_eq!(out["after"], json!([50, [51, 0], 1.2, false]));
 }
 
-// The page: key "buttons", order 25 in the look group; the old button looks moved here from Questing, which
-// keeps the toggles and a way to the page; every new row is marked new, has search words and help, and every
-// key has a default (else the window would leave the row out).
+// The page: key "buttons", order 25 in the look group, laid out on the v2 grid (FIXES-V2): one section per
+// element, every section at least two rows, at most one switch and one swatch beside a control, each button's
+// and the floating and minimap buttons' on/off beside their size, secondary knobs behind cogs, short labels, at
+// most two (i), nothing dimmed at defaults. The old button looks moved here from Questing, which keeps the
+// toggles and a way to the page. Every row (extras and cog rows too) has help and search words, every new one
+// the new mark, and every key a default (else the window would leave the row out).
 #[test]
 fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_help() {
 	let out = run_ui(
 		r#"
-		local r = { keys = {}, missing = {}, bare = {}, questing = {} }
+		local r = { keys = {}, missing = {}, bare = {}, questing = {}, sections = {}, long = {}, info = 0, toggles = 0, extras = {}, more = {},
+			thin = {}, crowded = {}, dim = {} }
+		local function see(c)
+			if not c.key then return end
+			r.keys[#r.keys + 1] = c.key
+			if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
+			local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
+			if not (c.search and c.search ~= "" and c.help and c.help ~= "") or (fresh and c.new ~= "0.3.7") then r.bare[#r.bare + 1] = c.key end
+		end
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Buttons" then
 				if spec.key then r.head = { spec.key, spec.order, spec.group } end
+				r.sections[#r.sections + 1] = spec.section
+				if spec.toggle then r.toggles = r.toggles + 1 end
+				local halves = 0
 				for _, c in ipairs(spec.controls) do
-					if c.key then
-						r.keys[#r.keys + 1] = c.key
-						if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
-						local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
-						if fresh and not (c.new == "0.3.7" and c.search and c.search ~= "" and c.help and c.help ~= "") then r.bare[#r.bare + 1] = c.key end
+					see(c)
+					halves = halves + (c.wide and 2 or 1)
+					if c.info then r.info = r.info + 1 end
+					if c.disabled and c.disabled() then r.dim[#r.dim + 1] = c.key or c.label end
+					local label = type(c.label) == "string" and c.label or ""
+					local _, words = label:gsub("%S+", "")
+					if words > 3 then r.long[#r.long + 1] = label end
+					local switches, swatches = 0, 0
+					for _, x in ipairs(c.extras or {}) do
+						see(x)
+						r.extras[c.key] = x.key
+						if x.kind == "toggle" then switches = switches + 1 elseif x.kind == "color" then swatches = swatches + 1 end
 					end
+					if switches > 1 or swatches > 1 then r.crowded[#r.crowded + 1] = c.key end
+					for _, x in ipairs(c.more or {}) do see(x); r.more[c.key] = x.key end
 				end
-			elseif spec.page == "Questing" and spec.tab == "Buttons" then
+				if halves < 3 then r.thin[#r.thin + 1] = spec.section end
+			end
+		end
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			if spec.page == "Questing" and spec.tab == "Buttons" then
 				for _, c in ipairs(spec.controls) do r.questing[#r.questing + 1] = c.key or c.label end
 			end
 		end
 		UI.ShowOptions("buttons")
 		O.Select("buttons", "Action buttons")
 		local shown = O.Controls("buttons", "Action buttons")
-		r.shown = { shown["qol.buttonScale"] ~= nil, shown["buttons.targetSize"] ~= nil, shown["buttons.backingColor"] ~= nil, shown["buttons.glow"] ~= nil }
+		r.shown = { shown["qol.buttonScale"] ~= nil, shown["buttons.targetSize"] ~= nil, shown["buttons.backing"] ~= nil, shown["buttons.glow"] ~= nil }
 		O.Select("buttons", "Launcher & minimap")
 		local other = O.Controls("buttons", "Launcher & minimap")
 		r.other = { other["ui.launcherSize"] ~= nil, other["maps.minimapButtonIcon"] ~= nil }
+		-- The switch beside the floating button's size turns it on.
+		other["ui.launcher"]:Click()
+		r.launcherOn = Polestar.Get("ui.launcher")
+		-- An inline switch beside a size row, and a cog's popup.
+		O.Select("buttons", "Action buttons")
+		shown = O.Controls("buttons", "Action buttons")
+		shown["qol.itemButton"]:Click()
+		r.itemOff = Polestar.Get("qol.itemButton")
+		shown["buttons.border"].Cog:Click()
+		r.cog = O.MoreControls()["buttons.borderSize"] ~= nil
 		emit(r)"#,
 	);
 	assert_eq!(out["head"], json!(["buttons", 25, "look"]));
 	assert!(empty(&out["missing"]), "every key has a default: {}", out["missing"]);
-	assert!(empty(&out["bare"]), "every new row: new badge, search words, help: {}", out["bare"]);
+	assert!(empty(&out["bare"]), "every row: help and search words, new ones the new mark: {}", out["bare"]);
+	assert!(empty(&out["long"]), "short labels: {}", out["long"]);
+	assert!(n(&out["info"]) <= 2.0, "at most two (i): {}", out["info"]);
+	assert!(empty(&out["thin"]), "no one-row section: {}", out["thin"]);
+	assert!(empty(&out["crowded"]), "at most one switch and one swatch beside a control: {}", out["crowded"]);
+	assert!(empty(&out["dim"]), "nothing dimmed at defaults: {}", out["dim"]);
+	assert_eq!(out["sections"], json!(["Button set", "Buttons", "Plate", "Text", "Floating & minimap"]), "one section per element");
+	assert_eq!(out["toggles"], 0, "the on/off switches sit beside their sizes");
+	for (main, extra) in [
+		("buttons.itemSize", "qol.itemButton"),
+		("buttons.hearthSize", "qol.hearthButton"),
+		("buttons.targetSize", "qol.targetButton"),
+		("buttons.rareSize", "qol.rareButton"),
+		("buttons.backing", "buttons.backingColor"),
+		("buttons.border", "buttons.borderColor"),
+		("buttons.glow", "buttons.glowColor"),
+		("ui.launcherSize", "ui.launcher"),
+		("maps.minimapButtonSize", "maps.minimapButton"),
+	] {
+		assert_eq!(out["extras"][main], extra, "{extra} beside {main}");
+	}
+	for (main, cog) in [
+		("buttons.border", "buttons.borderSize"),
+		("buttons.labelScale", "buttons.labelOutline"),
+		("qol.targetPlate", "buttons.miniSize"),
+		("buttons.hotkey", "buttons.hotkeyScale"),
+	] {
+		assert_eq!(out["more"][main], cog, "{cog} behind {main}'s cog");
+	}
 	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
 	for k in [
-		"qol.buttonScale", "qol.buttonTextSide", "qol.targetPlate", "ui.launcher", "maps.minimapButton", "buttons.itemSize", "buttons.hearthSize",
-		"buttons.targetSize", "buttons.rareSize", "buttons.spacing", "buttons.layout", "buttons.backing", "buttons.backingColor", "buttons.border",
-		"buttons.borderColor", "buttons.labelScale", "buttons.labelOutline", "buttons.hotkey", "buttons.cooldownText", "buttons.idleAlpha",
-		"buttons.alpha", "buttons.glow", "ui.launcherSize", "ui.launcherAlpha", "ui.launcherIcon", "maps.minimapButtonIcon",
+		"qol.buttonScale", "qol.buttonTextSide", "qol.targetPlate", "qol.itemButton", "qol.hearthButton", "qol.targetButton", "qol.rareButton",
+		"ui.launcher", "maps.minimapButton", "buttons.itemSize", "buttons.hearthSize", "buttons.targetSize", "buttons.rareSize", "buttons.bagSize",
+		"buttons.spacing", "buttons.layout", "buttons.padding", "buttons.backing", "buttons.backingColor", "buttons.border", "buttons.borderColor",
+		"buttons.borderSize", "buttons.hoverColor", "buttons.labelScale", "buttons.labelOutline", "buttons.miniSize", "buttons.hotkey",
+		"buttons.hotkeyScale", "buttons.count", "buttons.cooldownText", "buttons.idleAlpha", "buttons.alpha", "buttons.glow", "buttons.glowColor",
+		"ui.launcherSize", "ui.launcherAlpha", "ui.launcherIcon", "ui.launcherBack", "maps.minimapButtonSize", "maps.minimapButtonIcon",
 	] {
 		assert!(keys.contains(&k), "{k} on the Buttons page");
 	}
@@ -209,6 +276,9 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 	assert!(questing.contains(&json!("qol.targetButton")) && questing.contains(&json!("Button look")), "{questing:?}");
 	assert_eq!(out["shown"], json!([true, true, true, true]));
 	assert_eq!(out["other"], json!([true, true]));
+	assert_eq!(out["launcherOn"], true, "the switch beside the floating button's size sets ui.launcher");
+	assert_eq!(out["itemOff"], false, "the switch beside Quest item size turns the button off");
+	assert_eq!(out["cog"], true, "the border's cog opens its thickness");
 }
 
 // The previews draw the real faces with the current values on plain frames: no secure template is ever made,
@@ -245,6 +315,15 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 		Polestar.Set("maps.minimapButtonSize", 40)
 		r.launcher = { launcher:GetWidth(), launcher.Icon:GetTexture(), minimap.Icon:GetTexture(), minimap:GetWidth(), PolestarLauncher == nil }
 		CreateFrame = create
+		-- Each part of the previews is a hotspot to its row; a click jumps there without an error.
+		r.hot = {}
+		for _, p in ipairs({ f, l }) do
+			for key in pairs(p.psHotspots or {}) do r.hot[#r.hot + 1] = key end
+		end
+		table.sort(r.hot)
+		UI.ShowOptions("buttons")
+		local btn = f.psHotspots["buttons.itemSize"]
+		btn:GetScript("OnClick")(btn)
 		emit(r)"#,
 	);
 	assert!(empty(&out["secure"]), "no secure template in a preview: {}", out["secure"]);
@@ -258,4 +337,9 @@ fn buttons_previews_draw_the_real_faces_on_plain_frames_and_make_no_secure_frame
 	assert!(l[1].as_str().unwrap().ends_with("emblem") && l[2].as_str().unwrap().ends_with("emblem"), "{l}");
 	assert_eq!(l[3], 40);
 	assert_eq!(l[4], true, "the preview never builds the live floating button");
+	assert_eq!(
+		out["hot"],
+		json!(["buttons.alpha", "buttons.hearthSize", "buttons.itemSize", "buttons.targetSize", "maps.minimapButtonSize", "qol.buttonTextSide", "ui.launcherSize"]),
+		"every part of the previews leads to its row"
+	);
 }
