@@ -4038,9 +4038,11 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Al
 	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
 	const hills = at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442);
 	const step = list[hills].s;
-	const before = list.filter(({ s, goal }, i) => s === step && i < hills && goal.t === 'goto');
-	const alliance = before.filter(({ goal }) => !goal.only || (goal.only.factions || []).includes('Alliance'));
-	const horde = before.filter(({ goal }) => !goal.only || (goal.only.factions || []).includes('Horde'));
+	// The safe spot is its own step just before the hills since #1496 (skipped once in Stonetalon).
+	const before = list.filter(({ s, goal }, i) => (s === step || s === step - 1) && i < hills && goal.t === 'goto' && (s === step || goal.map === 1413));
+	const side = (faction) => ({ step: st, goal }) => [st.only, goal.only].every((o) => !o || !o.factions || o.factions.includes(faction));
+	const alliance = before.filter(side('Alliance'));
+	const horde = before.filter(side('Horde'));
 	const [hubs] = runAddon({
 		stubs: ['stub_encoding.lua'],
 		addons: ['Polestar_Nav'],
@@ -4079,6 +4081,20 @@ emit(out)`,
 	assert.equal(alliance.length, 1, 'Alliance get one waypoint before the path');
 	assert.ok(yards(alliance[0].goal, { map: 1413, x: 40.2, y: 24.88 }) <= 30, "it is the reporter's safe spot");
 	assert.equal(horde.length, 0, 'Horde get none');
+});
+
+// shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
+// the Stonetalon step, so a character already in Stonetalon (on foot or off the Stonetalon Peak
+// flight) was sent 3,114 yd back to the Barrens. The safe spot is now its own Alliance step that
+// applies only while the character is not yet in the Stonetalon Mountains.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Honor's Stand detour only applies before Stonetalon", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const safe = list[at(list, "the safe spot north of Honor's Stand", (g) => g.t === 'goto' && g.map === 1413 && yards(g, { map: 1413, x: 40.2, y: 24.88 }) <= 30)];
+	const hills = list[at(list, 'the path into the hills', (g) => g.t === 'goto' && g.map === 1442)];
+	assert.notEqual(safe.s, hills.s, 'the safe spot is not a goal of the Stonetalon step');
+	assert.ok((safe.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'its step applies only outside the Stonetalon Mountains');
+	assert.deepEqual((safe.step.only || safe.goal.only || {}).factions, ['Alliance'], 'Alliance only');
+	assert.ok(!(hills.step.when || []).some((p) => p.k === 'zone'), 'the Stonetalon step itself applies wherever the character is');
 });
 
 // Syrael (#575): "Collect the ghost plasma is in the wrong spot, it shows the
