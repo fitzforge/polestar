@@ -1121,8 +1121,11 @@ const SCENES = [
 	},
 	{
 		file: 'whats-new.svg',
-		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About)',
-		panels: [{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' }],
+		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About); its notes scrolled to the end',
+		panels: [
+			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' },
+			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show(); Polestar.Widgets.ScrollTo(PolestarWhatsNew.Scroll, 10000)' },
+		],
 	},
 	{
 		file: 'guide-professions.svg',

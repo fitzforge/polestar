@@ -3,7 +3,8 @@
 -- release changed for them. One page: a compact night hero (the band, the
 -- haze, the Dipper and the emblem on the right) with "What's new in
 -- Polestar <version>" in Hero; the release's notes under hairlines, each a
--- glyph, a heading and its line; a footer with "Full notes: polestar.guide"
+-- glyph, a heading and its line, in a list that scrolls once it would make
+-- the window taller than MAX_H; a footer with "Full notes: polestar.guide"
 -- (text only) on the left, "Open the guide list" and "Got it" on the right.
 --
 -- NOTES holds the releases' notes, newest first: a release with something to
@@ -44,19 +45,34 @@ local NOTES = {
 		version = "0.3.6",
 		notes = {
 			{ glyph = "guides", color = "accent", head = L["Every route reviewed"], text = function()
-				return L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."]:format(cmd(L["Suggested for you"]))
+				return L["More quests and shorter grinds at 40-60, fewer walk-backs, no pointless travel steps."]
+			end },
+			{ glyph = "icon-turnin", color = "accent", head = L["Dynamic Questing saves trips"], text = function()
+				return L["Hand in and pick up at NPCs on your way; auto-accept takes the next steps' quests."]
 			end },
 			{ glyph = "qol-target", color = "accent", head = L["The arrow finds your targets"], text = function()
-				return L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."]
+				return L["Grinds go to the nearest spawns, past emptied camps; Target shows who, pings, marks."]
 			end },
-			{ glyph = "layers", color = "accent", head = L["Guide menu and minimap"], text = function()
-				return L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and the minimap button and a floating Polestar button can be turned on in Options."]
+			{ glyph = "dart", color = "accent", head = L["Route lines your way"], text = function()
+				return L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."]:format(L["Line"], L["Dots"], L["Sparkles"])
+			end },
+			{ glyph = "icon-forever", color = "accent", head = L["New in Forever"], text = function()
+				return L["Quests only Forever has carry a small ∞ mark."]
+			end },
+			{ glyph = "window", color = "accent", head = L["Tabs and windows"], text = function()
+				return L["Closed tabs reopen where you were; %s backing; floating button; Esc menu."]:format(L["Transparent"])
+			end },
+			{ glyph = "icon-dungeon", color = "accent", head = L["Groups and dungeons"], text = function()
+				return L["%s in a party; Dungeons shows what fits your level, when more unlock."]:format(cmd(L["Sync to my guide"]))
+			end },
+			{ glyph = "icon-elite", color = "accent", head = L["Rares"], text = function()
+				return L["Target and ping a rare right from its card."]
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Fully translated"], text = function()
+				return L["In 9 languages, with thanks to our translators."]
 			end },
 			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
-				return L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."]
-			end },
-			{ glyph = "bug", color = "textMuted", head = L["Found something off?"], text = function()
-				return L["Type %s right where it happens."]:format(cmd("/polestar report"))
+				return L["Gear spec, trainers, map spots and more. Found something off? Type %s."]:format(cmd("/polestar report"))
 			end },
 		},
 	},
@@ -65,6 +81,7 @@ WN.NOTES = NOTES
 WN.LATEST = NOTES[1].version
 
 local DELAY = 3 -- seconds after login: after the welcome's own delay, so a due welcome goes first
+local MAX_H = 440 -- the window's height at most (its size with five notes); more notes scroll
 local SITE = "polestar.guide"
 
 local F
@@ -135,10 +152,11 @@ local function build()
 	h.Title = K.para(h.Sky, "hero", "text", K.CHERO_TEXT_W, 2)
 	F.Hero = h
 
-	-- The notes on the 32 edge.
-	local p = CreateFrame("Frame", nil, F)
+	-- The notes on the 32 edge, in a list that scrolls when they don't fit.
+	local sf = W.Scroll(F)
+	F.Scroll = sf
+	local p = sf.Child
 	p:SetWidth(K.CW)
-	p:SetHeight(1)
 	F.Body = p
 	p.Notes = {}
 
@@ -206,11 +224,17 @@ local function render()
 		y = K.layNote(p, n, y, true)
 	end
 	local bodyH = max(1, y - 10)
-	p:ClearAllPoints()
-	p:SetPoint("TOPLEFT", F, "TOPLEFT", 1 + K.EDGE, -(1 + heroH))
-	p:SetHeight(bodyH)
+	local fixed = 1 + heroH + K.BOTTOM + K.FOOT_H + 1
+	local viewH = math.min(bodyH, MAX_H - fixed)
+	local sf = F.Scroll
+	sf:ClearAllPoints()
+	sf:SetPoint("TOPLEFT", F, "TOPLEFT", 1 + K.EDGE, -(1 + heroH))
+	sf:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -(1 + heroH))
+	sf:SetHeight(viewH)
+	W.SetScrollContent(sf, viewH < bodyH and y or bodyH, viewH) -- scrolled to the end, the last note keeps its margin
+	W.ScrollTo(sf, 0)
 	F.Site:SetText(L["Full notes: %s"]:format(SITE))
-	F:SetHeight(math.ceil(1 + heroH + bodyH + K.BOTTOM + K.FOOT_H + 1))
+	F:SetHeight(math.ceil(fixed + viewH))
 	if F.Rim and W.LayoutRim then W.LayoutRim(F) end
 end
 
