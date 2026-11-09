@@ -411,7 +411,7 @@ end
 --       places = {}: filled with the places a walk to the target can start
 --         from on its continent { wx, wy, z (a dock's board point), start }, for Walk.Measure }
 -- -> legs or nil, reason
--- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport",
+-- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"airship"|"tram"|"portal"|"hearth"|"teleport",
 --         from = point, to = point, label, seconds, rest,   rest = seconds after this leg
 --         radius = arrival yards at `to` (walk legs to a waypoint), waypoint = true
 --         when `to` is a crossing or chain node, handmade = true on a walk the
@@ -605,17 +605,19 @@ local function crossCaption(e)
 	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
 end
 
--- The captions of the legs to and on a boat, zeppelin, tram or portal,
--- translated (this file loads after the locale file).
+-- The captions of the legs to and on a boat, zeppelin, airship, tram or
+-- portal, translated (this file loads after the locale file).
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
+	airship = L["Walk to the airship dock"],
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
 }
 local TAKE = {
 	boat = L["Take the boat to %s"],
 	zeppelin = L["Take the zeppelin to %s"],
+	airship = L["Take the airship to %s"],
 	tram = L["Take the tram to %s"],
 	portal = L["Take the portal to %s"],
 }
@@ -1331,7 +1333,7 @@ local function planRoute(p)
 		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
 		-- Quarter, the walk to it stays (it rides a lift).
 		local nk = legs[2].kind
-		local flat = (nk == "boat" or nk == "zeppelin" or nk == "tram") and reach or 5
+		local flat = (nk == "boat" or nk == "zeppelin" or nk == "airship" or nk == "tram") and reach or 5
 		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
 	end
@@ -2573,12 +2575,12 @@ end
 -- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
 -- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
 -- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin or tram
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
 -- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
 -- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
 -- leading walk by the same rule.
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
-local RIDES = { boat = true, zeppelin = true, tram = true }
+local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
 local function offFloor(to, pc, px, py, d, dock, reach)
 	if not to.z then return false end
 	local W = Nav.walk
@@ -2668,11 +2670,11 @@ function Travel.Aim(pc, px, py)
 	return nil
 end
 
--- On a boat or zeppelin, zone changes and distance from the dock are the
--- ride itself, not a reason to plan again.
+-- On a boat, zeppelin or airship, zone changes and distance from the dock are
+-- the ride itself, not a reason to plan again.
 local function riding()
 	local leg = legs and legs[ci]
-	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "tram")
+	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "airship" or leg.kind == "tram")
 end
 
 local function samePoint(a, b)

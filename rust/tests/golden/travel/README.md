@@ -18,4 +18,6 @@ When the Rust builder gained the flight points the Forever client adds (Rog'mar 
 
 When the Rust builder's inn list gained the Riverglades' three inns (Powderfuse Port, Rog'mar, Farholde Keep), expected/travel.json's warnings gained their three "not in npcs.json" lines from the Rust builder (FORGE_GOLDEN_BLESS; the slice has none of the innkeepers); nothing else changed.
 
+When the Rust builder's transports gained Zephras Isle's two airships (TaxiPaths 11398 and 11457, both in the slice's Forever TaxiPathNode; 2026-11-09, plan 0.3.7), expected/travel.json and TravelData.lua gained the two transports, their timetables (path-11398, path-11457) and two "npc ... not found" warnings (the slice has neither dockmaster), written by the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed. The JS builder does not know them.
+
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.
