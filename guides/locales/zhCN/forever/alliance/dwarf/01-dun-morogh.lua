@@ -593,7 +593,7 @@ return {
 	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}：交给{zone:1453}的{npc:376}",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}，在补给站",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}，萨满祭司训练师，在{object:32372}北边",
+	-- ["{npc:376} is in the Cathedral of Light."] = "{npc:376}在圣光大教堂内。",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089}：防御姿态",
 	-- ["{zone:1455} class quests"] = "{zone:1455}职业任务",
-	-- ["{npc:376} is in the Cathedral of Light."] = "{npc:376}在圣光大教堂内。",
 }

@@ -269,6 +269,7 @@ return {
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "旅店旁的通缉令：{area:1000}的{npc:703}",
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "来自艾尔文森林的道路在{area:1002}进入赤脊山。{npc:464}站在通往赤脊山和{zone:1431}的道路交汇处。",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "来自{area:442}的船停靠在{area:17203}。走进城里学习技能并找{npc:1646}，然后从正门离开，沿道路向东穿过{zone:1429}。",
+	-- ["Train, then leave by the main gate and follow the road east through {area:12}."] = "学习技能，然后从正门出城，沿路向东穿过{area:12}。",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}：任何暗皮豺狼人",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}：任何黑石兽人",
@@ -286,5 +287,4 @@ return {
 	-- ["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：之后交给{zone:1413}的{npc:6244}",
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "下一站是{zone:1431}：沿道路向西到{area:1002}，再向南到{area:42}。",
 	-- ["{zone:1453} class quests"] = "{zone:1453}职业任务",
-	-- ["Train, then leave by the main gate and follow the road east through {area:12}."] = "学习技能，然后从正门出城，沿路向东穿过{area:12}。",
 }

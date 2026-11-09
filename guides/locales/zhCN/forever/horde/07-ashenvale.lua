@@ -80,7 +80,7 @@ return {
 	-- Step 18: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 	["Gazebo"] = "瞭望台",
 
 	-- Step 24: Fly to Thunder Bluff
@@ -166,7 +166,7 @@ return {
 	-- {area:485} Great Lift · {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox · {npc:3414} General Twinbraid
 	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "",
 	-- {object:3646} General Twinbraid's Strongbox
-	["{object:3646}; below ground"] = "",
+	["{object:3646}; below ground"] = "{object:3646}：在地下",
 
 	-- Step 45: Freewind Post
 	-- {area:484} Freewind Post

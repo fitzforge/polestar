@@ -115,7 +115,7 @@ return {
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}，来自{object:177790}",
 
 	-- Step 25: Sepulcher
 	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
@@ -156,6 +156,7 @@ return {
 	["{npc:2214}: Darthalia in {area:272}"] = "{npc:2214}：{area:272}的达萨利亚",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back out of the inn to the flight master and fly to {area:1637}."] = "离开旅店，回到飞行管理员处，飞往{area:1637}。",
 	-- ["Back to {npc:8582}"] = "回到{npc:8582}处",
 	-- ["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him."] = "在菲兹克斯东边，风险投资公司正在{area:461}大肆砍伐；其中一个风险投资公司操作员携带图纸。{npc:4276}在东侧的小矿洞里采矿：他采矿时守在他身边，风险投资公司的打手会来找他。",
 	-- ["Fly to {area:431} and ride south down the road to the {area:1703}."] = "飞往{area:431}，沿道路向南骑到{area:1703}。",
@@ -167,6 +168,7 @@ return {
 	-- ["Gaea Dirt Mounds"] = "盖亚土堆",
 	-- ["Gaea Seeds"] = "盖亚之种",
 	-- ["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and ride south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "如果你已经知道{area:272}的飞行路线，就飞过去并跳到{area:272}。否则从{zone:1458}飞往{area:228}，沿道路向南经过焚木村。鸦爪亡灵在森林东南部、道路东边的{area:231}废墟中游荡；{npc:1973}掉落{item:271343}，指引你找到{object:645153}。",
+	-- ["In the ruins of {quest:516}: The Ravenclaw undead haunt the ruins of {quest:516} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "在{quest:516}废墟中：鸦爪亡灵在森林东南部、道路东边的{quest:516}废墟中游荡；{npc:1973}掉落{item:271343}，指引你找到{object:645153}。",
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "继续沿道路向北。{npc:12862}在碎木岗哨南边的战歌伐木营地等候。",
 	-- ["Learn the flight path here while you pick up the outpost's quests."] = "在这里学习飞行路线，同时接取哨站的任务。",
 	-- ["On the ride west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "向西骑行时，{npc:267214}被困在主路南边的一条峡谷里，位于{area:415}东南。黑角鹿和灰谷熊在峡谷周围的林子里游荡。",
@@ -183,6 +185,7 @@ return {
 	-- ["To the {area:1497}"] = "前往{area:1497}",
 	-- ["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "在{object:645153}使用{npc:212753}作为自愿的祭品，杀死回应的{npc:212753}。{quest:95883}是精英任务：建议组队。",
 	-- ["{area:431} is just north up the road."] = "{area:431}就在道路北边不远处。",
+	-- ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。",
 	-- ["{item:16746}, from the {item:16783}"] = "{item:16746}，从{item:16783}中取得",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "{item:271350}，来自废墟中的被折磨的灵魂",
 	-- ["{item:277936}, from any Bloodfury harpy"] = "{item:277936}，来自任何血怒鹰身人",
@@ -197,7 +200,4 @@ return {
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}的下一个任务“奥达努斯”在{zone:1440}的联盟一方。跳过。",
 	-- ["{npc:4198}, outside the gate"] = "{npc:4198}，在大门外",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606}站在{object:36070}。",
-	-- ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。",
-	-- ["Back out of the inn to the flight master and fly to {area:1637}."] = "离开旅店，回到飞行管理员处，飞往{area:1637}。",
-	-- ["In the ruins of {quest:516}: The Ravenclaw undead haunt the ruins of {quest:516} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "在{quest:516}废墟中：鸦爪亡灵在森林东南部、道路东边的{quest:516}废墟中游荡；{npc:1973}掉落{item:271343}，指引你找到{object:645153}。",
 }

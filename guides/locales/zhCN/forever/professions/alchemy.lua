@@ -17,7 +17,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1–75：商人材料",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐本阶段的用量：82个 {item:3371}（3银28铜）；总计约3银28铜。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1286}、艾达伊斯 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
 
 	-- Step 3: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
@@ -91,7 +91,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75–150：商人材料",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐整个技能阶段所需的份量：77 个 {item:3371}（3 银 8 铜）和 15 个 {item:3372}（6 银）；合计约 9 银 8 铜。箭头会选择离你最近的本阵营商人（{zone:1453}：{npc:1286}、艾达伊斯 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
 
 	-- Step 20: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
@@ -191,7 +191,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150–225：商人材料",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐本阶段所需：83个{item:3372}（33银20铜）；总计约33银20铜。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1286}、艾达伊斯和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 42: Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
@@ -281,7 +281,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225–300：商人材料",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐整个阶段的用量：51个{item:3372}（20银40铜）和86个{item:8925}（4金30银）；合计约4金50银40铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1286}、艾达伊斯和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 57: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -449,8 +449,4 @@ return {
 	-- ["{spell:11447} to 215"] = "{spell:11447}练到215",
 	-- ["{spell:2331} to 85"] = "{spell:2331}练到85",
 	-- ["{spell:7845} to 175"] = "{spell:7845}练到175",
-	-- ["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐本阶段的用量：82个 {item:3371}（3银28铜）；总计约3银28铜。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
-	-- ["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐整个技能阶段所需的份量：77 个 {item:3371}（3 银 8 铜）和 15 个 {item:3372}（6 银）；合计约 9 银 8 铜。箭头会选择离你最近的本阵营商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
-	-- ["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐本阶段所需：83个{item:3372}（33银20铜）；总计约33银20铜。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
-	-- ["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次买齐整个阶段的用量：51个{item:3372}（20银40铜）和86个{item:8925}（4金30银）；合计约4金50银40铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 }

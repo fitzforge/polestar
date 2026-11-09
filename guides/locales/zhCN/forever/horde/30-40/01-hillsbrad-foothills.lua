@@ -282,7 +282,7 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "趁在{zone:1458}时训练：训练师在{object:36070}、{object:36073}和{object:36082}（圣骑士：{npc:260093}）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Strong Troll's Blood Potion: auction house or an alchemist, for {quest:515}."] = "Strong Troll's Blood Potion：从拍卖行购买或找炼金师制作，用于 {quest:515}。",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "道路东端的兽人要塞。双足飞龙管理员{npc:2851}站在大门旁。",
 	-- ["{quest:515} needs a Strong Troll's Blood Potion, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "{quest:515} 需要一瓶 Strong Troll's Blood Potion，这是 {skill:171} 制作的物品：尽量从拍卖行购买（或找炼金师制作）。没有药剂就跳过 {area:287} 的苦楚药剂系列步骤。",
-	-- ["Strong Troll's Blood Potion: auction house or an alchemist, for {quest:515}."] = "Strong Troll's Blood Potion：从拍卖行购买或找炼金师制作，用于 {quest:515}。",
 }

@@ -345,8 +345,8 @@ return {
 	["Next: fly to {area:42}."] = "下一步：飞往{area:42}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。",
 	-- ["Flagon of Mead, from {npc:1464}"] = "Flagon of Mead，向{npc:1464}购买",
 	-- ["South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "从挖掘场向东南前往龙喉营地。四份Attack Plans分布在{area:1036}；精英{npc:2091}也在营地中。",
+	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "三名德鲁伊一起站在{area:2358}南侧的被遗忘者营地内。\n注意：洞穴内怪物较多，刷新很快，还有潜行亡灵和巡逻队，战斗时经常会引来其他敌人。",
 }

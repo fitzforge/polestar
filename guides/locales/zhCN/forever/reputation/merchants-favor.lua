@@ -296,12 +296,16 @@ return {
 	["{item:262764}, 200 Merchant's Favor"] = "{item:262764}，200点商人青睐",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a {item:3388} writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "工匠文书是营地声望的来源：中级文书奖励75，高级125，大师级200。每份文书要求一件制作物品，以任务中写明的为准（不一定与文书标题一致：例如{item:3388}文书实际需要Strong Troll's Blood Potion）。可以自行制作或到拍卖行购买，无需学会对应专业。每种文书每天可完成一次，不同种类数量不限。只接取你已有所需物品、或准备沿途购买的文书任务（右键点击文书），将文书留在背包里，然后勾选此项：后续步骤会带你拜访所持文书对应的每位客户。",
 	-- ["Dokimi"] = "多基米",
+	-- ["Elixir of Ogre's Strength, 75 reputation"] = "食人魔力量药剂，75声望",
+	-- ["Elixir of Water Breathing, 75 reputation"] = "水下呼吸饮剂，75声望",
 	-- ["Keep filling Waylaid Crates for Dokimi until Exalted."] = "继续为多基米装满{item:248549}，直到崇拜。",
 	-- ["Keep filling Waylaid Crates for Dokimi."] = "继续为多基米装满{item:248549}。",
 	-- ["Keep filling Waylaid Crates for {npc:214101} until Exalted."] = "继续为{npc:214101}装满{item:248549}，直到崇拜。",
 	-- ["Keep filling Waylaid Crates for {npc:214101}."] = "继续为{npc:214101}装满{item:248549}。",
 	-- ["Merchant's Favor Reputation"] = "商人青睐声望",
+	-- ["Strong Troll's Blood Potion, 75 reputation"] = "Strong Troll's Blood Potion，75声望",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:2586}是 Forever 中联盟的商业技能阵营。它的营地位于{zone:1433}西部的{area:1002}。从10级起怪物会掉落{item:248549}：按标签要求装满货物，把{object:1561}交给营地的{npc:214101}以换取声望和Merchant's Favor。Forever的传承外交官特权可提高声望获取。",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586}刷到崇拜",
 	-- ["{faction:2586} to Friendly"] = "{faction:2586}刷到友善",
@@ -312,9 +316,5 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587}刷到友善",
 	-- ["{faction:2587} to Honored"] = "{faction:2587}刷到尊敬",
 	-- ["{faction:2587} to Revered"] = "{faction:2587}刷到崇敬",
-	-- ["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a {item:3388} writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "工匠文书是营地声望的来源：中级文书奖励75，高级125，大师级200。每份文书要求一件制作物品，以任务中写明的为准（不一定与文书标题一致：例如{item:3388}文书实际需要Strong Troll's Blood Potion）。可以自行制作或到拍卖行购买，无需学会对应专业。每种文书每天可完成一次，不同种类数量不限。只接取你已有所需物品、或准备沿途购买的文书任务（右键点击文书），将文书留在背包里，然后勾选此项：后续步骤会带你拜访所持文书对应的每位客户。",
-	-- ["Strong Troll's Blood Potion, 75 reputation"] = "Strong Troll's Blood Potion，75声望",
-	-- ["Elixir of Water Breathing, 75 reputation"] = "水下呼吸饮剂，75声望",
-	-- ["Elixir of Ogre's Strength, 75 reputation"] = "食人魔力量药剂，75声望",
 	-- ["{item:13445}, 75 reputation"] = "{item:13445}，75声望",
 }

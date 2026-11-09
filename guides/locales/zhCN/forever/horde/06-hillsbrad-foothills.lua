@@ -175,7 +175,7 @@ return {
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
 	-- Step 31: Back to the Crossroads
-	["Back to the Crossroads"] = "",
+	["Back to the Crossroads"] = "返回十字路口",
 	-- {npc:3033} Turak Runetotem
 	["Train with {npc:3033}, then fly on to the Crossroads, where the next guide starts."] = "",
 

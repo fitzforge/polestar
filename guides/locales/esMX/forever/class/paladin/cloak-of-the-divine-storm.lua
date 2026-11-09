@@ -11,13 +11,12 @@ return {
 	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Una capa rara a nivel 30 de la antigua historia de {spell:407778}; por ahora solo los paladines de la Alianza pueden completarla.",
 
 	-- Step 1: The Strange Orb
-	-- {object:409289} Strange Orb (no name in this language: may be words)
-	["The {object:409289}"] = "",
-	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {object:409311} Spear of Mannoroth (no name in this language: may be words)
+	["The Strange Orb"] = "Strange Orb",
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
-	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx
-	["{object:409289} atop the {area:444}: right-click the Althalaxx Orb it gives"] = "",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	-- {area:444} Tower of Althalaxx
+	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb en lo alto de {area:444}: haz clic derecho en el Althalaxx Orb que te da",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -63,8 +62,6 @@ return {
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "Los invocadores, campeones y rastreadores Roca Negra acampan en el noroeste de Crestagrana; sueltan {item:209778}.",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Sube a lo alto de {area:444}, en el norte de {zone:1439}. Saquea el Strange Orb de arriba: te da el Althalaxx Orb, que inicia la misión.",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "Katherine te envía con los brujos de {object:2101}; {npc:5495} habla por ellos.",
-	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb en lo alto de {area:444}: haz clic derecho en el Althalaxx Orb que te da",
-	-- ["The Strange Orb"] = "Strange Orb",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Rompe el orbe que tiene; {object:409315} aparece a su lado.",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311} está en el extremo este de {area:435}. Lanza {spell:11170} sobre el orbe que tiene; {object:409315} aparece a su lado.",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435} está en el sureste de {zone:1440}. Las azotadoras Mannoroc, los infernales abrasadores, los guardias viles y los canes de la Legión de allí sueltan las motas de Mannoroth.",

@@ -283,6 +283,7 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "接下来：在{zone:1453}学习技能，沿路向东穿过艾尔文森林，再向南前往{zone:1431}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在Arbal旁边。接下他的任务，打开他的箱子取得{item:13536}，用它唤醒他，沿路向南带他进入{area:331}，前往{area:413}的{npc:11219}处。每当他睡着时，就再吹一次号角。\n小心：途中会触发伏击，每波三只怪物；{zone:1439}路段是熊怪，靠近{area:413}时则是亡灵。",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "回到光明大教堂：{npc:928}站在里面。",
 	-- ["Black Oozes"] = "{npc:1032}",
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "{npc:1032}在{area:1025}道路北边、{npc:2093}营地西边的沼泽里蠕动。任何软泥怪都可能带着{npc:2111}的包。",
@@ -299,6 +300,7 @@ return {
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "留给北部海岸的巨型湿地鳄鱼，下次来时完成",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "交给{area:271}的{npc:2228}：先留着",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "从{area:17203}乘船前往{area:442}；{npc:3649}站在村子北端。然后沿道路向南骑行穿过{zone:1439}。",
+	-- ["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, by the {area:2160}."] = "向南经过{area:421}，进入{area:1276}隧道；出口在石爪山的{area:461}，就在{area:2160}旁。",
 	-- ["Hearth to Menethil"] = "用炉石返回米奈希尔港",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "炉石在冷却？向北骑行穿过{area:1276}返回。",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "克罗尼亚·恒影睡在{zone:1439}南部的{area:448}。使用{item:13536}唤醒他，带他沿道路向南进入{zone:1440}，到{area:413}找{npc:11219}；他每次睡着时都再吹一次号角。",
@@ -344,13 +346,11 @@ return {
 	-- ["{npc:3987} (25) leads the Thistlefur gnolls at the camp north of {area:415}. Clear his guards first, one at a time."] = "{npc:3987}（25级）率领{area:415}北边营地的蓟皮豺狼人。先清理他的卫兵，一次一个。",
 	-- ["{npc:4201}, in the hut north of them"] = "{npc:4201}，在他们北边的小屋里",
 	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines."] = "{npc:4276}在峭壁东端的{area:2160}采矿。和他交谈，在他采矿时击退风险投资公司的袭击者。",
+	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "{npc:4276}在峭壁东端的{area:2160}内采矿。与他交谈，并在他采矿期间击退风险投资公司的袭击者。\n注意：狗头人会分波次出现，第一波是近战敌人，第二波开始加入施法者。矿洞内普通怪刷新很快，可能在伏击期间加入战斗。建议组队。",
 	-- ["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}，在{object:2096}的奶酪店",
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959}和{npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}，在光明大教堂",
 	-- ["{npc:5082}, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn.\n{npc:2104} stands on the top floor of {area:2103}."] = "{npc:5082}、米克海尔和塔波克·贾恩都在米奈希尔的旅店里；和米克海尔交谈时塔波克会攻击你，被打败后就会认输。{npc:1480}站在旅店东北方不远处。\n{npc:2104}站在{area:2103}的顶层。",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164}在{object:2101}。",
 	-- ["{zone:1455} priests"] = "{zone:1455}的牧师",
-	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在Arbal旁边。接下他的任务，打开他的箱子取得{item:13536}，用它唤醒他，沿路向南带他进入{area:331}，前往{area:413}的{npc:11219}处。每当他睡着时，就再吹一次号角。\n小心：途中会触发伏击，每波三只怪物；{zone:1439}路段是熊怪，靠近{area:413}时则是亡灵。",
-	-- ["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, by the {area:2160}."] = "向南经过{area:421}，进入{area:1276}隧道；出口在石爪山的{area:461}，就在{area:2160}旁。",
-	-- ["{npc:4276} mines in the {area:2160} at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "{npc:4276}在峭壁东端的{area:2160}内采矿。与他交谈，并在他采矿期间击退风险投资公司的袭击者。\n注意：狗头人会分波次出现，第一波是近战敌人，第二波开始加入施法者。矿洞内普通怪刷新很快，可能在伏击期间加入战斗。建议组队。",
 }

@@ -493,7 +493,7 @@ return {
 	-- ["{npc:4217}: Bear Form"] = "{npc:4217}：熊形态",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089}：防御姿态",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}，在兽穴内",
+	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584}位于稍西北侧。{quest:3522}限时五分钟，装满药瓶后立即去找他。",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}和星风村的月亮井",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和{spell:20580}，然后交还给{npc:3595}",
-	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584}位于稍西北侧。{quest:3522}限时五分钟，装满药瓶后立即去找他。",
 }

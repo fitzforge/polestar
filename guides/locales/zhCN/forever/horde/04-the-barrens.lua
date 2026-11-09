@@ -210,6 +210,7 @@ return {
 	-- ["Twitching Antennae from the silithid"] = "从异种蝎身上获取颤抖的触角",
 	-- ["Venture Co. tower"] = "风险投资公司的塔",
 	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest."] = "在{npc:3341}西边，钢鬃野猪人占据着{area:1701}。{npc:3436}在东侧，{npc:3434}在南边，{npc:3435}在西端。洛克（25级）和钢鬃战士（24-25级）比你高几级；稀有精英{npc:5859}有时会在山脊上走动：别惹他。钢鬃探路者和钢鬃捕猎者掉落钢鬃背刺匕首，钢鬃先知掉落烧焦的钢鬃魔杖，钢鬃战士掉落钢鬃大盾。{npc:3238}和乱齿捕猎者在加恩与山脊之间的平原上游荡。{quest:885}是一条稀有的红色风蛇，在山脊上空飞行：它的羽毛可以开始一个任务。",
+	-- ["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "既然来到挖掘场：{npc:3421} 藏在挖掘场南缘，{object:3646} 就在挖掘坑底。",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}."] = "维兹克兰克驾驶伐木机离开营地：跟着他，杀死所有攻击他的敌人。在{area:392}向{npc:3442}交还。",
 	-- ["grind on Thunderhawk Hatchlings south-west of the {area:380}"] = "在{area:380}西南刷雷鹰雏鸟",
 	-- ["{area:385}, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now."] = "{area:385}在更南边的海岸上。塞拉摩水兵和塞拉摩医师（15-16级）掉落勋章；{npc:3393}（20级）和两名炮手（19级）在城堡里和城墙上，所以要塞要等到现在才来。",
@@ -249,9 +250,8 @@ return {
 	-- ["{npc:5909}, a few steps away"] = "{npc:5909}，就在几步之外",
 	-- ["{npc:6018} stands in the {object:172961}, on the city's west side."] = "{npc:6018}站在城西侧的{object:172961}。",
 	-- ["{npc:6018}: {npc:4606} in the {zone:1458}, two guides on"] = "{npc:6018}：{zone:1458}的{npc:4606}，见后面第二个指南",
+	-- ["{object:3646}; below ground"] = "{object:3646}：在地下",
 	-- ["{object:3972} poster"] = "{object:3972}告示",
 	-- ["{quest:2458}: {npc:7233}, by the {area:382}"] = "{quest:2458}：{npc:7233}，在{area:382}旁",
 	-- ["{quest:882}, a big Sunscale raptor, hunts the plains north of the road from {area:392} to the {area:380}."] = "{quest:882}是一只大型赤鳞迅猛龙，在从{area:392}到{area:380}的道路北边的平原上捕猎。",
-	-- ["While you are in the dig: {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "既然来到挖掘场：{npc:3421} 藏在挖掘场南缘，{object:3646} 就在挖掘坑底。",
-	-- ["{object:3646}; below ground"] = "{object:3646}：在地下",
 }

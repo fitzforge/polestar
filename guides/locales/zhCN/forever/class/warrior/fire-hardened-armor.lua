@@ -107,6 +107,7 @@ return {
 	-- ["The Leech Stalkers and Cave Stalkers crawl around 46,61 in the middle of the {zone:1437}; they drop the {item:6838}."] = "{npc:1111}和{npc:4040}在{zone:1437}中部46,61附近爬行；它们掉落{item:6838}。",
 	-- ["The Nightbane worgen of {zone:1431} drop the {quest:1705}. {npc:6170} walks in the far south-east of {zone:1431} and carries the {item:6845}."] = "{zone:1431}的夜行狼人掉落{quest:1705}。{npc:6170}在{zone:1431}的最东南端游荡，身上带着{item:6845}。",
 	-- ["The {quest:1708} grows along the {zone:1437}' west coast, south of {area:150}."] = "{quest:1708}生长在{zone:1437}西海岸、{area:150}南边。",
+	-- ["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an Elixir of Water Breathing removes the risk."] = "{quest:1708}生长在{area:150}正南方的海底，靠近鱼人小屋和一艘破船：那里有八株，港口东南方另有两株，每株3分钟刷新，因此凑齐20个需要等刷新。鱼人会在水下用网困住你：留意呼吸，使用水下呼吸饮剂可以消除溺水风险。",
 	-- ["The {quest:1710} lie along the western edge of {zone:1441}."] = "{quest:1710}散布在{zone:1441}的西部边缘。",
 	-- ["{item:6839} from the young chimaeras"] = "{item:6839}，来自幼年奇美拉",
 	-- ["{item:6840} from the {npc:6167}"] = "{item:6840}，来自{npc:6167}",
@@ -116,5 +117,4 @@ return {
 	-- ["{quest:1698} is in {area:69}, at the inn. His test is timed: run north-west into the {area:98}, reach the first fork and come back to him before the timer runs out. Do not die and release your spirit."] = "{quest:1698}在{area:69}的旅店里。他的测试有时间限制：向西北跑进{area:98}，到达第一个岔路口后在时间用完前回到他身边。不要死亡并释放灵魂。",
 	-- ["{quest:1703} is a smith in {zone:1457}."] = "{quest:1703}是{zone:1457}的一名铁匠。",
 	-- ["{quest:1705} from the Nightbane worgen"] = "{quest:1705}，来自夜行狼人",
-	-- ["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an Elixir of Water Breathing removes the risk."] = "{quest:1708}生长在{area:150}正南方的海底，靠近鱼人小屋和一艘破船：那里有八株，港口东南方另有两株，每株3分钟刷新，因此凑齐20个需要等刷新。鱼人会在水下用网困住你：留意呼吸，使用水下呼吸饮剂可以消除溺水风险。",
 }
