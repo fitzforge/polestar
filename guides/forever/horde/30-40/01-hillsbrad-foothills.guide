@@ -236,7 +236,7 @@ step Tarren Mill
   turnin 552                          -- Novice Thaivand
   accept 553
   accept 544                          -- Magus Wordeen Voidglare, inside: offered from level 30
-  accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key from the same traitors
+  accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key is by the traitors
   accept 556                          -- Keeper Bel'varil, inside: offered from level 30
   accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide (from level 30)
 
@@ -265,7 +265,7 @@ step The Dalaran crater
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina
   collect 3688 quest 544.4            -- Kegan Darkmar
-  collect 279469 quest 93680.1        -- Grimy Key: Warden Belamoore or Kegan Darkmar drops it, by the traitors
+  collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
 
 step Hillsbrad Foothills
