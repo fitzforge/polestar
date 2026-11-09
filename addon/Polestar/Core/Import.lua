@@ -221,7 +221,7 @@ local LS, LN = list(S), list(N)
 local ONLY = rec({ classes = LS, races = LS, factions = LS })
 local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
-	t = S, class = B, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
+	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	rank = NS, rankMax = N, level = N, frac = N, money = N, untilSkill = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),

@@ -317,6 +317,29 @@ fn a_guide_with_when_steps_goes_into_a_format_4_string_and_imports_with_its_cond
 	assert_eq!(out["when"], json!([{ "k": "onquest", "q": [7] }, { "k": "level", "op": "<", "n": 6 }]));
 }
 
+// #1364 gave a compiled `train class` goal its step's zone (a uiMapID the Engine ranks trainers by). A shared string
+// carries it like any other goal key: the import takes the guide, and the goal keeps its zone.
+#[test]
+fn a_guide_with_a_train_class_step_imports_and_its_goal_keeps_the_step_s_zone_1364() {
+	let src = GUIDE.replacen("step Back to the abbey\n", "step Training\n  train class\n\nstep Back to the abbey\n", 1);
+	let g = compile_guide(&src);
+	let r = import_of(&g);
+	let out = run(&r#"
+		local info, why = I.Preview(@S@)
+		assert(info, why)
+		assert(I.Save(info.entry))
+		local train
+		for _, s in ipairs(G.Get("yendi/northshire").steps) do
+			for _, goal in ipairs(s.goals or {}) do if goal.t == "train" then train = goal end end
+		end
+		emit({ class = train and train.class, zone = train and train.zone })
+	"#
+	.replace("@S@", &js(&r)))
+	.remove(0);
+	assert_eq!(out["class"], true);
+	assert!(out["zone"].as_f64().is_some_and(|z| z > 0.0), "the train goal keeps its step's zone: {}", out["zone"]);
+}
+
 #[test]
 fn a_damaged_truncated_oversized_foreign_or_code_carrying_string_is_refused_with_a_reason_and_savedvariables_stay_untouched() {
 	let good = string();
