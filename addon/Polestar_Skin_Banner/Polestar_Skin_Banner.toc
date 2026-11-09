@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Banner
+## Notes: Your faction's colours for Polestar: rust red on iron for the Horde, gold on royal blue for the Alliance, a woven band. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Banner
+## Notes-deDE: Die Farben deiner Fraktion für Polestar: Rostrot auf Eisen für die Horde, Gold auf Königsblau für die Allianz, ein gewebtes Band. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Banner
+## Notes-esES: Los colores de tu facción para Polestar: rojo óxido sobre hierro para la Horda, oro sobre azul real para la Alianza, una franja tejida. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Banner
+## Notes-esMX: Los colores de tu facción para Polestar: rojo óxido sobre hierro para la Horda, oro sobre azul real para la Alianza, una franja tejida. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Banner
+## Notes-frFR: Les couleurs de votre faction pour Polestar : rouge rouille sur fer pour la Horde, or sur bleu royal pour l'Alliance, un bandeau tissé. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Banner
+## Notes-koKR: Polestar에 입히는 진영의 색: 호드는 무쇠 위의 녹슨 붉은색, 얼라이언스는 로열 블루 위의 금색, 직물 띠. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Banner
+## Notes-ptBR: As cores da sua facção para o Polestar: vermelho ferrugem sobre ferro para a Horda, ouro sobre azul real para a Aliança, uma faixa tecida. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Banner
+## Notes-ruRU: Цвета вашей фракции для Polestar: ржаво-красный на железе для Орды, золото на королевском синем для Альянса, тканая полоса. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Banner
+## Notes-zhCN: Polestar 的阵营配色：部落为铁灰上的锈红，联盟为宝蓝上的金色，织物横带。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Banner
+## Notes-zhTW: Polestar 的陣營配色：部落為鐵灰上的鏽紅，聯盟為寶藍上的金色，織物橫帶。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Banner.lua

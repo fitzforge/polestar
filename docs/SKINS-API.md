@@ -29,7 +29,7 @@ commented example, [`addon/Polestar_Skin_Example`](../addon/Polestar_Skin_Exampl
 - [Saved choices, load order, late registration](#saved-choices-load-order-late-registration)
 - [Versions and capabilities](#versions-and-capabilities)
 - [Walkthrough: Moonlit](#walkthrough-moonlit)
-- [Four more to read: the showcase skins](#four-more-to-read-the-showcase-skins)
+- [Ten more to read: the showcase skins](#ten-more-to-read-the-showcase-skins)
 - [Rationale, compared with Details!](#rationale-compared-with-details)
 
 ## Quick start
@@ -457,9 +457,9 @@ the ids (`moonlit`), names and colours, and register what you need. Start
 with a scheme; add a skin when you want fonts, painters or another look as
 the base.
 
-## Four more to read: the showcase skins
+## Ten more to read: the showcase skins
 
-Beside Moonlit, the repository carries four complete skins, each an addon of
+Beside Moonlit, the repository carries ten complete skins, each an addon of
 its own (`addon/Polestar_Skin_<Name>`, in the repository only, never in a
 release), each written to show one more thing the API can do. Copy them into
 `Interface/AddOns/` next to Polestar to try them; their renders and the
@@ -471,10 +471,16 @@ reasoning behind each are in the design notes they were built with.
 | **Lumen** (`Polestar_Skin_Lumen`) | Head-up: no frame, a cyan line and a tick at each corner, Fira Sans a size down, the flat arrow | A skin that is mostly a **frame treatment** from Polestar's white texture; a `guide` painter beside `window` (the ticks stay while the window is transparent); `fontSizes` for the whole ladder; a preset that turns the house chrome off |
 | **Beacon** (`Polestar_Skin_Beacon`) | High contrast: black grounds, white Open Sans a size up, a yellow accent, strong edges | A **scheme and a skin from one addon**; washes raised through tokens; a 2-unit focus ring on fields; a preset that reaches the arrow, pins and route line |
 | **Aurora** (`Polestar_Skin_Aurora`) | Polestar's night a step further: a teal-over-violet aurora in the band, grounds that deepen toward the foot, champagne gold | A skin that **extends** the house style: `kit.gradient` for the ground, the `haze` token for the band's light, nothing else changed |
+| **Hairline** (`Polestar_Skin_Hairline`) | Flat and pixel-exact: near-black panels at 85 %, a one-pixel black outline on everything, condensed type (Barlow Semi Condensed), the class colour as the accent | A skin with **no painters**: tokens alone (`border` black, `divider` faint, `shade` for wells) reshape the house frames; a font of the skin's own given as three files; a preset asking for `ui.classAccent` |
+| **Umbra** (`Polestar_Skin_Umbra`) | Dark mode: neutral charcoal, a steel accent, the subjects a quarter of the way to grey, dim stars | A scheme and a skin from **one table of colours**, nothing else; the quieter subject colours live on the skin (subjects belong to skins) |
+| **Void** (`Polestar_Skin_Void`) | The night sky gone violet: lilac stars over a magenta nebula haze | The **smallest** complete skin: a scheme, a skin, `haze`, forty lines |
+| **Grace** (`Polestar_Skin_Grace`) | Luxury minimal: a black veil that thins toward its foot, one gold hairline, a serif for every word (Spectral) | `kit.gradient` as the **whole frame** (a veil, not a panel), the window ground token given at the veil's mean opacity so the legibility check sees the real ground; a serif of the skin's own with the ladder raised a point |
+| **Lanterns** (`Polestar_Skin_Lanterns`) | Ten moods, each a pair of colours: grounds tinted toward the first, two soft lights in opposite corners | **Many schemes from one short table**; a skin **without a scheme of its own** that wears the player's and reads `Theme.Accent()` to know which mood it is; radial lights from Polestar's glow texture with `ADD` blending |
+| **Banner** (`Polestar_Skin_Banner`) | Your faction's colours: rust on iron for the Horde, gold on royal blue for the Alliance, a woven band | A skin that chooses its scheme **by the character** (`UnitFactionGroup`) and registers **late** when the game cannot say yet; `media.band` (a twill with Polestar's band mask, `Media/weave.tga`); the stars off through `star` |
 
 A `preset` (where this Polestar has the `preset` capability) is a table of
 Look settings the skin recommends; Polestar offers it on the Theme page
-("Apply <skin>'s layout") and never applies it on its own. The four skins
+("Apply <skin>'s layout") and never applies it on its own. The ten skins
 guard it with `Theme.HasCapability("preset")`, so they load on a Polestar
 without it.
 

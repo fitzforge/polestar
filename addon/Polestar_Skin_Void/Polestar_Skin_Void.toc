@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Void
+## Notes: Polestar's night sky gone violet: lilac stars over a nebula, a violet accent. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Void
+## Notes-deDE: Polestars Nachthimmel in Violett: fliederfarbene Sterne über einem Nebel, ein violetter Akzent. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Void
+## Notes-esES: El cielo nocturno de Polestar en violeta: estrellas lila sobre una nebulosa, un acento violeta. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Void
+## Notes-esMX: El cielo nocturno de Polestar en violeta: estrellas lila sobre una nebulosa, un acento violeta. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Void
+## Notes-frFR: Le ciel nocturne de Polestar en violet : des étoiles lilas sur une nébuleuse, un accent violet. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Void
+## Notes-koKR: 보랏빛으로 물든 Polestar의 밤하늘: 성운 위의 라일락 별, 보라색 강조색. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Void
+## Notes-ptBR: O céu noturno do Polestar em violeta: estrelas lilás sobre uma nebulosa, um destaque violeta. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Void
+## Notes-ruRU: Ночное небо Polestar в фиолетовом: сиреневые звёзды над туманностью, фиолетовый акцент. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Void
+## Notes-zhCN: 染成紫色的 Polestar 夜空：星云上的淡紫星辰，紫色强调色。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Void
+## Notes-zhTW: 染成紫色的 Polestar 夜空：星雲上的淡紫星辰，紫色強調色。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Void.lua

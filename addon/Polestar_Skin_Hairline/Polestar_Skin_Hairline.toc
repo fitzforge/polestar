@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Hairline
+## Notes: A flat, pixel-exact skin for Polestar: near-black panels, a one-pixel black outline, condensed type, your class colour as the accent. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Hairline
+## Notes-deDE: Ein flaches, pixelgenaues Design für Polestar: fast schwarze Flächen, ein Ein-Pixel-Rand in Schwarz, schmale Schrift, deine Klassenfarbe als Akzent. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Hairline
+## Notes-esES: Un tema plano y exacto al píxel para Polestar: paneles casi negros, un contorno negro de un píxel, letra condensada, el color de tu clase como acento. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Hairline
+## Notes-esMX: Un tema plano y exacto al píxel para Polestar: paneles casi negros, un contorno negro de un píxel, letra condensada, el color de tu clase como acento. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Hairline
+## Notes-frFR: Un habillage plat et au pixel près pour Polestar : panneaux presque noirs, un contour noir d'un pixel, caractères condensés, la couleur de votre classe en accent. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Hairline
+## Notes-koKR: Polestar의 평면 픽셀 정밀 스킨: 거의 검은 패널, 1픽셀 검은 외곽선, 좁은 글꼴, 직업 색상의 강조색. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Hairline
+## Notes-ptBR: Um tema plano e exato ao pixel para o Polestar: painéis quase pretos, um contorno preto de um pixel, letra condensada, a cor da sua classe como destaque. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Hairline
+## Notes-ruRU: Плоское пиксельно точное оформление для Polestar: почти чёрные панели, чёрная обводка в один пиксель, узкий шрифт, цвет вашего класса как акцент. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Hairline
+## Notes-zhCN: Polestar 的扁平像素级皮肤：近黑面板，一像素黑色描边，窄体字，以职业颜色为强调色。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Hairline
+## Notes-zhTW: Polestar 的扁平像素級皮膚：近黑面板，一像素黑色描邊，窄體字，以職業顏色為強調色。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Hairline.lua

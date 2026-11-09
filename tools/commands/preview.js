@@ -153,9 +153,25 @@ const FONT_FILES = ['OpenSans-Regular.ttf', 'OpenSans-Bold.ttf', 'Inter-Regular.
 // nearest Inter weight; widths are measured in the same face that is drawn.
 const FALLBACK = 'Inter-Medium.ttf';
 
+// A skin addon's own fonts (docs/SKINS-API.md: `font = { regular = path, ... }`
+// under addon/Polestar_Skin_*/Fonts) are measured and drawn too, by file name.
+function skinFonts() {
+	const out = [];
+	const dir = path.join(ROOT, 'addon');
+	for (const folder of fs.readdirSync(dir)) {
+		if (!folder.startsWith('Polestar_Skin_')) continue;
+		const fontsDir = path.join(dir, folder, 'Fonts');
+		if (!fs.existsSync(fontsDir)) continue;
+		for (const f of fs.readdirSync(fontsDir)) if (/\.ttf$/i.test(f)) out.push([f, path.join(fontsDir, f)]);
+	}
+	return out;
+}
+
 function loadFonts() {
 	const fonts = {};
 	for (const f of FONT_FILES) fonts[f] = new Font(path.join(ADDON, 'Media', 'Fonts', f));
+	for (const [f, file] of skinFonts()) fonts[f] = fonts[f] || new Font(file);
+	Object.defineProperty(fonts, 'files', { value: Object.keys(fonts), enumerable: false });
 	return new Proxy(fonts, { get: (t, k) => t[k] || t[FALLBACK] });
 }
 
@@ -167,7 +183,7 @@ function metricsLua(fonts, extra = []) {
 	for (let c = 0xa0; c < 0x180; c++) cps.push(c);
 	cps.push(0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026, 0x2022, 0x00b7, 0x00d7, 0x2192);
 	for (const c of extra) if (!cps.includes(c)) cps.push(c);
-	const parts = FONT_FILES.map((file) => {
+	const parts = (fonts.files || FONT_FILES).map((file) => {
 		const f = fonts[file];
 		const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
 		return `[${JSON.stringify(file)}]={upm=${f.upm},fallback=${f.advanceEm(0x6e).toFixed(5)},adv={${adv}}}`;

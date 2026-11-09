@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Grace
+## Notes: Luxury minimal for Polestar: a black veil that thins toward its foot, one gold hairline, a serif for every word. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Grace
+## Notes-deDE: Luxuriös minimal für Polestar: ein schwarzer Schleier, der nach unten dünner wird, eine goldene Haarlinie, eine Serifenschrift für jedes Wort. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Grace
+## Notes-esES: Lujo minimalista para Polestar: un velo negro que se aclara hacia el pie, una línea dorada, una letra con serifa para cada palabra. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Grace
+## Notes-esMX: Lujo minimalista para Polestar: un velo negro que se aclara hacia el pie, una línea dorada, una letra con serifa para cada palabra. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Grace
+## Notes-frFR: Un minimalisme de luxe pour Polestar : un voile noir qui s'éclaircit vers le bas, un filet d'or, un empattement pour chaque mot. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Grace
+## Notes-koKR: Polestar의 고급 미니멀 스킨: 아래로 옅어지는 검은 베일, 금빛 가는 선 하나, 모든 글자에 세리프. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Grace
+## Notes-ptBR: Luxo minimalista para o Polestar: um véu preto que clareia em direção ao pé, um fio dourado, uma serifa para cada palavra. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Grace
+## Notes-ruRU: Роскошный минимализм для Polestar: чёрная вуаль, светлеющая книзу, одна золотая линия, антиква для каждого слова. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Grace
+## Notes-zhCN: Polestar 的奢华极简皮肤：向下渐淡的黑色薄纱，一道金色细线，每个字都用衬线体。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Grace
+## Notes-zhTW: Polestar 的奢華極簡皮膚：向下漸淡的黑色薄紗，一道金色細線，每個字都用襯線體。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Grace.lua

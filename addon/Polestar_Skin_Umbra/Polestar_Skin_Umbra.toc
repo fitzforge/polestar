@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Polestar Skin: Umbra
+## Notes: A dark mode for Polestar: neutral charcoal, muted colours, a steel accent, Polestar's own frames. Not part of Polestar's release.
+## Title-deDE: Polestar-Design: Umbra
+## Notes-deDE: Ein dunkler Modus für Polestar: neutrales Anthrazit, gedämpfte Farben, ein Stahl-Akzent, Polestars eigene Rahmen. Nicht Teil von Polestars Veröffentlichung.
+## Title-esES: Polestar, tema: Umbra
+## Notes-esES: Un modo oscuro para Polestar: carbón neutro, colores apagados, un acento acero, los marcos propios de Polestar. No forma parte de la versión de Polestar.
+## Title-esMX: Polestar, tema: Umbra
+## Notes-esMX: Un modo oscuro para Polestar: carbón neutro, colores apagados, un acento acero, los marcos propios de Polestar. No forma parte de la versión de Polestar.
+## Title-frFR: Polestar, habillage : Umbra
+## Notes-frFR: Un mode sombre pour Polestar : anthracite neutre, couleurs sourdes, un accent acier, les cadres de Polestar. Ne fait pas partie de la version publiée de Polestar.
+## Title-koKR: Polestar 스킨: Umbra
+## Notes-koKR: Polestar의 다크 모드: 중성 차콜, 차분한 색, 강철빛 강조색, Polestar 본래의 프레임. Polestar 배포판에는 포함되지 않습니다.
+## Title-ptBR: Polestar, tema: Umbra
+## Notes-ptBR: Um modo escuro para o Polestar: carvão neutro, cores suaves, um destaque aço, as molduras do próprio Polestar. Não faz parte da versão do Polestar.
+## Title-ruRU: Polestar, оформление: Umbra
+## Notes-ruRU: Тёмный режим для Polestar: нейтральный графит, приглушённые цвета, стальной акцент, собственные рамки Polestar. Не входит в выпуск Polestar.
+## Title-zhCN: Polestar 皮肤：Umbra
+## Notes-zhCN: Polestar 的深色模式：中性炭灰，柔和色彩，钢灰强调色，Polestar 自带的窗框。不属于 Polestar 的发行版。
+## Title-zhTW: Polestar 皮膚：Umbra
+## Notes-zhTW: Polestar 的深色模式：中性炭灰，柔和色彩，鋼灰強調色，Polestar 自帶的窗框。不屬於 Polestar 的發行版本。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 1.0
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Umbra.lua
