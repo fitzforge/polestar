@@ -210,7 +210,9 @@ function resolve(objects, fonts) {
 				if (hx === 0) left = ax; else if (hx === 1) right = ax; else cx = ax;
 				if (vy === 0) top = ay; else if (vy === 1) bottom = ay; else cy = ay;
 			}
-			let w = left !== null && right !== null ? right - left : (o.w != null ? o.w * s : null);
+			// A FontString's width 0 (SetWidth(0)) is no width: the client sizes it to its text.
+			const ownW = o.w != null && !(o.kind === 'FontString' && o.w === 0) ? o.w * s : null;
+			let w = left !== null && right !== null ? right - left : ownW;
 			let h = top !== null && bottom !== null ? bottom - top : (o.h != null ? o.h * s : null);
 			if (o.kind === 'FontString') {
 				if (w == null) w = o.intrinsicW * s;
