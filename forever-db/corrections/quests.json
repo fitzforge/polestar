@@ -2883,6 +2883,30 @@
 		],
 		"note": "The Lumina Windsinger chain (Undead Paladins): Into Fenris Keep (91861), from the Charred Remains, follows A Grim Fate (91860), handed in to them. The merged data had no prerequisite."
 	},
+	"91899": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70338) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 18, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
+	"91900": {
+		"set": {
+			"minLevel": 1
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) and EG Link's caches (1.60.1.70450) both give minimum level 1"
+			}
+		],
+		"note": "A Sealed Crate: recordings suggest 24, unconfirmed; review 0.3.7. Pinned at 1 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
+	},
 	"91901": {
 		"set": {
 			"start": {
@@ -7097,15 +7121,20 @@
 				],
 				"object": []
 			},
+			"minLevel": 24,
 			"objectiveText": "Speak with the Image of Archmage Modera near Dalaran."
 		},
 		"source": [
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 3 people took Shrewd Negotiations from Magus Wordeen Voidglare with the log line 'Speak with the Image of Archmage Modera near Dalaran.', and the 2 who finished it handed it in to her (npc 269127), all established"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 (Forever) gives minimum level 24; EG Link's caches have no quest record for it"
 			}
 		],
-		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city."
+		"note": "Shrewd Negotiations (Horde, Magus Wordeen Voidglare in Tarren Mill) ends at the Image of Archmage Modera outside the City of Dalaran, not at Archmage Celindra inside the city. Minimum level: recordings suggest 31, unconfirmed; review 0.3.7. Pinned at 24 for 0.3.6 so data/recorded's learned minimum level does not apply until a second source agrees."
 	},
 	"870": {
 		"set": {
