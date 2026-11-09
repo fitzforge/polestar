@@ -332,8 +332,7 @@ step Ratchet
 
 step The Barrens: kill these as you meet them
   zone The Barrens
-  tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.
-  tip The pirates camp on the beach south of Ratchet; Baron Longshore stands at its southern end.
+  tip The pirates camp on the beach south of Ratchet: the piles of complicated parts lie in the sand among them, and Baron Longshore stands at the camp's southern end.
   kill 3381 quest 887.1
   kill 3382 quest 887.2
   collect 277331 quest 97253.1

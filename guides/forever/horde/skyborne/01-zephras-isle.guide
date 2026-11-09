@@ -153,8 +153,8 @@ step Shen'dar Village
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
-  tip Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.
-  collect 6889 quest 92553.1
+  tip Prideclaws and Galestriders share the meadows around Shen'dar Village; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the Strider Meat for Zerril.
+  collect 6889 quest 92553.1 @42.1,39.4
   collect 5469 quest 92553.2
 
 step Shen'dar Village hand-ins
