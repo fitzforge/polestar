@@ -7870,3 +7870,35 @@ test("Ash's report (#1386): a class step collects a quest-only item only with it
 	assert.deepEqual(stepTips('forever/horde/06-hillsbrad-foothills.guide', /^\s+turnin 30\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-30').tip], 'the hand-in step carries the record tip');
 	assert.deepEqual(stepTips('forever/horde/02-the-barrens.guide', /^\s+turnin 6129\b/), [fixes.find((f) => f.id === 'upstairs-dendrite-starblaze-turnin-6129').tip], "the Barrens' Moonglade step carries its record tip");
 });
+
+// --- Class guide audit (AuditClass, 0.3.7) ----------------------------------------------------------------------
+
+// Aquatic Form (Tauren, Horde Skyborne): the Barrens half (Sludge Fen, outside Orgrimmar) on the way to the zeppelin,
+// then Silverpine, then Moonglade: one sea crossing instead of Silverpine first and back to the Barrens.
+test('Class audit: Aquatic Form (Horde) takes the Sludge Fen half before the zeppelin to Silverpine', { skip }, () => {
+	const list = goals('forever/class/druid/aquatic-form.guide').filter(({ step }) => step.only && step.only.races && step.only.races.includes('Tauren'));
+	const agility = at(list, 'collect 15883', (g) => g.t === 'collect' && g.item === 15883);
+	const zeppelin = at(list, 'Zeppelin to Undercity', (g) => g.t === 'goto' && /Zeppelin to Undercity/.test(g.label || g.text || ''));
+	const endurance = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
+	assert.ok(agility < zeppelin && zeppelin < endurance, 'Barrens half, zeppelin, Silverpine half');
+});
+
+// Tyr's Watch: a step gated `when onquest 99152,99153` whose hand-ins were all optional counted done at once, so
+// nobody was led back to Hilda or Ephram. Each hand-in now has its own step, gated on its own quest, and holds it.
+test("Class audit: Tyr's Watch leads back to Hilda and Ephram for their hand-ins", { skip }, () => {
+	const list = goals('forever/class/paladin/tyrs-watch.guide');
+	for (const quest of [99152, 99153]) {
+		const { step, goal } = list[at(list, `turnin ${quest}`, is('turnin', quest))];
+		assert.ok(!goal.optional, `${quest}: the hand-in holds its step`);
+		assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().length === 1 && [p.q].flat()[0] === quest), `${quest}: gated on its own quest`);
+	}
+});
+
+// Spellfire Robes (1962): Josef Gregorian offers it after Gathering Materials (recordings: 2 people, EG Link live);
+// Rhiannon Davis never did. The accept points at Josef.
+test('Class audit: Spellfire Robes is taken from Josef Gregorian', { skip }, () => {
+	const list = goals('forever/class/mage/spellfire-robes.guide');
+	assert.equal(list[at(list, 'accept 1962', is('accept', 1962))].goal.npc, 4576);
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	assert.deepEqual(corrections[1962].set.start.npc, [4576], 'the correction a data build applies');
+});
