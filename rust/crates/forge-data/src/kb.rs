@@ -11,11 +11,11 @@ use indexmap::IndexMap;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, hypot, math_round, nums, to_int32};
-use crate::players::{round_quest_xp, Eg, EgQuest, QuestXp, Vo};
+use crate::players::{round_quest_xp, CacheObjective, Eg, EgQuest, QuestXp, Vo};
 
 /// Lower wins. Our corrections outrank players' recordings: a recording never overrides a corrected
 /// value (recordings.rs puts them back; this keeps the knowledge base's choice the same).
-const TIERS: [(&str, f64); 25] = [
+const TIERS: [(&str, f64); 30] = [
 	("correction", 0.0),
 	("recorder", 0.5),
 	("tdb", 1.0),
@@ -41,12 +41,30 @@ const TIERS: [(&str, f64); 25] = [
 	("eg.objectives", 9.0),
 	("cmangos", 9.0),
 	("recorder.gap", 9.0),
+	("eg.targets", 9.0),
+	("eg.held", 9.0),
+	("eg.prerequisites", 9.0),
+	("client.cache.targets", 9.0),
+	("client.cache.held", 9.0),
 ];
 
 /// Sources kept only to show which values an independent source confirms (the public tier, `forge
 /// data publish`): recorded as alternatives, never a winner and never counted as agreement, so the
 /// KB's choices and confidences are what they were without them.
-const CHECK_ONLY: [&str; 3] = ["eg.objectives", "cmangos", "tdb.inherited"];
+///
+/// The cache sources' check-only views (EG Link live, 2026-11-08 trust review):
+/// - `.targets`: an objective list naming other targets than ours (the server's hidden credit
+///   NPC where players click or talk, e.g. 92819, 2118): a cache wins objectives only where ours
+///   is empty or the targets match and a count differs;
+/// - `.held`: a value held until a second source agrees: instance-quest XP (the live server's
+///   dungeon multiplier, 1.75-2.1, unconfirmed by turn-ins) and the level changes in [`HELD_LEVELS`];
+/// - `eg.prerequisites`: our prerequisites the observing characters had not done before
+///   accepting (it rules a prerequisite out, never in).
+const CHECK_ONLY: [&str; 8] = ["eg.objectives", "cmangos", "tdb.inherited", "eg.targets", "eg.held", "eg.prerequisites", "client.cache.targets", "client.cache.held"];
+
+/// Quests whose cached level and minimum level are held until a recording or second source agrees:
+/// Call of Earth (96243), 10 -> 4 on EG Link live, no recordings.
+const HELD_LEVELS: [i64; 1] = [96243];
 fn check_only(s: &str) -> bool {
 	CHECK_ONLY.contains(&s)
 }
@@ -77,6 +95,11 @@ fn label(s: &str) -> &str {
 		"eg.observed" => "EG Link output: observed turn-in XP",
 		"forevervo.seen" => "forever-vo in-game dialog captures",
 		"recorder.gap" => "Polestar recordings: a gap one player filled",
+		"eg.targets" => "EG Link output: objectives naming other targets (server credit)",
+		"eg.held" => "EG Link output: held until a second source agrees (instance-quest XP, single-source levels)",
+		"eg.prerequisites" => "EG Link output: prerequisites the observing characters had not done (rules out only)",
+		"client.cache.targets" => "Forever client caches: objectives naming other targets (server credit)",
+		"client.cache.held" => "Forever client caches: held until a second source agrees (instance-quest XP, single-source levels)",
 		o => o,
 	}
 }
@@ -689,10 +712,40 @@ fn push_fact(out: &mut Alt, key: String, field: &str, source: &str, value: Optio
 	out.facts.entry(key).or_default().push(Fact { field: field.into(), source: source.into(), value: V::str(&v), note });
 }
 
+/// A "monster" objective the server credits invisibly: its NPC is named "...Credit" ("[DNT] Kill
+/// Credit: ...", "PvP ... Credit Marker"), or it is the quest's one monster line, outside an
+/// instance, and its NPC has no spawns in our data. Players click, talk or deliver; it reads as an
+/// event with the line's text (EG Link live: 98059, 95125, 97292, 98252, 98071, 6661). Instance
+/// mobs and quests killing several kinds keep their kills (our data lacks many such spawns).
+fn credit_line(o: &CacheObjective, r: &EgQuest, npcs: &Obj) -> bool {
+	let Some(id) = o.id.filter(|_| o.kind == "kill") else { return false };
+	let k = num_str(id);
+	if npcs.get(&k).get("name").as_str().is_some_and(|n| n.contains("Credit")) {
+		return true;
+	}
+	!r.instance && r.objectives.iter().filter(|x| x.kind == "kill").count() == 1 && !has_spawn(npcs, &k)
+}
+
+/// The cached objective lines with the server's credit lines read as events.
+fn cache_lines(r: &EgQuest, npcs: &Obj) -> Vec<CacheObjective> {
+	r.objectives
+		.iter()
+		.map(|o| if credit_line(o, r, npcs) { CacheObjective { kind: "event".into(), id: None, amount: o.amount, text: o.text.clone() } } else { o.clone() })
+		.collect()
+}
+
+/// The targets of an objective list, counts left out: (kind, id) sorted.
+fn targets(v: &V) -> Vec<(String, String)> {
+	let mut t: Vec<(String, String)> = parse_objs(v).into_iter().map(|o| (o.k, o.id.map(num_str).unwrap_or_else(|| "?".into()))).collect();
+	t.sort();
+	t
+}
+
 /// A players' (or the client's own) cache of the server's quest answers as `source` facts.
-fn add_cache_quests(out: &mut Alt, recs: &IndexMap<i64, EgQuest>, titles: Option<&FxHashMap<i64, String>>, source: &str, quests: &Obj) {
+fn add_cache_quests(out: &mut Alt, recs: &IndexMap<i64, EgQuest>, titles: Option<&FxHashMap<i64, String>>, source: &str, quests: &Obj, npcs: &Obj) {
 	let add = |out: &mut Alt, id: i64, field: &str, source: &str, value: Option<String>, note: Option<String>| push_fact(out, format!("quest:{id}"), field, source, value, note);
 	let o = |x: Option<f64>| x.map(num_str).unwrap_or_else(|| "null".into());
+	let held = format!("{source}.held");
 	for (&id, r) in recs {
 		let q = quests.get(&id.to_string());
 		if q.is_undef() || r.build.is_none() {
@@ -701,14 +754,18 @@ fn add_cache_quests(out: &mut Alt, recs: &IndexMap<i64, EgQuest>, titles: Option
 		if let Some(t) = titles.and_then(|t| t.get(&id)) {
 			add(out, id, "title", source, Some(t.clone()), None);
 		}
+		let level_src = if HELD_LEVELS.contains(&id) { held.as_str() } else { source };
 		if r.level.is_some_and(|l| l > 0.0) {
-			add(out, id, "level", source, r.level.map(num_str), None);
+			add(out, id, "level", level_src, r.level.map(num_str), None);
 		}
 		if r.min_level.is_some_and(|l| l > 0.0) {
-			add(out, id, "min_level", source, r.min_level.map(num_str), None);
+			add(out, id, "min_level", level_src, r.min_level.map(num_str), None);
 		}
-		if r.xp.is_some_and(|l| l > 0.0) {
-			add(out, id, "xp", source, r.xp.map(num_str), Some(format!("difficulty {} x {}", o(r.xp_difficulty), o(r.xp_multiplier))));
+		if let Some(xp) = r.xp.filter(|l| *l > 0.0) {
+			// Instance quests: the live server's dungeon multiplier waits for its turn-ins to agree.
+			let backed = r.xp_observed.is_some_and(|ob| same_xp(&V::Num(ob), &V::Num(xp), true, true));
+			let xp_src = if r.instance && !backed { held.as_str() } else { source };
+			add(out, id, "xp", xp_src, Some(num_str(xp)), Some(format!("difficulty {} x {}", o(r.xp_difficulty), o(r.xp_multiplier))));
 		}
 		if r.xp_observed.is_some_and(|l| l > 0.0) {
 			add(out, id, "xp", &format!("{source}.observed"), r.xp_observed.map(num_str), Some("observed turn-in".into()));
@@ -719,18 +776,23 @@ fn add_cache_quests(out: &mut Alt, recs: &IndexMap<i64, EgQuest>, titles: Option
 		if !r.end.is_empty() {
 			add(out, id, "end", source, Some(ents(&ends_pairs(&r.end))), None);
 		}
-		let list: Vec<(String, V, V)> = r
-			.objectives
+		let lines = cache_lines(r, npcs);
+		let list: Vec<(String, V, V)> = lines
 			.iter()
-			.filter(|(k, oid, _)| !(k == "item" && oid.is_some() && *oid == r.start_item))
-			.map(|(k, i, c)| (k.clone(), i.map(V::Num).unwrap_or(V::Null), c.map(V::Num).unwrap_or(V::Null)))
+			.filter(|o| !(o.kind == "item" && o.id.is_some() && o.id == r.start_item))
+			.map(|o| (o.kind.clone(), o.id.map(V::Num).unwrap_or(V::Null), o.amount.map(V::Num).unwrap_or(V::Null)))
 			.collect();
 		if !list.is_empty() {
-			add(out, id, "objectives", source, Some(objs(&list)), None);
+			// A cache wins objectives where ours is empty or only a count differs, never by naming
+			// other targets (the server's credit NPC for a kill or an object).
+			let theirs = objs(&list);
+			let ours: Vec<(String, V, V)> = q.get("objectives").items().iter().map(|o| (o.get("type").to_js_string(), o.get("id"), o.get("count"))).collect();
+			let other = !ours.is_empty() && targets(&V::str(&objs(&ours))) != targets(&V::str(&theirs));
+			add(out, id, "objectives", &if other { format!("{source}.targets") } else { source.to_string() }, Some(theirs), None);
 		}
 		// The list as EG gives it, the starting item kept (a check-only source: others list it).
 		if source == "eg" && list.len() != r.objectives.len() {
-			let full: Vec<(String, V, V)> = r.objectives.iter().map(|(k, i, c)| (k.clone(), i.map(V::Num).unwrap_or(V::Null), c.map(V::Num).unwrap_or(V::Null))).collect();
+			let full: Vec<(String, V, V)> = r.objectives.iter().map(|o| (o.kind.clone(), o.id.map(V::Num).unwrap_or(V::Null), o.amount.map(V::Num).unwrap_or(V::Null))).collect();
 			add(out, id, "objectives", "eg.objectives", Some(objs(&full)), None);
 		}
 		if let Some(races) = r.races.as_ref().filter(|r| !r.is_empty() && r.as_str() != ALL_RACES && r.as_str() != "0") {
@@ -741,17 +803,45 @@ fn add_cache_quests(out: &mut Alt, recs: &IndexMap<i64, EgQuest>, titles: Option
 	}
 }
 
-fn add_extra_facts(alt: Option<Alt>, eg: Option<&Eg>, vo: Option<&Vo>, cache: Option<&crate::client::Cache>, quests: &Obj) -> Alt {
+/// Our prerequisites a quest's observers had not done before accepting it (EG `quest_prerequisites`):
+/// each `pre` missing from the list, and a `preAny` group none of whose quests is listed. Rules a
+/// prerequisite out only: a listed quest proves nothing (it is a snapshot of what was done).
+fn not_done_before(q: &V, before: &indexmap::IndexSet<i64>) -> Vec<i64> {
+	let done = |p: &V| before.contains(&(p.num() as i64));
+	let mut out: Vec<i64> = q.get("pre").items().iter().filter(|p| !done(p)).map(|p| p.num() as i64).collect();
+	let any = q.get("preAny").items();
+	if !any.is_empty() && !any.iter().any(done) {
+		out.extend(any.iter().map(|p| p.num() as i64));
+	}
+	out.sort_unstable();
+	out.dedup();
+	out
+}
+
+fn add_extra_facts(alt: Option<Alt>, eg: Option<&Eg>, vo: Option<&Vo>, cache: Option<&crate::client::Cache>, quests: &Obj, npcs: &Obj) -> Alt {
 	let mut out = alt.unwrap_or(Alt { facts: FxHashMap::default(), versions: IndexMap::new() });
 	let add = |out: &mut Alt, id: i64, field: &str, source: &str, value: Option<String>, note: Option<String>| push_fact(out, format!("quest:{id}"), field, source, value, note);
 	if let Some(eg) = eg {
-		out.versions.insert("eg".into(), Some(eg.commit[..12].to_string()));
-		out.versions.insert("eg.observed".into(), Some(eg.commit[..12].to_string()));
-		add_cache_quests(&mut out, &eg.quests, None, "eg", quests);
+		for s in ["eg", "eg.observed", "eg.targets", "eg.held", "eg.prerequisites"] {
+			out.versions.insert(s.into(), Some(eg.commit[..12].to_string()));
+		}
+		add_cache_quests(&mut out, &eg.quests, None, "eg", quests, npcs);
+		for (&id, before) in &eg.before {
+			let q = quests.get(&id.to_string());
+			if q.is_undef() {
+				continue;
+			}
+			let gone = not_done_before(&q, before);
+			if !gone.is_empty() {
+				add(&mut out, id, "pre", "eg.prerequisites", Some(gone.iter().map(i64::to_string).collect::<Vec<_>>().join(",")), Some("not done before accepting".into()));
+			}
+		}
 	}
 	if let Some(c) = cache {
-		out.versions.insert("client.cache".into(), Some(c.build.clone()));
-		add_cache_quests(&mut out, &c.quests, Some(&c.titles), "client.cache", quests);
+		for s in ["client.cache", "client.cache.targets", "client.cache.held"] {
+			out.versions.insert(s.into(), Some(c.build.clone()));
+		}
+		add_cache_quests(&mut out, &c.quests, Some(&c.titles), "client.cache", quests, npcs);
 		for (&id, n) in &c.npcs {
 			let key = format!("npc:{id}");
 			push_fact(&mut out, key.clone(), "name", "client.cache", Some(n.name.clone()), None);
@@ -1407,6 +1497,19 @@ const PRIOR_WEIGHT: f64 = 2.0;
 const NPC_PRIOR_QUEST: f64 = 60.0;
 const NPC_PRIOR_OTHER: f64 = 30.0;
 const OBJECT_PRIOR: f64 = 100.0;
+/// Loot windows an EG quest-tied drop rate needs to replace a pfQuest or QuestieDB table rate (it
+/// beat ours on 14 of 21 sampled against recordings, EG Link live 2026-11-08).
+const EG_MIN_WINDOWS: f64 = 30.0;
+
+/// An EG quest-tied rate of `ent` from `windows` loot windows replaces the item's rate: enough
+/// windows, and the rate came from pfQuest's or QuestieDB's tables, never from recordings (`seen`)
+/// or a correction. (A TDB rate is checked by the caller.)
+fn eg_rate_replaces(it: &V, kind: &str, ent: &str, windows: f64) -> bool {
+	let scale = it.get("dropScale");
+	let tables = if kind == "npc" { matches!(scale.as_str(), Some("server" | "observed" | "pfquest")) } else { scale.as_str() != Some("corrected") };
+	let corrected = src_tags(it).iter().any(|t| t == crate::corrections::SOURCE);
+	windows >= EG_MIN_WINDOWS && tables && !it.get("seen").get(kind).has(ent) && !corrected
+}
 
 fn or_arr(v: V) -> V {
 	if v.truthy() {
@@ -1458,6 +1561,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		inp.vo.as_ref(),
 		inp.client.as_ref().and_then(|c| c.cache.as_ref()),
 		quests,
+		npcs,
 	);
 	add_check_facts(&mut alt, inp.tdb.as_ref(), inp.classic.as_ref(), inp.factoruide_file.as_deref(), quests, npcs)?;
 	if let Some(t) = inp.client.as_ref().and_then(|c| c.tables.as_ref()) {
@@ -1698,6 +1802,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		for field in client_fields {
 			let cands: Vec<Cand> = a.iter().filter(|x| x.field == field).map(to_cand).collect();
 			kb.decide("quest", id, field, &cands);
+		}
+		// Prerequisites the observing characters had not done: kept as an alternative only.
+		let pre: Vec<Cand> = a.iter().filter(|x| x.field == "pre" && x.source == "eg.prerequisites").map(to_cand).collect();
+		if !pre.is_empty() {
+			kb.decide("quest", id, "pre", &pre);
 		}
 	}
 
@@ -2216,7 +2325,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 
 	// ---- EG Link output and the client's caches: next quests, missing objectives ----
 	let eg_report = Obj::new();
-	for k in ["nextFilled", "objectivesAdded", "ratesFilled", "droppersAdded"] {
+	for k in ["nextFilled", "objectivesAdded", "ratesFilled", "ratesReplaced", "droppersAdded"] {
 		eg_report.set(k, 0.0);
 	}
 	let client_report = Obj::new();
@@ -2242,38 +2351,47 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			}
 			let start_items = q.get("start").get("item");
 			let source_item = q.get("sourceItem");
-			let list: Vec<(&str, f64, Option<f64>)> = r
+			// (type, id, count, text); the server's credit lines read as events.
+			let list: Vec<(&str, Option<f64>, Option<f64>, Option<String>)> = r
 				.objectives
 				.iter()
-				.filter_map(|(k, oid, n)| {
-					let ty = match k.as_str() {
+				.filter_map(|o| {
+					if credit_line(o, r, npcs) {
+						return Some(("event", None, o.amount, o.text.clone()));
+					}
+					let ty = match o.kind.as_str() {
 						"kill" => "kill",
 						"item" => "item",
 						"object" => "object",
 						_ => return None,
 					};
+					let oid = o.id;
 					let oid_v = oid.map(V::Num).unwrap_or(V::Null);
-					let excluded = ty == "item" && ((oid.is_some() && *oid == r.start_item) || oid.is_some_and(|o| includes(&start_items, o)) || oid_v.strict_eq(&source_item));
-					(!excluded).then_some((ty, oid.unwrap_or(f64::NAN), *n))
+					let excluded = ty == "item" && ((oid.is_some() && oid == r.start_item) || oid.is_some_and(|o| includes(&start_items, o)) || oid_v.strict_eq(&source_item));
+					(!excluded).then_some((ty, Some(oid.unwrap_or(f64::NAN)), o.amount, None))
 				})
 				.collect();
-			let usable: Vec<&(&str, f64, Option<f64>)> = list
+			let usable: Vec<&(&str, Option<f64>, Option<f64>, Option<String>)> = list
 				.iter()
-				.filter(|(k, oid, _)| match *k {
-					"kill" => has_spawn(npcs, &num_str(*oid)),
-					"object" => has_spawn(objects, &num_str(*oid)),
-					_ => items.get(&num_str(*oid)).truthy(),
+				.filter(|(k, oid, _, _)| {
+					let id = num_str(oid.unwrap_or(f64::NAN));
+					match *k {
+						"event" => true,
+						"kill" => has_spawn(npcs, &id),
+						"object" => has_spawn(objects, &id),
+						_ => items.get(&id).truthy(),
+					}
 				})
 				.collect();
 			if q.get("objectives").is_empty() && !usable.is_empty() && usable.len() == list.len() {
 				let objs = arr(usable
 					.iter()
-					.map(|(k, oid, n)| {
+					.map(|(k, oid, n, text)| {
 						let o = Obj::new();
 						o.set("type", *k);
-						o.set("id", *oid);
+						o.set("id", oid.map(V::Num).unwrap_or(V::Null));
 						o.set("count", n.filter(|x| *x > 0.0).map(V::Num).unwrap_or(V::Null));
-						o.set("text", V::Null);
+						o.set("text", text.as_deref().map(V::str).unwrap_or(V::Null));
 						V::Obj(o)
 					})
 					.collect());
@@ -2309,7 +2427,16 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					let rate = if n > 0.0 { math_round((1000.0 * (k + (PRIOR_WEIGHT * prior) / 100.0)) / (n + PRIOR_WEIGHT)) / 10.0 } else { pct };
 					let ek = ent.to_string();
 					if drops.has(&ek) {
-						if !drops.get(&ek).is_nullish() {
+						let cur = drops.get(&ek);
+						if !cur.is_nullish() {
+							let tdb_set = kb.changes.iter().any(|c| c.table == "items" && c.id == item_id as f64 && c.source.starts_with("tdb") && c.field.ends_with(kind));
+							if tdb_set || cur.num() == rate || !eg_rate_replaces(&it, kind, &ek, n) {
+								continue;
+							}
+							drops.set(&ek, rate);
+							kb.change("items", item_id as f64, &format!("drop {kind}"), cur, V::Num(rate), "eg");
+							bump(&eg_report, "ratesReplaced", 1.0);
+							tag(&it, "kb:eg:drops");
 							continue;
 						}
 						drops.set(&ek, rate);
@@ -3552,6 +3679,105 @@ mod tests {
 		alt.facts.get(key)?.iter().find(|f| f.field == field && f.source == source).map(|f| f.value.to_js_string())
 	}
 
+	fn line(kind: &str, id: Option<f64>, amount: f64, text: Option<&str>) -> CacheObjective {
+		CacheObjective { kind: kind.into(), id, amount: Some(amount), text: text.map(String::from) }
+	}
+
+	#[test]
+	fn eg_live_trust_rules() {
+		let obj = |t: &str| parse_json(t).unwrap().as_obj().unwrap().clone();
+		let quests = obj(
+			r#"{
+			"92819": {"id": 92819, "objectives": [{"type": "object", "id": 400000, "count": 1}]},
+			"98071": {"id": 98071, "objectives": [{"type": "event", "id": null, "count": 1}, {"type": "item", "id": 279389, "count": 1}]},
+			"95682": {"id": 95682, "objectives": [{"type": "kill", "id": 275045, "count": 3}]},
+			"92840": {"id": 92840, "objectives": [{"type": "object", "id": 400001, "count": 1}]},
+			"98059": {"id": 98059, "objectives": []},
+			"1475": {"id": 1475}, "4362": {"id": 4362}, "96243": {"id": 96243}, "6981": {"id": 6981},
+			"8": {"id": 8, "pre": [363]}, "264": {"id": 264, "pre": [999]},
+			"300": {"id": 300, "preAny": [1, 2]}, "301": {"id": 301, "preAny": [1, 2]},
+			"2929": {"id": 2929, "objectives": [{"type": "kill", "id": 7800, "count": 1}]}, "93066": {"id": 93066, "objectives": []}
+		}"#,
+		);
+		let npcs = obj(r#"{"275045": {"id": 275045, "spawns": {"1": [[1, 1]]}}, "500": {"id": 500, "name": "Detonator Credit", "spawns": {"1": [[1, 1]]}}}"#);
+		let rec = |f: &dyn Fn(&mut EgQuest)| {
+			let mut q = EgQuest { build: Some(70862.0), ..Default::default() };
+			f(&mut q);
+			q
+		};
+		let mut recs = IndexMap::new();
+		// A credit NPC without spawns instead of our object: other targets, never a winner.
+		recs.insert(92819, rec(&|q| q.objectives = vec![line("kill", Some(266995.0), 1.0, Some("Detonator used"))]));
+		// A credit NPC named "Credit" (with spawns) reads as an event too.
+		recs.insert(92840, rec(&|q| q.objectives = vec![line("kill", Some(500.0), 1.0, Some("Detonator used"))]));
+		// The credit line reads as an event, so the targets match ours.
+		recs.insert(98071, rec(&|q| q.objectives = vec![line("kill", Some(270426.0), 1.0, Some("Fallrook Varietal delivered to Dun Garok")), line("item", Some(279389.0), 1.0, None)]));
+		// Same target, another count: wins.
+		recs.insert(95682, rec(&|q| q.objectives = vec![line("kill", Some(275045.0), 2.0, None)]));
+		recs.insert(98059, rec(&|q| q.objectives = vec![line("kill", Some(271000.0), 1.0, Some("Sealed Company Request delivered to Hillsbrad council"))]));
+		// An instance boss and a quest killing three kinds keep their kills (no spawns in our data).
+		recs.insert(2929, rec(&|q| {
+			q.objectives = vec![line("kill", Some(7800.0), 1.0, None)];
+			q.instance = true;
+		}));
+		recs.insert(93066, rec(&|q| q.objectives = [253524.0, 253525.0, 253526.0].map(|i| line("kill", Some(i), 1.0, None)).to_vec()));
+		// Instance XP: held unless the turn-ins agree.
+		recs.insert(1475, rec(&|q| {
+			q.xp = Some(13850.0);
+			q.instance = true;
+		}));
+		recs.insert(4362, rec(&|q| {
+			q.xp = Some(16900.0);
+			q.xp_observed = Some(16900.0);
+			q.instance = true;
+		}));
+		recs.insert(96243, rec(&|q| {
+			q.level = Some(4.0);
+			q.min_level = Some(4.0);
+		}));
+		recs.insert(6981, rec(&|q| q.races = Some(ALL_RACES.into())));
+		let mut before: IndexMap<i64, indexmap::IndexSet<i64>> = IndexMap::new();
+		before.insert(8, [363, 364].into_iter().collect());
+		before.insert(264, [95998].into_iter().collect());
+		before.insert(300, [5].into_iter().collect());
+		before.insert(301, [2].into_iter().collect());
+		let eg = Eg { commit: "156f29c9af78b1586883e8eb94a13467eb89638c".into(), quests: recs, drops: IndexMap::new(), before };
+		let alt = add_extra_facts(None, Some(&eg), None, None, &quests, &npcs);
+		let f = |id: i64, field: &str, src: &str| fact_of(&alt, &format!("quest:{id}"), field, src);
+		assert_eq!((f(92819, "objectives", "eg"), f(92819, "objectives", "eg.targets").as_deref()), (None, Some("e:?:1")));
+		assert_eq!(f(92840, "objectives", "eg.targets").as_deref(), Some("e:?:1"));
+		assert_eq!(f(98071, "objectives", "eg").as_deref(), Some("e:?:1;i:279389:1"));
+		assert_eq!(f(95682, "objectives", "eg").as_deref(), Some("c:275045:2"));
+		assert_eq!(f(98059, "objectives", "eg").as_deref(), Some("e:?:1"));
+		assert_eq!(f(2929, "objectives", "eg").as_deref(), Some("c:7800:1"));
+		assert_eq!(f(93066, "objectives", "eg").as_deref(), Some("c:253524:1;c:253525:1;c:253526:1"));
+		assert_eq!((f(1475, "xp", "eg"), f(1475, "xp", "eg.held").as_deref()), (None, Some("13850")));
+		assert_eq!((f(4362, "xp", "eg").as_deref(), f(4362, "xp", "eg.held")), (Some("16900"), None));
+		assert_eq!((f(96243, "level", "eg"), f(96243, "level", "eg.held").as_deref(), f(96243, "min_level", "eg.held").as_deref()), (None, Some("4"), Some("4")));
+		assert_eq!((f(6981, "races", "eg"), f(6981, "side", "eg")), (None, None));
+		assert_eq!((f(8, "pre", "eg.prerequisites"), f(264, "pre", "eg.prerequisites").as_deref()), (None, Some("999")));
+		assert_eq!((f(300, "pre", "eg.prerequisites").as_deref(), f(301, "pre", "eg.prerequisites")), (Some("1,2"), None));
+		for s in ["eg.targets", "eg.held", "eg.prerequisites"] {
+			assert!(check_only(s) && TIERS.iter().any(|(n, _)| *n == s), "{s}");
+		}
+	}
+
+	#[test]
+	fn eg_rates_replace_table_rates_only_from_30_windows() {
+		let it = |t: &str| parse_json(t).unwrap();
+		let table = it(r#"{"dropScale": "pfquest", "drops": {"npc": {"7": 80}}}"#);
+		assert!(eg_rate_replaces(&table, "npc", "7", 30.0));
+		assert!(!eg_rate_replaces(&table, "npc", "7", 29.0));
+		assert!(eg_rate_replaces(&it(r#"{"dropScale": "server"}"#), "npc", "7", 40.0));
+		// Recorded, corrected: kept.
+		assert!(!eg_rate_replaces(&it(r#"{"dropScale": "pfquest", "seen": {"npc": {"7": {"n": 3, "of": 9}}}}"#), "npc", "7", 40.0));
+		assert!(!eg_rate_replaces(&it(r#"{"dropScale": "corrected"}"#), "npc", "7", 40.0));
+		assert!(!eg_rate_replaces(&it(r#"{"dropScale": "pfquest", "source": ["pfquest", "polestar-correction"]}"#), "npc", "7", 40.0));
+		// No table named: not a pfQuest/QuestieDB rate.
+		assert!(!eg_rate_replaces(&it(r#"{"dropScale": null}"#), "npc", "7", 40.0));
+		assert!(eg_rate_replaces(&it(r#"{"dropScale": null}"#), "object", "9", 40.0));
+	}
+
 	#[test]
 	fn corrections_outrank_recordings_which_outrank_every_other_source() {
 		for f in ["level", "min_level", "start", "races", "spawns"] {
@@ -3597,20 +3823,27 @@ mod tests {
 				xp: Some(5000.0),
 				start_item: Some(6755.0),
 				races: Some((RACE_A).to_string()),
-				objectives: vec![("kill".into(), Some(4128.0), Some(8.0)), ("item".into(), Some(6755.0), Some(1.0)), ("event".into(), Some(98.0), Some(1.0)), ("event".into(), None, Some(1.0))],
+				objectives: vec![
+					CacheObjective { kind: "kill".into(), id: Some(4128.0), amount: Some(8.0), text: None },
+					CacheObjective { kind: "item".into(), id: Some(6755.0), amount: Some(1.0), text: None },
+					CacheObjective { kind: "event".into(), id: Some(98.0), amount: Some(1.0), text: None },
+					CacheObjective { kind: "event".into(), id: None, amount: Some(1.0), text: None },
+				],
 				..Default::default()
 			},
 		);
 		cache.titles.insert(1221, "Blueleaf Tubers".into());
 		cache.npcs.insert(3434, crate::client::CacheNpc { name: "Gamon".into(), subname: String::new(), rank: 1 });
 		cache.objects.insert(179000, "Chest".into());
-		let mut alt = add_extra_facts(None, None, None, Some(&cache), &quests);
+		let npcs = obj(r#"{"4128": {"id": 4128, "spawns": {"1436": [[50, 50]]}}}"#);
+		let mut alt = add_extra_facts(None, None, None, Some(&cache), &quests, &npcs);
 		let q = |f: &str| fact_of(&alt, "quest:1221", f, "client.cache");
 		assert_eq!(q("title").as_deref(), Some("Blueleaf Tubers"));
 		assert_eq!((q("level").as_deref(), q("min_level").as_deref(), q("xp").as_deref()), (Some("26"), Some("20"), Some("5000")));
 		// The starting item is no objective; an area trigger is an event with its id, a criteria
-		// tree one without.
-		assert_eq!(q("objectives").as_deref(), Some("c:4128:8;e:98:1;e:?:1"));
+		// tree one without. Ours lists only the trigger: other targets, check-only.
+		assert_eq!(q("objectives"), None);
+		assert_eq!(fact_of(&alt, "quest:1221", "objectives", "client.cache.targets").as_deref(), Some("c:4128:8;e:98:1;e:?:1"));
 		assert_eq!((q("races").as_deref(), q("side").as_deref()), (Some("alliance"), Some("A")));
 		assert_eq!(fact_of(&alt, "npc:3434", "name", "client.cache").as_deref(), Some("Gamon"));
 		assert_eq!(fact_of(&alt, "npc:3434", "subname", "client.cache"), None);

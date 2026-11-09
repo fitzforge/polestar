@@ -182,7 +182,7 @@ fn client_caches_and_tables_derive_facts() {
 	// QuestXP[26][5] = 2100, x 2.375 = 4987.5, the game's rounding: 5000.
 	assert_eq!((q.xp_difficulty, q.xp_multiplier, q.xp), (Some(5.0), Some(2.375), Some(5000.0)));
 	assert_eq!(q.races.as_deref(), Some("4294967373"));
-	let objs: Vec<(&str, Option<f64>, Option<f64>)> = q.objectives.iter().map(|(k, i, n)| (k.as_str(), *i, *n)).collect();
+	let objs: Vec<(&str, Option<f64>, Option<f64>)> = q.objectives.iter().map(|o| (o.kind.as_str(), o.id, o.amount)).collect();
 	assert_eq!(objs, vec![("kill", Some(4128.0), Some(8.0)), ("item", Some(6755.0), Some(1.0)), ("event", Some(98.0), Some(1.0)), ("event", None, Some(1.0))]);
 	let q = &k.quests[&6981];
 	assert_eq!((q.xp, q.next, q.races.as_deref()), (Some(420.0), Some(6982.0), Some("18446744073709551615")));

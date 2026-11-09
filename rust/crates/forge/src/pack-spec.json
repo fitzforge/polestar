@@ -63,7 +63,7 @@
 			"credit": "EG Link output by Efficient Games (efficient.games), JIVESCORP/eg-link-output-wowf",
 			"licence": "CC BY 4.0",
 			"url": "https://github.com/JIVESCORP/eg-link-output-wowf",
-			"files": ["data/sources/eg-link/*/index.json", "data/sources/eg-link/*/wow_classic_beta/*/quests.enUS.json"]
+			"files": ["data/sources/eg-link/*/index.json", "data/sources/eg-link/*/wowf/*/quests.enUS.json", "data/sources/eg-link/*/wow_classic_beta/*/quests.enUS.json"]
 		},
 		{
 			"id": "polestar",

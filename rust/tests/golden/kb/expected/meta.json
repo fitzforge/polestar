@@ -82,7 +82,7 @@
 		{
 			"name": "EG Link output: World of Warcraft: Forever",
 			"url": "https://github.com/JIVESCORP/eg-link-output-wowf",
-			"revision": "d98f94821b69cccf81b03a542df3755b60055217",
+			"revision": "156f29c9af78b1586883e8eb94a13467eb89638c",
 			"license": "CC BY 4.0; facts used: quest levels, XP, objectives and counts, next quests, givers and enders, races, quest-tied drop rates",
 			"copyright": "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar."
 		},
@@ -129,11 +129,11 @@
 		"correctionsPrivate": 0,
 		"corrections": 6,
 		"knowledgeBase": {
-			"changes": 321,
+			"changes": 328,
 			"byClass": {
 				"quests.xp": {
-					"eg": 178,
-					"eg.observed": 1
+					"eg": 134,
+					"eg.observed": 50
 				},
 				"quests.objective count": {
 					"eg": 23,
@@ -142,8 +142,11 @@
 				"quests.races": {
 					"eg": 17
 				},
+				"quests.minLevel": {
+					"eg": 1
+				},
 				"quests.level": {
-					"eg": 2
+					"eg": 3
 				},
 				"quests.next": {
 					"tdb.inherited": 2,
@@ -190,6 +193,7 @@
 				"nextFilled": 4,
 				"objectivesAdded": 0,
 				"ratesFilled": 0,
+				"ratesReplaced": 0,
 				"droppersAdded": 0
 			},
 			"mechanics": {
@@ -215,7 +219,7 @@
 		1453
 	],
 	"files": {
-		"quests.json": 115383,
+		"quests.json": 115908,
 		"npcs.json": 119667,
 		"objects.json": 240531,
 		"items.json": 59047,

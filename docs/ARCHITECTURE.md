@@ -7588,7 +7588,7 @@ Precedence, lowest tier wins, one order for every fact kind:
 | 1 | Forever TrinityCore world DB, sniffed rows (VerifiedBuild >= 70000: advocaite/TrinityCore `forever` plus the Sakhwoow/WoWForever 2026-10-20 sniffs; `rust/crates/forge-data/src/tdb.rs` reads `data/local/forever-tdb/world.sqlite`) |
 | 1 | `client`: the installed Forever client's tables with the server's hotfix rows (DBCache.bin) applied, for what the game draws from them only: quest map areas (`start_place`, `end_place`, `objective_place:<n>`), area triggers of event objectives (`objective_trigger:<i>`), QuestV2 (`in_client`: the quest exists; never a removal), item names, durations, start quests and the quest-item class, placed game objects (`placement`) |
 | 1.4 | EG Link output: observed turn-in XP |
-| 1.5 | EG Link output (JIVESCORP/eg-link-output-wowf, CC BY 4.0): players' game caches, the server's quest answers (`rust/crates/forge-data/src/players.rs`); captured in-game XP (ForeverDB, Factoruide's collector) ranks here for XP only |
+| 1.5 | EG Link output (JIVESCORP/eg-link-output-wowf, CC BY 4.0): players' game caches, the server's quest answers, the live game (`wowf`) first, then the beta (`wow_classic_beta`): the live record wins per quest, givers, enders, turn-ins and loot add up (`rust/crates/forge-data/src/players.rs`); captured in-game XP (ForeverDB, Factoruide's collector) ranks here for XP only |
 | 1.5 | `client.cache`: the installed client's own WDB caches, the same server answers (quest title, levels, XP from QuestXP x the multiplier, races, objectives; NPC name, subtitle, rank; object name), read like an EG record |
 | 2 | the web quest-database pages (givers and enders: it wins over QuestieDB and Factoruide) |
 | 3 | ForeverDB: seen data, game cache, vendors, captures; forever-vo dialog captures (`rust/crates/forge-data/src/players.rs`) |
@@ -7620,6 +7620,24 @@ optional. Rules on top of the order:
   only by tier <= 3; levels and XP of 0 count as missing.
 - Confidence: high = tier <= 1, or two sources agree; medium = one source of
   tier 2-4; low otherwise.
+- The game caches (EG, `client.cache`) win objectives only where ours is
+  empty or the same targets differ in a count, never by naming other
+  targets: a list naming another target (the server's hidden credit NPC
+  where players click or talk) is the check-only `<source>.targets`. A
+  "monster" line whose NPC is named "...Credit", or a quest's one monster
+  line outside an instance whose NPC has no spawns, reads as an event with
+  the line's text (instance mobs and several-kind kills keep their kills).
+- Held until a second source agrees (`<source>.held`, check-only): the XP
+  of instance quests (QuestInfo Dungeon or Raid: the live server's dungeon
+  multiplier, 1.75-2.1) unless EG's observed turn-ins agree, and Call of
+  Earth's (96243) level 10 -> 4. An all-races mask (the giver decides the
+  faction) is no races fact.
+- EG's quest-tied drop rates from at least 30 loot windows replace a
+  pfQuest or QuestieDB table rate, never a recorded, corrected or TDB one.
+- EG's `quest_prerequisites` (what the observing characters had done
+  before accepting) only rule a prerequisite out: our `pre`/`preAny` they
+  had not done is the check-only alternative `eg.prerequisites`; nothing
+  changes the data.
 
 The TDB also gives (gap fills only, unless sniffed): objective counts, `next`,
 `pre` (sniffed PrevQuestID where a quest has no prerequisite data), quest

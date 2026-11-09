@@ -21,7 +21,7 @@ use indexmap::IndexMap;
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{col_num, col_str, Row, Rows};
-use crate::players::{round_quest_xp, EgQuest, QuestXp};
+use crate::players::{round_quest_xp, CacheObjective, EgQuest, QuestXp};
 
 const LOCALE: &str = "enUS";
 
@@ -291,9 +291,10 @@ pub fn cache_quest(q: &wdb::Quest, build: u32, quest_xp: Option<&QuestXp>) -> Eg
 					10 => ("event", pos(o.object_id)),
 					_ => ("event", None),
 				};
-				(kind.to_string(), id, pos(o.amount))
+				CacheObjective { kind: kind.to_string(), id, amount: pos(o.amount), text: Some(o.description.clone()).filter(|t| !t.is_empty()) }
 			})
 			.collect(),
+		instance: crate::players::INSTANCE_INFO.contains(&i64::from(q.quest_info_id)),
 		start: Vec::new(),
 		end: Vec::new(),
 	}

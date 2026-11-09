@@ -23,11 +23,13 @@ pub fn load_rewards(root: &std::path::Path) -> Rewards {
 	let Ok(links) = std::fs::read_dir(&base) else { return out };
 	let mut files = Vec::new();
 	for l in links.flatten() {
-		let Ok(builds) = std::fs::read_dir(l.path().join("wow_classic_beta")) else { continue };
-		for b in builds.flatten() {
-			let f = b.path().join("quests.enUS.json");
-			if f.exists() {
-				files.push(f);
+		for product in ["wowf", "wow_classic_beta"] {
+			let Ok(builds) = std::fs::read_dir(l.path().join(product)) else { continue };
+			for b in builds.flatten() {
+				let f = b.path().join("quests.enUS.json");
+				if f.exists() {
+					files.push(f);
+				}
 			}
 		}
 	}

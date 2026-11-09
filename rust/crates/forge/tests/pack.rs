@@ -83,8 +83,9 @@ fn checkout(root: &Path) {
 	for f in ["spawnz.json", "spawnz.2.json", "quest_counts.json", "gameobject_facts.json", "graveyards.json", "escort_paths.json", "training.json", "transit.json", "classicdb.sql.gz"] {
 		put(root, &format!("data/sources/cmangos/22b51464f162/{f}"), "{}\n");
 	}
-	put(root, "data/sources/eg-link/d98f/index.json", "{}\n");
-	put(root, "data/sources/eg-link/d98f/wow_classic_beta/1.60.1.70450/quests.enUS.json", "{\"quests\":{}}\n");
+	put(root, "data/sources/eg-link/156f/index.json", "{}\n");
+	put(root, "data/sources/eg-link/156f/wowf/1.60.1.70862/quests.enUS.json", "{\"quests\":{}}\n");
+	put(root, "data/sources/eg-link/156f/wow_classic_beta/1.60.1.70532/quests.enUS.json", "{\"quests\":{}}\n");
 	for f in ["forever-db/corrections/quests.json", "data/rules.json", "data/sim/params.json", "addon/Polestar_Nav/PACK.json", "data/crossings.json", "data/forever/travel.json"] {
 		put(root, f, "{}\n");
 	}
@@ -126,6 +127,10 @@ fn pack_leaves_private_data_out() {
 	assert!(p.dir.join("data/sources/wago/1.15.9.70003/UiMap.csv").exists());
 	assert!(!p.dir.join("data/sources/wago/1.15.8.60000").exists());
 	assert!(!p.dir.join("data/sources/wago/1.60.1.70425").exists());
+	// EG Link: the live product's quest records and the beta's.
+	for f in ["wowf/1.60.1.70862", "wow_classic_beta/1.60.1.70532"] {
+		assert!(p.dir.join(format!("data/sources/eg-link/156f/{f}/quests.enUS.json")).exists(), "{f}");
+	}
 	let c = Connection::open(p.dir.join("data/local/kb/forever-kb.sqlite")).unwrap();
 	let facts: Vec<(i64, String, String, String)> =
 		c.prepare("select id, value, source, confidence from facts order by id").unwrap().query_map([], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?))).unwrap().map(Result::unwrap).collect();

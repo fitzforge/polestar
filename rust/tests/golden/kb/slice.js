@@ -1,24 +1,27 @@
 #!/usr/bin/env node
 // Cuts the knowledge-base golden's own inputs (not run in CI):
-//   node slice.js <data/sources> <out input dir>
+//   node slice.js <data/sources> <out input dir> [eg]
+// `eg`: only the EG Link output (a pin move), leaving the other inputs as they are.
 // The ids are the data golden's (../data/slice-ids.json: quests, units, objects, items of Durotar,
 // Elwynn Forest and Ragefire Chasm).
 // - sources/forever-tdb/extract.json: the Forever TrinityCore world DB extract (advocaite/TrinityCore
 //   `forever`, GPL-2.0, used as facts): its quests, spawns, names, loot, vendors and trainers cut to
 //   the ids; the class training tables (training, trainingSpells, trainingDropped, riding) whole.
 // - sources/eg-link/<commit>/: the EG Link output (Efficient Games, CC BY 4.0): index.json cut to the
-//   three newest builds (EG_BUILDS), their datasets cut to the ids (quest records, scans and turn-ins of the quests; the npcs
-//   and objects; loot of the units, objects and items).
+//   three newest builds of each product (EG_BUILDS: wowf, the live game, and wow_classic_beta), their
+//   datasets cut to the ids (quest records, scans, turn-ins, prerequisites and objective progress of
+//   the quests; the npcs and objects; loot of the units, objects and items).
 // - sources/wago/1.15.9.70003/QuestXP.csv verbatim; sources/wago/1.60.1.70450/{Item,SpellName}.csv cut to the
 //   items and the extract's class training spells (Blizzard client tables, rows verbatim).
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
 
-const EG = 'd98f94821b69';
-const EG_BUILDS = ['1.60.1.70374', '1.60.1.70425', '1.60.1.70450']; // the three newest
-const [src, out] = process.argv.slice(2);
-if (!src || !out) throw new Error('usage: slice.js <data/sources> <out input dir>');
+const EG = '156f29c9af78';
+// The three newest of each product.
+const EG_BUILDS = { wowf: ['1.60.1.70790', '1.60.1.70840', '1.60.1.70862'], wow_classic_beta: ['1.60.1.70425', '1.60.1.70450', '1.60.1.70532'] };
+const [src, out, only] = process.argv.slice(2);
+if (!src || !out || (only && only !== 'eg')) throw new Error('usage: slice.js <data/sources> <out input dir> [eg]');
 const ids = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/slice-ids.json'), 'utf8'));
 const Q = new Set(ids.quests.map(String));
 const U = new Set(ids.units.map(String));
@@ -33,16 +36,19 @@ const pick = (o, set) => Object.fromEntries(Object.entries(o || {}).filter(([k])
 const byKind = (o) => ({ ...o, npc: pick(o.npc, U), object: pick(o.object, O) });
 
 // Forever TDB extract.
-const tdb = read(path.join(src, 'forever-tdb', 'extract.json'));
-const cutTdb = { ...tdb, quests: pick(tdb.quests, Q), spawns: byKind(tdb.spawns), names: byKind(tdb.names), loot: byKind(tdb.loot), vendors: pick(tdb.vendors, U), trainers: pick(tdb.trainers, U) };
-write(path.join(out, 'sources', 'forever-tdb', 'extract.json'), `${JSON.stringify(cutTdb)}\n`);
+if (only !== 'eg') {
+	const tdb = read(path.join(src, 'forever-tdb', 'extract.json'));
+	const cutTdb = { ...tdb, quests: pick(tdb.quests, Q), spawns: byKind(tdb.spawns), names: byKind(tdb.names), loot: byKind(tdb.loot), vendors: pick(tdb.vendors, U), trainers: pick(tdb.trainers, U) };
+	write(path.join(out, 'sources', 'forever-tdb', 'extract.json'), `${JSON.stringify(cutTdb)}\n`);
+}
 
 // EG Link output.
 const eg = path.join(src, 'eg-link', EG);
 const egOut = path.join(out, 'sources', 'eg-link', EG);
 fs.mkdirSync(egOut, { recursive: true });
 const index = read(path.join(eg, 'index.json'));
-index.products.wow_classic_beta = pick(index.products.wow_classic_beta, new Set(EG_BUILDS));
+for (const [p, builds] of Object.entries(EG_BUILDS)) index.products[p] = pick(index.products[p], new Set(builds));
+for (const p of Object.keys(index.products)) if (!EG_BUILDS[p]) delete index.products[p];
 write(path.join(egOut, 'index.json'), `${JSON.stringify(index, null, 1)}\n`);
 const key = (k) => {
 	const [kind, id] = k.split(':');
@@ -54,15 +60,20 @@ const cut = {
 	turn_ins: (d) => ({ ...d, quests: pick(d.quests, Q), withLegacy: pick(d.withLegacy, Q) }),
 	npcs: (d) => ({ ...d, approached: pick(d.approached, O), npcs: pick(d.npcs, U), objects: pick(d.objects, O) }),
 	loot: (d) => ({ ...d, kills: Object.fromEntries(Object.entries(d.kills || {}).filter(([k]) => key(k))), sources: Object.fromEntries(Object.entries(d.sources || {}).filter(([k]) => key(k))), rolls: Object.fromEntries(Object.entries(d.rolls || {}).filter(([k]) => key(k))) }),
+	quest_prerequisites: (d) => ({ ...d, quests: pick(d.quests, Q) }),
+	objectives: (d) => ({ ...d, quests: pick(d.quests, Q), completed: pick(d.completed, Q), failed: pick(d.failed, Q), gossip: pick(d.gossip, Q) }),
 };
-const product = path.join(eg, 'wow_classic_beta');
-for (const b of EG_BUILDS) {
-	for (const f of fs.readdirSync(path.join(product, b))) {
-		const name = f.replace(/\.json$/, '');
-		if (!cut[name]) throw new Error(`eg-link ${b}/${f}: no cut for it`);
-		write(path.join(egOut, 'wow_classic_beta', b, f), cut[name](read(path.join(product, b, f))));
+for (const [p, builds] of Object.entries(EG_BUILDS)) {
+	const product = path.join(eg, p);
+	for (const b of builds) {
+		for (const f of fs.readdirSync(path.join(product, b))) {
+			const name = f.replace(/\.json$/, '');
+			if (!cut[name]) throw new Error(`eg-link ${p}/${b}/${f}: no cut for it`);
+			write(path.join(egOut, p, b, f), cut[name](read(path.join(product, b, f))));
+		}
 	}
 }
+if (only === 'eg') process.exit(0);
 
 for (const f of ['wago/1.15.9.70003/QuestXP.csv']) {
 	fs.mkdirSync(path.dirname(path.join(out, 'sources', f)), { recursive: true });
@@ -87,7 +98,7 @@ function records(text) {
 	return recs.filter((r) => r !== '');
 }
 const spells = new Set();
-for (const per of Object.values(tdb.trainingSpells || {})) for (const list of Object.values(per)) for (const [s] of list) spells.add(String(s));
+for (const per of Object.values(read(path.join(src, 'forever-tdb', 'extract.json')).trainingSpells || {})) for (const list of Object.values(per)) for (const [s] of list) spells.add(String(s));
 for (const [t, set] of [['Item', I], ['SpellName', spells]]) {
 	const f = path.join(src, 'wago', '1.60.1.70450', `${t}.csv`);
 	const text = fs.readFileSync(f, 'utf8');

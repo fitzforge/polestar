@@ -10,10 +10,20 @@ use serde_json::Value as J;
 
 pub const EG_NAME: &str = "EG Link output: World of Warcraft: Forever";
 pub const EG_URL: &str = "https://github.com/JIVESCORP/eg-link-output-wowf";
-pub const EG_COMMIT: &str = "d98f94821b69cccf81b03a542df3755b60055217";
+pub const EG_COMMIT: &str = "156f29c9af78b1586883e8eb94a13467eb89638c";
 pub const EG_CREDIT: &str = "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.";
-pub const EG_PRODUCT: &str = "wow_classic_beta";
-pub const DATASETS: [&str; 5] = ["quests.enUS", "quest_scan", "turn_ins", "npcs", "loot"];
+/// The products read, live first: `wowf` is the live game (since launch), `wow_classic_beta` the
+/// beta. Where both describe a quest, the live record wins; givers, enders, turn-ins and loot add up.
+pub const EG_PRODUCTS: [&str; 2] = ["wowf", "wow_classic_beta"];
+/// The datasets read: quest records, scans, turn-ins, givers and enders, loot, and the quests the
+/// observing characters had done before accepting (`quest_prerequisites`: it can rule a
+/// prerequisite out, never prove one).
+pub const DATASETS: [&str; 6] = ["quests.enUS", "quest_scan", "turn_ins", "npcs", "loot", "quest_prerequisites"];
+/// The datasets fetched: the ones read plus `objectives` (where the objective counts went up),
+/// cached for the comparison scripts; its positions are not used yet.
+pub const FETCHED: [&str; 7] = ["quests.enUS", "quest_scan", "turn_ins", "npcs", "loot", "quest_prerequisites", "objectives"];
+/// QuestInfo ids of instance quests: Raid (62) and Dungeon (81).
+pub const INSTANCE_INFO: [i64; 2] = [62, 81];
 const MAX_LEVEL: f64 = 60.0;
 
 pub const VO_NAME: &str = "forever-vo captures";
@@ -128,10 +138,22 @@ pub struct EgQuest {
 	pub next: Option<f64>,
 	pub start_item: Option<f64>,
 	pub races: Option<String>,
-	/// (kind, id, amount)
-	pub objectives: Vec<(String, Option<f64>, Option<f64>)>,
+	pub objectives: Vec<CacheObjective>,
+	/// An instance quest (QuestInfo Dungeon or Raid).
+	pub instance: bool,
 	pub start: Ends,
 	pub end: Ends,
+}
+
+/// One objective line of a cached quest record.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CacheObjective {
+	/// kill, item, object, talk, event, criteria, other
+	pub kind: String,
+	pub id: Option<f64>,
+	pub amount: Option<f64>,
+	/// The line as the game shows it (EG's `text`), when given.
+	pub text: Option<String>,
 }
 
 pub struct Eg {
@@ -140,6 +162,9 @@ pub struct Eg {
 	pub quests: IndexMap<i64, EgQuest>,
 	/// item -> [npc: who -> (percent, drops, windows), object: ...], ascending.
 	pub drops: IndexMap<i64, [IndexMap<i64, (f64, f64, f64)>; 2]>,
+	/// quest -> the quests every observing character had done before accepting it, in every build
+	/// that lists it (`quest_prerequisites`): a quest missing here was not needed.
+	pub before: IndexMap<i64, IndexSet<i64>>,
 }
 
 fn build_number(b: &str) -> f64 {
@@ -157,17 +182,26 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 		log(&format!("eg-link: --offline, {} not cached", dir.join("index.json").display()));
 		return Ok(None);
 	};
-	let Some(prod) = index.get("products").and_then(|p| p.get(EG_PRODUCT)).and_then(J::as_object) else { return Ok(None) };
-	let mut builds: Vec<String> = prod.iter().filter(|(_, v)| DATASETS.iter().any(|d| v.get(*d).is_some_and(truthy))).map(|(k, _)| k.clone()).collect();
-	builds.sort_by(|a, b| build_number(a).partial_cmp(&build_number(b)).unwrap_or(std::cmp::Ordering::Equal));
+	let mut builds: Vec<(&str, String)> = Vec::new();
+	// Oldest product first, each ascending: read newest-first, the live product's records win.
+	for product in EG_PRODUCTS.iter().rev() {
+		let Some(prod) = index.get("products").and_then(|p| p.get(*product)).and_then(J::as_object) else { continue };
+		let mut bs: Vec<String> = prod.iter().filter(|(_, v)| DATASETS.iter().any(|d| v.get(*d).is_some_and(truthy))).map(|(k, _)| k.clone()).collect();
+		bs.sort_by(|a, b| build_number(a).partial_cmp(&build_number(b)).unwrap_or(std::cmp::Ordering::Equal));
+		builds.extend(bs.into_iter().map(|b| (*product, b)));
+	}
+	if builds.is_empty() {
+		return Ok(None);
+	}
 	let mut data: Vec<IndexMap<&str, J>> = Vec::new();
-	for b in &builds {
+	for (product, b) in &builds {
+		let sets = &index["products"][*product][b];
 		let mut m = IndexMap::new();
 		for d in DATASETS {
-			if !prod[b].get(d).is_some_and(truthy) {
+			if !sets.get(d).is_some_and(truthy) {
 				continue;
 			}
-			let file = dir.join(EG_PRODUCT).join(b).join(format!("{d}.json"));
+			let file = dir.join(product).join(b).join(format!("{d}.json"));
 			let Some(j) = read(&file)? else {
 				log(&format!("eg-link: --offline, {} not cached", file.display()));
 				return Ok(None);
@@ -182,7 +216,7 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 	for &i in &newest {
 		let Some(qs) = data[i].get("quests.enUS") else { continue };
 		for (id, rec) in qs.get("quests").and_then(J::as_object).into_iter().flatten() {
-			records.entry(id.clone()).or_insert((build_number(&builds[i]), rec.clone()));
+			records.entry(id.clone()).or_insert((build_number(&builds[i].1), rec.clone()));
 		}
 	}
 	let mut scanned: IndexMap<String, bool> = IndexMap::new();
@@ -199,6 +233,22 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 			scanned.entry(k).or_insert(true);
 		}
 	}
+	// What the observing characters had done before accepting: only what every build's list keeps.
+	let mut before: IndexMap<i64, IndexSet<i64>> = IndexMap::new();
+	for d in &data {
+		let Some(pre) = d.get("quest_prerequisites") else { continue };
+		for (id, rec) in pre.get("quests").and_then(J::as_object).into_iter().flatten() {
+			let list: IndexSet<i64> = rec.get("before").and_then(J::as_array).into_iter().flatten().filter_map(J::as_i64).collect();
+			let id = forge_guide::js::str_to_num(id) as i64;
+			match before.get_mut(&id) {
+				Some(cur) => cur.retain(|q| list.contains(q)),
+				None => {
+					before.insert(id, list);
+				}
+			}
+		}
+	}
+	before.sort_keys();
 	let mut start: IndexMap<String, IndexSet<String>> = IndexMap::new();
 	let mut end: IndexMap<String, IndexSet<String>> = IndexMap::new();
 	for d in &data {
@@ -249,7 +299,7 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 				let srcs = o.get("sources").filter(|s| truthy(s)).and_then(f).unwrap_or(1.0);
 				let e = counts.entry(xp.to_bits()).or_insert((xp, 0.0, 0.0));
 				e.1 += srcs;
-				e.2 = build_number(&builds[bi]);
+				e.2 = build_number(&builds[bi].1);
 			}
 		}
 	}
@@ -313,8 +363,14 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 				.and_then(J::as_array)
 				.into_iter()
 				.flatten()
-				.map(|o| (kinds(o.get("type").and_then(J::as_str).unwrap_or("")).to_string(), num(o.get("objectId")), num(o.get("amount"))))
+				.map(|o| CacheObjective {
+					kind: kinds(o.get("type").and_then(J::as_str).unwrap_or("")).to_string(),
+					id: num(o.get("objectId")),
+					amount: num(o.get("amount")),
+					text: o.get("text").and_then(J::as_str).filter(|t| !t.is_empty()).map(String::from),
+				})
 				.collect(),
+			instance: rec.get("questInfoId").and_then(J::as_i64).is_some_and(|i| INSTANCE_INFO.contains(&i)),
 			start: ends(start.get(id).unwrap_or(&IndexSet::new())),
 			end: ends(end.get(id).unwrap_or(&IndexSet::new())),
 		};
@@ -417,7 +473,7 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 		v[0].sort_keys();
 		v[1].sort_keys();
 	}
-	Ok(Some(Eg { commit: EG_COMMIT.to_string(), quests, drops }))
+	Ok(Some(Eg { commit: EG_COMMIT.to_string(), quests, drops, before }))
 }
 
 pub struct Vo {
