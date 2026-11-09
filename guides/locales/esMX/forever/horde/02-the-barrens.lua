@@ -204,8 +204,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "",
+	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
 
 	-- Step 57: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3448} Tonga Runetotem · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork

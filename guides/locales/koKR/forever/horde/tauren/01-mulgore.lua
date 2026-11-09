@@ -96,6 +96,8 @@ return {
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "{npc:3063}의 퀘스트: 그 옆에서 풋내기 전사 세 명(또는 결투로 플레이어)을 이기세요.",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
 	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
+	["{npc:277182}, at the north end of the village: Kyle wants {item:287505}"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -104,6 +106,9 @@ return {
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "초원늑대와 다자란 초원타조가 마을 주변 평원을 돌아다닙니다.",
+	-- {item:287505} Tender Strider Meat
+	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
+	["{item:287505} for Kyle: Adult Plainstriders drop it"] = "",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "",
 
@@ -120,14 +125,10 @@ return {
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "외로운 늑대 {quest:96130}은(는) 마을 서쪽 평원을 돌아다닙니다. 긴발톱 초원늑대와 평원퓨마는 그 북쪽과 서쪽 평원을 돌아다닙니다.",
 
-	-- Step 23: Bloodhoof Village
-	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
-	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}은(는) 마을 북쪽 가장자리에 서 있습니다. 카일은 초원타조에게서 얻는 {item:287505}을(를) 원합니다.",
-
 	-- Step 24: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle, if you have none yet."] = "",
 
 	-- Step 25: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -152,8 +153,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "갈라크일족 켄타우로스",
-	-- {npc:275767} Herak the Pillager
-	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "갈라크일족 켄타우로스는 우물 동쪽 평원에 야영하고 있으며, {npc:275767}이(가) 그들을 이끕니다.",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -332,6 +332,7 @@ return {
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "{area:222}(으)로 내려가 {item:15908}(으)로 길들이세요: 평원의 {npc:2956}, 마을 북쪽의 {npc:2959}, 북서쪽의 검독수리.",
 	-- ["Speak with {npc:3067}"] = "{npc:3067}와(과) 대화하기",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "검독수리는 블러드후프 마을 주변 평원 곳곳을 활공합니다.",
+	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "갈라크일족 켄타우로스는 우물 동쪽 평원에 야영하고 있으며, {npc:275767}이(가) 그들을 이끕니다.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "갈라크일족 켄타우로스는 {area:821} 북쪽 평원에 야영하고 있으며, 헤라크가 그들을 이끕니다. 우두머리 초원늑대는 늑대들 사이를 돌아다닙니다.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "{area:404}의 드워프들이 발굴조사단장의 곡괭이를 지니고 있습니다. {area:222}의 대장간에서 부수세요.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "우물은 마을 북쪽에 있습니다. 우물돌은 우물 주변에, {item:4809}은(는) 근처 나무 아래에 있습니다. 가는 길에 {quest:766}와(과) {quest:761}을(를) 위해 늑대, 퓨마, 초원타조, 검독수리를 처치하세요.",
@@ -339,6 +340,7 @@ return {
 	-- ["The well lies south-east of the village."] = "우물은 마을 남동쪽에 있습니다.",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}은(는) 우물 조금 동쪽의 {area:821}에 서 있습니다.",
+	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}은(는) 마을 북쪽 가장자리에 서 있습니다. 카일은 초원타조에게서 얻는 {item:287505}을(를) 원합니다.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}은(는) 블러드후프 마을 남동쪽의 {area:396} 옆에 야영하고 있습니다.",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991}은(는) 야영지 동쪽 가장자리 천막 옆에 앉아 있으며, {item:4755}은(는) 그 옆에 있습니다.",
 	-- ["{npc:3059}, the warrior trainer"] = "전사 상급자 {npc:3059}",

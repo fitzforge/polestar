@@ -87,37 +87,36 @@ return {
 	-- {area:431} Splintertree Post
 	["{area:431} flight master"] = "Mestre de voo de {area:431}",
 
-	-- Step 17: Paladin trainer
-	["Paladin trainer"] = "Instrutor de paladino",
-	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
-
-	-- Step 18: Druid trainer
+	-- Step 17: Druid trainer
 	["Druid trainer"] = "Instrutor de druida",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} em {zone:1412}; {zone:1454} não tem instrutor de druida",
 
-	-- Step 20: The Binding
+	-- Step 19: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875} fica em {object:172960}. Use {item:6626} no círculo de invocação ali e derrote a súcubo para vinculá-la.",
 
-	-- Step 21: Shenthul
+	-- Step 20: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow (no name in this language: may be words)
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "Se você fez {quest:2478} em grupo, {npc:3401}, em {object:172960}, recebe a entrega agora.",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{npc:2391}, em {area:272}, ensina Venenos: guarde-a",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
-	-- Step 24: Strange Lockbox
+	-- Step 22: Brill
+	-- {npc:246152} Shari Stilwell · {area:159} Brill
+	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "",
+
+	-- Step 23: Strange Lockbox
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "",
 
-	-- Step 25: Sepulcher
+	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road to the {area:228}. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Das torres dos zepelins, corra para o sul por Tirisfal até Pinhaprata e desça a estrada até {area:228}. {npc:2121} e {npc:1937} ficam na entrada da cripta.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -125,16 +124,16 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "{npc:2121}: {quest:516}, a sudeste de {area:233}",
 
-	-- Step 26: Silverpine Forest: kill these as you meet them
+	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: vá matando estes pelo caminho",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Ao sul pela estrada, passando por Lenhardente: Vigias e Teurgos de Dalaran patrulham as estradas em volta de {area:233}, e a sudoeste da cidade os Mourejantes e Guardiões Corvinalle assombram as ruínas de {quest:516}, no sudeste da floresta.",
 
-	-- Step 27: Beren's Peril
+	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone (no name in this language: may be words)
-	["In the ruins of {quest:516}: The Ravenclaw undead haunt the ruins of {quest:516} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Nas ruínas de {quest:516}: os mortos-vivos Corvinalle assombram as ruínas de {quest:516}, a leste da estrada, no sudeste da floresta; um {npc:1973} deixa cair o {item:271343} que leva a {object:645153}.\nUm espírito elite (20) costuma ficar ao lado de {object:645153}: afaste os Corvinalle da pedra antes de lutar com eles.",
+	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}, de um {npc:1973}",
 	-- {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
@@ -143,13 +142,13 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, das Almas Torturadas no meio das ruínas; no subterrâneo",
 
-	-- Step 28: The Offering of Blood
+	-- Step 27: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "A missão dá a você um {item:210713}: use-o ao lado de {object:645153} para oferecer seu sangue, depois mate o espírito elite que responder.\n{quest:95883} é elite: é recomendado formar grupo.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words)
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, ao lado de {object:645153}: invoca o espírito elite",
 
-	-- Step 30: Southpoint Tower
+	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "De volta à estrada para o sul. Onde ela vira para leste rumo a {area:287}, {npc:2214} espera em {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -167,8 +166,10 @@ return {
 	-- ["Gaea Dirt Mounds"] = "Montes de Terra de Gaia",
 	-- ["Gaea Seeds"] = "Sementes de Gaia",
 	-- ["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and ride south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "Se você já conhece a rota de voo de {area:272}, voe para lá e pule para {area:272}. Senão, voe de {zone:1458} para {area:228} e cavalgue para o sul pela estrada, passando por Lenhardente. Os mortos-vivos Corvinalle assombram as ruínas de {area:231}, a leste da estrada, no sudeste da floresta; um {npc:1973} deixa cair o {item:271343} que leva ao {object:645153}.",
+	-- ["In the ruins of {quest:516}: The Ravenclaw undead haunt the ruins of {quest:516} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Nas ruínas de {quest:516}: os mortos-vivos Corvinalle assombram as ruínas de {quest:516}, a leste da estrada, no sudeste da floresta; um {npc:1973} deixa cair o {item:271343} que leva a {object:645153}.\nUm espírito elite (20) costuma ficar ao lado de {object:645153}: afaste os Corvinalle da pedra antes de lutar com eles.",
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "Continue para o norte pela estrada. O {npc:12862} espera no acampamento madeireiro do Brado Guerreiro, ao sul de Machadada.",
 	-- ["On the ride west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "No caminho para oeste, {npc:267214} está preso numa ravina ao sul da estrada principal, a sudeste de {area:415}. Cervos Galhassombra e Ursos do Vale Gris vagam pela mata em volta.",
+	-- ["Paladin trainer"] = "Instrutor de paladino",
 	-- ["Ride back down the {area:1076} to {area:2539}."] = "Desça de volta por {area:1076} até {area:2539}.",
 	-- ["Ride east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "Cavalgue para leste até {area:380} e voe para {zone:1454}. Pegue o zepelim nas torres do lado de fora de {zone:1454} até {zone:1420}; {area:1497} fica abaixo de {area:153}. O mestre dos morcegos fica no {object:36078}.",
 	-- ["Ride south to the {area:380}, then west along the road out of the {zone:1413} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "Cavalgue para o sul até {area:380} e depois para oeste pela estrada, saindo de {zone:1413} rumo às Torres de Pedra. A aldeia troll de {area:2539} fica na entrada do cânion.",
@@ -192,6 +193,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} fica em {area:428}, o acampamento do Brado Guerreiro logo a nordeste de Machadada, ao lado do quadro de caçadas.",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} em Zoram'gar, no nível 27",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} fica no acampamento de lenhadores. Os Vanguardeiros elfos noturnos rondam a mata a sudeste dele; eles ficam furtivos, então fique atento.",
+	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "A próxima missão de {npc:4198}, Ornanos, fica no lado da Aliança de {zone:1440}. Pule-a.",
 	-- ["{npc:4198}, outside the gate"] = "{npc:4198}, do lado de fora do portão",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606} fica no {object:36070}.",

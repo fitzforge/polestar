@@ -69,45 +69,60 @@ return {
 	-- {npc:3230} Nazgrel
 	["{npc:3230}, in Grommash Hold"] = "",
 
-	-- Step 16: Zeppelin to Undercity
+	-- Step 15: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 17: Brill
+	-- Step 16: Brill
+	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan
+	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "",
+	-- {npc:1518} Apothecary Johaan
+	["{npc:1518}, inside"] = "",
+
+	-- Step 17: Hadric Harlson
+	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
+	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "",
+
+	-- Step 18: The Cult of the Damned
+	-- {npc:267009} Hadric Harlson
+	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "",
+
+	-- Step 20: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} entrena a los paladines en {area:159}, a poca distancia al norte por el camino desde las torres de zepelín. Regresa por el mismo camino para ir a Bosque de Argénteos.",
 
-	-- Step 19: The Sepulcher
+	-- Step 22: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} es el pueblo cripta de los Renegados en medio del bosque. Todos los que necesitas están alrededor de la entrada de la cripta; {npc:2226}, el cuidador de murciélagos, está justo al este.",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "",
 
-	-- Step 21: Border Crossings
+	-- Step 24: Border Crossings
 	-- {object:1627} Dalaran Crate
 	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood."] = "Sigue el camino al sur. {object:1627} está a un lado, al norte de Aldea Piroleña.",
 
-	-- Step 22: The Dead Field
+	-- Step 25: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
 	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field."] = "Al norte de {area:228}. {npc:1983} ronda {area:240}: mátalo y luego cruza el campo.",
 
-	-- Step 23: Malden's Orchard
+	-- Step 26: Malden's Orchard
 	-- {area:238} Malden's Orchard
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "Sigue el camino al noreste hasta la casa de los Yorick en {area:238}.",
 
-	-- Step 24: Mottled Worgs
+	-- Step 27: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs"] = "Huargos jaspeados",
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs prowl the hills around the house."] = "Los Huargos jaspeados merodean las colinas alrededor de la casa.",
 
-	-- Step 25: Escorting Erland
+	-- Step 28: Escorting Erland
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} espera al noreste de la casa. Escóltalo de vuelta con {npc:1950}; los huargos atacan en el camino.",
 	-- {npc:1978} Deathstalker Erland
 	["{npc:1978}, inside"] = "",
 
-	-- Step 28: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
@@ -115,7 +130,7 @@ return {
 	-- {area:233} Ambermill
 	["{area:233} comes later, down the lake shore"] = "",
 
-	-- Step 29: Valgan's Field farmhouse
+	-- Step 32: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
 	["{area:227} farmhouse"] = "",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
@@ -123,25 +138,25 @@ return {
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "",
 
-	-- Step 30: Quinn Yorick
+	-- Step 33: Quinn Yorick
 	["North again to the Yoricks' house."] = "De nuevo al norte, a la casa de los Yorick.",
 	-- {npc:1951} Quinn Yorick
 	["{npc:1951}, inside"] = "",
 
-	-- Step 31: Vile Fin murlocs
+	-- Step 34: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Múrlocs Anca Vil",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "",
 
-	-- Step 32: The Decrepit Ferry
+	-- Step 35: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
 
-	-- Step 33: Ambermill
+	-- Step 36: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
 
-	-- Step 34: The Sepulcher
+	-- Step 37: The Sepulcher
 	-- {area:228} The Sepulcher
 	["Back north-west up the road to the {area:228}."] = "",
 	-- {npc:1937} Apothecary Renferrel
@@ -151,16 +166,16 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
-	-- Step 35: The Ivar Patch
+	-- Step 38: The Ivar Patch
 	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Toma el camino al norte hacia {area:85}: la casa de los Yorick en {area:238} está de camino. {quest:425} acecha a poca distancia al oeste.",
 	["Inside"] = "",
 
-	-- Step 37: Magistrate Sevren
+	-- Step 40: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
 
-	-- Step 39: The Undercity
+	-- Step 42: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
 	-- {npc:11044} Doctor Martin Felben
@@ -169,8 +184,10 @@ return {
 	["{npc:5204}, in the Apothecarium"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "",
+	-- {npc:260093} Garen Largo · {area:1497} Undercity
+	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
 
-	-- Step 40: Lady Sylvanas Windrunner
+	-- Step 43: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
 	["{npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
@@ -178,34 +195,24 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "",
 
-	-- Step 41: Zeppelin to Orgrimmar
+	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
-	-- Step 43: Valley of Strength
+	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
 
-	-- Step 47: Paladin trainer
-	["Paladin trainer"] = "",
-	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
-
-	-- Step 48: Druid trainer
-	["Druid trainer"] = "",
-	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
-
-	-- Step 51: Sayoc
+	-- Step 52: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 53: Valley of Wisdom
+	-- Step 54: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "",
 
-	-- Step 54: Zor Lonetree
+	-- Step 55: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
 

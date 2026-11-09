@@ -96,6 +96,8 @@ return {
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "Задание ({npc:3063}): одолейте трех воинов-учеников (или игроков на дуэли) рядом с ним.",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
 	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
+	["{npc:277182}, at the north end of the village: Kyle wants {item:287505}"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -104,6 +106,9 @@ return {
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Волки прерий и взрослые равнинные долгоноги бродят по равнинам вокруг деревни.",
+	-- {item:287505} Tender Strider Meat
+	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
+	["{item:287505} for Kyle: Adult Plainstriders drop it"] = "",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "{object:2910}, 170 ярдов к востоку",
 
@@ -120,14 +125,10 @@ return {
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, волк-одиночка, бродит по равнинам к западу от деревни. Охотники прерий и пумы плоскогорья бродят по равнинам к северу и западу от нее.",
 
-	-- Step 23: Bloodhoof Village
-	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
-	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} стоит на северной окраине деревни. Кайлу нужен предмет {item:287505} с равнинных долгоногов.",
-
 	-- Step 24: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "Колодец – к северу от деревни. Вокруг него пасутся взрослые равнинные долгоноги: с них падает {item:287505} для Кайла.",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle, if you have none yet."] = "",
 
 	-- Step 25: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -152,8 +153,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "Кентавры из племени Галак",
-	-- {npc:275767} Herak the Pillager
-	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет {npc:275767}.",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -333,13 +333,16 @@ return {
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Спуститесь сюда: {area:222} и приручите предметом {item:15908}: монстра {npc:2956} на равнинах, монстра {npc:2959} к северу от деревни и перепелятника к северо-западу.",
 	-- ["Speak with {npc:3067}"] = "Поговорите с персонажем {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Перепелятники парят над равнинами вокруг Деревни Кровавого Копыта.",
+	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет {npc:275767}.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Кентавры племени Галак стоят лагерем на равнинах к северу от места {area:821}; их ведет Херак. Среди волков бродят могучие волки прерий.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице ({area:222}).",
+	-- ["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "Колодец – к северу от деревни. Вокруг него пасутся взрослые равнинные долгоноги: с них падает {item:287505} для Кайла.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни колодца ({item:4808}) лежат вокруг него, {item:4809} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни у источника лежат вокруг него, {object:2912} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
 	-- ["The well lies south-east of the village."] = "Колодец – к юго-востоку от деревни.",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} стоит здесь: {area:821}, чуть к востоку от колодца.",
+	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} стоит на северной окраине деревни. Кайлу нужен предмет {item:287505} с равнинных долгоногов.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} стоит лагерем у места {area:396}, к юго-востоку от Деревни Кровавого Копыта.",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} сидит у шатра на восточном краю лагеря; {item:4755} стоит рядом с ней.",
 	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}, учитель воинов",

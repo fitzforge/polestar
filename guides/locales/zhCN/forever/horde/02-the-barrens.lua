@@ -204,8 +204,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "收集完迅猛龙头",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "还不够十二个？钢鬃营地北边、{quest:881}巢穴周围的平原上赤鳞尖啸龙最多。",
+	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
 
 	-- Step 57: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3448} Tonga Runetotem · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -663,6 +663,7 @@ return {
 	-- ["South-east on the way back to the {area:380}: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "返回{area:380}时向东南走：{quest:881}是一头白狮，在钢鬃营地北边的平原上徘徊。\n注意：草原女猎手在巢穴周围游荡。她们刷新很快，经常和{quest:881}一起加入战斗，所以吹号角前先清掉她们。\n这里的赤鳞迅猛龙也算在头的数量里。",
 	-- ["Southsea beach"] = "南海海滩",
 	-- ["Still short of seven? Plainstriders are thickest on the plains north of the {area:380}, along the road north."] = "还不够七个？{area:380}北边沿北向道路的平原上陆行鸟最多。",
+	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "还不够十二个？钢鬃营地北边、{quest:881}巢穴周围的平原上赤鳞尖啸龙最多。",
 	-- ["Sunscale raptors roam the plains north and east of the {area:380}, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "赤鳞迅猛龙在{area:380}北边和东边的平原上游荡，大约四只中有三只掉落头：杀掉沿途遇到的。注意：赤鳞尖啸龙生命值低于30%时会呼叫30码内的同伴。",
 	-- ["The Razormane camp lies east of the {area:380}. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "钢鬃营地位于{area:380}东边。战士：{object:58369}在营地里。萨满祭司：野猪人掉落{item:5026}。\n注意：箱子在一辆破马车旁，由两个钢鬃野猪人看守，其中包括会把更多野猪人拉进战斗的猎手。",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "草原徘徊者在镇子和东边钢鬃营地之间的平原上狩猎。营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。",

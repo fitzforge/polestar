@@ -96,6 +96,8 @@ return {
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "Misión de {npc:3063}: vence a tres guerreros novicios (o a jugadores en duelos) a su lado.",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
 	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
+	["{npc:277182}, at the north end of the village: Kyle wants {item:287505}"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -104,6 +106,9 @@ return {
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Los lobos de pradera y los zancudos de llanura adultos recorren las llanuras alrededor del poblado.",
+	-- {item:287505} Tender Strider Meat
+	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
+	["{item:287505} for Kyle: Adult Plainstriders drop it"] = "",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "",
 
@@ -120,14 +125,10 @@ return {
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, ronda las llanuras al oeste del poblado. Los acechadores de pradera y los pumas de las estepas recorren las llanuras al norte y al oeste.",
 
-	-- Step 23: Bloodhoof Village
-	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
-	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} está en el borde norte del poblado. Kyle quiere {item:287505} de zancudos de llanura.",
-
 	-- Step 24: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle, if you have none yet."] = "",
 
 	-- Step 25: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -152,8 +153,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "Centauros Galak",
-	-- {npc:275767} Herak the Pillager
-	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; {npc:275767} los dirige.",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -334,6 +334,7 @@ return {
 	-- ["Speak with {npc:3067}"] = "Habla con {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Los aguilones planean sobre las llanuras alrededor del Poblado Pezuña de Sangre.",
 	-- ["Tame Beast"] = "Domesticar bestia",
+	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; {npc:275767} los dirige.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Los centauros Galak acampan en las llanuras al norte de {area:821}; Herak el Saqueador los dirige. Los Lobos alfa de pradera rondan entre los lobos.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. {npc:2958} Alphas roam among the wolves."] = "Los centauros Galak acampan en las llanuras al norte de {area:821}; Herak el Saqueador los dirige. Los alfas de {npc:2958} rondan entre los lobos.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Los enanos de {area:404} llevan los picos de prospector. Destrózalos en la forja de {area:222}.",
@@ -342,6 +343,7 @@ return {
 	-- ["The well lies south-east of the village."] = "El pozo está al sureste del poblado.",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} está en {area:821}, un poco al este del pozo.",
+	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} está en el borde norte del poblado. Kyle quiere {item:287505} de zancudos de llanura.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} acampa junto a {area:396}, al sureste del Poblado Pezuña de Sangre.",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} está sentada junto a la tienda del borde este del campamento; {item:4755} está a su lado.",
 	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}, el instructor de guerreros",

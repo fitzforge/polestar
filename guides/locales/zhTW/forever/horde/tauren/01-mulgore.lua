@@ -96,6 +96,8 @@ return {
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "{npc:3063}的任務：在他旁邊擊敗三名新戰士（或在決鬥中擊敗玩家）。",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
 	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
+	["{npc:277182}, at the north end of the village: Kyle wants {item:287505}"] = "",
 
 	-- Step 17: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -104,6 +106,9 @@ return {
 	-- Step 18: Poison Water
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "草原狼和成年平原陸行鳥在村子周圍的平原遊蕩。",
+	-- {item:287505} Tender Strider Meat
+	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
+	["{item:287505} for Kyle: Adult Plainstriders drop it"] = "",
 	-- {object:2910} Well Stone
 	["{object:2910}, 170 yd east"] = "",
 
@@ -120,14 +125,10 @@ return {
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "孤狼{quest:96130}在村子西邊的平原徘徊。草原捕食者和平原獅在村子北邊和西邊的平原遊蕩。",
 
-	-- Step 23: Bloodhoof Village
-	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
-	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}站在村子北緣。Kyle想要從平原陸行鳥取得的{item:287505}。",
-
 	-- Step 24: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle, if you have none yet."] = "",
 
 	-- Step 25: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -152,8 +153,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "加拉克半人馬",
-	-- {npc:275767} Herak the Pillager
-	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "加拉克半人馬在水井東邊的平原紮營；由{npc:275767}率領。",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -332,6 +332,7 @@ return {
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "騎下山到{area:222}，用{item:15908}馴服：平原上的一隻{npc:2956}、村子北邊的一隻{npc:2959}，以及西北方的一隻猛鷲。",
 	-- ["Speak with {npc:3067}"] = "與{npc:3067}交談",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "猛鷲在血蹄村周圍的平原上空滑翔。",
+	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "加拉克半人馬在水井東邊的平原紮營；由{npc:275767}率領。",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "加拉克半人馬在{area:821}北邊的平原紮營；由『掠取者』赫拉克率領。草原狼前鋒在狼群之中遊蕩。",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "{area:404}的矮人身上帶著勘察員的鋤頭。在{area:222}的熔爐砸毀它們。",
 	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "水井在村子北邊。水井石放在井的周圍，{item:4809}在附近的樹下。途中擊殺狼、山獅、平原陸行鳥和猛鷲，完成{quest:766}和{quest:761}。",
@@ -339,6 +340,7 @@ return {
 	-- ["The well lies south-east of the village."] = "水井在村子東南方。",
 	-- ["The {area:380}"] = "{area:380}",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}站在水井東邊不遠的{area:821}。",
+	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}站在村子北緣。Kyle想要從平原陸行鳥取得的{item:287505}。",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}在血蹄村東南方的{area:396}旁紮營。",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991}坐在營地東緣的帳篷旁；{item:4755}就在她旁邊。",
 	-- ["{npc:3059}, the warrior trainer"] = "戰士訓練師{npc:3059}",
