@@ -62,6 +62,13 @@ next forever/alliance/03-darkshore-return
 # Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
 # Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
 # after Alba Fairmoon's 92749-92752, not on the route), the Paladin's Test of Righteousness (class guide).
+#
+# The Hall of Thanes (`when dungeon "The Hall of Thanes"`, dungeons in the route): for a character who chose
+# it, Thom Filch's Important Heirlooms (96403) and Afadra Dunwall's The Restless Dead (96394) are taken on
+# the way in from Ironforge's gate, at about 19.5, the run follows (its door is in the city, beside the
+# High Seat), and both take theirs back at once; King Magni takes Old Ironforge Incursion (96393, for a
+# Dwarf or Gnome who carries it from Dun Morogh) and the Treaty of Understanding (98423, an item inside).
+# An Ancient Grudge (96395) starts and ends inside (the run tip names it).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -195,6 +202,45 @@ step Into Dun Morogh
 step Into Ironforge
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
+
+step Thom Filch and Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  zone Ironforge
+  tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand together north-west of the High Seat, a short walk from the Hall of Thanes' door.
+  accept 96403                        -- Thom Filch
+  accept 96394                        -- Afadra Dunwall
+
+step The Hall of Thanes
+  when dungeon "The Hall of Thanes"
+  when onquest 96403,96394,96393
+  zone Ironforge
+  tip The Hall of Thanes is a dungeon for a group of five, about levels 13 to 20, under Ironforge: its door is beside the High Seat, where King Magni Bronzebeard sits.
+  tip Inside: the restless spirits are Afadra's, the heirlooms Thom's. Faldrim Anvilmar, Magmatus, Plunder and Durgen Dirgehammer are the bosses; a Ghostly Attendant inside has a quest of his own, and a Treaty of Understanding found inside starts a quest for King Magni.
+  enter "The Hall of Thanes" @43.5,52.0
+  complete 96403                      -- Important Heirlooms
+  complete 96394                      -- The Restless Dead
+  complete 96393                      -- Old Ironforge Incursion
+
+step Thom Filch
+  when complete 96403
+  zone Ironforge
+  turnin 96403                        -- Thom Filch
+
+step Afadra Dunwall
+  when complete 96394
+  zone Ironforge
+  turnin 96394                        -- Afadra Dunwall
+
+step King Magni Bronzebeard
+  when complete 96393
+  zone Ironforge
+  tip Old Ironforge Incursion: King Magni sits on the High Seat, beside the Hall of Thanes' door.
+  turnin 96393                        -- King Magni Bronzebeard
+
+step King Magni Bronzebeard
+  when onquest 98423
+  zone Ironforge
+  turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
 
 step Ironforge
   zone Ironforge

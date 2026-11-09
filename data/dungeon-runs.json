@@ -711,6 +711,71 @@
 			"budget": {
 				"flow": "06-wetlands +0.5 km, +4.5 min, hub visits +0; 30-40/01-hillsbrad-foothills +0.6 km (Rethiel, Whelgar), backtracks +1, avoidable 0; 06-ashenvale passed givers +1 (Halloran's 98815 at 24.85: 3.2 over, the level rule wins)"
 			}
+		},
+		{
+			"dungeon": "The Hall of Thanes",
+			"faction": "Alliance",
+			"pickups": [],
+			"runStop": [
+				96403,
+				96394
+			],
+			"run": {
+				"guide": "forever/alliance/03-loch-modan",
+				"after": {
+					"step": "Into Ironforge",
+					"note": "Ironforge's gate (~19.5); the door is beside the High Seat"
+				},
+				"entrance": {
+					"map": 1455,
+					"x": 43.5,
+					"y": 52.0
+				},
+				"objectives": [
+					96403,
+					96394,
+					96393
+				],
+				"itemStarts": [
+					{
+						"quest": 98423,
+						"item": 281030
+					}
+				],
+				"insideQuests": [
+					96395
+				],
+				"guard": "onquest 96403,96394,96393"
+			},
+			"handins": [
+				{
+					"quest": 96403,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 96394,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 96393,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run"
+				},
+				{
+					"quest": 98423,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": "run",
+					"when": "onquest"
+				}
+			],
+			"leftOut": {
+				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
+			},
+			"budget": {
+				"flow": "03-loch-modan +0.3 km, +7.3 min, hub visits +1.0 (mean over the starts; Human/Night Elf branches +3 within Ironforge: Filch/Afadra, the door, back), no avoidable hub revisits; Dwarf/Gnome start passed givers hub +1 (Thom Filch at ~11, 3+ over)"
+			}
 		}
 	]
 }
