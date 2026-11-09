@@ -34,7 +34,8 @@ return {
 	["{npc:4794}: the crawlers are on the {area:8} shore, keep it"] = "",
 
 	-- Step 5: Swamplight Manor
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "沿著道路向北前往毀壞的莊園；加爾住在旁邊的棚屋裡，鬆動的泥土在房子的轉角處。",
+	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
 	["with the spices from Theramore"] = "帶著從塞拉摩買來的香料",
 
 	-- Step 6: "Stinky" Ignatz
@@ -400,17 +401,21 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 114: Thelsamar
+	-- Step 114: Loch Modan
+	-- {area:1} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["Ride east out of {area:1} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+
+	-- Step 115: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {area:3} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {area:3}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 116: Hammertoe's Digsite
+	-- Step 117: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "從{zone:1432}向南騎，穿過山口進入{area:3}；{npc:2860}在挖掘場紮營。",
 
-	-- Step 117: Garek
+	-- Step 118: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}獨自在挖掘場東南方的{area:1898}紮營。",
 
@@ -426,6 +431,7 @@ return {
 	-- ["Ride back west along the road; {npc:217412} stands a short way north of Biggs."] = "沿著道路向西騎回去；{npc:217412}站在比格斯北邊不遠處。",
 	-- ["Ride from Theramore west along the Dustwallow road into the {zone:1413} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "從塞拉摩沿著塵泥沼澤的道路向西騎進{zone:1413}，再向北前往海岸邊的{area:392}。向{npc:16227}取得飛行路線，然後在碼頭搭船前往{area:35}。",
 	-- ["Skullsplitter ruins"] = "劈顱遺跡",
+	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "沿著道路向北前往毀壞的莊園；加爾住在旁邊的棚屋裡，鬆動的泥土在房子的轉角處。",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "從{object:28027}搭乘{area:2257}。{npc:5637}在{object:32356}旁的尋物公司大廳裡，{npc:1356}在大廳本身，{npc:2786}在{object:32383}。下一份指南會飛往{area:144}。",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "冷眼蜥蜴躺在礦坑西邊的岩石上。",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "暗霧蜘蛛在沼澤西北部的洞穴周圍築巢；每隻蜘蛛都會掉落眼睛。",
