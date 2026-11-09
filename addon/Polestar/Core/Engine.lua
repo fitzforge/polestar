@@ -4377,8 +4377,9 @@ function Own.matchSteps(old, new)
 end
 
 -- Move guide `id`'s check-offs ("s:g"), skips (s, "s:g"), stored `when`
--- outcomes (s) and saved view to the new step numbers; entries of steps not
--- kept are dropped.
+-- outcomes (s), saved view and held lost quests (CharState().lostQuests) to
+-- the new step numbers; entries of steps not kept are dropped. A pack update
+-- and the Engine's own plan of a guide's steps (Own.withFeeders) both come here.
 function Own.remap(id, map)
 	local s = ns.CharState()
 	local function moved(k)
@@ -4400,6 +4401,23 @@ function Own.remap(id, map)
 	end
 	local p = type(s.pins) == "table" and s.pins[id]
 	if p then s.pins[id] = type(p) == "table" and map[p.step] and { step = map[p.step], done = p.done } or nil end
+	-- A quest held for the player's answer (Own.holdLost) holds the accepts
+	-- before the step the route was on: that step's new number, or, when it
+	-- went, the next kept step's (after the last kept one, past it). Nothing
+	-- kept at all: left as it was.
+	local lost = type(s.lostQuests) == "table" and s.lostQuests[id]
+	if type(lost) == "table" and next(map) ~= nil then
+		for q, upTo in pairs(lost) do
+			local to, last = map[upTo], 0
+			if not to then
+				for k, j in pairs(map) do
+					if k > upTo and (not to or j < to) then to = j end
+					if k < upTo and j > last then last = j end
+				end
+			end
+			lost[q] = to or (last + 1)
+		end
+	end
 end
 
 local function checkShape(g)

@@ -239,10 +239,7 @@ fn saved_tabs_get_their_plan_once_the_quest_log_is_in_with_their_skips_carried_a
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		saved: vec![(
-			"Polestar".to_string(),
-			r#"PolestarCharDB = { schema = 1, tabs = { "test/07" }, activeTab = 1, skipped = { ["test/07"] = { [2] = true } } }"#.to_string(),
-		)],
+		saved: vec![("Polestar".to_string(), r#"PolestarCharDB = { schema = 1, tabs = { "test/07" }, activeTab = 1, skipped = { ["test/07"] = { [2] = true } } }"#.to_string())],
 		script: format!(
 			r#"{TEST_PACK}
 {TEST_SOURCE}
@@ -400,4 +397,82 @@ fn t_1353_the_alliance_wetlands_for_a_0_3_4_character_through_duskwood() {
 	assert!(ids(&out["after"]["requires"]).len() < ids(&out["before"]["requires"]).len());
 	assert_eq!(out["outside"], 0);
 	assert_eq!(out["after"]["empty"], 0);
+}
+
+// A quest held for the player's answer (it left the log after the route had passed its accept, #1365) is
+// stored with the step the route was on. The plan rebuilding the guide's steps moves that number along with
+// the saved ticks: steps put in before it shift it, and the held accept stays held, its giver the arrow's.
+const LOST_SAVED: &str = r#"PolestarCharDB = { schema = 1, tabs = { "test/07" }, activeTab = 1, lostQuests = { ["test/07"] = { [25] = 3 } } }"#;
+
+fn run_lost(saved: Option<&str>, before: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.onQuest(6442, {{ 0 }})\n{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+FUR = {{ {NEAR} }}
+{GUIDES}
+E = Polestar.Engine
+function flush() stub.advance(0.25) end
+function lost()
+	local q = E.LostQuestion()
+	local wp = E.GetWaypoint()
+	local held = PolestarCharDB.lostQuests and PolestarCharDB.lostQuests["test/07"]
+	return {{ q = q or false, upTo = held and held[25] or false, arrow = wp and {{ x = wp.x, y = wp.y }} or false,
+		step = held and held[25] and E.GetStepView(held[25]).title or false }}
+end
+stub.login(); flush()
+{script}"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_lost_quest_held_before_the_plan_keeps_its_step_and_the_arrow_on_its_giver() {
+	// Saved last session against the guide as written (Senani Thunderheart, step 3); the plan puts the
+	// furbolg chain first and the hunt after Splintertree Post, so Senani is step 7 now.
+	let out = run_lost(
+		Some(LOST_SAVED),
+		"",
+		r#"stub.fire("QUEST_LOG_UPDATE"); flush()
+emit(lost())"#,
+	);
+	assert_eq!(out["q"], 25);
+	assert_eq!(out["upTo"], 7);
+	assert_eq!(out["step"], "Senani Thunderheart");
+	assert_eq!(out["arrow"], json!({ "x": 73, "y": 61 }), "the arrow leads to Stonetalon Standstill's giver");
+}
+
+#[test]
+fn a_lost_quest_held_while_a_guide_is_open_follows_the_steps_when_it_is_planned_again() {
+	// Every feeder done but the hunt's, which the plan puts in; Stonetalon Standstill taken, then abandoned
+	// with the route at Senani: held there. Opened again with the hunt done, the hunt's steps go: the held
+	// step moves back with Senani.
+	let out = run_lost(
+		None,
+		"w.complete({ 216 })\nw.onQuest(25, { 0 })\n",
+		r#"Polestar.Set("behavior.autoAccept", false)
+stub.fire("QUEST_LOG_UPDATE"); flush()
+E.SetGuide("test/07"); flush()
+local senani
+for i = 1, E.GetStepCount() do if E.GetStepView(i).title == "Senani Thunderheart" then senani = i end end
+stub.world.turnIn(6382); stub.world.complete({ 6383 }); stub.fire("QUEST_LOG_UPDATE"); flush()
+local live = E.GetLiveStep()
+stub.world.abandon(25); flush()
+local first = lost()
+E.SetGuide("test/04"); flush(); E.SetGuide("test/07"); flush()
+emit({ senani = senani, live = live, first = first, again = lost(), steps = E.GetStepCount() })"#,
+	);
+	assert_eq!(out["live"], out["senani"], "the route is at Senani when Stonetalon Standstill leaves the log");
+	assert_eq!(out["first"]["upTo"], out["senani"]);
+	assert_eq!(out["steps"], 5, "the hunt's steps went");
+	assert_eq!(out["again"]["upTo"], 3);
+	assert_eq!(out["again"]["step"], "Senani Thunderheart");
+	assert_eq!(out["again"]["q"], 25);
+	assert_eq!(out["again"]["arrow"], json!({ "x": 73, "y": 61 }));
 }
