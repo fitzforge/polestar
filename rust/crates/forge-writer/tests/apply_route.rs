@@ -342,7 +342,9 @@ fn zone_move_gets_a_goto_and_item_accept_follows_item() {
 		..Case::default()
 	};
 	let text = run(&c, None).text("a");
-	assert!(m(&text, r#"step The Barrens\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "The Barrens""#));
+	// (Labelled with where it leads, the step it leads to, never just the zone's name, #1450.)
+	assert!(m(&text, r#"step To Two\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "To Two""#), "{text}");
+	assert!(!m(&text, r"step The Barrens\n"), "{text}");
 	assert!(m(&text, r"collect 50\n {2}accept 3"));
 }
 
