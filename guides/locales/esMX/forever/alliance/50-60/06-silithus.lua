@@ -407,8 +407,8 @@ return {
 	-- Step 94: Scholomance (optional)
 	-- {area:2057} Scholomance
 	["{area:2057} (optional)"] = "{area:2057} (opcional)",
-	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {area:28} Western Plaguelands · {area:2279} Stratholme
-	["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, sureste de {area:28}) o {area:2279} en vez de farmear te lleva allí más rápido en grupo. Omite este paso para farmear solo.",
+	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {area:2279} Stratholme
+	["Running {area:2057} ({area:2298}, south-east {zone:1422}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "",
 	-- {area:2057} Scholomance · {quest:5505} The Key to Scholomance · {area:3197} Chillwind Camp
 	["{area:2057} fits levels 58 to 60; {quest:5505} is handed in at {area:3197} below."] = "{area:2057} es para niveles 58 a 60; {quest:5505} se entrega en {area:3197}, más abajo.",
 
@@ -446,6 +446,7 @@ return {
 	-- ["Ride north out of {area:415} into {zone:1448} to the druids' camp on the road just past the border."] = "Cabalga al norte desde {area:415} hacia {zone:1448} hasta el campamento de los druidas en el camino, justo pasada la frontera.",
 	-- ["Ride south to {area:2250}. Protect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "Cabalga al sur hasta {area:2250}. Protege a {npc:10300} mientras enciende las antorchas camino de {object:177404}.",
 	-- ["Ride west along the crater's northern wall to the pass in the north-west corner that climbs into {zone:1451}."] = "Cabalga al oeste junto a la pared norte del cráter hasta el paso de la esquina noroeste que sube a {zone:1451}.",
+	-- ["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, sureste de {area:28}) o {area:2279} en vez de farmear te lleva allí más rápido en grupo. Omite este paso para farmear solo.",
 	-- ["Shaman training"] = "Entrenamiento de chamán",
 	-- ["Take the boat from {area:442} to {area:702}."] = "Toma el barco de {area:442} a {area:702}.",
 	-- ["Take the flight path in {area:2361} and fly to {area:442}."] = "Toma la ruta de vuelo en {area:2361} y vuela a {area:442}.",

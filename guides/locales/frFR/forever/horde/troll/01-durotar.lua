@@ -273,54 +273,46 @@ return {
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
 	["The {object:58595} stands in {area:817}, among the cultists you just fought."] = "La {object:58595} se trouve dans {area:817}, parmi les sectateurs que vous venez de combattre.",
 
-	-- Step 67: Into Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Into {zone:1454}"] = "Vers {zone:1454}",
-
-	-- Step 69: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:7464} Glyphs of Summoning
-	["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Retournez voir {npc:5875} dans {object:172960}. Utilisez les {item:7464} sur le cercle d'invocation et vainquez le marcheur du Vide pour le lier.",
-
-	-- Step 72: Razor Hill
+	-- Step 68: Razor Hill
 	-- {area:362} Razor Hill
 	["Back to {area:362}."] = "Retournez à {area:362}.",
 
-	-- Step 73: Razor Hill
+	-- Step 69: Razor Hill
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142} : {npc:275666}, un géant des mers élite",
 
-	-- Step 74: Aggor the Young
+	-- Step 70: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
 	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, un jeune géant des mers, arpente la côte nord de {zone:1411}, au nord de la plage des nagas. {npc:275666} est élite : il est conseillé de se grouper.",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, de retour à {area:362}",
 
-	-- Step 75: Armored Scorpid
+	-- Step 71: Armored Scorpid
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "Les Scorpides blindés rampent dans les plaines à l'ouest de {area:362}. Apprivoisez-en un, puis retournez voir {npc:3171}.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171} : {npc:3352}, à {zone:1454}, enseigne {spell:5149}",
 
-	-- Step 76: Far Watch Post
+	-- Step 72: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
-	-- Step 77: Thunder lizards on the way north
+	-- Step 73: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
 
-	-- Step 79: Ormak Grimshot
+	-- Step 75: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
-	-- Step 80: Hanashi
+	-- Step 76: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Tant que vous y êtes : apprenez les Bâtons auprès de {npc:2704} ({object:172958}, 10 pièces d'argent) ; l'arme de mêlée d'un chasseur compte surtout pour ses caractéristiques, et les armes à deux mains en apportent le plus.",
 
-	-- Step 81: To Orgrimmar
+	-- Step 77: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -328,14 +320,20 @@ return {
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
+	-- Step 78: The Binding
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Retournez à l'est jusqu'au rivage au nord de {npc:275657}. Les Eclaireurs et les Domestiques fouette-bile tiennent la plage sous {area:370}. Chasseurs : apprivoisez un {npc:3107} sur la plage.",
 	-- ["Back south to {area:362}."] = "Retournez au sud jusqu'à {area:362}.",
+	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Retournez voir {npc:5875} dans {object:172960}. Utilisez les {item:7464} sur le cercle d'invocation et vainquez le marcheur du Vide pour le lier.",
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:362} jusqu'à la grande porte d'{zone:1454}, juste à l'ouest de {area:817}. {npc:3352} se tient avec les maîtres des chasseurs dans {object:172958}.",
 	-- ["Follow the road west from {area:362} over the {area:814} bridge; {area:379} sits just above it on the {area:17} side."] = "Suivez la route vers l'ouest depuis {area:362} par le pont de {area:814} ; {area:379} se trouve juste au-dessus, côté {area:17}.",
 	-- ["Follow the road west from {area:362} over the {area:814} bridge; {npc:5810} stands at {area:379}, just above it on the {area:17} side."] = "Suivez la route vers l'ouest depuis {area:362} par le pont de {area:814} ; {npc:5810} se tient au {area:379}, juste au-dessus, côté {area:17}.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "Dirigez-vous vers le sud à travers les îles. Les idoles de Loa sont éparpillées sur toutes les îles du sud ; les Trolls vaudous et les Trolls maléficiés les gardent et lâchent les Pendentifs maléficiés. {quest:826} et la cage de Minshina se trouvent sur l'île la plus au sud.\nRevenez à gué vers l'ouest jusqu'au rivage au sud de Sen'jin. Des Tigres de Durotar y rôdent et les œufs de Fouette-queue reposent dans des nids le long de la plage.",
 	-- ["Hearth to {area:362}"] = "Pierre de foyer vers {area:362}",
+	-- ["Into {zone:1454}"] = "Vers {zone:1454}",
 	-- ["Makrura and surf crawlers line the beaches north-east of Sen'jin.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "Makruras et clampants de l'écume bordent les plages au nord-est de Sen'jin.\nLes boîtes à outils gnomes se trouvent dans les épaves le long du rivage, à l'est et au sud-est de {area:362}. Suivez le rivage vers le sud jusqu'à Sen'jin.",
 	-- ["On the way"] = "En chemin",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Les Lézards-tonnerre et les Foudroyants paissent sur {area:369}, de l'autre côté du pont ; chacun d'eux peut laisser tomber une {item:6486}.",

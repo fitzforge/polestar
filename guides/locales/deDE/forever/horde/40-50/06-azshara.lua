@@ -62,155 +62,166 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 
-	-- Step 22: Ride into Azshara
+	-- Step 21: Zilzibin Drumlore
+	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris · {zone:1447} Azshara
+	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "",
+
+	-- Step 22: Dran Droffers
+	["The Droffers' shop is a few steps further into the Drag."] = "",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "{npc:6986}, die Gasse",
+
+	-- Step 24: Ride into Azshara
 	-- {zone:1447} Azshara
 	["Ride into {zone:1447}"] = "Reite nach {zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Reite auf der Straße vom Splintertreeposten aus nach Osten. {npc:11548} wartet am {area:1235} gleich neben der Straße, ein paar Schritte westlich der {area:3137} der Allianz: Komm von Westen und halte dich von den Azshara-Schildwachen und Jarrodenus (Elite) fern.",
 
-	-- Step 23: Haldarr Encampment: kill these as you meet them
+	-- Step 25: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
 	["{area:1236}: kill these as you meet them"] = "",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Die Geister der Hochgeborenen spuken in den Ruinen gleich nördlich des Schreins; die Satyrn der Haldarr lagern etwas weiter nördlich.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 24: Level 50
+	-- Step 26: Level 50
 	["Level 50"] = "",
 	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
 	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
-	-- Step 25: Loh'atu
+	-- Step 27: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
 	["Back to {npc:11548} at the shrine; stay west of the {area:3137} guards."] = "Zurück zu {npc:11548} am Schrein; bleib westlich der Wachen an der {area:3137}.",
 
-	-- Step 26: Valormok
+	-- Step 28: Valormok
 	-- {area:1237} Valormok
 	["Follow the road north to {area:1237}, the Horde camp."] = "Folge der Straße nach Norden nach {area:1237}, dem Lager der Horde.",
 	-- {npc:8395} Sanath Lim-yo
 	["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, am Ostrand des Lagers: keine Erfahrung, nur ein Teleport zum Azsharaturm",
 
-	-- Step 28: Undamaged Hippogryph Feathers
+	-- Step 30: Undamaged Hippogryph Feathers
 	-- plural, as words: Undamaged Hippogryph Feathers = {item:10450} Undamaged Hippogryph Feather
 	["Undamaged Hippogryph Feathers"] = "Unbeschädigte Hippogryphenfedern",
 	-- {area:1237} Valormok
 	-- plural, as words: Thunderhead Hippogryphs = {npc:6375} Thunderhead Hippogryph
 	["The Thunderhead Hippogryphs fly over the hills just south of {area:1237}."] = "Die Donnerkopfhippogryphen fliegen über die Hügel gleich südlich von {area:1237}.",
 
-	-- Step 30: Kim'jael
+	-- Step 32: Kim'jael
 	-- {area:1227} Bay of Storms
 	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "Reite nach Nordosten zum Lager des Goblins auf den Klippen über dem Gebiet {area:1227}.",
 
-	-- Step 31: Thalassian Base Camp
+	-- Step 33: Thalassian Base Camp
 	-- {npc:8420} Kim'jael
 	["The blood elves' camp lies just south of {npc:8420}. His four pieces of equipment lie in the crates around the camp."] = "Das Lager der Blutelfen liegt gleich südlich von {npc:8420}. Seine vier Ausrüstungsteile liegen in den Kisten im Lager.",
 
-	-- Step 33: Ruins of Eldarath: kill these as you meet them
+	-- Step 35: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
 	["{area:1221}: kill these as you meet them"] = "",
 	-- {npc:8420} Kim'jael
 	["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "Reite nach Südwesten zu den Ruinen. Die vier Tafeln liegen in den Ruinen, bewacht von Naga der Grollflossen; jede Sirene oder Myrmidone kann die Rune von {npc:8420} tragen.",
 
-	-- Step 34: Kim'jael
+	-- Step 36: Kim'jael
 	-- {npc:8420} Kim'jael
 	["Back north-east to {npc:8420}."] = "Zurück nach Nordosten zu {npc:8420}.",
 
-	-- Step 35: Jediga
+	-- Step 37: Jediga
 	-- {area:1237} Valormok
 	["Ride west back to {area:1237}."] = "Reite nach Westen zurück nach {area:1237}.",
 	-- {npc:4046} Magatha Grimtotem · {npc:8659} Jes'rimon · {npc:6522} Andron Gant · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar · {zone:1458} Undercity
 	["Keep the deliveries for {npc:4046}, {npc:8659} and {npc:6522}: you pass {zone:1456}, {zone:1454} and the {zone:1458} later."] = "Behalte die Lieferungen für {npc:4046}, {npc:8659} und {npc:6522}: Du kommst später durch {zone:1456}, {zone:1454} und {zone:1458}.",
 
-	-- Step 36: Archmage Xylem
+	-- Step 38: Archmage Xylem
 	-- {area:1237} Valormok
 	["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "Der Turm von Xylem steht auf der Klippe gleich nördlich von {area:1237}; der Pfad windet sich an seiner Nordseite hinauf.",
 	["Upstairs"] = "",
 
-	-- Step 38: Fly to Orgrimmar
+	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 39: Orgrimmar
+	-- Step 41: Orgrimmar
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag: if you still carry it"] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
-	-- {npc:6986} Dran Droffers
-	["{npc:6986}, the Drag"] = "{npc:6986}, die Gasse",
 
-	-- Step 40: Orgrimmar
+	-- Step 42: Orgrimmar
 	-- {npc:8659} Jes'rimon · {quest:3504} Betrayed · {area:1237} Valormok
 	["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "Behalte die Bezahlung von {npc:8659} und Ag'tors {quest:3504}: Sie gehen bei einem späteren Besuch zurück nach {area:1237}.",
 
-	-- Step 41: Paladin trainer
+	-- Step 43: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 42: Fly to Thunder Bluff
+	-- Step 44: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Flieg nach {area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 43: Thunder Bluff
+	-- Step 45: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
 	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Flieg nach {zone:1456}; es liegt auf dem Weg nach {area:1099}. Noch keine Flugroute dort? Flieg nach {area:378} und reite nach Westen durch {zone:1412}. Hamuul und {npc:4046} sind im Gebiet {area:1639}; Druiden und Paladine trainieren hier ({npc:3033}, {npc:246344}).",
 
-	-- Step 44: Class trainer
+	-- Step 46: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 45: Thunder Bluff
+	-- Step 47: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil · {npc:4046} Magatha Grimtotem · {npc:8587} Jediga
 	["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761} wird im nächsten Guide gesammelt; {npc:4046}s Bezahlung geht später zurück an {npc:8587}.",
 
-	-- Step 46: Fly to Camp Mojache
+	-- Step 48: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Flieg zum {area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 47: Camp Mojache
+	-- Step 49: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
 	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: Die Bären sind im {zone:1448}",
 
-	-- Step 48: Frayfeather Hippogryphs
+	-- Step 50: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "Fransenfederhippogryphen",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Die Hippogryphen nisten auf den Hügeln südwestlich des Lagers. Töte einen und benutze dann das Muisekgefäß an seiner Leiche.",
 
-	-- Step 50: Sprite Darters
+	-- Step 52: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Grimmlingflitzer",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Die Feendrachen schwirren durch den Wald gleich westlich des Lagers. Benutze das Gefäß an jedem, den du tötest.",
 
-	-- Step 52: Wandering Forest Walkers
+	-- Step 54: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "Wandernde Waldgänger",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "Die Treants wandern auf den Waldwegen zwischen dem Lager und der Mitte von {zone:1444}; es gibt nur wenige, also such entlang der Pfade.",
 
-	-- Step 55: The Forgotten Coast: kill these as you meet them
+	-- Step 57: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "",
 
-	-- Step 57: Back to Camp Mojache
+	-- Step 59: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "Zurück nach {area:1099}",
 
-	-- Step 58: Fly to Gadgetzan
+	-- Step 60: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Flieg nach {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 59: Gadgetzan
+	-- Step 61: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7876} Tran'rek
@@ -218,7 +229,7 @@ return {
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "Der Teer für {npc:7876} und Pestlezuggs Proben stammen aus {zone:1449}.",
 
-	-- Step 60: Marvon Rivetseeker
+	-- Step 62: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Reite auf der Straße nach Süden zur {area:1938}; {npc:7771} lagert daneben. Von hier führt die Straße nach Westen hinab in {zone:1449}, wo der nächste Guide beginnt.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker

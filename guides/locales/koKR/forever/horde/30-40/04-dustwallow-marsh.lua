@@ -83,6 +83,8 @@ return {
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "{item:3853}을(를) 가지고 있을 때만({skill:164} 또는 경매장)",
 
 	-- Step 18: The Theramore Docks
+	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village

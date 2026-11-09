@@ -199,8 +199,12 @@ return {
 	["{area:1099} flight master"] = "",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "для края {zone:1425}, примерно на 48-м уровне",
 

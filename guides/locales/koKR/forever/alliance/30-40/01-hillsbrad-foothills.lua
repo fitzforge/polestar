@@ -15,8 +15,6 @@ return {
 	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "",
 
 	-- Step 4: Angerfang Encampment
-	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "다음 단계인 {quest:474}는 정예 족장과 싸워야 합니다. 건너뛰십시오.",
 	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}: {npc:2104}에게",
 
@@ -285,6 +283,7 @@ return {
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one."] = "Goaz Warder들은 웰가의 야영지 바로 서쪽에 있습니다. 그 중 하나 옆에서 그가 준 {item:279996}을(를) 사용하십시오.",
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp."] = "비밀결사대 야영지는 {area:272}(호드) 서쪽, {area:287} 북부의 알터랙 경계에 있습니다. 문서는 야영지 안에 있습니다.",
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "너덜지느러미멀록이 {area:271} 남서쪽 {area:295}에 몰려 있습니다.",
+	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "다음 단계인 {quest:474}는 정예 족장과 싸워야 합니다. 건너뛰십시오.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "설인은 {area:271} 북쪽 언덕의 동굴에 삽니다. 남쪽으로 돌아가는 길에 있습니다.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "서쪽 {area:287} 농장으로 가십시오. {npc:2335}와(과) 원로들이 있는 마을 회관의 장부 탁자에 {item:279386}을(를) 놓으십시오.",
 	-- ["Whelps, raptors and {npc:271458}"] = "새끼 용, 랩터, {npc:271458}",

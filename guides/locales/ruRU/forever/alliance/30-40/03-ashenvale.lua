@@ -13,10 +13,10 @@ return {
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 2: Red Jack Flint
-	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "",
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "",
 
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "",
+	["{quest:1132}, inside the inn in the north of town"] = "",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -75,6 +75,8 @@ return {
 	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
 
 	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 

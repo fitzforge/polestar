@@ -78,7 +78,7 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "북쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51
@@ -180,6 +180,7 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "분화구 동쪽을 따라 북쪽으로 북쪽 절벽 동굴 속 야영지인 {area:541}까지 가세요. 정예 데빌사우루스와 스테고돈은 멀리 피하세요. 여기서부터 지나가는 마력의 수정과 {object:157936}을(를) 모두 챙기세요.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
+	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "북쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "동쪽 절벽을 따라 남쪽으로, 비탈 아래의 {npc:9619}에게 가세요.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "동쪽을 따라 남쪽으로 내려가세요. {npc:9162}은(는) 동쪽 밀림에서 풀을 뜯고, {npc:9165}은(는) 동쪽 절벽 근처를 납니다. 둘 다 {npc:9998}에게 줄 비늘을 떨어뜨립니다.",
 	-- ["Ride west back to the refuge."] = "서쪽으로 야영지에 돌아가세요.",

@@ -199,8 +199,12 @@ return {
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "飞往 {zone:1454}。德罗弗斯兄弟在暗巷区经营商店。\n先去 {object:172958}，再去 {object:172960} 和 {object:172961}。",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "交给{zone:1425}，大约48级时",
 
@@ -210,6 +214,7 @@ return {
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "飞往{area:484}，乘哨站东边的升降梯下去，穿过盐滩，然后向南进入{zone:1446}。",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "飞往{area:484}，然后向西穿过峡谷经过{area:2237}；道路向上进入{zone:1444}的丛林，一直通往{area:1099}。",
 	-- ["Fly to {area:75}"] = "飞往{area:75}",
+	-- ["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "飞往 {zone:1454}。德罗弗斯兄弟在暗巷区经营商店。\n先去 {object:172958}，再去 {object:172960} 和 {object:172961}。",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "疾风陆行鸟：{npc:265756}，在泽风岛的{area:16638}。",
 	-- ["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",

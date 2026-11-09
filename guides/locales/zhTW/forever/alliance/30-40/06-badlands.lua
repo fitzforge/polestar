@@ -126,46 +126,48 @@ return {
 	["Follow the road south to {area:2407}."] = "沿著道路向南前往{area:2407}。",
 
 	-- Step 28: Kodo Graveyard
-	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}邊緣；{object:176751}散落在骸骨之間。墓地裡有{npc:217590}在爬行：用昆蟲學入門工具包抓一隻，然後勾選完成。",
-	-- {npc:217590} Flesh Picker
-	["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓一隻，用於任務「My Little Friends」",
+	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "",
 
-	-- Step 29: Maraudine centaurs
+	-- Step 29: Flesh Picker
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+
+	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "瑪洛迪半人馬",
 	-- {area:607} Valley of Spears
 	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "瑪洛迪半人馬佔據墓地西邊的{area:607}；每一種都會掉落圖騰。",
 
-	-- Step 30: Melizza Brimbuzzle
+	-- Step 31: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "護送{npc:12277}回到墓地附近",
 
-	-- Step 31: Mannoroc Coven
+	-- Step 32: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
 	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
 
-	-- Step 32: The Valley of Bones
+	-- Step 33: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
 	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "亡靈劫掠者在瑪格拉姆村南邊、瑪諾洛克集會所東邊的白骨原野上遊蕩；在最東南方使用{item:15848}引來瑪格拉姆鬼魂。",
 
-	-- Step 35: Azore Aldamort
+	-- Step 36: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿著道路向西穿過{zone:1443}北部，前往{area:2405}的廢墟。{npc:11863}的塔就在那裡的山丘上，在前往船骸的路上。",
 
-	-- Step 36: Karnitol's Chest
+	-- Step 37: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "失事船隻的箱子就在{npc:11863}的塔西邊不遠的岸上。",
 
-	-- Step 37: Claim Rackmore's Treasure!
+	-- Step 38: Claim Rackmore's Treasure!
 	["Underwater"] = "",
 
-	-- Step 38: Nijel's Point
+	-- Step 39: Nijel's Point
 	-- {area:608} Nijel's Point
 	["Follow the road north to {area:608}."] = "沿著道路向北前往{area:608}。",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -173,13 +175,15 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "給{area:271}的{npc:3980}：保留此任務",
 
-	-- Step 39: Sar'theris Strand: kill these as you meet them
+	-- Step 40: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "",
-	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
-	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一名半人馬首領，在{npc:11863}的塔北邊的西北海岸紮營。",
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	["{item:15766}, on the {object:177673}"] = "",
 
-	-- Step 44: Fly to Theramore
+	-- Step 45: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
 	["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 
@@ -210,8 +214,11 @@ return {
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "{npc:11626}的商隊停在{area:606}東邊的路上。接下任務，跟著科多獸走過{area:602}，擊殺撲向牠們的惡魔；之後到{area:596}東邊的營地與{npc:11596}交談。",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔位於船骸東邊的山丘上。",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277}被關在墓地西邊的半人馬營地。救出她，並在離開途中保護她存活；她會在墓地旁停下。",
+	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}是一名半人馬首領，在{npc:11863}的塔北邊的西北海岸紮營。",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店裡",
+	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}：抓一隻，用於任務「My Little Friends」",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一個測試需要製作的裝備：跳過。",
 	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}紮營。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一個任務{item:6245}是遠處海岸的掉落物：跳過。",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}站在{area:2407}西南方的{area:596}邊緣；{object:176751}散落在骸骨之間。墓地裡有{npc:217590}在爬行：用昆蟲學入門工具包抓一隻，然後勾選完成。",
 }

@@ -13,10 +13,10 @@ return {
 	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
-	-- {npc:4455} Red Jack Flint
-	["{npc:4455} stands on the dock just north of the flight master."] = "{npc:4455} fica no cais, logo ao norte do mestre de voo.",
+	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "Para {quest:1132} nas docas de Theramore, onde o barco deste guia atraca",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "",
 
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}, no último andar",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, on the docks"] = "{quest:1132}, nas docas",
+	["{quest:1132}, inside the inn in the north of town"] = "",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "A próxima tarefa de {npc:4456} vai para {area:415}, fora desta rota: deixe-a.",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -75,6 +75,8 @@ return {
 	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Desça por {area:485} até {zone:1441}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno.",
 
 	-- Step 14: Thousand Needles
+	-- {area:484} Freewind Post
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 
@@ -126,6 +128,7 @@ return {
 	-- ["Dartol's Rod"] = "Bastão de Transformação de Dartol",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Siga a estrada para leste até os acampamentos de sátiros de {area:429}; {npc:3920} se esconde na borda deles.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Siga a estrada para oeste saindo de {area:415}; {area:413} fica ao norte dela.",
+	-- ["For {quest:1132} on Theramore's docks, where this guide's boat lands"] = "Para {quest:1132} nas docas de Theramore, onde o barco deste guia atraca",
 	-- ["From the raceway follow the road south out of the {area:439} into {zone:1446}; {area:976} is a short walk down it. Keep to the road. {npc:7823}, the Alliance flight master, stands inside the walls."] = "Da pista de corrida, siga a estrada para o sul, saindo de {area:439}, até {zone:1446}; {area:976} fica a uma curta caminhada por ela. Fique na estrada. {npc:7823}, o mestre de voo da Aliança, fica dentro das muralhas.",
 	-- ["From {area:608}"] = "De {area:608}",
 	-- ["Geltharis"] = "Geltharis",
@@ -152,7 +155,9 @@ return {
 	-- ["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696} e seus guardas acampam logo a leste de {npc:3897}.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}.",
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: para {npc:1480} em Menethil, no fim deste guia",
+	-- ["{npc:4455} stands on the dock just north of the flight master."] = "{npc:4455} fica no cais, logo ao norte do mestre de voo.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} e {npc:4962} estão todos na estalagem de Menethil; Tapoke luta com você quando você fala com {npc:4963}, mas desiste quando derrotado. {npc:1480} fica a uma curta caminhada a nordeste da estalagem.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
+	-- ["{quest:1132}, on the docks"] = "{quest:1132}, nas docas",
 }

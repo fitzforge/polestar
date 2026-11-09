@@ -55,8 +55,8 @@ return {
 	["Ride south to the giant's hut in the middle of the marsh."] = "남쪽으로 습지 한가운데의 거인 오두막으로 가세요.",
 
 	-- Step 10: The Shady Rest Inn
-	-- {area:17} Barrens
-	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "",
+	-- {zone:1413} Barrens
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -191,10 +191,10 @@ return {
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
-	-- Step 55: The Bloodsail captains
-	["The Bloodsail captains"] = "붉은해적단 선장들",
-	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
-	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "선장들은 {area:43} 앞바다에 정박한 배 위에 있으며, 각자 42-45레벨 해적 선원을 거느립니다. 가까운 갑판에는 스틸워터(45)와 킬하울(46), 기함에는 {npc:2546}(48)이 있습니다. 42레벨이라면 파티로 하거나 가이드 끝에 할 전투입니다. 간다면 갑판마다 먼저 정리하세요. 코르텔로의 두루마리는 물가의 난파선에 있습니다.",
+	-- Step 55: Cortello's scroll
+	["Cortello's scroll"] = "",
+	-- {area:35} Booty Bay
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "나중에 {zone:1435}에 쓸 것",
 
@@ -438,11 +438,13 @@ return {
 	-- ["Skullsplitter ruins"] = "백골가루부족 폐허",
 	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "길을 따라 북쪽의 폐허가 된 오두막으로 가세요. 자를은 그 옆 판잣집에 살고, 흐트러진 흙은 집 모퉁이에 있습니다.",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "{object:28027}에서 {area:2257}을(를) 타세요. {npc:5637}은(는) {object:32356} 옆 개척자 연맹 전당에, {npc:1356}은(는) 전당 안에, {npc:2786}은(는) {object:32383}에 있습니다. 다음 가이드에서 {area:144}(으)로 날아갑니다.",
+	-- ["The Bloodsail captains"] = "붉은해적단 선장들",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "{npc:690}은(는) 광산 서쪽 바위 위에 엎드려 있습니다.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "암흑안개 거미는 습지 북서쪽 거미굴 주변에 둥지를 틀고 있습니다. 거미는 모두 눈알을 떨어뜨립니다.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "{npc:4396}와(과) 뾰족껍질 진흙바위거북은 오두막 북동쪽 물가에서 햇볕을 쬡니다.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "백골가루부족 트롤은 광산 바로 동쪽 폐허를 차지하고 있습니다. 누구든 엄니를 떨어뜨릴 수 있고, 그들의 퓨마는 항상 떨어뜨립니다.",
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에, 발굽 자국은 여관 옆 진흙에 있습니다.",
+	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "선장들은 {area:43} 앞바다에 정박한 배 위에 있으며, 각자 42-45레벨 해적 선원을 거느립니다. 가까운 갑판에는 스틸워터(45)와 킬하울(46), 기함에는 {npc:2546}(48)이 있습니다. 42레벨이라면 파티로 하거나 가이드 끝에 할 전투입니다. 간다면 갑판마다 먼저 정리하세요. 코르텔로의 두루마리는 물가의 난파선에 있습니다.",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "수수께끼의 다음 두루마리는 먼지진흙 습지대 서부에 있습니다. 건너뛰세요.",
 	-- ["for Stoley in {zone:1446}: keep it"] = "{zone:1446}의 스톨리에게 줄 것: 보관하세요",
 	-- ["for the {area:8} later"] = "나중에 {area:8}에 쓸 것",

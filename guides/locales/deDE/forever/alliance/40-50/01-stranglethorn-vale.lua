@@ -55,8 +55,8 @@ return {
 	["Ride south to the giant's hut in the middle of the marsh."] = "Reite nach Süden zur Hütte des Riesen mitten im Sumpf.",
 
 	-- Step 10: The Shady Rest Inn
-	-- {area:17} Barrens
-	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "",
+	-- {zone:1413} Barrens
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -191,10 +191,10 @@ return {
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
-	-- Step 55: The Bloodsail captains
-	["The Bloodsail captains"] = "Die Kapitäne der Blutsegelbukaniere",
-	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
-	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Die Kapitäne stehen auf den Schiffen vor der {area:43}, jeder mit einer Mannschaft aus Piraten der Stufe 42-45: Stillwasser (45) und Kielhol (46) auf den näheren Decks, {npc:2546} (48) auf dem Flaggschiff. Mit 42 ist das ein Kampf für eine Gruppe oder fürs Ende des Guides; säubere jedes Deck vorher, falls du gehst. Cortellos Schriftrolle liegt auf dem Wrack am Ufer.",
+	-- Step 55: Cortello's scroll
+	["Cortello's scroll"] = "",
+	-- {area:35} Booty Bay
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "für die {zone:1435} später",
 
@@ -438,11 +438,13 @@ return {
 	-- ["Skullsplitter ruins"] = "Ruinen der Skullsplitter",
 	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Nimm die Straße nach Norden zum zerstörten Anwesen; Jarl wohnt in der Hütte daneben, und die lockere Erde ist an der Hausecke.",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Nimm die {area:2257} vom {object:28027}. {npc:5637} ist in der Halle der Forscherliga beim {object:32356}, {npc:1356} in der Halle selbst, {npc:2786} im {object:32383}. Der nächste Guide fliegt weiter nach {area:144}.",
+	-- ["The Bloodsail captains"] = "Die Kapitäne der Blutsegelbukaniere",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Die Kaltaugenbasilisken liegen auf den Felsen westlich der Mine.",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "Die Graunebelspinnen nisten um die Höhle im Nordwesten des Sumpfs; jede Spinne lässt Augen fallen.",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "Die Schlammpanzerschildkröten und Dornenschlammpanzer sonnen sich am Ufer nordöstlich des Anwesens.",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "Die Skullsplitter-Trolle halten die Ruinen gleich östlich der Mine; jeder von ihnen kann Hauer fallen lassen, ihre Panther immer.",
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "Das abgebrannte Gasthaus Zur süßen Ruh steht an der Straße nach Westen, Richtung {zone:1413}; die Plakette der Wache liegt in der Asche, und die Hufabdrücke sind im Schlamm neben dem Gasthaus.",
+	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Die Kapitäne stehen auf den Schiffen vor der {area:43}, jeder mit einer Mannschaft aus Piraten der Stufe 42-45: Stillwasser (45) und Kielhol (46) auf den näheren Decks, {npc:2546} (48) auf dem Flaggschiff. Mit 42 ist das ein Kampf für eine Gruppe oder fürs Ende des Guides; säubere jedes Deck vorher, falls du gehst. Cortellos Schriftrolle liegt auf dem Wrack am Ufer.",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "Die nächste Schriftrolle des Rätsels liegt im Westen der Marschen von Dustwallow: Überspring sie.",
 	-- ["for Stoley in {zone:1446}: keep it"] = "für Stoley in {zone:1446}: Behalte es",
 	-- ["for the {area:8} later"] = "für die {area:8} später",

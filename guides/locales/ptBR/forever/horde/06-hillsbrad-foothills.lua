@@ -75,20 +75,20 @@ return {
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
 
-	-- Step 11: Mudsnout Blossoms
-	-- {item:3502} Mudsnout Blossoms
-	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "A sudoeste do Forte do Desterro, as {item:3502} crescem nas encostas acima do rio.",
-
-	-- Step 12: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, depois que {quest:98094} estiver entregue",
+
+	-- Step 12: Mudsnout Blossoms
+	-- {item:3502} Mudsnout Blossoms
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "O pico sul",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, logo ao sul dele: use uma ampola no alto.",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "",
 
 	-- Step 14: The smithy
 	["The smithy"] = "A ferraria",
@@ -198,10 +198,13 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:1638} e treine em {area:1639}, depois siga voando até {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "De {zone:1454} (zepelim das torres fora de {zone:1458}), voe até {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Use a Pedra de Regresso para {area:378} e voe até {area:392}. {quest:874} acampa na praia ao norte de {area:392}.",
+	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
+	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Masoj quer uma Ampola de Boticário colocada em três picos. O do sul é o topo do morro acima de {area:290}, logo ao sul dele: use uma ampola no alto.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Ainda sem Gallywix? O guia de classe Venenos (Horda) refaz a cadeia a partir de Shenthul, com um grupo para Gallywix.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Só se Gallywix caiu nos {zone:1413} (Missão: possível, mas não provável): {npc:2391} fica em {area:272}. Espere ao lado dele enquanto prepara a cura e pegue sua recompensa: Venenos.",
 	-- ["Peasants and skulls"] = "Camponeses e caveiras",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "A sudoeste de Bael Modan, {npc:12576} espera no topo do {area:485}.",
+	-- ["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "A sudoeste do Forte do Desterro, as {item:3502} crescem nas encostas acima do rio.",
 	-- ["Syndicate camps"] = "Acampamentos da Camarilha",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Pegue o zepelim nas torres fora de {zone:1458} até {zone:1454} e treine antes de seguir voando.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",

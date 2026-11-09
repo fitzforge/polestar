@@ -86,163 +86,169 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 18: Class trainer
+	-- Step 18: Jes'rimon
+	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "",
+	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
+	["{npc:8659}, the {object:172960}"] = "",
+
+	-- Step 19: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 19: Druid trainer
+	-- Step 20: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 20: Fly to Splintertree Post
+	-- Step 21: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 22: Emerald Sanctuary
+	-- Step 23: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "드루이드 야영지는 경계를 막 지나서 있습니다.",
 	-- {npc:11554} Grazle
 	["{npc:11554}, at the south edge of the camp"] = "야영지 남쪽 가장자리의 {npc:11554}",
 
-	-- Step 23: Deadwood Village
+	-- Step 24: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
-	-- Step 24: Emerald Sanctuary
+	-- Step 25: Emerald Sanctuary
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, just west of the camp"] = "야영지 바로 서쪽의 {npc:9529}",
 
-	-- Step 25: Southern Jaedenar
+	-- Step 26: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763} 남부",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
 
-	-- Step 26: A Strange Red Key
+	-- Step 27: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "",
 
-	-- Step 27: Captured Arko'narin
+	-- Step 28: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, below ground"] = "",
 
-	-- Step 29: Rescue From Jaedenar
+	-- Step 30: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
 	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "",
 	-- {npc:11018} Arko'narin
 	["{npc:11018}, below ground"] = "",
 
-	-- Step 30: Jessir Moonbow
+	-- Step 31: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
 
-	-- Step 32: Emerald Sanctuary
+	-- Step 33: Emerald Sanctuary
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
 	["Only with 5 Deadwood Headdress Feathers"] = "마른가지일족 깃털 머리장식 5개가 있을 때만",
 
-	-- Step 33: The Jaedenar moonwell
+	-- Step 34: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763} 달샘",
 	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
 	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 {npc:10922}의 수통을 채우세요.",
 
-	-- Step 34: Rakaiah
+	-- Step 35: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
 	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
 	["Below ground"] = "",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
-	-- Step 36: Bloodvenom Post
+	-- Step 37: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763} 바로 북쪽의 호드 야영지입니다.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: 올빼미야수는 {zone:1452}에 있습니다",
 
-	-- Step 37: Shatter Scar Vale
+	-- Step 38: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "피멍울 초소 동쪽, 혼돈의 불길과 혼돈의 소산물이 돌아다니는 구덩이투성이 골짜기입니다. 각각 두 마리씩 처치한 뒤, 지옥 물 구덩이 세 곳을 모두 걸어서 찾아가세요.",
 	["Southern crater"] = "남쪽 구덩이",
 	["Western crater"] = "서쪽 구덩이",
 	["Northern crater"] = "북쪽 구덩이",
 
-	-- Step 38: Irontree Woods
+	-- Step 39: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "",
 
-	-- Step 39: Irontree Woods
+	-- Step 40: Irontree Woods
 	-- {npc:7101} Warpwood Shredder
 	["grind on {npc:7101}"] = "",
 
-	-- Step 40: Felpaw Village
+	-- Step 41: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "터널 바로 서쪽의 마른가지일족 털보숭이 마을입니다. {npc:9462}(56)이(가) 그들 사이에 서 있습니다. 우호적인 털보숭이 {npc:11557}은(는) 마을 북쪽 끝에 앉아 있습니다.",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "",
 
-	-- Step 41: Nafien
+	-- Step 42: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "길은 맨 북동쪽 {area:1769} 터널 밖의 {npc:15395}에서 끝납니다.",
 
-	-- Step 42: Felpaw Village
+	-- Step 43: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
 	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "",
 
-	-- Step 43: Nafien
+	-- Step 44: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "{zone:1452}을(를) 위해 {quest:8465}을(를) 보관하세요.",
 
-	-- Step 44: Timbermaw Hold
+	-- Step 45: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
 
-	-- Step 45: Emerald Sanctuary
+	-- Step 46: Emerald Sanctuary
 	-- {zone:1448} Felwood
 	["Ride the road south through {zone:1448} to the Sanctuary."] = "길을 따라 남쪽으로 {zone:1448}을(를) 지나 성소로 가세요.",
 
-	-- Step 47: Overlord Ror
+	-- Step 48: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "로르는 {area:1761} 남쪽 끝에 서 있습니다.",
 
-	-- Step 48: Emerald Sanctuary
+	-- Step 49: Emerald Sanctuary
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "성소 서쪽의 {npc:9529}",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "{quest:5158}을(를) 보관하세요: {npc:5901}은(는) {zone:1413}에 있습니다.",
 
-	-- Step 49: Level 54.7
+	-- Step 50: Level 54.7
 	["Level 54.7"] = "",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
-	-- Step 50: The Jadefire moonwell
+	-- Step 51: The Jadefire moonwell
 	["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "남쪽으로 {area:1763}을(를) 지나 비취불꽃의 사티로스가 있는 오염된 달샘으로 돌아가, 그곳에서 {npc:9996}의 작은 병을 채우세요.",
 
-	-- Step 51: Bloodvenom Post
+	-- Step 52: Bloodvenom Post
 	["Ride north up the road again."] = "다시 길을 따라 북쪽으로 가세요.",
 
-	-- Step 52: Winna Hazzard's kitten
+	-- Step 53: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
 	["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
 	["Jadefire moonwell"] = "비취불꽃 달샘",
 
-	-- Step 55: Level 54.87
+	-- Step 56: Level 54.87
 	["Level 54.87"] = "",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",

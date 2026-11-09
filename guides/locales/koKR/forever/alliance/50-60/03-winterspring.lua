@@ -81,6 +81,8 @@ return {
 	["On {npc:10978}, by the inn"] = "{npc:10978}에게, 여관 옆",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
 	["{npc:10978}: {npc:7583} and {npc:10977} come later"] = "{npc:10978}: {npc:7583}와(과) {npc:10977}은(는) 나중에",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 18: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",

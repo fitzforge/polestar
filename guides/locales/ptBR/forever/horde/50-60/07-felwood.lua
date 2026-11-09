@@ -17,9 +17,9 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
-	-- Step 4: Zeppelin to Orgrimmar
-	-- {zone:1458} Undercity · {zone:1454} Orgrimmar
-	["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "De {zone:1458}, pegue o zepelim na torre do lado de fora da cidade para {zone:1454}.",
+	-- Step 4: Vehena
+	-- {object:172961} Valley of Spirits (no name in this language: may be words)
+	["In the {object:172961}."] = "",
 	-- {item:14047} Runecloth
 	["sixty {item:14047}"] = "sessenta {item:14047}",
 

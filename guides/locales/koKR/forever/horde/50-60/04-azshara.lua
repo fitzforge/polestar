@@ -93,8 +93,8 @@ return {
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	-- {object:36126} Royal Quarter
+	["Lady Sylvanas holds the {object:36126}."] = "",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson

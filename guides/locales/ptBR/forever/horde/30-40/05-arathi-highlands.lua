@@ -136,6 +136,8 @@ return {
 	["Back to {area:321}"] = "De volta a {area:321}",
 	-- {area:321} Hammerfall
 	["Back north-east to {area:321}."] = "Volte para o nordeste até {area:321}.",
+	-- {npc:2792} Gor'mul
+	["{npc:2792}, by the gate"] = "",
 
 	-- Step 28: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "Missões Punho de Pedra para um grupo",

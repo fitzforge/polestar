@@ -55,8 +55,8 @@ return {
 	["Ride south to the giant's hut in the middle of the marsh."] = "向南骑行到沼泽中央巨人的小屋。",
 
 	-- Step 10: The Shady Rest Inn
-	-- {area:17} Barrens
-	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "被烧毁的旅店在向西通往{area:17}的道路上；卫兵徽章就在灰烬中。",
+	-- {zone:1413} Barrens
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -191,10 +191,10 @@ return {
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "留给{zone:1446}的斯杜雷；任务在最顶层接取",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 
-	-- Step 55: The Bloodsail captains
-	["The Bloodsail captains"] = "血帆船长",
-	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
-	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "船长们站在停泊于{area:43}外的船上，每艘有42-45级的海盗船员：斯蒂沃特（45）和尼哈鲁（46）在较近的甲板上，{npc:2546}（48）在旗舰上。42级时这需要组队，或留到指南最后；如果要去，先清理每层甲板。科泰罗的卷轴在岸边的沉船上。",
+	-- Step 55: Cortello's scroll
+	["Cortello's scroll"] = "",
+	-- {area:35} Booty Bay
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "之后用于{zone:1435}",
 
@@ -443,11 +443,14 @@ return {
 	-- ["Skullsplitter ruins"] = "劈颅巨魔废墟",
 	-- ["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "沿道路向北前往废弃的庄园；加尔住在旁边的棚屋里，松土就在房子的拐角处。",
 	-- ["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "从{object:28027}乘{area:2257}。{npc:5637}在{object:32356}旁的寻物公司大厅，{npc:1356}在大厅内，{npc:2786}在{object:32383}。下一份指南飞往{area:144}。",
+	-- ["The Bloodsail captains"] = "血帆船长",
 	-- ["The Cold Eye Basilisks lie on the rocks west of the mine."] = "冷眼蜥蜴趴在矿井西边的岩石上。",
 	-- ["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes."] = "黑雾蜘蛛在沼泽西北部的洞穴周围筑巢；每只蜘蛛都会掉落眼睛。",
 	-- ["The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor."] = "泥石海龟和泥石刺壳龟在庄园东北方的岸边晒太阳。",
 	-- ["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do."] = "劈颅巨魔占据矿井东边不远的废墟；任何巨魔都可能掉落獠牙，它们的猎豹必定掉落。",
+	-- ["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes."] = "被烧毁的旅店在向西通往{area:17}的道路上；卫兵徽章就在灰烬中。",
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "烧毁的旅店在向西通往{zone:1413}的路上；卫兵的徽章在灰烬中，蹄印在旅店旁的泥地里。",
+	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "船长们站在停泊于{area:43}外的船上，每艘有42-45级的海盗船员：斯蒂沃特（45）和尼哈鲁（46）在较近的甲板上，{npc:2546}（48）在旗舰上。42级时这需要组队，或留到指南最后；如果要去，先清理每层甲板。科泰罗的卷轴在岸边的沉船上。",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "谜题的下一张卷轴在尘泥沼泽西部：跳过。",
 	-- ["for Stoley in {zone:1446}: keep it"] = "交给{zone:1446}的斯杜雷：留着",
 	-- ["for the {area:8} later"] = "之后用于{area:8}",

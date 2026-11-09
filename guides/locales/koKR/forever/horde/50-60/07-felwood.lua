@@ -17,9 +17,9 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 4: Zeppelin to Orgrimmar
-	-- {zone:1458} Undercity · {zone:1454} Orgrimmar
-	["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "{zone:1458}에서 도시 밖 탑의 비행선을 타고 {zone:1454}(으)로 가세요.",
+	-- Step 4: Vehena
+	-- {object:172961} Valley of Spirits
+	["In the {object:172961}."] = "",
 	-- {item:14047} Runecloth
 	["sixty {item:14047}"] = "",
 

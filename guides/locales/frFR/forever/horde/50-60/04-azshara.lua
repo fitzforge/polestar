@@ -93,8 +93,8 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}, à côté de lui",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {zone:1420}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
+	-- {object:36126} Royal Quarter
+	["Lady Sylvanas holds the {object:36126}."] = "",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
@@ -128,6 +128,7 @@ return {
 	-- ["Open {object:149036} for the {item:10556}"] = "Ouvrez le {object:149036} pour obtenir le {item:10556}",
 	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "Le camp de Rimtori se trouve à l'extrémité est du camp de base. Lisez-y le {object:151286}, puis tuez le magus.",
 	-- ["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {area:85}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
+	-- ["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Prenez le zeppelin à la tour devant {zone:1454} jusqu'à {zone:1420}, puis chevauchez jusqu'à {zone:1458}. Dame Sylvanas règne sur {object:36126}.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La tour des zeppelins se trouve juste au nord-est de la grande porte de {zone:1454} ; prenez le zeppelin pour {zone:1458}.",
 	-- ["Zeppelin to the {zone:1458}"] = "Zeppelin pour {zone:1458}",
 	-- ["Zeppelin tower"] = "Tour des zeppelins",

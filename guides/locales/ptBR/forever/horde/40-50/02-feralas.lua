@@ -199,8 +199,12 @@ return {
 	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172961} Valley of Spirits (no name in this language: may be words)
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Voe para {zone:1454}. Os irmãos Droffers têm a loja deles no Drag.\n{object:172958}, depois {object:172960} e {object:172961}.",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172958} Valley of Honor (no name in this language: may be words)
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "para {zone:1425}, por volta do nível 48",
 
@@ -210,6 +214,7 @@ return {
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "Voe para {area:484}, desça pelo elevador a leste do posto, atravesse as salinas e siga para o sul até {zone:1446}.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Voe para {area:484} e siga para o oeste pelos cânions, passando por {area:2237}; a estrada sobe para a selva de {zone:1444} e segue até {area:1099}.",
 	-- ["Fly to {area:75}"] = "Voe para {area:75}",
+	-- ["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Voe para {zone:1454}. Os irmãos Droffers têm a loja deles no Drag.\n{object:172958}, depois {object:172960} e {object:172961}.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Vagaventos: {npc:265756}, em {area:16638}, na Ilha de Zefras.",
 	-- ["Hearth to {area:1099}"] = "Regresse para {area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Continue para o oeste até a costa. Os Olhabismos e Estalagarras da Areia nas praias deixam cair o sinalizador de socorro do OOX-22/FE em cerca de uma morte a cada quarenta: se cair, use-o para iniciar a missão.",

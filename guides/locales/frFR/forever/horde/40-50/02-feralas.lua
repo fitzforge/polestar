@@ -199,8 +199,12 @@ return {
 	["{area:1099} flight master"] = "Maître de vol de {area:1099}",
 
 	-- Step 47: Orgrimmar
-	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
-	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Volez jusqu'à {zone:1454}. Les frères Droffers tiennent leur boutique dans la Herse.\n{object:172958}, puis {object:172960} et la {object:172961}.",
+	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "pour {zone:1425}, vers le niveau 48",
 
@@ -214,6 +218,7 @@ return {
 	-- ["Fly to {area:75}"] = "Prendre un vol pour {area:75}",
 	-- ["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
 	-- ["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
+	-- ["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "Volez jusqu'à {zone:1454}. Les frères Droffers tiennent leur boutique dans la Herse.\n{object:172958}, puis {object:172960} et la {object:172961}.",
 	-- ["Fly to {zone:1456}"] = "Prendre un vol pour {zone:1456}",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Galestriders : {npc:265756}, à {area:16638} sur l'Île de Zéphras.",
 	-- ["Hearth to {area:1099}"] = "Pierre de foyer vers {area:1099}",
