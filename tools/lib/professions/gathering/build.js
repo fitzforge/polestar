@@ -102,6 +102,20 @@ function worthTrip(ctx, prof, recipe, merged) {
 	});
 }
 
+// The points a band's loop is made of: the zone's common kinds. A kind under a
+// twentieth of the nodes listed (nodeSummary's `rare`: Mulgore's Stunted
+// Silverleaf, a Forever node a few spots carry) never decides where a
+// waypoint goes or what it is called; the band's tip still names it. With
+// fewer than three common points left, every point counts.
+function commonPoints(points) {
+	const up = (p) => (p.up === undefined ? 1 : p.up);
+	const byKind = new Map();
+	for (const p of points) byKind.set(p.name, (byKind.get(p.name) || 0) + up(p));
+	const total = [...byKind.values()].reduce((a, b) => a + b, 0);
+	const common = points.filter((p) => byKind.get(p.name) >= total / 20);
+	return common.length >= 3 ? common : points;
+}
+
 // Plan: a list of { kind: 'learn'|'train'|'recipes'|'band', ... } entries in guide order.
 // A trainer recipe is learned on a rank visit, or on a visit of its own at a
 // band start when its reagent is common there; else it is named in the
@@ -132,7 +146,7 @@ function plan(ctx, prof) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
 			for (const m of merged) {
 				const entry = m.factions.length === 1 ? flightMaster(ctx, m.zone, m.factions[0]) : null;
-				const loop = R.loop(m.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110 });
+				const loop = R.loop(commonPoints(m.points), ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110 });
 				out.push({ kind: 'band', cond: m.cond, zone: m.zone, from, to: stop, band, loop, points: m.points, cont: from !== band.from, soon });
 			}
 			const rank = splits.find((r) => r.learnAt === stop);
@@ -296,4 +310,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, mergePicks, OUT_DIR };
+module.exports = { plan, render, buildAll, mergePicks, commonPoints, OUT_DIR };
