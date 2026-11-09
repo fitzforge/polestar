@@ -153,7 +153,6 @@ L["Hand in %s to them: saves a trip back"] = "就地繳交 %s：省一趟回程"
 L["Hand in %s to them"] = "就地繳交 %s"
 L["Take %s from them: saves a trip back"] = "就地接取 %s：省一趟回程"
 L["Take %s from %s: saves a trip back"] = "向 %2$s 接取 %1$s：省一趟回程"
-L["Requires level %d: %s levels to go"] = "需要等級 %d：還差 %s 級"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 將永久關閉 %s。"

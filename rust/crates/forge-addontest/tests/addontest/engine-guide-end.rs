@@ -228,7 +228,8 @@ fn an_accept_held_back_by_its_level_never_ends_the_guide_with_a_live_step_the_en
 			E.SetGuide("test/lakeshire"); flush(); takeLog()
 			w.accept(80, {}); flush()
 			w.accept(81, {}); flush()
-			local r = { at = E.GetStepIndex(), held = E.GetStepView(2).goals[2].unavailable or false }
+			local v = E.GetStepView(2).goals[2]
+			local r = { at = E.GetStepIndex(), held = v.status == "na" and not v.unavailableText and "level" or false }
 			w.moveTo(1413, 50, 50); stub.advance(1)
 			r.log, r.step = takeLog(), E.GetStepIndex() or false
 			emit(r)"#,

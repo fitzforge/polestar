@@ -164,7 +164,6 @@ L["Hand in %s to them: saves a trip back"] = "Entrega %s ahí: te ahorras regres
 L["Hand in %s to them"] = "Entrega %s ahí"
 L["Take %s from them: saves a trip back"] = "Toma %s ahí: te ahorras regresar"
 L["Take %s from %s: saves a trip back"] = "Toma %s de %s: te ahorras regresar"
-L["Requires level %d: %s levels to go"] = "Requiere nivel %d: faltan %s niveles"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."

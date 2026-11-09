@@ -153,7 +153,6 @@ L["Hand in %s to them: saves a trip back"] = "%s 퀘스트를 그 자리에서 �
 L["Hand in %s to them"] = "%s 퀘스트를 그 자리에서 제출"
 L["Take %s from them: saves a trip back"] = "%s 퀘스트를 그 자리에서 수락: 다시 돌아올 필요가 없습니다"
 L["Take %s from %s: saves a trip back"] = "%s 퀘스트를 %s에게서 수락: 다시 돌아올 필요가 없습니다"
-L["Requires level %d: %s levels to go"] = "레벨 %d 필요: %s레벨 남음"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."

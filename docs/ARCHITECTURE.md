@@ -2198,16 +2198,16 @@ holds at its opening, see "Not yet available"):
   what they chose to pass. (Before this rule, a saved skip on a step with its
   quest in the log was dropped at every load, so a player who had skipped
   ahead with › was sent back to the first such step on every reload.)
-- An accept within `Own.LEVEL_WAIT` (one level, fractional) of its level
-  never passes (`Own.waitsHere`): its step holds, in play and at placement
-  (it can be the start), the accept pending with "Requires level 29: 0.3
-  levels to go", the rest of the step doable (Fitz, 0.3.6: Horde Hillsbrad's
-  Korran at 28.7; #1485's Warlock at Gan'rul). Further off, it passes as
-  below and the route goes on to the next step. Only from the player's
-  quest progress at placement on (`Own.levelFloor`, the anchor): behind it
-  such an accept passes as before, so a reload or an update never moves the
-  player back to it (Horde Ashenvale's King of the Foulweald, 0.3.6
-  upgrade harness).
+- An accept waiting for the character's level is no task in the step view
+  (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
+  pick-ups); the route passes it as below and the level-up brings it back.
+  The goals of its quest further on keep their "Requires level" line.
+- A guide the character opens for the first time (`Own.firstLoad`: never
+  started) takes its last quest progress (`anchorStep`) only from quests it
+  offers: progress on a quest taken in another guide is no sign of where the
+  player is in it (Fitz, 0.3.6: Tincho at 28.7, carrying Dangerous! from
+  the 22-24 Hillsbrad visit, was put past Orgrimmar, training and the
+  Undercity in Hillsbrad 29-32).
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back

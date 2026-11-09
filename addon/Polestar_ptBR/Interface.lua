@@ -153,7 +153,6 @@ L["Hand in %s to them: saves a trip back"] = "Entregar %s ali: poupa uma volta"
 L["Hand in %s to them"] = "Entregar %s ali"
 L["Take %s from them: saves a trip back"] = "Pegar %s ali: poupa uma volta"
 L["Take %s from %s: saves a trip back"] = "Pegar %s com %s: poupa uma volta"
-L["Requires level %d: %s levels to go"] = "Requer nível %d: faltam %s níveis"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."

@@ -2912,38 +2912,9 @@ function Own.goalsDone(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
-		if Own.holds(s, goal) and goalApplies(goal) and Own.waitsHere(goal, s) and not goalDone(s, g, goal) then return false end
+		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
 	end
 	return true
-end
-
--- How far (in levels, fractional) the character is from an accept's level
--- (unavailableFor's "level" mark), or nil without one.
-function Own.levelsToGo(goal)
-	local u = unavailableFor(goal)
-	if not (u and u.reason == "level") then return nil end
-	local need = tonumber(u.accept.minLevel) or 0
-	local max = player.xpMax or 0
-	local now = (player.level or 1) + (max > 0 and (player.xp or 0) / max or 0)
-	return math.max(0, need - now)
-end
-
--- Within this many levels of an accept's level the route waits at its step
--- (the rest of the step stays doable); further off, it moves on to the next
--- step. Fitz, 0.3.6: Horde Hillsbrad's Korran at 28.7 for a level-29 quest.
-Own.LEVEL_WAIT = 1
-
--- Whether goal (of step s) keeps its step open while not done: not marked
--- unavailable, or an accept within Own.LEVEL_WAIT levels of the character at
--- or after the player's progress when the guide was placed (Own.levelFloor:
--- the last quest progress). Behind it the accept passes as before, so a
--- reload or an update never moves the player back to it.
-Own.levelFloor = {}
-function Own.waitsHere(goal, s)
-	if not unavailableFor(goal) then return true end
-	if s and s < (Own.levelFloor[guide.id] or 0) then return false end
-	local left = Own.levelsToGo(goal)
-	return left ~= nil and left < Own.LEVEL_WAIT
 end
 
 local function stepDone(s)
@@ -3020,11 +2991,24 @@ end
 -- in place counts (Own.goalMoved).
 local function anchorStep(added)
 	local steps = guide.steps
+	-- A guide opened for the first time (Own.firstLoad): progress on a quest
+	-- it never offers (taken in another guide) is no sign of where the
+	-- player is in it.
+	local own
+	if Own.firstLoad[guide.id] then
+		own = {}
+		for _, step in ipairs(steps) do
+			for _, goal in ipairs(step.goals) do
+				if goal.t == "accept" and goal.quest then own[goal.quest] = true end
+			end
+		end
+	end
 	for s = #steps, 1, -1 do
 		local step = steps[s]
 		if not step.only then
 			for g, goal in ipairs(step.goals) do
 				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
+					and not (own and goal.quest and not own[goal.quest])
 					and not (added and Own.goalMoved(added, s, goal)) then
 					local done, cur = goalDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
@@ -3220,13 +3204,10 @@ local function place()
 	local addedAll = ns.CharState().added
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
 	local anchor = anchorStep(added)
-	-- An accept a little under its level waits only from the player's progress on.
-	Own.levelFloor[guide.id] = anchor
 	if catchUp then Own.leftOut[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
-	-- An accept close to its level (Own.waitsHere) is open: the route waits there.
 	local function open(s, g, goal)
-		return blocks(goal) and goalApplies(goal) and Own.waitsHere(goal, s) and not goalDone(s, g, goal)
+		return blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal)
 	end
 	local function gated(goal)
 		if goal.t ~= "accept" then return nil end
@@ -3249,7 +3230,7 @@ local function place()
 					if goal.t == "accept" then
 						-- An accept an update added behind the player is no start:
 						-- an update never moves them back (Own.passAdded).
-						doable = doable or ((not gated(goal) or (Own.levelsToGo(goal) and Own.waitsHere(goal, s))) and not (added and Own.goalAdded(added, s, goal)))
+						doable = doable or (not gated(goal) and not (added and Own.goalAdded(added, s, goal)))
 						-- Only a level to reach holds a guide the catch-up could
 						-- pass: a missing prerequisite is often a grey quest it
 						-- left out, which will never come.
@@ -3486,12 +3467,7 @@ local function goalStatus(s, g, goal, stepIsCurrent)
 	if not goalApplies(goal) then return "na" end
 	local done, cur, max, label, kind = goalDone(s, g, goal)
 	if done then return "done", cur, max, label, kind end
-	if Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
-	-- An accept a little under its level (Own.waitsHere): waited for, not passed.
-	if unavailableFor(goal) then
-		if Own.levelsToGo(goal) and Own.waitsHere(goal, s) then return "pending", cur, max, label, kind end
-		return "skipped", cur, max, label, kind
-	end
+	if unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
 	return stepIsCurrent and "active" or "pending", cur, max, label, kind
 end
 
@@ -3627,18 +3603,11 @@ local function titleOfQuest(q, hint)
 end
 
 -- Player-facing explanation of an unavailable mark.
-local function unavailableText(u, waiting)
+local function unavailableText(u)
 	if u.reason == "skipped" then return L["You skipped this quest"] end
 	local a = u.accept
 	if u.reason == "closed" then return L["No longer offered: you took %s"]:format(ns.Quoted(titleOfQuest(u.by, a.preTitles))) end
-	if u.reason == "level" then
-		-- Close to it (the route waits there, Own.waitsHere): how far.
-		local left = waiting and Own.levelsToGo(a)
-		if left and left < Own.LEVEL_WAIT then
-			return L["Requires level %d: %s levels to go"]:format(tonumber(a.minLevel) or 0, string.format("%.1f", math.max(0.1, left)))
-		end
-		return L["Requires level %d"]:format(tonumber(a.minLevel) or 0)
-	end
+	if u.reason == "level" then return L["Requires level %d"]:format(tonumber(a.minLevel) or 0) end
 	if u.reason == "pre" then
 		local pre = u.pre or missingPre(a)
 		if pre then return L["Requires %s first"]:format(ns.Quoted(titleOfQuest(pre, a.preTitles))) end
@@ -3964,8 +3933,11 @@ local function goalView(s, g, goal, stepStatus, group)
 		local n = #pickFor(goal).list
 		alternatives = n > 0 and n - 1 or 0
 	end
-	-- (An accept waited for a little under its level is pending, Own.waitsHere.)
-	local unavail = (status == "skipped" or (status == "pending" and goal.t == "accept")) and unavailableFor(goal) or nil
+	local unavail = status == "skipped" and unavailableFor(goal) or nil
+	-- An accept waiting for the character's level is no task yet (Fitz,
+	-- 0.3.6: no level text on pick-ups): not shown, like a goal for another
+	-- class; the level-up brings it back (Own.clearMarks).
+	if unavail and unavail.reason == "level" and goal.t == "accept" then status, unavail = "na", nil end
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail, kind)
@@ -4001,7 +3973,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
-		unavailableText = unavail and unavailableText(unavail, status == "pending") or nil,
+		unavailableText = unavail and unavailableText(unavail) or nil,
 		-- Left out because the player skipped a quest it needs (directly or
 		-- down the chain): that quest's title (Own.skippedWithTitle).
 		skippedWith = unavail and unavail.reason == "pre" and Own.skippedWithTitle(unavail) or nil,
@@ -4756,6 +4728,19 @@ local function tabIndexOf(id)
 end
 
 -- Guides ever opened in a tab, for the picker's "started" state.
+-- A guide this character opens for the first time (never started): its
+-- placement's last quest progress (anchorStep) counts only quests the guide
+-- offers. Fitz, 0.3.6: Tincho, a Horde Warrior at 28.7 carrying Hillsbrad's
+-- Dangerous! (567) from the 22-24 visit, loaded Hillsbrad 29-32 and was put
+-- at Tarren Mill, past Orgrimmar, training and the Undercity: that quest's
+-- done kills at the Azurelode Mine (step 32) made everything soft before it
+-- look done.
+Own.firstLoad = {}
+function Own.noteFirstLoad(id)
+	local started = ns.CharState().flags.started
+	Own.firstLoad[id] = not (type(started) == "table" and started[id]) or nil
+end
+
 local function markStarted(id)
 	local flags = ns.CharState().flags
 	if type(flags.started) ~= "table" then flags.started = {} end
@@ -6556,6 +6541,7 @@ local function resetLoaded(id, auto)
 	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
+	Own.noteFirstLoad(id)
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabsDirty = true
 end
@@ -7158,6 +7144,7 @@ function Engine.OpenTab(id, activate, auto)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
+	Own.noteFirstLoad(id)
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabs[#tabs + 1] = tab
 	local index = #tabs

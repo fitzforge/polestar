@@ -155,7 +155,6 @@ L["Hand in %s to them: saves a trip back"] = "%s dort abgeben: spart einen Rück
 L["Hand in %s to them"] = "%s dort abgeben"
 L["Take %s from them: saves a trip back"] = "%s dort annehmen: spart einen Rückweg"
 L["Take %s from %s: saves a trip back"] = "%s bei %s annehmen: spart einen Rückweg"
-L["Requires level %d: %s levels to go"] = "Benötigt Stufe %d: noch %s Stufen"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
