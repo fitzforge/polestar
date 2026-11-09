@@ -4897,7 +4897,7 @@
 				"quest": 6541,
 				"goal": "turnin"
 			},
-			"tip": "From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower ride west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.",
+			"tip": "From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.",
 			"note": "Horde final route review (0.3.6 leftovers), detour-from-tip sweep: forever/horde/05-stonetalon-mountains' Kadrak step said 'From Seereth's camp head north-east' to everyone, but Rogues come from Taskmaster Fizzule (7233, Barrens 55.44,5.56), the step right before it, just east of Kadrak (8582, 48.12,5.42).",
 			"source": [
 				{

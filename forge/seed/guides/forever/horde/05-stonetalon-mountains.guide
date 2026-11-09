@@ -77,7 +77,7 @@ step Kadrak
   # The Mor'shan Rampart is in the Barrens (Forever's quest data; AreaTable 1703):
   # on Ashenvale's map the route sent you through the zone crossing past him (#246).
   zone The Barrens
-  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower ride west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
+  tip From Seereth's camp head north-east across the Barrens to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale.
   turnin 6541                         -- Kadrak
 
 step Into Ashenvale

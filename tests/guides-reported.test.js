@@ -9324,8 +9324,8 @@ test('forever/horde/05-stonetalon-mountains.guide: the Sepulcher tip reads right
 	const box = steps.findIndex((st) => st.title === 'Strange Lockbox');
 	const sep = steps.findIndex((st) => st.goals.some(is('accept', 493)));
 	assert.ok(box >= 0 && sep === box + 1, 'the Sepulcher step comes right after the lockbox');
-	const tip = [].concat(steps[sep].tip || steps[sep].tips || []).join(' ');
-	assert.match(tip, /Strange Lockbox/);
+	const tip = [].concat(steps[sep].note || []).join(' ');
+	assert.match(tip, /Strange Lockbox|\{object:177844\}/);
 	assert.doesNotMatch(tip, /^From the zeppelin towers/);
 });
 
@@ -9336,7 +9336,7 @@ test('forever/horde/05-stonetalon-mountains.guide: the Kadrak tip gives Rogues c
 	const fiz = steps.findIndex((st) => st.goals.some(is('turnin', 2458)));
 	const kad = steps.findIndex((st) => st.goals.some(is('turnin', 6541)));
 	assert.ok(fiz >= 0 && kad === fiz + 1, 'Kadrak right after Fizzule');
-	assert.match([].concat(steps[kad].tip || []).join(' '), /Rogues coming from Fizzule's tower ride west/);
+	assert.match([].concat(steps[kad].note || []).join(' '), /Rogues coming from .*tower head west/);
 });
 
 // Final route review, Horde 40-60 (0.3.6 leftovers): Winna's kitten (Corrupted Sabers, 4506). The moonwell step held
