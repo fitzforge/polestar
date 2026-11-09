@@ -19,6 +19,7 @@ section: players
   - Dun Morogh's level range reads 1-14, where the route really leaves it.
   - Trek to Ashenvale is taken in Auberdine at 21 and handed to Raene at 23 (it was held back until 28, after Volcor's escort, which it doesn't need).
   - Auberdine: if Sentinel Selarin isn't beside Terenthis, the step says she respawns shortly (thanks to the #1089 reporter).
+  - Darkshore: a Night Elf without Washed Ashore now does it in Auberdine first, so the Beached Sea Turtles offer their quests (thanks frostyends).
   - Steps the arrow pointed slightly wrong: Old Murk-Eye by the lighthouse, the murloc gills along the whole Westfall
     coast, Aamelia Windfield's farmhouse and the cultist ears at Vayn's camp on Zephras Isle.
   - Group quests you choose to do in Elwynn, on Zephras Isle and in Redridge (Gath'Ilzogg, Incinerator Gar'im), and

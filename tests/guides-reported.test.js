@@ -8091,3 +8091,18 @@ test(`${WESTFALL}: doctor-house's report (#1429): no "Go to Stormwind City" afte
 	assert.notEqual(next.goal.t, 'goto', `the step after the training is the errands, not a goto: ${next.step.title}`);
 	for (const { step, goal } of list) if (goal.t === 'goto' && goal.map === 1453 && step.only && step.only.classes && step.only.classes.join() === 'SHAMAN' && /Stormwind City/.test(goal.text || '') && goal.x < 70) assert.ok(goal.y < 15, `the Shaman's tram return ends at the tram (${goal.x},${goal.y})`);
 });
+
+// frostyends (#1442): a level-17 Night Elf Hunter on 03-darkshore could not take the Beached Sea Turtle (4727): the
+// turtles offer their quests only once Washed Ashore (4681) is handed in (players' recordings: 30 of 32 accepts by
+// characters with 4681 done, no recorded offer without it). 03-darkshore had Gwennyth's two quests for every race but
+// Night Elves, who get them in Teldrassil and their own Darkshore guide; a Night Elf without them (a skipped step, or
+// the guide loaded fresh) was sent to a turtle that offers nothing. Now everyone without them takes them in Auberdine,
+// beside the steps that need them; a Night Elf who has them passes the goals as done.
+test(`${DARKSHORE}: frostyends's report (#1442): Washed Ashore is on the Auberdine stop for every race before the Beached Sea Turtles`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	for (const [t, q] of [['accept', 3524], ['turnin', 3524], ['accept', 4681], ['turnin', 4681]]) {
+		const { step, goal } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(![step.only, goal.only].some((o) => o && o.races && !o.races.includes('NightElf')), `${t} ${q} applies to Night Elves too`);
+	}
+	for (const q of [4727, 4725]) assert.ok(at(list, 'turnin 4681', is('turnin', 4681)) < at(list, `accept ${q}`, is('accept', q)), `Washed Ashore is handed in before ${q}`);
+});

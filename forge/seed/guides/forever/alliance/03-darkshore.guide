@@ -129,7 +129,7 @@ step Auberdine
   accept 98025 only Dwarf,Gnome,Human,Skyborne -- The WANTED poster outside the inn
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   getfp "Auberdine"
-  accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
+  accept 3524                                 -- Gwennyth Bly'Leggonde (Night Elves have it from Teldrassil)
   accept 1138                                 -- Gubber Blump, on the pier
 
 step Gubber Blump
@@ -142,21 +142,21 @@ step Gubber Blump
 
 step The beach
   tip Tide Crawlers scuttle along the shore below the village; Buzzbox 827 stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The Beached Sea Creature lies on the shore just south of the village.
-  collect 12242 quest 3524 only Dwarf,Gnome,Human,Skyborne -- Sea Creature Bones
+  collect 12242 quest 3524                    -- Sea Creature Bones
   collect 12238 quest 1141 optional @36.1,44.9 -- Darkshore Grouper: fish from the pier
   collect 5385 quest 983 @35.6,47.1           -- Crawler Legs
   turnin 983                                  -- Buzzbox 827
   accept 1001
 
 step Auberdine
-  turnin 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
-  accept 4681 only Dwarf,Gnome,Human,Skyborne
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681                                 -- Washed Ashore: the Beached Sea Turtles up the coast offer their quests only once it is handed in
   turnin 1141 optional                        -- Gubber Blump
   sethome "Auberdine"
 
 step The skeletal turtle
-  collect 12289 quest 4681 only Dwarf,Gnome,Human,Skyborne -- Sea Turtle Remains, on the beach west of the docks; underwater
-  turnin 4681 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
+  collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater
+  turnin 4681                                 -- Gwennyth Bly'Leggonde
 
 step Plagued bears
   tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
