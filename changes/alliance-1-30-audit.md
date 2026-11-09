@@ -14,5 +14,5 @@ section: players
     to Moonglade.
   - Steps the arrow pointed slightly wrong: Old Murk-Eye by the lighthouse, the murloc gills along the whole Westfall
     coast, Aamelia Windfield's farmhouse and the cultist ears at Vayn's camp on Zephras Isle.
-  - Group quests you choose to do in Elwynn and on Zephras Isle, and the optional Goaz Warders and Gol'Bolar
-    smith's steps, now wait for you instead of being skipped at once.
+  - Group quests you choose to do in Elwynn, on Zephras Isle and in Redridge (Gath'Ilzogg, Incinerator Gar'im), and
+    the optional Goaz Warders and Gol'Bolar smith's steps, now lead you there instead of being skipped at once.

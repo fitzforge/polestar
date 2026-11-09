@@ -7997,11 +7997,24 @@ test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist
 // Whelgar's hand-in (the elite keystone behind `when group`, the hand-in once complete), and the Gol'Bolar smith's
 // hand-in (12 Copper Bars: gated on the quest being complete); Elwynn's and Zephras Isle's `when group` steps.
 test('#1415: no quest- or group-gated step in the Alliance 1-30 guides is made only of optional goals', { skip }, () => {
-	for (const guide of [WETLANDS, ...DUN_MOROGHS, ELWYNN, ZEPHRAS_ALLIANCE]) {
+	for (const guide of [WETLANDS, ...DUN_MOROGHS, ELWYNN, ZEPHRAS_ALLIANCE, REDRIDGE]) {
 		for (const s of fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').split(/\n(?=step )/)) {
 			if (!/^\s+when (onquest|complete|group) \d+$/m.test(s)) continue;
 			const g = s.split('\n').filter((l) => /^\s+(accept|turnin|collect|kill|interact|complete|talk|use)\b/.test(l));
 			assert.ok(!g.length || g.some((l) => !/\boptional\b/.test(l)), `${guide}: ${s.split('\n')[0]} has a goal that holds it`);
 		}
+	}
+});
+
+// Redridge's elite Wanted posters (169, 95999): their steps were all-optional and ungated, so the route passed them at
+// once and nobody was led to Gar'im's cave or the keep (players' recordings: 14-15 people handed each in, most at
+// 22-23). Now the player opts in with "Do it with a group" and the step holds until the head and the staff are in.
+test(`${REDRIDGE}: #1415: Gath'Ilzogg and Incinerator Gar'im are steps the player opts into, not steps passed at once`, { skip }, () => {
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, REDRIDGE), 'utf8').split(/\n(?=step )/);
+	for (const [q, item] of [[169, 3633], [95999, 271872]]) {
+		const s = text.find((t) => new RegExp(`collect ${item} quest ${q}\\b`).test(t));
+		assert.ok(s, `the ${item} step is there`);
+		assert.match(s, new RegExp(`^\\s+when group ${q}$`, 'm'), `${q}'s step waits for the player's choice`);
+		assert.ok(!new RegExp(`collect ${item} quest ${q} optional`).test(s), `${q}'s collect holds the step`);
 	}
 });
