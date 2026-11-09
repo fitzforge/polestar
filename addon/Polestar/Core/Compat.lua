@@ -182,6 +182,12 @@ function Compat.GetMoney()
 	return readable(GetMoney and GetMoney()) or 0
 end
 
+-- Whether the open merchant repairs (false with no merchant window, or a
+-- client without the call).
+function Compat.CanMerchantRepair()
+	return readable(CanMerchantRepair and CanMerchantRepair()) and true or false
+end
+
 function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
