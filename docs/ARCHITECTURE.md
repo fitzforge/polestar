@@ -1842,11 +1842,20 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   version of the chain, whose own the data does not list (the paladin
   charger's Emphasis on Sacrifice names the Human's Lord Grayson
   Shadowbreaker, not the Dwarf's). So does one the guide does not turn in
-  for the character that the player holds, unless they skipped it: another
-  giver's version of a breadcrumb the guide takes elsewhere, handed in at
-  the same NPC (a Tauren Shaman's Call of Water from Thunder Bluff where the
-  Barrens takes Orgrimmar's: Islen's next part stays open, not "Requires
-  Call of Water first", #1372). A child quest's `accept` (`parent`: Valik,
+  for the character that the player holds, unless they skipped it, when a
+  step of the guide for the character stands at an NPC or object the Codex
+  says takes it in (or the Codex cannot say): another giver's version of a
+  breadcrumb the guide takes elsewhere, handed in at the same NPC (a Tauren
+  Shaman's Call of Water from Thunder Bluff where the Barrens takes
+  Orgrimmar's: Islen's next part stays open, not "Requires Call of Water
+  first", #1372). A held prerequisite the route never takes the player to
+  hand in marks its follow-up "Hand in X to <ender> first" (a Night Elf in
+  Darkshore holding Washed Ashore, whose steps there are for the other
+  races), and so does one still in the log whose hand-in step the player
+  skipped ("Requires X first" stays for a quest not in the log, or one
+  skipped with Skip this quest); the catch-up plan (below) may put a cheap
+  local hand-in of it in,
+  and never leaves such a follow-up out. A child quest's `accept` (`parent`: Valik,
   offered only while Infiltration is in the log, #1661) is closed for good
   the same way once its parent is handed in (reason `"closed"`, "Only
   before <parent> is handed in"), and marked `"pre"` ("Only with <parent>
