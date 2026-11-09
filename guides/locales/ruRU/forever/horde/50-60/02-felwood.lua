@@ -245,9 +245,9 @@ return {
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "Котенок {npc:9996}",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Отнесите котенка к тому же лунному колодцу и выпустите его там с помощью предмета {item:12565}; когда он превратится в монстра {npc:10042}, приведите его к {npc:9996} и щелкните по нему, чтобы передать.",
 	-- {item:12565} Winna's Kitten Carrier
-	["{item:12565}, at the Jadefire moonwell"] = "",
+	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, у лунного колодца Нефритового Пламени",
 
 	-- Step 55: Level 54.87
 	["Level 54.87"] = "",

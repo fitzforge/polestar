@@ -121,17 +121,17 @@ return {
 
 	-- Step 24: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:1537} Ironforge · {zone:1426} Dun Morogh · {area:144} Thelsamar
-	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "",
+	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "你在{zone:1426}时已经开通了{area:1537}的飞行路线：向北返回{area:144}的狮鹫处，比穿过隧道再横穿{zone:1426}要快。",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
 	-- Step 25: Into Dun Morogh
 	-- {zone:1426} Dun Morogh
 	["Into {zone:1426}"] = "进入{zone:1426}",
 	-- {zone:1455} Ironforge · {area:144} Thelsamar
-	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "",
+	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "穿过南门隧道，沿路向西前往{zone:1455}。已经开通{zone:1455}的飞行路线了？那就从{area:144}直接飞过去：进城后这两个路径点会自动跳过。",
 
 	-- Step 26: Into Ironforge
 	-- {zone:1455} Ironforge

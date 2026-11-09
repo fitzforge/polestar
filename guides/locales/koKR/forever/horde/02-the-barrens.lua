@@ -282,7 +282,7 @@ return {
 	["Raptor nests"] = "랩터 둥지",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "",
+	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "{area:392}에서 남서쪽으로 평원을 가로질러 {area:1697}(으)로 가세요. 둥지 세 개는 오아시스 남서쪽에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다. 둥지마다 {item:5165}이(가) 필요합니다. 열대초원랩터를 처치해(대부분 하나씩 떨어뜨립니다) 세 개를 모은 뒤, 각 둥지에서 깃털을 사용하세요.",
 
 	-- Step 71: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -652,7 +652,7 @@ return {
 
 	-- Step 162: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
-	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "",
+	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: {zone:1413} & 돌발톱 산맥 가이드 마지막에 {area:392} 비행 조련사 옆의 {npc:3442}에게",
 
 	-- Step 163: Malaka'jin
 	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin

@@ -121,17 +121,17 @@ return {
 
 	-- Step 24: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:1537} Ironforge · {zone:1426} Dun Morogh · {area:144} Thelsamar
-	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "",
+	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "{zone:1426}에서 {area:1537} 비행 경로를 이미 알고 있습니다: 북쪽의 {area:144} 그리폰으로 돌아가세요. 터널을 지나 {zone:1426}을(를) 가로질러 걷는 것보다 빠릅니다.",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 25: Into Dun Morogh
 	-- {zone:1426} Dun Morogh
 	["Into {zone:1426}"] = "",
 	-- {zone:1455} Ironforge · {area:144} Thelsamar
-	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "",
+	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "남쪽 관문 터널을 지나 길을 따라 서쪽으로 {zone:1455}까지 가세요. {zone:1455} 비행 경로를 이미 알고 있나요? 대신 {area:144}에서 비행하세요: 도시에 들어서면 이 두 경유지는 사라집니다.",
 
 	-- Step 26: Into Ironforge
 	-- {zone:1455} Ironforge

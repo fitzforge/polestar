@@ -194,9 +194,9 @@ return {
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "히포그리프는 야영지 남서쪽 언덕에 둥지를 틉니다. 하나를 처치한 뒤 시체에 뮤세크 단지를 사용하세요.",
 
 	-- Step 51: Hippogryph nests
-	["Hippogryph nests"] = "",
+	["Hippogryph nests"] = "히포그리프 둥지",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
-	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "히포그리프 둥지는 남쪽 언덕, {area:2522} 주변에 있습니다. 둥지마다 {object:142071}에 넣을 알이 하나씩 있습니다.",
 
 	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
@@ -234,7 +234,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "와이번 조련사 옆의 {npc:7876}",
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}, in the middle of town"] = "",
+	["The {object:142071}, in the middle of town"] = "마을 한가운데의 {object:142071}",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}의 타르와 페슬저그의 표본은 {zone:1449}에서 구합니다.",
 

@@ -175,7 +175,7 @@ return {
 
 	-- Step 27: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
-	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "",
+	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "길을 따라 도시 쪽 서쪽으로 가세요. 샤일라는 화살표 위치에서 남서쪽으로 약 38,54의 굽은 길까지 이 구간을 오갑니다. 화살표 위치에 없으면 길을 따라 남서쪽으로 가세요. 모든 나무옹이일족 펄볼그가 송곳니를 떨어뜨립니다. 이 길의 복병, 지하굴과 {area:261}의 펄볼그 모두 해당됩니다.",
 
 	-- Step 28: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
@@ -240,7 +240,7 @@ return {
 
 	-- Step 38: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
-	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "",
+	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "{area:186}에서 길을 따라 서쪽으로, 숲으로 가는 북쪽 갈림길 전입니다. 샤일라는 화살표 위치에서 남서쪽으로 약 38,54의 굽은 길까지 길을 오갑니다.",
 
 	-- Step 39: The Wellspring River
 	-- {area:265} Wellspring River

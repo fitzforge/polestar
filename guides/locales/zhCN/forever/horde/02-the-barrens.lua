@@ -282,7 +282,7 @@ return {
 	["Raptor nests"] = "迅猛龙巢穴",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "",
+	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "从{area:392}向西南穿过平原，到达{area:1697}：三个巢穴聚在绿洲西南方，由赤鳞镰爪龙看守。每个巢穴需要一根{item:5165}：击杀赤鳞迅猛龙（大多会掉落一根），收集到三根后，在每个巢穴处各使用一根羽毛。",
 
 	-- Step 71: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -652,7 +652,7 @@ return {
 
 	-- Step 162: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
-	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "",
+	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}：交给{area:392}飞行管理员旁的{npc:3442}，在{zone:1413}和石爪山脉指南结尾时交",
 
 	-- Step 163: Malaka'jin
 	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin

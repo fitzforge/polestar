@@ -20,9 +20,9 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "Suivez la route vers le nord-ouest en sortant de Theramore jusqu'à la tour de guet de {area:503}. Des Creuseuses Rochefange parcourent le marais alentour.\n{npc:4967} attend au pied de la tour : une fois que vous avez regardé autour, rendez-lui la quête sur place, pas à Theramore.",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the tower"] = "",
+	["{npc:4967}, at the tower"] = "{npc:4967}, à la tour",
 
 	-- Step 3: Theramore
 	-- {npc:4794} Morgan Stern
@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore
-	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "",
+	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "{npc:4966} tient la tour avec quelques déserteurs. Il se retourne contre vous : battez-le jusqu'à ce qu'il se rende.\nAttention : Hendel a deux gardes qui se joignent au combat quand il devient hostile. Les gardes s'enfuient dès qu'il se rend.\n{npc:4967} et {npc:4968} attendent à côté de la tour : une fois qu'il s'est rendu, rendez les quêtes aux deux sur place.",
 
 	-- Step 7: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
@@ -57,7 +57,7 @@ return {
 
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
-	["Follow the road east back to Theramore. The officers are in {area:514}."] = "",
+	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Suivez la route vers l'est pour revenir à Theramore. Les officiers sont à {area:514}.",
 	["On the top floor"] = "Au dernier étage",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "{npc:4948}, au dernier étage",

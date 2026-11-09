@@ -121,17 +121,17 @@ return {
 
 	-- Step 24: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:1537} Ironforge · {zone:1426} Dun Morogh · {area:144} Thelsamar
-	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "",
+	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "Точка полета {area:1537} у вас уже есть ({zone:1426}): вернитесь на север к грифонам ({area:144}) – так быстрее, чем идти через туннель и по землям {zone:1426}.",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 
 	-- Step 25: Into Dun Morogh
 	-- {zone:1426} Dun Morogh
 	["Into {zone:1426}"] = "",
 	-- {zone:1455} Ironforge · {area:144} Thelsamar
-	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "",
+	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "Через туннель Южных врат и на запад по дороге в {zone:1455}. Точка полета {zone:1455} уже открыта? Тогда летите из места {area:144}: эти две путевые точки исчезнут, как только вы окажетесь в городе.",
 
 	-- Step 26: Into Ironforge
 	-- {zone:1455} Ironforge

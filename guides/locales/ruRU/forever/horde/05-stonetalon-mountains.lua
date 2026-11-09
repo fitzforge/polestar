@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "От лагеря Сирета идите на северо-восток через зону {zone:1413} к дороге к северу от Перекрестка; разбойники, идущие от башни Физзула, идут к ней на запад. {npc:8582} стоит на сторожевой башне ({area:1703}), где дорога входит в зону {zone:1440}.",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -124,7 +124,7 @@ return {
 
 	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "По дороге через Серебряный бор: {area:228}. От башен дирижаблей – на юг через Тирисфальские леса; от предмета {object:177790} – на юго-восток от побережья к дороге. {npc:2121} и {npc:1937} стоят у входа в склеп.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill

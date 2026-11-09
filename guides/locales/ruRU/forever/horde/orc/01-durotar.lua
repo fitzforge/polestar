@@ -154,7 +154,7 @@ return {
 	-- {area:368} Echo Isles
 	["{area:368}: kill these as you meet them"] = "",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "Переберитесь вброд на северный остров Эха. Там среди ящеров бродит Матриарх.\nТигры Дуротара бродят по острову, а также по берегу к югу от Сен'джина, а яйца хлыстохвостов лежат в гнездах на островах и вдоль пляжа.",
 
 	-- Step 29: Echo Isles: kill these as you meet them
 	-- {quest:826} Zalazane

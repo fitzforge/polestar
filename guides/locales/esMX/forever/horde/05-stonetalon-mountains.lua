@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "Desde el campamento de Seereth, dirígete al noreste a través de {zone:1413} hasta el camino al norte del Cruce; los pícaros que vienen de la torre de Fizzule van al oeste hasta él. {npc:8582} está en la atalaya de {area:1703}, donde el camino entra en {zone:1440}.",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -124,7 +124,7 @@ return {
 
 	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Baja por el camino a través de Bosque de Argénteos hasta {area:228}: desde las torres de zepelín, al sur a través de Tirisfal; desde {object:177790}, al sureste desde la costa hasta el camino. {npc:2121} y {npc:1937} están junto a la entrada de la cripta.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill

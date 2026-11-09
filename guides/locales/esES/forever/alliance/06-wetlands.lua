@@ -60,13 +60,13 @@ return {
 	-- {npc:2094} James Halloran
 	["{npc:2094}, by the docks"] = "",
 	-- {npc:270844} Sylessa Duskwhisper · {npc:2094} James Halloran
-	["{npc:270844}, beside {npc:2094} by the docks"] = "",
+	["{npc:270844}, beside {npc:2094} by the docks"] = "{npc:270844}, junto a {npc:2094}, en los muelles",
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
 	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "",
 
 	-- Step 14: Nord'el
 	-- {item:279915} Nord'el · {area:150} Menethil Harbor
-	["{item:279915} lies on the shore just south of {area:150}, a short walk past the town's south end. Then follow the coast north out of town to the hovels."] = "",
+	["{item:279915} lies on the shore just south of {area:150}, a short walk past the town's south end. Then follow the coast north out of town to the hovels."] = "{item:279915} está en la orilla, justo al sur de {area:150}, a poca distancia del extremo sur del pueblo. Luego sigue la costa hacia el norte, fuera del pueblo, hasta las chozas.",
 
 	-- Step 15: The Bluegill hovels
 	["The Bluegill hovels"] = "Las chozas Branquiazul",
@@ -84,9 +84,9 @@ return {
 	-- {npc:2094} James Halloran · {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist · {npc:1239} First Mate Fitzsimmons
 	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "",
 	-- {npc:270844} Sylessa Duskwhisper
-	["{npc:270844}, beside him"] = "",
+	["{npc:270844}, beside him"] = "{npc:270844}, a su lado",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649} in {area:442}, on this guide's boat trip: keep it"] = "",
+	["For {npc:3649} in {area:442}, on this guide's boat trip: keep it"] = "Para {npc:3649} en {area:442}, en el viaje en barco de esta guía: guárdalo",
 	-- {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist
 	["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: para {npc:2104}, en el castillo",
 	-- {npc:2104} Captain Stoutfist
@@ -191,9 +191,9 @@ return {
 
 	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} stands at the north end of {area:442}, up the road from the dock."] = "",
+	["{npc:3649} stands at the north end of {area:442}, up the road from the dock."] = "{npc:3649} está en el extremo norte de {area:442}, subiendo por el camino desde el muelle.",
 	-- {item:279915} Nord'el · {npc:270844} Sylessa Duskwhisper · {area:150} Menethil Harbor
-	["{item:279915}, from {npc:270844} in {area:150}"] = "",
+	["{item:279915}, from {npc:270844} in {area:150}"] = "{item:279915}, de {npc:270844} en {area:150}",
 
 	-- Step 35: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -251,9 +251,9 @@ return {
 
 	-- Step 47: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
-	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "",
+	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "{area:2358}, el puesto de los elfos de la noche en el extremo este del camino: allí está {npc:3848}, y {npc:221269} a unos pasos al este de ella.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
-	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "",
+	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: el rastro de su marido en {area:430}, de vuelta del lago",
 
 	-- Step 48: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
@@ -270,15 +270,15 @@ return {
 	-- Step 50: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ve al norte desde el lago hasta el campamento sátiro de {area:430}, justo al oeste de {area:2358}: allí está el {object:19901}, y a su lado se encuentra la mochila de Kurothel con el {item:281014}.\nCuidado: los pícaros Almizcle Vil de {area:428} suelen ir en sigilo, y en {area:430} hay sátiros lanzadores de hechizos.",
 	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "",
+	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, de la mochila de Kurothel",
 
 	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
-	["{npc:221269}, a few steps east"] = "",
+	["{npc:221269}, a few steps east"] = "{npc:221269}, a unos pasos al este",
 
 	-- Step 52: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
@@ -312,7 +312,7 @@ return {
 
 	-- Step 60: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "",
+	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, un furbolg al que no ha tocado la corrupción, está sentado al sur del camino, bajo {area:421}. Usa antes {item:5462} cerca de él: solo te habla si tienes forma de furbolg.",
 
 	-- Step 61: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg

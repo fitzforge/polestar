@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "급사는 경비병 둘과 함께 {area:314}에서 서쪽으로 고원을 가로질러 약 24,45까지 길을 걸었다가 되돌아옵니다. 그를 만날 때까지 화살표가 서쪽으로 길을 따라갑니다. 길에서 끌어내세요.",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. {npc:2417}은(는) 40레벨 정예입니다. 대부분의 직업은 42레벨에 혼자 처치할 수 있지만, 도움이 필요할 수도 있습니다. 혼자라면 건너뛰세요. 경로에서 사냥으로 경험치를 다시 채우게 됩니다.\n{npc:2417}은(는) 화살표 지점에서 폐허를 지나 북동쪽으로 약 40,47까지 걸었다가 되돌아옵니다. 화살표 지점에 없다면 그의 경로를 따라가세요.",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad

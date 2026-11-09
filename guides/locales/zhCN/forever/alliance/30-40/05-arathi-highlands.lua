@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "被遗忘者信使带着两名卫兵，沿道路从{area:314}向西穿过高地，最远到约24,45处，然后折返：箭头会沿道路向西指引，直到你遇到他。把他们引离道路。",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:2417}是 40 级精英，多数职业到 42 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。\n{npc:2417}会从箭头处向东北穿过废墟，走到约 40,47 处再返回：如果他不在箭头处，请沿他的路线寻找。",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad

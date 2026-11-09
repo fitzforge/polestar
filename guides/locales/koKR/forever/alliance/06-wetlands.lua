@@ -60,13 +60,13 @@ return {
 	-- {npc:2094} James Halloran
 	["{npc:2094}, by the docks"] = "",
 	-- {npc:270844} Sylessa Duskwhisper · {npc:2094} James Halloran
-	["{npc:270844}, beside {npc:2094} by the docks"] = "",
+	["{npc:270844}, beside {npc:2094} by the docks"] = "{npc:270844}, 부두 옆 {npc:2094} 곁",
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
 	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "",
 
 	-- Step 14: Nord'el
 	-- {item:279915} Nord'el · {area:150} Menethil Harbor
-	["{item:279915} lies on the shore just south of {area:150}, a short walk past the town's south end. Then follow the coast north out of town to the hovels."] = "",
+	["{item:279915} lies on the shore just south of {area:150}, a short walk past the town's south end. Then follow the coast north out of town to the hovels."] = "{item:279915}은(는) {area:150} 바로 남쪽 해안에 있습니다. 마을 남쪽 끝을 지나 조금만 걸어가면 됩니다. 그런 다음 해안을 따라 북쪽으로 마을을 벗어나 오두막까지 가세요.",
 
 	-- Step 15: The Bluegill hovels
 	["The Bluegill hovels"] = "푸른아가미 오두막",
@@ -84,9 +84,9 @@ return {
 	-- {npc:2094} James Halloran · {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist · {npc:1239} First Mate Fitzsimmons
 	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "",
 	-- {npc:270844} Sylessa Duskwhisper
-	["{npc:270844}, beside him"] = "",
+	["{npc:270844}, beside him"] = "{npc:270844}, 그의 곁",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649} in {area:442}, on this guide's boat trip: keep it"] = "",
+	["For {npc:3649} in {area:442}, on this guide's boat trip: keep it"] = "이 가이드의 배 여행 중 {area:442}의 {npc:3649}에게: 보관하세요",
 	-- {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist
 	["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: 성채 안의 {npc:2104}에게",
 	-- {npc:2104} Captain Stoutfist
@@ -191,9 +191,9 @@ return {
 
 	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} stands at the north end of {area:442}, up the road from the dock."] = "",
+	["{npc:3649} stands at the north end of {area:442}, up the road from the dock."] = "{npc:3649}은(는) 부두에서 길을 따라 올라간 {area:442}의 북쪽 끝에 서 있습니다.",
 	-- {item:279915} Nord'el · {npc:270844} Sylessa Duskwhisper · {area:150} Menethil Harbor
-	["{item:279915}, from {npc:270844} in {area:150}"] = "",
+	["{item:279915}, from {npc:270844} in {area:150}"] = "{item:279915}, {area:150}의 {npc:270844}에게서",
 
 	-- Step 35: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -251,9 +251,9 @@ return {
 
 	-- Step 47: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
-	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "",
+	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "길 동쪽 끝의 나이트 엘프 전초기지 {area:2358}: {npc:3848}이(가) 그곳에 있고, {npc:221269}은(는) 그녀에게서 동쪽으로 몇 걸음 떨어져 있습니다.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
-	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "",
+	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: 호수에서 돌아오는 길에 {area:430}에서 남편의 흔적 찾기",
 
 	-- Step 48: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
@@ -270,15 +270,15 @@ return {
 	-- Step 50: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "호수에서 북쪽으로, {area:2358} 바로 서쪽에 있는 {area:430}의 사티로스 야영지로 가십시오. 그 안에 {object:19901}이(가) 있고, 그 옆에 {item:281014}이(가) 든 쿠로텔의 배낭이 있습니다.\n주의: {area:428}의 펠머스크 도적은 은신해 있는 경우가 많고, {area:430}에는 사티로스 주문시전자가 있습니다.",
 	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "",
+	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, 쿠로델의 배낭에서",
 
 	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
-	["{npc:221269}, a few steps east"] = "",
+	["{npc:221269}, a few steps east"] = "{npc:221269}, 동쪽으로 몇 걸음",
 
 	-- Step 52: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
@@ -312,7 +312,7 @@ return {
 
 	-- Step 60: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "",
+	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "타락하지 않은 펄볼그 {npc:3897}은(는) {area:421} 아래 길 남쪽에 앉아 있습니다. 먼저 그의 근처에서 {item:5462}을(를) 사용하세요. 그는 펄볼그 모습일 때만 말을 겁니다.",
 
 	-- Step 61: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg

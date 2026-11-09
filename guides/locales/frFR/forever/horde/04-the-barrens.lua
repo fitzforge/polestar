@@ -139,7 +139,7 @@ return {
 	-- Step 24: The flying machine
 	["The flying machine"] = "La machine volante",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "La machine volante des nains repose sur sa plateforme dans le site de fouilles. Utilisez dessus le {item:5021} que {npc:3341} vous a donné.",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -176,9 +176,9 @@ return {
 
 	-- Step 35: Sputtervalve
 	-- {npc:3442} Sputtervalve
-	["{npc:3442} stands beside the flight master you land at."] = "",
+	["{npc:3442} stands beside the flight master you land at."] = "{npc:3442} se tient à côté du maître de vol où vous atterrissez.",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
-	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "{npc:3442} : {quest:1094}, de la part de {npc:4201}",
 
 	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet

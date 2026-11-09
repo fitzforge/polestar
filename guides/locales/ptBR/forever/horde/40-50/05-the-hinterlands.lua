@@ -49,7 +49,7 @@ return {
 
 	-- Step 10: The Overlook Cliffs: kill these as you meet them
 	-- {npc:7977} Gammerita · {area:307} The Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:7977} é elite de nível 48: a maioria das classes encara sozinha no nível 50, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:7977} anda pela costa abaixo dos {area:307}, da seta para o sul até mais ou menos 75,66 e para o norte até mais ou menos 82,52: se ela não estiver na seta, siga a costa.",
 
 	-- Step 11: Rin'ji's Secret
 	-- {area:307} The Overlook Cliffs

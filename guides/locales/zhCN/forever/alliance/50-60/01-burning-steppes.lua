@@ -79,7 +79,7 @@ return {
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
-	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "游到{zone:1447}南端外的小岛。如果{npc:8392}不在那里，就发射你的{item:10444}向他发出信号，然后等他降落。",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -111,7 +111,7 @@ return {
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:7977}（48 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。\n{npc:7977}在{area:307}下方的{zone:1425}海岸巡游，从箭头处向南约到75,66，向北约到82,52：如果她不在箭头处，就沿海岸寻找。",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore

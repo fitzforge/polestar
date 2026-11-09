@@ -194,9 +194,9 @@ return {
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Гиппогрифы гнездятся на холмах к юго-западу от лагеря. Убейте одного, затем используйте сосуд для уменьшенных гиппогрифов на его теле.",
 
 	-- Step 51: Hippogryph nests
-	["Hippogryph nests"] = "",
+	["Hippogryph nests"] = "Гнезда гиппогрифов",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
-	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "Гнезда гиппогрифов — на холмах к югу, вокруг места {area:2522}; в каждом лежит яйцо для устройства {object:142071}.",
 
 	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
@@ -234,7 +234,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, рядом с распорядителем ветрокрылов",
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}, in the middle of town"] = "",
+	["The {object:142071}, in the middle of town"] = "{object:142071}, в центре города",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "Смола ({npc:7876}) и образцы Пестычинса — из зоны {zone:1449}.",
 

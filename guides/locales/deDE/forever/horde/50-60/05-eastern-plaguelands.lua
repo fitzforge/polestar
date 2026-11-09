@@ -56,9 +56,9 @@ return {
 	-- Step 10: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "",
+	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Reite von der Lodge auf der Straße nach Süden zu {area:2264}. {item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.\nVorsicht: Unsichtbare Diener rufen im Umkreis von 25 Metern um Hilfe, sobald sie auf 40 % Gesundheit fallen. Außerhalb des Kampfes werden sie außerdem mit {spell:10228} unsichtbar. Wenn innerhalb des Orts um Hilfe gerufen wird, können sich sehr viele Gegner dem Kampf anschließen. Am Ortsrand zu kämpfen senkt dieses Risiko.\nMit {quest:5211} in deinem Questlog (von {npc:11063} am Ende des Un'Goro-Guides) hinterlässt die Geißel rund um den Ort Geister von Darrowehr: Sprich jeden an, um ihn zu befreien. Befreie sie, bevor du mit {item:15447} anfängst.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "",
+	["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowehr: Sprich mit ihnen",
 
 	-- Step 11: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
@@ -80,9 +80,9 @@ return {
 
 	-- Step 17: Orgrimmar
 	-- {npc:10880} Warcaller Gorlach · {object:172982} Valley of Strength
-	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "",
+	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880} läuft durch das {object:172982} und die angrenzenden Straßen: Halte auf dem Weg zum Turm des Flugmeisters nach ihm Ausschau; der Kreis auf der Karte ist sein Laufweg.",
 	-- {npc:10880} Warcaller Gorlach · {npc:7776} Talo Thornhoof · {quest:7492} Camp Mojache
-	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "",
+	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: für {npc:7776} im {quest:7492}, am Ende dieses Guides",
 
 	-- Step 18: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
@@ -176,7 +176,7 @@ return {
 
 	-- Step 40: Ruins of Isildien
 	-- {quest:2741} The Super Egg-O-Matic · {area:1099} Camp Mojache · {zone:1444} Feralas
-	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "",
+	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "Nur wenn du {quest:2741} noch dabeihast: Reite vom {area:1099} nach Süden; die Hippogryphennester sind im Süden von {zone:1444}, jedes enthält ein Ei für den Eiomaten.",
 
 	-- Step 41: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

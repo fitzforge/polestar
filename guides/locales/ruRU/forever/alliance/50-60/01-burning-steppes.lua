@@ -79,7 +79,7 @@ return {
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
-	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Доплывите до островка у южной оконечности зоны {zone:1447}. Если NPC {npc:8392} там нет, подайте ему сигнал из предмета {item:10444} и дождитесь, пока он приземлится.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -111,7 +111,7 @@ return {
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Это элитные противники: лучше собрать группу, поищите, с кем пойти. {npc:7977} (элитный, 48-й уровень) требует группы из 2 человек. Если вы один, пропустите это: маршрут возместит опыт за счет охоты на монстров.\n{npc:7977} ходит по берегу зоны {zone:1425} под утесами ({area:307}), от стрелки на юг примерно до 75,66 и на север примерно до 82,52: если ее нет у стрелки, идите вдоль берега.",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore

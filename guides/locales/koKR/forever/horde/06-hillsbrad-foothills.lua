@@ -68,7 +68,7 @@ return {
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠를 열려면 열쇠가 필요합니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 이들을 처치한 뒤 자물쇠 두 개를 모두 여세요.\n{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적과 비밀결사대 경비병이 있습니다.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "드럴의 족쇄",

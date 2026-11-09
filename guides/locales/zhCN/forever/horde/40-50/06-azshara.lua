@@ -194,9 +194,9 @@ return {
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "角鹰兽在营地西南的山丘上筑巢。杀死一只，然后对它的尸体使用灵魂精华容器。",
 
 	-- Step 51: Hippogryph nests
-	["Hippogryph nests"] = "",
+	["Hippogryph nests"] = "角鹰兽巢穴",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
-	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "角鹰兽巢穴位于南边的山丘上，在{area:2522}周围；每个巢穴里都有一枚供{object:142071}使用的蛋。",
 
 	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
@@ -234,7 +234,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}, in the middle of town"] = "",
+	["The {object:142071}, in the middle of town"] = "{object:142071}，在镇子中央",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}要的焦油和匹斯特苏格要的样本都来自{zone:1449}。",
 

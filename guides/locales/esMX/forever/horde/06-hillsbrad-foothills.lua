@@ -68,7 +68,7 @@ return {
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
-	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
+	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull y {npc:2238} están encadenados en los edificios del patio de {area:275}. Sus candados necesitan llaves: {npc:2427} lleva la {item:3467} y {npc:2428}, la {item:3499}, ambos en la fortaleza. Mátalos y luego abre ambos candados.\nDesde {area:272} ve al sureste por las colinas camino a {area:275}. Pícaros y Veladores ocupan los campamentos del camino.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	["Drull's ball and chain"] = "Bola y cadena de Drull",

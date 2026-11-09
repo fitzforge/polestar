@@ -175,7 +175,7 @@ return {
 
 	-- Step 27: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
-	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "",
+	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "Al oeste por el camino hacia la ciudad. Shayla recorre este tramo del camino, desde la flecha al suroeste hasta la curva en torno a 38,54, y vuelta: si no está en la flecha, sigue el camino al suroeste. Todos los fúrbolg Tuercepinos sueltan colmillos: cuentan los emboscadores de este camino, los del túmulo y los de {area:261}.",
 
 	-- Step 28: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
@@ -240,7 +240,7 @@ return {
 
 	-- Step 38: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
-	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "",
+	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "Al oeste por el camino desde {area:186}, antes del desvío al norte hacia el claro: Shayla recorre el camino desde la flecha al suroeste hasta la curva en torno a 38,54, y vuelta.",
 
 	-- Step 39: The Wellspring River
 	-- {area:265} Wellspring River

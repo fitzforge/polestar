@@ -245,9 +245,9 @@ return {
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+	["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 {item:12565}(으)로 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
 	-- {item:12565} Winna's Kitten Carrier
-	["{item:12565}, at the Jadefire moonwell"] = "",
+	["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 
 	-- Step 55: Level 54.87
 	["Level 54.87"] = "",

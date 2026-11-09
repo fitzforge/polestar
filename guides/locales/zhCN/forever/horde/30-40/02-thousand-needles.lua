@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Alliance Relations
 	-- {zone:1454} Orgrimmar · {npc:5639} Craven Drok · {npc:5640} Keldran · {object:172961} Valley of Spirits
-	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} walks the Drag: if he isn't at the arrow, look along its streets to the south-west. {npc:5640} stands in the {object:172961} on the west side of the city."] = "",
+	["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} walks the Drag: if he isn't at the arrow, look along its streets to the south-west. {npc:5640} stands in the {object:172961} on the west side of the city."] = "飞艇停靠在{zone:1454}正门外的高塔。{npc:5639}在暗巷区四处走动：如果他不在箭头处，就沿暗巷区西南方向的街道找找。{npc:5640}位于城西的{object:172961}。",
 	-- {npc:5639} Craven Drok
 	["{npc:5639}: offered from level 30"] = "{npc:5639}：30级起可接",
 	-- {npc:5641} Takata Steelblade · {zone:1443} Desolace

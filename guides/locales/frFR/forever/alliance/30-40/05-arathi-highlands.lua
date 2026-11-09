@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "Le coursier parcourt la route depuis {area:314} vers l'ouest à travers les Hautes-terres, jusqu'à environ 24,45, puis revient, accompagné de deux gardes : la flèche suit la route vers l'ouest jusqu'à ce que vous le croisiez. Attirez-les hors de la route.",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:2417} est un élite de niveau 40 : la plupart des classes le battent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.\n{npc:2417} marche depuis la flèche vers le nord-est à travers les ruines jusqu'à environ 40,47, puis revient : s'il n'est pas à la flèche, suivez son trajet.",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad

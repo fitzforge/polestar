@@ -38,7 +38,7 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Des Géniteurs traquelunes rôdent dans les bois autour du glaive. Le {object:12666} se trouve au fond du cratère ; {npc:3584} se tient sur son flanc nord. Pour la quête de {quest:948}, utilisez la {item:5251} au fond du cratère : elle fait apparaître le {object:10076}, et vous rendez la quête au bassin.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Belles peaux de traquelune",
 	-- {zone:1440} Ashenvale

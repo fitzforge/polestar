@@ -139,7 +139,7 @@ return {
 	-- Step 24: The flying machine
 	["The flying machine"] = "비행 기계",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "",
+	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다. {npc:3341}이(가) 준 {item:5021}을(를) 그 위에 사용하세요.",
 
 	-- Step 26: Great Lift
 	-- {area:1718} Great Lift
@@ -176,9 +176,9 @@ return {
 
 	-- Step 35: Sputtervalve
 	-- {npc:3442} Sputtervalve
-	["{npc:3442} stands beside the flight master you land at."] = "",
+	["{npc:3442} stands beside the flight master you land at."] = "{npc:3442}은(는) 착륙하는 곳의 비행 조련사 옆에 있습니다.",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
-	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "",
+	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "{npc:3442}: {npc:4201}에게서 받은 {quest:1094}",
 
 	-- Step 36: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet

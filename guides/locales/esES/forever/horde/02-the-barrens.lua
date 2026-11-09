@@ -282,7 +282,7 @@ return {
 	["Raptor nests"] = "Nidos de raptores",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "",
+	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Ve al suroeste desde {area:392}, cruzando las llanuras, hasta {area:1697}: los tres nidos están juntos al suroeste del oasis y los Segadores solescama los vigilan. Cada nido necesita una {item:5165}: mata raptores solescama (la mayoría suelta una) hasta tener tres y luego usa una pluma en cada nido.",
 
 	-- Step 71: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -652,7 +652,7 @@ return {
 
 	-- Step 162: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
-	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "",
+	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: para {npc:3442}, junto al maestro de vuelo de {area:392}, al final de la guía de {zone:1413} y Sierra Espolón",
 
 	-- Step 163: Malaka'jin
 	-- {area:1076} Webwinder Path · {npc:12816} Xen'Zilla · {area:2539} Malaka'jin

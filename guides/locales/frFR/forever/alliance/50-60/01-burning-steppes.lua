@@ -79,7 +79,7 @@ return {
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
-	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Nagez jusqu'au petit îlot au large de la pointe sud d'{zone:1447}. Si {npc:8392} n'est pas là, tirez avec votre {item:10444} pour lui faire signe, et attendez qu'il atterrisse.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -111,7 +111,7 @@ return {
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:7977} (élite de niveau 48) demande un groupe de 2. Passez-la si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.\n{npc:7977} arpente le rivage des {zone:1425} au pied des {area:307}, de la flèche jusqu'à environ 75,66 au sud et 82,52 au nord : si elle n'est pas à la flèche, suivez le rivage.",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore

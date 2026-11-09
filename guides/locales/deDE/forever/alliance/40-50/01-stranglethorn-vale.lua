@@ -20,9 +20,9 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "Folge der Straße nach Nordwesten aus Theramore hinaus zum Wachturm bei {area:503}. Schlammpanzereinbuddler streifen durch den Sumpf darum herum.\n{npc:4967} wartet am Fuß des Turms: Sobald du dich umgesehen hast, gib die Quest dort bei ihm ab, nicht in Theramore.",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the tower"] = "",
+	["{npc:4967}, at the tower"] = "{npc:4967}, am Turm",
 
 	-- Step 3: Theramore
 	-- {npc:4794} Morgan Stern
@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore
-	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "",
+	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "{npc:4966} hält den Turm mit ein paar Deserteuren. Er wendet sich gegen dich: Schlag ihn, bis er aufgibt.\nVorsicht: Hendel hat zwei Wachen, die in den Kampf eingreifen, wenn er feindlich wird. Die Wachen fliehen, sobald er sich ergibt.\n{npc:4967} und {npc:4968} warten neben dem Turm: Sobald er aufgibt, gib bei beiden direkt vor Ort ab.",
 
 	-- Step 7: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
@@ -57,7 +57,7 @@ return {
 
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
-	["Follow the road east back to Theramore. The officers are in {area:514}."] = "",
+	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Folge der Straße nach Osten zurück nach Theramore. Die Offiziere sind in {area:514}.",
 	["On the top floor"] = "",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",

@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "Der Kurier geht mit zwei Wachen die Straße von {area:314} nach Westen quer durch das Hochland bis etwa 24,45 und wieder zurück: Der Pfeil folgt der Straße nach Westen, bis du ihn triffst. Lock sie von der Straße weg.",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "Dies sind Elitegegner: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:2417} ist ein Elitegegner der Stufe 40: Die meisten Klassen schaffen ihn auf Stufe 42 allein, aber vielleicht brauchst du Hilfe. Lass ihn aus, wenn du allein bist: Die Route lässt dich die EP wieder hereinholen.\n{npc:2417} geht vom Pfeil aus nach Nordosten durch die Ruinen bis etwa 40,47 und zurück: Wenn er nicht am Pfeil ist, folge seinem Weg.",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad

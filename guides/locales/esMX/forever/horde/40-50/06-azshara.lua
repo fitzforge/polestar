@@ -194,9 +194,9 @@ return {
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Los hipogrifos anidan en las colinas al suroeste del campamento. Mata uno y usa la Vasija de muisek de hipogrifo sobre su cuerpo.",
 
 	-- Step 51: Hippogryph nests
-	["Hippogryph nests"] = "",
+	["Hippogryph nests"] = "Nidos de hipogrifo",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
-	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "",
+	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "Los nidos de hipogrifo están en las colinas al sur, alrededor de {area:2522}; cada uno contiene un huevo para {object:142071}.",
 
 	-- Step 53: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
@@ -234,7 +234,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}, in the middle of town"] = "",
+	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "El alquitrán de {npc:7876} y las muestras de Morterozugg vienen de {zone:1449}.",
 

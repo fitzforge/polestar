@@ -301,7 +301,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "Retour à la {area:2268}",
 	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
-	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "",
+	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Les esprits de {quest:5211} se font lors de l'étape {area:2264} du guide des {zone:1423} : gardez la quête.",
 
 	-- Step 62: Fly to Tarren Mill
 	-- {area:2268} Light's Hope Chapel
@@ -309,7 +309,7 @@ return {
 
 	-- Step 63: To Sorrow Hill
 	-- {area:197} Sorrow Hill
-	["To {area:197}"] = "",
+	["To {area:197}"] = "Vers la {area:197}",
 
 	-- Step 64: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath

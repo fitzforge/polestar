@@ -121,17 +121,17 @@ return {
 
 	-- Step 24: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:1537} Ironforge · {zone:1426} Dun Morogh · {area:144} Thelsamar
-	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "",
+	["You have the {area:1537} flight path from {zone:1426}: back north to {area:144}'s gryphons, quicker than walking through the tunnel and across {zone:1426}."] = "Die Flugroute nach {area:1537} kennst du aus {zone:1426}: zurück nach Norden zu den Greifen von {area:144}, schneller als durch den Tunnel und quer durch {zone:1426} zu laufen.",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 25: Into Dun Morogh
 	-- {zone:1426} Dun Morogh
 	["Into {zone:1426}"] = "",
 	-- {zone:1455} Ironforge · {area:144} Thelsamar
-	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "",
+	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "Durch den Tunnel am Südtor und auf der Straße nach Westen bis {zone:1455}. Kennst du die Flugroute nach {zone:1455} schon? Dann flieg stattdessen ab {area:144}: Diese beiden Wegpunkte entfallen, sobald du in der Stadt bist.",
 
 	-- Step 26: Into Ironforge
 	-- {zone:1455} Ironforge

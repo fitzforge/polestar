@@ -173,7 +173,7 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Überquere die lange Brücke nach Norden in den Ort: {npc:381} an den Docks, {npc:900} im Rathaus, {npc:342} in ihrem Garten am Westende. {npc:382}s Blackrock-Quests und {quest:98386} hast du von deinem ersten Besuch im Rotkammgebirge mitgebracht.",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "Der Steckbrief beim Gasthaus",

@@ -173,7 +173,7 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Перейдите по длинному мосту на север в город: {npc:381} – на пристани, {npc:900} – в ратуше, {npc:342} – в своем огороде в западной части. Задания NPC {npc:382} о клане Черной Горы и задание {quest:98386} остались у вас с первого посещения Красногорья.",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "Плакат «Разыскивается» у таверны",

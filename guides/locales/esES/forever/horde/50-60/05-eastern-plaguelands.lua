@@ -56,9 +56,9 @@ return {
 	-- Step 10: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "",
+	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Ve al sur desde el refugio hasta {area:2264}, por el camino. {item:15447} se echa a perder en diez minutos: mata rápido a la Plaga del pueblo y muele los siete trozos con {item:15454} enseguida.\nCuidado: los sirvientes invisibles piden ayuda en un radio de 25 m cuando bajan al 40 % de salud. Fuera de combate, además, se vuelven invisibles con {spell:10228}. Si piden ayuda dentro del pueblo, puede unirse al combate un gran número de enemigos. Luchar cerca de las afueras reduce este riesgo.\nCon {quest:5211} en tu registro (de {npc:11063}, al final de la guía de Un'Goro), la Plaga alrededor del pueblo deja espíritus de Villa Darrow: habla con cada uno para liberarlo. Libéralos antes de empezar con {item:15447}.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "",
+	["Free Darrowshire Spirits: talk to them"] = "Libera a los espíritus de Villa Darrow: habla con ellos",
 
 	-- Step 11: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
@@ -80,9 +80,9 @@ return {
 
 	-- Step 17: Orgrimmar
 	-- {npc:10880} Warcaller Gorlach · {object:172982} Valley of Strength
-	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "",
+	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880} recorre {object:172982} y las calles que salen de él: búscalo de camino a la torre del maestro de vuelo; el círculo del mapa es su recorrido.",
 	-- {npc:10880} Warcaller Gorlach · {npc:7776} Talo Thornhoof · {quest:7492} Camp Mojache
-	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "",
+	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: para {npc:7776} en {quest:7492}, al final de esta guía",
 
 	-- Step 18: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
@@ -176,7 +176,7 @@ return {
 
 	-- Step 40: Ruins of Isildien
 	-- {quest:2741} The Super Egg-O-Matic · {area:1099} Camp Mojache · {zone:1444} Feralas
-	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "",
+	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "Solo si aún llevas {quest:2741}: cabalga al sur desde {area:1099}; los nidos de hipogrifo están en el sur de {zone:1444}, y cada uno tiene un huevo para el Huevomático.",
 
 	-- Step 41: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

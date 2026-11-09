@@ -56,9 +56,9 @@ return {
 	-- Step 10: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "",
+	["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "오두막에서 길을 따라 남쪽의 {area:2264}(으)로 가세요. {item:15447}은(는) 10분 안에 상합니다. 마을의 스컬지를 빨리 처치하고, 일곱 조각을 바로 {item:15454}(으)로 빻으세요.\n주의: 보이지 않는 하인은 생명력이 40%로 떨어지면 25미터 안의 동료에게 도움을 요청합니다. 전투 중이 아닐 때는 {spell:10228}(으)로 투명해지기도 합니다. 마을 안에서 도움 요청이 일어나면 많은 몹이 전투에 합류할 수 있습니다. 마을 외곽에서 싸우면 이 위험이 줄어듭니다.\n퀘스트 목록에 {quest:5211}이(가) 있으면(운고로 분화구 가이드 끝에서 {npc:11063}에게 받음), 마을 주변의 스컬지가 다로우샤이어 영혼을 남깁니다. 각 영혼에게 말을 걸어 해방하세요. {item:15447} 작업을 시작하기 전에 영혼들을 해방하세요.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Free Darrowshire Spirits: talk to them"] = "",
+	["Free Darrowshire Spirits: talk to them"] = "대로우샤이어 영혼 해방: 말 걸기",
 
 	-- Step 11: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
@@ -80,9 +80,9 @@ return {
 
 	-- Step 17: Orgrimmar
 	-- {npc:10880} Warcaller Gorlach · {object:172982} Valley of Strength
-	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "",
+	["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}은(는) {object:172982}와(과) 그 주변 거리를 돌아다닙니다. 비행 조련사의 탑으로 가는 길에 찾아보세요. 지도의 원이 그의 이동 경로입니다.",
 	-- {npc:10880} Warcaller Gorlach · {npc:7776} Talo Thornhoof · {quest:7492} Camp Mojache
-	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "",
+	["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: 이 가이드 끝의 {quest:7492}에 있는 {npc:7776}에게 전달",
 
 	-- Step 18: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
@@ -176,7 +176,7 @@ return {
 
 	-- Step 40: Ruins of Isildien
 	-- {quest:2741} The Super Egg-O-Matic · {area:1099} Camp Mojache · {zone:1444} Feralas
-	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "",
+	["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "아직 {quest:2741}을(를) 가지고 있을 때만: {area:1099}에서 남쪽으로 가세요. 히포그리프 둥지는 {zone:1444} 남부에 있으며, 둥지마다 에그-오-매틱에 쓸 알이 하나씩 있습니다.",
 
 	-- Step 41: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

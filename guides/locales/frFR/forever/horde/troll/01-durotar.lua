@@ -43,7 +43,7 @@ return {
 
 	-- Step 6: Galgar
 	-- {npc:9796} Galgar
-	["{npc:9796} stands just outside the Den's entrance."] = "",
+	["{npc:9796} stands just outside the Den's entrance."] = "{npc:9796} se tient juste devant l'entrée de l'Antre.",
 
 	-- Step 7: Class trainer
 	["Class trainer"] = "Maître de classe",

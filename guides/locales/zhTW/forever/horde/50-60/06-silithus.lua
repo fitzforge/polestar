@@ -184,7 +184,7 @@ return {
 
 	-- Step 41: Gadgetzan
 	-- {area:976} Gadgetzan · {quest:2741} The Super Egg-O-Matic
-	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "",
+	["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "飛往{area:976}。身上還有{quest:2741}嗎？機器就在鎮中央。",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

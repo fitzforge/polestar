@@ -20,9 +20,9 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "길을 따라 북서쪽으로 테라모어를 나가 {area:503}의 감시탑으로 가세요. 진흙바위 굴파기가 그 주변 습지를 돌아다닙니다.\n{npc:4967}은(는) 탑 아래에서 기다립니다. 주변을 둘러본 뒤 테라모어가 아니라 그곳에서 그에게 퀘스트를 제출하세요.",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the tower"] = "",
+	["{npc:4967}, at the tower"] = "{npc:4967}, 탑에서",
 
 	-- Step 3: Theramore
 	-- {npc:4794} Morgan Stern
@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore
-	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "",
+	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "{npc:4966}은(는) 탈영병 몇 명과 함께 탑을 지키고 있습니다. 그가 당신에게 덤벼드니 굴복할 때까지 때리세요.\n주의: 헨델에게는 경비병 둘이 있어 그가 적대적으로 변하면 전투에 합류합니다. 그가 항복하면 경비병들은 달아납니다.\n{npc:4967}와(과) {npc:4968}은(는) 탑 옆에서 기다립니다. 그가 굴복하면 그 자리에서 두 사람 모두에게 제출하세요.",
 
 	-- Step 7: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
@@ -57,7 +57,7 @@ return {
 
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
-	["Follow the road east back to Theramore. The officers are in {area:514}."] = "",
+	["Follow the road east back to Theramore. The officers are in {area:514}."] = "길을 따라 동쪽으로 테라모어에 돌아가세요. 장교들은 {area:514}에 있습니다.",
 	["On the top floor"] = "",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",

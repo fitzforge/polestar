@@ -20,9 +20,9 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "沿著道路從塞拉摩向西北前往{area:503}的瞭望塔。泥石穴居龜在周圍的沼澤中遊蕩。\n{npc:4967}在塔下等候：四處查看過後，就在那裡把任務交給他，而不是在塞拉摩。",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the tower"] = "",
+	["{npc:4967}, at the tower"] = "{npc:4967}，在塔旁",
 
 	-- Step 3: Theramore
 	-- {npc:4794} Morgan Stern
@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore
-	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "",
+	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.\n{npc:4967} and {npc:4968} wait beside the tower: once he yields, hand in to both on the spot."] = "{npc:4966}和幾個逃兵佔據著塔樓。他會攻擊你：把他打到投降為止。\n小心：亨德爾有兩名衛兵，會在他轉為敵對時加入戰鬥。他投降後衛兵就會逃走。\n{npc:4967}和{npc:4968}在塔旁等候：他投降後，當場向兩人交付任務。",
 
 	-- Step 7: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
@@ -57,7 +57,7 @@ return {
 
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
-	["Follow the road east back to Theramore. The officers are in {area:514}."] = "",
+	["Follow the road east back to Theramore. The officers are in {area:514}."] = "沿著道路向東回到塞拉摩。軍官們都在{area:514}。",
 	["On the top floor"] = "",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",

@@ -16,9 +16,9 @@ return {
 
 	-- Step 4: Everlook's inn
 	-- {area:2255} Everlook
-	["{area:2255}'s inn"] = "",
+	["{area:2255}'s inn"] = "Таверна ({area:2255})",
 	-- {area:144} Thelsamar · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
-	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "",
+	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Ваш камень возвращения не привязан к месту {area:144} (гайд по зоне {zone:1425} привязывает вас там на 47-м уровне, и этот гайд покидает зону {zone:1452} через него): вместо этого привяжитесь здесь ({area:2255}), чтобы возвращаться в город.",
 
 	-- Step 5: Everlook
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
@@ -90,15 +90,15 @@ return {
 
 	-- Step 18: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "В таверну: {area:2101}",
 	-- {area:144} Thelsamar · {area:3197} Chillwind Camp · {area:2255} Everlook
-	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "",
+	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "Ваш камень возвращения все еще привязан к месту {area:144}: оттуда полет на грифоне сюда ({area:3197}) примерно на десять минут быстрее, чем перелет отсюда ({area:2255}) на Терамор и корабль.",
 
 	-- Step 19: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "",
+	["Fly to {area:3197}"] = "Летите сюда: {area:3197}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Распорядитель полетов ({area:144})",
 
 	-- Step 20: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
@@ -114,7 +114,7 @@ return {
 	["{area:150} flight master"] = "",
 
 	-- Step 23: Chillwind Camp
-	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Чистое Сердце, Дума, Доблестный Кулак и Макдоннел стоят в центре лагеря, у распорядителя полетов.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: термиты будут позже, здесь: {area:2627}",
 	-- {npc:10838} Commander Ashlam Valorfist

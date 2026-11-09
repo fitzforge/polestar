@@ -79,7 +79,7 @@ return {
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
-	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Schwimm zur kleinen Insel vor der Südspitze von {zone:1447}. Ist {npc:8392} nicht da, feuere deine {item:10444} ab, um ihm ein Signal zu geben, und warte, bis er landet.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -111,7 +111,7 @@ return {
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Das sind Elitegegner: Gruppenspiel wird empfohlen, such dir Leute dafür. {npc:7977} (Stufe 48, Elite) braucht eine Gruppe von 2. Überspring es, wenn du allein bist: Die Route lässt dich die EP wieder ergrinden.\n{npc:7977} wandert am Ufer des {zone:1425} unterhalb der {area:307} entlang, vom Pfeil nach Süden bis etwa 75,66 und nach Norden bis etwa 82,52: Ist sie nicht beim Pfeil, folge dem Ufer.",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore

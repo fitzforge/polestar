@@ -79,7 +79,7 @@ return {
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
-	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "",
+	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "{zone:1447} 남쪽 끝 앞바다의 작은 섬까지 헤엄쳐 가세요. {npc:8392}이(가) 없다면 {item:10444}을(를) 쏘아 신호를 보낸 뒤 착륙할 때까지 기다리세요.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -111,7 +111,7 @@ return {
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. {npc:7977}(48레벨 정예)은(는) 2인 파티가 필요합니다. 혼자라면 건너뛰세요. 경로에서 사냥으로 경험치를 보충하게 됩니다.\n{npc:7977}은(는) {area:307} 아래 {zone:1425} 해안을 따라 화살표 지점에서 남쪽으로 약 75,66까지, 북쪽으로 약 82,52까지 돌아다닙니다. 화살표 지점에 없다면 해안을 따라가세요.",
 
 	-- Step 32: Fly to Southshore
 	-- {area:271} Southshore

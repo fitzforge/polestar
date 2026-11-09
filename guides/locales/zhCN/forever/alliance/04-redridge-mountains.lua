@@ -173,7 +173,7 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北过长桥进镇：{npc:381}在码头，{npc:900}在镇公所，{npc:342}在镇子西端的花园里。{npc:382}的黑石任务和{quest:98386}，是你第一次来赤脊山时接下并保留的。",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "{npc:900}，在镇公所",
 	["The Wanted poster by the inn"] = "旅店旁的通缉布告",

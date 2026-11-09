@@ -301,7 +301,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	-- {quest:5211} Defenders of Darrowshire · {zone:1423} Eastern Plaguelands · {area:2264} Corin's Crossing
-	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "",
+	["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "{quest:5211}의 영혼은 {zone:1423} 가이드의 {area:2264} 구간에서 모읍니다. 보관하세요.",
 
 	-- Step 62: Fly to Tarren Mill
 	-- {area:2268} Light's Hope Chapel
@@ -309,7 +309,7 @@ return {
 
 	-- Step 63: To Sorrow Hill
 	-- {area:197} Sorrow Hill
-	["To {area:197}"] = "",
+	["To {area:197}"] = "{area:197}(으)로",
 
 	-- Step 64: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath

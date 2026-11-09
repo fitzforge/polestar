@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "",
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads; Rogues coming from Fizzule's tower head west to it. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "Depuis le camp de Seereth, allez vers le nord-est à travers {zone:1413} jusqu'à la route au nord de la Croisée ; les voleurs qui viennent de la tour de Fizzule y vont vers l'ouest. {npc:8582} se tient sur la tour de guet du {area:1703}, là où la route entre en {zone:1440}.",
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
@@ -124,7 +124,7 @@ return {
 
 	-- Step 24: Sepulcher
 	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "",
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Descendez la route à travers la forêt des Pins argentés jusqu'au {area:228} : depuis les tours des zeppelins, vers le sud à travers Tirisfal ; depuis le {object:177790}, vers le sud-est depuis la côte jusqu'à la route. {npc:2121} et {npc:1937} se tiennent près de l'entrée de la crypte.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill

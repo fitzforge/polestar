@@ -15,7 +15,7 @@ return {
 
 	-- Step 3: Boss Tho'grun
 	-- {npc:2944} Boss Tho'grun · {area:342} Camp Boff · {zone:1418} Badlands
-	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "",
+	["{npc:2944} does not stay at {area:342}: he walks a long loop around the {zone:1418} with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him."] = "{npc:2944} bleibt nicht bei {area:342}: Er läuft mit seinen Wachen eine lange Runde durch das {zone:1418}, vom Lager im Westen am Südrand der Zone entlang bis etwa 61,69, nach Norden bis etwa 49,49 und zurück nach Westen zum Lager. Der Pfeil folgt seiner Runde von hier aus nach Westen, bis du ihn triffst.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch

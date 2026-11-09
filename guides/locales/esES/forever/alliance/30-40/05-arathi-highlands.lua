@@ -146,7 +146,7 @@ return {
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
-	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "",
+	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "El mensajero recorre el camino desde {area:314} hacia el oeste a través de las Tierras Altas, hasta aproximadamente 24,45, y vuelve, con dos guardias: la flecha sigue el camino al oeste hasta que lo encuentres. Atráelos fuera del camino.",
 
 	-- Step 36: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
@@ -235,7 +235,7 @@ return {
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "Son enemigos de élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:2417} es un élite de nivel 40: la mayoría de las clases lo derrotan en solitario a nivel 42, pero puede que necesites ayuda. Sáltalo si vas solo: la ruta te hace recuperar esa experiencia matando enemigos.\n{npc:2417} camina desde la flecha al noreste a través de las ruinas hasta aproximadamente 40,47 y vuelve: si no está en la flecha, sigue su recorrido.",
 
 	-- Step 55: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad

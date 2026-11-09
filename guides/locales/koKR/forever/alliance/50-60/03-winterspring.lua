@@ -16,9 +16,9 @@ return {
 
 	-- Step 4: Everlook's inn
 	-- {area:2255} Everlook
-	["{area:2255}'s inn"] = "",
+	["{area:2255}'s inn"] = "{area:2255} 여관",
 	-- {area:144} Thelsamar · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
-	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "",
+	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "귀환석이 {area:144}에 설정되어 있지 않습니다({zone:1425} 가이드는 47레벨에 그곳에 귀환 지점을 정하고, 이 가이드는 그곳을 통해 {zone:1452}을(를) 떠납니다). 대신 마을로 돌아올 때를 위해 {area:2255}에 귀환 지점을 정하세요.",
 
 	-- Step 5: Everlook
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
@@ -90,15 +90,15 @@ return {
 
 	-- Step 18: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "{area:2101}(으)로",
 	-- {area:144} Thelsamar · {area:3197} Chillwind Camp · {area:2255} Everlook
-	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "",
+	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "귀환석이 아직 {area:144}에 설정되어 있습니다. 그곳에서 {area:3197}행 그리폰을 타는 것이 {area:2255}에서 테라모어 섬으로 날아가 배를 타는 것보다 약 10분 빠릅니다.",
 
 	-- Step 19: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "",
+	["Fly to {area:3197}"] = "{area:3197}(으)로 비행",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 20: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
@@ -114,7 +114,7 @@ return {
 	["{area:150} flight master"] = "",
 
 	-- Step 23: Chillwind Camp
-	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "퓨어하트, 두마, 밸러피스트, 맥도넬은 야영지 한가운데, 비행 조련사 옆에 서 있습니다.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: 흰개미는 나중에 {area:2627}에서 모읍니다",
 	-- {npc:10838} Commander Ashlam Valorfist

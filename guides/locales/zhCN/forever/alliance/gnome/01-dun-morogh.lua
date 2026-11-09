@@ -413,7 +413,7 @@ return {
 
 	-- Step 81: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
-	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "",
+	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "沿路向南到{area:144}，途中收齐耳朵、肉和脓液。{npc:1340}沿穿镇道路巡逻。",
 
 	-- Step 82: Golnir Bouldertoe
 	-- {object:32372} Great Forge · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden

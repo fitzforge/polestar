@@ -38,7 +38,7 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다. {quest:948}의 퀘스트는 구덩이 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 나타나며, 퀘스트는 그 그릇에 제출합니다.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "고급 달표범 모피",
 	-- {zone:1440} Ashenvale

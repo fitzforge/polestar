@@ -175,7 +175,7 @@ return {
 
 	-- Step 27: Sentinel Shayla Nightbreeze
 	-- {area:261} Gnarlpine Hold
-	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "",
+	["West along the road toward the city. Shayla walks this stretch of road, from the arrow south-west to the bend at about 38,54 and back: if she isn't at the arrow, follow the road south-west. Every Gnarlpine furbolg drops fangs: the ambushers on this road, the barrow's and {area:261}'s all count."] = "沿路向西朝城市方向走。哨兵莎依拉·夜风在这段路上来回巡逻，从箭头处向西南走到约38,54的弯道再折返：如果她不在箭头处，就沿路向西南寻找。所有瘤背熊怪都会掉落牙齿，这条路上的伏击者、兽穴里的熊怪和{area:261}的熊怪都算。",
 
 	-- Step 28: Darnassus
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
@@ -240,7 +240,7 @@ return {
 
 	-- Step 38: Sentinel Shayla Nightbreeze
 	-- {area:186} Dolanaar
-	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "",
+	["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "从{area:186}沿路向西，在向北转往林地的岔路之前：哨兵莎依拉·夜风在这段路上来回巡逻，从箭头处向西南走到约38,54的弯道再折返。",
 
 	-- Step 39: The Wellspring River
 	-- {area:265} Wellspring River
