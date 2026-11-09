@@ -40,6 +40,9 @@ next forever/alliance/07-thousand-needles
 # hub revisit in the flow audit, over the travel budget), What Comes Around... (386:
 # Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
 # at Dun Modr).
+#
+# Blackfathom Deeps (run in 06-ashenvale): Gershala Nightwhisper takes Researching the Corruption (1275) on
+# the Auberdine stop, beside Terenthis (`when complete`).
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -300,6 +303,12 @@ step Auberdine
   zone Darkshore
   tip Terenthis stands by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
+step Gershala Nightwhisper
+  when complete 1275
+  zone Darkshore
+  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis.
+  turnin 1275                         -- Gershala Nightwhisper
 
 step Fly to Astranaar
   zone Darkshore

@@ -582,6 +582,59 @@
 			"budget": {
 				"flow": "04-the-barrens +0.1 km, hub visits +1 (Mebok on the Ratchet stop); 07-ashenvale +0.2 km (the entrance ~190 yd off the Great Lift road); 30-40/04-dustwallow-marsh +0.2 km (Mebok's hand-in); no avoidable backtracks or hub revisits"
 			}
+		},
+		{
+			"dungeon": "Blackfathom Deeps",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 1275,
+					"after": {
+						"guide": "forever/alliance/03-darkshore-return",
+						"quest": 986,
+						"goal": "turnin"
+					},
+					"note": "Auberdine after the Grove (~21.8); The Corruption Abroad (3765) is only a breadcrumb: players take 1275 without it (recordings: offered to characters with 3765 still in the log)"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/06-ashenvale",
+				"after": {
+					"quest": 1009,
+					"goal": "objective",
+					"note": "Ruuzel, north end of the Zoram Strand (~23.8); the ruins' pit ~420 yd east"
+				},
+				"entrance": {
+					"map": 1440,
+					"x": 14.5,
+					"y": 14.2
+				},
+				"objectives": [
+					1275
+				],
+				"guard": "onquest 1275"
+			},
+			"handins": [
+				{
+					"quest": 1275,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 994,
+						"goal": "turnin"
+					},
+					"note": "Auberdine, beside Terenthis (~28.5); on 06-ashenvale's Auberdine stop the walk to her passed Terenthis with 994 ready (flow audit: passed enders +1)"
+				}
+			],
+			"leftOut": {
+				"971": "Knowledge in the Deeps: Gerrig Bonegrip in Ironforge, the stop after the run; level 23 is 3+ over on 03-loch-modan's Ironforge stop",
+				"1198": "In Search of Thaelrid: Darnassus, off the route",
+				"1199": "Twilight Falls: Darnassus, off the route",
+				"1200": "Blackfathom Villainy: Argent Guard Thaelrid inside, for Darnassus",
+				"1740": "Warlock class chain (class guide)"
+			},
+			"budget": {
+				"flow": "03-darkshore-return +0.1 km; 06-ashenvale +1.0 km, +6.2 min, hub visits +0 (Ruuzel <-> the ruins' pit, the run's own trip); 06-wetlands +0 km (Gershala beside Terenthis); no new passed enders (a hand-in on 06-ashenvale's way to the boat added one: moved)"
+			}
 		}
 	]
 }

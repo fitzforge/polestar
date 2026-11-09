@@ -18,6 +18,11 @@ next forever/alliance/06-ashenvale
 # Glaive, Remtravel's dig, Murkdeep's beach -> the Grove -> Auberdine ->
 # the naga and the Ruins of Mathystra -> back south (Auberdine, the Grove) -> Volcor -> Auberdine
 # (Druids: Cat Form), then Kerlonian's escort south through Darkshore (06-ashenvale).
+#
+# Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose
+# it, Gershala Nightwhisper's Researching the Corruption (1275) is taken on the Auberdine stop after the
+# Grove, at about 22; the run is on the Zoram Strand in forever/alliance/06-ashenvale. The Corruption
+# Abroad (3765, Argos Nightwhisper in Stormwind) only leads to her: players take her quest without it.
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -114,6 +119,12 @@ step Auberdine
   turnin 986                                  -- Terenthis
   accept 993
   vendor nearest optional
+
+step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
+  zone Darkshore
+  tip For your Blackfathom Deeps run, on the Zoram Strand in the next guide: Gershala Nightwhisper stands a short walk west of Terenthis.
+  accept 1275                         -- Gershala Nightwhisper
 
 # ---------------------------------------------------------------- The north coast
 
