@@ -406,15 +406,19 @@ return {
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Aprenda a rota de voo com {npc:3841} onde você pousar. A barraca de peixe de {npc:4200} fica logo ao norte dela, junto ao cais.\nO barco atraca a oeste da vila. O mestre de voo fica no morro ao sul da estalagem; quem dá missões está espalhado pela rua principal.",
 	["The WANTED poster outside the inn"] = "O cartaz de PROCURA-SE em frente à estalagem",
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
 
 	-- Step 68: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "Voe de volta a {area:702} a partir de {npc:3841}, entregue {item:16263} a {npc:10118} no cais, depois voe de volta a {area:442}.",
 
 	-- Step 69: The Long Wash
-	-- {object:17182} Buzzbox 827 · {object:175207} Beached Sea Creature
+	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Maretiscos correm pela praia abaixo da vila; a {object:17182} fica na praia logo ao sul do cais. Manguais da Costa Negra nadam na água rasa. A {object:175207} está na praia logo ao sul da vila.",
+	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
+	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
+	["Crawler Legs: the Tide Crawlers"] = "",
 
 	-- Step 70: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -469,6 +473,7 @@ return {
 	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "O túmulo fica ao sul da estrada. {npc:275744} está presa lá dentro, {npc:7317} dorme nas profundezas, e os quatro baús de relíquias ficam nas salas inferiores.",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "O poço lunar fica ao norte de {area:256}; {npc:8584} está um pouco mais a noroeste. {quest:3522} dura cinco minutos: encha o frasco e vá direto até ele.",
 	-- ["The {area:264}"] = "{area:264}",
+	-- ["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Maretiscos correm pela praia abaixo da vila; a {object:17182} fica na praia logo ao sul do cais. Manguais da Costa Negra nadam na água rasa. A {object:175207} está na praia logo ao sul da vila.",
 	-- ["Use the {item:5623} at the moonwell"] = "Use o {item:5623} no poço lunar",
 	-- ["Walk south along the west side of the island. Ursal prowls the far south, below the {area:478}."] = "Ande para o sul pelo lado oeste da ilha. Ursal, o Espancador, ronda o extremo sul, abaixo de {area:478}.",
 	-- ["Webwood Spiders"] = "Aranhas Lenhateia",

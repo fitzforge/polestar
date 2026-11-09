@@ -15,6 +15,8 @@ section: players
     Astranaar's hand-ins happen on the first visit. A Night Elf Druid without Trial of the Sea Lion is no longer sent
     to Moonglade.
   - Redridge: Alther's Mill's Tarantula Eggs are now a goal beside the spiders (the hand-in waited on them unannounced).
+  - Teldrassil: Night Elves take Buzzbox 827 in Auberdine and finish it on the first beach walk.
+  - Dun Morogh's level range reads 1-14, where the route really leaves it.
   - Steps the arrow pointed slightly wrong: Old Murk-Eye by the lighthouse, the murloc gills along the whole Westfall
     coast, Aamelia Windfield's farmhouse and the cultist ears at Vayn's camp on Zephras Isle.
   - Group quests you choose to do in Elwynn, on Zephras Isle and in Redridge (Gath'Ilzogg, Incinerator Gar'im), and
