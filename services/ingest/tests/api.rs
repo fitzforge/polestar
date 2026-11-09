@@ -204,6 +204,43 @@ async fn registrations_per_ip_per_day() {
 	assert_eq!(challenge(&app, "2001:db8:2::1").await.0, StatusCode::OK);
 }
 
+/// Registers a maintainer's test identity from `ip` (the maintainer key on both requests).
+async fn register_test(app: &App, ip: &str) -> String {
+	let (status, c) = send_json(app, ip, Method::POST, "/v1/register", Some(KEY), Some(json!({}))).await;
+	assert_eq!(status, StatusCode::OK, "{c}");
+	let challenge = c["challenge"].as_str().unwrap();
+	let solution = pow_solve(challenge, c["difficulty"].as_u64().unwrap() as u32);
+	let (status, body) = send_json(app, ip, Method::POST, "/v1/register", Some(KEY), Some(json!({ "challenge": challenge, "solution": solution.to_string() }))).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	body["token"].as_str().unwrap().to_owned()
+}
+
+#[tokio::test]
+async fn the_maintainer_s_test_identities_use_no_network_s_registrations_and_are_never_exported() {
+	let app = app();
+	// More than a network's day of them, and the network's players can still register.
+	let mut tokens = Vec::new();
+	for _ in 0..polestar_ingest::REGISTRATIONS_PER_DAY + 2 {
+		tokens.push(register_test(&app, IP_A).await);
+	}
+	register(&app, IP_A).await;
+	// A wrong key is refused, not taken for a player's registration.
+	let (status, _) = send_json(&app, IP_B, Method::POST, "/v1/register", Some("not-the-key"), Some(json!({}))).await;
+	assert_eq!(status, StatusCode::UNAUTHORIZED);
+	// A test identity's upload is answered as anyone's and counted in its own /v1/me ...
+	let (status, body) = upload(&app, &tokens[0], &[(1, chunk(1, 70532))]).await;
+	assert_eq!((status, body["accepted"].clone()), (StatusCode::OK, json!([1])), "{body}");
+	let (_, me) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&tokens[0]), None).await;
+	assert_eq!(me["chunks"], 1);
+	// ... but never exported, and left out of the public totals.
+	assert!(export(&app, "").await.is_empty());
+	let (_, stats) = send_json(&app, IP_B, Method::GET, "/v1/stats", None, None).await;
+	assert_eq!((stats["contributors"].as_u64(), stats["chunks"].as_u64()), (Some(0), Some(0)), "{stats}");
+	// Its data is deleted as anyone's.
+	let (status, gone) = send_json(&app, IP_A, Method::DELETE, "/v1/me", Some(&tokens[0]), None).await;
+	assert_eq!((status, gone["deleted"].as_u64()), (StatusCode::OK, Some(1)));
+}
+
 #[tokio::test]
 async fn ipv6_registrations_are_also_capped_per_32() {
 	let app = app();
