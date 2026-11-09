@@ -214,7 +214,25 @@ steps the player skipped (step number) and the optional goals they skipped
 live one (Prev/Next/Goto). (Older saves also hold `offers`, the quests a
 giver did not offer; login drops it: no such mark is kept, #741.) All of
 them are keyed by step position: `stepKeys` (a hash per step of its verbs and
-ids) lets a pack update carry them to the steps it kept (see "Placement").
+ids) lets a pack update carry them to the steps it kept (see "Placement"),
+and, for a step it changed, to the step that has the same goal now: the
+changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
+written by `tools/legacy-steps.js` from earlier releases' guides), so a
+check-off goes to the goal with the same verb and quest (or item, landing),
+a skip and the saved view to the step sharing most of its quest goals
+(`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
+guide's shape was saved with.
+An update never moves a player back (#1353 upgrade): when a guide's shape
+came from another version of its pack, `Own.noteAdded` notes what the update
+added (steps none of whose quest goals the old guide had there, goals it did
+not have or had only further on), and the first placement with the quest
+log in passes what of it lies behind the player's place (`Own.passAdded`:
+the first step that holds for content the old guide had), as `gone` steps and
+goals that no longer apply; nothing shows as skipped, and work of a quest the
+player carries that the guide has nowhere later stays. A quest ahead that
+needed something passed is planned again (`Own.replan`, `Own.goneSource`):
+the passed step comes back just before it when it is on the way (the
+catch-up's local rule), else the quest drops out with what follows.
 A saved tab of a leveling guide that kept fewer than half of those steps
 (`Own.reworked`: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`

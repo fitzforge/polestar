@@ -114,7 +114,9 @@ end
 
 -- A step is for this character (`only`) and, with `when`, its predicates
 -- hold (Own.whenHolds: as stored once the route passed the step, else live).
+-- A step an update added behind the player is not (Own.passAdded).
 local function stepApplies(step)
+	if Own.gone(step) then return false end
 	return Guides.Matches(step.only, player) and (step.when == nil or Own.whenHolds(step))
 end
 
@@ -348,7 +350,7 @@ end
 -- quest the character can never take is not theirs either (Own.barred).
 -- (Inline: the main chunk is at Lua's 200 locals.)
 local function goalApplies(goal)
-	if not Guides.Matches(goal.only, player) or Own.barred(goal) then return false end
+	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	if goal.profLine or goal.profName then
 		local C = Compat()
@@ -1055,7 +1057,14 @@ function Own.coming(p, depth)
 	for _, t in ipairs(accepts) do
 		if stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return false end
 	end
-	return #turnins + #accepts > 0 and Own.notMine(p)
+	-- Goals an update passed (Own.passAdded) are no other character's version.
+	local others = false
+	for _, list in ipairs({ turnins, accepts }) do
+		for _, t in ipairs(list) do
+			if not (Own.gone(t.step) or Own.gone(t.goal)) then others = true end
+		end
+	end
+	return others and Own.notMine(p)
 end
 
 -- Whether quest p is closed to the character by faction, race or class in
@@ -1241,6 +1250,77 @@ function Own.feedCost(own, steps)
 	return t
 end
 
+-- Whether goal `goal` of step j of guide g is one an update passed for the
+-- character (CharState().gone, Own.passAdded), by g's own step keys.
+function Own.goneIn(g, j, goal)
+	local all = ns.CharState().gone
+	local mine = type(all) == "table" and all[g.id]
+	if not mine then return false end
+	local e = mine[Own.stepKeys(g)[j]]
+	if e == true then return true end
+	return type(e) == "table" and e[Own.goalId(goal)] == true
+end
+
+-- The steps of guide g an update passed, as a source of feeder steps for the
+-- planner (Own.feederIndex's shape, distance 0, from g itself): every goal of
+-- a quest whose accept it passed, so a quest ahead that needs one gets it back
+-- on the way (Own.feederPlan), or drops out with what follows.
+function Own.goneSource(g, idx)
+	local all = ns.CharState().gone
+	if not (type(all) == "table" and all[g.id]) then return end
+	local passed = {}
+	for j, step in ipairs(g.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "accept" and goal.quest and Own.goneIn(g, j, goal) and Guides.Matches(goal.only, player) then
+				passed[goal.quest] = true
+				-- This guide's own step, on the way, before an earlier guide's.
+				idx.first[goal.quest] = { id = g.id, guide = g.title, title = goal.title, d = 0, s = j, pre = goal.pre, preAll = goal.preAll }
+			end
+		end
+	end
+	for j, step in ipairs(g.steps) do
+		if Guides.Matches(step.only, player) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if q and passed[q] and Guides.Matches(goal.only, player) then
+					local list = idx.goals[q] or {}
+					idx.goals[q] = list
+					list[#list + 1] = { id = g.id, d = 0, s = j, step = step, goal = goal }
+				end
+			end
+		end
+	end
+end
+
+-- Whether a step's quest conditions (`when onquest`, `complete`, `turnedin`,
+-- negated or not) can hold for the character now, for the planner, which
+-- reads guides no tab shows: a step for those who carry a quest (Loch Modan's
+-- hand-in of Expanding Horizons, `when onquest 97914`) is not the route of a
+-- character without it, so it neither brings its quests nor asks for feeders
+-- (#1353 upgrade). Other conditions are taken to hold.
+function Own.whenMayHold(step)
+	local C = Compat()
+	for _, p in ipairs(step.when or NONE) do
+		local qs = type(p.q) == "table" and p.q or (p.q and { p.q }) or NONE
+		local ok
+		if p.k == "onquest" then
+			ok = false
+			for _, q in ipairs(qs) do ok = ok or C.IsOnQuest(q) end
+		elseif p.k == "complete" then
+			ok = false
+			for _, q in ipairs(qs) do ok = ok or (C.IsOnQuest(q) and C.IsQuestReadyForTurnIn(q)) end
+		elseif p.k == "turnedin" then
+			ok = true
+			for _, q in ipairs(qs) do ok = ok and questDone(q) and true end
+		end
+		if ok ~= nil then
+			if p.neg then ok = not ok end
+			if not ok then return false end
+		end
+	end
+	return true
+end
+
 -- Guide g's steps for the character, or nil when they are g's own. Each
 -- accept of g that would be passed for a missing prerequisite (not taken,
 -- not done, not skipped) is followed to the quest it lacks that g does not
@@ -1266,7 +1346,13 @@ function Own.feederPlan(g)
 	local C = Compat()
 	local level = player.level or 1
 	local l = layoutOf(g)
-	local function mine(t) return Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) end
+	-- What an update passed behind the player (Own.passAdded) is not the
+	-- guide's: a quest ahead needing it is planned for like one an earlier
+	-- guide gives (its steps are a source, as the guides leading here).
+	local function mine(t)
+		return Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) and Own.whenMayHold(t.step)
+			and not Own.goneIn(g, t.s, t.goal)
+	end
 	local function acceptOf(p)
 		for _, t in ipairs(l.accepts[p] or NONE) do
 			if mine(t) then return t end
@@ -1289,7 +1375,15 @@ function Own.feederPlan(g)
 		if not turnsIn(p) then
 			-- Every goal of p here for other characters, p not this one's: another
 			-- race's version of the chain (Own.coming, Own.notMine).
-			return not acceptOf(p) and #(l.turnins[p] or NONE) + #(l.accepts[p] or NONE) > 0 and Own.notMine(p)
+			-- (Goals an update passed are no version of anything: Own.goneIn.)
+			if acceptOf(p) then return false end
+			local others = false
+			for _, list in ipairs({ l.turnins[p] or NONE, l.accepts[p] or NONE }) do
+				for _, t in ipairs(list) do
+					if not Own.goneIn(g, t.s, t.goal) then others = true end
+				end
+			end
+			return others and Own.notMine(p)
 		end
 		local a = acceptOf(p)
 		if not a then return false end
@@ -1313,10 +1407,11 @@ function Own.feederPlan(g)
 	local idx, read
 	local chains, list, seen = {}, {}, {}
 	for s, step in ipairs(g.steps) do
-		if Guides.Matches(step.only, player) then
+		if Guides.Matches(step.only, player) and Own.whenMayHold(step) then
 			for _, goal in ipairs(step.goals) do
 				local q = goal.quest
-				if goal.t == "accept" and q and not seen[q] and (goal.pre or goal.preAll) and Guides.Matches(goal.only, player) then
+				if goal.t == "accept" and q and not seen[q] and (goal.pre or goal.preAll) and Guides.Matches(goal.only, player)
+					and not Own.goneIn(g, s, goal) then
 					seen[q] = true
 					local p = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blocker(goal, 0) or nil
 					for _ = 1, 8 do
@@ -1325,7 +1420,10 @@ function Own.feederPlan(g)
 						p = blocker(a.goal, 0)
 					end
 					if p then
-						if not idx then idx, read = Own.feederIndex(g) end
+						if not idx then
+							idx, read = Own.feederIndex(g)
+							Own.goneSource(g, idx)
+						end
 						local ch = chains[p]
 						if ch == nil then
 							ch = Own.feederChain(p, idx) or false
@@ -1337,7 +1435,7 @@ function Own.feederPlan(g)
 						end
 						if ch then
 							ch.deps[#ch.deps + 1] = { q = q, s = s, title = goal.title,
-								worth = not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) }
+								worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) }
 						end
 					end
 				end
@@ -1353,8 +1451,12 @@ function Own.feederPlan(g)
 	-- g's own places: each step's point (the last one before it for a step
 	-- without one), and its zones.
 	local zones, pointAt, ptOf, at = {}, {}, {}, nil
+	local goneAll = ns.CharState().gone
+	local goneMine = type(goneAll) == "table" and goneAll[g.id] or nil
+	local keysG = Own.stepKeys(g)
 	for s, step in ipairs(g.steps) do
-		if Guides.Matches(step.only, player) then
+		-- A step an update passed is no place the guide goes (Own.passAdded).
+		if Guides.Matches(step.only, player) and not (goneMine and goneMine[keysG[s]] == true) then
 			ptOf[s] = Own.feedPoint(step.goals)
 			at = ptOf[s] or at
 			for _, goal in ipairs(step.goals) do
@@ -1458,6 +1560,9 @@ function Own.feederPlan(g)
 						if placedAt[st.key] > last then last = placedAt[st.key] end
 					else
 						local pt = Own.feedPoint(st.goals)
+						-- A step of this guide an update passed comes back just before
+						-- the quest that needs it: on the way, never a step back.
+						if st.d == 0 and U - 1 > last then last = U - 1 end
 						local best, bestJ = nil, last
 						for j = last, U - 1 do
 							local q = pointAt[j > 0 and j or 1]
@@ -1474,13 +1579,19 @@ function Own.feederPlan(g)
 		end
 	end
 	-- Left out: the accepts of the chains not put in, with their quests' goals.
-	local hidden, drop = {}, {}
+	-- (Kept on the way: what needed a step an update passed, `onWay`.)
+	local hidden, drop, onWay = {}, {}, {}
+	for _, ch in ipairs(list) do
+		if ch.inserted and ch.from.id == g.id then
+			for _, d in ipairs(ch.deps) do onWay[d.q] = ch.p end
+		end
+	end
 	-- A chain the player skipped is theirs: its accepts stay, passed as
 	-- "skipped" (Engine.SkipQuest), not left out.
 	for _, ch in ipairs(list) do
 		if not ch.inserted and not ch.skipped then
 			for _, d in ipairs(ch.deps) do
-				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide }
+				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
 				drop[d.q] = true
 			end
 		end
@@ -1541,7 +1652,7 @@ function Own.feederPlan(g)
 	for _, id in ipairs(read or NONE) do
 		if not Engine.TabIds()[id] then Guides.Release(id) end
 	end
-	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs }
+	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs, onWay = onWay }
 end
 
 -- Guide g with the plan's steps: a new guide table with g's fields (a fresh
@@ -1554,6 +1665,7 @@ function Own.rebuilt(g, plan)
 		if key ~= "steps" and key ~= "stepsSrc" and key ~= "legs" then g2[key] = v end
 	end
 	g2.steps, g2.feeders, g2.hidden, g2.feedCost, g2.fromBase, g2.base = plan.steps, plan.feeders, plan.hidden, plan.cost, plan.fromBase, g
+	g2.onWay = next(plan.onWay) and plan.onWay or nil
 	local legs = rawget(g, "legs")
 	if type(legs) ~= "table" then legs = Guides.Legs(g.id) end
 	if type(legs) == "table" then
@@ -2875,13 +2987,16 @@ end
 -- that far. Class and race steps and goals (`only`) and optional goals are no
 -- evidence: class chains and item-started quests run on their own schedule (a
 -- Warlock may finish the succubus chain long before the route reaches it).
-local function anchorStep()
+-- After an update (`added`, Own.noteAdded), only what the save's guide had
+-- in place counts (Own.goalMoved).
+local function anchorStep(added)
 	local steps = guide.steps
 	for s = #steps, 1, -1 do
 		local step = steps[s]
 		if not step.only then
 			for g, goal in ipairs(step.goals) do
-				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal) then
+				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
+					and not (added and Own.goalMoved(added, s, goal)) then
 					local done, cur = goalDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
 				end
@@ -3073,7 +3188,9 @@ local function place()
 	local sk = skippedFor(guide.id)
 	local catchUp = ns.Get("behavior.skipGrey") and not Own.everyStep(guide)
 	Own.leftOut[guide.id] = nil
-	local anchor = anchorStep()
+	local addedAll = ns.CharState().added
+	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
+	local anchor = anchorStep(added)
 	if catchUp then Own.leftOut[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
 	local function open(s, g, goal)
@@ -3098,7 +3215,9 @@ local function place()
 			for g, goal in ipairs(steps[s].goals) do
 				if open(s, g, goal) then
 					if goal.t == "accept" then
-						doable = doable or not gated(goal)
+						-- An accept an update added behind the player is no start:
+						-- an update never moves them back (Own.passAdded).
+						doable = doable or (not gated(goal) and not (added and Own.goalAdded(added, s, goal)))
 						-- Only a level to reach holds a guide the catch-up could
 						-- pass: a missing prerequisite is often a grey quest it
 						-- left out, which will never come.
@@ -3163,9 +3282,10 @@ local function place()
 			for g, goal in ipairs(goals) do
 				local t = goal.t
 				local soft = isManual(goal) or latchable(goal) or isBagCount(goal)
+				-- What an update added holds nothing (Own.passAdded passes it).
 				if open(s, g, goal) and not gated(goal)
 					and not (soft and (behind or now or ((s < lastOut or whole) and travel(t))))
-					and not (here and travel(t)) then
+					and not (here and travel(t)) and not (added and Own.goalAdded(added, s, goal)) then
 					passes = false
 					break
 				end
@@ -3173,7 +3293,7 @@ local function place()
 			if passes then
 				local m = manualFor(guide.id, true)
 				for g, goal in ipairs(goals) do
-					if open(s, g, goal) then
+					if open(s, g, goal) and not (added and Own.goalAdded(added, s, goal)) then
 						local why = gated(goal)
 						if why then
 							unavailable[goal.quest] = { reason = why, accept = goal }
@@ -3189,6 +3309,8 @@ local function place()
 			end
 		end
 	end
+	-- After an update: its steps behind the player's place pass (Own.passAdded).
+	Own.passAdded()
 end
 
 -- `skipto` jumps (format 5; docs/GUIDE_FORMAT.md, "Jumps"): the route has
@@ -4634,9 +4756,14 @@ local function shapeOf(g)
 end
 
 -- Per step, the hash of its verbs and ids (CharState().stepKeys[guideId]).
+-- Cached per guide table: read-only (checkShape stores a copy).
+Own.keysCache = setmetatable({}, { __mode = "k" })
 function Own.stepKeys(g)
-	local keys = {}
+	local keys = Own.keysCache[g]
+	if keys then return keys end
+	keys = {}
 	for s, part in ipairs(Own.stepParts(g)) do keys[s] = Own.hash(part) end
+	Own.keysCache[g] = keys
 	return keys
 end
 
@@ -4674,15 +4801,21 @@ end
 
 -- Move guide `id`'s check-offs ("s:g"), skips (s, "s:g"), stored `when`
 -- outcomes (s), saved view and held lost quests (CharState().lostQuests) to
--- the new step numbers; entries of steps not kept are dropped. A pack update
--- and the Engine's own plan of a guide's steps (Own.withFeeders) both come here.
-function Own.remap(id, map)
+-- the new step numbers. A pack update and the Engine's own plan of a guide's
+-- steps (Own.withFeeders) both come here. `map` is the steps kept (old
+-- index -> new); with `old` (the save's step keys) and the new guide `g`, a
+-- step the update changed is found by its goals (Own.legacyMaps), so its
+-- check-offs, skips and view go to the step that has the same goal now
+-- instead of being dropped; one with nothing in common is dropped.
+function Own.remap(id, map, old, g)
 	local s = ns.CharState()
+	local stepTo, goalTo = Own.legacyMaps(id, map, old, g)
 	local function moved(k)
-		if type(k) == "number" then return map[k] end
+		if type(k) == "number" then return stepTo(k) end
 		local a, b = tostring(k):match("^(%d+):(%d+)$")
-		local j = a and map[tonumber(a)]
-		return j and (j .. ":" .. b) or nil
+		if not a then return nil end
+		local j, gi = goalTo(tonumber(a), tonumber(b))
+		return j and (j .. ":" .. gi) or nil
 	end
 	for _, field in ipairs({ "manual", "skipped", "when" }) do
 		local old = s[field][id]
@@ -4712,8 +4845,13 @@ function Own.remap(id, map)
 		end
 		s.skipStored[id] = next(out) and out or nil
 	end
+	-- The saved view: its step's new number, else the step sharing its goals,
+	-- else the next step kept after it (never dropped while anything is kept).
 	local p = type(s.pins) == "table" and s.pins[id]
-	if p then s.pins[id] = type(p) == "table" and map[p.step] and { step = map[p.step], done = p.done } or nil end
+	if p then
+		local to = type(p) == "table" and tonumber(p.step) and (stepTo(p.step) or Own.nextKept(map, p.step)) or nil
+		s.pins[id] = to and { step = to, done = p.done } or nil
+	end
 	-- A quest held for the player's answer (Own.holdLost) holds the accepts
 	-- before the step the route was on: that step's new number, or, when it
 	-- went, the next kept step's (after the last kept one, past it). Nothing
@@ -4733,22 +4871,458 @@ function Own.remap(id, map)
 	end
 end
 
+-- The first step kept after old step k: its new number, else one past the last
+-- kept before k; nil with nothing kept.
+function Own.nextKept(map, k)
+	if next(map) == nil then return nil end
+	local to, last = map[k], 0
+	if to then return to end
+	for i, j in pairs(map) do
+		if i > k and (not to or j < to) then to = j end
+		if i < k and j > last then last = j end
+	end
+	return to or (last + 1)
+end
+
+-- An old step's goals as the Engine names them (Own.stepParts), from the save's
+-- step key: a step of the new guide (kept) or one an earlier release had
+-- (ns.LegacySteps, tools/legacy-steps.js). -> { "turnin:783", ... } | nil
+function Own.legacyGoals(id, key)
+	local L = ns.LegacySteps
+	local p = L and L[id] and L[id][key]
+	if type(p) ~= "string" then return nil end
+	local out = {}
+	for x in (p .. ","):gmatch("([^,]*),") do out[#out + 1] = x end
+	return out
+end
+
+-- Old step -> new step, and old goal (step, index) -> new (step, index), for
+-- Own.remap. Kept steps keep their goals' places. A changed step goes to the
+-- new step that shares the most of its quest goals (a goal of a quest: verb
+-- and quest id), the nearest to where it stood among equals; a goal of it to
+-- that step when that step has the goal, else (a quest's goal only) to the
+-- nearest step that has it. Without the old goals (no `old`, or a step no
+-- release had): dropped as before.
+function Own.legacyMaps(id, map, old, g)
+	local function plain(k) return map[k] end
+	if type(old) ~= "table" or not g then
+		return plain, function(a, b)
+			local j = map[a]
+			return j, j and b or nil
+		end
+	end
+	local parts = Own.stepParts(g)
+	local newGoals = {}
+	local function goalsOf(j)
+		local list = newGoals[j]
+		if not list then
+			list = {}
+			for x in ((parts[j] or "") .. ","):gmatch("([^,]*),") do list[#list + 1] = x end
+			newGoals[j] = list
+		end
+		return list
+	end
+	-- A goal named by its quest for sure: an accept, a hand-in or a `complete`
+	-- (a kill or collect without a quest is named by its creature or item).
+	local QUEST_VERBS = { accept = true, turnin = true, complete = true }
+	local function questGoal(x)
+		local v, q = x:match("^(%a+):(%d+)$")
+		return q ~= nil and QUEST_VERBS[v] == true
+	end
+	-- A planned guide (Own.rebuilt): a step of the guide as registered that the
+	-- plan copied with fewer goals is that copy, its goals the registered step's.
+	local baseAt, baseParts = {}, nil
+	if g.base and g.fromBase then
+		baseParts = Own.stepParts(g.base)
+		for b, key in ipairs(Own.stepKeys(g.base)) do
+			if not baseAt[key] then baseAt[key] = b end
+		end
+	end
+	-- A step the update moved whole (the same goals elsewhere, past the kept
+	-- order): that step, among those not kept.
+	local keptNew, hereAt = {}, {}
+	for _, j in pairs(map) do keptNew[j] = true end
+	for j, key in ipairs(Own.stepKeys(g)) do
+		if not keptNew[j] and not hereAt[key] then hereAt[key] = j end
+	end
+	local function oldGoals(k)
+		local h = hereAt[old[k]]
+		if h then return goalsOf(h) end
+		local b = baseAt[old[k]]
+		if b then
+			local list = {}
+			for x in ((baseParts[b] or "") .. ","):gmatch("([^,]*),") do list[#list + 1] = x end
+			return list
+		end
+		return Own.legacyGoals(id, old[k])
+	end
+	local best = {}
+	local function stepTo(k)
+		if map[k] then return map[k] end
+		if best[k] ~= nil then return best[k] or nil end
+		if hereAt[old[k]] then
+			best[k] = hereAt[old[k]]
+			return best[k]
+		end
+		local b = baseAt[old[k]]
+		if b and g.fromBase[b] then
+			best[k] = g.fromBase[b]
+			return best[k]
+		end
+		local goals = oldGoals(k)
+		local want = {}
+		for _, x in ipairs(goals or NONE) do
+			if questGoal(x) then want[x] = true end
+		end
+		local near = Own.nextKept(map, k) or k
+		local top, topN = nil, 0
+		if next(want) then
+			for j = 1, #g.steps do
+				local n = 0
+				for _, x in ipairs(goalsOf(j)) do
+					if want[x] then n = n + 1 end
+				end
+				if n > topN or (n == topN and n > 0 and math.abs(j - near) < math.abs(top - near)) then top, topN = j, n end
+			end
+		end
+		best[k] = top or false
+		return top
+	end
+	local function goalTo(a, b)
+		local j = map[a]
+		if j then return j, b end
+		local goals = oldGoals(a)
+		local x = goals and goals[b]
+		if not x or x == "" then return nil end
+		local to = stepTo(a)
+		if to then
+			for gi, y in ipairs(goalsOf(to)) do
+				if y == x then return to, gi end
+			end
+		end
+		-- Else the nearest step with that goal: within the steps that took the
+		-- old one's place (between the kept steps around it) for any goal, or
+		-- anywhere for a goal named by something of its own (a quest, an item,
+		-- a flight's landing; not a bare `train` or a zone's `goto`).
+		local lo, hi = 1, #g.steps
+		for k, j in pairs(map) do
+			if k < a and j + 1 > lo then lo = j + 1 end
+			if k > a and j - 1 < hi then hi = j - 1 end
+		end
+		local v, id = x:match("^(%a+):(.*)$")
+		local own = id ~= nil and id ~= "" and v ~= "goto"
+		local near = Own.nextKept(map, a) or a
+		local topJ, topG, topIn
+		for jj = 1, #g.steps do
+			local inGap = jj >= lo and jj <= hi
+			if inGap or own then
+				for gi, y in ipairs(goalsOf(jj)) do
+					if y == x then
+						local better = not topJ or (inGap and not topIn)
+							or (inGap == topIn and math.abs(jj - near) < math.abs(topJ - near))
+						if better then topJ, topG, topIn = jj, gi, inGap end
+					end
+				end
+			end
+		end
+		return topJ, topG
+	end
+	return stepTo, goalTo
+end
+
 local function checkShape(g)
 	local s = ns.CharState()
 	if type(s.shapes) ~= "table" then s.shapes = {} end
 	if type(s.stepKeys) ~= "table" then s.stepKeys = {} end
+	if type(s.shapeVersions) ~= "table" then s.shapeVersions = {} end
 	local h = shapeOf(g)
 	local stored = s.shapes[g.id]
+	local ver = Own.packVersion(g)
 	if stored ~= nil and stored ~= h then
 		local old = s.stepKeys[g.id]
 		-- Saved before step keys existed: nothing to match them by, all dropped.
-		Own.remap(g.id, type(old) == "table" and Own.matchSteps(old, Own.stepKeys(g)) or {})
+		local map = type(old) == "table" and Own.matchSteps(old, Own.stepKeys(g)) or {}
+		-- An update of the pack (the save's shape came from another version):
+		-- its new steps behind the player pass for them (Own.passAdded).
+		if s.shapeVersions[g.id] ~= ver and type(old) == "table" then Own.noteAdded(g, map, old) end
+		Own.remap(g.id, map, type(old) == "table" and old or nil, g)
 		-- Its end reached is the old guide's (0.3.5 reused ids for new
 		-- content): the new one says so again when the player gets there.
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
 	end
 	s.shapes[g.id] = h
-	if stored ~= h or type(s.stepKeys[g.id]) ~= "table" then s.stepKeys[g.id] = Own.stepKeys(g) end
+	s.shapeVersions[g.id] = ver
+	if stored ~= h or type(s.stepKeys[g.id]) ~= "table" then
+		local copy = {}
+		for i, k in ipairs(Own.stepKeys(g)) do copy[i] = k end
+		s.stepKeys[g.id] = copy
+	end
+end
+
+-- The version of guide g's pack, as a save stores it beside the guide's shape
+-- (CharState().shapeVersions): "?" when the pack names none.
+function Own.packVersion(g)
+	local r = g.pack and Guides.Pack(g.pack)
+	return tostring(r and r.version or "?")
+end
+
+-- An update never moves a player back (#1353 upgrade, 0.3.5 -> 0.3.6: 26 of
+-- 199 recorded mid-guide saves were sent back to a quest the update put
+-- behind them, Loch Modan's step 15 to Auberdine across the sea). What an
+-- update added to guide g is noted per step key (CharState().added[id], with
+-- the guide-as-registered step's key for a step of a planned guide): `true`
+-- for a step none of whose quest goals the save's guide had there (or, with
+-- no quest goal, none of its goals), else the goals it did not have
+-- ("accept:385", Own.goalId) or had only further on (moved back past a step
+-- it followed), the old guide's goals being those
+-- of the steps kept (`map`, old index -> new) and of the changed ones
+-- (ns.LegacySteps). Placement passes what of it is behind the player
+-- (Own.passAdded).
+function Own.goalId(goal)
+	local id = goal.quest or goal.npc or goal.item or goal.spell or goal.object
+		or goal.faction or goal.achievement or goal.level or goal.location or goal.map or ""
+	return goal.t .. ":" .. tostring(id)
+end
+
+function Own.noteAdded(g, map, old)
+	local kept = {}
+	for _, j in pairs(map) do kept[j] = true end
+	-- Where the save's guide had each goal, in the new guide's numbers: a kept
+	-- step's new number, a changed step's first place after the kept step
+	-- before it. A goal now before that place moved back: added here too.
+	local parts = Own.stepParts(g)
+	local hereAt = {}
+	for j, key in ipairs(Own.stepKeys(g)) do
+		if not kept[j] and not hereAt[key] then hereAt[key] = j end
+	end
+	local had, upTo, prev = {}, {}, 0
+	for k = 1, #old do
+		local list, at, last
+		if map[k] then
+			list, at, prev = {}, map[k], map[k]
+			last = at
+			for x in ((parts[map[k]] or "") .. ","):gmatch("([^,]*),") do list[#list + 1] = x end
+		else
+			-- A step moved whole is still in the guide under its key.
+			local h = hereAt[old[k]]
+			if h then
+				list = {}
+				for x in ((parts[h] or "") .. ","):gmatch("([^,]*),") do list[#list + 1] = x end
+			else
+				list = Own.legacyGoals(g.id, old[k])
+			end
+			at = prev + 1
+			last = (Own.nextKept(map, k) or (#g.steps + 1)) - 1
+			if last < at then last = at end
+		end
+		for _, x in ipairs(list or NONE) do
+			if not had[x] or at < had[x] then had[x] = at end
+			if not upTo[x] or last > upTo[x] then upTo[x] = last end
+		end
+	end
+	local s = ns.CharState()
+	if type(s.added) ~= "table" then s.added = {} end
+	local mine = s.added[g.id] or {}
+	local keys = Own.stepKeys(g)
+	for j, step in ipairs(g.steps) do
+		if not kept[j] and not step.feeder then
+			local quests, fresh, ids, soft = 0, 0, {}, true
+			for _, goal in ipairs(step.goals) do
+				local x = Own.goalId(goal)
+				local new = not had[x] or j < had[x]
+				if goal.quest then
+					quests = quests + 1
+					if new then
+						fresh = fresh + 1
+						ids[x] = true
+					elseif j > upTo[x] then
+						-- Moved on past a step it came before: no sign of how far
+						-- the player got (Own.goalMoved), though not added.
+						ids[x] = "later"
+					end
+				elseif goal.t ~= "note" then
+					if new then ids[x] = true else soft = false end
+				end
+			end
+			-- A step of quest goals all new, or of travel and errands all new.
+			local whole = (quests > 0 and fresh == quests) or (quests == 0 and soft and #step.goals > 0)
+			local entry = whole or (next(ids) and ids) or nil
+			if entry then
+				mine[keys[j]] = entry
+				local bk = Own.baseKey(g, j)
+				if bk then mine[bk] = entry end
+			end
+		end
+	end
+	-- Noted even with nothing added: feeder steps planned in pass the same way.
+	s.added[g.id] = mine
+end
+
+-- The key of the guide-as-registered step that step j of a planned guide
+-- comes from (Own.rebuilt's fromBase), or nil (not planned, or a feeder step).
+Own.baseIndexCache = setmetatable({}, { __mode = "k" })
+function Own.baseKey(g, j)
+	if not (g.base and g.fromBase) then return nil end
+	local inv = Own.baseIndexCache[g]
+	if not inv then
+		inv = {}
+		for b, n in pairs(g.fromBase) do inv[n] = b end
+		Own.baseIndexCache[g] = inv
+	end
+	local b = inv[j]
+	return b and Own.stepKeys(g.base)[b] or nil
+end
+
+-- Step j of the loaded guide in set `set` (step key -> true | { goal id =
+-- true }): its entry by its own key or its guide-as-registered step's, or nil.
+function Own.stepIn(set, j)
+	if not set then return nil end
+	local e = set[Own.stepKeys(guide)[j]]
+	if e then return e end
+	local bk = Own.baseKey(guide, j)
+	return bk and set[bk] or nil
+end
+
+-- Whether goal `goal` of step j of the loaded guide is something an update
+-- added (`added`, Own.noteAdded) or comes with a feeder step.
+function Own.goalAdded(added, j, goal)
+	if guide.steps[j].feeder then return true end
+	local e = Own.stepIn(added, j)
+	if e == true then return true end
+	return type(e) == "table" and e[Own.goalId(goal)] == true
+end
+
+-- Whether goal `goal` of step j is something an update added, or moved on
+-- past a step it came before: no sign of how far the player got in the guide
+-- they had (placement's anchor, after an update).
+function Own.goalMoved(added, j, goal)
+	if Own.goalAdded(added, j, goal) then return true end
+	local e = Own.stepIn(added, j)
+	return type(e) == "table" and e[Own.goalId(goal)] ~= nil
+end
+
+-- What an update added behind the player passes for them. At the first
+-- placement after the update with the quest log in: the player's place is the
+-- first step that holds for what the save's guide had too (a goal open that
+-- the update did not add); behind it, each step the update added, or
+-- a feeder step, and each quest goal it added to a step, is noted gone
+-- (CharState().gone[id], as `added`): it no longer applies (stepApplies,
+-- goalApplies), as another class's, so its accepts are not offered and its
+-- quests' later goals go with them (orphaned). Nothing shows as skipped. Work
+-- of a quest the player carries that the guide has nowhere from their place
+-- on stays (their own quest says so). The update's note is then spent; what
+-- it added ahead of the player stays.
+Own.goneGen = 0
+Own.goneCache = setmetatable({}, { __mode = "k" })
+function Own.passAdded()
+	local s = ns.CharState()
+	local added = type(s.added) == "table" and s.added[guide.id]
+	if not added then return end
+	local C, steps = Compat(), guide.steps
+	local sk = skippedFor(guide.id)
+	local P = #steps + 1
+	for j = 1, #steps do
+		if stepApplies(steps[j]) and not (sk and sk[j]) and not stepDone(j) then
+			local holds = false
+			for g, goal in ipairs(steps[j].goals) do
+				if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
+					and not Own.goalAdded(added, j, goal) then
+					holds = true
+					break
+				end
+			end
+			if holds then
+				P = j
+				break
+			end
+		end
+	end
+	-- Held quests whose work the guide still has from there on.
+	local later = {}
+	for j = P, #steps do
+		for _, goal in ipairs(steps[j].goals) do
+			if goal.quest and goal.t ~= "accept" then later[goal.quest] = true end
+		end
+	end
+	local function held(j, g, goal)
+		return goal.t ~= "accept" and isQuestGoal(goal) and C.IsOnQuest(goal.quest) and not later[goal.quest] and not goalDone(j, g, goal)
+	end
+	local gone = type(s.gone) == "table" and s.gone[guide.id] or {}
+	local keys = Own.stepKeys(guide)
+	local function note(j, entry)
+		gone[keys[j]] = entry
+		local bk = Own.baseKey(guide, j)
+		if bk then gone[bk] = entry end
+	end
+	for j = 1, P - 1 do
+		local step = steps[j]
+		if Guides.Matches(step.only, player) then
+			local e = (step.feeder and true) or Own.stepIn(added, j)
+			if e == true then
+				local mine = false
+				for g, goal in ipairs(step.goals) do
+					if held(j, g, goal) then mine = true break end
+				end
+				if not mine then note(j, true) end
+			elseif type(e) == "table" then
+				local ids = {}
+				for g, goal in ipairs(step.goals) do
+					local x = Own.goalId(goal)
+					if e[x] == true and not (goal.quest and held(j, g, goal)) then ids[x] = true end
+				end
+				if next(ids) then note(j, ids) end
+			end
+		end
+	end
+	if next(gone) then
+		if type(s.gone) ~= "table" then s.gone = {} end
+		s.gone[guide.id] = gone
+		Own.goneGen = Own.goneGen + 1
+	end
+	if logReady then
+		s.added[guide.id] = nil
+		-- A quest ahead that needed what passed: planned again (Own.replan).
+		if next(gone) then
+			local id = guide.id
+			ns.After(0, function() Own.replan(id) end)
+		end
+	end
+end
+
+-- The loaded guide's steps and goals an update passed (Own.passAdded): step
+-- table -> true, goal table -> true. Cached per guide table and change.
+function Own.goneOf()
+	local c = Own.goneCache[guide]
+	if not (c and c.gen == Own.goneGen) then
+		local all = ns.CharState().gone
+		local mine = type(all) == "table" and all[guide.id]
+		local set = false
+		if mine then
+			set = {}
+			for j, st in ipairs(guide.steps) do
+				-- A passed step the plan brought back on the way (Own.goneSource)
+				-- is the guide's again, though it carries the same goals.
+				local e = st.feeder ~= guide.id and Own.stepIn(mine, j) or nil
+				if e == true then
+					set[st] = true
+				elseif type(e) == "table" then
+					for _, goal in ipairs(st.goals) do
+						if e[Own.goalId(goal)] == true then set[goal] = true end
+					end
+				end
+			end
+		end
+		c = { gen = Own.goneGen, set = set }
+		Own.goneCache[guide] = c
+	end
+	return c.set
+end
+
+-- Whether `step` (or `goal`) of the loaded guide is one an update passed.
+function Own.gone(x)
+	if not guide then return false end
+	local set = Own.goneOf()
+	return set and set[x] == true or false
 end
 
 -- An update replaced most of guide g's steps: it keeps fewer than half of
@@ -10212,6 +10786,35 @@ function Own.feedTabs()
 				t.placing = GetTime() + PLACE_SECONDS
 				changed = true
 			end
+		end
+	end
+	if not changed then return end
+	loaded = nil
+	useActive()
+	tabsDirty = true
+	persist()
+	announceActive()
+	evaluate()
+end
+
+-- Plan guide `id`'s steps again (Own.withFeeders) and give its tab the new
+-- plan, its place found afresh from the quest log and its view following its
+-- step: after an update passed steps behind the player, a quest ahead that
+-- needed one of them gets it back on the way, or drops out (Own.goneSource).
+function Own.replan(id)
+	if not (ns.IsLoggedIn() and Guides.Get(id)) then return end
+	Own.withFeeders(id, true)
+	local g2 = Guides.Get(id)
+	sync()
+	local changed = false
+	for _, t in ipairs(tabs) do
+		if t.guide.id == id and g2 ~= t.guide then
+			local map = Own.matchSteps(Own.stepKeys(t.guide), Own.stepKeys(g2))
+			t.pin = t.pin and map[t.pin] or nil
+			t.guide = g2
+			t.current, t.computed, t.lastSig, t.passedUpTo = nil, nil, nil, 0
+			t.placing = GetTime() + PLACE_SECONDS
+			changed = true
 		end
 	end
 	if not changed then return end
