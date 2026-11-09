@@ -403,9 +403,13 @@ step Hemet Nesingwary
   when group 197
   accept 197
 
+step Arbor Tarantula
+  when onquest 93176
+  tip An Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp, on the way to the Rebel Camp: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
+  collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
+
 step Rebel Camp
-  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off.
-  kill 217588                         -- Arbor Tarantula: catch it, for My Little Friends
+  tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.
   turnin 622                          -- Corporal Kaleb
 
 step Brother Nimetz
