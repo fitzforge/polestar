@@ -9,7 +9,9 @@ next forever/horde/40-50/02-feralas
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748).
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372), The Gurubashi Legends of Old (95748),
+# Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
+# the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
 step Fly to Grom'gol
@@ -230,6 +232,13 @@ step Grom'gol
   accept 585
   accept 2932                           -- Nimboya: for the Hinterlands, around level 48
   accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
+  accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
+
+step The Vile Reef
+  when onquest 95770
+  when !complete 95770
+  tip Locating the Lost City: west of Grom'gol, swim out over the Vile Reef and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast.
+  goto 21.8,27.6 map 1434 "the Drowned City's entrance, underwater"
 
 # ---------------------------------------------------------------- South to Booty Bay
 
@@ -295,6 +304,7 @@ step Balia'mah Ruins: kill these as you meet them
 step Grom'gol Base Camp
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
+  turnin 95770 npc 2519                 -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
   accept 588                            -- the Bubbling Cauldron again: Yenniku's fate

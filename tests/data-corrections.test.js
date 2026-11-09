@@ -170,6 +170,7 @@ test('Follow-ups wait for the quest before them, so a skipped one takes its foll
 		[96264, 259023, [94789], 'Veyric Thunderhame (Shaman Call of Air)'],
 		[92519, 12920, [97539], 'Doctor Gregory Victor, Hammerfall'],
 		[92457, 269127, [92432], 'Image of Archmage Modera (Kirin Tor)'],
+		[95770, 2519, [95748], 'Kin\'weelay: Locating the Lost City after The Gurubashi Legends of Old'],
 	]) assert.deepEqual(blocks(id, npc), { all: [], any }, who);
 	const fenris = corrections.quests[91861];
 	assert.ok(fenris, 'a correction for 91861');

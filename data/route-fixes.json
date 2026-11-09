@@ -8336,6 +8336,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 95770,
+				"after": [
+					"turnin",
+					95748
+				],
+				"reason": "PlayersHorde 0.3.6 (Forever-new quest near the path): Locating the Lost City (level 40, 3150 XP, Horde), offered by Kin'weelay once The Gurubashi Legends of Old is handed in on the cauldron stop; the cavern entrance lies under the Vile Reef just west of Grom'gol (players' recordings: 2 people, 21.7-22.0,27.1-28.1, found within 3 minutes of the accept), about 620 yd off the walk south to the jungle stalkers; Kin'weelay takes it with the trophy skulls on the next Grom'gol stop. Its follow-up, The Drowned City (95775), is a dungeon and stays out.",
+				"issue": "-"
+			},
+			{
 				"q": 1392,
 				"reason": "Quest volume, Horde 40-60 (0.3.7): Noboru the Cudgel (level 39, 2250 XP) starts from Noboru's Cudgel, which Noboru drops every time (Forever's loot data and the server's loot table: 100%), on the swamp loop of 40-50/01; Magtoor takes it at the Harborage on the way out. The guide took it but left the hand-in optional, so the level model and the guide end never counted it.",
 				"issue": "-"

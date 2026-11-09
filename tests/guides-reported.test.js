@@ -9650,3 +9650,19 @@ test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished 
 	const late = epl.find(({ goal }) => goal.t === 'collect' && goal.quest === 2741);
 	assert.ok(!late || (late.step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the old nests step only for a carrier');
 });
+
+// PlayersHorde (0.3.6, Forever-new quest near the path): Kin'weelay offers Locating the Lost City (95770, 3150 XP) once
+// The Gurubashi Legends of Old is handed in on 40-50/01's cauldron stop; the cavern entrance is under the Vile Reef just
+// west of Grom'gol (2 recorded people found it within 3 minutes), and Kin'weelay is visited again for the trophy skulls.
+test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef on the way south, handed in with the skulls', { skip }, () => {
+	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const legend = at(stv, 'turnin 95748', is('turnin', 95748));
+	const acc = at(stv, 'accept 95770', is('accept', 95770));
+	assert.equal(stv[acc].s, stv[legend].s, 'taken on the stop that hands the legend in');
+	const reef = at(stv, 'the Vile Reef goto', (g) => g.t === 'goto' && g.map === 1434 && Math.abs(g.x - 21.8) < 1 && Math.abs(g.y - 27.6) < 1);
+	assert.ok(stv[reef].s > stv[acc].s, 'the cavern entrance under the Vile Reef after the accept');
+	assert.ok(stv[reef].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(95770)), 'only with the quest in the log');
+	assert.ok(reef < at(stv, 'kill 687', (x) => x.t === 'kill' && x.npc === 687), 'before the jungle stalkers south of the camp');
+	const tin = at(stv, 'turnin 95770', is('turnin', 95770));
+	assert.equal(stv[tin].s, stv[at(stv, 'turnin 598', is('turnin', 598))].s, 'handed in with the trophy skulls');
+});

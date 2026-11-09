@@ -6901,6 +6901,27 @@
 		],
 		"note": "The Gurubashi Legends of Old (Forever, Horde): Kin'weelay at Grom'gol gives it and takes the Third Troll Legend back. The merged data had no giver or ender, so the arrow had nowhere to point."
 	},
+	"95770": {
+		"set": {
+			"pre": [
+				95748
+			],
+			"preAny": [
+				95748
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-09): Kin'weelay (2519) offered Locating the Lost City to 2 people only after they handed The Gurubashi Legends of Old (95748) in; Kin'weelay's windows while 95748 was in their log listed nothing new. Both found the cavern entrance at Stranglethorn 21.7-22.0,27.1-28.1 within 3 minutes and handed it in to Kin'weelay (3,150 XP)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 95748"
+			}
+		],
+		"note": "Locating the Lost City (Forever, Horde): Kin'weelay at Grom'gol offers it once The Gurubashi Legends of Old is handed in; the cavern entrance is under the Vile Reef, west of Grom'gol. The merged data had no prerequisite."
+	},
 	"91209": {
 		"set": {
 			"pre": [
