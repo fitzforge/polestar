@@ -469,6 +469,63 @@
 					"note": "the walk from the ruins to the Sepulcher, before the route's own Sepulcher stop"
 				}
 			]
+		},
+		{
+			"dungeon": "Shadowfang Keep",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1098,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"quest": 516,
+						"goal": "accept"
+					},
+					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it"
+				}
+			],
+			"runStop": [
+				1098,
+				1014
+			],
+			"run": {
+				"guide": "forever/horde/06-hillsbrad-foothills",
+				"after": {
+					"quest": 95981,
+					"goal": "turnin",
+					"note": "the Sepulcher stop at the end (~25); the keep is ~0.8 km south"
+				},
+				"entrance": {
+					"map": 1421,
+					"x": 44.8,
+					"y": 67.8
+				},
+				"objectives": [
+					1098,
+					1014
+				],
+				"insideEnds": [
+					{
+						"quest": 1098,
+						"npc": 4444
+					}
+				],
+				"guard": "onquest 1098,1014"
+			},
+			"handins": [
+				{
+					"quest": 1014,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": "run"
+				}
+			],
+			"leftOut": {
+				"1013": "The Book of Ur: Keeper Bel'dugur in the Undercity, the stop after the run",
+				"1740": "Warlock class chain (class guide)"
+			},
+			"budget": {
+				"flow": "06-hillsbrad-foothills +1.6 km, +6.2 min, hub visits +1 (the Sepulcher after the run), the Sepulcher <-> keep trip of the run; backtracks +1, avoidable 0; 05-stonetalon-mountains passed givers +0.2 (Dalar's 1014 at 22.8 on one branch: 3+ over, the level rule wins)"
+			}
 		}
 	]
 }

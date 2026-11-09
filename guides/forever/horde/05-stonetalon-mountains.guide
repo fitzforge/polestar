@@ -55,6 +55,10 @@ next forever/horde/06-hillsbrad-foothills
 # Undead: Return to Podrig (6324, Gordon's Crate from the Undercity stop of
 # forever/horde/03-silverpine-forest) goes to Deathguard Podrig on the Sepulcher stop.
 #
+# Shadowfang Keep (`when dungeon "Shadowfang Keep"`): High Executor Hadrec's Deathstalkers in Shadowfang
+# (1098, level 25) is taken on the Sepulcher stop here, at about 22.8; the run is at the end of
+# forever/horde/06-hillsbrad-foothills.
+#
 # Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`, dungeons in the route): for a character who
 # chose it, the zeppelin from Orgrimmar lands beside the ruins at about 22.5: Morbin Lightbane's Light's
 # Justice (92421) is taken in the Undercity below, the run follows in the ruins (the portal, Tirisfal
@@ -255,6 +259,12 @@ step Deathguard Podrig
   when onquest 6324
   tip Deathguard Podrig stands just west of the crypt entrance: hand him Gordon's Crate from the Undercity.
   turnin 6324                         -- Deathguard Podrig
+
+step High Executor Hadrec
+  when dungeon "Shadowfang Keep"
+  zone Silverpine Forest
+  tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
+  accept 1098                         -- High Executor Hadrec, below ground
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest
