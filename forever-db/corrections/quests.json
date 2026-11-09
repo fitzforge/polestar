@@ -3893,6 +3893,7 @@
 	},
 	"95495": {
 		"set": {
+			"xp": 140,
 			"pre": [
 				95494,
 				95507
@@ -3915,12 +3916,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_all [95494, 95507]"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 17 hand-ins at a full-XP level paid 140 XP (QuestieDB 1.0.13's traces: 135); the data had 340"
 			}
 		],
 		"note": "The Hermit Tanner (Barrens, Vrang Wildgore) is offered only once both of Vrang's quests are handed in, Bruised Pride and Lion Hides (95494) and Vrang's Game (95507): in players' recordings Vrang left it out for people who had handed in only one of them, and everyone who took it had handed in both. The server's quest records name 95507 as its previous quest; the merged data had no prerequisite."
 	},
 	"95508": {
 		"set": {
+			"xp": 1350,
 			"objectives": [
 				{
 					"type": "kill",
@@ -3952,6 +3958,10 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_all [95621]"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 16 hand-ins at a full-XP level paid 1350 XP (QuestieDB 1.0.13's traces: 1350); the data had 1000"
 			}
 		],
 		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives. Walton offers it only once Trouble in the Valley (95621) is handed in: players' recordings show him leaving it out while 95621 is in the log and offering it right after the hand-in, and a second, independent quest database has the same link; the merged data had no prerequisite."
@@ -4226,6 +4236,7 @@
 	},
 	"96259": {
 		"set": {
+			"xp": 2350,
 			"objectives": [
 				{
 					"type": "kill",
@@ -4249,6 +4260,10 @@
 			{
 				"kind": "eg",
 				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 9 hand-ins at a full-XP level paid 2350 XP (QuestieDB 1.0.13's traces: 2350); the data had 2450"
 			}
 		],
 		"note": "Defending the Dead (Gloomrise, north of Thunder Bluff): the quest log lists the Gloomrise Hatchlings first, then the Gloomrise Soldiers. The merged data had them the other way round, so forever/horde/07-ashenvale and forever/reputation/thunder-bluff counted the Soldiers on the Hatchlings' line and the Hatchlings on the Soldiers'."
@@ -4573,6 +4588,7 @@
 	},
 	"96825": {
 		"set": {
+			"xp": 550,
 			"start": {
 				"npc": [
 					3191
@@ -4581,10 +4597,16 @@
 				"item": []
 			}
 		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 20 hand-ins at a full-XP level paid 550 XP (QuestieDB 1.0.13's traces: 540); the data had 410"
+			}
+		],
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
 	},
 	"96897": {
@@ -4671,6 +4693,7 @@
 	},
 	"97282": {
 		"set": {
+			"xp": 850,
 			"pre": [
 				97281
 			],
@@ -4690,6 +4713,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "#807"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 19 hand-ins at a full-XP level paid 850 XP (QuestieDB 1.0.13's traces: 840); the data had 875"
 			}
 		],
 		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
@@ -4983,6 +5010,7 @@
 	},
 	"98252": {
 		"set": {
+			"xp": 925,
 			"pre": [
 				98251
 			],
@@ -5014,12 +5042,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 14 people took A Void Path with 'Eye of Kilrogg guided to the road' x1 and handed it in to the Eye of Kilrogg (271181)"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 14 hand-ins at a full-XP level paid 925 XP (QuestieDB 1.0.13's traces: 920); the data had 1300"
 			}
 		],
 		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure). A Void Path: its one objective is to steer the Eye of Kilrogg to the road (an event)."
 	},
 	"98094": {
 		"set": {
+			"xp": 1000,
 			"pre": [
 				528
 			],
@@ -5027,10 +5060,16 @@
 				528
 			]
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "issue #148"
-		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #148"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 10 hand-ins at a full-XP level paid 1000 XP (QuestieDB 1.0.13's traces: 1000); the data had 2000"
+			}
+		],
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
 	},
 	"98319": {
@@ -5375,6 +5414,7 @@
 	},
 	"99080": {
 		"set": {
+			"xp": 875,
 			"pre": [
 				99101
 			],
@@ -5390,6 +5430,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #112"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 10 hand-ins at a full-XP level paid 875 XP (QuestieDB 1.0.13's traces: 880); the data had 775"
 			}
 		],
 		"note": "Drive Them Out (Mulgore, Baine Bloodhoof) comes after Our Ancient Enemy 99101, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
@@ -5417,6 +5461,7 @@
 	},
 	"99082": {
 		"set": {
+			"xp": 90,
 			"pre": [
 				99080
 			],
@@ -5432,6 +5477,10 @@
 			{
 				"kind": "in-game-check",
 				"ref": "issue #112"
+			},
+			{
+				"kind": "recording",
+				"ref": "Horde 1-30 audit (#1414), xp: 8 hand-ins at a full-XP level paid 90 XP (QuestieDB 1.0.13's traces: 90); the data had 80"
 			}
 		],
 		"note": "The High Chieftain (Mulgore, Baine Bloodhoof) comes after Drive Them Out 99080, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
@@ -6505,5 +6554,245 @@
 			"ref": "players' in-game recordings since launch: 19 people took It's All Fun and Games Until... (98042) at the Twilight Tome (object 12666), every one seconds after handing The Twilight Camp (949) in there, none before it (sessions 20261104T232008Z to 20261108T001845Z)"
 		},
 		"note": "It's All Fun and Games Until... starts at the Twilight Tome in the Master's Glaive, which offers it only once The Twilight Camp (949) is handed in to it. The merged data had no prerequisite, so the guide sent players to the tome for it before that hand-in, when there was nothing to take (#1352)."
+	},
+	"95507": {
+		"set": {
+			"xp": 1000
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 22 hand-ins of 95507 at a full-XP level (player level up to quest level 18 + 5) paid 1000 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1000 XP"
+			}
+		],
+		"note": "Vrang's Game pays 1000 XP, not 1350: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"95805": {
+		"set": {
+			"xp": 360
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 13 hand-ins of 95805 at a full-XP level (player level up to quest level 4 + 5) paid 360 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 355 XP"
+			}
+		],
+		"note": "Grace of An'she and Mu'sha pays 360 XP, not 180: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"96130": {
+		"set": {
+			"xp": 340
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 12 hand-ins of 96130 at a full-XP level (player level up to quest level 5 + 5) paid 340 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 335 XP"
+			}
+		],
+		"note": "Chakuyak pays 340 XP, not 230: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"96241": {
+		"set": {
+			"xp": 2350
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 9 hand-ins of 96241 at a full-XP level (player level up to quest level 30 + 5) paid 2350 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 2350 XP"
+			}
+		],
+		"note": "Talkin' bout Toxins, Mon pays 2350 XP, not 2450: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"96260": {
+		"set": {
+			"xp": 1750
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 9 hand-ins of 96260 at a full-XP level (player level up to quest level 30 + 5) paid 1750 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1750 XP"
+			}
+		],
+		"note": "Stronger than Steel pays 1750 XP, not 2450: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97242": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 97242 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Yelmak's Medley pays 110 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97246": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 hand-ins of 97246 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Meal Appeal pays 110 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97249": {
+		"set": {
+			"xp": 110
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 17 hand-ins of 97249 at a full-XP level (player level up to quest level 15 + 5) paid 110 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 105 XP"
+			}
+		],
+		"note": "Favorite Food pays 110 XP, not 1050: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97253": {
+		"set": {
+			"xp": 1050
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 49 hand-ins of 97253 at a full-XP level (player level up to quest level 14 + 5) paid 1050 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1050 XP"
+			}
+		],
+		"note": "Parts and Pieces pays 1050 XP, not 975: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"97326": {
+		"set": {
+			"xp": 550
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 16 hand-ins of 97326 at a full-XP level (player level up to quest level 15 + 5) paid 550 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 540 XP"
+			}
+		],
+		"note": "Rocks to Rests pays 550 XP, not 800: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"98251": {
+		"set": {
+			"xp": 1400
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 98251 at a full-XP level (player level up to quest level 23 + 5) paid 1400 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1400 XP"
+			}
+		],
+		"note": "Never Coming Back pays 1400 XP, not 1750: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99048": {
+		"set": {
+			"xp": 80
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 20 hand-ins of 99048 at a full-XP level (player level up to quest level 11 + 5) paid 80 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 80 XP"
+			}
+		],
+		"note": "A Missing Hand pays 80 XP, not 90: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99049": {
+		"set": {
+			"xp": 390
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 18 hand-ins of 99049 at a full-XP level (player level up to quest level 9 + 5) paid 390 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 390 XP"
+			}
+		],
+		"note": "Threat from Below pays 390 XP, not 880: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99052": {
+		"set": {
+			"xp": 1100
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 14 hand-ins of 99052 at a full-XP level (player level up to quest level 12 + 5) paid 1100 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 1100 XP"
+			}
+		],
+		"note": "Threat from Below pays 1100 XP, not 900: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
+	},
+	"99108": {
+		"set": {
+			"xp": 270
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: 12 hand-ins of 99108 at a full-XP level (player level up to quest level 6 + 5) paid 270 XP"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.13 support/Forever/QuestXP/xpDB-traces.lua: 270 XP"
+			}
+		],
+		"note": "Sparring Match pays 270 XP, not 550: the data had the wrong value, which skewed the level model on the Horde 1-30 route (#1414)."
 	}
 }
