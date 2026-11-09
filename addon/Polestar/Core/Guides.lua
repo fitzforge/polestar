@@ -307,6 +307,10 @@ end
 -- `spots` builds the same tables the compiler had (Own.PACKED) and keeps
 -- them on the goal, so a spot is one table for the session (the Engine keys
 -- its pick and visits by it); a goal nobody reads keeps only its string.
+-- Goals whose spots read the same on the same map and frame (a kill and the
+-- grind or farm step after it on one mob, a camp a route comes back to) share
+-- one list (Own.spotsShared, by the interned string: no copy): a fifth of the
+-- spots a session can build are such repeats (#1392).
 ---------------------------------------------------------------------------
 
 local strfind, strbyte, gmatch = string.find, string.byte, string.gmatch
@@ -362,11 +366,36 @@ function Own.unpackSpots(s)
 	return out
 end
 
+-- [map][frame] -> { [packed string] = spots }, weak values: a list lives while a goal holds it.
+Own.spotsShared = {}
+local WEAK_VALUES = { __mode = "v" }
+
+local function sharedSpots(goal)
+	local m = rawget(goal, "map") or 0
+	local byMap = Own.spotsShared[m]
+	if not byMap then
+		byMap = {}
+		Own.spotsShared[m] = byMap
+	end
+	local f = rawget(goal, "f") or "l"
+	local lists = byMap[f]
+	if not lists then
+		lists = setmetatable({}, WEAK_VALUES)
+		byMap[f] = lists
+	end
+	return lists
+end
+
 Own.PACKED = { __index = function(goal, k)
 	if k ~= "spots" then return nil end
 	local s = rawget(goal, "spotsPacked")
-	local spots = s and Own.unpackSpots(s)
-	if spots then rawset(goal, "spots", spots) end
+	if not s then return nil end
+	local lists = sharedSpots(goal)
+	local spots = lists[s] or Own.unpackSpots(s)
+	if spots then
+		lists[s] = spots
+		rawset(goal, "spots", spots)
+	end
 	return spots
 end }
 

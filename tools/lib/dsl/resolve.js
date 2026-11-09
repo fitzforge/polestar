@@ -1858,7 +1858,10 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		if (!g.explicitCoords && picked.x !== undefined) {
 			const sp = spawnSpots(data, area ? picked.sources || [c] : [c], picked.map, picked.f, picked.x, picked.y, area ? picked.elites : undefined);
 			if (sp) {
-				goal.spots = sp.spots;
+				// A grind keeps its mob's places the arrow picks, not the alternatives (other places it spawns, walked
+				// by hand for a quest target): any of the mob will do, and a grind's spots cost memory (#1392).
+				const kept = goal.grind !== undefined ? sp.spots.filter((s) => !s.alt) : sp.spots;
+				goal.spots = kept.length ? kept : sp.spots;
 				if (sp.spread && area) goal.spread = true;
 				if (sp.at) {
 					goal.x = sp.at.x;
