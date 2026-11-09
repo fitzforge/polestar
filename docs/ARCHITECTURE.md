@@ -841,7 +841,8 @@ radius in yards), `group` (group content, below). A goal placed at an NPC or
 object that spawns at several
 places carries spawn areas, `spots = { { x, y, r, n, alt }, ... }` (in
 Polestar's own pack one string, `spotsPacked`, built into these tables on the
-goal's first read of `spots`; PACK_FORMAT, "Format 8"): cluster
+goal's first read of `spots`, shared by every goal with the same string on the
+same map and frame; PACK_FORMAT, "Format 8"): cluster
 centre in the goal's `map` and frame, radius in yards, spawn count; together
 they cover every spawn of the target on that map. Camps nearest to the goal's
 `x`/`y` first, at most 6 (a target with 6 spawns or fewer gets a spot at every
