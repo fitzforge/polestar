@@ -21,10 +21,10 @@ reward item 19211
 # price from Forever's client item table, and the drop tables of the materials (Incendosaur Scale: every
 # Incendosaur, two to four; Fiery and Lava Cores, Core Leather and Blood of the Mountain from the Molten
 # Core). The Thorium Brotherhood has no kill reputation. Neutral to Exalted is 42,000 reputation.
-# Quest reputation and level: in Classic a quest pays less once it is 6 or more levels below you (a fifth
-# off per level, down to a fifth); a Forever beta report had low quests paying in full. Only the Thorium
-# Point quests (48-50) are affected; every turn-in quest here is level 60. Numbers leave out Diplomat.
-# INGAME: Do the Thorium Point quests (48-50) pay 100 or 20 reputation at level 60?
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
+# Numbers leave out Diplomat.
 # The way to the Grim Guzzler (the Shadowforge Key or the Ring of Law, then the Shadowforge Lock) is
 # Classic's layout of Blackrock Depths; nothing shows Forever changing it.
 # Left out: Secrets of the Colossus - Regal (8858, 200 reputation), a Silithus quest with no objectives in
@@ -43,7 +43,7 @@ reward item 19211
 # and Lava Cores and Core Leather cannot be had, and Dark Iron Ore carries Honored to Exalted.
 
 step Thorium Point
-  tip Thorium Point is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through Searing Gorge if you can; your first turn-in shows which. Master Smith Burninate's What the Flux? also opens his Fiery Flux turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.
+  tip Thorium Point is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. Master Smith Burninate's What the Flux? also opens his Fiery Flux turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.
   accept 7722                         -- Master Smith Burninate
   accept 7723                         -- Hansel Heavyhands
   accept 7724

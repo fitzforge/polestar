@@ -31,11 +31,10 @@ why Safe passage through the tunnels, agility enchants and furbolg recipes; the 
 # totems 3-4%.
 # The Runecloth and Sacred Cloth quests and The Root of All Evil are taken
 # optionally or by choice: their later steps hold only a player who took them.
-# Grey content: in Classic a quest pays less once it is 6 or more levels below
-# you (a fifth less per level, down to a fifth: Timbermaw Ally, level 48, paid
-# 30 at 60), and grey mobs give about a fifth. A Forever beta report had
-# quests paying in full at any level.
-# INGAME: grey quest and grey-mob reputation in Forever (Classic: reduced).
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
+# INGAME: grey-mob reputation in Forever (Classic: about a fifth).
 # Numbers are base values; the Legacy perk Diplomat adds up to 10%.
 # INGAME: Forever's new Blackmaw Hold furbolgs (Azshara): does killing them
 # count for or against the Timbermaw? Forever's data has no reputation for them.
@@ -48,7 +47,7 @@ step Grazle
   accept 8460
 
 step Deadwood Village
-  tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. In Classic, quests 6 or more levels below you pay less and grey mobs give about a fifth: at level 60 Timbermaw Ally paid 30 instead of 150 and these furbolgs about 1 a kill. Do it while leveling if you can.
+  tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can.
   kill 7153 quest 8460.1
   kill 7155 quest 8460.2
   kill 7154 quest 8460.3
