@@ -142,13 +142,13 @@ return {
 
 	-- Step 34: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
-	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "",
+	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}東邊不遠的墓地喝下{item:11243}：你會死亡，只有變成鬼魂才看得到{npc:9299}，他在墓地正北方丘陵的岩縫裡。在那裡和他交談，然後跑回屍體復活：他要你去找的顯眼的墓碑就在那座墓地裡。",
 
 	-- Step 35: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "對{area:976}的哥布林女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}會在路線後段被嚇到。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}嚇唬{npc:7583}",
 
 	-- Step 36: Gadgetzan
 	-- {object:142071} Egg-O-Matic
@@ -176,7 +176,7 @@ return {
 
 	-- Step 41: Ruins of Isildien
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic
-	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "",
+	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "從{area:1099}往南騎：角鷹獸巢在{zone:1444}南部；每個巢都有一顆蛋可放進{object:142071}。",
 
 	-- Step 42: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

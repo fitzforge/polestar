@@ -142,13 +142,13 @@ return {
 
 	-- Step 34: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
-	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "",
+	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "Buvez l'{item:11243} au cimetière juste à l'est de {area:976} : il vous tue, et ce n'est que sous forme de fantôme que vous pouvez voir {npc:9299}, dans une crevasse rocheuse des collines plein nord. Parlez-lui là-bas, puis retournez à votre corps et ressuscitez : la Pierre tombale remarquable où il vous envoie se trouve dans ce cimetière.",
 
 	-- Step 35: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "Utilisez {item:12928} sur {npc:7583}, la petite gobeline de {area:976}. {npc:10977} et {npc:10978} seront effrayés plus loin dans le parcours.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "Effrayez {npc:7583} avec {item:12928}",
 
 	-- Step 36: Gadgetzan
 	-- {object:142071} Egg-O-Matic
@@ -176,7 +176,7 @@ return {
 
 	-- Step 41: Ruins of Isildien
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic
-	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "",
+	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "Chevauchez vers le sud depuis {area:1099} : les nids d'hippogryphes sont dans le sud de {zone:1444} ; chacun contient un Oeuf d'hippogryphe pour l'{object:142071}.",
 
 	-- Step 42: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

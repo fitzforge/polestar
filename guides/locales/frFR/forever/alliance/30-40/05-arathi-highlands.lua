@@ -142,7 +142,7 @@ return {
 
 	-- Step 33: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
-	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "",
+	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "Repartez vers le sud depuis le cercle est ; {npc:2712} et {npc:2713} campent dans les collines juste au nord de {area:314}.",
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
@@ -220,7 +220,7 @@ return {
 
 	-- Step 52: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
-	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "",
+	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "Suivez la route vers le nord en sortant d'{area:271} jusque dans les montagnes. Des lions des montagnes parcourent les pentes ; les membres du Syndicat de {area:280} portent les chevalières. {npc:2306} (40) apparaît à un seul endroit à la fois : la cave de l'auberge d'{area:280}, ou l'un des camps de tentes du Syndicat sur les hauteurs au nord et au nord-ouest du village.",
 
 	-- Step 53: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac

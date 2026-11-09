@@ -142,7 +142,7 @@ return {
 
 	-- Step 33: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
-	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "",
+	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "동쪽 환상열석에서 남쪽으로 돌아가세요. {npc:2712}와(과) {npc:2713}은(는) {area:314} 바로 북쪽 언덕에 진을 치고 있습니다.",
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
@@ -220,7 +220,7 @@ return {
 
 	-- Step 52: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
-	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "",
+	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "길을 따라 북쪽으로 {area:271}을(를) 나가 산으로 들어가세요. 산사자가 비탈을 돌아다니고, {area:280}의 비밀결사대가 인장 반지를 끼고 있습니다. {npc:2306}(40)은(는) 한 번에 한 곳에만 나타납니다. {area:280} 여관의 지하실, 또는 마을 북쪽과 북서쪽 고지대에 있는 비밀결사대 천막 야영지 중 한 곳입니다.",
 
 	-- Step 53: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac

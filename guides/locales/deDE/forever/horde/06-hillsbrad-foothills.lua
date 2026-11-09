@@ -77,18 +77,18 @@ return {
 
 	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südwestlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "",
 
 	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
-	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "",
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Direkt südlich von Masoj wachsen die {item:3502} an den Hängen über dem Fluss.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj will, dass du eine Apothekerphiole auf drei Gipfeln platzierst. Der südliche ist die Hügelkuppe über {area:290}, südöstlich der Blüten: Benutze oben eine Phiole.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "Die Schmiede",

@@ -198,7 +198,7 @@ return {
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "갈라크일족 야영지가 높새바람 봉우리 북쪽 협곡을 가득 메우고 있으며, 모든 야영지에 척후병, 사냥꾼, 바람전사가 함께 있습니다. 홀로 다니는 {npc:10617}이(가) 야영지 사이를 오갑니다. 만나면 처치하세요. 그의 쪽지가 {area:2237} 퀘스트를 시작합니다.",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
-	["{npc:10617}'s {quest:4881}, if you meet him"] = "",
+	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}의 {quest:4881}, 만나면",
 
 	-- Step 46: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
@@ -240,7 +240,7 @@ return {
 
 	-- Step 53: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
-	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "",
+	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "{npc:10617}이(가) 음모 문서를 떨어뜨린 경우에만: {npc:10638}은(는) {area:2237}에 있습니다.",
 
 	-- Step 55: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther

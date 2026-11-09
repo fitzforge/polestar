@@ -77,18 +77,18 @@ return {
 
 	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "馬索吉躲在敦霍爾德城堡西南邊、{area:290}上方的山坡上，就在下山前往花叢的路上。",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "",
 
 	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
-	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "",
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "在馬索吉南邊不遠，{item:3502}生長在河流上方的山坡上。",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "馬索吉要你在三座山峰上各放一瓶藥劑師瓶子。南邊那座是{area:290}上方、花叢東南邊的山頂：在山頂使用一瓶。",
 
 	-- Step 14: The smithy
 	["The smithy"] = "鐵匠鋪",

@@ -56,7 +56,7 @@ return {
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "La posada quemada está en el camino al oeste, hacia {zone:1413}; la insignia del guardia está entre las cenizas.",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -192,9 +192,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 55: Cortello's scroll
-	["Cortello's scroll"] = "",
+	["Cortello's scroll"] = "El pergamino de Cortello",
 	-- {area:35} Booty Bay
-	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "Opcional: el pergamino de Cortello está dentro de uno de los tres barcos Velasangre anclados frente a la costa, justo al sur de {area:35}, en una cubierta media o inferior, y no siempre en el mismo barco. Sus tripulaciones son piratas de nivel 42-45: ábrete paso desde el borde, uno a uno, y deja a los capitanes (45-48), a quienes la ruta vuelve a buscar a nivel 48.",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "para {zone:1435}, más adelante",
 

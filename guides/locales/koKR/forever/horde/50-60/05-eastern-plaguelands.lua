@@ -142,13 +142,13 @@ return {
 
 	-- Step 34: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
-	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "",
+	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "{area:976} 바로 동쪽 묘지에서 {item:11243}을(를) 마시세요. 마시면 죽으며, 유령 상태에서만 그 정북쪽 언덕의 바위 틈에 있는 {npc:9299}을(를) 볼 수 있습니다. 그곳에서 그에게 말을 건 뒤 시체로 달려가 부활하세요. 그가 알려 주는 눈에 띄는 묘비는 그 묘지에 있습니다.",
 
 	-- Step 35: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "{area:976}의 고블린 소녀 {npc:7583}에게 {item:12928}을(를) 사용하세요. {npc:10977}와(과) {npc:10978}은(는) 나중에 경로 중 놀래 줍니다.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "{item:12928}(으)로 {npc:7583} 겁주기",
 
 	-- Step 36: Gadgetzan
 	-- {object:142071} Egg-O-Matic
@@ -176,7 +176,7 @@ return {
 
 	-- Step 41: Ruins of Isildien
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic
-	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "",
+	["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "{area:1099}에서 남쪽으로 가세요. 히포그리프 둥지는 {zone:1444} 남부에 있으며, 둥지마다 {object:142071}에 쓸 알이 하나씩 있습니다.",
 
 	-- Step 42: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

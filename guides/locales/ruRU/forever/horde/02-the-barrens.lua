@@ -93,7 +93,7 @@ return {
 
 	-- Step 27: Telf Joolam
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
-	["Over the {area:814} bridge below {area:379} and south along the {zone:1411} bank to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
+	["Over the {area:814} bridge below {area:379} and south along the {zone:1411} bank to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "По мосту ({area:814}) под местом {area:379} и на юг вдоль берега ({zone:1411}) до узкой тропы, ведущей в гору: {npc:5900} хранит святилище на вершине. Осторожнее с обрывами по пути наверх и спускайтесь по той же тропе.",
 
 	-- Step 28: Dustwind Gulch cultists
 	-- {area:1898} Dustwind Gulch

@@ -55,7 +55,7 @@ return {
 
 	-- Step 8: Thoradin's Wall
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "小心：從水壩的岩架掉下去會落進下方{zone:1437}的河裡。在大約65,77的瀑布之前很早就從西岸爬上來：掉下瀑布會死。接著往西北走到道路，沿路往北經過{area:880}進入阿拉希。\n到了阿拉希和{area:287}之間{area:1057}的大門，轉向北，沿著{area:287}那一側的城牆走到一輛靠在牆邊的翻倒推車。跳上推車和它的梯子登上城牆，再越過岩石到達隱藏的營地。有些角色無法鑽過營地的貨網底下；換個種族或較小的形態就能通過。",
 	["Fallen cart"] = "",
 
 	-- Step 9: The hidden camp

@@ -56,7 +56,7 @@ return {
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에 있습니다.",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -192,9 +192,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 55: Cortello's scroll
-	["Cortello's scroll"] = "",
+	["Cortello's scroll"] = "코르텔로의 두루마리",
 	-- {area:35} Booty Bay
-	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "선택 사항: 코르텔로의 두루마리는 {area:35} 바로 남쪽 앞바다에 정박한 붉은해적단 배 세 척 중 하나의 중간 또는 아래 갑판에 있으며, 항상 같은 배에 있지는 않습니다. 선원은 42-45 레벨 해적입니다. 가장자리부터 하나씩 처치하며 길을 뚫고, 선장(45-48)은 남겨 두세요. 48 레벨에 경로상 다시 처치하러 옵니다.",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "나중에 {zone:1435}에 쓸 것",
 

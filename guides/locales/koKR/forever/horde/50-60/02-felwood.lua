@@ -88,9 +88,9 @@ return {
 
 	-- Step 18: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "",
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}이(가) 운고로의 랩터사우루스 발톱을 받습니다. 그는 도시 중앙에서 조금 걸어가면 나오는 {object:172960}에 있습니다.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
 	-- Step 19: Class trainer
 	["Class trainer"] = "",

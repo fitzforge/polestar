@@ -56,7 +56,7 @@ return {
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "Das abgebrannte Gasthaus Zur süßen Ruh steht an der Straße nach Westen, Richtung {zone:1413}; die Plakette der Wache liegt in der Asche.",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -192,9 +192,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 55: Cortello's scroll
-	["Cortello's scroll"] = "",
+	["Cortello's scroll"] = "Cortellos Schriftrolle",
 	-- {area:35} Booty Bay
-	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "Optional: Cortellos Schriftrolle liegt in einem der drei Schiffe der Blutsegelbukaniere, die direkt südlich von {area:35} vor der Küste ankern, auf einem mittleren oder unteren Deck, und nicht immer auf demselben Schiff. Ihre Mannschaften sind Piraten der Stufe 42-45: Kämpf dich vom Rand aus vor, einen nach dem anderen, und lass die Kapitäne (45-48) in Ruhe; für sie kommt die Route auf Stufe 48 zurück.",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "für die {zone:1435} später",
 

@@ -264,7 +264,7 @@ return {
 
 	-- Step 72: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1119} Twin Colossals · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
+	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "Le camp de {npc:7775} est au nord de {area:1119}. Il prépare l'{item:11243} à partir d'une {item:11242} : acceptez sa course pour en obtenir une.",
 
 	-- Step 73: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
@@ -272,11 +272,11 @@ return {
 
 	-- Step 74: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} pousse dans un bâtiment en ruine au nord de {npc:7765} : entrez par la brèche de son mur depuis la corniche voisine.",
 
 	-- Step 75: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Chevauchez vers l'ouest jusqu'aux ruines de Ravenwind : {npc:7774} se cache dans le petit bâtiment rond au fond. Ouvrez le coffre à côté d'elle pour obtenir {item:9189} : elle dure 15 minutes, comme la quête.",
 
 	-- Step 76: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
@@ -285,7 +285,7 @@ return {
 	-- Step 77: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
-	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "",
+	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "Retournez au camp de {npc:7775}, juste au sud-est de {npc:7765} : la {item:11242} vous rapporte trois Élixirs de Videre. Gardez-les : {npc:9298} en prend un, et {npc:9299} à {area:976} ne se montre qu'à qui en a bu un.",
 
 	-- Step 79: Fly to Theramore
 	["Fly to Theramore"] = "Volez jusqu'à Theramore",
@@ -329,7 +329,7 @@ return {
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "Sur {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "Effrayez {npc:7583} avec {item:12928}",
 	-- {area:3197} Chillwind Camp
 	["For {area:3197}: keep it"] = "Pour {area:3197} : gardez-la",
 	-- {npc:7876} Tran'rek
@@ -337,7 +337,7 @@ return {
 
 	-- Step 89: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
-	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "",
+	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299} est un fantôme au cimetière juste à l'est de la ville : buvez-y un {item:11243}, qui vous tue, libérez votre esprit et parlez-lui sous forme de fantôme. Ensuite, retournez à votre corps pour revenir à la vie : la pierre tombale se trouve tout près.",
 
 	-- Step 90: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
@@ -353,7 +353,7 @@ return {
 
 	-- Step 93: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
+	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Prenez un vol de {area:976} pour {area:541}. {npc:8737} se tient au fond du refuge ; {npc:9117} est dans la grotte derrière lui.\nL'ami de {npc:9997}, {npc:9999}, a disparu.",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 	-- {npc:9997} Spraggle Frock
@@ -404,7 +404,7 @@ return {
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "La tour de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Revenez vers le sud-ouest jusqu'à la tour de {area:2742} à {area:2738} ; gravissez-la et tuez les embusqués qui surgissent pour l'objet incrusté.",
 
 	-- Step 105: Layo Starstrike
 	-- {zone:1450} Moonglade

@@ -46,7 +46,7 @@ return {
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
-	["Gregor's quests lead to other zones: keep them."] = "",
+	["Gregor's quests lead to other zones: keep them."] = "그레고르의 퀘스트는 다른 지역으로 이어집니다. 보관하세요.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "",
 
@@ -89,17 +89,17 @@ return {
 
 	-- Step 18: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "",
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "드워프 {npc:7775}은(는) {area:1099} 북서쪽 {area:1137}에 야영하고 있습니다. 그는 당신이 가져온 {item:11242}(으)로만 {item:11243}을(를) 만듭니다.",
 
 	-- Step 19: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}은(는) 하피의 {area:1114} 동쪽, {npc:7775} 야영지 북쪽의 무너진 건물 안에서 자랍니다. 벽의 부서진 곳으로 들어가세요.",
 
 	-- Step 20: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
-	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "",
+	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "남쪽의 {npc:7775}에게 돌아가세요. 비약은 보관하고 아직 마시지 마세요. 마시면 죽는데, 나중에 {area:976} 근처에서 가에리얀을 만나는 방법이 바로 그것입니다.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
-	["{item:11243}, {npc:7775}'s reward"] = "",
+	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, {npc:7775}의 보상",
 
 	-- Step 22: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff

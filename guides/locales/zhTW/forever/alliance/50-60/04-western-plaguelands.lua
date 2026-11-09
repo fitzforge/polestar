@@ -264,7 +264,7 @@ return {
 
 	-- Step 72: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1119} Twin Colossals · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
+	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "{npc:7775}的營地在{area:1119}北邊。他用{item:11242}釀製{item:11243}：接下他的差事來換一瓶。",
 
 	-- Step 73: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
@@ -272,11 +272,11 @@ return {
 
 	-- Step 74: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}生長在{npc:7765}北邊一棟廢墟建築裡：從旁邊的岩架穿過牆上的破口爬進去。",
 
 	-- Step 75: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "向西騎進鴉風廢墟：{npc:7774}躲在後方的小圓形建築裡。打開她旁邊的箱子取得{item:9189}：效果持續15分鐘，和任務時限一樣。",
 
 	-- Step 76: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
@@ -285,7 +285,7 @@ return {
 	-- Step 77: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
-	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "",
+	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "回到{npc:7765}東南邊不遠的{npc:7775}營地：{item:11242}可換三瓶維迪爾藥劑。留著它們：{npc:9298}要一瓶，而{area:976}的{npc:9299}只會現身給喝過藥劑的人看。",
 
 	-- Step 79: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
@@ -329,7 +329,7 @@ return {
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "關於{npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}嚇唬{npc:7583}",
 	-- {area:3197} Chillwind Camp
 	["For {area:3197}: keep it"] = "交給{area:3197}：保留此任務",
 	-- {npc:7876} Tran'rek
@@ -337,7 +337,7 @@ return {
 
 	-- Step 89: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
-	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "",
+	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}是鎮東邊不遠墓地裡的鬼魂：在那裡喝下{item:11243}，你會死亡，釋放靈魂後以鬼魂狀態和他交談。然後跑回屍體復活：墓碑就在附近。",
 
 	-- Step 90: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
@@ -353,7 +353,7 @@ return {
 
 	-- Step 93: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
+	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "從{area:976}飛往{area:541}。{npc:8737}站在避難所後方；{npc:9117}在他身後的洞穴裡。\n{npc:9997}的朋友{npc:9999}失蹤了。",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
 	-- {npc:9997} Spraggle Frock
@@ -404,7 +404,7 @@ return {
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "{area:2742}高塔",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "向西南騎回{area:2738}的{area:2742}高塔；爬上去，擊殺為了異種蠍粘液包裹的物體而出現的伏擊者。",
 
 	-- Step 105: Layo Starstrike
 	-- {zone:1450} Moonglade

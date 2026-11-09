@@ -80,7 +80,7 @@ return {
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
 	["{npc:10978}: {npc:7583} and {npc:10977} come later"] = "{npc:10978}: {npc:7583} y {npc:10977} vienen después",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {item:12928}"] = "",
+	["Scare {npc:10978} with {item:12928}"] = "Asusta a {npc:10978} con {item:12928}",
 
 	-- Step 18: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Theramore",

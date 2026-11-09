@@ -76,7 +76,7 @@ return {
 	["{npc:3514}, at the top of the tree"] = "{npc:3514}, en lo alto del árbol",
 
 	-- Step 10: The moonwell
-	["The moonwell"] = "",
+	["The moonwell"] = "El pozo de la luna",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial

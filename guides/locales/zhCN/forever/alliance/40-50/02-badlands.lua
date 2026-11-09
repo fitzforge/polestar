@@ -87,7 +87,7 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "",
+	["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak

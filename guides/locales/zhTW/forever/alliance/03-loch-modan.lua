@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: Mountaineer Stormpike
 	-- {npc:1343} Mountaineer Stormpike · {npc:1416} Grimand Elmore
-	["{npc:1343}: {npc:1416}'s package"] = "",
+	["{npc:1343}: {npc:1416}'s package"] = "{npc:1343}：{npc:1416}的包裹",
 
 	-- Step 6: Silver Stream Mine
 	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "",

@@ -46,7 +46,7 @@ return {
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
-	["Gregor's quests lead to other zones: keep them."] = "",
+	["Gregor's quests lead to other zones: keep them."] = "格雷戈的任務會通往其他地區：保留它們。",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "",
 
@@ -89,17 +89,17 @@ return {
 
 	-- Step 18: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "",
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "矮人{npc:7775}在{area:1099}西北方的{area:1137}紮營。他只會用你帶來的{item:11242}釀製{item:11243}。",
 
 	-- Step 19: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}生長在{npc:7775}營地北邊、鷹身人的{area:1114}東邊一棟廢墟建築裡：從牆壁的破損處爬進去。",
 
 	-- Step 20: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
-	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "",
+	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "往南回到{npc:7775}那裡。留著藥劑，先別喝：喝了會死，而這正是之後在{area:976}附近見到蓋瑞恩的方法。",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
-	["{item:11243}, {npc:7775}'s reward"] = "",
+	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}，{npc:7775}的獎勵",
 
 	-- Step 22: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff

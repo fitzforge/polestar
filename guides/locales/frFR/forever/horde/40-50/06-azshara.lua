@@ -64,12 +64,12 @@ return {
 
 	-- Step 21: Zilzibin Drumlore
 	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris · {zone:1447} Azshara
-	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "",
+	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "En traversant {zone:1454} vers le maître de vol, passez par la Herse : {npc:7010} prend le rapport sur les insectes de {zone:1446}, et son expérience raccourcit la mise à niveau jusqu'à 50 en {zone:1447}.",
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010}, the Drag"] = "",
+	["{npc:7010}, the Drag"] = "{npc:7010}, la Herse",
 
 	-- Step 22: Dran Droffers
-	["The Droffers' shop is a few steps further into the Drag."] = "",
+	["The Droffers' shop is a few steps further into the Drag."] = "La boutique des Droffers est à quelques pas plus loin dans la Herse.",
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, la Herse",
 
@@ -148,7 +148,7 @@ return {
 
 	-- Step 41: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010}, the Drag: if you still carry it"] = "",
+	["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, la Herse : si vous l'avez encore",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 

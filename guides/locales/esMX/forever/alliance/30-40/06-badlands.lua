@@ -127,11 +127,11 @@ return {
 
 	-- Step 28: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} está en el borde de {area:596}, al suroeste de {area:2407}; {object:176751} están entre los esqueletos.",
 
 	-- Step 29: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Un {npc:217590} se arrastra por {area:596}: atrapa uno con la herramienta del Entomology Starter Kit de {npc:217412}.",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "Centauros Maraudine",
@@ -179,9 +179,9 @@ return {
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "",
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "",
+	["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
 
 	-- Step 45: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Isla Theramore",

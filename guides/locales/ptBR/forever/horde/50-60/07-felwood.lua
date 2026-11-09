@@ -19,7 +19,7 @@ return {
 
 	-- Step 4: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
-	["In the {object:172961}."] = "",
+	["In the {object:172961}."] = "Em {object:172961}.",
 	-- {item:14047} Runecloth
 	["sixty {item:14047}"] = "sessenta {item:14047}",
 

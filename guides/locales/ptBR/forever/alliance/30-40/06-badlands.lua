@@ -127,11 +127,11 @@ return {
 
 	-- Step 28: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos.",
 
 	-- Step 29: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Um {npc:217590} rasteja por {area:596}: capture um com a ferramenta do kit de entomologia de {npc:217412}.",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "Centauros Maraudinos",
@@ -179,9 +179,9 @@ return {
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: vá matando estes pelo caminho",
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Os nagas Lâmina Sinuosa dominam a costa noroeste, ao norte da torre de {npc:11863}; a bolsa de Karnitol está no fundo do mar diante dela. Nade até {area:2406}, na ponta extrema norte, e use o {item:15766} no {object:177673}: {npc:12369} (38) surge; mate-o para obter {quest:6027}.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "",
+	["{item:15766}, on the {object:177673}"] = "{item:15766}, no {object:177673}",
 
 	-- Step 45: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",

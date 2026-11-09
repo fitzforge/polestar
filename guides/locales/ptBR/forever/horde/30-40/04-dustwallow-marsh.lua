@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Para o sudeste do solar até {area:513}: o {object:20925} está no fundo do mar diante das docas, no lado leste da ilha. Entre e saia nadando e fique longe dos píeres e da cidade: os guardas de Theramore são de nível 53-57.",
 	["Underwater"] = "Debaixo d'água",
 
 	-- Step 19: Brackenwall Village

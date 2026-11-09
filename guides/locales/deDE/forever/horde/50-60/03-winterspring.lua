@@ -46,7 +46,7 @@ return {
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
-	["Gregor's quests lead to other zones: keep them."] = "",
+	["Gregor's quests lead to other zones: keep them."] = "Gregors Quests führen in andere Gebiete: Behalte sie.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "",
 
@@ -89,17 +89,17 @@ return {
 
 	-- Step 18: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "",
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "{npc:7775}, ein Zwerg, lagert in {area:1137} nordwestlich vom {area:1099}. Er braut das {item:11243} nur aus einer {item:11242}, die du ihm bringst.",
 
 	-- Step 19: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7775}s Lager, östlich von {area:1114} der Harpyien: Kletter durch das zerbrochene Stück der Wand hinein.",
 
 	-- Step 20: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
-	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "",
+	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "Zurück nach Süden zu {npc:7775}. Behalte das Elixier und trink es noch nicht: Es tötet dich, und so triffst du später Gaeriyan bei {area:976}.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
-	["{item:11243}, {npc:7775}'s reward"] = "",
+	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, die Belohnung von {npc:7775}",
 
 	-- Step 22: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff

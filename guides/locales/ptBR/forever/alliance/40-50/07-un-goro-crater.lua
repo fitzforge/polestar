@@ -78,7 +78,7 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Siga para o leste até {area:1943}, onde o robô fica entre os gorilas. Não entre na caverna funda dali.",
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 19: Level 49.51

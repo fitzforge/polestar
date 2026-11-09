@@ -46,7 +46,7 @@ return {
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
-	["Gregor's quests lead to other zones: keep them."] = "",
+	["Gregor's quests lead to other zones: keep them."] = "格雷戈的任务会把你带到其他地区：留着它们。",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}：在屋内",
 
@@ -89,17 +89,17 @@ return {
 
 	-- Step 18: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "",
+	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "矮人{npc:7775}在{area:1099}西北的{area:1137}扎营。他只用你带来的{item:11242}调制{item:11243}。",
 
 	-- Step 19: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}长在{npc:7775}营地北边、鹰身人的{area:1114}东边的一座废墟建筑里：从墙上破损的地方爬进去。",
 
 	-- Step 20: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
-	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "",
+	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "向南回到{npc:7775}那里。留着药剂，先别喝：它会杀死你，而你之后正是这样在{area:976}旁见到盖瑞恩。",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
-	["{item:11243}, {npc:7775}'s reward"] = "",
+	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}，{npc:7775}的奖励",
 
 	-- Step 22: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff

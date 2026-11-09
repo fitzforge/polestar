@@ -78,7 +78,7 @@ return {
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "동쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
 	["Below ground"] = "",
 
 	-- Step 19: Level 49.51

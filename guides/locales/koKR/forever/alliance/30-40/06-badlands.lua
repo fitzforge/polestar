@@ -127,11 +127,11 @@ return {
 
 	-- Step 28: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}은(는) {area:2407} 남서쪽 {area:596} 가장자리에 있습니다. {object:176751}은(는) 해골들 사이에 있습니다.",
 
 	-- Step 29: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{npc:217590}이(가) {area:596} 주변을 기어다닙니다. {npc:217412}의 곤충학 입문 도구에 든 도구로 하나 잡으세요.",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "마라우돈일족 켄타우로스",
@@ -179,9 +179,9 @@ return {
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "",
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "슬리더블레이드 나가가 {npc:11863}의 탑 북쪽, 북서 해안을 차지하고 있습니다. 카르니톨의 가방은 그 앞바다 해저에 있습니다. 최북단 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하세요. {npc:12369}(38)이(가) 나타나면 처치하여 {quest:6027}을(를) 얻으세요.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "",
+	["{item:15766}, on the {object:177673}"] = "{item:15766}, {object:177673}에 사용",
 
 	-- Step 45: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",

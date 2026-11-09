@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "Следуйте по дороге из Элвиннского леса в Зону {zone:1436}: супруги Хмуробров сидят у своей сгоревшей фермы — первой по дороге. Собирайте овес из каждого предмета {object:2724} по пути: остальное соберете на полях здесь на обратном пути.",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "{npc:237}: у людей это задание может уже быть – от {npc:963} в Элвинне",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -288,7 +288,7 @@ return {
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{item:2449} для задания «Сбор лекарственных ингредиентов» (6123), {zone:1439}: {npc:1313}, товары для алхимиков; травники вместо этого собирают его там сами",
 	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
-	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "",
+	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "{npc:1416}: его посылка для {npc:1343} (зона {zone:1432}), позже по маршруту",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}, {object:28027}: для его брата в {area:442}",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake

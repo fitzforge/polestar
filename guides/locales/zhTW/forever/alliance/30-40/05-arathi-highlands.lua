@@ -142,7 +142,7 @@ return {
 
 	-- Step 33: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
-	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "",
+	["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "從東邊的石圈往南走回去；{npc:2712}和{npc:2713}在{area:314}北邊不遠的丘陵紮營。",
 
 	-- Step 34: Forsaken Courier
 	-- {area:314} Go'Shek Farm
@@ -220,7 +220,7 @@ return {
 
 	-- Step 52: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
-	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "",
+	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings. {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village."] = "沿道路從{area:271}向北進入山區。山地獅在山坡上遊蕩；{area:280}的辛迪加戴著圖章戒指。{npc:2306}（40）每次只會出現在一個地點：{area:280}旅店的地窖，或村莊北邊及西北邊高地上的某個辛迪加帳篷營地。",
 
 	-- Step 53: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac

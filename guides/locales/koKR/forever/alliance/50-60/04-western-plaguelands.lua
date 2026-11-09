@@ -264,7 +264,7 @@ return {
 
 	-- Step 72: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1119} Twin Colossals · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
+	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "{npc:7775}의 야영지는 {area:1119} 북쪽에 있습니다. 그는 {item:11242}(으)로 {item:11243}을(를) 만듭니다. 그 재료를 구해 오는 심부름을 받으세요.",
 
 	-- Step 73: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
@@ -272,11 +272,11 @@ return {
 
 	-- Step 74: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}은(는) {npc:7765} 북쪽의 무너진 건물 안에서 자랍니다. 옆의 바위턱에서 벽의 갈라진 틈으로 들어가세요.",
 
 	-- Step 75: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "서쪽 레이븐윈드 폐허로 가세요. {npc:7774}은(는) 안쪽의 작고 둥근 건물에 숨어 있습니다. 그녀 옆의 상자를 열어 {item:9189}을(를) 얻으세요. 퀘스트처럼 15분간 지속됩니다.",
 
 	-- Step 76: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
@@ -285,7 +285,7 @@ return {
 	-- Step 77: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
-	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "",
+	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "{npc:7765} 바로 남동쪽의 {npc:7775} 야영지로 돌아가세요. {item:11242}(으)로 비데레 비약 세 개를 받습니다. 보관하세요. {npc:9298}이(가) 하나를 가져가며, {area:976}의 {npc:9299}은(는) 비약을 마신 사람에게만 모습을 드러냅니다.",
 
 	-- Step 79: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
@@ -329,7 +329,7 @@ return {
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "{npc:7583}에게",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "{item:12928}(으)로 {npc:7583} 겁주기",
 	-- {area:3197} Chillwind Camp
 	["For {area:3197}: keep it"] = "{area:3197}에 쓸 것: 보관하세요",
 	-- {npc:7876} Tran'rek
@@ -337,7 +337,7 @@ return {
 
 	-- Step 89: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
-	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "",
+	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에 있는 유령입니다. 그곳에서 {item:11243}을(를) 마시면 죽습니다. 영혼을 해방한 뒤 유령 상태로 그에게 말을 거세요. 그런 다음 시체로 달려가 되살아나세요. 묘비는 근처에 있습니다.",
 
 	-- Step 90: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
@@ -353,7 +353,7 @@ return {
 
 	-- Step 93: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
+	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "{area:976}에서 {area:541}(으)로 날아가세요. {npc:8737}은(는) 피난처 안쪽에 있고, {npc:9117}은(는) 그 뒤 동굴에 있습니다.\n{npc:9997}의 친구 {npc:9999}이(가) 실종되었습니다.",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
 	-- {npc:9997} Spraggle Frock
@@ -404,7 +404,7 @@ return {
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "{area:2742} 탑",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "남서쪽으로 돌아가 {area:2738}의 {area:2742} 탑으로 가세요. 탑에 올라 딱딱한 실리시드 조각을 노리고 나타나는 잠복꾼을 처치하세요.",
 
 	-- Step 105: Layo Starstrike
 	-- {zone:1450} Moonglade

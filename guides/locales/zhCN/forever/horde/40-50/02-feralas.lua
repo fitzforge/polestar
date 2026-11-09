@@ -200,11 +200,11 @@ return {
 
 	-- Step 47: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
-	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "",
+	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "飞往 {zone:1454}。从飞行管理员出发：先去 {object:172960}，再去暗巷区，然后去 {object:172958}。",
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010}, the Drag"] = "",
+	["{npc:7010}, the Drag"] = "{npc:7010}，在暗巷区",
 	-- {npc:6986} Dran Droffers
-	["{npc:6986}, the Drag"] = "",
+	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425}, around level 48"] = "交给{zone:1425}，大约48级时",
 

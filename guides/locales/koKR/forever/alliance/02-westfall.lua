@@ -75,7 +75,7 @@ return {
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
 	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
-	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "",
+	["{npc:237}: Humans may have it already from {npc:963} in Elwynn"] = "{npc:237}: 인간이라면 엘윈의 {npc:963}에게서 이미 받았을 수 있습니다",
 
 	-- Step 17: The Jansen Stead
 	-- {item:1972} Westfall Deed
@@ -288,7 +288,7 @@ return {
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{zone:1439}의 약재 모으기(6123)에 필요한 {item:2449}: {npc:1313}, 연금술 용품. 약초채집가는 대신 그곳에서 채집하세요",
 	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
-	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "",
+	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "{npc:1416}: {zone:1432}의 {npc:1343}에게 전할 소포 (경로상 나중에)",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake

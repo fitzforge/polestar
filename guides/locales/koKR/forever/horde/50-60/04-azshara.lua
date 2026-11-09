@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: The Undercity
 	-- {object:36126} Royal Quarter
-	["Lady Sylvanas holds the {object:36126}."] = "",
+	["Lady Sylvanas holds the {object:36126}."] = "실바나스 여왕은 {object:36126}에 있습니다.",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson

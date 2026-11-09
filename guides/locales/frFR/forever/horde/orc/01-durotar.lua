@@ -332,7 +332,7 @@ return {
 
 	-- Step 78: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "",
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} se tient dans {object:172960}, le canyon sous {object:172982}. Remettez-lui {item:6535}, puis utilisez les {item:7464} sur le cercle d'invocation à côté de lui et vainquez le marcheur du Vide pour le lier.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Retournez à l'est jusqu'au rivage au nord de {npc:275657}. Les Eclaireurs et les Domestiques fouette-bile tiennent la plage sous {area:370}. Chasseurs : apprivoisez un {npc:3107} sur la plage.",

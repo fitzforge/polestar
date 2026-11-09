@@ -56,7 +56,7 @@ return {
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "Сгоревшая таверна стоит у дороги на запад, в сторону зоны {zone:1413}; значок стражника лежит в пепле.",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -192,9 +192,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 55: Cortello's scroll
-	["Cortello's scroll"] = "",
+	["Cortello's scroll"] = "Свиток Кортелло",
 	-- {area:35} Booty Bay
-	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "Необязательно: свиток Кортелло лежит на одном из трех кораблей Кровавого Паруса, стоящих на якоре у берега чуть к югу от места {area:35}, на средней или нижней палубе, и не всегда на одном и том же корабле. Команды – пираты 42-45 уровня: расчищайте путь с края по одному и не трогайте капитанов (45-48) – за ними маршрут вернется на 48-м уровне.",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "для зоны {zone:1435}, позже",
 

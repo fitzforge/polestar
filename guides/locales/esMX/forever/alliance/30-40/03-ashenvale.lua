@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
-	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "",
+	["{npc:4455} stands by {area:2103}'s door, just north of the flight master."] = "{npc:4455} está junto a la puerta de {area:2103}, justo al norte del maestro de vuelo.",
 	-- {quest:1132} Fiora Longears
-	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "",
+	["For {quest:1132} in Theramore's inn, where this guide's boat goes"] = "Para {quest:1132} en la posada de Theramore, adonde va el barco de esta guía",
 
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
 	-- {quest:1132} Fiora Longears
-	["{quest:1132}, inside the inn in the north of town"] = "",
+	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, dentro de la posada en el norte del pueblo",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
@@ -76,7 +76,7 @@ return {
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post
-	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "",
+	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "Al este por los cañones. {area:484}, un campamento de la Horda con guardias, está sobre la meseta: quédate en el fondo del cañón y mantente bien lejos de la base de sus elevadores.",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 

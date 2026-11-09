@@ -64,12 +64,12 @@ return {
 
 	-- Step 21: Zilzibin Drumlore
 	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris · {zone:1447} Azshara
-	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "",
+	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "經過{zone:1454}前往飛行管理員的路上，順道進入暗巷區：{npc:7010}收下來自{zone:1446}的昆蟲報告，獲得的經驗能縮短在{zone:1447}補到50級的時間。",
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010}, the Drag"] = "",
+	["{npc:7010}, the Drag"] = "{npc:7010}，暗巷區",
 
 	-- Step 22: Dran Droffers
-	["The Droffers' shop is a few steps further into the Drag."] = "",
+	["The Droffers' shop is a few steps further into the Drag."] = "德羅佛斯的商店在暗巷區再往裡走幾步。",
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}，在城裡",
 
@@ -148,7 +148,7 @@ return {
 
 	-- Step 41: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010}, the Drag: if you still carry it"] = "",
+	["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，暗巷區：如果你還帶著它",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 

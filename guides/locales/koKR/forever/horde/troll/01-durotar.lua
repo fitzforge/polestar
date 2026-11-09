@@ -322,7 +322,7 @@ return {
 
 	-- Step 78: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "",
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875}은(는) {object:172982} 아래 협곡인 {object:172960}에 있습니다. 그에게 {item:6535}을(를) 건넨 뒤, 옆의 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "동쪽으로 {npc:275657} 북쪽 해안에 돌아가세요. {npc:275662}와(과) 수행원이 {area:370} 아래 해변을 차지하고 있습니다. 사냥꾼: 해변에서 {npc:3107}을(를) 길들이세요.",

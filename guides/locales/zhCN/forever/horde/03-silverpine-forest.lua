@@ -100,7 +100,7 @@ return {
 
 	-- Step 23: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
-	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "",
+	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264}要在{object:24776}交付，那是墓穴入口南边几步远的一座坟墓，而不是交给某个人。",
 
 	-- Step 24: Border Crossings
 	-- {object:1627} Dalaran Crate

@@ -198,7 +198,7 @@ return {
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Die Lager der Galak füllen die Schlucht nördlich vom Freiwindposten; Späher, Zänker und Windhetzerinnen der Galak teilen sich jedes Lager. Ein einzelner {npc:10617} läuft zwischen den Lagern: Töte ihn, wenn du ihn triffst, seine Notiz startet eine Quest für den {area:2237}.",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
-	["{npc:10617}'s {quest:4881}, if you meet him"] = "",
+	["{npc:10617}'s {quest:4881}, if you meet him"] = "{quest:4881} von {npc:10617}, falls du ihm begegnest",
 
 	-- Step 46: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
@@ -240,7 +240,7 @@ return {
 
 	-- Step 53: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
-	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "",
+	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "Nur wenn {npc:10617} dir seinen Plan hinterlassen hat: {npc:10638} steht bei {area:2237}.",
 
 	-- Step 55: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther

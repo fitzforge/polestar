@@ -56,7 +56,7 @@ return {
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "",
+	["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes."] = "燒毀的旅店位於西邊通往{zone:1413}的道路上；衛兵的徽章就在灰燼中。",
 
 	-- Step 11: Theramore
 	-- {area:514} Foothold Citadel
@@ -192,9 +192,9 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
 	-- Step 55: Cortello's scroll
-	["Cortello's scroll"] = "",
+	["Cortello's scroll"] = "科泰羅的卷軸",
 	-- {area:35} Booty Bay
-	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "",
+	["Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of {area:35}, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48."] = "可選：科泰羅的卷軸在{area:35}南邊不遠、停泊在外海的三艘血帆海盜船之一裡，位於中層或下層甲板，而且不一定每次都在同一艘船上。船員是42-45級的海盜：從邊緣一隻一隻清出路來，並避開船長（45-48），路線會在48級時回來對付他們。",
 	-- {zone:1435} Swamp of Sorrows
 	["for the {zone:1435} later"] = "稍後用於{zone:1435}",
 

@@ -88,9 +88,9 @@ return {
 
 	-- Step 18: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "",
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} prend les griffes de ravasaure d'Un'Goro ; il se tient dans {object:172960}, à courte distance du centre de la ville.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
 	-- Step 19: Class trainer
 	["Class trainer"] = "Maître de classe",

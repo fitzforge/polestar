@@ -253,7 +253,7 @@ return {
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
 	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
 	-- {npc:2792} Gor'mul
-	["{npc:2792}, by the gate"] = "",
+	["{npc:2792}, by the gate"] = "{npc:2792}, у ворот",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
 	["{npc:2706}: its Syndicate are by the road in from {area:272}, on the 38-39 visit"] = "",
 

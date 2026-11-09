@@ -77,18 +77,18 @@ return {
 
 	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "",
+	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к юго-западу от Дарнхольда, по пути вниз к цветам.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, после сдачи задания {quest:98094}",
 
 	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
-	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "",
+	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Сразу к югу от Масоджа на склонах над рекой растет {item:3502}.",
 
 	-- Step 13: The southern peak
 	["The southern peak"] = "Южная вершина",
 	-- {area:290} Dun Garok
-	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "",
+	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, к юго-востоку от цветов: используйте склянку на вершине.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "Кузница",

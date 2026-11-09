@@ -55,7 +55,7 @@ return {
 
 	-- Step 8: Thoradin's Wall
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "",
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "주의: 댐의 바위턱에서 떨어지면 그 아래 {zone:1437}의 강에 빠집니다. 약 65,77의 폭포에 닿기 훨씬 전에 서쪽 강변으로 올라오세요. 폭포에 떨어지면 죽습니다. 그다음 북서쪽 길로 가서 길을 따라 북쪽으로 {area:880}을(를) 넘어 아라시로 가세요.\n아라시와 {area:287} 사이 {area:1057}의 관문에서 북쪽으로 꺾어 {area:287} 쪽 성벽을 따라가면 성벽에 기대 쓰러진 수레가 있습니다. 수레와 사다리를 밟고 성벽 위로 올라간 뒤, 바위를 넘어 숨겨진 야영지로 가세요. 일부 캐릭터는 야영지의 화물 그물 아래를 지나갈 수 없으니, 다른 종족이나 더 작은 변신 형태로 지나가세요.",
 	["Fallen cart"] = "",
 
 	-- Step 9: The hidden camp

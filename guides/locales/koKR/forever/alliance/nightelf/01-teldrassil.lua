@@ -76,7 +76,7 @@ return {
 	["{npc:3514}, at the top of the tree"] = "나무 꼭대기의 {npc:3514}",
 
 	-- Step 10: The moonwell
-	["The moonwell"] = "",
+	["The moonwell"] = "달샘",
 	-- {area:256} Aldrassil
 	["The moonwell sits north of {area:256}."] = "",
 	-- {item:5185} Crystal Phial

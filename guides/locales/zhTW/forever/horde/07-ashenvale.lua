@@ -198,7 +198,7 @@ return {
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克營地遍布亂風崗北邊的峽谷；每個營地都有加拉克斥候、加拉克爭鬥者和加拉克逐風者。有一個落單的{npc:10617}在營地之間走動：遇到就殺了他，他的信會開始一個交給{area:2237}的任務。",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
-	["{npc:10617}'s {quest:4881}, if you meet him"] = "",
+	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 
 	-- Step 46: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
@@ -240,7 +240,7 @@ return {
 
 	-- Step 53: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
-	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "",
+	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "只有在{npc:10617}掉落他的陰謀給你時才做：{npc:10638}站在{area:2237}。",
 
 	-- Step 55: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
