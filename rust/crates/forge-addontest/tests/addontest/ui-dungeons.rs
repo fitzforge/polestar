@@ -189,9 +189,7 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
 	let mut codex = f["codex"].clone();
-	let forever = |key: &str, name: &str, levels: [i64; 3]| {
-		json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": null, "entrance": null, "levels": levels, "bosses": [] })
-	};
+	let forever = |key: &str, name: &str, levels: [i64; 3]| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": null, "entrance": null, "levels": levels, "bosses": [] });
 	codex["instances"]["ruins-of-lordaeron"] = forever("ruins-of-lordaeron", "Ruins of Lordaeron", [10, 15, 22]);
 	codex["instances"]["the-hall-of-thanes"] = forever("the-hall-of-thanes", "The Hall of Thanes", [10, 13, 16]);
 	codex["instances"]["ragefire-chasm"] = forever("ragefire-chasm", "Ragefire Chasm", [10, 13, 16]);

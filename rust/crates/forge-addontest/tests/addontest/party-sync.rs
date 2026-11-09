@@ -255,11 +255,7 @@ emit({ live = E.GetLiveStep(), skipped = skipped(), ticked = E.GoalDone(6, 1) })
 	assert!(!prompt.contains("switch"), "same guide: no tab switch: {prompt}");
 	assert_eq!(out[0]["live"], 2, "nothing moves before the answer");
 	assert_eq!(out[0]["sent"], 0, "never accepted for you");
-	assert_eq!(
-		out[1],
-		json!({ "live": 3, "skipped": [2, 5], "ticked": true, "sent": ["2A|y"] }),
-		"the hand-in skipped; Llane, a Warrior's own step the Mage never had, stays yours and is live"
-	);
+	assert_eq!(out[1], json!({ "live": 3, "skipped": [2, 5], "ticked": true, "sent": ["2A|y"] }), "the hand-in skipped; Llane, a Warrior's own step the Mage never had, stays yours and is live");
 	assert_eq!(out[2], json!({ "live": 2, "skipped": [5], "ticked": true }), "the undo takes back the sync's skips, not yours");
 }
 

@@ -235,11 +235,7 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 /// The refusal for guides whose baked legs are stale, naming each.
 fn stale_refusal(guides: &Path, stale: &[String]) -> String {
 	let legs = guides.join(forge::bake::LEGS_FILE);
-	let mut s = format!(
-		"{} changed since {} was baked; the zip would ship them without legs (the arrow searches instead of following them):\n",
-		plural(stale.len(), "guide"),
-		shown(&legs)
-	);
+	let mut s = format!("{} changed since {} was baked; the zip would ship them without legs (the arrow searches instead of following them):\n", plural(stale.len(), "guide"), shown(&legs));
 	for id in stale {
 		s.push_str(&format!("  {id}\n"));
 	}
