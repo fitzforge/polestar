@@ -168,8 +168,8 @@ step Level 48.98
 step Margol's Horn
   when group 3181
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Horn of the Beast needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 10000 x1 optional @73.5,82.3 map 1427 -- Below ground
-  accept 3181 optional
+  collect 10000 x1 @73.5,82.3 map 1427 -- Below ground
+  accept 3181 item 10000
 
 step The Grimesilt outhouse
   when onquest 4451

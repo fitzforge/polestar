@@ -235,8 +235,8 @@ step Booty Bay
 step Monogrammed Sash
   when group 8552
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Monogrammed Sash needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 3985 x1 optional @23.3,72.1 map 1434
-  accept 8552 optional
+  collect 3985 x1 @23.3,72.1 map 1434
+  accept 8552 item 3985
 
 step Captain Hecklebury Smotts
   when group 8552
@@ -245,7 +245,7 @@ step Captain Hecklebury Smotts
 
 step Sprogger
   when group 8552
-  turnin 8553 optional
+  turnin 8553
 
 step Sprogger
   when group 8554
