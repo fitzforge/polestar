@@ -609,7 +609,7 @@ L["a new icon each press"] = "un icono nuevo con cada pulsación"
 L["Marks it with %s."] = "Lo marca con %s."
 L["Marks it with %s if it has no icon yet: you don't lead the party."] = "Lo marca con %s si aún no tiene icono: no eres líder del grupo."
 L["Marks nothing: in a raid only the leader and assistants set icons."] = "No marca nada: en una banda solo el líder y los ayudantes ponen iconos."
--- L["Target and wave"] = ""
+L["Target and wave"] = "Seleccionar y saludar"
 
 -- QoL/Buy.lua
 L["Left %d %s (%s) for you to buy."] = "Quedan %d %s (%s) para que los compres tú."
@@ -915,8 +915,8 @@ L["Rares too low to give experience leave the map."] = "Los raros de nivel demas
 L["History"] = "Historial"
 L["Forget rares met on this realm"] = "Olvidar los raros vistos en este reino"
 L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] = "Borra la lista Vistos, los tiempos de espera de las alertas y el brillo de los marcadores vistos hace poco."
--- L["Say when Polestar's founder is nearby"] = ""
--- L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = ""
+L["Say when Polestar's founder is nearby"] = "Avisar cuando el fundador de Polestar esté cerca"
+L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once every half hour, never in combat or instances."] = "Cuando %s aparece a la vista, una tarjeta lo avisa y el botón de raro lo selecciona y lo saluda. Como máximo una vez cada media hora, nunca en combate ni en estancias."
 
 -- Rares/Pins.lua
 L["Level %s"] = "Nivel %s"
@@ -948,10 +948,10 @@ L["Set waypoint"] = "Fijar punto de ruta"
 L["Show rare"] = "Ver raro"
 L["Show treasure"] = "Ver tesoro"
 L["known spawn %s"] = "aparición conocida %s"
--- L["Other faction: wave from a safe distance"] = ""
--- L["Say hi with the rare button"] = ""
--- L["Go say hi"] = ""
--- L["The Polestar founder is nearby!"] = ""
+L["Other faction: wave from a safe distance"] = "Otra facción: saluda desde una distancia segura"
+L["Say hi with the rare button"] = "Saluda con el botón de raro"
+L["Go say hi"] = "Ve a saludar"
+L["The Polestar founder is nearby!"] = "¡El fundador de Polestar está cerca!"
 
 -- Rares/View.lua
 L["Seen"] = "Vistos"
@@ -1403,7 +1403,7 @@ L["Polestar is hidden here"] = "Polestar está oculto aquí"
 L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La ventana de la guía se oculta en calabozos y campos de batalla. %s Cámbialo en Opciones > Guía > Ventana."
 L["Closed %s"] = "Se cerró %s"
 L["Reopen"] = "Reabrir"
--- L["Needs"] = ""
+L["Needs"] = "Requiere"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
