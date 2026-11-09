@@ -75,7 +75,7 @@ step Alonso
   only Warrior
   tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
   goto 42.4,70 "Alonso"
-  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
+  accept 78132 optional               -- Alonso walks around the Talondeep Path: the map marks where to look
   turnin 78132
   accept 78133 optional
   turnin 78133
@@ -244,7 +244,7 @@ step Thunder Bluff
 
 step Thunder Bluff
   zone Thunder Bluff
-  tip Fly to Thunder Bluff if you know the flight path. If not, fly to Camp Taurajo, head west into Mulgore past Bloodhoof Village to Thunder Bluff and take its flight path from Tal on the central rise.
+  tip Into Thunder Bluff by a lift: Tal, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet.
   getfp "Thunder Bluff" npc 2995      -- Tal
   kill 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
 
@@ -336,9 +336,9 @@ step Darkcloud Pinnacle
 
 step Level 28.9
   when level<28.9
-  tip Short of 28.9? The Grimtotem around these camps (27-29) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
+  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
   goto 33.8,40.0 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
-  level 28.9                          -- grind on the Grimtotem below Darkcloud Pinnacle
+  level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
 step Lakota Windsong
   tip Climb the path to the top of Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.

@@ -142,6 +142,7 @@ step The smithy
   kill 2449 quest 567.2
 
 step The western peak
+  zone Alterac Mountains
   tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
   use 279395 quest 98095.1 @38.4,87.2 map 1416 live
 

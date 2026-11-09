@@ -487,8 +487,8 @@ step Echeyakee
 
 step Finish the Raptor Heads
   when !has 5062 x12
-  tip Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.
-  collect 5062 quest 869.1 @56,15 map 1413 era
+  tip Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.
+  collect 5062 quest 869.1 @55.0,23.5 map 1413 era
 
 step The Crossroads
   label q869
