@@ -158,13 +158,49 @@ function Client.NumSpecs(classID)
 	return nil
 end
 
--- -> tab name, points spent in it
+-- -> tab name, points spent in it (the talent-tab API: Forever's client
+-- answers it but keeps its talents in C_Traits, see Client.TreeColumns)
 function Client.SpecInfo(index)
 	local S = C_SpecializationInfo
 	if not (S and S.GetSpecializationInfo) then return nil end
 	local ok, _, name, _, _, _, _, points = pcall(S.GetSpecializationInfo, index)
 	if not ok then return nil end
 	return readable(name), readable(points)
+end
+
+-- Forever's talents are one C_Traits tree per class whose spec columns are
+-- the tree's node groups: its talent frame heads each column with the
+-- group's name and the points spent in it (Blizzard_PlayerSpells Camelot,
+-- ClassTalentsFrameMixin:RefreshTreeHeaders: GetGroupDisplayInfoByTreeID,
+-- then GetGroupCurrencyInfo's currencyInfos[1].spent).
+-- -> { { name, points }, ... } left to right | nil when the client has no such tree
+function Client.TreeColumns()
+	local CT, T = C_ClassTalents, C_Traits
+	if not (CT and CT.GetActiveConfigID and T and T.GetConfigInfo and T.GetGroupDisplayInfoByTreeID and T.GetGroupCurrencyInfo) then return nil end
+	local ok, config = pcall(CT.GetActiveConfigID)
+	config = ok and readable(config)
+	if type(config) ~= "number" then return nil end
+	local ok2, info = pcall(T.GetConfigInfo, config)
+	local tree = ok2 and type(info) == "table" and type(info.treeIDs) == "table" and readable(info.treeIDs[1])
+	if type(tree) ~= "number" then return nil end
+	local ok3, shown = pcall(T.GetGroupDisplayInfoByTreeID, tree)
+	if not (ok3 and type(shown) == "table" and shown[1]) then return nil end
+	local ids = {}
+	for i, d in ipairs(shown) do ids[i] = d.groupID end
+	local ok4, groups = pcall(T.GetGroupCurrencyInfo, config, ids)
+	local spent = {}
+	if ok4 and type(groups) == "table" then
+		for _, g in ipairs(groups) do
+			local c = type(g) == "table" and type(g.currencyInfos) == "table" and g.currencyInfos[1]
+			if type(c) == "table" then spent[g.traitNodeGroupID] = readable(c.spent) end
+		end
+	end
+	local out = {}
+	for i, d in ipairs(shown) do
+		local points = spent[d.groupID]
+		out[i] = { name = readable(d.displayName), points = type(points) == "number" and points or 0 }
+	end
+	return out
 end
 
 function Client.KnowsSpell(spellID)
@@ -381,21 +417,35 @@ local function specKeyOf(meta, name, index)
 	return meta.specs[index] and meta.specs[index].key
 end
 
--- The talent tree with the most points, else the primary tree chosen on
--- clients with spec selection, else the class's levelling default (before
--- the first point, or when the client cannot tell).
+-- The spec whose column or tab has the most points: name first (enUS),
+-- else its position. -> key | nil
+local function mostPoints(meta, list)
+	local best, bestPoints = nil, 0
+	for i, col in ipairs(list) do
+		if type(col.points) == "number" and col.points > bestPoints then
+			local key = specKeyOf(meta, col.name, i)
+			if key then best, bestPoints = key, col.points end
+		end
+	end
+	return best
+end
+
+-- The talent column with the most points (Forever's C_Traits tree), else the
+-- talent tab with the most, else the primary tree chosen on clients with
+-- spec selection, else the class's levelling default (before the first
+-- point, or when the client cannot tell).
 function Gear.DetectSpec(class, classID)
 	local meta = CLASSES[class]
 	if not meta then return nil, "default" end
-	local count = Client.NumSpecs(classID) or #meta.specs
-	local best, bestPoints = nil, 0
-	for i = 1, count do
+	local columns = Client.TreeColumns()
+	local best = columns and mostPoints(meta, columns)
+	if best then return best, "talents" end
+	local tabs = {}
+	for i = 1, Client.NumSpecs(classID) or #meta.specs do
 		local name, points = Client.SpecInfo(i)
-		if type(points) == "number" and points > bestPoints then
-			local key = specKeyOf(meta, name, i)
-			if key then best, bestPoints = key, points end
-		end
+		tabs[i] = { name = name, points = points }
 	end
+	best = mostPoints(meta, tabs)
 	if best then return best, "talents" end
 	local primary = Client.PrimarySpec(classID)
 	if primary then

@@ -316,6 +316,101 @@ fn spec_automatic_from_the_talent_spread_the_chosen_primary_tree_the_class_defau
 	assert_eq!(out[4], json!(["fury", "Fury", "talents"]));
 }
 
+fn druid(level: i32) -> Opts {
+	Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level, ..Default::default() }
+}
+
+// Forever keeps talents in a C_Traits tree; its talent-tab API (GetSpecializationInfo) gives no points, so a
+// Restoration Druid fell to the class default, Feral. The columns' points come from the tree's groups, the way
+// Forever's talent frame heads them.
+#[test]
+fn spec_automatic_on_forever_reads_the_talent_columns_points_a_restoration_druid_is_restoration_in_any_language() {
+	let out = run(
+		r#"
+		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 0 } })
+		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 0 } })
+		emit({ G.GetSpec() })
+		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 11 } })
+		emit({ G.GetSpec() })
+		g.setColumns({ { "Gleichgewicht", 2 }, { "Wilder Kampf", 0 }, { "Wiederherstellung", 9 } })
+		emit({ G.GetSpec() })
+		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 8 }, { "Restoration", 5 } })
+		emit({ G.GetSpec() })
+		g.setColumns(nil)
+		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 12 } })
+		emit({ G.GetSpec() })
+	"#,
+		druid(20),
+	);
+	assert_eq!(out[0], json!(["feral", "Feral", "default"]), "no points yet: the levelling default");
+	assert_eq!(out[1], json!(["restoration", "Restoration (healer)", "talents"]), "most points in Restoration");
+	assert_eq!(out[2], json!(["restoration", "Restoration (healer)", "talents"]), "a German client: by column");
+	assert_eq!(out[3], json!(["feral", "Feral", "talents"]), "a hybrid with more Feral points");
+	assert_eq!(out[4], json!(["restoration", "Restoration (healer)", "talents"]), "no trait tree: the talent tabs");
+}
+
+// A player set Stat weights to Restoration and saw Feral come back. The chosen spec holds over a reload, a level,
+// talent points in Feral and Cat Form, on every surface: the spec, the weights, the tooltip line and reward picks.
+#[test]
+fn a_chosen_spec_holds_over_reload_level_up_talent_points_and_cat_form_on_every_gear_surface() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_gear.lua"],
+		before: [
+			"w = stub.world; g = stub.gear\n",
+			"w.class, w.className, w.classID, w.level = \"DRUID\", \"Druid\", 11, 20\n",
+			"w.race, w.raceName, w.raceID, w.faction = \"Troll\", \"Troll\", 8, \"Horde\"\n",
+			"g.columns = { { \"Balance\", 0 }, { \"Feral Combat\", 11 }, { \"Restoration\", 0 } }\n",
+		]
+		.concat(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Gear.xml"])],
+		saved: vec![("Polestar".into(), "PolestarDB = { schema = 1, settings = { gear = { spec = { DRUID = \"restoration\" } } } }".into())],
+		login: true,
+		script: [
+			"G = Polestar.Gear\nPolestar.ItemDB.Register({ schema = 1, build = \"test\" }, ",
+			FIXTURE,
+			r#")
+		g.defineItem("item:8001", { equipLoc = "INVTYPE_CHEST", classID = 4, subclassID = 2, minLevel = 15,
+			stats = { ITEM_MOD_AGILITY_SHORT = 8, ITEM_MOD_STRENGTH_SHORT = 6, ITEM_MOD_STAMINA_SHORT = 4, RESISTANCE0_NAME = 80 } })
+		g.defineItem("item:8002", { equipLoc = "INVTYPE_CHEST", classID = 4, subclassID = 2, minLevel = 15,
+			stats = { ITEM_MOD_INTELLECT_SHORT = 8, ITEM_MOD_SPIRIT_SHORT = 6, ITEM_MOD_STAMINA_SHORT = 4, RESISTANCE0_NAME = 80 } })
+		g.defineItem("item:8003", { equipLoc = "INVTYPE_CHEST", classID = 4, subclassID = 2, minLevel = 1,
+			stats = { ITEM_MOD_STAMINA_SHORT = 1, RESISTANCE0_NAME = 40 } })
+		g.equip(5, "item:8003")
+		local function surfaces(when)
+			local key, label, source = G.GetSpec()
+			local _, pick = G.RankChoices({ "item:8001", "item:8002" })
+			local line = g.showTooltip(GameTooltip, "item:8002")[1]
+			emit({ when = when, key = key, label = label, source = source, heal = G.GetWeights().heal or false,
+				pick = pick, line = line, saved = PolestarDB.settings.gear.spec.DRUID })
+		end
+		surfaces("login")
+		w.setLevel(21)
+		surfaces("level")
+		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 12 }, { "Restoration", 0 } })
+		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 12 }, { "Restoration", 0 } })
+		surfaces("talent")
+		stub.fire("UPDATE_SHAPESHIFT_FORM")
+		stub.fire("ACTIVE_TALENT_GROUP_CHANGED")
+		surfaces("cat form")
+		Polestar.Set("gear.spec.DRUID", "auto")
+		surfaces("automatic")
+	"#,
+		]
+		.concat(),
+	});
+	for o in &out[..4] {
+		let when = text(&o["when"]);
+		assert_eq!(o["key"], "restoration", "{when}: {o}");
+		assert_eq!(o["source"], "setting", "{when}: {o}");
+		assert_eq!(o["saved"], "restoration", "{when}: the setting is still saved");
+		assert!(o["heal"].as_f64().unwrap() > 0.0, "{when}: Restoration weights");
+		assert_eq!(o["pick"], 2, "{when}: the Intellect/Spirit chest over the Agility one");
+		assert!(is_match(text(&o["line"]), r"^Polestar · Restoration \(healer\) \| "), "{when}: {}", o["line"]);
+	}
+	assert_eq!(out[4]["key"], "feral", "Automatic follows the Feral points again");
+	assert_eq!(out[4]["pick"], 1);
+}
+
 #[test]
 fn tooltip_line_upgrade_and_downgrade_percentages_empty_slot_later_level_skipped_for_secret_links_and_other_tooltips() {
 	let out = run(
