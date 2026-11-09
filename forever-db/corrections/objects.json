@@ -154,5 +154,59 @@
 			}
 		],
 		"note": "Attack Plan: Ironforge (From the Ashes 98221, objective 4) lies in the Dragonmaw camp north and north-east of Whelgar's dig, at Wetlands 38.5,46.1; the merged data had neither its name nor a spawn (#1312)."
+	},
+	"148836": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Altar of Hakkar stands inside the Sunken Temple (instance map 109)."
+	},
+	"148838": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Idol of Hakkar stands inside the Sunken Temple (instance map 109)."
+	},
+	"148512": {
+		"set": {
+			"instances": [
+				109
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 109 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 109"
+			}
+		],
+		"note": "The Essence Font stands inside the Sunken Temple (instance map 109)."
 	}
 }
