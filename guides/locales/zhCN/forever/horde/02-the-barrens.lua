@@ -560,7 +560,7 @@ return {
 
 	-- Step 143: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。",
 
 	-- Step 145: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
