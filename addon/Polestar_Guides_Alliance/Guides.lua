@@ -18504,7 +18504,7 @@ do
 					note = "{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb.",
 					goals = {
 						{ t = "turnin", quest = 78090, title = "A Second Opinion", npc = 5495, npcName = "Ursula Deline", map = 1453, x = 39.89, y = 84.19, z = 101.5 },
-						{ t = "accept", quest = 78091, title = "Earning Your Salt", npc = 5495, npcName = "Ursula Deline", minLevel = 22, qlvl = 30, map = 1453, x = 39.89, y = 84.19, z = 101.5 },
+						{ t = "accept", quest = 78091, title = "Earning Your Salt", npc = 5495, npcName = "Ursula Deline", minLevel = 22, qlvl = 30, pre = { 78090 }, preTitles = { [78090] = "A Second Opinion" }, map = 1453, x = 39.89, y = 84.19, z = 101.5 },
 					},
 				},
 				{
