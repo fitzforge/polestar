@@ -1776,6 +1776,9 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is hande
 	const patrols = at(list, 'accept 545', is('accept', 545));
 	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
 	assert.ok(take < key && key < done && done < patrols, 'the key, its hand-in, then Dalaran Patrols');
+	// The Grimy Key is looted from an object the data has no spawn for: the step carries the recorded spot.
+	const g = list[key].goal;
+	assert.ok(g.map === 1416 && Math.hypot(g.x - 16.4, g.y - 89.3) < 0.5, `the key's step points at Alterac 16.4,89.3 (got ${g.map} ${g.x},${g.y})`);
 });
 
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on

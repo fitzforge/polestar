@@ -1014,6 +1014,30 @@
 				}
 			],
 			"issue": 1257
+		},
+		{
+			"id": "1355-alterac-grimy-key",
+			"quest": 93680,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1416,
+				"x": 16.4,
+				"y": 89.3,
+				"frame": "live"
+			},
+			"note": "Key to the City: the Grimy Key (279469) is looted from an object, 670427, which the data knows only as the key's source, with no spawn. Every recorded player got it at Alterac Mountains 16.35-16.48,89.09-89.41, beside Prison Break In's traitors.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: 6 people (4 established) ticked 93680.1 at 16.35-16.48,89.09-89.41 on map 1416; one recording logs the loot from object 670427 at 16.36,89.19"
+				},
+				{
+					"kind": "eg",
+					"ref": "players' caches (EG Link): item 279469 drops from object 670427"
+				}
+			],
+			"pr": 1355
 		}
 	]
 }
