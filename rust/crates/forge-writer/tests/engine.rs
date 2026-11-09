@@ -864,6 +864,48 @@ fn groups_a_family_is_asked_on_every_step_with_its_size_and_tip() {
 }
 
 #[test]
+fn groups_a_familys_goals_are_not_optional_in_its_asked_steps() {
+	// The Monogrammed Sash (8552) and Margol's Horn (3181): a step of only optional goals is done at once,
+	// so the player who chose the group way got no arrow to the item, the accept or the hand-in. Asked
+	// steps (in place, and the family's goals moved out of a shared step) hold them; the other quest's
+	// optional accept stays optional.
+	let g = guide(
+		"a",
+		"Orc",
+		"Horde",
+		"Durotar",
+		None,
+		&[
+			"step Hana'zua",
+			"  accept 790 optional",
+			"",
+			"step Sarkoth's cave",
+			"  collect 4905 quest 790.1 optional",
+			"",
+			"step Back at Hana'zua",
+			"  accept 788 optional",
+			"  turnin 790 optional",
+			"  accept 804",
+			"",
+			"step Gornek",
+			"  turnin 804 optional                -- Gornek, in the den",
+		],
+	);
+	let of: FxHashMap<u32, u32> = [(790, 790), (804, 790)].into_iter().collect();
+	let fam: Group =
+		serde_json::from_value(serde_json::json!({ "q": 790, "title": "Sarkoth", "size": 3, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [790, 804] }))
+			.unwrap();
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let a = &after["a"];
+	for l in ["  accept 790", "  collect 4905 quest 790.1 group 3", "  turnin 790", "  turnin 804                         -- Gornek, in the den", "  accept 788 optional"] {
+		assert!(a.iter().any(|x| x == l), "no {l:?} in\n{}", a.join("\n"));
+	}
+	let asked = a.iter().enumerate().filter(|(_, l)| l.starts_with("  when group 790")).count();
+	assert_eq!(asked, 4, "{}", a.join("\n"));
+	assert_eq!(a.iter().filter(|l| l.contains("optional")).count(), 1, "{}", a.join("\n"));
+}
+
+#[test]
 fn groups_two_families_on_one_step_keep_the_steps_order() {
 	// c17 Azshara (not-ready): Sprogger's hand-in of 8553 (8552's family) and his accept of 8554 (its
 	// own family) were split into two asked steps, the accept's first.
@@ -938,7 +980,7 @@ fn groups_the_drop_that_starts_a_family_quest_is_asked_for() {
 	assert!(before["a"][..idx(&before["a"], "  when group 91740")].iter().any(|l| l == "  collect 247826 x1 optional"), "{}", before["a"].join("\n"));
 	let after = run_groups(&reference(), &[("a", g)], "Human", "Alliance", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
-	let head = idx(a, "  collect 247826 x1 optional");
+	let head = idx(a, "  collect 247826 x1");
 	let asked = a[..head].iter().rposition(|l| l.starts_with("step ")).unwrap();
 	assert_eq!(a[asked + 1], "  when group 91740", "{}", a.join("\n"));
 	assert!(idx(a, "  collect 247817 quest 91733") < head, "{}", a.join("\n"));
