@@ -514,6 +514,30 @@ function Engine.Unskip(i)
 	move(i)
 	return true
 end
+-- Start from here: uistub.hereOffer is what Engine.StartHereOffer returns
+-- (nil: not offered); StartHere moves the live step there and fires
+-- PLAYER_STARTED_HERE; uistub.startedHere is what Engine.StartedHere returns.
+function Engine.StartHereOffer() return uistub.hereOffer end
+function Engine.StartHere(target)
+	record("StartHere", target)
+	local o = uistub.hereOffer
+	if not (o and not o.refuse) then return false end
+	local to = o.instead or o.target
+	uistub.startedHere = { from = uistub.live, to = to, steps = o.steps or {}, pinned = {} }
+	uistub.live = nil
+	move(to)
+	Polestar.Fire("PLAYER_STARTED_HERE", guide.id, uistub.startedHere.from, to, #(o.steps or {}))
+	return true
+end
+function Engine.StartedHere() return uistub.startedHere end
+function Engine.UndoStartHere()
+	record("UndoStartHere")
+	local h = uistub.startedHere
+	if not h then return false end
+	uistub.startedHere = nil
+	move(h.from)
+	return true
+end
 -- uistub.live: the live step when a test looks at another one (default: the step shown).
 function Engine.GetLiveStep() return uistub.live or current end
 -- uistub.trainStop: { steps, title } or { false }, the guide's next class

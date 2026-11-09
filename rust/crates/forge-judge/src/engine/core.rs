@@ -1118,7 +1118,7 @@ impl<'a> Sim<'a> {
 				}
 				Done::of(same(self.w.bind_location(), Some(loc)))
 			}
-			T::Enter => Done::of(self.in_place(goal)),
+			T::Enter => Done::of(self.in_place(goal) || (self.travel_only(s) && self.next_step_done(s))),
 			T::Hearth | T::Fly => {
 				if self.in_place(goal) {
 					return Done::yes();
@@ -1147,7 +1147,7 @@ impl<'a> Sim<'a> {
 						}
 					}
 				}
-				Done::no()
+				Done::of(self.travel_only(s) && self.next_step_done(s))
 			}
 			T::Getfp => Done::of(self.fp_known(goal)),
 			T::Level => Done::of(self.level_reached(goal.level.unwrap_or(1.0), goal.frac)),
@@ -1171,7 +1171,7 @@ impl<'a> Sim<'a> {
 				Some(&standing) => Done::of(standing >= goal.standing.unwrap_or(0.0)),
 				None => Done::no(),
 			},
-			T::Explore => Done::of(self.arrived.contains(&(self.gi(), s, g)) || self.explored_at(goal)),
+			T::Explore => Done::of(self.arrived.contains(&(self.gi(), s, g)) || self.explored_at(goal) || (self.travel_only(s) && self.next_step_done(s))),
 			T::Die => Done::of(self.arrived.contains(&(self.gi(), s, g))),
 			T::Achieve => match goal.achievement.and_then(|a| self.w.achievements.get(&a)) {
 				Some((completed, criteria)) => match goal.criteria {
@@ -1226,7 +1226,27 @@ impl<'a> Sim<'a> {
 		self.goals_done(s)
 	}
 
-	/// Own.nextStepDone.
+	/// Own.travelOnly: a step of travel only for the character (every applying goal but notes, optional ones
+	/// too, is a goto, fly, hearth, enter or explore, one at least), no along step, no `when`, no `only`.
+	pub(crate) fn travel_only(&mut self, s: usize) -> bool {
+		let step = self.gd().step(s);
+		if step.along != Along::No || step.when.is_some() || step.only.is_some() {
+			return false;
+		}
+		let mut any = false;
+		for g in 1..=step.goals.len() {
+			let t = step.goals[g - 1].t;
+			if t != T::Note && self.goal_applies(s, g) {
+				if !matches!(t, T::Goto | T::Fly | T::Hearth | T::Enter | T::Explore) {
+					return false;
+				}
+				any = true;
+			}
+		}
+		any
+	}
+
+	/// Own.nextStepDone: a run of travel steps (Own.travelOnly) is looked through to the step after it.
 	fn next_step_done(&mut self, s: usize) -> bool {
 		let n = self.gd().steps.len();
 		for k in s + 1..=n {
@@ -1234,6 +1254,9 @@ impl<'a> Sim<'a> {
 				let step = self.gd().step(k);
 				if step.only.is_some() || self.is_skipped(k) {
 					return false;
+				}
+				if self.travel_only(k) {
+					continue;
 				}
 				for g in 1..=step.goals.len() {
 					let goal = &step.goals[g - 1];
@@ -2243,8 +2266,85 @@ impl<'a> Sim<'a> {
 
 	// ------------------------------------------------------------------ arrival
 
+	/// arriveLoaded: the current step's arrivals, the live step's while another is looked at, and the live
+	/// step's travel run's (Own.arriveRun).
 	fn arrive_loaded(&mut self, c: i64, px: f64, py: f64) -> bool {
 		let (Some(_), Some(cur)) = (self.guide, self.current) else { return false };
+		let mut hit = self.arrive_step(cur, c, px, py);
+		if let Some(live) = self.computed {
+			if live != cur && self.arrive_step(live, c, px, py) {
+				hit = true;
+			}
+		}
+		if self.arrive_run(c, px, py) {
+			hit = true;
+		}
+		hit
+	}
+
+	/// Own.arriveRun: with the live step a travel step, reaching a later travel step's goto or explore, or a
+	/// place of a goal of the first step after the run with other work, passes the run's steps before it
+	/// (gotos and explores arrive, flights, hearths and enters are latched).
+	fn arrive_run(&mut self, c: i64, px: f64, py: f64) -> bool {
+		let Some(live) = self.computed else { return false };
+		if self.guide.is_none() || !self.travel_only(live) {
+			return false;
+		}
+		let n = self.gd().steps.len();
+		let mut run = vec![live];
+		let mut work = None;
+		for k in live + 1..=n {
+			if self.step_applies(k) {
+				let skipped = self.is_skipped(k);
+				if skipped || !self.travel_only(k) {
+					if !skipped && self.gd().step(k).only.is_none() {
+						work = Some(k);
+					}
+					break;
+				}
+				run.push(k);
+			}
+		}
+		let mut reach = None;
+		if let Some(w) = work {
+			for g in 1..=self.gd().step(w).goals.len() {
+				if blocks(self.gd().goal(w, g)) && self.goal_applies(w, g) && self.reached(w, g, c, px, py) {
+					reach = Some(run.len() + 1);
+					break;
+				}
+			}
+		}
+		let mut k = run.len();
+		while reach.is_none() && k >= 2 {
+			let s = run[k - 1];
+			for g in 1..=self.gd().step(s).goals.len() {
+				if matches!(self.gd().goal(s, g).t, T::Goto | T::Explore) && self.goal_applies(s, g) && self.reached(s, g, c, px, py) {
+					reach = Some(k);
+					break;
+				}
+			}
+			k -= 1;
+		}
+		let gi = self.gi();
+		let mut hit = false;
+		for &s in run.iter().take(reach.unwrap_or(1) - 1) {
+			for g in 1..=self.gd().step(s).goals.len() {
+				let t = self.gd().goal(s, g).t;
+				if matches!(t, T::Goto | T::Fly | T::Hearth | T::Enter | T::Explore) && self.goal_applies(s, g) && !self.arrived.contains(&(gi, s, g)) && !self.checked(s, g) {
+					if matches!(t, T::Goto | T::Explore) {
+						self.arrived.insert((gi, s, g));
+					} else {
+						self.set_check(s, g, Check::Latched);
+					}
+					hit = true;
+				}
+			}
+		}
+		hit
+	}
+
+	/// Own.arriveStep: the arrivals of step `cur`.
+	fn arrive_step(&mut self, cur: usize, c: i64, px: f64, py: f64) -> bool {
 		let gi = self.gi();
 		let step = self.gd().step(cur);
 		let mut hit = false;
@@ -2308,11 +2408,22 @@ impl<'a> Sim<'a> {
 		}
 	}
 
+	/// needsArrival: the current step waits on an arrival, or the live step does (a travel step: its run).
 	fn needs_arrival(&mut self) -> bool {
 		let (Some(_), Some(cur)) = (self.guide, self.current) else { return false };
-		for g in 1..=self.gd().step(cur).goals.len() {
-			let t = self.gd().goal(cur, g).t;
-			if matches!(t, T::Goto | T::Explore | T::Die) && self.goal_applies(cur, g) && !self.goal_done(cur, g).done {
+		if self.arrival_open(cur) {
+			return true;
+		}
+		match self.computed {
+			Some(live) => self.travel_only(live) || (live != cur && self.arrival_open(live)),
+			None => false,
+		}
+	}
+
+	fn arrival_open(&mut self, s: usize) -> bool {
+		for g in 1..=self.gd().step(s).goals.len() {
+			let t = self.gd().goal(s, g).t;
+			if matches!(t, T::Goto | T::Explore | T::Die) && self.goal_applies(s, g) && !self.goal_done(s, g).done {
 				return true;
 			}
 		}

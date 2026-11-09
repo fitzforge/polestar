@@ -2829,8 +2829,9 @@ goalDone = function(s, g, goal)
 		if areaName and (same(loc, areaName(want and want.area)) or same(loc, areaName(goal.area))) then return true end
 		return same(loc, goal.location)
 	elseif t == "enter" then
-		-- In the zone or area: its zone or subzone text (inPlace).
-		return inPlace(goal)
+		-- In the zone or area: its zone or subzone text (inPlace). In a travel
+		-- step, also as a goto leads on (Own.travelOnly).
+		return inPlace(goal) or (Own.travelOnly(s) and Own.nextStepDone(s))
 	elseif t == "hearth" or t == "fly" then
 		if inPlace(goal) or (t == "fly" and Own.landingReached(goal)) then return true end
 		-- Done once any later goal of the step is, like goto: a hearth followed
@@ -2850,7 +2851,9 @@ goalDone = function(s, g, goal)
 				end
 			end
 		end
-		return false
+		-- A travel step is behind the player once the work after it is done
+		-- (Own.nextStepDone), as a goto's.
+		return Own.travelOnly(s) and Own.nextStepDone(s)
 	elseif t == "getfp" then
 		return fpKnown(goal)
 	elseif t == "level" then
@@ -2872,7 +2875,8 @@ goalDone = function(s, g, goal)
 		if isManual(goal) then return false end
 		return repState(goal)
 	elseif t == "explore" then
-		return arrived[goal] or exploredAt(goal)
+		-- In a travel step, also as a goto leads on (Own.travelOnly).
+		return arrived[goal] or exploredAt(goal) or (Own.travelOnly(s) and Own.nextStepDone(s))
 	elseif t == "die" then
 		return arrived[goal] and true or false
 	elseif t == "achieve" then
@@ -2956,14 +2960,40 @@ local function isQuestGoal(goal)
 		or goal.t == "interact" or goal.t == "use" or goal.t == "talk")
 end
 
+-- A step of travel only, for the character (the travel-step stall): every
+-- goal of it that applies, an optional one too, is a goto, fly, hearth,
+-- enter or explore (one at least), and it is no along step and has no
+-- `when` and no `only` (a dungeon's `enter` comes with `when dungeon`). A
+-- run of them is the way to the first step after it with other work
+-- (Own.nextStepDone, Own.arriveRun). A step with a getfp, train, vendor,
+-- sethome or any quest goal is a stop of its own (Ironforge's flight path
+-- and hand-in). (On Own: the main chunk is at 200 locals.)
+Own.TRAVEL = { ["goto"] = true, fly = true, hearth = true, enter = true, explore = true }
+function Own.travelOnly(s)
+	local step = guide.steps[s]
+	if not step or step.along or step.when ~= nil or step.only ~= nil then return false end
+	local any = false
+	for _, goal in ipairs(step.goals) do
+		if goal.t ~= "note" and goalApplies(goal) then
+			if not Own.TRAVEL[goal.t] then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- Whether the step after s that applies to the character is done with quest
 -- work done in it, as anchorStep counts it: a step passed only because its
 -- quests are unavailable (their goals are not done then), or with no quest
--- goal (`train`, `level`, travel), is no sign the player went there; nor are
+-- goal (`train`, `level`), is no sign the player went there; nor are
 -- class and race steps and goals (`only`), whose quests run on their own
 -- schedule (The Islander, taken by a Warrior anywhere, does not put him in
--- Orgrimmar). A step the player skipped vouches for nothing. (On Own: the
--- main chunk is at 200 locals.)
+-- Orgrimmar). A step the player skipped vouches for nothing. A run of travel
+-- steps (Own.travelOnly) is looked through to the step after it: "Tram to
+-- Stormwind" then "Elwynn Forest" both pass once Three Corners' quest is
+-- taken, however the player got to Redridge (a Dwarf who flew sat on the
+-- tram step while questing in Redridge). (On Own: the main chunk is at 200
+-- locals.)
 function Own.nextStepDone(s)
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
@@ -2971,12 +3001,14 @@ function Own.nextStepDone(s)
 		local step = steps[n]
 		if stepApplies(step) then
 			if step.only or (sk and sk[n]) then return false end
-			for g, goal in ipairs(step.goals) do
-				if not goal.only and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and goalDone(n, g, goal) then
-					return stepDone(n)
+			if not Own.travelOnly(n) then
+				for g, goal in ipairs(step.goals) do
+					if not goal.only and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and goalDone(n, g, goal) then
+						return stepDone(n)
+					end
 				end
+				return false
 			end
-			return false
 		end
 	end
 	return false
@@ -3362,12 +3394,16 @@ function Own.keep(s)
 	local held = ns.CharState().when
 	held[guide.id] = held[guide.id] or {}
 	held[guide.id][s] = true
-	-- Kept by the player now: no skip's undo takes it back (Own.skipRestore).
+	-- Kept by the player now: no skip's undo takes it back (Own.skipRestore),
+	-- nor Start from here's (Own.hereUndo).
 	local all = ns.CharState().skipStored
 	local mine = type(all) == "table" and all[guide.id]
 	for _, rec in pairs(type(mine) == "table" and mine or NONE) do
 		if type(rec.steps) == "table" then rec.steps[s] = nil end
 	end
+	local here = ns.CharState().startedHere
+	local rec = type(here) == "table" and here[guide.id]
+	if type(rec) == "table" and type(rec.stored) == "table" then rec.stored[s] = nil end
 end
 
 -- First applicable, not skipped, not done step, after placing the tab when
@@ -4863,6 +4899,25 @@ function Own.remap(id, map, old, g)
 		end
 		s.skipStored[id] = next(out) and out or nil
 	end
+	-- Start from here's undo record (Engine.StartHere): its steps and the
+	-- steps it names, moved as the skips are.
+	local here = type(s.startedHere) == "table" and s.startedHere[id]
+	if type(here) == "table" then
+		local steps, stored = {}, {}
+		for _, k in ipairs(type(here.steps) == "table" and here.steps or NONE) do
+			local j = type(k) == "number" and stepTo(k)
+			if j then steps[#steps + 1] = j end
+		end
+		for t, v in pairs(type(here.stored) == "table" and here.stored or NONE) do
+			local j = type(t) == "number" and stepTo(t)
+			if j then stored[j] = v end
+		end
+		s.startedHere[id] = #steps > 0 and {
+			from = stepTo(tonumber(here.from) or 1) or Own.nextKept(map, tonumber(here.from) or 1),
+			to = stepTo(tonumber(here.to) or 1) or Own.nextKept(map, tonumber(here.to) or 1),
+			steps = steps, stored = stored, feed = here.feed, pinned = here.pinned,
+		} or nil
+	end
 	-- The saved view: its step's new number, else the step sharing its goals,
 	-- else the next step kept after it (never dropped while anything is kept).
 	local p = type(s.pins) == "table" and s.pins[id]
@@ -5065,7 +5120,7 @@ function Own.legacyMaps(id, map, old, g)
 end
 
 -- What Own.remap rewrites for guide id, copied (Own.snapRestore puts it back).
-Own.SNAP_FIELDS = { "manual", "skipped", "when", "skipStored", "pins", "lostQuests" }
+Own.SNAP_FIELDS = { "manual", "skipped", "when", "skipStored", "startedHere", "pins", "lostQuests" }
 function Own.deepCopy(v)
 	if type(v) ~= "table" then return v end
 	local out = {}
@@ -5858,10 +5913,70 @@ function Own.arriveStep(s, c, px, py)
 	return hit
 end
 
--- Loaded tab: the current step's arrivals; true if any.
+-- The live step's travel run (the travel-step stall): with the live step a
+-- travel step (Own.travelOnly), it and the travel steps after it up to the
+-- first step with other work. Reaching a goto or explore of a later step of
+-- the run, or the place of a goal of that work step (Own.reached), passes
+-- the steps of the run before it, however the player got there: their gotos
+-- and explores arrive, their flights, hearths and enters are latched (as the
+-- route stores them when it moves past). Tried from the furthest; a work
+-- step for some characters only (`only`) or skipped is no place to reach.
+-- True if anything arrived.
+function Own.arriveRun(c, px, py)
+	local live = computed
+	if not (guide and live and Own.travelOnly(live)) then return false end
+	local steps, sk = guide.steps, skippedFor(guide.id)
+	local run, work = { live }, nil
+	for n = live + 1, #steps do
+		if stepApplies(steps[n]) then
+			if (sk and sk[n]) or not Own.travelOnly(n) then
+				if not (sk and sk[n]) and not steps[n].only then work = n end
+				break
+			end
+			run[#run + 1] = n
+		end
+	end
+	local reach
+	for _, goal in ipairs(work and steps[work].goals or NONE) do
+		if blocks(goal) and goalApplies(goal) and Own.reached(goal, c, px, py) then
+			reach = #run + 1
+			break
+		end
+	end
+	for k = #run, 2, -1 do
+		if reach then break end
+		for _, goal in ipairs(steps[run[k]].goals) do
+			if (goal.t == "goto" or goal.t == "explore") and goalApplies(goal) and Own.reached(goal, c, px, py) then
+				reach = k
+				break
+			end
+		end
+	end
+	local hit = false
+	for k = 1, (reach or 1) - 1 do
+		local s = run[k]
+		for g, goal in ipairs(steps[s].goals) do
+			if Own.TRAVEL[goal.t] and goalApplies(goal) and not arrived[goal] and not checked(s, g) then
+				if goal.t == "goto" or goal.t == "explore" then
+					arrived[goal] = true
+				else
+					manualFor(guide.id, true)[s .. ":" .. g] = true
+				end
+				hit = true
+			end
+		end
+	end
+	return hit
+end
+
+-- Loaded tab: the current step's arrivals, the live step's while another is
+-- looked at, and its travel run's (Own.arriveRun); true if any.
 local function arriveLoaded(c, px, py)
 	if not (guide and current) then return false end
-	return Own.arriveStep(current, c, px, py)
+	local hit = Own.arriveStep(current, c, px, py)
+	if computed and computed ~= current and Own.arriveStep(computed, c, px, py) then hit = true end
+	if Own.arriveRun(c, px, py) then hit = true end
+	return hit
 end
 
 local function checkArrival()
@@ -5912,9 +6027,12 @@ function Own.arrivalOpen(s)
 	return false
 end
 
--- The current step waits on an arrival.
+-- The current step waits on an arrival, or the live step does (a travel
+-- step: its run, Own.arriveRun).
 local function needsArrival()
-	return guide ~= nil and current ~= nil and Own.arrivalOpen(current)
+	if guide == nil or current == nil then return false end
+	if Own.arrivalOpen(current) then return true end
+	return computed ~= nil and (Own.travelOnly(computed) or (computed ~= current and Own.arrivalOpen(computed)))
 end
 
 local function updateTicker()
@@ -6793,6 +6911,7 @@ local function evaluateLoaded(active)
 	local gate = Own.startGate(guide)
 	local wasComputed = computed
 	Own.pruneLost()
+	Own.hereOffer = nil -- Start from here is weighed afresh (Engine.StartHereOffer)
 	computed = gate and gate.step or computeCurrent()
 	-- Placed once the quest log could be read (it can lag PLAYER_LOGIN).
 	local wasPlacing = placing
@@ -9918,23 +10037,97 @@ end
 -- Skip the step on screen for good (saved): the guide moves on from it.
 -- Looking at another step than the live one, the view moves to the next
 -- applicable step. Undone by Unskip. Fires PLAYER_SKIPPED_STEP(guideId,
--- step) after the evaluation (the window offers the undo). Returns the
--- skipped step. What the skip stored besides the step (Own.skipStore) goes
--- with its undo.
+-- step, passed) after the evaluation (the window offers the undo and says
+-- what else the live step passed: Own.passedBy). Returns the skipped step.
+-- What the skip stored besides the step (Own.skipStore) goes with its undo.
 function Engine.Skip()
 	if not (guide and current) then return nil end
 	refreshPlayer()
 	placing = nil
-	local s, id = current, guide.id
+	local s, id, from = current, guide.id, computed
 	local before = Own.skipState(id)
 	skippedFor(id, true)[s] = true
 	local feed = {}
 	Own.feedSkip(s, feed)
 	if pin then Own.view(nextApplicable(pin)) end
 	evaluate()
+	local passed = guide and guide.id == id and Own.passedBy(from, computed, s, before) or {}
 	Own.skipStore(id, s, before, feed)
-	ns.Fire("PLAYER_SKIPPED_STEP", id, s)
+	ns.Fire("PLAYER_SKIPPED_STEP", id, s, passed)
 	return s
+end
+
+-- Skip says what it did. The steps the live step passed on its way from
+-- `from` to `to` (nil: the end) besides the skipped step s, each with why:
+-- { { step, reason, because }, ... } in route order. Reasons: "done" (its
+-- work is done, out of order), "leftOut" (it needs what the player skipped:
+-- `because` names it, a step or a quest, which may be an EARLIER skip's:
+-- Own.passedWhy), "notNow" (a `when` stored failed on the way, a `skipto`
+-- jump, or work not for the character yet: a level, a prerequisite the
+-- route no longer brings, a giver's refusal) and "travel" (a travel step,
+-- Own.travelOnly, or one the travel route flies past). Steps skipped
+-- before (`before`, Own.skipState) and steps that are no step of their own
+-- for the character (Own.lookable) are not listed. A Dwarf's Skip at the
+-- tram (#23) lands on #27: #24-#26 were already done.
+function Own.passedBy(from, to, s, before)
+	local out = {}
+	if not from then return out end
+	local now = Own.skipState(guide.id)
+	for t = from, (to or #guide.steps + 1) - 1 do
+		if t ~= s and before.skipped[t] == nil and Own.lookable(t) then
+			local reason, because
+			if now.skipped[t] ~= nil then
+				reason = "notNow"
+			elseif Own.travelOnly(t) or Own.flightPassed(t) then
+				reason = "travel"
+			else
+				reason, because = Own.passedWhy(t)
+			end
+			out[#out + 1] = { step = t, reason = reason, because = because }
+		end
+	end
+	return out
+end
+
+-- Why the live step passed step t (Own.passedBy): "leftOut" with the names
+-- of what the player skipped that its goals need (the skipped step that
+-- takes the quest, or the quest skipped, Own.skippedWithTitle down a chain
+-- of prerequisites), "notNow" for work not for the character yet, else
+-- "done". -> reason, { name, ... } | nil
+function Own.passedWhy(t)
+	local because, seen, notNow = {}, {}, false
+	local sk = skippedFor(guide.id)
+	local accepts = layoutOf(guide).accepts
+	local function name(n)
+		if n and not seen[n] then
+			seen[n] = true
+			because[#because + 1] = n
+		end
+	end
+	for g, goal in ipairs(guide.steps[t].goals) do
+		if goal.quest and Own.holds(t, goal) and Guides.Matches(goal.only, player) then
+			if not goalApplies(goal) then
+				-- Its accept is in a step the player skipped (orphaned), or
+				-- one whose `when` failed.
+				for _, a in ipairs(accepts[goal.quest] or NONE) do
+					if a.s < t and sk and sk[a.s] then
+						if a.step.when == nil then name(a.step.title or titleOfQuest(goal.quest)) else notNow = true end
+					end
+				end
+			elseif not goalDone(t, g, goal) then
+				local u = unavailableFor(goal)
+				if u and u.reason == "skipped" then
+					name(titleOfQuest(goal.quest, { [goal.quest] = goal.title }))
+				elseif u and u.reason == "pre" and Own.skippedWithTitle(u) then
+					name(Own.skippedWithTitle(u))
+				elseif (u and u.reason ~= "closed") or Own.lostGoal(goal) then
+					notNow = true
+				end
+			end
+		end
+	end
+	if #because > 0 then return "leftOut", because end
+	return notNow and "notNow" or "done", nil
 end
 
 -- A feeder step skipped stays out of the guide's next prefix
@@ -9986,6 +10179,320 @@ function Engine.SkipUpTo(t, keep)
 	Own.skipStore(id, first, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, first)
 	return n
+end
+
+---------------------------------------------------------------------------
+-- Start from here. Looking ahead at a step (the away banner's "Start from
+-- here"), the player makes it the guide's step: every step from the live
+-- one up to it that applies, is no along (nor hearth-only) step, is not
+-- skipped already and is not really done (Own.reallyDone) is skipped as
+-- "here" (CharState().skipped[guideId][s] = "here": read as any skip, and
+-- an older addon reads it as one). Leaving steps that only read done for a
+-- while open would bring them back: an accept unavailable for now (a
+-- level, a prerequisite, a giver's refusal) or held after its quest left
+-- the log (Own.lostHeld) reopens on the level-up or a "Go back for it", and
+-- the guide would jump back before the start. The feeder quests of steps in
+-- the range leave the feeder plan (Own.feedSkip), and quests in the log
+-- whose open work is only in the range are pinned (Engine.PinQuest): else
+-- nothing shows them, While-here reading only steps after the live step.
+-- Refused when the guide would not land on the step (a `skipto` jumping
+-- past it, a hold before it, a Class guide left with nothing: Own.hereTry);
+-- when the step would lose its own work (its quest taken in the range), the
+-- offer is to start from that step instead. One undo per guide, the latest
+-- (CharState().startedHere[guideId] = { from, to, steps, stored, feed,
+-- pinned }; Own.remap moves it, ResetProgress forgets it): it takes back
+-- the marks still "here", what the route stored on the way (`when`
+-- outcomes, `skipto` jumps; Own.skipRestore's rules), the feeder quests and
+-- the pins it added, with no Own.keep (an Unskip's keep would make a `when`
+-- step apply for good). A step the player unskipped meanwhile stays open.
+---------------------------------------------------------------------------
+
+-- Whether step s's work is really done: every goal of it that holds the
+-- route and applies is done by the game's state, or out for good (closed,
+-- its quest skipped). Unavailable for now, or held after leaving the log,
+-- is not done.
+function Own.reallyDone(s)
+	local C = Compat()
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if Own.holds(s, goal) and goalApplies(goal) then
+			local q = goal.quest
+			local held = goal.t == "accept" and q and Own.lostHeld(q, s) and not (C.IsOnQuest(q) or questDone(q))
+			if held or not goalDone(s, g, goal) then
+				local u = not held and unavailableFor(goal)
+				if not (u and (u.reason == "closed" or u.reason == "skipped")) then return false end
+			end
+		end
+	end
+	return true
+end
+
+-- The steps Start from here at step `to` skips (see above). -> { s, ... }
+function Own.hereRange(to)
+	local steps, sk, out = guide.steps, skippedFor(guide.id), {}
+	for s = computed, to - 1 do
+		local step = steps[s]
+		if stepApplies(step) and not step.along and not Own.hearthOnly(step) and not (sk and sk[s]) and not Own.reallyDone(s) then
+			out[#out + 1] = s
+		end
+	end
+	return out
+end
+
+-- Start from here at step `to`, tried on the saved state and put straight
+-- back (as Engine.SkipLoses tries a skip): { steps (Own.hereRange), live
+-- (the live step it gives), loses (the open accepts after the range it
+-- leaves out: { id, title }), lost (goals of `to` that would no longer
+-- apply or be available: { quest, title, from = the step in the range
+-- taking it or its prerequisite }), inLog (quests in the log whose open
+-- work is only in the range: { id, title, timed }) }, or nil.
+function Own.hereTry(to)
+	local id, C, l = guide.id, Compat(), layoutOf(guide)
+	local steps, inRange = Own.hereRange(to), {}
+	for _, s in ipairs(steps) do inRange[s] = true end
+	local later, inLog, seen = {}, {}, {}
+	for t = to, #guide.steps do
+		if stepApplies(guide.steps[t]) then
+			for g, goal in ipairs(guide.steps[t].goals) do
+				if goal.quest and goal.t ~= "accept" and goalApplies(goal) and not goalDone(t, g, goal) then later[goal.quest] = true end
+			end
+		end
+	end
+	for _, s in ipairs(steps) do
+		for g, goal in ipairs(guide.steps[s].goals) do
+			local q = goal.quest
+			if q and goal.t ~= "accept" and not seen[q] and not later[q] and C.IsOnQuest(q) and goalApplies(goal) and not goalDone(s, g, goal) then
+				seen[q] = true
+				local timed = false
+				for _, a in ipairs(l.accepts[q] or NONE) do
+					if a.goal.limit then timed = true end
+				end
+				inLog[#inLog + 1] = { id = q, title = titleOfQuest(q, { [q] = goal.title }), timed = timed }
+			end
+		end
+	end
+	local open = {}
+	for g, goal in ipairs(guide.steps[to].goals) do
+		if Own.holds(to, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(to, g, goal) then open[#open + 1] = goal end
+	end
+	local before = Own.openAccepts()
+	local sk = skippedFor(id, true)
+	local was = Own.skipState(id)
+	for _, s in ipairs(steps) do sk[s] = "here" end
+	local ok, live = pcall(computeCurrent)
+	local _, after = Own.openAccepts()
+	local lost = {}
+	for _, goal in ipairs(open) do
+		local u = goalApplies(goal) and unavailableFor(goal)
+		if u or not goalApplies(goal) then
+			local from
+			for _, q in ipairs({ goal.quest, u and u.pre or false }) do
+				for _, a in ipairs(q and l.accepts[q] or NONE) do
+					if inRange[a.s] and (not from or a.s < from) then from = a.s end
+				end
+			end
+			lost[#lost + 1] = { quest = goal.quest, title = titleOfQuest(goal.quest, { [goal.quest] = goal.title }), from = from }
+		end
+	end
+	-- The saved state back: the marks, and the jumps the try took.
+	for t in pairs(sk) do
+		if type(t) == "number" and was.skipped[t] == nil then sk[t] = nil end
+	end
+	if not next(sk) then ns.CharState().skipped[id] = nil end
+	Own.openAccepts() -- the marks the try left (Own.preMarks' prerequisite) read the real state again
+	if not ok then return nil end
+	local loses = {}
+	for _, goal in ipairs(before) do
+		if not after[goal.quest] and not inRange[l.stepOf[goal]] then
+			loses[#loses + 1] = { id = goal.quest, title = titleOfQuest(goal.quest, { [goal.quest] = goal.title }) }
+		end
+	end
+	return { steps = steps, live = live, loses = loses, lost = lost, inLog = inLog }
+end
+
+-- What Start from here would do now, for the away banner (cached until the
+-- next evaluation): nil when not offered (not looking ahead at a step that
+-- applies and is open, the quest log not read yet, the tab being placed, a
+-- lost-quest or group question pending: those come first); else { target
+-- (the step on screen), from (the live step), instead (the step to start
+-- from instead: the target's own work is taken there), refuse ("lost": its
+-- work comes from the live step itself or nowhere in the range; "live": the
+-- guide would not land on it), lost, steps, loses, inLog (Own.hereTry),
+-- started (the target has work done already) }.
+function Engine.StartHereOffer()
+	if Own.hereOffer == nil then Own.hereOffer = Own.hereOffered() or false end
+	return Own.hereOffer or nil
+end
+
+function Own.hereOffered()
+	if not (guide and computed and current and current > computed) or placing or not logReady then return nil end
+	if not player then refreshPlayer() end
+	if not Own.lookable(current) or isSkipped(current) or stepDone(current) then return nil end
+	if Engine.LostQuestion() or Engine.GroupQuestion() then return nil end
+	local offer = { target = current, from = computed }
+	local to = current
+	local try = Own.hereTry(to)
+	for _ = 1, 4 do
+		if not (try and #try.lost > 0) then break end
+		offer.lost = offer.lost or try.lost
+		local n
+		for _, e in ipairs(try.lost) do
+			if e.from and (not n or e.from < n) then n = e.from end
+		end
+		if not n or n <= computed then break end
+		to = n
+		try = Own.hereTry(to)
+	end
+	if not try then return nil end
+	if #try.lost > 0 then
+		offer.refuse = "lost"
+		return offer
+	end
+	if to ~= offer.target then offer.instead = to end
+	if try.live ~= to then
+		offer.refuse, offer.live = "live", try.live
+		return offer
+	end
+	offer.steps, offer.loses, offer.inLog = try.steps, try.loses, try.inLog
+	for g, goal in ipairs(guide.steps[offer.target].goals) do
+		if Own.holds(offer.target, goal) and goalApplies(goal) then
+			local done, cur = goalDone(offer.target, g, goal)
+			if done or (tonumber(cur) or 0) > 0 then offer.started = true end
+		end
+	end
+	return offer
+end
+
+-- Start from here (see above), at the step the offer names (Engine.
+-- StartHereOffer: the step on screen, or the one to start from instead);
+-- `target`, when given, must be that step. Fires PLAYER_STARTED_HERE(guideId,
+-- from, to, count) after the evaluation (the window offers the undo).
+-- -> true, or false and why ("lost", "live", nil: not offered).
+function Engine.StartHere(target)
+	local offer = Engine.StartHereOffer()
+	if not offer or offer.refuse then return false, offer and offer.refuse end
+	local to = offer.instead or offer.target
+	if target ~= nil and target ~= to then return false end
+	refreshPlayer()
+	placing = nil
+	local id, from, steps = guide.id, computed, offer.steps
+	local before = Own.skipState(id)
+	local sk = skippedFor(id, true)
+	local feed = {}
+	for _, s in ipairs(steps) do
+		sk[s] = "here"
+		Own.feedSkip(s, feed)
+	end
+	local st = ns.CharState()
+	local pins, pinned = st.pinnedQuests, {}
+	for _, e in ipairs(offer.inLog) do
+		if not pins[e.id] then
+			pins[e.id] = true
+			Own.pinBuilt[e.id] = nil
+			pinned[#pinned + 1] = e.id
+		end
+	end
+	local rec = { from = from, to = to, steps = steps, feed = feed, pinned = pinned }
+	Own.view(nil)
+	evaluate()
+	-- What the route stored on the way, as Own.skipStore records a skip's.
+	local now, stored = Own.skipState(id), {}
+	for t in pairs(now.when) do
+		if not before.when[t] then stored[t] = "when" end
+	end
+	for t, v in pairs(now.skipped) do
+		if before.skipped[t] == nil and (v == true or v == "jump") then stored[t] = v end
+	end
+	rec.stored = stored
+	if not (guide and guide.id == id and computed == to) then
+		Own.hereUndo(id, rec)
+		if guide and guide.id == id then evaluate() end
+		return false, "live"
+	end
+	if type(st.startedHere) ~= "table" then st.startedHere = {} end
+	st.startedHere[id] = rec
+	for _, q in ipairs(pinned) do ns.Fire("PINS_CHANGED", q, true) end
+	ns.Fire("PLAYER_STARTED_HERE", id, from, to, #steps)
+	return true
+end
+
+-- Take back Start from here's record `rec` for guide id (see above).
+function Own.hereUndo(id, rec)
+	local st = ns.CharState()
+	local sk, held = st.skipped[id], st.when[id]
+	for _, s in ipairs(type(rec.steps) == "table" and rec.steps or NONE) do
+		if sk and sk[s] == "here" then sk[s] = nil end
+	end
+	for t, v in pairs(type(rec.stored) == "table" and rec.stored or NONE) do
+		if v == "when" then
+			if held and held[t] == true then held[t] = nil end
+		elseif sk and sk[t] == v then
+			sk[t] = nil
+		end
+	end
+	if sk and not next(sk) then st.skipped[id] = nil end
+	if held and not next(held) then st.when[id] = nil end
+	local fs = st.feedSkips
+	if type(fs) == "table" then
+		for _, q in ipairs(type(rec.feed) == "table" and rec.feed or NONE) do fs[q] = nil end
+		if not next(fs) then st.feedSkips = nil end
+	end
+	local pins = st.pinnedQuests
+	for _, q in ipairs(type(rec.pinned) == "table" and rec.pinned or NONE) do
+		if pins[q] then
+			pins[q] = nil
+			Own.pinBuilt[q] = nil
+			if aim and aim.quest == q then aim = nil end
+			ns.Fire("PINS_CHANGED", q, false)
+		end
+	end
+end
+
+-- Undo the loaded guide's Start from here. True if there was one.
+function Engine.UndoStartHere()
+	if not guide then return false end
+	local st = ns.CharState()
+	local all = type(st.startedHere) == "table" and st.startedHere or nil
+	local rec = all and all[guide.id]
+	if type(rec) ~= "table" then return false end
+	refreshPlayer()
+	placing = nil
+	all[guide.id] = nil
+	if not next(all) then st.startedHere = nil end
+	Own.hereUndo(guide.id, rec)
+	evaluate()
+	return true
+end
+
+-- The loaded guide's Start from here that Undo would take back: { from, to,
+-- steps = { s, ... }, pinned = { { id, title }, ... } }, or nil.
+function Engine.StartedHere()
+	local all = guide and ns.CharState().startedHere
+	local rec = type(all) == "table" and all[guide.id]
+	if type(rec) ~= "table" then return nil end
+	local pinned = {}
+	for i, q in ipairs(type(rec.pinned) == "table" and rec.pinned or NONE) do pinned[i] = { id = q, title = titleOfQuest(q) } end
+	return { from = rec.from, to = rec.to, steps = rec.steps or {}, pinned = pinned }
+end
+
+-- The open accepts of the loaded guide (not taken, done or left out) in
+-- steps that apply other than s0, of quests other than q: the goals in
+-- route order (each quest once), and the set by quest id (Engine.SkipLoses,
+-- Own.hereTry).
+function Own.openAccepts(s0, q)
+	local C, list, set = Compat(), {}, {}
+	for s, step in ipairs(guide.steps) do
+		if s ~= s0 and stepApplies(step) then
+			for _, goal in ipairs(step.goals) do
+				local id = goal.quest
+				if goal.t == "accept" and id and id ~= q and not set[id] and not (C.IsOnQuest(id) or questDone(id))
+					and goalApplies(goal) and not unavailableFor(goal) then
+					set[id] = true
+					list[#list + 1] = goal
+				end
+			end
+		end
+	end
+	return list, set
 end
 
 -- The steps of guide id with a stored `when` outcome or skip: { when = { [s]
@@ -10092,8 +10599,9 @@ end
 -- guide list) and the window says so, with the undo, instead of "Guide
 -- complete". Only in a guide that is no leveling guide (Own.everyStep): a
 -- leveling guide the player skipped to its end finishes and hands off as
--- before, its end window asking (Own.noteEnd). Tried on the saved skips
--- and put straight back, as Engine.SkipLoses does. -> { step, title } | nil
+-- before, its end window asking (Own.noteEnd). A step Start from here
+-- skipped ("here") is the player's too. Tried on the saved skips and put
+-- straight back, as Engine.SkipLoses does. -> { step, title } | nil
 function Engine.SkippedOut()
 	if not guide or computed or not Own.everyStep(guide) then return nil end
 	local sk = skippedFor(guide.id)
@@ -10101,10 +10609,11 @@ function Engine.SkippedOut()
 	if not player then refreshPlayer() end
 	local steps, found = guide.steps, nil
 	for s = 1, #steps do
-		if sk[s] == true and steps[s].when == nil and stepApplies(steps[s]) then
+		local v = sk[s]
+		if (v == true or v == "here") and steps[s].when == nil and stepApplies(steps[s]) then
 			sk[s] = nil
 			local ok, opens = pcall(nextOpen, s)
-			sk[s] = true
+			sk[s] = v
 			if ok and opens then
 				found = s
 				break
@@ -10245,23 +10754,8 @@ end
 function Engine.SkipLoses(q)
 	if not guide or (q == nil and not current) or (q ~= nil and type(q) ~= "number") then return nil end
 	if not player then refreshPlayer() end
-	local C, state, s0 = Compat(), ns.CharState(), q == nil and current or nil
-	local function open()
-		local list, set = {}, {}
-		for s, step in ipairs(guide.steps) do
-			if s ~= s0 and stepApplies(step) then
-				for _, goal in ipairs(step.goals) do
-					local id = goal.quest
-					if goal.t == "accept" and id and id ~= q and not set[id] and not (C.IsOnQuest(id) or questDone(id))
-						and goalApplies(goal) and not unavailableFor(goal) then
-						set[id] = true
-						list[#list + 1] = goal
-					end
-				end
-			end
-		end
-		return list, set
-	end
+	local state, s0 = ns.CharState(), q == nil and current or nil
+	local function open() return Own.openAccepts(s0, q) end
 	local before = open()
 	local undo
 	if q then
@@ -10469,6 +10963,7 @@ function Engine.ResetProgress()
 	state.skipped[guide.id] = nil
 	state.when[guide.id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[guide.id] = nil end
+	if type(state.startedHere) == "table" then state.startedHere[guide.id] = nil end
 	-- What an update passed or left behind (Own.passAdded) comes back too.
 	for _, f in ipairs({ "added", "gone", "behind" }) do
 		if type(state[f]) == "table" then state[f][guide.id] = nil end

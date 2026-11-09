@@ -195,6 +195,11 @@ local function guideLines(d, on)
 		step = step .. SEP .. L["the guide is complete"]
 	end
 	out[#out + 1] = cut(step)
+	-- Start from here's undo still open (Engine.StartedHere), for triage only.
+	local here = E.StartedHere and E.StartedHere()
+	if here then
+		out[#out + 1] = "[started here from step " .. tostring(UI.StepNo(here.from)) .. " to " .. tostring(UI.StepNo(here.to)) .. ": " .. #here.steps .. " steps]"
+	end
 	local wp = E.GetWaypoint and E.GetWaypoint()
 	-- The arrow's goal on this step, when the player picked one other than
 	-- the window's current goal.

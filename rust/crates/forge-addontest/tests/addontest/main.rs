@@ -124,6 +124,8 @@ mod engine_skip_undo;
 mod engine_skipquest;
 #[path = "engine-skipto.rs"]
 mod engine_skipto;
+#[path = "engine-skip-passed.rs"]
+mod engine_skip_passed;
 #[path = "engine-smart.rs"]
 mod engine_smart;
 #[path = "engine-tab-restore.rs"]
@@ -134,6 +136,10 @@ mod engine_tabs;
 mod engine_talk;
 #[path = "engine-training.rs"]
 mod engine_training;
+#[path = "engine-start-here.rs"]
+mod engine_start_here;
+#[path = "engine-travel-run.rs"]
+mod engine_travel_run;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
 #[path = "engine-upgrade.rs"]
@@ -192,6 +198,8 @@ mod install;
 mod levels;
 #[path = "locale-load.rs"]
 mod locale_load;
+#[path = "loch-modan.rs"]
+mod loch_modan;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
@@ -365,6 +373,8 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-scrub.rs"]
 mod ui_scrub;
+#[path = "ui-start-here.rs"]
+mod ui_start_here;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
 #[path = "ui-transparent.rs"]

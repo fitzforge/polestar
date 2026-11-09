@@ -131,7 +131,8 @@ Messages:
 | `NAMES_LOADED` | — | Names, when the names pack loads after a refusal in combat (the quest tracker reads its names again) |
 | `NAME_LEARNED` | kind ("npc" \| "object"), id | Names, when a name learned in play is new or changed (the Codex, Dungeons and ItemDB caches drop their copy) |
 | `STEP_SKIPPED` | fromStep, toStep or nil, `{ { quest, title, reason, text }, ... }` | Engine, active tab, just before `STEP_CHANGED` (or `STEP_UPDATED`): the live step, or the step the player looks at as it follows forward, moved past a step whose open quest goals became unavailable (reasons as in "Unavailable quests"); while the player looks at another step the notice waits and fires once they are back on the live step, toStep being it |
-| `PLAYER_SKIPPED_STEP` | guideId, stepIndex | Engine, after `Skip()` (the window, the menu, `/polestar skip`): the guide window offers the undo |
+| `PLAYER_SKIPPED_STEP` | guideId, stepIndex, passed or nil | Engine, after `Skip()` (the window, the menu, `/polestar skip`): the guide window offers the undo and says what else the live step passed: `passed` = `{ { step, reason, because }, ... }`, reason `"done"`, `"leftOut"` (`because`: the names of what the player skipped that it needs), `"notNow"` or `"travel"` (`Own.passedBy`) |
+| `PLAYER_STARTED_HERE` | guideId, from, to, count | Engine, after `StartHere()` (the away banner's "Start from here"): the guide window offers the undo |
 | `PLAYER_SKIPPED_QUEST` | questID, title or nil | Engine, after `SkipQuest(questID)` (a quest's line, right-clicked): the guide window offers the undo |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
@@ -1001,7 +1002,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
 | `collect` | `item`, `itemName` | `count`, `quest`, `oi` | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up) |
-| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240) |
+| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240; a run of travel steps, `Own.travelOnly`, is looked through to the first step after it with other work) |
 | `talk` | `npc`, `npcName` | — | the player acts at that NPC during this step: a gossip option picked (`C_GossipInfo.SelectOption`/`SelectOptionByIndex`, `SelectGossipOption`, post-hooked), a quest accepted, completed or handed in there (`AcceptQuest`, `CompleteQuest`, `GetQuestReward`, QUEST_ACCEPTED / QUEST_TURNED_IN while its window is open or within 2 s of it closing), or its trainer, merchant or flight window opened; a gossip or quest window only opened is no check-off (#741); else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest` (the line named after the object, else `oi`); else manual |
 | `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; else manual |
@@ -1151,6 +1152,10 @@ Polestar.Engine.GetStepView(i) -> view | nil
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
 Polestar.Engine.Unskip(i) -> bool           -- undo a skip
+Polestar.Engine.StartHereOffer() -> offer | nil   -- looking ahead: what Start from here would do ({ target, from, instead, refuse, lost, steps, loses, inLog, started }); cached per evaluation
+Polestar.Engine.StartHere(target?) -> bool, why   -- make the step on screen (or the offer's `instead`) the live step; fires PLAYER_STARTED_HERE
+Polestar.Engine.UndoStartHere() -> bool      -- take back the guide's last Start from here
+Polestar.Engine.StartedHere() -> { from, to, steps, pinned } | nil   -- the Start from here Undo would take back
 Polestar.Engine.SkipUpTo(i) -> n             -- party sync accepted: skip the open steps from the live one up to i (ticks, skips kept); one undo of the first takes all back
 Polestar.Engine.GetLiveStep() -> i | nil    -- the first open step, whatever step is shown
 Polestar.Engine.LevelTarget(level?) -> N, stepIndex, frac | nil   -- the first `level N` goal from the step shown for this character (step `only`/`when`, goal `only`; skips left out) with N above `level` (default: the character's), or a point inside that level (`frac`) not reached yet; QoL's XP bar mark
@@ -2336,7 +2341,25 @@ quests it left out (`feedSkips`), in `CharState().skipStored[guideId][step]`,
 and its undo (`Unskip`, `Goto`) takes them back with it, so a step passed at
 level 19 for `when level>=20` comes back at 20 once the skip is undone
 (`Own.skipStore`, `Own.skipRestore`; a step the player keeps meanwhile,
-`Own.keep`, stays). The pin is saved (`pins`), so a reload
+`Own.keep`, stays). Skip says what else the live step passed and why
+(`PLAYER_SKIPPED_STEP`'s `passed`, `Own.passedBy`). Looking ahead,
+`StartHere` (the away banner's "Start from here") skips as `"here"` every
+step from the live one up to the step on screen that applies, is no along
+or hearth-only step, is not skipped yet and is not really done
+(`Own.reallyDone`: an accept unavailable for now, or held after it left the
+log, is not done, or the guide would jump back before the start later). It
+pins the quests in the log whose open work is only in those steps, takes
+their feeder quests out of the plan, and is refused when the guide would
+not land on the step (`Own.hereTry`); a step that would lose its own quest
+offers the step that takes it instead. Its undo (`UndoStartHere`,
+`CharState().startedHere[guideId]`, the latest only) takes back the marks
+still `"here"`, what the route stored on the way, the feeder quests and the
+pins, with no `Own.keep`. `SkippedOut` counts `"here"` as the player's
+skip. A travel step (`Own.travelOnly`: only goto, fly, hearth, enter or
+explore goals, no along, `when` or `only`) passes once the work after its
+run of travel steps is done, and, with the live step one, reaching a later
+step of the run or that work's place passes the steps before it
+(`Own.arriveRun`). The pin is saved (`pins`), so a reload
 shows the step the player was looking at; it is released at the live step,
 and while the step it shows gets done it follows forward (behind the live
 step up to it, ahead of it to the next open step, latching the step's

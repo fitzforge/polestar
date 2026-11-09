@@ -1570,6 +1570,9 @@ local function bannerNotice()
 	if gq then return "group", { quest = gq, title = gtitle } end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
+	-- Start from here, for SKIPPED_SECONDS: its undo.
+	local sh = notices.startedHere
+	if sh and g ~= nil and g.id == sh.guideId then return "startedHere", sh end
 	local s = notices.skipped
 	if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
 	local a = E and awayNotice(E, g)
@@ -1688,19 +1691,127 @@ function GF.ShowOverview(anchor)
 	if #items > 0 then W.ShowMenu(anchor, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", minWidth = 260 }) end
 end
 
--- PLAYER_SKIPPED_STEP(guideId, step): from the window or /polestar skip, the
--- banner offers the undo for SKIPPED_SECONDS.
-ns.On("PLAYER_SKIPPED_STEP", function(guideId, step)
+-- Step numbers as the player reads them, runs joined: "step 24",
+-- "steps 24–26, 28". (On GF: the main chunk is at Lua's 200 locals.)
+function GF.StepRanges(nums)
+	table.sort(nums)
+	local parts, i = {}, 1
+	while nums[i] do
+		local j = i
+		while nums[j + 1] and nums[j + 1] <= nums[j] + 1 do j = j + 1 end
+		parts[#parts + 1] = j > i and (nums[i] .. "\226\128\147" .. nums[j]) or tostring(nums[i])
+		i = j + 1
+	end
+	return string.format(#nums > 1 and L["steps %s"] or L["step %s"], table.concat(parts, ", "))
+end
+
+-- What else a skip passed (Engine.Skip's `passed`, Own.passedBy), one line
+-- per reason in route order: "Also passed steps 24–26: already done".
+function GF.PassedLines(passed)
+	local by, order = {}, {}
+	for _, p in ipairs(type(passed) == "table" and passed or {}) do
+		local e = by[p.reason]
+		if not e then
+			e = { nums = {}, names = {}, seen = {} }
+			by[p.reason] = e
+			order[#order + 1] = p.reason
+		end
+		e.nums[#e.nums + 1] = UI.StepNo(p.step)
+		for _, n in ipairs(type(p.because) == "table" and p.because or {}) do
+			if not e.seen[n] and #e.names < 3 then e.names[#e.names + 1] = n end
+			e.seen[n] = true
+		end
+	end
+	local lines = {}
+	for _, r in ipairs(order) do
+		local e = by[r]
+		local steps = GF.StepRanges(e.nums)
+		if r == "leftOut" then
+			lines[#lines + 1] = string.format(L["Also passed %s: they need what you skipped (%s)"], steps, table.concat(e.names, ", "))
+		elseif r == "notNow" then
+			lines[#lines + 1] = string.format(L["Also passed %s: not for you now"], steps)
+		elseif r == "travel" then
+			lines[#lines + 1] = string.format(L["Also passed %s: travel you no longer need"], steps)
+		else
+			lines[#lines + 1] = string.format(L["Also passed %s: already done"], steps)
+		end
+	end
+	return lines
+end
+
+-- PLAYER_SKIPPED_STEP(guideId, step, passed): from the window or /polestar
+-- skip, the banner offers the undo for SKIPPED_SECONDS and says what else
+-- the guide passed with it (GF.PassedLines).
+ns.On("PLAYER_SKIPPED_STEP", function(guideId, step, passed)
 	if not F or type(step) ~= "number" then return end
 	local G = ns.Guides
 	local g = G and G.Get and G.Get(guideId)
 	local st = g and g.steps and g.steps[step]
-	local notice = { guideId = guideId, step = step, title = st and st.title }
+	local notice = { guideId = guideId, step = step, title = st and st.title, passed = GF.PassedLines(passed) }
 	notices.stepSkip = notice
 	if ns.IsLoggedIn() then GF.Layout() end
 	ns.After(SKIPPED_SECONDS, function()
 		if notices.stepSkip == notice then
 			notices.stepSkip = nil
+			if F and ns.IsLoggedIn() then GF.Layout() end
+		end
+	end)
+end)
+
+-- The tooltip of the away banner's Start from here (Engine.StartHereOffer):
+-- what it skips, the later quests it leaves out, the quests in the log it
+-- keeps along the way (a timed one pauses While you're here), and, when the
+-- step on screen would lose its own work, the step it starts from instead.
+-- -> title, lines
+function GF.StartHereTip(offer)
+	local to = offer.instead or offer.target
+	local lines = {}
+	if offer.instead then
+		local names = {}
+		for i, e in ipairs(offer.lost or {}) do names[i] = ns.Quoted(e.title) or ("#" .. e.quest) end
+		lines[#lines + 1] = { string.format(L["Step %d needs %s, taken at step %d: the guide starts there instead."],
+			UI.StepNo(offer.target), table.concat(names, ", "), UI.StepNo(offer.instead)), Theme.Color("text") }
+	end
+	local nums = {}
+	for i, s in ipairs(offer.steps or {}) do nums[i] = UI.StepNo(s) end
+	if #nums > 0 then
+		lines[#lines + 1] = string.format(L["Skips the open %s before it. Undo in the banner brings them back."], GF.StepRanges(nums))
+	end
+	local loses = UI.SkipLosesText(offer.loses)
+	if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
+	local kept, timed = {}, {}
+	for _, e in ipairs(offer.inLog or {}) do
+		kept[#kept + 1] = ns.Quoted(e.title) or ("#" .. e.id)
+		if e.timed then timed[#timed + 1] = ns.Quoted(e.title) or ("#" .. e.id) end
+	end
+	if #kept > 0 then lines[#lines + 1] = string.format(L["Kept along the way: %s"], table.concat(kept, ", ")) end
+	for _, t in ipairs(timed) do
+		lines[#lines + 1] = { string.format(L["%s is timed: While you're here waits until it ends."], t), Theme.Color("warning") }
+	end
+	return string.format(L["Make step %d the guide's step"], UI.StepNo(to)), lines
+end
+
+-- PLAYER_STARTED_HERE(guideId, from, to, count): Start from here (the away
+-- banner's link); the banner says what it skipped and kept and offers the
+-- undo for SKIPPED_SECONDS.
+ns.On("PLAYER_STARTED_HERE", function(guideId, from, to, count)
+	if not F or type(to) ~= "number" then return end
+	local E = Engine()
+	local rec = E and E.StartedHere and E.StartedHere()
+	local lines = { string.format(L["Started from step %d"], UI.StepNo(to)) }
+	if rec then
+		local nums, titles = {}, {}
+		for i, s in ipairs(rec.steps) do nums[i] = UI.StepNo(s) end
+		if #nums > 0 then lines[#lines + 1] = string.format(L["Skipped %s"], GF.StepRanges(nums)) end
+		for i, p in ipairs(rec.pinned) do titles[i] = ns.Quoted(p.title) or ("#" .. p.id) end
+		if #titles > 0 then lines[#lines + 1] = string.format(L["Kept along the way: %s"], table.concat(titles, ", ")) end
+	end
+	local notice = { guideId = guideId, to = to, text = table.concat(lines, "\n") }
+	notices.startedHere = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+	ns.After(SKIPPED_SECONDS, function()
+		if notices.startedHere == notice then
+			notices.startedHere = nil
 			if F and ns.IsLoggedIn() then GF.Layout() end
 		end
 	end)
@@ -1763,6 +1874,9 @@ function GF.LayoutBanner(width)
 	banner.Jump.psDefault = (kind == "group" or kind == "lost") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 	banner.Later:Hide()
+	-- The second link's colour and tip: Start from here sets its own (away).
+	banner.Later.psColor, banner.psOffer = "textDim", nil
+	W.Color(banner.Later.Label, "textDim")
 	if kind == "skipped" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		local lines = {}
@@ -1820,7 +1934,9 @@ function GF.LayoutBanner(width)
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		local what = string.format(L["Step %d"], UI.StepNo(n.step))
 		if n.title and n.title ~= "" then what = what .. "  \194\183  " .. n.title end
-		banner.Text:SetText(string.format(L["Skipped %s"], what))
+		local text = string.format(L["Skipped %s"], what)
+		if n.passed and #n.passed > 0 then text = text .. "\n" .. table.concat(n.passed, "\n") end
+		banner.Text:SetText(text)
 		placeLink(banner.Jump, L["Undo"], 0, -4)
 		banner.Close:Show()
 	elseif kind == "away" then
@@ -1832,8 +1948,23 @@ function GF.LayoutBanner(width)
 			local live = UI.StepNo(n.live)
 			banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
 				or L["Looking back. The guide is at step %d."], live))
-			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
+			local w = placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
+			-- Looking ahead: make this step the guide's step (Engine.StartHereOffer),
+			-- accented once the player has work done on it.
+			local E = Engine()
+			local offer = n.index > n.live and E and E.StartHereOffer and E.StartHereOffer()
+			if offer and not offer.refuse then
+				banner.psOffer = offer
+				placeLink(banner.Later, offer.instead and string.format(L["Start from step %d"], UI.StepNo(offer.instead)) or L["Start from here"], w + 10, -4)
+				banner.Later.psColor = offer.started and "accent" or "textDim"
+				W.Color(banner.Later.Label, banner.Later.psColor)
+			end
 		end
+		banner.Close:Show()
+	elseif kind == "startedHere" then
+		banner.Icon:SetTexture(Theme.Media("skip"))
+		banner.Text:SetText(n.text)
+		placeLink(banner.Jump, L["Undo"], 0, -4)
 		banner.Close:Show()
 	elseif kind == "trip" then
 		banner.Icon:SetTexture(Theme.Media("icon-goto"))
@@ -1983,6 +2114,9 @@ function GF.TakeBanner()
 	elseif kind == "stepSkip" then
 		notices.stepSkip = nil
 		if E and E.Unskip then E.Unskip(n.step) end
+	elseif kind == "startedHere" then
+		notices.startedHere = nil
+		if E and E.UndoStartHere then E.UndoStartHere() end
 	elseif kind == "away" then
 		if n.skipped then
 			if E and E.Unskip then E.Unskip(n.index) end
@@ -2030,8 +2164,9 @@ function GF.TakeBanner()
 end
 
 -- The banner's second action: Do it with a group for a group quest, Not
--- this one for a gear offer (remembered), else Later (dismiss; a Class
--- guide: until a higher level).
+-- this one for a gear offer (remembered), Start from here looking ahead
+-- (Engine.StartHere), else Later (dismiss; a Class guide: until a higher
+-- level).
 function GF.LaterBanner()
 	local kind, n = bannerNotice()
 	local E = Engine()
@@ -2043,6 +2178,9 @@ function GF.LaterBanner()
 		GF.Layout()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Decline()
+		GF.Layout()
+	elseif kind == "away" and banner.psOffer then
+		if E and E.StartHere then E.StartHere() end
 		GF.Layout()
 	else
 		GF.DismissBanner(true)
@@ -4734,7 +4872,10 @@ local function build()
 		local E = Engine()
 		local loses = self:IsEnabled() and E and E.SkipLoses and UI.SkipLosesText(E.SkipLoses())
 		if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
-		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], lines)
+		-- Looking at another step than the live one, Skip skips the one on screen: say which.
+		local at, live = E and E.GetStepIndex and E.GetStepIndex(), E and E.GetLiveStep and E.GetLiveStep()
+		local title = (at and live and at ~= live) and string.format(L["Skip step %d"], UI.StepNo(at)) or L["Skip this step"]
+		W.Tooltip(self, "ANCHOR_BOTTOM", title, lines)
 		GF.HoverIn()
 	end)
 	skip:SetScript("OnLeave", function(self)
@@ -4995,8 +5136,18 @@ local function build()
 	banner.Later.Label = T(banner.Later, "label", "textDim")
 	banner.Later.Label:SetPoint("LEFT", banner.Later, "LEFT", 0, 0)
 	banner.Later:SetScript("OnClick", function() GF.LaterBanner() end)
-	banner.Later:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
-	banner.Later:SetScript("OnLeave", function(self) W.Color(self.Label, "textDim") end)
+	banner.Later:SetScript("OnEnter", function(self)
+		W.Color(self.Label, "text")
+		if banner.psOffer then
+			local title, lines = GF.StartHereTip(banner.psOffer)
+			W.Tooltip(self, "ANCHOR_BOTTOM", title, lines)
+		end
+		GF.HoverIn()
+	end)
+	banner.Later:SetScript("OnLeave", function(self)
+		W.Color(self.Label, self.psColor or "textDim")
+		W.HideTooltip(self)
+	end)
 	-- A 12px glyph in a 24px target, centred where the old 18px one sat.
 	banner.Close = W.IconButton(banner, "close", 24, L["Dismiss"], function() GF.DismissBanner() end, 12)
 	banner.Close:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -5, -3)

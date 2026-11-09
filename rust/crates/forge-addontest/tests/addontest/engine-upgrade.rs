@@ -116,6 +116,29 @@ fn check_offs_skips_and_the_view_of_a_changed_step_go_to_the_step_with_the_same_
 	assert_eq!(out["live"], 8, "the view kept, the player still at 103's hand-in: {out}");
 }
 
+// Start from here (Engine.StartHere): its "here" skips and its undo record move with the steps, the changed step
+// (old 3, accept 102) to the step with that goal now, the walk (old 4) to 5, the hand-in of 102 (old 5) to 6.
+#[test]
+fn start_from_here_s_skips_and_undo_record_go_with_the_steps() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![(
+			"Polestar".to_string(),
+			saved(
+				r#"skipped = { ["test/up"] = { [3] = "here", [4] = "here" } }, startedHere = { ["test/up"] = { from = 3, to = 5, steps = { 3, 4 }, stored = { [4] = "when" }, feed = {}, pinned = {} } }"#,
+			),
+		)],
+		login: false,
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}\nlocal rec = PolestarCharDB.startedHere[\"test/up\"]\nemit({{ from = rec.from, to = rec.to, steps = rec.steps, stored = rec.stored }})"
+		),
+	});
+	assert_eq!(out[0]["skipped"], json!({ "4": "here", "5": "here" }), "{}", out[0]);
+	assert_eq!(out[1], json!({ "from": 4, "to": 6, "steps": [4, 5], "stored": { "5": "when" } }));
+}
+
 // The 6 states UpgradeMid036 still saw sent back (Wetlands 98216, Hillsbrad 98283, Stranglethorn 1287, Silithus
 // 6390): a quest the player carries whose work the update moved behind them. 108 is in the log; its kill and
 // hand-in are only in the step the update added behind the player.
