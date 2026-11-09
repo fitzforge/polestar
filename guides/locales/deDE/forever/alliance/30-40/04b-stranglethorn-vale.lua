@@ -6,12 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Stormwind
-	["Mauren, from Stonetalon"] = "",
+	-- Step 1: Collin Mauren
+	-- {object:2164} Slaughtered Lamb
+	["In the {object:2164}, if you still carry it"] = "",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Flieg nach {area:42}",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
