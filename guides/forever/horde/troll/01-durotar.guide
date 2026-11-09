@@ -421,19 +421,19 @@ step Druid trainer
   train class only Druid -- Sheal Runetotem in Mulgore; Razor Hill has no druid trainer
 
 step Razor Hill
+  tip Back to Razor Hill: Gar'Thok, then Orgnil.
   turnin 837                          -- Gar'Thok
   turnin 6062 only Hunter             -- Thotar
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
   accept 828
-  tip Back south to Razor Hill.
   turnin 99049                        -- Orgnil Soulscar
   accept 99051
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
 step Spitelash naga
-  tip Back east to the shore north of Heglan. Spitelash Scouts and Attendants hold the beach below Drygulch Ravine. Hunters: tame a Surf Crawler on the beach.
-  collect 286008 quest 99051.1
+  tip North-east to the beach below Drygulch Ravine, north of Heglan: Spitelash Scouts and Attendants hold it. Hunters: tame a Surf Crawler on the beach.
+  collect 286008 quest 99051.1 @58.9,27.0
   kill 3107 quest 6083.1 "Tame Surf Crawler" only Hunter -- Tame it with the Taming Rod
 
 step Margoz

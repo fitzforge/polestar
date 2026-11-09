@@ -335,6 +335,26 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
 });
 
+// Horde 1-30 audit (#1414): Threat from Below's goal led first to a lone Spitelash Attendant spawn by the road north
+// of Razor Hill (53.8,34.6), where no recorded player saw or killed a naga; 161 ticks by 17 people lie on the beach
+// below Drygulch Ravine, their middle at 58.9,27.0 (data/places.json 1414-durotar-spitelash-beach).
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below's naga spinefins point at the beach below Drygulch Ravine, not the lone spawn by the road (#1414)`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const { goal } = list[at(list, 'collect 286008 (Naga Spinefin)', (g) => g.t === 'collect' && g.quest === 99051)];
+	assert.equal(goal.map, 1411, 'on the Durotar map');
+	assert.ok(Math.hypot(goal.x - 58.9, goal.y - 27.0) < 1, `on the beach (${goal.x},${goal.y})`);
+});
+
+// Horde 1-30 audit (#1414): Mercy Falls on Deaf Ears' ears drop from the Stormchasers and Footsoldiers of the camp beside
+// Vayn Moongaze (70 ticks by 13 people around 63.7,37.1); the item's drop list pointed every spot at the cult's southern
+// camps, 200 yd and more away (data/places.json 1414-zephras-alaketh-ears).
+test('forever/horde/skyborne/01-zephras-isle.guide: the Al\'Aketh Cultist\'s Ears point at the camp beside Vayn Moongaze (#1414)', { skip }, () => {
+	const list = goals('forever/horde/skyborne/01-zephras-isle.guide');
+	const { goal } = list[at(list, 'collect 258771 (Al\'Aketh Cultist\'s Ear)', (g) => g.t === 'collect' && g.quest === 93165)];
+	assert.equal(goal.map, 2521, 'on the Zephras Isle map');
+	assert.ok(Math.hypot(goal.x - 63.7, goal.y - 37.1) < 1, `at Vayn's camp (${goal.x},${goal.y})`);
+});
+
 test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
 	for (const race of ['Orc', 'Troll']) {
 		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
