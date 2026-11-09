@@ -66,6 +66,7 @@ step Gol'dir
   tip Head north past Valik's camp to Strahnbrad, the Syndicate-held village (35-37). Jailor Borhuin carries the Rusted Iron Key; Gol'dir sits in a cage in the house on the north side.
   tip Careful: Stealthed Syndicate spies roam Strahnbrad, and the buildings hold many Syndicate mobs, mages among them.
   collect 3704 quest 503.1            -- Inside
+  complete 503 @60.6,43.8 map 1416    -- Find where Gol'dir is held, on the top floor
   turnin 503                          -- Gol'dir, on the top floor
   accept 506
 
@@ -179,7 +180,7 @@ step The Stone of East Binding
 
 step Boulderfist Hall
   zone Arathi Highlands
-  tip The Boulderfist Brutes camp outside the ogres' hall south of Hammerfall; the Magus stand among them. Pull them one at a time.
+  tip The Boulderfist Brutes camp outside the ogres' hall, far south-west of Hammerfall; the Magus stand among them. Pull them one at a time.
   kill 2566 quest 678.1
   kill 2567 quest 678.2
 
@@ -190,7 +191,7 @@ step Fleshstalker raptors
 
 step Go'shek Farm
   zone Arathi Highlands
-  tip Apothecary Jorell's lab shack stands at Go'shek Farm, south-west of the raptors' plain; the case of Packaged Tonics is inside.
+  tip Apothecary Jorell's lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to Hammerfall; the case of Packaged Tonics is inside.
   collect 278462 quest 92519 @60.1,59.3 map 1417 -- Packaged Tonics
 
 step Back to Hammerfall
