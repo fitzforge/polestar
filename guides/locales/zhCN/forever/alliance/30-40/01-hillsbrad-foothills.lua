@@ -205,45 +205,45 @@ return {
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "钳嘴龟在{area:271}东边、{area:272}（部落）南边的河边晒太阳。",
 
-	-- Step 47: Fly to Ironforge
+	-- Step 46: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
-	-- Step 48: Hall of Explorers
+	-- Step 47: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "30级和32级法术",
 
-	-- Step 52: Fly to Stormwind
+	-- Step 51: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飞往{zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 53: Elling Trias
+	-- Step 52: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "{object:2096}的奶酪店。",
 
-	-- Step 54: Dashel Stonefist
+	-- Step 53: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}在{object:2100}的酒馆里等候；他和两个打手会和你打，但被打败后就会住手。",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 55: The Islander
+	-- Step 54: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479}在{object:2100}的酒馆旁训练战士。{npc:6236}在{zone:1413}的{area:720}等候，在很久之后去{area:392}的路上（40-50/01）。",
 
-	-- Step 57: Cathedral of Light
+	-- Step 56: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
 
-	-- Step 59: Mage Quarter
+	-- Step 58: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:5081} south of the {object:2101}."] = "",
 
-	-- Step 60: Druid training
+	-- Step 59: Druid training
 	["Druid training"] = "德鲁伊训练",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "",
