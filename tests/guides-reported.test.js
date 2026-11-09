@@ -6230,7 +6230,7 @@ const ALLIANCE_VOLUME = {
 	'forever/alliance/04-redridge-mountains.guide': [163, 5], // Raven Hill; Jitters' Growling Gut
 	'forever/alliance/06-wetlands.guide': [469], // Daily Delivery
 	'forever/alliance/30-40/01-hillsbrad-foothills.guide': [632, 633, 634], // The Thandol Span; The Thandol Span; Plea to the Alliance
-	'forever/alliance/30-40/03-ashenvale.guide': [1319, 1320], // The Black Shield; The Black Shield (on the Theramore crossing since the 30-40 re-order)
+	'forever/alliance/30-40/03-ashenvale.guide': [1319, 1320, 1132], // The Black Shield; The Black Shield (on the Theramore crossing since the 30-40 re-order); Fiora Longears
 	'forever/alliance/40-50/07-un-goro-crater.guide': [2662], // Noggenfogger Elixir
 	'forever/alliance/dwarf/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
 	'forever/alliance/gnome/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings

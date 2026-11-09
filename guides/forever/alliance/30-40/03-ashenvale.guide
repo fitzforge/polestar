@@ -10,7 +10,7 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Blessed Arm (322), The Black Shield (1319, 1320), Highperch Venom (1135), Hardened Shells (1105),
-# Load Lightening (1176), A Bump in the Road (1175).
+# Load Lightening (1176), A Bump in the Road (1175), Fiora Longears (1132).
 # Fizzle offers Martek the Exiled (1106) once Salt Flat Venom and Hardened Shells are both handed in: taken here, for the
 # Badlands at the end of 30-40 (Indurium, 1108), and News for Fizzle (1137) back at the Raceway in 40-50/04.
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
@@ -21,6 +21,11 @@ step Fly to Menethil Harbor
   zone Stormwind City
   fly "Menethil Harbor"
   zone Wetlands
+
+step Red Jack Flint
+  zone Wetlands
+  tip Red Jack Flint stands on the dock just north of the flight master.
+  accept 1132                         -- For Fiora Longears on Theramore's docks, where this guide's boat lands
 
 step Glorin Steelbrow
   zone Wetlands
@@ -65,6 +70,8 @@ step Theramore
   getfp "Theramore"
   turnin 1302                         -- Clerk Lendry, on the top floor
   turnin 1264                         -- Commander Samaul, on the top floor
+  turnin 1132                         -- Fiora Longears, on the docks
+  note Fiora's next errand goes to Astranaar, off this route: leave it.
   accept 1135                         -- Fiora Longears: the wyverns are in Thousand Needles, later in this guide
 
 step The Shady Rest Inn

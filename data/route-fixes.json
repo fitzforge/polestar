@@ -7749,6 +7749,12 @@
 				],
 				"reason": "Hand-in-first check (2026-11-08): all 6 people (4 established) who took Dalaran Patrols (545) had just handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took 545 without it; the route left 93680 out. It comes with Prison Break In (544): the Grimy Key is looted from an object (670427) at Alterac 16.4,89.3, beside 544's traitors (players' recordings: all 6 people got it within 0.15 of that point; one recording names the object).",
 				"issue": "-"
+			},
+			{
+				"q": 1132,
+				"faction": "Alliance",
+				"reason": "Quest volume (2026-11-08, Alliance 30-40): Fiora Longears (level 30, from 30, 1200 XP) is a delivery: Red Jack Flint stands on Menethil's dock beside the flight master where 30-40/03 lands, and Fiora Longears waits on Theramore's docks where that guide's boat lands, the same NPC who gives Highperch Venom (1135) on that stop. No walk added.",
+				"issue": "-"
 			}
 		],
 		"skip": [
