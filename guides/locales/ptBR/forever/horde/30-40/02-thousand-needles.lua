@@ -176,6 +176,8 @@ return {
 	-- {item:15874} Soft-shelled Clam
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
 	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "",
+	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
+	["Giant Softshell Clams, on the sea floor"] = "",
 	-- {item:15874} Soft-shelled Clam
 	["{item:15874}: open it in your bags"] = "",
 	["Underwater"] = "Debaixo d'água",

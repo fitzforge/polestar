@@ -290,6 +290,7 @@ step Shadowprey Village
 step Clam beds
   zone Desolace
   tip Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a Soft-shelled Clam. Open each one in your bags for its meat.
+  interact 177784 quest 6142.1 @30.6,31.9 map 1443 -- Giant Softshell Clams, on the sea floor
   use 15874 quest 6142.1 @30.6,31.9 map 1443 -- Soft-shelled Clam: open it in your bags
   collect 15924 quest 6142            -- Underwater
 
