@@ -15,6 +15,14 @@ next forever/alliance/50-60/05-silithus
 step Chillwind Camp
   zone Western Plaguelands
   fly "Chillwind Camp"
+
+step Argent Officer Pureheart
+  when !turnedin 5503
+  tip No Argent Dawn Commission yet (Light's Hope gives it on the Winterspring guide's way through)? Pureheart gives you one here: the scourgestone quests need it.
+  accept 5401                         -- Argent Officer Pureheart
+  turnin 5401
+
+step Argent Officer Pureheart
   accept 5402                         -- Argent Officer Pureheart
   accept 5403
 
@@ -591,16 +599,16 @@ step Un'Goro Crater
   zone Un'Goro Crater
   goto 33.2,48.4 "Un'Goro Crater"
 
+step Krakle
+  tip Coming in from Silithus, Golakka Hot Springs is just inside the crater: Krakle the goblin sits by the water.
+  accept 974
+
 step Un'Goro Crater: kill these as you meet them
   zone Un'Goro Crater
   kill 9167 quest 4501                -- Frenzied Pterrordax
   kill 9166 quest 4501
 
 # ---------------------------------------------------------------- West and Fire Plume Ridge
-
-step Krakle
-  tip Ride west past Marshal's Refuge and south down the western side to Golakka Hot Springs: Krakle the goblin sits by the water.
-  accept 974
 
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top.

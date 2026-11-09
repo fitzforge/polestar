@@ -75,7 +75,6 @@ step Frostfire Hot Springs: kill these as you meet them
   kill 7440 quest 5082.2              -- Winterfall Den Watcher
   kill 7441 quest 5082.3              -- Winterfall Totemic
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  collect 14047 x30 optional          -- Runecloth: keep thirty for Meilosh in Timbermaw Hold
   level 54                             -- grind on Winterfall Pathfinder
 
 step Donova Snowden

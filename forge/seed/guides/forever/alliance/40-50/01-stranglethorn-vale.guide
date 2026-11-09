@@ -34,11 +34,6 @@ step Sentry Point
 step Archmage Tervosh
   tip Back in Theramore: Tervosh waits with Lady Jaina in the tower of Foothold Citadel.
   turnin 1265                         -- Upstairs
-
-step Theramore Isle
-  buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
-
-step Archmage Tervosh
   accept 1266                         -- Upstairs
 
 step Theramore
@@ -51,7 +46,6 @@ step Swamplight Manor
   tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house.
   accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
-  buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
   turnin 1218                         -- with the spices from Theramore
   accept 1206
 

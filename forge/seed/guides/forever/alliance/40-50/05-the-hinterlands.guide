@@ -252,7 +252,7 @@ step Fly to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 2874                         -- "Sea Wolf" MacKinley
+  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
   accept 608                          -- Fleet Master Seahorn, top floor
 
 step The Bloodsail captains

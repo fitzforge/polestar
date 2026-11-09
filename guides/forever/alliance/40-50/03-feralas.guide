@@ -94,19 +94,19 @@ step Isle of Dread
   collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
 
 step Feathermoon Stronghold
-  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Coming from the south: Latronicus and Vestia first, then Angelas beside Ginro's building, then the stairs. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Pratt is by the flight master, on the way out.
+  turnin 2870                         -- Latronicus Moonspear
+  accept 2871
+  turnin 2871                         -- Vestia Moonspear
+  turnin 2982                         -- Angelas Moonbreeze
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
-  turnin 2821                         -- Pratt McGrubben
-  accept 7733
   turnin 4129                         -- Quintis Jonespyre, upstairs
   accept 4130
   turnin 4130                         -- Ginro Hearthkindle
   accept 4131
-  turnin 2982                         -- Angelas Moonbreeze
-  turnin 2870                         -- Latronicus Moonspear
-  accept 2871
-  turnin 2871                         -- Vestia Moonspear
+  turnin 2821                         -- Pratt McGrubben
+  accept 7733
 
 step Fly to Thalanaar
   zone Feralas

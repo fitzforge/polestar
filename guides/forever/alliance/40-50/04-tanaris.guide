@@ -37,13 +37,13 @@ step Gadgetzan
   turnin 2864                         -- Tran'rek, north side of town
   accept 3362                         -- Tran'rek
   accept 992                          -- Senior Surveyor Fizzledowser
-  accept 2605                         -- Marin Noggenfogger
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
-  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
+  accept 2605                         -- Marin Noggenfogger
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
-  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
+  sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
   accept 5863                         -- Andi Lynn
+  accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
@@ -151,15 +151,15 @@ step Tooga's escort
   turnin 1560                         -- Torta
 
 step Gadgetzan
-  tip Ride back west to Gadgetzan.
+  tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in.
+  turnin 5863                         -- Andi Lynn
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
-  turnin 82                           -- Alchemist Pestlezugg, inside
-  accept 10                           -- Senior Surveyor Fizzledowser
+  turnin 3362                         -- Tran'rek
   turnin 2606                         -- Sprinkle
   accept 2641
-  turnin 3362                         -- Tran'rek
-  turnin 5863                         -- Andi Lynn, on the east side of town
+  turnin 82                           -- Alchemist Pestlezugg, inside
+  accept 10                           -- Senior Surveyor Fizzledowser
 
 # ---------------------------------------------------------------- The south
 
