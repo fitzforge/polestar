@@ -9,6 +9,7 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit.
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
 # the end of 30-40/06 (38-39), and The Karnitol Shipwreck (39) is taken there.
@@ -24,6 +25,7 @@ step Nijel's Point
   accept 1458
   accept 1387                         -- Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
+  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 step Malem chest
   tip The chest lies in the ruins south-west of Nijel's Point.
@@ -61,9 +63,13 @@ step Dalinda Malem
   accept 1439
 
 step Tyranis and the Seer
-  tip Her brother Tyranis (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The Burning Blade Seer keeps the sceptre in the fortress's main building.
+  tip Her brother Tyranis (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The Burning Blade Seer keeps the sceptre in the fortress's main building. Vahlarriel wants four of each kind of cultist on the way.
   collect 6767 quest 1439             -- Tyranis' Pendant; inside
   collect 15750 quest 5741            -- Sceptre of Light; on the top floor
+  kill 4663 quest 97284.1             -- Burning Blade Augur
+  kill 4664 quest 97284.2             -- Burning Blade Reaver
+  kill 4665 quest 97284.3             -- Burning Blade Adept
+  kill 4666 quest 97284.4             -- Burning Blade Felsworn
 
 step Escort Dalinda
   turnin 1439                         -- Dalinda Malem, inside
@@ -78,7 +84,6 @@ step Smeed Scrabblescrew
 
 step Kodo Graveyard
   tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
-  goto 51.7,56.7
   kill 4700 quest 5561.1
   collect 6249 quest 1459.2
   collect 6248 quest 1459.1           -- Scorpashi Venom
@@ -96,6 +101,7 @@ step Kolkar Village
 
 step Nijel's Point
   turnin 1440                         -- Vahlarriel Demonslayer
+  turnin 97284
   turnin 1387                         -- Corporal Melkins
   turnin 1459                         -- Kreldig Ungor
 
