@@ -245,6 +245,31 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 	}
 }
 
+// The keys 0.3.7's compiler adds: a grind step's mob (`level N grind <npc>`: `grind`, its `npcName` and the mob's
+// spawn `spots` with their levels) and an elite's level on a goal's `group` (the class-quest heads-up). A string
+// carrying them previews and imports; without them in Import.lua's shape the whole string was refused.
+#[test]
+fn a_grind_step_s_mob_and_an_elite_s_level_ride_along_in_a_string() {
+	let mut p = payload();
+	p["guide"]["steps"][2]["goals"].as_array_mut().unwrap().push(json!({
+		"t": "level", "level": 3, "grind": 6, "npcName": "Kobold Vermin", "map": 1429, "x": 47.6, "y": 35.1,
+		"spots": [{ "x": 47.6, "y": 35.1, "r": 30, "n": 4, "lvl": 2 }],
+	}));
+	p["guide"]["steps"][2]["goals"][1]["group"] = json!({ "kind": "elite", "rank": 1, "lvl": 30 });
+	let out = run(&r#"
+		local info, why = I.Preview(@S@)
+		emit({ ok = info ~= nil, why = why and tostring(why) or nil })
+		if info then
+			assert(I.Save(info.entry))
+			local goals = G.Get("yendi/northshire").steps[3].goals
+			emit({ grind = goals[3].grind, name = goals[3].npcName, lvl = goals[2].group.lvl })
+		end
+	"#
+	.replace("@S@", &js(&encode(&p))));
+	assert_eq!(out[0], json!({ "ok": true }), "previewed");
+	assert_eq!(out[1], json!({ "grind": 6, "name": "Kobold Vermin", "lvl": 30 }));
+}
+
 #[test]
 fn a_step_picture_rides_along_in_a_string_but_an_imported_guide_has_no_addon_folder_holding_the_file_so_it_shows_none() {
 	let mut p = payload();
