@@ -46,7 +46,7 @@ return {
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
-	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "",
+	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "{npc:246349} dá uma arma e depois manda você dar uma volta pela fortaleza para falar com quatro pessoas: {npc:246389}, logo ao sul do portão, {npc:246394}, o vigia, que anda pela estrada a sudeste da fortaleza, e depois {npc:246393} e {npc:246378}, dentro da fortaleza. Escolha a opção de conversa com cada um.",
 	-- {npc:246349} Breton Samuels · {item:246164} Skullthumper · {item:246165} Driftwood Smasher
 	["{npc:246349}: {item:246164} or {item:246165}"] = "{npc:246349}: {item:246164} ou {item:246165}",
 
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: Ephram Barbaro
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker
-	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "",
+	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "{npc:259190} espera na orla da floresta ao sul do portão, uns passos a oeste de {npc:246389}.",
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
@@ -151,7 +151,6 @@ return {
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} fica nos penhascos a noroeste de {area:156}. {npc:246349} espera no portão.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812} fica no extremo leste das clareiras. Use o {item:6866} em {npc:257663} e fale com ele. Se perder o símbolo, {npc:246378} lhe dá outro.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, que treina paladinos em {area:159}, envia você à fortaleza da ordem no litoral oeste.",
-	-- ["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246393} and {npc:246378} inside the keep, and {npc:246394}, the lookout, who walks the road south-east of the keep. Pick the conversation option with each."] = "{npc:246349} dá uma arma e depois manda você dar uma volta pela fortaleza para falar com quatro pessoas: {npc:246389}, logo ao sul do portão, {npc:246393} e {npc:246378}, dentro da fortaleza, e {npc:246394}, o vigia, que anda pela estrada a sudeste da fortaleza. Escolha a opção de conversa com cada um.",
 	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378} lidera a ordem de dentro da fortaleza; {npc:246393} fica ao lado dela.",
 	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378} oferece a primeira missão Uma lição de divindade no nível 12.",
 	-- ["{npc:246389} and {npc:259190}"] = "{npc:246389} e {npc:259190}",

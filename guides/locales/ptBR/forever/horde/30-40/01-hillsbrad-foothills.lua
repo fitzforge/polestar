@@ -18,7 +18,7 @@ return {
 	-- {area:484} Freewind Post · {area:392} Ratchet · {npc:5901} Islen Waterseer
 	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "Voe de {area:484} para {area:392}. {npc:5901} acampa na costa, a uma curta caminhada ao sul da cidade; de {area:392}, siga voando até a Encruzilhada.",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
-	["{npc:5901}: your {item:6637}, for the brazier"] = "",
+	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}: {item:6637}, para o braseiro",
 
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "Voe para a Encruzilhada",
@@ -78,7 +78,7 @@ return {
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
 	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "Voe para {area:228}. {object:113791} fica no morro logo a sudoeste dela: derrote a Manifestação Corrompida da Água ao lado, coloque as braçadeiras dela no braseiro, fale com {npc:5895} e guarde o {item:7813} para {npc:5901}. Siga voando para {area:272} a partir de {area:228}.",
 	-- {item:6637} Water Sapta
-	["{item:6637}: drink it by the standing stone to see the elemental"] = "",
+	["{item:6637}: drink it by the standing stone to see the elemental"] = "{item:6637}: beba junto à pedra erguida para ver o elemental",
 	-- {npc:5901} Islen Waterseer
 	["for {npc:5901}, next guide"] = "para {npc:5901}, próximo guia",
 
@@ -101,12 +101,12 @@ return {
 	-- Step 21: Syndicate missives
 	["Syndicate missives"] = "Missivas da Camarilha",
 	-- plural, as words: Syndicate Footpads = {npc:2240} Syndicate Footpad
-	["The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one."] = "",
+	["The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one."] = "Os Salteadores e Ladrões da Camarilha (32-34) em volta dos acampamentos a oeste da estrada levam as missivas; cerca de um em três deixa cair uma.",
 
 	-- Step 24: Helcular's Rod
 	-- {area:277} Foothill Caverns · {area:272} Tarren Mill
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti
-	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "",
+	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
 
 	-- Step 25: Level 30
 	["Level 30"] = "Nível 30",
@@ -129,7 +129,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside: offered from level 30"] = "{npc:2410}, lá dentro: oferecida a partir do nível 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
-	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
+	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "{npc:2410}: {quest:93680}; {item:279469} fica perto dos traidores",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside: offered from level 30"] = "{npc:2437}, lá dentro: oferecida a partir do nível 30",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
@@ -147,9 +147,9 @@ return {
 	["The {area:279} crater"] = "A cratera de {area:279}",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
-	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
+	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "Siga para oeste pelo pé das montanhas até a cúpula violeta de {area:279}. {npc:2411}, {npc:2412} e {npc:2413} (33-34) ficam juntos na borda leste da cratera, {npc:2414} (35) um pouco a oeste deles; cada um carrega uma peça de Pedra-sangrenta. Os Escudeiros e Teurgos (31-33) em volta deles deixam cair as Fichas de Pedra Gastas. Cuidado: muitos guardas andam em duplas ligadas, e outros patrulham sozinhos em volta do acampamento.",
 	-- {item:279469} Grimy Key
-	["{item:279469}: an object to loot, by the traitors"] = "",
+	["{item:279469}: an object to loot, by the traitors"] = "{item:279469}: um objeto para saquear, perto dos traidores",
 
 	-- Step 33: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
@@ -180,7 +180,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside"] = "{npc:2410}, lá dentro",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:545} Dalaran Patrols
-	["{npc:2410}: he offers {quest:545} after it"] = "",
+	["{npc:2410}: he offers {quest:545} after it"] = "{npc:2410}: ele oferece {quest:545} depois disso",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}: for the 38-39 visit to Alterac"] = "{npc:2437}: para a visita aos níveis 38-39 em Alterac",
 	-- {npc:2410} Magus Wordeen Voidglare
@@ -192,9 +192,9 @@ return {
 
 	-- Step 38: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony
-	["{quest:515} with a group"] = "",
+	["{quest:515} with a group"] = "{quest:515} com um grupo",
 	-- {area:290} Dun Garok · {area:271} Southshore
-	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "",
+	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "A próxima tarefa de Lindolfo é um barril de Stout do Festeiro da adega de {area:290}, a fortaleza anã de elite a sudeste de {area:271}: só pegue se for lá em grupo.",
 
 	-- Step 39: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
@@ -219,7 +219,7 @@ return {
 	-- Step 44: Shindigger keg
 	["Shindigger keg"] = "Barril do Festeiro",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
-	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "",
+	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "Os Barris de Stout do Festeiro ficam na adega de {area:290}, a fortaleza anã a sudeste de {area:271}, ao lado de {npc:2304} (32); todo anão de lá é elite (28-32).",
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 45: Back to Tarren Mill
@@ -234,7 +234,7 @@ return {
 	["Boulderfist camp"] = "Acampamento Punho de Pedra",
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",
+	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "Saia de {area:272} para leste, passando por {area:1057}, e siga a estrada para leste. Os Ogros e Impositores Punho de Pedra (32-34) acampam ao sul da estrada, ao sul de {area:313}; os Impositores ficam na caverna de lá.",
 
 	-- Step 48: Level 31
 	["Level 31"] = "Nível 31",
@@ -253,7 +253,7 @@ return {
 	["{npc:2706}: its Syndicate are by the road in from {area:272}, on the 38-39 visit"] = "{npc:2706}: a Camarilha de lá fica junto à estrada que vem de {area:272}, na visita dos níveis 38-39",
 
 	-- Step 50: Witherbark Village
-	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
+	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Ao sul de Ruína do Martelo, os trolls Cascasseca ocupam a aldeia nas colinas. Arremessadores de Machado guardam as cabanas de fora; os Mandingueiros e Caçadores de Cabeças ficam no coração da aldeia. Cuidado: os três tipos de troll fogem atrás de ajuda com 15% de vida, o que pode trazer mais trolls dos acampamentos vizinhos.",
 
 	-- Step 51: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
@@ -292,11 +292,6 @@ return {
 	["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "Treine enquanto estiver em {zone:1458}: os instrutores ficam no {object:36070}, no {object:36073} e no {object:36082} (paladinos: {npc:260093}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of {area:313}."] = "Saia de {area:272} para leste, passando por {area:1057}, e siga a estrada para leste. Os Ogros e Impositores Punho de Pedra (32-34) acampam ao sul da estrada, a sudeste de {area:313}.",
-	-- ["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.\nCareful: Many guards stand in linked pairs and others patrol alone around the camp."] = "Siga para oeste pelo pé das montanhas até a cúpula violeta de {area:279}. {npc:2411}, {npc:2412} e {npc:2413} (33-34) ficam juntos na borda leste da cratera, {npc:2414} (35) um pouco a oeste deles; cada um carrega uma peça de Pedra-sangrenta. Os Escudeiros e Teurgos (31-32) em volta deles deixam cair as Fichas de Pedra Gastas.\nCuidado: muitos guardas andam em duplas ligadas, e outros patrulham sozinhos em volta do acampamento.",
-	-- ["South-east of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.\nCareful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "A sudeste de Ruína do Martelo, os trolls Cascasseca ocupam a aldeia nas colinas. Arremessadores de Machado guardam as cabanas de fora; os Mandingueiros e Caçadores de Cabeças ficam no coração da aldeia.\nCuidado: os três tipos de troll fogem atrás de ajuda com 15% de vida, o que pode trazer mais trolls dos acampamentos vizinhos.",
-	-- ["South-west, the Cave and Ferocious Yetis (30-31) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-31) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
-	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Os Salteadores e Ladrões da Camarilha (32-33) em volta dos acampamentos a oeste da estrada levam as missivas; cerca de um em três deixa cair uma.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "O barril fica com alguns outros no acampamento da Camarilha na costa sudeste de {area:287}.",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "A fortaleza orc no extremo leste da estrada. {npc:2851}, a mestre dos mantícoras, fica junto ao portão.",
 }

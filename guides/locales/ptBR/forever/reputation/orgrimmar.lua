@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Orgrimmar Reputation"] = "Reputação: Orgrimmar",
 	-- {zone:1411} Durotar · {zone:1448} Felwood · {zone:1447} Azshara · {item:14047} Runecloth
-	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "Missões de {zone:1411} e da Encruzilhada enquanto você sobe de nível, missões de {zone:1448} e {zone:1447} a partir do 55, depois {item:14047} até Exaltado.",
 	-- {faction:76} Orgrimmar
 	["Exalted with {faction:76}"] = "Exaltado com {faction:76}",
 
@@ -23,7 +23,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363} (hub opcional)",
 	-- {area:363} Valley of Trials · {faction:76} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. A melhor delas é {area:363}: cerca de 1.400 de reputação com {faction:76} e 1.400 com os Lançanegra em 25 minutos. {npc:3143} espera no Covil, a cabana grande; {npc:10176} fica do lado de fora.",
 	-- {npc:3144} Eitrigg · {faction:76} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "{npc:3144}, em {faction:76}: {quest:787}, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -59,15 +59,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}, no Covil",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50: {quest:97225} vem depois",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367} (hub opcional)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:367} e {area:368}: cerca de 700 de reputação com {faction:76} e 650 com os Lançanegra em 25 minutos. {npc:3188} e {npc:3304} ficam junto às cabanas, {npc:3194} perto da água, {npc:7953} ao sul da vila.",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100: precisa de {quest:805}, do Covil",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -91,7 +91,7 @@ return {
 	-- {npc:4949} Thrall · {quest:5726} Hidden Enemies
 	["{npc:4949}: {quest:5726} (optional hub)"] = "{npc:4949}: {quest:5726} (polo opcional)",
 	-- {quest:5726} Hidden Enemies · {faction:76} Orgrimmar · {area:2437} Ragefire Chasm
-	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "",
+	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {quest:5726}: 400 de reputação com {faction:76} em 20 minutos, com uma passagem por {area:2437} que um nível 60 limpa sozinho.",
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
@@ -126,7 +126,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362} (hub opcional)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:362} e o norte de {zone:1411}: cerca de 1.800 de reputação com {faction:76} e 1.650 com os Lançanegra em 80 minutos. {npc:3142} e {npc:3139} ficam no meio da cidade, {npc:3191} junto ao quartel, {npc:3147} e {npc:266940} nas pontas.",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100: exige {quest:823} de Sen'jin",
 
@@ -198,7 +198,7 @@ return {
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380} (polo opcional)",
 	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:380}: cerca de 1.500 de reputação de {faction:76} em 70 minutos, só para {faction:76}. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} e {npc:267310} ficam na cidade, {npc:3432} junto à estalagem.",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "Em volta da Encruzilhada",
@@ -233,7 +233,7 @@ return {
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819} (polo opcional)",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "",
+	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "O Forever a paga por inteiro em qualquer nível. {quest:819} fica no chão em um de vários pontos do centro e do norte de {zone:1413}, a maioria junto às estradas ao redor da Encruzilhada; quando alguém a pega, ela aparece em outro. {npc:3292} em {area:392} paga 250 de reputação com {faction:76} pelo barril e pelo primeiro enchimento, depois 50 por cada enchimento seguinte, quantas vezes quiser.",
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819}: procure nas estradas",
 
@@ -326,7 +326,7 @@ return {
 
 	-- Step 54: Belgrom Rockmaul: Betrayed
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words) · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "",
+	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} fica no {object:172958}, do lado de fora do {object:173084}. As duas primeiras missões de {quest:3504} são de nível 53 e também pagam por inteiro no 60, como toda missão no Forever.",
 
 	-- Step 55: Valormok
 	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist

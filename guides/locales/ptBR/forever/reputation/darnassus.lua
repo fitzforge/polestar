@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}: 50 de reputação a cada 10 {item:11040}, quantas vezes você quiser",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "Cerca de 3.700 de reputação de {faction:69} com missões de nível baixo em {zone:1438} e {zone:1439}",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: a clareira inicial dos Elfos da Noite no nordeste de {zone:1438}, cerca de 1.050 de reputação em 30 minutos no 60. Quem dá as missões fica ao redor de {area:256}, a grande árvore. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,7 +54,7 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: a vila na estrada para {faction:69}, cerca de 1.250 de reputação em 45 minutos no 60. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -92,7 +92,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: {area:442} em {zone:1439}, uma viagem de barco a partir de {area:702}, cerca de 1.400 de reputação em uma hora no 60. Quem dá as missões fica ao longo da rua e do cais da cidade. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -150,7 +150,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (opcional)",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} aceita 10 {item:11040} por 50, quantas vezes você quiser, e paga por inteiro no 60. A cadeia anterior é de nível 50: 220. {npc:6735} envia você a {npc:3516} em {area:1658}; ele quer 20 {quest:3764}. (Os estalajadeiros de {zone:1453} e {zone:1455} dão o mesmo início.)",
 
 	-- Step 28: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -172,7 +172,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801} até Honrado",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
-	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801}: 50 de reputação por 20 {item:14047}, quantas vezes você quiser. Depois das quatro primeiras doações, um Humano, Anão ou Gnomo está em Amigável 700 de 6.000, então Honrado está a 5.300: 106 entregas, 2.120 {item:14047} (Elfos da Noite começam 900 acima: 88 entregas; Celonatos começam em Neutro 500, então a 7.900: 158, duas a menos depois de Explorando a Aliança). {quest:4183} e a cadeia de {item:11040} acima tiram 8 entregas, e cada 10 {item:11040} entregues contam como mais uma; cada polo que você fez tira de 20 a 28 a mais. Mais missões pagam {faction:69}, por inteiro enquanto estão no máximo 5 níveis abaixo de você: o resto de {zone:1439} (cerca de 3.400 a mais), {area:415} em {zone:1440} (cerca de 3.900) e Plumaluna em {zone:1444} (cerca de 1.700). Todo ganho de cidade também dá um quarto disso às outras três cidades da Aliança (não contado aqui). Entregue todo o seu {item:14047} de uma vez.",
 
 	-- Step 36: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth
@@ -199,7 +199,5 @@ return {
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Mercenários da Camarilha em Stromgarde (nível 31-32) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} recebe tecido para {faction:69} em {faction:69}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma só vez e dão mais reputação por tecido; depois delas, {quest:7801} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} entregue",
-	-- ["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} aceita 10 {item:11040} por 50, quantas vezes você quiser, e paga por inteiro no 60. A cadeia anterior é de nível 50 (no Classic, um quinto no 60): 220 por inteiro. {npc:6735} envia você a {npc:3516} em {area:1658}; ele quer 20 {quest:3764}. (Os estalajadeiros de {zone:1453} e {zone:1455} dão o mesmo início.)",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
-	-- ["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801}: 50 de reputação por 20 {item:14047}, quantas vezes você quiser. Depois das quatro primeiras doações, um Humano, Anão ou Gnomo está em Amigável 700 de 6.000, então Honrado está a 5.300: 106 entregas, 2.120 {item:14047} (Elfos da Noite começam 900 acima: 88 entregas; Celonatos começam em Neutro 500, então a 7.900: 158, duas a menos depois de Explorando a Aliança). {quest:4183} e a cadeia de {item:11040} acima tiram 8 entregas, e cada 10 {item:11040} entregues contam como mais uma; cada hub que você fez tira de 20 a 28 a mais, se pagou por inteiro. Mais missões pagam {faction:69}, por inteiro enquanto estão no máximo 5 níveis abaixo de você: o resto de {zone:1439} (cerca de 3.400 a mais), {area:415} em {zone:1440} (cerca de 3.900) e Plumaluna em {zone:1444} (cerca de 1.700). Todo ganho de cidade também dá um quarto disso às outras três cidades da Aliança (não contado aqui). Entregue todo o seu {item:14047} de uma vez.",
 }

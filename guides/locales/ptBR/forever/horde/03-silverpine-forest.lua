@@ -75,18 +75,18 @@ return {
 
 	-- Step 16: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan
-	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "",
+	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "{area:159} fica a uma caminhada curta ao norte pela estrada, saindo das torres do zepelim: {npc:1738} fica junto à estrada de entrada da cidade e {npc:1518}, na casa do boticário, no lado oeste da praça.",
 	-- {npc:1518} Apothecary Johaan
 	["{npc:1518}, inside"] = "{npc:1518}, lá dentro",
 
 	-- Step 17: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
-	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "",
+	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "De volta pela estrada, passando as torres do zepelim, e a leste até o acampamento de {npc:1495}: {npc:267009} fica ao lado dela.",
 
 	-- Step 18: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "",
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Os sectários acampam a uma caminhada curta a sudeste de {npc:267009}. Os Neófitos Sombrios e os Impositores Sombrios deixam cair os Fragmentos de Cristal Necrótico; há mais fragmentos, cristais negros, no chão entre as tendas.",
 
 	-- Step 20: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
@@ -185,7 +185,7 @@ return {
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}: Hermógenes na Encruzilhada, no próximo guia",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
-	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
+	["{npc:260093}, the {area:1497}'s paladin trainer"] = "{npc:260093}, o treinador de paladinos da {area:1497}",
 
 	-- Step 43: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words)

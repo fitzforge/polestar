@@ -92,7 +92,7 @@ return {
 	-- {item:11128} Golden Rod
 	["{item:11128}, 75 reputation"] = "{item:11128}, 75 de reputação",
 	-- {npc:789} Kimberly Hiett · {area:69} Lakeshire
-	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "",
+	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "leve até ele: engenheiros fabricam; {npc:789} em {area:69} o vende (ainda não visto no estoque dela até o nível 30), ou a Casa de Leilões",
 	-- {item:4384} Explosive Sheep
 	["{item:4384}, 75 reputation"] = "{item:4384}, 75 de reputação",
 	-- {item:5958} Fine Leather Pants
@@ -122,7 +122,7 @@ return {
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} e {npc:257282} ficam perto um do outro, no sudoeste das montanhas; bandidos da Camarilha rondam {npc:257282}. {npc:6176} fica no limite leste, acima de {area:272}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 75 de reputação",
-	["bring it: leatherworkers make it, or buy it at the Auction House"] = "",
+	["bring it: leatherworkers make it, or buy it at the Auction House"] = "leve até ele: coureiros fabricam, ou compre na Casa de Leilões",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "{item:18662}, 75 de reputação",
 	-- {item:5540} Pearl-handled Dagger

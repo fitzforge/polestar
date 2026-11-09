@@ -97,7 +97,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Garraltivas e Vagaventos",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "Garraltivas e Vagaventos rondam as pradarias ao redor da vila. Os Vagaventos soltam tanto os ovos quanto a carne: a maioria dos jogadores pega os ovos dos que ficam logo a oeste da vila.",
 
 	-- Step 17: Village quests
 	["The bounty board"] = "O quadro de recompensas",
@@ -241,7 +241,7 @@ return {
 	-- {npc:252800} Aamelia Windfield
 	["{npc:252800} again"] = "{npc:252800} de novo",
 	-- {npc:252800} Aamelia Windfield
-	["Back to {npc:252800} at the farmhouse."] = "",
+	["Back to {npc:252800} at the farmhouse."] = "De volta a {npc:252800}, na casa da fazenda.",
 
 	-- Step 47: Bandit Highwaymen
 	["Bandit Highwaymen"] = "Bandoleiros Bandidos",
@@ -250,7 +250,7 @@ return {
 	-- Step 48: Standing our ground
 	["Standing our ground"] = "Firmes na posição",
 	-- {npc:252800} Aamelia Windfield
-	["{npc:252800}, at the farmhouse"] = "",
+	["{npc:252800}, at the farmhouse"] = "{npc:252800}, na casa da fazenda",
 	-- {npc:252800} Aamelia Windfield
 	["Tell {npc:252800} you're ready"] = "Diga a {npc:252800} que você está pronto",
 
@@ -349,7 +349,7 @@ return {
 	-- {npc:258130} Jorel Windsinger
 	["Find {npc:258130}"] = "Encontre {npc:258130}",
 	-- {item:258771} Al'Aketh Cultist's Ear · {npc:254151} Vayn Moongaze
-	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "",
+	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "{item:258771}: os Caça-tempestades e Soldados de Infantaria ao redor do acampamento de {npc:254151}",
 
 	-- Step 69: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw

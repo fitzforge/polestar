@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "{npc:247264} do {faction:2740} espera em {area:271}. Ele manda você à imagem de {npc:246748}, na margem de {area:1338}, fora das muralhas de {area:279}. As missões do {faction:2740} começam do nível 24 ao 30 e pagam reputação cheia em qualquer nível no Forever.",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera

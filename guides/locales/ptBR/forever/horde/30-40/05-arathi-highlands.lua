@@ -26,14 +26,14 @@ return {
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside the inn"] = "{npc:2229}, dentro da estalagem",
 	-- {object:1763} WANTED
-	["The {object:1763} poster by the inn"] = "",
+	["The {object:1763} poster by the inn"] = "O cartaz {object:1763} perto da estalagem",
 
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "Siga ao norte, passando pelo acampamento de Vito, até {area:280}, a vila dominada pela Camarilha (35-37). {npc:2431} carrega {item:3704}; {quest:503} está numa jaula na casa do lado norte.\nCuidado: espiões furtivos da Camarilha rondam {area:280}, e os prédios têm muitos monstros da Camarilha, entre eles magos.",
 	["Inside"] = "Lá dentro",
 	-- {quest:503} Gol'dir
-	["Find where {quest:503} is held, on the top floor"] = "",
+	["Find where {quest:503} is held, on the top floor"] = "Descubra onde {quest:503} está preso, no último andar",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "{quest:503}, no último andar",
 
@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: Baron Vardus
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad · {quest:503} Gol'dir
-	["{npc:2306} (40) carries the head. He turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing {quest:503}, this step is done."] = "",
+	["{npc:2306} (40) carries the head. He turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing {quest:503}, this step is done."] = "{npc:2306} (40) leva a cabeça. Ele aparece em um lugar de cada vez: a adega da estalagem de {area:280}, ou um dos acampamentos de tendas da Camarilha nas terras altas ao norte e noroeste da vila, que ficam no seu caminho para a mansão Perenolde. Se você já o encontrou ao libertar {quest:503}, esta etapa está feita.",
 
 	-- Step 10: Alterac Mountains
 	["Perenolde manor"] = "Mansão Perenolde",
@@ -114,7 +114,7 @@ return {
 	-- Step 24: Boulderfist Hall
 	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
-	["The Boulderfist Brutes camp outside the ogres' hall, far south-west of {area:321}; the Magus stand among them. Pull them one at a time."] = "",
+	["The Boulderfist Brutes camp outside the ogres' hall, far south-west of {area:321}; the Magus stand among them. Pull them one at a time."] = "Os Brutamontes Punho de Pedra acampam fora do salão dos ogros, bem a sudoeste de {area:321}; os Magus Punho de Pedra ficam entre eles. Puxe um de cada vez.",
 
 	-- Step 25: Fleshstalker raptors
 	["Fleshstalker raptors"] = "Raptores Fareja-carne",
@@ -125,7 +125,7 @@ return {
 	-- Step 26: Go'shek Farm
 	["Go'shek Farm"] = "Fazenda Go'Shek",
 	-- {npc:2733} Apothecary Jorell · {area:321} Hammerfall · {item:278462} Packaged Tonics
-	["{npc:2733}'s lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to {area:321}; the case of {item:278462} is inside."] = "",
+	["{npc:2733}'s lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to {area:321}; the case of {item:278462} is inside."] = "O barraco de laboratório de {npc:2733} fica na Fazenda Go'shek, a nordeste da planície dos raptores, na volta para {area:321}; a caixa de {item:278462} está lá dentro.",
 
 	-- Step 27: Back to Hammerfall
 	-- {area:321} Hammerfall
@@ -186,6 +186,5 @@ return {
 	["Only if you ran Stromgarde with a group: back to {area:321} for its hand-ins, then on to the {area:880}."] = "Só se você fez Stromgarde em grupo: volte a {area:321} para as entregas e siga para {area:880}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The Boulderfist Brutes camp outside the ogres' hall south of {area:321}; the Magus stand among them. Pull them one at a time."] = "Os Brutamontes Punho de Pedra acampam fora do salão dos ogros ao sul de {area:321}; os Magus Punho de Pedra ficam entre eles. Puxe um de cada vez.",
 	-- ["{npc:2733}'s lab shack stands at Go'shek Farm, south-west of the raptors' plain; the case of {item:278462} is inside."] = "O barraco-laboratório de {npc:2733} fica na Fazenda Go'Shek, a sudoeste da planície dos raptores; a caixa de {item:278462} está lá dentro.",
 }

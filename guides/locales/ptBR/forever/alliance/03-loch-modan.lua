@@ -47,7 +47,7 @@ return {
 	-- Step 10: The loch
 	["The loch"] = "O lago",
 	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
-	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "",
+	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "Ao sul pela margem oeste. {object:665289} fica no leito do lago em um de vários lugares: a leste de {area:144} (48.1,39.7), um pouco a sudoeste dali (45.7,43.4) ou no extremo sul do lago (48.7,54.4 ou 50.6,53.3). Se não estiver na seta, tente o próximo lugar. Clique nele para pegar a missão; {item:278051} vem junto.",
 	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words)
 	["{object:665289}; underwater"] = "{object:665289}; debaixo d'água",
 
@@ -75,7 +75,7 @@ return {
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}, inside"] = "{npc:1154}, lá dentro",
 	-- {npc:1154} Marek Ironheart
-	["{npc:1154}: the loch crocolisks below the lodge"] = "",
+	["{npc:1154}: the loch crocolisks below the lodge"] = "{npc:1154}: os crocoliscos do lago abaixo do pavilhão",
 	-- {npc:1187} Daryl the Youngling
 	["{npc:1187}: 15 minutes"] = "{npc:1187}: 15 minutos",
 
@@ -92,13 +92,13 @@ return {
 	-- Step 18: Elder Mountain Boars, Daggerfang and the loch crocolisks
 	-- {npc:270693} Daggerfang
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["Elder Mountain Boars, {npc:270693} and the loch crocolisks"] = "",
+	["Elder Mountain Boars, {npc:270693} and the loch crocolisks"] = "Javalis Montanheses Anciões, {npc:270693} e os crocoliscos do lago",
 	-- {quest:258} A Hunter's Challenge · {npc:270693} Daggerfang
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar · Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: {quest:258} runs for 12 minutes, so the boars come first. {npc:270693}, a crocolisk, patrols the shore below them among the Loch Crocolisks."] = "",
+	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: {quest:258} runs for 12 minutes, so the boars come first. {npc:270693}, a crocolisk, patrols the shore below them among the Loch Crocolisks."] = "Os Javalis Montanheses Anciões vagam pelas colinas a noroeste do pavilhão, ao longo da margem leste: {quest:258} dura 12 minutos, então os javalis vêm primeiro. {npc:270693}, um crocolisco, patrulha a margem logo abaixo deles, entre os Crocoliscos Lacustres.",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["{item:2924}: Loch Crocolisks"] = "",
+	["{item:2924}: Loch Crocolisks"] = "{item:2924}: Crocoliscos Lacustres",
 
 	-- Step 20: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
@@ -226,9 +226,9 @@ return {
 
 	-- Step 41: Stormwind's gate
 	-- {zone:1453} Stormwind
-	["{zone:1453}'s gate"] = "",
+	["{zone:1453}'s gate"] = "o portão de {zone:1453}",
 	-- {npc:234} Gryan Stoutmantle · {area:40} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {area:40}): skip {area:40}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "",
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {area:40}): skip {area:40}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {area:40}): pule {area:40}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}.",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, do lado de fora do portão principal",
 
@@ -279,7 +279,7 @@ return {
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
 	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "Ao sudoeste de {area:20} até o farol na ponta: {npc:392} espera nos degraus dele. {npc:391} anda pela praia e pelas águas rasas a nordeste, entre os murlocs: puxe-o para longe dos Oráculos.",
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
-	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
+	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "{item:3636}: {npc:391}, na praia a nordeste do farol",
 
 	-- Step 50: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -325,14 +325,13 @@ return {
 
 	-- Step 58: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
-	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
+	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "{npc:1646} fica no lado leste de {object:2098}, no caminho de {object:28027} até o porto.",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: a carta de Trovejius de {area:442}",
 	-- {npc:3649} Thundris Windweaver
-	["For {npc:3649}, where the boat lands"] = "",
+	["For {npc:3649}, where the boat lands"] = "Para {npc:3649}, onde o barco atraca",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder Mountain Boars and {npc:270693}"] = "Javalis Montanheses Anciões e {npc:270693}",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "Ao sul pela margem oeste. {object:665289} está no fundo do lago a leste de {area:144} (ele muda entre vários pontos): abra-o para pegar {item:278051}, que inicia a missão.",
-	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "Os Javalis Montanheses Anciões vagam pelas colinas a noroeste do pavilhão, ao longo da margem leste. {npc:270693}, um crocolisco, patrulha a margem logo abaixo deles. {quest:258} dura 12 minutos.",
 }

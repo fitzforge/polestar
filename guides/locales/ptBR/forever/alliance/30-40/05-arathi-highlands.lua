@@ -42,13 +42,13 @@ return {
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
-	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "",
+	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "Para oeste pela estrada, do cofre de {npc:5391} até {area:657}.",
 	-- {npc:1776} Magtoor
-	["{npc:1776}: Noboru's cudgel"] = "",
+	["{npc:1776}: Noboru's cudgel"] = "{npc:1776}: a borduna de Noboru",
 
 	-- Step 11: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
-	["South down the road to {npc:5476}, on the way west out of the swamp."] = "",
+	["South down the road to {npc:5476}, on the way west out of the swamp."] = "Ao sul pela estrada até {npc:5476}, no caminho para oeste, saindo do pântano.",
 
 	-- Step 13: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -64,7 +64,7 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} espera no porão do {object:2164}, no {object:2101}. Use o {item:6913} no círculo de evocação de lá e derrote a súcubo que ele chama. Se você pegou {quest:65602}, entregue também a {item:190309} a ele, coloque-a no mesmo círculo e derrote o íncubo.",
 	-- {npc:5677} Summoned Succubus
-	["{npc:5677}, at the summoning circle"] = "",
+	["{npc:5677}, at the summoning circle"] = "{npc:5677}, no círculo de evocação",
 	-- {quest:65602} What Is Love?
 	["{quest:65602}, if you took it"] = "{quest:65602}, se você a pegou",
 	-- {npc:185335} Summoned Incubus
@@ -104,16 +104,16 @@ return {
 
 	-- Step 26: Northfold Manor
 	-- {area:320} Refuge Pointe
-	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "A Camarilha ocupa a fazenda a noroeste de {area:320}.\nCuidado: os Bandoleiros da Camarilha são de nível 30-31 e ficam furtivos fora de combate, então costumam estar escondidos e difíceis de ver.",
 
 	-- Step 27: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Gorgulhos do Feno rastejam pela ponta norte da fazenda de {quest:681}: pegue um com a ferramenta do kit de entomologia de {npc:217412}.",
 
 	-- Step 28: Witherbark Village
 	-- {area:314} Go'Shek Farm
-	["A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of {area:314} in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "",
+	["A few Witherbark trolls camp south of Northfold, on the way; the main village lies in the hills south of {area:314} in the south-east, where the Witch Doctors stand and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Alguns trolls Cascasseca acampam ao sul de Northfold, no caminho; a aldeia principal fica nas colinas ao sul de {area:314}, no sudeste, onde ficam os Mandingueiros e os Caçadores Sombrios guardam a outra ponta do vale. Todo troll pode soltar uma presa.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; no subterrâneo",
 
@@ -164,9 +164,9 @@ return {
 
 	-- Step 39: Refuge Pointe
 	-- {area:320} Refuge Pointe · {object:2689} Stone of West Binding
-	["West along the road to {area:320}, on the way to the {object:2689}."] = "",
+	["West along the road to {area:320}, on the way to the {object:2689}."] = "Para oeste pela estrada até {area:320}, a caminho de {object:2689}.",
 	-- {npc:2789} Skuerto · {npc:2793} Kor'gresh Coldrage · {area:327} Faldir's Cove
-	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "",
+	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: a caverna de {npc:2793} vem depois de {area:327}",
 
 	-- Step 41: Faldir's Cove
 	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Siga para o sul pela costa oeste até a enseada dos goblins; Lolo vigia das pedras acima dela.",
@@ -200,7 +200,7 @@ return {
 
 	-- Step 46: Kor'gresh Coldrage
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
-	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "A leste de {area:327}, pelas colinas do sul: {npc:2793}, um ogro mago, ocupa a caverna no extremo sul do vale Cascasseca.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "{item:4525}; no subterrâneo",
 
@@ -260,13 +260,13 @@ return {
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Para {npc:1440} em {zone:1453}: guarde-o",
 	-- {npc:2277} Loremaster Dibbs
-	["{npc:2277}: the parchment"] = "",
+	["{npc:2277}: the parchment"] = "{npc:2277}: o pergaminho",
 
 	-- Step 61: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
-	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
+	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438} fica entre o mestre de voo e a estalagem; {npc:2381}, ao lado dele, vende {item:2321}, se você não tiver.",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
-	["{item:2321}, from {npc:2381}"] = "",
+	["{item:2321}, from {npc:2381}"] = "{item:2321}, de {npc:2381}",
 
 	-- Step 64: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {area:38} Loch Modan

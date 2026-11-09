@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Deadwood Village
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw
-	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "",
+	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "Os furbolgs Lenha Morta (nível 48-50) dominam a vila no extremo sul de {zone:1448}. Guarde cada {item:21377}: vale 10 de reputação mais tarde e nunca deixa de contar. {npc:9464} (15 de reputação) e o raro {npc:14342} (25) vivem aqui e contam até Exaltado. O Forever paga missões por inteiro em qualquer nível; no Classic, mobs cinza davam cerca de um quinto, cerca de 1 por morte desses furbolgs no 60. Faça isso enquanto sobe de nível, se puder.",
 	-- {npc:14342} Ragepaw
 	["{npc:14342}, rare"] = "{npc:14342}, raro",
 

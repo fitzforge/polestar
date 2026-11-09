@@ -52,7 +52,7 @@ return {
 
 	-- Step 11: Thelsamar
 	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "",
+	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "Defina sua Pedra de Regresso aqui: o guia de {zone:1427} começa em {area:144}.",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -141,7 +141,7 @@ return {
 	-- Step 36: The Bloodsail captains
 	["The Bloodsail captains"] = "Os capitães da Vela Sangrenta",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Os três navios da Vela Sangrenta estão ancorados ao largo da costa, logo ao sul de {area:35}: {npc:2550} (45) e {npc:2548} (46) nos conveses mais próximos, {npc:2546} (48) na nau capitânia, cada um com uma tripulação de 42-45 piratas. Nade até lá, limpe cada convés a partir da borda e puxe um de cada vez.",
 
 	-- Step 38: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

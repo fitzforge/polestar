@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Apothecary Zinge
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} dessas tarefas: guarde-o, a missão Amostras de campo de Tanaris o devolve em {area:976}",
 
 	-- Step 3: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter (no name in this language: may be words)
@@ -39,7 +39,7 @@ return {
 
 	-- Step 7: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
-	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "Se você vem da Selva do Espinhaço, já tem estas. Começando aqui: {npc:5591} fica dentro do grande salão de {area:75} e {npc:1443}, no último andar.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, lá dentro",
 	-- {npc:1443} Fel'zerul
@@ -53,7 +53,7 @@ return {
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Dentesserra",
 	-- {area:75} Stonard
-	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "Os crocoliscos chafurdam nas poças em volta do antigo acampamento de Galen, logo ao norte de {area:75}, na volta para o leste; cerca de um em quatro deixa cair um flanco.",
 
 	-- Step 10: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
@@ -77,7 +77,7 @@ return {
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 16: Continued Threat
-	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "A mesma costa de murlocs de novo: os Jogatintas a leste do posto, os Comecarnes em volta das cabanas do oeste, e os Oráculos entre os dois.",
 
 	-- Step 18: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands

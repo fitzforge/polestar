@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Galak centaurs
 	["Galak centaurs"] = "Centauros Galath",
-	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Os centauros Galath acampam nas planícies a leste do poço; Herak os lidera.",
 
 	-- Step 31: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -330,7 +330,6 @@ return {
 	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Desça até a {area:222} e domestique com a {item:15908}: um {npc:2956} nas planícies, um {npc:2959} ao norte da aldeia e um Rapineiro a noroeste.",
 	-- ["Speak with {npc:3067}"] = "Fale com {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Rapineiros planam sobre as planícies em volta de Casco Sangrento.",
-	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Os centauros Galath acampam nas planícies a leste do poço; {npc:275767} os lidera.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Os centauros Galath acampam nas planícies ao norte de {area:821}; Herak os lidera. Os Lobos-da-pradaria Alfa vagam entre os lobos.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Os anões do {area:404} carregam as Picaretas do Prospector. Destrua-as na forja da {area:222}.",
 	-- ["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "O poço fica ao norte da aldeia. Os Pinotes Adultos pastam em volta dele: soltam a {item:287505} para Quico.",

@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {area:618} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "Ainda sem {quest:5401} ({spell:437801} dá uma na passagem do guia de {area:618})? Cândida dá uma a você aqui: as missões da Pedra do Flagelo precisam disso.",
 
 	-- Step 4: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -268,15 +268,15 @@ return {
 
 	-- Step 73: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
-	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
+	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "O gigante {npc:7765} fica logo a noroeste do acampamento de {npc:7775}.",
 
 	-- Step 74: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride north into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride north into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Cavalgue para o norte, até as Ruínas dos Ventos Corvejantes: {npc:7774} se esconde na pequena construção redonda dos fundos. Abra o baú ao lado dela para pegar {item:9189}: dura 15 minutos, como a missão.",
 
 	-- Step 75: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
+	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "Leve {npc:7774} de volta até {npc:7765} em ritmo de caminhada: ela se afasta, então toque o sino para chamá-la de volta (fora de combate) e limpe as harpias do caminho antes que ela chegue a elas.",
 
 	-- Step 77: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",
@@ -350,15 +350,15 @@ return {
 
 	-- Step 92: Into Silithus
 	-- {area:1377} Silithus
-	["Into {area:1377}"] = "",
+	["Into {area:1377}"] = "Rumo a {area:1377}",
 
 	-- Step 93: Layo Starstrike
 	-- {area:1377} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "Cavalgue saindo pela passagem noroeste da cratera até {area:1377}: {npc:13220} fica em {area:3077}, onde a passagem sai.",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Siga adiante para oeste até {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, nas tendas da Aliança",
 
@@ -377,7 +377,7 @@ return {
 
 	-- Step 98: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Cavalgue de volta a {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
 	-- Step 99: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -401,7 +401,7 @@ return {
 
 	-- Step 105: Krakle
 	-- {area:1377} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "Vindo de {area:1377}, {area:543} fica logo dentro da cratera: {npc:10302}, o goblin, fica junto à água.",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
@@ -426,9 +426,9 @@ return {
 
 	-- Step 112: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619} acampa ao pé da rampa que leva à cratera.",
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
+	["The pelts come from the gorillas on {area:1943}"] = "As peles vêm dos gorilas em {area:1943}",
 
 	-- Step 113: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits

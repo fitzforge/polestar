@@ -59,7 +59,7 @@ return {
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "",
+	["{area:1763} is the ruined temple north of the glen."] = "{area:1763} é o templo em ruínas ao norte do vale.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
@@ -89,7 +89,7 @@ return {
 
 	-- Step 17: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Os furbolgs de Lenha Morta de {area:1762} ocupam as colinas a oeste da caverna. Continue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 58.\nCuidado: os Vigias do Covil são de nível 53-54; chamam aliados próximos a até 25 metros quando ficam abaixo de 50% de vida e fogem para pedir ajuda abaixo de 15%.",
 
 	-- Step 18: Nafien
 	-- {zone:1452} Winterspring
@@ -97,7 +97,7 @@ return {
 
 	-- Step 20: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
 
@@ -111,7 +111,7 @@ return {
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "{area:1763} de novo",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
-	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
+	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "Use {item:12922} no poço lunar corrompido no meio de {area:1763}.",
 
 	-- Step 23: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood

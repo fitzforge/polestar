@@ -39,9 +39,9 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "{area:307}: vá matando estes pelo caminho",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "As tartarugas grandes rastejam pelas praias ao norte da aldeia, e as garrafas de vinho do porto de {npc:2491} ficam nas mesmas praias, da aldeia até {area:307}: pegue-as pelo caminho. Uma Mordelisca pode deixar cair, raramente, o Transmissor de Emergência OOX-09/HL: guarde-o.",
 	-- {object:2068} Pupellyverbos Port
-	["{object:2068}, on the beaches"] = "",
+	["{object:2068}, on the beaches"] = "{object:2068}, nas praias",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "{item:8704}, item raro",
 
@@ -144,11 +144,11 @@ return {
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands
-	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "O orc fantasmagórico fica ao lado da estrada, onde o pântano encontra o desfiladeiro que leva a {zone:1419}. Ouça a história dele.",
 
 	-- Step 35: Fallen Hero of the Horde
 	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
-	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "para {npc:7623} em {area:75}, depois de {zone:1419}",
 
 	-- Step 36: The bloodmages
 	["The bloodmages"] = "Os magos de sangue",
@@ -168,9 +168,9 @@ return {
 
 	-- Step 39: Stonard
 	-- {area:75} Stonard
-	["Ride back north through the canyon to {area:75}."] = "",
+	["Ride back north through the canyon to {area:75}."] = "Cavalgue de volta para o norte pelo desfiladeiro até {area:75}.",
 	-- {npc:7643} Bengor · {npc:950} Swamp Talker
-	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "{npc:950}, de {npc:7643}, é uma missão de nível 55: deixe para lá.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "A leste da estrada, os javalis Jubacinza e os Grunhidos fuçam as encostas ao lado dos basiliscos Itarrubra. Fique longe dos Javiltuscos de nível 52 mais ao sul.",

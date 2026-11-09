@@ -12,13 +12,13 @@ return {
 
 	-- Step 2: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lance {spell:18960}. Com as duas metades do pingente na bolsa, fique junto a {area:2362}, na margem noroeste do lago, e use uma metade para uni-las; depois vá até {npc:11802}, em {area:2361}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
-	["{item:15885}: join the halves at the {area:2362}"] = "",
+	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: junte as metades em {area:2362}",
 
 	-- Step 3: Aquatic Form
 	-- {quest:5061} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "",
+	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "Pegue {quest:5061} com {npc:11802}, no andar de cima do prédio dele. Depois {npc:11800}, em {area:2361}, leva Druidas direto para {area:702}.",
 
 	-- Step 5: Mathrengyl Bearwalker
 	-- {area:1658} Cenarion Enclave · {area:442} Auberdine · {area:150} Menethil Harbor
@@ -143,7 +143,7 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
 	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Incisivos de Rasgaqueixo: dos raptores perto de {area:1038}, no circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- {quest:98246} Trying Times
-	["{quest:98246}: the Razormaw eggs, on the same loop"] = "",
+	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: os ovos de Rasgaqueixo, no mesmo circuito",
 
 	-- Step 28: Einar Stonegrip
 	-- {npc:270637} Howin Kindfeather · {npc:2093} Einar Stonegrip
@@ -153,10 +153,10 @@ return {
 
 	-- Step 29: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "",
+	["Fen Creepers along the river"] = "Rastejantes do Pântano ao longo do rio",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Ao noroeste de {npc:2093}, até o rio: Rastejantes do Pântano se escondem nas poças e ao longo das margens dele, por todo o caminho para oeste até {area:1024}. Siga para oeste ao longo dele até juntar doze e depois volte para leste, até {npc:1244}.\nCuidado: fora de combate, os Rastejantes do Pântano ficam furtivos de vez em quando, então costumam estar escondidos e difíceis de ver.",
 
 	-- Step 30: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
@@ -164,12 +164,12 @@ return {
 
 	-- Step 31: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:2094} James Halloran
-	["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
+	["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "De volta a oeste pela estrada até {area:150}: {npc:2104} fica no último andar de {area:2103}, {npc:1217} na {area:2104}, ao sul dela, {npc:2094} junto às docas, no caminho para o barco.",
 	["On the top floor"] = "No último andar",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Para a catapulta Presa do Dragão, no circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["{npc:1217}, in the {area:2104}"] = "",
+	["{npc:1217}, in the {area:2104}"] = "{npc:1217}, na {area:2104}",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Para {npc:1284} em {zone:1453}, no fim deste guia",
 	-- {npc:2094} James Halloran
@@ -181,13 +181,13 @@ return {
 
 	-- Step 33: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} stands at the north end of {area:442}."] = "",
+	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} fica na ponta norte de {area:442}.",
 	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
+	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "A resposta de Alexston, se você ainda a carrega (a rota a entrega na primeira parada em {area:442} de 03-darkshore-return)",
 
 	-- Step 34: Auberdine
 	-- {npc:3693} Terenthis
-	["{npc:3693} stands by the flight master."] = "",
+	["{npc:3693} stands by the flight master."] = "{npc:3693} fica junto ao mestre de voo.",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
 	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693}: a escolta de Volcor, do fim de {zone:1439}",
 
@@ -263,11 +263,11 @@ return {
 
 	-- Step 54: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
-	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "",
+	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "{npc:3691} e {npc:3961} estão na estalagem; {npc:3894} está no prédio logo ao sul dela.",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}, na estalagem",
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside the building south of the inn"] = "",
+	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}, dentro do prédio ao sul da estalagem",
 
 	-- Step 55: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake
@@ -289,7 +289,7 @@ return {
 
 	-- Step 60: Astranaar
 	-- {area:415} Astranaar · {npc:3691} Raene Wolfrunner
-	["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "",
+	["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Ao sudeste pela estrada até {area:415}: {npc:3691} na estalagem, o mestre de voo no extremo oeste.",
 
 	-- Step 61: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -348,7 +348,6 @@ return {
 	-- ["Insane druids"] = "Druidas insanos",
 	-- ["Inside"] = "Lá dentro",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\nFen Creepers hide in the marsh pools north-west of the {area:1025}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Dragonetes vermelhos enchem as colinas a oeste dos portões, Maddened Rotclaws, {area:1025}, e Rasgaqueixos, as encostas do norte; Neru fica no nordeste (use {item:279996}).\nRastejantes do Pântano se escondem nas poças do brejo a noroeste de {area:1025}.\nCuidado: fora de combate, os Rastejantes do Pântano lançam Furtividade de tempos em tempos, então ficam furtivos e difíceis de ver.",
-	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, {npc:3961} and {npc:3894} inside, the flight master at the west end."] = "Ao sudeste pela estrada até {area:415}: {npc:3691} na estalagem, {npc:3961} e {npc:3894} lá dentro, o mestre de voo no extremo oeste.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "As relíquias ficam na própria escavação. {npc:1353}, um Rasgaqueixo grande, ronda o vale dos raptores logo a oeste.",
 	-- ["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas estão dentro de {area:432}, afastados uns dos outros: entre pela boca, ao sul do acampamento dos Renegados, não por cima da colina acima deles. {npc:3940} está nos salões do leste, {npc:3941} no ponto mais fundo, no extremo nordeste, e {npc:3942} no extremo oeste.\nCuidado: a toca tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então monstros extras costumam entrar na luta.",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas ficam juntos no acampamento dos Renegados ao sul de {area:2358}.\nCuidado: o covil tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então é comum vir monstro a mais.",
