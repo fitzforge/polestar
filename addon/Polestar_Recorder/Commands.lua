@@ -22,6 +22,9 @@ local function status()
 	end
 	ns.Print(L["install id: %s"]:format(tostring(st.install)))
 	ns.Print(L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"])
+	-- The game writes the recording (and the on/off state Polestar Client shows) to disk only at
+	-- a logout or /reload: until then the uploader sees neither.
+	if st.chunks > 0 then ns.Print(L["/reload or log out to send what's recorded"]) end
 end
 
 ---------------------------------------------------------------------------
@@ -37,6 +40,7 @@ commands.status = status
 commands.on = function()
 	ns.SetEnabled(true)
 	ns.Print(L["recording %s"]:format("|cff4fd18f" .. L["on"] .. "|r"))
+	ns.Print(L["/reload or log out to send what's recorded"])
 	if ns.RefreshPanel then ns.RefreshPanel() end
 end
 
