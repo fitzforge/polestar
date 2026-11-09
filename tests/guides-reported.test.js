@@ -8850,3 +8850,14 @@ test('Horde Call of Fire: every Telf Joolam step sends the player up the mountai
 	const first = src.split('\nstep ').find((s) => s.startsWith('Telf Joolam') && /turnin 1524/.test(s));
 	assert.match(first, /trail climbs the mountain/, 'the Tauren Shaman is told about the trail');
 });
+
+// Final route review (0.3.6): Hillsbrad 22-24 after Durnholde Keep. Masoj (64.2,54.0) stands between the keep and the
+// Mudsnout Blossoms just south of him (63-66,60-63); the guide went to the blossoms first and back north to Masoj, then
+// south-east to the southern peak. Masoj first, then the blossoms, then the peak.
+test('Hillsbrad (Horde 22-24): Masoj before the Mudsnout Blossoms, the southern peak after them', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const masoj = at(list, 'turnin 98094', is('turnin', 98094));
+	const blossoms = at(list, 'collect 3502', (g) => g.t === 'collect' && g.item === 3502);
+	const peak = at(list, 'the southern peak', (g) => g.t === 'use' && g.quest === 98095 && g.oi === 3);
+	assert.ok(masoj < blossoms && blossoms < peak, 'Masoj, the blossoms, then the southern peak');
+});

@@ -4718,6 +4718,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Wetlands 30-32: Red Jack Flint stands by Menethil Keep's door, beside Captain Stoutfist where 30-40/01 hands in the Tattered Spellbook; Fiora Longears is taken there and handed in when 30-40/03's boat lands in Theramore (the route walked past him, 14 yd, and took it on 30-40/03's next Menethil stop)."
+			},
+			{
+				"a": [
+					"turnin",
+					98094
+				],
+				"b": [
+					"task",
+					509
+				],
+				"faction": "Horde",
+				"why": "Horde final route review (0.3.6, 2026-11-09): Hillsbrad 22-24, after Durnholde Keep: Deathstalker Masoj (270438, 64.2,54.0) stands on the way from the keep (about 78,44) down to the Mudsnout Blossoms (object 1723, 63-66,60-63) just south of him, and the southern peak (74.1,73.4) lies on beyond the blossoms; the written order went to the blossoms first and back north to Masoj, about 10 map units more walking, and Masoj's own tip already said 'on the way down to the blossoms'."
 			}
 		],
 		"notes": [
