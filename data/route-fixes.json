@@ -6,6 +6,30 @@
 			{
 				"a": [
 					"turnin",
+					32
+				],
+				"b": [
+					"accept",
+					5535
+				],
+				"faction": "Horde",
+				"why": "Final route review, Horde 40-50 (0.3.6): 40-50/06 rides through Orgrimmar from the Grom'gol zeppelin to the flight master at about 49.6; Zilzibin Drumlore (Rise of the Silithid, 5450 XP) stands in the Drag, so the hand-in is made then, before Azshara (Loh'atu's 5535), and its experience shortens the level 50 top-up there instead of waiting for the Orgrimmar stop after Azshara."
+			},
+			{
+				"a": [
+					"turnin",
+					81
+				],
+				"b": [
+					"accept",
+					5535
+				],
+				"faction": "Horde",
+				"why": "Final route review, Horde 40-50 (0.3.6): 40-50/06 rides through Orgrimmar from the Grom'gol zeppelin to the flight master at about 49.6; Dran Droffers (Ripple Delivery, 4400 XP) stands in the Drag, so the hand-in is made then, before Azshara (Loh'atu's 5535), and its experience shortens the level 50 top-up there instead of waiting for the Orgrimmar stop after Azshara."
+			},
+			{
+				"a": [
+					"turnin",
 					2976
 				],
 				"b": [

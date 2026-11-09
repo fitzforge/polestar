@@ -9135,3 +9135,22 @@ test('Horde 40-60: walks to an optional stop are gated like the stop', { skip },
 	const walk = fw.findIndex((st) => st.goals.length === 1 && st.goals[0].t === 'goto' && st.goals[0].x === 45.3 && st.goals[0].y === 63.7);
 	assert.ok(walk >= 0 && (fw[walk].when || []).filter((p) => p.k === 'complete' && p.neg).length === 2, 'the walk to the flight master is skipped when a Runecloth hand-in is ready');
 });
+
+// Final route review, Horde 40-50 (0.3.6): Zilzibin Drumlore stands in the Drag (his quests say so), not the Valley
+// of Spirits; the Orgrimmar stop after Feralas goes Cleft, Drag, Valley of Honor from the flight master. And 40-50/06
+// rides through Orgrimmar to the flight master on the way to Azshara with Rise of the Silithid (32) and Ripple
+// Delivery (81) ready: both are handed in then, before the top-up to 50, not on the stop after Azshara.
+test('Horde 45-50 Orgrimmar: Zilzibin in the Drag, and the ready reports handed in on the way to Azshara', { skip }, () => {
+	const src = (f) => fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
+	for (const f of ['forever/horde/40-50/02-feralas.guide', 'forever/horde/40-50/06-azshara.guide']) assert.doesNotMatch(src(f), /Zilzibin Drumlore, Valley of Spirits/, f);
+	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const i = (what, pred) => at(fer, what, pred);
+	assert.ok(i('turnin 3121', is('turnin', 3121)) < i('turnin 7732', is('turnin', 7732)) && i('turnin 7732', is('turnin', 7732)) < i('turnin 2976', is('turnin', 2976)), 'Cleft, Drag, Valley of Honor');
+	const az = goals('forever/horde/40-50/06-azshara.guide');
+	const loh = az[at(az, 'accept 5535', is('accept', 5535))].s;
+	for (const q of [32, 81]) {
+		const first = az[at(az, `turnin ${q}`, is('turnin', q))];
+		assert.ok(first.s < loh, `${q} handed in before Azshara`);
+		assert.ok(first.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(q)), `${q}: only while carried`);
+	}
+});

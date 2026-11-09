@@ -113,6 +113,18 @@ step Zeppelin to Orgrimmar
   zone Stranglethorn Vale
   goto 31.4,29.9 "Zeppelin to Orgrimmar"
 
+step Zilzibin Drumlore
+  zone Orgrimmar
+  when onquest 32
+  tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris, and its experience shortens the top-up to 50 in Azshara.
+  turnin 32                             -- Zilzibin Drumlore, the Drag
+
+step Dran Droffers
+  zone Orgrimmar
+  when onquest 81
+  tip The Droffers' shop is a few steps further into the Drag.
+  turnin 81                             -- Dran Droffers, the Drag
+
 # ---------------------------------------------------------------- To Azshara
 
 step Azshara
@@ -224,7 +236,7 @@ step Fly to Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
+  turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
   accept 4494
   turnin 3541                         -- Jes'rimon, the Cleft of Shadow
   accept 3563
