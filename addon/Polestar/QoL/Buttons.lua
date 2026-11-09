@@ -49,9 +49,11 @@
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine). The rare card's Target button
 --     (Rares/Toast.lua, Buttons.RareCardMacro) marks its rare the same way.
---   Ping: the target button and step key on mobs, the rare button and the
---     rare card's Target button follow /targetexact with /ping [@target]
---     (Buttons.PingLine), where the client has the command.
+--   Ping: the rare button and the rare card's Target button always follow
+--     /targetexact with /ping [@target] (Buttons.PingLine), where the client
+--     has the command; the target button (on mobs) and the step key only
+--     with qol.pingTarget (off by default), never as a raid member without
+--     lead or assist (Buttons.QuestPingLine).
 --
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
 --
@@ -865,6 +867,15 @@ function Buttons.PingLine()
 	return cmd .. " [@target]"
 end
 
+-- The Target button's and step key's ping: only with "Ping what they target"
+-- (qol.pingTarget, off by default), and never from a raid member without
+-- lead or assist (Buttons.MarkRight nil: the raid's own callouts are theirs).
+-- The rare button and the rare card always ping: a rare is worth one.
+function Buttons.QuestPingLine()
+	if not QoL.On("pingTarget") or not Buttons.MarkRight() then return nil end
+	return Buttons.PingLine()
+end
+
 -- The macro for names, tried from names[preferred] on in click order. Out of
 -- combat it starts from nothing ("/cleartarget [nocombat]"), so a target that
 -- is none of the names -- a mob clicked by hand, the quest giver just turned
@@ -1031,7 +1042,7 @@ local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
 		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind), target.kind == "mob" and Buttons.PingLine() or nil)
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(target.kind), target.kind == "mob" and Buttons.QuestPingLine() or nil)
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1321,7 +1332,7 @@ local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"), Buttons.PingLine())
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"), Buttons.QuestPingLine())
 		elseif step.kind == "npc" then
 			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then
@@ -1453,6 +1464,8 @@ local function refresh()
 	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
 	-- signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
+	-- And the ping (Buttons.QuestPingLine), on or off.
+	mark = mark .. (Buttons.QuestPingLine() or "") .. "\n"
 	local namesSig = concat(list, "\n")
 	local sig = mark .. namesSig
 	if sig ~= target.sig then

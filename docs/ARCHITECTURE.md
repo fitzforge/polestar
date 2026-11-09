@@ -6281,8 +6281,10 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   or no waypoint), "Show rare" (the section) and, for a rare, "Target": a
   secure button (`PolestarRareCardTarget`, on UIParent) over the card's own
   runs `QoL.Buttons.RareCardMacro` (`/targetexact` the name, `/ping
-  [@target]` where the client has `SLASH_PING1`, the mob's `/tm` with
-  `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`. Its
+  [@target]` where the client has `SLASH_PING1`, always, as the rare button
+  does; the Target button and step key ping mobs only with `qol.pingTarget`,
+  off by default, never for a raid member without lead or assist:
+  `Buttons.QuestPingLine`; the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`. Its
   macro and its anchor to the card are set only out of combat;
   `PLAYER_REGEN_DISABLED` (before the lockdown) lets go of it, so the card
   can still move and close in a fight, where Target shows disabled with a

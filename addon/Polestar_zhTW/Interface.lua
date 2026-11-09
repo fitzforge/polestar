@@ -929,6 +929,8 @@ L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the
 L["Click objectives to target"] = "點擊任務目標以選取"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目標按鈕與步驟鍵會在其選取的怪物與 NPC 上標記團隊圖示；非戰鬥中，若按下時兩者都找不到會清除你的目標。再按一次不會移除圖示。在你不是隊長的小隊中，只有沒有圖示的單位會被標記；在團隊中，僅限你是隊長或助理時。"
+-- L["Ping what they target"] = ""
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"

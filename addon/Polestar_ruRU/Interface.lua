@@ -929,6 +929,8 @@ L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the
 L["Click objectives to target"] = "Выбор цели щелчком по задачам"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Кнопка цели и клавиша шага ставят рейдовую метку на противника или НИП, которых выбирают целью; вне боя нажатие, не нашедшее ни того ни другого, сбрасывает вашу цель. Повторное нажатие никогда не снимает метку. В группе, где вы не лидер, метку получает только цель без метки; в рейде — только если вы лидер или помощник."
+-- L["Ping what they target"] = ""
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"

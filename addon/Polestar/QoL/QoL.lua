@@ -45,6 +45,7 @@ local defaults = {
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
 	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
+	pingTarget = false,      -- /ping the mob the target button and step key target (QoL/Buttons.lua)
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
 	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)

@@ -929,6 +929,8 @@ L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the
 L["Click objectives to target"] = "임무 클릭으로 대상 지정"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "대상 버튼과 단계 키가 대상으로 지정한 몹과 NPC에 공격대 아이콘을 붙입니다. 전투 중이 아닐 때 아무것도 찾지 못하면 대상을 해제합니다. 다시 눌러도 아이콘을 떼지 않습니다. 내가 파티장이 아닌 파티에서는 아이콘이 없는 대상에만 붙이고, 공격대에서는 공격대장이나 부공격대장일 때만 붙입니다."
+-- L["Ping what they target"] = ""
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"

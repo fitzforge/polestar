@@ -1560,6 +1560,8 @@ L["Reset"] = "Zurücksetzen"
 L["Click objectives to target"] = "Ziele per Klick anvisieren"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Der Ziel-Button und die Schrittetaste setzen ein Schlachtzugssymbol auf den Mob und den NPC, die sie anvisieren; außerhalb des Kampfes löscht ein Druck, der keines von beiden findet, dein Ziel. Erneutes Drücken nimmt nie ein Symbol weg. In einer Gruppe, die du nicht führst, bekommt nur eine Einheit ohne Symbol eines; in einem Schlachtzug nur, wenn du führst oder Assistent bist."
+-- L["Ping what they target"] = ""
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"

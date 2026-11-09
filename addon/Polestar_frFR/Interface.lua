@@ -930,6 +930,8 @@ L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the
 L["Click objectives to target"] = "Cibler en cliquant sur les objectifs"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Un clic sur une ligne d'objectif ou sur le nom d'un PNJ en tête cible aussi ce PNJ hors combat, avec les mêmes réglages de marquage que le bouton de ciblage. Cela remplace votre cible actuelle ; une recherche infructueuse la retire."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Le bouton de ciblage et la touche d'étape placent une icône de raid sur le monstre et le PNJ qu'ils ciblent ; hors combat, un appui qui ne trouve ni l'un ni l'autre retire votre cible. Un nouvel appui ne retire jamais d'icône. Dans un groupe que vous ne menez pas, seule une unité sans icône en reçoit une ; en raid, seulement si vous êtes chef ou assistant."
+-- L["Ping what they target"] = ""
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"

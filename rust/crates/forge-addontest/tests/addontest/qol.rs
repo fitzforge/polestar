@@ -787,7 +787,7 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 }
 
 #[test]
-fn ping_where_the_client_has_ping_the_target_button_and_step_key_ping_a_mob_after_targeting_it_never_an_npc_and_the_mark_stays_last() {
+fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_pings_a_mob_after_targeting_never_an_npc_the_mark_last() {
 	let script = r#"
 		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
 		local nearby = { "Thuros Lightfingers" }
@@ -795,7 +795,9 @@ fn ping_where_the_client_has_ping_the_target_button_and_step_key_ping_a_mob_afte
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
 		Polestar.Fire("RARE_NEARBY")
 		stub.runTimers()
-		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		emit({ Polestar.GetDefault("qol.pingTarget"), t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		set("pingTarget", true)
+		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
 		set("markTarget", true)
 		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
 		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
@@ -807,19 +809,54 @@ fn ping_where_the_client_has_ping_the_target_button_and_step_key_ping_a_mob_afte
 	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
 	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
-	assert_eq!(out[0], json!([ping("Kobold Vermin"), ping("Kobold Vermin"), ping("Thuros Lightfingers")]));
+	assert_eq!(out[0], json!([false, plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]), "off by default; the rare button always pings");
+	assert_eq!(out[1], json!([ping("Kobold Vermin"), ping("Kobold Vermin")]));
 	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
-	assert_eq!(out[1], json!([marked, marked]), "the ping right after the target, the mark last");
+	assert_eq!(out[2], json!([marked, marked]), "the ping right after the target, the mark last");
 	let star = plain("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
-	assert_eq!(out[2], json!([star, star]), "an NPC goal's NPC is not pinged");
-	let long = text(&out[3]);
+	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is not pinged");
+	let long = text(&out[4]);
 	assert!(long.len() <= 255, "fits a macro");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
 	// A localized command word is used as the client gives it; without the command, no ping line at all.
 	let out = run_with(script, "SLASH_PING1 = \"/пинг\"", None);
-	assert_eq!(out[0][0], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
+	assert_eq!(out[1][0], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
 	let out = run_with(script, "SLASH_PING1 = nil", None);
-	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin"), plain("Thuros Lightfingers")]));
+	assert_eq!(out[1], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]));
+	assert_eq!(out[0][3], json!(plain("Thuros Lightfingers")));
+}
+
+#[test]
+fn ping_what_they_target_in_a_raid_only_the_leader_and_assistants_ping_from_the_target_button_and_step_key_the_rare_button_still_does() {
+	let out = run_with(
+		r#"
+		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
+		Polestar.Rares = { Nearby = function() return { "Thuros Lightfingers" } end }
+		local g = { raid = false, party = false, lead = false, assist = false }
+		function IsInRaid() return g.raid end
+		function IsInGroup() return g.party or g.raid end
+		function UnitIsGroupLeader() return g.lead end
+		function UnitIsGroupAssistant() return g.assist end
+		local function has(b) return (b:GetAttribute("macrotext") or ""):find("/ping", 1, true) ~= nil end
+		local function now() stub.fire("GROUP_ROSTER_UPDATE") stub.runTimers() return { has(t), has(s), has(r) } end
+		set("pingTarget", true)
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		Polestar.Fire("RARE_NEARBY")
+		emit(now())
+		g.party = true
+		emit(now())
+		g.raid = true
+		emit(now())
+		g.assist = true
+		emit(now())
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+		None,
+	);
+	assert_eq!(out[0], json!([true, true, true]), "alone");
+	assert_eq!(out[1], json!([true, true, true]), "a party member who doesn't lead");
+	assert_eq!(out[2], json!([false, false, true]), "a raid member without lead or assist: only the rare button");
+	assert_eq!(out[3], json!([true, true, true]), "an assistant");
 }
 
 #[test]
