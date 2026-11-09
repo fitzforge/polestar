@@ -147,6 +147,7 @@ step Thalanaar
   turnin 4281                         -- Falfindel Waywarder
   turnin 1100                         -- if you carry Lonebrow's Journal from Thousand Needles
 
+# For #1392 (grind-mob ids on level lines): level 44.5 grind 5296   (Rage Scar Yeti)
 step Rage Scar yetis
   tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
   tip Zorbin's quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring Pratt's hides. Or, with a group, run the Zul'Farrak dungeon instead.

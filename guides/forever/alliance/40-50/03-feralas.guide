@@ -145,6 +145,7 @@ step The Writhing Deep
   accept 4265
   complete 4265
 
+# For #1392 (grind-mob ids on level lines): level 44.5 grind 5296   (Rage Scar Yeti)
 step High Wilderness: kill these as you meet them
   zone Feralas
   tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
