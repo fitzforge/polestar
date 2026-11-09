@@ -2899,10 +2899,12 @@ name = "polestar-client"
 version = "0.1.4"
 dependencies = [
  "base64 0.22.1",
+ "bytes",
  "polestar-recording",
  "reqwest",
  "ring",
  "rustls",
+ "rustls-native-certs",
  "serde",
  "serde_json",
  "sha2",
@@ -2918,6 +2920,7 @@ dependencies = [
  "tauri-plugin-updater",
  "tokio",
  "webkit2gtk",
+ "webpki-root-certs",
  "zip 9.1.3",
 ]
 

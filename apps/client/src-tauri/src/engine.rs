@@ -18,6 +18,7 @@ use tauri::{AppHandle, Emitter};
 use tokio::sync::Notify;
 
 use crate::addons;
+use crate::net::Family;
 use crate::register;
 use crate::store::{ActivityEntry, ActivityKind, Progress, Rejection, SentChunk, Settings, Store};
 use crate::update::Available;
@@ -142,18 +143,15 @@ pub struct State {
 pub struct Engine {
 	app: AppHandle,
 	pub store: Store,
-	pub http: reqwest::Client,
-	/// For the community site: redirects only within its origin (packs.rs `redirect_policy`).
-	pub packs_http: reqwest::Client,
+	/// The HTTP clients and the connection fallback ladder (net.rs).
+	pub net: crate::net::Net,
 	state: Mutex<State>,
 	kick: Notify,
 }
 
 impl Engine {
 	pub fn new(app: AppHandle, store: Store) -> Result<Arc<Engine>, String> {
-		let client = || reqwest::Client::builder().user_agent(concat!("PolestarClient/", env!("CARGO_PKG_VERSION"))).connect_timeout(Duration::from_secs(15)).timeout(Duration::from_secs(90));
-		let http = client().build().map_err(|e| e.to_string())?;
-		let packs_http = client().redirect(crate::packs::redirect_policy()).build().map_err(|e| e.to_string())?;
+		let net = crate::net::Net::new();
 		let activity = store.activity();
 		let last_upload = activity.iter().find(|a| matches!(a.kind, ActivityKind::Upload)).map(|a| a.at);
 		let rejected = activity.first().filter(|a| matches!(a.kind, ActivityKind::Upload) && !a.rejected.is_empty()).map(|a| (a.at, a.rejected.clone()));
@@ -187,7 +185,17 @@ impl Engine {
 			last_emitted: String::new(),
 			skipped: BTreeSet::new(),
 		};
-		Ok(Arc::new(Engine { app, store, http, packs_http, state: Mutex::new(state), kick: Notify::new() }))
+		Ok(Arc::new(Engine { app, store, net, state: Mutex::new(state), kick: Notify::new() }))
+	}
+
+	/// The client for addon releases, update checks and other plain requests, on the rung in use.
+	pub fn http(&self) -> reqwest::Client {
+		self.net.client(Family::Api)
+	}
+
+	/// For the community site: redirects only within its origin (packs.rs `redirect_policy`).
+	pub fn packs_http(&self) -> reqwest::Client {
+		self.net.client(Family::Packs)
 	}
 
 	pub fn app(&self) -> &AppHandle {
@@ -506,7 +514,8 @@ impl Engine {
 
 	/// POSTs `body` as JSON and reads the JSON answer.
 	async fn post_json<T: serde::de::DeserializeOwned>(&self, url: &str, body: &impl Serialize) -> Result<T, Failed> {
-		let response = self.http.post(url).json(body).send().await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
+		let body = bytes::Bytes::from(serde_json::to_vec(body).map_err(|e| Failed::Offline(e.to_string()))?);
+		let response = self.net.send(Family::Api, |c| c.post(url).header("Content-Type", "application/json").body(body.clone())).await.map_err(|e| Failed::Offline(describe_reqwest(&e)))?;
 		let status = response.status();
 		if !status.is_success() {
 			let retry_after = retry_after(&response);
@@ -531,7 +540,7 @@ impl Engine {
 	async fn send(&self, batch: Batch, server: &str, token: &str) -> bool {
 		let request = api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: batch.install.clone(), chunks: batch.chunks };
 		let body = match serde_json::to_vec(&request) {
-			Ok(body) => body,
+			Ok(body) => bytes::Bytes::from(body),
 			Err(e) => {
 				eprintln!("could not encode upload: {e}");
 				return false;
@@ -540,7 +549,8 @@ impl Engine {
 		let bytes = body.len() as u64;
 		let records = request.chunks.iter().map(|c| c.text.lines().count().saturating_sub(1) as u32).sum();
 		let max_seq = request.chunks.iter().map(|c| c.seq).max().unwrap_or(0);
-		let result = self.http.post(format!("{server}/v1/upload")).bearer_auth(token).header("Content-Type", "application/json").body(body).send().await;
+		let url = format!("{server}/v1/upload");
+		let result = self.net.send(Family::Api, |c| c.post(&url).bearer_auth(token).header("Content-Type", "application/json").body(body.clone())).await;
 		let now = now_ms();
 		let response = match result {
 			Ok(r) => r,
@@ -805,7 +815,11 @@ impl Engine {
 			running: state.game_running,
 		};
 		let pending: u64 = game.accounts.iter().map(|a| a.pending).sum();
-		let status = status(&state, &game, pending, now);
+		let mut status = status(&state, &game, pending, now);
+		// Which way of connecting is in use, while uploads go through.
+		if let (Some(note), None, true) = (self.net.note(), &state.failure, state.settings.consent) {
+			status.detail = format!("{} {note}", status.detail);
+		}
 		Snapshot {
 			version: env!("CARGO_PKG_VERSION").to_owned(),
 			setup_done: state.settings.setup_done || state.settings.consent,
@@ -957,7 +971,9 @@ impl Batch {
 /// internet connection" while their browser was online.
 pub(crate) fn describe_reqwest(e: &reqwest::Error) -> String {
 	let cause = root_cause(e);
-	if e.is_timeout() {
+	if crate::net::clock_wrong(e) {
+		crate::net::clock_message(now_ms() / 1000)
+	} else if e.is_timeout() {
 		"The server took too long to answer.".to_owned()
 	} else if e.is_connect() {
 		let check = e.url().map(|u| format!("{}/v1/stats", u.origin().ascii_serialization())).unwrap_or_else(|| "the recording server's address".to_owned());
