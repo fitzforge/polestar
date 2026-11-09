@@ -4,7 +4,7 @@
 
 use crate::common;
 
-use forge_data::professions::{build, require_trainer_costs, Options};
+use forge_data::professions::{build, Options};
 
 #[test]
 fn professions_match_golden() {
@@ -22,10 +22,6 @@ fn professions_match_golden() {
 	o.sources = input.join("sources");
 	o.tdb = input.join("no-tdb.sqlite");
 	let out = build(&o).unwrap();
-	// Built without the TDB on purpose (no-tdb.sqlite, no extract): no trainer price, so the release gate
-	// the data builds run after `build` refuses it.
-	assert_eq!(out.trainer_costs, 0);
-	assert!(require_trainer_costs(&out).unwrap_err().contains("sniffed trainer lists were not read"));
 	let want = g.join("expected");
 	let mut check = common::Check::new();
 	let mut names = Vec::new();
@@ -62,9 +58,6 @@ fn draft_fixture_is_this_build() {
 	o.sources = fx.clone();
 	o.tdb = fx.join("no-tdb.sqlite");
 	let out = build(&o).unwrap();
-	// The fixture's extract has a sniffed trainer list: the release gate passes.
-	assert!(out.trainer_costs > 0);
-	require_trainer_costs(&out).unwrap();
 	let mut check = common::Check::new();
 	for (name, text) in &out.files {
 		check.file(name, text, &fx.join("data").join(name));

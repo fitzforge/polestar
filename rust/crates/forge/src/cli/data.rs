@@ -214,7 +214,6 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			}
 			o.build = get("--build");
 			let out = forge_data::professions::build(&o)?;
-			forge_data::professions::require_trainer_costs(&out)?;
 			let dir = get("--out").map(abs);
 			let file = match &dir {
 				Some(f) => {

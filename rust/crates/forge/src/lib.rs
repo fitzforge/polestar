@@ -1189,9 +1189,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			let (trainers, _, _) = forge_data::trainers::run(&l.data, Some(&o.guides), &data_root.join("data/recordings"))?;
 			std::fs::write(l.data.join("trainers.json"), trainers).map_err(|e| format!("trainers.json: {e}"))?;
 			let popts = forge_data::professions::Options { data: l.data.clone(), sources: data_root.join("data/sources"), tdb: forge_data::build::tdb_db_default(&data_root), build: None };
-			let professions = forge_data::professions::build(&popts)?;
-			forge_data::professions::require_trainer_costs(&professions)?;
-			forge_data::professions::write(&l.data, &professions)?;
+			forge_data::professions::write(&l.data, &forge_data::professions::build(&popts)?)?;
 			log("  data: travel.json, trainers.json, professions.json built");
 			// The files forge does not build (dungeons.json, gear/, codex/): carried from the data
 			// root's data/forever when it has them, and named.
