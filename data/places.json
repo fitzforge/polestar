@@ -1632,6 +1632,101 @@
 				"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, one spawn)"
 			},
 			"issue": 1149
+		},
+		{
+			"id": "missing-diplomat-1265-tervosh-sentry-point",
+			"quest": 1265,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1265): Archmage Tervosh takes it at the foot of Sentry Point's tower, where the quest's exploration ticks (59.9,40.9), not in Theramore's tower (66.4,49.3), the only spot the data has. Players' recordings: 4 of 4 people handed it in to him there, 3-10 s after the exploration ticked; nobody handed it in in Theramore. Forever's NPC page lists him at 59.6,41.2, at North Point Tower (45.2,24.4) and in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1265 at npc 4967, 1445 59.69-59.71,41.17-41.22: 20261107T230704Z-0508863063f76280, 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1266-tervosh-sentry-point",
+			"quest": 1266,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1266): taken from Archmage Tervosh at Sentry Point right after 1265 is handed in to him there (4 of 4 people in players' recordings), not in Theramore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1266 at npc 4967, 1445 59.69-59.71,41.17-41.22, the same 4 sessions as 1265's hand-in"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1324-tervosh-north-point",
+			"quest": 1324,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.4,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1324): Archmage Tervosh and Lady Jaina Proudmoore stand beside North Point Tower, where Private Hendel yields; 3 of 3 people in players' recordings handed 1324 in to Tervosh there (45.19-45.22,24.37-24.38) seconds after Hendel yielded, and nobody in Theramore's tower, the only spot the data has. Forever's NPC pages list both at North Point Tower as well as in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1324 at npc 4967: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0; Tervosh and Jaina also moused over at 45.2,24.4 before Hendel's fight in 3 sessions"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-giver",
+			"quest": 1267,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): Lady Jaina Proudmoore gives and takes it beside North Point Tower right after 1324 (3 of 3 people in players' recordings, 2-6 s after 1324), not in Theramore's tower.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, 1445 45.21-45.24,24.30-24.31: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-ender",
+			"quest": 1267,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): handed in to Lady Jaina Proudmoore beside North Point Tower (3 of 3 people in players' recordings), see the giver record.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, the same 3 sessions"
+				}
+			]
 		}
 	]
 }

@@ -9382,3 +9382,23 @@ test('use lines for an earlier guide\'s quest item are bound to the objective', 
 		for (const { goal } of uses) assert.equal(goal.quest, quest, `${guide}: use ${item} goes with quest ${quest}`);
 	}
 });
+
+// Position sweep (0.3.6, IngestCheck036's Missing Diplomat item): Archmage Tervosh takes The Missing Diplomat (1265)
+// at Sentry Point's tower, where its exploration ticks (4 of 4 people in players' recordings), and he and Lady Jaina
+// take 1324 and 1267 beside North Point Tower once Private Hendel yields (3 of 3). Nobody handed them in in Theramore's
+// tower, the only spot the data had: the guide hands them in on the spot instead of sending players back.
+test('Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry Point and North Point Tower', { skip }, () => {
+	const g = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const near = (i, x, y) => Math.abs(g[i].goal.x - x) < 0.5 && Math.abs(g[i].goal.y - y) < 0.5;
+	const explore = at(g, 'complete 1265', is('complete', 1265));
+	const t1265 = at(g, 'turnin 1265', is('turnin', 1265));
+	const a1266 = at(g, 'accept 1266', is('accept', 1266));
+	assert.ok(g[t1265].s === g[explore].s && g[a1266].s === g[explore].s, '1265 handed in and 1266 taken on the Sentry Point step');
+	assert.ok(near(t1265, 59.7, 41.2) && near(a1266, 59.7, 41.2), 'Tervosh at Sentry Point');
+	const yields = at(g, 'complete 1324', is('complete', 1324));
+	for (const [what, pred, x, y] of [['turnin 1324', is('turnin', 1324), 45.2, 24.4], ['accept 1267', is('accept', 1267), 45.2, 24.3], ['turnin 1267', is('turnin', 1267), 45.2, 24.3]]) {
+		const i = at(g, what, pred);
+		assert.equal(g[i].s, g[yields].s, `${what} on the North Point Tower step`);
+		assert.ok(near(i, x, y), `${what} beside North Point Tower`);
+	}
+});

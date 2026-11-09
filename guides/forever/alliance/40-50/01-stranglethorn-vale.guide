@@ -29,13 +29,11 @@ step Theramore
 
 step Sentry Point
   tip Follow the road north-west out of Theramore to the watchtower at Sentry Point. Mudrock Burrowers roam the marsh around it.
+  tip Archmage Tervosh waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore.
   complete 1265 @59.9,40.9
+  turnin 1265 @59.7,41.2              -- Archmage Tervosh, at the tower
+  accept 1266 @59.7,41.2
   collect 5883 quest 1204             -- Forked Mudrock Tongue
-
-step Archmage Tervosh
-  tip Back in Theramore: Tervosh waits with Lady Jaina in the tower of Foothold Citadel.
-  turnin 1265                         -- Upstairs
-  accept 1266                         -- Upstairs
 
 step Theramore
   turnin 1204                         -- Morgan Stern, inside
@@ -58,9 +56,13 @@ step "Stinky" Ignatz
 step North Point Tower
   tip Private Hendel holds the tower with a few deserters. He turns on you: beat him until he yields.
   tip Careful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.
+  tip Archmage Tervosh and Lady Jaina Proudmoore wait beside the tower: once he yields, hand in to both on the spot.
   turnin 1266                         -- Private Hendel
   accept 1324
   complete 1324
+  turnin 1324 @45.2,24.4              -- Archmage Tervosh
+  accept 1267 @45.2,24.3              -- Lady Jaina Proudmoore
+  turnin 1267 @45.2,24.3
 
 step Darkmist Cavern
   tip The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.
@@ -78,12 +80,9 @@ step The Shady Rest Inn
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
-  tip Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and Foothold Citadel.
+  tip Follow the road east back to Theramore. The officers are in Foothold Citadel.
   turnin 1219                         -- Theramore Lieutenant
   accept 1220
-  turnin 1324                         -- Archmage Tervosh, upstairs
-  accept 1267                         -- Lady Jaina Proudmoore, on the top floor
-  turnin 1267
   turnin 1252                         -- On the top floor
   accept 1259
   turnin 1259                         -- Adjutant Tesoran, on the top floor
