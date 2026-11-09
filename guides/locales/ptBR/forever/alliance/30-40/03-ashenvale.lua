@@ -88,7 +88,7 @@ return {
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Os {object:19868} estão espalhados pela planície. Aniquiladores Escorpídeos e Catadores da Planície Salgada andam pela metade norte; Tartaliscas Quelobrilho (tartarugas), pela planície toda. Basiliscos Sal-gema e Cristaldermes Sal-gema dominam o meio; os Observadores (34-35) ficam só no extremo sul.",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands

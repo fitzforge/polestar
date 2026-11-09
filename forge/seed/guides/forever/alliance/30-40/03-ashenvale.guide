@@ -127,7 +127,7 @@ step Mirage Raceway: kill these as you meet them
   kill 4147 quest 1175.1                  -- Saltstone Basilisk
   kill 4151 quest 1175.2                  -- Saltstone Crystalhide
   kill 4150 quest 1175.3                  -- Saltstone Gazer
-  collect 5675 quest 1078.1               -- Crystalized Scale, from the Saltstone Basilisks: for Collin Mauren in Stormwind
+  collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard

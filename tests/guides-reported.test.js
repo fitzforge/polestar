@@ -7952,7 +7952,7 @@ test('Alliance 30-40 audit: Vahlarriel\'s Vengeance is done on the Thunder Axe F
 
 // Retrieval for Mauren (1078, level 26, accepted at the end of 06-ashenvale) had its scales farmed on gray basilisks in
 // Stonetalon at 35 and was handed in at 35.5: the Saltstone Basilisks the Raceway step kills drop them too (Forever's
-// item data, 20%), and the first loop's Stormwind stop is the next visit to Collin Mauren.
+// item data, 20%: optional, no farm), and the first loop's Stormwind stop, when complete, is the next visit to Collin Mauren.
 test('Alliance 30-40 audit: Retrieval for Mauren on the Raceway basilisks, handed in on the first Stormwind stop', { skip }, () => {
 	const g03 = goals('forever/alliance/30-40/03-ashenvale.guide');
 	const scales = g03[at(g03, 'collect 5675 quest 1078.1', (g) => g.t === 'collect' && g.quest === 1078)];
@@ -7960,4 +7960,21 @@ test('Alliance 30-40 audit: Retrieval for Mauren on the Raceway basilisks, hande
 	const g04 = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
 	assert.ok(!g04.some(({ goal }) => goal.t === 'collect' && goal.quest === 1078), 'no scale farm in Stonetalon');
 	assert.ok(at(g04, 'turnin 1078', is('turnin', 1078)) < at(g04, 'fly Astranaar', (g) => g.t === 'fly' && /Astranaar/.test(g.location || '')), 'handed in before the boat north');
+	assert.ok(scales.goal.optional, 'no farm for a level-26 quest: the scales come with the basilisks the step kills anyway');
+	assert.ok((g04[at(g04, 'turnin 1078', is('turnin', 1078))].step.when || []).some((p) => p.k === 'complete' && [p.q].flat().includes(1078)), 'Collin only when complete');
+});
+
+// Fyurie's report (#1425): Private Thorsen gives Jungle Secrets and takes Supplies to Private Thorsen. The server's
+// path for him (Forever's world database: creature 20002243, waypoint path 800022430) keeps him about 28 minutes at
+// the top of the Rebel Camp's path and a few minutes at the road end, where the data's spawn (and the arrow) was.
+test("Fyurie's report (#1425): Private Thorsen is looked for at the top of the Rebel Camp's path, with his walk in the tip", { skip }, () => {
+	const guide = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(guide);
+	for (const [t, q] of [['accept', 215], ['turnin', 198]]) {
+		const { goal, step } = list[at(list, `${t} ${q}`, is(t, q))];
+		assert.ok(goal.map === 1434 && Math.abs(goal.x - 38.0) < 0.3 && Math.abs(goal.y - 3.4) < 0.3, `${t} ${q} at his camp spot (${goal.x},${goal.y})`);
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /walks down it to the road/, `${t} ${q}: the tip says he walks`);
+	}
+	const pl = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	for (const [q, o] of [[215, 'giver'], [198, 'ender']]) assert.ok(pl.some((p) => p.quest === q && p.objective === o && p.issue === 1425), `${q} ${o} place recorded`);
 });

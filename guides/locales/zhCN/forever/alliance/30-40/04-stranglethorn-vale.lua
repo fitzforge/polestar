@@ -51,8 +51,8 @@ return {
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
 
 	-- Step 13: Rebel Camp
-	-- {npc:738} Private Thorsen
-	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡逻，营地在西边的山丘中。",
+	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}，在小屋里",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
@@ -148,8 +148,8 @@ return {
 	["River Crocolisks swim the river by the {area:99}."] = "淡水鳄在{area:99}旁的河中游动。",
 
 	-- Step 26: Private Thorsen
-	-- {area:99} Rebel Camp
-	["Thorsen patrols the road north of camp, toward the {area:99}."] = "索森在营地北边、通往{area:99}的道路上巡逻。",
+	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
+	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
 
 	-- Step 27: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
@@ -205,12 +205,14 @@ return {
 	-- ["Skullsplitter trolls"] = "劈颅巨魔",
 	-- ["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- ["Snapjaw Crocolisks bask on the shore and islands along the coast north of {area:35}."] = "钳嘴鳄鱼趴在{area:35}北边沿海的岸边和岛上。",
+	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡逻，营地在西边的山丘中。",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}站在路上，营地在西边的山丘中。",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "血顶巨魔占据奈辛瓦里营地西边海岸上的废墟。",
 	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "库尔森叛军占据{area:99}东边的营地；在外围活动，那里有库尔森丛林战士和库尔森药草师，并拾取帐篷旁的补给箱。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈颅巨魔占据奈辛瓦里和{object:3202}之间道路东边的废墟。",
 	-- ["The jungle ruins"] = "丛林废墟",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "矿石由{zone:1417}的枯须狗头人掉落",
+	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "索森在营地北边、通往{area:99}的道路上巡逻。",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "向北走回去；{area:310}在丛林中部道路的西边。那里的晶背蜥蜴掉落碎片。",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}没有德鲁伊训练师：从{object:171524}乘{area:2257}前往{zone:1453}，找{npc:5504}训练。",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}，在银行旁",
