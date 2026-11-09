@@ -177,7 +177,7 @@ fn open_the_guide_list_closes_it_and_opens_the_guide_list_on_its_home_view_with_
 }
 
 #[test]
-fn it_says_what_changed_in_four_notes_and_fits_one_screen() {
+fn it_says_what_changed_in_five_notes_and_fits_one_screen() {
 	let out = run_with(
 		r#"
 		WN.Show()
@@ -196,9 +196,10 @@ fn it_says_what_changed_in_four_notes_and_fits_one_screen() {
 	assert_eq!(
 		out["notes"],
 		json!([
-			{ "head": "New leveling routes (0.3.5)", "text": "The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under Suggested for you. Your quest log carries over." },
-			{ "head": "Fixes from your reports", "text": "Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more." },
-			{ "head": "Quests far above your level now wait", "text": "The guide says Requires level N and comes back when you get there." },
+			{ "head": "Every route reviewed", "text": "Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. If the guide you had open doesn't match where you are, open the guide list and pick the guide under Suggested for you. Your quest log carries over." },
+			{ "head": "The arrow finds your targets", "text": "Grinding steps point at where the mob is found, and the Target button shows who it targets, the While you're here mobs included." },
+			{ "head": "Guide menu and minimap", "text": "Browse folders fold away, a route line runs on the minimap, and a floating Polestar button can be turned on in Options." },
+			{ "head": "Fixes from your reports", "text": "Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more." },
 			{ "head": "Found something off?", "text": "Type /polestar report right where it happens." },
 		])
 	);

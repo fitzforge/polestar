@@ -43,14 +43,17 @@ local NOTES = {
 	{
 		version = "0.3.6",
 		notes = {
-			{ glyph = "guides", color = "accent", head = L["New leveling routes (0.3.5)"], text = function()
-				return L["The zones come in a new order, so the guide you had open may have changed. If it doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."]:format(cmd(L["Suggested for you"]))
+			{ glyph = "guides", color = "accent", head = L["Every route reviewed"], text = function()
+				return L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."]:format(cmd(L["Suggested for you"]))
+			end },
+			{ glyph = "qol-target", color = "accent", head = L["The arrow finds your targets"], text = function()
+				return L["Grinding steps point at where the mob is found, and the Target button shows who it targets, the While you're here mobs included."]
+			end },
+			{ glyph = "layers", color = "accent", head = L["Guide menu and minimap"], text = function()
+				return L["Browse folders fold away, a route line runs on the minimap, and a floating Polestar button can be turned on in Options."]
 			end },
 			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
-				return L["Quests asked for before the game offers them, wrong spots and missing objectives in the Wetlands, Hillsbrad and other zones, timed quests, flights to places you haven't been, the arrow swinging beside its path, and lots more."]
-			end },
-			{ glyph = "hourglass", color = "textMuted", head = L["Quests far above your level now wait"], text = function()
-				return L["The guide says %s and comes back when you get there."]:format(cmd((L["Requires level %d"]:gsub("%%d", "N"))))
+				return L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."]
 			end },
 			{ glyph = "bug", color = "textMuted", head = L["Found something off?"], text = function()
 				return L["Type %s right where it happens."]:format(cmd("/polestar report"))
