@@ -902,10 +902,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		if let Some(pm) = if im.is_nullish() { m.map(|m| m.id) } else { Some(im.num()) } {
 			for q in &quests {
 				let st = q.get("start");
-				if st.get("kind").as_str() == Some("object")
-					&& st.get("map").is_nullish()
-					&& inp.fv_objects.get(&kstr(&st.get("id"))).get("instances").items().iter().any(|x| x.num() == pm)
-				{
+				if st.get("kind").as_str() == Some("object") && st.get("map").is_nullish() && inp.fv_objects.get(&kstr(&st.get("id"))).get("instances").items().iter().any(|x| x.num() == pm) {
 					st.set("inside", true);
 					q.set("inside", true);
 				}

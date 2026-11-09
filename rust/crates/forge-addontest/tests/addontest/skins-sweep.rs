@@ -51,14 +51,7 @@ emit(out)
 "#;
 
 fn run() -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		addons: vec![Addon::name("Polestar")],
-		login: true,
-		script: SCRIPT.into(),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: SCRIPT.into(), ..Default::default() }).remove(0)
 }
 
 #[test]

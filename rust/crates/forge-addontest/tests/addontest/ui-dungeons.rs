@@ -575,9 +575,7 @@ fn quests_one_block_per_quest_with_state_level_flags_objective_start_and_end_pin
 fn a_quest_an_item_starts_names_the_mobs_that_drop_it_inside_or_outside_the_dungeon_its_pin_leads_to_one_outside_1380() {
 	let f = fixture("dungeons.json");
 	let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
-	let mob = |id: i64, name: &str, instance: Value, spawns: Value| {
-		json!({ "id": id, "name": name, "level": 20, "levelMax": 21, "faction": null, "rare": false, "elite": true, "boss": false, "instance": instance, "roles": [], "spawns": spawns })
-	};
+	let mob = |id: i64, name: &str, instance: Value, spawns: Value| json!({ "id": id, "name": name, "level": 20, "levelMax": 21, "faction": null, "rare": false, "elite": true, "boss": false, "instance": instance, "roles": [], "spawns": spawns });
 	codex["npcs"]["90040"] = mob(90040, "Tide Priestess", Value::Null, json!([{ "map": 1413, "x": 45, "y": 37, "f": "e" }]));
 	codex["npcs"]["90041"] = mob(90041, "Deviate Lurker", json!("wailing-caverns"), json!([]));
 	let item = |id: i64, name: &str, source: Value| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [source] });
