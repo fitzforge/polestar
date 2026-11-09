@@ -307,10 +307,10 @@ step Riaani Nightwind
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
   talk 252800 quest 92679.1 @46.7,81.95
-  turnin 92679                        -- Aamelia Windfield
-  accept 92682
-  accept 92683
-  accept 92684
+  turnin 92679 @46.7,81.95            -- Aamelia Windfield
+  accept 92682 @46.7,81.95
+  accept 92683 @46.7,81.95
+  accept 92684 @46.7,81.95
 
 step The orchard
   tip Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge.
@@ -323,11 +323,11 @@ step The orchard
   accept 97244 only Shaman
 
 step Aamelia Windfield
-  turnin 92682
-  turnin 92684
-  turnin 92683
-  turnin 92698
-  accept 92685
+  turnin 92682 @46.7,81.95
+  turnin 92684 @46.7,81.95
+  turnin 92683 @46.7,81.95
+  turnin 92698 @46.7,81.95
+  accept 92685 @46.7,81.95
 
 step Gustberry Lowlands: kill these as you meet them
   zone Zephras Isle
@@ -336,8 +336,8 @@ step Gustberry Lowlands: kill these as you meet them
   collect 260880 quest 93737.4
 
 step Standing Our Ground
-  turnin 92685                        -- Aamelia Windfield
-  accept 92693
+  turnin 92685 @46.7,81.95            -- Aamelia Windfield
+  accept 92693 @46.7,81.95
   talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
