@@ -56,6 +56,11 @@ next forever/horde/07-ashenvale
 # Left out: Bloodfury Bloodline (6283, an elite harpy matriarch), Ordanus (1088, Alliance side of
 # Ashenvale), Arachnophobia (6284, Besseleth is elite).
 #
+# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): for a character who chose it,
+# Mebok Mizzyrix's Blueleaf Tubers (1221) is taken on the Ratchet stop at the end, at about 26.5 (level
+# 26: not on the Ratchet stops of forever/horde/02-the-barrens, 3+ levels over); the run is in
+# forever/horde/07-ashenvale, on the road south to the Great Lift at about 28.
+#
 # Class quests: Shamans hand the red waterskin to Brine south of Camp Taurajo (Call of Water 1536)
 # and take the blue one for Ashenvale (1534).
 
@@ -351,6 +356,15 @@ step Crane Operator Bigglefuzz
   when complete 959
   zone The Barrens
   turnin 959                          -- Crane Operator Bigglefuzz, on the dock
+
+step Mebok Mizzyrix
+  when dungeon "Razorfen Kraul"
+  zone The Barrens
+  tip For your Razorfen Kraul run, on the road south to the Great Lift in the next guide: Mebok's Blueleaf Tubers. The Crate with Holes, the Snufflenose Owner's Manual and the Command Sticks lie beside him: take one of each.
+  accept 1221                         -- Mebok Mizzyrix
+  collect 5880 quest 1221.2           -- Crate with Holes
+  collect 5897 quest 1221.3           -- Snufflenose Owner's Manual
+  collect 6684 quest 1221.4           -- Snufflenose Command Stick
 
 step Merchant Coast
   zone The Barrens
