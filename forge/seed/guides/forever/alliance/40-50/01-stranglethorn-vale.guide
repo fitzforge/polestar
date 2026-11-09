@@ -420,7 +420,6 @@ step Panther Mastery
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 3876 quest 193.1 @49.4,24.0 map 1434
 
-# For #1392 (grind-mob ids on level lines): level 42.16 grind 667   (Skullsplitter Warrior)
 step Level 42.16 at Zul'Mamwe
   when !group 193
   when !group 197
@@ -428,7 +427,7 @@ step Level 42.16 at Zul'Mamwe
   when level<42.16
   tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
   goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
-  level 42.16                          -- grind on Skullsplitter Warrior
+  level 42.16 grind 667                -- grind on Skullsplitter Warrior
 
 step Ruins of Zul'Mamwe: kill these as you meet them
   zone Stranglethorn Vale
@@ -465,7 +464,6 @@ step Hemet Nesingwary
   when group 208
   turnin 208
 
-# For #1392 (grind-mob ids on level lines): level 42.16 grind 690   (Cold Eye Basilisk)
 step Level 42.16
   when level<42.16
   tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
