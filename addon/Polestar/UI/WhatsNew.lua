@@ -44,13 +44,13 @@ local NOTES = {
 		version = "0.3.6",
 		notes = {
 			{ glyph = "guides", color = "accent", head = L["Every route reviewed"], text = function()
-				return L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."]:format(cmd(L["Suggested for you"]))
+				return L["Every leveling guide was gone over again, and 40-60 reworked for both factions with more quests and shorter grinds. Quests new in Forever carry a small ∞ mark. If the guide you had open doesn't match where you are, open the guide list and pick the guide under %s. Your quest log carries over."]:format(cmd(L["Suggested for you"]))
 			end },
 			{ glyph = "qol-target", color = "accent", head = L["The arrow finds your targets"], text = function()
 				return L["Grinding steps point at where the mob is found, and on a step with several camps the arrow moves on from one you've emptied. The Target button shows who it targets, the While you're here mobs included."]
 			end },
 			{ glyph = "layers", color = "accent", head = L["Guide menu and minimap"], text = function()
-				return L["Browse folders fold away, a route line runs on the minimap, and a floating Polestar button can be turned on in Options."]
+				return L["Browse folders fold away, a closed tab comes back with Reopen, the route line can be a line, dots or sparkles on the map and minimap, and a floating Polestar button can be turned on in Options."]
 			end },
 			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
 				return L["Quests asked for before the game offers them, wrong spots, dungeon pick-ups, guides opened part-way, the arrow while you're a ghost, and lots more."]
