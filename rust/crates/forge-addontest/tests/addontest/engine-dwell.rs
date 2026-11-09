@@ -15,7 +15,7 @@ w.race, w.faction, w.class, w.className, w.level = "Human", "Alliance", "WARRIOR
 
 // test/camps: three kobold camps along y = 50 (radius 30), A at 40, B at 60, C at 15. test/crates: an object
 // searched spot by spot (`spread`), crates at 30, 50 and 75. test/fields: two field goals at points, wolves at 40
-// and boars at 70.
+// and boars at 70. test/overlap: three field goals, wolves at 40 and boars at 41 (the same ground), workers at 80.
 const GUIDE: &str = r#"
 Polestar.RegisterGuide({ id = "test/camps", pack = "test", title = "camps", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429, steps = {
 	{ title = "Kobolds", goals = {
@@ -35,6 +35,14 @@ Polestar.RegisterGuide({ id = "test/fields", pack = "test", title = "fields", fa
 	{ title = "Wolves and boars", goals = {
 		{ t = "kill", target = "Timber Wolf", npc = 69, count = 6, quest = 9, oi = 1, map = 1429, x = 40, y = 50 },
 		{ t = "kill", target = "Young Boar", npc = 113, count = 6, quest = 9, oi = 2, map = 1429, x = 70, y = 50 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+Polestar.RegisterGuide({ id = "test/overlap", pack = "test", title = "overlap", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429, steps = {
+	{ title = "Three kinds", goals = {
+		{ t = "kill", target = "Timber Wolf", npc = 69, count = 1, quest = 10, oi = 1, map = 1429, x = 40, y = 50 },
+		{ t = "kill", target = "Young Boar", npc = 113, count = 1, quest = 10, oi = 2, map = 1429, x = 41, y = 50 },
+		{ t = "kill", target = "Kobold Worker", npc = 257, count = 1, quest = 10, oi = 3, map = 1429, x = 80, y = 50 },
 	} },
 	{ goals = { { t = "level", level = 60 } } },
 } })
@@ -118,7 +126,8 @@ fn no_move_on_in_a_fight_nor_between_two_camps_and_a_spot_cycled_by_hand_holds_u
 		wait(12); r.fight = arrow()                 -- fighting at A: the arrow stays
 		stub.inCombat = false
 		wait(12); r.after = arrow()                 -- a camp fought at is worked: it holds
-		-- Between A and B (each edge 270 yd off): no dwell, no flapping.
+		-- Between A and B (each edge 270 yd off): A, fought at, counts as visited off its ground, so B, and no
+		-- flapping back.
 		at(50)
 		local seen = {}
 		for i = 1, 20 do wait(1); seen[#seen + 1] = arrow() end
@@ -130,7 +139,7 @@ fn no_move_on_in_a_fight_nor_between_two_camps_and_a_spot_cycled_by_hand_holds_u
 		emit(r)
 	"#,
 	);
-	let between = vec!["40"; 20].join(",");
+	let between = vec!["60"; 20].join(",");
 	assert_eq!(out, json!({ "fight": 40, "after": 40, "between": between, "cycled": 15 }));
 }
 
@@ -166,4 +175,60 @@ fn a_field_goal_left_after_the_dwell_gives_way_to_the_steps_nearest_other_field_
 	"#,
 	);
 	assert_eq!(out, json!({ "start": 1, "at5": 1, "dwelt": 2 }));
+}
+
+// ArrowGuard's replay: work is kept by where it happened, not by goal. Fighting on ground the next goal shares
+// (wolves done at 40, boars at 41) holds that goal too; moving on from an empty camp never picks a camp worked
+// lately behind the player.
+#[test]
+fn ground_fought_on_holds_every_goal_there_and_moving_on_never_picks_a_camp_worked_behind() {
+	let shared = run(
+		"w.onQuest(10, { 1, 1, 1 }); w.moveTo(1429, 40, 50)",
+		r#"
+		E.SetGuide("test/overlap"); stub.advance(0.25)
+		local r = { start = goal() }
+		stub.inCombat = true; wait(5); stub.inCombat = false
+		w.progress(10, 1, 1); stub.advance(0.5)     -- the wolf: on to the boars on the same ground
+		r.next = goal()
+		wait(10); r.held = goal()                   -- not left for the workers 1200 yd off
+		emit(r)
+	"#,
+	);
+	assert_eq!(shared, json!({ "start": 1, "next": 2, "held": 2 }));
+	let behind = run(
+		"w.onQuest(7, { 10 }); w.moveTo(1429, 40, 50)",
+		r#"
+		E.SetGuide("test/camps"); stub.advance(0.25)
+		stub.inCombat = true; wait(5); stub.inCombat = false
+		at(60); wait(2)                             -- on to B: the nearest camp now
+		local r = { atB = arrow() }
+		wait(9); r.fromB = arrow()                  -- B empty: C, not A (worked behind)
+		emit(r)
+	"#,
+	);
+	assert_eq!(behind, json!({ "atB": 60, "fromB": 15 }));
+}
+
+// ArrowGuard's grind sweep: running across a wide camp to its middle took the dwell's 7 s and the camp was left on
+// arrival; then the player fought there for ten minutes with the arrow on the next camp. Walking on restarts the
+// count (more than Spots.STILL yards), and a fight at a camp left already brings the arrow back to it.
+#[test]
+fn walking_into_a_camp_never_counts_and_a_fight_at_a_left_camp_brings_the_arrow_back() {
+	let out = run(
+		"w.onQuest(7, { 10 }); w.moveTo(1429, 41.2, 50)",
+		r#"
+		E.SetGuide("test/camps"); stub.advance(0.25)
+		local r = {}
+		-- From A's arrival radius (36 yd from its centre) to its middle at 4 yd/s: 9 s inside the radius.
+		local x = 41.2
+		while x > 40 do x = math.max(40, x - 0.0667); at(x); stub.advance(0.5) end
+		r.walked = arrow()
+		wait(5); r.stopped = arrow()                -- the count starts where the player stopped
+		wait(3); r.dwelt = arrow()                  -- 8 s still: on to B
+		stub.inCombat = true; wait(2)               -- a fight at A after all
+		r.back = arrow()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!({ "walked": 40, "stopped": 40, "dwelt": 60, "back": 40 }));
 }

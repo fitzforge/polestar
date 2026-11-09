@@ -1109,13 +1109,16 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   stands in counts as not visited; all visited: the one visited longest ago),
   so the spots form a circuit. Dwell (Fitz, 2026-11-09): when the player has
   stood within the arrival radius of the waypoint's place (a camp, a searched
-  spot, a field goal's point) for 7 s (`Spots.DWELL`), out of combat, with no
+  spot, a field goal's point) for 7 s (`Spots.DWELL`), moving at most 10 yd
+  (`Spots.STILL`: running across a wide camp never counts), out of combat, with no
   progress on the goal (`Own.workSign`: its count, a level goal's XP; a change
-  or a fight starts the count again), and with no fight or progress within
-  its radius and 40 yd around it in the last 300 s (`Spots.worked`: a camp
-  being cleared keeps the arrow through the drink and the walk to the next
-  pull), the place is left (`Spots.left`, for
-  `Spots.FORGET`): the arrow moves on to the nearest place not left, never
+  or a fight starts the count again), and with no fight or progress noted
+  within its radius and 40 yd around it in the last 300 s (`Spots.noteWork`
+  keeps where the player fought or progressed, by position, so the ground
+  counts for every goal with a place there; `Own.workedNear`: a camp being
+  cleared keeps the arrow through the drink and the walk to the next pull,
+  and moving on never picks it again), the place is left (`Spots.left`, for
+  `Spots.FORGET`; work there later brings it back): the arrow moves on to the nearest place not left, never
   back to one left while another is open (all left: the one left longest
   ago), and a goal whose places are all left measures no distance, so the
   step's nearest other open field goal takes over (`Own.nearestField`). A

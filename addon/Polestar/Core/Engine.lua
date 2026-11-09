@@ -1926,12 +1926,14 @@ end
 -- visited longest ago), so a circuit forms. CycleSpot moves on by hand (or
 -- to a given spot); a spot picked that way holds until reached.
 -- Dwell (Fitz, 2026-11-09: the arrow cycles a step's places by itself): a
--- camp or searched spot the player has stood in for Spots.DWELL seconds, out
--- of combat and with no progress on its goal, and not fought or progressed at
--- in the last FORGET seconds (Own.dwelt, Spots.worked), is left
--- (Spots.left, for FORGET seconds): the arrow moves on to the nearest place
--- not left (repick "dwell"), never back to one left while another is open;
--- with every place left, the one left longest ago. A step's other field
+-- camp or searched spot the player has stood in for Spots.DWELL seconds
+-- (moving at most Spots.STILL yards), out of combat and with no progress on
+-- its goal, and with no fight or progress on its ground in the last FORGET
+-- seconds (Own.dwelt, Own.workedNear), is left (Spots.left, for FORGET
+-- seconds): the arrow moves on to the nearest place not left (repick
+-- "dwell"), never back to one left while another is open; with every place
+-- left, the one left longest ago. Work at a left place later brings it back,
+-- and ground worked lately counts as visited unless the player is on it. A step's other field
 -- goals measure without left places (Own.fieldDistance), so a goal whose
 -- places are all left gives way to the nearest other one.
 -- Alternatives (`alt`): other places the target spawns. The automatic picks
@@ -1952,19 +1954,49 @@ local Spots = {
 	FORGET = 300, -- seconds a visited spot is skipped
 	ABOVE = 1, -- levels above the player a spot's mobs may be
 	DWELL = 7, -- seconds in a place with no progress before the arrow moves on
+	STILL = 10, -- yards the player may move while a dwell is counted
 	chosen = setmetatable({}, { __mode = "k" }), -- goal -> chosen spot
 	pinned = setmetatable({}, { __mode = "k" }), -- goal -> spot picked by hand, until reached
 	seen = setmetatable({}, { __mode = "k" }), -- spot -> GetTime() of the last visit
 	left = setmetatable({}, { __mode = "k" }), -- spot (or a point goal) -> GetTime() it was left after a dwell
 	stay = setmetatable({}, { __mode = "k" }), -- goal -> { place, since, sign }: the dwell being counted
-	worked = setmetatable({}, { __mode = "k" }), -- place -> GetTime() of the last fight or progress at it
+	work = {}, -- the last WORK_KEEP places the player fought or made progress at: { c, x, y, t } (Spots.noteWork)
+	WORK_KEEP = 16,
+	WORK_SAME = 20, -- yards: a fight this close to the last one updates it
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 }
 
--- Whether a place (a spot, or a point goal) was left after a dwell within FORGET seconds.
-function Spots.isLeft(place, now)
+-- Whether a place of goal (a spot, or the goal itself at its point) was left
+-- after a dwell within FORGET seconds, and not worked since: a fight or
+-- progress there after leaving it brings it back (ArrowGuard's grind sweep:
+-- a camp left on arrival, then fought in for ten minutes).
+function Spots.isLeft(goal, place, now)
+	now = now or GetTime()
 	local t = Spots.left[place]
-	return t ~= nil and (now or GetTime()) - t <= Spots.FORGET
+	if not t or now - t > Spots.FORGET then return false end
+	local w = Own.workedNear(goal, place, now)
+	return not (w and w > t)
+end
+
+-- Where the player worked (a fight, progress on the waypoint's goal): kept by
+-- position, not by place, so the ground counts for every goal whose places lie
+-- there (two goals' spots on the same camp; ArrowGuard's replay). The nearest
+-- entry within WORK_SAME yards is updated, else the oldest of WORK_KEEP reused.
+function Spots.noteWork(c, x, y, now)
+	local list, oldest, oldT = Spots.work, nil, nil
+	for i = 1, #list do
+		local e = list[i]
+		if e.c == c and (e.x - x) ^ 2 + (e.y - y) ^ 2 <= Spots.WORK_SAME * Spots.WORK_SAME then
+			e.x, e.y, e.t = x, y, now
+			return
+		end
+		if not oldT or e.t < oldT then oldest, oldT = e, e.t end
+	end
+	if #list < Spots.WORK_KEEP then
+		list[#list + 1] = { c = c, x = x, y = y, t = now }
+	else
+		oldest.c, oldest.x, oldest.y, oldest.t = c, x, y, now
+	end
 end
 
 -- Yards from the player to a spot's centre, nil on another continent.
@@ -2039,7 +2071,13 @@ function Spots.repick(goal, c, px, py, moveOn)
 	-- Not visited lately; the spot the player stands in counts as fresh too
 	-- (search it now), unless moving on.
 	local function fresh(s)
-		if Spots.isLeft(s, now) then return false end
+		if Spots.isLeft(goal, s, now) then return false end
+		-- Ground worked lately (a camp cleared) counts as visited unless the
+		-- player is on it, where it holds; moving on after a dwell, always.
+		if Own.workedNear(goal, s, now) then
+			local d = not moveOn and c and Spots.edge(goal, s, c, px, py)
+			if not (d and d <= reach + Spots.SWITCH) then return false end
+		end
 		local t = (spread or moveOn) and Spots.seen[s]
 		if not t or now - t > Spots.FORGET then return true end
 		if moveOn or not c then return false end
@@ -2059,8 +2097,9 @@ function Spots.repick(goal, c, px, py, moveOn)
 				local d = c and Spots.edge(goal, s, c, px, py)
 				local key = d or (1e9 + (i - at - 1) % #spots)
 				if not bestKey or key < bestKey then best, bestKey = s, key end
-			elseif not oldT or Spots.seen[s] < oldT then
-				old, oldT = s, Spots.seen[s]
+			else
+				local t = Spots.seen[s] or Own.workedNear(goal, s, now) or 0
+				if not oldT or t < oldT then old, oldT = s, t end
 			end
 		end
 	end
@@ -4143,7 +4182,7 @@ function Own.fieldDistance(goal, c, px, py, top)
 	for _, s in ipairs(goal.spots or NONE) do
 		if not s.alt then
 			places = true
-			if not Spots.isLeft(s, now) then
+			if not Spots.isLeft(goal, s, now) then
 				local d = Spots.edge(goal, s, c, px, py)
 				if d then
 					if not best or d < best then best = d end
@@ -4153,7 +4192,7 @@ function Own.fieldDistance(goal, c, px, py, top)
 			end
 		end
 	end
-	if best or places or not (goal.map and goal.x and goal.y) or Spots.isLeft(goal, now) then return best, low end
+	if best or places or not (goal.map and goal.x and goal.y) or Spots.isLeft(goal, goal, now) then return best, low end
 	local gc, gx, gy = goalWorld(goal)
 	if gc ~= c then return nil end
 	local d = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
@@ -4185,15 +4224,40 @@ function Own.dwellPlace(goal, c, px, py)
 	return goal, ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
 end
 
+-- The time of the latest work noted (Spots.work) on place's ground: within
+-- its arrival radius and Spots.SWITCH yards around its edge, in the last
+-- Spots.FORGET seconds; nil when none. place: a spot of goal, or goal itself
+-- (a goal without spots, at its point).
+function Own.workedNear(goal, place, now)
+	local reach = (goal.r or DEFAULT_RADIUS) + Spots.SWITCH
+	local latest
+	for _, e in ipairs(Spots.work) do
+		if now - e.t <= Spots.FORGET and not (latest and e.t <= latest) then
+			local d
+			if place == goal then
+				local gc, gx, gy = goalWorld(goal)
+				if gc == e.c then d = ((gx - e.x) ^ 2 + (gy - e.y) ^ 2) ^ 0.5 end
+			else
+				d = Spots.edge(goal, place, e.c, e.x, e.y)
+			end
+			if d and d <= reach then latest = e.t end
+		end
+	end
+	return latest
+end
+
 -- The dwell (Spots, "Dwell"): true once the player has stood within the
--- arrival radius of field goal g's place for Spots.DWELL seconds, out of
--- combat, with its work unchanged (Own.workSign); the place is then left.
--- A place worked lately is never left: a fight or progress within the
--- radius and Spots.SWITCH yards around it (a pull from the edge) marks it
--- worked (Spots.worked) for Spots.FORGET seconds, so the drink or the walk
--- to the next pull at a camp being cleared never moves the arrow (ArrowGuard's
--- replay: 13.75 moves per 10 h off camps still worked with no such guard).
--- Coming in, a fight or progress starts the count again.
+-- arrival radius of field goal g's place for Spots.DWELL seconds, moving no
+-- more than Spots.STILL yards, out of combat, with its work unchanged
+-- (Own.workSign); the place is then left.
+-- A place worked lately is never left (Own.workedNear): a fight anywhere,
+-- or progress on the goal, is noted where the player stands (Spots.noteWork),
+-- and a place with such a note within its radius and Spots.SWITCH yards around
+-- it (a pull from the edge) in the last Spots.FORGET seconds holds, whichever
+-- goal the note was made for: the drink or the walk to the next pull at a camp
+-- being cleared never moves the arrow (ArrowGuard's replay: 13.75 moves per
+-- 10 h off camps still worked with no such guard). Coming in, a fight or
+-- progress starts the count again.
 function Own.dwelt(s, g, goal, c, px, py)
 	local place, d = Own.dwellPlace(goal, c, px, py)
 	local st = Spots.stay[goal]
@@ -4204,25 +4268,26 @@ function Own.dwelt(s, g, goal, c, px, py)
 	end
 	local now, sign = GetTime(), Own.workSign(s, g, goal)
 	if not st then
-		Spots.stay[goal] = { place = place, since = now, sign = sign }
+		Spots.stay[goal] = { place = place, since = now, sign = sign, x = px, y = py }
 		return false
 	end
 	if st.place ~= place then
-		st.place, st.since, st.sign = place, now, sign
+		st.place, st.since, st.sign, st.x, st.y = place, now, sign, px, py
 		return false
 	end
 	if (UnitAffectingCombat and UnitAffectingCombat("player")) or st.sign ~= sign then
-		Spots.worked[place] = now
+		Spots.noteWork(c, px, py, now)
 		st.since, st.sign = now, sign
 		return false
 	end
-	-- Near it, not in it yet: the count starts on arrival.
-	if d > reach then
-		st.since = now
+	-- Near it, not in it yet: the count starts on arrival. Walking on (more
+	-- than Spots.STILL yards from where the count started): it starts again,
+	-- so running across a wide camp to its middle never counts (ArrowGuard).
+	if d > reach or (px - st.x) ^ 2 + (py - st.y) ^ 2 > Spots.STILL * Spots.STILL then
+		st.since, st.x, st.y = now, px, py
 		return false
 	end
-	local worked = Spots.worked[place]
-	if worked and now - worked <= Spots.FORGET then return false end
+	if Own.workedNear(goal, place, now) then return false end
 	if now - st.since < Spots.DWELL then return false end
 	Spots.left[place], Spots.seen[place] = now, now
 	Spots.stay[goal] = nil
@@ -4830,6 +4895,8 @@ local function checkArrival()
 		return
 	end
 	local hit = false
+	-- A fight is work where it happens (Spots.noteWork): no dwell leaves that ground.
+	if UnitAffectingCombat and UnitAffectingCombat("player") then Spots.noteWork(c, px, py, GetTime()) end
 	for i = 1, #tabs do
 		use(tabs[i])
 		if arriveLoaded(c, px, py) then hit = true end
