@@ -74,6 +74,8 @@ return {
 	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "Para nordeste, até o pavilhão na colina. {npc:1154} fica lá dentro e {npc:1187}, do lado de fora.",
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}, inside"] = "{npc:1154}, lá dentro",
+	-- {npc:1154} Marek Ironheart
+	["{npc:1154}: the loch crocolisks below the lodge"] = "",
 	-- {npc:1187} Daryl the Youngling
 	["{npc:1187}: 15 minutes"] = "{npc:1187}: 15 minutos",
 
@@ -87,13 +89,16 @@ return {
 	-- Step 17: Daryl the Youngling
 	["12 minutes"] = "12 minutos",
 
-	-- Step 18: Elder Mountain Boars and Daggerfang
+	-- Step 18: Elder Mountain Boars, Daggerfang and the loch crocolisks
 	-- {npc:270693} Daggerfang
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["Elder Mountain Boars and {npc:270693}"] = "Javalis Montanheses Anciões e {npc:270693}",
-	-- {npc:270693} Daggerfang · {quest:258} A Hunter's Challenge
-	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "Os Javalis Montanheses Anciões vagam pelas colinas a noroeste do pavilhão, ao longo da margem leste. {npc:270693}, um crocolisco, patrulha a margem logo abaixo deles. {quest:258} dura 12 minutos.",
+	["Elder Mountain Boars, {npc:270693} and the loch crocolisks"] = "",
+	-- {quest:258} A Hunter's Challenge · {npc:270693} Daggerfang
+	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar · Loch Crocolisks = {npc:1693} Loch Crocolisk
+	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: {quest:258} runs for 12 minutes, so the boars come first. {npc:270693}, a crocolisk, patrols the shore below them among the Loch Crocolisks."] = "",
+	-- {item:2924} Crocolisk Meat
+	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
+	["{item:2924}: Loch Crocolisks"] = "",
 
 	-- Step 20: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
@@ -219,35 +224,50 @@ return {
 	-- {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:514} works at the {area:87} smithy."] = "{npc:514} trabalha na ferraria de {area:87}.",
 
-	-- Step 41: Westfall
+	-- Step 41: Stormwind's gate
+	-- {zone:1453} Stormwind
+	["{zone:1453}'s gate"] = "",
+	-- {npc:234} Gryan Stoutmantle · {area:40} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {area:40}): skip {area:40}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "",
+	-- {npc:466} General Marcus Jonathan
+	["{npc:466}, outside the main gate"] = "{npc:466}, do lado de fora do portão principal",
+
+	-- Step 42: Westfall
 	-- {area:40} Westfall
 	["West through Westbrook into {area:40}."] = "Para oeste, pela Ribeira d'Oeste, até {area:40}.",
 
-	-- Step 42: Sentinel Hill
+	-- Step 43: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
 	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "Siga a estrada até {area:108}. {npc:234} fica no alto da torre de pedra.",
 	-- {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
 	["For {npc:332} in {zone:1453}"] = "Para {npc:332} em {zone:1453}",
 
-	-- Step 43: Fly to Stormwind
+	-- Step 44: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Voe para {zone:1453}",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "Mestre de voo de {area:108}",
 
-	-- Step 44: Stormwind
+	-- Step 45: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} fica no andar de cima do prédio do SI:7 na {object:2100}: a escada é difícil de ver no começo. {npc:466} está montado no cavalo dele na ponta mais distante da ponte, do lado de fora do portão principal; depois, volte aos grifos no {object:2096}.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}, SI:7; no andar de cima",
-	-- {npc:466} General Marcus Jonathan
-	["{npc:466}, outside the main gate"] = "{npc:466}, do lado de fora do portão principal",
 
-	-- Step 45: Sentinel Hill
+	-- Step 46: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["{npc:234}, at the top of the tower"] = "{npc:234}, no alto da torre",
 
-	-- Step 46: The Defias Messenger
+	-- Step 47: Moonbrook and the Defias hills
+	-- {area:20} Moonbrook
+	["{area:20} and the Defias hills"] = "",
+	-- {area:20} Moonbrook · {area:1581} The Deadmines
+	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "",
+	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
+	["{item:254676}, from the crates around {area:20}"] = "",
+
+	-- Step 48: The Defias Messenger
 	-- {npc:550} Defias Messenger
 	["The {npc:550}"] = "O {npc:550}",
 	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
@@ -255,31 +275,33 @@ return {
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
 	["{item:1381}: the {npc:550}"] = "{item:1381}: o {npc:550}",
 
-	-- Step 47: Westfall Lighthouse
+	-- Step 49: Westfall Lighthouse
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
 	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "Ao sudoeste de {area:20} até o farol na ponta: {npc:392} espera nos degraus dele. {npc:391} anda pela praia e pelas águas rasas a nordeste, entre os murlocs: puxe-o para longe dos Oráculos.",
+	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
+	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
 
-	-- Step 48: Sentinel Hill
+	-- Step 50: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
 	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "De volta ao norte pela estrada até {area:108}. {npc:467} espera ao pé da rampa da torre; se ele não estiver lá, alguém o está escoltando e ele volta em poucos minutos.",
 
-	-- Step 49: The Defias Traitor
+	-- Step 51: The Defias Traitor
 	-- {area:20} Moonbrook
 	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "Fique com o traidor enquanto ele anda para o sul até {area:20}; ele não para para lutas, então limpe o que vier atrás dele. O trajeto dele termina no esconderijo dos Défias abaixo de {area:20}.",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "{npc:467}, ao pé da rampa da torre",
 
-	-- Step 50: Sentinel Hill
+	-- Step 52: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["Back north to {npc:234} and the gryphons."] = "De volta ao norte até {npc:234} e os grifos.",
 
-	-- Step 51: Lakeshire
+	-- Step 53: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
 	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "Dos grifos, atravesse a ponte até a cidade: {npc:415}, junto à ferraria, e {npc:344}, na prefeitura.",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, na prefeitura",
 
-	-- Step 52: Redridge Canyons
+	-- Step 54: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Brutamontes e Místicos de Cristarrubra dominam as colinas ao norte e a noroeste da cidade; os dois carregam os Piques Férreos e os Rebites. Dragonetes Negros fazem ninho nas mesmas colinas.\nCuidado: os dragonetes lançam {spell:133} à distância, e os gnolls correm atrás de ajuda quando estão com pouca vida.",
@@ -287,7 +309,7 @@ return {
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: Dragonetes Negros",
 
-	-- Step 53: Lakeshire
+	-- Step 55: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
 	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "De volta à cidade: {npc:415}, junto à ferraria, {npc:341}, na ponta norte da ponte, e {npc:381}, nas docas.",
 	-- {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
@@ -295,12 +317,14 @@ return {
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "{npc:381}, nas docas: os murlocs ficam para a sua próxima visita a Cristarrubra",
 
-	-- Step 54: Fly to Stormwind
+	-- Step 56: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour."] = "De volta a {area:442} para os circuitos do sul de {zone:1439}: o grifo até {zone:1453}, depois o barco a partir do porto.",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Mestre de voo de {area:69}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Elder Mountain Boars and {npc:270693}"] = "Javalis Montanheses Anciões e {npc:270693}",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "Ao sul pela margem oeste. {object:665289} está no fundo do lago a leste de {area:144} (ele muda entre vários pontos): abra-o para pegar {item:278051}, que inicia a missão.",
+	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "Os Javalis Montanheses Anciões vagam pelas colinas a noroeste do pavilhão, ao longo da margem leste. {npc:270693}, um crocolisco, patrulha a margem logo abaixo deles. {quest:258} dura 12 minutos.",
 }

@@ -208,34 +208,62 @@ step Sentinel Hill
   turnin 98021 only Skyborne                  -- Gryan Stoutmantle
 
 # ---------------------------------------------------------------- The north loop
-step Molsen Farm: kill these as you meet them
+step Goretusk Livers as you go
+  along until q22
+  background
+  tip Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers.
+  collect 723 quest 22.1                      -- Goretusk Liver
+
+step Stringy Vulture Meat as you go
+  along until q22
+  background
+  tip Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat.
+  collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
+
+step Red Leather Bandanas as you go
+  along until q153
+  background
+  tip Every Defias on this loop can drop a Red Leather Bandana: the Trappers and Smugglers, and the guards at Furlbrow's Wardrobe.
+  collect 829 quest 153.1                     -- Red Leather Bandanas
+
+step Defias Trappers and Smugglers
   zone Westfall
-  tip Defias Trappers and Smugglers camp in the fields between Sentinel Hill and Molsen Farm.
-  tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
-  tip Young Goretusks and Fleshrippers roam every leg of this loop: their livers and meat are for the pie and the stew.
+  tip North-west from Sentinel Hill toward Molsen Farm: Defias Trappers and Smugglers camp in the fields between them.
   kill 95 quest 12
   kill 504 quest 12
+
+step Molsen Farm's well
+  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
+
+step Molsen Farm's Harvest Watchers
+  tip Harvest Watchers and Golems work the fields around Molsen Farm; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
   collect 732 quest 38.4                      -- Okra
   collect 255155 optional                     -- Precessive Autocognition Assembly
   accept 92910 optional
-  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
-  collect 723 quest 22                        -- Goretusk Liver
-  collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
 
-step Furlbrow's Pumpkin Farm: kill these as you meet them
-  zone Westfall
-  tip Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above Jangolode Mine east to the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
-  tip Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.
+step The gnoll hills
+  tip North to the hills above Jangolode Mine: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
   tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
-  tip Careful: Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead. Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
   collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
-  collect 254548 quest 92744 @43.5,9.2 map 1436 live -- Longshore Murloc Gills
-  collect 730 quest 38.2 @43.5,9.2            -- Murloc Eye
+
+step The Longshore murlocs
+  tip Murloc Coastrunners and Raiders line the north coast from above the mine east toward the Jansen Stead: work along the beach eastward. They flee at low health: pull one at a time.
+  loop
+  goto 42.5,10.5 live
+  goto 45.5,9.2 live
+  goto 49.5,9.5 live
+  goto 53.0,10.5 live
+  goto 56.0,9.2 live
+  collect 254548 quest 92744                  -- Longshore Murloc Gills
+  collect 730 quest 38.2                      -- Murloc Eye
+
+step Furlbrow's Wardrobe
+  tip Furlbrow's Wardrobe stands in the ruined house east of the mine, on the way to the Jansen Stead.
+  tip Careful: Two Defias stand guard inside, one of them the level 15 named Benny Blaanco. They are linked, so attacking either one brings both.
   collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
-  collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them, from Jangolode Mine to the Jansen Stead
 
 step The Jansen Stead
   collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
@@ -243,14 +271,31 @@ step The Jansen Stead
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow
 
+step Finish the Goretusk Livers
+  when !has 723 x8
+  tip Still short of eight? Young Goretusks root in the fields just west of Saldean's Farm.
+  collect 723 quest 22.1 @54.15,26.72         -- Goretusk Liver
+
+step Finish the Stringy Vulture Meat
+  when !has 729 x3
+  tip Still short of three? Young Fleshrippers circle the fields north-west of Saldean's Farm.
+  collect 729 quest 38.1 @51.87,27.69         -- Stringy Vulture Meat: Fleshrippers
+
 step Saldean's Farm
+  label q22
   turnin 38                                   -- Salma Saldean, inside
   turnin 22
   turnin 9                                    -- Farmer Saldean
   turnin 92909                                -- Ozwin Ironsprocket
   turnin 92910
 
+step Finish the Red Leather Bandanas
+  when !has 829 x15
+  tip Still short of fifteen? Defias Trappers camp in the fields just west of Sentinel Hill.
+  collect 829 quest 153.1 @48.53,45.24        -- Red Leather Bandanas
+
 step Sentinel Hill
+  label q153
   turnin 12                                   -- Gryan Stoutmantle
   accept 65                                   -- For Wiley the Black in Lakeshire, Redridge
   accept 13
@@ -284,23 +329,7 @@ step Moonbrook: kill these as you meet them
 
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
-  accept 14
   turnin 92745                                -- Alba Fairmoon
-  accept 92747
-
-step Moonbrook and the Defias hills
-  tip Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.
-  tip Careful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level.
-  kill 121 quest 14
-  kill 449 quest 14
-  kill 122 quest 14
-  collect 254676 quest 92747.1                -- Suspicious Industrial Supplies, from the crates around Moonbrook
-
-step Back to Sentinel Hill
-  turnin 14                                   -- Gryan Stoutmantle
-  turnin 92747                                -- Alba Fairmoon
-  accept 92748                                -- For Sprite Jumpsprocket in Stormwind's Dwarven District
-  vendor nearest optional
 
 # ---------------------------------------------------------------- Stormwind and the boat
 
@@ -392,7 +421,6 @@ step Stormwind
   zone Stormwind City
   getfp "Stormwind"
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
-  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
   turnin 1097 only Human                      -- Grimand Elmore, Dwarven District
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
