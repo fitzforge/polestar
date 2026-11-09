@@ -1028,7 +1028,7 @@ end
 -- The session's state, for the control panel
 ---------------------------------------------------------------------------
 
-local LOOK = { "ui.style", "ui.compact", "ui.scale", "ui.width", "ui.bgOpacity", "ui.opacity", "ui.scheme", "ui.accent",
+local LOOK = { "ui.style", "ui.skin", "ui.compact", "ui.scale", "ui.width", "ui.bgOpacity", "ui.opacity", "ui.scheme", "ui.accent",
 	"ui.bgColor", "ui.brightness", "ui.upcoming", "ui.upcomingOpen", "ui.showNotes", "ui.menuScale", "ui.font", "ui.locked", "ui.shown" }
 
 -- Stored overrides as { "path.to.key", value } pairs. An empty table holds no
@@ -1094,6 +1094,8 @@ function play.state()
 	if P and P.Sections then
 		for i, s in ipairs(P.Sections()) do sections[i] = { key = s.key, label = s.label } end
 	end
+	local skins = {}
+	for i, k in ipairs(ns.Theme and ns.Theme.SKIN_ORDER or {}) do skins[i] = k end
 	local schemes = {}
 	for i, k in ipairs(ns.Theme and ns.Theme.SCHEME_ORDER or {}) do schemes[i] = k end
 	if stub.addonsLoaded.EllesmereUI then schemes[#schemes + 1] = "ellesmere" end
@@ -1111,7 +1113,7 @@ function play.state()
 		player = { level = w.level, race = w.race, class = w.class, faction = w.faction, map = w.map, x = w.x, y = w.y, zone = w.zone, subzone = w.subzone },
 		guide = guideState(),
 		waypoint = ns.Engine and ns.Engine.GetWaypoint and ns.Engine.GetWaypoint() or nil,
-		look = look, changed = changed, schemes = schemes, eui = stub.addonsLoaded.EllesmereUI == true,
+		look = look, changed = changed, schemes = schemes, skins = skins, eui = stub.addonsLoaded.EllesmereUI == true,
 		quests = quests, sections = sections, section = P and P.Section and P.Section() or nil,
 		hub = ns.UI and ns.UI.Picker and PolestarPicker and PolestarPicker.shown and true or false,
 		worldMap = map.shown, worldMapID = stub.worldMapID,

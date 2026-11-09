@@ -64,6 +64,12 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "", "")
 }
 
+/// The game's looks keep the plain card: the goal text with its counter after it, rows of 24 and the picture's
+/// width from the wide text column. The house look's dense card (`run`) has its own tests.
+fn run_hearth(script: &str) -> Vec<Value> {
+	run(&format!("Polestar.Set(\"ui.skin\", \"hearth\")\n{script}"))
+}
+
 /// The first three entries of an array (`.slice(0, 3)`).
 fn rgb(v: &Value) -> Value {
 	Value::Array(v.as_array().unwrap()[..3].to_vec())
@@ -98,7 +104,7 @@ fn num(x: f64) -> Value {
 
 #[test]
 fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counters_right_after_the_text_the_next_person() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local rows = {}
 		for _, r in ipairs(visibleRows()) do
@@ -218,6 +224,253 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(third["target"], json!(["SetTarget", 1429, 49.6, 40.4, "Brother Neals"]));
 }
 
+// In the house look the summary lines after the focus ("Then: …") read as a footnote under the goals: the small
+// type in textMuted, a smaller glyph, a shorter row, one line ending in "…". The game's looks keep them as before.
+#[test]
+fn the_house_look_s_then_lines_are_one_small_muted_line_under_the_goals() {
+	let out = run(r#"
+		local function snap()
+			local out = {}
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and l.psKey ~= "done" and l.psKey ~= "before" then
+					local _, size = l.Text:GetFont()
+					out[#out + 1] = { size = size, h = l:GetHeight(), icon = l.Icon:GetWidth(), max = l.Text:GetMaxLines(),
+						color = { l.Text:GetTextColor() }, iconColor = { l.Icon:GetVertexColor() } }
+				end
+			end
+			local _, goal = GF.rows[1].Text:GetFont()
+			return { lines = out, goal = goal, muted = { Polestar.Theme.Color("textMuted") }, dim = { Polestar.Theme.Color("textDim") } }
+		end
+		uistub.setGuide(uistub.elwynn, 4)
+		stub.advance(1)
+		emit(snap())
+		Polestar.Set("ui.skin", "hearth")
+		stub.advance(0.3)
+		uistub.update()
+		emit(snap())"#);
+	let (house, hearth) = (&out[0], &out[1]);
+	let lines = house["lines"].as_array().unwrap();
+	assert_eq!(lines.len(), 2, "{house}");
+	for l in lines {
+		assert!(f(&l["size"]) < f(&house["goal"]) - 1.0, "smaller than the goals: {l}");
+		assert_eq!(l["max"], 1, "one line: {l}");
+		assert_eq!(f(&l["h"]), 14.0, "a short row: {l}");
+		assert_eq!(f(&l["icon"]), 10.0, "a smaller glyph: {l}");
+		assert_eq!(rgb(&l["color"]), rgb(&house["muted"]), "muted: {l}");
+		assert_eq!(rgb(&l["iconColor"]), rgb(&house["muted"]), "a muted glyph: {l}");
+	}
+	for l in hearth["lines"].as_array().unwrap() {
+		assert_eq!((l["max"].clone(), f(&l["h"]) >= 24.0, f(&l["icon"])), (json!(2), true, 13.0), "hearth keeps its lines: {l}");
+		assert_eq!(rgb(&l["color"]), rgb(&hearth["dim"]), "{l}");
+	}
+}
+
+// The house look's step card is RestedXP-dense: goal text of 11.5px, rows of at most 18, a glyph on every row, the
+// count at the right (not after the words) and the distance to the arrow's target on its own row and the header.
+#[test]
+fn the_house_look_s_card_is_dense_with_the_count_and_distance_at_the_right() {
+	let out = run(r#"
+		local function plain(t) return (t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		local function snap()
+			local rows = {}
+			for _, r in ipairs(visibleRows()) do
+				local _, size = r.Text:GetFont()
+				rows[#rows + 1] = { subject = r.psGoal.subject, size = size, h = r:GetHeight(), icon = r.Icon:GetTexture():match("([%w-]+)$"),
+					text = plain(r.Text:GetText()), meta = r.Meta:IsShown() and r.Meta:GetText() or false, marked = r.Mark:IsShown(), sub = r.Sub:IsShown() }
+			end
+			local P = GF.parts
+			local _, name = P.person.Name:GetFont()
+			return { rows = rows, name = name, dist = P.person.Dist:IsShown() and P.person.Dist:GetText() or false, mark = P.person.Mark:IsShown(),
+				foot = P.foot and P.foot:IsShown() }
+		end
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		emit(snap())
+		local SL = GF.stepList
+		local r = visibleRows()[1]
+		r.Mark:Show()
+		SL.Meta(r)
+		GF.parts.person.Mark:Show()
+		SL.PersonDist()
+		emit(snap())"#);
+	let (field, arrow) = (&out[0], &out[1]);
+	let row = field["rows"].as_array().unwrap().iter().find(|r| r["subject"] == "Tough Wolf Meat").unwrap();
+	assert_eq!(row["size"], 11.5, "the goal text: {row}");
+	assert_eq!(row["icon"], "icon-collect", "a kind glyph on every row");
+	assert_eq!(row["meta"], "3/8", "the count at the right: {row}");
+	assert!(!is_match(text(&row["text"]), r"\d+/\d+$"), "and not after the words: {row}");
+	assert!(f(&field["name"]) < 15.0, "the person's name is smaller too: {field}");
+	assert_eq!(field["dist"], false, "no distance unless the arrow leads there");
+	for r in field["rows"].as_array().unwrap() {
+		// A one-line row is at most 18 (a longer one wraps, a subline adds its own).
+		assert!(f(&r["h"]) <= 18.0 || r["sub"] == true || f(&r["h"]) < 32.0, "{r}");
+		assert!(r["icon"] != Value::Null, "{r}");
+	}
+	// Where the arrow points: how far, in the same muted type, after the count when the row has one.
+	let first = &arrow["rows"][0];
+	assert!(is_match(text(&first["meta"]), r"^\d+ yd  3/8$|^\d+ yd$|yd"), "{first}");
+	assert!(is_match(text(&arrow["dist"]), r"^\d+ yd$"), "{arrow}");
+}
+
+// A tip of two lines (its own line break) sits fully inside the card, folded (one line, cut with an ellipsis) and
+// opened (both), at every scale, with the "Then:" rows below it.
+#[test]
+fn a_two_line_tip_sits_inside_the_card_folded_and_opened_at_every_scale() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[3].note = "Kill Young Black Bears. Loot them for their Thick Bear Fur.\nKill Large Crag Boars and Crag Boars. Loot them for their Meat."
+		Polestar.Set("ui.showNotes", true)
+		Polestar.Set("ui.notesOpen", false)
+		uistub.setGuide(uistub.elwynn, 3)
+		local function fits(tag, scale)
+			Polestar.Set("ui.scale", scale)
+			stub.advance(0.3)
+			local tip, card = GF.parts.tip, GF.parts.card
+			local top = select(5, tip:GetPoint(1))
+			emit({ tag = tag, scale = scale, textH = tip.Text:GetStringHeight(), lineH = tip.Text:GetLineHeight(), tipH = tip:GetHeight(), lines = math.floor(tip.Text:GetStringHeight() / tip.Text:GetLineHeight() + 0.5),
+				wrap = tip.Text:GetWordWrap(), shown = tip:IsShown(), parent = tip:GetParent() == card })
+		end
+		for _, scale in ipairs({ 1.0, 1.5 }) do
+			fits("folded", scale)
+			GF.parts.tip:Click()
+			stub.advance(0.1)
+			fits("opened", scale)
+			GF.parts.tip:Click()
+			stub.advance(0.1)
+		end"#);
+	for r in &out {
+		assert_eq!(r["shown"], true, "{r}");
+		assert!(f(&r["tipH"]) >= f(&r["textH"]), "the tip's text fits inside it: {r}");
+		if r["tag"] == "folded" {
+			assert_eq!(r["lines"], 1, "folded: one line: {r}");
+		} else {
+			assert!(f(&r["lines"]) >= 2.0, "opened: all of it: {r}");
+		}
+	}
+}
+
+// The house look's outside cards: the Optional card (the optional goals leave the main card; spots, Skip) nearest the
+// window, the hint card (the guide's note goals in the quest colour) above it, same width,
+// anchored to the window's top corners (so they follow it), gaps of 5 and 10, none in the step list view, the
+// transparent window has no grounds and the other looks keep the old layout.
+#[test]
+fn the_outside_cards_hold_the_optional_goals_and_the_hint_above_the_window() {
+	let out = run(r#"
+		local SL = GF.stepList
+		local function cards()
+			local o = SL.out
+			local function pt(c)
+				local p, rel, rp, x, y = c:GetPoint(1)
+				return { p = p, rel = rel == F and "window" or (rel == o.opt and "optional" or "other"), rp = rp, y = y, shown = c:IsShown(), h = c:GetHeight() }
+			end
+			local rows = {}
+			for _, r in ipairs(GF.rows) do if r:IsShown() then rows[#rows + 1] = r.psGoal.subject end end
+			local lines = {}
+			for i = 1, o.opt.psN or 0 do
+				local r = o.opt.Rows[i]
+				lines[#lines + 1] = { text = r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), meta = r.Meta:GetText(), skip = r.Skip.Label:GetText(), skipShown = r.Skip:IsShown() }
+			end
+			return { rows = rows, opt = pt(o.opt), hint = pt(o.hint), lines = lines, tipIn = GF.parts.tip:GetParent() == o.hint, tipShown = GF.parts.tip:IsShown(), outH = o.h, notes = o.hint.psNotes or 0,
+				ground = o.hint.Ground:IsShown() }
+		end
+		uistub.setGuide(uistub.elwynn, 3)
+		local g = uistub.goal(3, 4)
+		g.optional, g.spread, g.spots = true, true, 37
+		local goals = uistub.guides[uistub.elwynn].steps[3].goals
+		goals[#goals + 1] = { t = "note", verb = "", subject = "Skip this step if the vendor has none", subjectKind = "text", text = "Skip this step if the vendor has none", status = "pending", tickable = false }
+		uistub.update()
+		stub.advance(1)
+		local both = cards()
+		local o = SL.out
+		-- The selection bar follows the arrow: on the optional row it leads to, nowhere else.
+		local row = o.opt.Rows[1]
+		local before = row.Mark:IsShown()
+		uistub.target = { map = g.map or 1429, x = g.x or 46, y = g.y or 38.5 }
+		g.map, g.x, g.y = uistub.target.map, uistub.target.x, uistub.target.y
+		uistub.update()
+		GF.UpdateTargets()
+		local aimed = row.Mark:IsShown()
+		uistub.target = nil
+		GF.UpdateTargets()
+		both.bar = { before = before, aimed = aimed, after = row.Mark:IsShown(), w = row.Mark:GetWidth() }
+		o.opt.Rows[1].Skip:Click()
+		local skipped = lastCall("SkipGoal")
+		uistub.setGuide(uistub.elwynn, 1)
+		stub.advance(1)
+		local none = cards()
+		Polestar.Set("ui.style", "transparent")
+		stub.advance(0.3)
+		local transparent = cards()
+		Polestar.Set("ui.style", "standard")
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(0.3)
+		Polestar.Set("ui.stepList", true)
+		stub.advance(0.3)
+		local listed = cards()
+		Polestar.Set("ui.stepList", false)
+		Polestar.Set("ui.skin", "hearth")
+		stub.advance(0.3)
+		local hearth = cards()
+		emit({ both = both, skipped = skipped, none = none, transparent = transparent, listed = listed, hearth = hearth })"#)
+	.remove(0);
+	let both = &out["both"];
+	assert!(!strings_of(&both["rows"]).contains(&"Tough Wolf Meat".to_string()), "the optional goal left the card: {both}");
+	assert_eq!(both["lines"][0]["skipShown"], true);
+	assert!(text(&both["lines"][0]["text"]).contains("Tough Wolf Meat"), "{both}");
+	assert!(text(&both["lines"][0]["meta"]).contains("37 spots"), "{both}");
+	assert_eq!(out["skipped"][0], "SkipGoal", "Skip is the goal's own skip action: {}", out["skipped"]);
+	// Order and gaps: the Optional card 10 above the window, the hint card 5 above it.
+	assert_eq!((both["opt"]["rel"].clone(), f(&both["opt"]["y"])), (json!("window"), 10.0), "{both}");
+	assert_eq!((both["hint"]["rel"].clone(), f(&both["hint"]["y"])), (json!("optional"), 5.0), "{both}");
+	assert_eq!((both["bar"]["before"].clone(), both["bar"]["aimed"].clone(), both["bar"]["after"].clone()), (json!(false), json!(true), json!(false)), "the bar marks the targeted optional row: {both}");
+	assert_eq!(both["bar"]["w"], 2);
+	assert_eq!((both["tipIn"].clone(), both["tipShown"].clone()), (json!(false), json!(true)), "the tip stays in the card, below the goals");
+	assert_eq!(both["hint"]["shown"], true, "a note goal makes the hint card");
+	assert_eq!(both["notes"], 1);
+	assert!(!strings_of(&both["rows"]).iter().any(|r| r.contains("vendor")), "the note left the card: {both}");
+	assert_eq!(f(&both["outH"]), 10.0 + f(&both["opt"]["h"]) + 5.0 + f(&both["hint"]["h"]));
+	// A step with neither: no cards.
+	assert_eq!((out["none"]["opt"]["shown"].clone(), out["none"]["hint"]["shown"].clone()), (json!(false), json!(false)), "{}", out["none"]);
+	assert_eq!(f(&out["none"]["outH"]), 0.0);
+	// Transparent: no grounds. The list view: no cards. Another look: no cards, the goal back in the card, the tip too.
+	assert_eq!(out["both"]["ground"], true);
+	assert_eq!(out["transparent"]["ground"], false);
+	assert_eq!((out["listed"]["opt"]["shown"].clone(), out["listed"]["hint"]["shown"].clone()), (json!(false), json!(false)));
+	let hearth = &out["hearth"];
+	assert_eq!((hearth["opt"]["shown"].clone(), hearth["hint"]["shown"].clone(), hearth["tipIn"].clone()), (json!(false), json!(false), json!(false)), "{hearth}");
+	assert!(strings_of(&hearth["rows"]).contains(&"Tough Wolf Meat".to_string()), "{hearth}");
+}
+
+// Grow upward: the window stops short of the screen top by the cards' stack, so the cards stay on the screen.
+#[test]
+fn grow_upward_leaves_room_for_the_outside_cards() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Set("ui.maxHeight", 0.9)
+		Polestar.Set("ui.growUp", true)
+		Polestar.Set("ui.barsBottom", true)
+		local g = uistub.goal(3, 4)
+		g.optional = true
+		uistub.update()
+		local top = UIParent:GetTop()
+		local o = GF.stepList.out
+		Polestar.Set("ui.pos", { 1500, 100 })
+		stub.advance(0.3)
+		local full = F:GetHeight()
+		local y = top - full - o.h + 30
+		Polestar.Set("ui.pos", { 1500, y })
+		stub.advance(0.3)
+		emit({ top = top, y = y, full = full, h = F:GetHeight(), outH = o.h })"#)
+	.remove(0);
+	assert!(f(&out["outH"]) > 0.0);
+	assert!(f(&out["h"]) < f(&out["full"]), "the window gives way: {out}");
+	assert!(f(&out["h"]) + f(&out["outH"]) <= f(&out["top"]) - f(&out["y"]) + 0.5, "{out}");
+}
+
+fn strings_of(v: &Value) -> Vec<String> {
+	v.as_array().unwrap().iter().map(|x| x.as_str().unwrap_or("").to_string()).collect()
+}
+
 #[test]
 fn a_done_step_viewed_with_prev_lists_all_its_goals_under_the_step_title_checked_with_no_arrow_mark() {
 	let out = run(r#"
@@ -327,7 +580,7 @@ fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its
 		.replace("${PICTURE(3, 512, 256)}", &picture(3, Some((512, 256))));
 	let out = run(&script).remove(0);
 	assert_eq!(out["plain"]["shown"], false, "a step without a picture shows none");
-	let w = 300 - 39 - 14;
+	let w = 300 - 32 - 12;
 	let h = (w as f64 / 2.0 + 0.5).floor();
 	assert_eq!(
 		out["open"],
@@ -361,7 +614,7 @@ fn a_tall_picture_stops_at_160_high_one_with_no_tip_reads_picture_of_this_spot_o
 		.replace("${PICTURE(5)}", &picture(5, None));
 	let out = run(&script).remove(0);
 	assert_eq!(out["square"], json!({ "tip": true, "text": "Picture of this spot", "w": 160, "h": 160 }));
-	assert_eq!(out["unsized"], json!({ "w": 247, "h": 124 }));
+	assert_eq!(out["unsized"], json!({ "w": 256, "h": 128 }));
 }
 
 #[test]
@@ -392,7 +645,7 @@ fn a_picture_the_client_cannot_load_or_with_step_tips_off_leaves_the_tip_as_it_i
 
 #[test]
 fn step_updated_refills_the_same_rows_in_place_and_a_newly_done_goal_pops() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		stub.advance(1)
 		local frames = uistub.frameCount()
@@ -662,7 +915,8 @@ fn reduced_motion_a_step_change_lands_without_movement() {
 		stub.advance(1)
 		GF.parts.nav.Next:Click()
 		local p = GF.parts.card.points[#GF.parts.card.points]
-		emit({ y = p.y, offsetRunning = Polestar.Anim.IsRunning(GF.parts.card, "offset") })"#)
+		-- The card sits the house look's gap (SL.CARDTOP) below the navigator.
+		emit({ y = p.y + GF.stepList.CARDTOP, offsetRunning = Polestar.Anim.IsRunning(GF.parts.card, "offset") })"#)
 	.remove(0);
 	assert_eq!(out, json!({ "y": 0, "offsetRunning": false }));
 }
@@ -698,7 +952,7 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the focus's open goals and the progress bar");
+	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": false }), "compact keeps the navigator and the focus's open goals; the house look drops the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -794,7 +1048,7 @@ fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stac
 // cap, and when even that is too tall the step list is clipped at the bars.
 #[test]
 fn grow_upward_the_window_ends_at_the_top_of_the_screen_and_keeps_its_bottom_edge_where_it_is_pinned() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		Polestar.Set("ui.maxHeight", 0.9)
 		Polestar.Set("ui.growUp", true)
@@ -820,7 +1074,9 @@ fn grow_upward_the_window_ends_at_the_top_of_the_screen_and_keeps_its_bottom_edg
 	assert_eq!(out["fullOver"], false, "with room the goals area shows everything");
 	for k in ["near", "tight"] {
 		let s = &out[k];
-		assert_eq!(f(&s["h"]), top - f(&s["y"]), "{k}: the window ends at the top of the screen, not past it ({s})");
+		// The goals view ends on a whole row, so the window may stop a row short.
+		let room = top - f(&s["y"]);
+		assert!(f(&s["h"]) <= room && f(&s["h"]) > room - 48.0, "{k}: the window ends at the top of the screen, not past it ({s})");
 		assert_eq!(s["point"][0], "BOTTOMLEFT", "{k}: still pinned by its bottom-left corner");
 		assert_eq!(s["point"][2], s["y"], "{k}: where the player put it");
 	}
@@ -1264,7 +1520,7 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
 		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == nav.List, list = relOf(nav.List) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -1281,21 +1537,21 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 		Polestar.Set("nav.nearbyButton", false)
 		local off = B:IsShown()
 		-- Off, Skip moves up to the bug, and stays there on the next step.
-		local skipOff = { now = relOf(nav.Skip) == nav.Report }
+		local skipOff = { now = relOf(nav.List) == nav.Report }
 		uistub.setGuide(uistub.elwynn, 4)
-		skipOff.nextStep = relOf(nav.Skip) == nav.Report
+		skipOff.nextStep = relOf(nav.List) == nav.Report
 		Polestar.Set("nav.nearbyButton", true)
-		skipOff.backOn = relOf(nav.Skip) == B
+		skipOff.backOn = relOf(nav.List) == B and relOf(nav.Skip) == nav.List
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })"#)
 	.remove(0);
 	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
-	assert_eq!(out["order"], json!({ "skip": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu");
+	assert_eq!(out["order"], json!({ "skip": true, "list": true, "nearby": true, "report": true }), "Skip, the step list, Nearby, the bug, the menu");
 	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));
 	assert_eq!(out["enabledInCombat"], 0, "in combat every entry is off");
 	assert_eq!(out["off"], false);
-	assert_eq!(out["skipOff"], json!({ "now": true, "nextStep": true, "backOn": true }), "with the button off, Skip sits by the bug");
+	assert_eq!(out["skipOff"], json!({ "now": true, "nextStep": true, "backOn": true }), "with the button off, the step list (and Skip) sits by the bug");
 }
 
 #[test]
@@ -1403,7 +1659,7 @@ fn by_t<'a>(rows: &'a Value, t: &str) -> Vec<&'a Value> {
 
 #[test]
 fn profession_reputation_and_achievement_goals_own_colours_icons_progress_bars() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local function snapshot()
 			local out = {}
 			for _, r in ipairs(visibleRows()) do
@@ -2003,13 +2259,15 @@ fn a_farm_spot_collect_goal_names_its_mobs_their_levels_and_zone_and_cycles_to_t
 		g.candidates = { { npcName = "Young Wolf", map = 1429, x = 46, y = 38.5 }, { npcName = "Timber Wolf", map = 1429, x = 40, y = 60 } }
 		uistub.update()
 		local r = rowFor("Tough Wolf Meat")
-		local before = { detail = r.Sub:GetText(), alt = r.Alt:IsShown(), progress = r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):match("(%d+/%d+)$") }
+		local coloured = r.Sub:GetText():find("|c" .. Polestar.Theme.Hex("npc") .. "Young Wolf|r", 1, true) ~= nil
+		local before = { detail = (r.Sub:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")), alt = r.Alt:IsShown(), progress = r.Meta:GetText() }
 		local elsewhere = Polestar.UI.GoalSubline(r.psGoal, 1453)
 		r.Alt:Click()
-		emit({ before = before, call = lastCall("CycleCandidate"), elsewhere = elsewhere })"#)
+		emit({ before = before, coloured = coloured, call = lastCall("CycleCandidate"), elsewhere = (elsewhere:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) })"#)
 	.remove(0);
 	assert_eq!(out["before"], json!({ "detail": "from Young Wolf (lvl 2\u{2013}4)", "alt": true, "progress": "3/8" }), "the zone is already named above the goals");
 	assert_eq!(out["elsewhere"], "from Young Wolf (lvl 2\u{2013}4)  \u{b7}  Elwynn Forest", "a spot in another zone names it");
+	assert_eq!(out["coloured"], true, "the house look names the mob in the NPC colour");
 	assert_eq!(out["call"], json!(["CycleCandidate", 3, 4]));
 }
 
@@ -2041,7 +2299,7 @@ fn an_area_objective_says_its_mobs_are_all_over_the_area_and_its_row_button_move
 // got; the header stands for the Go to and carries the arrow's mark.
 #[test]
 fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_naming_the_step_is_the_header() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local scroll = { item = "Runed Scroll", note = "Aean Swiftriver", source = { name = "Aean Swiftriver", kind = "npc", rank = 2, enemy = true } }
 		local fog = { id = "t/fog", pack = "guides", title = "Southern Barrens", minLevel = 20, maxLevel = 30, steps = {
 			{ title = "Field of Giants", goals = {
@@ -2187,7 +2445,7 @@ fn the_training_banner_says_how_many_steps_ahead_the_guide_trains_the_class_or_t
 // unskip it; looking at another step than the live one offers the way back.
 #[test]
 fn an_optional_goal_is_tagged_in_the_warning_colour_and_skips_in_one_click_then_reads_skipped_with_an_undo() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local g = uistub.goal(3, 4)
 		g.optional = true
@@ -2216,7 +2474,7 @@ fn an_optional_goal_is_tagged_in_the_warning_colour_and_skips_in_one_click_then_
 
 #[test]
 fn the_current_goal_is_the_one_the_engine_names_past_the_required_goals_an_optional_one_leads_before_the_area_s_go_to() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local g2, g4 = uistub.goal(3, 2), uistub.goal(3, 4)
 		g2.status, g2.header = "active", true
@@ -2257,6 +2515,8 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 		uistub.live = 3
 		N.Next:Click()
 		local ahead = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
+		local _, size = B.Text:GetFont()
+		local quiet = { h = B:GetHeight(), size = size, wrap = B.Text:GetWordWrap(), inline = select(2, B.Jump:GetPoint(1)) == B.Text }
 		B.Jump:Click()
 		local back = lastCall("Goto")
 		uistub.live = 4
@@ -2264,9 +2524,11 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 		uistub.setStep(3)
 		local skipped = { B.Text:GetText(), B.Jump.Label:GetText(), N.Skip:IsEnabled() }
 		B.Jump:Click()
-		emit({ ahead = ahead, back = back, skipped = skipped, unskip = lastCall("Unskip") })"#)
+		emit({ ahead = ahead, quiet = quiet, back = back, skipped = skipped, unskip = lastCall("Unskip") })"#)
 	.remove(0);
-	assert_eq!(out["ahead"], json!([true, "Looking ahead. The guide is at step 3.", "Back to step 3"]));
+	assert_eq!(out["ahead"], json!([true, "Looking ahead \u{b7} guide at step 3", "Back to step 3"]));
+	// The house look: one quiet row of 18, 10px type, the link on the same line.
+	assert_eq!(out["quiet"], json!({ "h": 18, "size": 10, "wrap": false, "inline": true }));
 	assert_eq!(out["back"], json!(["Goto", 3]));
 	assert_eq!(out["skipped"], json!(["You skipped this step.", "Unskip it", false]));
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
@@ -2293,7 +2555,7 @@ fn dismiss_closes_the_looking_ahead_banner_for_that_step_and_another_step_brings
 	assert_eq!(out["ahead"], json!([true, true]), "the banner and its Dismiss button");
 	assert_eq!(out["dismissed"], false, "Dismiss closes it");
 	assert_eq!(out["stays"], false, "it stays closed on that step");
-	assert_eq!(out["next"], "Looking ahead. The guide is at step 3.", "the next step has its own banner");
+	assert_eq!(out["next"], "Looking ahead \u{b7} guide at step 3", "the next step has its own banner");
 }
 
 #[test]

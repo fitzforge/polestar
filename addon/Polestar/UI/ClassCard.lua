@@ -411,6 +411,20 @@ local function newCard(parent)
 	-- The guide carries the class quest: the player just follows it.
 	F.Only:SetText(L["Only you see this: it's your class's quest."] .. " " .. L["Part of your route: just follow the guide."])
 
+	-- The house look's dense row: a kind glyph before the quest's name (CC.dense).
+	F.Kind = F:CreateTexture(nil, "ARTWORK", nil, 2)
+	F.Kind:Hide()
+	-- ... whose explainer is its tooltip.
+	F:EnableMouse(true)
+	F:SetScript("OnEnter", function(self)
+		if not self.psDense then return end
+		local G = GF()
+		W.Tooltip(self, G and G.TooltipAnchor and G.TooltipAnchor() or "ANCHOR_RIGHT", self.Title:GetText() or "",
+			{ L["Only you see this: it's your class's quest."], L["Part of your route: just follow the guide."] })
+		if G and G.HoverIn then G.HoverIn() end
+	end)
+	F:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+
 	-- The folded accept: its line and the step's tick box at the right.
 	F.Accept = CreateFrame("Frame", nil, F)
 	F.Accept.Text = text(F.Accept, "small", "textDim")
@@ -498,6 +512,32 @@ end
 -- Fill, layout, the first-time shine
 ---------------------------------------------------------------------------
 
+-- The card's parts as the house look's row (`on`) or as the banner: fonts, the
+-- quest colour, no class stripe, the kind glyph.
+function CC.Dress(on, goal)
+	Theme.Font(F.Title, on and "cardGoal" or "title")
+	Theme.Font(F.Head, on and "cardNote" or "small")
+	Theme.Font(F.Accept.Text, on and "cardNote" or "small")
+	Theme.Font(F.Learn, on and "cardNote" or "label")
+	Theme.Font(F.Badge.Text, on and "cardNote" or "caption")
+	F.Learn:SetWordWrap(not on)
+	F.Learn:SetMaxLines(on and 1 or 0)
+	F.Badge.Fill:SetShown(not on)
+	F.Title:SetWordWrap(not on)
+	F.Title:SetMaxLines(on and 1 or 0)
+	F.Accept.Text:SetWordWrap(not on)
+	F.Accept.Text:SetMaxLines(on and 1 or 0)
+	F.Stripe:SetShown(not on)
+	F.Kind:SetShown(on)
+	if on then
+		F.Kind:SetTexture(Theme.VerbIcon(goal and goal.t or "accept"))
+		W.Color(F.Kind, "textDim")
+		W.Color(F.Title, "quest")
+		W.Color(F.Head, "textMuted")
+		W.Color(F.Learn, "textDim")
+	end
+end
+
 -- Fill the card for step `index` of `guide` as `view` shows it. -> the
 -- class colour's hex for the step's quest names, or nil when no card shows.
 function CC.Fill(guide, index, view)
@@ -518,7 +558,15 @@ function CC.Fill(guide, index, view)
 	local hex = paint(p.class)
 	local className = UI.ClassName(p.class)
 	local level = goal.minLevel or goal.qlvl
-	F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
+	-- The house look (its step cards): one goal-style row, not the banner.
+	local G = GF()
+	local dense = G and G.stepList and G.stepList.card and true or false
+	F.psDense = dense
+	if dense then
+		F.Head:SetText(level and format(L["%s · Lv %d"], className, level) or className)
+	else
+		F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
+	end
 	F.Title:SetText((gv and gv.subject) or goal.title or "")
 	local learn = CC.RewardLine(reward, hex)
 	F.Learn:SetText(learn or "")
@@ -540,12 +588,14 @@ function CC.Fill(guide, index, view)
 	-- says who gets the quest; the step's person keeps the focus.
 	local slim = fold ~= nil and gv.status == "done"
 	F.psSlim = slim
+	CC.Dress(dense and not slim, goal)
 	F.Glow:SetShown(not slim)
 	if slim and F.psBorder then for i = 1, 4 do F.psBorder[i]:Hide() end end
-	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim) end
+	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim and not (dense and (part == F.Ring or part == F.Disc or part == F.Icon))) end
 	if slim then F.Learn:Hide(); F.Badge:Hide() end
-	F.Trip:SetShown(not (F.psCompact or slim))
-	F.Only:SetShown(not (F.psCompact or slim) and look("note", true) ~= false)
+	F.Trip:SetShown(not (F.psCompact or slim or dense))
+	F.Only:SetShown(not (F.psCompact or slim or dense) and look("note", true) ~= false)
+	if dense then F.Glow:Hide() end
 	F.Accept:SetShown(fold ~= nil)
 	if fold then
 		local line
@@ -628,6 +678,68 @@ function CC.Layout(width, c)
 		F.Accept:SetPoint("TOPLEFT", F, "TOPLEFT", x, -3)
 		F.Accept:SetPoint("RIGHT", F, "RIGHT", -6, 0)
 		local h = floor(ah + 6 + 0.5)
+		F:SetSize(w, h)
+		F:ClearAllPoints()
+		F:SetPoint("TOPLEFT", F:GetParent(), "TOPLEFT", INSET, -INSET)
+		return h + INSET + 4
+	end
+	if F.psDense then
+		-- One goal-style row: the glyph, the quest's name and its faint tag, the
+		-- tick box at the right; "Accept from …" in a muted line under it.
+		local checkW = F.Accept.Check:IsShown() and 13 + 6 or 0
+		local x = 8 + 13 + 6
+		F.Kind:SetSize(13, 13)
+		F.Kind:ClearAllPoints()
+		F.Kind:SetPoint("LEFT", F, "TOPLEFT", 8, -10)
+		local headW = floor(F.Head:GetStringWidth() + 0.5)
+		F.Head:SetWidth(headW + 2)
+		-- The "NEW ABILITY" tag: a small square bordered label after the tag.
+		local badgeW = 0
+		if F.Badge:IsShown() then
+			badgeW = floor(F.Badge.Text:GetStringWidth() + 8 + 0.5)
+			F.Badge:SetSize(badgeW, 13)
+			badgeW = badgeW + 6
+		end
+		F.Title:SetWidth(max(30, min(floor(F.Title:GetStringWidth() + 0.5) + 2, w - x - 8 - checkW - headW - badgeW - 8)))
+		F.Title:ClearAllPoints()
+		F.Title:SetPoint("LEFT", F, "TOPLEFT", x, -10)
+		F.Head:ClearAllPoints()
+		F.Head:SetPoint("LEFT", F.Title, "RIGHT", 6, 0)
+		if F.Badge:IsShown() then
+			F.Badge:ClearAllPoints()
+			F.Badge:SetPoint("LEFT", F.Head, "RIGHT", 6, 0)
+		end
+		local y = 20
+		-- The second line: the ability learnt, then where the quest is accepted
+		-- on the same line when both fit, else under it.
+		local avail = w - x - 8
+		local learnW = 0
+		if F.Learn:IsShown() then
+			F.Learn:SetWidth(avail)
+			learnW = floor(F.Learn:GetStringWidth() + 0.5) + 2
+			F.Learn:SetWidth(min(avail, learnW))
+			F.Learn:ClearAllPoints()
+			F.Learn:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
+		end
+		local acceptW = F.Accept:IsShown() and floor(F.Accept.Text:GetStringWidth() + 0.5) + 2 or 0
+		local same = learnW > 0 and acceptW > 0 and learnW + 10 + acceptW <= avail
+		F.Accept.Check:SetSize(13, 13)
+		F.Accept.Check:ClearAllPoints()
+		F.Accept.Check:SetPoint("RIGHT", F, "TOPRIGHT", -8, -10)
+		if F.Accept:IsShown() then
+			local ax, ay = x, y
+			if same then ax = x + learnW + 10 elseif learnW > 0 then ay = y + 13 end
+			F.Accept.Text:SetWidth(max(30, w - ax - 8))
+			F.Accept:SetHeight(13)
+			F.Accept:ClearAllPoints()
+			F.Accept:SetPoint("TOPLEFT", F, "TOPLEFT", ax, -ay)
+			F.Accept:SetPoint("RIGHT", F, "RIGHT", -8, 0)
+			y = ay + 13
+		elseif learnW > 0 then
+			y = y + 13
+		end
+		if same then y = y end
+		local h = floor(y + 3 + 0.5)
 		F:SetSize(w, h)
 		F:ClearAllPoints()
 		F:SetPoint("TOPLEFT", F:GetParent(), "TOPLEFT", INSET, -INSET)

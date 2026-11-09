@@ -18,7 +18,11 @@
 -- menu (Nav/Prompts.lua). Off with nav.journeySteps, collapsed with
 -- nav.journeyOpen = false, never in compact mode. How many legs it lists and
 -- whether their numbers show: trackers.journey.rows, .numbers (Options >
--- Trackers > Journey).
+-- Trackers > Journey). In the house look's dense card (guideCard) the panel
+-- keeps to a summary, the header and the next step and one faint line for
+-- the rest, until a click on the header opens every step (SL.journeyAll, the
+-- window's own state, not saved); with nav.journeyOpen = false a click first
+-- brings the summary back.
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
 -- yards, step, lift, side, transport, to, hubs: a walk entering the other
@@ -57,6 +61,9 @@ local SUB_H = 14
 local TIME_W = 56            -- "1:02:03" with room; fixed so a tick never moves the label
 local MAX_ROWS = 8
 local MORE_H = 20
+local SUMMARY_ROWS = 1        -- the steps the dense card's summary shows, then one faint line for the rest
+local NUM_X, NUM_W = PAD - 10, 22 -- the step number column
+local ICON_X, ICON_S, ICON_GAP = TEXT_X - 2, 13, 9 -- a step's glyph and the gap to its text
 
 local GLYPH = {
 	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", tram = "icon-boat",
@@ -298,10 +305,42 @@ end
 local F, head, dest, more
 local rows = {}
 JP.rows = rows
-local shownLegs, shownCi, shownN -- the structure on screen
+local shownLegs, shownCi, shownN, shownAll -- the structure on screen
 local ticker
 
 local function GF() return UI.GuideFrame end
+
+-- The guide window's step-card state (UI/GuideFrame.lua: SL), nil before it is built.
+local function SL()
+	local G = GF()
+	return G and G.stepList
+end
+
+local function dense()
+	local s = SL()
+	return s and s.card and true or false
+end
+
+-- Every step, not the summary: the dense card's own state; the other looks
+-- always show every step.
+local function all()
+	local s = SL()
+	return not dense() or (s.journeyAll and true or false)
+end
+
+-- The sizes of the house look's dense card (the same rule as the goal rows:
+-- 11.5px text, rows of 17), or the skin's.
+local function metrics()
+	local d = dense()
+	local G = GF()
+	PAD = G and G.Pad and G.Pad() or (d and 12 or 14)
+	TEXT_X = PAD + (d and 13 + 7 or 15 + 10)
+	HEAD_H, DEST_H, ROW_H, SUB_H, MORE_H = d and 20 or 30, d and 15 or 22, d and 17 or 24, d and 11 or 14, d and 14 or 20
+	TIME_W = d and 44 or 56
+	NUM_X, NUM_W = d and PAD - 2 or PAD - 10, d and 14 or 22
+	ICON_S, ICON_GAP = d and 11 or 13, d and 6 or 9
+	ICON_X = d and NUM_X + NUM_W + 6 or TEXT_X - 2
+end
 
 local function text(parent, role, color)
 	local G = GF()
@@ -348,19 +387,12 @@ local function row(i)
 	r.Bar:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
 	r.Num = text(r, "number", "textMuted")
 	r.Num:SetJustifyH("RIGHT")
-	r.Num:SetWidth(22)
-	r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -ROW_H / 2)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
-	r.Icon:SetSize(13, 13)
-	r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -ROW_H / 2)
 	r.Text = text(r, "label", "textDim")
-	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 9, 0)
 	r.Time = text(r, "number", "textMuted")
 	r.Time:SetJustifyH("RIGHT")
-	r.Time:SetWidth(TIME_W)
-	r.Time:SetPoint("RIGHT", r, "TOPRIGHT", -PAD, -ROW_H / 2)
 	r.Sub = text(r, "small", "textDim")
-	r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
+	JP.Place(r)
 	r:SetScript("OnClick", rowClick)
 	r:SetScript("OnEnter", rowEnter)
 	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -368,7 +400,63 @@ local function row(i)
 	return r
 end
 
+-- The header's parts at the current sizes.
+function JP.PlaceHead()
+	local d = dense()
+	Theme.Font(head.Label, d and "cardNote" or "small")
+	Theme.Font(head.Dist, d and "cardNote" or "number")
+	Theme.Font(head.Dot, d and "cardNote" or "number")
+	Theme.Font(head.Time, d and "cardGoal" or "number")
+	head:SetHeight(HEAD_H)
+	head.Label:ClearAllPoints()
+	head.Label:SetPoint("LEFT", head, "LEFT", PAD, 0)
+	head.Rule:ClearAllPoints()
+	head.Rule:SetPoint("TOPLEFT", head, "TOPLEFT", PAD, 0)
+	head.Rule:SetPoint("TOPRIGHT", head, "TOPRIGHT", -PAD, 0)
+	local i = d and 10 or 12
+	head.Icon:SetSize(i, i)
+	head.Icon:ClearAllPoints()
+	head.Icon:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
+	head.Dist:ClearAllPoints()
+	head.Dist:SetPoint("RIGHT", head.Icon, "LEFT", d and -6 or -8, 0)
+	head.Dot:ClearAllPoints()
+	head.Dot:SetPoint("RIGHT", head.Dist, "LEFT", -5, 0)
+	head.Time:ClearAllPoints()
+	head.Time:SetPoint("RIGHT", head.Dot, "LEFT", -5, 0)
+end
+
+-- A step's parts at the current sizes (fonts, glyph, columns, line heights).
+function JP.Place(r)
+	local d = dense()
+	Theme.Font(r.Num, d and "cardNote" or "number")
+	Theme.Font(r.Text, d and "cardGoal" or "label")
+	Theme.Font(r.Time, d and "cardNote" or "number")
+	Theme.Font(r.Sub, d and "cardNote" or "small")
+	r.Num:SetWidth(NUM_W)
+	r.Num:ClearAllPoints()
+	r.Num:SetPoint("LEFT", r, "TOPLEFT", NUM_X, -ROW_H / 2)
+	r.Icon:SetSize(ICON_S, ICON_S)
+	r.Icon:ClearAllPoints()
+	r.Icon:SetPoint("LEFT", r, "TOPLEFT", ICON_X, -ROW_H / 2)
+	r.Text:ClearAllPoints()
+	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", ICON_GAP, 0)
+	r.Time:SetWidth(TIME_W)
+	r.Time:ClearAllPoints()
+	r.Time:SetPoint("RIGHT", r, "TOPRIGHT", -PAD, -ROW_H / 2)
+	r.Sub:ClearAllPoints()
+	if d then
+		-- The wait and ride on the step's own line, after its words (JP.Layout sets the offset).
+		r.Sub:SetWordWrap(false)
+		r.Sub:SetPoint("LEFT", r.Text, "LEFT", 0, 0)
+	else
+		r.Sub:SetWordWrap(true)
+		r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
+	end
+end
+
 local function open() return ns.Get("nav.journeyOpen") and true or false end
+-- Whether the steps under the header show: open, and every step or the summary.
+local function expanded() return open() and all() end
 
 local function build()
 	local G = GF()
@@ -387,25 +475,33 @@ local function build()
 	head.Rule:SetPoint("TOPLEFT", head, "TOPLEFT", PAD, 0)
 	head.Rule:SetPoint("TOPRIGHT", head, "TOPRIGHT", -PAD, 0)
 	head.Label = text(head, "small", "textMuted")
-	head.Label:SetPoint("LEFT", head, "LEFT", PAD, 0)
 	head.Label:SetText(L["Journey"])
 	head.Icon = head:CreateTexture(nil, "ARTWORK")
-	head.Icon:SetSize(12, 12)
-	head.Icon:SetPoint("RIGHT", head, "RIGHT", -PAD, 0)
 	W.Color(head.Icon, "textMuted")
 	head.Dist = text(head, "number", "textDim")
 	head.Dist:SetJustifyH("RIGHT")
-	head.Dist:SetPoint("RIGHT", head.Icon, "LEFT", -8, 0)
 	head.Dot = text(head, "number", "textMuted")
 	head.Dot:SetText("\194\183")
-	head.Dot:SetPoint("RIGHT", head.Dist, "LEFT", -5, 0)
 	head.Time = text(head, "number", "text")
 	head.Time:SetJustifyH("RIGHT")
-	head.Time:SetPoint("RIGHT", head.Dot, "LEFT", -5, 0)
-	head:SetScript("OnClick", function() ns.Set("nav.journeyOpen", not open()) end)
+	JP.PlaceHead()
+	head:SetScript("OnClick", function()
+		if dense() and open() then
+			-- The summary and every step take turns; the setting stays open.
+			SL().journeyAll = not all()
+			JP.Refresh(true)
+			local G = GF()
+			if G and G.Layout then G.Layout() end
+		elseif dense() then
+			SL().journeyAll = false
+			ns.Set("nav.journeyOpen", true)
+		else
+			ns.Set("nav.journeyOpen", not open())
+		end
+	end)
 	head:SetScript("OnEnter", function(self)
 		W.Color(self.Label, "textDim")
-		W.Tooltip(self, anchor(), L["Journey"], { open() and L["Click to collapse"] or L["Click to expand"] })
+		W.Tooltip(self, anchor(), L["Journey"], { expanded() and L["Click to collapse"] or L["Click to expand"] })
 		hoverIn()
 	end)
 	head:SetScript("OnLeave", function(self)
@@ -442,13 +538,20 @@ end
 
 -- Labels, glyphs and colours: only when the steps themselves change.
 local function fillStructure(legs, ci)
+	metrics()
+	JP.PlaceHead()
+	local d = dense()
+	Theme.Font(dest, d and "cardNote" or "label")
+	Theme.Font(more, d and "cardNote" or "small")
 	local n = #legs - ci + 1
 	local most = math.max(1, math.floor(tonumber(journeyLook("rows", MAX_ROWS)) or MAX_ROWS))
 	local shown = n > most and most or n
+	if not all() and shown > SUMMARY_ROWS then shown = SUMMARY_ROWS end
 	local numbers = journeyLook("numbers", true) ~= false
 	for i = 1, shown do
 		local leg = legs[ci + i - 1]
 		local r = row(i)
+		JP.Place(r)
 		local current = i == 1
 		r.psCurrent = current
 		r.psLeg = ci + i - 1
@@ -472,10 +575,18 @@ local function fillStructure(legs, ci)
 	more:SetShown(n > shown)
 	if n > shown then
 		local left = n - shown
-		more:SetText(left == 1 and L["1 more step"] or format(L["%d more steps"], left))
+		if dense() and not all() then
+			-- "then Take the tram to Ironforge, Go to Dun Morogh (+5)": the next two, the rest counted.
+			local names = {}
+			for i = shown + 1, math.min(n, shown + 2) do names[#names + 1] = JP.StepText(legs[ci + i - 1]) end
+			local rest = left - #names
+			more:SetText(format(L["then %s"], table.concat(names, ", ")) .. (rest > 0 and (" (+" .. rest .. ")") or ""))
+		else
+			more:SetText(left == 1 and L["1 more step"] or format(L["%d more steps"], left))
+		end
 	end
 	dest:SetText(format(L["To %s"], "|c" .. Theme.Hex("place") .. destination(legs) .. "|r"))
-	shownLegs, shownCi, shownN = legs, ci, n
+	shownLegs, shownCi, shownN, shownAll = legs, ci, n, all()
 end
 
 -- Times only: once a second and on transit news. Never changes a height.
@@ -513,10 +624,10 @@ function JP.Refresh(force)
 		return
 	end
 	F.psHas = true
-	local changed = force or legs ~= shownLegs or ci ~= shownCi or #legs - ci + 1 ~= shownN
+	local changed = force or legs ~= shownLegs or ci ~= shownCi or #legs - ci + 1 ~= shownN or all() ~= shownAll
 	stamp(legs, ci)
 	if changed then fillStructure(legs, ci) end
-	head.Icon:SetTexture(Theme.Media(open() and "chevron-up" or "chevron-down"))
+	head.Icon:SetTexture(Theme.Media(expanded() and "chevron-up" or "chevron-down"))
 	JP.Compute(legs, ci)
 	-- The line under a step only where there is something to say: a known
 	-- departure, a walk's hostile towns (none: no empty line).
@@ -526,7 +637,7 @@ function JP.Refresh(force)
 			local want = (view.dep[i] or r.psHub) and true or false
 			if r.Sub:IsShown() ~= want then
 				r.Sub:SetShown(want)
-				r:SetHeight(want and ROW_H + SUB_H or ROW_H)
+				r:SetHeight(want and not dense() and ROW_H + SUB_H or ROW_H)
 				changed = true
 			end
 		end
@@ -546,16 +657,30 @@ function JP.Layout(width)
 		F:SetHeight(HEAD_H)
 		return HEAD_H
 	end
-	dest:SetWidth(width - TEXT_X - PAD)
+	local textStart = ICON_X + ICON_S + ICON_GAP
+	dest:SetShown(all())
+	more:SetWidth(width - textStart - PAD)
+	more:SetWordWrap(false)
+	dest:SetWidth(width - ICON_X - PAD)
 	dest:ClearAllPoints()
-	dest:SetPoint("LEFT", list, "TOPLEFT", TEXT_X, -(DEST_H / 2 - 2))
-	local y = DEST_H
-	local textW = width - (TEXT_X + 22) - PAD - TIME_W - 8
+	dest:SetPoint("LEFT", list, "TOPLEFT", ICON_X, -(DEST_H / 2 - 2))
+	local y = all() and DEST_H or 3
+	local textW = width - textStart - 2 - PAD - TIME_W - 8
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() then
-			r.Text:SetWidth(textW)
-			r.Sub:SetWidth(textW + TIME_W)
+			if dense() then
+				-- The text keeps its words' width, the wait and ride follow it.
+				r.Text:SetWidth(textW)
+				local tw = math.min(textW, math.ceil(r.Text:GetStringWidth()))
+				r.Text:SetWidth(tw)
+				r.Sub:ClearAllPoints()
+				r.Sub:SetPoint("LEFT", r.Text, "RIGHT", 5, 0)
+				r.Sub:SetWidth(math.max(0, textW - tw - 5))
+			else
+				r.Text:SetWidth(textW)
+				r.Sub:SetWidth(textW + TIME_W)
+			end
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -y)
@@ -564,10 +689,10 @@ function JP.Layout(width)
 	end
 	if more:IsShown() then
 		more:ClearAllPoints()
-		more:SetPoint("LEFT", list, "TOPLEFT", TEXT_X + 22, -(y + MORE_H / 2))
+		more:SetPoint("LEFT", list, "TOPLEFT", textStart, -(y + MORE_H / 2))
 		y = y + MORE_H
 	end
-	y = y + 6
+	y = y + (dense() and 3 or 6)
 	list:SetHeight(y)
 	F:SetHeight(HEAD_H + y)
 	return HEAD_H + y

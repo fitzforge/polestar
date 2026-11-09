@@ -332,6 +332,18 @@
 		}
 	});
 
+	const fsBtn = $('#fullscreen');
+	const game = $('.game');
+	fsBtn.addEventListener('click', () => {
+		if (document.fullscreenElement) document.exitFullscreen();
+		else if (game.requestFullscreen) game.requestFullscreen();
+		$('#screen').focus();
+	});
+	document.addEventListener('fullscreenchange', () => {
+		const on = !!document.fullscreenElement;
+		fsBtn.textContent = on ? 'Exit full screen' : 'Full screen';
+		fsBtn.setAttribute('aria-pressed', String(on));
+	});
 	$('#slash').addEventListener('submit', async (e) => {
 		e.preventDefault();
 		const input = $('#slash-input');
@@ -568,6 +580,12 @@
 			const v = look[input.dataset.path];
 			setIfIdle(input, () => { if (Array.isArray(v)) input.value = hex(v); });
 			input.parentElement.classList.toggle('unset', !Array.isArray(v));
+		}
+		const skins = $('#skins');
+		const wantSkins = (state.skins || []).join(',');
+		if (skins.dataset.list !== wantSkins) {
+			skins.dataset.list = wantSkins;
+			skins.innerHTML = (state.skins || []).map((s) => `<button type="button" value="${s}">${s}</button>`).join('');
 		}
 		const schemes = $('#schemes');
 		const want = (state.schemes || []).join(',');

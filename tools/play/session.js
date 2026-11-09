@@ -431,7 +431,7 @@ end`);
 			case 'key': return `play.key(${luaString(String(a.key || ''))}, ${a.text == null ? 'nil' : luaString(String(a.text))})`;
 			case 'slash': return `play.slash(${luaString(String(a.text || ''))})`;
 			case 'set': return `Polestar.Set(${luaString(String(a.path))}, ${a.value == null ? 'nil' : luaValue(a.value)})`;
-			case 'resetLook': return `for _, k in ipairs({ "style", "compact", "scale", "width", "bgOpacity", "opacity", "scheme", "accent", "bgColor", "brightness", "upcoming", "upcomingOpen", "showNotes", "menuScale", "font", "locked", "pos" }) do Polestar.Set("ui." .. k, Polestar.GetDefault("ui." .. k)) end`;
+			case 'resetLook': return `for _, k in ipairs({ "style", "skin", "compact", "scale", "width", "bgOpacity", "opacity", "scheme", "accent", "bgColor", "brightness", "upcoming", "upcomingOpen", "showNotes", "menuScale", "font", "locked", "pos" }) do Polestar.Set("ui." .. k, Polestar.GetDefault("ui." .. k)) end`;
 			case 'goal': return 'return play.doGoal()';
 			case 'step': return 'return play.playStep()';
 			case 'guide': return 'return play.playGuide()';

@@ -107,6 +107,10 @@ function GP.Paint(row, goal)
 		return
 	end
 	local f = frameOf(row)
+	-- The house look's dense card reads it at its small size (10px).
+	local role = UI.CardLook and UI.CardLook() and "cardNote" or "small"
+	Theme.Font(f.Text, role)
+	Theme.Font(f.Gain, role)
 	local e = pick.entry
 	f.psEntry = e
 	local name = "|c" .. qualityHex(itemQuality(e.id)) .. itemName(e.id) .. "|r"

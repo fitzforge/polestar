@@ -20,6 +20,7 @@
 		<form id="slash" class="slash" autocomplete="off">
 			<label for="slash-input">Chat</label>
 			<input id="slash-input" name="text" placeholder="/polestar options, /polestar guides, /run Polestar.Set(&quot;ui.scale&quot;, 1.1)" spellcheck="false">
+			<button type="button" id="fullscreen" class="fs" title="Full screen (F11 also works)" aria-pressed="false">Full screen</button>
 		</form>
 		<p id="timing" class="timing">Starting the Lua session</p>
 		<section id="errors" class="errors" hidden aria-live="polite">
@@ -52,6 +53,8 @@
 				<div class="range"><input id="r-opacity" type="range" min="0.3" max="1" step="0.05" data-path="ui.opacity" data-format="pct"><output></output></div>
 				<label class="label" for="r-bg">Ground opacity</label>
 				<div class="range"><input id="r-bg" type="range" min="0" max="1" step="0.05" data-path="ui.bgOpacity" data-format="pct"><output></output></div>
+				<span class="label">Skin</span>
+				<div class="seg" id="skins" data-path="ui.skin"></div>
 				<span class="label">Colour scheme</span>
 				<div class="seg" id="schemes" data-path="ui.scheme"></div>
 				<label class="label" for="c-accent">Accent</label>

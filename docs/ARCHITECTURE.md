@@ -5952,6 +5952,45 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   sped up. `GF.ApplyLook(key)` redraws only what a key touches;
   `GF.Metrics()` hands the sizes to the page's preview, which lays out a
   demo step card by them in its own frame, never the live window.
+- **Step cards and the step list** (`UI/GuideFrame.lua`, the `SL` table): the house
+  look alone (`Theme.Metric("guideCard", 1)`; Halo's and Hearth's sizes set it to 0 and
+  the game's looks inherit them, so they are unchanged). The step card is dressed with
+  a ground and a hairline (`SL.Dress`), its goal rows 22 high; a mob or NPC a goal is
+  about wears the NPC colour (`UI.GoalText`); the summary lines after the focus are
+  quiet, one small line `CARD.quietH` high (`SL.Quiet`, set by `paintLine`). The sizes are
+  RestedXP-dense, read by `readMetrics` for the house look only (fonts `cardGoal`,
+  `cardNote`, `cardName` in `Theme.lua`; `SL.TOP`, `SL.BOT`, `SL.IC`, `SL.HEAD`, `SL.TIP`;
+  `SL.Fonts` re-fonts the card on a skin change). A goal row's right-hand detail is
+  `row.Meta` (`SL.PaintMeta`: the count from `UI.GoalProgress`, "0/1" for a lone kill or
+  collect; the quest level from `Levels.QuestLevel`; `SL.Meta` adds the distance of
+  `Nav.GetDistance` on the arrow's row, and `person.Dist` on the person's; `SL.pulse`
+  refreshes it twice a second), and `UI.GoalLine(goal, hex, true)` leaves the count off
+  the words. The compact window keeps one "Then" line and no progress bar. Optional goals and note
+  goals (`SL.Outside`) are left out of the card's rows and lines and stand in the outside
+  cards (`SL.BuildOut`, `SL.FillOut`, `SL.LayoutOut`, `SL.out = { hint, opt, h }`): children of
+  the window anchored to its top corners, the Optional card at `SL.OUT_NEAR` above it, the
+  hint card `SL.OUT_GAP` above that. The hint card holds note goals only; the collapsible
+  tip (`card.Tip`) stays in the card, folded to `SetMaxLines(1)`. The class card is one row
+  in the house look (`CC.Dress`, `F.psDense`), the looking-ahead notice one quiet row
+  (`SL.BannerSizes`), and the Optional row the arrow leads to wears `row.Mark`
+  (`SL.MarkOut`, from `GF.UpdateTargets`). `SL.out.h` is taken off `roomAbove()` (Grow
+  upward) and widens the window's clamp rect upward; `SL.HideOut` while the step list is
+  open or in the other looks. The Journey panel
+  (`UI/JourneyPanel.lua`) sizes itself from the same rule (`metrics`, `JP.Place`) and keeps
+  to a summary until `SL.journeyAll`. `ui.stepList`
+  (off by default; the navigator's list button, `GF.listButton`, the compact window too)
+  swaps the card for a scrolling list of every step with a number (`SL.Fill`,
+  `SL.Layout`; along steps and steps hidden from the character are left out). A card
+  (`SL.FillRow`) has a line per person (its group, "Talk to …") and goal in written
+  order, words from `UI.GoalLine` (verb, names coloured by kind, counts), `SL.MAXG` (6)
+  at most then "+N more"; lines wrap and the card grows to fit (`SL.Line`, made per card
+  as needed). Every card is read again only when the guide, the step on screen, the
+  live step or the progress moves; otherwise only the live and viewed steps' cards are,
+  and the cards are measured again only when what one says, the width, the font or the
+  style changed (`SL.lsig`). While the list is open the card is hidden and unmeasured,
+  so its folds leave the window's size alone (`fitGoals` returns). A click looks at that
+  step (`GF.LookAt`) and closes the list. `GF.stepList`
+  holds its rows for tests and preview.
 - **Class-quest card** (`UI/ClassCard.lua`): over the person and goals of
   a step whose accept (else turn-in) is one of the character's class quests:
   `UI/ClassRewards.lua` limits the quest to a few classes, the character's

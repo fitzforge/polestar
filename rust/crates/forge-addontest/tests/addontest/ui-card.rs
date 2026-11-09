@@ -96,6 +96,12 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "")
 }
 
+/// The game's looks keep the plain card (24px lines, "Then out here" folded). The house look's dense card, its
+/// field work open under the goals, has its own tests.
+fn run_hearth(script: &str) -> Vec<Value> {
+	run(&format!("Polestar.Set(\"ui.skin\", \"hearth\")\n{script}"))
+}
+
 fn f(v: &Value) -> f64 {
 	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
 }
@@ -106,7 +112,7 @@ fn strings(v: &Value) -> Vec<String> {
 
 #[test]
 fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_person_and_the_field_work() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		uistub.setGuide(uistub.elwynn, brewnall())
 		stub.advance(1)
 		local P = GF.parts
@@ -136,7 +142,7 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 
 #[test]
 fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_moving_on_closes_it() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local s = brewnall()
 		uistub.setGuide(uistub.elwynn, s)
 		local line = lineFor("Rejold")
@@ -239,7 +245,7 @@ const FOLD: &str = r#"
 
 #[test]
 fn a_goal_turning_done_pops_holds_then_folds_shut_while_the_rows_below_glide_up_and_done_counts_it_with_a_glow() {
-	let out = run(FOLD).remove(0);
+	let out = run_hearth(FOLD).remove(0);
 	assert_eq!(out["at0"], json!({ "shown": true, "popping": true, "icon": "check", "done": "1 done" }), "the moment it turns done: its check pops, the row stays");
 	let samples = out["samples"].as_array().unwrap();
 	let at = |s: &Value| f(&s["t"]);
@@ -300,7 +306,7 @@ fn with_reduced_motion_a_goal_turning_done_only_fades_then_the_count_changes() {
 
 #[test]
 fn goals_done_together_fold_one_after_another_a_beat_apart_into_one_count() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local s = brewnall()
 		local goals = uistub.guides[uistub.elwynn].steps[s].goals
 		for g = 1, 5 do goals[g].status = "done" end
@@ -354,7 +360,7 @@ fn the_done_line_opens_the_finished_goals_dimmed_for_review_and_closes_again() {
 
 #[test]
 fn the_window_stops_at_its_height_cap_the_goals_scroll_and_the_current_goal_is_scrolled_into_view() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local s = brewnall()
 		for g = 1, 5 do uistub.guides[uistub.elwynn].steps[s].goals[g].status = "done" end
 		Polestar.Set("ui.maxHeight", 0.3)
@@ -499,7 +505,7 @@ fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_close
 // One or two goals left: the line names them, the quest in the quest colour as on a row; three or more: counts.
 #[test]
 fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local s = brewnall()
 		local goals = uistub.guides[uistub.elwynn].steps[s].goals
 		goals[1].status = "done"
@@ -599,7 +605,7 @@ fn an_object_named_like_one_of_its_quests_is_headed_by_the_note_naming_it_or_a_n
 // His later accept reads with him, not on a second "Then: Thundris Windweaver" line under the focus.
 #[test]
 fn the_focus_person_s_later_goals_read_with_the_focus_not_on_a_line_of_their_own() {
-	let out = run(r#"
+	let out = run_hearth(r#"
 		local function G(t, f) f.t = t; f.map = 1439; return f end
 		local steps = uistub.guides[uistub.elwynn].steps
 		steps[#steps + 1] = { title = "Auberdine", goals = {
@@ -716,17 +722,23 @@ const BINDING: &str = r#"
 // A player on Discord (0.3.3): "is there a way to have text wrap?" The look-ahead lines cut off mid-word:
 // "Then out here: Use Bloodstone Choker, Kill …", "Then: Gakin the Darkbinder · Turn in The Bi…". A line too
 // long for one line wraps to a second, its row growing by it and the rows under it moving down; only text
-// longer than two lines ends in "…".
+// longer than two lines ends in "…". In the house look the lines after the focus are a footnote instead: one small
+// line, cut short with "…" (SL.Quiet); its chevron lists the goals.
 #[test]
 fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_in_an_ellipsis() {
 	let out = run(&format!(
-		r#"{BINDING}
+		r#"Polestar.Set("ui.skin", "hearth")
+		{BINDING}
 		local here = lineFor("out here")
 		local out = {{ here = measure(here, cardNext), gakin = measure(lineFor("Gakin"), false), lineH = GF.CARD.lineH, one = here.Text:GetLineHeight() }}
 		uistub.goal(s, 2).subject = "Bloodstone Choker of the Very Long Name That Goes On and On Past Any Window"
 		uistub.goal(s, 3).subject = "Summoned Voidwalker of the Equally Long Name That Goes On Past Any Window"
 		uistub.update()
 		out.long = measure(lineFor("out here"), false)
+		Polestar.Set("ui.skin", "polestar")
+		uistub.update()
+		out.house = measure(lineFor("out here"), cardNext)
+		out.quietH = GF.CARD.quietH
 		emit(out)"#
 	))
 	.remove(0);
@@ -744,6 +756,31 @@ fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_i
 	assert_eq!(long["lines"], 2, "never more than two lines: {long}");
 	assert_eq!(long["cut"], true, "past two lines it ends in \u{2026}: {long}");
 	assert_eq!(long["h"], here["h"]);
+	let house = &out["house"];
+	assert_eq!((house["lines"].clone(), house["cut"].clone()), (json!(1), json!(true)), "the house look: one line, cut with \u{2026}: {house}");
+	assert_eq!(f(&house["h"]), f(&out["quietH"]), "on a short row: {house}");
+	assert_eq!(f(&house["gap"]), 0.0, "the next item right under it: {house}");
+}
+
+// The compact window of the house look keeps the live goals and one quiet "Then" line: no progress bar, no tip,
+// the step list button stays.
+#[test]
+fn the_dense_compact_window_is_the_live_goals_and_one_quiet_then_line() {
+	let out = run(&format!(
+		r#"{BINDING}
+		local P = GF.parts
+		local standard = {{ items = items(), foot = P.foot:IsShown() }}
+		Polestar.Set("ui.compact", true)
+		uistub.update()
+		local compact = {{ items = items(), foot = P.foot:IsShown(), tip = P.tip:IsShown(), list = GF.listButton:IsShown(), h = F:GetHeight() }}
+		emit({{ standard = standard, compact = compact }})"#
+	))
+	.remove(0);
+	assert_eq!(out["standard"]["foot"], true);
+	let c = &out["compact"];
+	assert_eq!(strings(&c["items"]).len(), 2, "the live goal and one line: {c}");
+	assert!(strings(&c["items"])[1].starts_with("[Then"), "{c}");
+	assert_eq!((c["foot"].clone(), c["tip"].clone(), c["list"].clone()), (json!(false), json!(false), json!(true)), "no progress bar, no tip, the list button stays: {c}");
 }
 
 // A player on Discord (0.3.3): "there's some duplication with this way". Opened, a look-ahead line repeated
@@ -751,7 +788,7 @@ fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_i
 // Bloodstone Choker" and "Kill Summoned Voidwalker"). Opened, the line is only the place or the person.
 #[test]
 fn an_opened_look_ahead_line_names_only_the_place_or_person_and_no_goal_reads_twice() {
-	let out = run(&format!(
+	let out = run_hearth(&format!(
 		r#"{BINDING}
 		stub.RunScript(lineFor("out here"), "OnClick", "LeftButton")
 		local here = items()

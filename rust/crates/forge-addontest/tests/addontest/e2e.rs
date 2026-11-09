@@ -59,7 +59,7 @@ const FLOW: &str = r#"
 					for i, r in ipairs(GF.rows) do
 						if r:IsShown() then
 							local plain = r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-							rows[#rows + 1] = { text = plain, progress = plain:match("(%d+/%d+)$") or "" }
+							rows[#rows + 1] = { text = plain, progress = plain:match("(%d+/%d+)$") or (r.Meta:IsShown() and r.Meta:GetText():match("(%d+/%d+)") or "") }
 						end
 					end
 					local t = Polestar.Nav.GetTarget()

@@ -51,13 +51,23 @@ function shot()
 end
 "#;
 
-fn run(script: &str) -> Vec<Value> {
+/// The panel in a look: the game's looks keep the full panel (every step, a click collapses it); the house look's
+/// dense card has the summary (`run_dense`).
+fn run_in(skin: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &FILES)],
-		script: ["uistub.install()", "stub.login()", ROUTE, "uistub.setGuide(uistub.elwynn, 3)", r#"Polestar.Fire("ROUTE_CHANGED", R.legs)"#, script].join("\n"),
+		script: ["uistub.install()", "stub.login()", ROUTE, &format!(r#"Polestar.Set("ui.skin", "{skin}")"#), "uistub.setGuide(uistub.elwynn, 3)", r#"Polestar.Fire("ROUTE_CHANGED", R.legs)"#, script].join("\n"),
 		..Default::default()
 	})
+}
+
+fn run(script: &str) -> Vec<Value> {
+	run_in("hearth", script)
+}
+
+fn run_dense(script: &str) -> Vec<Value> {
+	run_in("polestar", script)
 }
 
 fn rows(s: &Value) -> &Vec<Value> {
@@ -326,4 +336,33 @@ fn a_walk_that_enters_a_hostile_town_says_so_under_its_step_hostile_town_southsh
 	assert_eq!(s["rows"][0]["sub"], "Hostile town: Tarren Mill, Hammerfall");
 	assert_eq!(s["rows"][1]["sub"], "average wait 0:15 \u{b7} ride 0:10", "a ride keeps its departure line");
 	assert!(num(&s["rows"][2]["h"]) > 24.0, "the warning has its own line");
+}
+
+// The house look's dense card keeps the journey to a summary: the header, the first step and one faint line for the
+// rest; a click on the header opens every step, a second closes them again. The rows are 17px, the wait and ride
+// share their step's line.
+#[test]
+fn the_dense_card_s_journey_is_a_summary_until_the_header_is_clicked() {
+	let out = run_dense(
+		r#"
+		local function ride() R.legs[2].transport = nil end
+		local first = shot()
+		JP.head:GetScript("OnClick")(JP.head)
+		local all = shot()
+		JP.head:GetScript("OnClick")(JP.head)
+		emit(first); emit(all); emit(shot())
+		emit({ chevron = JP.head.Icon:GetTexture(), open = Polestar.Get("nav.journeyOpen") })"#,
+	);
+	let (first, all, again) = (&out[0], &out[1], &out[2]);
+	assert_eq!(first["has"], true);
+	assert_eq!(rows(first).len(), 1, "the first step only: {first}");
+	assert_eq!(first["rows"][0]["bar"], true);
+	assert!(num(&first["rows"][0]["h"]) <= 17.0, "17px rows: {first}");
+	assert!(is_match(text(&first["more"]), r"^then Ride the elevator down, Walk to Silithus$"), "{}", first["more"]);
+	assert_eq!(first["time"], "36:48", "the totals stay");
+	assert_eq!(rows(all).len(), 3, "every step: {all}");
+	assert_eq!(all["more"], false);
+	assert!(num(&all["height"]) > num(&first["height"]), "taller open: {} {}", all["height"], first["height"]);
+	assert_eq!(rows(again).len(), 1, "a second click folds them again");
+	assert_eq!(out[3]["open"], true, "the setting stays open");
 }

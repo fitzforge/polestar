@@ -33,6 +33,7 @@ ns.RegisterDefaults("ui", {
 	wholeStep = false, -- the card lists every goal of the step, finished ones kept, instead of one person at a time (#843)
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
+	stepList = false, -- the guide window lists every step of the guide in a scrolling list instead of the step card (the house look; the navigator's list button)
 	showNotes = true,
 	notesOpen = false, -- a step's tip starts on one line until clicked; on, it starts in full (Fitz, 2026-11-07: the full tip was a wall of text)
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
@@ -274,7 +275,7 @@ end
 -- Forever added marked after its name (paintSubject). Done goals render
 -- plain (the row colours them muted). A `complete` goal: its objectives
 -- (objectiveText).
-function UI.GoalText(goal, questHex)
+local function goalText(goal, questHex)
 	local objectives = objectiveText(goal, false)
 	if objectives then return objectives end
 	local text = goal.text
@@ -289,6 +290,25 @@ function UI.GoalText(goal, questHex)
 	local kind = goal.status ~= "done" and KIND_COLOR[goal.subjectKind]
 	if not kind then return paintSubject(goal, text, nil) end
 	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind))
+end
+
+-- The step cards (the house look) name a mob or NPC the goal is about in the
+-- NPC colour too ("Collect Bones from Beached Sea Creature"), as the subject
+-- already wears its kind's.
+function UI.CardLook() return Theme.Metric("guideCard", 1) == 1 end
+
+function UI.GoalText(goal, questHex)
+	local text = goalText(goal, questHex)
+	local mob = goal.npcName
+	if type(text) ~= "string" or type(mob) ~= "string" or mob == "" or goal.status == "done" or goal.subjectKind == "npc" or not UI.CardLook() then return text end
+	local a, b = text:find(mob, 1, true)
+	if not a then return text end
+	-- Not inside a span the subject's colour already holds.
+	local before = text:sub(1, a - 1)
+	local _, opened = before:gsub("|c%x%x%x%x%x%x%x%x", "")
+	local _, closed = before:gsub("|r", "")
+	if opened > closed then return text end
+	return before .. "|c" .. Theme.Hex("npc") .. mob .. "|r" .. text:sub(b + 1)
 end
 
 -- The goal's main line without colour codes (skipped goals).
@@ -313,8 +333,9 @@ local function farmSpot(goal)
 	if goal.t ~= "collect" or type(goal.lvl) ~= "table" or type(goal.npcName) ~= "string" then return nil end
 	local lo, hi = goal.lvl[1] or goal.lvl.min, goal.lvl[2] or goal.lvl.max
 	local lv = UI.LevelRange(lo, hi)
-	if lv then return string.format(L["from %s (lvl %s)"], goal.npcName, lv) end
-	return string.format(L["from %s"], goal.npcName)
+	local mob = UI.CardLook() and ("|c" .. Theme.Hex("npc") .. goal.npcName .. "|r") or goal.npcName
+	if lv then return string.format(L["from %s (lvl %s)"], mob, lv) end
+	return string.format(L["from %s"], mob)
 end
 
 -- Secondary line. An unavailable quest says why ("Needs level 14"); a farm
@@ -611,12 +632,12 @@ end
 -- route; one the player skipped ends in "skipped" in textMuted. questHex:
 -- the quest name's colour instead of the theme's (UI.GoalText). A `complete`
 -- goal: a line per objective, each with its own counter (objectiveText).
-function UI.GoalLine(goal, questHex)
+function UI.GoalLine(goal, questHex, noCount)
 	local plain = goal.status == "done" or goal.status == "skipped"
 	local text = objectiveText(goal, goal.status ~= "skipped")
 	if not text then
 		text = plain and UI.MarkQuestName(goal, UI.PlainGoalText(goal)) or UI.GoalText(goal, questHex)
-		local count = UI.GoalProgress(goal)
+		local count = not noCount and UI.GoalProgress(goal)
 		if count and goal.status ~= "skipped" then
 			local p = goal.progress
 			local full = goal.status == "done" or (p.cur or 0) >= p.max

@@ -1225,6 +1225,14 @@ Polestar.Fire("RIDING_DUE", { tier = 1, cost = 0, trainer = { map = 1413, x = 62
 		],
 	},
 	{
+		file: 'guide-steplist.svg',
+		title: 'The step card in its own card under its "Step N" tab, and the step list (the navigator\'s list button) in place of it: every step as a card, the live step marked',
+		panels: [
+			{ roots: GUIDE, script: `${TABS}; uistub.setStep(4)` },
+			{ roots: GUIDE, script: `${TABS}; uistub.setStep(4); Polestar.Set("ui.stepList", true)` },
+		],
+	},
+	{
 		file: 'journey.svg',
 		title: 'The journey under the focus: walking to the Great Lift (36:48, 8.0k yd, the lift untimed); on the lift, timed; collapsed to its totals',
 		panels: [

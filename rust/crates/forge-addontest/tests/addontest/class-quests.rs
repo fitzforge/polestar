@@ -281,13 +281,47 @@ local function card()
 end
 "#;
 
+fn f(v: &Value) -> f64 {
+	v.as_f64().unwrap()
+}
+
 fn run_card(script: &str) -> Vec<Value> {
 	emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", &UI_FILES)], script: format!("{CARD_PRE}{script}"), ..Default::default() })
 }
 
+/// The banner of the game's looks (Hearth); the house look has the one-row card (`dense_row`).
+fn run_card_hearth(script: &str) -> Vec<Value> {
+	run_card(&format!("Polestar.Set(\"ui.skin\", \"hearth\")\n{script}"))
+}
+
+// The house look: every class-quest card is one goal-style row (the kind glyph, the quest's name in the quest colour,
+// a faint "Druid · Lv 20" tag, a small square "NEW ABILITY" tag, the tick box), a muted second line with what is
+// learnt and where the quest is accepted; no portrait, no step count, no explainer (it is the tooltip).
+#[test]
+fn the_house_look_s_class_card_is_one_tight_row_with_the_explainer_in_its_tooltip() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		local _, tsize = f.Title:GetFont()
+		local _, asize = f.Accept.Text:GetFont()
+		emit({ card = card(), h = f:GetHeight(), tsize = tsize, asize = asize, ring = f.Ring:IsShown(), trip = f.Trip:IsShown(), only = f.Only:IsShown(),
+			kind = f.Kind:IsShown(), badge = f.Badge:IsShown(), fill = f.Badge.Fill:IsShown(), stripe = f.Stripe:IsShown(), tip = f:GetScript("OnEnter") ~= nil, learn = f.Learn:IsShown(),
+			check = f.Accept.Check:GetWidth() })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["card"]["head"], "Druid · Lv 20");
+	assert_eq!((o["ring"].clone(), o["trip"].clone(), o["only"].clone(), o["stripe"].clone()), (json!(false), json!(false), json!(false), json!(false)), "{o}");
+	assert_eq!((o["kind"].clone(), o["badge"].clone(), o["fill"].clone(), o["learn"].clone()), (json!(true), json!(true), json!(false), json!(true)), "{o}");
+	assert_eq!((f(&o["tsize"]), f(&o["asize"])), (11.5, 10.0), "{o}");
+	assert!(f(&o["h"]) <= 50.0, "a row and a line or two, not the banner: {o}");
+	assert_eq!(o["tip"], true, "the explainer is the tooltip");
+}
+
 #[test]
 fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_icon_a_warrior_does_not() {
-	let out = run_card(
+	let out = run_card_hearth(
 		r#"
 		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
 		uistub.setGuide("test/darkshore", 1)
@@ -309,9 +343,9 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	// The accept reads inside the card, with its giver and zone; no row repeats the quest's name.
 	assert_eq!(druid["accept"], "Accept from Mathrengyl Bearwalker, Darnassus");
 	assert_eq!(druid["row"], Value::Null, "{druid}");
-	// The spell in the class colour (Druid orange, lifted to read on Dusk), not the theme's quest
+	// The spell in the class colour (Druid orange, as it reads on Hearth's ground), not the theme's quest
 	// colour (ffffd673), which the Warrior's row keeps.
-	assert_eq!(druid["learn"], "Learn |cfffe8f2fCat Form|r");
+	assert_eq!(druid["learn"], "Learn |cffff7d0aCat Form|r");
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
@@ -494,7 +528,7 @@ uistub.player.class, uistub.player.race, uistub.player.level = "MAGE", "Gnome", 
 
 #[test]
 fn once_the_class_quest_is_taken_the_card_folds_to_one_line_naming_who_gets_it_and_the_person_keeps_the_focus() {
-	let out = run_card(&format!(
+	let out = run_card_hearth(&format!(
 		r#"{ANVILMAR}
 		anvilmar(false)
 		uistub.setGuide("test/dunmorogh", 1)
@@ -825,7 +859,7 @@ fn the_giver_is_the_one_for_the_characters_race_and_without_a_class_guide_show_m
 // below the badge (10 down, 20 high) with a gap, never beside or under it.
 #[test]
 fn the_class_card_title_starts_below_the_reward_badge() {
-	let out = run_card(
+	let out = run_card_hearth(
 		r#"
 		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
 		uistub.setGuide("test/darkshore", 1)
