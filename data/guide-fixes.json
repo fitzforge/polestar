@@ -1341,7 +1341,7 @@
 				"quest": 1419,
 				"goal": "turnin"
 			},
-			"tip": "Head north back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.",
+			"tip": "Head west back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.",
 			"note": "Neeka Bloodscar (npc 5394) stands on Kargath's upper level beside Warlord Goretooth (both at spawn height 278.6), 34 yards above the flight master and the inn (244.2). Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{
@@ -1351,6 +1351,10 @@
 				{
 					"kind": "client",
 					"ref": "walking grid (nav4) at the spawn: wooden levels at 265.4 (a ramp) and 272.1 under her own at 278.5, outdoors"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "Horde 30-40 audit (2026-11-09): npcs.json 2921 Lotwil (25.95,44.87) and 5394 Neeka (6.49,47.2): Kargath is west of the step before, not north"
 				}
 			],
 			"pr": 960
@@ -4736,6 +4740,64 @@
 					"ref": "players' in-game recordings: Call to Arms (677) ticks at Arathi 68-74,60-76 (3 people)"
 				}
 			]
+		},
+		{
+			"id": "horde-3040-badlands-slabs-by-agmonds-end",
+			"faction": "Horde",
+			"at": {
+				"quest": 711,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards.",
+			"note": "Horde 30-40 audit (2026-11-09): the Rock Elementals (92, level 39) that drop the Large Stone Slabs (100%) stand at 12-17,32-36 and 35-46,74-88; the route takes the group beside Agmond's End. The tip put them on the slopes north-west of the Dustbowl.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 92 spawns on map 1418; items.json 4627"
+			}
+		},
+		{
+			"id": "horde-3040-badlands-theldurin",
+			"faction": "Horde",
+			"at": {
+				"quest": 709,
+				"goal": "accept"
+			},
+			"tip": "Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals.",
+			"note": "Horde 30-40 audit (2026-11-09): Theldurin the Lost (2785) at 51.39,76.87, just east of the slabs' Rock Elementals.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2785"
+			}
+		},
+		{
+			"id": "horde-3040-badlands-troggs-north",
+			"faction": "Horde",
+			"at": {
+				"quest": 1108,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End.",
+			"note": "Horde 30-40 audit (2026-11-09): the Stonevault Bonesnappers (2893) and Shamans (2894) dig at 47-52,64-72, between Agmond's End and the Valley of Fangs, now walked north from Agmond's End.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2893, 2894 on map 1418"
+			}
+		},
+		{
+			"id": "horde-3040-badlands-lotwil-on-the-way-back",
+			"faction": "Horde",
+			"at": {
+				"quest": 711,
+				"goal": "turnin"
+			},
+			"tip": "North-west across the basin to Lotwil's camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five.",
+			"note": "Horde 30-40 audit (2026-11-09): Lotwil takes the slabs on the walk back to Kargath; the Lesser Rock Elementals (2735, 37-39) west of his camp (13-24,37-48) drop Jarkal's shards (20%).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 2735 on map 1418; items.json 7848"
+			}
 		}
 	]
 }
