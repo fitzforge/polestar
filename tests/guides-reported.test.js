@@ -8897,3 +8897,13 @@ test('Alliance Theramore crossing: Fiora Longears is in the inn, Red Jack Flint 
 	assert.match(text, /turnin 1132\s+-- Fiora Longears, inside the inn/, 'the hand-in says where she is');
 	assert.match(text, /tip Red Jack Flint stands by Menethil Keep's door/, 'Red Jack Flint by the keep door');
 });
+
+// Final route review 0.3.6, Alliance 36-38: the Quae step came from the Stone of East Binding but said "north-east past
+// Refuge Pointe" (she camps south of it, by Go'Shek Farm); the Alterac step put Baron Vardus on "the manor grounds",
+// where none of his five spawn points is (Strahnbrad's inn cellar, the tent camps north and north-west).
+test('Alliance Arathi & Alterac: Quae and Baron Vardus tips match the map', { skip }, () => {
+	const text = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/05-arathi-highlands.guide'), 'utf8');
+	assert.doesNotMatch(text, /north-east past Refuge Pointe; Quae/, 'Quae is south of the eastern circle');
+	assert.doesNotMatch(text, /Baron Vardus walks the manor grounds/, 'Vardus is not on the manor grounds');
+	assert.match(text, /Baron Vardus \(40\) turns up in one spot at a time/, 'the Alliance tip names his spots, as the Horde one does');
+});

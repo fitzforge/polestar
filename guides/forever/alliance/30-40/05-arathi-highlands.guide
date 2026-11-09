@@ -206,7 +206,7 @@ step Stones of Binding
 # ---------------------------------------------------------------- Go'Shek Farm
 
 step Quae
-  tip Head back north-east past Refuge Pointe; Quae and Kinelory camp in the hills north of Go'Shek Farm.
+  tip Head back south from the eastern circle; Quae and Kinelory camp in the hills just north of Go'Shek Farm.
   turnin 659
   accept 658
 
@@ -313,7 +313,7 @@ step Alterac Mountains
 
 step Gavin's Naze
   zone Alterac Mountains
-  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings, and Baron Vardus walks the manor grounds on the north side of town.
+  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings. Baron Vardus (40) turns up in one spot at a time: the cellar of Strahnbrad's inn, or one of the Syndicate tent camps in the uplands north and north-west of the village.
   kill 2407 quest 564.2 @44.2,76.7 map 1416 -- Hulking Mountain Lion
   kill 2406 quest 564.1 @32.1,82.8 map 1416 -- Mountain Lion
 
