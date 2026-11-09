@@ -485,9 +485,9 @@ step Fly to Tarren Mill
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
-step The road north
+step To Sorrow Hill
   zone Western Plaguelands
-  goto 43.0,83.5 "The road north to Sorrow Hill"
+  goto 49.2,78.6 "Sorrow Hill"
 
 step Sorrow Hill
   tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.

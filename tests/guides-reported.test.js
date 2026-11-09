@@ -9283,3 +9283,14 @@ test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { s
 		assert.notEqual(hit.goal.f, 'e', `${guide}: goto ${x},${y} is in the live frame`);
 	}
 });
+
+// Travel sweep (0.3.6): Horde 50-60/01's walk from Tarren Mill to Sorrow Hill pointed at WPL 43.0,83.5, Argent
+// Officer Pureheart's spot inside the Alliance's Chillwind Camp (Commander Ashlam Valorfist, Weldon Barov, Flint
+// Shadowmore within 40 yd). It now leads to Sorrow Hill itself.
+test('forever/horde/50-60/01-un-goro-crater.guide: the walk to Sorrow Hill keeps out of Chillwind Camp', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const marlene = at(list, 'turnin 5152', is('turnin', 5152));
+	const walk = list.slice(0, marlene).reverse().find(({ goal }) => goal.t === 'goto' && goal.map === 1422);
+	assert.ok(walk, 'a travel line into the Western Plaguelands');
+	assert.ok(!(Math.abs(walk.goal.x - 43) < 2 && Math.abs(walk.goal.y - 84) < 2), 'not at Chillwind Camp');
+});
