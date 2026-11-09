@@ -115,6 +115,8 @@ return {
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：对它们使用{item:15826}；它们在整个{zone:1439}游荡",
 
 	-- Step 20: Auberdine
+	-- {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
+	["{npc:3693} stands by the flight master, {npc:3694} beside him. If she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}: for {npc:3691} in {area:415}, in the next guide"] = "",
 

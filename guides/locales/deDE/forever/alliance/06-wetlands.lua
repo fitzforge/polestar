@@ -187,7 +187,7 @@ return {
 
 	-- Step 34: Auberdine
 	-- {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["{npc:3693} and {npc:3694} stand by the flight master."] = "",
+	["{npc:3693} stands by the flight master, {npc:3694} beside him. If she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
 	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "",
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar

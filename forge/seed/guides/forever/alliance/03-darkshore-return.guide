@@ -162,6 +162,7 @@ step Volcor
 
 step Auberdine
   only Druid
+  tip Terenthis stands by the flight master, Sentinel Selarin beside him. If she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 994                                  -- Terenthis
   accept 990                                  -- Sentinel Selarin: for Raene Wolfrunner in Astranaar, in the next guide
 
