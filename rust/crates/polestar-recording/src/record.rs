@@ -377,25 +377,63 @@ fn shippable(s: &str, max: usize) -> bool {
 	!s.contains('|') && s.chars().count() <= max
 }
 
+/// A name with the game's grammar escape taken out: `|4singular:plural;` removed (where the
+/// Recorder made `:` and `;` spaces, it runs to the end of the name), no-break spaces made spaces,
+/// the objective count the escape followed (`0/8`) dropped and the ends trimmed, as the Recorder
+/// itself does since 0.3.6 (`Quests.lua`). The frFR client writes kill objectives as `%1$s :
+/// %2$d/%3$d |4personnage tué:personnages tués;`, which Recorder 0.3.5 sent as
+/// `Rôdeur  0/8 |4personnage tué personnages tués ` (`Rôdeur`). None when the name has no `|4`.
+fn strip_grammar_escape(s: &str) -> Option<String> {
+	if !s.contains("|4") {
+		return None;
+	}
+	let mut out = String::with_capacity(s.len());
+	let mut rest = s;
+	while let Some(at) = rest.find("|4") {
+		out.push_str(&rest[..at]);
+		let after = &rest[at + 2..];
+		let end = after.find(['|', ';']).unwrap_or(after.len());
+		rest = after[end..].strip_prefix(';').unwrap_or(&after[end..]);
+	}
+	out.push_str(rest);
+	let out = out.replace('\u{a0}', " ");
+	let mut name = out.trim_end();
+	// The count before the escape: digits, `/`, digits, after a space or a colon.
+	if let Some((head, max)) = name.rsplit_once('/') {
+		let cur = head.trim_end().trim_end_matches(|c: char| c.is_ascii_digit());
+		if !max.trim().is_empty() && max.trim().bytes().all(|b| b.is_ascii_digit()) && cur.len() < head.trim_end().len() && (cur.is_empty() || cur.ends_with([' ', ':'])) {
+			name = cur.trim_end().trim_end_matches(':').trim_end();
+		}
+	}
+	Some(name.trim_start().to_string())
+}
+
 /// Empties the names ([`F::Name`] fields, [`Part::Name`] list parts) the data build could not ship:
-/// a game string carrying an escape sequence (the frFR client's kill objectives end in a
-/// `|4personnage tué:personnages tués;` grammar escape), or an overlong one. The record and its
-/// chunk are kept; only that name is lost. A name with a control character is left as it is, for
-/// [`check_name`] to reject.
+/// one still carrying a `|` once the grammar escape is taken out ([`strip_grammar_escape`]), or an
+/// overlong one. The record and its chunk are kept; only that name is lost. A name with a control
+/// character is left as it is, for [`check_name`] to reject.
 fn clear_unshippable_names(v: &mut String, ty: F) {
+	let fix = |n: &str, max: usize| -> Option<String> {
+		if shippable(n, max) || check_text(n).is_err() {
+			return None;
+		}
+		Some(strip_grammar_escape(n).filter(|s| shippable(s, max)).unwrap_or_default())
+	};
 	match ty {
 		F::Name(max) => {
-			if !shippable(v, max) && check_text(v).is_ok() {
-				v.clear();
+			if let Some(n) = fix(v, max) {
+				*v = n;
 			}
 		}
 		F::L(parts) => {
 			let Some((p, max)) = parts.iter().enumerate().find_map(|(i, part)| if let Part::Name(max) = part { Some((i, *max)) } else { None }) else { return };
-			let clear = |n: &str| !shippable(n, max) && check_text(n).is_ok();
-			if !v.split(';').any(|item| item.split(':').nth(p).is_some_and(clear)) {
+			if !v.split(';').any(|item| item.split(':').nth(p).is_some_and(|n| fix(n, max).is_some())) {
 				return;
 			}
-			let items: Vec<String> = v.split(';').map(|item| item.split(':').enumerate().map(|(i, part)| if i == p && clear(part) { "" } else { part }).collect::<Vec<_>>().join(":")).collect();
+			let items: Vec<String> = v
+				.split(';')
+				.map(|item| item.split(':').enumerate().map(|(i, part)| if i == p { fix(part, max).unwrap_or_else(|| part.to_string()) } else { part.to_string() }).collect::<Vec<_>>().join(":"))
+				.collect();
 			*v = items.join(";");
 		}
 		_ => {}
@@ -728,12 +766,27 @@ mod tests {
 			assert_eq!(c.records[0].get(field), "", "{line}");
 		}
 		assert_eq!(chunk("text\t0\t364\tThe |cffff0000Damned|r\tKill them.").unwrap().records[0].get("objectiveText"), "Kill them.");
-		// What Polestar Recorder 0.3.5 writes for a frFR kill objective (Protéger la frontière, 52):
-		// the client's "%1$s : %2$d/%3$d |4personnage tué:personnages tués;" with `:` and `;` made
-		// spaces. Every frFR chunk holding one was rejected whole before.
-		let fr = "objectives\t20\t52\tmonster:8:R\u{f4}deur\u{a0}  0/8 |4personnage tu\u{e9} personnages tu\u{e9}s ;item:1:Patte de r\u{f4}deur\u{a0}";
-		let c = chunk(fr).unwrap();
-		assert_eq!(c.records[0].list("list"), vec![vec!["monster", "8", ""], vec!["item", "1", "Patte de r\u{f4}deur\u{a0}"]]);
+		// What Polestar Recorder 0.3.5 writes for frFR kill objectives: the client's "%1$s :
+		// %2$d/%3$d |4personnage tué:personnages tués;" with `:` and `;` made spaces. Every frFR
+		// chunk holding one was rejected whole before #1369, and its name emptied after: the escape
+		// and the count are taken out instead, as the Recorder does since 0.3.6.
+		for (sent, name) in [
+			("R\u{f4}deur\u{a0}  0/8 |4personnage tu\u{e9} personnages tu\u{e9}s ", "R\u{f4}deur"),
+			("Jeune loup\u{a0}  3/10 |4personnage tu\u{e9} personnages tu\u{e9}s ", "Jeune loup"),
+			("Jeune Broche-tripes\u{a0}  12/12 |4personnage tu\u{e9} personnages tu\u{e9}s ", "Jeune Broche-tripes"),
+			("Fourrageur murloc\u{a0}  0/1 |4personnage tu\u{e9} personnages tu\u{e9}s", "Fourrageur murloc"),
+		] {
+			let c = chunk(&format!("objectives\t20\t52\tmonster:8:{sent};item:1:Patte de r\u{f4}deur\u{a0}")).unwrap();
+			assert_eq!(c.records[0].list("list"), vec![vec!["monster", "8", name], vec!["item", "1", "Patte de r\u{f4}deur\u{a0}"]], "{sent}");
+		}
+		// The escape as the client writes it (a title or zone field keeps `:` and `;`), with the
+		// text after it kept; a name still carrying another escape loses it whole.
+		let title = |t: &str| chunk(&format!("text\t0\t52\t{t}")).unwrap().records[0].get("title").to_string();
+		assert_eq!(title("Rôdeur\u{a0}: 0/8 |4personnage tué:personnages tués;"), "Rôdeur");
+		assert_eq!(title("Les |4loup:loups; de la frontière"), "Les  de la frontière");
+		assert_eq!(title("Rôdeur |4personnage tué:personnages tués;|r"), "");
+		// Names without the escape are kept as they are (no-break spaces too).
+		assert_eq!(title("Rats capturés\u{a0}"), "Rats capturés\u{a0}");
 		assert_eq!(chunk(&format!("objectives\t0\t364\tmonster:10:{}", "x".repeat(MAX_TITLE + 1))).unwrap().records[0].get("list"), "monster:10:");
 		// Control characters still make the record malformed, names or not.
 		for bad in ["text\t0\t364\tThe\u{1}Damned", "objectives\t0\t364\tmonster:10:Scourge\u{1}|H slain", "mark\t0\t\t\t\tnote\u{7}"] {
