@@ -169,7 +169,7 @@ return {
 	["Harvest Watchers"] = "허수아비골렘 보초",
 
 	-- Step 30: The gnoll hills
-	["The gnoll hills"] = "",
+	["The gnoll hills"] = "놀 언덕",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
 	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "",

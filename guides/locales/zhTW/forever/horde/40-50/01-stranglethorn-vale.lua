@@ -165,7 +165,7 @@ return {
 
 	-- Step 32: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
-	["Ironjaw Basilisks"] = "",
+	["Ironjaw Basilisks"] = "鐵齶蜥蜴",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 

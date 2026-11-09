@@ -44,7 +44,7 @@ return {
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
-	["Rock Elementals"] = "",
+	["Rock Elementals"] = "바위 정령",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",

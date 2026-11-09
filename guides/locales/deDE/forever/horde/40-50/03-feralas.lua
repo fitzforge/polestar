@@ -51,7 +51,7 @@ return {
 	["for the {object:2555} in {area:15}, later in this guide"] = "für {object:2555} in {area:15}, später in diesem Guide",
 
 	-- Step 9: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 

@@ -134,7 +134,7 @@ return {
 	["{area:1438} flight master"] = "{area:1438}的飞行管理员",
 
 	-- Step 35: Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}，顶楼",
 

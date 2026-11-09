@@ -37,7 +37,7 @@ return {
 	["{npc:2487}, on the balcony of the same building"] = "",
 
 	-- Step 7: The Bloodsail ships
-	["The Bloodsail ships"] = "",
+	["The Bloodsail ships"] = "붉은해적단 배",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
 

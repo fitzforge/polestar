@@ -14,7 +14,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale

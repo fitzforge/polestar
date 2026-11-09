@@ -260,12 +260,12 @@ return {
 
 	-- Step 47: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
-	["{area:20} and the Defias hills"] = "",
+	["{area:20} and the Defias hills"] = "{area:20}和迪菲亚山丘",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在{area:20}巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的{area:1581}入口是小队地下城。\n小心：山丘上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
-	["{item:254676}, from the crates around {area:20}"] = "",
+	["{item:254676}, from the crates around {area:20}"] = "{item:254676}，来自{area:20}周围的箱子",
 
 	-- Step 48: The Defias Messenger
 	-- {npc:550} Defias Messenger
@@ -327,7 +327,7 @@ return {
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
 	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
-	["{npc:1646}: Thundris' letter from {area:442}"] = "",
+	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
 	-- {npc:3649} Thundris Windweaver
 	["For {npc:3649}, where the boat lands"] = "",
 

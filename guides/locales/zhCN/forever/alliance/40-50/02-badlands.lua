@@ -38,7 +38,7 @@ return {
 
 	-- Step 9: Into Badlands
 	-- {area:3} Badlands
-	["Into {area:3}"] = "",
+	["Into {area:3}"] = "进入{area:3}",
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman
@@ -46,13 +46,13 @@ return {
 	-- {area:1517} Uldaman · {area:3} Badlands
 	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
 	-- {item:8047} Magenta Fungus Cap
-	["{item:8047}; below ground"] = "",
+	["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- {object:2743} Carved Stone Urn
-	["{object:2743}; below ground"] = "",
+	["{object:2743}; below ground"] = "{object:2743}：在地下",
 
 	-- Step 12: Back to Loch Modan
 	-- {area:38} Loch Modan
-	["Back to {area:38}"] = "",
+	["Back to {area:38}"] = "返回{area:38}",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "向北骑回铁环挖掘场的营地。",
@@ -61,7 +61,7 @@ return {
 	-- {area:144} Thelsamar
 	["Ride west along the loch to {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
 	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore

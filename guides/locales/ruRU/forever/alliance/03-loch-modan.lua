@@ -260,12 +260,12 @@ return {
 
 	-- Step 47: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
-	["{area:20} and the Defias hills"] = "",
+	["{area:20} and the Defias hills"] = "{area:20} и холмы Братства Справедливости",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "По поселению {area:20} ходят налетчики и кастетники из Братства Справедливости; проходимцы (17-й уровень) патрулируют парами холмы к югу и востоку от него: выманивайте их поодиночке. Вход в {area:1581} в кузнице ведет в групповое подземелье.\nОсторожно: в лагерях на холмах стоят смешанные группы Братства, при низком уровне легко выманить нескольких сразу.",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
-	["{item:254676}, from the crates around {area:20}"] = "",
+	["{item:254676}, from the crates around {area:20}"] = "{item:254676}: из ящиков вокруг поселения {area:20}",
 
 	-- Step 48: The Defias Messenger
 	-- {npc:550} Defias Messenger
@@ -327,7 +327,7 @@ return {
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
 	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
-	["{npc:1646}: Thundris' letter from {area:442}"] = "",
+	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: письмо Тандриса из места {area:442}",
 	-- {npc:3649} Thundris Windweaver
 	["For {npc:3649}, where the boat lands"] = "",
 }

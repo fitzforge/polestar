@@ -87,7 +87,7 @@ return {
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
 	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}, on the west side of the Hold"] = "",
+	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}, en el lado oeste del Fuerte",
 
 	-- Step 18: Hermit Ortell
 	-- {area:3447} Ortell's Hideout

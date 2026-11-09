@@ -51,7 +51,7 @@ return {
 	["for the {object:2555} in {area:15}, later in this guide"] = "이 가이드 후반에 {area:15}의 {object:2555}을(를) 위해",
 
 	-- Step 9: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "톱니악어",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
