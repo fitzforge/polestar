@@ -271,8 +271,10 @@ return {
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "{zone:1453}으로 가세요. 샤먼 훈련사가 없습니다: {object:28027}에서 {area:2257}을 타고 {zone:1455}로 가서 {npc:258098}에게 훈련받고, 배를 위해 트램을 타고 돌아오세요.",
 
 	-- Step 52: Stormwind
-	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
-	["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
+	["Stormwind"] = "",
+	-- {area:1519} Stormwind City · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
+	["In through the main gate (already done if you are in the city)"] = "",
 	["Level 12, 14 and 16 spells"] = "12, 14, 16레벨 주문",
 
 	-- Step 53: Back to Stormwind City

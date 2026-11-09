@@ -271,8 +271,10 @@ return {
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "Ve a {zone:1453}. No tiene instructor de chamán: toma el {area:2257} desde el {object:28027} hasta {zone:1455}, entrena con {npc:258098}, luego toma el tren de vuelta para el barco.",
 
 	-- Step 52: Stormwind
-	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
-	["Walk to {zone:1453}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
+	["Stormwind"] = "",
+	-- {area:1519} Stormwind City · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
+	["In through the main gate (already done if you are in the city)"] = "",
 	["Level 12, 14 and 16 spells"] = "Hechizos de nivel 12, 14 y 16",
 
 	-- Step 53: Back to Stormwind City
