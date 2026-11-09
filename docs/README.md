@@ -32,6 +32,7 @@ and maintainers who release. Paths are from the repository root.
 | [docs/DESIGN.md](DESIGN.md) | contributors | The design system: who the windows are for and what they must do, then colour, type, layout and component tokens |
 | [docs/NAV_QA.md](NAV_QA.md) | contributors, maintainers | The pathing checks: every problem reported against Shortest Path Forever that touches what Polestar uses from it, the check Polestar holds itself to and the test or in-game step that enforces it |
 | [docs/RELEASING.md](RELEASING.md) | maintainers | What ships, setting the version, the release steps from `next`, release candidates, and the patch (fast-forward + tag) |
+| [docs/CI.md](CI.md) | contributors, maintainers | The on-demand GitHub runs for a batch of work (suites, guide compile and playtests, gates): starting one, the public reference data they build, what stays local |
 | [docs/curseforge/README.md](curseforge/README.md) | maintainers | The CurseForge listing: the summary, the project settings, what to upload where, and the description to paste ([description.md](curseforge/description.md)) |
 | [THIRD_PARTY.md](../THIRD_PARTY.md) | guide authors, maintainers | Where every input comes from, its licence, and what may enter the repository or a release |
 

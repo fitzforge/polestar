@@ -1,0 +1,76 @@
+name: On-demand batch
+
+# One run for a batch of work: the full suites (ondemand-suites.yml), guide compile and playtests
+# (ondemand-guides.yml) and the gates (ondemand-gates.yml) on one branch or commit, each compared
+# with `base` where it reads public data. Start it once per batch, not per item; each part can also
+# be started alone. docs/CI.md lists what runs here and what stays local.
+#
+# Dispatchable once this file is on the default branch (next); `ref` picks the code:
+#   gh workflow run ondemand-batch.yml --ref next -f ref=<branch> -f base=next
+#   gh run watch "$(gh run list --workflow ondemand-batch.yml -L 1 --json databaseId -q '.[0].databaseId')"
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      base:
+        description: Base the public-data checks compare with (e.g. next); empty = every finding counts
+        type: string
+        default: ""
+      suites:
+        description: Full suites
+        type: boolean
+        default: true
+      suites_data:
+        description: "The suites' data: none (data tests skip, as in CI) or public"
+        type: choice
+        options: [none, public]
+        default: none
+      guides:
+        description: Guide compile and playtests
+        type: boolean
+        default: true
+      groups:
+        description: "Playtest groups (comma list of filters); empty = every group"
+        type: string
+        default: ""
+      classes:
+        description: "Playtest classes (comma list); empty = each guide's own"
+        type: string
+        default: ""
+      gates:
+        description: Committed-data and public-data gates
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  suites:
+    name: Suites
+    if: inputs.suites
+    uses: ./.github/workflows/ondemand-suites.yml
+    with:
+      ref: ${{ inputs.ref }}
+      data: ${{ inputs.suites_data }}
+
+  guides:
+    name: Guides
+    if: inputs.guides
+    uses: ./.github/workflows/ondemand-guides.yml
+    with:
+      ref: ${{ inputs.ref }}
+      base: ${{ inputs.base }}
+      groups: ${{ inputs.groups }}
+      classes: ${{ inputs.classes }}
+
+  gates:
+    name: Gates
+    if: inputs.gates
+    uses: ./.github/workflows/ondemand-gates.yml
+    with:
+      ref: ${{ inputs.ref }}
+      base: ${{ inputs.base }}

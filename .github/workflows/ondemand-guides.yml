@@ -1,0 +1,299 @@
+name: On-demand guides
+
+# Guide compile and playtests on any branch or commit, started by hand (one run per batch of work)
+# or from ondemand-batch.yml. The prep job builds forge and data/forever from public sources
+# (.github/actions/public-data), compiles our pack with every compile check (annotations on the
+# guide lines) and plays it from its lines with `playtest --honest` (R1-R4; R5 needs the local
+# knowledge base). Then one job per guide group, and per class when `classes` names some, plays the
+# group's guides to the end in the real addon under Lua 5.1 (`node tools/polestar.js playtest`).
+#
+# The data is reduced: no QuestieDB (about a sixth of Forever's quests and their NPCs are missing),
+# no recordings, no private corrections. A finding about a quest the public data lacks is the data's,
+# not the guide's; give `base` (the branch the batch started from) and each job runs the base too
+# and fails only on findings the base does not have. The release data stays local, and so does
+# anything that needs it to be exact (the release gates, docs/CI.md).
+#
+# Dispatchable once this file is on the default branch (next); `ref` picks the code:
+#   gh workflow run ondemand-guides.yml --ref next -f ref=<branch> -f base=next
+#   gh workflow run ondemand-guides.yml --ref next -f ref=<branch> -f groups=horde/30-40,class/ -f classes=Warrior,Mage
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      base:
+        description: Base to compare with (e.g. next); empty = every finding counts
+        type: string
+        default: ""
+      groups:
+        description: "Comma list of playtest filters (path or id text, e.g. horde/30-40,class/); empty = every group"
+        type: string
+        default: ""
+      classes:
+        description: "Comma list of classes (e.g. Warrior,Mage); empty = each guide's own classes"
+        type: string
+        default: ""
+      group_quests:
+        description: "The answer at every group quest: skip (solo route) or do"
+        type: choice
+        options: [skip, do]
+        default: skip
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        default: ""
+      base:
+        type: string
+        default: ""
+      groups:
+        type: string
+        default: ""
+      classes:
+        type: string
+        default: ""
+      group_quests:
+        type: string
+        default: skip
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  prep:
+    name: Compile and honest playtest
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      data: ${{ steps.saved.outputs.ok }}
+    steps:
+      # Every guide folder as its own group: the start zones, each faction's shared route in its level
+      # bands (alliance/0 and horde/0 are the 12-30 guides at the faction folder's top), the class
+      # quests and the side guides. A filter is text in the guide's path or id (playtest --filter).
+      - name: Matrix
+        id: matrix
+        env:
+          REF: ${{ inputs.ref || github.ref }}
+          BASE: ${{ inputs.base || 'none' }}
+          GROUPS: ${{ inputs.groups }}
+          CLASSES: ${{ inputs.classes }}
+          ANSWER: ${{ inputs.group_quests }}
+        run: |
+          all="alliance/human,alliance/dwarf,alliance/gnome,alliance/nightelf,alliance/skyborne,alliance/0,alliance/30-40,alliance/40-50,alliance/50-60"
+          all="$all,horde/orc,horde/troll,horde/tauren,horde/undead,horde/skyborne,horde/0,horde/30-40,horde/40-50,horde/50-60"
+          all="$all,forever/class/,forever/professions/,forever/reputation/,forever/collectibles/,forever/exploration/,forever/miscellaneous/,forever/legacy/"
+          case "$ANSWER" in skip|do) ;; *) echo "::error::group_quests must be skip or do"; exit 1 ;; esac
+          jq -cn --arg g "${GROUPS:-$all}" --arg c "$CLASSES" '
+            def list: split(",") | map(gsub("^\\s+|\\s+$"; "")) | map(select(length > 0));
+            { group: ($g | list), class: (($c | list) as $l | if ($l | length) == 0 then [""] else $l end) }
+          ' > matrix.json
+          echo "matrix=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+          {
+            echo "ref: $REF, base: $BASE"
+            echo "groups: $(jq -r '.group | join(" ")' matrix.json)"
+            echo "classes: $(jq -r '.class | map(if . == "" then "each guide'"'"'s own" else . end) | join(" ")' matrix.json)"
+          } >> "$GITHUB_STEP_SUMMARY"
+        shell: bash
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ inputs.ref }}
+          path: head
+          persist-credentials: false
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        if: inputs.base != ''
+        with:
+          ref: ${{ inputs.base }}
+          path: base
+          persist-credentials: false
+
+      # The public-data action from this workflow's own commit: the code under test may predate it.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: head/rust
+          key: ci
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Build forge
+        working-directory: head/rust
+        run: cargo build --profile quick --locked -p forge
+
+      # Each side's data is built by the head's forge from that side's corrections, so a correction
+      # the batch adds is in the head's data and not in the base's.
+      - name: Public data (head)
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ github.workspace }}/head/rust/target/quick/forge
+          root: head
+
+      - name: Public data (base)
+        if: inputs.base != ''
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ github.workspace }}/head/rust/target/quick/forge
+          root: base
+
+      # Every compile check into a scratch folder (the committed Guides.lua is compiled from the
+      # release data; this one is not, so it is not compared), then the honest playthrough: each
+      # `next` chain whole from its first guide, from the lines and the data only (no Lua). Both
+      # sides use the head's forge. Per side the findings go, sorted, to $RUNNER_TEMP/<check>-<side>.txt;
+      # paths are cut to guides/..., and line and step numbers dropped, so an inserted step does not
+      # make every later finding new.
+      - name: Compile and honest playtest
+        env:
+          FORGE: ${{ github.workspace }}/head/rust/target/quick/forge
+        run: |
+          norm() {
+            sed -E 's#^::error file=[^,]*/(guides/[^,]*)(,line=[0-9]+)?::#\1: #; s/(\.guide):[0-9]+/\1/g; s/\b(step|line) [0-9]+/\1 N/g' | sort -u
+          }
+          for side in head base; do
+            [ -d "$side" ] || continue
+            (cd "$side" && "$FORGE" guide compile --root . --out "$RUNNER_TEMP/compiled-$side" --format github) > "$RUNNER_TEMP/compile-$side.log" 2>&1 || true
+            grep '^::error' "$RUNNER_TEMP/compile-$side.log" | norm > "$RUNNER_TEMP/compile-$side.txt" || true
+            (cd "$side" && node tools/polestar.js playtest --honest) > "$RUNNER_TEMP/honest-$side.log" 2>&1 || true
+            grep -E '^R[0-9]+ +fail ' "$RUNNER_TEMP/honest-$side.log" | norm > "$RUNNER_TEMP/honest-$side.txt" || true
+          done
+          grep -v '^::' "$RUNNER_TEMP/compile-head.log" || true
+          tail -n 5 "$RUNNER_TEMP/honest-head.log"
+
+      - uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            head/data/forever
+            base/data/forever
+          key: ondemand-guides-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # The playtests run when the data is saved, also when the verdict below fails.
+      - name: Data saved
+        id: saved
+        run: echo "ok=true" >> "$GITHUB_OUTPUT"
+
+      - name: Verdict
+        env:
+          BASE: ${{ inputs.base }}
+        run: |
+          rc=0
+          report() { # <title> <file stem>
+            local head="$RUNNER_TEMP/$2-head.txt" base="$RUNNER_TEMP/$2-base.txt"
+            echo "### $1"
+            if [ -n "$BASE" ]; then
+              comm -23 "$head" "$base" > new.txt
+              echo "$(wc -l < "$head") on the head, $(wc -l < "$base") on $BASE, $(wc -l < new.txt) new:"
+            else
+              cp "$head" new.txt
+              echo "$(wc -l < new.txt):"
+            fi
+            echo '```'; head -n 200 new.txt; echo '```'
+            if [ -s new.txt ]; then rc=1; fi
+          }
+          {
+            report "Compile errors" compile
+            report "Honest playtest fails (R1-R4)" honest
+            # A pack that does not compile is not played at all: never a pass, whatever the base does.
+            if ! grep -qE '^playtest --honest (ok|failed):' "$RUNNER_TEMP/honest-head.log"; then
+              echo "**Honest playtest not played:** $(grep -m1 '^playtest failed' "$RUNNER_TEMP/honest-head.log" || tail -n 1 "$RUNNER_TEMP/honest-head.log")"
+              rc=1
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+
+  playtest:
+    name: Playtest ${{ matrix.group }}${{ matrix.class && format(' ({0})', matrix.class) || '' }}
+    needs: prep
+    if: ${{ !cancelled() && needs.prep.outputs.data == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prep.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ inputs.ref }}
+          path: head
+          persist-credentials: false
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        if: inputs.base != ''
+        with:
+          ref: ${{ inputs.base }}
+          path: base
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            head/data/forever
+            base/data/forever
+          key: ondemand-guides-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+
+      # One line per guide, race and class: ok, stuck (where and why) or fail. Findings as in prep.
+      - name: Playtest
+        env:
+          FILTER: ${{ matrix.group }}
+          CLASS: ${{ matrix.class }}
+          ANSWER: ${{ inputs.group_quests }}
+        run: |
+          norm() { sed -E 's/(\.guide):[0-9]+/\1/g; s/\b(step|line) [0-9]+/\1 N/g' | sort -u; }
+          for side in head base; do
+            [ -d "$side" ] || continue
+            (cd "$side" && node tools/polestar.js playtest --filter "$FILTER" ${CLASS:+--class "$CLASS"} --group "$ANSWER") > "$RUNNER_TEMP/$side.log" 2>&1 || true
+            grep -E '^(stuck|fail) ' "$RUNNER_TEMP/$side.log" | norm > "$RUNNER_TEMP/$side.txt" || true
+          done
+          cat "$RUNNER_TEMP/head.log"
+
+      - name: Verdict
+        env:
+          BASE: ${{ inputs.base }}
+          FILTER: ${{ matrix.group }}
+          CLASS: ${{ matrix.class }}
+        run: |
+          rc=0
+          ok=$(grep -c '^ok ' "$RUNNER_TEMP/head.log" || true)
+          if ! grep -qE '^(ok|stuck|fail) ' "$RUNNER_TEMP/head.log"; then
+            echo "::error::nothing played: $(tail -n 3 "$RUNNER_TEMP/head.log" | tr '\n' ' ')"
+            rc=1
+          fi
+          {
+            echo "### Playtest $FILTER${CLASS:+ ($CLASS)}"
+            if [ -n "$BASE" ]; then
+              comm -23 "$RUNNER_TEMP/head.txt" "$RUNNER_TEMP/base.txt" > new.txt
+              echo "$ok ok; $(wc -l < "$RUNNER_TEMP/head.txt") stuck or failed on the head, $(wc -l < "$RUNNER_TEMP/base.txt") on $BASE, $(wc -l < new.txt) new:"
+            else
+              cp "$RUNNER_TEMP/head.txt" new.txt
+              echo "$ok ok; $(wc -l < new.txt) stuck or failed:"
+            fi
+            echo '```'; head -n 200 new.txt; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -s new.txt ]; then rc=1; fi
+          exit $rc

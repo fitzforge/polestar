@@ -1,0 +1,75 @@
+name: Public reference data
+description: >-
+  Builds <root>/data/forever from public sources only, as data-corrections.yml does: pfQuest, the
+  CMaNGOS dump, the client tables wago.tools serves (from the Actions cache wago-cache.yml fills) and
+  the checkout's committed corrections. No QuestieDB, no web sources, no recordings, no private
+  corrections: about a sixth of Forever's quests are missing from it, so a check against it is a
+  check against reduced data. The sources are cached in the workspace's data/sources, shared by
+  every checkout the job builds data for.
+
+inputs:
+  forge:
+    description: The forge binary to build with (an absolute path)
+    required: true
+  root:
+    description: The Polestar checkout's folder in the workspace (empty = the workspace itself)
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    # The cache key's prefix for this code, as wago-cache.yml makes it (the same files, in the checkout).
+    - name: Client tables key
+      id: key
+      shell: bash
+      run: >-
+        echo "prefix=wago-${{ hashFiles(
+        format('{0}tools/lib/data/wago.js', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}tools/media/game-art.js', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}rust/crates/forge-data/src/sources.rs', inputs.root && format('{0}/', inputs.root) || ''),
+        format('{0}rust/crates/forge-data/src/tables.rs', inputs.root && format('{0}/', inputs.root) || '')
+        ) }}-" >> "$GITHUB_OUTPUT"
+
+    # The newest copy made by this code; else the newest of any, which `forge data sources` starts
+    # from. The path is the one wago-cache.yml saves (a cache restores only to the path it was saved
+    # from).
+    - name: Client tables (cache)
+      id: wago
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: data/sources/wago
+        key: ${{ steps.key.outputs.prefix }}
+        restore-keys: |
+          ${{ steps.key.outputs.prefix }}
+          wago-
+
+    # pfQuest and the CMaNGOS dump, and the client tables only when the cache has none from this code
+    # (no request to wago.tools otherwise). A cached file is never fetched again.
+    - name: Source cache
+      shell: bash
+      working-directory: ${{ inputs.root || '.' }}
+      env:
+        FORGE: ${{ inputs.forge }}
+        PREFIX: ${{ steps.key.outputs.prefix }}
+        MATCHED: ${{ steps.wago.outputs.cache-matched-key }}
+      run: |
+        parts=pfquest,cmangos
+        case "$MATCHED" in
+          "$PREFIX"*) ;;
+          *) parts="$parts,wago" ;;
+        esac
+        "$FORGE" data sources --root . --sources "$GITHUB_WORKSPACE/data/sources" --only "$parts"
+
+    - name: Public data build
+      shell: bash
+      working-directory: ${{ inputs.root || '.' }}
+      env:
+        FORGE: ${{ inputs.forge }}
+      # professions.json from the same data and client tables: the guides' craft, learn and
+      # profession train goals resolve through it (about 260 compile errors without it).
+      run: |
+        "$FORGE" data build --root . --sources "$GITHUB_WORKSPACE/data/sources" --out data/forever --offline \
+          --no-questie --no-web-zones --no-web-xp --forever-tables wago
+        "$FORGE" data professions --root . --data data/forever --sources "$GITHUB_WORKSPACE/data/sources" \
+          --out data/forever/professions.json
+        ls data/forever

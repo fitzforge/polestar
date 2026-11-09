@@ -1,0 +1,266 @@
+name: On-demand gates
+
+# The sweep and release gates that can run on GitHub, on any branch or commit, started by hand (one
+# run per batch of work) or from ondemand-batch.yml.
+#
+# committed: gates that read only committed files, exact here: the generated guides and the seed are
+# not hand-edited, the corrections' shapes and sources, the public database's guard, one version in
+# every TOC, the walking maps against their PACK.json, changelog fragments, translations, and the
+# static tests (no other guide product named, every guide parses into Polestar_Guides).
+#
+# public: gates that need data/forever, run against data built from public sources
+# (.github/actions/public-data: no QuestieDB, no recordings, no private corrections): lint errors,
+# prerequisite order (tests/prereq-order.test.js), the reported cases and their todos
+# (tests/guides-reported.test.js; a release ships with none), the route patterns
+# (tests/guides-patterns.test.js) and the guide-end sweep's fresh-character run (forge-addontest
+# guides_end::every, guides_end_early). On reduced data a finding can be the data's: give `base`
+# and only findings the base does not have fail. The release run of these gates (on the --kb data),
+# the guide-end history run and the maintainer's sweeps that read recordings, the game client or
+# other files not in the repository stay local (docs/CI.md).
+#
+# Dispatchable once this file is on the default branch (next); `ref` picks the code:
+#   gh workflow run ondemand-gates.yml --ref next -f ref=<branch> -f base=next
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      base:
+        description: Base to compare the public-data gates with (e.g. next); empty = every finding counts
+        type: string
+        default: ""
+      public:
+        description: Also the gates that need data/forever (public data)
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        default: ""
+      base:
+        type: string
+        default: ""
+      public:
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  committed:
+    name: Committed-data gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      FORGE: ${{ github.workspace }}/rust/target/quick/forge
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: rust
+          key: ci
+
+      - name: Build forge
+        working-directory: rust
+        run: cargo build --profile quick --locked -p forge
+
+      # guides/GENERATED.json and forge/seed/SEED.json: a hand edit to a generated guide is undone by
+      # the next build (the fix goes to its record instead).
+      - name: Generated guides not hand-edited
+        run: $FORGE guide check-generated --checkout .
+
+      # Shapes and source kinds; the ids are checked against the full data, locally.
+      - name: Corrections
+        if: ${{ !cancelled() }}
+        run: $FORGE data check-corrections --root . --data "$RUNNER_TEMP/no-data"
+
+      - name: Public database guard (forever-db)
+        if: ${{ !cancelled() }}
+        run: $FORGE data publish --root . --check forever-db
+
+      - name: One version everywhere
+        if: ${{ !cancelled() }}
+        run: $FORGE release version
+
+      - name: Walking maps match PACK.json
+        if: ${{ !cancelled() }}
+        run: $FORGE nav check --root .
+
+      - name: Changelog fragments
+        if: ${{ !cancelled() }}
+        run: $FORGE changelog check --root .
+
+      - name: Translations
+        if: ${{ !cancelled() }}
+        run: $FORGE i18n check --root .
+
+      - name: Static tests
+        if: ${{ !cancelled() }}
+        run: node --test tests/wording.test.js tests/guides-parse.test.js tests/generated-guides.test.js
+
+  public:
+    name: Public-data gates
+    if: inputs.public
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      FORGE: ${{ github.workspace }}/head/rust/target/quick/forge
+      BASE: ${{ inputs.base }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ inputs.ref }}
+          path: head
+          persist-credentials: false
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        if: inputs.base != ''
+        with:
+          ref: ${{ inputs.base }}
+          path: base
+          persist-credentials: false
+
+      # The public-data action from this workflow's own commit: the code under test may predate it.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: head/rust
+          key: addontest
+
+      - name: Build forge
+        working-directory: head/rust
+        run: cargo build --profile quick --locked -p forge
+
+      - name: Public data (head)
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ env.FORGE }}
+          root: head
+
+      - name: Public data (base)
+        if: inputs.base != ''
+        uses: ./.ondemand/.github/actions/public-data
+        with:
+          forge: ${{ env.FORGE }}
+          root: base
+
+      # Each gate writes, per side, a sorted list of its findings to $RUNNER_TEMP/<gate>-<side>.txt; the
+      # verdict compares them. Line numbers and step numbers are dropped so an inserted step does not
+      # make every later finding new.
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: |
+          for side in head base; do
+            [ -d "$side" ] || continue
+            (cd "$side" && "$FORGE" guide lint --root . --format github) > "$RUNNER_TEMP/lint-$side.log" 2>&1 || true
+            grep '^::error' "$RUNNER_TEMP/lint-$side.log" \
+              | sed -E 's#^::error file=[^,]*/(guides/[^,]*)(,line=[0-9]+)?::#\1: #; s/(\.guide):[0-9]+/\1/g; s/\b(step|line) [0-9]+/\1 N/g' \
+              | sort -u > "$RUNNER_TEMP/lint-$side.txt" || true
+          done
+          grep '^::' "$RUNNER_TEMP/lint-head.log" | head -n 50 || true
+
+      # The node gates, in TAP: a failing test is a finding; guides-reported's todo cases are counted.
+      - name: Prerequisite order, reported cases, route patterns
+        if: ${{ !cancelled() }}
+        run: |
+          for side in head base; do
+            [ -d "$side" ] || continue
+            for t in prereq-order guides-reported guides-patterns; do
+              (cd "$side" && FORGE="$FORGE" node --test --test-reporter=tap "tests/$t.test.js") > "$RUNNER_TEMP/$t-$side.tap" 2>&1 || true
+              grep -E '^\s*not ok [0-9]+ - ' "$RUNNER_TEMP/$t-$side.tap" | grep -v '# TODO' \
+                | sed -E 's/^\s*not ok [0-9]+ - //' | sort -u > "$RUNNER_TEMP/$t-$side.txt" || true
+              grep -E '^\s*(not )?ok [0-9]+ - .*# TODO' "$RUNNER_TEMP/$t-$side.tap" \
+                | sed -E 's/^\s*(not )?ok [0-9]+ - //' | sort -u > "$RUNNER_TEMP/$t-todo-$side.txt" || true
+            done
+          done
+
+      # The guide-end sweep, fresh characters: every leveling guide played in order ends only at its
+      # end, and ends when its last step is done ahead. (The history run needs histories made from the
+      # release level model: local.)
+      - name: Guide end (fresh characters)
+        if: ${{ !cancelled() }}
+        run: |
+          for side in head base; do
+            [ -d "$side" ] || continue
+            mkdir -p "$RUNNER_TEMP/ge-$side"
+            (cd "$side/rust" && TMPDIR="$RUNNER_TEMP/ge-$side" cargo test --profile quick --locked -p forge-addontest --test addontest -- guides_end::every guides_end_early) \
+              > "$RUNNER_TEMP/guide-end-$side.log" 2>&1 || true
+            cat "$RUNNER_TEMP/ge-$side"/polestar-guides-end*.txt 2>/dev/null | grep '^FAIL' \
+              | sed -E 's/\b(step|line) [0-9]+/\1 N/g' | sort -u > "$RUNNER_TEMP/guide-end-$side.txt" || true
+            if ! ls "$RUNNER_TEMP/ge-$side"/polestar-guides-end*.txt > /dev/null 2>&1; then
+              echo "FAIL no guide-end report written (see the log)" > "$RUNNER_TEMP/guide-end-$side.txt"
+              tail -n 40 "$RUNNER_TEMP/guide-end-$side.log"
+            fi
+          done
+
+      - name: Verdict
+        if: ${{ !cancelled() }}
+        run: |
+          rc=0
+          report() { # <title> <file stem>
+            local head="$RUNNER_TEMP/$2-head.txt" base="$RUNNER_TEMP/$2-base.txt"
+            touch "$head"
+            echo "### $1"
+            if [ -n "$BASE" ]; then
+              touch "$base"
+              comm -23 "$head" "$base" > new.txt
+              echo "$(wc -l < "$head") on the head, $(wc -l < "$base") on $BASE, $(wc -l < new.txt) new:"
+            else
+              cp "$head" new.txt
+              echo "$(wc -l < new.txt):"
+            fi
+            echo '```'; head -n 100 new.txt; echo '```'
+            [ -s new.txt ] && rc=1
+            return 0
+          }
+          {
+            report "Lint errors" lint
+            report "Prerequisite order (failing tests)" prereq-order
+            report "Reported cases (failing tests)" guides-reported
+            report "Route patterns (failing tests)" guides-patterns
+            report "Guide end, fresh characters (FAIL lines)" guide-end
+            echo "### Reported cases left as todo (a release ships with none)"
+            echo "$(wc -l < "$RUNNER_TEMP/guides-reported-todo-head.txt") on the head:"
+            echo '```'; cat "$RUNNER_TEMP/guides-reported-todo-head.txt"; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
