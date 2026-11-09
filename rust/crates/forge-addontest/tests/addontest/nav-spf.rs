@@ -2342,6 +2342,35 @@ fn detours_a_walk_that_goes_round_a_hostile_town_carries_it_as_leg_hubs_avoided_
 }
 
 #[test]
+fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_every_piece_still_carries_the_towns_it_enters() {
+	let out = run(&format!(
+		"{}{}{}",
+		r#"
+		fake.hubs = { { id = 13, name = "Tarren Mill" } }
+		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300 } }
+		"#,
+		split(),
+		r#"
+		fake.hubs, fake.avoided = nil, nil
+		local T = N.travel
+		local legs, ci = N.GetRoute()
+		local walks, shown, entered = 0, {}, 0
+		for i = 1, #legs do
+			if legs[i].kind == "walk" then
+				walks = walks + 1
+				if T.AvoidText(legs[i]) then shown[#shown + 1] = i end
+				if T.HubText(legs[i]) then entered = entered + 1 end
+			end
+		end
+		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false })"#
+	));
+	assert_eq!(out["walks"], 4, "the bridge, the cave, the lift's foot and the target");
+	assert_eq!(out["shown"], json!([2]), "once, on the piece from the bridge to the cave mouth, which passes (0, -300)");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["entered"], 4, "the town the path enters stays on every piece");
+}
+
+#[test]
 fn hostile_towns_every_piece_of_a_split_walk_carries_them_so_the_step_after_a_chokepoint_still_says_so() {
 	let out = run(&format!(
 		"{}{}{}",

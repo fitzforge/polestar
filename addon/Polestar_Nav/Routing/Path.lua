@@ -861,7 +861,8 @@ end
 -- The hostile hubs the walk goes round (display only; nothing here prices or changes the path): the ones the straight
 -- line between its ends would enter and the drawn line does not (it is not in entered, hubsOn's list), and that the
 -- drawn line passes within AVOID_NEAR yards of, so a bend the ground forced elsewhere is not called a detour.
--- -> { { id, name, areaId }, ... } in the order the straight line meets them; {} without hubs, a profile or a line.
+-- -> { { id, name, areaId, x, y }, ... } in the order the straight line meets them (x, y: the town's place); {} without
+-- hubs, a profile or a line.
 local AVOID_NEAR = 100
 
 local function distanceToSegment(a, b, cx, cy)
@@ -908,7 +909,12 @@ local function hubsAvoided(hubs, points, profile, entered)
 		return p.t < q.t or (p.t == q.t and p.order < q.order)
 	end)
 	for _, hit in ipairs(hits) do
-		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId }
+		local sx, sy, n = 0, 0, 0
+		for _, d in ipairs(hit.hub.disks or {}) do
+			sx, sy, n = sx + d[1], sy + d[2], n + 1
+		end
+		-- x, y: the town's place (the mean of its disks' centres), for the walk piece that passes it
+		out[#out + 1] = { id = hit.hub.id, name = hit.hub.name, areaId = hit.hub.areaId, x = n > 0 and sx / n or nil, y = n > 0 and sy / n or nil }
 	end
 	return out
 end

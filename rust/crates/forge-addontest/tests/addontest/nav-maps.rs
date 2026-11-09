@@ -762,7 +762,10 @@ emit(got)"#,
 	);
 	assert_eq!(got["horde"]["found"], true);
 	assert_eq!(got["horde"]["hubs"], json!({}), "the path keeps out of the town");
-	assert_eq!(got["horde"]["avoided"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
+	let avoided = got["horde"]["avoided"].as_array().unwrap();
+	assert_eq!(avoided.len(), 1);
+	assert_eq!((&avoided[0]["id"], &avoided[0]["name"], &avoided[0]["areaId"]), (&json!("alliance-southshore"), &json!("Southshore"), &json!(271)));
+	assert!(avoided[0]["x"].is_number() && avoided[0]["y"].is_number(), "the town has a place, for the walk piece that passes it");
 	assert_eq!(got["alliance"]["avoided"], json!({}), "the Alliance's own town is no detour");
 	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
 	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");
