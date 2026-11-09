@@ -16,7 +16,7 @@
 -- a fixed demo step, never the live window or the Engine, is built the first
 -- time a tab shows, and repaints only while shown.
 
-local ADDON, ns = ...
+local ns = Polestar
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
 local L = ns.L
 local floor, max, min, ipairs = math.floor, math.max, math.min, ipairs

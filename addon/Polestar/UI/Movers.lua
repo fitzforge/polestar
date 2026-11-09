@@ -54,7 +54,6 @@ local unlocked = false
 local root, bar, gridFrame, guides
 local boxes = {} -- key -> box
 local selected, dragging
-local hidOptions
 
 local function round(v) return floor(v + 0.5) end
 local function combat() return InCombatLockdown and InCombatLockdown() and true or false end
@@ -753,11 +752,6 @@ function M.Unlock(key)
 		ns.RegisterEvent("PLAYER_REGEN_DISABLED", onCombat)
 		ns.RegisterEvent("DISPLAY_SIZE_CHANGED", onResize)
 		ns.RegisterEvent("UI_SCALE_CHANGED", onResize)
-		-- The settings window steps aside while frames move; it is back on Lock.
-		local O = ns.UI and ns.UI.Options
-		local win = O and O.frame
-		hidOptions = win and win:IsShown() and win or nil
-		if hidOptions then hidOptions:Hide() end
 		root:Show()
 		refresh(true)
 	end
@@ -776,9 +770,6 @@ function M.Lock()
 	ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onCombat)
 	ns.UnregisterEvent("DISPLAY_SIZE_CHANGED", onResize)
 	ns.UnregisterEvent("UI_SCALE_CHANGED", onResize)
-	local win = hidOptions
-	hidOptions = nil
-	if win then win:Show() end
 end
 
 function M.Toggle()

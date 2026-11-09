@@ -19,10 +19,12 @@ local function size(fs) local _, s = fs:GetFont() return s end
 local function flags(fs) local _, _, f = fs:GetFont() return f end
 "#;
 
+// The arrow page is the settings window's (Polestar_Options): its file, after the arrow's own.
 fn run(script: &str) -> Value {
+	let page = forge_addontest::run::addons_dir().join("Polestar_Options/Nav/ArrowOptions.lua").to_string_lossy().into_owned();
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", &page])],
 		login: true,
 		script: format!("{PRELUDE}{script}"),
 		..Default::default()

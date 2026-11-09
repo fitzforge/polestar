@@ -5,6 +5,7 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>
@@ -32,13 +33,10 @@
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>
-	<Script file="Profiles.lua"/>
 	<Script file="Thanks.lua"/>
-	<Script file="Options.lua"/>
-	<Script file="Looks\Theme.lua"/>
-	<Script file="Looks\GuideWindow.lua"/>
-	<Script file="Looks\Toasts.lua"/>
-	<Script file="Looks\Trackers.lua"/>
+	<Script file="OptionsLoader.lua"/>
+	<Script file="Toasts.lua"/>
+	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
 </Ui>

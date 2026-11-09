@@ -45,7 +45,7 @@ local NOTES = {
 		version = "0.3.7",
 		notes = {
 			{ glyph = "sliders", color = "accent", head = L["A bigger settings window"], text = function()
-				return L["Groups in the sidebar, a live preview over each look, and a corner to drag it to any size."]
+				return L["A window of its own, any size, a live preview over each look; %s opens it."]:format(cmd("/ps options"))
 			end },
 			{ glyph = "palette", color = "accent", head = L["Make every part yours"], text = function()
 				return L["Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts."]

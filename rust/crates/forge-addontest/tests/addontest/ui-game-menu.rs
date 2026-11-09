@@ -313,3 +313,18 @@ emit({ off = off, on = stub.order() })"#,
 	assert_eq!(out["off"], "Options, Shop, EllesmereUI +12, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20", "EllesmereUI's own gap, as without Polestar");
 	assert_eq!(out["on"], "Options, Shop, EllesmereUI +12, Polestar +4, AddOns +13, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20");
 }
+
+// Architecture v3: a left click opens the guide menu, a right click the settings window (and closes the game menu).
+#[test]
+fn a_right_click_on_the_polestar_button_opens_the_settings_window() {
+	let out = run_forever(
+		false,
+		r#"
+		GameMenuFrame:Show()
+		PolestarGameMenuButton:Click("RightButton")
+		local P = Polestar.UI.Picker
+		emit({ closed = not GameMenuFrame:IsShown(), settings = PolestarOptions ~= nil and PolestarOptions:IsShown(),
+			picker = P.frame ~= nil and P.frame:IsShown() })"#,
+	);
+	assert_eq!(out, json!({ "closed": true, "settings": true, "picker": false }));
+}

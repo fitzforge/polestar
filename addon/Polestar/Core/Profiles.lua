@@ -1,6 +1,6 @@
 -- Profiles: named sets of Polestar's settings, a migration registry for
 -- settings keys, and profile strings to share a profile as one line of text.
--- The Profiles page (UI/Profiles.lua) and `/polestar profile` use it.
+-- The Profiles page (Polestar_Options/UI/Profiles.lua) and `/polestar profile` use it.
 -- Contract: docs/ARCHITECTURE.md, "Core" -> "Profiles".
 --
 -- The profile in use lives where the settings always have:
@@ -539,9 +539,13 @@ end
 P.Same = same
 
 -- The controls on the Options pages: key -> control, and the keys on the
--- Look pages (a page's `group = "look"`, or its order 20-29).
+-- Look pages (a page's `group = "look"`, or its order 20-29). The Look pages
+-- and the built-in ones are the settings window's addon (Polestar_Options):
+-- loaded here when it is not yet (not in combat: then the core modules'
+-- registrations alone).
 local function controls()
 	local index, look = {}, {}
+	if ns.UI and ns.UI.LoadOptions then ns.UI.LoadOptions() end
 	local W = ns.Widgets
 	local registry = W and W.OptionsRegistry or {}
 	local group = {}

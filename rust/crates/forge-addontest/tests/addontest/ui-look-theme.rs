@@ -1,4 +1,4 @@
-//! The settings window's Theme page (addon/Polestar/UI/Looks/Theme.lua) and the theme-wide looks it sets in
+//! The settings window's Theme page (addon/Polestar_Options/UI/Looks/Theme.lua) and the theme-wide looks it sets in
 //! Polestar.Theme: text outline and shadow, the heading face and size nudges, the player's own text and name
 //! colours (held legible), the panel and sidebar grounds, hairlines, shadow, stars, haze, rim and animation speed.
 
@@ -13,7 +13,7 @@ fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", FILES)],
-		script: format!("uistub.install()\nstub.login()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
+		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
 	.remove(0)

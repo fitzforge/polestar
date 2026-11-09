@@ -300,7 +300,7 @@ Setup) shows all of it.
 Polestar.RegisterCommand(name, fn(argString), help)
 ```
 
-`/polestar` and `/pole`. No argument fires `TOGGLE_FRAME`. `help` lists
+`/polestar`, `/pole` and `/ps`. No argument fires `TOGGLE_FRAME`. `help` lists
 registered commands with their `help` lines (already translated:
 `L["..."]`). Core registers (Core/Commands.lua): `guides`, `options`, `show`, `hide`,
 `next`, `prev` (look at the next/previous step; nothing changes), `skip`
@@ -408,7 +408,7 @@ gamepad interface on, they keep to their own windows.
 `GamepadUI()` reads the style once, as `Core/Init.lua` loads (the client
 reloads the UI when it changes). With it on, Polestar:
 
-- registers no slash command: `/polestar`, `/pole`, `/way` (Nav/Journey)
+- registers no slash command: `/polestar`, `/pole`, `/ps`, `/way` (Nav/Journey)
   and `/psrec` (Polestar_Recorder, which reads the style itself). The chat
   box calls a command's function, then closes itself in that function's
   taint. The minimap button (`maps.minimapButton`, on by default) and
@@ -5843,12 +5843,17 @@ and Manage profiles) and "Special thanks to" on the right. Nothing of the
 window is built before it first opens, a page tab only when first shown, and
 nothing runs while it is idle.
 
-The settings window is a rail shell like the hub (`W.Shell` with `rail`): it
-shows the hub's sections (`UI.Picker.RailItems()`, and at its foot
-`UI.Picker.FootItems()`) with Options marked, and a
-section reopens the hub there. Switching between the two places the window
-being opened at the other's top-left corner (`UI.Picker.TakePlace`), so the
-rail does not move.
+The settings window is a window of its own, not the hub's place: a shell
+with no rail (`W.Shell` without `rail`, `tagline = "Settings"` under the
+wordmark), its own category tree, the rail's width given to the page. It
+opens beside the hub, which stays (`UI.ShowOptions` never hides it, and
+`UI.ShowPicker` never hides the settings); its header and sidebar drag it,
+kept on the screen, so the guide window, arrow and minimap behind it stay in
+reach, and Move frames unlocks the frames with it open (the boxes on the
+DIALOG strata over it). Ways in: the hub rail's Options, a right-click on the
+game menu's Polestar button (a left click opens the hub), the minimap
+button's right-click menu (Settings), `/polestar options` or `/ps options`,
+the key binding, and the Blizzard Settings category.
 
 ### Guide window, guide menu and zone art
 
@@ -6004,6 +6009,14 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   sped up. `GF.ApplyLook(key)` redraws only what a key touches;
   `GF.Metrics()` hands the sizes to the page's preview, which lays out a
   demo step card by them in its own frame, never the live window.
+- **Quick settings** (`UI/QuickSettings.lua`, core): the guide window
+  menu's first entry opens a 280 px popover by the menu button with the
+  settings changed mid-play (`ui.locked`, `ui.opacity`, `nav.arrow`,
+  `behavior.autoAccept`, `behavior.autoTurnin`, `nav.routeLines`; a key with
+  no registered default is left out) as the settings window's compact rows
+  (`W.CompactRow`, 32 px, help in the tooltip), then "All settings…"
+  (`SHOW_OPTIONS`). Built on first open; Escape, a click outside and the
+  gamepad's back close it. It never needs the settings window's addon.
 - **Class-quest card** (`UI/ClassCard.lua`): over the person and goals of
   a step whose accept (else turn-in) is one of the character's class quests:
   `UI/ClassRewards.lua` limits the quest to a few classes, the character's

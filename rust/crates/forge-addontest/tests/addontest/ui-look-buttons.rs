@@ -1,4 +1,4 @@
-//! The settings window's Buttons page (addon/Polestar/QoL/ButtonsOptions.lua) and the looks it sets: the
+//! The settings window's Buttons page (addon/Polestar_Options/QoL/ButtonsOptions.lua) and the looks it sets: the
 //! action buttons' sizes, spacing, layout, backing, border, text, opacity and glow (QoL/Buttons.lua), the
 //! floating button (UI/Launcher.lua) and the minimap button (Maps/MinimapButton.lua). The secure buttons
 //! move and size only out of combat; the previews draw the same faces on plain frames, never a secure one.
@@ -37,7 +37,7 @@ fn run_ui(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &MODS)],
-		script: format!("uistub.install()\nstub.login()\nlocal UI, O, B = Polestar.UI, Polestar.UI.Options, Polestar.QoL.Buttons\n{script}"),
+		script: format!("uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal UI, O, B = Polestar.UI, Polestar.UI.Options, Polestar.QoL.Buttons\n{script}"),
 		..Default::default()
 	})
 	.remove(0)

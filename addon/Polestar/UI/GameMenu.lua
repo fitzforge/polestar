@@ -41,12 +41,14 @@ local GAP = 4 -- under EllesmereUI's last button, as its two buttons are apart
 
 local button, spacer
 
-function GameMenu.Open()
+-- Close the game menu and open the hub (or `event`'s window: SHOW_OPTIONS
+-- for the settings).
+function GameMenu.Open(event)
 	local menu = _G.GameMenuFrame
 	if menu and menu:IsShown() and not ns.GamepadUI() then
 		if HideUIPanel then HideUIPanel(menu) else menu:Hide() end
 	end
-	ns.Fire("SHOW_PICKER")
+	ns.Fire(event or "SHOW_PICKER")
 end
 
 local function wanted() return ns.Get("ui.gameMenuButton") and not ns.GamepadUI() end
@@ -57,9 +59,11 @@ local function build(menu, template)
 	button:SetParent(menu)
 	button:SetSize(144, 21)
 	button:SetText("Polestar")
-	button:SetScript("OnClick", function()
+	-- Left: the hub; right: the settings window.
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	button:SetScript("OnClick", function(_, which)
 		if PlaySound and SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) end
-		GameMenu.Open()
+		GameMenu.Open(which == "RightButton" and "SHOW_OPTIONS" or nil)
 	end)
 	button:Hide()
 	return button

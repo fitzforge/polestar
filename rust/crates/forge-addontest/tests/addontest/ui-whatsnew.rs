@@ -201,7 +201,7 @@ fn it_says_what_changed_in_five_notes_in_order_and_scrolls_them_within_one_scree
 	assert_eq!(
 		out["notes"],
 		json!([
-			{ "head": "A bigger settings window", "text": "Groups in the sidebar, a live preview over each look, and a corner to drag it to any size." },
+			{ "head": "A bigger settings window", "text": "A window of its own, any size, a live preview over each look; /ps options opens it." },
 			{ "head": "Make every part yours", "text": "Size, colours, opacity, fonts and borders of the guide window, arrow, map pins, routes and alerts." },
 			{ "head": "Bigger map pins", "text": "The numbered step pins and their numbers take a size of their own (thanks Silverina)." },
 			{ "head": "Find any setting", "text": "Search knows what you mean, \"bigger pins\" finds the pin size, and takes you to it." },

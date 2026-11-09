@@ -150,10 +150,140 @@ function W.HideTooltip(owner)
 	if GameTooltip and (not owner or GameTooltip:GetOwner() == owner) then GameTooltip:Hide() end
 end
 
+---------------------------------------------------------------------------
+-- W.Tip: the settings window's own tooltip (DESIGN.md "Tooltip"): one
+-- shared frame on the panel ground at 92% with a hairline at 15%, padded 8,
+-- at most 250 wide; the title in Label, the lines in Small at 80% (a line
+-- given as { text, r, g, b } keeps its colour), 3 apart. Centred 4 over the
+-- anchor (the row's label), under it where the screen ends; no delay, a
+-- 0.2s fade in and out. Its owner's scale is its own (the Menu scale).
+---------------------------------------------------------------------------
+
+local TIP_PAD, TIP_MAX, TIP_GAP, TIP_LINE, TIP_FADE = 8, 250, 4, 3, 0.2
+local tip
+
+local function tipFrame()
+	if tip then return tip end
+	tip = CreateFrame("Frame", "PolestarTip", UIParent)
+	tip:SetFrameStrata("TOOLTIP")
+	tip:SetClampedToScreen(true)
+	tip:EnableMouse(false)
+	tip:Hide()
+	tip.Ground = tip:CreateTexture(nil, "BACKGROUND")
+	tip.Ground:SetTexture(WHITE)
+	tip.Ground:SetAllPoints(tip)
+	W.Painter(tip.Ground, function(t)
+		local r, g, b = Theme.Color("panel")
+		t:SetVertexColor(r, g, b, 0.92)
+	end)
+	W.Painter(tip, function(f)
+		local r, g, b = Theme.Color("text")
+		Theme.Border(f, r, g, b, 0.15)
+	end)
+	tip.Title = W.Text(tip, "label", "text")
+	tip.Title:SetJustifyH("LEFT")
+	tip.Lines = {}
+	return tip
+end
+
+local function tipLine(i)
+	local fs = tip.Lines[i]
+	if fs then return fs end
+	fs = W.Text(tip, "small", "text")
+	fs:SetJustifyH("LEFT")
+	fs:SetWordWrap(true)
+	fs:SetSpacing(TIP_LINE)
+	tip.Lines[i] = fs
+	return fs
+end
+
+-- Show `title` over `lines` for `owner`, centred over `anchor` (owner).
+function W.Tip(owner, title, lines, anchor)
+	local f = tipFrame()
+	anchor = anchor or owner
+	f.psOwner = owner
+	f:SetScale(max(0.01, owner:GetEffectiveScale() / UIParent:GetEffectiveScale()))
+	local room = TIP_MAX - 2 * TIP_PAD
+	local w, y = 0, TIP_PAD
+	local t = f.Title
+	t:SetText(title or "")
+	t:SetShown((title or "") ~= "")
+	if t:IsShown() then
+		t:SetWidth(room)
+		local tw = min(room, t:GetUnboundedStringWidth())
+		t:SetWidth(max(1, tw))
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", f, "TOPLEFT", TIP_PAD, -y)
+		w = max(w, tw)
+		y = y + t:GetStringHeight() + TIP_LINE
+	end
+	local n = 0
+	for _, l in ipairs(lines or {}) do
+		local text, r, g, b, a = l, nil, nil, nil, nil
+		if type(l) == "table" then
+			if l.right ~= nil then text = l.left .. "  " .. l.right else text, r, g, b, a = l[1], l[2], l[3], l[4], l[5] end
+		end
+		if text and text ~= "" then
+			n = n + 1
+			local fs = tipLine(n)
+			fs:SetText(text)
+			if r then
+				W.Uncolor(fs)
+				fs:SetTextColor(r, g, b, a or 1)
+			else
+				W.Color(fs, "text", 0.8)
+			end
+			fs:SetWidth(room)
+			local lw = min(room, fs:GetUnboundedStringWidth())
+			fs:SetWidth(max(1, lw))
+			fs:ClearAllPoints()
+			fs:SetPoint("TOPLEFT", f, "TOPLEFT", TIP_PAD, -y)
+			fs:Show()
+			w = max(w, lw)
+			y = y + fs:GetStringHeight() + TIP_LINE
+		end
+	end
+	for i = n + 1, #f.Lines do f.Lines[i]:Hide() end
+	local h = y - TIP_LINE + TIP_PAD
+	f:SetSize(math.ceil(w + 2 * TIP_PAD), math.ceil(h))
+	-- Over the anchor, under it where the screen's top would cut it.
+	f:ClearAllPoints()
+	local top = anchor:GetTop()
+	local s = f:GetScale()
+	local screenTop = UIParent:GetTop() or UIParent:GetHeight()
+	if top and (top * anchor:GetEffectiveScale() / UIParent:GetEffectiveScale()) + (h + TIP_GAP) * s > screenTop then
+		f:SetPoint("TOP", anchor, "BOTTOM", 0, -TIP_GAP)
+	else
+		f:SetPoint("BOTTOM", anchor, "TOP", 0, TIP_GAP)
+	end
+	if not f:IsShown() then f:SetAlpha(0) end
+	f:Show()
+	Anim.To(f, "alpha", f:GetAlpha() or 0, 1, TIP_FADE, "out")
+	return f
+end
+
+-- Fade the tip out (only `owner`'s, when given).
+function W.TipHide(owner)
+	if not (tip and tip:IsShown()) then return end
+	if owner and tip.psOwner ~= owner then return end
+	tip.psOwner = nil
+	Anim.To(tip, "alpha", tip:GetAlpha() or 1, 0, TIP_FADE, "out", function()
+		if not tip.psOwner then tip:Hide() end
+	end)
+end
+
+-- The tip on screen, for tests: { owner, title, lines = { text, ... } } | nil
+function W.TipShown()
+	if not (tip and tip:IsShown() and tip.psOwner) then return nil end
+	local out = { owner = tip.psOwner, title = tip.Title:IsShown() and tip.Title:GetText() or nil, lines = {} }
+	for _, fs in ipairs(tip.Lines) do if fs:IsShown() then out.lines[#out.lines + 1] = fs:GetText() end end
+	return out
+end
+
 local function simpleTip(self)
 	if self.psTip then W.Tooltip(self, self.psTipAnchor or "ANCHOR_TOP", self.psTip, self.psTipLines) end
 end
-local function hideTip(self) self.psHover = nil; W.HideTooltip(self) end
+local function hideTip(self) self.psHover = nil; W.HideTooltip(self); W.TipHide(self) end
 W.SimpleTip, W.HideTip = simpleTip, hideTip
 
 -- The game's own item and spell tooltips on Polestar's buttons (reward
@@ -3598,6 +3728,8 @@ end
 -- window grows by the rail's width.
 -- opts.headerSearch: the search sits in the header, left of the scale
 -- (the settings window), and the navigation starts under the band.
+-- opts.tagline: the line under the wordmark ("A community project"; the
+-- settings window, a window of its own beside the hub: "Settings").
 -- opts.resizable = { minW, minH, onResized = fn(w, h), onReset = fn() }: a
 -- grip in the bottom-right corner sizes the window (right-click: onReset);
 -- the shell lays itself out anew as it goes (W.ShellLayout), the caller
@@ -3694,7 +3826,7 @@ function W.Shell(name, opts)
 	f.Wordmark:SetPoint("TOPLEFT", side, "TOPLEFT", textX - WORD_INK, -WORD_TOP)
 	f.Tagline = W.Text(side, "small", "textDim")
 	f.Tagline:SetPoint("TOPLEFT", side, "TOPLEFT", textX, -(WORD_TOP + 30))
-	f.Tagline:SetText(L["A community project"])
+	f.Tagline:SetText(opts.tagline or L["A community project"])
 	if opts.headerSearch then
 		-- The search is in the header (below); the navigation starts under
 		-- the band, a hairline over it.

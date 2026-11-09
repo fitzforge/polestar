@@ -901,6 +901,7 @@ const OPTIONS: &str = r#"
 Polestar.Set("nav.routeLines", false) -- trailDots' own condition out of the way
 Polestar.Set("nav.tomtom", true)
 -- The options window's own widgets, every page that holds a nav option.
+Polestar.UI.LoadOptions()
 local O, W = Polestar.UI.Options, Polestar.Widgets
 local function controls()
 	local out = {}

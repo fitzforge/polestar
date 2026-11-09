@@ -422,7 +422,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), s
 
 #[test]
 fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_packs_may_be_absent() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "");
 	assert_eq!(out["stale"], "");
 	assert_eq!(len(&out["said"]), 0);
@@ -430,7 +430,7 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 
 #[test]
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
 	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
