@@ -18,6 +18,7 @@ pub mod gear;
 pub mod itemdb;
 pub mod jsv;
 pub mod kb;
+pub mod learn;
 pub mod lua;
 pub mod maps;
 pub mod merge;

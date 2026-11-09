@@ -10,7 +10,7 @@ in this repository.
 | Recording library | `rust/crates/polestar-recording/` | Reads the SavedVariables file, decodes and validates records, finds WoW installs, scrubs text, writes the ack file, summarises. Shared by the three below. |
 | Polestar Client | `apps/client/` (Tauri) | Desktop app for Windows, macOS and Linux: finds the game, installs the Recorder, uploads new chunks, shows exactly what was sent. |
 | Ingest server | `services/ingest/` | Receives uploads, validates them with the library, stores them, serves stats, deletion and the maintainer export. |
-| forge | `forge record import`, `forge record pull`, `forge record resession` | Turns local files or the server export into `data/recordings/<session>.json` for the data build (`resession` rewrites them all from the archived chunks after a forge update). `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; trusted like the maintainer's own) or `import --anonymize` (contributor `anon-<16 hex>`; never used for the data). |
+| forge | `forge record import`, `forge record pull`, `forge record resession`, `forge record learn` | Turns local files or the server export into `data/recordings/<session>.json` for the data build (`resession` rewrites them all from the archived chunks after a forge update). `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; trusted like the maintainer's own) or `import --anonymize` (contributor `anon-<16 hex>`; never used for the data). `learn` turns the archive into the committed snapshot `data/recorded/` (counts of players only; [forge/learn.md](forge/learn.md)). |
 
 ## What is never collected
 
@@ -320,6 +320,21 @@ their own client, so nothing trusts a single upload.
   recorded on trusted evidence, or a gap one voter filled (which the public
   database never publishes on its own). Text from a non-English client never
   overwrites English names.
+- **In the learned layer** (`forge record learn`, [forge/learn.md](forge/learn.md)).
+  The same voters and the same establishment rule, plus the maintainer's
+  audit: contributors it marks exclude or suspect never count, contributors
+  it finds to be one person (a shared install, character or cohort) vote
+  once, and a character id re-used for another race or class has neither
+  trusted. For the quests Forever added it learns where objectives are done
+  (each voter's tick spots, then spots several voters share) and
+  prerequisites and minimum levels from givers' refusals and unlocks only,
+  never from what players merely did in order (most follow our guides). A
+  fact replaces another source's value only when 3 counted voters back it
+  and at least two thirds of the counted voters with evidence either way
+  agree; a refusal-backed prerequisite or level needs 2. A fact one voter
+  recorded is provisional: the Codex and guides may use it, the public
+  database never does. Corrections still win. The committed snapshot
+  (`data/recorded/`) holds counts of voters only, never who they are.
 - **What the server keeps.** Rows per contributor are capped: 5,000 quests,
   8 installs, about 1,000 remembered seqs per install, and 30 days of
   per-day counts. Backups are encrypted, hold neither the day's network salt

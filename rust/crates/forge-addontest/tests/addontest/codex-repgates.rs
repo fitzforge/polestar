@@ -82,6 +82,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		rarescanner: None,
 		local_extras: false,
 		recorded: V::obj(),
+		learned: Default::default(),
 		client: None,
 		web: None,
 		curated: Vec::new(),
