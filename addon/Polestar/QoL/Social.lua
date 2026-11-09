@@ -179,6 +179,8 @@ end)
 
 -- "accept", "decline" or nil (ask). roleCheck: a Dungeon Finder role invite.
 function Social.PartyAnswer(name, guid, roleCheck)
+	-- A layer hop host's invite is QoL/Layer.lua's to take.
+	if QoL.Layer and QoL.Layer.Expects and QoL.Layer.Expects(name) then return nil end
 	if Social.IsFriend(name, guid) then
 		if not QoL.On("acceptPartyFriends") or QoL.Shift() or roleCheck then return nil end
 		if WillAcceptInviteRemoveQueues and WillAcceptInviteRemoveQueues() then return nil end
@@ -188,12 +190,20 @@ function Social.PartyAnswer(name, guid, roleCheck)
 	return nil
 end
 
+-- Joins the inviting party as the dialog's Accept button does; false when the
+-- client cannot. QoL/Layer.lua takes a layer hop host's invite with it.
+function Social.AcceptInvite()
+	if not AcceptGroup then return false end
+	AcceptGroup()
+	closePopup("PARTY_INVITE", "inviteAccepted")
+	return true
+end
+
 function Social.OnPartyInvite(_, name, isTank, isHealer, isDamage, _, _, guid)
 	name = readable(name)
 	local answer = Social.PartyAnswer(name, guid, (isTank or isHealer or isDamage) and true or false)
 	if answer == "accept" and AcceptGroup then
-		AcceptGroup()
-		closePopup("PARTY_INVITE", "inviteAccepted")
+		Social.AcceptInvite()
 		ns.Print(format(L["Joined %s's party."], name or "?"))
 	elseif answer == "decline" and DeclineGroup then
 		DeclineGroup()
