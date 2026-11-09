@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Into Un'Goro Crater
-	-- {area:490} Un'Goro Crater
-	["Into {area:490}"] = "Vers le {area:490}",
-	-- {area:1938} Broken Pillar · {area:490} Un'Goro Crater · {area:541} Marshal's Refuge
-	["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, allez vers l'ouest jusqu'à la longue rampe qui descend en serpentant dans le {area:490}, puis suivez la paroi nord du cratère jusqu'à {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
+	-- {zone:1449} Un'Goro Crater
+	["Into {zone:1449}"] = "Vers le {zone:1449}",
+	-- {area:1938} Broken Pillar · {zone:1449} Un'Goro Crater · {area:541} Marshal's Refuge
+	["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, chevauchez vers l'ouest jusqu'à la longue rampe qui descend dans le {zone:1449}, puis longez la paroi nord du cratère jusqu'au {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- {npc:9997} Spraggle Frock
 	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
 	-- {npc:9117} J.D. Collie
@@ -89,8 +89,8 @@ return {
 	["grind on {npc:6511}"] = "tuez en boucle : {npc:6511}",
 
 	-- Step 19: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "{area:490} : tuez-les au passage",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449} : tuez-les au passage",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "La caisse de l'expédition se trouve dans un camp abandonné de la jungle de l'est.",
 
 	-- Step 20: Marshal's Refuge
@@ -164,12 +164,12 @@ return {
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
 
 	-- Step 33: Badlands
-	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "Quittez {zone:2548} à pied vers le nord-ouest, au nord de {area:16685}, pour entrer dans les {area:3}.",
+	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "Quittez {zone:2548} à pied vers le nord-ouest, au nord de {area:16685}, pour entrer dans les {zone:1418}.",
 
 	-- Step 34: Kargath
-	-- {area:340} Kargath · {area:3} Badlands
-	["{area:340} is built into the cliffs on the {area:3}' west edge."] = "",
+	-- {area:340} Kargath · {zone:1418} Badlands
+	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "",
 
 	-- Step 35: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -240,14 +240,14 @@ return {
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 
 	-- Step 49: The Bulwark
-	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
-	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
+	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
+	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et suivez la route vers l'est à travers les {zone:1420} jusqu'à la {area:152}, le fort réprouvé de la frontière.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Prenez une {object:176092} dans la caisse à côté de Derrington pour {quest:5096}, à faire au retour. Équipez la {quest:5401} : les Pierres du Fléau ne tombent que si vous la portez.",
 
 	-- Step 50: Janice Felstone
-	-- {area:152} The Bulwark · {area:28} Western Plaguelands · {npc:10778} Janice Felstone
-	["From the {area:152}, follow the road east into the {area:28}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {npc:10778} Janice Felstone
+	["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
 	["Upstairs"] = "À l'étage",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, beside the house; inside"] = "{object:175894}, à côté de la maison ; à l'intérieur",
@@ -260,8 +260,8 @@ return {
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau.",
 
 	-- Step 53: Augustus the Touched
-	-- {area:28} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {area:28} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
+	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
+	["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière vers les {zone:1423} ; quittez-la vers le nord pour {area:2627}, la ville en ruine du nord-ouest. {npc:12384} est assis dans une cabane à sa lisière.",
 
 	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
@@ -275,8 +275,8 @@ return {
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Revenez au sud jusqu'à la route et suivez-la vers l'est à travers toute la zone jusqu'à la {area:2268}.",
 
 	-- Step 56: Eastern Plaguelands: kill these as you meet them
-	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
+	-- {zone:1423} Eastern Plaguelands
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
 	["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Avec la quête de {npc:11063} dans votre journal, le Fléau tué laisse parfois un {npc:11064} ; parlez-lui pour le libérer. Tuez des morts-vivants en chevauchant vers le sud-ouest jusqu'à {area:2262}.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
@@ -293,8 +293,8 @@ return {
 	-- Step 59: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}, where this guide ends"] = "",
-	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {area:28} Western Plaguelands
-	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {area:28}."] = "",
+	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
+	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "",
 
 	-- Step 60: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
@@ -312,6 +312,11 @@ return {
 	-- Step 63: Fly to Tarren Mill
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "Maître de vol de {area:2268}",
+
+	-- Step 64: The road north
+	["The road north"] = "",
+	-- {area:197} Sorrow Hill
+	["The road north to {area:197}"] = "",
 
 	-- Step 65: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
@@ -343,18 +348,18 @@ return {
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Volez vers {area:1638} et entraînez-vous auprès de {npc:3033} ({area:1639}), puis volez jusqu'à {area:1637} pour le zeppelin de {object:3202}.",
 	-- ["Fly to {area:340}"] = "Voler jusqu'à {area:340}",
 	-- ["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "Volez jusqu'à {zone:1454}, prenez le zeppelin pour Grom'gol et volez de là jusqu'à {area:340}, bâtie dans les falaises du bord ouest des {area:3}.",
-	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière vers les {zone:1423} ; quittez-la vers le nord pour {area:2627}, la ville en ruine du nord-ouest. {npc:12384} est assis dans une cabane à sa lisière.",
-	-- ["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, chevauchez vers l'ouest jusqu'à la longue rampe qui descend dans le {zone:1449}, puis longez la paroi nord du cratère jusqu'au {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
+	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {area:28} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
+	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, allez vers l'ouest jusqu'à la longue rampe qui descend en serpentant dans le {area:490}, puis suivez la paroi nord du cratère jusqu'à {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- ["Gorillas"] = "Gorilles",
 	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
-	-- ["Into {zone:1449}"] = "Vers le {zone:1449}",
+	-- ["Into {area:490}"] = "Vers le {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Gardez l'appât : {npc:9684} est de niveau 56, et la seconde boucle passe par son repaire.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Gardez {quest:5152} : Marlene vit à la {area:197}, dans les {zone:1422}.",
 	-- ["Lashers and Threshers"] = "Flagellants et Batteurs",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} au nord jusqu'au {area:541}. Quand il s'évanouit, utilisez la {item:11804} sur lui pour le réveiller.",
+	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85}, au-delà du {area:152}. La ferme Felstone est la première le long de la route ; {npc:10778} attend dans la maison.",
-	-- ["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et suivez la route vers l'est à travers les {zone:1420} jusqu'à la {area:152}, le fort réprouvé de la frontière.",
 	-- ["Level 51.81"] = "Niveau 51.81",
 	-- ["Level 52"] = "Niveau 52",
 	-- ["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "La quête suivante de Pestlezugg demande la {npc:10041}, un boss élite. Passez-la.",
@@ -382,6 +387,7 @@ return {
 	-- ["Western jungle"] = "Jungle de l'ouest",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "tuez des Rôdeurs du goudron aux {area:538}, {zone:1449}",
 	-- ["grind on {npc:6509}"] = "tuez en boucle : {npc:6509}",
+	-- ["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} vous envoie voir {npc:9298} à {zone:1452} : gardez la quête.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Le gobelin {npc:10302} se trouve aux {area:543}, juste à l'est du pylône.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} rôde juste à l'ouest de {area:2262}.",
@@ -393,5 +399,4 @@ return {
 	-- ["{npc:9623}, the robot on the plateau"] = "{npc:9623}, le robot sur le plateau",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort : commencez avec toute votre vie.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} est assis sur la crête, perdu et épuisé.",
-	-- ["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 }

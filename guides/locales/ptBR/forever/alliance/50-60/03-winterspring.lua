@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {area:618} Winterspring
-	["Into {area:618}"] = "Rumo a {area:618}",
+	-- {zone:1452} Winterspring
+	["Into {zone:1452}"] = "Rumo a {zone:1452}",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {area:618} do túnel de {area:1769}, por onde você sai.",
+	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {zone:1452} do túnel de {area:1769}, por onde você sai.",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
@@ -47,8 +47,8 @@ return {
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: vá matando estes pelo caminho",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {area:618} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {area:618}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "O acampamento oeste dos Invernosos fica nas colinas entre {npc:11556} e {npc:9298}. Qualquer furbolg daqui pode soltar {item:12771} (cerca de um em dez: vem dentro das mortes que essas missões exigem) e {quest:8471} (cerca de um em trinta: vem dentro das mortes para completar o nível): clique com o botão direito no que cair. Guarde {item:14047} que os furbolgs soltam para Meilosh.\nO resto do trabalho de {area:618} é de nível 55-58: fique neste acampamento até o nível 54, para que suas primeiras mortes também contem para {npc:9298} e {npc:11556}. Ou, com um grupo, faça a masmorra {area:1584}.",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "O acampamento oeste dos Invernosos fica nas colinas entre {npc:11556} e {npc:9298}. Qualquer furbolg daqui pode soltar {item:12771} (cerca de um em dez: vem dentro das mortes que essas missões exigem) e {quest:8471} (cerca de um em trinta: vem dentro das mortes para completar o nível): clique com o botão direito no que cair. Guarde {item:14047} que os furbolgs soltam para Meilosh.\nO resto do trabalho de {zone:1452} é de nível 55-58: fique neste acampamento até o nível 54, para que suas primeiras mortes também contem para {npc:9298} e {npc:11556}. Ou, com um grupo, faça a masmorra {area:1584}.",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "mate {npc:7442} até subir",
 
@@ -108,17 +108,17 @@ return {
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "{npc:11053}: o caldeirão fica em {area:200}, guarde-o",
 
 	-- Step 23: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "{npc:10739} fica junto à fazenda em {area:202}, na estrada para leste até {area:139}.",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "{npc:10739} fica junto à fazenda em {area:202}, na estrada para leste até {zone:1423}.",
 	["Inside"] = "Lá dentro",
 
 	-- Step 24: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "Rumo a {area:139}",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "Rumo a {zone:1423}",
 
 	-- Step 26: Pamela Redpath
-	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Siga a estrada do sul para leste até as {area:139}; as ruínas de {area:2262} ficam ao sul dela. O fantasma de {npc:10926} brinca junto à casa em ruínas no extremo sul.",
+	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
+	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Siga a estrada do sul para leste até as {zone:1423}; as ruínas de {area:2262} ficam ao sul dela. O fantasma de {npc:10926} brinca junto à casa em ruínas no extremo sul.",
 
 	-- Step 27: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
@@ -131,8 +131,8 @@ return {
 	["{item:12888}; inside"] = "{item:12888}; lá dentro",
 
 	-- Step 28: Pamela Redpath
-	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
-	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, nas {area:28}: guarde-a",
+	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
+	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, nas {zone:1422}: guarde-a",
 
 	-- Step 29: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Siga a estrada para leste atravessando a zona até a capela.",
@@ -159,6 +159,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "De volta às colinas: só as Matriarcas e os Patriarcas Cardo de Gelo levam os chifres. Continue matando yetis até o nível 54: as missões de plumacuns de Harlo ficam vermelhas antes disso.",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: o {npc:10411} fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa. Só existem 3, e elas renascem a cada 15 min.",
+	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Siga a estrada do sul para leste até as {area:139}; as ruínas de {area:2262} ficam ao sul dela. O fantasma de {npc:10926} brinca junto à casa em ruínas no extremo sul.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Siga as instruções de {npc:9298} até a entrada do {area:2256}, passando pelos gigantes Friomalho: passe por eles um de cada vez.",
 	-- ["Optional: {area:1417}"] = "Opcional: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Pegue os suprimentos em volta da carroça e tome de volta o amuleto de {npc:10301} dos corujursos próximos.",
@@ -185,6 +186,7 @@ return {
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} guarda a entrada de {area:1769}, a noroeste de {npc:9298}.",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: guarde-o para {area:2262}",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} é elite: é recomendado formar grupo. Ele espera no fundo da {area:2261}, a cripta no sudoeste da zona.",
+	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, nas {area:28}: guarde-a",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, para Meilosh mais tarde",
 	-- ["{quest:8471}, a rare drop"] = "{quest:8471}, item raro",
 }

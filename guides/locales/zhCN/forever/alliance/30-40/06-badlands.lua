@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "进入{area:3}",
+	-- {zone:1418} Badlands
+	["Into {zone:1418}"] = "进入{zone:1418}",
 
 	-- Step 3: Hammertoe's Digsite
-	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "向西回到道路，再沿路向南离开{zone:1432}，穿过山口进入{area:3}。{npc:2910}和{npc:2860}在挖掘场并排扎营。",
+	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "向西回到道路，再沿路向南离开{zone:1432}，穿过山口进入{zone:1418}。{npc:2910}和{npc:2860}在挖掘场并排扎营。",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
@@ -29,8 +29,8 @@ return {
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "勘察员雷杜尔的下一个差事要进入{area:1517}：跳过。",
 
 	-- Step 7: Valley of Fangs
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618}和{npc:2817}一起在{zone:1418}中部的{area:1877}扎营。",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "蚌壳在荆棘谷西北海岸，在下一份指南里：先留着",
 
 	-- Step 8: Agmond's End
@@ -42,8 +42,8 @@ return {
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
-	-- {quest:739} Murdaloc · {area:3} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42级）在Bonesnappers之间走动：留到43级、后面的{area:3}指南再打他，现在先杀Bonesnappers完成此任务。",
+	-- {quest:739} Murdaloc · {zone:1418} Badlands
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42级）在Bonesnappers之间走动：留到43级、后面的{zone:1418}指南再打他，现在先杀Bonesnappers完成此任务。",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -59,8 +59,8 @@ return {
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
-	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "向东北前往{area:3}北侧的矮人废墟，箱子在暗炉矮人之间。附近的{npc:2745}是精英，注意避开。",
+	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
+	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "向东北前往{zone:1418}北侧的矮人废墟，箱子在暗炉矮人之间。附近的{npc:2745}是精英，注意避开。",
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631}：在地下",
 
@@ -213,5 +213,6 @@ return {
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}，在旅店里",
 	-- ["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "{npc:2920}在{npc:2921}旁，需要锻造制作的{item:2868}：身上没有一副就跳过。",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}的下一个测试需要制作的装备：跳过。",
+	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618}和{npc:2817}一起在{area:3}中部的{area:1877}扎营。",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}的下一个任务{item:6245}是远处海岸的掉落物：跳过。",
 }

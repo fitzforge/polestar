@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {area:618} Winterspring
-	["Into {area:618}"] = "进入{area:618}",
+	-- {zone:1452} Winterspring
+	["Into {zone:1452}"] = "进入{zone:1452}",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{area:618}出口处，也就是你出来的地方。",
+	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{zone:1452}出口处，也就是你出来的地方。",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
@@ -47,8 +47,8 @@ return {
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}：沿途击杀以下目标",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {area:618} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {area:618}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "刷{npc:7442}升级",
 
@@ -108,17 +108,17 @@ return {
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "{npc:11053}：瘟疫之锅在{area:200}，先留着",
 
 	-- Step 23: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "{npc:10739}站在{area:202}的农场旁，沿路向东前往{area:139}时会经过。",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "{npc:10739}站在{area:202}的农场旁，沿路向东前往{zone:1423}时会经过。",
 	["Inside"] = "在里面",
 
 	-- Step 24: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "进入{area:139}",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "进入{zone:1423}",
 
 	-- Step 26: Pamela Redpath
-	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "沿南边的道路向东进入{area:139}；{area:2262}的废墟在道路以南。{npc:10926}的鬼魂在南端的废屋旁玩耍。",
+	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
+	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "沿南边的道路向东进入{zone:1423}；{area:2262}的废墟在道路以南。{npc:10926}的鬼魂在南端的废屋旁玩耍。",
 
 	-- Step 27: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
@@ -131,8 +131,8 @@ return {
 	["{item:12888}; inside"] = "{item:12888}：在屋内",
 
 	-- Step 28: Pamela Redpath
-	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
-	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}，在{area:28}：保留它",
+	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
+	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}，在{zone:1422}：保留它",
 
 	-- Step 29: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "沿道路向东穿过该地区前往圣光之愿礼拜堂。",
@@ -159,6 +159,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "回到山丘：只有冰蓟雪人女王和冰蓟雪人族长携带角。一直杀雪人到54级：在此之前哈尔罗·巴纳比的枭兽任务是红色的。",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "注意：{npc:10411}在非战斗状态下会隐形，开战后会召唤石翼石像鬼。总共只有三个刷新点，刷新间隔为 15 分钟。",
+	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "沿南边的道路向东进入{area:139}；{area:2262}的废墟在道路以南。{npc:10926}的鬼魂在南端的废屋旁玩耍。",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "按{npc:9298}的指引前往{area:2256}入口，途经霜槌巨人：一次只引一个过去。",
 	-- ["Optional: {area:1417}"] = "可选：{area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "拾取马车周围的补给，并从附近的枭兽身上夺回{npc:10301}的护符。",
@@ -186,6 +187,7 @@ return {
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556}守在{npc:9298}西北的{area:1769}入口处。",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}：保留它，用于{area:2262}",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250}是精英：建议组队。他在该地区西南的墓穴{area:2261}底层等候。",
+	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}，在{area:28}：保留它",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}，之后交给梅罗什",
 	-- ["{quest:8471}, a rare drop"] = "{quest:8471}，稀有掉落",
 }

@@ -193,8 +193,10 @@ return {
 	-- {area:271} Southshore
 	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。",
 
-	-- Step 42: Syndicate camp
+	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "辛迪加营地",
+
+	-- Step 42: Syndicate camp
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加营地在{area:287}北部、奥特兰克边境上，{area:272}（部落）西边；文件在营地里，营地里的辛迪加潜行者和盗贼就是马雷布要找的辛迪加。",
 

@@ -13,14 +13,20 @@ return {
 	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "{quest:2478}适合23级及以上：塔内的苦工是25级，加里维克斯是23级精英。等有能力时组队，通过职业指南《制毒（部落）》完成。",
 
 	-- Step 2: Kadrak
-	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {area:331} Ashenvale
-	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {area:331}."] = "从希雷斯的营地向东北穿过{zone:1413}，到达十字路口北边的道路。道路进入{area:331}处有{area:1703}，{npc:8582}就站在那里的瞭望塔上。",
+	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
+	["From Seereth's camp head north-east across the {zone:1413} to the road north of the Crossroads. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}."] = "从希雷斯的营地向东北穿过{zone:1413}，到达十字路口北边的道路。道路进入{zone:1440}处有{area:1703}，{npc:8582}就站在那里的瞭望塔上。",
+
+	-- Step 3: Into Ashenvale
+	-- {zone:1440} Ashenvale
+	["Into {zone:1440}"] = "",
+	-- {area:431} Splintertree Post
+	["The road north to {area:431}"] = "",
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners
 	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the way back, at 22."] = "",
-	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
-	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 26."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到26级下次来{area:331}时再做。",
+	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
+	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到26级下次来{zone:1440}时再做。",
 
 	-- Step 5: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
@@ -34,8 +40,8 @@ return {
 	["{npc:271181}, on the road"] = "{npc:271181}，在路上",
 
 	-- Step 7: Zoram'gar Outpost
-	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
-	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "沿主路向西穿过{area:331}，经过{area:415}（联盟领地：沿道路走），抵达海岸。{area:2897}在西北面的{area:414}：{npc:12719}、{npc:12721}和{npc:12757}站在周围，{npc:12863}在飞行管理员旁。这里的其他任务留到26级下次来时再做。",
+	-- {zone:1440} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
+	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "沿主路向西穿过{zone:1440}，经过{area:415}（联盟领地：沿道路走），抵达海岸。{area:2897}在西北面的{area:414}：{npc:12719}、{npc:12721}和{npc:12757}站在周围，{npc:12863}在飞行管理员旁。这里的其他任务留到26级下次来时再做。",
 	-- {npc:12721} Mitsuwa
 	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}：巨魔符咒在前哨站东边的蓟皮熊怪的巢穴",
 	-- {npc:12717} Muglash
@@ -66,8 +72,8 @@ return {
 	["{npc:12818}, below ground"] = "{npc:12818}：在地下",
 
 	-- Step 13: Zoram'gar Outpost
-	-- {npc:12757} Karang Amakkar · {area:331} Ashenvale
-	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {area:331} visit at 26, when the walk east passes the Foulweald."] = "向西返回佐拉姆加。{npc:12757}现在会提供《污林熊怪之王》；留到26级下次来{area:331}时再做，届时向东的路线会经过污林熊怪。",
+	-- {npc:12757} Karang Amakkar · {zone:1440} Ashenvale
+	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {zone:1440} visit at 26, when the walk east passes the Foulweald."] = "向西返回佐拉姆加。{npc:12757}现在会提供《污林熊怪之王》；留到26级下次来{zone:1440}时再做，届时向东的路线会经过污林熊怪。",
 
 	-- Step 14: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
@@ -147,6 +153,12 @@ return {
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
+
+	-- Step 28: Into Hillsbrad
+	-- {area:287} Hillsbrad
+	["Into {area:287}"] = "",
+	-- {area:285} Southpoint Tower
+	["The road east to {area:285}"] = "",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower

@@ -205,6 +205,10 @@ return {
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler
 	["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203}：平原徘徊者在{area:225}周围的平原上游荡",
 
+	-- Step 41: Thunder Bluff
+	-- {npc:3057} Cairne Bloodhoof
+	["{npc:3057}'s tent"] = "",
+
 	-- Step 42: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "乘升降梯上到台地。{npc:2995}在中央台地照看双足飞龙；{npc:3057}站在那里的大帐篷里。",
@@ -291,12 +295,12 @@ return {
 	["Into {zone:1412}"] = "进入{zone:1412}",
 
 	-- Step 60: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "进入{area:17}",
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "进入{zone:1413}",
 
 	-- Step 62: The Crossroads
-	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "从东南方的山口离开{zone:1412}，沿路到十字路口。{npc:3448}在南门，{quest:860}在旅店旁，{npc:3615}在塔楼平台上。{area:380}本地的任务要等去过{zone:1421}后，在{area:17}指南中再做。",
+	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "从东南方的山口离开{zone:1412}，沿路到十字路口。{npc:3448}在南门，{quest:860}在旅店旁，{npc:3615}在塔楼平台上。{area:380}本地的任务要等去过{zone:1421}后，在{zone:1413}指南中再做。",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
 
@@ -311,10 +315,12 @@ return {
 	["{npc:8359}, by the wind riders on the central rise"] = "{npc:8359}，在中央高地的风骑士旁",
 
 	-- Step 66: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "前往{area:1637}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从十字路口沿道路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{area:1637}正门。下一份指南从{area:1637}开始，乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "前往{zone:1454}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从十字路口沿道路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下一份指南从{zone:1454}开始，乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "返回血蹄村",
@@ -325,6 +331,7 @@ return {
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "{npc:3566}在{area:225}周围的平原上游荡",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人马和{npc:2960}",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用炉石返回{area:222}，然后向北骑到{area:1639}。",
+	-- ["Into {area:17}"] = "进入{area:17}",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {npc:3448} stands at the south gate, {quest:860} by the inn; {npc:3449}, {npc:3429} and {npc:3615} on the tower platform, then Helbrim and {npc:3464} by the north gate and the inn. {area:17} guide starts here.\n{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "从东南方的山口离开{zone:1412}，沿道路到{area:380}。{npc:3448}在南门，{quest:860}在旅店旁；{npc:3449}、{npc:3429}和{npc:3615}在塔楼平台上，然后是北门和旅店旁的赫布林和{npc:3464}。{area:17}指南从这里开始。\n{area:380}是本指南的大本营。你需要找的人都在旅店附近几步之内。",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "从东南方的山口离开{zone:1412}，沿道路到{area:380}。{quest:860}站在旅店旁，{npc:3448}在南门。{zone:1413}指南从这里开始。",
 	-- ["Plainstriders roam the grass all around the camp."] = "平原陆行鸟在营地周围的草地上游荡。",

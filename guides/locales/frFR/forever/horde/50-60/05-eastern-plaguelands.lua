@@ -111,8 +111,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} se promène par ici : cherchez dans le cercle sur la carte",
 
 	-- Step 26: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Traversez {area:1769} et prenez la branche du tunnel vers {area:493}. {npc:11801} se trouve à {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Traversez {area:1769} et prenez l'embranchement du tunnel vers {zone:1450}. {npc:11801} Saturna se trouve à {area:2361}.",
 
 	-- Step 27: Class trainer
 	["Class trainer"] = "Maître de classe",
@@ -122,8 +122,8 @@ return {
 	["Both quests lead to {zone:1451}: keep them."] = "Les deux quêtes mènent à {zone:1451} : gardez-les.",
 
 	-- Step 30: Donova Snowden
-	-- {area:618} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Revenez par le tunnel et prenez la sortie vers {area:618}, puis chevauchez vers le sud jusqu'à {area:2246}.",
+	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
+	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Repassez par le tunnel et prenez la sortie vers {zone:1452}, puis allez au sud jusqu'à {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
 
@@ -198,13 +198,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Un Parchemin déchiré se trouve à l'entrée de {area:2261}, la crypte au sud de {area:2260}.",
-	-- ["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Repassez par le tunnel et prenez la sortie vers {zone:1452}, puis allez au sud jusqu'à {area:2246}.",
+	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Revenez par le tunnel et prenez la sortie vers {area:618}, puis chevauchez vers le sud jusqu'à {area:2246}.",
 	-- ["Back to {area:1638}"] = "Retour à {area:1638}",
 	-- ["Fly to the {area:1497}, take the zeppelin to {zone:1454} and fly on to {zone:1456}."] = "Volez jusqu'à {area:1497}, prenez le zeppelin pour {zone:1454} puis volez jusqu'à {zone:1456}.",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "Prenez un vol pour {zone:1458}, le zeppelin pour {zone:1454}, puis un vol pour {area:1638}.",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "Prenez un vol pour {area:541}, puis traversez le Cratère d'Un'Goro vers le sud-ouest jusqu'au col menant à {zone:1451}. Le guide suivant commence à {area:3077}, à la sortie du col.",
 	-- ["Fly to {zone:1456}"] = "Prendre un vol pour {zone:1456}",
-	-- ["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Traversez {area:1769} et prenez l'embranchement du tunnel vers {zone:1450}. {npc:11801} Saturna se trouve à {area:2361}.",
+	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Traversez {area:1769} et prenez la branche du tunnel vers {area:493}. {npc:11801} se trouve à {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "L'Infiltrateur Hameya se cache parmi les trolls Mossflayer de {area:2273}, dans le coin nord-est.",
 	-- ["Hameya's mound"] = "Le monticule d'Hameya",
 	-- ["Hameya's scroll"] = "Le parchemin d'Hameya",

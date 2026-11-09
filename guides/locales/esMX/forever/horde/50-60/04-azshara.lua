@@ -93,21 +93,21 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}, a su lado",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
-	["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
+	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, cerca",
-	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} regresa con {npc:10778} en {area:28}: guárdala.",
+	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
+	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} regresa con {npc:10778} en {zone:1422}: guárdala.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
 
 	-- Step 22: The Bulwark
-	-- {zone:1458} Undercity · {area:152} The Bulwark · {area:28} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {area:28}."] = "",
+	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
 
 	-- Step 24: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
@@ -127,4 +127,5 @@ return {
 	-- ["Zeppelin tower"] = "Torre del zepelín",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, en la botica real",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} está en {area:380}. Abre cada caja que te dé y llévale lo que hay adentro.",
+	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} regresa con {npc:10778} en {area:28}: guárdala.",
 }

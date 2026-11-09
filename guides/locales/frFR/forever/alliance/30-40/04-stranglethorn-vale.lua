@@ -80,8 +80,8 @@ return {
 	["grind on {npc:937}"] = "",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
-	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "{area:33} : tuez-les au passage",
+	-- {zone:1434} Stranglethorn Vale
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Attention : des camps de trolls sont proches du territoire des tigres, et les trolls peuvent se joindre au combat si vous attirez sans précaution.\nAttention : le nid des raptors abrite de jeunes raptors qui se joignent au combat quand vous attaquez les adultes.",
 
 	-- Step 18: Level 34
@@ -193,6 +193,10 @@ return {
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, au nord de {area:413}",
 
+	-- Step 36: Stonetalon Mountains
+	-- {area:608} Nijel's Point
+	["The road to {area:608}"] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
 	-- ["Bloodscalp trolls"] = "Trolls Bloodscalp",
@@ -225,6 +229,7 @@ return {
 	-- ["grind on {npc:1096}"] = "tuez en boucle : {npc:1096}",
 	-- ["{area:108} flight master"] = "Maître de vol de {area:108}",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} n'a pas de maître des druides : prenez le {area:2257} depuis {object:171524} jusqu'à {zone:1453} et entraînez-vous auprès de {npc:5504}.",
+	-- ["{area:33}: kill these as you meet them"] = "{area:33} : tuez-les au passage",
 	-- ["{item:2006}: {object:58}; underwater"] = "{item:2006} : {object:58} ; sous l'eau",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, près de la banque",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, à la {object:56910}",
@@ -238,6 +243,5 @@ return {
 	-- ["{object:288}, below ground"] = "{object:288}, sous terre",
 	-- ["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "{object:56910} est le grand bâtiment qui domine le port ; la plupart des donneurs de quêtes se trouvent à ses étages ou sur les quais en contrebas.",
 	-- ["{quest:207}: four troll legends"] = "{quest:207} : quatre légendes trolls",
-	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
 	-- ["{zone:1455} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{zone:1455} n'a pas de maître des druides : prenez le {area:2257} depuis {object:171524} jusqu'à {zone:1453} et entraînez-vous auprès de {npc:5504}.",
 }

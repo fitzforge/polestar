@@ -75,12 +75,16 @@ return {
 
 	-- Step 15: Paladin trainer
 	["Paladin trainer"] = "",
-	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "{npc:246152} – здесь: {area:85}; в городе {zone:1454} нет учителя паладинов",
+	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152} – здесь: {zone:1420}; в городе {zone:1454} нет учителя паладинов",
 
 	-- Step 16: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
+
+	-- Step 17: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
 
 	-- Step 18: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
@@ -201,8 +205,8 @@ return {
 	["{quest:8470}, a rare drop"] = "{quest:8470}, редкая добыча",
 
 	-- Step 45: Emerald Sanctuary
-	-- {area:361} Felwood
-	["Ride the road south through {area:361} to the Sanctuary."] = "Езжайте по дороге на юг через край {area:361} к святилищу.",
+	-- {zone:1448} Felwood
+	["Ride the road south through {zone:1448} to the Sanctuary."] = "Езжайте по дороге на юг через край {zone:1448} к святилищу.",
 
 	-- Step 47: Overlord Ror
 	-- {area:1761} Deadwood Village
@@ -260,6 +264,7 @@ return {
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Вернитесь сюда: {area:1497}, садитесь на дирижабль ({zone:1454}) и летите сюда: {area:431}. Езжайте по дороге на запад от Заставы Расщепленного Дерева и на развилке сверните на север в край {zone:1448}.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Езжайте на северо-запад в Андорал. {npc:10667} ждет в разрушенной таверне в западной части города; скелеты внутри 54-57 уровня, держитесь окраин.",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Езжайте на юг мимо места {area:202} сюда: {area:197}; дом {npc:10927} стоит у дороги, а памятник ({npc:10936}) – на кладбище за ним. По пути убивайте больных волков в полях.",
+	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Езжайте по дороге на юг через край {area:361} к святилищу.",
 	-- ["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "Деревня фурболгов племени Мертвого Леса – чуть к югу от святилища. Каждое убийство фурболга Мертвого Леса повышает репутацию ({area:1769}); сохраняйте перья из головных уборов.",

@@ -16,6 +16,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
+	-- Step 4: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "40级学骑术",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
@@ -70,14 +74,18 @@ return {
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
 	-- Step 20: Mirage Raceway
-	-- {area:484} Freewind Post · {area:440} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {area:440} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 
+	-- Step 21: To Gadgetzan
+	-- {area:976} Gadgetzan
+	["To {area:976}"] = "前往{area:976}",
+
 	-- Step 22: Gadgetzan
-	-- {area:976} Gadgetzan · {area:440} Tanaris
-	["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976}是刚过{area:440}边界的地精城镇，有城墙环绕。",
+	-- {area:976} Gadgetzan · {zone:1446} Tanaris
+	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976}是刚过{zone:1446}边界的地精城镇，有城墙环绕。",
 
 	-- Step 23: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
@@ -93,8 +101,8 @@ return {
 	["{npc:7882}, inside"] = "{npc:7882}：在屋内",
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
-	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "{npc:8579}：尖啸者生活在{area:357}，下次去{area:357}时再杀",
+	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
+	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}：尖啸者生活在{zone:1444}，下次去{zone:1444}时再杀",
 
 	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
@@ -140,8 +148,8 @@ return {
 	["{quest:2863}: one hour from now"] = "{quest:2863}：从现在起一小时内",
 
 	-- Step 36: Feralas: kill these as you meet them
-	-- {area:357} Feralas
-	["{area:357}: kill these as you meet them"] = "{area:357}：沿途遇到就击杀",
+	-- {zone:1444} Feralas
+	["{zone:1444}: kill these as you meet them"] = "{zone:1444}：沿途遇到就击杀",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "精龙在莫沙彻西侧紧邻的林地上方飞舞；几乎每只都会掉落翅膀。木爪豺狼人首领率领着其西南方各营地：要在一小时内杀死它们。\n小心：大多数首领都待在小帐篷营地中，旁边有 2-4 只会加入战斗的豺狼人，营地之间还有其他豺狼人巡逻。",
 
 	-- Step 38: Grimtotem camp
@@ -175,12 +183,12 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在废墟西北，雪人栖息在{area:1105}；那里的每只雪人都可能掉落厚雪人皮。",
 
 	-- Step 44: Homing Robot OOX-22/FE
-	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{area:357}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
+	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{zone:1444}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
 
 	-- Step 45: Camp Mojache
-	-- {area:357} Feralas
-	["the Rage Scar yetis, on the next visit to {area:357}"] = "狂怒疤痕雪人，下次来{area:357}时",
+	-- {zone:1444} Feralas
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "狂怒疤痕雪人，下次来{zone:1444}时",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}：交给{zone:1454}的{npc:7010}",
 
@@ -232,6 +240,7 @@ return {
 	-- ["Zeppelin to {object:3202}"] = "乘飞艇前往{object:3202}",
 	-- ["Zeppelin tower"] = "飞艇塔",
 	-- ["the {object:150075} in the square"] = "广场上的{object:150075}",
+	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976}是刚过{area:440}边界的地精城镇，有城墙环绕。",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}，骑术训练师",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}，骑术训练师",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}：尖啸者生活在{zone:1444}",

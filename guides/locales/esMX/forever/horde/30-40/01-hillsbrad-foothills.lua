@@ -142,9 +142,11 @@ return {
 	-- Step 29: Flame of Uzel
 	["The third flame burns in the smaller cave up in the hills north of the caverns."] = "",
 
-	-- Step 31: The Dalaran crater
+	-- Step 30: Alterac Mountains
 	-- {area:279} Dalaran
 	["The {area:279} crater"] = "",
+
+	-- Step 31: The Dalaran crater
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
@@ -230,8 +232,10 @@ return {
 	-- {object:1729} Tainted Keg · {object:1728} Dusty Rug
 	["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "",
 
-	-- Step 47: Boulderfist camp
+	-- Step 46: Arathi Highlands
 	["Boulderfist camp"] = "Campamento Puño de Roca",
+
+	-- Step 47: Boulderfist camp
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
 	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",

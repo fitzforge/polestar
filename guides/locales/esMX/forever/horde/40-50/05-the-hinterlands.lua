@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "Campamento de {npc:7801}",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Cabalga al noreste desde {area:272} hacia {area:47} y al este por el camino; {npc:7801} acampa en la colina al sur de {area:350}, de los elfos.",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Cabalga al noreste desde {area:272} hacia {zone:1425} y al este por el camino; {npc:7801} acampa en la colina al sur de {area:350}, de los elfos.",
 
 	-- Step 4: Highvale
 	["Highvale"] = "Vallealto",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Sigue los caminos al este cruzando {area:47} hasta el poblado trol de la costa este.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Sigue los caminos al este cruzando {zone:1425} hasta el poblado trol de la costa este.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "Al este del camino, los jabalíes Cenicrín y los Gruñones hozan en las laderas junto a los basiliscos Rocarroja. Aléjate de los Jabinfernos de nivel 52, más al sur.",
 	-- ["Fly to the {area:1497}"] = "Vuela a {area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Sigue los caminos al este cruzando {area:47} hasta el poblado trol de la costa este.",
 	-- ["From {area:1446}'s flight master."] = "Desde el maestro de vuelo de {area:1446}.",
 	-- ["Grind to 48"] = "Sube a nivel 48",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "La calavera del cazador Malkhor está en un montón bajo las ruinas Vilrama, y sus huesos en otro montón al pie de {area:354}. Las vasijas de sangre corrupta están en las terrazas inferiores y {npc:14757} está cautivo en la cima. No te salgas de los senderos: los trols de adentro son élite.",
@@ -183,6 +186,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "Solo si aún no eres nivel 48.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Solo con el localizador de emergencia: el robot está en el nacimiento del río al oeste de {area:351}. Escóltalo al este hasta la orilla más allá de {area:307}; su recompensa te espera con Oglethorpe en {area:35}.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "Regresa cabalgando al norte a {area:75} y vuela a {area:1497}.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Cabalga al noreste desde {area:272} hacia {area:47} y al este por el camino; {npc:7801} acampa en la colina al sur de {area:350}, de los elfos.",
 	-- ["Saltwater Snapjaws"] = "Quijafortes marinos ({npc:2505})",
 	-- ["Silvermane Howlers"] = "Aulladores melenargenta ({npc:2925})",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Al suroeste, los Aulladores melenargenta ({npc:2925}) recorren las colinas al este de los poblados Secacorteza.",

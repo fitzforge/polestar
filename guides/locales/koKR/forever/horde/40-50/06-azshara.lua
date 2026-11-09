@@ -63,8 +63,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "비행선 타고 {zone:1454}(으)로",
 
 	-- Step 22: Ride into Azshara
-	-- {area:16} Azshara
-	["Ride into {area:16}"] = "{area:16}(으)로 이동",
+	-- {zone:1447} Azshara
+	["Ride into {zone:1447}"] = "{zone:1447}(으)로 이동",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "토막나무 주둔지에서 길을 따라 동쪽으로 가세요. {npc:11548}은(는) 길에서 조금 벗어난 {area:1235}, 얼라이언스의 {area:3137} 바로 서쪽에서 기다립니다. 서쪽에서 접근하고 아즈샤라 파수꾼과 자로데누스(정예)를 피하세요.",
@@ -78,8 +78,8 @@ return {
 
 	-- Step 24: Level 50
 	["Level 50"] = "",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -232,6 +232,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "명가 유령과 할다르 사티로스",
 	-- ["Ironjaw Basilisks"] = "무쇠턱 바실리스크",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "{area:1417}은(는) {zone:1446}의 {npc:7771}을(를) 위해 보관하세요.",
+	-- ["Ride into {area:16}"] = "{area:16}(으)로 이동",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "북서쪽 {area:1108}(으)로 가세요. {npc:14637}이(가) 부두에서 기다립니다.",
 	-- ["Sea elementals"] = "바다 정령",
 	-- ["Take the zeppelin back to {zone:1454}."] = "비행선을 타고 {zone:1454}(으)로 돌아가세요.",

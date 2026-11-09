@@ -7,15 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 	["He runs off to keep Rizzle busy"] = "Se va corriendo para entretener a Rizzle Pernolatón",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Cabalga al sureste desde {area:439} hacia {area:440}. {area:976} está justo al cruzar la frontera.",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Cabalga al sureste desde {area:439} hacia {zone:1446}. {area:976} está justo al cruzar la frontera.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, en el lado norte del pueblo",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {area:35} Booty Bay · {area:47} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
@@ -162,6 +162,7 @@ return {
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Cabalga al noroeste hasta la colmena Centipaar en las dunas. Cualquier Centipaar puede soltar partes de insecto.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Cabalga al sur hacia {quest:3362}. Los colectores de rocío Cardizal sueltan las glándulas; solo algunas están llenas, así que guarda la cargada. Los cardizales nudosos y enraizadores Cardizal comparten el valle. Los Cardizal son de nivel 48-50, por encima del tuyo: atráelos de uno en uno.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Cabalga al sur más allá de {area:1938} hasta {area:981}, los túneles Hazzali; el equipo de Scrimshank está en lo más profundo.",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Cabalga al sureste desde {area:439} hacia {area:440}. {area:976} está justo al cruzar la frontera.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Cabalga al sureste hasta {area:985}. El {npc:7847} está en el centro del campamento Vagayermo del sur: limpia primero a su alrededor.",
 	-- ["Rizzle's plans"] = "Los planos de Rizzle Pernolatón",
 	-- ["The Wanted poster by {npc:7882}"] = "El cartel de Se busca junto a {npc:7882}",

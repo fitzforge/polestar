@@ -51,8 +51,8 @@ return {
 	["{quest:1132}, on the docks"] = "{quest:1132}, nas docas",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "A próxima tarefa de {npc:4456} vai para {area:415}, fora desta rota: deixe-a.",
-	-- {quest:1132} Fiora Longears · {area:400} Thousand Needles
-	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "{quest:1132}: as serpes ficam em {area:400}, mais adiante neste guia",
+	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132}: as serpes ficam em {zone:1441}, mais adiante neste guia",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -71,8 +71,12 @@ return {
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: o íncubo, ao lado da súcubo; {item:190309} fica perto de {quest:1738}",
 
 	-- Step 13: Highperch
-	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Desça por {area:485} até {area:400}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno.",
+	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Desça por {area:485} até {zone:1441}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno.",
+
+	-- Step 14: Thousand Needles
+	-- {area:482} Highperch
+	["The canyons east of {area:482}"] = "",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway

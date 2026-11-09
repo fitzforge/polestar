@@ -53,10 +53,10 @@ return {
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "Opcional, e difícil no nível 41: o pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares. Pegue só se conseguir puxar a tripulação até a amurada um de cada vez, ou com um amigo; a cadeia dele segue por {area:8}, {zone:1445} e {zone:1425}.",
-	-- {area:8} Swamp of Sorrows
-	["for a later stop in the {area:8}"] = "para uma parada posterior em {area:8}",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Opcional, e difícil no nível 41: o pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares. Pegue só se conseguir puxar a tripulação até a amurada um de cada vez, ou com um amigo; a cadeia dele segue por {zone:1435}, {zone:1445} e {zone:1425}.",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "para uma parada posterior em {zone:1435}",
 
 	-- Step 12: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
@@ -201,10 +201,10 @@ return {
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:208}, mate monstros aqui até o nível 42.74 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:1517}.",
 
 	-- Step 49: Into the Swamp of Sorrows
-	-- {area:8} Swamp of Sorrows
-	["Into the {area:8}"] = "Rumo a {area:8}",
-	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Siga a estrada para leste a partir de {area:10}, por {zone:1430}, até o pântano. {npc:1776} espera em {area:657}, o acampamento dos draeneis logo fora da estrada, onde ela chega de {zone:1430}.",
+	-- {zone:1435} Swamp of Sorrows
+	["Into the {zone:1435}"] = "Rumo a {zone:1435}",
+	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Siga a estrada para leste a partir de {zone:1431}, por {zone:1430}, até o pântano. {npc:1776} espera em {area:657}, o acampamento dos draeneis logo fora da estrada, onde ela chega de {zone:1430}.",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
@@ -252,6 +252,7 @@ return {
 	-- ["Hearth to {area:35}"] = "Regresse para {area:35}",
 	-- ["Hearth to {object:3202}"] = "Regresse para {object:3202}",
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "O cofre dele está no antigo acampamento, ao norte de {area:75}.",
+	-- ["Into the {area:8}"] = "Rumo a {area:8}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Continue cavalgando para o norte até {zone:1431}, depois para o leste pela estrada através de {zone:1430} até o pântano. {npc:1776} espera em {area:657}, o acampamento draenei perto da entrada vinda de {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Costa das nagas e {object:759}",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "Cavalgue de volta para o leste, passando por {area:75}, e siga a estrada para sudeste até o pequeno posto da Horda na costa.",
@@ -273,6 +274,7 @@ return {
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas Ruínas de Zul'Kanda. Elimine os guardas primeiro, depois puxe os dois.",
 	-- ["for Stoley in {zone:1446}"] = "para Esmirno, em {zone:1446}",
+	-- ["for a later stop in the {area:8}"] = "para uma parada posterior em {area:8}",
 	-- ["for later: the {zone:1425}, around level 48"] = "para depois: {zone:1425}, por volta do nível 48",
 	-- ["the {object:2076}, beside {npc:2497}"] = "o {object:2076}, ao lado de {npc:2497}",
 	-- ["{area:35} flight master"] = "Mestre de voo de {area:35}",

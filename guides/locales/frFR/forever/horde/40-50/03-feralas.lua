@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Suivez la route vers l'ouest ; le parchemin se trouve au bord de l'eau, à l'extrême ouest du marais.",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "pour le {object:2555} dans le {area:15}, plus tard dans ce guide",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "pour le {object:2555} à {zone:1445}, plus loin dans ce guide",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocilisques Dents-de-scie",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, sous terre",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -216,7 +218,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "Votre maître est à {area:1638} : prenez-y un vol (pas encore ce trajet aérien ? prenez un vol pour {area:378} et traversez {zone:1412} vers l'ouest), puis continuez vers {area:496}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
 	-- ["Zeppelin tower"] = "Tour des zeppelins",
-	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "pour le {object:2555} à {zone:1445}, plus loin dans ce guide",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "pour le {object:2555} dans le {area:15}, plus tard dans ce guide",
 	-- ["for {area:35}, around level 50"] = "pour {area:35}, vers le niveau 50",
 	-- ["{area:1136}: kill these as you meet them"] = "{area:1136} : tuez-les au passage",
 	-- ["{area:976} flight master"] = "Maître de vol de {area:976}",

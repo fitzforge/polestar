@@ -111,8 +111,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- Step 26: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Пройдите через место {area:1769} и сверните в ответвление туннеля ({area:493}). {npc:11801} – здесь: {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Пройдите через место {area:1769} и сверните в ответвление туннеля ({zone:1450}). {npc:11801} – здесь: {area:2361}.",
 
 	-- Step 27: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
@@ -122,8 +122,8 @@ return {
 	["Both quests lead to {zone:1451}: keep them."] = "Оба задания ведут в край {zone:1451}: сохраните их.",
 
 	-- Step 30: Donova Snowden
-	-- {area:618} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Назад через туннель к выходу ({area:618}), затем на юг сюда: {area:2246}.",
+	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
+	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Назад через туннель к выходу ({zone:1452}), затем на юг сюда: {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
 
@@ -198,9 +198,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Рваный свиток лежит у входа сюда: {area:2261} – склеп к югу от места {area:2260}.",
+	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Назад через туннель к выходу ({area:618}), затем на юг сюда: {area:2246}.",
 	-- ["Back to {area:1638}"] = "Назад: {area:1638}",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "Летите сюда: {zone:1458}, садитесь на дирижабль ({zone:1454}) и летите дальше сюда: {area:1638}.",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "Летите сюда: {area:541}, затем езжайте на юго-запад через Ун'Горо к перевалу в край {zone:1451}. Следующее руководство начинается здесь: {area:3077}, у выхода с перевала.",
+	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Пройдите через место {area:1769} и сверните в ответвление туннеля ({area:493}). {npc:11801} – здесь: {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Хамейя прячется среди троллей племени Моходеров ({area:2273}) в северо-восточном углу.",
 	-- ["Hameya's mound"] = "Курган Хамейи",
 	-- ["Hameya's scroll"] = "Свиток Хамейи",

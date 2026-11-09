@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {area:361} Felwood · {area:618} Winterspring
-	["{zone:1451}, {area:361}, {area:618} & the Plaguelands"] = "{zone:1451}, {area:361}, {area:618} e as Terras Pestilentas",
+	-- {zone:1451} Silithus · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{zone:1451}, {zone:1448}, {zone:1452} & the Plaguelands"] = "{zone:1451}, {zone:1448}, {zone:1452} e as Terras Pestilentas",
 
 	-- Step 1: To Ratchet
 	-- {area:392} Ratchet
@@ -20,11 +20,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
-	-- Step 4: The Emerald Sanctuary
+	-- Step 3: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
-	-- {area:3137} Talrendis Point · {area:361} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
-	["From {area:3137} ride into {area:361}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "De {area:3137}, siga para {area:361}: {area:2479} é o acampamento dos druidas na estrada, logo depois da divisa com {zone:1440}.",
+
+	-- Step 4: The Emerald Sanctuary
+	-- {area:3137} Talrendis Point · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
+	["From {area:3137} ride into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "De {area:3137}, siga para {zone:1448}: {area:2479} é o acampamento dos druidas na estrada, logo depois da divisa com {zone:1440}.",
 	["Inside"] = "Lá dentro",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Espere um pouco por {npc:9116}",
@@ -65,8 +67,8 @@ return {
 	-- Step 10: Felpaw Village
 	-- {area:1769} Timbermaw Hold
 	["Ride north to the Deadwood furbolgs' village by the {area:1769} cave mouth."] = "Siga para o norte até a aldeia dos furbolgs de Lenha Morta, perto da entrada da caverna de {area:1769}.",
-	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {area:618} Winterspring
-	["{quest:5085}: {npc:9298} in {area:618}, keep it"] = "{quest:5085}: {npc:9298} em {area:618}, guarde-a",
+	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["{quest:5085}: {npc:9298} in {zone:1452}, keep it"] = "{quest:5085}: {npc:9298} em {zone:1452}, guarde-a",
 
 	-- Step 11: A Final Blow
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
@@ -201,8 +203,8 @@ return {
 	["{npc:7740} in {zone:1457}: keep it"] = "{npc:7740} em {zone:1457}: guarde-a",
 
 	-- Step 37: Forest Song
-	-- {area:3137} Talrendis Point · {area:16} Azshara · {area:2358} Forest Song · {zone:1440} Ashenvale
-	["Fly to {area:3137} in {area:16} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "Voe para {area:3137} em {area:16} e siga para o oeste pela estrada até {area:2358}, logo depois da fronteira de {zone:1440}.",
+	-- {area:3137} Talrendis Point · {zone:1447} Azshara · {area:2358} Forest Song · {zone:1440} Ashenvale
+	["Fly to {area:3137} in {zone:1447} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "Voe para {area:3137} em {zone:1447} e siga para o oeste pela estrada até {area:2358}, logo depois da fronteira de {zone:1440}.",
 
 	-- Step 38: Fly to Everlook
 	-- {area:2255} Everlook
@@ -244,9 +246,13 @@ return {
 	-- {area:2577} Dire Maul · {area:2627} Terrordale
 	["{area:2577} fits levels 55 to 60; alone, the {area:2627} grind at the end of this guide gets you to 60."] = "{area:2577} serve para os níveis 55 a 60; sozinho, matar monstros em {area:2627} no fim deste guia leva você ao nível 60.",
 
+	-- Step 50: Felwood
+	-- {quest:5086} Toxic Horrors
+	["The {quest:5086}"] = "",
+
 	-- Step 52: Kernda
-	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {area:618} Winterspring
-	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {area:618} brought you to."] = "{npc:11558} fica logo dentro da caverna de {area:1769}: ela fala com você a partir de Neutro com os Presamatos, nível que os furbolgs Invernosos que você matou em {area:618} deram a você.",
+	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1452} Winterspring
+	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {zone:1452} brought you to."] = "{npc:11558} fica logo dentro da caverna de {area:1769}: ela fala com você a partir de Neutro com os Presamatos, nível que os furbolgs Invernosos que você matou em {zone:1452} deram a você.",
 	-- {npc:11558} Kernda
 	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "{npc:11558}, logo dentro da caverna: anda por aqui: procure dentro do círculo no mapa",
 
@@ -257,20 +263,20 @@ return {
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 54: Meilosh
-	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {area:618} Winterspring
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {area:618} top-up on the Winterfall furbolgs gets you both."] = "{npc:11557}, logo dentro da caverna, ao lado de {npc:11558}, recebe trinta {quest:6031} a partir de Amigável com os Presamatos: a rodada para completar o nível em {area:618}, nos furbolgs Invernosos, rende as duas coisas.",
+	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {zone:1452} Winterspring
+	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {zone:1452} top-up on the Winterfall furbolgs gets you both."] = "{npc:11557}, logo dentro da caverna, ao lado de {npc:11558}, recebe trinta {quest:6031} a partir de Amigável com os Presamatos: a rodada para completar o nível em {zone:1452}, nos furbolgs Invernosos, rende as duas coisas.",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "{npc:11557}; no subterrâneo",
 
 	-- Step 58: Winterspring: kill these as you meet them
-	-- {area:618} Winterspring
-	["{area:618}: kill these as you meet them"] = "{area:618}: vá matando estes pelo caminho",
+	-- {zone:1452} Winterspring
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: vá matando estes pelo caminho",
 	-- {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Os furbolgs Invernosos do oeste deixam cair as contas.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 
 	-- Step 62: Umber
-	-- {area:1769} Timbermaw Hold · {area:618} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
-	["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Pegue o túnel de {area:1769} pela entrada de {area:618}, a oeste de {npc:9298}, e siga o ramal de {area:493} até {area:2361}. {npc:11939} estuda à beira do lago.",
+	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
+	["Take the {area:1769} tunnel from its {zone:1452} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Pegue o túnel de {area:1769} pela entrada de {zone:1452}, a oeste de {npc:9298}, e siga o ramal de {area:493} até {area:2361}. {npc:11939} estuda à beira do lago.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} anda por {area:2361}: procure dentro do círculo no mapa",
 
@@ -355,8 +361,8 @@ return {
 	-- Step 83: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} é um elite de nível 61",
-	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {area:139} Eastern Plaguelands
-	["{quest:6184}: the agents' remains lie at the {area:2260} in the {area:139}"] = "{quest:6184}: os restos dos agentes ficam em {area:2260}, em {area:139}",
+	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
+	["{quest:6184}: the agents' remains lie at the {area:2260} in the {zone:1423}"] = "{quest:6184}: os restos dos agentes ficam em {area:2260}, em {zone:1423}",
 
 	-- Step 84: Andorhal
 	["Andorhal"] = "Ruínas de Andorhal",
@@ -380,6 +386,10 @@ return {
 	["{npc:1855} (optional)"] = "{npc:1855} (opcional)",
 	-- {npc:1855} Tirion Fordring · {quest:5781} Of Forgotten Memories
 	["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} Fordring vive numa pequena cabana à beira do rio da fronteira, a nordeste da madeireira. Entregue {quest:5781} se você a concluiu.",
+
+	-- Step 88: Eastern Plaguelands
+	-- {quest:5845} Of Lost Honor
+	["The lake for {quest:5845}"] = "",
 
 	-- Step 89: Of Lost Honor
 	["Underwater"] = "Debaixo d'água",
@@ -405,8 +415,8 @@ return {
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram a mata ali. Complete aqui até o nível 59.93 antes das entregas em {area:3197}: elas levam você ao nível 60. Ou, com um grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
-	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
-	["grind on {npc:14564} at {area:2627}, {area:139}"] = "farme {npc:14564} em {area:2627}, {area:139}",
+	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {zone:1423} Eastern Plaguelands
+	["grind on {npc:14564} at {area:2627}, {zone:1423}"] = "farme {npc:14564} em {area:2627}, {zone:1423}",
 
 	-- Step 97: Chillwind Camp
 	-- {area:3197} Chillwind Camp
@@ -419,6 +429,7 @@ return {
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram o bosque ali.",
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Atravesse o rio a leste de {npc:1855} até {area:2627}. Os Espíritos da Várzea do Medo assombram os bosques de lá. Ou, com um grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- ["Dredge Crushers roam the dunes between {area:2743} and {area:3425}, on your way back. {npc:15181} only offers {quest:8304} from level 58."] = "Os Dragasmagas vagueiam pelas dunas entre {area:2743} e {area:3425}, no caminho de volta. {npc:15181} só oferece {quest:8304} a partir do nível 58.",
+	-- ["Fly to {area:3137} in {area:16} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "Voe para {area:3137} em {area:16} e siga para o oeste pela estrada até {area:2358}, logo depois da fronteira de {zone:1440}.",
 	-- ["Follow the road south-west out of the pass to {area:3425}."] = "Siga a estrada para o sudoeste, saindo do desfiladeiro, até {area:3425}.",
 	-- ["Go back down to {area:702}, take the boat to {area:442} and the boat on to {area:17203}. Bring sixty Silk, sixty Mageweave and sixty {item:14047} for {npc:14722}: buy what you lack at the Auction House."] = "Desça de volta até {area:702}, pegue o barco para {area:442} e depois o barco até {area:17203}. Leve sessenta Sedas, sessenta Magitramas e sessenta {item:14047} para {npc:14722}: compre o que faltar na Casa de Leilões.",
 	-- ["Grind to 58"] = "Upe até o 58",
@@ -436,12 +447,14 @@ return {
 	-- ["Shaman training"] = "Treinamento de xamã",
 	-- ["Take the boat from {area:442} to {area:702}."] = "Pegue o barco de {area:442} para {area:702}.",
 	-- ["Take the flight path in {area:2361} and fly to {area:442}."] = "Pegue a rota de voo em {area:2361} e voe para {area:442}.",
+	-- ["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Pegue o túnel de {area:1769} pela entrada de {area:618}, a oeste de {npc:9298}, e siga o ramal de {area:493} até {area:2361}. {npc:11939} estuda à beira do lago.",
 	-- ["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each want sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: 120 of each in all, from your bags or the Auction House."] = "Pegue o {area:2257} para {zone:1455}. {npc:14724} e {npc:14723} querem, cada um, sessenta Lãs, sessenta Sedas e sessenta Magitramas, e depois sessenta {item:14047}: 120 de cada no total, das suas bolsas ou da Casa de Leilões.",
 	-- ["The {area:2739}"] = "{area:2739}",
 	-- ["The {npc:7446} bears roam the snowy valley south of {area:2250}."] = "Os ursos {npc:7446} vagueiam pelo vale nevado ao sul de {area:2250}.",
 	-- ["Toward the north-west pass"] = "Rumo ao desfiladeiro noroeste",
 	-- ["You start in {area:392}, where the previous guide hearthed you. Fly to {area:415}."] = "Você começa em {area:392}, para onde o guia anterior mandou você regressar. Voe para {area:415}.",
 	-- ["grind on {npc:11741} at the dunes east of {area:2743}, {zone:1451}"] = "farme {npc:11741} nas dunas a leste de {area:2743}, {zone:1451}",
+	-- ["grind on {npc:14564} at {area:2627}, {area:139}"] = "farme {npc:14564} em {area:2627}, {area:139}",
 	-- ["grind on {npc:7446} at the valley south of {area:2250}, {zone:1452}"] = "farme {npc:7446} no vale ao sul de {area:2250}, {zone:1452}",
 	-- ["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}."] = "{area:1770} é a caverna no fundo de {area:1763}, a oeste da estrada. Use o {item:12906} nos quatro braseiros lá dentro. Mate os Ursos Garraivosos e os Lobos Patavil pelo caminho para obter {item:11172}.",
 	-- ["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "{area:1770} é a caverna no fundo de {area:1763}, a oeste da estrada. Use a {item:12906} nos quatro braseiros lá dentro. Mate os ursos Garraivoso e os lobos Patavil que encontrar pelas {item:11172}.\nCuidado: monstros do Concílio das Sombras de nível 53-55 lotam a caverna e costumam vir em grupos grandes e ligados, muitos com atordoamento. Melhor ir num grupo de 2 ou 3 jogadores.",
@@ -457,5 +470,7 @@ return {
 	-- ["{npc:6791}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6791}: o guia anterior leva você até aqui com a pedra de regresso, então isto costuma ser marcado na hora",
 	-- ["{npc:9598} waits in {area:1767}. Escort her out of the woods and keep her alive."] = "{npc:9598} espera em {area:1767}. Escolte-a para fora do bosque e mantenha-a viva.",
 	-- ["{object:176091}, if you found the Firewater flask in {area:618}"] = "{object:176091}, se você encontrou o Frasco Vazio de Aguardente em {area:618}",
+	-- ["{quest:5085}: {npc:9298} in {area:618}, keep it"] = "{quest:5085}: {npc:9298} em {area:618}, guarde-a",
+	-- ["{zone:1451}, {area:361}, {area:618} & the Plaguelands"] = "{zone:1451}, {area:361}, {area:618} e as Terras Pestilentas",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train your level 60 spells with {npc:258098}."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} de {object:28027} para {zone:1455} e treine seus feitiços de nível 60 com {npc:258098}.",
 }

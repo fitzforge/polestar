@@ -195,8 +195,8 @@ return {
 	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "Para oeste pela ponte de {area:814}, passando por {area:379} e seguindo pela crista: {npc:5907} fica sozinho acima do acampamento dos Crinavalha.",
 
 	-- Step 43: Telf Joolam
-	-- {area:14} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {area:14} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "De volta pela ponte e ao sul pela margem de {area:14} do rio, até onde uma trilha estreita sobe a montanha: {npc:5900} guarda o santuário no topo. Cuidado com as bordas na subida e desça pela mesma trilha.",
+	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
+	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "De volta pela ponte e ao sul pela margem de {zone:1411} do rio, até onde uma trilha estreita sobe a montanha: {npc:5900} guarda o santuário no topo. Cuidado com as bordas na subida e desça pela mesma trilha.",
 
 	-- Step 44: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Javatuscos e batedores ocupam as cabanas a oeste da cidade; levanta-poeiras e guardas de batalha ocupam os acampamentos mais a oeste.",
@@ -238,8 +238,8 @@ return {
 
 	-- Step 55: Mage trainer
 	["Mage trainer"] = "Instrutor de mago",
-	-- {npc:5884} Mai'ah · {area:14} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {area:14}; {area:362} has no mage trainer"] = "{npc:5884} em {area:14}; {area:362} não tem instrutor de mago",
+	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
+	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} em {zone:1411}; {area:362} não tem instrutor de mago",
 
 	-- Step 56: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -268,8 +268,8 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
 	-- Step 63: Back to Durotar
-	-- {area:14} Durotar
-	["Back to {area:14}"] = "De volta a {area:14}",
+	-- {zone:1411} Durotar
+	["Back to {zone:1411}"] = "De volta a {zone:1411}",
 
 	-- Step 64: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -300,8 +300,8 @@ return {
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}: {npc:275666}, um gigante do mar elite",
 
 	-- Step 74: Aggor the Young
-	-- {npc:275666} Aggor the Young · {area:14} Durotar
-	["{npc:275666}, a young sea giant, walks {area:14}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, um jovem gigante do mar, anda pela costa norte de {area:14}, ao norte da praia dos nagas. {npc:275666} é elite: melhor chamar um grupo.",
+	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
+	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, um jovem gigante do mar, anda pela costa norte de {zone:1411}, ao norte da praia dos nagas. {npc:275666} é elite: melhor chamar um grupo.",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, de volta em {area:362}",
 
@@ -313,8 +313,8 @@ return {
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171}: {npc:3352}, em {zone:1454}, ensina {spell:5149}",
 
 	-- Step 76: Far Watch Post
-	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {area:14} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {area:14} leads to {zone:1454}."] = "Para oeste de {area:362} pela ponte de {area:814}: {npc:3337} e {npc:5810} ficam juntos em {area:379}, acima dela. De lá, a estrada para o norte por {area:14} leva a {zone:1454}.",
+	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "Para oeste de {area:362} pela ponte de {area:814}: {npc:3337} e {npc:5810} ficam juntos em {area:379}, acima dela. De lá, a estrada para o norte por {zone:1411} leva a {zone:1454}.",
 
 	-- Step 77: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "Lagartos-trovão no caminho para o norte",
@@ -331,10 +331,12 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 81: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "Até {area:1637}",
-	-- {area:379} Far Watch Post · {area:1637} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "Siga a estrada para o norte de {area:379} até o portão principal de {area:1637}. O próximo guia começa em {area:1637}: em {quest:829} você pega a missão dos sectários, os instrutores ensinam suas novas habilidades, e o zepelim parte das torres fora do portão para {zone:1420} e {zone:1421}. {area:17} vem depois de Pinhaprata.",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "Até {zone:1454}",
+	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Siga a estrada para o norte de {area:379} até o portão principal de {zone:1454}. O próximo guia começa em {zone:1454}: em {quest:829} você pega a missão dos sectários, os instrutores ensinam suas novas habilidades, e o zepelim parte das torres fora do portão para {zone:1420} e {zone:1421}. {zone:1413} vem depois de Pinhaprata.",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {area:362}."] = "Volte para o sul até {area:362}.",

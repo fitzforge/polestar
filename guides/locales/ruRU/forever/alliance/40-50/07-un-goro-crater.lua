@@ -26,8 +26,8 @@ return {
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {area:490}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
+	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {zone:1449}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -184,6 +184,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Езжайте на юг по восточной стороне. Молодые деметродоны пасутся в восточных джунглях, а у восточных утесов летает {npc:9165}; с тех и других падает чешуя для NPC {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Езжайте на запад назад в укрытие.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Езжайте от {npc:9619} на запад: улей силитидов занимает юг кратера. Используйте фиал для образцов на инкубаторе – камере со свисающими личинками. С ос и рабочих из улья Гориши падает предмет для задания «{quest:3764}»; если вам еще нужны убийства, на южных утесах гнездится {npc:9166}.",
+	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {area:490}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Езжайте на запад мимо места {area:541} и на юг по западной стороне: {area:543}. {npc:10302}, гоблин, сидит у воды.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Пройти {area:1417} вместо убийства монстров в группе быстрее. Пропустите этот шаг, чтобы качаться в одиночку.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "Пройти {area:978} вместо убийства монстров в группе быстрее. Город троллей лежит на северо-западе зоны {zone:1446}, сразу к северу от города {area:976}.",

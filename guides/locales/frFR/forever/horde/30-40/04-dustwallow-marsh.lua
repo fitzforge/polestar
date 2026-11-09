@@ -10,6 +10,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
 
+	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour « Œil-des-marais » Jarl",

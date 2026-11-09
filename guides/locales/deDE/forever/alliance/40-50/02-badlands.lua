@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "Die nächste Quest von {npc:2817} gibt keine Erfahrung: Überspring sie.",
 
 	-- Step 3: Boss Tho'grun
-	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {area:3} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
+	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {zone:1418} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -29,30 +29,32 @@ return {
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "Die Brühenden Welpen nisten in der Klamm östlich von {npc:2888}; lass die Versengten Wächter (Elite) in Ruhe. {item:4612} fällt selten: Nimm es mit, wenn es beim Grinden kommt.",
 
 	-- Step 7: Into Loch Modan
-	-- {area:38} Loch Modan
-	["Into {area:38}"] = "",
+	-- {zone:1432} Loch Modan
+	["Into {zone:1432}"] = "",
 
 	-- Step 8: Ironband's Excavation Site
-	-- {area:38} Loch Modan
-	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "",
+	-- {zone:1432} Loch Modan
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
 
 	-- Step 9: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "",
+	-- {zone:1418} Badlands
+	["Into {zone:1418}"] = "",
 
-	-- Step 11: The Uldaman dig
+	-- Step 10: Badlands
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "Die Ausgrabung bei {area:1517}",
-	-- {area:1517} Uldaman · {area:3} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+
+	-- Step 11: The Uldaman dig
+	-- {area:1517} Uldaman · {zone:1418} Badlands
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "",
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
 	-- Step 12: Back to Loch Modan
-	-- {area:38} Loch Modan
-	["Back to {area:38}"] = "",
+	-- {zone:1432} Loch Modan
+	["Back to {zone:1432}"] = "",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Reite zurück nach Norden zu Ironbands Lager.",
@@ -78,8 +80,8 @@ return {
 	["Raleigh's next errand is in the {area:796}: skip it."] = "Raleighs nächster Auftrag ist im {area:796}: Überspring ihn.",
 
 	-- Step 18: Aerie Peak
-	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
-	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {area:47}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
+	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
+	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {zone:1425}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
 	-- {quest:1450} Gryphon Master Talonaxe
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
@@ -101,8 +103,8 @@ return {
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} zahlt weiter für Halsketten: Gib alle übrigen ab",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "",
-	-- {area:47} The Hinterlands
-	["Talonaxe's next task waits for a later {area:47} guide."] = "Talonaxes nächste Aufgabe wartet auf einen späteren Guide für das {area:47}.",
+	-- {zone:1425} The Hinterlands
+	["Talonaxe's next task waits for a later {zone:1425} guide."] = "Talonaxes nächste Aufgabe wartet auf einen späteren Guide für das {zone:1425}.",
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -140,10 +142,13 @@ return {
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Flieg nach {area:608}, reite nach Süden durch {zone:1443} nach {zone:1444} und folge der Straße zum Steg an der {area:1108}; das Schiff fährt hinüber zur {area:1116}, wo der nächste Guide beginnt.",
 	-- ["On to Feathermoon"] = "Weiter nach Feathermoon",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Reite nach Norden nach {area:144} und flieg nach {area:271}. {npc:3980} predigt beim Gasthaus.",
+	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {area:47}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {zone:1425}; {area:348} liegt gleich hinter der Grenze. Falstad hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "Reite nach Süden aus {zone:1432} durch den Pass ins {zone:1418}; {npc:2860} lagert bei der Ausgrabung.",
+	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Reite nach Westen durch das {area:3} zum Lager der Staubspeier bei {area:342}. {npc:2944} steht in der Mitte, umgeben von Wyrmjägern und Raufern.",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "Reite nach Westen ins {area:1877} mitten im {zone:1418}; {npc:2817} lagert neben Martek.",
 	-- ["Take the boat to Theramore from the far pier."] = "Nimm vom hinteren Pier das Schiff nach Theramore.",
+	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "Talonaxes nächste Aufgabe wartet auf einen späteren Guide für das {area:47}.",
 	-- ["The battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers."] = "Das zerschlagene Skelett liegt am Rand des Lagers der Steingrufttroggs; {quest:739}, Agmonds Mörder, läuft zwischen den Knochenknackern herum.",
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "grinde {npc:2725} in {area:339}, {zone:1418}",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",

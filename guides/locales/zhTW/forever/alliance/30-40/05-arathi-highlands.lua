@@ -251,8 +251,8 @@ return {
 	["Inside"] = "",
 
 	-- Step 58: Dalaran
-	-- {area:279} Dalaran · {area:130} Silverpine Forest · {npc:269127} Image of Archmage Modera
-	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}西邊湖岸的祈倫托營地，就在越過邊界進入{area:130}之處：{npc:269127}站在那裡。大法師安斯雷姆·魯因維沃爾站在它東南方的穹頂旁。",
+	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
+	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}西邊湖岸的祈倫托營地，就在越過邊界進入{zone:1421}之處：{npc:269127}站在那裡。大法師安斯雷姆·魯因維沃爾站在它東南方的穹頂旁。",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "給{area:35}的{npc:2542}：先留著",
 
@@ -269,12 +269,16 @@ return {
 	["{item:2321}, from {npc:2381}"] = "",
 
 	-- Step 64: Ironforge
-	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {area:38} Loch Modan
-	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "",
+	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
+	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "",
+
+	-- Step 65: To Thelsamar
+	-- {area:144} Thelsamar
+	["To {area:144}"] = "",
 
 	-- Step 66: Thelsamar
-	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {area:38} Loch Modan · {area:144} Thelsamar
-	["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "從{zone:1455}走隧道向東穿過{zone:1426}進入{area:38}，沿道路前往{area:144}。",
+	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "從{zone:1455}走隧道向東穿過{zone:1426}進入{zone:1432}，沿道路前往{area:144}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
@@ -287,9 +291,11 @@ return {
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves."] = "護送教授到海灣北邊的海灘，在他工作時保護他；納迦會一波波來襲。",
 	-- ["Follow the road south over the bridge to {area:205} at the {zone:1437} end, where {npc:1075} waits."] = "沿道路向南過橋，前往{zone:1437}那一端的{area:205}，{npc:1075}在那裡等著。",
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "從{area:42}沿道路向東穿過{zone:1430}進入{zone:1435}；衛兵比格斯守在入口不遠處的道路岔口。{npc:217412}站在他北邊不遠處。",
+	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "從{zone:1455}走隧道向東穿過{zone:1426}進入{area:38}，沿道路前往{area:144}。",
 	-- ["Gyll, {area:35}"] = "蓋爾，{area:35}",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向東北騎回去經過{area:320}；{npc:2712}和{npc:2713}在{area:314}北邊的丘陵紮營。",
 	-- ["Shaman training"] = "薩滿訓練",
+	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}西邊湖岸的祈倫托營地，就在越過邊界進入{area:130}之處：{npc:269127}站在那裡。大法師安斯雷姆·魯因維沃爾站在它東南方的穹頂旁。",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "跟著{npc:2713}潛入{area:314}再回來；途中部落獸人會突襲你。",
 	-- ["Subdue the succubus"] = "制服魅魔",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "破碎嶺巨魔佔據{area:280}北邊的丘陵。再往北，一個破舊的木箱裡有{item:3706}；{quest:537}的{npc:2320}就站在旁邊。",

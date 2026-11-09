@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Siga a estrada para o oeste; o pergaminho fica à beira da água, no extremo oeste do pântano.",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "para {object:2555} em {area:15}, mais adiante neste guia",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "para {object:2555} em {zone:1445}, mais adiante neste guia",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Dentesserra",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, no subterrâneo",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "O {object:2555}",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "Cavalgue para o sudoeste até o {object:2555}.",
 	-- {object:2555} Musty Scroll
@@ -208,6 +210,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "Seu instrutor fica em {area:1638}: voe para lá (ainda sem rota de voo lá? voe para {area:378} e siga para o oeste por {zone:1412}), depois siga para {area:496}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 	-- ["Zeppelin tower"] = "Torre do zepelim",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "para {object:2555} em {area:15}, mais adiante neste guia",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500} é elite: é recomendado formar um grupo. Bata nele até ele se render e depois fale com {npc:4501}.",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: para {npc:7010} em {zone:1454}, por volta do nível 50",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, depois {object:172960} e {object:172961}.",

@@ -93,21 +93,21 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}, ao lado dele",
 
 	-- Step 19: The Undercity
-	-- {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter (no name in this language: may be words)
-	["Take the zeppelin from the tower outside {zone:1454} to {area:85} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Pegue o zepelim na torre do lado de fora de {zone:1454} até {area:85} e entre a cavalo em {zone:1458}. Lady Sylvana ocupa o {object:36126}.",
+	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter (no name in this language: may be words)
+	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Pegue o zepelim na torre do lado de fora de {zone:1454} até {zone:1420} e entre a cavalo em {zone:1458}. Lady Sylvana ocupa o {object:36126}.",
 
 	-- Step 20: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, por perto",
-	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {area:28} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
+	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
+	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} volta para {npc:10778} nas {zone:1422}: guarde-a.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
 	-- Step 22: The Bulwark
-	-- {zone:1458} Undercity · {area:152} The Bulwark · {area:28} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {area:28}."] = "Siga a cavalo para leste, saindo da {zone:1458}, pela estrada; {area:152} guarda o caminho para {area:28}.",
+	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Siga a cavalo para leste, saindo da {zone:1458}, pela estrada; {area:152} guarda o caminho para {zone:1422}.",
 
 	-- Step 24: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
@@ -127,4 +127,5 @@ return {
 	-- ["Zeppelin tower"] = "Torre do zepelim",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, no Apothecarium",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} fica na {area:380}. Abra cada caixa que ela lhe entregar e traga de volta o que houver dentro.",
+	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
 }

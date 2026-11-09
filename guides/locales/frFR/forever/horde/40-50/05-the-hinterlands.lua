@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "Maître de vol de {area:1446}",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "Camp de {npc:7801}",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Allez vers le nord-est depuis {area:272} jusqu'aux {area:47}, puis vers l'est par la route ; {npc:7801} campe sur la colline au sud de {area:350}, chez les elfes.",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Depuis {area:272}, allez au nord-est jusqu'aux {zone:1425}, puis à l'est le long de la route ; {npc:7801} campe sur la colline au sud de {area:350}, le gîte des elfes.",
 
 	-- Step 4: Highvale
 	["Highvale"] = "Haut-val",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Suivez les routes vers l'est à travers les {area:47} jusqu'au village troll sur la côte est.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Suivez les routes vers l'est à travers les {zone:1425} jusqu'au village troll de la côte est.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -176,7 +178,7 @@ return {
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "À l'est de la route, les Sangliers cendrés et les Grunters fouillent les pentes près des Basilics Rougepierre. Restez à l'écart des Sangliers infernaux de niveau 52, plus au sud.",
 	-- ["Fly to the {area:1497}"] = "Prendre un vol pour {area:1497}",
 	-- ["Fly to {area:321}"] = "Prendre un vol pour {area:321}",
-	-- ["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Suivez les routes vers l'est à travers les {zone:1425} jusqu'au village troll de la côte est.",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Suivez les routes vers l'est à travers les {area:47} jusqu'au village troll sur la côte est.",
 	-- ["From {area:1446}'s flight master."] = "Auprès du maître de vol de {area:1446}.",
 	-- ["Grind to 48"] = "Montez au niveau 48",
 	-- ["Hearth to {area:3317}"] = "Pierre de foyer vers {area:3317}",
@@ -189,7 +191,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "Seulement si vous n'êtes pas encore niveau 48.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Seulement avec la balise de détresse : le robot se trouve à la source de la rivière, à l'ouest de {area:351}. Escortez-le vers l'est jusqu'au rivage au-delà de {area:307} ; sa récompense vous attend auprès d'Oglethorpe Obnoticus à {area:35}.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "Retournez au nord jusqu'à {area:75} et prenez un vol pour {area:1497}.",
-	-- ["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Depuis {area:272}, allez au nord-est jusqu'aux {zone:1425}, puis à l'est le long de la route ; {npc:7801} campe sur la colline au sud de {area:350}, le gîte des elfes.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Allez vers le nord-est depuis {area:272} jusqu'aux {area:47}, puis vers l'est par la route ; {npc:7801} campe sur la colline au sud de {area:350}, chez les elfes.",
 	-- ["Saltwater Snapjaws"] = "Gueules d'acier des mers",
 	-- ["Silvermane Howlers"] = "Hurleurs Crins-d'argent",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Au sud-ouest, les Hurleurs Crins-d'argent rôdent dans les collines à l'est des villages Witherbark.",

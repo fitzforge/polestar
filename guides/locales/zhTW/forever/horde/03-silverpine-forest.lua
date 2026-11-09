@@ -167,8 +167,8 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 38: The Ivar Patch
-	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "沿道路向北朝{area:85}走：{area:238}的尤瑞克家就在路上。{quest:425}潛伏在房子西邊不遠處。",
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "沿道路向北朝{zone:1420}走：{area:238}的尤瑞克家就在路上。{quest:425}潛伏在房子西邊不遠處。",
 	["Inside"] = "",
 
 	-- Step 40: Magistrate Sevren
@@ -198,6 +198,10 @@ return {
 	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
+
+	-- Step 45: Orgrimmar
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
@@ -239,6 +243,7 @@ return {
 	-- ["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "沿著道路向東南前往{area:233}。達拉然保衛者守衛外圍，達拉然法師守著城鎮；兩者都會掉落墜飾。達拉然巫師和達拉然衛士在周圍的道路巡邏。不要進入中央，{npc:2120}站在那裡。",
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "安伯米爾西南方，森林東南部的{quest:516}廢墟中出沒著鴉爪苦工和鴉爪守護者。",
 	-- ["Swim back and follow the road west to the {area:228}."] = "游回去，沿著道路向西前往{area:228}。",
+	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "沿道路向北朝{area:85}走：{area:238}的尤瑞克家就在路上。{quest:425}潛伏在房子西邊不遠處。",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "病怏怏的難民和憔悴的難民在焚木村南邊、通往{area:230}的道路上蹣跚而行。",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "邪鰭巡湖者和邪鰭智者在{area:237}南邊、{area:228}東邊的湖岸上。",
 	-- ["The refugees"] = "難民",

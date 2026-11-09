@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Far Watch Post
-	-- {zone:1454} Orgrimmar · {area:14} Durotar · {area:814} Southfury River · {area:379} Far Watch Post · {area:17} The Barrens · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek
-	["Leave {zone:1454} by the main gate and follow the road south through {area:14}, then west over the {area:814} bridge: {area:379} sits just above it on the {area:17} side. {npc:3337} and {npc:5810} stand together."] = "",
+	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek
+	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337} and {npc:5810} stand together."] = "",
 
 	-- Step 3: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -58,8 +58,8 @@ return {
 	-- Step 14: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
 	["Plainstrider Beaks as you go"] = "Клювы долгоногов по пути",
-	-- {area:17} The Barrens
-	["Plainstriders roam the plains all over the {area:17}, and about one in four drops a beak: kill the ones you pass on the way."] = "Долгоноги бродят по всей зоне {area:17}, примерно с каждого четвертого падает клюв: убивайте встречных по пути.",
+	-- {zone:1413} The Barrens
+	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "Долгоноги бродят по всей зоне {zone:1413}, примерно с каждого четвертого падает клюв: убивайте встречных по пути.",
 
 	-- Step 15: Razormane camp
 	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks."] = "В лагере водоискатели и терноплеты держат западную половину, охотники – середину; ящики с припасами стоят на восточном краю.\nДолгоноги здесь тоже дают клювы.",
@@ -82,6 +82,9 @@ return {
 	-- {area:814} Southfury River
 	["Follow the road east to the outpost above the {area:814}."] = "Идите по дороге на восток к заставе над рекой ({area:814}).",
 
+	-- Step 24: Durotar
+	["The thunder lizards across the river"] = "",
+
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "Рокочущие ящерицы за рекой",
 	-- {area:379} Far Watch Post
@@ -95,9 +98,9 @@ return {
 	-- Step 28: Dustwind Gulch cultists
 	-- {area:1898} Dustwind Gulch
 	["{area:1898} cultists"] = "Сектанты: {area:1898}",
-	-- {area:1898} Dustwind Gulch · {area:14} Durotar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
+	-- {area:1898} Dustwind Gulch · {zone:1411} Durotar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "",
+	["Burning Blade Cultists hold {area:1898} in northern {zone:1411}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Сектанты из клана Пылающего Клинка ({npc:3199}) удерживают {area:1898} на севере зоны {zone:1411}; с них падает {item:6652}. {item:5026} добудете у Иглогривых в следующий заход в их лагерь.",
 
 	-- Step 31: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet · {object:58369} Stolen Iron Chest
@@ -118,8 +121,8 @@ return {
 	["{quest:1492}: the emerald comes from the {area:381}, later"] = "",
 
 	-- Step 34: The Barrens: kill these as you meet them
-	-- {area:17} The Barrens
-	["{area:17}: kill these as you meet them"] = "",
+	-- {zone:1413} The Barrens
+	["{zone:1413}: kill these as you meet them"] = "",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
 	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
 
@@ -477,6 +480,10 @@ return {
 	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
 	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197} живет здесь: {area:2539} – деревня троллей сразу на входе в Когтистые горы, в конце дороги на запад от {npc:3389}.",
 
+	-- Step 121: To Regthar Deathgate
+	-- {npc:3389} Regthar Deathgate
+	["To {npc:3389}"] = "",
+
 	-- Step 123: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate
 	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop."] = "",
@@ -581,6 +588,10 @@ return {
 	-- {npc:3389} Regthar Deathgate
 	["Fly back to the Crossroads; the road west to Stonetalon starts at {npc:3389}'s bunkers."] = "",
 
+	-- Step 151: Seereth Stonebreak's camp
+	-- {npc:4049} Seereth Stonebreak
+	["{npc:4049}'s camp"] = "",
+
 	-- Step 152: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "",
@@ -597,6 +608,10 @@ return {
 	["Back down to {npc:11857}."] = "",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
 	["{npc:11858} waits up the {area:1076}"] = "",
+
+	-- Step 155: To Malaka'jin
+	-- {area:2539} Malaka'jin
+	["To {area:2539}"] = "",
 
 	-- Step 156: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -640,13 +655,12 @@ return {
 	-- Step 165: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
-	-- {area:17} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["The next guide goes north-east across the {area:17} to the {area:1703} and {zone:1440}."] = "",
+	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
+	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "Обратно вниз по пляжу, мимо лагеря пиратов: ящик с сапогами и хрупкий ящик с линзой стоят на его южном краю.",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "Обратно вниз по пляжу, мимо лагеря пиратов: ящик с сапогами и хрупкий ящик с линзой стоят на его южном краю.\nЯркочешуйчатые ящеры здесь тоже дают головы.",
-	-- ["Burning Blade Cultists hold {area:1898} in northern {zone:1411}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Сектанты из клана Пылающего Клинка ({npc:3199}) удерживают {area:1898} на севере зоны {zone:1411}; с них падает {item:6652}. {item:5026} добудете у Иглогривых в следующий заход в их лагерь.",
 	-- ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "На восток: {area:1703}; {npc:9316} стоит в лагере сразу к югу.",
 	-- ["East to {area:392}, on the coast."] = "На восток: {area:392}, на побережье.",
 	-- ["In from the north gate: {npc:3464}, {npc:3449} on the tower platform, {npc:3338} by the inn, then {npc:3448} and Mura at the south gate. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Войдите через северные ворота: {npc:3464}, {npc:3449} на площадке башни, {npc:3338} у таверны, затем {npc:3448} и Мура у южных ворот. Отсюда начинается следующий гайд; он ведет в {zone:1454} и к дирижаблю в зону {zone:1420}.",

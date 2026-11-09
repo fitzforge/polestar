@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "{item:2320} de {npc:2118}, para Gretchen",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Camina al sur desde {area:159} hasta {area:153} y baja a {zone:1458}. {npc:4568} está en {object:36082}. El campamento Escarlata está justo al oeste de las ruinas.",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "",
+	["The Scarlet camp"] = "El campamento Escarlata",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -424,7 +425,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "Los Asaltatumbas Putrepellejo ({npc:1941}) excavan en los cementerios al norte de {area:159}; todos los Putrepellejo sueltan el icor.",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "Los Bastardos Putrepellejo ({npc:1675}) ocupan las colinas más al norte. {npc:1753} (nivel 11) está en su campamento, en la colina al sur de la orilla: primero acaba con los gnolls a su alrededor.",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "Los Frailes Escarlata ({npc:1538}) acampan justo al noreste de las tumbas; {npc:1664} está entre ellos.",
-	-- ["The Scarlet camp"] = "El campamento Escarlata",
 	-- ["The Vile Fin murlocs line the north shore."] = "Los múrlocs Anca Vil se alinean en la orilla norte.",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Las calabazas crecen en los campos tomados por la Cruzada Escarlata, al noroeste de Solliden.",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "Las arañas acechan en el bosque del extremo este de los claros.",

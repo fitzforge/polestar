@@ -167,8 +167,8 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} em {area:159}, a caminho do zepelim no fim",
 
 	-- Step 38: The Ivar Patch
-	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {area:85}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {zone:1420}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
 	["Inside"] = "Lá dentro",
 
 	-- Step 40: Magistrate Sevren
@@ -198,6 +198,10 @@ return {
 	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
+
+	-- Step 45: Orgrimmar
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)
@@ -240,6 +244,7 @@ return {
 	-- ["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "Para sudeste pela estrada até {area:233}. Protetoras guardam os arredores e Magos a cidade; ambos deixam cair pingentes. Teurgos e Vigias patrulham as estradas em volta. Fique longe do centro, onde {npc:2120} fica.",
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "A sudoeste de Lenhâmbar, os Mourejantes e Guardiões Corvinalle assombram as ruínas de {quest:516}, no sudeste da floresta.",
 	-- ["Swim back and follow the road west to the {area:228}."] = "Nade de volta e siga a estrada para oeste até o {area:228}.",
+	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {area:85}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Os Refugiados Adoentados e Famintos se arrastam pela estrada ao sul de Lenhardente rumo à {area:230}.",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Os Espreita-Lagos e Oráculos Pinavil ficam na margem do lago ao sul da {area:237}, a leste do {area:228}.",
 	-- ["The refugees"] = "Os refugiados",

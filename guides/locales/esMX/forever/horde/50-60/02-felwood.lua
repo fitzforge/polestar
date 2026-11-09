@@ -75,12 +75,16 @@ return {
 
 	-- Step 15: Paladin trainer
 	["Paladin trainer"] = "",
-	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "",
+	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
 
 	-- Step 16: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
+
+	-- Step 17: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
 
 	-- Step 18: Class trainer
 	["Class trainer"] = "",
@@ -201,8 +205,8 @@ return {
 	["{quest:8470}, a rare drop"] = "{quest:8470}, botín raro",
 
 	-- Step 45: Emerald Sanctuary
-	-- {area:361} Felwood
-	["Ride the road south through {area:361} to the Sanctuary."] = "Cabalga al sur por el camino a través de {area:361} hasta el Santuario.",
+	-- {zone:1448} Felwood
+	["Ride the road south through {zone:1448} to the Sanctuary."] = "Cabalga al sur por el camino a través de {zone:1448} hasta el Santuario.",
 
 	-- Step 47: Overlord Ror
 	-- {area:1761} Deadwood Village
@@ -260,6 +264,7 @@ return {
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Cabalga de vuelta a {area:1497}, toma el zepelín a {zone:1454} y vuela a {area:431}. Sigue el camino al oeste fuera del Puesto del Hachazo y toma el desvío al norte hacia {zone:1448}.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cabalga al noroeste hacia Andorhal. {npc:10667} espera en la posada en ruinas del lado oeste del pueblo; los esqueletos de dentro son de nivel 54-57, así que no te alejes de los bordes.",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Cabalga al sur pasando {area:202} hasta {area:197}; la casa de {npc:10927} está junto al camino, y el monumento de {npc:10936} está en el cementerio detrás. Mata los lobos malsanos que encuentres en los campos por el camino.",
+	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Cabalga al sur por el camino a través de {area:361} hasta el Santuario.",
 	-- ["Scarlet forward camp"] = "Campamento avanzado Escarlata",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Las Crónicas están entre los libros enmohecidos del ayuntamiento de Andorhal; ábrelos hasta encontrar el correcto.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "La aldea de los fúrbolgs Muertobosque está justo al sur del Santuario. Cada Muertobosque que mates también sube tu reputación con {area:1769}; guarda las plumas de penacho.",

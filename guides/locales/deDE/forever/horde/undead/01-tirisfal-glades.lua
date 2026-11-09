@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "{item:2320} von {npc:2118}, für Gretchen",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Geh von {area:159} nach Süden zu {area:153} und hinab nach {zone:1458}. {npc:4568} steht im {object:36082}. Das scharlachrote Lager liegt direkt westlich der Ruinen.",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "",
+	["The Scarlet camp"] = "Das scharlachrote Lager",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -426,7 +427,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "Die Grabräuber der Moderfelle graben auf den Friedhöfen nördlich von {area:159}; alle Moderfelle lassen das Sekret fallen.",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "Die Bastarde der Moderfelle halten die Hügel weiter nördlich. {npc:1753} (Stufe 11) steht in ihrem Lager auf dem Hügel südlich des Ufers: Räum zuerst die Gnolle um ihn herum weg.",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "Die Scharlachroten Ordensmitglieder lagern direkt nordöstlich der Gräber; {npc:1664} steht zwischen ihnen.",
-	-- ["The Scarlet camp"] = "Das scharlachrote Lager",
 	-- ["The Vile Fin murlocs line the north shore."] = "Die Murlocs der Finsterflossen säumen das Nordufer.",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Die Kürbisse wachsen auf den von den Scharlachroten gehaltenen Feldern nordwestlich von Sollidens Bauernhof.",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "Die Spinnen lauern in den Wäldern am äußersten Ostende von Tirisfal.",

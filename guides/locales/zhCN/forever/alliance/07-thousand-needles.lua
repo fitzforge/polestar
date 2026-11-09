@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "在地下",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{area:10}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{zone:1431}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}：在屋内",
 
@@ -124,6 +124,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "沿道路向西骑行；隐士的小屋在{area:492}东北方。",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "骷髅袭击者、骷髅医师和骷髅看守占据墓地西部，就在{npc:311}营地东边。",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "从米奈希尔的码头乘船前往{zone:1445}的{area:513}。",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{area:10}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "龙喉兽人在挖掘场东边扎营。龙喉袭击者和龙喉沼泽行者携带龙喉战旗。",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "瘟疫食尸鬼在{area:492}北半部游荡。精英{npc:522}在墓地间徘徊：离他远点。",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船长在沉船甲板上走动；他的保险箱在货舱里。",

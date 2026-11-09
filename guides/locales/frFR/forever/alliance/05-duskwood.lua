@@ -73,8 +73,8 @@ return {
 	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "",
 
 	-- Step 17: Agent Kearnen
-	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
-	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Suivez la route vers l'ouest pour quitter {area:94} et entrer en {area:40}. {npc:7024} surveille la tour de {npc:7053} depuis les collines juste après la frontière. Le {npc:7051} (niveau 23) qui garde la tour porte sa clé ; le journal de Klaven se trouve dans le coffre au sommet.",
+	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
+	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Suivez la route vers l'ouest pour quitter {area:94} et entrer en {zone:1436}. {npc:7024} surveille la tour de {npc:7053} depuis les collines juste après la frontière. Le {npc:7051} (niveau 23) qui garde la tour porte sa clé ; le journal de Klaven se trouve dans le coffre au sommet.",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}, dans le coffre",
 
@@ -106,6 +106,10 @@ return {
 	["Cathedral of Light"] = "Cathédrale de la Lumière",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171} : Rédemption",
+
+	-- Step 22: Stormwind
+	-- {zone:1453} Stormwind · {object:28027} Dwarven District
+	["{zone:1453}'s {object:28027}"] = "",
 
 	-- Step 23: Tram to Ironforge
 	-- {zone:1455} Ironforge

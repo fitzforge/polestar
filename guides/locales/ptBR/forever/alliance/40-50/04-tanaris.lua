@@ -7,15 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {area:400}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {zone:1441}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de Martek em {zone:1418}",
 	["He runs off to keep Rizzle busy"] = "Ele sai correndo para distrair o Rebu",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Saia de {area:439} para o sudeste, rumo a {area:440}. {area:976} fica logo depois da fronteira.",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Saia de {area:439} para o sudeste, rumo a {zone:1446}. {area:976} fica logo depois da fronteira.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, no lado norte da cidade",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
-	-- {area:35} Booty Bay · {area:47} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "MacKinley “Lobo do Mar” em {area:35}: a rota leva você até ele no fim do guia de {area:47}; mantenha a missão",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "MacKinley “Lobo do Mar” em {area:35}: a rota leva você até ele no fim do guia de {zone:1425}; mantenha a missão",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: os Ladrões desarmam você. Os Ladinos ficam escondidos, furtivos. Os Assassinos usam Executar quando sua vida está em 20% ou menos.",
@@ -162,6 +162,7 @@ return {
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Cavalgue para o noroeste até a colmeia Centiparte nas dunas. Qualquer Centiparte pode deixar cair partes de inseto.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Cavalgue para o sul até {quest:3362}. Os Coletores de Orvalho Moitagulhas deixam cair as glândulas; só algumas estão cheias, então guarde a Glândula de Orvalho Cheia. Moitagulhas Rotos e Fazraízes Moitaguhas dividem o vale. Os Moitagulhas Rotos são nível 48-50, acima de você: puxe um de cada vez.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Cavalgue para o sul, passando por {area:1938}, até a {area:981}, os túneis Hazzali; o Aparelho de Inspeção do Anilhacido está bem no fundo.",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Saia de {area:439} para o sudeste, rumo a {area:440}. {area:976} fica logo depois da fronteira.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Cavalgue para o sudeste até {area:985}. O {npc:7847} fica no meio do acampamento Errante do sul: limpe ao redor dele primeiro.",
 	-- ["Rizzle's plans"] = "Projetos do Rebu",
 	-- ["The Wanted poster by {npc:7882}"] = "O cartaz de Procurado junto a {npc:7882}",

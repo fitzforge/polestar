@@ -183,6 +183,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
+	-- Step 33: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 34: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
 

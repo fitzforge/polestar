@@ -154,8 +154,8 @@ return {
 	["{npc:1243} camps south-west of it, by the road to Coldridge."] = "{npc:1243}在它西南侧、通往寒脊山谷的道路旁扎营。",
 
 	-- Step 26: Dun Morogh: kill these as you meet them
-	-- {area:1} Dun Morogh
-	["{area:1}: kill these as you meet them"] = "{area:1}：沿途遇到就击杀",
+	-- {zone:1426} Dun Morogh
+	["{zone:1426}: kill these as you meet them"] = "{zone:1426}：沿途遇到就击杀",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
 	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "{npc:1125}和{npc:1128}在从拉姆布沙特的营地往东北到{area:131}和补给站之间的田野里游荡：在回去的路上击杀它们。",
@@ -252,8 +252,8 @@ return {
 	["{npc:1226}: {npc:258785} in {zone:1455} takes it"] = "{npc:1226}：交给{zone:1455}的{npc:258785}",
 
 	-- Step 40: Steelgrill's Depot
-	-- {area:131} Kharanos · {area:1} Dun Morogh
-	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "从{area:131}沿路向东北前往补给站，从这里开始一轮走完{area:1}整个东部。",
+	-- {area:131} Kharanos · {zone:1426} Dun Morogh
+	["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "从{area:131}沿路向东北前往补给站，从这里开始一轮走完{zone:1426}整个东部。",
 
 	-- Step 41: Misty Pine Refuge
 	-- {area:138} Misty Pine Refuge
@@ -319,16 +319,16 @@ return {
 	["On the road back west to {zone:1455}."] = "沿路向西返回{zone:1455}途中完成。",
 
 	-- Step 66: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "沿路一直向东，前往{area:38}隧道口的{area:806}。",
+	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
+	["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向东，前往{zone:1432}隧道口的{area:806}。",
 
 	-- Step 67: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597}在{area:806}西北方农场上方的洞穴里等候；上去的小路从农场后面开始。",
 
 	-- Step 69: Braldir Ashmantle
-	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿过隧道进入 {area:38}。刚出隧道，路右侧就有一条以石块标记的小径，沿它向北上山，前往 {npc:257808} 的营地。",
+	-- {zone:1432} Loch Modan · {npc:257808} Braldir Ashmantle
+	["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿过隧道进入 {zone:1432}。刚出隧道，路右侧就有一条以石块标记的小径，沿它向北上山，前往 {npc:257808} 的营地。",
 
 	-- Step 70: Fire Tar and the Reagent Pouch
 	-- {item:5026} Fire Tar · {item:6652} Reagent Pouch
@@ -364,8 +364,8 @@ return {
 
 	-- Step 74: The tunnel post
 	["The tunnel post"] = "隧道哨所",
-	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向东穿过南门隧道进入{area:38}。{npc:1089}和{npc:1092}站在刚出隧道的矮人哨所。",
+	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
+	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向东穿过南门隧道进入{zone:1432}。{npc:1089}和{npc:1092}站在刚出隧道的矮人哨所。",
 
 	-- Step 75: Stonesplinter troggs
 	["Stonesplinter troggs"] = "碎石穴居人",
@@ -438,8 +438,8 @@ return {
 	-- Step 85: The Tome of Divinity
 	-- {item:6775} Tome of Divinity
 	["The {item:6775}"] = "{item:6775}",
-	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries · {npc:6175} John Turner · {item:2589} Linen Cloth · {area:1} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {area:1} drop it, and the Auction House sells it."] = "从{object:32383}向西进入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}内，蒂萨和穆里顿在楼上：楼梯起点就在{npc:5149}东北边。乞丐{npc:6175}在城中游荡。他要十块{item:2589}：{area:1}的穴居人和巨魔会掉落，拍卖行也有出售。",
+	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "从{object:32383}向西进入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}内，蒂萨和穆里顿在楼上：楼梯起点就在{npc:5149}东北边。乞丐{npc:6175}在城中游荡。他要十块{item:2589}：{zone:1426}的穴居人和巨魔会掉落，拍卖行也有出售。",
 
 	-- Step 86: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
@@ -473,8 +473,8 @@ return {
 
 	-- Step 94: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
-	-- {npc:5505} Theridran · {zone:1453} Stormwind · {area:1} Dun Morogh
-	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "{npc:5505}在{zone:1453}；{area:1}没有德鲁伊训练师",
+	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
+	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "{npc:5505}在{zone:1453}；{zone:1426}没有德鲁伊训练师",
 
 	-- Step 95: The Deeprun Tram
 	-- {area:2257} Deeprun Tram

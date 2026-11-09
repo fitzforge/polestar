@@ -111,8 +111,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- Step 26: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿過{area:1769}，走隧道通往{area:493}的支線。{npc:11801}在{area:2361}。",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿過{area:1769}，走隧道通往{zone:1450}的支線。{npc:11801}在{area:2361}。",
 
 	-- Step 27: Class trainer
 	["Class trainer"] = "",
@@ -122,8 +122,8 @@ return {
 	["Both quests lead to {zone:1451}: keep them."] = "兩個任務都通往{zone:1451}：先留著。",
 
 	-- Step 30: Donova Snowden
-	-- {area:618} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "回到隧道，走{area:618}出口，然後向南騎到{area:2246}。",
+	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
+	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "回到隧道，走{zone:1452}出口，然後向南騎到{area:2246}。",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
 
@@ -198,9 +198,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一張撕破的卷軸在{area:2260}南邊的地穴{area:2261}入口。",
+	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "回到隧道，走{area:618}出口，然後向南騎到{area:2246}。",
 	-- ["Back to {area:1638}"] = "返回{area:1638}",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飛往{zone:1458}，搭飛艇到{zone:1454}，再飛往{area:1638}。",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "飛往{area:541}，然後向西南騎過安戈洛環形山，穿過山口進入{zone:1451}。下一份指南從山口出口的{area:3077}開始。",
+	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿過{area:1769}，走隧道通往{area:493}的支線。{npc:11801}在{area:2361}。",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "滲透者哈米亞躲在東北角{area:2273}的爛苔食人妖之間。",
 	-- ["Hameya's mound"] = "哈米亞的土堆",
 	-- ["Hameya's scroll"] = "哈米亞的卷軸",

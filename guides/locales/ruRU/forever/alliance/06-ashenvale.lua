@@ -121,8 +121,8 @@ return {
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} ходит по северной оконечности {area:414} со стражами из клана Зловещего Хвоста.",
 
 	-- Step 29: Maestra's Post
-	-- {npc:3663} Delgren the Purifier · {area:331} Ashenvale
-	["{npc:3663}: its circles are for your next {area:331} visit, at about 28"] = "",
+	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "",
 
 	-- Step 30: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon

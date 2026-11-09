@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Cabalga al oeste por el camino; el pergamino está a la orilla del agua, en el extremo oeste del pantano.",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "para {object:2555} en {area:15}, más adelante en esta guía",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "para {object:2555} en {zone:1445}, más adelante en esta guía",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Denteserra",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -209,6 +211,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "Tu instructor está en {area:1638}: vuela allí (¿aún sin esa ruta de vuelo? vuela a {area:378} y cabalga al oeste por {zone:1412}) y luego a {area:496}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "para {object:2555} en {area:15}, más adelante en esta guía",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500} es élite: se recomienda ir en grupo. Golpéalo hasta que se rinda y luego informa a {npc:4501}.",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: para {npc:7010} en {zone:1454}, alrededor del nivel 50",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, luego {object:172960} y {object:172961}.",

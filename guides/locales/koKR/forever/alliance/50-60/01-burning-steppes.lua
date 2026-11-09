@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Shadowsong Shrine
-	-- {area:16} Azshara · {area:3137} Talrendis Point
-	["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "섀도송 제단은 {area:3137} 남쪽, {area:16} 남서쪽 구석에 있습니다.",
+	-- {zone:1447} Azshara · {area:3137} Talrendis Point
+	["The shrine lies in the south-west corner of {zone:1447}, south of {area:3137}."] = "섀도송 제단은 {area:3137} 남쪽, {zone:1447} 남서쪽 구석에 있습니다.",
 
 	-- Step 2: Azshara: kill these as you meet them
-	-- {area:16} Azshara
-	["{area:16}: kill these as you meet them"] = "",
+	-- {zone:1447} Azshara
+	["{zone:1447}: kill these as you meet them"] = "",
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "명가 유령들이 제단 주변 폐허를 떠돌고, 할다르 사티로스가 그 바로 북쪽 야영지를 차지하고 있습니다.",
 
 	-- Step 5: Ogtinc
@@ -78,8 +78,8 @@ return {
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
 
 	-- Step 23: Ravencrest Monument
-	-- {area:16} Azshara · {npc:8392} Pilot Xiggs Fuselighter
-	["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "{area:16} 남쪽 끝 앞바다의 작은 섬까지 헤엄쳐 가세요. {npc:8392}이(가) 기념비 옆에서 기다립니다.",
+	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter
+	["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "{zone:1447} 남쪽 끝 앞바다의 작은 섬까지 헤엄쳐 가세요. {npc:8392}이(가) 기념비 옆에서 기다립니다.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -105,9 +105,9 @@ return {
 
 	-- Step 29: Wildkin feathers
 	["Wildkin feathers"] = "올빼미야수 깃털",
-	-- {area:47} Hinterlands · {area:348} Aerie Peak
+	-- {zone:1425} Hinterlands · {area:348} Aerie Peak
 	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
-	["The Wildkin Feathers lie on the ground across the {area:47}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
+	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita
@@ -254,8 +254,8 @@ return {
 	["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455}에는 드루이드 상급자가 없습니다. 차원문을 타고 {zone:1457}(으)로 올라가 {area:1658}에서 수련한 뒤 {area:702}(으)로 내려오세요.",
 
 	-- Step 70: Back to Teldrassil
-	-- {area:141} Teldrassil
-	["Back to {area:141}"] = "",
+	-- {zone:1438} Teldrassil
+	["Back to {zone:1438}"] = "",
 
 	-- Step 71: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
@@ -273,8 +273,10 @@ return {
 	-- ["Ride back to {area:1438} and fly to {area:348}. The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "{area:1438}(으)로 돌아가 {area:348}(으)로 날아가세요. {item:10819}은(는) {area:348} 남쪽과 동쪽, 올빼미야수가 돌아다니는 {zone:1425} 곳곳의 땅바닥에 있습니다. 이곳 몹은 이제 당신보다 한참 낮습니다.",
 	-- ["Ride east along the road out of {zone:1440} into {zone:1447} to the Sentinels' camp at {area:3137}."] = "길을 따라 동쪽으로 {zone:1440}을(를) 벗어나 {zone:1447}에 들어가 {area:3137}의 파수꾼 야영지로 가세요.",
 	-- ["Ride north out of {area:69} through the pass into the {zone:1428}; {area:2418} sits at the top, in the south-east of the Steppes."] = "{area:69}에서 북쪽으로 고개를 넘어 {zone:1428}에 들어가세요. {area:2418}은(는) 고개 꼭대기, 초원 남동쪽에 있습니다.",
+	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "{area:16} 남쪽 끝 앞바다의 작은 섬까지 헤엄쳐 가세요. {npc:8392}이(가) 기념비 옆에서 기다립니다.",
 	-- ["Thaurissan Relics"] = "{object:153556}",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "유물은 {area:251} 주변 {area:250}에 흩어진 조각된 돌입니다. 정보가 복구될 때까지 클릭하세요.",
+	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "섀도송 제단은 {area:3137} 남쪽, {area:16} 남서쪽 구석에 있습니다.",
 	-- ["The {quest:4296}"] = "{quest:4296}",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",

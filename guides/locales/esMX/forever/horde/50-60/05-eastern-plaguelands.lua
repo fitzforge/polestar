@@ -111,8 +111,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- Step 26: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {area:493}. {npc:11801} está en {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {zone:1450}. {npc:11801} está en {area:2361}.",
 
 	-- Step 27: Class trainer
 	["Class trainer"] = "",
@@ -122,8 +122,8 @@ return {
 	["Both quests lead to {zone:1451}: keep them."] = "Ambas misiones llevan a {zone:1451}: guárdalas.",
 
 	-- Step 30: Donova Snowden
-	-- {area:618} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Regresa por el túnel y toma la salida a {area:618}; luego cabalga al sur hasta {area:2246}.",
+	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
+	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Regresa por el túnel y toma la salida a {zone:1452}; luego cabalga al sur hasta {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
 
@@ -198,9 +198,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Un pergamino roto está en la entrada de {area:2261}, la cripta al sur de {area:2260}.",
+	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Regresa por el túnel y toma la salida a {area:618}; luego cabalga al sur hasta {area:2246}.",
 	-- ["Back to {area:1638}"] = "De vuelta a {area:1638}",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "Vuela a {zone:1458}, toma el zepelín a {zone:1454} y luego vuela a {area:1638}.",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "Vuela a {area:541} y luego cabalga al suroeste por Un'Goro hasta el paso hacia {zone:1451}. La siguiente guía empieza en {area:3077}, donde sale el paso.",
+	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {area:493}. {npc:11801} está en {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Hameya se esconde entre los trols Fustamusgo de {area:2273}, en la esquina noreste.",
 	-- ["Hameya's mound"] = "El montículo de Hameya",
 	-- ["Hameya's scroll"] = "El pergamino de Hameya",

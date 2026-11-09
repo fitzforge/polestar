@@ -251,8 +251,8 @@ return {
 	["Inside"] = "",
 
 	-- Step 58: Dalaran
-	-- {area:279} Dalaran · {area:130} Silverpine Forest · {npc:269127} Image of Archmage Modera
-	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Nach Südwesten zum Lager der Kirin Tor am Seeufer westlich von {area:279}, gleich hinter der Grenze in {area:130}: Dort steht {npc:269127}. Erzmagier Ansirem steht südöstlich davon, bei der Kuppel.",
+	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
+	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Nach Südwesten zum Lager der Kirin Tor am Seeufer westlich von {area:279}, gleich hinter der Grenze in {zone:1421}: Dort steht {npc:269127}. Erzmagier Ansirem steht südöstlich davon, bei der Kuppel.",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Für {npc:2542} in {area:35}: behalten",
 
@@ -269,12 +269,16 @@ return {
 	["{item:2321}, from {npc:2381}"] = "",
 
 	-- Step 64: Ironforge
-	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {area:38} Loch Modan
-	["{npc:1356}, {object:32356}: for {npc:1344} in {area:38}, next"] = "",
+	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
+	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "",
+
+	-- Step 65: To Thelsamar
+	-- {area:144} Thelsamar
+	["To {area:144}"] = "",
 
 	-- Step 66: Thelsamar
-	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {area:38} Loch Modan · {area:144} Thelsamar
-	["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {area:38} und folge der Straße nach {area:144}.",
+	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
+	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {zone:1432} und folge der Straße nach {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
@@ -287,9 +291,11 @@ return {
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves."] = "Eskortiere den Professor zum Strand nördlich der Bucht und beschütze ihn, während er arbeitet; Naga greifen in Wellen an.",
 	-- ["Follow the road south over the bridge to {area:205} at the {zone:1437} end, where {npc:1075} waits."] = "Folge der Straße nach Süden über die Brücke nach {area:205} am Ende im {zone:1437}, wo {npc:1075} wartet.",
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "Folge von {area:42} aus der Straße nach Osten durch {zone:1430} in {zone:1435}; Biggs bewacht die Straßenkreuzung gleich hinter der Grenze. {npc:217412} steht ein kurzes Stück nördlich von ihm.",
+	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {area:38} und folge der Straße nach {area:144}.",
 	-- ["Gyll, {area:35}"] = "Gyll, {area:35}",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Reite zurück nach Nordosten an {area:320} vorbei; {npc:2712} und {npc:2713} lagern in den Hügeln nördlich von {area:314}.",
 	-- ["Shaman training"] = "Schamanentraining",
+	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Nach Südwesten zum Lager der Kirin Tor am Seeufer westlich von {area:279}, gleich hinter der Grenze in {area:130}: Dort steht {npc:269127}. Erzmagier Ansirem steht südöstlich davon, bei der Kuppel.",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "Bleib bei {npc:2713}, während sie sich nach {area:314} und zurück schleicht; Orcs der Horde fallen unterwegs über dich her.",
 	-- ["Subdue the succubus"] = "Bezwinge den Sukkubus",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Die Crushridge-Oger halten die Hügel nördlich von {area:280}. Weiter nördlich enthält eine abgenutzte Holztruhe {item:3706}; {npc:2320} aus {quest:537} steht direkt daneben.",

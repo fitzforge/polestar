@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "그레첸 데드마에게 줄 {item:2320}, {npc:2118}에게서 구입",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {zone:1458}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "",
+	["The Scarlet camp"] = "붉은십자군 야영지",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -424,7 +425,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "썩은가죽일족 도굴꾼이 {area:159} 북쪽 묘지를 파헤칩니다. 썩은가죽일족은 모두 체액을 떨어뜨립니다.",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "썩은가죽일족 싸움꾼이 더 북쪽 언덕을 차지하고 있습니다. {npc:1753}(11레벨)은(는) 해안 남쪽 언덕의 야영지에 있습니다. 주변 놀부터 처치하세요.",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "붉은십자군 수사가 무덤 바로 북동쪽에서 야영하며, {npc:1664}이(가) 그들 사이에 있습니다.",
-	-- ["The Scarlet camp"] = "붉은십자군 야영지",
 	-- ["The Vile Fin murlocs line the north shore."] = "썩은지느러미멀록이 북쪽 해안을 따라 늘어서 있습니다.",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "호박은 솔리덴 농장 북서쪽, 붉은십자군이 차지한 들판에 자랍니다.",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "거미는 숲 동쪽 맨 끝의 수풀에 숨어 있습니다.",

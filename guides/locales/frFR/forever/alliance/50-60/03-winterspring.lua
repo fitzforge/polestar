@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {area:618} Winterspring
-	["Into {area:618}"] = "Vers {area:618}",
+	-- {zone:1452} Winterspring
+	["Into {zone:1452}"] = "Vers {zone:1452}",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
+	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
@@ -47,8 +47,8 @@ return {
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246} : tuez-les au passage",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {area:618} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {area:618}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "",
 
@@ -108,17 +108,17 @@ return {
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
 	-- Step 23: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 24: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "Vers {area:139}",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "Vers {zone:1423}",
 
 	-- Step 26: Pamela Redpath
-	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Suivez la route du sud vers l'est jusqu'aux {area:139} ; les ruines de {area:2262} se trouvent au sud de celle-ci. Le fantôme de {npc:10926} joue près de la maison en ruine, à l'extrémité sud.",
+	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
+	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Suivez la route du sud vers l'est jusqu'en {zone:1423} ; les ruines de {area:2262} sont au sud de la route. Le fantôme de {npc:10926} Redpath joue près de la maison en ruine, au bout sud.",
 
 	-- Step 27: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
@@ -131,8 +131,8 @@ return {
 	["{item:12888}; inside"] = "{item:12888} ; à l'intérieur",
 
 	-- Step 28: Pamela Redpath
-	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
-	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, dans les {area:28} : gardez-la",
+	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
+	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, en {zone:1422} : gardez-la",
 
 	-- Step 29: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Suivez la route vers l'est à travers la zone jusqu'à la Chapelle de l'Espoir de Lumière.",
@@ -159,7 +159,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "Retournez dans les collines : seuls les Matriarches et Patriarches Chardon de glace portent les cornes. Tuez des yétis jusqu'au niveau 54 : avant, les quêtes d'Indomptables de Harlo Barnaby sont rouges.",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Attention : {npc:10411} devient invisible hors combat et appelle des Gargouilles Aile-de-roc dès qu'un combat commence. Il n'en existe que 3 et ils réapparaissent toutes les 15 min.",
-	-- ["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Suivez la route du sud vers l'est jusqu'en {zone:1423} ; les ruines de {area:2262} sont au sud de la route. Le fantôme de {npc:10926} Redpath joue près de la maison en ruine, au bout sud.",
+	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Suivez la route du sud vers l'est jusqu'aux {area:139} ; les ruines de {area:2262} se trouvent au sud de celle-ci. Le fantôme de {npc:10926} joue près de la maison en ruine, à l'extrémité sud.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Suivez les indications de {npc:9298} Snowden jusqu'à l'entrée de {area:2256}, après les Géants Cognegivre : passez-les un par un.",
 	-- ["Hearth to {area:2255}"] = "Pierre de foyer vers {area:2255}",
 	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers {area:2268}",
@@ -198,7 +198,7 @@ return {
 	-- ["{npc:7440} along the way to {npc:9298}"] = "{npc:7440} sur le chemin de {npc:9298}",
 	-- ["{npc:7441} along the way to {npc:9298}"] = "{npc:7441} sur le chemin de {npc:9298}",
 	-- ["{npc:7442} along the way to {npc:9298}"] = "{npc:7442} sur le chemin de {npc:9298}",
-	-- ["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, en {zone:1422} : gardez-la",
+	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, dans les {area:28} : gardez-la",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, pour Meilosh plus tard",
 	-- ["{quest:8471}, a rare drop"] = "{quest:8471}, butin rare",
 }

@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {area:618} Winterspring
-	["Into {area:618}"] = "",
+	-- {zone:1452} Winterspring
+	["Into {zone:1452}"] = "",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
+	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
@@ -47,8 +47,8 @@ return {
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {area:618} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {area:618}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "",
 
@@ -108,17 +108,17 @@ return {
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
 	-- Step 23: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {area:139} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {area:139}."] = "",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
 	["Inside"] = "",
 
 	-- Step 24: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "",
 
 	-- Step 26: Pamela Redpath
-	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {area:139}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
+	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
+	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {zone:1423}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
 
 	-- Step 27: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
@@ -131,8 +131,8 @@ return {
 	["{item:12888}; inside"] = "",
 
 	-- Step 28: Pamela Redpath
-	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
-	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, {area:28}에서: 보관하세요",
+	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
+	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, {zone:1422}에서: 보관하세요",
 
 	-- Step 29: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "길을 따라 동쪽으로 지역을 가로질러 예배당까지 가세요.",
@@ -158,6 +158,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "언덕으로 돌아가세요. 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인만 뿔을 지니고 있습니다. 54레벨이 될 때까지 설인을 계속 처치하세요. 그 전에는 하를로의 올빼미야수 퀘스트가 빨간색입니다.",
+	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {area:139}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "{npc:9298}의 안내를 따라 서리망치거인들을 지나 {area:2256} 입구로 가세요. 거인은 하나씩 지나가세요.",
 	-- ["Optional: {area:1417}"] = "선택: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "마차 주변의 보급품을 줍고, 근처 올빼미야수에게서 {npc:10301}의 목걸이를 되찾으세요.",
@@ -183,6 +184,7 @@ return {
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556}은(는) {npc:9298} 북서쪽의 {area:1769} 입구를 지킵니다.",
 	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: {area:2262}을(를) 위해 보관하세요",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250}은(는) 정예이니 파티를 권장합니다. 그는 지역 남서쪽의 지하실인 {area:2261}의 맨 아래에서 기다립니다.",
+	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, {area:28}에서: 보관하세요",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, 나중에 메일로쉬에게",
 	-- ["{quest:8471}, a rare drop"] = "{quest:8471}, 드문 전리품",
 }

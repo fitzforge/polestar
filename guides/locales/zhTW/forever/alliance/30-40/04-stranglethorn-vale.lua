@@ -80,8 +80,8 @@ return {
 	["grind on {npc:937}"] = "",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
-	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "",
+	-- {zone:1434} Stranglethorn Vale
+	["{zone:1434}: kill these as you meet them"] = "",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 18: Level 34
@@ -192,6 +192,10 @@ return {
 	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",
+
+	-- Step 36: Stonetalon Mountains
+	-- {area:608} Nijel's Point
+	["The road to {area:608}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "血頂食人妖",

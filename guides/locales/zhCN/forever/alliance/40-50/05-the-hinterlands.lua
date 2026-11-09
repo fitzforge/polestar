@@ -85,8 +85,8 @@ return {
 	["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
 
 	-- Step 24: Portal to Teldrassil
-	-- {area:141} Teldrassil
-	["Portal to {area:141}"] = "传送至{area:141}",
+	-- {zone:1438} Teldrassil
+	["Portal to {zone:1438}"] = "传送至{zone:1438}",
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -104,8 +104,8 @@ return {
 
 	-- Step 30: The bloodmages
 	["The bloodmages"] = "血法师",
-	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "进入{area:4}后，第一个停靠点就是路旁的血法师营地，位于{area:1438}西北侧。",
+	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "进入{zone:1419}后，第一个停靠点就是路旁的血法师营地，位于{area:1438}西北侧。",
 
 	-- Step 31: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
@@ -118,8 +118,8 @@ return {
 	["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
 
 	-- Step 32: Blasted Lands: kill these as you meet them
-	-- {area:4} Blasted Lands
-	["{area:4}: kill these as you meet them"] = "{area:4}：沿途击杀以下目标",
+	-- {zone:1419} Blasted Lands
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途击杀以下目标",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "向西骑行，饥饿的弯牙土狼在血法师营地南侧的干燥山丘活动，50 级的厚甲毒刺蝎在北部中央活动，{npc:5982}秃鹫在整片区域上空盘旋。逐个拉怪。\n灰鬃野猪和红石蜥蜴在城堡西南侧坡地活动。远离更南侧的 52 级地狱野猪。\n注意：厚甲毒刺蝎会使用{spell:5416}，{npc:8301}还会击倒。",
@@ -162,6 +162,7 @@ return {
 	-- ["Hearth to {area:348}."] = "用炉石返回{area:348}。",
 	-- ["Hearthstone on cooldown? Ride back north-west."] = "炉石在冷却？向西北骑回去。",
 	-- ["Into {area:3}"] = "进入{area:3}",
+	-- ["Portal to {area:141}"] = "传送至{area:141}",
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "向东骑回{area:1438}，飞往{area:144}。",
 	-- ["Ride back north to Ironband's camp."] = "向北骑回铁环挖掘场的营地。",
 	-- ["Ride back west along the loch to {area:144}."] = "沿洛克湖向西骑行返回{area:144}。",

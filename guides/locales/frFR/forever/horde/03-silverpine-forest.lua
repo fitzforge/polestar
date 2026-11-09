@@ -167,8 +167,8 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 38: The Ivar Patch
-	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route vers le nord en direction des {area:85} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à quelques pas à l'ouest.",
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route du nord vers {zone:1420} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à courte distance à l'ouest.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 40: Magistrate Sevren
@@ -198,6 +198,10 @@ return {
 	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
+
+	-- Step 45: Orgrimmar
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
@@ -252,7 +256,7 @@ return {
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Au sud-ouest de Moulin-de-l'Ambre, les manouvriers et gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.",
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest.\nCareful: The cave passages are narrow, so it is easy to pull extra mobs. Three mobs guard the entrance, and one of them walks a short patrol away from the other two."] = "Au sud-ouest de Moulin-de-l'Ambre, les Manouvriers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.\nAttention : les passages de la grotte sont étroits, il est facile d'attirer des monstres en plus. Trois monstres gardent l'entrée, et l'un d'eux fait une courte patrouille à l'écart des deux autres.",
 	-- ["Swim back and follow the road west to the {area:228}."] = "Revenez à la nage et suivez la route vers l'ouest jusqu'à {area:228}.",
-	-- ["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route du nord vers {zone:1420} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à courte distance à l'ouest.",
+	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Prenez la route vers le nord en direction des {area:85} : la maison des Yorick, à {area:238}, est sur le chemin. {quest:425} rôde à quelques pas à l'ouest.",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Les Réfugiés malades et hagards errent sur la route au sud de Bois-du-Bûcher, vers {area:230}.",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Les Rôdeurs lacustres et les Oracles Aileron noir se trouvent sur la rive du lac au sud de {area:237}, à l'est de {area:228}.",
 	-- ["The cattails and speargrass grow along the water in the {object:172958}, east of the {object:172959}."] = "Les quenouilles et les herbes-lances poussent au bord de l'eau dans {object:172958}, à l'est de {object:172959}.",

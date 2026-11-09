@@ -185,8 +185,8 @@ return {
 	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "Allez vers l'ouest par le pont de {area:814}, passez {area:379} et continuez le long de la crête : {npc:5907} se tient seul au-dessus du camp Tranchecrin.",
 
 	-- Step 43: Telf Joolam
-	-- {area:14} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {area:14} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
+	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
+	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
 
 	-- Step 44: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Les Hurans et les Eclaireurs Tranchecrin tiennent les huttes à l'ouest de la ville ; les Lève-poussière et les Gardes de guerre tiennent les camps plus à l'ouest.",
@@ -228,8 +228,8 @@ return {
 
 	-- Step 55: Mage trainer
 	["Mage trainer"] = "Maître des mages",
-	-- {npc:5884} Mai'ah · {area:14} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {area:14}; {area:362} has no mage trainer"] = "{npc:5884} ({area:14}) ; {area:362} n'a pas de maître des mages",
+	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
+	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} ({zone:1411}) ; {area:362} n'a pas de maître des mages",
 
 	-- Step 56: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -258,8 +258,8 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Tant que vous y êtes : apprenez les Bâtons auprès de {npc:2704} ({object:172958}, 10 pièces d'argent) ; un bâton apporte plus de caractéristiques de sorts qu'une arme à une main pendant la montée de niveau.",
 
 	-- Step 63: Back to Durotar
-	-- {area:14} Durotar
-	["Back to {area:14}"] = "Retour en {area:14}",
+	-- {zone:1411} Durotar
+	["Back to {zone:1411}"] = "Retour en {zone:1411}",
 
 	-- Step 64: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -290,8 +290,8 @@ return {
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142} : {npc:275666}, un géant des mers élite",
 
 	-- Step 74: Aggor the Young
-	-- {npc:275666} Aggor the Young · {area:14} Durotar
-	["{npc:275666}, a young sea giant, walks {area:14}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, un jeune géant des mers, arpente la côte nord de {area:14}, au nord de la plage des nagas. {npc:275666} est élite : il est conseillé de se grouper.",
+	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
+	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, un jeune géant des mers, arpente la côte nord de {zone:1411}, au nord de la plage des nagas. {npc:275666} est élite : il est conseillé de se grouper.",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, de retour à {area:362}",
 
@@ -303,8 +303,8 @@ return {
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171} : {npc:3352}, à {zone:1454}, enseigne {spell:5149}",
 
 	-- Step 76: Far Watch Post
-	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {area:14} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {area:14} leads to {zone:1454}."] = "",
+	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
 	-- Step 77: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "",
@@ -321,10 +321,12 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Tant que vous y êtes : apprenez les Bâtons auprès de {npc:2704} ({object:172958}, 10 pièces d'argent) ; l'arme de mêlée d'un chasseur compte surtout pour ses caractéristiques, et les armes à deux mains en apportent le plus.",
 
 	-- Step 81: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "Vers {area:1637}",
-	-- {area:379} Far Watch Post · {area:1637} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "Vers {zone:1454}",
+	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Retournez à l'est jusqu'au rivage au nord de {npc:275657}. Les Eclaireurs et les Domestiques fouette-bile tiennent la plage sous {area:370}. Chasseurs : apprivoisez un {npc:3107} sur la plage.",
@@ -338,7 +340,7 @@ return {
 	-- ["On the way"] = "En chemin",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Les Lézards-tonnerre et les Foudroyants paissent sur {area:369}, de l'autre côté du pont ; chacun d'eux peut laisser tomber une {item:6486}.",
 	-- ["Thunder lizards across the river"] = "Lézards-tonnerre de l'autre côté du fleuve",
-	-- ["To {zone:1454}"] = "Vers {zone:1454}",
+	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there."] = "Traversez à gué jusqu'à l'île de l'Écho la plus au nord. La Matriarche y rôde parmi les raptors.",
 	-- ["{item:11583} along the way to Back to the Den"] = "{item:11583} sur le chemin du retour à l'Antre",
 	-- ["{item:11583} on the way"] = "{item:11583} en chemin",

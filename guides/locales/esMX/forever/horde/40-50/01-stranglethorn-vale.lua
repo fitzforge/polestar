@@ -53,10 +53,10 @@ return {
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Los barcos Velasangre",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "",
-	-- {area:8} Swamp of Sorrows
-	["for a later stop in the {area:8}"] = "para una parada posterior en {area:8}",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "para una parada posterior en {zone:1435}",
 
 	-- Step 12: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
@@ -201,10 +201,10 @@ return {
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
 	-- Step 49: Into the Swamp of Sorrows
-	-- {area:8} Swamp of Sorrows
-	["Into the {area:8}"] = "A {area:8}",
-	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["Into the {zone:1435}"] = "A {zone:1435}",
+	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
@@ -252,6 +252,7 @@ return {
 	-- ["Hearth to {area:35}"] = "Usa la piedra de hogar para ir a {area:35}",
 	-- ["Hearth to {object:3202}"] = "Usa la piedra de hogar para ir a {object:3202}",
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "Su caja fuerte espera en su antiguo campamento al norte de {area:75}.",
+	-- ["Into the {area:8}"] = "A {area:8}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Sigue cabalgando al norte hacia {zone:1431} y luego al este por el camino a través de {zone:1430} hasta el pantano. {npc:1776} espera en {area:657}, el campamento draenei cerca de la entrada desde {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Orilla de los nagas y {object:759}",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "Cabalga de vuelta al este pasando {area:75} y sigue el camino al sureste hasta el pequeño puesto de la Horda en la orilla.",
@@ -274,6 +275,7 @@ return {
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "Al oeste de la expedición, los jefes Sangrapellejo {npc:1061} y {npc:1062} están juntos en las ruinas de Zul'Kunda. Limpia antes sus guardias y luego atráelos.",
 	-- ["for Stoley in {zone:1446}"] = "para Stoley en {zone:1446}",
+	-- ["for a later stop in the {area:8}"] = "para una parada posterior en {area:8}",
 	-- ["for later: the {zone:1425}, around level 48"] = "para más adelante: {zone:1425}, alrededor del nivel 48",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, junto a {npc:2497}",
 	-- ["{area:392} pier"] = "Muelle de {area:392}",

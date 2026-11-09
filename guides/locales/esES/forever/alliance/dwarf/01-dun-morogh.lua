@@ -164,8 +164,8 @@ return {
 	["{npc:1243} camps south-west of it, by the road to Coldridge."] = "",
 
 	-- Step 27: Dun Morogh: kill these as you meet them
-	-- {area:1} Dun Morogh
-	["{area:1}: kill these as you meet them"] = "",
+	-- {zone:1426} Dun Morogh
+	["{zone:1426}: kill these as you meet them"] = "",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
 	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "",
@@ -264,8 +264,8 @@ return {
 	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
 
 	-- Step 41: Steelgrill's Depot
-	-- {area:131} Kharanos · {area:1} Dun Morogh
-	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "",
+	-- {area:131} Kharanos · {zone:1426} Dun Morogh
+	["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "",
 
 	-- Step 42: Misty Pine Refuge
 	-- {area:138} Misty Pine Refuge
@@ -344,16 +344,16 @@ return {
 	["On the road back west to {zone:1455}."] = "",
 
 	-- Step 68: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
+	["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "",
 
 	-- Step 69: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} espera en una cueva sobre la granja al noroeste de {area:806}; el sendero de subida empieza detrás de la granja.",
 
 	-- Step 71: Braldir Ashmantle
-	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
+	-- {zone:1432} Loch Modan · {npc:257808} Braldir Ashmantle
+	["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
 
 	-- Step 72: Fire Tar and the Reagent Pouch
 	-- {item:5026} Fire Tar · {item:6652} Reagent Pouch
@@ -389,8 +389,8 @@ return {
 
 	-- Step 76: The tunnel post
 	["The tunnel post"] = "",
-	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
+	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
 
 	-- Step 77: Stonesplinter troggs
 	["Stonesplinter troggs"] = "",
@@ -461,8 +461,8 @@ return {
 	["{npc:6120}: {npc:6122} in {zone:1453} takes it"] = "{npc:6120}: la recoge {npc:6122} en {zone:1453}",
 
 	-- Step 87: The Tome of Divinity
-	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {area:1} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {area:1} drop it, and the Auction House sells it."] = "",
+	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "",
 	-- {quest:2997} Tome of Divinity
 	["From the {quest:2997} she gives you"] = "Del {quest:2997} que te da",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
@@ -506,8 +506,8 @@ return {
 
 	-- Step 97: Druid trainer
 	["Druid trainer"] = "",
-	-- {npc:5505} Theridran · {zone:1453} Stormwind · {area:1} Dun Morogh
-	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "",
+	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
+	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "",
 
 	-- Step 98: The Deeprun Tram
 	-- {area:2257} Deeprun Tram

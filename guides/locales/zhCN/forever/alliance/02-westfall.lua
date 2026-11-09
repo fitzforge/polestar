@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Goldshire
-	-- {zone:1453} Stormwind · {area:40} Westfall · {area:87} Goldshire · {npc:241} Remy "Two Times" · {npc:240} Marshal Dughan · {quest:40} A Fishy Peril · {quest:35} Further Concerns · {quest:109} Report to Gryan Stoutmantle
-	["On the road from {zone:1453} to {area:40}, {area:87} is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {area:40}."] = "从{zone:1453}沿路前往{area:40}，第一站是{area:87}。{npc:241}站在旅店外，{npc:240}在他旁边。{npc:241}的{quest:40}直接交给治安官杜汉，随后他会给你{quest:35}；{quest:109}则带到{area:40}去。",
+	-- {zone:1453} Stormwind · {zone:1436} Westfall · {area:87} Goldshire · {npc:241} Remy "Two Times" · {npc:240} Marshal Dughan · {quest:40} A Fishy Peril · {quest:35} Further Concerns · {quest:109} Report to Gryan Stoutmantle
+	["On the road from {zone:1453} to {zone:1436}, {area:87} is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "从{zone:1453}沿路前往{zone:1436}，第一站是{area:87}。{npc:241}站在旅店外，{npc:240}在他旁边。{npc:241}的{quest:40}直接交给治安官杜汉，随后他会给你{quest:35}；{quest:109}则带到{zone:1436}去。",
 	-- {npc:240} Marshal Dughan · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:240}: for {npc:234} at {area:108}"] = "{npc:240}：交给{area:108}的{npc:234}",
 
@@ -68,12 +68,12 @@ return {
 	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "沿路向东，然后下到桥南边的河里：{item:247813}、斧头和工具箱都在河里。{npc:118}和{npc:822}在两岸游荡。",
 
 	-- Step 14: Goldshire
-	-- {area:87} Goldshire · {area:40} Westfall · {npc:240} Marshal Dughan
-	["Follow the road west to {area:87}, on the way to {area:40}: {npc:240} stands outside the inn."] = "沿路向西返回{area:87}，顺路继续去{area:40}；{npc:240}站在旅店外。",
+	-- {area:87} Goldshire · {zone:1436} Westfall · {npc:240} Marshal Dughan
+	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西返回{area:87}，顺路继续去{zone:1436}；{npc:240}站在旅店外。",
 
 	-- Step 15: The Jansen Stead
-	-- {area:40} Westfall · {object:2724} Sack of Oats
-	["Follow the road from Elwynn into {area:40}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "沿着大路从艾尔文森林进入{area:40}：法布隆一家就在路边第一座被烧毁的农场旁。这一圈路上碰到的{object:2724}都捡上，剩下的回程时在这边的田里收齐。",
+	-- {zone:1436} Westfall · {object:2724} Sack of Oats
+	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "沿着大路从艾尔文森林进入{zone:1436}：法布隆一家就在路边第一座被烧毁的农场旁。这一圈路上碰到的{object:2724}都捡上，剩下的回程时在这边的田里收齐。",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
 	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人类角色已在艾尔文森林从{npc:963}处接取此任务",
 
@@ -112,8 +112,8 @@ return {
 	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}，{object:2096}，在狮鹫旁",
 	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town
 	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}，有限无敌，在{object:2100}",
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646}, {object:2098}: his compass is in his old house in {area:40}"] = "{npc:1646}，{object:2098}：他的罗盘在他{area:40}的老房子里",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "{npc:1646}，{object:2098}：他的罗盘在他{zone:1436}的老房子里",
 	-- {npc:352} Dungar Longdrink
 	["{npc:352}, the gryphon master"] = "{npc:352}，狮鹫管理员",
 
@@ -246,8 +246,8 @@ return {
 	["{item:2998}, from {object:1166}"] = "{item:2998}，来自{object:1166}",
 
 	-- Step 44: Defensive Stance
-	-- {area:40} Westfall · {zone:1453} Stormwind · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
-	["From {area:40}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{area:40}步行前往{zone:1453}；从{zone:1455}来的地铁抵达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：没有该任务他也会给你{quest:1639}。",
+	-- {zone:1436} Westfall · {zone:1453} Stormwind · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
+	["From {zone:1436}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{zone:1436}步行前往{zone:1453}；从{zone:1455}出发的地铁到达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：不需要那个任务他也会给你{quest:1639}。",
 
 	-- Step 46: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena
@@ -261,6 +261,10 @@ return {
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}，在艾尔文森林的{area:86}旁，通往赤脊山的路上",
 
+	-- Step 49: Stormwind
+	-- {zone:1453} Stormwind · {object:28027} Dwarven District
+	["{zone:1453}'s {object:28027}"] = "",
+
 	-- Step 50: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "乘地铁去{zone:1455}",
@@ -271,17 +275,16 @@ return {
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "前往{zone:1453}。那里没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，在{npc:258098}处学习技能，然后乘地铁返回坐船。",
 
 	-- Step 52: Stormwind
-	["Stormwind"] = "",
-	-- {area:1519} Stormwind City · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	-- {area:1519} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
 	["In through the main gate (already done if you are in the city)"] = "",
 	["Level 12, 14 and 16 spells"] = "12、14和16级法术",
 
-	-- Step 53: Back to Stormwind City
-	-- {area:1519} Stormwind City
-	["Back to {area:1519}"] = "返回{area:1519}",
-	-- {area:1519} Stormwind City · {object:28027} Dwarven District
-	["Ride the tram back: it comes out in {area:1519}'s {object:28027}, where the errands below start."] = "",
+	-- Step 53: Back to Stormwind
+	-- {zone:1453} Stormwind
+	["Back to {zone:1453}"] = "返回{zone:1453}",
+	-- {zone:1453} Stormwind · {object:28027} Dwarven District
+	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "",
 
 	-- Step 54: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
@@ -320,8 +323,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north past Molsen Farm to the mine: Kobold Diggers work inside."] = "向北经过摩尔森农场回到矿洞：{npc:1236}在里面干活。",
 	-- ["Back to {area:108}"] = "返回{area:108}",
+	-- ["Back to {area:1519}"] = "返回{area:1519}",
 	-- ["Back to {object:81}"] = "返回哨兵岭",
-	-- ["Back to {zone:1453}"] = "返回{zone:1453}",
 	-- ["Defensive Stance"] = "防御姿态",
 	-- ["Defias Pathstalkers and Knuckledusters walk Moonbrook; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. The Deadmines entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亚拳匪在月溪镇巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的死亡矿井入口是小队地下城。\n小心：山丘上的营地有混编的迪菲亚，如果你等级低，很容易一次拉到不止一个。",
 	-- ["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon."] = "迪菲亚巡路者和迪菲亚拳匪在{area:20}巡逻；迪菲亚路霸（17级）成对巡逻其南边和东边的山丘：把它们分开拉。铁匠铺里的{area:1581}入口是团队地下城。",
@@ -343,6 +346,7 @@ return {
 	-- ["Follow the road north. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west."] = "沿道路向北。{npc:233}站在屋外，{npc:235}在屋里，{npc:253395}在西边的谷仓里。",
 	-- ["Follow the road west to Goldshire, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西回闪金镇，去{zone:1436}的路上正好经过：{npc:240}站在旅店外。",
 	-- ["For {npc:11026} in {zone:1453}'s {object:28027}"] = "交给{zone:1453}{object:28027}的{npc:11026}",
+	-- ["From {area:40}, walk to {zone:1453}; the tram from {zone:1455} arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "从{area:40}步行前往{zone:1453}；从{zone:1455}来的地铁抵达{object:28027}。{npc:5480}在{object:2100}训练战士；{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：没有该任务他也会给你{quest:1639}。",
 	-- ["Furlbrow's Pumpkin Farm: kill these as you meet them"] = "法布隆农场：下面这些，遇到了就顺手杀",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦，并在农场的井里装满药瓶。",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路继续向北。法布隆夫妇坐在被烧毁的农场旁。沿途从田里的一袋燕麦收集燕麦。",

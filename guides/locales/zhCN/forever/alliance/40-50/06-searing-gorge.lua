@@ -11,14 +11,16 @@ return {
 	["To {area:2101}"] = "前往{area:2101}",
 
 	-- Step 2: Into Searing Gorge
-	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "进入{area:51}",
+	-- {zone:1427} Searing Gorge
+	["Into {zone:1427}"] = "进入{zone:1427}",
+
+	-- Step 3: Searing Gorge
+	["The Grimesilt outhouse"] = "格里塞特厕所",
 
 	-- Step 4: The Grimesilt outhouse
-	["The Grimesilt outhouse"] = "格里塞特厕所",
-	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
+	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "从{area:144}向南骑行进入{zone:1418}，再向西经过部落城镇{area:340}（绕远些），沿小径上行进入{area:51}：刚进去的东南边就是{area:247}。木制厕所里的囚犯要15块{item:4306}，并要求击杀周围挖掘场的八名黑铁地质学家。如果找到钥匙，也可以用钥匙打开厕所。",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "从{area:144}向南骑行进入{zone:1418}，再向西经过部落城镇{area:340}（绕远些），沿小径上行进入{zone:1427}：刚进去的东南边就是{area:247}。木制厕所里的囚犯要15块{item:4306}，并要求击杀周围挖掘场的八名黑铁地质学家。如果找到钥匙，也可以用钥匙打开厕所。",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -71,8 +73,8 @@ return {
 	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 
 	-- Step 22: Searing Gorge: kill these as you meet them
-	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "{area:51}：沿途击杀以下目标",
+	-- {zone:1427} Searing Gorge
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途击杀以下目标",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443}的入口在大熔炉北部。秘密设计图在上层岩架上；{npc:9318}在更深处的熔岩池里游动，把它们拉到池边。远离深处的{npc:14621}和他的精英卫兵。",

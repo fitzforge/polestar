@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Far Watch Post
-	-- {zone:1454} Orgrimmar · {area:14} Durotar · {area:814} Southfury River · {area:379} Far Watch Post · {area:17} The Barrens · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek
-	["Leave {zone:1454} by the main gate and follow the road south through {area:14}, then west over the {area:814} bridge: {area:379} sits just above it on the {area:17} side. {npc:3337} and {npc:5810} stand together."] = "从正门离开{zone:1454}，沿路向南穿过{area:14}，再向西过{area:814}上的桥：{area:379}就在桥北侧的{area:17}一边。{npc:3337}和{npc:5810}站在一起。",
+	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek
+	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337} and {npc:5810} stand together."] = "从正门离开{zone:1454}，沿路向南穿过{zone:1411}，再向西过{area:814}上的桥：{area:379}就在桥北侧的{zone:1413}一边。{npc:3337}和{npc:5810}站在一起。",
 
 	-- Step 3: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -58,8 +58,8 @@ return {
 	-- Step 14: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
 	["Plainstrider Beaks as you go"] = "顺路收集陆行鸟的喙",
-	-- {area:17} The Barrens
-	["Plainstriders roam the plains all over the {area:17}, and about one in four drops a beak: kill the ones you pass on the way."] = "平原陆行鸟遍布{area:17}的平原，大约四只中有一只掉落喙：杀掉沿途遇到的。",
+	-- {zone:1413} The Barrens
+	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "平原陆行鸟遍布{zone:1413}的平原，大约四只中有一只掉落喙：杀掉沿途遇到的。",
 
 	-- Step 15: Razormane camp
 	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks."] = "营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。\n这里的陆行鸟也算在喙的数量里。",
@@ -82,6 +82,9 @@ return {
 	-- {area:814} Southfury River
 	["Follow the road east to the outpost above the {area:814}."] = "沿道路向东前往{area:814}上方的哨站。",
 
+	-- Step 24: Durotar
+	["The thunder lizards across the river"] = "",
+
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 	-- {area:379} Far Watch Post
@@ -95,9 +98,9 @@ return {
 	-- Step 28: Dustwind Gulch cultists
 	-- {area:1898} Dustwind Gulch
 	["{area:1898} cultists"] = "{area:1898}的祭司",
-	-- {area:1898} Dustwind Gulch · {area:14} Durotar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
+	-- {area:1898} Dustwind Gulch · {zone:1411} Durotar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "火刃祭司占据{area:14}北部的{area:1898}；它们掉落{item:6652}。{item:5026}在你下次去钢鬃营地时从钢鬃野猪人身上获得。",
+	["Burning Blade Cultists hold {area:1898} in northern {zone:1411}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "火刃祭司占据{zone:1411}北部的{area:1898}；它们掉落{item:6652}。{item:5026}在你下次去钢鬃营地时从钢鬃野猪人身上获得。",
 
 	-- Step 31: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet · {object:58369} Stolen Iron Chest
@@ -118,8 +121,8 @@ return {
 	["{quest:1492}: the emerald comes from the {area:381}, later"] = "{quest:1492}：翡翠来自{area:381}，稍后再做",
 
 	-- Step 34: The Barrens: kill these as you meet them
-	-- {area:17} The Barrens
-	["{area:17}: kill these as you meet them"] = "{area:17}：沿途遇到就击杀",
+	-- {zone:1413} The Barrens
+	["{zone:1413}: kill these as you meet them"] = "{zone:1413}：沿途遇到就击杀",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
 	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
 
@@ -477,6 +480,10 @@ return {
 	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
 	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197}住在{area:2539}，那是从{npc:3389}处向西的道路尽头、刚进入石爪山脉的巨魔村庄。",
 
+	-- Step 121: To Regthar Deathgate
+	-- {npc:3389} Regthar Deathgate
+	["To {npc:3389}"] = "",
+
 	-- Step 123: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate
 	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop."] = "{npc:3396}带领科卡尔盘踞在{npc:3389}南边的{area:387}西岸。他沿岸游走，北端约46,36，南端约46,42：若箭头处没看到他，就沿岸寻找。最后一次到十字路口时，把他的头交给{npc:3389}。",
@@ -581,6 +588,10 @@ return {
 	-- {npc:3389} Regthar Deathgate
 	["Fly back to the Crossroads; the road west to Stonetalon starts at {npc:3389}'s bunkers."] = "飞回十字路口；向西通往石爪山脉的道路从{npc:3389}的碉堡起始。",
 
+	-- Step 151: Seereth Stonebreak's camp
+	-- {npc:4049} Seereth Stonebreak
+	["{npc:4049}'s camp"] = "",
+
 	-- Step 152: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "{npc:4049}和{npc:11857}同在向西通往石爪山脉的路旁营地。",
@@ -597,6 +608,10 @@ return {
 	["Back down to {npc:11857}."] = "往回下行，找{npc:11857}。",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
 	["{npc:11858} waits up the {area:1076}"] = "{npc:11858}在{area:1076}上方等着",
+
+	-- Step 155: To Malaka'jin
+	-- {area:2539} Malaka'jin
+	["To {area:2539}"] = "",
 
 	-- Step 156: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -640,12 +655,13 @@ return {
 	-- Step 165: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
 	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "离开石爪山脉的路上，沿道路向东到{npc:4049}和{npc:11857}的营地。",
-	-- {area:17} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["The next guide goes north-east across the {area:17} to the {area:1703} and {zone:1440}."] = "下一份指南向东北穿过{area:17}，前往{area:1703}和{zone:1440}。",
+	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
+	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "下一份指南向东北穿过{zone:1413}，前往{area:1703}和{zone:1440}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。\n这里的赤鳞迅猛龙也算在头的数量里。",
+	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "火刃祭司占据{area:14}北部的{area:1898}；它们掉落{item:6652}。{item:5026}在你下次去钢鬃营地时从钢鬃野猪人身上获得。",
 	-- ["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。牛头人：先在湖西北岸的{area:2362}合并两半坠饰，再去{area:2361}找{npc:11802}。{npc:11802}站在建筑楼上：从室内上楼，箭头无法区分楼层。",
 	-- ["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints. {npc:4276} mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.\nCareful: The kobolds arrive in waves. The first wave is melee fighters, and the second adds casters to the mix. Regular mobs in the mine respawn quickly and can join the fight while the waves are coming. A group is recommended."] = "风险投资公司正在 菲兹克斯 东面的{area:461}大肆伐木；其中一名操作员携带蓝图。{npc:4276}在东侧的小矿洞采矿：采矿期间守在他身旁，风险投资公司的打手会来袭击他。\n小心：狗头人会分批到来。第一波是近战敌人，第二波还会加入施法者。矿洞里的普通怪刷新很快，可能在抵御波次时加入战斗。建议组队。",
 	-- ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "向东前往{area:1703}；{npc:9316}站在其南边不远的营地。",

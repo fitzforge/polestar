@@ -53,10 +53,10 @@ return {
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盜船",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "",
-	-- {area:8} Swamp of Sorrows
-	["for a later stop in the {area:8}"] = "留待之後在{area:8}的一站",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "留待之後在{zone:1435}的一站",
 
 	-- Step 12: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
@@ -201,10 +201,10 @@ return {
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
 	-- Step 49: Into the Swamp of Sorrows
-	-- {area:8} Swamp of Sorrows
-	["Into the {area:8}"] = "進入{area:8}",
-	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["Into the {zone:1435}"] = "進入{zone:1435}",
+	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
@@ -252,6 +252,7 @@ return {
 	-- ["Hearth to {area:35}"] = "用爐石回到{area:35}",
 	-- ["Hearth to {object:3202}"] = "用爐石回到{object:3202}",
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "他的保險箱在{area:75}北邊他的舊營地。",
+	-- ["Into the {area:8}"] = "進入{area:8}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "繼續向北騎進{zone:1431}，再沿道路向東穿過{zone:1430}進入沼澤。{npc:1776}在{area:657}等著，那是靠近{zone:1430}入口的德萊尼營地。",
 	-- ["Naga shore and the {object:759}"] = "納迦海岸與{object:759}",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "向東騎回去經過{area:75}，沿道路向東南前往海岸上的小型部落哨站。",
@@ -274,6 +275,7 @@ return {
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "遠征隊營地西邊，血頂酋長{npc:1061}和{npc:1062}一起站在祖昆達廢墟中。先清掉他們的守衛，再把他們拉過來。",
 	-- ["for Stoley in {zone:1446}"] = "給{zone:1446}的斯杜雷",
+	-- ["for a later stop in the {area:8}"] = "留待之後在{area:8}的一站",
 	-- ["for later: the {zone:1425}, around level 48"] = "留待之後：{zone:1425}，約48級",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁邊",
 	-- ["{area:392} pier"] = "{area:392}碼頭",

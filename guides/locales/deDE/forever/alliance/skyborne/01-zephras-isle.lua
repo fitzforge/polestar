@@ -419,14 +419,14 @@ return {
 	["{zone:1453} flight master"] = "",
 
 	-- Step 83: Stormwind Keep
-	-- {object:2117} Stormwind Keep · {area:40} Westfall
-	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Bolvar Fordragon steht im Thronsaal von {object:2117}, am Nordende der Stadt. Verlass die Stadt dann durch das Haupttor nach {area:40}.",
+	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
+	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "Bolvar Fordragon steht im Thronsaal von {object:2117}, am Nordende der Stadt. Verlass die Stadt dann durch das Haupttor nach {zone:1436}.",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "Für {npc:234} auf der {area:108}",
 
 	-- Step 84: Baros Alexston
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -449,18 +449,20 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} steht im Magiersanktum, dem Turm im Gebiet {object:2101}; sie gibt dir ein Fläschchen für den Wasserfall am {quest:1861}.",
 
 	-- Step 92: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {area:40}: Füll {item:7207} an seinem Fuß.",
+	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
+	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {zone:1436}: Fülle {item:7207} an seinem Fuß.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "Zurück nach Shen'dar",
 	-- ["Back to {npc:255853} by the falls north-east of {area:16638}, on the way north to the shrine."] = "Zurück zu {npc:255853} an den Wasserfällen nordöstlich von {area:16638}, auf dem Weg nach Norden zum Schrein.",
+	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Bolvar Fordragon steht im Thronsaal von {object:2117}, am Nordende der Stadt. Verlass die Stadt dann durch das Haupttor nach {area:40}.",
 	-- ["Cast Read Ley Line at the {object:460002}"] = "Lies {object:460002} mit deiner Volksfähigkeit",
 	-- ["Each of Quel'ana's quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her in {area:16638}. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the {area:16626} around the Windfield farm. Her sister {npc:254411} stands beside her."] = "Jede Quest von Quel'ana gibt dir eine {item:15908}: Benutze sie am genannten Wildtier und bring die Rute dann zu ihr nach {area:16638} zurück. Windweisenkriecher säumen das Ufer westlich der Stadt; Vuldrenalphas und Störrische Windschreiter streifen im Gebiet {area:16626} rund um den Hof der Windfields. Ihre Schwester {npc:254411} steht neben ihr.",
 	-- ["Find Fillion and his bedroll"] = "Finde Fillion und seine Deckenrolle",
 	-- ["Havoc in Falaath"] = "Chaos in Falaath",
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "Geh nach Nordwesten zu den Hippogryphennestern an den westlichen Klippen. {item:263493} liegen rund um die Nester; die Hippogryphenmatriarchin patrouilliert zwischen ihnen.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Heile 7 Druiden im Nightfang Den und finde dann {npc:258130}",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {area:40}: Füll {item:7207} an seinem Fuß.",
 	-- ["Level 6 spells"] = "Zauber der Stufe 6",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna wartet am Ostufer der Insel, östlich des {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Triff Valennia am Tor",

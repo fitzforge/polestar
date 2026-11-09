@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "Vers les {area:3}",
+	-- {zone:1418} Badlands
+	["Into {zone:1418}"] = "Vers les {zone:1418}",
 
 	-- Step 3: Hammertoe's Digsite
-	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Retournez vers l'ouest jusqu'à la route et suivez-la vers le sud hors du {zone:1432}, par le col, jusqu'aux {area:3}. {npc:2910} et {npc:2860} campent côte à côte au site de fouilles.",
+	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Retournez vers l'ouest jusqu'à la route et suivez-la vers le sud hors du {zone:1432}, par le col, jusqu'aux {zone:1418}. {npc:2910} et {npc:2860} campent côte à côte au site de fouilles.",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
@@ -29,8 +29,8 @@ return {
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "La mission suivante de Ryedol mène à {area:1517} : passez-la.",
 
 	-- Step 7: Valley of Fangs
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} et {npc:2817} campent ensemble dans la {area:1877}, au milieu des {area:3}.",
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618} et {npc:2817} campent ensemble dans {area:1877}, au milieu des {zone:1418}.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "Les palourdes se trouvent sur la côte nord-ouest de Strangleronce, dans le guide suivant : gardez-la",
 
 	-- Step 8: Agmond's End
@@ -42,8 +42,8 @@ return {
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
-	-- {quest:739} Murdaloc · {area:3} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	-- {quest:739} Murdaloc · {zone:1418} Badlands
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -59,8 +59,8 @@ return {
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
-	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Allez au nord-est jusqu'aux ruines naines au nord des {area:3} ; le coffre se trouve parmi les nains Ombreforge. {npc:2745}, tout près, est un élite : gardez vos distances.",
+	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
+	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Allez au nord-est jusqu'aux ruines naines au nord des {zone:1418} ; le coffre se trouve parmi les nains Ombreforge. {npc:2745}, tout près, est un élite : gardez vos distances.",
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631} ; sous terre",
 
@@ -219,7 +219,7 @@ return {
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, à l'auberge",
 	-- ["{npc:2893} on the way"] = "{npc:2893} en chemin",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "Le test suivant de {npc:2921} demande de l'équipement fabriqué : passez-le.",
-	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618} et {npc:2817} campent ensemble dans {area:1877}, au milieu des {zone:1418}.",
+	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} et {npc:2817} campent ensemble dans la {area:1877}, au milieu des {area:3}.",
 	-- ["{npc:4964}, on the top floor"] = "{npc:4964}, au dernier étage",
 	-- ["{npc:5083}, on the top floor"] = "{npc:5083}, au dernier étage",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "La tâche suivante de {npc:5638}, {item:6245}, est un butin sur la côte lointaine : passez-la.",

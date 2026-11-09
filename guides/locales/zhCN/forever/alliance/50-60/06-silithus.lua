@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {area:361} Felwood · {area:618} Winterspring
-	["{zone:1451}, {area:361}, {area:618} & the Plaguelands"] = "{zone:1451}、{area:361}、{area:618}和瘟疫之地",
+	-- {zone:1451} Silithus · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{zone:1451}, {zone:1448}, {zone:1452} & the Plaguelands"] = "{zone:1451}、{zone:1448}、{zone:1452}与瘟疫之地",
 
 	-- Step 1: To Ratchet
 	-- {area:392} Ratchet
@@ -20,11 +20,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
-	-- Step 4: The Emerald Sanctuary
+	-- Step 3: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
-	-- {area:3137} Talrendis Point · {area:361} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
-	["From {area:3137} ride into {area:361}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "从 {area:3137} 骑行进入 {area:361}：{area:2479} 是越过 {zone:1440} 边界后不远处、道路旁的德鲁伊营地。",
+
+	-- Step 4: The Emerald Sanctuary
+	-- {area:3137} Talrendis Point · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
+	["From {area:3137} ride into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "从 {area:3137} 骑行进入 {zone:1448}：{area:2479} 是越过 {zone:1440} 边界后不远处、道路旁的德鲁伊营地。",
 	["Inside"] = "在里面",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "稍等{npc:9116}片刻",
@@ -65,8 +67,8 @@ return {
 	-- Step 10: Felpaw Village
 	-- {area:1769} Timbermaw Hold
 	["Ride north to the Deadwood furbolgs' village by the {area:1769} cave mouth."] = "向北骑行到{area:1769}洞口旁的死木熊怪村庄。",
-	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {area:618} Winterspring
-	["{quest:5085}: {npc:9298} in {area:618}, keep it"] = "{quest:5085}：{area:618}的{npc:9298}，留着",
+	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["{quest:5085}: {npc:9298} in {zone:1452}, keep it"] = "{quest:5085}：{zone:1452}的{npc:9298}，留着",
 
 	-- Step 11: A Final Blow
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
@@ -201,8 +203,8 @@ return {
 	["{npc:7740} in {zone:1457}: keep it"] = "{zone:1457}的{npc:7740}：留着",
 
 	-- Step 37: Forest Song
-	-- {area:3137} Talrendis Point · {area:16} Azshara · {area:2358} Forest Song · {zone:1440} Ashenvale
-	["Fly to {area:3137} in {area:16} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "飞往{area:16}的{area:3137}，沿道路向西骑行到刚过{zone:1440}边界的{area:2358}。",
+	-- {area:3137} Talrendis Point · {zone:1447} Azshara · {area:2358} Forest Song · {zone:1440} Ashenvale
+	["Fly to {area:3137} in {zone:1447} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "飞往{zone:1447}的{area:3137}，沿道路向西骑行到刚过{zone:1440}边界的{area:2358}。",
 
 	-- Step 38: Fly to Everlook
 	-- {area:2255} Everlook
@@ -244,9 +246,13 @@ return {
 	-- {area:2577} Dire Maul · {area:2627} Terrordale
 	["{area:2577} fits levels 55 to 60; alone, the {area:2627} grind at the end of this guide gets you to 60."] = "{area:2577} 适合 55 至 60 级；单人玩家可在本篇指南末尾到 {area:2627} 刷到 60 级。",
 
+	-- Step 50: Felwood
+	-- {quest:5086} Toxic Horrors
+	["The {quest:5086}"] = "",
+
 	-- Step 52: Kernda
-	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {area:618} Winterspring
-	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {area:618} brought you to."] = "",
+	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1452} Winterspring
+	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {zone:1452} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "",
 
@@ -257,20 +263,20 @@ return {
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
 
 	-- Step 54: Meilosh
-	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {area:618} Winterspring
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {area:618} top-up on the Winterfall furbolgs gets you both."] = "",
+	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {zone:1452} Winterspring
+	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {zone:1452} top-up on the Winterfall furbolgs gets you both."] = "",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "",
 
 	-- Step 58: Winterspring: kill these as you meet them
-	-- {area:618} Winterspring
-	["{area:618}: kill these as you meet them"] = "{area:618}：沿途击杀以下目标",
+	-- {zone:1452} Winterspring
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途击杀以下目标",
 	-- {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "西侧冬泉熊怪会掉落珠子。\n注意：交任务时会出现三四名 56–57 级冬泉伏击者并攻击你；可以骑乘、潜行或用{spell:5384}脱离。他们随后会聚集在湖边，便可接取下一项任务。",
 
 	-- Step 62: Umber
-	-- {area:1769} Timbermaw Hold · {area:618} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
-	["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "从{npc:9298}西边{area:1769}隧道的{area:618}入口进入，沿{area:493}分支到{area:2361}。{npc:11939}在湖岸边研究。",
+	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
+	["Take the {area:1769} tunnel from its {zone:1452} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "从{npc:9298}西边{area:1769}隧道的{zone:1452}入口进入，沿{area:493}分支到{area:2361}。{npc:11939}在湖岸边研究。",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939}在{area:2361}巡逻，请在地图标示的圆圈内寻找",
 
@@ -355,8 +361,8 @@ return {
 	-- Step 83: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}是61级精英",
-	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {area:139} Eastern Plaguelands
-	["{quest:6184}: the agents' remains lie at the {area:2260} in the {area:139}"] = "",
+	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
+	["{quest:6184}: the agents' remains lie at the {area:2260} in the {zone:1423}"] = "",
 
 	-- Step 84: Andorhal
 	["Andorhal"] = "安多哈尔",
@@ -380,6 +386,10 @@ return {
 	["{npc:1855} (optional)"] = "{npc:1855}（可选）",
 	-- {npc:1855} Tirion Fordring · {quest:5781} Of Forgotten Memories
 	["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}住在伐木场东北方边境河边的小屋里。如果完成了{quest:5781}就交还。",
+
+	-- Step 88: Eastern Plaguelands
+	-- {quest:5845} Of Lost Honor
+	["The lake for {quest:5845}"] = "",
 
 	-- Step 89: Of Lost Honor
 	["Underwater"] = "在水下",
@@ -405,8 +415,8 @@ return {
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
-	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
-	["grind on {npc:14564} at {area:2627}, {area:139}"] = "在{area:139}的{area:2627}刷{npc:14564}",
+	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {zone:1423} Eastern Plaguelands
+	["grind on {npc:14564} at {area:2627}, {zone:1423}"] = "在{zone:1423}的{area:2627}刷{npc:14564}",
 
 	-- Step 97: Chillwind Camp
 	-- {area:3197} Chillwind Camp
@@ -420,6 +430,7 @@ return {
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there."] = "过{npc:1855}东边的河进入恐惧谷。{area:2627}的灵魂在那里的树林中游荡。",
 	-- ["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "过 {npc:1855} 东侧的河，进入 {area:2627}。恐惧谷的灵魂在那里的树林里游荡。也可组队前往 {area:2057} 副本或 {area:2279} 副本。",
 	-- ["Dredge Crushers roam the dunes between {area:2743} and {area:3425}, on your way back. {npc:15181} only offers {quest:8304} from level 58."] = "掘泥摧毁者在{area:2743}和{area:3425}之间的沙丘游荡，就在你返回的路上。{npc:15181}在58级起才提供{quest:8304}。",
+	-- ["Fly to {area:3137} in {area:16} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "飞往{area:16}的{area:3137}，沿道路向西骑行到刚过{zone:1440}边界的{area:2358}。",
 	-- ["Follow the road south-west out of the pass to {area:3425}."] = "沿道路向西南出山口前往{area:3425}。",
 	-- ["Go back down to {area:702}, take the boat to {area:442} and the boat on to {area:17203}. Bring sixty Silk, sixty Mageweave and sixty {item:14047} for {npc:14722}: buy what you lack at the Auction House."] = "回到{area:702}，乘船前往{area:442}，再乘船前往{area:17203}。为{npc:14722}带六十块丝绸、六十块魔纹布和六十块{item:14047}：缺的在拍卖行购买。",
 	-- ["Grind to 58"] = "刷到58级",
@@ -438,12 +449,14 @@ return {
 	-- ["Shaman training"] = "萨满祭司训练",
 	-- ["Take the boat from {area:442} to {area:702}."] = "从{area:442}乘船前往{area:702}。",
 	-- ["Take the flight path in {area:2361} and fly to {area:442}."] = "在{area:2361}搭乘飞行路线飞往{area:442}。",
+	-- ["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "从{npc:9298}西边{area:1769}隧道的{area:618}入口进入，沿{area:493}分支到{area:2361}。{npc:11939}在湖岸边研究。",
 	-- ["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each want sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: 120 of each in all, from your bags or the Auction House."] = "乘{area:2257}前往{zone:1455}。{npc:14724}和{npc:14723}各要六十块毛料、六十块丝绸和六十块魔纹布，然后是六十块{item:14047}：每种共120块，来自背包或拍卖行。",
 	-- ["The {area:2739}"] = "{area:2739}",
 	-- ["The {npc:7446} bears roam the snowy valley south of {area:2250}."] = "{npc:7446}熊在{area:2250}南边的雪谷中游荡。",
 	-- ["Toward the north-west pass"] = "前往西北山口",
 	-- ["You start in {area:392}, where the previous guide hearthed you. Fly to {area:415}."] = "你从{area:392}开始，上一份指南让你用炉石回到了这里。飞往{area:415}。",
 	-- ["grind on {npc:11741} at the dunes east of {area:2743}, {zone:1451}"] = "在{zone:1451}{area:2743}东边的沙丘刷{npc:11741}",
+	-- ["grind on {npc:14564} at {area:2627}, {area:139}"] = "在{area:139}的{area:2627}刷{npc:14564}",
 	-- ["grind on {npc:7446} at the valley south of {area:2250}, {zone:1452}"] = "在{zone:1452}{area:2250}南边的山谷刷{npc:7446}",
 	-- ["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}."] = "{area:1770}是{area:1763}后方、道路西边的洞穴。对里面的四个火盆使用{item:12906}。杀死沿途的怒爪熊和魔爪狼获取{item:11172}。",
 	-- ["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "{area:1770}是{area:1763}深处、道路西侧的洞穴。对洞内四个火盆使用{item:12906}，沿途击杀怒爪熊和魔爪狼，获取{item:11172}。\n注意：洞内遍布 53–55 级暗影议会成员，经常大群联动，许多怪物会昏迷技能。建议两三名玩家组队。",
@@ -460,6 +473,7 @@ return {
 	-- ["{npc:9598} waits in {area:1767}. Escort her out of the woods and keep her alive."] = "{npc:9598}在{area:1767}等候。护送她离开树林，保证她存活。",
 	-- ["{object:176091}, if you found the Firewater flask in {area:618}"] = "{object:176091}，如果你在{area:618}找到了火酒瓶",
 	-- ["{object:210335} Fragments"] = "{object:210335}碎片",
-	-- ["{zone:1451}, {zone:1448}, {zone:1452} & the Plaguelands"] = "{zone:1451}、{zone:1448}、{zone:1452}与瘟疫之地",
+	-- ["{quest:5085}: {npc:9298} in {area:618}, keep it"] = "{quest:5085}：{area:618}的{npc:9298}，留着",
+	-- ["{zone:1451}, {area:361}, {area:618} & the Plaguelands"] = "{zone:1451}、{area:361}、{area:618}和瘟疫之地",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train your level 60 spells with {npc:258098}."] = "{zone:1453}没有萨满祭司训练师：从{object:28027}乘{area:2257}前往{zone:1455}，找{npc:258098}学习60级法术。",
 }

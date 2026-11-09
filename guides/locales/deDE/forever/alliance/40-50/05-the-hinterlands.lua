@@ -85,8 +85,8 @@ return {
 	["the soil comes from {zone:1449}, later"] = "die Erde kommt später aus dem {zone:1449}",
 
 	-- Step 24: Portal to Teldrassil
-	-- {area:141} Teldrassil
-	["Portal to {area:141}"] = "",
+	-- {zone:1438} Teldrassil
+	["Portal to {zone:1438}"] = "",
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -104,8 +104,8 @@ return {
 
 	-- Step 30: The bloodmages
 	["The bloodmages"] = "Die Blutmagier",
-	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "",
+	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "",
 
 	-- Step 31: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
@@ -118,8 +118,8 @@ return {
 	["{npc:5385}, upstairs"] = "",
 
 	-- Step 32: Blasted Lands: kill these as you meet them
-	-- {area:4} Blasted Lands
-	["{area:4}: kill these as you meet them"] = "",
+	-- {zone:1419} Blasted Lands
+	["{zone:1419}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",

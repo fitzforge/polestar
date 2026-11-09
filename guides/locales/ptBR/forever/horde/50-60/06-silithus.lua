@@ -151,8 +151,8 @@ return {
 	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "O covil de {npc:9684} fica logo ao sul do pilar. Use a isca de {npc:9619} ali; {npc:9684} é nível 56 e bate forte, então comece com a vida cheia.",
 
 	-- Step 34: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "{area:490}: vá matando estes pelo caminho",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: vá matando estes pelo caminho",
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Cuidado: os Gorilas de Un'Goro (nível 50-51) chamam ajuda de aliados num raio de 20 metros quando caem para 25% de vida. Tem uma caverna lotada de macacos na área, e lutar lá traz monstro a mais de montão.",
 
@@ -294,8 +294,12 @@ return {
 	["West to the {area:152}."] = "Volte para oeste até a {area:152}.",
 
 	-- Step 80: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "Rumo a {area:139}",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "Rumo a {zone:1423}",
+
+	-- Step 81: Eastern Plaguelands
+	-- {quest:5845} Of Lost Honor
+	["The lake for {quest:5845}"] = "",
 
 	-- Step 82: Of Lost Honor
 	["Underwater"] = "Debaixo d'água",
@@ -310,8 +314,8 @@ return {
 	["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "Cavalgue para sudeste, saindo de {npc:1855}, até {area:2261}; o {object:177675} fica logo atrás.",
 
 	-- Step 86: Into Western Plaguelands
-	-- {area:28} Western Plaguelands
-	["Into {area:28}"] = "Rumo a {area:28}",
+	-- {zone:1422} Western Plaguelands
+	["Into {zone:1422}"] = "Rumo a {zone:1422}",
 
 	-- Step 89: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark

@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Argent Officer Pureheart
-	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {area:618} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
 
 	-- Step 4: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -155,8 +155,8 @@ return {
 	["{item:12956}; underwater"] = "{item:12956} ; sous l'eau",
 
 	-- Step 41: Eastern Plaguelands: kill these as you meet them
-	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
+	-- {zone:1423} Eastern Plaguelands
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Chevauchez vers l'ouest jusqu'à {area:2627}. Chiens pestiférés chétifs ({npc:8596}), Chauves-souris pestiférées ({npc:8600}) et Larves putrides ({npc:8603}) parcourent ses bois ; remplissez {item:15042} aux grandes termitières et tuez les Chiens pestiférés frénétiques ({npc:8598}) plus au nord.",
@@ -211,8 +211,8 @@ return {
 	["{area:442} flight master"] = "Maître de vol d'{area:442}",
 
 	-- Step 56: Rut'theran Village
-	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "Ranshalla au {area:618} : gardez-la",
+	-- {zone:1452} Winterspring
+	["Ranshalla in {zone:1452}: keep it"] = "Ranshalla au {zone:1452} : gardez-la",
 
 	-- Step 58: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
@@ -231,8 +231,8 @@ return {
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "{zone:1455}, où le guide suivant passe chez les maîtres, n'a pas de maître druide",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "Dix {item:11040} tirées de la {item:11020}",
-	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
-	["{quest:6762} in {area:493}: keep it"] = "{quest:6762} à {area:493} : gardez-la",
+	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade
+	["{quest:6762} in {zone:1450}: keep it"] = "{quest:6762} à {zone:1450} : gardez-la",
 
 	-- Step 64: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -245,8 +245,8 @@ return {
 	-- Step 66: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "Depuis {area:702}, volez jusqu'à {area:1116}.",
-	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
-	["{npc:7900}: keep it for {area:440}"] = "{npc:7900} : gardez-la pour {area:440}",
+	-- {npc:7900} Angelas Moonbreeze · {zone:1446} Tanaris
+	["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900} : gardez-la pour {zone:1446}",
 
 	-- Step 68: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
@@ -284,8 +284,8 @@ return {
 	["{area:489} flight master"] = "Maître de vol de {area:489}",
 
 	-- Step 79: Ratchet
-	-- {area:17} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "",
+	-- {zone:1413} The Barrens · {area:392} Ratchet
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901}, sur la côte au nord de la ville",
 	-- {zone:1448} Felwood
@@ -305,10 +305,10 @@ return {
 	["{npc:9299} in {area:976}: keep it"] = "{npc:9299} à {area:976} : gardez-la",
 
 	-- Step 84: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Entrez dans {area:1769} et prenez la branche du tunnel vers {area:493} jusqu'à {area:2361}.",
-	-- {area:1377} Silithus
-	["For {area:1377}: keep it"] = "Pour {area:1377} : gardez-la",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {area:2361} Nighthaven
+	["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "Entrez dans {area:1769} et prenez la branche du tunnel vers {zone:1450} jusqu'à {area:2361}.",
+	-- {zone:1451} Silithus
+	["For {zone:1451}: keep it"] = "Pour {zone:1451} : gardez-la",
 
 	-- Step 85: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -349,12 +349,12 @@ return {
 	["The wooden sign beside {npc:9997}"] = "Le panneau en bois à côté de {npc:9997}",
 
 	-- Step 92: Into Silithus
-	-- {area:1377} Silithus
-	["Into {area:1377}"] = "",
+	-- {zone:1451} Silithus
+	["Into {zone:1451}"] = "Vers {zone:1451}",
 
 	-- Step 93: Layo Starstrike
-	-- {area:1377} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -363,8 +363,8 @@ return {
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, aux tentes de l'Alliance",
 
 	-- Step 96: Silithus: kill these as you meet them
-	-- {area:1377} Silithus
-	["{area:1377}: kill these as you meet them"] = "{area:1377} : tuez-les au passage",
+	-- {zone:1451} Silithus
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451} : tuez-les au passage",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "Les Frappeurs térébrants creusent les dunes au nord-ouest du fort ; les Scorpides Cinglepierre et les Glisseuses du sable rôdent tout autour.",
 
@@ -396,24 +396,24 @@ return {
 	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Chevauchez vers l'est jusqu'à la tour de {area:2742} à {area:2738} ; gravissez-la et tuez les embusqués qui surgissent pour l'objet incrusté.",
 
 	-- Step 103: Layo Starstrike
-	-- {area:493} Moonglade
-	["Umber in {area:493}: keep it"] = "Umber à {area:493} : gardez-la",
+	-- {zone:1450} Moonglade
+	["Umber in {zone:1450}: keep it"] = "Umber à {zone:1450} : gardez-la",
 
 	-- Step 105: Krakle
-	-- {area:1377} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "{area:490} : tuez-les au passage",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449} : tuez-les au passage",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Chevauchez vers l'est jusqu'à {area:537}, gravissez-la et utilisez {npc:10541} sur les évents de lave près du sommet.",
 
 	-- Step 108: Krakle
-	-- {npc:9298} Donova Snowden · {area:618} Winterspring
-	["Ends with {npc:9298} in {area:618}: keep it"] = "Se termine auprès de {npc:9298} au {area:618} : gardez-la",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Se termine auprès de {npc:9298} au {zone:1452} : gardez-la",
 
 	-- Step 109: Northern Pylon
 	["Northern Pylon"] = "Le Pylône nord",
@@ -478,11 +478,11 @@ return {
 	-- ["Climb the hill west of {area:190} to look down on the town."] = "Montez sur la colline à l'ouest de {area:190} pour observer la ville.",
 	-- ["Collie is up the hill behind it."] = "Collie est en haut de la colline derrière.",
 	-- ["Diseased Wolves"] = "Loups malades",
-	-- ["Ends with {npc:9298} in {zone:1452}: keep it"] = "Se termine auprès de {npc:9298} au {zone:1452} : gardez-la",
+	-- ["Ends with {npc:9298} in {area:618}: keep it"] = "Se termine auprès de {npc:9298} au {area:618} : gardez-la",
 	-- ["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; J.D.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Prenez un vol de {area:976} pour {area:541}. La hutte de {npc:8737} se trouve aux {area:538}, à l'ouest du refuge ; J.D.\nL'ami de {npc:9997}, {npc:9999}, a disparu.",
 	-- ["Fly to {area:392}."] = "Volez jusqu'à {area:392}.",
 	-- ["Follow the road south-west out of the pass to {area:3425}."] = "Suivez la route vers le sud-ouest à la sortie du col jusqu'à {area:3425}.",
-	-- ["For {zone:1451}: keep it"] = "Pour {zone:1451} : gardez-la",
+	-- ["For {area:1377}: keep it"] = "Pour {area:1377} : gardez-la",
 	-- ["For {zone:1453}: keep it"] = "Pour {zone:1453} : gardez-la",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Depuis {area:392}, volez jusqu'à {area:2255} puis allez au sud jusqu'à {area:2250}.",
 	-- ["Gaeriyan in {area:976}: keep it"] = "Gaeriyan à {area:976} : gardez-la",
@@ -501,10 +501,12 @@ return {
 	-- ["The fields"] = "Les champs",
 	-- ["The next guide starts here in {area:392} and flies on to {area:976}."] = "Le guide suivant commence ici à {area:392} et continue en vol jusqu'à {area:976}.",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "Les peaux viennent après la boucle 2, sur le plateau des gorilles",
-	-- ["Umber in {zone:1450}: keep it"] = "Umber à {zone:1450} : gardez-la",
-	-- ["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "Entrez dans {area:1769} et prenez la branche du tunnel vers {zone:1450} jusqu'à {area:2361}.",
+	-- ["Umber in {area:493}: keep it"] = "Umber à {area:493} : gardez-la",
+	-- ["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Entrez dans {area:1769} et prenez la branche du tunnel vers {area:493} jusqu'à {area:2361}.",
 	-- ["Zapped giants and sea elementals"] = "Géants rétrécis et élémentaires des mers",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "tuez des {npc:1796} à {area:202}, {zone:1422}",
+	-- ["{area:1377}: kill these as you meet them"] = "{area:1377} : tuez-les au passage",
+	-- ["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
 	-- ["{area:199} cauldron"] = "Chaudron de {area:199}",
 	-- ["{item:11834} on the way"] = "{item:11834} en chemin",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}, auprès de {npc:11056}",
@@ -522,12 +524,10 @@ return {
 	-- ["{npc:1833} along the way to {npc:11610}"] = "{npc:1833} sur le chemin de {npc:11610}",
 	-- ["{npc:1833} on the way"] = "{npc:1833} en chemin",
 	-- ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{npc:1852} est un élite : mieux vaut être en groupe. Il garde son phylactère au centre d'Andorhal.",
-	-- ["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900} : gardez-la pour {zone:1446}",
+	-- ["{npc:7900}: keep it for {area:440}"] = "{npc:7900} : gardez-la pour {area:440}",
 	-- ["{npc:8496}: keep it for Un'Goro"] = "{npc:8496} : gardez-la pour le Cratère d'Un'Goro",
 	-- ["{npc:8598} on the way"] = "{npc:8598} en chemin",
 	-- ["{object:175894}, inside"] = "{object:175894}, à l'intérieur",
 	-- ["{object:175924}, in the farmhouse"] = "{object:175924}, dans la ferme",
-	-- ["{quest:6762} in {zone:1450}: keep it"] = "{quest:6762} à {zone:1450} : gardez-la",
-	-- ["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
-	-- ["{zone:1451}: kill these as you meet them"] = "{zone:1451} : tuez-les au passage",
+	-- ["{quest:6762} in {area:493}: keep it"] = "{quest:6762} à {area:493} : gardez-la",
 }

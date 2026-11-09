@@ -80,8 +80,8 @@ return {
 	["grind on {npc:937}"] = "mate {npc:937} até subir",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
-	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "{area:33}: vá matando estes pelo caminho",
+	-- {zone:1434} Stranglethorn Vale
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Cuidado: há acampamentos troll perto da área dos tigres, e os trolls podem entrar na briga se você puxar sem cuidado.\nCuidado: o ninho de raptores tem filhotes que entram na briga quando você ataca os adultos.",
 
 	-- Step 18: Level 34
@@ -193,6 +193,10 @@ return {
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, ao norte de {area:413}",
 
+	-- Step 36: Stonetalon Mountains
+	-- {area:608} Nijel's Point
+	["The road to {area:608}"] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "Trolls Sanguescalpo",
 	-- ["Fly from {area:150} to {area:1537} and train."] = "Voe de {area:150} para {area:1537} e treine.",
@@ -214,6 +218,7 @@ return {
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "Turgo patrulha a estrada ao norte do acampamento, rumo a {area:99}.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Volte para o norte; {area:310} fica a oeste da estrada, no meio da selva. Os Basiliscos da Serra dos Cristais de lá deixam cair os fragmentos.",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} não tem instrutor de druida: pegue o {area:2257} em {object:171524} até {zone:1453} e treine com {npc:5504}.",
+	-- ["{area:33}: kill these as you meet them"] = "{area:33}: vá matando estes pelo caminho",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, junto ao banco",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, no último andar, junto às docas",
 	-- ["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "{npc:469}: os registros do {quest:200}, no circuito do norte (04b)",

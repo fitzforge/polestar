@@ -12,11 +12,13 @@ return {
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 3: The Emerald Sanctuary
+	-- Step 2: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
-	-- {area:415} Astranaar · {area:361} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "从{area:415}骑马向北进入{area:361}，前往路旁的德鲁伊营地{area:2479}。",
+
+	-- Step 3: The Emerald Sanctuary
+	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
+	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "从{area:415}骑马向北进入{zone:1448}，前往路旁的德鲁伊营地{area:2479}。",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}，在{npc:11554}东边不远的废墟中",
 	-- {npc:9116} Eridan Bluewind
@@ -39,8 +41,8 @@ return {
 	["grind on {npc:7153}"] = "反复击杀{npc:7153}补足经验",
 
 	-- Step 7: Grazle
-	-- {npc:15395} Nafien · {area:361} Felwood
-	["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395}在{area:361}北端等候",
+	-- {npc:15395} Nafien · {zone:1448} Felwood
+	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395}在{zone:1448}北端等候",
 	["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 
 	-- Step 8: Level 52.69
@@ -114,8 +116,8 @@ return {
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
 
 	-- Step 23: The Emerald Sanctuary
-	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood
-	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "从{area:1763}向东南骑行到{area:2479}，即{area:361}南部路旁的德鲁伊营地。",
+	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "从{area:1763}向东南骑行到{area:2479}，即{zone:1448}南部路旁的德鲁伊营地。",
 
 	-- Step 24: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
@@ -148,6 +150,7 @@ return {
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}：三十个{quest:6031}，57级再次经过时交还",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57; below ground"] = "{npc:11557}位于地下：收集三十个{quest:6031}，等 57 级再次经过时交付",
 	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral"] = "{npc:11558}：木喉熊怪只有在中立时才会和你说话",
+	-- ["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395}在{area:361}北端等候",
 	-- ["{npc:9518}, below ground"] = "{npc:9518}：在地下",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}，稀有掉落",
 }

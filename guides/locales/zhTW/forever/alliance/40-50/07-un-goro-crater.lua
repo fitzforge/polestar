@@ -26,8 +26,8 @@ return {
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{area:490}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
+	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{zone:1449}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -184,6 +184,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿東側向南騎。幼雙帆龍在東部叢林覓食，{npc:9165}在東面懸崖附近飛行；兩者都會掉落{npc:9998}要的鱗片。",
 	-- ["Ride west back to the refuge."] = "向西騎回避難營。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "從{npc:9619}向西騎：異種蟲巢穴佔據環形山南部。在孵化室（掛著幼蟲的洞室）使用未使用的採集瓶。格里什異種蠍和格里什工蠍會掉落{quest:3764}；若還需要擊殺數，{npc:9166}在南面懸崖築巢。",
+	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{area:490}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西經過{area:541}，再沿西側向南前往{area:543}：哥布林{npc:10302}坐在水邊。",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "組隊打{area:1417}代替練等能更快達到目標。單人練等請跳過此步驟。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "組隊打{area:978}代替練等能更快達到目標。這座食人妖城市位於{zone:1446}西北部，就在{area:976}北邊。",

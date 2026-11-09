@@ -16,6 +16,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 
+	-- Step 4: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Reiten mit 40",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
@@ -70,14 +74,18 @@ return {
 	["{area:392} flight master"] = "",
 
 	-- Step 20: Mirage Raceway
-	-- {area:484} Freewind Post · {area:440} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {area:440} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 
+	-- Step 21: To Gadgetzan
+	-- {area:976} Gadgetzan
+	["To {area:976}"] = "",
+
 	-- Step 22: Gadgetzan
-	-- {area:976} Gadgetzan · {area:440} Tanaris
-	["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} ist die ummauerte Goblinstadt gleich hinter der Grenze von {area:440}.",
+	-- {area:976} Gadgetzan · {zone:1446} Tanaris
+	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} ist die ummauerte Goblinstadt gleich hinter der Grenze von {zone:1446}.",
 
 	-- Step 23: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
@@ -93,8 +101,8 @@ return {
 	["{npc:7882}, inside"] = "",
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "",
+	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
+	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "",
 
 	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
@@ -140,8 +148,8 @@ return {
 	["{quest:2863}: one hour from now"] = "{quest:2863}: eine Stunde ab jetzt",
 
 	-- Step 36: Feralas: kill these as you meet them
-	-- {area:357} Feralas
-	["{area:357}: kill these as you meet them"] = "",
+	-- {zone:1444} Feralas
+	["{zone:1444}: kill these as you meet them"] = "",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "",
 
 	-- Step 38: Grimtotem camp
@@ -175,12 +183,12 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
 
 	-- Step 44: Homing Robot OOX-22/FE
-	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
 
 	-- Step 45: Camp Mojache
-	-- {area:357} Feralas
-	["the Rage Scar yetis, on the next visit to {area:357}"] = "",
+	-- {zone:1444} Feralas
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
 
@@ -231,6 +239,7 @@ return {
 	-- ["Zeppelin to {object:3202}"] = "Zeppelin nach {object:3202}",
 	-- ["Zeppelin tower"] = "Zeppelinturm",
 	-- ["the {object:150075} in the square"] = "{object:150075} auf dem Platz",
+	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} ist die ummauerte Goblinstadt gleich hinter der Grenze von {area:440}.",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, Reitlehrerin",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, Reitlehrer",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}: Die Kreischer leben in {zone:1444}",

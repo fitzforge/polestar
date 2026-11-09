@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Winterspring
-	-- {area:618} Winterspring
-	["Into {area:618}"] = "Rumo a {area:618}",
+	-- {zone:1452} Winterspring
+	["Into {zone:1452}"] = "Rumo a {zone:1452}",
 
 	-- Step 2: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {area:618} do túnel de {area:1769}, por onde você sai.",
+	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {zone:1452} do túnel de {area:1769}, por onde você sai.",
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs

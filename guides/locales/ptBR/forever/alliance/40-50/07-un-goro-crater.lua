@@ -26,8 +26,8 @@ return {
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "{npc:7564}, quando terminar de preparar o elixir: alguns segundos",
 
 	-- Step 8: Torwa Pathfinder
-	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Siga para o oeste, saindo de {area:976}, até a longa rampa que desce para {area:490}. {npc:9619} acampa ao pé da rampa, no canto sudeste da cratera.",
+	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Siga para o oeste, saindo de {area:976}, até a longa rampa que desce para {zone:1449}. {npc:9619} acampa ao pé da rampa, no canto sudeste da cratera.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -184,6 +184,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Desça para o sul pelo lado leste. Dimetrodontes Jovens pastam na selva leste e {npc:9165} voam perto dos penhascos leste; os dois deixam cair as escamas de {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Volte para o oeste até o refúgio.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Siga para o oeste a partir de {npc:9619}: a colmeia silitídea ocupa o sul da cratera. Use o Frasco para Amostra numa câmara de incubação, uma câmara com larvas penduradas. Vespas e Trabalhadoras Gorishi deixam cair {quest:3764}; {npc:9166} fazem ninho nos penhascos sul, se ainda precisar de abates.",
+	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Siga para o oeste, saindo de {area:976}, até a longa rampa que desce para {area:490}. {npc:9619} acampa ao pé da rampa, no canto sudeste da cratera.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Siga para o oeste, passando {area:541}, e desça para o sul pelo lado oeste até {area:543}: {npc:10302}, o goblin, fica junto à água.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Fazer {area:1417} em vez de matar monstros leva você lá mais rápido, em grupo. Pule esta etapa para subir sozinho.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "Fazer {area:978} em vez de matar monstros leva você lá mais rápido, em grupo. A cidade troll fica no noroeste de {zone:1446}, logo ao norte de {area:976}.",

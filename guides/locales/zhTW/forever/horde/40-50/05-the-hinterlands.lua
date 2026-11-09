@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}的營地",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "從{area:272}向東北騎進{area:47}，再沿道路向東；{npc:7801}在精靈的{area:350}南邊的山丘上紮營。",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "從{area:272}向東北騎進{zone:1425}，再沿道路向東；{npc:7801}在精靈的{area:350}南邊的山丘上紮營。",
 
 	-- Step 4: Highvale
 	["Highvale"] = "高原精靈",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "沿道路向東穿過{area:47}，前往東海岸的食人妖村落。",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "沿道路向東穿過{zone:1425}，前往東海岸的食人妖村落。",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "道路東邊，灰鬃野豬和格朗特在紅石蜥蜴旁的山坡上拱土。遠離更南邊52級的地獄野豬。",
 	-- ["Fly to the {area:1497}"] = "飛往{area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "沿道路向東穿過{area:47}，前往東海岸的食人妖村落。",
 	-- ["From {area:1446}'s flight master."] = "從{area:1446}的飛行管理員出發。",
 	-- ["Grind to 48"] = "刷到48級",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "獵戶莫克霍爾的顱骨在邪枝廢墟下方的一堆東西上，他的骨頭在{area:354}山腳的另一堆上。污染之血之瓶放在下層平台，{npc:14757}被關在頂端。走在小路上：裡面的食人妖是精英。",
@@ -183,6 +186,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "只有在你還沒48級時。",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "只有在持有求救信標時：機器人在{area:351}西邊的河流源頭。護送它向東到{area:307}之外的海岸；獎勵在{area:35}的奧格索普·奧布諾提斯那裡。",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "向北騎回{area:75}，飛往{area:1497}。",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "從{area:272}向東北騎進{area:47}，再沿道路向東；{npc:7801}在精靈的{area:350}南邊的山丘上紮營。",
 	-- ["Saltwater Snapjaws"] = "海水鉗嘴龜",
 	-- ["Silvermane Howlers"] = "銀鬃嗥狼",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "往西南，銀鬃嗥狼在枯木村落東邊的丘陵遊蕩。",

@@ -63,8 +63,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
 	-- Step 22: Ride into Azshara
-	-- {area:16} Azshara
-	["Ride into {area:16}"] = "骑马进入{area:16}",
+	-- {zone:1447} Azshara
+	["Ride into {zone:1447}"] = "骑马进入{zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "沿道路向东离开碎木岗哨。{npc:11548}在道路旁的{area:1235}等候，位于联盟{area:3137}西边几步远：从西边过去，避开艾萨拉哨兵和加罗迪努斯（精英）。",
@@ -78,8 +78,8 @@ return {
 
 	-- Step 24: Level 50
 	["Level 50"] = "等级50",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "在这里补到50级：{area:16}结束后，{zone:1454}的{npc:7010}提供的{quest:4493}需要达到这个等级。也可以组队刷{area:2100}或{area:1417}地下城。",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "在这里补到50级：{zone:1447}结束后，{zone:1454}的{npc:7010}提供的{quest:4493}需要达到这个等级。也可以组队刷{area:2100}或{area:1417}地下城。",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "击杀{npc:6125}刷经验",
 
@@ -233,6 +233,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "上层精灵和哈达尔萨特",
 	-- ["Ironjaw Basilisks"] = "铁腭蜥蜴",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "留着{area:1417}给{zone:1446}的{npc:7771}。",
+	-- ["Ride into {area:16}"] = "骑马进入{area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 	-- ["Sea elementals"] = "海元素",
 	-- ["Take the zeppelin back to {zone:1454}."] = "乘飞艇返回{zone:1454}。",

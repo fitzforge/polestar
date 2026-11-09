@@ -193,8 +193,10 @@ return {
 	-- {area:271} Southshore
 	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "",
 
-	-- Step 42: Syndicate camp
+	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "비밀결사대 야영지",
+
+	-- Step 42: Syndicate camp
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "",
 

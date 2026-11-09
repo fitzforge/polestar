@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "{item:2320} de {npc:2118}, para Gretchen",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "{area:85}: vá matando estes pelo caminho",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: vá matando estes pelo caminho",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "Grandes Quiropúsculos voam sobre os campos em volta de {area:159} e ao longo da estrada ao norte: Gretchen quer as peles deles, {npc:3549} as asas.\n{quest:5482} cresce nos campos do cemitério logo ao norte de {area:159}, onde os Roubacovas Putricouro cavam; todos os Putricouro deixam cair o icor.\nOs Mestiços Putricouro dominam as colinas mais ao norte. {npc:1753} (nível 11) fica no acampamento deles, no morro ao sul da costa: limpe os gnolls em volta dele primeiro.\nCuidado: guardas gnoll ficam do lado de fora da cabana e podem entrar na briga. Se você passar por eles sem ser visto e lutar com ele lá dentro, ele luta sozinho.\nOs murlocs Pinavil ocupam a costa norte: todos deixam cair as escamas, e os Oráculos Menores e Moralodos deixam cair os couros para {npc:3549}.",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Ande para o sul de {area:159} até as {area:153} e desça até {zone:1458}. {npc:4568} fica no {object:36082}. O acampamento Escarlate fica logo a oeste das ruínas.",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "De volta a {area:85}",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "De volta a {zone:1420}",
+	["The Scarlet camp"] = "O acampamento Escarlate",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -424,7 +425,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "Os Roubacovas Putricouro cavam pelos cemitérios ao norte de {area:159}; todos os Putricouro deixam cair a linfa.",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "Os Mestiços Putricouro ocupam as colinas mais ao norte. {npc:1753} (nível 11) fica no acampamento deles na colina ao sul da margem: elimine primeiro os gnolls em volta dele.",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "Os Frades Escarlates acampam logo a nordeste dos túmulos; {npc:1664} fica entre eles.",
-	-- ["The Scarlet camp"] = "O acampamento Escarlate",
 	-- ["The Vile Fin murlocs line the north shore."] = "Os murlocs Pinavil ocupam a margem norte.",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "As abóboras crescem nos campos ocupados pelos Escarlates a noroeste de Solliden.",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "As aranhas espreitam na mata no extremo leste das clareiras.",

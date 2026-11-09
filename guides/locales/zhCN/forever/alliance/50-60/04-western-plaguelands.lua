@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Argent Officer Pureheart
-	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {area:618} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
 
 	-- Step 4: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -155,8 +155,8 @@ return {
 	["{item:12956}; underwater"] = "{item:12956}：在水下",
 
 	-- Step 41: Eastern Plaguelands: kill these as you meet them
-	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "{area:139}：沿途击杀以下目标",
+	-- {zone:1423} Eastern Plaguelands
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：沿途击杀以下目标",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "向西骑到{area:2627}。{npc:8596}、{npc:8600}和{npc:8603}在树林里游荡；在大白蚁丘装满{item:15042}，然后击杀更北边的{npc:8598}。",
@@ -211,8 +211,8 @@ return {
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- Step 56: Rut'theran Village
-	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "兰莎尔拉在{area:618}，保留任务",
+	-- {zone:1452} Winterspring
+	["Ranshalla in {zone:1452}: keep it"] = "兰莎尔拉在{zone:1452}，保留任务",
 
 	-- Step 58: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
@@ -231,8 +231,8 @@ return {
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "下一份指南学习技能的{zone:1455}没有德鲁伊训练师",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "从{item:11020}获得十个{item:11040}",
-	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
-	["{quest:6762} in {area:493}: keep it"] = "{area:493}的{quest:6762}：先留着",
+	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade
+	["{quest:6762} in {zone:1450}: keep it"] = "{zone:1450}的{quest:6762}：先留着",
 
 	-- Step 64: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -245,8 +245,8 @@ return {
 	-- Step 66: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "从{area:702}飞往{area:1116}。",
-	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
-	["{npc:7900}: keep it for {area:440}"] = "{npc:7900}：留到{area:440}",
+	-- {npc:7900} Angelas Moonbreeze · {zone:1446} Tanaris
+	["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900}：留到{zone:1446}",
 
 	-- Step 68: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
@@ -284,8 +284,8 @@ return {
 	["{area:489} flight master"] = "{area:489}的飞行管理员",
 
 	-- Step 79: Ratchet
-	-- {area:17} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "从塞拉摩出发，向西骑入{area:17}，再沿海岸向北到{area:392}。",
+	-- {zone:1413} The Barrens · {area:392} Ratchet
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "从塞拉摩出发，向西骑入{zone:1413}，再沿海岸向北到{area:392}。",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901}，在镇子北边的海岸",
 	-- {zone:1448} Felwood
@@ -305,10 +305,10 @@ return {
 	["{npc:9299} in {area:976}: keep it"] = "{npc:9299}位于{area:976}，保留任务",
 
 	-- Step 84: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "走进{area:1769}，沿隧道的{area:493}分支到{area:2361}。",
-	-- {area:1377} Silithus
-	["For {area:1377}: keep it"] = "留到{area:1377}：先留着",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {area:2361} Nighthaven
+	["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "走进{area:1769}，沿隧道的{zone:1450}分支到{area:2361}。",
+	-- {zone:1451} Silithus
+	["For {zone:1451}: keep it"] = "交给{zone:1451}：先留着",
 
 	-- Step 85: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -349,12 +349,12 @@ return {
 	["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 
 	-- Step 92: Into Silithus
-	-- {area:1377} Silithus
-	["Into {area:1377}"] = "",
+	-- {zone:1451} Silithus
+	["Into {zone:1451}"] = "进入{zone:1451}",
 
 	-- Step 93: Layo Starstrike
-	-- {area:1377} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -363,8 +363,8 @@ return {
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在联盟帐篷处",
 
 	-- Step 96: Silithus: kill these as you meet them
-	-- {area:1377} Silithus
-	["{area:1377}: kill these as you meet them"] = "{area:1377}：沿途击杀以下目标",
+	-- {zone:1451} Silithus
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途击杀以下目标",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "掘泥打击者在要塞西北方的沙丘中挖掘；石鞭蝎和掠沙蜘蛛在四周游荡。",
 
@@ -396,24 +396,24 @@ return {
 	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "向东骑行到{area:2738}的{area:2742}高塔；爬上去，杀死为硬壳物品涌出的亚什伏击者。",
 
 	-- Step 103: Layo Starstrike
-	-- {area:493} Moonglade
-	["Umber in {area:493}: keep it"] = "{area:493}的阿姆伯尔：留着",
+	-- {zone:1450} Moonglade
+	["Umber in {zone:1450}: keep it"] = "{zone:1450}的阿姆伯尔：留着",
 
 	-- Step 105: Krakle
-	-- {area:1377} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "{area:490}：沿途击杀以下目标",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途击杀以下目标",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向东骑行到{area:537}，爬上去，在山顶附近的熔岩喷口使用{npc:10541}。",
 
 	-- Step 108: Krakle
-	-- {npc:9298} Donova Snowden · {area:618} Winterspring
-	["Ends with {npc:9298} in {area:618}: keep it"] = "在{area:618}的{npc:9298}处结束：留着",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "在{zone:1452}的{npc:9298}处结束：留着",
 
 	-- Step 109: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
@@ -477,8 +477,10 @@ return {
 	-- ["Buy two more Arcane Quickeners for the {area:202}'s and Dalson's cauldrons, and ride straight there: they vanish after 30 minutes."] = "再买两个{item:13320}，用于{area:202}和达尔松之泪的大锅，然后直接骑过去：它们在30分钟后消失。",
 	-- ["Climb the hill west of {area:190} to look down on the town."] = "爬上{area:190}西边的山丘俯瞰小镇。",
 	-- ["Diseased Wolves"] = "生病的狼",
+	-- ["Ends with {npc:9298} in {area:618}: keep it"] = "在{area:618}的{npc:9298}处结束：留着",
 	-- ["Fly to {area:392}."] = "飞往{area:392}。",
 	-- ["Follow the road south-west out of the pass to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "沿道路向西南出山口，前往{area:3425}。{npc:15189}在他那栋建筑的楼上：从室内上楼，箭头无法区分楼层。",
+	-- ["For {area:1377}: keep it"] = "留到{area:1377}：先留着",
 	-- ["For {zone:1453}: keep it"] = "交给{zone:1453}：先留着",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "从{area:392}飞往{area:2255}，向南骑到{area:2250}。",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "骑回{area:3197}，飞往{area:150}，乘船前往{area:442}，再飞往{area:702}；传送门通往{zone:1457}。",
@@ -493,8 +495,12 @@ return {
 	-- ["The fields"] = "田野",
 	-- ["The next guide starts here in {area:392} and flies on to {area:976}."] = "下一份指南从{area:392}开始，然后飞往{area:976}。",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "毛皮在第2圈之后，在猩猩高地上",
+	-- ["Umber in {area:493}: keep it"] = "{area:493}的阿姆伯尔：留着",
+	-- ["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "走进{area:1769}，沿隧道的{area:493}分支到{area:2361}。",
 	-- ["Zapped giants and sea elementals"] = "被电过的巨人和海元素",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "在{zone:1422}的{area:202}刷{npc:1796}",
+	-- ["{area:1377}: kill these as you meet them"] = "{area:1377}：沿途击杀以下目标",
+	-- ["{area:139}: kill these as you meet them"] = "{area:139}：沿途击杀以下目标",
 	-- ["{area:199} cauldron"] = "{area:199}的大锅",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}，来自{npc:11056}",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}：她的护送任务在路线后面",
@@ -507,6 +513,8 @@ return {
 	-- ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}：白蚁之后在{area:2627}收集",
 	-- ["{npc:16256}: the last guide binds here, so this usually ticks at once"] = "{npc:16256}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{npc:1852}是精英：建议组队。他在安多哈尔中央守护着他的护命匣。",
+	-- ["{npc:7900}: keep it for {area:440}"] = "{npc:7900}：留到{area:440}",
 	-- ["{npc:8496}: keep it for Un'Goro"] = "{npc:8496}：留到安戈洛环形山",
 	-- ["{object:175924}, in the farmhouse"] = "{object:175924}，在农舍里",
+	-- ["{quest:6762} in {area:493}: keep it"] = "{area:493}的{quest:6762}：先留着",
 }

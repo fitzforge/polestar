@@ -7,15 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} 位于 {area:400} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，{npc:4709} 在地精营地旁。",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} 位于 {zone:1441} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，{npc:4709} 在地精营地旁。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 	["He runs off to keep Rizzle busy"] = "他会跑去拖住瑞兹尔·铜栓",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{area:440}。{area:976}就在边界内。",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{zone:1446}。{area:976}就在边界内。",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}，镇子北侧",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
-	-- {area:35} Booty Bay · {area:47} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
@@ -162,6 +162,7 @@ return {
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "向西北骑到沙丘中的森提帕尔虫巢腐化之巢。任何森提帕尔都可能掉落昆虫部件。",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "向南骑进{quest:3362}。灌木露水收集者掉落腺体；只有部分是饱满的，留下饱满的露水腺。{npc:5490}和灌木塑根者也在山谷里。灌木怪是48-50级，比你高：一次拉一个。",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "向南经过{area:1938}到{area:981}，即哈扎里隧道；谢申克的勘探设备在深处。",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{area:440}。{area:976}就在边界内。",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向东南骑到{area:985}。{npc:7847}站在南边废土营地的中央：先清理他周围。",
 	-- ["Rizzle's plans"] = "Rizzle的设计图",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁的通缉布告",

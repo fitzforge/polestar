@@ -53,10 +53,10 @@ return {
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盗船",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "可选任务，41级时难度很高：卷轴{quest:624}位于{area:43}外海三艘船的甲板上，船上的海盗为42-45级，常成对行动。只有能把船员逐只引到船舷边，或有朋友同行时才去取；后续任务会经过{area:8}、{zone:1445}和{zone:1425}。",
-	-- {area:8} Swamp of Sorrows
-	["for a later stop in the {area:8}"] = "留到之后在{area:8}停留时",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "可选任务，41级时难度很高：卷轴{quest:624}位于{area:43}外海三艘船的甲板上，船上的海盗为42-45级，常成对行动。只有能把船员逐只引到船舷边，或有朋友同行时才去取；后续任务会经过{zone:1435}、{zone:1445}和{zone:1425}。",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "留到之后在{zone:1435}停留时",
 
 	-- Step 12: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
@@ -201,10 +201,10 @@ return {
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "如果跳过了{quest:208}，就在这里刷怪到42.74级，跟上路线的等级规划。也可组队挑战{area:1517}副本。",
 
 	-- Step 49: Into the Swamp of Sorrows
-	-- {area:8} Swamp of Sorrows
-	["Into the {area:8}"] = "进入{area:8}",
-	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "从{area:10}沿路向东，经过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候；那是靠近{zone:1430}入口、道路旁的德莱尼营地。",
+	-- {zone:1435} Swamp of Sorrows
+	["Into the {zone:1435}"] = "进入{zone:1435}",
+	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "从{zone:1431}沿路向东，经过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候；那是靠近{zone:1430}入口、道路旁的德莱尼营地。",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
@@ -252,6 +252,7 @@ return {
 	-- ["Hearth to {area:35}"] = "用炉石回到{area:35}",
 	-- ["Hearth to {object:3202}"] = "用炉石回到{object:3202}",
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "他的保险箱在{area:75}北边他原来的营地里。",
+	-- ["Into the {area:8}"] = "进入{area:8}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "继续向北骑进{zone:1431}，然后沿道路向东穿过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候，那是靠近{zone:1430}入口的德莱尼营地。",
 	-- ["Naga shore and the {object:759}"] = "纳迦海岸和{object:759}",
 	-- ["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "向东骑回{area:75}，沿道路向东南前往岸边的部落小哨站。",
@@ -274,6 +275,7 @@ return {
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "在远征队营地西边，血顶酋长{npc:1061}和{npc:1062}一起站在祖昆达废墟里。先清掉他们的守卫，再引他们。",
 	-- ["for Stoley in {zone:1446}"] = "交给{zone:1446}的斯杜雷",
+	-- ["for a later stop in the {area:8}"] = "留到之后在{area:8}停留时",
 	-- ["for later: the {zone:1425}, around level 48"] = "留到之后：{zone:1425}，大约48级时",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁边",
 	-- ["{area:35} flight master"] = "{area:35}的飞行管理员",

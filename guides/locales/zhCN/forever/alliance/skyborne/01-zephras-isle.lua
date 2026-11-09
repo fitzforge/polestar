@@ -419,14 +419,14 @@ return {
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
 	-- Step 83: Stormwind Keep
-	-- {object:2117} Stormwind Keep · {area:40} Westfall
-	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "伯瓦尔·弗塔根公爵站在城市北端{object:2117}的王座大厅里。然后从正门离开，前往{area:40}。",
+	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
+	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "伯瓦尔·弗塔根公爵站在城市北端{object:2117}的王座大厅里。然后从正门离开，前往{zone:1436}。",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "前往{area:108}找{npc:234}",
 
 	-- Step 84: Baros Alexston
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "{npc:1646}站在从要塞到正门途中的{object:2098}：他的罗盘在{area:40}的旧居中，之后顺路去取。",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在从要塞到正门途中的{object:2098}：他的罗盘在{zone:1436}的旧居中，之后顺路去取。",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -449,12 +449,13 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的塔楼巫师圣殿里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
 	-- Step 92: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{area:40}的路上：在瀑布底部装满{item:7207}。",
+	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
+	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南边，就在西去{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "回到申达尔",
 	-- ["Back to {npc:255853} by the falls north-east of {area:16638}, on the way north to the shrine."] = "回到{area:16638}东北边瀑布旁的{npc:255853}那里，就在北上前往圣坛的路上。",
+	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "伯瓦尔·弗塔根公爵站在城市北端{object:2117}的王座大厅里。然后从正门离开，前往{area:40}。",
 	-- ["Cast Read Ley Line at the {object:460002}"] = "对{object:460002}施放Read Ley Line",
 	-- ["Cast Read {object:460002} at the {object:460002}"] = "对{object:460002}施放Read {object:460002}",
 	-- ["Each of Quel'ana's quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her in {area:16638}. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the {area:16626} around the Windfield farm. Her sister {npc:254411} stands beside her."] = "奎尔阿娜的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把魔棒带回{area:16638}交给她。风歌爬行者分布在城镇西边的岸边；瓦尔德伦头狼和暴躁的疾风陆行鸟在风野农场周围的{area:16626}游荡。她的妹妹{npc:254411}站在她身旁。",
@@ -462,6 +463,7 @@ return {
 	-- ["Havoc in Falaath"] = "法拉斯的混乱",
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "向西北前往西部悬崖上的角鹰兽巢穴。{item:263493}散落在巢穴周围；角鹰兽雌兽在其间巡逻。",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "治疗Nightfang Den中的7名德鲁伊，然后找到{npc:258130}",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{area:40}的路上：在瀑布底部装满{item:7207}。",
 	-- ["Level 6 spells"] = "6级法术",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "洛苏娜在岛屿东岸等候，位于{area:16629}东边。",
 	-- ["Meet Valennia at the gate"] = "在大门与瓦伦妮亚会合",

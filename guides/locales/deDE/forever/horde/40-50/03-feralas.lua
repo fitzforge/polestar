@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Reite auf der Straße nach Westen; die Schriftrolle liegt am Wasser im äußersten Westen des Sumpfs.",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "für {object:2555} in {area:15}, später in diesem Guide",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "für {object:2555} in {zone:1445}, später in diesem Guide",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -209,6 +211,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "Dein Lehrer ist in {area:1638}: Flieg dorthin (noch keine Flugroute dort? Flieg zum {area:378} und reite nach Westen durch {zone:1412}), dann weiter nach {area:496}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 	-- ["Zeppelin tower"] = "Zeppelinturm",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "für {object:2555} in {area:15}, später in diesem Guide",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500} ist Elite: Such dir am besten eine Gruppe. Prügle ihn runter, bis er aufgibt, und melde dich dann bei {npc:4501}.",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: für {npc:7010} in {zone:1454}, etwa ab Stufe 50",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, dann {object:172960} und {object:172961}.",

@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "Sous terre",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Le camp des Défias se trouve dans le sud-ouest du {area:10}, au sud de {area:94}, près de la frontière avec {zone:1436}. Le coffre se trouve parmi les tentes.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Le camp défias se trouve dans le sud-ouest de {zone:1431}, au sud de {area:94}, près de la frontière de {zone:1436}. Le coffre se trouve parmi les tentes.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947} ; à l'intérieur",
 
@@ -131,7 +131,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Chevauchez vers l'ouest le long de la route ; la cabane de l'ermite se trouve au nord-est de {area:492}.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Les Écumeurs, Soigneurs et Gardiens squelettes tiennent la partie ouest du cimetière, juste à l'est du camp de {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Prenez le bateau du quai de Menethil pour {area:513}, dans {zone:1445}.",
-	-- ["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Le camp défias se trouve dans le sud-ouest de {zone:1431}, au sud de {area:94}, près de la frontière de {zone:1436}. Le coffre se trouve parmi les tentes.",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Le camp des Défias se trouve dans le sud-ouest du {area:10}, au sud de {area:94}, près de la frontière avec {zone:1436}. Le coffre se trouve parmi les tentes.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Les orcs Dragonmaw campent à l'est des Excavations de Whelgar. Les Écumeurs et les Arpenteurs portent les bannières de guerre.",
 	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\nThe relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nThe Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Les Gardiens de Goaz se tiennent juste à l'ouest du camp de Whelgar : utilisez à côté de l'un d'eux la {item:279996} qu'il vous a donnée.\nLes reliques se trouvent dans les fouilles elles-mêmes. {npc:1353}, un gros Tranchegueule, rôde dans la vallée des raptors juste à l'ouest.\nLes orcs Dragonmaw campent à l'est du site de fouilles. Les Écumeurs et les Arpenteurs portent les bannières de guerre.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Les Répandeurs de peste errent dans la moitié nord de {area:492}. {npc:522}, un élite, rôde parmi les tombes : tenez-vous à l'écart.",

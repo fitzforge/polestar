@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Лагерь Братства Справедливости лежит на юго-западе зоны {area:10}, к югу от деревни {area:94}, у границы с зоной {zone:1436}. Сундук стоит среди палаток.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Лагерь Братства Справедливости лежит на юго-западе зоны {zone:1431}, к югу от деревни {area:94}, у границы с зоной {zone:1436}. Сундук стоит среди палаток.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
@@ -123,6 +123,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Езжайте по дороге на запад; хижина отшельника стоит к северо-востоку от кладбища (ориентир: {area:492}).",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Скелеты-налетчики, скелеты-лекари и скелеты-хранители занимают западную часть кладбища, сразу к востоку от лагеря {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Сядьте на корабль у причала Гавани Менетилов: {area:513} ({zone:1445}).",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Лагерь Братства Справедливости лежит на юго-западе зоны {area:10}, к югу от деревни {area:94}, у границы с зоной {zone:1436}. Сундук стоит среди палаток.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Орки из клана Драконьей Пасти стоят лагерем к востоку от раскопок. Боевые знамена носят налетчики и болотные бегуны.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Распространители чумы бродят по северной части кладбища ({area:492}). Среди могил бродит элитный противник {npc:522}: держитесь от него подальше.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "Капитан ходит по палубе разбитого корабля; его сундук стоит в трюме.",

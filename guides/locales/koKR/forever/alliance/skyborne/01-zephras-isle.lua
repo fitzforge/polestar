@@ -419,14 +419,14 @@ return {
 	["{zone:1453} flight master"] = "",
 
 	-- Step 83: Stormwind Keep
-	-- {object:2117} Stormwind Keep · {area:40} Westfall
-	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "볼바르 폴드라곤은 도시 북쪽 끝 {object:2117}의 왕좌실에 서 있습니다. 그런 다음 정문으로 나가 {area:40}(으)로 가세요.",
+	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
+	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "볼바르 폴드라곤은 도시 북쪽 끝 {object:2117}의 왕좌실에 서 있습니다. 그런 다음 정문으로 나가 {zone:1436}(으)로 가세요.",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "{area:108}의 {npc:234}용",
 
 	-- Step 84: Baros Alexston
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -449,18 +449,20 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}은(는) {object:2101}의 탑인 마법사의 성소에 있습니다. 그녀는 {quest:1861} 폭포에 쓸 병을 줍니다.",
 
 	-- Step 92: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {area:40}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
+	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
+	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가세요. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "셴다르로 돌아가기",
 	-- ["Back to {npc:255853} by the falls north-east of {area:16638}, on the way north to the shrine."] = "북쪽 사당으로 가는 길에, {area:16638} 북동쪽 폭포 옆의 {npc:255853}에게 돌아가세요.",
+	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "볼바르 폴드라곤은 도시 북쪽 끝 {object:2117}의 왕좌실에 서 있습니다. 그런 다음 정문으로 나가 {area:40}(으)로 가세요.",
 	-- ["Cast Read Ley Line at the {object:460002}"] = "{object:460002}에 Read Ley Line 시전",
 	-- ["Each of Quel'ana's quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her in {area:16638}. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the {area:16626} around the Windfield farm. Her sister {npc:254411} stands beside her."] = "퀠라나의 퀘스트는 각각 {item:15908}을(를) 줍니다. 그녀가 말한 야수에게 사용한 뒤, 막대를 {area:16638}에 있는 그녀에게 다시 가져가세요. 바람노래 집게발은 마을 서쪽 해안에 늘어서 있고, 벌드렌 우두머리와 심술궂은 돌풍타조는 윈드필드 농장 주변 {area:16626}을(를) 돌아다닙니다. 그녀의 자매 {npc:254411}이(가) 곁에 서 있습니다.",
 	-- ["Find Fillion and his bedroll"] = "필리온과 그의 침낭을 찾으세요",
 	-- ["Havoc in Falaath"] = "팔라스의 혼란",
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "북서쪽 서부 절벽의 히포그리프 둥지로 가세요. {item:263493}은(는) 둥지 주변에 있고, 히포그리프 어미가 둥지 사이를 순찰합니다.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Nightfang Den에서 드루이드 7명을 치유한 뒤 {npc:258130}을(를) 찾으세요",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {area:40}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
 	-- ["Level 6 spells"] = "6레벨 주문",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "로르투나는 {area:16629} 동쪽, 섬의 동쪽 해안에서 기다립니다.",
 	-- ["Meet Valennia at the gate"] = "성문에서 발레니아를 만나세요",

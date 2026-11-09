@@ -11,14 +11,16 @@ return {
 	["To {area:2101}"] = "Para {area:2101}",
 
 	-- Step 2: Into Searing Gorge
-	-- {area:51} Searing Gorge
-	["Into {area:51}"] = "Rumo a {area:51}",
+	-- {zone:1427} Searing Gorge
+	["Into {zone:1427}"] = "Rumo a {zone:1427}",
+
+	-- Step 3: Searing Gorge
+	["The Grimesilt outhouse"] = "A casinha de Pedrassuja",
 
 	-- Step 4: The Grimesilt outhouse
-	["The Grimesilt outhouse"] = "A casinha de Pedrassuja",
-	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {area:51} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
+	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {area:51}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "De {area:144}, siga para o sul até {zone:1418}, depois a oeste, passando pela cidade da Horda de {area:340} (dê espaço a ela), e suba a trilha até {area:51}: {area:247} fica logo na entrada, no sudeste. O prisioneiro na casinha de madeira quer 15 {item:4306} e oito Geólogos Ferro Negro mortos do sítio de escavação em volta. A casinha também abre com a chave, se você encontrou uma.",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "De {area:144}, siga para o sul até {zone:1418}, depois a oeste, passando pela cidade da Horda de {area:340} (dê espaço a ela), e suba a trilha até {zone:1427}: {area:247} fica logo na entrada, no sudeste. O prisioneiro na casinha de madeira quer 15 {item:4306} e oito Geólogos Ferro Negro mortos do sítio de escavação em volta. A casinha também abre com a chave, se você encontrou uma.",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -71,8 +73,8 @@ return {
 	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Capatazes e Feitores comandam os escravos por todo o Caldeirão, e qualquer um deles pode carregar {item:10551}. Os Vaporistas trabalham nas fornalhas do meio ({item:18959}), os Atalaias ficam nas cristas do sul (a Luneta). Qualquer {object:147516} pode soltar {item:11818}: guarde-o.\nCuidado: Feitores Ferro Negro (nível 45-46) chamam aliados a até 15 metros quando são puxados, lançam Rede a até 15 metros e usam Rasgar em combate corpo a corpo.",
 
 	-- Step 22: Searing Gorge: kill these as you meet them
-	-- {area:51} Searing Gorge
-	["{area:51}: kill these as you meet them"] = "{area:51}: vá matando estes pelo caminho",
+	-- {zone:1427} Searing Gorge
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: vá matando estes pelo caminho",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} se abre no norte de O Caldeirão. As Instruções Secretas: Fluxo Ígneo ficam na saliência superior; Incendossauros nadam nas poças de lava mais adentro, então puxe-os até a borda. Fique longe de {npc:14621} e de seus guardas de elite lá no fundo.",

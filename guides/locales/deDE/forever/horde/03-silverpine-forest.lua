@@ -167,8 +167,8 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 38: The Ivar Patch
-	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Nimm die Straße nach Norden Richtung {area:85}: Das Haus der Yoricks bei {area:238} liegt auf dem Weg. {quest:425} lauert ein kurzes Stück westlich davon.",
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Nimm die Straße nach Norden Richtung {zone:1420}: Das Haus der Yoricks bei {area:238} liegt auf dem Weg. {quest:425} lauert ein kurzes Stück westlich davon.",
 	["Inside"] = "",
 
 	-- Step 40: Magistrate Sevren
@@ -198,6 +198,10 @@ return {
 	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
+
+	-- Step 45: Orgrimmar
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
@@ -239,6 +243,7 @@ return {
 	-- ["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "Die Straße nach Südosten hinunter nach {area:233}. Beschützer von Dalaran bewachen den Ortsrand und Magier von Dalaran den Ort; beide lassen Anhänger fallen. Hexer und Behüter von Dalaran patrouillieren auf den Straßen ringsum. Meide die Mitte, wo {npc:2120} steht.",
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Südwestlich von Ambermill spuken Zwangsarbeiter und Wächter von Rabenklaue in den Ruinen von {quest:516} im Südosten des Waldes.",
 	-- ["Swim back and follow the road west to the {area:228}."] = "Schwimm zurück und folge der Straße nach Westen bis zum Grabmal ({area:228}).",
+	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Nimm die Straße nach Norden Richtung {area:85}: Das Haus der Yoricks bei {area:238} liegt auf dem Weg. {quest:425} lauert ein kurzes Stück westlich davon.",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Die Kränklichen und Hageren Flüchtlinge schlurfen die Straße südlich von Pyrewood entlang in Richtung Wall ({area:230}).",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Die Seepirscher und Orakel der Finsterflossen sitzen am Seeufer südlich der Fähre ({area:237}), östlich vom Grabmal ({area:228}).",
 	-- ["The refugees"] = "Die Flüchtlinge",

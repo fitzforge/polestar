@@ -205,6 +205,10 @@ return {
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler
 	["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203} : les Rôdeurs des basses plaines parcourent les plaines autour de {area:225}",
 
+	-- Step 41: Thunder Bluff
+	-- {npc:3057} Cairne Bloodhoof
+	["{npc:3057}'s tent"] = "",
+
 	-- Step 42: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "Prenez un ascenseur jusqu'aux mesas. {npc:2995} s'occupe des coursiers du vent sur le piton central ; {npc:3057} se tient dans la grande tente.",
@@ -291,12 +295,12 @@ return {
 	["Into {zone:1412}"] = "Vers {zone:1412}",
 
 	-- Step 60: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "Vers {area:17}",
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "Vers les {zone:1413}",
 
 	-- Step 62: The Crossroads
-	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "",
+	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, le maître des coursiers du vent",
 
@@ -311,10 +315,12 @@ return {
 	["{npc:8359}, by the wind riders on the central rise"] = "{npc:8359}, près des coursiers du vent sur le piton central",
 
 	-- Step 66: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "Vers {area:1637}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "Vers {zone:1454}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "Retour à Sabot-de-Sang",
@@ -328,7 +334,7 @@ return {
 	-- ["Galak centaurs and {npc:2958} Alphas"] = "Centaures galak et Loups Alpha ({npc:2958})",
 	-- ["Hearth to {area:1638} and cross to {area:1639}."] = "Pierre de foyer vers {area:1638}, puis traversez jusqu'à {area:1639}.",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Utilisez votre Pierre de foyer pour aller à {area:222} et remontez au nord jusqu'à {area:1639}.",
-	-- ["Into {zone:1413}"] = "Vers les {zone:1413}",
+	-- ["Into {area:17}"] = "Vers {area:17}",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {area:17} guide starts here.\n{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "Quittez {zone:1412} par le col du sud-est et suivez la route jusqu'à {area:380}. {quest:860} se tient près de l'auberge, {npc:3448} à la porte sud. Le guide de {area:17} commence ici.\n{area:380} est votre base pour ce guide. Tous ceux dont vous avez besoin se tiennent à quelques pas de l'auberge.",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "Quittez {zone:1412} par le col sud-est et suivez la route jusqu'à {area:380}. {quest:860} se tient près de l'auberge, {npc:3448} à la porte sud. Le guide {zone:1413} commence ici.",
 	-- ["On the way"] = "En chemin",
@@ -347,7 +353,7 @@ return {
 	-- ["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}; the plainstriders also drop the {item:287505} for Kyle."] = "Le puits se trouve au nord du village. Des Pierres du puits ({object:2910}) sont posées autour du puits, et {object:2912} se trouve sous les arbres voisins. Tuez loups, couguars, trotteurs des plaines et plongeurs en chemin pour {quest:766} et {quest:761} ; les trotteurs lâchent aussi {item:287505} pour Kyle.",
 	-- ["The well lies south-east of the village."] = "Le puits se trouve au sud-est du village.",
 	-- ["The {area:380}"] = "{area:380}",
-	-- ["To {zone:1454}"] = "Vers {zone:1454}",
+	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["{item:4739} along the way to {npc:2980}"] = "{item:4739} sur le chemin de {npc:2980}",
 	-- ["{item:4740} along the way to {npc:2980}"] = "{item:4740} sur le chemin de {npc:2980}",
 	-- ["{item:4848} along the way to {area:221}"] = "{item:4848} sur le chemin de {area:221}",

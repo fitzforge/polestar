@@ -75,12 +75,16 @@ return {
 
 	-- Step 15: Paladin trainer
 	["Paladin trainer"] = "",
-	-- {npc:246152} Shari Stilwell · {area:85} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {area:85}; {zone:1454} has no paladin trainer"] = "",
+	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
 
 	-- Step 16: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
+
+	-- Step 17: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
 
 	-- Step 18: Class trainer
 	["Class trainer"] = "",
@@ -201,8 +205,8 @@ return {
 	["{quest:8470}, a rare drop"] = "드물게 떨어지는 {quest:8470}",
 
 	-- Step 45: Emerald Sanctuary
-	-- {area:361} Felwood
-	["Ride the road south through {area:361} to the Sanctuary."] = "길을 따라 남쪽으로 {area:361}을(를) 지나 성소로 가세요.",
+	-- {zone:1448} Felwood
+	["Ride the road south through {zone:1448} to the Sanctuary."] = "길을 따라 남쪽으로 {zone:1448}을(를) 지나 성소로 가세요.",
 
 	-- Step 47: Overlord Ror
 	-- {area:1761} Deadwood Village
@@ -260,6 +264,7 @@ return {
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "{area:1497}(으)로 돌아가 {zone:1454}행 비행선을 타고 {area:431}(으)로 날아가세요. 길을 따라 토막나무 주둔지에서 서쪽으로 나가, 갈림길에서 북쪽 {zone:1448}(으)로 가세요.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안돌할로 가세요. {npc:10667}은(는) 마을 서쪽의 무너진 여관에서 기다립니다. 안쪽의 해골은 54-57레벨이니 가장자리로만 다니세요.",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "남쪽으로 {area:202}을(를) 지나 {area:197}(으)로 가세요. {npc:10927}의 집은 길가에 있고, {npc:10936}의 기념비는 그 뒤 묘지에 있습니다. 가는 길에 들판에서 만나는 역병에 걸린 늑대를 처치하세요.",
+	-- ["Ride the road south through {area:361} to the Sanctuary."] = "길을 따라 남쪽으로 {area:361}을(를) 지나 성소로 가세요.",
 	-- ["Scarlet forward camp"] = "붉은십자군 전진 야영지",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "마른가지일족 털보숭이 마을은 성소 바로 남쪽에 있습니다. 마른가지일족을 처치할 때마다 {area:1769} 평판도 오릅니다. 깃털 머리장식은 보관하세요.",

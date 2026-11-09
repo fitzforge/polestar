@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "O acampamento dos Défias fica no sudoeste de {area:10}, ao sul de {area:94}, perto da fronteira com {zone:1436}. A caixa-forte fica entre as barracas.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "O acampamento dos Défias fica no sudoeste de {zone:1431}, ao sul de {area:94}, perto da fronteira com {zone:1436}. A caixa-forte fica entre as barracas.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}; lá dentro",
 
@@ -121,6 +121,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Siga para o oeste pela estrada; o barraco do eremita fica a nordeste de {area:492}.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Saqueadores, Curandeiros e Guardadores Descarnados dominam a parte oeste do cemitério, logo a leste do acampamento de {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Pegue o barco no píer de Menethil até {area:513}, em {zone:1445}.",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "O acampamento dos Défias fica no sudoeste de {area:10}, ao sul de {area:94}, perto da fronteira com {zone:1436}. A caixa-forte fica entre as barracas.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Os orcs Presa do Dragão acampam a leste do sítio de escavação. Saqueadores e Corre-brejos carregam os estandartes de guerra.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Os Vetores da Peste andam pela metade norte de {area:492}. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "O capitão anda pelo convés do navio naufragado; a caixa-forte dele fica no porão.",

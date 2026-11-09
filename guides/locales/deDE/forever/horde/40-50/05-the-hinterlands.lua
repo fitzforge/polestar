@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}s Lager",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {area:47} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {zone:1425} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
 
 	-- Step 4: Highvale
 	["Highvale"] = "Hochtal",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {area:47} zum Trolldorf an der Ostküste.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {zone:1425} zum Trolldorf an der Ostküste.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "Östlich der Straße wühlen Aschmähneneber und Suhlamane an den Hängen neben den Rotsteinbasilisken. Halte dich von den Höllenebern der Stufe 52 weiter südlich fern.",
 	-- ["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Folge den Straßen nach Osten durch das {area:47} zum Trolldorf an der Ostküste.",
 	-- ["From {area:1446}'s flight master."] = "Vom Flugmeister am {area:1446}.",
 	-- ["Grind to 48"] = "Bis 48 grinden",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "Malkors Schädel liegt auf einem Haufen unterhalb der Ruinen der Vilebranch, Malkors Knochen auf einem Haufen am Fuß von {area:354}. Die Gefäße mit besudeltem Blut stehen auf den unteren Terrassen, und {npc:14757} wird oben festgehalten. Bleib auf den Wegen: Die Trolle drinnen sind Elite.",
@@ -183,6 +186,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "Nur wenn du noch nicht Stufe 48 bist.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Nur mit dem Notsignal: Der Roboter sitzt an der Quelle des Flusses westlich vom {area:351}. Eskortiere ihn nach Osten zum Ufer hinter den {area:307}; seine Belohnung wartet bei Oglethorpe in {area:35}.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "Reite nach Norden zurück nach {area:75} und flieg nach {area:1497}.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Reite von {area:272} nach Nordosten ins {area:47} und auf der Straße nach Osten; {npc:7801} lagert auf dem Hügel südlich der {area:350} der Elfen.",
 	-- ["Saltwater Snapjaws"] = "Salzwasserschnappkiefer",
 	-- ["Silvermane Howlers"] = "Silbermähnenheuler",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Im Südwesten streifen die Silbermähnenheuler durch die Hügel östlich der Dörfer der Witherbark.",

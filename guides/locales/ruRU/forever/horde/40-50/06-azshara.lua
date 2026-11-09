@@ -63,8 +63,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
 	-- Step 22: Ride into Azshara
-	-- {area:16} Azshara
-	["Ride into {area:16}"] = "Въезжайте: {area:16}",
+	-- {zone:1447} Azshara
+	["Ride into {zone:1447}"] = "Въезжайте: {zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Езжайте на восток по дороге от Заставы Расщепленного Дерева. {npc:11548} ждет здесь: {area:1235}, чуть в стороне от дороги, в нескольких шагах к западу от места {area:3137} (Альянс): подходите с запада и держитесь подальше от часовых Азшары и Джарродена (элита).",
@@ -78,8 +78,8 @@ return {
 
 	-- Step 24: Level 50
 	["Level 50"] = "",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -232,6 +232,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "Высокорожденные и сатиры из племени Халдарр",
 	-- ["Ironjaw Basilisks"] = "Железозубые василиски",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Сохраните {area:1417} для {npc:7771} ({zone:1446}).",
+	-- ["Ride into {area:16}"] = "Въезжайте: {area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Езжайте на северо-запад: {area:1108}; {npc:14637} ждет на причале.",
 	-- ["Sea elementals"] = "Морские элементали",
 	-- ["Take the zeppelin back to {zone:1454}."] = "Летите на дирижабле обратно: {zone:1454}.",

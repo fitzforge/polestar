@@ -51,8 +51,8 @@ return {
 	["{quest:1132}, on the docks"] = "",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
-	-- {quest:1132} Fiora Longears · {area:400} Thousand Needles
-	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "{quest:1132}：双足飞龙在{area:400}，本指南稍后会去",
+	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132}：双足飞龙在{zone:1441}，本指南稍后会去",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -71,8 +71,12 @@ return {
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}：夜魔，在魅魔旁边；{item:190309}在{quest:1738}附近",
 
 	-- Step 13: Highperch
-	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{area:400}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
+	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
+
+	-- Step 14: Thousand Needles
+	-- {area:482} Highperch
+	["The canyons east of {area:482}"] = "",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway

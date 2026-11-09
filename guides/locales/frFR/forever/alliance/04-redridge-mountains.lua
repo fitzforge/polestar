@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Stormwind
-	-- {area:12} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
-	["Train, then leave by the main gate and follow the road east through {area:12}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
+	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
+	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
 	["Level 18 and 20 spells"] = "Sorts des niveaux 18 et 20",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
 	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
@@ -43,8 +43,14 @@ return {
 	["{item:15882}: the {object:177790}"] = "{item:15882} : l'{object:177790}",
 
 	-- Step 8: Back to Elwynn Forest
-	-- {area:12} Elwynn Forest
-	["Back to {area:12}"] = "Retour dans la {area:12}",
+	-- {zone:1429} Elwynn Forest
+	["Back to {zone:1429}"] = "Retour dans la {zone:1429}",
+	-- {zone:1429} Elwynn Forest
+	["The road into {zone:1429}"] = "",
+
+	-- Step 9: Elwynn Forest
+	-- {area:91} Tower of Azora
+	["The {area:91}"] = "La {area:91}",
 
 	-- Step 10: Theocritus
 	["On the top floor"] = "Au dernier étage",
@@ -60,12 +66,12 @@ return {
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846} : Sorciers-voleurs défias",
 
 	-- Step 12: Three Corners
-	-- {area:1002} Three Corners · {area:10} Duskwood
-	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {area:10} and Elwynn meet: south to {area:10} first."] = "",
+	-- {area:1002} Three Corners · {zone:1431} Duskwood
+	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "",
 
 	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {area:10} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, à l'extrémité nord de la ville",
 	-- {npc:265} Madame Eva
@@ -94,9 +100,9 @@ return {
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
 	["{area:121}: kill these as you meet them"] = "{area:121} : tuez-les au passage",
-	-- {area:42} Darkshire · {npc:302} Blind Mary · {area:10} Duskwood · {item:2378} Skeleton Finger
+	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
-	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Des Guerriers squelettes et des Mages squelettes errent parmi les tombes au sud-est de {area:42}, en contrebas de la maison de {npc:302} sur la colline. Tous les squelettes du {area:10} peuvent lâcher un {item:2378}.\nAttention : les squelettes se tiennent près les uns des autres : foncer dans le tas en attire souvent plusieurs à la fois.",
+	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Des Guerriers squelettes et des Mages squelettes errent parmi les tombes au sud-est de {area:42}, en contrebas de la maison de {npc:302} sur la colline. Tous les squelettes du {zone:1431} peuvent lâcher un {item:2378}.\nAttention : les squelettes se tiennent près les uns des autres : foncer dans le tas en attire souvent plusieurs à la fois.",
 
 	-- Step 16: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
@@ -246,8 +252,8 @@ return {
 	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, près des griffons au sud du pont",
-	-- {area:42} Darkshire · {area:10} Duskwood
-	["Next: the gryphon to {area:42} for {area:10}'s second loop (05-duskwood)."] = "",
+	-- {area:42} Darkshire · {zone:1431} Duskwood
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Fouailleventre",

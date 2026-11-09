@@ -419,14 +419,14 @@ return {
 	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 
 	-- Step 83: Stormwind Keep
-	-- {object:2117} Stormwind Keep · {area:40} Westfall
-	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Bolvar Fordragon se tient dans la salle du trône du {object:2117}, au nord de la ville. Partez ensuite par la porte principale vers la {area:40}.",
+	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
+	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "Bolvar Fordragon se tient dans la salle du trône de {object:2117}, au nord de la ville. Sortez ensuite par la grande porte vers {zone:1436}.",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "Pour {npc:234} à {area:108}",
 
 	-- Step 84: Baros Alexston
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -449,13 +449,13 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} se tient dans la tour de {object:2101} ; elle vous donne une flasque pour la cascade de {quest:1861}.",
 
 	-- Step 92: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Sortez de {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin vers l'ouest et la {area:40} : remplissez la {item:7207} à son pied.",
+	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
+	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "Retour à Shen'dar",
 	-- ["Back to {npc:255853} by the falls north-east of {area:16638}, on the way north to the shrine."] = "Retournez voir {npc:255853} près des chutes au nord-est de {area:16638}, sur le chemin du sanctuaire au nord.",
-	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "Bolvar Fordragon se tient dans la salle du trône de {object:2117}, au nord de la ville. Sortez ensuite par la grande porte vers {zone:1436}.",
+	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Bolvar Fordragon se tient dans la salle du trône du {object:2117}, au nord de la ville. Partez ensuite par la porte principale vers la {area:40}.",
 	-- ["Cast Read Ley Line at the {object:460002}"] = "Utilisez votre capacité raciale de lecture des lignes telluriques sur {object:460002}",
 	-- ["Cast Read {object:460002} at the {object:460002}"] = "Lancer Read {object:460002} sur {object:460002}",
 	-- ["Each of Quel'ana's quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her in {area:16638}. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the {area:16626} around the Windfield farm. Her sister {npc:254411} stands beside her."] = "Chaque quête de Quel'ana vous remet un {item:15908} : utilisez-le sur la bête qu'elle désigne, puis rapportez-le-lui à {area:16638}. Les Clampants chantevent bordent le rivage à l'ouest de la ville ; les Alphas vuldrènes et les Trotteurs des trombes hargneux errent dans {area:16626} autour de la ferme Windfield. Sa sœur {npc:254411} se tient à côté d'elle.",
@@ -465,7 +465,7 @@ return {
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them.\nThe Novice Seers practise in the clearing west of Shen'dar."] = "Partez vers le nord-ouest jusqu'aux nids d'hippogriffes sur les falaises de l'ouest. Le {item:263493} se trouve autour des nids ; la Matriarche patrouille entre eux.\nLes Voyants novices s'exercent dans la clairière à l'ouest de Shen'dar.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Soigner 7 druides dans la tanière, puis trouver {npc:258130}",
 	-- ["Hearth to {area:16638}"] = "Pierre de foyer vers {area:16638}",
-	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Sortez de {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin vers l'ouest et la {area:40} : remplissez la {item:7207} à son pied.",
 	-- ["Level 6 spells"] = "Sorts de niveau 6",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna attend sur la rive est de l'île, à l'est de {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Rejoindre Valennia à la porte",

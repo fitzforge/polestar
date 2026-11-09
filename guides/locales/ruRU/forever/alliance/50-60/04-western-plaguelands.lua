@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Argent Officer Pureheart
-	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {area:618} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
 
 	-- Step 4: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -155,8 +155,8 @@ return {
 	["{item:12956}; underwater"] = "",
 
 	-- Step 41: Eastern Plaguelands: kill these as you meet them
-	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "",
+	-- {zone:1423} Eastern Plaguelands
+	["{zone:1423}: kill these as you meet them"] = "",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Езжайте на запад: {area:2627}. По лесам бродят карликовые чумные псы, чумные нетопыри и личинки-падальщики; наполните предмет {item:15042} у больших термитников и убейте бесноватых чумных псов дальше к северу.",
@@ -211,8 +211,8 @@ return {
 	["{area:442} flight master"] = "",
 
 	-- Step 56: Rut'theran Village
-	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "Раншалла ({area:618}): сохраните задание",
+	-- {zone:1452} Winterspring
+	["Ranshalla in {zone:1452}: keep it"] = "Раншалла ({zone:1452}): сохраните задание",
 
 	-- Step 58: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
@@ -231,8 +231,8 @@ return {
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "{zone:1455}, где следующий гайд посещает учителей, не имеет учителя друидов",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "Десять шт. {item:11040} из предмета {item:11020}",
-	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
-	["{quest:6762} in {area:493}: keep it"] = "{quest:6762} ({area:493}): сохраните задание",
+	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade
+	["{quest:6762} in {zone:1450}: keep it"] = "{quest:6762} ({zone:1450}): сохраните задание",
 
 	-- Step 64: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -245,8 +245,8 @@ return {
 	-- Step 66: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "Летите: {area:702} → {area:1116}.",
-	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
-	["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: сохраните задание для зоны {area:440}",
+	-- {npc:7900} Angelas Moonbreeze · {zone:1446} Tanaris
+	["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900}: сохраните задание для зоны {zone:1446}",
 
 	-- Step 68: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
@@ -284,8 +284,8 @@ return {
 	["{area:489} flight master"] = "",
 
 	-- Step 79: Ratchet
-	-- {area:17} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "Из Терамора езжайте на запад ({area:17}) и на север вдоль побережья сюда: {area:392}.",
+	-- {zone:1413} The Barrens · {area:392} Ratchet
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "Из Терамора езжайте на запад ({zone:1413}) и на север вдоль побережья сюда: {area:392}.",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901} – на побережье к северу от города",
 	-- {zone:1448} Felwood
@@ -305,10 +305,10 @@ return {
 	["{npc:9299} in {area:976}: keep it"] = "{npc:9299} ({area:976}): сохраните задание",
 
 	-- Step 84: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Войдите сюда: {area:1769} – и идите по ответвлению туннеля в зону {area:493}, до места {area:2361}.",
-	-- {area:1377} Silithus
-	["For {area:1377}: keep it"] = "Для зоны {area:1377}: сохраните задание",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {area:2361} Nighthaven
+	["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "Войдите сюда: {area:1769} – и идите по ответвлению туннеля в зону {zone:1450}, до места {area:2361}.",
+	-- {zone:1451} Silithus
+	["For {zone:1451}: keep it"] = "Для зоны {zone:1451}: сохраните задание",
 
 	-- Step 85: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -349,12 +349,12 @@ return {
 	["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с NPC {npc:9997}",
 
 	-- Step 92: Into Silithus
-	-- {area:1377} Silithus
-	["Into {area:1377}"] = "",
+	-- {zone:1451} Silithus
+	["Into {zone:1451}"] = "В зону {zone:1451}",
 
 	-- Step 93: Layo Starstrike
-	-- {area:1377} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -363,8 +363,8 @@ return {
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082} – у палаток Альянса",
 
 	-- Step 96: Silithus: kill these as you meet them
-	-- {area:1377} Silithus
-	["{area:1377}: kill these as you meet them"] = "",
+	-- {zone:1451} Silithus
+	["{zone:1451}: kill these as you meet them"] = "",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "Землечерпы роются в дюнах к северо-западу от крепости; повсюду бродят камнехвостые скорпиды и песчаные пауки-быстроноги.",
 
@@ -396,24 +396,24 @@ return {
 	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Езжайте на восток к башне ({area:2742}, {area:2738}); поднимитесь на нее и убейте засаду, которая появляется ради покрытого коркой предмета.",
 
 	-- Step 103: Layo Starstrike
-	-- {area:493} Moonglade
-	["Umber in {area:493}: keep it"] = "Умбер ({area:493}): сохраните задание",
+	-- {zone:1450} Moonglade
+	["Umber in {zone:1450}: keep it"] = "Умбер ({zone:1450}): сохраните задание",
 
 	-- Step 105: Krakle
-	-- {area:1377} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Езжайте на восток к вулкану ({area:537}), поднимитесь на него и используйте {npc:10541} у лавовых отдушин у вершины.",
 
 	-- Step 108: Krakle
-	-- {npc:9298} Donova Snowden · {area:618} Winterspring
-	["Ends with {npc:9298} in {area:618}: keep it"] = "Завершается у NPC {npc:9298} (зона {area:618}): сохраните",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Завершается у NPC {npc:9298} (зона {zone:1452}): сохраните",
 
 	-- Step 109: Northern Pylon
 	["Northern Pylon"] = "Северный пилон",
@@ -477,8 +477,10 @@ return {
 	-- ["Buy two more Arcane Quickeners for the {area:202}'s and Dalson's cauldrons, and ride straight there: they vanish after 30 minutes."] = "Купите еще два чародейских ускорителя для котлов ({area:202} и Далсона) и сразу езжайте туда: они исчезают через 30 минут.",
 	-- ["Climb the hill west of {area:190} to look down on the town."] = "Поднимитесь на холм к западу (ориентир: {area:190}), чтобы осмотреть город сверху.",
 	-- ["Diseased Wolves"] = "Больные волки",
+	-- ["Ends with {npc:9298} in {area:618}: keep it"] = "Завершается у NPC {npc:9298} (зона {area:618}): сохраните",
 	-- ["Fly to {area:392}."] = "Летите сюда: {area:392}.",
 	-- ["Follow the road south-west out of the pass to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Следуйте по дороге на юго-запад из прохода сюда: {area:3425}. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
+	-- ["For {area:1377}: keep it"] = "Для зоны {area:1377}: сохраните задание",
 	-- ["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Летите: {area:392} → {area:2255}, затем езжайте на юг: {area:2250}.",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "Езжайте назад: {area:3197}, летите сюда: {area:150}, плывите на корабле сюда: {area:442} и летите сюда: {area:702}; портал ведет наверх ({zone:1457}).",
@@ -493,6 +495,8 @@ return {
 	-- ["The fields"] = "Поля",
 	-- ["The next guide starts here in {area:392} and flies on to {area:976}."] = "Следующий гайд начинается здесь ({area:392}) и продолжается полетом сюда: {area:976}.",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "Шкуры – после 2-го круга, на плато горилл",
+	-- ["Umber in {area:493}: keep it"] = "Умбер ({area:493}): сохраните задание",
+	-- ["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Войдите сюда: {area:1769} – и идите по ответвлению туннеля в зону {area:493}, до места {area:2361}.",
 	-- ["Zapped giants and sea elementals"] = "Уменьшенные великаны и морские элементали",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "убивайте мобов ({npc:1796}): {area:202}, {zone:1422}",
 	-- ["{area:199} cauldron"] = "Котел: {area:199}",
@@ -507,6 +511,8 @@ return {
 	-- ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: термиты будут позже, здесь: {area:2627}",
 	-- ["{npc:16256}: the last guide binds here, so this usually ticks at once"] = "{npc:16256}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{npc:1852} – элитный противник: лучше собрать группу. Он охраняет свою филактерию в центре Андорала.",
+	-- ["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: сохраните задание для зоны {area:440}",
 	-- ["{npc:8496}: keep it for Un'Goro"] = "{npc:8496}: сохраните задание для Кратера Ун'Горо",
 	-- ["{object:175924}, in the farmhouse"] = "{object:175924} – в доме",
+	-- ["{quest:6762} in {area:493}: keep it"] = "{quest:6762} ({area:493}): сохраните задание",
 }

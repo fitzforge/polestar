@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Shadowsong Shrine
-	-- {area:16} Azshara · {area:3137} Talrendis Point
-	["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Der Schrein liegt in der Südwestecke von {area:16}, südlich von {area:3137}.",
+	-- {zone:1447} Azshara · {area:3137} Talrendis Point
+	["The shrine lies in the south-west corner of {zone:1447}, south of {area:3137}."] = "Der Schrein liegt in der Südwestecke von {zone:1447}, südlich von {area:3137}.",
 
 	-- Step 2: Azshara: kill these as you meet them
-	-- {area:16} Azshara
-	["{area:16}: kill these as you meet them"] = "",
+	-- {zone:1447} Azshara
+	["{zone:1447}: kill these as you meet them"] = "",
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "Die Geister der Hochgeborenen spuken in den Ruinen um den Schrein; die Satyrn der Haldarr halten das Lager gleich nördlich davon.",
 
 	-- Step 5: Ogtinc
@@ -78,8 +78,8 @@ return {
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
 
 	-- Step 23: Ravencrest Monument
-	-- {area:16} Azshara · {npc:8392} Pilot Xiggs Fuselighter
-	["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "Schwimm zur kleinen Insel vor der Südspitze von {area:16}: {npc:8392} wartet beim Denkmal.",
+	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter
+	["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Schwimm zur kleinen Insel vor der Südspitze von {zone:1447}: {npc:8392} wartet beim Denkmal.",
 
 	-- Step 24: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -105,9 +105,9 @@ return {
 
 	-- Step 29: Wildkin feathers
 	["Wildkin feathers"] = "Wildekinfedern",
-	-- {area:47} Hinterlands · {area:348} Aerie Peak
+	-- {zone:1425} Hinterlands · {area:348} Aerie Peak
 	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
-	["The Wildkin Feathers lie on the ground across the {area:47}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
+	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
 
 	-- Step 30: The Super Snapper FX
 	-- {npc:7977} Gammerita
@@ -254,8 +254,8 @@ return {
 	["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455} hat keinen Druidenlehrer: Nimm das Portal hinauf nach {zone:1457} und trainiere im {area:1658}, dann komm zurück hinab nach {area:702}.",
 
 	-- Step 70: Back to Teldrassil
-	-- {area:141} Teldrassil
-	["Back to {area:141}"] = "",
+	-- {zone:1438} Teldrassil
+	["Back to {zone:1438}"] = "",
 
 	-- Step 71: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
@@ -273,8 +273,10 @@ return {
 	-- ["Ride back to {area:1438} and fly to {area:348}. The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Reite zurück nach {area:1438} und flieg nach {area:348}. Die Wildekinfedern liegen überall im {zone:1425} auf dem Boden, südlich und östlich von {area:348}, wo die Eulenbestien umherstreifen; die Gegner hier sind jetzt weit unter dir.",
 	-- ["Ride east along the road out of {zone:1440} into {zone:1447} to the Sentinels' camp at {area:3137}."] = "Reite die Straße nach Osten aus {zone:1440} hinaus nach {zone:1447} zum Lager der Schildwachen bei {area:3137}.",
 	-- ["Ride north out of {area:69} through the pass into the {zone:1428}; {area:2418} sits at the top, in the south-east of the Steppes."] = "Reite nach Norden aus {area:69} durch den Pass in die {zone:1428}; {area:2418} liegt oben, im Südosten der Steppe.",
+	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "Schwimm zur kleinen Insel vor der Südspitze von {area:16}: {npc:8392} wartet beim Denkmal.",
 	-- ["Thaurissan Relics"] = "Thauris-Relikte",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Die Relikte sind die behauenen Steine, verstreut in den {area:250} um den {area:251}: Klick sie an, bis die Informationen geborgen sind.",
+	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Der Schrein liegt in der Südwestecke von {area:16}, südlich von {area:3137}.",
 	-- ["The {quest:4296}"] = "{quest:4296}",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Benutze die {item:12284} an einem {npc:7047} an den Hängen östlich des {area:251} kurz vor seinem Tod und plündere dann die Essenz, die er hinterlässt.",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",

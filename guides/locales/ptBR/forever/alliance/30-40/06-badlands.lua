@@ -7,12 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "Rumo a {area:3}",
+	-- {zone:1418} Badlands
+	["Into {zone:1418}"] = "Rumo a {zone:1418}",
 
 	-- Step 3: Hammertoe's Digsite
-	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Volte para oeste até a estrada e siga por ela para o sul, saindo de {zone:1432} pela passagem até {area:3}. {npc:2910} e {npc:2860} acampam lado a lado na escavação.",
+	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Volte para oeste até a estrada e siga por ela para o sul, saindo de {zone:1432} pela passagem até {zone:1418}. {npc:2910} e {npc:2860} acampam lado a lado na escavação.",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
@@ -29,8 +29,8 @@ return {
 	["Ryedol's next errand goes into {area:1517}: skip it."] = "A próxima tarefa de Ryedol é em {area:1517}: pule.",
 
 	-- Step 7: Valley of Fangs
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {area:3}.",
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {zone:1418} Badlands
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {zone:1418}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {zone:1418}.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "Os mariscos ficam no litoral noroeste da Selva do Espinhaço, no próximo guia: guarde-a",
 
 	-- Step 8: Agmond's End
@@ -42,8 +42,8 @@ return {
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deles solta sucata. Urubus voam em círculos pela planície a leste.\nO esqueleto surrado fica na beira do acampamento de troggs da Abóbada de Pedra; {quest:739}, o assassino de Agmond, anda entre os Quebraossos.\nCuidado: os Grandes Arrota-pó são de nível 44-45. Eles usam {spell:5242} e {spell:1160}, e abaixo de 50% de vida chamam aliados a até 15 metros. Sete deles ficam a cerca de 750 metros ao sul de {area:340}.",
-	-- {quest:739} Murdaloc · {area:3} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {area:3} guide at 43, and kill the Bonesnappers for this quest now."] = "O próprio {quest:739} (42) anda entre os Quebraossos: deixe-o para o guia posterior de {area:3} no nível 43, e mate agora os Quebraossos para esta missão.",
+	-- {quest:739} Murdaloc · {zone:1418} Badlands
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "O próprio {quest:739} (42) anda entre os Quebraossos: deixe-o para o guia posterior de {zone:1418} no nível 43, e mate agora os Quebraossos para esta missão.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -59,8 +59,8 @@ return {
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
-	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Siga para nordeste até as ruínas anãs no norte de {area:3}; o baú fica no meio dos anões de Umbraforja. {npc:2745}, ali perto, é elite: dê distância.",
+	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
+	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Siga para nordeste até as ruínas anãs no norte de {zone:1418}; o baú fica no meio dos anões de Umbraforja. {npc:2745}, ali perto, é elite: dê distância.",
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631}; no subterrâneo",
 
@@ -213,5 +213,6 @@ return {
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, na estalagem",
 	-- ["{npc:2920}, beside {npc:2921}, wants {item:2868}, a blacksmith's craft: skip him unless you carry a pair."] = "{npc:2920}, ao lado de {npc:2921}, quer {item:2868}, um item de ferreiro: pule-o a menos que você tenha um par.",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "O próximo teste de {npc:2921} exige equipamento fabricado: pule.",
+	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {area:3}.",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "A próxima tarefa de {npc:5638}, {item:6245}, é um saque no litoral distante: pule.",
 }

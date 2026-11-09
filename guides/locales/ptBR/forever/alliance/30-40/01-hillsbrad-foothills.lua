@@ -193,8 +193,10 @@ return {
 	-- {area:271} Southshore
 	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.",
 
-	-- Step 42: Syndicate camp
+	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "Acampamento da Camarilha",
+
+	-- Step 42: Syndicate camp
 	-- {area:287} Hillsbrad · {area:272} Tarren Mill
 	["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "O acampamento da Camarilha fica na divisa com as Montanhas de Alterac, no norte de {area:287}, a oeste de {area:272} (Horda); os documentos estão no acampamento, e seus Gatunos e Ladrões são a Camarilha que Maleb quer.",
 

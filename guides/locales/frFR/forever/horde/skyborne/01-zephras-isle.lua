@@ -311,9 +311,11 @@ return {
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
 	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Apportez {item:277267} à {npc:268592} au sanctuaire des Flammes, au sud-ouest de {area:16638}, puis partez vers l'ouest dans {area:16623} : la demeure de {npc:268605} se trouve dans les collines au sud des lacs des Clampants chantevent.",
 
-	-- Step 58: The Eternal Flame
+	-- Step 57: Zephras Isle
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
+
+	-- Step 58: The Eternal Flame
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
 	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Retournez voir {npc:268592}. Attendez qu'il allume {npc:268762}, puis portez la flamme directement jusqu'à {npc:268679}, à côté de {npc:252382} à {area:16638}, avant la fin du temps imparti.",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -453,18 +455,20 @@ return {
 	["Into {zone:1412}"] = "Vers {zone:1412}",
 
 	-- Step 92: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "Vers {area:17}",
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "Vers les {zone:1413}",
 
 	-- Step 94: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "",
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
 	-- Step 95: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "Vers {area:1637}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "Vers {zone:1454}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "Retournez à {area:16624} avec ce que vous avez trouvé.",
@@ -477,7 +481,7 @@ return {
 	-- ["High Order Apprentices"] = "Apprentis de l'Ordre suprême ({npc:257521})",
 	-- ["Hippogryph nests"] = "Nids d'hippogriffes",
 	-- ["Horde airship"] = "Dirigeable de la Horde",
-	-- ["Into {zone:1413}"] = "Vers les {zone:1413}",
+	-- ["Into {area:17}"] = "Vers {area:17}",
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Quittez {zone:1456} par un ascenseur et suivez la route vers le sud en passant {area:222}, puis le col oriental pour entrer dans {zone:1413} ; depuis le col, prenez la {area:458} vers le nord jusqu'à la {area:380}, la ville de la Horde au milieu de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Départ de {area:16635}",
@@ -515,7 +519,7 @@ return {
 	-- ["The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Les affaires des réfugiés sont éparpillées le long de la rive nord du {area:16625} ; {npc:259013} est à son extrémité nord-ouest.",
 	-- ["The turncoat's house is in the {area:16626} north-west of {area:16638}. {npc:273017} waits nearby; his assassins lurk around the house."] = "La maison du traître se trouve dans les {area:16626}, au nord-ouest de {area:16638}. {npc:273017} attend tout près ; ses assassins rôdent autour de la maison.",
 	-- ["The watchtower"] = "La tour de guet",
-	-- ["To {zone:1454}"] = "Vers {zone:1454}",
+	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["Walk north to {area:16624}; finish the {item:5469} on the Galestriders along the way if you are short."] = "Marchez vers le nord jusqu'à {area:16624} ; finissez la {item:5469} sur les trotteurs des trombes en chemin s'il vous en manque.",
 	-- ["Wind Hollows and {object:616466}"] = "Creux du vent ({npc:251676}) et {object:616466}",
 	-- ["Wind Hollows and {object:616467}"] = "Creux du vent et {object:616467}",

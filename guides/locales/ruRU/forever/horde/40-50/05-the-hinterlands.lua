@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "Лагерь {npc:7801}",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Езжайте на северо-восток от места {area:272} во {area:47} и на восток по дороге; {npc:7801} стоит лагерем на холме к югу от эльфийского поселения ({area:350}).",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Езжайте на северо-восток от места {area:272} во {zone:1425} и на восток по дороге; {npc:7801} стоит лагерем на холме к югу от эльфийского поселения ({area:350}).",
 
 	-- Step 4: Highvale
 	["Highvale"] = "Высокодолье",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Следуйте по дорогам на восток через {area:47} к деревне троллей на восточном побережье.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "Следуйте по дорогам на восток через {zone:1425} к деревне троллей на восточном побережье.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "К востоку от дороги на склонах пасутся пеплогривые кабаны и хрюггеры, рядом – краснокаменные василиски. Держитесь подальше от зловепрей 52-го уровня дальше к югу.",
 	-- ["Fly to the {area:1497}"] = "Летите сюда: {area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "Следуйте по дорогам на восток через {area:47} к деревне троллей на восточном побережье.",
 	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast. {npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "Следуйте по дорогам на восток через {area:47} к деревне троллей на восточном побережье. {npc:14736} стоит на крыше таверны, над NPC {npc:14731}: поднимитесь наверх, Стрелка не различает высоту.",
 	-- ["From {area:1446}'s flight master."] = "У распорядителя полетов ({area:1446}).",
 	-- ["Grind to 48"] = "Набейте 48-й уровень",
@@ -184,6 +187,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "Только если у вас еще нет 48-го уровня.",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "Только с аварийным маяком: робот сидит у истока реки к западу от места {area:351}. Сопроводите его на восток к берегу за местом {area:307}; награда ждет у Карлса Пропеллерза ({area:35}).",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "Возвращайтесь на север сюда: {area:75} и летите сюда: {area:1497}.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "Езжайте на северо-восток от места {area:272} во {area:47} и на восток по дороге; {npc:7801} стоит лагерем на холме к югу от эльфийского поселения ({area:350}).",
 	-- ["Saltwater Snapjaws"] = "Морские хрустогрызы",
 	-- ["Silvermane Howlers"] = "Среброгривые ревуны",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "К юго-западу среброгривые ревуны бродят по холмам к востоку от деревень Сухокожих.",

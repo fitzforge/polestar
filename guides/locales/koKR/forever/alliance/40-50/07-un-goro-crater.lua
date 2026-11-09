@@ -26,8 +26,8 @@ return {
 	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
 
 	-- Step 8: Torwa Pathfinder
-	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {area:490}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
+	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
+	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {zone:1449}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
 
 	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -184,6 +184,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "동쪽을 따라 남쪽으로 내려가세요. {npc:9162}은(는) 동쪽 밀림에서 풀을 뜯고, {npc:9165}은(는) 동쪽 절벽 근처를 납니다. 둘 다 {npc:9998}에게 줄 비늘을 떨어뜨립니다.",
 	-- ["Ride west back to the refuge."] = "서쪽으로 야영지에 돌아가세요.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "{npc:9619}에게서 서쪽으로 가세요. 실리시드 벌집이 분화구 남쪽을 채우고 있습니다. 유충이 매달린 방인 부화실에 긁개 유리병을 사용하세요. 병정 고리쉬와 일꾼 고리쉬가 {quest:3764}을(를) 떨어뜨립니다. 처치 수가 아직 필요하면 남쪽 절벽에 {npc:9166}이(가) 둥지를 틀고 있습니다.",
+	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {area:490}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "서쪽으로 {area:541}을(를) 지나 서쪽을 따라 남쪽의 {area:543}까지 가세요. 고블린 {npc:10302}이(가) 물가에 앉아 있습니다.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "파티라면 사냥 대신 {area:1417}을(를) 도는 편이 더 빠릅니다. 혼자 사냥하려면 이 단계를 건너뛰세요.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "파티라면 사냥 대신 {area:978}을(를) 도는 편이 더 빠릅니다. 트롤 도시는 {zone:1446} 북서부, {area:976} 바로 북쪽에 있습니다.",

@@ -51,8 +51,8 @@ return {
 	["{quest:1132}, on the docks"] = "",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
 	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
-	-- {quest:1132} Fiora Longears · {area:400} Thousand Needles
-	["{quest:1132}: the wyverns are in {area:400}, later in this guide"] = "",
+	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
@@ -71,8 +71,12 @@ return {
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: 서큐버스 옆의 인큐버스. {item:190309}은(는) {quest:1738} 근처에 있습니다",
 
 	-- Step 13: Highperch
-	-- {area:485} Great Lift · {area:400} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {area:400}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+
+	-- Step 14: Thousand Needles
+	-- {area:482} Highperch
+	["The canyons east of {area:482}"] = "",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway

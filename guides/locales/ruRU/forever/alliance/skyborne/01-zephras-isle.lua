@@ -419,14 +419,14 @@ return {
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 83: Stormwind Keep
-	-- {object:2117} Stormwind Keep · {area:40} Westfall
-	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Верховный лорд Болвар Фордрагон стоит в тронном зале ({object:2117}) в северной части города. Затем выходите через главные ворота: {area:40}.",
+	-- {object:2117} Stormwind Keep · {zone:1436} Westfall
+	["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {zone:1436}."] = "Верховный лорд Болвар Фордрагон стоит в тронном зале ({object:2117}) в северной части города. Затем выходите через главные ворота: {zone:1436}.",
 	-- {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["For {npc:234} at {area:108}"] = "Для персонажа {npc:234} ({area:108})",
 
 	-- Step 84: Baros Alexston
-	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {area:40} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {area:40}, on the way."] = "",
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
 
 	-- Step 85: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -449,18 +449,20 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} стоит в Святилище волшебника – башне в квартале ({object:2101}); она дает вам флягу для водопада ({quest:1861}).",
 
 	-- Step 92: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {area:40}: наполните {item:7207} у его подножия.",
+	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
+	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выходите из города ({zone:1453}) через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад, в зону {zone:1436}: наполните {item:7207} у его подножия.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "Назад в Шен'дар",
 	-- ["Back to {npc:255853} by the falls north-east of {area:16638}, on the way north to the shrine."] = "Назад: {npc:255853} у водопада к северо-востоку от места {area:16638}, по пути на север к святилищу.",
+	-- ["Bolvar Fordragon stands in the throne room of {object:2117}, at the north end of the city. Then leave by the main gate for {area:40}."] = "Верховный лорд Болвар Фордрагон стоит в тронном зале ({object:2117}) в северной части города. Затем выходите через главные ворота: {area:40}.",
 	-- ["Cast Read Ley Line at the {object:460002}"] = "Примените расовую способность чтения лей-линий: {object:460002}",
 	-- ["Each of Quel'ana's quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her in {area:16638}. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the {area:16626} around the Windfield farm. Her sister {npc:254411} stands beside her."] = "Каждое задание Кве'ланы дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ей ({area:16638}). Ветроозерные крабы – на берегу к западу от города; вожаки лисвенов ({npc:250874}) и задиристые буреноги бродят здесь: {area:16626}, вокруг фермы Ветрополей. Рядом с ней стоит ее сестра {npc:254411}.",
 	-- ["Find Fillion and his bedroll"] = "Найдите Филлиона и его спальный мешок",
 	-- ["Havoc in Falaath"] = "Хаос в Фалаате",
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "Идите на северо-запад к гнездам гиппогрифов на западных утесах. {item:263493} лежит вокруг гнезд; среди них патрулирует гиппогриф-матриарх.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Исцелите 7 друидов в логове Ночного Клыка, затем найдите NPC {npc:258130}",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {area:40}: наполните {item:7207} у его подножия.",
 	-- ["Level 6 spells"] = "Заклинания 6-го уровня",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Лортуна ждет на восточном берегу острова, к востоку от места {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Встретьтесь с Валеннией у ворот",

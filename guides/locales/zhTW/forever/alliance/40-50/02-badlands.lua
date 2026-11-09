@@ -14,8 +14,8 @@ return {
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一個任務不給經驗值：跳過它。",
 
 	-- Step 3: Boss Tho'grun
-	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{area:3}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
+	-- {zone:1418} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {zone:1418} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{zone:1418}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
 
 	-- Step 4: Garek
 	-- {area:1898} Dustwind Gulch
@@ -29,30 +29,32 @@ return {
 	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "滾燙的雛龍在{npc:2888}東邊的峽谷中築巢；別惹烈焰守護者（精英）。{item:4612}很少掉落：刷怪時掉了就拿著。",
 
 	-- Step 7: Into Loch Modan
-	-- {area:38} Loch Modan
-	["Into {area:38}"] = "",
+	-- {zone:1432} Loch Modan
+	["Into {zone:1432}"] = "",
 
 	-- Step 8: Ironband's Excavation Site
-	-- {area:38} Loch Modan
-	["Ride north through the pass into {area:38} and east along the south shore to Ironband's camp."] = "",
+	-- {zone:1432} Loch Modan
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
 
 	-- Step 9: Into Badlands
-	-- {area:3} Badlands
-	["Into {area:3}"] = "",
+	-- {zone:1418} Badlands
+	["Into {zone:1418}"] = "",
 
-	-- Step 11: The Uldaman dig
+	-- Step 10: Badlands
 	-- {area:1517} Uldaman
 	["The {area:1517} dig"] = "{area:1517}挖掘場",
-	-- {area:1517} Uldaman · {area:3} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {area:3}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+
+	-- Step 11: The Uldaman dig
+	-- {area:1517} Uldaman · {zone:1418} Badlands
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "",
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
 	-- Step 12: Back to Loch Modan
-	-- {area:38} Loch Modan
-	["Back to {area:38}"] = "",
+	-- {zone:1432} Loch Modan
+	["Back to {zone:1432}"] = "",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "向北騎回鐵環挖掘場的營地。",
@@ -78,8 +80,8 @@ return {
 	["Raleigh's next errand is in the {area:796}: skip it."] = "虔誠的萊雷恩的下一個差事在{area:796}：跳過它。",
 
 	-- Step 18: Aerie Peak
-	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
-	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{area:47}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
+	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
+	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{zone:1425}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
 	-- {quest:1450} Gryphon Master Talonaxe
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
@@ -101,8 +103,8 @@ return {
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}會持續收購項鍊：多的都交出去",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "",
-	-- {area:47} The Hinterlands
-	["Talonaxe's next task waits for a later {area:47} guide."] = "沙拉克·鷹斧的下一個任務留到之後的{area:47}指南。",
+	-- {zone:1425} The Hinterlands
+	["Talonaxe's next task waits for a later {zone:1425} guide."] = "沙拉克·鷹斧的下一個任務留到之後的{zone:1425}指南。",
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -140,10 +142,13 @@ return {
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飛往{area:608}，向南騎過{zone:1443}進入{zone:1444}，沿道路前往{area:1108}的碼頭；船會駛往{area:1116}，下一份指南從那裡開始。",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "向北騎到{area:144}，飛往{area:271}。{npc:3980}在旅店旁傳道。",
+	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{area:47}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{zone:1425}；{area:348}就在邊界後方。弗斯塔德·蠻錘在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
 	-- ["Ride south out of {zone:1432} through the pass into the {zone:1418}; {npc:2860} camps at the dig."] = "從{zone:1432}向南騎，穿過山口進入{zone:1418}；{npc:2860}在挖掘場紮營。",
+	-- ["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "向西騎過{area:3}，前往{area:342}的火煙巨魔營地。{npc:2944}站在營地中央，周圍有火煙獵龍者和火煙虐待者。",
 	-- ["Ride west to the {area:1877} in the middle of the {zone:1418}; {npc:2817} camps beside Martek."] = "向西騎到{zone:1418}中部的{area:1877}；{npc:2817}在流放者馬特克旁邊紮營。",
 	-- ["Take the boat to Theramore from the far pier."] = "從最遠的碼頭搭船前往塞拉摩島。",
+	-- ["Talonaxe's next task waits for a later {area:47} guide."] = "沙拉克·鷹斧的下一個任務留到之後的{area:47}指南。",
 	-- ["The battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers."] = "殘破的骷髏躺在石窟穴居人營地的邊緣；殺死埃格蒙德的{quest:739}就在石窟斷骨者之間走動。",
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "在{zone:1418}的{area:339}刷{npc:2725}",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}，{object:32372}",

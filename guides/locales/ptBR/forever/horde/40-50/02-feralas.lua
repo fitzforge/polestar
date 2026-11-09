@@ -16,6 +16,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
+	-- Step 4: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Montaria no 40",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
@@ -70,14 +74,18 @@ return {
 	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 20: Mirage Raceway
-	-- {area:484} Freewind Post · {area:440} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {area:440} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "A estrada de {area:484} a {area:440} passa por {area:2240}, nas {area:439}: {npc:4454} fica no acampamento dos gnomos ao lado da trilha, {npc:4630} e {npc:4709} perto do acampamento dos goblins. {npc:4630} primeiro, depois {npc:4709}, que sai correndo para manter Rizzle ocupado; depois pegue os planos de Rizzle no acampamento dos gnomos e leve-os de volta a {npc:4630}.",
+	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "A estrada de {area:484} a {zone:1446} passa por {area:2240}, nas {area:439}: {npc:4454} fica no acampamento dos gnomos ao lado da trilha, {npc:4630} e {npc:4709} perto do acampamento dos goblins. {npc:4630} primeiro, depois {npc:4709}, que sai correndo para manter Rizzle ocupado; depois pegue os planos de Rizzle no acampamento dos gnomos e leve-os de volta a {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de Martek em {zone:1418}",
 
+	-- Step 21: To Gadgetzan
+	-- {area:976} Gadgetzan
+	["To {area:976}"] = "Para {area:976}",
+
 	-- Step 22: Gadgetzan
-	-- {area:976} Gadgetzan · {area:440} Tanaris
-	["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} é a cidade goblin murada logo depois da fronteira de {area:440}.",
+	-- {area:976} Gadgetzan · {zone:1446} Tanaris
+	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} é a cidade goblin murada logo depois da fronteira de {zone:1446}.",
 
 	-- Step 23: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
@@ -93,8 +101,8 @@ return {
 	["{npc:7882}, inside"] = "{npc:7882}, lá dentro",
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
-	-- {npc:8579} Yeh'kinya · {area:357} Feralas
-	["{npc:8579}: the screechers live in {area:357}, on the next {area:357} visit"] = "{npc:8579}: os guinchadores vivem em {area:357}, na próxima visita a {area:357}",
+	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
+	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: os guinchadores vivem em {zone:1444}, na próxima visita a {zone:1444}",
 
 	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
@@ -140,8 +148,8 @@ return {
 	["{quest:2863}: one hour from now"] = "{quest:2863}: daqui a uma hora",
 
 	-- Step 36: Feralas: kill these as you meet them
-	-- {area:357} Feralas
-	["{area:357}: kill these as you meet them"] = "{area:357}: vá matando estes pelo caminho",
+	-- {zone:1444} Feralas
+	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: vá matando estes pelo caminho",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Os dardejantes esvoaçam sobre o bosque logo a oeste de Mojache; quase todos deixam cair uma asa. Os Machos Alfa Patábua lideram os acampamentos a sudoeste dele: mate-os dentro de uma hora.\nCuidado: a maioria dos Machos Alfa fica em acampamentos pequenos de tenda com mais 2 a 4 gnolls que entram na briga, e outros gnolls patrulham entre os acampamentos.",
 
 	-- Step 38: Grimtotem camp
@@ -175,12 +183,12 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "A noroeste das ruínas, os yetis têm a toca em {area:1105}; todo yeti de lá pode deixar cair um couro grosso.",
 
 	-- Step 44: Homing Robot OOX-22/FE
-	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Só com o transmissor de emergência: qualquer fera, gnoll ou ogro em {area:357} pode deixá-lo cair, cerca de uma morte em cem; use-o para iniciar a missão. O robô fica numa pequena caverna no lado norte de {area:1105}, logo a noroeste das ruínas. Escolte-o até o cais em {area:1108}; yetis e gorilas emboscam vocês no caminho. A recompensa dele espera em {area:35}, para uma visita posterior.\nCuidado: três emboscadas surgem durante a escolta, e o robô avisa antes de cada uma. A primeira é de 3 yetis, logo depois que o robô sai da caverna e sobe rumo à estrada. A segunda é de 3 gorilas, na trilha que corre ao longo do penhasco. A terceira é de cerca de 4 gnolls, um deles lançador de feitiços, onde a rota desvia rumo ao cais.",
+	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Só com o transmissor de emergência: qualquer fera, gnoll ou ogro em {zone:1444} pode deixá-lo cair, cerca de uma morte em cem; use-o para iniciar a missão. O robô fica numa pequena caverna no lado norte de {area:1105}, logo a noroeste das ruínas. Escolte-o até o cais em {area:1108}; yetis e gorilas emboscam vocês no caminho. A recompensa dele espera em {area:35}, para uma visita posterior.\nCuidado: três emboscadas surgem durante a escolta, e o robô avisa antes de cada uma. A primeira é de 3 yetis, logo depois que o robô sai da caverna e sobe rumo à estrada. A segunda é de 3 gorilas, na trilha que corre ao longo do penhasco. A terceira é de cerca de 4 gnolls, um deles lançador de feitiços, onde a rota desvia rumo ao cais.",
 
 	-- Step 45: Camp Mojache
-	-- {area:357} Feralas
-	["the Rage Scar yetis, on the next visit to {area:357}"] = "os yetis Cortifúria, na próxima visita a {area:357}",
+	-- {zone:1444} Feralas
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "os yetis Cortifúria, na próxima visita a {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010}, em {zone:1454}",
 
@@ -230,6 +238,7 @@ return {
 	-- ["Zeppelin to {object:3202}"] = "Zepelim para {object:3202}",
 	-- ["Zeppelin tower"] = "Torre do zepelim",
 	-- ["the {object:150075} in the square"] = "{object:150075} na praça",
+	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} é a cidade goblin murada logo depois da fronteira de {area:440}.",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, instrutora de montaria",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, instrutor de montaria",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}: os guinchadores vivem em {zone:1444}",

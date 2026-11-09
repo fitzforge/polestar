@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Argent Officer Pureheart
-	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {area:618} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {area:618} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
 
 	-- Step 4: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -155,8 +155,8 @@ return {
 	["{item:12956}; underwater"] = "",
 
 	-- Step 41: Eastern Plaguelands: kill these as you meet them
-	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "",
+	-- {zone:1423} Eastern Plaguelands
+	["{zone:1423}: kill these as you meet them"] = "",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "서쪽으로 {area:2627}까지 가세요. 숲에는 {npc:8596}, {npc:8600}, {npc:8603}이(가) 돌아다닙니다. 큰 흰개미 둔덕에서 {item:15042}을(를) 채우고, 더 북쪽에서 {npc:8598}을(를) 처치하세요.",
@@ -211,8 +211,8 @@ return {
 	["{area:442} flight master"] = "",
 
 	-- Step 56: Rut'theran Village
-	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "{area:618}의 란샬라: 보관하세요",
+	-- {zone:1452} Winterspring
+	["Ranshalla in {zone:1452}: keep it"] = "{zone:1452}의 란샬라: 보관하세요",
 
 	-- Step 58: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
@@ -231,8 +231,8 @@ return {
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "다음 가이드에서 훈련하는 {zone:1455}에는 드루이드 상급자가 없습니다",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "{item:11020}에서 {item:11040} 10개",
-	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
-	["{quest:6762} in {area:493}: keep it"] = "{area:493}의 {quest:6762}: 보관하세요",
+	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade
+	["{quest:6762} in {zone:1450}: keep it"] = "{zone:1450}의 {quest:6762}: 보관하세요",
 
 	-- Step 64: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -245,8 +245,8 @@ return {
 	-- Step 66: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "{area:702}에서 {area:1116}(으)로 날아가세요.",
-	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
-	["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: {area:440}용으로 보관하세요",
+	-- {npc:7900} Angelas Moonbreeze · {zone:1446} Tanaris
+	["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900}: {zone:1446}용으로 보관하세요",
 
 	-- Step 68: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
@@ -284,8 +284,8 @@ return {
 	["{area:489} flight master"] = "",
 
 	-- Step 79: Ratchet
-	-- {area:17} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {area:17} and north up the coast to {area:392}."] = "",
+	-- {zone:1413} The Barrens · {area:392} Ratchet
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "마을 북쪽 해안의 {npc:5901}",
 	-- {zone:1448} Felwood
@@ -305,10 +305,10 @@ return {
 	["{npc:9299} in {area:976}: keep it"] = "{area:976}의 {npc:9299}: 보관하세요",
 
 	-- Step 84: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "{area:1769}에 들어가 터널의 {area:493} 갈림길을 따라 {area:2361}(으)로 가세요.",
-	-- {area:1377} Silithus
-	["For {area:1377}: keep it"] = "{area:1377}용: 보관하세요",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {area:2361} Nighthaven
+	["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "{area:1769}에 들어가 터널의 {zone:1450} 갈림길을 따라 {area:2361}(으)로 가세요.",
+	-- {zone:1451} Silithus
+	["For {zone:1451}: keep it"] = "{zone:1451}용: 보관하세요",
 
 	-- Step 85: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -349,12 +349,12 @@ return {
 	["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 
 	-- Step 92: Into Silithus
-	-- {area:1377} Silithus
-	["Into {area:1377}"] = "",
+	-- {zone:1451} Silithus
+	["Into {zone:1451}"] = "{zone:1451}(으)로",
 
 	-- Step 93: Layo Starstrike
-	-- {area:1377} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {area:1377}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -363,8 +363,8 @@ return {
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, 얼라이언스 천막",
 
 	-- Step 96: Silithus: kill these as you meet them
-	-- {area:1377} Silithus
-	["{area:1377}: kill these as you meet them"] = "",
+	-- {zone:1451} Silithus
+	["{zone:1451}: kill these as you meet them"] = "",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "{npc:11740}은(는) 요새 북서쪽 모래언덕을 파고, {npc:11735}와(과) {npc:11738}은(는) 사방을 돌아다닙니다.",
 
@@ -396,24 +396,24 @@ return {
 	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "동쪽으로 {area:2738}의 {area:2742} 탑으로 가세요. 탑에 올라 딱딱한 실리시드 조각을 노리고 나타나는 잠복꾼을 처치하세요.",
 
 	-- Step 103: Layo Starstrike
-	-- {area:493} Moonglade
-	["Umber in {area:493}: keep it"] = "{area:493}의 움버: 보관하세요",
+	-- {zone:1450} Moonglade
+	["Umber in {zone:1450}: keep it"] = "{zone:1450}의 움버: 보관하세요",
 
 	-- Step 105: Krakle
-	-- {area:1377} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {area:1377}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 
 	-- Step 108: Krakle
-	-- {npc:9298} Donova Snowden · {area:618} Winterspring
-	["Ends with {npc:9298} in {area:618}: keep it"] = "{area:618}의 {npc:9298}에게서 끝납니다: 보관하세요",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:9298}에게서 끝납니다: 보관하세요",
 
 	-- Step 109: Northern Pylon
 	["Northern Pylon"] = "북쪽 수정탑",
@@ -477,7 +477,9 @@ return {
 	-- ["Buy two more Arcane Quickeners for the {area:202}'s and Dalson's cauldrons, and ride straight there: they vanish after 30 minutes."] = "{area:202} 가마솥과 달슨 가마솥에 쓸 비전 촉매제를 두 개 더 구입하고 곧장 가세요. 촉매제는 30분 후에 사라집니다.",
 	-- ["Climb the hill west of {area:190} to look down on the town."] = "{area:190} 서쪽 언덕에 올라 마을을 내려다보세요.",
 	-- ["Diseased Wolves"] = "역병에 걸린 늑대",
+	-- ["Ends with {npc:9298} in {area:618}: keep it"] = "{area:618}의 {npc:9298}에게서 끝납니다: 보관하세요",
 	-- ["Fly to {area:392}."] = "{area:392}(으)로 날아가세요.",
+	-- ["For {area:1377}: keep it"] = "{area:1377}용: 보관하세요",
 	-- ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "{area:392}에서 {area:2255}(으)로 날아간 뒤 남쪽 {area:2250}(으)로 가세요.",
 	-- ["Ride back to {area:3197} and fly to {area:150}, take the boat to {area:442} and fly to {area:702}; the portal leads up to {zone:1457}."] = "{area:3197}(으)로 돌아가 {area:150}(으)로 날아간 다음, 배를 타고 {area:442}(으)로 가서 {area:702}(으)로 날아가세요. 차원문을 타면 {zone:1457}(으)로 올라갑니다.",
@@ -491,6 +493,8 @@ return {
 	-- ["The fields"] = "들판",
 	-- ["The next guide starts here in {area:392} and flies on to {area:976}."] = "다음 가이드는 여기 {area:392}에서 시작해 {area:976}(으)로 날아갑니다.",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "가죽은 두 번째 순환 이후, 고릴라 고원에서 모읍니다",
+	-- ["Umber in {area:493}: keep it"] = "{area:493}의 움버: 보관하세요",
+	-- ["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "{area:1769}에 들어가 터널의 {area:493} 갈림길을 따라 {area:2361}(으)로 가세요.",
 	-- ["Zapped giants and sea elementals"] = "축소된 거인과 바다 정령",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "{zone:1422} {area:202}에서 {npc:1796} 사냥",
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
@@ -505,6 +509,8 @@ return {
 	-- ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: 흰개미는 나중에 {area:2627}에서 모읍니다",
 	-- ["{npc:16256}: the last guide binds here, so this usually ticks at once"] = "{npc:16256}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	-- ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{npc:1852}은(는) 정예이므로 파티를 권장합니다. 안돌할 중앙에서 성물함을 지킵니다.",
+	-- ["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: {area:440}용으로 보관하세요",
 	-- ["{npc:8496}: keep it for Un'Goro"] = "{npc:8496}: 운고로용으로 보관하세요",
 	-- ["{object:175924}, in the farmhouse"] = "농가 안의 {object:175924}",
+	-- ["{quest:6762} in {area:493}: keep it"] = "{area:493}의 {quest:6762}: 보관하세요",
 }

@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "길을 따라 서쪽으로 가세요. 두루마리는 늪 맨 서쪽의 물가에 있습니다.",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "이 가이드 후반에 {area:15}의 {object:2555}을(를) 위해",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "이 가이드 후반에 {zone:1445}의 {object:2555}을(를) 위해",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "톱니악어",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -209,6 +211,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "직업 상급자는 {area:1638}에 있습니다. 그곳으로 날아간 뒤(아직 비행 경로가 없다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 서쪽으로 가세요), {area:496}(으)로 날아가세요.",
 	-- ["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 	-- ["Zeppelin tower"] = "비행선 탑",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "이 가이드 후반에 {area:15}의 {object:2555}을(를) 위해",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500}은(는) 정예입니다. 파티를 권장합니다. 그가 항복할 때까지 때린 뒤 {npc:4501}에게 보고하세요.",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: 50레벨쯤 {zone:1454}의 {npc:7010}에게",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, 그다음 {object:172960}와(과) {object:172961}.",

@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "向{npc:2118}購買{item:2320}，給格莉絲",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "從{area:159}向南走到{area:153}，再往下進入{zone:1458}。{npc:4568}站在{object:36082}。血色十字軍營地就在廢墟西邊。",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "",
+	["The Scarlet camp"] = "血色十字軍營地",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -424,7 +425,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "腐皮盜墓賊在{area:159}北邊的墓地挖掘；所有腐皮豺狼人都會掉落膿液。",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "混血腐皮豺狼人佔據更北邊的山丘。{npc:1753}（等級11）站在海岸南邊山丘上的營地裡：先清掉他周圍的豺狼人。",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "血色苦行修士在墓地東北方紮營；{npc:1664}站在他們之中。",
-	-- ["The Scarlet camp"] = "血色十字軍營地",
 	-- ["The Vile Fin murlocs line the north shore."] = "邪鰭魚人分布在北岸。",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "南瓜生長在索利丹西北方、血色十字軍佔據的田地裡。",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "蜘蛛潛伏在林地最東端的樹林裡。",

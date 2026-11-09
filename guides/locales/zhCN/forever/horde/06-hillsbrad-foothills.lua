@@ -183,6 +183,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
+	-- Step 33: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["The middle of {zone:1454}"] = "",
+
 	-- Step 34: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "继续飞行前先训练：下一份指南会从这里飞往十字路口。",
 

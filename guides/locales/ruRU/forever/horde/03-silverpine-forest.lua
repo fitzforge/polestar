@@ -167,8 +167,8 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
 	-- Step 38: The Ivar Patch
-	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Идите по дороге на север ({area:85}): дом Йориков ({area:238}) по пути. {quest:425} прячется недалеко к западу от него.",
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Идите по дороге на север ({zone:1420}): дом Йориков ({area:238}) по пути. {quest:425} прячется недалеко к западу от него.",
 	["Inside"] = "Внутри",
 
 	-- Step 40: Magistrate Sevren
@@ -198,6 +198,10 @@ return {
 	-- Step 44: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
+
+	-- Step 45: Orgrimmar
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 46: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
@@ -244,6 +248,7 @@ return {
 	-- ["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "К юго-западу от Янтарной мельницы, в руинах {quest:516} на юго-востоке леса, бродят чернорабочие и стражи Когтя Ворона.",
 	-- ["Swim back and follow the road west to the {area:228}."] = "Плывите обратно и идите по дороге на запад: {area:228}.",
 	-- ["Swim back to the shore and follow it south: the Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, on the way to {area:233}."] = "Плывите обратно к берегу и идите по нему на юг: охотники и оракулы из племени Злобного Плавника сидят на берегу озера к югу от места {area:237}, по пути: {area:233}.",
+	-- ["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Идите по дороге на север ({area:85}): дом Йориков ({area:238}) по пути. {quest:425} прячется недалеко к западу от него.",
 	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Больные и изможденные беженцы ({npc:2053}) бредут по дороге к югу от Деревни Погребальных Костров в сторону места {area:230}.",
 	-- ["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Охотники ({npc:1909}) и оракулы из племени Злобного Плавника сидят на берегу озера к югу от места {area:237}, к востоку от места {area:228}.",
 	-- ["The refugees"] = "Беженцы",

@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {area:10} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {zone:1431} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
@@ -123,6 +123,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "길을 따라 서쪽으로 가세요. 은둔자의 오두막은 {area:492} 북동쪽에 있습니다.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "{npc:1110}, 해골 치료사, 해골 문지기가 {npc:311}의 야영지 바로 동쪽, 묘지 서쪽 구역을 차지하고 있습니다.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "메네실 부두에서 배를 타고 {zone:1445}의 {area:513}(으)로 가세요.",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {area:10} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "용아귀부족 오크는 발굴 현장 동쪽에 진을 치고 있습니다. 약탈자와 늪길잡이가 전투 깃발을 가지고 있습니다.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "{npc:604}은(는) {area:492} 북쪽 절반을 걸어다닙니다. 정예인 {npc:522}이(가) 무덤 사이를 배회하니 가까이 가지 마세요.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "선장은 난파선 갑판을 걸어다니고, 그의 금고는 선창에 있습니다.",

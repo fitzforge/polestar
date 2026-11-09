@@ -311,9 +311,11 @@ return {
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
 	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "把 {item:277267} 带给 {area:16638} 西南方火焰神殿的 {npc:268592}，然后向西进入 {area:16623}：{npc:268605} 的家位于风歌爬行者所在湖泊以南的山丘中。",
 
-	-- Step 58: The Eternal Flame
+	-- Step 57: Zephras Isle
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
+
+	-- Step 58: The Eternal Flame
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
 	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "回到{npc:268592}处。等他点燃{npc:268762}，然后在计时结束前把火焰直接带到{area:16638}{npc:252382}旁边的{npc:268679}。",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -453,18 +455,20 @@ return {
 	["Into {zone:1412}"] = "进入{zone:1412}",
 
 	-- Step 92: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "进入{area:17}",
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "进入{zone:1413}",
 
 	-- Step 94: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "在高塔平台上向{npc:3615}开通飞行点。{area:380}本地的任务留到{zone:1421}之后，在{area:17}指南中再做。",
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "在高塔平台上向{npc:3615}开通飞行点。{area:380}本地的任务留到{zone:1421}之后，在{zone:1413}指南中再做。",
 
 	-- Step 95: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "前往{area:1637}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{area:1637}正门。下篇指南从{area:1637}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "前往{zone:1454}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下篇指南从{zone:1454}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "带着你找到的东西返回{area:16624}。",
@@ -476,6 +480,7 @@ return {
 	-- ["High Order Apprentices"] = "{npc:257521}",
 	-- ["Hippogryph nests"] = "角鹰兽巢穴",
 	-- ["Horde airship"] = "部落飞艇",
+	-- ["Into {area:17}"] = "进入{area:17}",
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "乘升降梯离开{zone:1456}，沿道路向南经过{area:222}，穿过东边的山口进入{zone:1413}；从山口沿{area:458}向北到{area:380}，即{zone:1413}中部的部落城镇。",
 	-- ["Leaving {area:16635}"] = "离开{area:16635}",

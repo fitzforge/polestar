@@ -63,8 +63,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
 	-- Step 22: Ride into Azshara
-	-- {area:16} Azshara
-	["Ride into {area:16}"] = "Cabalga hacia {area:16}",
+	-- {zone:1447} Azshara
+	["Ride into {zone:1447}"] = "Cabalga hacia {zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Cabalga al este por el camino desde Puesto del Hachazo. {npc:11548} espera en {area:1235}, a un lado del camino, a unos pasos al oeste de {area:3137} de la Alianza: llega desde el oeste y mantente lejos de los Centinelas de Azshara ({npc:11276}) y de Jarrodenus (élite).",
@@ -78,8 +78,8 @@ return {
 
 	-- Step 24: Level 50
 	["Level 50"] = "",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "",
 
@@ -232,6 +232,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "Altonato y sátiros Haldarr",
 	-- ["Ironjaw Basilisks"] = "Basiliscos Quijahierro",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Guarda {area:1417} para {npc:7771} en {zone:1446}.",
+	-- ["Ride into {area:16}"] = "Cabalga hacia {area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga al noroeste hasta {area:1108}; {npc:14637} espera en el muelle.",
 	-- ["Sea elementals"] = "Elementales de mar",
 	-- ["Take the zeppelin back to {zone:1454}."] = "Toma el zepelín de vuelta a {zone:1454}.",

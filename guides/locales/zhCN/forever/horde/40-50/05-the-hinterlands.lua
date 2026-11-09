@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "{area:1446}的飞行管理员",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}的营地",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "从{area:272}向东北骑进{area:47}，再沿道路向东；{npc:7801}在精灵的{area:350}南边的山上扎营。",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "从{area:272}向东北骑进{zone:1425}，再沿道路向东；{npc:7801}在精灵的{area:350}南边的山上扎营。",
 
 	-- Step 4: Highvale
 	["Highvale"] = "高原精灵",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "在水下",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "沿道路向东穿过{area:47}，前往东海岸的巨魔村庄。",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "沿道路向东穿过{zone:1425}，前往东海岸的巨魔村庄。",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "在道路东边，灰鬃野猪和格朗特在红石蜥蜴旁的山坡上拱土。远离更南边52级的地狱野猪。",
 	-- ["Fly to the {area:1497}"] = "飞往{area:1497}",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "沿道路向东穿过{area:47}，前往东海岸的巨魔村庄。",
 	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast. {npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "沿道路向东穿过{area:47}，前往东海岸的巨魔村庄。{npc:14736}站在旅店的屋顶上，在{npc:14731}上方：走上去，箭头无法区分上下层。",
 	-- ["From {area:1446}'s flight master."] = "从{area:1446}的飞行管理员处出发。",
 	-- ["Grind to 48"] = "刷到48级",
@@ -184,6 +187,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "仅当你还没到48级时。",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "仅当你有定位器时：机器人在{area:351}西边的河流源头处。护送它向东前往{area:307}另一边的海岸；它的奖励在{area:35}的奥格索普那里。",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "向北骑回{area:75}，飞往{area:1497}。",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "从{area:272}向东北骑进{area:47}，再沿道路向东；{npc:7801}在精灵的{area:350}南边的山上扎营。",
 	-- ["Saltwater Snapjaws"] = "海水钳嘴龟",
 	-- ["Silvermane Howlers"] = "银鬃嗥狼",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "在西南，银鬃嗥狼在枯木村庄东边的山丘上游荡。",

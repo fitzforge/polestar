@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "{item:2320} у персонажа {npc:2118}, для Гретхен",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "Большие сумеречницы летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу. {npc:1753} (11-й уровень) стоит в их лагере на холме к югу от берега: сначала перебейте гноллов вокруг него.\nОсторожно: стражи-гноллы стоят у хижины и могут вмешаться. Если проскользнуть мимо них и сразиться с ним внутри, он будет один.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей.",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Идите на юг от места {area:159} сюда: {area:153} и спуститесь в город {zone:1458}. {npc:4568} стоит здесь: {object:36082}. Лагерь Алого ордена – чуть к западу от руин.",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "",
+	["The Scarlet camp"] = "Лагерь Алого ордена",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -425,7 +426,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "Грабители могил из стаи Гнилошкуров роются на кладбищах к северу от места {area:159}; лимфа падает со всех Гнилошкуров.",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "Полукровки из стаи Гнилошкуров занимают холмы дальше к северу. {npc:1753} (11-й уровень) стоит в их лагере на холме к югу от берега: сначала перебейте гноллов вокруг него.",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "Келейники из Алого ордена стоят лагерем чуть к северо-востоку от могил; {npc:1664} стоит среди них.",
-	-- ["The Scarlet camp"] = "Лагерь Алого ордена",
 	-- ["The Vile Fin murlocs line the north shore."] = "Мурлоки из племени Злобного Плавника занимают северный берег.",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Тыквы растут на полях Алого ордена к северо-западу от фермы Соллиден.",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "Пауки прячутся в лесу на дальнем востоке Тирисфальских лесов.",

@@ -11,6 +11,10 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
+	-- Step 2: The road west
+	["The road west"] = "",
+	["The road west past Seereth's camp"] = "",
+
 	-- Step 3: Malaka'jin
 	-- {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
 	["Follow the road west past Regthar's bunkers and Seereth's camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "沿路向西，经过雷戈萨的地堡和希雷斯的营地，进入石爪山脉：{npc:3995} 在 {area:1076} 脚下、{area:2539} 的地下等候。",
@@ -68,6 +72,10 @@ return {
 	-- Step 10: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["Head back down the {area:1076} to {area:2539}."] = "沿 {area:1076} 下行，返回 {area:2539}。",
+
+	-- Step 11: To Camp Taurajo
+	-- {area:378} Camp Taurajo
+	["To {area:378}"] = "",
 
 	-- Step 12: Camp Taurajo
 	-- {area:2539} Malaka'jin · {area:378} Camp Taurajo
@@ -131,6 +139,10 @@ return {
 	-- Step 24: The flying machine
 	["The flying machine"] = "飞行器",
 	["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飞行器停在挖掘场内的平台上。",
+
+	-- Step 26: Great Lift
+	-- {area:1718} Great Lift
+	["The top of the {area:1718}"] = "",
 
 	-- Step 27: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift

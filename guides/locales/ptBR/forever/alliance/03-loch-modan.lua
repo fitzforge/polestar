@@ -138,6 +138,7 @@ return {
 	-- Step 27: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
 	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "Do metrô, saia de {zone:1453} pelo portão principal e siga a estrada por {area:87} e a leste por Elwynn até Cristarrubra.",
+	["The road east to Redridge"] = "",
 
 	-- Step 28: Guard Thomas
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora · {npc:240} Marshal Dughan · {quest:35} Further Concerns · {area:87} Goldshire
@@ -207,8 +208,8 @@ return {
 	-- Step 37: Lakeshire
 	-- {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren · {npc:342} Martie Jainrose · {npc:379} Darcy · {npc:343} Chef Breanna
 	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, {npc:381} on the docks, then {npc:342}'s garden at the west end; {npc:379} and {npc:343} are in the inn."] = "Pela cidade, de leste a oeste: {npc:8962} e {npc:341} na ponta norte da ponte, {npc:381} nas docas, depois a horta de {npc:342} na ponta oeste; {npc:379} e {npc:343} ficam na estalagem.",
-	-- {area:40} Westfall
-	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {area:40}"] = "As lanças e os rebites vêm dos gnolls ao norte do lago, no circuito depois de {area:40}",
+	-- {zone:1436} Westfall
+	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {zone:1436}"] = "As lanças e os rebites vêm dos gnolls ao norte do lago, no circuito depois de {zone:1436}",
 
 	-- Step 38: Dockmaster Baren
 	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
@@ -227,14 +228,14 @@ return {
 	-- Step 41: Stormwind's gate
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "o portão de {zone:1453}",
-	-- {npc:234} Gryan Stoutmantle · {area:40} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {area:40}): skip {area:40}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {area:40}): pule {area:40}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}.",
+	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {zone:1436}): pule {zone:1436}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}.",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, do lado de fora do portão principal",
 
 	-- Step 42: Westfall
-	-- {area:40} Westfall
-	["West through Westbrook into {area:40}."] = "Para oeste, pela Ribeira d'Oeste, até {area:40}.",
+	-- {zone:1436} Westfall
+	["West through Westbrook into {zone:1436}."] = "Para oeste, pela Ribeira d'Oeste, até {zone:1436}.",
 
 	-- Step 43: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle

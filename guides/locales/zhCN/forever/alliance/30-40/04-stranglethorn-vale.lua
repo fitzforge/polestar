@@ -80,8 +80,8 @@ return {
 	["grind on {npc:937}"] = "",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
-	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "{area:33}：沿途击杀以下目标",
+	-- {zone:1434} Stranglethorn Vale
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途击杀以下目标",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "注意：老虎活动区域附近有巨魔营地，拉怪不慎可能引来巨魔。\n注意：迅猛龙巢穴中的幼龙会在成年迅猛龙遭攻击时加入战斗。",
 
 	-- Step 18: Level 34
@@ -193,6 +193,10 @@ return {
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北边",
 
+	-- Step 36: Stonetalon Mountains
+	-- {area:608} Nijel's Point
+	["The road to {area:608}"] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "血顶巨魔",
 	-- ["Fly from {area:150} to {area:1537} and train."] = "从{area:150}飞往{area:1537}并训练。",
@@ -215,6 +219,7 @@ return {
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "索森在营地北边、通往{area:99}的道路上巡逻。",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "向北走回去；{area:310}在丛林中部道路的西边。那里的晶背蜥蜴掉落碎片。",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}没有德鲁伊训练师：从{object:171524}乘{area:2257}前往{zone:1453}，找{npc:5504}训练。",
+	-- ["{area:33}: kill these as you meet them"] = "{area:33}：沿途击杀以下目标",
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}，在银行旁",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}，在{object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}，在码头旁的顶楼",

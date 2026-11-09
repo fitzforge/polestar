@@ -151,8 +151,8 @@ return {
 	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort, commencez donc avec toute votre vie.",
 
 	-- Step 34: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "{area:490} : tuez-les au passage",
+	-- {zone:1449} Un'Goro Crater
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449} : tuez-les au passage",
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Attention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Une grotte pleine de singes se trouve dans le coin, et y combattre attire de nombreux renforts.",
 
@@ -294,8 +294,12 @@ return {
 	["West to the {area:152}."] = "",
 
 	-- Step 80: Into Eastern Plaguelands
-	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "Vers {area:139}",
+	-- {zone:1423} Eastern Plaguelands
+	["Into {zone:1423}"] = "Vers {zone:1423}",
+
+	-- Step 81: Eastern Plaguelands
+	-- {quest:5845} Of Lost Honor
+	["The lake for {quest:5845}"] = "",
 
 	-- Step 82: Of Lost Honor
 	["Underwater"] = "Sous l'eau",
@@ -310,8 +314,8 @@ return {
 	["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "",
 
 	-- Step 86: Into Western Plaguelands
-	-- {area:28} Western Plaguelands
-	["Into {area:28}"] = "Vers {area:28}",
+	-- {zone:1422} Western Plaguelands
+	["Into {zone:1422}"] = "Vers {zone:1422}",
 
 	-- Step 89: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark

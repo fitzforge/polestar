@@ -12,11 +12,13 @@ return {
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 3: Gilveradin Sunchaser's camp
+	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
 	["{npc:7801}'s camp"] = "{npc:7801}의 야영지",
-	-- {area:272} Tarren Mill · {area:47} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
-	["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {area:47}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
+
+	-- Step 3: Gilveradin Sunchaser's camp
+	-- {area:272} Tarren Mill · {zone:1425} The Hinterlands · {npc:7801} Gilveradin Sunchaser · {area:350} Quel'Danil Lodge
+	["Ride north-east from {area:272} into the {zone:1425} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {zone:1425}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
 
 	-- Step 4: Highvale
 	["Highvale"] = "깊은골짜기",
@@ -28,8 +30,8 @@ return {
 	["Underwater"] = "",
 
 	-- Step 6: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {area:47}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
+	-- {zone:1425} The Hinterlands
+	["Follow the roads east across the {zone:1425} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {zone:1425}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -175,6 +177,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "길 동쪽 비탈에서는 잿빛갈기멧돼지와 꿀꿀이가 붉은바위 바실리스크 옆에서 땅을 뒤집니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.",
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 날아가기",
+	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "길을 따라 동쪽으로 {area:47}을(를) 가로질러 동쪽 해안의 트롤 마을로 가세요.",
 	-- ["From {area:1446}'s flight master."] = "{area:1446}의 비행 조련사에게서",
 	-- ["Grind to 48"] = "48레벨까지 사냥",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "사냥꾼 마코르의 해골은 썩은가지부족 폐허 아래 더미에, 뼈는 {area:354} 기슭의 더미에 있습니다. 오염된 피가 담긴 용기는 아래쪽 계단식 단에 있고, {npc:14757}은(는) 꼭대기에 갇혀 있습니다. 길에서 벗어나지 마세요. 안쪽의 트롤은 정예입니다.",
@@ -183,6 +186,7 @@ return {
 	-- ["Only if you are not level 48 yet."] = "아직 48레벨이 아닐 때만",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "조난 탐지기가 있을 때만: 로봇은 {area:351} 서쪽 강의 상류에 있습니다. 동쪽으로 {area:307} 너머 해안까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "북쪽의 {area:75}(으)로 돌아가 {area:1497}(으)로 날아가세요.",
+	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "{area:272}에서 북동쪽 {area:47}로 들어가 길을 따라 동쪽으로 가세요. {npc:7801}은(는) 엘프의 {area:350} 남쪽 언덕에 야영하고 있습니다.",
 	-- ["Saltwater Snapjaws"] = "무쇠턱바다거북",
 	-- ["Silvermane Howlers"] = "긴울음 은빛갈기늑대",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "남서쪽, 마른나무껍질부족 마을 동쪽 언덕에 긴울음 은빛갈기늑대가 돌아다닙니다.",

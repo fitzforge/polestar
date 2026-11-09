@@ -70,6 +70,10 @@ return {
 	["{npc:2410}, inside"] = "{npc:2410}, lá dentro",
 	["The magus offers a dungeon errand next: leave it."] = "O mago oferece em seguida um serviço de masmorra: deixe de lado.",
 
+	-- Step 15: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall
+	["The road east through {area:1057}"] = "",
+
 	-- Step 16: Northfold Manor
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall
 	-- plural, as words: Bloodstone Amulets = {item:4495} Bloodstone Amulet

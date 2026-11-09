@@ -185,8 +185,8 @@ return {
 	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "向西跨过 {area:814} 的桥，经过 {area:379}，沿山脊继续走：{npc:5907} 独自站在钢鬃营地上方。",
 
 	-- Step 43: Telf Joolam
-	-- {area:14} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {area:14} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "返回桥的另一边，沿河流的{area:14}一岸向南，找到一条上山的狭窄小径：{npc:5900}守着山顶的神龛。上山时小心边缘，并沿原路下来。",
+	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
+	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "返回桥的另一边，沿河流的{zone:1411}一岸向南，找到一条上山的狭窄小径：{npc:5900}守着山顶的神龛。上山时小心边缘，并沿原路下来。",
 
 	-- Step 44: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "钢鬃野猪人和钢鬃斥候占据着镇子西边的小屋；钢鬃传令兵和钢鬃卫兵占据着更西边的营地。",
@@ -228,8 +228,8 @@ return {
 
 	-- Step 55: Mage trainer
 	["Mage trainer"] = "法师训练师",
-	-- {npc:5884} Mai'ah · {area:14} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {area:14}; {area:362} has no mage trainer"] = "{area:14} 的 {npc:5884}；{area:362} 没有法师训练师",
+	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
+	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{zone:1411} 的 {npc:5884}；{area:362} 没有法师训练师",
 
 	-- Step 56: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -258,8 +258,8 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺便：向{npc:2704}（{object:172958}，10银币）学习法杖；升级期间，法杖提供的法术属性比单手武器多。",
 
 	-- Step 63: Back to Durotar
-	-- {area:14} Durotar
-	["Back to {area:14}"] = "返回{area:14}",
+	-- {zone:1411} Durotar
+	["Back to {zone:1411}"] = "返回{zone:1411}",
 
 	-- Step 64: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -290,8 +290,8 @@ return {
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}：{npc:275666}，一个精英海巨人",
 
 	-- Step 74: Aggor the Young
-	-- {npc:275666} Aggor the Young · {area:14} Durotar
-	["{npc:275666}, a young sea giant, walks {area:14}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666} 是一名年轻的海巨人，在纳迦海滩以北、{area:14} 的北海岸来回走动。{npc:275666} 是精英：建议组队。",
+	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
+	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666} 是一名年轻的海巨人，在纳迦海滩以北、{zone:1411} 的北海岸来回走动。{npc:275666} 是精英：建议组队。",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}，回到{area:362}",
 
@@ -303,8 +303,8 @@ return {
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171}：{zone:1454} 的 {npc:3352} 教授 {spell:5149}",
 
 	-- Step 76: Far Watch Post
-	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {area:14} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {area:14} leads to {zone:1454}."] = "从{area:362}向西，过{area:814}上的桥：{npc:3337}和{npc:5810}一起站在桥上方的{area:379}。从那里沿路向北穿过{area:14}，即可到达{zone:1454}。",
+	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "从{area:362}向西，过{area:814}上的桥：{npc:3337}和{npc:5810}一起站在桥上方的{area:379}。从那里沿路向北穿过{zone:1411}，即可到达{zone:1454}。",
 
 	-- Step 77: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "北上途中的雷霆蜥蜴",
@@ -321,10 +321,12 @@ return {
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "顺便：在{npc:2704}处学习法杖（{object:172958}，10银币）；猎人的近战武器主要看属性，而双手武器属性最多。",
 
 	-- Step 81: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "前往{area:1637}",
-	-- {area:379} Far Watch Post · {area:1637} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Follow the road north from {area:379} to {area:1637}'s main gate. The next guide starts in {area:1637}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {area:17} come after Silverpine."] = "从{area:379}沿路向北前往{area:1637}正门。下篇指南从{area:1637}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{area:17}。",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "前往{zone:1454}",
+	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从{area:379}沿路向北前往{zone:1454}正门。下篇指南从{zone:1454}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{zone:1413}。",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "向东回到{npc:275657}北边的海岸。{npc:275662}和其他恶鞭纳迦占据着{area:370}下方的海滩。猎人：在海滩上驯服一只{npc:3107}。",

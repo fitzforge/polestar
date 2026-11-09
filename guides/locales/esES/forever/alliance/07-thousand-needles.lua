@@ -49,8 +49,8 @@ return {
 	["Below ground"] = "",
 
 	-- Step 10: Defias Strongbox
-	-- {area:10} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
-	["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "El campamento Defias está en el suroeste de {area:10}, al sur de {area:94}, cerca de la frontera con {zone:1436}. La caja fuerte está entre las tiendas.",
+	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
+	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "El campamento Defias está en el suroeste de {zone:1431}, al sur de {area:94}, cerca de la frontera con {zone:1436}. La caja fuerte está entre las tiendas.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
@@ -123,6 +123,7 @@ return {
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Ve al oeste por el camino; la choza del ermitaño está al noreste del {area:492}.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Asaltantes, Sanadores y Guardas esqueléticos ocupan la parte oeste del cementerio, justo al este del campamento de {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Toma el barco del muelle de Menethil a {area:513}, en {zone:1445}.",
+	-- ["The Defias camp lies in the south-west of {area:10}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "El campamento Defias está en el suroeste de {area:10}, al sur de {area:94}, cerca de la frontera con {zone:1436}. La caja fuerte está entre las tiendas.",
 	-- ["The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners."] = "Los orcos Faucedraco acampan al este de la excavación. Los Asaltantes y Correpantanos llevan los estandartes de guerra.",
 	-- ["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him."] = "Los Propagadores de la Peste recorren la mitad norte del {area:492}. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "El capitán recorre la cubierta del barco naufragado; su caja fuerte está en la bodega.",

@@ -233,8 +233,8 @@ return {
 	["{item:2320} from {npc:2118}, for Gretchen"] = "从{npc:2118}处购买{item:2320}，交给格莉丝·戴玛",
 
 	-- Step 38: Tirisfal Glades: kill these as you meet them
-	-- {area:85} Tirisfal Glades
-	["{area:85}: kill these as you meet them"] = "{area:85}：沿途遇到就击杀",
+	-- {zone:1420} Tirisfal Glades
+	["{zone:1420}: kill these as you meet them"] = "{zone:1420}：沿途遇到就击杀",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "{npc:1553}在{area:159}周围的田野上空和北边的道路沿线飞行：格蕾琴需要它们的毛皮，{npc:3549}需要它们的翅膀。\n{quest:5482}生长在{area:159}北边不远处的墓地田野里，{npc:1941}在那里挖掘；所有腐皮豺狼人都会掉落脓液。\n{npc:1675}占据着更北边的山丘。{npc:1753}（11级）站在海岸南边山丘上的营地里：先清理他周围的豺狼人。\n小心：豺狼人守卫站在小屋外，可能加入战斗。如果你绕过它们在屋内与他战斗，他就只能单打独斗。\n邪鳍鱼人遍布北部海岸：它们都会掉落鳞片，小型先知和泥居者会掉落给{npc:3549}的皮。",
@@ -298,8 +298,9 @@ return {
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "从{area:159}向南走到{area:153}，再往下进入{zone:1458}。{npc:4568}站在{object:36082}。血色营地就在废墟西边。",
 
 	-- Step 49: Back to Tirisfal Glades
-	-- {area:85} Tirisfal Glades
-	["Back to {area:85}"] = "返回{area:85}",
+	-- {zone:1420} Tirisfal Glades
+	["Back to {zone:1420}"] = "返回{zone:1420}",
+	["The Scarlet camp"] = "血色营地",
 
 	-- Step 50: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
@@ -427,7 +428,6 @@ return {
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "{npc:1941}在{area:159}北边的墓地里挖掘；所有腐皮豺狼人都会掉落脓液。",
 	-- ["The Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first."] = "{npc:1675}占据着更北边的山丘。{npc:1753}（11级）站在海岸南边山丘上的营地里：先清理他周围的豺狼人。",
 	-- ["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。",
-	-- ["The Scarlet camp"] = "血色营地",
 	-- ["The Vile Fin murlocs line the north shore."] = "邪鳍鱼人遍布北部海岸。",
 	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "南瓜生长在索利丹农场西北方、血色十字军占据的田里。",
 	-- ["The spiders lurk in the woods at the far east end of the glades."] = "蜘蛛潜伏在林地最东端的树林里。",

@@ -12,11 +12,13 @@ return {
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 3: The Emerald Sanctuary
+	-- Step 2: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "El {area:2479}",
-	-- {area:415} Astranaar · {area:361} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361} to the {area:2479}, the druids' camp by the road."] = "",
+
+	-- Step 3: The Emerald Sanctuary
+	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
+	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, en las ruinas justo al este de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
@@ -39,8 +41,8 @@ return {
 	["grind on {npc:7153}"] = "",
 
 	-- Step 7: Grazle
-	-- {npc:15395} Nafien · {area:361} Felwood
-	["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395} espera en el extremo norte de {area:361}",
+	-- {npc:15395} Nafien · {zone:1448} Felwood
+	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395} espera en el extremo norte de {zone:1448}",
 	["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
 
 	-- Step 8: Level 52.69
@@ -114,8 +116,8 @@ return {
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
 
 	-- Step 23: The Emerald Sanctuary
-	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood
-	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "",
+	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "",
 
 	-- Step 24: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
@@ -142,5 +144,6 @@ return {
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016}, en {area:1770}",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}: treinta {quest:6031}, que entregas cuando vuelvas a pasar a nivel 57",
 	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral",
+	-- ["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395} espera en el extremo norte de {area:361}",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, botín poco común",
 }

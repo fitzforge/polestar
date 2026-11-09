@@ -7,15 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:400} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {area:400}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 	["He runs off to keep Rizzle busy"] = "Er läuft los, um Rizzle abzulenken",
 
 	-- Step 4: Gadgetzan
-	-- {area:439} Shimmering Flats · {area:440} Tanaris · {area:976} Gadgetzan
-	["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Reite vom Gebiet {area:439} nach Südosten nach {area:440}. {area:976} liegt gleich hinter der Grenze.",
+	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
+	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Reite vom Gebiet {area:439} nach Südosten nach {zone:1446}. {area:976} liegt gleich hinter der Grenze.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, an der Nordseite der Stadt",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
@@ -58,8 +58,8 @@ return {
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "",
-	-- {area:35} Booty Bay · {area:47} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {area:47} guide, keep it"] = "",
+	-- {area:35} Booty Bay · {zone:1425} Hinterlands
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
@@ -162,6 +162,7 @@ return {
 	-- ["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts."] = "Reite nach Nordwesten zum Stock der Centipaar in den Dünen. Jeder Centipaar kann Insektenteile droppen.",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time."] = "Reite nach Süden ins {quest:3362}. Die Disteltausammler droppen die Drüsen; nur manche sind gefüllt, also behalte die Gefüllte Taudrüse. Knorrige Distelwandler und Distelwurzelformer teilen sich das Tal. Die Distelwandler sind Stufe 48-50, über dir: Zieh einen nach dem anderen.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Reite nach Süden an {area:1938} vorbei zu {area:981}, den Tunneln der Hazzali; Scrimshanks Ausrüstung liegt tief darin.",
+	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Reite vom Gebiet {area:439} nach Südosten nach {area:440}. {area:976} liegt gleich hinter der Grenze.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Reite nach Südosten zum {area:985}. {npc:7847} steht in der Mitte des südlichen Lagers der Wüstenläufer: Räum zuerst um ihn herum.",
 	-- ["Rizzle's plans"] = "Rizzles Pläne",
 	-- ["The Wanted poster by {npc:7882}"] = "Der Steckbrief bei {npc:7882}",

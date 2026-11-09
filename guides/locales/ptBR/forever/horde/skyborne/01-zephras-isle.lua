@@ -311,9 +311,11 @@ return {
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
 	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Leve {item:277267} para {npc:268592} no Shrine of Flames, a sudoeste de {area:16638}, e depois siga para oeste em {area:16623}: a casa de {npc:268605} fica nas colinas ao sul dos lagos dos Rastejantes Cantéolo.",
 
-	-- Step 58: The Eternal Flame
+	-- Step 57: Zephras Isle
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
+
+	-- Step 58: The Eternal Flame
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
 	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Volte a {npc:268592}. Espere ele acender {npc:268762} e leve a chama direto para {npc:268679} ao lado de {npc:252382} em {area:16638} antes que o tempo acabe.",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -453,18 +455,20 @@ return {
 	["Into {zone:1412}"] = "Rumo a {zone:1412}",
 
 	-- Step 92: Into The Barrens
-	-- {area:17} The Barrens
-	["Into {area:17}"] = "Rumo a {area:17}",
+	-- {zone:1413} The Barrens
+	["Into {zone:1413}"] = "Rumo a {zone:1413}",
 
 	-- Step 94: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {area:17} The Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {area:17} guide."] = "Aprenda a rota de voo com {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {area:17}.",
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Aprenda a rota de voo com {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {zone:1413}.",
 
 	-- Step 95: To Orgrimmar
-	-- {area:1637} Orgrimmar
-	["To {area:1637}"] = "Até {area:1637}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {area:1637} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {area:1637}'s main gate. The next guide starts in {area:1637}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Da Encruzilhada, siga a estrada para nordeste até {area:379}, atravesse {area:815} para {zone:1411} e continue ao norte até o portão principal de {area:1637}. O próximo guia começa em {area:1637}: Thrall oferece {quest:95350}, e o zepelim parte para {zone:1420} e {zone:1421}.",
+	-- {zone:1454} Orgrimmar
+	["To {zone:1454}"] = "Até {zone:1454}",
+	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Da Encruzilhada, siga a estrada para nordeste até {area:379}, atravesse {area:815} para {zone:1411} e continue ao norte até o portão principal de {zone:1454}. O próximo guia começa em {zone:1454}: Thrall oferece {quest:95350}, e o zepelim parte para {zone:1420} e {zone:1421}.",
+	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
+	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "Volte a {area:16624} com o que encontrou.",
@@ -476,6 +480,7 @@ return {
 	-- ["High Order Apprentices"] = "Aprendizes da Alta Ordem",
 	-- ["Hippogryph nests"] = "Ninhos de hipogrifo",
 	-- ["Horde airship"] = "Dirigível da Horda",
+	-- ["Into {area:17}"] = "Rumo a {area:17}",
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Saia de {zone:1456} por um elevador e siga a estrada para o sul passando por {area:222} e pelo desfiladeiro leste até {zone:1413}; do desfiladeiro, pegue {area:458} para o norte até a {area:380}, a cidade da Horda no meio de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Saindo de {area:16635}",

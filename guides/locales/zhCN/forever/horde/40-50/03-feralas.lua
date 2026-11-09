@@ -47,8 +47,8 @@ return {
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "沿道路向西骑行；卷轴在沼泽最西边的水边。",
-	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
-	["for the {object:2555} in {area:15}, later in this guide"] = "用于{area:15}的{object:2555}，在本指南稍后",
+	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
+	["for the {object:2555} in {zone:1445}, later in this guide"] = "交给{zone:1445}的{object:2555}，在本指南稍后",
 
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
@@ -103,9 +103,11 @@ return {
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}：在地下",
 
-	-- Step 24: The Musty Scroll
+	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "{object:2555}",
+
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "向西南骑行到{object:2555}处。",
 	-- {object:2555} Musty Scroll
@@ -209,6 +211,7 @@ return {
 	-- ["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and ride west through {zone:1412}), then on to {area:496}."] = "你的训练师在{area:1638}：飞过去（还没有那里的飞行路线？飞往{area:378}，再向西骑马穿过{zone:1412}），然后继续前往{area:496}。",
 	-- ["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 	-- ["Zeppelin tower"] = "飞艇塔",
+	-- ["for the {object:2555} in {area:15}, later in this guide"] = "用于{area:15}的{object:2555}，在本指南稍后",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500}是精英：建议组队。把他打到认输，然后向{npc:4501}报告。",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}：交给{zone:1454}的{npc:7010}，大约50级时",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}，然后是{object:172960}和{object:172961}。",

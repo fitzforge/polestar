@@ -6,9 +6,16 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Step 1: Tirisfal Glades
+	["The zeppelin towers"] = "",
+
 	-- Step 2: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
+
+	-- Step 3: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["{zone:1454} flight master"] = "",
 
 	-- Step 4: Zeppelin to Orgrimmar
 	-- {zone:1458} Undercity · {zone:1454} Orgrimmar
@@ -19,18 +26,18 @@ return {
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
-	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
 
-	-- Step 8: The Emerald Sanctuary
+	-- Step 7: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
-	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {area:361} Felwood · {area:2479} Emerald Sanctuary
-	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Vuela a {area:431} y cabalga hacia el noroeste por el camino que sale de {zone:1440} y entra en {area:361}. {area:2479} es el campamento de los druidas justo pasada la frontera.",
+
+	-- Step 8: The Emerald Sanctuary
+	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
+	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Vuela a {area:431} y cabalga hacia el noroeste por el camino que sale de {zone:1440} y entra en {zone:1448}. {area:2479} es el campamento de los druidas justo pasada la frontera.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
-	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {area:361} Felwood
-	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {area:361} y volver hasta aquí. Omítela.",
+	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
+	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {zone:1448} y volver hasta aquí. Omítela.",
 
 	-- Step 9: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
@@ -43,8 +50,8 @@ return {
 	-- Step 11: Bloodvenom Post
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
 	["Ride north along the road, past {area:1763}, to {area:1997}."] = "Cabalga hacia el norte por el camino, dejando atrás {area:1763}, hasta {area:1997}.",
-	-- {npc:10306} Trull Failbane · {quest:4741} Wild Guardians · {area:618} Winterspring
-	["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "La siguiente misión de {npc:10306}, {quest:4741}, te haría volver aquí desde {area:618}. Omítela.",
+	-- {npc:10306} Trull Failbane · {quest:4741} Wild Guardians · {zone:1452} Winterspring
+	["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "La siguiente misión de {npc:10306}, {quest:4741}, te haría volver aquí desde {zone:1452}. Omítela.",
 
 	-- Step 12: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
@@ -54,12 +61,12 @@ return {
 	["South to the Sanctuary once more."] = "Vuelve otra vez al sur, al Santuario.",
 
 	-- Step 14: Toxic Horrors
-	-- {area:361} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
-	["Ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
+	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
 
 	-- Step 16: Umber
-	-- {area:493} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
-	["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {area:493}. {npc:11939} lee en una casa de {area:2361}.",
+	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
+	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {zone:1450}. {npc:11939} lee en una casa de {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
 
@@ -71,8 +78,8 @@ return {
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "Fragmentos de gangrevid, de {npc:11801}, requiere {area:2577}. Omítela.",
 
 	-- Step 22: Donova Snowden
-	-- {area:618} Winterspring · {npc:9298} Donova Snowden
-	["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Vuelve al túnel de los Fauces de Madera y toma la salida de {area:618}; {npc:9298} acampa junto a las aguas termales, justo fuera.",
+	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
+	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "Vuelve al túnel de los Fauces de Madera y toma la salida de {zone:1452}; {npc:9298} acampa junto a las aguas termales, justo fuera.",
 	["From Krakle in Un'Goro"] = "De Krakle en Un'Goro",
 
 	-- Step 23: Winterfall Runners
@@ -100,9 +107,9 @@ return {
 
 	-- Step 31: Level 59.9
 	["Level 59.9"] = "",
-	-- {area:618} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
+	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "",
 
@@ -124,23 +131,30 @@ return {
 
 	-- Step 36: Grind to 60
 	["Grind to 60"] = "Farmea hasta 60",
-	-- {area:2249} Frostwhisper Gorge · {area:618} Winterspring · {area:2255} Everlook
+	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean por {area:2249}, en el sur de {area:618}, al sur del camino que sale de {area:2255}.",
-	-- {npc:7446} Rabid Shardtooth · {area:2249} Frostwhisper Gorge · {area:618} Winterspring
-	["grind on {npc:7446} at {area:2249}, {area:618}"] = "farmea {npc:7446} en {area:2249}, {area:618}",
+	["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean por {area:2249}, en el sur de {zone:1452}, al sur del camino que sale de {area:2255}.",
+	-- {npc:7446} Rabid Shardtooth · {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring
+	["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "farmea {npc:7446} en {area:2249}, {zone:1452}",
 	-- {zone:1454} Orgrimmar · {area:2255} Everlook
 	["In {zone:1454}: fly from {area:2255}"] = "En {zone:1454}: vuela desde {area:2255}",
 	-- {zone:1456} Thunder Bluff · {area:2255} Everlook
 	["In {zone:1456}: fly from {area:2255}"] = "En {zone:1456}: vuela desde {area:2255}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Vuelve al túnel de los Fauces de Madera y toma la salida de {area:618}; {npc:9298} acampa junto a las aguas termales, justo fuera.",
+	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Vuela a {area:431} y cabalga hacia el noroeste por el camino que sale de {zone:1440} y entra en {area:361}. {area:2479} es el campamento de los druidas justo pasada la frontera.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "Desde {zone:1458}, toma el zepelín de la torre de fuera de la ciudad hasta {zone:1454}.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Solo si llevas {quest:5087}: los corredores recorren en grupos pequeños el camino de {area:1769} a {area:2244}; espera junto al camino cerca de {npc:9298} y mátalos al pasar. Cada uno lleva una caja.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Solo si {npc:9298} te dio {quest:5086}: cabalga hacia el norte por el camino de {area:361} hasta {area:1767}; los {quest:5086} reptan entre los árboles.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Solo con 30 de {quest:6031}, y solo si eres Neutral con los Fauces de Madera: sigue el camino hacia el norte hasta {area:1769}; {npc:11557} comercia justo al pasar la entrada.",
 	-- ["Optional. Running {area:2279}, {area:2057}, Lower {area:1583} or {area:1584} with a group instead of grinding gets you there faster."] = "Opcional. Hacer {area:2279}, {area:2057}, {area:1583} inferior o {area:1584} en grupo en vez de farmear te lleva antes.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Cabalga hacia el noroeste hasta {area:1763}. Los cuatro braseros están entre los edificios del Consejo de las Sombras; usa el agua purificada en cada uno.",
+	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean por {area:2249}, en el sur de {area:618}, al sur del camino que sale de {area:2255}.",
+	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {area:493}. {npc:11939} lee en una casa de {area:2361}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
+	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "farmea {npc:7446} en {area:2249}, {area:618}",
+	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "La siguiente misión de {npc:10306}, {quest:4741}, te haría volver aquí desde {area:618}. Omítela.",
+	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {area:361} y volver hasta aquí. Omítela.",
 	-- ["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go."] = "{npc:9861}, {npc:9860} y {npc:9517} esperan al fondo de {area:1770}, la cueva del norte de {area:1763}. Despeja el túnel a tu paso.",
 }

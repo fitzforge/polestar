@@ -53,10 +53,10 @@ return {
 
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Les navires de la Voile sanglante",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {area:8} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {area:8}, {zone:1445} and the {zone:1425}."] = "",
-	-- {area:8} Swamp of Sorrows
-	["for a later stop in the {area:8}"] = "pour un arrêt plus tard dans {area:8}",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "pour une étape ultérieure dans {zone:1435}",
 
 	-- Step 12: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
@@ -201,10 +201,10 @@ return {
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
 	-- Step 49: Into the Swamp of Sorrows
-	-- {area:8} Swamp of Sorrows
-	["Into the {area:8}"] = "Vers le {area:8}",
-	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {area:10} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	-- {zone:1435} Swamp of Sorrows
+	["Into the {zone:1435}"] = "Vers {zone:1435}",
+	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
@@ -259,7 +259,7 @@ return {
 	-- ["His strongbox waits at his old camp north of {area:75}."] = "Son coffre attend à son ancien camp au nord de {area:75}.",
 	-- ["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan."] = "Si vous avez passé {quest:192} ou {quest:195}, tuez des monstres ici jusqu'au niveau 42.68 pour rester dans le plan de la route.",
 	-- ["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan."] = "Si vous avez passé {quest:208}, tuez des monstres ici jusqu'au niveau 42.74 pour rester dans le plan de la route.",
-	-- ["Into the {zone:1435}"] = "Vers {zone:1435}",
+	-- ["Into the {area:8}"] = "Vers le {area:8}",
 	-- ["Keep going north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Continuez vers le nord jusqu'au {area:10}, puis vers l'est par la route à travers le {zone:1430} jusqu'au marais. {npc:1776} attend à {area:657}, le camp draeneï près de l'entrée depuis le {zone:1430}.",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Continuez vers le nord jusqu'à {zone:1431}, puis vers l'est par la route à travers {zone:1430} jusqu'au marais. {npc:1776} attend à {area:657}, le camp draeneï près de l'entrée depuis {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Rivage des nagas et {object:759}",
@@ -293,7 +293,7 @@ return {
 	-- ["You start in {area:75}. Bind here: you hearth back after the coast."] = "Vous commencez à {area:75}. Faites de cette auberge votre foyer : vous y reviendrez avec la pierre de foyer après la côte.",
 	-- ["for Stoley in {zone:1446}"] = "pour Stoley en {zone:1446}",
 	-- ["for Stoley in {zone:1446}; on the top floor"] = "pour Stoley en {zone:1446} ; au dernier étage",
-	-- ["for a later stop in the {zone:1435}"] = "pour une étape ultérieure dans {zone:1435}",
+	-- ["for a later stop in the {area:8}"] = "pour un arrêt plus tard dans {area:8}",
 	-- ["for later: the {zone:1425}, around level 48"] = "pour plus tard : {zone:1425}, vers le niveau 48",
 	-- ["the {object:2076}, beside Nimboya"] = "le {object:2076}, à côté de Nimboya",
 	-- ["the {object:2076}, beside {npc:2497}"] = "le {object:2076}, à côté de {npc:2497}",

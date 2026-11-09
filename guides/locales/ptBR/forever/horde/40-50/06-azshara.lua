@@ -63,8 +63,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
 	-- Step 22: Ride into Azshara
-	-- {area:16} Azshara
-	["Ride into {area:16}"] = "Siga para {area:16}",
+	-- {zone:1447} Azshara
+	["Ride into {zone:1447}"] = "Siga para {zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Siga para o leste pela estrada que sai do Posto Machadada. {npc:11548} espera em {area:1235}, logo ao lado da estrada, a poucos passos a oeste de {area:3137}, da Aliança: chegue pelo oeste e fique longe das Sentinelas de Azshara e de Jarrodenes (elite).",
@@ -78,8 +78,8 @@ return {
 
 	-- Step 24: Level 50
 	["Level 50"] = "Nível 50",
-	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {area:16} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {area:16}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 50: {quest:4493}, de {npc:7010} em {zone:1454}, no fim de {area:16}, exige isso. Ou, em grupo, faça a masmorra {area:2100} ou a masmorra {area:1417}.",
+	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 50: {quest:4493}, de {npc:7010} em {zone:1454}, no fim de {zone:1447}, exige isso. Ou, em grupo, faça a masmorra {area:2100} ou a masmorra {area:1417}.",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "mate {npc:6125} até subir",
 
@@ -233,6 +233,7 @@ return {
 	-- ["Highborne and Haldarr satyrs"] = "Altaneiros e Sátiros Haldarr",
 	-- ["Ironjaw Basilisks"] = "Basiliscos Ferroqueixo",
 	-- ["Keep {area:1417} for {npc:7771} in {zone:1446}."] = "Guarde {area:1417} para {npc:7771} em {zone:1446}.",
+	-- ["Ride into {area:16}"] = "Siga para {area:16}",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Siga para o noroeste até {area:1108}; {npc:14637} espera no cais.",
 	-- ["Sea elementals"] = "Elementais do mar",
 	-- ["Take the zeppelin back to {zone:1454}."] = "Pegue o zepelim de volta para {zone:1454}.",

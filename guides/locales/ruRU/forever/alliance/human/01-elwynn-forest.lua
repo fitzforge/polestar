@@ -166,8 +166,8 @@ return {
 	["Billy plays in the {area:64}, east of the mine."] = "Билли играет здесь: {area:64}, к востоку от рудника.",
 
 	-- Step 33: Elwynn Forest: kill these as you meet them
-	-- {area:12} Elwynn Forest
-	["{area:12}: kill these as you meet them"] = "{area:12}: убивайте их по пути",
+	-- {zone:1429} Elwynn Forest
+	["{zone:1429}: kill these as you meet them"] = "{zone:1429}: убивайте их по пути",
 	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855} растет на полях вокруг виноградников и фермы Стоунфилдов; кровь дают вепри-камнеклыки поблизости.\nВепри-камнеклыки пасутся между виноградниками и фермой.",
@@ -361,8 +361,8 @@ return {
 	["Subdue the voidwalker"] = "Одолейте демона Бездны",
 
 	-- Step 74: Back to Elwynn Forest
-	-- {area:12} Elwynn Forest
-	["Back to {area:12}"] = "Назад: {area:12}",
+	-- {zone:1429} Elwynn Forest
+	["Back to {zone:1429}"] = "Назад: {zone:1429}",
 
 	-- Step 75: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake

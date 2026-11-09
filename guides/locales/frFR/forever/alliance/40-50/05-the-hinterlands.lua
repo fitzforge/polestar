@@ -85,8 +85,8 @@ return {
 	["the soil comes from {zone:1449}, later"] = "la terre vient du {zone:1449}, plus tard",
 
 	-- Step 24: Portal to Teldrassil
-	-- {area:141} Teldrassil
-	["Portal to {area:141}"] = "Portail pour {area:141}",
+	-- {zone:1438} Teldrassil
+	["Portal to {zone:1438}"] = "Portail vers {zone:1438}",
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -104,8 +104,8 @@ return {
 
 	-- Step 30: The bloodmages
 	["The bloodmages"] = "Les mages de sang",
-	-- {area:4} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {area:4}, north-west of {area:1438}."] = "Le camp des mages de sang est la première étape au bord de la route qui entre dans les {area:4}, au nord-ouest du {area:1438}.",
+	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
+	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "Le camp des mages de sang est la première étape au bord de la route qui entre dans les {zone:1419}, au nord-ouest du {area:1438}.",
 
 	-- Step 31: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
@@ -118,8 +118,8 @@ return {
 	["{npc:5385}, upstairs"] = "{npc:5385}, à l'étage",
 
 	-- Step 32: Blasted Lands: kill these as you meet them
-	-- {area:4} Blasted Lands
-	["{area:4}: kill these as you meet them"] = "{area:4} : tuez-les au passage",
+	-- {zone:1419} Blasted Lands
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419} : tuez-les au passage",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "Chevauchez vers l'ouest : des Raillecrocs affamées parcourent les collines arides juste au sud du camp des mages de sang ; des Aiguillonneurs scorpoks (niveau 50) trottinent au milieu du nord. Des {npc:5982} (des vautours) tournoient au-dessus de tout cela. Attirez-les un par un.\nDes Sangliers cendrés et des Basilics Rougepierre partagent les pentes au sud-ouest du donjon. Évitez les Sangliers infernaux plus au sud : ils sont de niveau 52.\nAttention : les Aiguillonneurs scorpoks utilisent {spell:5416} ; {npc:8301} y ajoute Renversement.",
@@ -162,7 +162,7 @@ return {
 	-- ["Hearthstone on cooldown? Ride back north-west."] = "Pierre de foyer en recharge ? Revenez au nord-ouest.",
 	-- ["Into {area:38}"] = "Vers le {area:38}",
 	-- ["Into {area:3}"] = "Vers les {area:3}",
-	-- ["Portal to {zone:1438}"] = "Portail vers {zone:1438}",
+	-- ["Portal to {area:141}"] = "Portail pour {area:141}",
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "Revenez vers l'est jusqu'au {area:1438} et volez jusqu'à {area:144}.",
 	-- ["Ride back north to Ironband's camp."] = "Revenez vers le nord jusqu'aux Excavations de Baguefer.",
 	-- ["Ride east along the south shore of the loch to Ironband's camp."] = "Chevauchez vers l'est le long de la rive sud du Loch jusqu'aux Excavations de Baguefer.",
