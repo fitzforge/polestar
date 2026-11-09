@@ -5886,9 +5886,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   dart going to its first walk's place, the library's Leveling, Professions
   and Reputation counts); Set up (quest automation, the guide at login, the
   colour scheme as preview cards in each scheme's colours that apply live;
-  Skip keeps them); Route style (the start zone's painting with the
-  suggested guide's first walk drawn on it and its place named, no
-  distances; `nav.routeStyle`, the setting Options' Route style dropdown
+  Skip keeps them); Route style (the start zone's painting with
+  the walk each route style takes between two places of its first guide,
+  baked by the walking router (`polestar nav welcome`, UI/WelcomeRoutes.lua):
+  the chosen style's drawn as the route line, drawn in again on a switch
+  (whole at once under reduced motion), the other two faint, the place
+  named and the walk's yards; `nav.routeStyle`, the setting Options' Route style dropdown
   writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a
   click sets it live and Nav/Walk.lua searches again, right-click or the

@@ -518,6 +518,104 @@ fn the_route_page_three_styles_with_what_each_does_balanced_picked_on_a_fresh_ac
 }
 
 #[test]
+fn every_start_zones_baked_walks_three_styles_between_the_same_two_places_each_its_own_fastest_the_shortest() {
+	let out = run(r#"
+		local R = Polestar.WelcomeRoutes
+		local zones = {}
+		for z, e in pairs(R) do
+			if type(z) == "number" then
+				local o = { place = e.place, area = e.area }
+				for _, s in ipairs({ "fastest", "balanced", "roads" }) do
+					local w = e[s]
+					o[s] = { yards = w.yards, n = #w / 2, from = w[1] .. "," .. w[2], to = w[#w - 1] .. "," .. w[#w],
+						key = table.concat(w, ",") }
+				end
+				zones[tostring(z)] = o
+			end
+		end
+		emit({ default = R.default, zones = zones })"#);
+	let zones = out["zones"].as_object().unwrap();
+	for z in ["1411", "1412", "1420", "1426", "1429", "1438"] {
+		assert!(zones.contains_key(z), "start zone {z} has its walks");
+	}
+	assert!(zones.contains_key(&out["default"].to_string()), "the default zone is one of them");
+	for (z, e) in zones {
+		assert!(truthy(&e["place"]) && e["area"].as_u64().is_some(), "{z}: the place it walks to, by area");
+		let (f, b, r) = (&e["fastest"], &e["balanced"], &e["roads"]);
+		for s in [f, b, r] {
+			assert_eq!((&s["from"], &s["to"]), (&f["from"], &f["to"]), "{z}: every style between the same two places");
+			assert!(s["n"].as_u64().unwrap() >= 3, "{z}: a routed walk, not a straight line: {s}");
+		}
+		let keys: HashSet<String> = [f, b, r].iter().map(|s| s["key"].to_string()).collect();
+		assert_eq!(keys.len(), 3, "{z}: each style its own walk");
+		let y = |s: &Value| s["yards"].as_u64().unwrap();
+		assert!(y(f) <= y(b) && y(b) <= y(r), "{z}: Fastest the shortest, Roads the longest: {} {} {}", y(f), y(b), y(r));
+	}
+}
+
+#[test]
+fn the_route_page_map_draws_the_chosen_styles_own_walk_redrawn_on_a_switch_at_once_under_reduced_motion() {
+	let out = run(r#"
+		Wel.Show("route")
+		local m = PolestarWelcome.RouteMap
+		-- The chosen walk as drawn: the shown core lines' ends, in px on the map.
+		local function drawn()
+			local pts = {}
+			for i, l in ipairs(m.Marks) do
+				if l:IsShown() then
+					if i == 1 then pts[#pts + 1] = ("%.1f,%.1f"):format(l.startPoint[3], l.startPoint[4]) end
+					pts[#pts + 1] = ("%.1f,%.1f"):format(l.endPoint[3], l.endPoint[4])
+				end
+			end
+			return pts
+		end
+		local function faint()
+			local n = 0
+			for _, l in ipairs(m.Faint) do if l:IsShown() then n = n + 1 end end
+			return n
+		end
+		local first = { baked = m.psWalks ~= nil, place = m.Place:IsShown() and plain(m.Place:GetText()) or false,
+			path = drawn(), faint = faint() }
+		local seen = {}
+		for _, s in ipairs({ "fastest", "roads", "balanced" }) do
+			PolestarWelcome.Styles[s == "fastest" and 1 or s == "balanced" and 2 or 3]:Click()
+			local just = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, shown = #drawn() }
+			stub.advance(0.05)
+			local half = #drawn()
+			stub.advance(1)
+			seen[s] = { path = drawn(), running = just.running, share = just.share, startShown = just.shown,
+				half = half, after = m.psShare, faint = faint(), note = plain(m.Note:GetText()) }
+		end
+		Polestar.Set("ui.reduceMotion", true)
+		Polestar.Set("nav.routeStyle", "roads")
+		local reduced = { running = Polestar.Anim.IsRunning(m, "value"), share = m.psShare, path = drawn() }
+		emit({ first = first, seen = seen, reduced = reduced })"#);
+	assert_eq!(out["first"]["baked"], true, "the suggested guide's zone has its baked walks");
+	assert!(truthy(&out["first"]["place"]), "the walk's place is named");
+	assert_eq!(out["first"]["path"], out["seen"]["balanced"]["path"], "a fresh account sees Balanced's walk");
+	let paths: Vec<&Value> = ["fastest", "balanced", "roads"].iter().map(|s| &out["seen"][s]["path"]).collect();
+	for (s, p) in ["fastest", "balanced", "roads"].iter().zip(&paths) {
+		let pts = p.as_array().unwrap();
+		assert!(pts.len() >= 3, "{s}: a walk with turns, not one straight line: {p}");
+		assert_eq!(pts[0], paths[0][0], "{s}: every style starts at the same place");
+		assert_eq!(&pts[pts.len() - 1], paths[0].as_array().unwrap().last().unwrap(), "{s}: and ends at the same place");
+		let o = &out["seen"][s];
+		assert_eq!(o["running"], true, "{s}: a switch redraws the walk");
+		assert_eq!(o["share"], 0.0, "{s}: from its start");
+		assert_eq!(o["startShown"], 0, "{s}: nothing of it drawn as the switch lands");
+		assert!(o["half"].as_u64().unwrap() < pts.len() as u64, "{s}: part of it drawn on the way: {o}");
+		assert_eq!(o["after"], 1.0, "{s}: whole once drawn in");
+		assert!(o["faint"].as_u64().unwrap() > 0, "{s}: the other two styles' walks faint under it");
+	}
+	assert_eq!(paths.iter().map(|p| p.to_string()).collect::<HashSet<_>>().len(), 3, "each style its own walk");
+	let notes: HashSet<String> = ["fastest", "balanced", "roads"].iter().map(|s| out["seen"][s]["note"].to_string()).collect();
+	assert_eq!(notes.len(), 3, "the note gives each style's own yards: {notes:?}");
+	assert_eq!(out["reduced"]["running"], false, "under reduced motion no draw-in");
+	assert_eq!(out["reduced"]["share"], 1.0, "the walk is whole at once");
+	assert_eq!(out["reduced"]["path"], out["seen"]["roads"]["path"], "and it is Roads' walk");
+}
+
+#[test]
 fn the_start_page_start_guide_opens_the_suggested_guide_browse_guides_opens_the_picker_both_close_it() {
 	let out = run(r#"
 		Wel.Show("start")

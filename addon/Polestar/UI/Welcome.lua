@@ -18,12 +18,15 @@
 --      cards in each scheme's own colours, and the route line's look
 --      (nav.lineStyle: Line, Dots, Sparkles) as cards each previewing it,
 --      that apply live; Skip keeps them;
---   3. route: the start zone's painting with the suggested guide's first
---      walk drawn on it and its place named, then the route style
---      (nav.routeStyle, the setting Options' Route style dropdown writes) as
---      three rows, Fastest, Balanced (Recommended) and Roads, each saying
---      what it does, that apply live; a line on what every style keeps you
---      away from. Shown with setup;
+--   3. route: the start zone's painting with the walk each route style takes
+--      between two places of its first guide (baked by the walking router,
+--      UI/WelcomeRoutes.lua): the chosen style's as the route line, drawn in
+--      again when the style changes, the other two faint; its place named
+--      and its yards; then the route style (nav.routeStyle, the setting
+--      Options' Route style dropdown writes) as three rows, Fastest,
+--      Balanced (Recommended) and Roads, each saying what it does, that apply
+--      live; a line on what every style keeps you away from. Shown with
+--      setup;
 --   4. start: the suggested guide on its painting (its level range, who it
 --      is for), its pitch; what Start guide does; the beta note while
 --      ns.routesBeta is true; the Discord community (its invite as a link
@@ -1243,14 +1246,120 @@ local function layoutStyleRow(c)
 	return h
 end
 
+-- The walks: each route style's walk between the same two places of a start
+-- zone, found by the walking router at build time (UI/WelcomeRoutes.lua,
+-- `polestar nav welcome`): the suggested guide's zone's, else the default's.
+local ROUTE_STYLES = { "fastest", "balanced", "roads" }
+local DRAW_IN = 0.6 -- as the route line's draw-in (Maps/RouteLines.lua)
+local FAINT_ALPHA = 0.4
+-- The painting's zoom (ZoneArt's): at least MAP_ZOOM, in to MAP_ZOOM_MAX so
+-- the walks take WALKS_W of the map's width or WALKS_H of its height.
+local MAP_ZOOM, MAP_ZOOM_MAX, WALKS_W, WALKS_H = 1.5, 3, 0.5, 0.75
+
+-- -> zone, its walks | nil
+local function styleWalks(g)
+	local R = ns.WelcomeRoutes
+	if not R then return nil end
+	local z = g and g.zone
+	if not (z and R[z]) then z = R.default end
+	if z and R[z] then return z, R[z] end
+	return nil
+end
+
+-- The box round every style's walk, in map percent.
+local function walkBounds(e)
+	local x0, y0, x1, y1 = 100, 100, 0, 0
+	for _, s in ipairs(ROUTE_STYLES) do
+		local w = e[s]
+		for i = 1, #w, 2 do
+			x0, x1 = min(x0, w[i]), max(x1, w[i])
+			y0, y1 = min(y0, w[i + 1]), max(y1, w[i + 1])
+		end
+	end
+	return x0, y0, x1, y1
+end
+
+-- The pooled line `i` of a set, made once.
+local function mapLine(m, set, i, sub, soft, thick)
+	local l = set[i]
+	if not l then
+		l = m.Draw:CreateLine(nil, "ARTWORK", nil, sub)
+		if soft then l:SetTexture(NAV_MEDIA .. "line-soft") else l:SetColorTexture(1, 1, 1, 1) end
+		l:SetThickness(thick)
+		set[i] = l
+	end
+	return l
+end
+
+-- The map's walks: the other styles' whole and faint, the chosen one's
+-- first `share` (0-1) of its length over its shadow.
+local function drawTrail(m, share)
+	m.psShare = share
+	local all = m.psPts
+	if not all then return end
+	local s = m.psStyle or routeStyle()
+	local d = m.Draw
+	local r, g, b = routeColour()
+	local s1, s2, s3 = Theme.Color("scrim")
+	local t1, t2, t3 = Theme.Color("text")
+	local faint = 0
+	for _, o in ipairs(ROUTE_STYLES) do
+		local pts = all[o]
+		if o ~= s and m.psWalks then
+			for i = 1, #pts - 3, 2 do
+				faint = faint + 1
+				local l = mapLine(m, m.Faint, faint, 0, false, 1.5)
+				l:SetStartPoint("TOPLEFT", d, pts[i], -pts[i + 1])
+				l:SetEndPoint("TOPLEFT", d, pts[i + 2], -pts[i + 3])
+				l:SetVertexColor(t1, t2, t3, FAINT_ALPHA)
+				l:Show()
+			end
+		end
+	end
+	for i = faint + 1, #m.Faint do m.Faint[i]:Hide() end
+	local pts, left, n = all[s], (m.psLen[s] or 0) * share, 0
+	for i = 1, #pts - 3, 2 do
+		if left <= 0 then break end
+		local ax, ay, bx, by = pts[i], pts[i + 1], pts[i + 2], pts[i + 3]
+		local len = sqrt((bx - ax) ^ 2 + (by - ay) ^ 2)
+		if len > left then
+			local t = left / len
+			bx, by = ax + (bx - ax) * t, ay + (by - ay) * t
+		end
+		left = left - len
+		n = n + 1
+		local sh = mapLine(m, m.Shadows, n, 1, true, 9)
+		local mk = mapLine(m, m.Marks, n, 2, false, 3)
+		sh:SetStartPoint("TOPLEFT", d, ax, -ay)
+		sh:SetEndPoint("TOPLEFT", d, bx, -by)
+		mk:SetStartPoint("TOPLEFT", d, ax, -ay)
+		mk:SetEndPoint("TOPLEFT", d, bx, -by)
+		sh:SetVertexColor(s1, s2, s3, 0.75)
+		mk:SetVertexColor(r, g, b, 1)
+		sh:Show()
+		mk:Show()
+	end
+	for i = n + 1, #m.Marks do
+		m.Marks[i]:Hide()
+		m.Shadows[i]:Hide()
+	end
+end
+
+-- The map's note: the zone and the chosen style's walk in yards.
+local function noteWalk(m)
+	local e, C = m.psWalks, ns.Compat
+	local zone = C and C.MapName and C.MapName(m.psZone) or e.zone
+	m.Note:SetText(zone .. " \194\183 " .. (L["%d yd"]):format(e[m.psStyle].yards))
+end
+
 -- The map: the start zone's painting, darkened on the left for the
--- readout, the guide's first walk drawn on it.
+-- readout, the route styles' walks drawn on it.
 local function routeMap(p)
 	local m = CreateFrame("Frame", nil, p)
 	m:SetSize(CW, MAP_H)
 	m.Art = UI.ZoneArt.Create(m, CW, MAP_H, "bg")
 	m.Art:SetPoint("TOPLEFT", m, "TOPLEFT", 0, 0)
-	m.Art.psZoom = 1.5
+	m.Art.psZoom = MAP_ZOOM
 	m.Art.psFocusY = MAP_H / 2
 	m.Art.Fade:Hide()
 	m.Art.Rule:Hide()
@@ -1267,8 +1376,10 @@ local function routeMap(p)
 	m.Vig2:SetPoint("TOPLEFT", m.Vig1, "TOPRIGHT", 0, 0)
 	m.Vig2:SetPoint("BOTTOMLEFT", m.Vig1, "BOTTOMRIGHT", 0, 0)
 	m.Vig2:SetWidth(floor(CW * 0.22))
-	m.Under = solid(d, "ARTWORK", 0)
-	m.Line = solid(d, "ARTWORK", 1)
+	-- The walks, drawn as the route line's Line look (the setup page's card):
+	-- the chosen style's over a soft shadow, the other two faint under it.
+	m.Shadows, m.Marks, m.Faint = {}, {}, {}
+	m.psOnValue = function(self, v) drawTrail(self, v) end
 	m.Start = W.Tex(d, "OVERLAY", "circle", nil, 0)
 	m.Start:SetSize(9, 9)
 	m.StartHole = W.Tex(d, "OVERLAY", "circle", nil, 1)
@@ -1291,9 +1402,7 @@ local function routeMap(p)
 		local s1, s2, s3 = Theme.Color("scrim")
 		hgrad(self.Vig1, s1, s2, s3, 0.85, s1, s2, s3, 0.35)
 		hgrad(self.Vig2, s1, s2, s3, 0.35, s1, s2, s3, 0)
-		local sr, sg, sb = Theme.Color("shade")
-		self.Under:SetVertexColor(sr, sg, sb, 0.85)
-		self.Line:SetVertexColor(Theme.Accent())
+		drawTrail(self, self.psShare or 1)
 		self.Start:SetVertexColor(Theme.Color("text"))
 		self.StartHole:SetVertexColor(Theme.Color("sidebar"))
 		self.End:SetVertexColor(Theme.Color("onAccent"))
@@ -1303,61 +1412,96 @@ local function routeMap(p)
 	return m
 end
 
--- Where the walk shows when the band stands in for the painting: its shape
--- kept, fitted into the map's right part.
-local function fitWalk(walk)
-	local x0, y0, x1, y1 = walk[1], walk[2], walk[3], walk[4]
-	local dx, dy = (x1 - x0) * 1.5, y1 - y0 -- a zone map is about 3:2
-	local len = max(1, sqrt(dx * dx + dy * dy))
-	local want = min(CW * 0.4, MAP_H * 0.75 * len / max(1, math.abs(dy)))
-	local k = min(want / len, CW * 0.4 / max(1, math.abs(dx)), MAP_H * 0.7 / max(1, math.abs(dy)))
+-- Where the walks show when the band stands in for the painting: their shape
+-- kept, fitted into the map's right part. -> scale, x, y: a map percent's px
+-- and where 0,0 lands.
+local function fitWalks(e)
+	local x0, y0, x1, y1 = walkBounds(e)
+	local dx, dy = max(1, (x1 - x0) * 1.5), max(1, y1 - y0) -- a zone map is about 3:2
+	local k = min(CW * 0.4 / dx, MAP_H * 0.7 / dy)
 	local cx, cy = CW * 0.7, MAP_H * 0.5
-	return cx - dx * k / 2, cy - dy * k / 2, cx + dx * k / 2, cy + dy * k / 2
+	return k * 1.5, k, cx - (x0 + x1) / 2 * k * 1.5, cy - (y0 + y1) / 2 * k
 end
 
 local function paintMap(m, id, g)
-	local walk = g and firstWalk(g)
+	local z, e = styleWalks(g)
 	local painted = false
-	if g then
-		local fx, fy
-		if walk then
-			fx, fy = (walk[1] + walk[3]) / 2, (walk[2] + walk[4]) / 2
-		else
-			local E = ns.Engine
-			if E and E.GuideFocus then fx, fy = E.GuideFocus(id) end
-		end
-		painted = UI.ZoneArt.Paint(m.Art, g.zone, fx, fy, 3) and true or false
-		-- The walk's middle a little right of centre, clear of the readout.
+	m.Art.psZoom = MAP_ZOOM
+	if e then
+		local x0, y0, x1, y1 = walkBounds(e)
+		local fx, fy = (x0 + x1) / 2, (y0 + y1) / 2
+		painted = UI.ZoneArt.Paint(m.Art, z, fx, fy, 3) and true or false
 		local cv = painted and m.Art.psCanvas
-		if cv and walk and fx then
-			painted = UI.ZoneArt.Paint(m.Art, g.zone, fx - (CW * 0.15) / cv[3] * 100, fy, 3) and true or false
+		if cv then
+			-- Zoomed in so the walks fill the map's right half, then their
+			-- middle a little right of centre, clear of the readout.
+			local k = min(CW * WALKS_W / max(1, (x1 - x0) * cv[3] / 100), MAP_H * WALKS_H / max(1, (y1 - y0) * cv[4] / 100))
+			m.Art.psZoom = min(MAP_ZOOM_MAX, max(MAP_ZOOM, MAP_ZOOM * k))
+			painted = UI.ZoneArt.Paint(m.Art, z, fx, fy, 3) and true or false
+			cv = painted and m.Art.psCanvas
+			if cv then
+				painted = UI.ZoneArt.Paint(m.Art, z, fx - (CW * 0.18) / cv[3] * 100, fy, 3) and true or false
+			end
 		end
+	elseif g then
+		local E = ns.Engine
+		local fx, fy
+		if E and E.GuideFocus then fx, fy = E.GuideFocus(id) end
+		UI.ZoneArt.Paint(m.Art, g.zone, fx, fy, 3)
 	else
 		UI.ZoneArt.Paint(m.Art, nil, nil, nil, 3)
 	end
-	local ax, ay, bx, by
 	local cv = painted and m.Art.psCanvas
-	if walk and cv then
-		ax, ay = cv[1] + walk[1] / 100 * cv[3], cv[2] + walk[2] / 100 * cv[4]
-		bx, by = cv[1] + walk[3] / 100 * cv[3], cv[2] + walk[4] / 100 * cv[4]
-	elseif walk then
-		ax, ay, bx, by = fitWalk(walk)
-	else
-		-- No walk to show: a neutral line, the shape of a walk.
-		ax, ay, bx, by = CW * 0.56, MAP_H * 0.85, CW * 0.91, MAP_H * 0.27
+	local sx, sy, ox, oy
+	if cv then
+		sx, sy, ox, oy = cv[3] / 100, cv[4] / 100, cv[1], cv[2]
+	elseif e then
+		sx, sy, ox, oy = fitWalks(e)
 	end
-	segment(m.Under, m.Draw, ax, ay, bx, by, 5)
-	segment(m.Line, m.Draw, ax, ay, bx, by, 2)
+	-- Each style's walk in px on the map, and its length.
+	m.psPts, m.psLen, m.psWalks, m.psZone = {}, {}, e, z
+	for _, s in ipairs(ROUTE_STYLES) do
+		local w, pts, len = e and e[s], {}, 0
+		if w then
+			for i = 1, #w, 2 do
+				local n = #pts
+				pts[n + 1], pts[n + 2] = ox + w[i] * sx, oy + w[i + 1] * sy
+				if n > 0 then len = len + sqrt((pts[n + 1] - pts[n - 1]) ^ 2 + (pts[n + 2] - pts[n]) ^ 2) end
+			end
+		else
+			-- No walks to show: a neutral line, the shape of a walk.
+			pts = { CW * 0.56, MAP_H * 0.85, CW * 0.91, MAP_H * 0.27 }
+			len = sqrt((pts[3] - pts[1]) ^ 2 + (pts[4] - pts[2]) ^ 2)
+		end
+		m.psPts[s], m.psLen[s] = pts, len
+	end
+	local pts = m.psPts.balanced
 	m.Start:ClearAllPoints()
-	m.Start:SetPoint("CENTER", m.Draw, "TOPLEFT", ax, -ay)
+	m.Start:SetPoint("CENTER", m.Draw, "TOPLEFT", pts[1], -pts[2])
 	m.End:ClearAllPoints()
-	m.End:SetPoint("CENTER", m.Draw, "TOPLEFT", bx, -by)
-	m.Place:SetShown(walk ~= nil)
-	m.Note:SetShown(walk ~= nil)
-	if walk then
-		m.Place:SetText(colored("place", walk[5]))
-		m.Note:SetText((L["The first walk of %s"]):format(g.title))
+	m.End:SetPoint("CENTER", m.Draw, "TOPLEFT", pts[#pts - 1], -pts[#pts])
+	m.psStyle = routeStyle()
+	Anim.Stop(m, "value")
+	drawTrail(m, 1)
+	m.Place:SetShown(e ~= nil)
+	m.Note:SetShown(e ~= nil)
+	if e then
+		local C = ns.Compat
+		m.Place:SetText(colored("place", C and C.GetAreaName and C.GetAreaName(e.area) or e.place))
+		noteWalk(m)
 	end
+end
+
+-- The chosen style's walk draws itself in again, as the route line does for a
+-- new goal (Maps/RouteLines.lua's draw-in); under reduced motion it is whole
+-- at once.
+local function redrawRoute(m)
+	if not (m and m.psPts) then return end
+	local s = routeStyle()
+	if s == m.psStyle then return end
+	m.psStyle = s
+	if m.psWalks then noteWalk(m) end
+	Anim.To(m, "value", 0, 1, DRAW_IN, "out")
 end
 
 PAGES[#PAGES + 1] = {
@@ -1367,6 +1511,7 @@ PAGES[#PAGES + 1] = {
 		compactHero(P.Hero, L["Route style"], L["How the arrow walks you. Change it any time in Options."])
 		local p = P.Body
 		p.Map = routeMap(p)
+		F.RouteMap = p.Map
 		F.Styles = {}
 		for i, st in ipairs(STYLES) do F.Styles[i] = styleRow(p, st) end
 		p.Foot = para(p, "note", "textMuted", CW, 3)
@@ -2016,6 +2161,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.autoTurnin" and F and F.AutoQuest then F.AutoQuest:Refresh() end
 	if (path == "nav.routeStyle" or path == "nav" or path == "") and F and F.Styles then
 		for _, c in ipairs(F.Styles) do paintStyle(c) end
+		redrawRoute(F.RouteMap)
 	end
 end)
 Theme.OnChanged(function()

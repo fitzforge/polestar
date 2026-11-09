@@ -25,6 +25,7 @@ const usage = `usage: node tools/polestar.js nav build [--continents 0,1] [--for
        node tools/polestar.js nav path <map> <x>,<y> <map> <x>,<y> [--class C] [--level N] [--frame era|forever] [--json] [--dir <dir>]
        node tools/polestar.js nav aids [--out <file>] [--lua <file>] [--report] [--continents 0,1] [--workers N] [--reference <file>] [--dir <dir>]
        node tools/polestar.js nav eval [--nav <Polestar_Nav dir>] [--baseline <dir or eval .json>] [--routes <file>] [--sweep] [--style fastest|balanced|roads] [--out <file.json>]
+       node tools/polestar.js nav welcome [--nav <Polestar_Nav dir>] [--out <file>]
        node tools/polestar.js nav prepare [--dir <grid dir>] [--continents 0,1,2991] [--workers N]
 
 build   the navigation grid of every continent map-frames.json names (or
@@ -78,6 +79,10 @@ prepare what the node router (tools/lib/nav/router.js) routes on beside a grid
         faction and the zone mix, into <dir>/walk/; what is there is kept.
         The sim's walks are routed by \`forge walks walks\` once this is done.
         A heavy job (~28 min and 3.7 GB with --workers 6).
+welcome the welcome's Route style map: per start zone, the walking router's
+        (--nav, default addon/Polestar_Nav) walk in each route style between
+        two places of its first guide, into addon/Polestar/UI/
+        WelcomeRoutes.lua (--out another file). Needs data/forever.
 
 Retired for Forge (docs/forge/nav.md): pack (forge nav pack), check (forge
 nav check), layers (forge nav layers roads|hubs).`;
@@ -391,7 +396,109 @@ async function prepareCmd(argv) {
 	return 0;
 }
 
-const SUBCOMMANDS = { build, path: route, aids, eval: evalCmd, prepare: prepareCmd };
+// The welcome's Route style map (addon/Polestar/UI/Welcome.lua): per start zone, two places of its first guide
+// between which Fastest, Balanced and Roads walk visibly apart (found with the walking router over the guide's
+// located goals; the guide's own first walk is too short for the styles to part in most zones). `to` is a
+// named place (its AreaTable id, which the client names in its language; `place` the English kept for none);
+// both ends in the zone map's percent, the live frame. default: the zone shown when the suggested guide's has none.
+const WELCOME_WALKS = {
+	default: 1426,
+	zones: [
+		{ map: 1426, zone: 'Dun Morogh', profile: 'Alliance', from: [76.91, 59.95], to: [42.57, 54.68], area: 136, place: 'Grizzled Den' },
+		{ map: 1429, zone: 'Elwynn Forest', profile: 'Alliance', from: [69.66, 79.25], to: [39.5, 82.4], area: 57, place: 'Fargodeep Mine' },
+		{ map: 1438, zone: 'Teldrassil', profile: 'Alliance', from: [68.27, 52.18], to: [54.59, 52.12], area: 258, place: 'Fel Rock' },
+		{ map: 1411, zone: 'Durotar', profile: 'Horde', from: [57.79, 53.79], to: [42.4, 68.6], area: 364, place: 'The Den' },
+		{ map: 1412, zone: 'Mulgore', profile: 'Horde', from: [33.5, 46.82], to: [61.19, 49.31], area: 360, place: 'The Venture Co. Mine' },
+		{ map: 1420, zone: 'Tirisfal Glades', profile: 'Horde', from: [45.79, 29.39], to: [60.6, 52], area: 159, place: 'Brill' },
+	],
+};
+const WELCOME_STYLES = ['fastest', 'balanced', 'roads'];
+const WELCOME_OUT = path.join(ROOT, 'addon', 'Polestar', 'UI', 'WelcomeRoutes.lua');
+
+// A walk thinned to the points that turn it (Douglas-Peucker, `tol` map percent).
+function thin(pts, tol) {
+	if (pts.length < 3) return pts;
+	const keep = new Array(pts.length).fill(false);
+	keep[0] = keep[pts.length - 1] = true;
+	const stack = [[0, pts.length - 1]];
+	while (stack.length) {
+		const [i, j] = stack.pop();
+		const [ax, ay] = pts[i];
+		const [bx, by] = pts[j];
+		const dx = bx - ax;
+		const dy = by - ay;
+		const len = Math.hypot(dx, dy) || 1;
+		let far = -1;
+		let at = -1;
+		for (let k = i + 1; k < j; k++) {
+			const d = Math.abs((pts[k][0] - ax) * dy - (pts[k][1] - ay) * dx) / len;
+			if (d > far) [far, at] = [d, k];
+		}
+		if (far > tol) {
+			keep[at] = true;
+			stack.push([i, at], [at, j]);
+		}
+	}
+	return pts.filter((_, k) => keep[k]);
+}
+
+// The walks routed by the addon's walking router (addon/Polestar_Nav, run standalone as `nav eval` runs it), each
+// style priced as the arrow prices it (Routing/Costs.lua), into UI/WelcomeRoutes.lua.
+async function welcomeCmd(argv) {
+	const { opts: o, positional, error } = parseArgs(argv, { options: ['--nav', '--out'] });
+	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
+	const navDir = o.nav ? path.resolve(o.nav) : NAV_ADDON;
+	const out = o.out ? path.resolve(o.out) : WELCOME_OUT;
+	const { runRoutes, resolveRoutes } = require('../lib/nav/eval/run');
+	const { Geo } = require('../lib/planner/geo');
+	const { header } = require('../lib/generated');
+	const geo = new Geo(readJson(path.join(DATA, 'map-frames.json')), readJson(path.join(DATA, 'zones.json')));
+	const ends = WELCOME_WALKS.zones.map((w) => ({ id: String(w.map), profile: w.profile, from: { uiMap: w.map, x: w.from[0], y: w.from[1] }, to: { uiMap: w.map, x: w.to[0], y: w.to[1] } }));
+	const routes = resolveRoutes(ends, geo);
+	const walks = {};
+	for (const style of WELCOME_STYLES) {
+		runRoutes({ navDir, routes, style }).forEach((r, i) => {
+			const w = WELCOME_WALKS.zones[i];
+			if (!r.ok) throw Object.assign(new Error(`${w.zone}: no ${style} walk (${r.reason})`), { exit: 1 });
+			const pts = r.pts.map(([x, y]) => {
+				const m = geo.toMap(w.map, routes[i].map, x, y, 'l');
+				return [m.x, m.y];
+			});
+			// The walk starts and ends on the places themselves, as the map's marks do.
+			pts[0] = w.from;
+			pts[pts.length - 1] = w.to;
+			(walks[w.map] ??= {})[style] = { yards: Math.round(r.yards), pts: thin(pts, 0.15) };
+		});
+	}
+	const num = (v) => String(+v.toFixed(2));
+	const lines = [
+		header('lua', 'nav welcome', 'the walking router (addon/Polestar_Nav) and data/forever/map-frames.json'),
+		"-- The welcome's Route style map (UI/Welcome.lua): per start zone, the walk each route style takes between two",
+		'-- places of its first guide, as the arrow routes it: [uiMapID] = { zone, place, area, <style> = { yards = n,',
+		'-- x1, y1, x2, y2, ... } } (zone map percent; area: the place\'s AreaTable id). default: the zone shown',
+		"-- when the suggested guide's zone has none.",
+		'',
+		'local _, ns = ...',
+		'',
+		'ns.WelcomeRoutes = {',
+		`\tdefault = ${WELCOME_WALKS.default},`,
+	];
+	for (const w of WELCOME_WALKS.zones) {
+		lines.push(`\t[${w.map}] = { zone = ${JSON.stringify(w.zone)}, place = ${JSON.stringify(w.place)}, area = ${w.area},`);
+		for (const style of WELCOME_STYLES) {
+			const s = walks[w.map][style];
+			lines.push(`\t\t${style} = { yards = ${s.yards}, ${s.pts.map(([x, y]) => `${num(x)}, ${num(y)}`).join(', ')} },`);
+		}
+		lines.push('\t},');
+	}
+	lines.push('}', '');
+	fs.writeFileSync(out, lines.join('\n'));
+	for (const w of WELCOME_WALKS.zones) console.log(`${w.zone}: ${WELCOME_STYLES.map((s) => `${s} ${walks[w.map][s].yards} yd (${walks[w.map][s].pts.length} points)`).join(', ')}`);
+	console.log(`wrote ${path.relative(process.cwd(), out)}`);
+	return 0;
+}
+
+const SUBCOMMANDS = { build, path: route, aids, eval: evalCmd, prepare: prepareCmd, welcome: welcomeCmd };
 
 // Subcommands retired for Forge (docs/forge/nav.md); each prints its replacement.
 const RETIRED = {
