@@ -31,7 +31,6 @@ step To Grom'gol
 
 step Grom'gol Base Camp
   turnin 2932                         -- Nimboya
-  accept 589                          -- The Bubbling Cauldron beside Kin'weelay
 
 step Fly to Booty Bay
   zone Stranglethorn Vale
@@ -61,8 +60,8 @@ step Booty Bay
 step Monogrammed Sash
   when group 8552
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Monogrammed Sash needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 3985 x1 optional @23.3,72.1 map 1434
-  accept 8552 optional
+  collect 3985 x1 @23.3,72.1 map 1434
+  accept 8552
 
 step Captain Hecklebury Smotts
   when group 8552
@@ -81,12 +80,10 @@ step Princess Poobah
   when onquest 594
   turnin 594
 
-step Ironjaw Basilisks
-  tip Follow the road north out of Booty Bay; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to Grom'gol. Their shards drop often.
-  collect 3911 quest 589              -- Below ground
-
-step Back to Grom'gol
-  turnin 589                          -- Kin'weelay
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
 
 step Back to Grom'gol
   when group 591
@@ -163,8 +160,8 @@ step Undamaged Hippogryph Feathers
   collect 10450 quest 3381 optional
 
 step Sanath Lim-yo
-  when onquest 3381
-  turnin 3381 optional
+  when complete 3381
+  turnin 3381
 
 # ---------------------------------------------------------------- Kim'jael
 

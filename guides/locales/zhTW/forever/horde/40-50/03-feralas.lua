@@ -10,6 +10,10 @@ return {
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
+	-- Step 2: Apothecary Zinge
+	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+
 	-- Step 3: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
 	["{npc:7825}, the {object:36126}"] = "{npc:7825}，{object:36126}",
@@ -33,61 +37,73 @@ return {
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
-	-- Step 7: A Soggy Scroll
+	-- Step 7: Stonard
+	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
+	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	-- {npc:5591} Dar
+	["{npc:5591}, inside"] = "",
+	-- {npc:1443} Fel'zerul
+	["{npc:1443}, on the top floor"] = "",
+
+	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "沿道路向西騎；卷軸在沼澤最西邊的水邊。",
 	-- {object:2555} Musty Scroll · {area:15} Dustwallow Marsh
 	["for the {object:2555} in {area:15}, later in this guide"] = "之後在本指南中用於{area:15}的{object:2555}",
 
-	-- Step 8: Pool of Tears
+	-- Step 9: Sawtooth crocolisks
+	["Sawtooth crocolisks"] = "",
+	-- {area:75} Stonard
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+
+	-- Step 10: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "向東經過{area:75}：阿塔萊的文物在{quest:1424}的水中和岸邊。",
 
-	-- Step 9: Misty Reed Post
+	-- Step 11: Misty Reed Post
 	-- {npc:5592} Tok'Kar
 	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "",
 
-	-- Step 10: The Forbidding Sea: kill these as you meet them
+	-- Step 12: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
 	["{area:2403}: kill these as you meet them"] = "",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
 	["Underwater"] = "",
 
-	-- Step 12: Murlocs of the Misty Reed
+	-- Step 14: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "蘆葦崗哨的魚人",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
 	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "沼澤魚人住在哨站南邊的海灘；沼澤噴墨魚人在哨站東邊的岸邊，沼澤食腐魚人在更西邊、西岸的小屋周圍。",
 	["Below ground"] = "",
 
-	-- Step 14: Stonard
-	-- {npc:1443} Fel'zerul
-	["{npc:1443}, on the top floor"] = "",
+	-- Step 16: Continued Threat
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+
+	-- Step 18: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
 	["for the {npc:5598} in the {zone:1425}, around level 48"] = "之後給{zone:1425}的{npc:5598}，約48級",
-	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
 
-	-- Step 15: To Camp Mojache
+	-- Step 19: To Camp Mojache
 	-- {area:1099} Camp Mojache
 	["To {area:1099}"] = "",
 
-	-- Step 16: Camp Mojache
+	-- Step 20: Camp Mojache
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425} owlbeasts, around level 48"] = "之後給{zone:1425}的梟獸，約48級",
 
-	-- Step 17: Fly to Brackenwall Village
+	-- Step 21: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 18: Brackenwall Village
+	-- Step 22: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "",
 
-	-- Step 20: The Musty Scroll
+	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "",
 	-- {object:2555} Musty Scroll
@@ -97,7 +113,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 21: The Dragonmurk: kill these as you meet them
+	-- Step 25: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "",
 	-- {area:511} Wyrmbog
@@ -105,69 +121,69 @@ return {
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
 
-	-- Step 22: Brackenwall Village
+	-- Step 26: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北騎回蕨牆村。",
 
-	-- Step 23: Onyxia's eggs
+	-- Step 27: Onyxia's eggs
 	["Onyxia's eggs"] = "奧妮克希亞的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奧妮克希亞的蛋在{area:511}東南部的龍穴中，由火鬃守衛看守；砸碎五個。",
 	["Dragon caves"] = "龍穴",
 
-	-- Step 25: Challenge Overlord Mok'Morokk
+	-- Step 29: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
-	-- Step 26: Level 45.41
+	-- Step 30: Level 45.41
 	["Level 45.41"] = "",
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {area:978} Zul'Farrak · {area:1517} Uldaman
 	["If you skipped {quest:1173}, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "",
 
-	-- Step 27: Fly to Camp Mojache
+	-- Step 31: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飛往{area:1099}",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "",
 
-	-- Step 28: Sprite darters and forest walkers
+	-- Step 32: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "小精龍與森林漫遊者",
 	-- {item:9589} Encrusted Minerals
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker · Splintered Logs = {item:9590} Splintered Log
 	["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs."] = "小精龍在營地西邊不遠的樹林上空飛舞，身上帶著{item:9589}；再往西一點的森林漫遊者身上帶著斷裂的原木。",
 
-	-- Step 29: Frayfeather hippogryphs
+	-- Step 33: Frayfeather hippogryphs
 	["Frayfeather hippogryphs"] = "亂羽角鷹獸",
 	["South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments."] = "山谷南邊，亂羽角鷹獸棲息在山坡上；幾乎每一隻都會掉落肌腱和金屬碎片。",
 
-	-- Step 30: Zorbin Fandazzle
+	-- Step 34: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北騎到{area:1108}；{npc:14637}在碼頭上等著。",
 
-	-- Step 31: Rogue Vale screechers
+	-- Step 35: Rogue Vale screechers
 	["Rogue Vale screechers"] = "遊蕩的山谷尖嘯者",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
 	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "",
 
-	-- Step 32: Forgotten Coast: kill these as you meet them
+	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "海元素和巨型海元素在碼頭周圍的海岸邊漂流。先用{item:18904}電擊巨人：縮小後就失去精英的力量。海岸巨人在水中涉行；大地行者和峭壁巨人在更北邊的山丘遊蕩。",
 
-	-- Step 33: Northspring harpies
+	-- Step 37: Northspring harpies
 	["Northspring harpies"] = "北泉鷹身人",
 	["The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time."] = "北泉鷹身人在最西北方的山脊上築巢。她們是48-50級，比你高幾級：北泉喚風者會治療，所以先殺她們，並一次只拉一隻。",
 
-	-- Step 34: Rage Scar yetis
+	-- Step 38: Rage Scar yetis
 	["Rage Scar yetis"] = "狂暴的怒痕雪人",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 
-	-- Step 35: Camp Mojache
+	-- Step 39: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
 

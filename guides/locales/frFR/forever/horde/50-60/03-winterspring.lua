@@ -14,72 +14,70 @@ return {
 	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "",
 
-	-- Step 4: Everlook
-	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} est la ville gobeline à l'est de la vallée.",
-	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
-	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} se promène autour de {area:2255} : cherchez dans le cercle sur la carte",
-	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Les quêtes de Gregor et de Harlo mènent à d'autres zones : gardez-les.",
-	-- {npc:11118} Innkeeper Vizzie
-	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
-	-- {npc:10431} Gregor Greystone
-	["{npc:10431}, inside"] = "{npc:10431}, à l'intérieur",
-
-	-- Step 5: Ice Thistle yetis
-	["Ice Thistle yetis"] = "Yétis Chardon de glace",
-	-- {area:2255} Everlook
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure ; seuls les Matriarches et Patriarches lâchent des cornes, gardez donc celles-ci pour après la remise de quête.",
-
-	-- Step 7: Level 55.04
-	["Level 55.04"] = "Niveau 55.04",
-	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "tuez en boucle : {npc:7460}",
-
-	-- Step 8: Pristine Yeti Horns
-	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
-	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Les Matriarches et Patriarches frappent fort : attirez-les un par un.",
-	["Below ground"] = "Sous terre",
-
-	-- Step 9: Chillwind chimaeras
-	["Chillwind chimaeras"] = "Chimères Frisevent",
-	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Les chimères parcourent les champs de neige au sud et à l'ouest de {area:2255}. Évitez la grotte de {area:2245} : ses draconiens bleus sont élites.",
-
-	-- Step 10: Umi Rumplesnicker
-	-- {area:976} Gadgetzan
-	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "La troisième farce d'Umi vise les gobelins de {area:976} et d'Un'Goro : gardez-la pour plus tard.",
-
-	-- Step 11: Donova Snowden
+	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} campe parmi les bassins fumants des {area:2246}, à l'ouest de la vallée.",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
 	["Linken's letter"] = "La lettre de Linken",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} vient de {npc:7775} en {zone:1444}, plus loin dans ce guide.",
 
-	-- Step 12: Frostfire Hot Springs: kill these as you meet them
+	-- Step 4: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246} : tuez-les au passage",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.",
 	-- {item:12771} Empty Firewater Flask
-	["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, un butin rare des furbolgs Tombe-hiver",
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, un butin rare des furbolgs Tombe-hiver",
 
-	-- Step 13: Donova Snowden
+	-- Step 5: Donova Snowden
 	-- {quest:5084} Falling to Corruption · {object:176091} Deadwood Cauldron · {zone:1448} Felwood
 	["{quest:5084} is turned in at the {object:176091} in {zone:1448}, on a later trip."] = "{quest:5084} se rend au {object:176091} en {zone:1448}, lors d'un voyage ultérieur.",
 
-	-- Step 14: Raging Owlbeasts
+	-- Step 6: Raging Owlbeasts
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts"] = "Chouettards enragés ({npc:7451})",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+
+	-- Step 8: Everlook
+	-- {area:2255} Everlook
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Les quêtes de Gregor et de Harlo mènent à d'autres zones : gardez-les.",
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
+	-- {npc:10431} Gregor Greystone
+	["{npc:10431}, inside"] = "{npc:10431}, à l'intérieur",
+
+	-- Step 9: Ice Thistle yetis
+	["Ice Thistle yetis"] = "Yétis Chardon de glace",
+	-- {area:2255} Everlook
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure ; seuls les Matriarches et Patriarches lâchent des cornes, gardez donc celles-ci pour après la remise de quête.",
+
+	-- Step 11: Level 55.04
+	["Level 55.04"] = "Niveau 55.04",
+	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	-- {npc:7460} Ice Thistle Patriarch
+	["grind on {npc:7460}"] = "tuez en boucle : {npc:7460}",
+
+	-- Step 12: Pristine Yeti Horns
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
+	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Les Matriarches et Patriarches frappent fort : attirez-les un par un.",
+	["Below ground"] = "Sous terre",
+
+	-- Step 13: Chillwind chimaeras
+	["Chillwind chimaeras"] = "Chimères Frisevent",
+	-- {area:2255} Everlook · {area:2245} Mazthoril
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Les chimères parcourent les champs de neige au sud et à l'ouest de {area:2255}. Évitez la grotte de {area:2245} : ses draconiens bleus sont élites.",
+
+	-- Step 14: Umi Rumplesnicker
+	-- {area:976} Gadgetzan
+	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "La troisième farce d'Umi vise les gobelins de {area:976} et d'Un'Goro : gardez-la pour plus tard.",
 
 	-- Step 15: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
@@ -151,12 +149,16 @@ return {
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Chevauchez vers l'ouest sur la route en passant le {area:2251} ; les Chouettards enragés ({npc:7451}) parcourent les collines au nord.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56."] = "Montez ici jusqu'au niveau 55.04 avant de rendre les quêtes ({area:2255}) : elles vous font passer au niveau 56.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "tuez des {npc:7440} au {area:2244}, {zone:1452}",
+	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} est la ville gobeline à l'est de la vallée.",
+	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, un butin rare des furbolgs Tombe-hiver",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, à côté de lui",
 	-- ["{npc:11556} stands by the {area:618} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} se tient à la sortie du tunnel de {area:1769} côté {area:618}, au nord des sources chaudes.",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} se tient à la sortie vers {zone:1452} du tunnel du {area:1769}, au nord des sources chaudes.",
+	-- ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} se promène autour de {area:2255} : cherchez dans le cercle sur la carte",
 	-- ["{npc:7440} on the way"] = "{npc:7440} en chemin",
 	-- ["{npc:7450} on the way"] = "{npc:7450} en chemin",
 	-- ["{npc:7451} on the way"] = "{npc:7451} en chemin",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} achète la {item:11040} cultivée à partir de votre {quest:3761}.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}.\nCareful: Gorishi Workers and Stingers cast {spell:8137}, and Hive Guards cast {spell:14120}. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd."] = "{npc:9087} achète le {item:11040} cultivé à partir de votre {quest:3761}.\nAttention : les Ouvriers et Dards Gorishi lancent {spell:8137}, et les Gardes de la ruche lancent {spell:14120}. Quand un Ouvrier tombe à 45 % de vie, il a 50 % de chances d'appeler à l'aide les monstres à moins de 25 m.",
+	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} campe parmi les bassins fumants des {area:2246}, à l'ouest de la vallée.",
 }

@@ -5165,7 +5165,9 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: flow re-order: Corin\'s 
 	const nathanos = at(list, 'turnin 6133', is('turnin', 6133));
 	assert.ok(rot < nathanos, 'Corin\'s Crossing before Nathanos');
 	assert.equal(list[at(list, 'turnin 6022', is('turnin', 6022))].s, list[nathanos].s, 'To Kill With Purpose on the same visit');
-	assert.ok(at(list, 'turnin 6029', is('turnin', 6029)) < at(list, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
+	// Since 0.3.7 the Bulwark and Felstone Farm close 50-60/04 (fresh start: 05 opens at Light's Hope Chapel's flight).
+	const az = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(at(az, 'turnin 6029', is('turnin', 6029)) < at(az, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
 	assert.ok(!goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 6029)(goal)), 'not carried to the Silithus guide');
 });
 
@@ -6031,7 +6033,11 @@ test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first
 test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris, no along list, the flight path at Bloodvenom Post', { skip }, () => {
 	const file = 'forever/horde/50-60/02-felwood.guide';
 	const list = goals(file);
-	assert.ok(at(list, 'turnin 5152', is('turnin', 5152)) < at(list, 'accept 4984', is('accept', 4984)), 'Marlene before Mulgris');
+	// Since 0.3.7 Marlene and Chromie close 50-60/01 (fresh start, Horde 40-60 flow pass): 02 opens at Mulgris.
+	const ungoro = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.ok(ungoro.some(({ goal }) => is('turnin', 5152)(goal)), 'Marlene at the end of the guide before');
+	assert.ok(!list.some(({ goal }) => is('turnin', 5152)(goal)), 'not again here');
+	assert.equal(list[0].goal.quest, 4984, 'Mulgris first');
 	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 	const fp = list[at(list, 'getfp Bloodvenom Post', (g) => g.t === 'getfp' && g.location === 'Bloodvenom Post')];
 	assert.equal(fp.s, list[at(list, 'accept 6162', is('accept', 6162))].s, 'with the Bloodvenom Post quests');
@@ -6068,7 +6074,9 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: final review: Thunder Bl
 	const ws = goals('forever/horde/50-60/03-winterspring.guide');
 	for (const q of [7820, 7821, 7822]) assert.equal(ws[at(ws, `turnin ${q}`, is('turnin', q))].s, ws[at(ws, `accept ${q}`, is('accept', q))].s, `${q} handed in where it is taken`);
 	assert.ok(!list.some(({ goal }) => goal.quest === 7820), 'no donation stop in this guide');
-	assert.deepEqual([list[0].goal.t, list[0].goal.map], ['goto', 1420], 'a travel line out of the Undercity before the Bulwark');
+	const az = goals('forever/horde/50-60/04-azshara.guide');
+	const bulwark = at(az, 'turnin 6029', is('turnin', 6029));
+	assert.deepEqual([az[bulwark - 1].goal.t, az[bulwark - 1].goal.map], ['goto', 1420], 'a travel line out of the Undercity before the Bulwark (the end of 50-60/04 since 0.3.7)');
 });
 
 // Final route review, Horde 40-60: the flayer stingers were an "along the way" list; the refuge tip was cut at
@@ -6252,9 +6260,60 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	assert.ok(!goals(H('40-50/06-azshara')).some(({ goal }) => goal.quest === 588), 'no Fate of Yenniku stop left in 06');
 	const az = goals(H('40-50/06-azshara'));
 	assert.equal(az[at(az, 'turnin 580', is('turnin', 580))].s, az[at(az, 'turnin 2874', is('turnin', 2874))].s, "Whiskey Slim on the first Booty Bay stop");
+	// Since the fresh-start pass the Marshal's Refuge landing ends 50-60/05 (Valor's Rest and Southwind with it).
+	const epl = goals(H('50-60/05-eastern-plaguelands'));
+	const refuge = epl[at(epl, 'accept 4492', is('accept', 4492))].s;
+	// Beware of Pterrordax (level 50-51 pterrordax) is done on the first Un'Goro stay, where the route kills them for Shizzle.
+	const ug = goals(H('50-60/01-un-goro-crater'));
+	assert.ok(at(ug, 'accept 4501', is('accept', 4501)) < at(ug, 'turnin 4501', is('turnin', 4501)), 'Beware of Pterrordax in 50-60/01');
+	assert.equal(ug[at(ug, 'turnin 4501', is('turnin', 4501))].s, ug[at(ug, 'turnin 4503', is('turnin', 4503))].s, "with Shizzle's scales");
+	for (const n of ['50-60/05-eastern-plaguelands', '50-60/06-silithus']) assert.ok(!goals(H(n)).some(({ goal }) => goal.quest === 4501), `no Beware of Pterrordax in ${n}`);
+	assert.ok(at(epl, 'accept 4492', is('accept', 4492)) < at(epl, 'turnin 1124', is('turnin', 1124)), 'Lost! too');
+	assert.equal(epl[at(epl, 'turnin 3914', is('turnin', 3914))].s, refuge, "Linken's Sword to Linken on the same landing");
+	// The rest of the flow pass (0.3.7).
+	assert.equal(stv[at(stv, 'accept 589', is('accept', 589))].s, stv[at(stv, 'turnin 588', is('turnin', 588))].s, "The Singing Crystals with The Fate of Yenniku");
+	before('40-50/01-stranglethorn-vale', ['turnin', 589], ['turnin', 196], 'the basilisks on the ride north from Booty Bay, handed in at Grom\'gol');
+	assert.ok(!az.some(({ goal }) => goal.quest === 589), 'no Singing Crystals left in 06');
+	before('40-50/04-tanaris', ['accept', 5863], ['turnin', 992], 'Gadgetzan on landing, before Sandsorrow Watch');
+	before('40-50/04-tanaris', ['turnin', 3442], ['turnin', 7729], 'Velarok on the way back north to Thorium Point');
+	before('50-60/03-winterspring', ['turnin', 5082], ['accept', 3783], 'Winterspring west to east');
+	assert.ok(!goals(H('50-60/03-winterspring')).some(({ goal }) => goal.quest === 6603), "no Everlook pointer to Donova");
 	const sil = goals(H('50-60/06-silithus'));
-	assert.ok(at(sil, 'accept 4501', is('accept', 4501)) < at(sil, 'turnin 1124', is('turnin', 1124)), "the sign and Spraggle when the flight lands at Marshal's Refuge");
-	assert.ok(at(sil, 'accept 4492', is('accept', 4492)) < at(sil, 'turnin 1124', is('turnin', 1124)), 'Lost! too');
+	const barrel = at(sil, 'turnin 5902', is('turnin', 5902));
+	assert.ok(at(sil, 'kill 11613', (x) => x.t === 'kill' && x.npc === 11613) < barrel && barrel < at(sil, 'turnin 6023', is('turnin', 6023)), 'the termite barrel at Northridge with Radley');
+	assert.equal(sil[at(sil, 'turnin 6390', is('turnin', 6390))].s, sil[at(sil, 'turnin 5230', is('turnin', 5230))].s, 'Mickey on the next Bulwark stop');
+	const mound = at(sil, 'turnin 6024', is('turnin', 6024));
+	assert.ok(!sil.slice(at(sil, 'turnin 5845', is('turnin', 5845)), mound).some(({ goal }) => goal.t === 'goto'), "straight from Tirion to Hameya's mound");
+	// Encrypted Twilight Texts: one source says they drop without the quest, the item data marks them quest items, and no
+	// recording settles it: the guide asks for them only once Secret Communication is in the log (safe either way).
+	const accept8318 = at(sil, 'accept 8318', is('accept', 8318));
+	for (const [i, e] of sil.entries()) {
+		if (e.goal.t === 'collect' && e.goal.item === 20404) assert.ok(i > accept8318 && (e.goal.quest || (e.step.when || []).length), `Encrypted Twilight Texts collected after ${8318} and gated (step ${e.s})`);
+	}
+	assert.ok(at(sil, 'turnin 8318', is('turnin', 8318)) > accept8318, 'Bor Wildmane hand-in after the accept');
+	assert.ok(!compiled(H('40-50/04-tanaris')).steps.some((step) => /Kalaran/.test(step.title)), "NPC 8479 is Velarok Windblade in Forever's data");
+});
+
+// --- Every guide stands on its own (Fitz, 2026-11-08), Horde 40-60 (0.3.7): a player loading a guide at its level
+// with no quest from our earlier guides meets no blocked accept in its first steps. The fixes: a later stop at the
+// same giver, a cheap feeder at the hub the guide opens in, or the guide boundary moved to a self-contained hub.
+test('Horde 40-60 fresh start: the guides open at hubs that stand on their own', { skip }, () => {
+	const H = (g) => `forever/horde/${g}.guide`;
+	const g = (n) => goals(H(n));
+	const stv = g('40-50/01-stranglethorn-vale');
+	assert.equal(stv[at(stv, 'accept 598', is('accept', 598))].s, stv[at(stv, 'turnin 584', is('turnin', 584))].s, 'Split Bone Necklace on the later Grom\'gol stop');
+	assert.equal(stv[at(stv, 'accept 209', is('accept', 209))].s, stv[at(stv, 'turnin 600', is('turnin', 600))].s, 'Skullsplitter Tusks on the second Booty Bay stop');
+	const fer = g('40-50/03-feralas');
+	assert.ok(at(fer, 'accept 698', is('accept', 698)) < at(fer, 'turnin 698', is('turnin', 698)), "Dar's quests on the Stonard landing");
+	const az = g('50-60/04-azshara');
+	assert.ok(at(az, 'accept 3504', is('accept', 3504)) < at(az, 'turnin 3504', is('turnin', 3504)), 'Belgrom in Orgrimmar before Valormok');
+	assert.equal(az[az.length - 1].goal.quest, 5051, 'the Bulwark and Felstone Farm close the Azshara guide');
+	const epl = g('50-60/05-eastern-plaguelands');
+	assert.ok(epl.filter(({ s }) => s === epl[0].s).some(({ goal }) => goal.t === 'fly'), "the Eastern Plaguelands guide opens with the flight to Light's Hope Chapel");
+	assert.equal(g('50-60/06-silithus').find(({ goal }) => goal.t === 'accept').goal.quest, 8277, 'Silithus opens at Cenarion Hold');
+	const fel = g('50-60/02-felwood');
+	assert.ok(!fel.some(({ goal }) => [5402, 5403].includes(goal.quest)), "no Alliance Scourgestone turn-ins at Chillwind Camp");
+	for (const q of [5202, 5203, 5204, 5385]) assert.ok(fel.filter(({ goal }) => goal.quest === q).every(({ step }) => (step.when || []).length), `${q}: only for players with the key`);
 });
 
 test('Horde quest volume: every added quest has its include record in the route fixes', () => {
@@ -6969,9 +7028,10 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	const top = ung.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
 	assert.ok(top >= 0 && top < at(ung, 'accept 4061', is('accept', 4061)), "Un'Goro's top-up reaches 52 before The Rise of the Machines");
 	const sil = g('50-60/06-silithus');
-	assert.equal(step(sil, 'accept', 8318), step(sil, 'turnin', 8318), 'Secret Communication taken and handed in on one stop');
 	const t58 = sil.findIndex(({ goal }) => goal.t === 'level' && goal.level === 58);
 	assert.ok(t58 >= 0 && t58 < at(sil, 'accept 8304', is('accept', 8304)), 'a top-up to 58 before Dearest Natalia');
+	// Since 0.3.7 the texts are gathered once Secret Communication (minimum 57) is in the log: the accept comes after the top-up.
+	assert.ok(t58 < at(sil, 'accept 8318', is('accept', 8318)), 'Secret Communication taken at 58');
 });
 
 // --- Alliance quest volume, flow follow-up (2026-11-08): the stops the added quests cost are folded
@@ -7491,7 +7551,7 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the swamp t
 // step before ends ("leave the Undercity"). Marvon's step had the same direction twice.
 test('Horde 40-60 final review: tips point the way the route goes', { skip }, () => {
 	const H = (n) => `forever/horde/${n}.guide`;
-	const basilisks = stepTips(H('40-50/06-azshara'), /collect 3911 quest 589/).join(' ');
+	const basilisks = stepTips(H('40-50/01-stranglethorn-vale'), /collect 3911 quest 589/).join(' ');
 	assert.match(basilisks, /north out of Booty Bay/);
 	assert.doesNotMatch(basilisks, /road south/);
 	assert.equal(stepTips(H('40-50/06-azshara'), /turnin 3380/).length, 1, "one tip at Marvon's camp");

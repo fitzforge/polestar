@@ -12,13 +12,19 @@ return {
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 4: Sandsorrow Watch
+	-- Step 3: Gadgetzan
+	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	-- {npc:7876} Tran'rek
+	["{npc:7876}, beside the wind rider master"] = "윈드라이더 조련사 옆의 {npc:7876}",
+
+	-- Step 5: Sandsorrow Watch
 	-- {item:8584} Untapped Dowsing Widget
 	["West of Gadgetzan, use the {item:8584} beside the water hole in the troll camp."] = "가젯잔 서쪽, 트롤 야영지의 물웅덩이 옆에서 {item:8584}을(를) 사용하세요.",
 
-	-- Step 6: Gadgetzan
-	-- {npc:7876} Tran'rek
-	["{npc:7876}, beside the wind rider master"] = "윈드라이더 조련사 옆의 {npc:7876}",
+	-- Step 6: Senior Surveyor Fizzledowser
+	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
 
 	-- Step 7: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
@@ -54,34 +60,44 @@ return {
 	-- {spell:686} Shadow Bolt
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
 
+	-- Step 14: Gadgetzan
+	["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "",
+
 	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}은(는) 48레벨쯤 {zone:1425}에서 자랍니다",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 17: Scrimshank's gear
+	-- Step 16: Tanaris Field Sampling
+	-- {area:976} Gadgetzan
+	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
+	["Just south of {area:976} the Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "",
+
+	-- Step 18: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 18: OOX-17/TN
+	-- Step 19: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
 
-	-- Step 19: Gadgetzan
+	-- Step 20: Gadgetzan
+	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "50레벨쯤 {zone:1454}의 {npc:7010}에게",
 
-	-- Step 20: Boat to Powderfuse Port
+	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 21: Into Searing Gorge
+	-- Step 22: Into Searing Gorge
 	-- {area:51} Searing Gorge
 	["Into {area:51}"] = "",
 
-	-- Step 23: The Grimesilt Dig Site
+	-- Step 24: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 	-- {area:16727} Powderfuse Port · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
@@ -90,55 +106,54 @@ return {
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
-	-- Step 25: Thorium Point
+	-- Step 26: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "북서쪽으로 협곡을 가로지르세요. {area:1446}은(는) 북서쪽의 비계를 두른 야영지입니다.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827} 게시판",
 
-	-- Step 26: The Cauldron's slavers and golems
+	-- Step 27: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "",
-	-- {area:1446} Thorium Point
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
 
-	-- Step 27: Kalaran Windblade
-	["Kalaran Windblade"] = "",
-	-- {area:1446} Thorium Point
-	["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "칼라란은 {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
+	-- Step 28: Velarok Windblade
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
 
-	-- Step 30: Searing Gorge: kill these as you meet them
+	-- Step 31: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
 	["{area:51}: kill these as you meet them"] = "",
-	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
+	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "드물게 떨어지는 {item:11818}",
 
-	-- Step 31: Thorium Point
-	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}."] = "",
+	-- Step 33: Thorium Point
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
 
-	-- Step 33: The Steamsmiths' furnaces
+	-- Step 34: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "증기기술자의 용광로",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "검은무쇠단 증기기술자는 용광로 한가운데의 화로에서 일합니다. 절반은 {item:10551}을(를), 열 명 중 한 명은 {item:18959}을(를) 지니고 있습니다. 노예, 노예상인, 감독관도 단검을 지니고 있습니다.",
 
-	-- Step 34: Kalaran Windblade
+	-- Step 35: Velarok Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "그의 다음 요청에는 정예 이교도가 지닌 {item:10552}이(가) 필요합니다. 받지 마세요.",
 
-	-- Step 36: Dark Iron Lookouts
+	-- Step 37: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "검은무쇠단 망꾼은 용광로 남쪽 감시탑 주변 능선에 서 있습니다. 열 명 중 한 명 정도가 {item:18960}을(를) 지니고 있습니다.",
 
-	-- Step 37: The Key to Freedom
+	-- Step 38: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "{item:11818}이(가) 있을 때만: 동쪽 발굴지의 {object:173265}(으)로 돌아가세요.",
 
@@ -154,6 +169,7 @@ return {
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "더 남쪽, 센티파르 벌집 입구에 견습 측량사 스크림섕크의 장비가 있습니다.",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "육중한 전투골렘이 칼라란 아래 용광로를 순찰하며 기름을 떨어뜨리고, 그 사이를 떠다니는 용암 정령과 이글거리는 정령이 심장을 떨어뜨립니다. 검은무쇠단 감독관과 노예상인이 길에서 노예를 부립니다. 노예상인이 {item:11818}을(를) 떨어뜨릴 수 있습니다. 보관하세요.",
+	-- ["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "칼라란은 {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
 	-- ["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}."] = "조난 탐지기가 있을 때만: OOX-17/TN은 스크림섕크의 벌집 남동쪽에 있습니다. 북쪽 {area:977}까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.",
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "북쪽의 {area:1446}(으)로 돌아가세요. 여기 머무르세요. 다음 가이드는 {area:75}행 비행으로 시작합니다.",
 	-- ["Ride south-west to {area:976}."] = "남서쪽의 {area:976}(으)로 가세요.",

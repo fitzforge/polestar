@@ -8166,6 +8166,24 @@
 				"faction": "Horde",
 				"reason": "Final route review (2026-11-08, Ashenvale 21): The Warsong Reports took a walk east of Night Run for the Outrider and a walk from Splintertree back to Kadrak at the Mor'shan Rampart after Thistlefur, about 3.3 km in all, for 1,800 XP. Measured with the calibrated level model: every Horde branch reaches 60 0.27-0.33 hours sooner without it (Ashenvale & Silverpine 27 minutes shorter, 8.5 more minutes of written top-up in Thousand Needles). Replaces the keep record from #278, which pinned how the bundle is opened, not that the quest is taken.",
 				"issue": "-"
+			},
+			{
+				"q": 5402,
+				"faction": "Horde",
+				"reason": "Horde 40-60 fresh start (0.3.7): Argent Officer Pureheart's Scourgestone turn-ins (5402-5404) need his Argent Dawn Commission (5401), which Forever's quest data lists as an Alliance quest (side 1, like 5402-5404), and he stands in the Alliance's Chillwind Camp. The Horde route never takes 5401 (it takes Garush's 5405 at the Bulwark), so a player loading 50-60/02 fresh saw two blocked lines at the camp. The Bulwark's Garush takes the same stones (5407, 5408) on the same guide.",
+				"issue": "-"
+			},
+			{
+				"q": 5403,
+				"faction": "Horde",
+				"reason": "Horde 40-60 fresh start (0.3.7): see 5402.",
+				"issue": "-"
+			},
+			{
+				"q": 6603,
+				"faction": "Horde",
+				"reason": "Horde 40-60 flow pass (0.3.7): Winterspring is played west to east: from the Timbermaw tunnel to Donova at Frostfire Hot Springs first, then Everlook. Trouble in Winterspring! is only Meggi's 580 XP pointer from Everlook to Donova (Threat of the Winterfall needs nothing: the compiled accept has no prerequisite), so it is left out instead of riding east and back west for it.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -11198,7 +11216,7 @@
 					1124
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 flow pass (0.3.7): Beware of Pterrordax and Lost! are taken at Marshal's Refuge when 50-60/06's flight lands there (2-5 yd from the flight master), not on the way back from Silithus; their work stays in Un'Goro on that way back."
+				"why": "Horde 40-60 flow pass (0.3.7): Beware of Pterrordax is taken from the sign beside Spraggle Frock on 50-60/01's first Marshal's Refuge stop and handed in on its turn-in stop: its level 50-51 pterrordax fly over the ground where that guide kills them for Shizzle at 51-52 (it was taken on the Silithus guide's return at 58, where they pay little, and the route walked past the sign twice before)."
 			},
 			{
 				"a": [
@@ -11210,7 +11228,127 @@
 					1124
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 flow pass (0.3.7): see 4501 before 1124."
+				"why": "Horde 40-60 flow pass (0.3.7): Lost! is taken from Spraggle Frock when 50-60/05's flight lands at Marshal's Refuge (2-5 yd from the flight master), not on the way back from Silithus; Ringo and the escort stay in Un'Goro on that way back."
+			},
+			{
+				"a": [
+					"turnin",
+					589
+				],
+				"b": [
+					"turnin",
+					196
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): The Singing Crystals is taken from Kin'weelay with The Fate of Yenniku on 40-50/01's Grom'gol stop (the route stood 4 yd from her and took it on 40-50/06, 900 minutes later), its basilisks are killed on the ride north from Booty Bay to Grom'gol and it is handed in there, before Nesingwary. 40-50/06 made the same ride for it at 49, where the level 43 basilisks pay little."
+			},
+			{
+				"a": [
+					"turnin",
+					584
+				],
+				"b": [
+					"accept",
+					598
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 fresh start (0.3.7): Split Bone Necklace needs Bloody Bone Necklaces from 30-40/03, so a player loading 40-50/01 fresh met it blocked in the first steps. It is taken on the guide's later Grom'gol stop with Kin'weelay's Gurubashi hand-in, before its skulls."
+			},
+			{
+				"a": [
+					"turnin",
+					600
+				],
+				"b": [
+					"accept",
+					209
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 fresh start (0.3.7): Skullsplitter Tusks needs Bloodscalp Ears from 30-40/03; it is taken from Kebok on 40-50/01's second Booty Bay stop, before the Skullsplitter ruins, not on the first."
+			},
+			{
+				"a": [
+					"turnin",
+					5154
+				],
+				"b": [
+					"accept",
+					4984
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Western Plaguelands one way east: Marlene at Sorrow Hill, Chromie in Andorhal, then Mulgris at the Writhing Haunt and Tirion at the eastern border (it went Sorrow Hill, the Writhing Haunt, back west to Andorhal, then east again, and walked through Dalson's Tears on the way). 50-60/01 now ends with Chromie, so 50-60/02 opens at Mulgris with no quest from an earlier guide."
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"turnin",
+					1124
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Linken's Sword is handed to Linken when the flight lands at Marshal's Refuge on the way into Silithus (the route stood 1 yd from him and came back 280 minutes later)."
+			},
+			{
+				"a": [
+					"accept",
+					5863
+				],
+				"b": [
+					"turnin",
+					992
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Gadgetzan's quests (Tran'rek beside the flight master, Andi Lynn, Bilgewhizzle, the inn, Marin) are taken when the flight lands, before the ride west to Sandsorrow Watch, and Fizzledowser is visited on the way back south to Marvon (the route rode past Andi Lynn to Sandsorrow and came back for her)."
+			},
+			{
+				"a": [
+					"turnin",
+					3442
+				],
+				"b": [
+					"turnin",
+					7729
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): The Flawless Flame is handed to Velarok Windblade on the way back north from the Cauldron, before Thorium Point, where the route used to ride past him with it ready."
+			},
+			{
+				"a": [
+					"turnin",
+					5902
+				],
+				"b": [
+					"turnin",
+					6023
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): A Plague Upon Thee's termite barrel is set down in the Northridge mill while the route stands there for Radley and Kirsta (it walked 90 yd past the mill, then came back from Dalson's Tears for it), and its follow-up goes to Mickey on the next Bulwark stop."
+			},
+			{
+				"a": [
+					"turnin",
+					6390
+				],
+				"b": [
+					"task",
+					964
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): see 5902 before 6023."
+			},
+			{
+				"a": [
+					"turnin",
+					5082
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 flow pass (0.3.7): Winterspring west to east: Donova and the Frostfire Hot Springs Winterfall (and the Raging Owlbeasts on the road east) come before Everlook, its yetis and chimaeras and Winterfall Village, which lies beside Everlook's flight master. The route rode Timbermaw -> Everlook -> back west to Donova -> east again (about 4 km more)."
 			}
 		]
 	}

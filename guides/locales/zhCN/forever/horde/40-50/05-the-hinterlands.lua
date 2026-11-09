@@ -38,8 +38,10 @@ return {
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
-	-- {npc:2491} Whiskey Slim
-	["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龟沿着村庄北边的海滩爬行。{npc:2491}的酒瓶也在这些海滩上，但他的任务不在本路线上。钳嘴龟可能掉落OOX-09/HL定位器，但很少见：留着它。",
+	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	-- {object:2068} Pupellyverbos Port
+	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "{item:8704}，稀有掉落",
 
@@ -140,21 +142,35 @@ return {
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "",
 
-	-- Step 33: The bloodmages
+	-- Step 33: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+
+	-- Step 35: Fallen Hero of the Horde
+	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "血法师",
 	-- {area:75} Stonard · {zone:1419} Blasted Lands
 	["Ride west out of {area:75} and south through the canyon into the {zone:1419}; the two bloodmages stand by the road just inside."] = "从{area:75}向西出发，再向南穿过峡谷进入{zone:1419}；两位血法师就站在入口不远处的路旁。",
 
-	-- Step 34: Serpent's Coil: kill these as you meet them
+	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 35: The bloodmages
+	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "向北骑回血法师那里。",
 	["Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them."] = "他们的后续任务又要同样的部件，换取一件增益物品，而且不给经验：别接。",
+
+	-- Step 39: Stonard
+	-- {area:75} Stonard
+	["Ride back north through the canyon to {area:75}."] = "",
+	-- {npc:7643} Bengor · {npc:950} Swamp Talker
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "在道路东边，灰鬃野猪和格朗特在红石蜥蜴旁的山坡上拱土。远离更南边52级的地狱野猪。",
@@ -174,6 +190,7 @@ return {
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "高原精灵在{area:350}周围扎营。烧掉他们营地里的高原精灵报告、高原精灵信件和高原精灵记录。{npc:7780}被关在旅舍里：带他出来，并在路上击退伏击。",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "银鬃捕猎者、野蛮的枭兽和翱翔的锋喙狮鹫共处于神殿与{area:351}之间的山丘上。对你杀死的枭兽使用{item:9618}。锋喙狮鹫还会掉落细长的狮鹫羽毛：留十根给{npc:14738}的第二个口信用。",
 	-- ["The Vilebranch temples"] = "邪枝神殿",
+	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龟沿着村庄北边的海滩爬行。{npc:2491}的酒瓶也在这些海滩上，但他的任务不在本路线上。钳嘴龟可能掉落OOX-09/HL定位器，但很少见：留着它。",
 	-- ["The central hills"] = "中部山丘",
 	-- ["The eastern slopes"] = "东部山坡",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "这五个任务需要的是同样的部件：一趟全部收集齐。在道路西边，{npc:5982}秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共处于山丘上。",

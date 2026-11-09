@@ -14,72 +14,70 @@ return {
 	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} стоит прямо у выхода туннеля ({area:1769}) в край {area:618}, там, где вы выходите.",
 
-	-- Step 4: Everlook
-	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} – гоблинский город в восточной части долины.",
-	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
-	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
-	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Задания Грегора и Харло ведут в другие зоны: сохраните их.",
-	-- {npc:11118} Innkeeper Vizzie
-	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
-	-- {npc:10431} Gregor Greystone
-	["{npc:10431}, inside"] = "",
-
-	-- Step 5: Ice Thistle yetis
-	["Ice Thistle yetis"] = "Йети ледополохов",
-	-- {area:2255} Everlook
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети; рога – только с матриархов и патриархов, оставьте их на после сдачи.",
-
-	-- Step 7: Level 55.04
-	["Level 55.04"] = "",
-	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "",
-
-	-- Step 8: Pristine Yeti Horns
-	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "Безупречные рога йети ({item:12367})",
-	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Матриархи и патриархи бьют сильно: выманивайте по одному.",
-	["Below ground"] = "",
-
-	-- Step 9: Chillwind chimaeras
-	["Chillwind chimaeras"] = "Хладноветрые химеры",
-	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Химеры бродят по снежным полям к югу и западу от места {area:2255}. Держитесь подальше от пещеры ({area:2245}): синие дракониды там – элита.",
-
-	-- Step 10: Umi Rumplesnicker
-	-- {area:976} Gadgetzan
-	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Третья шутка Юми – над гоблинами ({area:976}) и в Ун'Горо: сохраните на потом.",
-
-	-- Step 11: Donova Snowden
+	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} стоит лагерем среди горячих источников ({area:2246}) на западе долины.",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
 	["Linken's letter"] = "Письмо Линкена",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} выдает {npc:7775} ({zone:1444}), позже в этом руководстве.",
 
-	-- Step 12: Frostfire Hot Springs: kill these as you meet them
+	-- Step 4: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.",
 	-- {item:12771} Empty Firewater Flask
-	["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, редкая добыча с фурболгов Зимней Спячки",
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, редкая добыча с фурболгов Зимней Спячки",
 
-	-- Step 13: Donova Snowden
+	-- Step 5: Donova Snowden
 	-- {quest:5084} Falling to Corruption · {object:176091} Deadwood Cauldron · {zone:1448} Felwood
 	["{quest:5084} is turned in at the {object:176091} in {zone:1448}, on a later trip."] = "{quest:5084} сдается здесь: {object:176091} ({zone:1448}) – в следующий раз.",
 
-	-- Step 14: Raging Owlbeasts
+	-- Step 6: Raging Owlbeasts
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts"] = "Бешеные совухи",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+
+	-- Step 8: Everlook
+	-- {area:2255} Everlook
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Задания Грегора и Харло ведут в другие зоны: сохраните их.",
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
+	-- {npc:10431} Gregor Greystone
+	["{npc:10431}, inside"] = "",
+
+	-- Step 9: Ice Thistle yetis
+	["Ice Thistle yetis"] = "Йети ледополохов",
+	-- {area:2255} Everlook
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети; рога – только с матриархов и патриархов, оставьте их на после сдачи.",
+
+	-- Step 11: Level 55.04
+	["Level 55.04"] = "",
+	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	-- {npc:7460} Ice Thistle Patriarch
+	["grind on {npc:7460}"] = "",
+
+	-- Step 12: Pristine Yeti Horns
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Pristine Yeti Horns"] = "Безупречные рога йети ({item:12367})",
+	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Матриархи и патриархи бьют сильно: выманивайте по одному.",
+	["Below ground"] = "",
+
+	-- Step 13: Chillwind chimaeras
+	["Chillwind chimaeras"] = "Хладноветрые химеры",
+	-- {area:2255} Everlook · {area:2245} Mazthoril
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Химеры бродят по снежным полям к югу и западу от места {area:2255}. Держитесь подальше от пещеры ({area:2245}): синие дракониды там – элита.",
+
+	-- Step 14: Umi Rumplesnicker
+	-- {area:976} Gadgetzan
+	["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Третья шутка Юми – над гоблинами ({area:976}) и в Ун'Горо: сохраните на потом.",
 
 	-- Step 15: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
@@ -147,7 +145,10 @@ return {
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Езжайте на восток, затем на юг через место {area:2249}. Великаны ледяного молота там – элита 59-го уровня: держитесь середины и не останавливайтесь. Странный источник – у входа сюда: {area:2256}, в южном конце.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Езжайте на запад по дороге мимо места {area:2251}; бешеные совухи бродят по холмам к северу.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "бейте монстров {npc:7440}: {area:2244}, {zone:1452}",
+	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} – гоблинский город в восточной части долины.",
+	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, редкая добыча с фурболгов Зимней Спячки",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, рядом с ним",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} стоит у выхода туннеля ({area:1769}) в край {zone:1452}, к северу от горячих источников.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} покупает предмет {item:11040}, выращенный из вашей земли ({quest:3761}).",
+	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} стоит лагерем среди горячих источников ({area:2246}) на западе долины.",
 }

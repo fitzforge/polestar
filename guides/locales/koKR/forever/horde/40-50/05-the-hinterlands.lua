@@ -38,8 +38,10 @@ return {
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
-	-- {npc:2491} Whiskey Slim
-	["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다닙니다. {npc:2491}의 포트와인 병도 이 해변에 있지만, 그의 퀘스트는 이 경로에 없습니다. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
+	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	-- {object:2068} Pupellyverbos Port
+	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "드물게 떨어지는 {item:8704}",
 
@@ -140,21 +142,35 @@ return {
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "",
 
-	-- Step 33: The bloodmages
+	-- Step 33: Fallen Hero of the Horde
+	-- {zone:1419} Blasted Lands
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+
+	-- Step 35: Fallen Hero of the Horde
+	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+
+	-- Step 36: The bloodmages
 	["The bloodmages"] = "피의 마법사",
 	-- {area:75} Stonard · {zone:1419} Blasted Lands
 	["Ride west out of {area:75} and south through the canyon into the {zone:1419}; the two bloodmages stand by the road just inside."] = "{area:75}에서 서쪽으로 나가 협곡을 지나 남쪽 {zone:1419}(으)로 가세요. 피의 마법사 둘은 들어가자마자 길가에 서 있습니다.",
 
-	-- Step 34: Serpent's Coil: kill these as you meet them
+	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
 
-	-- Step 35: The bloodmages
+	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "북쪽의 피의 마법사에게 돌아가세요.",
 	["Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them."] = "후속 퀘스트는 강화 아이템을 위해 같은 재료를 다시 요구하며 경험치를 주지 않습니다. 받지 마세요.",
+
+	-- Step 39: Stonard
+	-- {area:75} Stonard
+	["Ride back north through the canyon to {area:75}."] = "",
+	-- {npc:7643} Bengor · {npc:950} Swamp Talker
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "길 동쪽 비탈에서는 잿빛갈기멧돼지와 꿀꿀이가 붉은바위 바실리스크 옆에서 땅을 뒤집니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.",
@@ -173,6 +189,7 @@ return {
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "깊은골짜기 엘프는 {area:350} 주변에 야영하고 있습니다. 그들의 야영지에서 보고서, 쪽지, 기록을 불태우세요. {npc:7780}은(는) 산장 안에 갇혀 있습니다. 밖으로 데리고 나오며 도중의 매복을 물리치세요.",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "긴발톱 은빛갈기늑대, 포악한 올빼미야수, 우두머리 뾰족부리그리핀이 사원과 {area:351} 사이 언덕에 함께 있습니다. 처치한 올빼미야수에 {item:9618}을(를) 사용하세요. 우두머리 뾰족부리그리핀은 길고 고운 깃털도 떨어뜨립니다. {npc:14738}의 두 번째 전갈을 위해 열 개를 보관하세요.",
 	-- ["The Vilebranch temples"] = "썩은가지부족 사원",
+	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "큰 거북은 마을 북쪽 해변을 기어다닙니다. {npc:2491}의 포트와인 병도 이 해변에 있지만, 그의 퀘스트는 이 경로에 없습니다. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.",
 	-- ["The central hills"] = "중앙 언덕",
 	-- ["The eastern slopes"] = "동쪽 비탈",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.",

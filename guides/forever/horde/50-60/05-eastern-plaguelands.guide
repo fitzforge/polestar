@@ -11,32 +11,6 @@ next forever/horde/50-60/06-silithus
 # into this file.
 # Added here: Duskwing, Oh How I Hate Thee... (6135), Camp Mojache (7492).
 
-step Tirisfal Glades
-  zone Tirisfal Glades
-  goto 83.0,71.9 "Tirisfal Glades"
-
-step The Bulwark
-  zone Tirisfal Glades
-  tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
-  turnin 6029                         -- Argent Officer Garush
-
-step Western Plaguelands
-  zone Western Plaguelands
-  goto 36.9,57.4 "Western Plaguelands"
-
-step Felstone Field
-  zone Western Plaguelands
-  tip Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.
-  tip Careful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.
-  collect 13194 quest 5229.1 @36.9,57.4 map 1422
-  turnin 5229                         -- Scourge Cauldron
-  accept 5230
-  turnin 5050                         -- Upstairs
-  accept 5051
-  collect 12722 x1 "Good Luck Other-Half-Charm"
-  complete 5051
-  turnin 5051
-
 step Fly to Light's Hope Chapel
   zone Hillsbrad Foothills
   goto 60.2,18.8 "Tarren Mill flight master"
@@ -329,3 +303,34 @@ step Ruins of Isildien
   zone Feralas
   tip Fly to Camp Mojache. The hippogryph nests are in the south of Feralas; each holds an egg for the Egg-O-Matic.
   collect 8564 quest 2741 @58.0,76.3 map 1444
+
+# ---------------------------------------------------------------- Valor's Rest and Southwind
+
+step Fly to Marshal's Refuge
+  zone Feralas
+  goto 75.4,44.3 "Camp Mojache flight master"
+  fly "Marshal's Refuge"
+
+step Marshal's Refuge
+  zone Un'Goro Crater
+  tip The flight lands at Marshal's Refuge: Spraggle Frock stands beside the flight master, and Linken by the cave a few steps away. Spraggle's work is in Un'Goro on the next guide's way back north.
+  accept 4492                         -- Spraggle Frock
+  turnin 3914                         -- Linken
+  accept 3941
+  note A Gnome's Assistance goes to J.D. Collie in the cave here, on the next guide's return to Marshal's Refuge: keep it.
+
+step Layo Starstrike
+  zone Silithus
+  tip The pass from Un'Goro comes out at Valor's Rest, the graveyard in north-east Silithus. Layo stands among the graves.
+  turnin 1124
+  accept 1125
+
+step The Spirits of Southwind
+  tip Ride south-west to the ruins of Southwind Village. The Dusty Reliquary for Rabine Saturna sits inside one of the ruined houses.
+  kill 12178 quest 1125.1
+  kill 12179 quest 1125.2
+
+step Layo Starstrike
+  turnin 1125
+  accept 1126
+

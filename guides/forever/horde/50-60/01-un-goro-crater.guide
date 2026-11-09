@@ -94,6 +94,7 @@ step Un'Goro Crater
 step Into Un'Goro Crater
   tip From the Broken Pillar ride west to the long ramp that winds down into Un'Goro Crater, then follow the crater's north wall to Marshal's Refuge, a camp in the cliff caves. Everyone here is neutral.
   getfp "Marshal's Refuge"
+  accept 4501                         -- the wooden sign beside Spraggle Frock, by the flight master: the pterrordax are on this guide's ground
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
   accept 3882                         -- Spark Nilminer
   accept 3883                         -- Hol'anyee Marshal
@@ -115,6 +116,7 @@ step Lakkari Tar Pits
 step Pterrordax
   tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
   collect 11831 quest 4503.2
+  kill 9166 quest 4501.1
   level 51.11                          -- grind on Pterrordax
 
 step Power Crystals and soil
@@ -133,6 +135,7 @@ step Lakkari Tar Pits: kill these as you meet them
   kill 6510 quest 4145.3
   collect 11114 quest 3882
   collect 11830 quest 4503.1
+  kill 9167 quest 4501.2
   kill 6512 quest 4145.2
 
 step Research Equipment
@@ -197,6 +200,7 @@ step Un'Goro Crater: kill these as you meet them
 
 step Marshal's Refuge
   turnin 4503                         -- Shizzle, at the entrance
+  turnin 4501                         -- Spraggle Frock, beside the flight master
   turnin 4145                         -- Larion
   accept 4147
   turnin 3845                         -- Linken
@@ -472,4 +476,35 @@ step Back to Light's Hope Chapel
   turnin 5211
   turnin 5241                         -- Carlin Redpath
   turnin 5510 optional
-  note The next guide starts here, at the chapel's flight master.
+
+# ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
+
+step Fly to Tarren Mill
+  zone Eastern Plaguelands
+  goto 80.1,57.0 "Light's Hope Chapel flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
+
+step Western Plaguelands
+  zone Western Plaguelands
+  goto 43.0,83.5 "Western Plaguelands"
+
+step Sorrow Hill
+  tip Ride north up the road from Tarren Mill. Marlene's house stands by the road at Sorrow Hill, and Joseph Redpath's monument is in the graveyard behind it.
+  turnin 5152                         -- Marlene Redpath, upstairs
+  accept 5153
+  collect 12894 quest 5153 @49.7,76.8
+
+step Chromie
+  tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
+  turnin 5153                         -- Upstairs
+  accept 5154
+
+step The Annals of Darrowshire
+  tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
+  collect 12900 quest 5154 @43.4,69.5
+
+step Chromie
+  turnin 5154                         -- Upstairs
+  accept 5210
+  note Brother Carlin goes to Light's Hope Chapel: keep it for later. The next guide starts with Mulgris Deepriver by the Writhing Haunt, east of Andorhal.
