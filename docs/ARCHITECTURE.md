@@ -1135,7 +1135,10 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   stood within the arrival radius of the waypoint's place (a camp, a searched
   spot, a field goal's point) for 7 s (`Spots.DWELL`), out of combat, with no
   progress on the goal (`Own.workSign`: its count, a level goal's XP; a change
-  or a fight starts the count again), the place is left (`Spots.left`, for
+  or a fight starts the count again), and with no fight or progress within
+  its radius and 40 yd around it in the last 300 s (`Spots.worked`: a camp
+  being cleared keeps the arrow through the drink and the walk to the next
+  pull), the place is left (`Spots.left`, for
   `Spots.FORGET`): the arrow moves on to the nearest place not left, never
   back to one left while another is open (all left: the one left longest
   ago), and a goal whose places are all left measures no distance, so the

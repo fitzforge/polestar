@@ -1949,7 +1949,8 @@ end
 -- to a given spot); a spot picked that way holds until reached.
 -- Dwell (Fitz, 2026-11-09: the arrow cycles a step's places by itself): a
 -- camp or searched spot the player has stood in for Spots.DWELL seconds, out
--- of combat and with no progress on its goal (Own.dwelt), is left
+-- of combat and with no progress on its goal, and not fought or progressed at
+-- in the last FORGET seconds (Own.dwelt, Spots.worked), is left
 -- (Spots.left, for FORGET seconds): the arrow moves on to the nearest place
 -- not left (repick "dwell"), never back to one left while another is open;
 -- with every place left, the one left longest ago. A step's other field
@@ -1978,6 +1979,7 @@ local Spots = {
 	seen = setmetatable({}, { __mode = "k" }), -- spot -> GetTime() of the last visit
 	left = setmetatable({}, { __mode = "k" }), -- spot (or a point goal) -> GetTime() it was left after a dwell
 	stay = setmetatable({}, { __mode = "k" }), -- goal -> { place, since, sign }: the dwell being counted
+	worked = setmetatable({}, { __mode = "k" }), -- place -> GetTime() of the last fight or progress at it
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 }
 
@@ -4242,11 +4244,17 @@ end
 -- The dwell (Spots, "Dwell"): true once the player has stood within the
 -- arrival radius of field goal g's place for Spots.DWELL seconds, out of
 -- combat, with its work unchanged (Own.workSign); the place is then left.
--- Leaving the place, a fight or progress starts the count again.
+-- A place worked lately is never left: a fight or progress within the
+-- radius and Spots.SWITCH yards around it (a pull from the edge) marks it
+-- worked (Spots.worked) for Spots.FORGET seconds, so the drink or the walk
+-- to the next pull at a camp being cleared never moves the arrow (ArrowGuard's
+-- replay: 13.75 moves per 10 h off camps still worked with no such guard).
+-- Coming in, a fight or progress starts the count again.
 function Own.dwelt(s, g, goal, c, px, py)
 	local place, d = Own.dwellPlace(goal, c, px, py)
 	local st = Spots.stay[goal]
-	if not (place and d and d <= (goal.r or DEFAULT_RADIUS)) then
+	local reach = goal.r or DEFAULT_RADIUS
+	if not (place and d and d <= reach + Spots.SWITCH) then
 		if st then Spots.stay[goal] = nil end
 		return false
 	end
@@ -4255,10 +4263,22 @@ function Own.dwelt(s, g, goal, c, px, py)
 		Spots.stay[goal] = { place = place, since = now, sign = sign }
 		return false
 	end
-	if (UnitAffectingCombat and UnitAffectingCombat("player")) or st.place ~= place or st.sign ~= sign then
+	if st.place ~= place then
 		st.place, st.since, st.sign = place, now, sign
 		return false
 	end
+	if (UnitAffectingCombat and UnitAffectingCombat("player")) or st.sign ~= sign then
+		Spots.worked[place] = now
+		st.since, st.sign = now, sign
+		return false
+	end
+	-- Near it, not in it yet: the count starts on arrival.
+	if d > reach then
+		st.since = now
+		return false
+	end
+	local worked = Spots.worked[place]
+	if worked and now - worked <= Spots.FORGET then return false end
 	if now - st.since < Spots.DWELL then return false end
 	Spots.left[place], Spots.seen[place] = now, now
 	Spots.stay[goal] = nil
